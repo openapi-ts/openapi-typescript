@@ -1,0 +1,45 @@
+{
+  "name": "@manifoldco/swagger-to-ts",
+  "version": "0.1.0",
+  "description": "Convert Swagger files to TypeScript",
+  "main": "dist/swaggerToTS.js",
+  "scripts": {
+    "build": "node scripts/build",
+    "prepublish": "npm run build"
+  },
+  "engines": {
+    "node": ">= 8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manifoldco/swagger-to-ts.git"
+  },
+  "keywords": [
+    "swagger",
+    "typescript",
+    "ts",
+    "openapi",
+    "node"
+  ],
+  "author": "drew@pow.rs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manifoldco/swagger-to-ts/issues"
+  },
+  "homepage": "https://github.com/manifoldco/swagger-to-ts#readme",
+  "dependencies": {
+    "prettier": "^1.15.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-eslint": "^8.2.6",
+    "eslint": "^5.7.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^2.10.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "rollup": "^0.66.6",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-uglify": "^6.0.0"
+  }
+}
