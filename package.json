@@ -1,6 +1,6 @@
 {
   "name": "@manifoldco/swagger-to-ts",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Convert Swagger files to TypeScript",
   "main": "dist/swaggerToTS.js",
   "scripts": {
