@@ -7,7 +7,18 @@ Node script that can convert Swagger files to TypeScript interfaces. This uses
 npm i --save-dev @manifoldco/swagger-to-ts
 ```
 
-### Generating
+### Usage
+
+The function takes 2 parameters: a **filepath** (`./path/to/my/spec.json`),
+and a **namespace** ('MySpec'). Namespace is required because it’s very
+likely entities within the Swagger spec will collide with some other type in
+your system, but you still want to access something predictably-named.
+
+```js
+const swaggerToTS = require('swagger-to-ts');
+
+const typeData = swaggerToJS('./path/to/my/spec.json', 'MySpec');
+```
 
 #### From Swagger JSON
 
@@ -16,8 +27,12 @@ const { readFileSync, writeFileSync } = require('fs');
 const swaggerToTS = require('swagger-to-ts');
 
 const file = './spec/swagger.json';
-const typeData = swaggerToTS(readFileSync(file, 'UTF-8'));
+const typeData = swaggerToTS(readFileSync(file, 'UTF-8'), 'MySpec');
 writeFileSync('./types/swagger.ts'), typeData);
+```
+
+```js
+import MySpec from './types/swagger.ts';
 ```
 
 #### From Swagger YAML
@@ -31,8 +46,12 @@ const { readFileSync, writeFileSync } = require('fs');
 const yaml = require('js-yaml');
 
 const file = './spec/swagger.json';
-const typeData = swaggerToTS(yaml.safeLoad(fs.readFileSync(file, 'UTF-8')));
+const typeData = swaggerToTS(yaml.safeLoad(fs.readFileSync(file, 'UTF-8')), 'MySpec');
 writeFileSync('./types/swagger.ts'), typeData);
+```
+
+```js
+import MySpec from './types/swagger.ts';
 ```
 
 #### Generating multiple files
@@ -50,8 +69,12 @@ const source1 = glob.sync('./swaggerspec/v1/**/*.yaml');
 const source2 = glob.sync('./swaggerspec/v2/**/*.yaml');
 
 [...source1, ...source2].forEach(file => {
-  const typeData = swaggerToTS(yaml.safeLoad(readFileSync(file, 'UTF-8')));
-  const filename = path.basename(file).replace(/\.ya?ml$/i, '.ts');
+  const basename = path.basename(file);
+  const filename = basename.replace(/\.ya?ml$/i, '.ts');
+  const typeData = swaggerToTS(
+    yaml.safeLoad(readFileSync(file, 'UTF-8')),
+    basename
+  );
   writeFileSync(path.resolve(__dirname, 'types', filename), typeData);
 });
 ```
@@ -94,9 +117,9 @@ It’s recommended to name the file `*.ts` and `import` the definitions. `*.d.ts
 can’t be imported; they’re meant to be shipped alongside modules.
 
 ```js
-import { User } from '../types/swagger';
+import Swagger from '../types/swagger';
 
-const logIn = (user: User) => {
+const logIn = (user: Swagger.User) => {
   // …
 ```
 

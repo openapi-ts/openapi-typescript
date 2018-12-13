@@ -1,9 +1,5 @@
 const { format } = require('prettier'); // eslint-disable-line import/no-extraneous-dependencies
 
-const DEFAULT_OPTIONS = {
-  enum: false,
-};
-
 // Primitives only!
 const TYPES = {
   string: 'string',
@@ -18,12 +14,12 @@ const camelCase = name =>
     letter.toUpperCase().replace(/[^0-9a-z]/gi, '')
   );
 
-const buildTypes = (spec, options) => {
+const buildTypes = (spec, namespace) => {
   const { definitions } = spec;
 
   const queue = [];
   const enumQueue = [];
-  const output = [];
+  const output = [`namespace ${namespace} {`];
 
   const getRef = lookup => {
     const ref = lookup.replace('#/definitions/', '');
@@ -47,7 +43,7 @@ const buildTypes = (spec, options) => {
   };
 
   const buildNextEnum = ([ID, options]) => {
-    output.push(`enum ${ID} {`);
+    output.push(`export enum ${ID} {`);
     options.forEach(option => {
       if (typeof option === 'number') {
         const lastWord = ID.search(/[A-Z](?=[^A-Z]*$)/);
@@ -70,7 +66,7 @@ const buildTypes = (spec, options) => {
     }
 
     // Open interface
-    output.push(`interface ${camelCase(ID)} {`);
+    output.push(`export interface ${camelCase(ID)} {`);
 
     // Populate interface
     Object.entries(properties).forEach(([key, value]) => {
@@ -117,13 +113,12 @@ const buildTypes = (spec, options) => {
     buildNextInterface();
   }
 
+  output.push('}'); // Close namespace
   return output.join('\n');
 };
 
-module.exports = (input, userOptions = {}) => {
-  const options = { ...DEFAULT_OPTIONS, ...userOptions };
-
-  return format(buildTypes(input, options), {
+module.exports = (filename, namespace) => {
+  return format(buildTypes(filename, namespace), {
     parser: 'typescript',
     printWidth: 100,
     singleQuote: true,
