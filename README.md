@@ -1,3 +1,5 @@
+[![version (scoped)](https://img.shields.io/npm/v/@manifoldco/swagger-to-ts.svg)](https://www.npmjs.com/package/@manifoldco/swagger-to-ts)
+
 Convert Swagger files to TypeScript interfaces using Node.js. This uses
 [Prettier][prettier] to prettify the interfaces.
 
