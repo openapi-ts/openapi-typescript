@@ -49,9 +49,14 @@ const buildTypes = (spec, options) => {
   const buildNextEnum = ([ID, options]) => {
     output.push(`enum ${ID} {`);
     options.forEach(option => {
-      const name =
-        typeof option === 'string' ? capitalize(camelCase(option)) : option;
-      output.push(`${name} = ${JSON.stringify(option)},`);
+      if (typeof option === 'number') {
+        const lastWord = ID.search(/[A-Z](?=[^A-Z]*$)/);
+        const name = ID.substr(lastWord, ID.length);
+        output.push(`${name}${option} = ${option},`);
+      } else {
+        const name = capitalize(camelCase(option));
+        output.push(`${name} = ${JSON.stringify(option)},`);
+      }
     });
     output.push('}');
   };
