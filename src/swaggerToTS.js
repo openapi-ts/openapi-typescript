@@ -14,7 +14,9 @@ const TYPES = {
 const capitalize = str => `${str[0].toUpperCase()}${str.slice(1)}`;
 
 const camelCase = name =>
-  name.replace(/(-|_|\.|\s)+[a-z]/g, letter => letter.toUpperCase().replace(/[^0-9a-z]/gi, ''));
+  name.replace(/(-|_|\.|\s)+[a-z]/g, letter =>
+    letter.toUpperCase().replace(/[^0-9a-z]/gi, '')
+  );
 
 const buildTypes = (spec, options) => {
   const { definitions } = spec;
@@ -47,8 +49,9 @@ const buildTypes = (spec, options) => {
   const buildNextEnum = ([ID, options]) => {
     output.push(`enum ${ID} {`);
     options.forEach(option => {
-      const name = typeof option === 'string' ? capitalize(camelCase(option)) : option;
-      output.push(`${name}: ${option};`);
+      const name =
+        typeof option === 'string' ? capitalize(camelCase(option)) : option;
+      output.push(`${name} = ${JSON.stringify(option)},`);
     });
     output.push('}');
   };
@@ -70,13 +73,20 @@ const buildTypes = (spec, options) => {
       const name = `${camelCase(key)}${optional ? '?' : ''}`;
       const type = getType(value);
 
+      if (typeof value.description === 'string') {
+        // Print out descriptions as comments, but only if there’s something there (.*)
+        output.push(
+          `// ${value.description.replace(/\n$/, '').replace(/\n/g, '\n// ')}`
+        );
+      }
+
       // If this is a nested object, let’s add it to the stack for later
       if (type === 'object') {
         const newID = camelCase(`${ID}_${key}`);
         queue.push([newID, value]);
         output.push(`${name}: ${newID};`);
         return;
-      } else if (options.enum === true && Array.isArray(value.enum)) {
+      } else if (Array.isArray(value.enum)) {
         const newID = camelCase(`${ID}_${key}`);
         enumQueue.push([newID, value.enum]);
         output.push(`${name}: ${newID};`);
@@ -101,8 +111,6 @@ const buildTypes = (spec, options) => {
   while (queue.length > 0) {
     buildNextInterface();
   }
-
-  // console.log(output.join('\n'));
 
   return output.join('\n');
 };
