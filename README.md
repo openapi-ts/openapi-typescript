@@ -32,11 +32,7 @@ const swaggerToTS = require('swagger-to-ts');
 
 const file = './spec/swagger.json';
 const typeData = swaggerToTS(readFileSync(file, 'UTF-8'), 'MySpec');
-writeFileSync('./types/swagger.ts'), typeData);
-```
-
-```js
-import MySpec from './types/swagger.ts';
+writeFileSync('./types/swagger.ts', typeData);
 ```
 
 #### From Swagger YAML
@@ -49,13 +45,10 @@ similar.
 const { readFileSync, writeFileSync } = require('fs');
 const yaml = require('js-yaml');
 
-const file = './spec/swagger.json';
-const typeData = swaggerToTS(yaml.safeLoad(fs.readFileSync(file, 'UTF-8')), 'MySpec');
-writeFileSync('./types/swagger.ts'), typeData);
-```
-
-```js
-import MySpec from './types/swagger.ts';
+const file = './spec/swagger.yaml';
+const json = yaml.safeLoad(fs.readFileSync(file, 'UTF-8'));
+const typeData = swaggerToTS(json, 'MySpec');
+writeFileSync('./types/swagger.ts', typeData);
 ```
 
 #### Generating multiple files
@@ -75,10 +68,8 @@ const source2 = glob.sync('./swaggerspec/v2/**/*.yaml');
 [...source1, ...source2].forEach(file => {
   const basename = path.basename(file);
   const filename = basename.replace(/\.ya?ml$/i, '.ts');
-  const typeData = swaggerToTS(
-    yaml.safeLoad(readFileSync(file, 'UTF-8')),
-    basename
-  );
+  const json = yaml.safeLoad(readFileSync(file, 'UTF-8'));
+  const typeData = swaggerToTS(json, basename);
   writeFileSync(path.resolve(__dirname, 'types', filename), typeData);
 });
 ```
@@ -121,7 +112,7 @@ It’s recommended to name the file `*.ts` and `import` the definitions. `*.d.ts
 can’t be imported; they’re meant to be shipped alongside modules.
 
 ```js
-import Swagger from '../types/swagger';
+import { Swagger } from '../types/swagger';
 
 const logIn = (user: Swagger.User) => {
   // …
