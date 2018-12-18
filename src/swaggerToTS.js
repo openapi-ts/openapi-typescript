@@ -27,7 +27,7 @@ const buildTypes = (spec, namespace) => {
   };
 
   // Returns primitive type, or 'object' or 'any'
-  const getType = ({ $ref, items, type }) => {
+  const getType = ({ $ref, items, type, ...value }, nestedName) => {
     if ($ref) {
       const [refName, refProperties] = getRef($ref);
       return TYPES[refProperties.type] || refName || 'any';
@@ -37,6 +37,10 @@ const buildTypes = (spec, namespace) => {
         return `${TYPES[refProperties.type] || refName || 'any'}[]`;
       }
       return `${TYPES[items.type] || 'any'}[]`;
+    } else if (value.properties) {
+      // If this is a nested object, let’s add it to the stack for later
+      queue.push([nestedName, { $ref, items, type, ...value }]);
+      return nestedName;
     }
 
     return TYPES[type] || type || 'any';
@@ -72,7 +76,8 @@ const buildTypes = (spec, namespace) => {
     Object.entries(properties).forEach(([key, value]) => {
       const optional = !Array.isArray(required) || required.indexOf(key) === -1;
       const name = `${camelCase(key)}${optional ? '?' : ''}`;
-      const type = getType(value);
+      const newID = camelCase(`${ID}_${key}`);
+      const type = getType(value, newID);
 
       if (typeof value.description === 'string') {
         // Print out descriptions as comments, but only if there’s something there (.*)
@@ -81,14 +86,8 @@ const buildTypes = (spec, namespace) => {
         );
       }
 
-      // If this is a nested object, let’s add it to the stack for later
-      if (type === 'object') {
-        const newID = camelCase(`${ID}_${key}`);
-        queue.push([newID, value]);
-        output.push(`${name}: ${newID};`);
-        return;
-      } else if (Array.isArray(value.enum)) {
-        const newID = camelCase(`${ID}_${key}`);
+      // Save enums for later
+      if (Array.isArray(value.enum)) {
         enumQueue.push([newID, value.enum]);
         output.push(`${name}: ${newID};`);
         return;
