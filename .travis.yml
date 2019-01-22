@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - 11.6.0
+jobs:
+  include:
+    - stage: test
+      name: 'Run Linters'
+      script: npm run lint:js
+    - stage: test
+      name: 'Run tests'
+      script: npm run test

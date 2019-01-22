@@ -2,7 +2,7 @@ const { existsSync, mkdirSync } = require('fs');
 const { resolve } = require('path');
 const { rollup } = require('rollup');
 const babel = require('rollup-plugin-babel');
-const { uglify } = require('rollup-plugin-uglify');
+const { terser } = require('rollup-plugin-terser');
 
 if (!existsSync('dist')) {
   mkdirSync(resolve(__dirname, 'dist'));
@@ -10,7 +10,7 @@ if (!existsSync('dist')) {
 
 rollup({
   input: './src/swaggerToTS.js',
-  plugins: [babel(), uglify()]
+  plugins: [babel(), terser()],
 }).then(bundle =>
   bundle.write({
     file: `./dist/swaggerToTS.js`,

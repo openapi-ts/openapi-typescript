@@ -31,13 +31,15 @@ const buildTypes = (spec, namespace) => {
     if ($ref) {
       const [refName, refProperties] = getRef($ref);
       return TYPES[refProperties.type] || refName || 'any';
-    } else if (type === 'array') {
+    }
+    if (type === 'array') {
       if (items.$ref) {
         const [refName, refProperties] = getRef(items.$ref);
         return `${TYPES[refProperties.type] || refName || 'any'}[]`;
       }
       return `${TYPES[items.type] || 'any'}[]`;
-    } else if (value.properties) {
+    }
+    if (value.properties) {
       // If this is a nested object, let’s add it to the stack for later
       queue.push([nestedName, { $ref, items, type, ...value }]);
       return nestedName;
@@ -97,7 +99,7 @@ const buildTypes = (spec, namespace) => {
     });
 
     // Close interface
-    output.push(`}`);
+    output.push('}');
 
     // Clean up enumQueue
     while (enumQueue.length > 0) {
@@ -116,11 +118,10 @@ const buildTypes = (spec, namespace) => {
   return output.join('\n');
 };
 
-module.exports = (filename, namespace) => {
-  return format(buildTypes(filename, namespace), {
+module.exports = (filename, namespace) =>
+  format(buildTypes(filename, namespace), {
     parser: 'typescript',
     printWidth: 100,
     singleQuote: true,
     trailingComma: 'es5',
   });
-};
