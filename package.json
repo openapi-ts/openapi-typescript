@@ -1,15 +1,8 @@
 {
   "name": "@manifoldco/swagger-to-ts",
-  "version": "0.3.1",
+  "version": "0.9.0",
   "description": "Convert Swagger files to TypeScript",
-  "main": "dist/swaggerToTS.js",
-  "scripts": {
-    "build": "node scripts/build",
-    "lint:js": "eslint --ignore-path .gitignore --ext .js src",
-    "pretest": "npm run build",
-    "test": "jest",
-    "prepublish": "npm run build"
-  },
+  "main": "dist",
   "engines": {
     "node": ">= 8.0.0"
   },
@@ -30,14 +23,23 @@
     "url": "https://github.com/manifoldco/swagger-to-ts/issues"
   },
   "homepage": "https://github.com/manifoldco/swagger-to-ts#readme",
+  "scripts": {
+    "build": "node scripts/build",
+    "pregenerate": "npm run build",
+    "generate": "node scripts/generate",
+    "lint:js": "eslint --ignore-path .gitignore --ext .js src",
+    "prepublish": "npm run build",
+    "pretest": "npm run build",
+    "test": "jest"
+  },
   "dependencies": {
     "prettier": "^1.16.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^8.2.6",
+    "@types/glob": "^7.1.1",
+    "@types/jest": "^23.3.13",
+    "@types/js-yaml": "^3.12.0",
+    "@types/prettier": "^1.15.2",
     "eslint": "^5.3.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^2.10.0",
@@ -48,7 +50,13 @@
     "jest": "^23.6.0",
     "js-yaml": "^3.12.1",
     "rollup": "^0.66.6",
-    "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-terser": "^4.0.2"
+    "rollup-plugin-terser": "^4.0.2",
+    "rollup-plugin-typescript": "^1.0.0",
+    "ts-jest": "^23.10.5",
+    "tslib": "^1.9.3",
+    "typescript": "^3.2.4"
+  },
+  "peerDependencies": {
+    "prettier": "^1.0.0"
   }
 }

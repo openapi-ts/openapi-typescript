@@ -1,4 +1,4 @@
-namespace Catalog {
+namespace catalog {
   export interface ValueProp {
     // Heading of a value proposition.
     header: string;
@@ -343,6 +343,16 @@ namespace Catalog {
   export enum ExpandedProductVersion {
     Version1 = 1,
   }
+  export interface ExpandedPlanBody extends PlanBody {
+    // An array of feature definitions for the plan, as defined on the Product.
+    expandedFeatures?: ExpandedFeature[];
+    // A boolean flag that indicates if a plan is free or not based on it's cost and features.
+    free?: boolean;
+    // Plan cost using its default features plus base cost.
+    defaultCost?: number;
+    // A boolean flag that indicates if a plan has customizable features.
+    customizable?: boolean;
+  }
   export interface ExpandedPlan {
     id: string;
     version: ExpandedPlanVersion;
@@ -354,6 +364,11 @@ namespace Catalog {
   }
   export enum ExpandedPlanVersion {
     Version1 = 1,
+  }
+  export interface ExpandedFeature extends FeatureType {
+    // The string value set for the feature on the plan, this should only be used if the value property is null.
+    valueString?: string;
+    value?: FeatureValueDetails;
   }
   export interface Error {
     // The error type
