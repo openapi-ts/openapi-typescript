@@ -1,4 +1,5 @@
 module.exports = {
+  parser: '@typescript-eslint/parser',
   extends: ['prettier/react', 'airbnb'],
   plugins: ['prettier', 'import'],
   env: {
@@ -14,5 +15,6 @@ module.exports = {
     'no-underscore-dangle': 0,
     'react/jsx-filename-extension': 0,
     'react/destructuring-assignment': 0,
+    'space-before-function-paren': 0, // let Prettier handle it
   },
 };

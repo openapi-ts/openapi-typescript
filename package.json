@@ -1,6 +1,6 @@
 {
   "name": "@manifoldco/swagger-to-ts",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Generate TypeScript types from Swagger OpenAPI specs",
   "main": "dist/cjs",
   "engines": {
@@ -34,10 +34,11 @@
     "build": "node scripts/build",
     "pregenerate": "npm run build",
     "generate": "node scripts/generate",
-    "lint:js": "eslint --ignore-path .gitignore --ext .js src",
+    "lint:js": "eslint --ignore-path .gitignore --ext .js,.ts src",
     "prepublish": "npm run build",
     "pretest": "npm run build",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "chalk": "^2.4.2",
@@ -51,6 +52,7 @@
     "@types/jest": "^23.3.13",
     "@types/js-yaml": "^3.12.0",
     "@types/prettier": "^1.15.2",
+    "@typescript-eslint/parser": "^1.1.1",
     "eslint": "^5.12.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^2.10.0",

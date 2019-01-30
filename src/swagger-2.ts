@@ -3,17 +3,19 @@ import * as prettier from 'prettier';
 export interface Swagger2Definition {
   $ref?: string;
   allOf?: Swagger2Definition[];
-  enum?: string[];
   description?: string;
+  enum?: string[];
+  format?: string;
   items?: Swagger2Definition;
-  properties?: { [key: string]: Swagger2Definition };
-  required?: boolean;
-  type: 'array' | 'boolean' | 'integer' | 'number' | 'object' | 'string';
+  oneOf?: Swagger2Definition[];
+  properties?: { [index: string]: Swagger2Definition };
+  required?: string[];
+  type?: 'array' | 'boolean' | 'integer' | 'number' | 'object' | 'string';
 }
 
 export interface Swagger2 {
   definitions: {
-    [id: string]: Swagger2Definition;
+    [index: string]: Swagger2Definition;
   };
 }
 
@@ -24,12 +26,17 @@ const TYPES: { [index: string]: string } = {
   number: 'number',
 };
 
-const capitalize = (str: string) => `${str[0].toUpperCase()}${str.slice(1)}`;
+function capitalize(str: string) {
+  return `${str[0].toUpperCase()}${str.slice(1)}`;
+}
 
-const camelCase = (name: string) =>
-  name.replace(/(-|_|\.|\s)+[a-z]/g, letter => letter.toUpperCase().replace(/[^0-9a-z]/gi, ''));
+function camelCase(name: string) {
+  return name.replace(/(-|_|\.|\s)+[a-z]/g, letter =>
+    letter.toUpperCase().replace(/[^0-9a-z]/gi, '')
+  );
+}
 
-const buildTypes = (spec: Swagger2, namespace: string) => {
+function parse(spec: Swagger2, namespace: string) {
   const queue: [string, Swagger2Definition][] = [];
   const enumQueue: [string, (string | number)[]][] = [];
   const output: string[] = [`namespace ${namespace} {`];
@@ -46,21 +53,30 @@ const buildTypes = (spec: Swagger2, namespace: string) => {
   function getType(definition: Swagger2Definition, nestedName: string): string {
     const { $ref, items, type, ...value } = definition;
 
+    const DEFAULT_TYPE = 'any';
+
     if ($ref) {
       const [refName, refProperties] = getRef($ref);
       // If a shallow array interface, return that instead
       if (refProperties.items && refProperties.items.$ref) {
         return getType(refProperties, refName);
       }
-      return TYPES[refProperties.type] || refName || 'any';
+      if (refProperties.type && TYPES[refProperties.type]) {
+        return TYPES[refProperties.type];
+      }
+      return refName || DEFAULT_TYPE;
     }
 
-    if (type === 'array' && items) {
-      if (items.$ref) {
-        const [refName, refProperties] = getRef(items.$ref);
-        return `${TYPES[refProperties.type] || refName || 'any'}[]`;
-      }
-      return `${TYPES[items.type] || 'any'}[]`;
+    if (items && items.$ref) {
+      const [refName] = getRef(items.$ref);
+      return `${getType(items, refName)}[]`;
+    }
+    if (items && items.type && TYPES[items.type]) {
+      return `${TYPES[items.type]}[]`;
+    }
+
+    if (Array.isArray(value.oneOf)) {
+      return value.oneOf.map(def => getType(def, '')).join(' | ');
     }
 
     if (value.properties) {
@@ -69,7 +85,11 @@ const buildTypes = (spec: Swagger2, namespace: string) => {
       return nestedName;
     }
 
-    return TYPES[type] || type || 'any';
+    if (type) {
+      return TYPES[type] || type || DEFAULT_TYPE;
+    }
+
+    return DEFAULT_TYPE;
   }
 
   function buildNextEnum([ID, options]: [string, (string | number)[]]) {
@@ -158,12 +178,7 @@ const buildTypes = (spec: Swagger2, namespace: string) => {
 
   output.push('}'); // Close namespace
 
-  return prettier.format(output.join('\n'), {
-    parser: 'typescript',
-    printWidth: 100,
-    singleQuote: true,
-    trailingComma: 'es5',
-  });
-};
+  return prettier.format(output.join('\n'), { parser: 'typescript' });
+}
 
-export default buildTypes;
+export default parse;

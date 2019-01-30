@@ -6,19 +6,31 @@ Convert Swagger files to TypeScript interfaces using Node.js.
 
 💅 Prettifies output with [Prettier][prettier].
 
+| OpenAPI Feature   | TypeScript equivalent |
+| :---------------- | :-------------------: |
+| `type: 'string'`  |       `string`        |
+| `type: 'number'`  |       `number`        |
+| `type: 'integer'` |       `number`        |
+| `allOf`           | `TypeB extends TypeA` |
+| `oneOf`           |   `TypeA \| TypeB`    |
+| `required`        |    (not optional)     |
+
+To compare actual generated output, see the [example](./example) folder.
+
 ## Usage
 
 ### CLI
 
 ```bash
-npx @manifoldco/swagger-to-ts schema.yaml --output schema.ts --namespace OpenAPI
+npx @manifoldco/swagger-to-ts schema.yaml --namespace OpenAPI --output schema.ts
 
 # 🚀 schema.yaml -> schema.ts [2ms]
 ```
 
 This will save a `schema.ts` file in the current folder under the TypeScript
-[namespace][namespace] `OpenAPI`. The CLI can accept YAML or JSON for the
-input file.
+[namespace][namespace] `OpenAPI` (namespaces are required because chances of
+collision among specs is highly likely). The CLI can accept YAML or JSON for
+the input file.
 
 ### Node
 
