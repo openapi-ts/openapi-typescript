@@ -29,7 +29,7 @@ npm i --save-dev @manifoldco/swagger-to-ts
 ```js
 const swaggerToTS = require('@manifoldco/swagger-to-ts');
 
-graphqlGen(spec, [options]);
+swaggerToTS(spec, [options]);
 ```
 
 `spec` must be in JSON format. For an example of converting YAML to JSON, see
@@ -37,10 +37,11 @@ the [generate.js](./scripts/generate.js) script.
 
 ### Options
 
-| Name      | Default  | Description                                                |
-| :-------- | :------- | :--------------------------------------------------------- |
-| `output`  | (stdout) | Where should the output file be saved?                     |
-| `swagger` | `2`      | Which Swagger version to use. Currently only supports `2`. |
+| Name        | Default    | Description                                                                                          |
+| :---------- | :--------- | :--------------------------------------------------------------------------------------------------- |
+| `output`    | (stdout)   | Where should the output file be saved?                                                               |
+| `namespace` | `OpenAPI2` | How should the output be namespaced? (namespacing is enforced as there’s a high chance of collision) |
+| `swagger`   | `2`        | Which Swagger version to use. Currently only supports `2`.                                           |
 
 [namespace]: https://www.typescriptlang.org/docs/handbook/namespaces.html
 [prettier]: https://npmjs.com/prettier

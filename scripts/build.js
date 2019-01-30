@@ -20,13 +20,13 @@ if (!existsSync(output)) {
 // Build JS
 const build = format =>
   rollup({
-    input: `./src/index.ts`,
+    input: './src/index.ts',
     plugins: PLUGINS[format],
   }).then(bundle =>
     bundle.write({
       file: resolve(output, `${format}.js`),
       format,
-      name: 'graphqlGen',
+      name: 'SwaggerToTS',
     })
   );
 

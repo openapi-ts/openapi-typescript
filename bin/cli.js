@@ -69,7 +69,7 @@ try {
   );
 }
 
-const result = swaggerToTS(spec, cli.flags.namespace, cli.flags);
+const result = swaggerToTS(spec, cli.flags);
 
 // Write to file if specifying output
 if (cli.flags.output) {
@@ -81,11 +81,7 @@ if (cli.flags.output) {
 
   const timeEnd = process.hrtime(timeStart);
   const time = timeEnd[0] + Math.round(timeEnd[1] / 1e6);
-  console.log(
-    chalk.green(
-      `🚀 ${cli.input[0]} -> ${chalk.bold(cli.flags.output)} [${time}ms]`
-    )
-  );
+  console.log(chalk.green(`🚀 ${cli.input[0]} -> ${chalk.bold(cli.flags.output)} [${time}ms]`));
   return;
 }
 
