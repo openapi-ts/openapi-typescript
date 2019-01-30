@@ -1,8 +1,8 @@
-import swagger2, { Swagger2 } from './swagger-2-to-ts';
+import swagger2, { Swagger2 } from './swagger-2';
 
 export default (
   spec: Swagger2,
-  namespace: string,
+  namespace?: string,
   options?: { version?: number }
 ) => {
   const version = (options && options.version) || 2;
@@ -12,5 +12,5 @@ export default (
     return;
   }
 
-  return swagger2(spec, namespace);
+  return swagger2(spec, namespace || `OpenAPI${version}`);
 };

@@ -1,11 +1,18 @@
 {
   "name": "@manifoldco/swagger-to-ts",
-  "version": "0.9.0",
-  "description": "Convert Swagger files to TypeScript",
-  "main": "dist",
+  "version": "1.0.0-alpha.0",
+  "description": "Generate TypeScript types from Swagger OpenAPI specs",
+  "main": "dist/cjs",
   "engines": {
     "node": ">= 8.0.0"
   },
+  "bin": {
+    "swagger-to-ts": "bin/cli.js"
+  },
+  "files": [
+    "bin",
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/manifoldco/swagger-to-ts.git"
@@ -33,6 +40,10 @@
     "test": "jest"
   },
   "dependencies": {
+    "chalk": "^2.4.2",
+    "fs-extra": "^7.0.1",
+    "js-yaml": "^3.12.1",
+    "meow": "^5.0.0",
     "prettier": "^1.16.1"
   },
   "devDependencies": {
@@ -40,7 +51,7 @@
     "@types/jest": "^23.3.13",
     "@types/js-yaml": "^3.12.0",
     "@types/prettier": "^1.15.2",
-    "eslint": "^5.3.0",
+    "eslint": "^5.12.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^2.10.0",
     "eslint-plugin-import": "^2.15.0",
@@ -48,7 +59,6 @@
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.12.4",
     "jest": "^23.6.0",
-    "js-yaml": "^3.12.1",
     "rollup": "^0.66.6",
     "rollup-plugin-terser": "^4.0.2",
     "rollup-plugin-typescript": "^1.0.0",
