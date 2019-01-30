@@ -27,9 +27,7 @@ const TYPES: { [index: string]: string } = {
 const capitalize = (str: string) => `${str[0].toUpperCase()}${str.slice(1)}`;
 
 const camelCase = (name: string) =>
-  name.replace(/(-|_|\.|\s)+[a-z]/g, letter =>
-    letter.toUpperCase().replace(/[^0-9a-z]/gi, '')
-  );
+  name.replace(/(-|_|\.|\s)+[a-z]/g, letter => letter.toUpperCase().replace(/[^0-9a-z]/gi, ''));
 
 const buildTypes = (spec: Swagger2, namespace: string) => {
   const queue: [string, Swagger2Definition][] = [];
@@ -39,16 +37,21 @@ const buildTypes = (spec: Swagger2, namespace: string) => {
   const { definitions } = spec;
 
   function getRef(lookup: string): [string, Swagger2Definition] {
-    const ref = lookup.replace('#/definitions/', '');
-    return [ref, definitions[ref]];
+    const ID = lookup.replace('#/definitions/', '');
+    const ref = definitions[ID];
+    return [ID, ref];
   }
 
   // Returns primitive type, or 'object' or 'any'
-  function getType(definition: Swagger2Definition, nestedName: string) {
+  function getType(definition: Swagger2Definition, nestedName: string): string {
     const { $ref, items, type, ...value } = definition;
 
     if ($ref) {
       const [refName, refProperties] = getRef($ref);
+      // If a shallow array interface, return that instead
+      if (refProperties.items && refProperties.items.$ref) {
+        return getType(refProperties, refName);
+      }
       return TYPES[refProperties.type] || refName || 'any';
     }
 
@@ -110,9 +113,7 @@ const buildTypes = (spec: Swagger2, namespace: string) => {
       return;
     }
     // Open interface
-    const isExtending = includes.length
-      ? ` extends ${includes.join(', ')}`
-      : '';
+    const isExtending = includes.length ? ` extends ${includes.join(', ')}` : '';
 
     output.push(`export interface ${camelCase(ID)}${isExtending} {`);
 
@@ -125,9 +126,7 @@ const buildTypes = (spec: Swagger2, namespace: string) => {
 
       if (typeof value.description === 'string') {
         // Print out descriptions as comments, but only if there’s something there (.*)
-        output.push(
-          `// ${value.description.replace(/\n$/, '').replace(/\n/g, '\n// ')}`
-        );
+        output.push(`// ${value.description.replace(/\n$/, '').replace(/\n/g, '\n// ')}`);
       }
 
       // Save enums for later

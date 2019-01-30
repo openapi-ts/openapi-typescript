@@ -1,6 +1,6 @@
 {
   "name": "@manifoldco/swagger-to-ts",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0",
   "description": "Generate TypeScript types from Swagger OpenAPI specs",
   "main": "dist/cjs",
   "engines": {

@@ -1,10 +1,6 @@
 import swagger2, { Swagger2 } from './swagger-2';
 
-export default (
-  spec: Swagger2,
-  namespace?: string,
-  options?: { version?: number }
-) => {
+export default (spec: Swagger2, namespace?: string, options?: { version?: number }) => {
   const version = (options && options.version) || 2;
 
   if (version === 1 || version === 3) {

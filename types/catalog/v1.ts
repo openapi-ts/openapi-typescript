@@ -1,4 +1,4 @@
-namespace catalog {
+namespace OpenAPI2 {
   export interface ValueProp {
     // Heading of a value proposition.
     header: string;
@@ -33,7 +33,7 @@ namespace catalog {
     termsUrl?: string;
     featureTypes?: FeatureType[];
     integration?: UpdateProductBodyIntegration;
-    tags?: ProductTags;
+    tags?: string[];
   }
   export interface UpdateProductBodyIntegration {
     provisioning?: string;
@@ -55,7 +55,7 @@ namespace catalog {
     state?: string;
     // Used in conjuction with resizable_to to set or unset the list
     hasResizeConstraints?: boolean;
-    resizableTo?: PlanResizeList;
+    resizableTo?: string[];
     // Array of Region IDs
     regions?: string[];
     // Array of Feature Values
@@ -179,7 +179,7 @@ namespace catalog {
     featureTypes: FeatureType[];
     billing: ProductBodyBilling;
     integration: ProductBodyIntegration;
-    tags?: ProductTags;
+    tags?: string[];
   }
   export interface ProductBodyIntegration {
     provisioning: string;
@@ -225,7 +225,7 @@ namespace catalog {
     name: string;
     label: string;
     state: string;
-    resizableTo?: PlanResizeList;
+    resizableTo?: string[];
     // Array of Region IDs
     regions: string[];
     // Array of Feature Values
@@ -296,7 +296,7 @@ namespace catalog {
     // Sets if this feature’s value is trackable from the provider,
     // this only really affects numeric constraints.
     measurable?: boolean;
-    values?: FeatureValuesList;
+    values?: FeatureValueDetails[];
   }
   export enum FeatureTypeType {
     Boolean = 'boolean',
