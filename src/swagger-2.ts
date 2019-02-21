@@ -31,9 +31,7 @@ function capitalize(str: string) {
 }
 
 function camelCase(name: string) {
-  return name.replace(/(-|_|\.|\s)+[a-z]/g, letter =>
-    letter.toUpperCase().replace(/[^0-9a-z]/gi, '')
-  );
+  return name.replace(/(-|_|\.|\s)+\w/g, letter => letter.toUpperCase().replace(/[^0-9a-z]/gi, ''));
 }
 
 function parse(spec: Swagger2, namespace: string) {
