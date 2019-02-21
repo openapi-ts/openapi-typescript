@@ -71,8 +71,13 @@ function parse(spec: Swagger2, namespace: string) {
       const [refName] = getRef(items.$ref);
       return `${getType(items, refName)}[]`;
     }
-    if (items && items.type && TYPES[items.type]) {
-      return `${TYPES[items.type]}[]`;
+    if (items && items.type) {
+      if (TYPES[items.type]) {
+        return `${TYPES[items.type]}[]`;
+      } else {
+        queue.push([nestedName, items]);
+        return `${nestedName}[]`;
+      }
     }
 
     if (Array.isArray(value.oneOf)) {
