@@ -1545,3 +1545,20 @@ definitions:
       - type
       - body
       - provider
+
+  Credentials:
+    type: object
+    description: |
+      Map of configuration variable names to values. Names must match
+      `^[a-zA-Z][a-zA-Z0-9_]{0,999}$`.
+    additionalProperties:
+      type: string
+  FeatureMap:
+    type: object
+    description: A map of feature labels to selected values for customizable features
+    additionalProperties: true
+    x-go-type:
+      type: FeatureMap
+      import:
+        package: github.com/manifoldco/go-manifold
+        alias: manifold
