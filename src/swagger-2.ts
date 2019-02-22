@@ -170,7 +170,7 @@ function parse(spec: Swagger2, namespace: string) {
 
     if (additionalProperties) {
       if (<boolean>additionalProperties === true) {
-        output.push(`[name: string]: ${ID}`);
+        output.push(`[name: string]: any`);
       }
 
       if ((<Swagger2Definition>additionalProperties).type) {
