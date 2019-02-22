@@ -43,7 +43,7 @@ namespace OpenAPI2 {
     features?: ProductIntegrationFeatures;
   }
   export enum UpdateProductBodyIntegrationVersion {
-    V1 = "v1"
+    V1 = 'v1'
   }
   export interface UpdateProduct {
     id: string;
@@ -87,7 +87,7 @@ namespace OpenAPI2 {
     Version1 = 1
   }
   export enum RegionType {
-    Region = "region"
+    Region = 'region'
   }
   export interface ProviderBody {
     teamId: string;
@@ -104,11 +104,12 @@ namespace OpenAPI2 {
     body: ProviderBody;
   }
   export enum ProviderType {
-    Provider = "provider"
+    Provider = 'provider'
   }
   export enum ProviderVersion {
     Version1 = 1
   }
+  export interface ProductTags {}
   export interface ProductListing {
     // When true, everyone can see the product when requested. When false it will
     // not be visible to anyone except those on the provider team.
@@ -155,8 +156,8 @@ namespace OpenAPI2 {
     region?: ProductIntegrationFeaturesRegion;
   }
   export enum ProductIntegrationFeaturesRegion {
-    UserSpecified = "user-specified",
-    Unspecified = "unspecified"
+    UserSpecified = 'user-specified',
+    Unspecified = 'unspecified'
   }
   export interface ProductBody {
     providerId: string;
@@ -189,19 +190,19 @@ namespace OpenAPI2 {
     features: ProductIntegrationFeatures;
   }
   export enum ProductBodyIntegrationVersion {
-    V1 = "v1"
+    V1 = 'v1'
   }
   export interface ProductBodyBilling {
     type: ProductBodyBillingType;
     currency: ProductBodyBillingCurrency;
   }
   export enum ProductBodyBillingCurrency {
-    Usd = "usd"
+    Usd = 'usd'
   }
   export enum ProductBodyBillingType {
-    MonthlyProrated = "monthly-prorated",
-    MonthlyAnniversary = "monthly-anniversary",
-    AnnualAnniversary = "annual-anniversary"
+    MonthlyProrated = 'monthly-prorated',
+    MonthlyAnniversary = 'monthly-anniversary',
+    AnnualAnniversary = 'annual-anniversary'
   }
   export interface ProductBodyTerms {
     url?: string;
@@ -214,11 +215,12 @@ namespace OpenAPI2 {
     body: ProductBody;
   }
   export enum ProductType {
-    Product = "product"
+    Product = 'product'
   }
   export enum ProductVersion {
     Version1 = 1
   }
+  export interface PlanResizeList {}
   export interface PlanBody {
     providerId: string;
     productId: string;
@@ -244,11 +246,12 @@ namespace OpenAPI2 {
     body: PlanBody;
   }
   export enum PlanType {
-    Plan = "plan"
+    Plan = 'plan'
   }
   export enum PlanVersion {
     Version1 = 1
   }
+  export interface FeatureValuesList {}
   export interface FeatureValueDetails {
     label: string;
     name: string;
@@ -299,9 +302,9 @@ namespace OpenAPI2 {
     values?: FeatureValueDetails[];
   }
   export enum FeatureTypeType {
-    Boolean = "boolean",
-    String = "string",
-    Number = "number"
+    Boolean = 'boolean',
+    String = 'string',
+    Number = 'number'
   }
   export interface FeatureNumericRange {
     // Defines the end of the range ( inclusive ), from the previous, or 0;
@@ -329,6 +332,9 @@ namespace OpenAPI2 {
     suffix?: string;
     costRanges?: FeatureNumericRange[];
   }
+  export interface FeatureMap {
+    [name: string]: any;
+  }
   export interface ExpandedProduct {
     id: string;
     version: ExpandedProductVersion;
@@ -338,7 +344,7 @@ namespace OpenAPI2 {
     provider: Provider;
   }
   export enum ExpandedProductType {
-    Product = "product"
+    Product = 'product'
   }
   export enum ExpandedProductVersion {
     Version1 = 1
@@ -360,7 +366,7 @@ namespace OpenAPI2 {
     body: ExpandedPlanBody;
   }
   export enum ExpandedPlanType {
-    Plan = "plan"
+    Plan = 'plan'
   }
   export enum ExpandedPlanVersion {
     Version1 = 1
@@ -375,6 +381,9 @@ namespace OpenAPI2 {
     type: string;
     // Explanation of the errors
     message: string[];
+  }
+  export interface Credentials {
+    [name: string]: string;
   }
   export interface CreateRegion {
     body: RegionBody;

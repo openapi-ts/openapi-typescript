@@ -8,7 +8,7 @@ import { Swagger2 } from '../src/swagger-2';
 // Let Prettier handle formatting, not the test expectations
 function format(spec: string, namespaced?: boolean) {
   const wrapped = namespaced === false ? spec : `namespace OpenAPI2 { ${spec} }`;
-  return prettier.format(wrapped, { parser: 'typescript' });
+  return prettier.format(wrapped, { parser: 'typescript', singleQuote: true });
 }
 
 describe('Swagger 2 spec', () => {
@@ -247,6 +247,44 @@ describe('Swagger 2 spec', () => {
 
       expect(swaggerToTS(swagger)).toBe(ts);
     });
+  });
+
+  it('can deal with additionalProperties: true', () => {
+    const swagger: Swagger2 = {
+      definitions: {
+        FeatureMap: {
+          type: 'object',
+          additionalProperties: true,
+        },
+      },
+    };
+
+    const ts = format(`
+    export interface FeatureMap {
+      [name: string]: any;
+    }`);
+
+    expect(swaggerToTS(swagger)).toBe(ts);
+  });
+
+  it('can deal with additionalProperties of type', () => {
+    const swagger: Swagger2 = {
+      definitions: {
+        Credentials: {
+          type: 'object',
+          additionalProperties: {
+            type: 'string',
+          },
+        },
+      },
+    };
+
+    const ts = format(`
+    export interface Credentials {
+      [name: string]: string;
+    }`);
+
+    expect(swaggerToTS(swagger)).toBe(ts);
   });
 
   describe('other output', () => {

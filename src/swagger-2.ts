@@ -9,6 +9,7 @@ export interface Swagger2Definition {
   items?: Swagger2Definition;
   oneOf?: Swagger2Definition[];
   properties?: { [index: string]: Swagger2Definition };
+  additionalProperties?: boolean | Swagger2Definition;
   required?: string[];
   type?: 'array' | 'boolean' | 'integer' | 'number' | 'object' | 'string';
 }
@@ -113,7 +114,7 @@ function parse(spec: Swagger2, namespace: string) {
   function buildNextInterface() {
     const nextObject = queue.pop();
     if (!nextObject) return; // Geez TypeScript it’s going to be OK
-    const [ID, { allOf, properties, required }] = nextObject;
+    const [ID, { allOf, properties, required, additionalProperties, type }] = nextObject;
 
     let allProperties = properties || {};
     const includes: string[] = [];
@@ -132,7 +133,12 @@ function parse(spec: Swagger2, namespace: string) {
     }
 
     // If nothing’s here, let’s skip this one.
-    if (!Object.keys(allProperties).length) {
+    if (
+      !Object.keys(allProperties).length &&
+      additionalProperties !== true &&
+      type &&
+      TYPES[type]
+    ) {
       return;
     }
     // Open interface
@@ -162,6 +168,17 @@ function parse(spec: Swagger2, namespace: string) {
       output.push(`${name}: ${type};`);
     });
 
+    if (additionalProperties) {
+      if (<boolean>additionalProperties === true) {
+        output.push(`[name: string]: any`);
+      }
+
+      if ((<Swagger2Definition>additionalProperties).type) {
+        const type = getType(<Swagger2Definition>additionalProperties, '');
+        output.push(`[name: string]: ${type}`);
+      }
+    }
+
     // Close interface
     output.push('}');
 
@@ -181,7 +198,7 @@ function parse(spec: Swagger2, namespace: string) {
 
   output.push('}'); // Close namespace
 
-  return prettier.format(output.join('\n'), { parser: 'typescript' });
+  return prettier.format(output.join('\n'), { parser: 'typescript', singleQuote: true });
 }
 
 export default parse;
