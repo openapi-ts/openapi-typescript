@@ -20,6 +20,11 @@ export interface Swagger2 {
   };
 }
 
+export interface Swagger2Options {
+  camelcase?: boolean;
+  namespace?: string;
+}
+
 // Primitives only!
 const TYPES: { [index: string]: string } = {
   string: 'string',
@@ -35,7 +40,10 @@ function camelCase(name: string) {
   return name.replace(/(-|_|\.|\s)+\w/g, letter => letter.toUpperCase().replace(/[^0-9a-z]/gi, ''));
 }
 
-function parse(spec: Swagger2, namespace: string) {
+function parse(spec: Swagger2, options: Swagger2Options = {}) {
+  const namespace = options.namespace || 'OpenAPI2';
+  const shouldCamelCase = options.camelcase || false;
+
   const queue: [string, Swagger2Definition][] = [];
   const enumQueue: [string, (string | number)[]][] = [];
   const output: string[] = [`namespace ${namespace} {`];
@@ -73,10 +81,9 @@ function parse(spec: Swagger2, namespace: string) {
     if (items && items.type) {
       if (TYPES[items.type]) {
         return `${TYPES[items.type]}[]`;
-      } else {
-        queue.push([nestedName, items]);
-        return `${nestedName}[]`;
       }
+      queue.push([nestedName, items]);
+      return `${nestedName}[]`;
     }
 
     if (Array.isArray(value.oneOf)) {
@@ -96,15 +103,15 @@ function parse(spec: Swagger2, namespace: string) {
     return DEFAULT_TYPE;
   }
 
-  function buildNextEnum([ID, options]: [string, (string | number)[]]) {
+  function buildNextEnum([ID, enumOptions]: [string, (string | number)[]]) {
     output.push(`export enum ${ID} {`);
-    options.forEach(option => {
+    enumOptions.forEach(option => {
       if (typeof option === 'number') {
         const lastWord = ID.search(/[A-Z](?=[^A-Z]*$)/);
         const name = ID.substr(lastWord, ID.length);
         output.push(`${name}${option} = ${option},`);
       } else {
-        const name = capitalize(camelCase(option));
+        const name = capitalize(camelCase(option)); // Enums are always camel-cased
         output.push(`${name} = ${JSON.stringify(option)},`);
       }
     });
@@ -144,14 +151,15 @@ function parse(spec: Swagger2, namespace: string) {
     // Open interface
     const isExtending = includes.length ? ` extends ${includes.join(', ')}` : '';
 
-    output.push(`export interface ${camelCase(ID)}${isExtending} {`);
+    output.push(`export interface ${shouldCamelCase ? camelCase(ID) : ID}${isExtending} {`);
 
     // Populate interface
     Object.entries(allProperties).forEach(([key, value]) => {
       const optional = !Array.isArray(required) || required.indexOf(key) === -1;
-      const name = `${camelCase(key)}${optional ? '?' : ''}`;
-      const newID = camelCase(`${ID}_${key}`);
-      const type = getType(value, newID);
+      const formattedKey = shouldCamelCase ? camelCase(key) : key;
+      const name = `${formattedKey}${optional ? '?' : ''}`;
+      const newID = `${ID}${capitalize(formattedKey)}`;
+      const interfaceType = getType(value, newID);
 
       if (typeof value.description === 'string') {
         // Print out descriptions as comments, but only if there’s something there (.*)
@@ -165,17 +173,17 @@ function parse(spec: Swagger2, namespace: string) {
         return;
       }
 
-      output.push(`${name}: ${type};`);
+      output.push(`${name}: ${interfaceType};`);
     });
 
     if (additionalProperties) {
       if (<boolean>additionalProperties === true) {
-        output.push(`[name: string]: any`);
+        output.push('[name: string]: any');
       }
 
       if ((<Swagger2Definition>additionalProperties).type) {
-        const type = getType(<Swagger2Definition>additionalProperties, '');
-        output.push(`[name: string]: ${type}`);
+        const interfaceType = getType(<Swagger2Definition>additionalProperties, '');
+        output.push(`[name: string]: ${interfaceType}`);
       }
     }
 

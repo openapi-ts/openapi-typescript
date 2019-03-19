@@ -1,6 +1,6 @@
 .cache
 .DS_Store
-dist
+pkg
 node_modules
 yarn.lock
 yarn-error.log

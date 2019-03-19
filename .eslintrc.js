@@ -10,6 +10,7 @@ module.exports = {
     'comma-dangle': 0,
     'function-paren-newline': 0, // let Prettier handle it
     'implicit-arrow-linebreak': 0, // let Prettier handle it
+    'import/no-unresolved': 0, // TypeScript can handle it
     'import/no-extraneous-dependencies': 0,
     'object-curly-newline': 0, // let Prettier handle it
     'no-underscore-dangle': 0,

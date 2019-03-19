@@ -15,5 +15,5 @@
     "strict": true,
     "target": "es5"
   },
-  "exclude": ["**/*.test.ts"]
+  "exclude": ["example/*", "tests/**/*"]
 }

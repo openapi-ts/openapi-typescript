@@ -6,7 +6,7 @@ const chalk = require('chalk');
 const { dirname, resolve } = require('path');
 const meow = require('meow');
 const yaml = require('js-yaml');
-const swaggerToTS = require('../dist/cjs');
+const { default: swaggerToTS } = require('../dist-node');
 
 const cli = meow(
   `
@@ -17,10 +17,16 @@ Options
   --namespace, -n   specify namespace to prefix types
   --help            display this
   --output, -o      specify output file
-  --swagger, -s     specify Swagger version (default 2)
+  --camelcase, -c   convert snake_case properties to camelCase (default: off)
+  --swagger, -s     specify Swagger version (default: 2)
 `,
   {
     flags: {
+      camelcase: {
+        type: 'boolean',
+        default: false,
+        alias: 'c',
+      },
       namespace: {
         type: 'string',
         alias: 'n',

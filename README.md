@@ -53,6 +53,7 @@ the [generate.js](./scripts/generate.js) script.
 | :---------- | :--------- | :--------------------------------------------------------------------------------------------------- |
 | `output`    | (stdout)   | Where should the output file be saved?                                                               |
 | `namespace` | `OpenAPI2` | How should the output be namespaced? (namespacing is enforced as there’s a high chance of collision) |
+| `camelcase` | `false`    | Convert `snake_case` properties to `camelCase`                                                       |
 | `swagger`   | `2`        | Which Swagger version to use. Currently only supports `2`.                                           |
 
 [namespace]: https://www.typescriptlang.org/docs/handbook/namespaces.html

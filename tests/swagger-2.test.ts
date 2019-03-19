@@ -94,6 +94,52 @@ describe('Swagger 2 spec', () => {
     });
   });
 
+  describe('property names', () => {
+    it('preserves snake_case keys by default', () => {
+      const swagger: Swagger2 = {
+        definitions: {
+          User: {
+            properties: {
+              profile_image: { type: 'string' },
+              address_line_1: { type: 'string' },
+            },
+            type: 'object',
+          },
+        },
+      };
+
+      const ts = format(`
+      export interface User {
+        profile_image?: string;
+        address_line_1?: string;
+      }`);
+
+      expect(swaggerToTS(swagger)).toBe(ts);
+    });
+
+    it('converts snake_case to camelCase if specified', () => {
+      const swagger: Swagger2 = {
+        definitions: {
+          User: {
+            properties: {
+              profile_image: { type: 'string' },
+              address_line_1: { type: 'string' },
+            },
+            type: 'object',
+          },
+        },
+      };
+
+      const ts = format(`
+      export interface User {
+        profileImage?: string;
+        addressLine1?: string;
+      }`);
+
+      expect(swaggerToTS(swagger, { camelcase: true })).toBe(ts);
+    });
+  });
+
   describe('complex structures', () => {
     it('handles arrays of primitive structures', () => {
       const swagger: Swagger2 = {

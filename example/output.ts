@@ -6,12 +6,12 @@ namespace OpenAPI2 {
     body: string;
   }
   export interface UpdateProviderBody {
-    teamId?: string;
+    team_id?: string;
     label?: string;
     name?: string;
-    logoUrl?: string;
-    supportEmail?: string;
-    documentationUrl?: string;
+    logo_url?: string;
+    support_email?: string;
+    documentation_url?: string;
   }
   export interface UpdateProvider {
     id: string;
@@ -19,26 +19,26 @@ namespace OpenAPI2 {
   }
   export interface UpdateProductBody {
     name?: string;
-    logoUrl?: string;
+    logo_url?: string;
     listing?: ProductListing;
     // 140 character sentence positioning the product.
     tagline?: string;
     // A list of value propositions of the product.
-    valueProps?: ValueProp[];
+    value_props?: ValueProp[];
     images?: string[];
-    supportEmail?: string;
-    documentationUrl?: string;
+    support_email?: string;
+    documentation_url?: string;
     // URL to this Product's Terms of Service. If provided is true, then
     // a url must be set. Otherwise, provided is false.
-    termsUrl?: string;
-    featureTypes?: FeatureType[];
+    terms_url?: string;
+    feature_types?: FeatureType[];
     integration?: UpdateProductBodyIntegration;
     tags?: string[];
   }
   export interface UpdateProductBodyIntegration {
     provisioning?: string;
-    baseUrl?: string;
-    ssoUrl?: string;
+    base_url?: string;
+    sso_url?: string;
     version?: UpdateProductBodyIntegrationVersion;
     features?: ProductIntegrationFeatures;
   }
@@ -54,8 +54,8 @@ namespace OpenAPI2 {
     label?: string;
     state?: string;
     // Used in conjuction with resizable_to to set or unset the list
-    hasResizeConstraints?: boolean;
-    resizableTo?: string[];
+    has_resize_constraints?: boolean;
+    resizable_to?: string[];
     // Array of Region IDs
     regions?: string[];
     // Array of Feature Values
@@ -63,7 +63,7 @@ namespace OpenAPI2 {
     // The number of days a user gets as a free trial when subscribing to
     // this plan. Trials are valid only once per product; changing plans
     // or adding an additional subscription will not start a new trial.
-    trialDays?: number;
+    trial_days?: number;
     // Dollar value in cents
     cost?: number;
   }
@@ -90,12 +90,12 @@ namespace OpenAPI2 {
     Region = 'region'
   }
   export interface ProviderBody {
-    teamId: string;
+    team_id: string;
     label: string;
     name: string;
-    logoUrl?: string;
-    supportEmail?: string;
-    documentationUrl?: string;
+    logo_url?: string;
+    support_email?: string;
+    documentation_url?: string;
   }
   export interface Provider {
     id: string;
@@ -143,13 +143,13 @@ namespace OpenAPI2 {
   export interface ProductIntegrationFeatures {
     // Indicates whether or not this product supports resource transitions to
     // manifold by access_code.
-    accessCode?: boolean;
+    access_code?: boolean;
     // Represents whether or not this product supports Single
     // Sign On
     sso?: boolean;
     // Represents whether or not this product supports changing
     // the plan of a resource.
-    planChange?: boolean;
+    plan_change?: boolean;
     // Describes how the region for a resource is specified, if
     // unspecified, then regions have no impact on this
     // resource.
@@ -160,32 +160,32 @@ namespace OpenAPI2 {
     Unspecified = 'unspecified'
   }
   export interface ProductBody {
-    providerId: string;
+    provider_id: string;
     // Product labels are globally unique and contain the provider name.
     label: string;
     name: string;
     state: string;
     listing: ProductListing;
-    logoUrl: string;
+    logo_url: string;
     // 140 character sentence positioning the product.
     tagline: string;
     // A list of value propositions of the product.
-    valueProps: ValueProp[];
+    value_props: ValueProp[];
     images: string[];
-    supportEmail: string;
-    documentationUrl: string;
+    support_email: string;
+    documentation_url: string;
     // URL to this Product's Terms of Service. If provided is true, then
     // a url must be set. Otherwise, provided is false.
     terms: ProductBodyTerms;
-    featureTypes: FeatureType[];
+    feature_types: FeatureType[];
     billing: ProductBodyBilling;
     integration: ProductBodyIntegration;
     tags?: string[];
   }
   export interface ProductBodyIntegration {
     provisioning: string;
-    baseUrl: string;
-    ssoUrl?: string;
+    base_url: string;
+    sso_url?: string;
     version: ProductBodyIntegrationVersion;
     features: ProductIntegrationFeatures;
   }
@@ -222,12 +222,12 @@ namespace OpenAPI2 {
   }
   export interface PlanResizeList {}
   export interface PlanBody {
-    providerId: string;
-    productId: string;
+    provider_id: string;
+    product_id: string;
     name: string;
     label: string;
     state: string;
-    resizableTo?: string[];
+    resizable_to?: string[];
     // Array of Region IDs
     regions: string[];
     // Array of Feature Values
@@ -235,7 +235,7 @@ namespace OpenAPI2 {
     // The number of days a user gets as a free trial when subscribing to
     // this plan. Trials are valid only once per product; changing plans
     // or adding an additional subscription will not start a new trial.
-    trialDays?: number;
+    trial_days?: number;
     // Dollar value in cents.
     cost: number;
   }
@@ -262,7 +262,7 @@ namespace OpenAPI2 {
     // Price describes the cost of a feature. It should be preferred over
     // the `cost` property.
     price?: FeatureValueDetailsPrice;
-    numericDetails?: FeatureNumericDetails;
+    numeric_details?: FeatureNumericDetails;
   }
   export interface FeatureValueDetailsPrice {
     // Cost is the price in cents that will be added to plan's base cost
@@ -272,7 +272,7 @@ namespace OpenAPI2 {
     // When a feature is used to multiply the cost of the plan or of
     // another feature, multiply factor is used for calculation.
     // A feature cannot have both a cost and a multiply factor.
-    multiplyFactor?: number;
+    multiply_factor?: number;
     // Price describes how the feature cost should be calculated.
     formula?: string;
     // Description explains how a feature is calculated to the user.
@@ -314,7 +314,7 @@ namespace OpenAPI2 {
     limit?: number;
     // An integer in 10,000,000ths of cents, will be multiplied by the
     // numeric value set in the feature to determine the cost.
-    costMultiple?: number;
+    cost_multiple?: number;
   }
   export interface FeatureNumericDetails {
     // Sets the increment at which numbers can be selected if customizable, by
@@ -330,7 +330,7 @@ namespace OpenAPI2 {
     max?: number;
     // Applied to the end of the number for display, for example the ‘GB’ in ‘20 GB’.
     suffix?: string;
-    costRanges?: FeatureNumericRange[];
+    cost_ranges?: FeatureNumericRange[];
   }
   export interface FeatureMap {
     [name: string]: any;
@@ -351,7 +351,7 @@ namespace OpenAPI2 {
   }
   export interface ExpandedPlanBody extends PlanBody {
     // An array of feature definitions for the plan, as defined on the Product.
-    expandedFeatures?: ExpandedFeature[];
+    expanded_features?: ExpandedFeature[];
     // A boolean flag that indicates if a plan is free or not based on it's cost and features.
     free?: boolean;
     // Plan cost using its default features plus base cost.
@@ -373,7 +373,7 @@ namespace OpenAPI2 {
   }
   export interface ExpandedFeature extends FeatureType {
     // The string value set for the feature on the plan, this should only be used if the value property is null.
-    valueString?: string;
+    value_string?: string;
     value?: FeatureValueDetails;
   }
   export interface Error {

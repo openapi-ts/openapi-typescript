@@ -1,16 +1,16 @@
-import graphqlGen from '../src';
+import swaggerToTS, { Options } from '../src';
 
-describe('graphqlGen', () => {
+describe('swaggerToTS', () => {
   it('is able to parse a Swagger 2 spec', () => {
     const spec = { definitions: {} };
-    const options = { swagger: 2 };
+    const options: Options = { swagger: 2 };
 
-    expect(graphqlGen(spec, options)).toBe('namespace OpenAPI2 {}\n');
+    expect(swaggerToTS(spec, options)).toBe('namespace OpenAPI2 {}\n');
   });
 
   it('errs on other options', () => {
     const spec = { definitions: {} };
-    const options = { swagger: 1 };
-    expect(() => graphqlGen(spec, options)).toThrowError();
+    const options: Options = { swagger: 1 };
+    expect(() => swaggerToTS(spec, options)).toThrowError();
   });
 });

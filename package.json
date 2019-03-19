@@ -1,6 +1,5 @@
 {
   "name": "@manifoldco/swagger-to-ts",
-  "version": "1.0.4",
   "description": "Generate TypeScript types from Swagger OpenAPI specs",
   "main": "dist/cjs",
   "engines": {
@@ -9,10 +8,6 @@
   "bin": {
     "swagger-to-ts": "bin/cli.js"
   },
-  "files": [
-    "bin",
-    "dist"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/manifoldco/swagger-to-ts.git"
@@ -30,10 +25,28 @@
     "url": "https://github.com/manifoldco/swagger-to-ts/issues"
   },
   "homepage": "https://github.com/manifoldco/swagger-to-ts#readme",
+  "@pika/pack": {
+    "pipeline": [
+      [
+        "@pika/plugin-ts-standard-pkg"
+      ],
+      [
+        "@pika/plugin-build-node"
+      ],
+      [
+        "@pika/plugin-copy-assets",
+        {
+          "files": [
+            "bin/"
+          ]
+        }
+      ]
+    ]
+  },
   "scripts": {
-    "build": "node scripts/build",
+    "build": "pack build",
     "pregenerate": "npm run build",
-    "generate": "node scripts/generate",
+    "generate": "node pkg/bin/cli example/input.yaml -o example/output.ts",
     "lint:js": "eslint --ignore-path .gitignore --ext .js,.ts src",
     "prepublish": "npm run build",
     "pretest": "npm run build",
@@ -45,11 +58,15 @@
     "fs-extra": "^7.0.1",
     "js-yaml": "^3.12.1",
     "meow": "^5.0.0",
-    "prettier": "^1.16.1"
+    "prettier": "^1.16.4"
   },
   "devDependencies": {
+    "@pika/pack": "^0.3.5",
+    "@pika/plugin-build-node": "^0.3.14",
+    "@pika/plugin-copy-assets": "^0.3.14",
+    "@pika/plugin-ts-standard-pkg": "^0.3.14",
     "@types/glob": "^7.1.1",
-    "@types/jest": "^23.3.13",
+    "@types/jest": "^24.0.11",
     "@types/js-yaml": "^3.12.0",
     "@types/prettier": "^1.15.2",
     "@typescript-eslint/parser": "^1.1.1",
@@ -60,13 +77,10 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.12.4",
-    "jest": "^23.6.0",
-    "rollup": "^0.66.6",
-    "rollup-plugin-terser": "^4.0.2",
-    "rollup-plugin-typescript": "^1.0.0",
-    "ts-jest": "^23.10.5",
+    "jest": "^24.5.0",
+    "ts-jest": "^24.0.0",
     "tslib": "^1.9.3",
-    "typescript": "^3.2.4"
+    "typescript": "^3.3.3333"
   },
   "peerDependencies": {
     "prettier": "^1.0.0"
