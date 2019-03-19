@@ -8,6 +8,6 @@ jobs:
       script: npm run lint:js
     - stage: test
       name: 'Run tests'
-      script: npm run test
+      script: npm run test:coverage
 after_success:
   - npx codecov
