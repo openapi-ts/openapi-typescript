@@ -9,3 +9,5 @@ jobs:
     - stage: test
       name: 'Run tests'
       script: npm run test
+after_success:
+  - npx codecov
