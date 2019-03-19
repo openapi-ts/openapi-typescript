@@ -39,11 +39,8 @@ namespace OpenAPI2 {
     provisioning?: string;
     base_url?: string;
     sso_url?: string;
-    version?: UpdateProductBodyIntegrationVersion;
+    version?: 'v1';
     features?: ProductIntegrationFeatures;
-  }
-  export enum UpdateProductBodyIntegrationVersion {
-    V1 = 'v1'
   }
   export interface UpdateProduct {
     id: string;
@@ -79,15 +76,9 @@ namespace OpenAPI2 {
   }
   export interface Region {
     id: string;
-    type: RegionType;
-    version: RegionVersion;
+    type: 'region';
+    version: 1;
     body: RegionBody;
-  }
-  export enum RegionVersion {
-    Version1 = 1
-  }
-  export enum RegionType {
-    Region = 'region'
   }
   export interface ProviderBody {
     team_id: string;
@@ -99,15 +90,9 @@ namespace OpenAPI2 {
   }
   export interface Provider {
     id: string;
-    version: ProviderVersion;
-    type: ProviderType;
+    version: 1;
+    type: 'provider';
     body: ProviderBody;
-  }
-  export enum ProviderType {
-    Provider = 'provider'
-  }
-  export enum ProviderVersion {
-    Version1 = 1
   }
   export interface ProductTags {}
   export interface ProductListing {
@@ -153,11 +138,7 @@ namespace OpenAPI2 {
     // Describes how the region for a resource is specified, if
     // unspecified, then regions have no impact on this
     // resource.
-    region?: ProductIntegrationFeaturesRegion;
-  }
-  export enum ProductIntegrationFeaturesRegion {
-    UserSpecified = 'user-specified',
-    Unspecified = 'unspecified'
+    region?: 'user-specified' | 'unspecified';
   }
   export interface ProductBody {
     provider_id: string;
@@ -186,23 +167,12 @@ namespace OpenAPI2 {
     provisioning: string;
     base_url: string;
     sso_url?: string;
-    version: ProductBodyIntegrationVersion;
+    version: 'v1';
     features: ProductIntegrationFeatures;
   }
-  export enum ProductBodyIntegrationVersion {
-    V1 = 'v1'
-  }
   export interface ProductBodyBilling {
-    type: ProductBodyBillingType;
-    currency: ProductBodyBillingCurrency;
-  }
-  export enum ProductBodyBillingCurrency {
-    Usd = 'usd'
-  }
-  export enum ProductBodyBillingType {
-    MonthlyProrated = 'monthly-prorated',
-    MonthlyAnniversary = 'monthly-anniversary',
-    AnnualAnniversary = 'annual-anniversary'
+    type: 'monthly-prorated' | 'monthly-anniversary' | 'annual-anniversary';
+    currency: 'usd';
   }
   export interface ProductBodyTerms {
     url?: string;
@@ -210,15 +180,9 @@ namespace OpenAPI2 {
   }
   export interface Product {
     id: string;
-    version: ProductVersion;
-    type: ProductType;
+    version: 1;
+    type: 'product';
     body: ProductBody;
-  }
-  export enum ProductType {
-    Product = 'product'
-  }
-  export enum ProductVersion {
-    Version1 = 1
   }
   export interface PlanResizeList {}
   export interface PlanBody {
@@ -241,15 +205,9 @@ namespace OpenAPI2 {
   }
   export interface Plan {
     id: string;
-    version: PlanVersion;
-    type: PlanType;
+    version: 1;
+    type: 'plan';
     body: PlanBody;
-  }
-  export enum PlanType {
-    Plan = 'plan'
-  }
-  export enum PlanVersion {
-    Version1 = 1
   }
   export interface FeatureValuesList {}
   export interface FeatureValueDetails {
@@ -285,7 +243,7 @@ namespace OpenAPI2 {
   export interface FeatureType {
     label: string;
     name: string;
-    type: FeatureTypeType;
+    type: 'boolean' | 'string' | 'number';
     // This sets whether or not the feature can be customized by a consumer.
     customizable?: boolean;
     // This sets whether or not the feature can be upgraded by the consumer after the
@@ -300,11 +258,6 @@ namespace OpenAPI2 {
     // this only really affects numeric constraints.
     measurable?: boolean;
     values?: FeatureValueDetails[];
-  }
-  export enum FeatureTypeType {
-    Boolean = 'boolean',
-    String = 'string',
-    Number = 'number'
   }
   export interface FeatureNumericRange {
     // Defines the end of the range ( inclusive ), from the previous, or 0;
@@ -337,17 +290,11 @@ namespace OpenAPI2 {
   }
   export interface ExpandedProduct {
     id: string;
-    version: ExpandedProductVersion;
-    type: ExpandedProductType;
+    version: 1;
+    type: 'product';
     body: ProductBody;
     plans?: ExpandedPlan[];
     provider: Provider;
-  }
-  export enum ExpandedProductType {
-    Product = 'product'
-  }
-  export enum ExpandedProductVersion {
-    Version1 = 1
   }
   export interface ExpandedPlanBody extends PlanBody {
     // An array of feature definitions for the plan, as defined on the Product.
@@ -361,15 +308,9 @@ namespace OpenAPI2 {
   }
   export interface ExpandedPlan {
     id: string;
-    version: ExpandedPlanVersion;
-    type: ExpandedPlanType;
+    version: 1;
+    type: 'plan';
     body: ExpandedPlanBody;
-  }
-  export enum ExpandedPlanType {
-    Plan = 'plan'
-  }
-  export enum ExpandedPlanVersion {
-    Version1 = 1
   }
   export interface ExpandedFeature extends FeatureType {
     // The string value set for the feature on the plan, this should only be used if the value property is null.

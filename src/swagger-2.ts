@@ -45,7 +45,6 @@ function parse(spec: Swagger2, options: Swagger2Options = {}) {
   const shouldCamelCase = options.camelcase || false;
 
   const queue: [string, Swagger2Definition][] = [];
-  const enumQueue: [string, (string | number)[]][] = [];
   const output: string[] = [`namespace ${namespace} {`];
 
   const { definitions } = spec;
@@ -103,21 +102,6 @@ function parse(spec: Swagger2, options: Swagger2Options = {}) {
     return DEFAULT_TYPE;
   }
 
-  function buildNextEnum([ID, enumOptions]: [string, (string | number)[]]) {
-    output.push(`export enum ${ID} {`);
-    enumOptions.forEach(option => {
-      if (typeof option === 'number') {
-        const lastWord = ID.search(/[A-Z](?=[^A-Z]*$)/);
-        const name = ID.substr(lastWord, ID.length);
-        output.push(`${name}${option} = ${option},`);
-      } else {
-        const name = capitalize(camelCase(option)); // Enums are always camel-cased
-        output.push(`${name} = ${JSON.stringify(option)},`);
-      }
-    });
-    output.push('}');
-  }
-
   function buildNextInterface() {
     const nextObject = queue.pop();
     if (!nextObject) return; // Geez TypeScript it’s going to be OK
@@ -166,10 +150,9 @@ function parse(spec: Swagger2, options: Swagger2Options = {}) {
         output.push(`// ${value.description.replace(/\n$/, '').replace(/\n/g, '\n// ')}`);
       }
 
-      // Save enums for later
+      // Handle enums in the same definition
       if (Array.isArray(value.enum)) {
-        enumQueue.push([newID, value.enum]);
-        output.push(`${name}: ${newID};`);
+        output.push(`${name}: ${value.enum.map(option => JSON.stringify(option)).join(' | ')};`);
         return;
       }
 
@@ -189,12 +172,6 @@ function parse(spec: Swagger2, options: Swagger2Options = {}) {
 
     // Close interface
     output.push('}');
-
-    // Clean up enumQueue
-    while (enumQueue.length > 0) {
-      const nextEnum = enumQueue.pop();
-      if (nextEnum) buildNextEnum(nextEnum);
-    }
   }
 
   // Begin parsing top-level entries
