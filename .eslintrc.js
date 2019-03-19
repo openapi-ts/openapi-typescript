@@ -13,7 +13,9 @@ module.exports = {
     'import/no-unresolved': 0, // TypeScript can handle it
     'import/no-extraneous-dependencies': 0,
     'object-curly-newline': 0, // let Prettier handle it
+    'operator-linebreak': 0, // let Prettier handle it
     'no-underscore-dangle': 0,
+    'no-unused-vars': 0, // TypeScript can handle it
     'react/jsx-filename-extension': 0,
     'react/destructuring-assignment': 0,
     'space-before-function-paren': 0, // let Prettier handle it
