@@ -19,7 +19,7 @@ To compare actual generated output, see the [example](./example) folder.
 
 ## Usage
 
-### CLI
+#### Basic example (CLI)
 
 ```bash
 npx @manifoldco/swagger-to-ts schema.yaml --namespace OpenAPI --output schema.ts
@@ -31,6 +31,36 @@ This will save a `schema.ts` file in the current folder under the TypeScript
 [namespace][namespace] `OpenAPI` (namespaces are required because chances of
 collision among specs is highly likely). The CLI can accept YAML or JSON for
 the input file.
+
+#### CamelCasing properties
+
+You can also convert `snake_case` keys to `camelCase` by adding the
+`--camelcase` flag:
+
+```bash
+npx @manifoldco/swagger-to-ts schema.yaml --camelcase --namespace OpenAPI --output schema.ts
+
+# 🚀 schema.yaml -> schema.ts [2ms]
+```
+
+#### Generating multiple schemas
+
+Say you have multiple schemas you need to parse. I’ve found the simplest way
+to do that is just to use npm scripts. In your `package.json`, you can do
+something like the following:
+
+```json
+"scripts": {
+  "generate:specs": "npm run generate:specs:one && npm run generate:specs:two",
+  "generate:specs:one": "npx @manifoldco/swagger-to-ts one.yaml -o one.ts",
+  "generate:specs:two": "npx @manifoldco/swagger-to-ts two.yaml -o two.ts"
+}
+```
+
+Rinse and repeat for more specs.
+
+For anything more complicated or for generating specs more dynamically, you
+can also use the Node API (below).
 
 ### Node
 
