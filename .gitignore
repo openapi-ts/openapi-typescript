@@ -1,5 +1,6 @@
 .cache
 .DS_Store
+coverage
 pkg
 node_modules
 yarn.lock
