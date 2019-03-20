@@ -32,15 +32,15 @@ const TYPES: { [index: string]: string } = {
   number: 'number',
 };
 
-function capitalize(str: string) {
+function capitalize(str: string): string {
   return `${str[0].toUpperCase()}${str.slice(1)}`;
 }
 
-function camelCase(name: string) {
+function camelCase(name: string): string {
   return name.replace(/(-|_|\.|\s)+\w/g, letter => letter.toUpperCase().replace(/[^0-9a-z]/gi, ''));
 }
 
-function parse(spec: Swagger2, options: Swagger2Options = {}) {
+function parse(spec: Swagger2, options: Swagger2Options = {}): string {
   const namespace = options.namespace || 'OpenAPI2';
   const shouldCamelCase = options.camelcase || false;
 
@@ -102,7 +102,7 @@ function parse(spec: Swagger2, options: Swagger2Options = {}) {
     return DEFAULT_TYPE;
   }
 
-  function buildNextInterface() {
+  function buildNextInterface(): void {
     const nextObject = queue.pop();
     if (!nextObject) return; // Geez TypeScript it’s going to be OK
     const [ID, { allOf, properties, required, additionalProperties, type }] = nextObject;
@@ -160,12 +160,12 @@ function parse(spec: Swagger2, options: Swagger2Options = {}) {
     });
 
     if (additionalProperties) {
-      if (<boolean>additionalProperties === true) {
+      if ((additionalProperties as boolean) === true) {
         output.push('[name: string]: any');
       }
 
-      if ((<Swagger2Definition>additionalProperties).type) {
-        const interfaceType = getType(<Swagger2Definition>additionalProperties, '');
+      if ((additionalProperties as Swagger2Definition).type) {
+        const interfaceType = getType(additionalProperties as Swagger2Definition, '');
         output.push(`[name: string]: ${interfaceType}`);
       }
     }

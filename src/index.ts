@@ -4,7 +4,7 @@ export interface Options extends Swagger2Options {
   swagger?: number;
 }
 
-export default function(spec: Swagger2, options?: Options) {
+export default function(spec: Swagger2, options?: Options): string {
   const swagger = (options && options.swagger) || 2;
 
   if (swagger !== 2) {
