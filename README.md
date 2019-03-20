@@ -16,6 +16,7 @@ Convert Swagger files to TypeScript interfaces using Node.js.
 | `allOf`           | `TypeB extends TypeA` |
 | `oneOf`           |   `TypeA \| TypeB`    |
 | `required`        |    (not optional)     |
+| `enum`            |     `'a' \| 'b'`      |
 
 To compare actual generated output, see the [example](./example) folder.
 
