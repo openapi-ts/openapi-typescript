@@ -22,7 +22,7 @@ To compare actual generated output, see the [example](./example) folder.
 
 ## Usage
 
-#### Basic example (CLI)
+### CLI
 
 ```bash
 npx @manifoldco/swagger-to-ts schema.yaml --namespace OpenAPI --output schema.ts
@@ -37,8 +37,8 @@ the input file.
 
 #### CamelCasing properties
 
-You can also convert `snake_case` keys to `camelCase` by adding the
-`--camelcase` flag:
+Within interfaces, you may want to convert `snake_case` properties to
+`camelCase` by adding the `--camelcase` flag:
 
 ```bash
 npx @manifoldco/swagger-to-ts schema.yaml --camelcase --namespace OpenAPI --output schema.ts
@@ -65,6 +65,15 @@ Rinse and repeat for more specs.
 For anything more complicated, or for generating specs dynamically, you can
 also use the Node API (below).
 
+#### CLI Options
+
+| Option                | Alias |  Default   | Description                                                                                          |
+| :-------------------- | :---- | :--------: | :--------------------------------------------------------------------------------------------------- |
+| `--output [location]` | `-o`  |  (stdout)  | Where should the output file be saved?                                                               |
+| `--namespace [name]`  | `-n`  | `OpenAPI2` | How should the output be namespaced? (namespacing is enforced as there’s a high chance of collision) |
+| `--swagger [version]` | `-s`  |    `2`     | Which Swagger version to use. Currently only supports `2`.                                           |
+| `--camelcase`         | `-c`  |  `false`   | Convert `snake_case` properties to `camelCase`?                                                      |
+
 ### Node
 
 ```bash
@@ -75,24 +84,29 @@ npm i --save-dev @manifoldco/swagger-to-ts
 const { readFileSync } = require('fs');
 const swaggerToTS = require('@manifoldco/swagger-to-ts');
 
-const spec = JSON.parse(readFileSync('spec.json', 'utf8')); // Can be any JS object, so long as it’s in OpenAPI format
-const options = { output: 'types.ts' }; // Optional
-swaggerToTS(spec, options);
+const input = JSON.parse(readFileSync('spec.json', 'utf8')); // Input be any JS object (OpenAPI format)
+const output = swaggerToTS(input, { namespace: 'MySpec' }); // Outputs TypeScript defs as a string (to be parsed, or written to a file)
 ```
 
-Although the CLI can handle YAML and JSON, the Node API only understands JS
-objects. A library such as [js-yaml][js-yaml] makes it trivial to convert
-YAML to JS. If you’re batching large folders of specs, [glob][glob] may also
-come in handy.
+The Node API is a bit more flexible: it will only take a JS object as input
+(OpenAPI format), and return a string of TS definitions. This lets you pull
+from any source (a Swagger server, local files, etc.), and similarly lets put
+the output anywhere. It even allows for some post-processing in-between if
+desired.
 
-### Options
+If you are working with local files, you’ll have to read/write files
+yourself. Also, if your specs are in YAML, you’ll have to convert them to JS
+objects. A library such as [js-yaml][js-yaml] does make this trivial, though!
+Lastly, if you’re batching large folders of specs, [glob][glob] may also come
+in handy.
 
-| Name        | Default    | Description                                                                                          |
-| :---------- | :--------- | :--------------------------------------------------------------------------------------------------- |
-| `output`    | (stdout)   | Where should the output file be saved?                                                               |
-| `namespace` | `OpenAPI2` | How should the output be namespaced? (namespacing is enforced as there’s a high chance of collision) |
-| `camelcase` | `false`    | Convert `snake_case` properties to `camelCase`                                                       |
-| `swagger`   | `2`        | Which Swagger version to use. Currently only supports `2`.                                           |
+#### Node Options
+
+| Name        |   Type    |  Default   | Description                                                                                          |
+| :---------- | :-------: | :--------: | :--------------------------------------------------------------------------------------------------- |
+| `namespace` | `string`  | `OpenAPI2` | How should the output be namespaced? (namespacing is enforced as there’s a high chance of collision) |
+| `swagger`   | `number`  |    `2`     | Which Swagger version to use. Currently only supports `2`.                                           |
+| `camelcase` | `boolean` |  `false`   | Convert `snake_case` properties to `camelCase`                                                       |
 
 [glob]: https://www.npmjs.com/package/glob
 [js-yaml]: https://www.npmjs.com/package/js-yaml
