@@ -40,6 +40,9 @@
             "bin/"
           ]
         }
+      ],
+      [
+        "pika-plugin-minify"
       ]
     ]
   },
@@ -56,7 +59,7 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "fs-extra": "^7.0.1",
-    "js-yaml": "^3.12.1",
+    "js-yaml": "^3.13.0",
     "meow": "^5.0.0",
     "prettier": "^1.16.4"
   },
@@ -73,8 +76,9 @@
     "@typescript-eslint/parser": "^1.1.1",
     "eslint": "^5.12.1",
     "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "jest": "^24.5.0",
+    "pika-plugin-minify": "^0.1.0",
     "ts-jest": "^24.0.0",
     "tslib": "^1.9.3",
     "typescript": "^3.3.3333"
