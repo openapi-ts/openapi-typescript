@@ -94,7 +94,6 @@ namespace OpenAPI2 {
     type: 'provider';
     body: ProviderBody;
   }
-  export interface ProductTags {}
   export interface ProductListing {
     // When true, everyone can see the product when requested. When false it will
     // not be visible to anyone except those on the provider team.
@@ -184,7 +183,6 @@ namespace OpenAPI2 {
     type: 'product';
     body: ProductBody;
   }
-  export interface PlanResizeList {}
   export interface PlanBody {
     provider_id: string;
     product_id: string;
@@ -209,7 +207,6 @@ namespace OpenAPI2 {
     type: 'plan';
     body: PlanBody;
   }
-  export interface FeatureValuesList {}
   export interface FeatureValueDetails {
     label: string;
     name: string;
