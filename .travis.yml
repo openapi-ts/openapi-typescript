@@ -5,9 +5,12 @@ jobs:
   include:
     - stage: test
       name: 'Run Linters'
-      script: npm run lint:js
+      script: npm run lint
     - stage: test
       name: 'Run tests'
       script: npm run test:coverage
+    - stage: test
+      name: 'CLI'
+      script: npm run generate
 after_success:
   - npx codecov
