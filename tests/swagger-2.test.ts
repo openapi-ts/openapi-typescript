@@ -6,7 +6,7 @@ import swaggerToTS from '../src';
 import { Swagger2 } from '../src/swagger-2';
 
 // Let Prettier handle formatting, not the test expectations
-function format(spec: string, namespaced?: boolean) {
+function format(spec: string, namespaced?: boolean): string {
   const wrapped = namespaced === false ? spec : `namespace OpenAPI2 { ${spec} }`;
   return prettier.format(wrapped, { parser: 'typescript', singleQuote: true });
 }
