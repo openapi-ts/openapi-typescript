@@ -362,5 +362,21 @@ describe('Swagger 2 spec', () => {
 
       expect(swaggerToTS(input)).toBe(format(output, false));
     });
+
+    it('skips top-level array definitions', () => {
+      const swagger: Swagger2 = {
+        definitions: {
+          Colors: {
+            type: 'array',
+            items: { $ref: '#/definitions/Color' },
+          },
+          Color: { type: 'string' },
+        },
+      };
+
+      const ts = format('');
+
+      expect(swaggerToTS(swagger)).toBe(ts);
+    });
   });
 });

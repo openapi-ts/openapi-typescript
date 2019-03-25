@@ -175,7 +175,12 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
   }
 
   // Begin parsing top-level entries
-  Object.entries(definitions).forEach(entry => queue.push(entry));
+  Object.entries(definitions).forEach(entry => {
+    // Ignore top-level array definitions
+    if (entry[1].type === 'object') {
+      queue.push(entry);
+    }
+  });
   queue.sort((a, b) => a[0].localeCompare(b[0]));
   while (queue.length > 0) {
     buildNextInterface();
