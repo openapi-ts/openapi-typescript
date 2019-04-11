@@ -46,8 +46,6 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
   const shouldCamelCase = options.camelcase || false;
   const shouldExport = options.export || false;
 
-  console.log('shouldExport', shouldExport);
-
   const queue: [string, Swagger2Definition][] = [];
 
   const output: string[] = shouldExport ? ['export '] : [];

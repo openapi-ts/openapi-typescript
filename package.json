@@ -47,7 +47,7 @@
   "scripts": {
     "build": "pack build",
     "pregenerate": "npm run build",
-    "generate": "node pkg/bin/cli example/input.yaml -e -o example/output.ts",
+    "generate": "node pkg/bin/cli example/input.yaml -o example/output.ts",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts src",
     "prepublish": "npm run build",
     "publish": "pack publish",
