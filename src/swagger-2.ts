@@ -45,7 +45,7 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
   const shouldCamelCase = options.camelcase || false;
 
   const queue: [string, Swagger2Definition][] = [];
-  const output: string[] = [`namespace ${namespace} {`];
+  const output: string[] = [`export namespace ${namespace} {`];
 
   const { definitions } = spec;
 
