@@ -1,4 +1,4 @@
-namespace OpenAPI2 {
+export namespace OpenAPI2 {
   export interface ValueProp {
     // Heading of a value proposition.
     header: string;
