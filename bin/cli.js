@@ -19,6 +19,7 @@ Options
   --output, -o      specify output file
   --camelcase, -c   convert snake_case properties to camelCase (default: off)
   --swagger, -s     specify Swagger version (default: 2)
+  --export, -e      exports the namespace (default: false)
 `,
   {
     flags: {
@@ -38,6 +39,11 @@ Options
       swagger: {
         type: 'number',
         alias: 's',
+      },
+      export: {
+        type: 'boolean',
+        default: false,
+        alias: 'e',
       },
     },
   }
