@@ -73,6 +73,7 @@ also use the Node API (below).
 | `--namespace [name]`  | `-n`  | `OpenAPI2` | How should the output be namespaced? (namespacing is enforced as there’s a high chance of collision) |
 | `--swagger [version]` | `-s`  |    `2`     | Which Swagger version to use. Currently only supports `2`.                                           |
 | `--camelcase`         | `-c`  |  `false`   | Convert `snake_case` properties to `camelCase`?                                                      |
+| `--export`            | `-e`  |  `false`   | Exports the namespace                                                                                |
 
 ### Node
 
@@ -107,6 +108,7 @@ in handy.
 | `namespace` | `string`  | `OpenAPI2` | How should the output be namespaced? (namespacing is enforced as there’s a high chance of collision) |
 | `swagger`   | `number`  |    `2`     | Which Swagger version to use. Currently only supports `2`.                                           |
 | `camelcase` | `boolean` |  `false`   | Convert `snake_case` properties to `camelCase`                                                       |
+| `export`    | `boolean` |  `false`   | Exports the namespace                                                                                |
 
 [glob]: https://www.npmjs.com/package/glob
 [js-yaml]: https://www.npmjs.com/package/js-yaml

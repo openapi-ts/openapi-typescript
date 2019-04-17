@@ -23,6 +23,7 @@ export interface Swagger2 {
 export interface Swagger2Options {
   camelcase?: boolean;
   namespace?: string;
+  export?: boolean;
 }
 
 // Primitives only!
@@ -43,9 +44,12 @@ function camelCase(name: string): string {
 function parse(spec: Swagger2, options: Swagger2Options = {}): string {
   const namespace = options.namespace || 'OpenAPI2';
   const shouldCamelCase = options.camelcase || false;
+  const shouldExport = options.export || false;
 
   const queue: [string, Swagger2Definition][] = [];
-  const output: string[] = [`namespace ${namespace} {`];
+
+  const output: string[] = shouldExport ? ['export '] : [];
+  output.push(`namespace ${namespace} {`);
 
   const { definitions } = spec;
 
