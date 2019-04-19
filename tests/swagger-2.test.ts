@@ -363,6 +363,33 @@ describe('Swagger 2 spec', () => {
       expect(swaggerToTS(input)).toBe(format(output, false));
     });
 
+    it('allows exporting of namespace', () => {
+      const swagger: Swagger2 = {
+        definitions: {
+          Name: {
+            properties: {
+              first: { type: 'string' },
+              last: { type: 'string' },
+            },
+            type: 'object',
+          },
+        },
+      };
+
+      const ts = format(
+        `
+      export namespace OpenAPI2{
+        export interface Name {
+          first?: string;
+          last?: string;
+        }
+      }`,
+        false
+      );
+
+      expect(swaggerToTS(swagger, { export: true })).toBe(ts);
+    });
+
     it('skips top-level array definitions', () => {
       const swagger: Swagger2 = {
         definitions: {
