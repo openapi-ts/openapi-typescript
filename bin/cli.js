@@ -29,7 +29,7 @@ Options
       },
       wrapper: {
         type: 'string',
-        default: 'declare namespace OpenAPI2 ',
+        default: 'declare namespace OpenAPI2',
         alias: 'w',
       },
       output: {
@@ -46,7 +46,6 @@ Options
       },
       export: {
         type: 'boolean',
-        default: false,
         alias: 'e',
       },
     },
@@ -55,12 +54,12 @@ Options
 
 let spec = cli.input[0];
 
-if (cli.flags.namespace) {
+if (typeof cli.flags.namespace === 'string' && cli.flags.namespace.length > 0) {
   console.error(chalk.red('--namespace option is deprecated. Please use --wrapper instead.'));
   return;
 }
 
-if (cli.flags.export) {
+if (cli.flags.export === true) {
   console.error(chalk.red('--export option is deprecated. Please use --wrapper instead.'));
   return;
 }
