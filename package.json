@@ -47,7 +47,7 @@
   "scripts": {
     "build": "pack build",
     "pregenerate": "npm run build",
-    "generate": "node pkg/bin/cli example/input.yaml -o example/output.ts",
+    "generate": "node pkg/bin/cli example/input.yaml -o example/output.d.ts",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts src",
     "prepublish": "npm run build",
     "publish": "pack publish",
@@ -57,31 +57,27 @@
   },
   "dependencies": {
     "chalk": "^2.4.2",
-    "fs-extra": "^7.0.1",
-    "js-yaml": "^3.13.0",
+    "fs-extra": "^8.0.1",
+    "js-yaml": "^3.13.1",
     "meow": "^5.0.0",
-    "prettier": "^1.16.4"
+    "prettier": "^1.18.2"
   },
   "devDependencies": {
-    "@pika/pack": "^0.3.5",
-    "@pika/plugin-build-node": "^0.3.14",
-    "@pika/plugin-copy-assets": "^0.3.14",
-    "@pika/plugin-ts-standard-pkg": "^0.3.14",
-    "@types/glob": "^7.1.1",
-    "@types/jest": "^24.0.11",
-    "@types/js-yaml": "^3.12.0",
-    "@types/prettier": "^1.16.1",
-    "@typescript-eslint/eslint-plugin": "^1.5.0",
-    "@typescript-eslint/parser": "^1.1.1",
-    "eslint": "^5.12.1",
-    "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-prettier": "^3.0.1",
-    "jest": "^24.5.0",
-    "ts-jest": "^24.0.0",
-    "tslib": "^1.9.3",
-    "typescript": "^3.3.3333"
-  },
-  "peerDependencies": {
-    "prettier": "^1.0.0"
+    "@pika/pack": "^0.3.7",
+    "@pika/plugin-build-node": "^0.4.0",
+    "@pika/plugin-copy-assets": "^0.4.0",
+    "@pika/plugin-ts-standard-pkg": "^0.4.0",
+    "@types/jest": "^24.0.13",
+    "@types/js-yaml": "^3.12.1",
+    "@types/prettier": "^1.16.4",
+    "@typescript-eslint/eslint-plugin": "^1.10.2",
+    "@typescript-eslint/parser": "^1.10.2",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "tslib": "^1.10.0",
+    "typescript": "^3.5.1"
   }
 }
