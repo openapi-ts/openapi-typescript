@@ -5,10 +5,11 @@ import * as prettier from 'prettier';
 import swaggerToTS from '../src';
 import { Swagger2 } from '../src/swagger-2';
 
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+
 // Let Prettier handle formatting, not the test expectations
-function format(spec: string, namespaced?: boolean): string {
-  const wrapped = namespaced === false ? spec : `namespace OpenAPI2 { ${spec} }`;
-  return prettier.format(wrapped, { parser: 'typescript', singleQuote: true });
+function format(spec: string, wrapper: string = 'declare namespace OpenAPI2'): string {
+  return prettier.format(`${wrapper} { ${spec} }`, { parser: 'typescript', singleQuote: true });
 }
 
 describe('Swagger 2 spec', () => {
@@ -354,40 +355,15 @@ describe('Swagger 2 spec', () => {
   });
 
   describe('other output', () => {
+    // Basic snapshot test.
+    // If changes are all good, run `npm run generate` to update (⚠️ This will cement your changes so be sure they’re 100% correct!)
     it('generates the example output correctly', () => {
       const input = yaml.safeLoad(
         readFileSync(resolve(__dirname, '..', 'example', 'input.yaml'), 'UTF-8')
       );
-      const output = readFileSync(resolve(__dirname, '..', 'example', 'output.ts'), 'UTF-8');
+      const output = readFileSync(resolve(__dirname, '..', 'example', 'output.d.ts'), 'UTF-8');
 
-      expect(swaggerToTS(input)).toBe(format(output, false));
-    });
-
-    it('allows exporting of namespace', () => {
-      const swagger: Swagger2 = {
-        definitions: {
-          Name: {
-            properties: {
-              first: { type: 'string' },
-              last: { type: 'string' },
-            },
-            type: 'object',
-          },
-        },
-      };
-
-      const ts = format(
-        `
-      export namespace OpenAPI2{
-        export interface Name {
-          first?: string;
-          last?: string;
-        }
-      }`,
-        false
-      );
-
-      expect(swaggerToTS(swagger, { export: true })).toBe(ts);
+      expect(swaggerToTS(input)).toBe(output);
     });
 
     it('skips top-level array definitions', () => {
@@ -404,6 +380,84 @@ describe('Swagger 2 spec', () => {
       const ts = format('');
 
       expect(swaggerToTS(swagger)).toBe(ts);
+    });
+  });
+
+  describe('wrapper option', () => {
+    it('has a default wrapper', () => {
+      const swagger: Swagger2 = {
+        definitions: {
+          Name: {
+            properties: {
+              first: { type: 'string' },
+              last: { type: 'string' },
+            },
+            type: 'object',
+          },
+        },
+      };
+
+      const ts = format(`
+      export interface Name {
+        first?: string;
+        last?: string;
+      }`);
+
+      expect(swaggerToTS(swagger)).toBe(ts);
+    });
+
+    it('allows namespace wrappers', () => {
+      const wrapper = 'export namespace MyNamespace';
+
+      const swagger: Swagger2 = {
+        definitions: {
+          Name: {
+            properties: {
+              first: { type: 'string' },
+              last: { type: 'string' },
+            },
+            type: 'object',
+          },
+        },
+      };
+
+      const ts = format(
+        `
+      export interface Name {
+        first?: string;
+        last?: string;
+      }`,
+        wrapper
+      );
+
+      expect(swaggerToTS(swagger, { wrapper })).toBe(ts);
+    });
+
+    it('allows module wrappers', () => {
+      const wrapper = 'declare module MyNamespace';
+
+      const swagger: Swagger2 = {
+        definitions: {
+          Name: {
+            properties: {
+              first: { type: 'string' },
+              last: { type: 'string' },
+            },
+            type: 'object',
+          },
+        },
+      };
+
+      const ts = format(
+        `
+      export interface Name {
+        first?: string;
+        last?: string;
+      }`,
+        wrapper
+      );
+
+      expect(swaggerToTS(swagger, { wrapper })).toBe(ts);
     });
   });
 });

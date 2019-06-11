@@ -14,12 +14,11 @@ Usage
   $ swagger-to-ts [input] [options]
 
 Options
-  --namespace, -n   specify namespace to prefix types
   --help            display this
+  --wrapper, -w     specify wrapper (default: "declare namespace OpenAPI2")
   --output, -o      specify output file
   --camelcase, -c   convert snake_case properties to camelCase (default: off)
   --swagger, -s     specify Swagger version (default: 2)
-  --export, -e      exports the namespace (default: false)
 `,
   {
     flags: {
@@ -28,9 +27,10 @@ Options
         default: false,
         alias: 'c',
       },
-      namespace: {
+      wrapper: {
         type: 'string',
-        alias: 'n',
+        default: 'declare namespace OpenAPI2',
+        alias: 'w',
       },
       output: {
         type: 'string',
@@ -40,9 +40,12 @@ Options
         type: 'number',
         alias: 's',
       },
+      namespace: {
+        type: 'string',
+        alias: 'n',
+      },
       export: {
         type: 'boolean',
-        default: false,
         alias: 'e',
       },
     },
@@ -50,6 +53,16 @@ Options
 );
 
 let spec = cli.input[0];
+
+if (typeof cli.flags.namespace === 'string' && cli.flags.namespace.length > 0) {
+  console.error(chalk.red('--namespace option is deprecated. Please use --wrapper instead.'));
+  return;
+}
+
+if (cli.flags.export === true) {
+  console.error(chalk.red('--export option is deprecated. Please use --wrapper instead.'));
+  return;
+}
 
 // If input is a file, load it
 const pathname = resolve(process.cwd(), spec);
