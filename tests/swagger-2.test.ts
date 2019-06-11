@@ -268,6 +268,28 @@ describe('Swagger 2 spec', () => {
 
       expect(swaggerToTS(swagger, { camelcase: true })).toBe(ts);
     });
+
+    it('handles kebab-case property names', () => {
+      const swagger: Swagger2 = {
+        definitions: {
+          User: {
+            properties: {
+              'profile-image': { type: 'string' },
+              'address-line-1': { type: 'string' },
+            },
+            type: 'object',
+          },
+        },
+      };
+
+      const ts = format(`
+      export interface User {
+        'profile-image'?: string;
+        'address-line-1'?: string;
+      }`);
+
+      expect(swaggerToTS(swagger)).toBe(ts);
+    });
   });
 
   describe('TS features', () => {

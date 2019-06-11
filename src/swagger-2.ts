@@ -37,7 +37,14 @@ function capitalize(str: string): string {
 }
 
 function camelCase(name: string): string {
-  return name.replace(/(-|_|\.|\s)+\w/g, letter => letter.toUpperCase().replace(/[^0-9a-z]/gi, ''));
+  return name.replace(
+    /(-|_|\.|\s)+\w/g,
+    (letter): string => letter.toUpperCase().replace(/[^0-9a-z]/gi, '')
+  );
+}
+
+function sanitize(name: string): string {
+  return name.includes('-') ? `'${name}'` : name;
 }
 
 function parse(spec: Swagger2, options: Swagger2Options = {}): string {
@@ -88,7 +95,7 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
     }
 
     if (Array.isArray(value.oneOf)) {
-      return value.oneOf.map(def => getType(def, '')).join(' | ');
+      return value.oneOf.map((def): string => getType(def, '')).join(' | ');
     }
 
     if (value.properties) {
@@ -114,15 +121,17 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
 
     // Include allOf, if specified
     if (Array.isArray(allOf)) {
-      allOf.forEach(item => {
-        // Add “implements“ if this references other items
-        if (item.$ref) {
-          const [refName] = getRef(item.$ref);
-          includes.push(refName);
-        } else if (item.properties) {
-          allProperties = { ...allProperties, ...item.properties };
+      allOf.forEach(
+        (item): void => {
+          // Add “implements“ if this references other items
+          if (item.$ref) {
+            const [refName] = getRef(item.$ref);
+            includes.push(refName);
+          } else if (item.properties) {
+            allProperties = { ...allProperties, ...item.properties };
+          }
         }
-      });
+      );
     }
 
     // If nothing’s here, let’s skip this one.
@@ -140,26 +149,28 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
     output.push(`export interface ${shouldCamelCase ? camelCase(ID) : ID}${isExtending} {`);
 
     // Populate interface
-    Object.entries(allProperties).forEach(([key, value]) => {
-      const optional = !Array.isArray(required) || required.indexOf(key) === -1;
-      const formattedKey = shouldCamelCase ? camelCase(key) : key;
-      const name = `${formattedKey}${optional ? '?' : ''}`;
-      const newID = `${ID}${capitalize(formattedKey)}`;
-      const interfaceType = getType(value, newID);
+    Object.entries(allProperties).forEach(
+      ([key, value]): void => {
+        const optional = !Array.isArray(required) || required.indexOf(key) === -1;
+        const formattedKey = shouldCamelCase ? camelCase(key) : key;
+        const name = `${sanitize(formattedKey)}${optional ? '?' : ''}`;
+        const newID = `${ID}${capitalize(formattedKey)}`;
+        const interfaceType = getType(value, newID);
 
-      if (typeof value.description === 'string') {
-        // Print out descriptions as comments, but only if there’s something there (.*)
-        output.push(`// ${value.description.replace(/\n$/, '').replace(/\n/g, '\n// ')}`);
+        if (typeof value.description === 'string') {
+          // Print out descriptions as comments, but only if there’s something there (.*)
+          output.push(`// ${value.description.replace(/\n$/, '').replace(/\n/g, '\n// ')}`);
+        }
+
+        // Handle enums in the same definition
+        if (Array.isArray(value.enum)) {
+          output.push(`${name}: ${value.enum.map(option => JSON.stringify(option)).join(' | ')};`);
+          return;
+        }
+
+        output.push(`${name}: ${interfaceType};`);
       }
-
-      // Handle enums in the same definition
-      if (Array.isArray(value.enum)) {
-        output.push(`${name}: ${value.enum.map(option => JSON.stringify(option)).join(' | ')};`);
-        return;
-      }
-
-      output.push(`${name}: ${interfaceType};`);
-    });
+    );
 
     if (additionalProperties) {
       if ((additionalProperties as boolean) === true) {
@@ -177,12 +188,14 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
   }
 
   // Begin parsing top-level entries
-  Object.entries(definitions).forEach(entry => {
-    // Ignore top-level array definitions
-    if (entry[1].type === 'object') {
-      queue.push(entry);
+  Object.entries(definitions).forEach(
+    (entry): void => {
+      // Ignore top-level array definitions
+      if (entry[1].type === 'object') {
+        queue.push(entry);
+      }
     }
-  });
+  );
   queue.sort((a, b) => a[0].localeCompare(b[0]));
   while (queue.length > 0) {
     buildNextInterface();
