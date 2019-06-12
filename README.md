@@ -27,7 +27,7 @@ To compare actual generated output, see the [example](./example) folder.
 ```bash
 npx @manifoldco/swagger-to-ts schema.yaml --wrapper "declare namespace OpenAPI" --output schema.d.ts
 
-# 🚀 schema.yaml -> schema.ts [2ms]
+# 🚀 schema.yaml -> schema.d.ts [2ms]
 ```
 
 This will save a `schema.ts` file in the current folder under the TypeScript
@@ -51,7 +51,7 @@ the `{}`):
 
 ```bash
 npx @manifoldco/swagger-to-ts schema.yaml --wrapper "namespace API"
-npx @manifoldco/swagger-to-ts schema.yaml --wrapper "declare namespace API"
+npx @manifoldco/swagger-to-ts schema.yaml --wrapper "export namespace API"
 npx @manifoldco/swagger-to-ts schema.yaml --wrapper "declare namespace API"
 npx @manifoldco/swagger-to-ts schema.yaml --wrapper "declare module '@api'"
 ```
@@ -70,9 +70,9 @@ Within interfaces, you may want to convert `snake_case` properties to
 `camelCase` by adding the `--camelcase` flag:
 
 ```bash
-npx @manifoldco/swagger-to-ts schema.yaml --wrapper "declare namespace OpenAPI" --output schema.d.ts
+npx @manifoldco/swagger-to-ts schema.yaml --camelcase --wrapper "declare namespace OpenAPI" --output schema.d.ts
 
-# 🚀 schema.yaml -> schema.ts [2ms]
+# 🚀 schema.yaml -> schema.d.ts [2ms]
 ```
 
 #### Generating multiple schemas
@@ -84,8 +84,8 @@ something like the following:
 ```json
 "scripts": {
   "generate:specs": "npm run generate:specs:one && npm run generate:specs:two",
-  "generate:specs:one": "npx @manifoldco/swagger-to-ts one.yaml -o one.ts",
-  "generate:specs:two": "npx @manifoldco/swagger-to-ts two.yaml -o two.ts"
+  "generate:specs:one": "npx @manifoldco/swagger-to-ts one.yaml -o one.d.ts",
+  "generate:specs:two": "npx @manifoldco/swagger-to-ts two.yaml -o two.d.ts"
 }
 ```
 
@@ -113,27 +113,24 @@ npm i --save-dev @manifoldco/swagger-to-ts
 const { readFileSync } = require('fs');
 const swaggerToTS = require('@manifoldco/swagger-to-ts');
 
-const input = JSON.parse(readFileSync('spec.json', 'utf8')); // Input be any JS object (OpenAPI format)
+const input = JSON.parse(readFileSync('spec.json', 'utf8')); // Input can be any JS object (OpenAPI format)
 const output = swaggerToTS(input, { wrapper: 'declare namespace MyAPI' }); // Outputs TypeScript defs as a string (to be parsed, or written to a file)
 ```
 
 The Node API is a bit more flexible: it will only take a JS object as input
 (OpenAPI format), and return a string of TS definitions. This lets you pull
-from any source (a Swagger server, local files, etc.), and similarly lets put
-the output anywhere. It even allows for some post-processing in-between if
-desired.
+from any source (a Swagger server, local files, etc.), and similarly lets you
+parse, post-process, and save the output anywhere.
 
-If you are working with local files, you’ll have to read/write files
-yourself. Also, if your specs are in YAML, you’ll have to convert them to JS
-objects. A library such as [js-yaml][js-yaml] does make this trivial, though!
-Lastly, if you’re batching large folders of specs, [glob][glob] may also come
-in handy.
+If your specs are in YAML, you’ll have to convert them to JS objects using a
+library such as [js-yaml][js-yaml]. If you’re batching large folders of
+specs, [glob][glob] may also come in handy.
 
 #### Node Options
 
 | Name        |   Type    |           Default            | Description                                                |
 | :---------- | :-------: | :--------------------------: | :--------------------------------------------------------- |
-| `--wrapper` | `string`  | `declare namespace OpenAPI2` | How should this export the types?                          |
+| `wrapper`   | `string`  | `declare namespace OpenAPI2` | How should this export the types?                          |
 | `swagger`   | `number`  |             `2`              | Which Swagger version to use. Currently only supports `2`. |
 | `camelcase` | `boolean` |           `false`            | Convert `snake_case` properties to `camelCase`             |
 
