@@ -2,7 +2,7 @@
   "name": "@manifoldco/swagger-to-ts",
   "description": "Generate TypeScript types from Swagger OpenAPI specs",
   "main": "dist/cjs",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "engines": {
     "node": ">= 8.0.0"
   },
