@@ -63,7 +63,7 @@
     "prettier": "^1.18.2"
   },
   "devDependencies": {
-    "@pika/pack": "^0.3.7",
+    "@pika/pack": "^0.4.0",
     "@pika/plugin-build-node": "^0.4.0",
     "@pika/plugin-copy-assets": "^0.4.0",
     "@pika/plugin-ts-standard-pkg": "^0.4.0",
