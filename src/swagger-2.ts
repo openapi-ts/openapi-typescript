@@ -191,7 +191,7 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
   Object.entries(definitions).forEach(
     (entry): void => {
       // Ignore top-level array definitions
-      if (entry[1].type === 'object') {
+      if (typeof entry[1] === 'object') {
         queue.push(entry);
       }
     }
