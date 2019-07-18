@@ -116,7 +116,7 @@ describe('Swagger 2 spec', () => {
       expect(swaggerToTS(swagger)).toBe(ts);
     });
 
-    it('handles arrays of complex items', () => {
+    it('handles arrays of references', () => {
       const swagger: Swagger2 = {
         definitions: {
           Team: {
@@ -139,6 +139,58 @@ describe('Swagger 2 spec', () => {
         teams?: Team[];
       }
       export interface Team {
+        id?: string;
+      }`);
+
+      expect(swaggerToTS(swagger)).toBe(ts);
+    });
+
+    it('handles nested objects', () => {
+      const swagger: Swagger2 = {
+        definitions: {
+          User: {
+            properties: {
+              remote_id: {
+                type: 'object',
+                properties: { id: { type: 'string' } },
+              },
+            },
+            type: 'object',
+          },
+        },
+      };
+
+      const ts = format(`
+      export interface User {
+        remote_id?: UserRemoteId;
+      }
+      export interface UserRemoteId {
+        id?: string;
+      }`);
+
+      expect(swaggerToTS(swagger)).toBe(ts);
+    });
+
+    it('handles arrays of nested objects', () => {
+      const swagger: Swagger2 = {
+        definitions: {
+          User: {
+            properties: {
+              remote_ids: {
+                type: 'array',
+                items: { type: 'object', properties: { id: { type: 'string' } } },
+              },
+            },
+            type: 'object',
+          },
+        },
+      };
+
+      const ts = format(`
+      export interface User {
+        remote_ids?: UserRemoteIds[];
+      }
+      export interface UserRemoteIds {
         id?: string;
       }`);
 
