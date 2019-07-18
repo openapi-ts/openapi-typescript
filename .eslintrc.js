@@ -4,6 +4,7 @@ module.exports = {
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {
     '@typescript-eslint/camelcase': 0, // This is perfectly acceptable
+    'prettier/prettier': 'error',
   },
   env: {
     jest: true,
