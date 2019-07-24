@@ -14,7 +14,7 @@ describe('swaggerToTS', () => {
     expect(() => swaggerToTS(spec, options)).toThrowError();
   });
 
-  it('do not render a namespace when passing false to wrapper', () => {
+  it('should not render a wrapper when passing false', () => {
     const spec = { definitions: {} };
     const options: Options = { swagger: 2, wrapper: false };
     expect(swaggerToTS(spec, options)).toBe('');
