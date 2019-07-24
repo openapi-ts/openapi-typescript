@@ -22,7 +22,7 @@ export interface Swagger2 {
 
 export interface Swagger2Options {
   camelcase?: boolean;
-  wrapper?: string;
+  wrapper?: string | false;
 }
 
 // Primitives only!
@@ -47,13 +47,20 @@ function sanitize(name: string): string {
 }
 
 function parse(spec: Swagger2, options: Swagger2Options = {}): string {
-  const wrapper = options.wrapper || 'declare namespace OpenAPI2';
+  const shouldUseWrapper = options.wrapper !== false;
+  const wrapper =
+    typeof options.wrapper === 'string' && options.wrapper
+      ? options.wrapper
+      : 'declare namespace OpenAPI2';
   const shouldCamelCase = options.camelcase || false;
 
   const queue: [string, Swagger2Definition][] = [];
 
   const output: string[] = [];
-  output.push(`${wrapper} {`);
+
+  if (wrapper && shouldUseWrapper) {
+    output.push(`${wrapper} {`);
+  }
 
   const { definitions } = spec;
 
@@ -197,7 +204,9 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
     buildNextInterface();
   }
 
-  output.push('}'); // Close namespace
+  if (wrapper && shouldUseWrapper) {
+    output.push('}'); // Close namespace
+  }
 
   return prettier.format(output.join('\n'), { parser: 'typescript', singleQuote: true });
 }
