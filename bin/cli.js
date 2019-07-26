@@ -94,6 +94,10 @@ try {
   );
 }
 
+if (cli.flags.wrapper === 'false') {
+  cli.flags.wrapper = false;
+}
+
 const result = swaggerToTS(spec, cli.flags);
 
 // Write to file if specifying output
