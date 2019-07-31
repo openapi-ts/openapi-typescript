@@ -56,6 +56,12 @@ npx @manifoldco/swagger-to-ts schema.yaml --wrapper "declare namespace API"
 npx @manifoldco/swagger-to-ts schema.yaml --wrapper "declare module '@api'"
 ```
 
+By default, wrapper is `declare namespace OpenAPI2`. You can skip exposing types via a wrapper by adding the `--nowrapper` flag:
+
+```bash
+npx @manifoldco/swagger-to-ts schema.yaml --nowrapper
+```
+
 As mentioned before, this uses [Prettier][prettier] to clean up output, so
 extra spaces are generally OK here. Prettier also will err on cleanup if you
 specify invalid TypeScript, letting you know on generation if anything went
@@ -102,6 +108,7 @@ also use the Node API (below).
 | `--output [location]` | `-o`  |           (stdout)           | Where should the output file be saved?                     |
 | `--swagger [version]` | `-s`  |             `2`              | Which Swagger version to use. Currently only supports `2`. |
 | `--camelcase`         | `-c`  |           `false`            | Convert `snake_case` properties to `camelCase`?            |
+| `--nowrapper`         | `-nw` |           `false`            | Disables rendering a wrapper                               |
 
 ### Node
 
@@ -128,11 +135,11 @@ specs, [glob][glob] may also come in handy.
 
 #### Node Options
 
-| Name        |   Type    |           Default            | Description                                                |
-| :---------- | :-------: | :--------------------------: | :--------------------------------------------------------- |
-| `wrapper`   | `string`  | `declare namespace OpenAPI2` | How should this export the types?                          |
-| `swagger`   | `number`  |             `2`              | Which Swagger version to use. Currently only supports `2`. |
-| `camelcase` | `boolean` |           `false`            | Convert `snake_case` properties to `camelCase`             |
+| Name        |       Type        |           Default            | Description                                                                 |
+| :---------- | :---------------: | :--------------------------: | :-------------------------------------------------------------------------- |
+| `wrapper`   | `string \| false` | `declare namespace OpenAPI2` | How should this export the types? Pass false to disable rendering a wrapper |
+| `swagger`   |     `number`      |             `2`              | Which Swagger version to use. Currently only supports `2`.                  |
+| `camelcase` |     `boolean`     |           `false`            | Convert `snake_case` properties to `camelCase`                              |
 
 [glob]: https://www.npmjs.com/package/glob
 [js-yaml]: https://www.npmjs.com/package/js-yaml
