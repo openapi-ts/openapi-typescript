@@ -19,6 +19,7 @@ Options
   --output, -o      specify output file
   --camelcase, -c   convert snake_case properties to camelCase (default: off)
   --swagger, -s     specify Swagger version (default: 2)
+  --nowrapper -nw   disables rendering the wrapper
 `,
   {
     flags: {
@@ -47,6 +48,10 @@ Options
       export: {
         type: 'boolean',
         alias: 'e',
+      },
+      nowrapper: {
+        type: 'boolean',
+        alias: 'nw',
       },
     },
   }
@@ -92,6 +97,10 @@ try {
     chalk.red(`❌ Could not parse JSON for "${spec}." Is this a valid Swagger spec?
   ${e}`)
   );
+}
+
+if (cli.flags.nowrapper) {
+  cli.flags.wrapper = false;
 }
 
 const result = swaggerToTS(spec, cli.flags);
