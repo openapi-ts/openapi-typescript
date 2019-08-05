@@ -2,7 +2,7 @@
   "name": "@manifoldco/swagger-to-ts",
   "description": "Generate TypeScript types from Swagger OpenAPI specs",
   "main": "dist/cjs",
-  "version": "1.2.2",
+  "version": "1.3.0-0",
   "engines": {
     "node": ">= 8.0.0"
   },
@@ -45,15 +45,15 @@
     ]
   },
   "scripts": {
-    "build": "pack build",
+    "build": "pika build",
     "pregenerate": "npm run build",
-    "generate": "node pkg/bin/cli example/input.yaml -o example/output.d.ts",
+    "generate": "node pkg/bin/cli example/input.yaml -o example/output.d.ts && node pkg/bin/cli example/input.yaml -o example/nowrapper.ts --nowrapper",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts src",
-    "prepublish": "npm run build",
-    "publish": "pack publish",
+    "publish": "npm run build && pika publish",
     "pretest": "npm run build",
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "version": "npm run build"
   },
   "dependencies": {
     "chalk": "^2.4.2",
@@ -63,10 +63,10 @@
     "prettier": "^1.18.2"
   },
   "devDependencies": {
-    "@pika/pack": "^0.4.0",
+    "@pika/pack": "^0.5.0",
     "@pika/plugin-build-node": "^0.6.0",
-    "@pika/plugin-copy-assets": "^0.5.1",
-    "@pika/plugin-ts-standard-pkg": "^0.4.0",
+    "@pika/plugin-copy-assets": "^0.6.0",
+    "@pika/plugin-ts-standard-pkg": "^0.6.0",
     "@types/jest": "^24.0.13",
     "@types/js-yaml": "^3.12.1",
     "@types/prettier": "^1.16.4",

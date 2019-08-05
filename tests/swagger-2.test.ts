@@ -429,17 +429,6 @@ describe('Swagger 2 spec', () => {
   });
 
   describe('other output', () => {
-    // Basic snapshot test.
-    // If changes are all good, run `npm run generate` to update (⚠️ This will cement your changes so be sure they’re 100% correct!)
-    it('generates the example output correctly', () => {
-      const input = yaml.safeLoad(
-        readFileSync(resolve(__dirname, '..', 'example', 'input.yaml'), 'UTF-8')
-      );
-      const output = readFileSync(resolve(__dirname, '..', 'example', 'output.d.ts'), 'UTF-8');
-
-      expect(swaggerToTS(input)).toBe(output);
-    });
-
     it('skips top-level array definitions', () => {
       const swagger: Swagger2 = {
         definitions: {
@@ -532,6 +521,28 @@ describe('Swagger 2 spec', () => {
       );
 
       expect(swaggerToTS(swagger, { wrapper })).toBe(ts);
+    });
+  });
+
+  describe('snapshots', () => {
+    // Basic snapshot test.
+    // If changes are all good, run `npm run generate` to update (⚠️ This will cement your changes so be sure they’re 100% correct!)
+    it('generates the example output correctly', () => {
+      const input = yaml.safeLoad(
+        readFileSync(resolve(__dirname, '..', 'example', 'input.yaml'), 'UTF-8')
+      );
+      const output = readFileSync(resolve(__dirname, '..', 'example', 'output.d.ts'), 'UTF-8');
+
+      expect(swaggerToTS(input)).toBe(output);
+    });
+
+    it('generates the example output without wrappers', () => {
+      const input = yaml.safeLoad(
+        readFileSync(resolve(__dirname, '..', 'example', 'input.yaml'), 'UTF-8')
+      );
+      const nowrapper = readFileSync(resolve(__dirname, '..', 'example', 'nowrapper.ts'), 'UTF-8');
+
+      expect(swaggerToTS(input, { wrapper: false })).toBe(nowrapper);
     });
   });
 });
