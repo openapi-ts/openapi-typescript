@@ -94,11 +94,17 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
       const [refName] = getRef(items.$ref);
       return `${getType(items, refName)}[]`;
     }
+
     if (items && items.type) {
+      // if an array, keep nesting
+      if (items.type === 'array') {
+        return `${getType(items, nestedName)}[]`;
+      }
+      // else if primitive, return type
       if (TYPES[items.type]) {
         return `${TYPES[items.type]}[]`;
       }
-      // If this is an array of items, let’s add it to the stack for later
+      // otherwise if this is an array of nested types, return that interface for later
       queue.push([nextInterface, items]);
       return `${nextInterface}[]`;
     }

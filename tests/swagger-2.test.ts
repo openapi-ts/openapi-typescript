@@ -197,6 +197,33 @@ describe('Swagger 2 spec', () => {
       expect(swaggerToTS(swagger)).toBe(ts);
     });
 
+    it('handles arrays of arrays of arrays', () => {
+      const swagger: Swagger2 = {
+        definitions: {
+          Resource: {
+            properties: {
+              environments: {
+                type: 'array',
+                items: {
+                  type: 'array',
+                  items: { type: 'array', items: { type: 'string' } },
+                },
+              },
+            },
+            type: 'object',
+          },
+        },
+      };
+
+      const ts = format(`
+      export interface Resource {
+        environments?: string[][][];
+      }
+      `);
+
+      expect(swaggerToTS(swagger)).toBe(ts);
+    });
+
     it('handles allOf', () => {
       const swagger: Swagger2 = {
         definitions: {
