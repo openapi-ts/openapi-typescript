@@ -170,8 +170,8 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
       const interfaceType = getType(value, newID);
 
       if (typeof value.description === 'string') {
-        // Print out descriptions as comments, but only if there’s something there (.*)
-        output.push(`// ${value.description.replace(/\n$/, '').replace(/\n/g, '\n// ')}`);
+        // Print out descriptions as jsdoc comments, but only if there’s something there (.*)
+        output.push(`/**\n* ${value.description.replace(/\n$/, '').replace(/\n/g, '\n* ')}\n*/`);
       }
 
       // Handle enums in the same definition
