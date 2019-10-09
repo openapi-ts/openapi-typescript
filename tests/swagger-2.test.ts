@@ -3,13 +3,28 @@ import { resolve } from 'path';
 import * as yaml from 'js-yaml';
 import * as prettier from 'prettier';
 import swaggerToTS from '../src';
-import { Swagger2 } from '../src/swagger-2';
+import { Swagger2, warningMessage } from '../src/swagger-2';
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
 // Let Prettier handle formatting, not the test expectations
-function format(spec: string, wrapper: string = 'declare namespace OpenAPI2'): string {
-  return prettier.format(`${wrapper} { ${spec} }`, { parser: 'typescript', singleQuote: true });
+function format(
+  spec: string,
+  wrapper: string = 'declare namespace OpenAPI2',
+  injectWarning: boolean = false
+): string {
+  return prettier.format(
+    `
+    ${injectWarning ? `${warningMessage} \n` : ''} 
+    ${wrapper} { 
+      ${spec} 
+    }
+    `,
+    {
+      parser: 'typescript',
+      singleQuote: true,
+    }
+  );
 }
 
 describe('Swagger 2 spec', () => {
@@ -548,6 +563,37 @@ describe('Swagger 2 spec', () => {
       );
 
       expect(swaggerToTS(swagger, { wrapper })).toBe(ts);
+    });
+  });
+
+  describe('file warning option', () => {
+    it('injects a warning message at the top of the file', () => {
+      const wrapper = 'declare module WarningMessageNamespace';
+
+      const swagger: Swagger2 = {
+        definitions: {
+          Name: {
+            properties: {
+              first: { type: 'string' },
+              last: { type: 'string' },
+            },
+            type: 'object',
+          },
+        },
+      };
+
+      const ts = format(
+        `
+      export interface Name {
+        first?: string;
+        last?: string;
+      }
+      `,
+        wrapper,
+        true
+      );
+
+      expect(swaggerToTS(swagger, { wrapper, injectWarning: true })).toBe(ts);
     });
   });
 
