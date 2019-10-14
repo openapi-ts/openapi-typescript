@@ -54,6 +54,10 @@ function sanitize(name: string): string {
   return name.includes('-') ? `'${name}'` : name;
 }
 
+function spacesToUnderscores(name: string): string {
+  return name.replace(/\s/g, '_');
+}
+
 function parse(spec: Swagger2, options: Swagger2Options = {}): string {
   const shouldUseWrapper = options.wrapper !== false;
   const wrapper =
@@ -172,12 +176,16 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
     // Open interface
     const isExtending = includes.length ? ` extends ${includes.join(', ')}` : '';
 
-    output.push(`export interface ${shouldCamelCase ? camelCase(ID) : ID}${isExtending} {`);
+    output.push(
+      `export interface ${
+        shouldCamelCase ? camelCase(ID) : spacesToUnderscores(ID)
+      }${isExtending} {`
+    );
 
     // Populate interface
     Object.entries(allProperties).forEach(([key, value]): void => {
       const optional = !Array.isArray(required) || required.indexOf(key) === -1;
-      const formattedKey = shouldCamelCase ? camelCase(key) : key;
+      const formattedKey = shouldCamelCase ? camelCase(key) : spacesToUnderscores(key);
       const name = `${sanitize(formattedKey)}${optional ? '?' : ''}`;
       const newID = `${ID}${capitalize(formattedKey)}`;
       const interfaceType = getType(value, newID);

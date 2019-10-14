@@ -15,9 +15,9 @@ function format(
 ): string {
   return prettier.format(
     `
-    ${injectWarning ? `${warningMessage} \n` : ''} 
-    ${wrapper} { 
-      ${spec} 
+    ${injectWarning ? `${warningMessage} \n` : ''}
+    ${wrapper} {
+      ${spec}
     }
     `,
     {
@@ -380,6 +380,28 @@ describe('Swagger 2 spec', () => {
       export interface User {
         'profile-image'?: string;
         'address-line-1'?: string;
+      }`);
+
+      expect(swaggerToTS(swagger)).toBe(ts);
+    });
+
+    it('converts names with spaces to names with underscores', () => {
+      const swagger: Swagger2 = {
+        definitions: {
+          'User 1': {
+            properties: {
+              'profile image': { type: 'string' },
+              'address line 1': { type: 'string' },
+            },
+            type: 'object',
+          },
+        },
+      };
+
+      const ts = format(`
+      export interface User_1 {
+        'profile_image'?: string;
+        'address_line_1'?: string;
       }`);
 
       expect(swaggerToTS(swagger)).toBe(ts);
