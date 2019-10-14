@@ -14,12 +14,13 @@ Usage
   $ swagger-to-ts [input] [options]
 
 Options
-  --help            display this
-  --wrapper, -w     specify wrapper (default: "declare namespace OpenAPI2")
-  --output, -o      specify output file
-  --camelcase, -c   convert snake_case properties to camelCase (default: off)
-  --swagger, -s     specify Swagger version (default: 2)
-  --nowrapper -nw   disables rendering the wrapper
+  --help                display this
+  --wrapper, -w         specify wrapper (default: "declare namespace OpenAPI2")
+  --output, -o          specify output file
+  --camelcase, -c       convert snake_case properties to camelCase (default: off)
+  --swagger, -s         specify Swagger version (default: 2)
+  --nowrapper -nw       disables rendering the wrapper
+  --injectWarning -iw   injects a warning at the top of the generated file (default: off)
 `,
   {
     flags: {
@@ -52,6 +53,10 @@ Options
       nowrapper: {
         type: 'boolean',
         alias: 'nw',
+      },
+      injectWarning: {
+        type: 'boolean',
+        alias: 'iw',
       },
     },
   }

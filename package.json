@@ -47,7 +47,7 @@
   "scripts": {
     "build": "pika build",
     "pregenerate": "npm run build",
-    "generate": "node pkg/bin/cli example/input.yaml -o example/output.d.ts && node pkg/bin/cli example/input.yaml -o example/nowrapper.ts --nowrapper",
+    "generate": "node pkg/bin/cli example/input.yaml -o example/output.d.ts && node pkg/bin/cli example/input.yaml -o example/nowrapper.ts --nowrapper && node pkg/bin/cli example/input.yaml -o example/filewarning.d.ts --injectWarning",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts src",
     "publish": "npm run build && pika publish",
     "pretest": "npm run build",
