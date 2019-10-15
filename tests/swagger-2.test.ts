@@ -390,8 +390,8 @@ describe('Swagger 2 spec', () => {
         definitions: {
           'User 1': {
             properties: {
-              'profile image': { type: 'string' },
-              'address line 1': { type: 'string' },
+              'profile_image': { type: 'string' },
+              'address_line_1': { type: 'string' },
             },
             type: 'object',
           },

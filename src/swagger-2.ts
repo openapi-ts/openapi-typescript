@@ -185,7 +185,7 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
     // Populate interface
     Object.entries(allProperties).forEach(([key, value]): void => {
       const optional = !Array.isArray(required) || required.indexOf(key) === -1;
-      const formattedKey = shouldCamelCase ? camelCase(key) : spacesToUnderscores(key);
+      const formattedKey = shouldCamelCase ? camelCase(key) : key;
       const name = `${sanitize(formattedKey)}${optional ? '?' : ''}`;
       const newID = `${ID}${capitalize(formattedKey)}`;
       const interfaceType = getType(value, newID);
