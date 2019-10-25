@@ -65,7 +65,7 @@
   "devDependencies": {
     "@pika/pack": "^0.5.0",
     "@pika/plugin-build-node": "^0.6.0",
-    "@pika/plugin-copy-assets": "^0.6.0",
+    "@pika/plugin-copy-assets": "^0.7.1",
     "@pika/plugin-ts-standard-pkg": "^0.6.0",
     "@types/jest": "^24.0.13",
     "@types/js-yaml": "^3.12.1",
