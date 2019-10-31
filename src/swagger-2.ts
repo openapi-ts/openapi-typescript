@@ -97,6 +97,7 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
 
     if ($ref) {
       const [refName, refProperties] = getRef($ref);
+      const convertedRefName = spacesToUnderscores(refName);
       // If a shallow array interface, return that instead
       if (refProperties.items && refProperties.items.$ref) {
         return getType(refProperties, refName);
@@ -104,7 +105,7 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
       if (refProperties.type && TYPES[refProperties.type]) {
         return TYPES[refProperties.type];
       }
-      return refName || DEFAULT_TYPE;
+      return convertedRefName || DEFAULT_TYPE;
     }
 
     if (items && items.$ref) {
