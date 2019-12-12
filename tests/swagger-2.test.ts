@@ -15,9 +15,9 @@ function format(
 ): string {
   return prettier.format(
     `
-    ${injectWarning ? `${warningMessage} \n` : ''} 
-    ${wrapper} { 
-      ${spec} 
+    ${injectWarning ? `${warningMessage} \n` : ''}
+    ${wrapper} {
+      ${spec}
     }
     `,
     {
@@ -380,6 +380,65 @@ describe('Swagger 2 spec', () => {
       export interface User {
         'profile-image'?: string;
         'address-line-1'?: string;
+      }`);
+
+      expect(swaggerToTS(swagger)).toBe(ts);
+    });
+
+    it('converts names with spaces to names with underscores', () => {
+      const swagger: Swagger2 = {
+        definitions: {
+          'User 1': {
+            properties: {
+              'profile_image': { type: 'string' },
+              'address_line_1': { type: 'string' },
+            },
+            type: 'object',
+          },
+          'User 1 Being Used': {
+            properties: {
+              'user': { $ref: '#/definitions/User 1' },
+              'user_array': {
+                type: 'array',
+                items: { $ref: '#/definitions/User 1' },
+              },
+              'all_of_user': {
+                  allOf: [
+                    { $ref: '#/definitions/User 1' },
+                    {
+                      properties: {
+                        other_field: { type: 'string' },
+                      },
+                      type: 'object',
+                    },
+                  ],
+                  type: 'object',
+              },
+              'wrapper': {
+                  properties: {
+                    user: { $ref: '#/definitions/User 1'  },
+                  },
+                  type: 'object',
+              }
+            },
+            type: 'object',
+          }
+        },
+      };
+
+      const ts = format(`
+      export interface User_1_Being_Used {
+        user?: User_1;
+        user_array?: User_1[];
+        all_of_user?: object;
+        wrapper?: User1BeingUsedWrapper;
+      }
+      export interface User1BeingUsedWrapper {
+         user?: User_1;
+      }
+      export interface User_1 {
+        'profile_image'?: string;
+        'address_line_1'?: string;
       }`);
 
       expect(swaggerToTS(swagger)).toBe(ts);

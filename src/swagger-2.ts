@@ -54,6 +54,10 @@ function sanitize(name: string): string {
   return name.includes('-') ? `'${name}'` : name;
 }
 
+function spacesToUnderscores(name: string): string {
+  return name.replace(/\s/g, '_');
+}
+
 function parse(spec: Swagger2, options: Swagger2Options = {}): string {
   const shouldUseWrapper = options.wrapper !== false;
   const wrapper =
@@ -93,6 +97,7 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
 
     if ($ref) {
       const [refName, refProperties] = getRef($ref);
+      const convertedRefName = spacesToUnderscores(refName);
       // If a shallow array interface, return that instead
       if (refProperties.items && refProperties.items.$ref) {
         return getType(refProperties, refName);
@@ -100,7 +105,7 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
       if (refProperties.type && TYPES[refProperties.type]) {
         return TYPES[refProperties.type];
       }
-      return refName || DEFAULT_TYPE;
+      return convertedRefName || DEFAULT_TYPE;
     }
 
     if (items && items.$ref) {
@@ -172,7 +177,11 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
     // Open interface
     const isExtending = includes.length ? ` extends ${includes.join(', ')}` : '';
 
-    output.push(`export interface ${shouldCamelCase ? camelCase(ID) : ID}${isExtending} {`);
+    output.push(
+      `export interface ${
+        shouldCamelCase ? camelCase(ID) : spacesToUnderscores(ID)
+      }${isExtending} {`
+    );
 
     // Populate interface
     Object.entries(allProperties).forEach(([key, value]): void => {
