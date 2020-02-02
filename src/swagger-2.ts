@@ -12,6 +12,16 @@ export interface Swagger2Definition {
   additionalProperties?: boolean | Swagger2Definition;
   required?: string[];
   type?: 'array' | 'boolean' | 'integer' | 'number' | 'object' | 'string';
+  // use this construct to allow arbitrary x-something properties. Must be any,
+  // since we have no idea what they might be
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+}
+
+export interface Property {
+  interfaceType: string;
+  optional: boolean;
+  description?: string;
 }
 
 export interface Swagger2 {
@@ -24,6 +34,7 @@ export interface Swagger2Options {
   camelcase?: boolean;
   wrapper?: string | false;
   injectWarning?: boolean;
+  propertyMapper?: (swaggerDefinition: Swagger2Definition, property: Property) => Property;
 }
 
 export const warningMessage = `
@@ -185,21 +196,24 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
 
     // Populate interface
     Object.entries(allProperties).forEach(([key, value]): void => {
-      const optional = !Array.isArray(required) || required.indexOf(key) === -1;
       const formattedKey = shouldCamelCase ? camelCase(key) : key;
-      const name = `${sanitize(formattedKey)}${optional ? '?' : ''}`;
       const newID = `${ID}${capitalize(formattedKey)}`;
-      const interfaceType = getType(value, newID);
+      const interfaceType = Array.isArray(value.enum)
+        ? ` ${value.enum.map(option => JSON.stringify(option)).join(' | ')}` // Handle enums in the same definition
+        : getType(value, newID);
 
-      if (typeof value.description === 'string') {
+      let property: Property = {
+        interfaceType,
+        optional: !Array.isArray(required) || required.indexOf(key) === -1,
+        description: value.description,
+      };
+      property = options.propertyMapper ? options.propertyMapper(value, property) : property;
+
+      const name = `${sanitize(formattedKey)}${property.optional ? '?' : ''}`;
+
+      if (typeof property.description === 'string') {
         // Print out descriptions as jsdoc comments, but only if there’s something there (.*)
-        output.push(`/**\n* ${value.description.replace(/\n$/, '').replace(/\n/g, '\n* ')}\n*/`);
-      }
-
-      // Handle enums in the same definition
-      if (Array.isArray(value.enum)) {
-        output.push(`${name}: ${value.enum.map(option => JSON.stringify(option)).join(' | ')};`);
-        return;
+        output.push(`/**\n* ${property.description.replace(/\n$/, '').replace(/\n/g, '\n* ')}\n*/`);
       }
 
       output.push(`${name}: ${interfaceType};`);

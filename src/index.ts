@@ -1,4 +1,6 @@
 import swagger2, { Swagger2, Swagger2Options } from './swagger-2';
+//re-export these from top-level as users may need thrm to create a propert5ymapper
+export { Swagger2Definition, Property } from './swagger-2';
 
 export interface Options extends Swagger2Options {
   swagger?: number;

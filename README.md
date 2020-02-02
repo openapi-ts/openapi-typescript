@@ -131,11 +131,38 @@ If your specs are in YAML, you’ll have to convert them to JS objects using a l
 
 #### Node Options
 
-| Name        |       Type        |           Default            | Description                                                                 |
-| :---------- | :---------------: | :--------------------------: | :-------------------------------------------------------------------------- |
-| `wrapper`   | `string \| false` | `declare namespace OpenAPI2` | How should this export the types? Pass false to disable rendering a wrapper |
-| `swagger`   |     `number`      |             `2`              | Which Swagger version to use. Currently only supports `2`.                  |
-| `camelcase` |     `boolean`     |           `false`            | Convert `snake_case` properties to `camelCase`                              |
+| Name             |       Type        |           Default            | Description                                                                 |
+| :--------------- | :---------------: | :--------------------------: | :-------------------------------------------------------------------------- |
+| `wrapper`        | `string \| false` | `declare namespace OpenAPI2` | How should this export the types? Pass false to disable rendering a wrapper |
+| `swagger`        |     `number`      |             `2`              | Which Swagger version to use. Currently only supports `2`.                  |
+| `camelcase`      |     `boolean`     |           `false`            | Convert `snake_case` properties to `camelCase`                              |
+| `propertyMapper` |     `function`    |           `undefined`        | Allows you to further manipulate how properties are parsed. See below.      |
+
+
+#### PropertyMapper
+In order to allow more control over how properties are parsed, and to specifically handle `x-something`-properties, the `propertyMapper` option may be specified. 
+
+This is a function that, if specified, is called for each property and allows you to change how swagger-to-ts handles parsing of swagger files.
+
+An example on how to use the `x-nullable` property to control if a property is optional:
+
+```
+  const getNullable = (d: { [key: string]: any }): boolean => {
+    const nullable = d['x-nullable'];
+    if (typeof nullable === 'boolean') {
+      return nullable;
+    }
+    return true;
+  };
+
+  const propertyMapper = (
+    swaggerDefinition: Swagger2Definition,
+    property: Property
+  ): Property => ({ ...property, optional: getNullable(swaggerDefinition) });
+
+  const output = swaggerToTS(swagger, { propertyMapper });
+```
+
 
 [glob]: https://www.npmjs.com/package/glob
 [js-yaml]: https://www.npmjs.com/package/js-yaml

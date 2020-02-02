@@ -2,7 +2,7 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import * as yaml from 'js-yaml';
 import * as prettier from 'prettier';
-import swaggerToTS from '../src';
+import swaggerToTS, { Swagger2Definition, Property } from '../src';
 import { Swagger2, warningMessage } from '../src/swagger-2';
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
@@ -390,39 +390,39 @@ describe('Swagger 2 spec', () => {
         definitions: {
           'User 1': {
             properties: {
-              'profile_image': { type: 'string' },
-              'address_line_1': { type: 'string' },
+              profile_image: { type: 'string' },
+              address_line_1: { type: 'string' },
             },
             type: 'object',
           },
           'User 1 Being Used': {
             properties: {
-              'user': { $ref: '#/definitions/User 1' },
-              'user_array': {
+              user: { $ref: '#/definitions/User 1' },
+              user_array: {
                 type: 'array',
                 items: { $ref: '#/definitions/User 1' },
               },
-              'all_of_user': {
-                  allOf: [
-                    { $ref: '#/definitions/User 1' },
-                    {
-                      properties: {
-                        other_field: { type: 'string' },
-                      },
-                      type: 'object',
+              all_of_user: {
+                allOf: [
+                  { $ref: '#/definitions/User 1' },
+                  {
+                    properties: {
+                      other_field: { type: 'string' },
                     },
-                  ],
-                  type: 'object',
-              },
-              'wrapper': {
-                  properties: {
-                    user: { $ref: '#/definitions/User 1'  },
+                    type: 'object',
                   },
-                  type: 'object',
-              }
+                ],
+                type: 'object',
+              },
+              wrapper: {
+                properties: {
+                  user: { $ref: '#/definitions/User 1' },
+                },
+                type: 'object',
+              },
             },
             type: 'object',
-          }
+          },
         },
       };
 
@@ -653,6 +653,71 @@ describe('Swagger 2 spec', () => {
       );
 
       expect(swaggerToTS(swagger, { wrapper, injectWarning: true })).toBe(ts);
+    });
+  });
+
+  describe('properties mapper', () => {
+    const swagger: Swagger2 = {
+      definitions: {
+        Name: {
+          properties: {
+            first: { type: 'string' },
+            last: { type: 'string', 'x-nullable': false },
+          },
+          type: 'object',
+        },
+      },
+    };
+
+    it('accepts a mapper in options', () => {
+      const propertyMapper = (
+        swaggerDefinition: Swagger2Definition,
+        property: Property
+      ): Property => property;
+      swaggerToTS(swagger, { propertyMapper });
+    });
+
+    it('passes definition to mapper', () => {
+      const propertyMapper = jest.fn((def, prop) => prop);
+      swaggerToTS(swagger, { propertyMapper });
+      expect(propertyMapper).toBeCalledWith(
+        //@ts-ignore
+        swagger.definitions.Name.properties.first,
+        expect.any(Object)
+      );
+    });
+
+    it('Uses result of mapper', () => {
+      const wrapper = 'declare module MyNamespace';
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const getNullable = (d: { [key: string]: any }): boolean => {
+        const nullable = d['x-nullable'];
+        if (typeof nullable === 'boolean') {
+          return nullable;
+        }
+        return true;
+      };
+
+      const propertyMapper = (
+        swaggerDefinition: Swagger2Definition,
+        property: Property
+      ): Property => ({ ...property, optional: getNullable(swaggerDefinition) });
+
+      swaggerToTS(swagger, { propertyMapper });
+
+      const ts = format(
+        `
+      export interface Name {
+        first?: string;
+        last: string;
+      }
+      `,
+        wrapper,
+        false
+      );
+
+      expect(swaggerToTS(swagger, { wrapper, propertyMapper })).toBe(ts);
     });
   });
 
