@@ -50,7 +50,7 @@
     "pregenerate": "npm run build",
     "generate": "npm run generate:basic && npm run generate:notypes && npm run generate:nowrapper && npm run generate:nowarning",
     "generate:basic": "node pkg/bin/cli example/basic.yaml -o example/basic.ts",
-    "generate:notypes": "node pkg/bin/cli example/basic.yaml -o example/no-types.ts",
+    "generate:notypes": "node pkg/bin/cli example/no-types.yaml -o example/no-types.ts",
     "generate:nowarning": "node pkg/bin/cli example/basic.yaml -o example/no-warning.ts --no-warning",
     "generate:nowrapper": "node pkg/bin/cli example/basic.yaml -o example/no-wrapper.ts --nowrapper",
     "publish": "npm run build && pika publish",
