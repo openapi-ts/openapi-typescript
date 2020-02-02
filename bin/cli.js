@@ -20,7 +20,7 @@ Options
   --camelcase, -c       convert snake_case properties to camelCase (default: off)
   --swagger, -s         specify Swagger version (default: 2)
   --nowrapper -nw       disables rendering the wrapper
-  --injectWarning -iw   injects a warning at the top of the generated file (default: off)
+  --no-warning          hides the warning at the top of the generated file (default: off)
 `,
   {
     flags: {
@@ -54,9 +54,9 @@ Options
         type: 'boolean',
         alias: 'nw',
       },
-      injectWarning: {
+      warning: {
         type: 'boolean',
-        alias: 'iw',
+        default: true,
       },
     },
   }

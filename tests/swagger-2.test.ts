@@ -8,14 +8,10 @@ import { Swagger2, warningMessage } from '../src/swagger-2';
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
 // Let Prettier handle formatting, not the test expectations
-function format(
-  spec: string,
-  wrapper: string = 'declare namespace OpenAPI2',
-  injectWarning: boolean = false
-): string {
+function format(spec: string, wrapper = 'declare namespace OpenAPI2'): string {
   return prettier.format(
-    `
-    ${injectWarning ? `${warningMessage} \n` : ''}
+    `${warningMessage}
+
     ${wrapper} {
       ${spec}
     }
@@ -104,6 +100,28 @@ describe('Swagger 2 spec', () => {
       const ts = format(`
       export interface User {
         active?: boolean;
+      }`);
+
+      expect(swaggerToTS(swagger)).toBe(ts);
+    });
+
+    it('undefined -> object', () => {
+      const swagger: Swagger2 = {
+        definitions: {
+          BrokerStatus: {
+            properties: {
+              address: { type: 'string' },
+              certifiedFee: { type: 'integer' },
+            },
+            required: ['address', 'certifiedFee'],
+          },
+        },
+      };
+
+      const ts = format(`
+      export interface BrokerStatus {
+        address: string;
+        certifiedFee: number;
       }`);
 
       expect(swaggerToTS(swagger)).toBe(ts);
@@ -625,37 +643,6 @@ describe('Swagger 2 spec', () => {
     });
   });
 
-  describe('file warning option', () => {
-    it('injects a warning message at the top of the file', () => {
-      const wrapper = 'declare module WarningMessageNamespace';
-
-      const swagger: Swagger2 = {
-        definitions: {
-          Name: {
-            properties: {
-              first: { type: 'string' },
-              last: { type: 'string' },
-            },
-            type: 'object',
-          },
-        },
-      };
-
-      const ts = format(
-        `
-      export interface Name {
-        first?: string;
-        last?: string;
-      }
-      `,
-        wrapper,
-        true
-      );
-
-      expect(swaggerToTS(swagger, { wrapper, injectWarning: true })).toBe(ts);
-    });
-  });
-
   describe('properties mapper', () => {
     const swagger: Swagger2 = {
       definitions: {
@@ -678,10 +665,12 @@ describe('Swagger 2 spec', () => {
     });
 
     it('passes definition to mapper', () => {
-      const propertyMapper = jest.fn((def, prop) => prop);
+      const propertyMapper = jest.fn((_, prop) => prop);
       swaggerToTS(swagger, { propertyMapper });
+      if (!swagger.definitions.Name.properties) {
+        throw new Error('properties missing');
+      }
       expect(propertyMapper).toBeCalledWith(
-        //@ts-ignore
         swagger.definitions.Name.properties.first,
         expect.any(Object)
       );
@@ -713,8 +702,7 @@ describe('Swagger 2 spec', () => {
         last: string;
       }
       `,
-        wrapper,
-        false
+        wrapper
       );
 
       expect(swaggerToTS(swagger, { wrapper, propertyMapper })).toBe(ts);
@@ -724,22 +712,36 @@ describe('Swagger 2 spec', () => {
   describe('snapshots', () => {
     // Basic snapshot test.
     // If changes are all good, run `npm run generate` to update (⚠️ This will cement your changes so be sure they’re 100% correct!)
-    it('generates the example output correctly', () => {
+    it('basic', () => {
       const input = yaml.safeLoad(
-        readFileSync(resolve(__dirname, '..', 'example', 'input.yaml'), 'UTF-8')
+        readFileSync(resolve(__dirname, '..', 'example', 'basic.yaml'), 'UTF-8')
       );
-      const output = readFileSync(resolve(__dirname, '..', 'example', 'output.d.ts'), 'UTF-8');
-
+      const output = readFileSync(resolve(__dirname, '..', 'example', 'basic.ts'), 'UTF-8');
       expect(swaggerToTS(input)).toBe(output);
     });
 
-    it('generates the example output without wrappers', () => {
+    it('no warning', () => {
       const input = yaml.safeLoad(
-        readFileSync(resolve(__dirname, '..', 'example', 'input.yaml'), 'UTF-8')
+        readFileSync(resolve(__dirname, '..', 'example', 'basic.yaml'), 'UTF-8')
       );
-      const nowrapper = readFileSync(resolve(__dirname, '..', 'example', 'nowrapper.ts'), 'UTF-8');
+      const output = readFileSync(resolve(__dirname, '..', 'example', 'no-warning.ts'), 'UTF-8');
+      expect(swaggerToTS(input, { warning: false })).toBe(output);
+    });
 
-      expect(swaggerToTS(input, { wrapper: false })).toBe(nowrapper);
+    it('no wrapper', () => {
+      const input = yaml.safeLoad(
+        readFileSync(resolve(__dirname, '..', 'example', 'basic.yaml'), 'UTF-8')
+      );
+      const output = readFileSync(resolve(__dirname, '..', 'example', 'no-wrapper.ts'), 'UTF-8');
+      expect(swaggerToTS(input, { wrapper: false })).toBe(output);
+    });
+
+    it('no types', () => {
+      const input = yaml.safeLoad(
+        readFileSync(resolve(__dirname, '..', 'example', 'no-types.yaml'), 'UTF-8')
+      );
+      const output = readFileSync(resolve(__dirname, '..', 'example', 'no-types.ts'), 'UTF-8');
+      expect(swaggerToTS(input)).toBe(output);
     });
   });
 });
