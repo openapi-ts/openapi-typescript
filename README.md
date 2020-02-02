@@ -146,21 +146,21 @@ swagger-to-ts handles parsing of Swagger files.
 
 An example on how to use the `x-nullable` property to control if a property is optional:
 
-```
-  const getNullable = (d: { [key: string]: any }): boolean => {
-    const nullable = d['x-nullable'];
-    if (typeof nullable === 'boolean') {
-      return nullable;
-    }
-    return true;
-  };
+```js
+const getNullable = (d: { [key: string]: any }): boolean => {
+  const nullable = d['x-nullable'];
+  if (typeof nullable === 'boolean') {
+    return nullable;
+  }
+  return true;
+};
 
-  const propertyMapper = (
-    swaggerDefinition: Swagger2Definition,
-    property: Property
-  ): Property => ({ ...property, optional: getNullable(swaggerDefinition) });
+const propertyMapper = (swaggerDefinition: Swagger2Definition, property: Property): Property => ({
+  ...property,
+  optional: getNullable(swaggerDefinition),
+});
 
-  const output = swaggerToTS(swagger, { propertyMapper });
+const output = swaggerToTS(swagger, { propertyMapper });
 ```
 
 [glob]: https://www.npmjs.com/package/glob
