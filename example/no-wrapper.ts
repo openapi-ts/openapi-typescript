@@ -375,7 +375,7 @@ export interface FeatureNumericDetails {
   cost_ranges?: FeatureNumericRange[];
 }
 export interface FeatureMap {
-  [name: string]: any;
+  [key: string]: any;
 }
 export interface ExpandedProduct {
   id: string;
@@ -427,7 +427,7 @@ export interface Error {
   message: string[];
 }
 export interface Credentials {
-  [name: string]: string;
+  [key: string]: string;
 }
 export interface CreateRegion {
   body: RegionBody;

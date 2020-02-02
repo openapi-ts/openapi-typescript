@@ -27,6 +27,7 @@ describe('Swagger 2 spec', () => {
   describe('core Swagger types', () => {
     it('string -> string', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           User: {
             properties: {
@@ -47,6 +48,7 @@ describe('Swagger 2 spec', () => {
 
     it('integer -> number', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           User: {
             properties: {
@@ -67,6 +69,7 @@ describe('Swagger 2 spec', () => {
 
     it('number -> number', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           User: {
             properties: {
@@ -87,6 +90,7 @@ describe('Swagger 2 spec', () => {
 
     it('boolean -> boolean', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           User: {
             properties: {
@@ -107,6 +111,7 @@ describe('Swagger 2 spec', () => {
 
     it('undefined -> object', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           BrokerStatus: {
             properties: {
@@ -131,6 +136,7 @@ describe('Swagger 2 spec', () => {
   describe('complex structures', () => {
     it('handles arrays of primitive structures', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           User: {
             properties: {
@@ -151,6 +157,7 @@ describe('Swagger 2 spec', () => {
 
     it('handles arrays of references', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           Team: {
             properties: {
@@ -180,6 +187,7 @@ describe('Swagger 2 spec', () => {
 
     it('handles nested objects', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           User: {
             properties: {
@@ -206,6 +214,7 @@ describe('Swagger 2 spec', () => {
 
     it('handles arrays of nested objects', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           User: {
             properties: {
@@ -232,6 +241,7 @@ describe('Swagger 2 spec', () => {
 
     it('handles arrays of arrays of arrays', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           Resource: {
             properties: {
@@ -259,6 +269,7 @@ describe('Swagger 2 spec', () => {
 
     it('handles allOf', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           Admin: {
             allOf: [
@@ -294,6 +305,7 @@ describe('Swagger 2 spec', () => {
 
     it('handles oneOf', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           Record: {
             properties: {
@@ -317,6 +329,7 @@ describe('Swagger 2 spec', () => {
 
     it('handles enum', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           User: {
             properties: {
@@ -339,6 +352,7 @@ describe('Swagger 2 spec', () => {
   describe('property names', () => {
     it('preserves snake_case keys by default', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           User: {
             properties: {
@@ -361,6 +375,7 @@ describe('Swagger 2 spec', () => {
 
     it('converts snake_case to camelCase if specified', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           User_Team: {
             properties: {
@@ -394,6 +409,7 @@ describe('Swagger 2 spec', () => {
 
     it('handles kebab-case property names', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           User: {
             properties: {
@@ -416,6 +432,7 @@ describe('Swagger 2 spec', () => {
 
     it('converts names with spaces to names with underscores', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           'User 1': {
             properties: {
@@ -477,6 +494,7 @@ describe('Swagger 2 spec', () => {
   describe('TS features', () => {
     it('specifies required types', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           User: {
             properties: {
@@ -498,6 +516,7 @@ describe('Swagger 2 spec', () => {
 
     it('flattens single-type $refs', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           User: {
             properties: {
@@ -522,6 +541,7 @@ describe('Swagger 2 spec', () => {
 
   it('can deal with additionalProperties: true', () => {
     const swagger: Swagger2 = {
+      swagger: '2.0',
       definitions: {
         FeatureMap: {
           type: 'object',
@@ -532,7 +552,7 @@ describe('Swagger 2 spec', () => {
 
     const ts = format(`
     export interface FeatureMap {
-      [name: string]: any;
+      [key: string]: any;
     }`);
 
     expect(swaggerToTS(swagger)).toBe(ts);
@@ -540,19 +560,56 @@ describe('Swagger 2 spec', () => {
 
   it('can deal with additionalProperties of type', () => {
     const swagger: Swagger2 = {
+      swagger: '2.0',
       definitions: {
-        Credentials: {
+        CamundaFormField: {
           type: 'object',
-          additionalProperties: {
-            type: 'string',
+          required: ['displayType', 'id', 'label', 'options', 'responseType'],
+          properties: {
+            displayType: {
+              type: 'string',
+              enum: ['radio', 'date', 'select', 'textfield', 'unknown'],
+            },
+            id: { type: 'string' },
+            label: { type: 'string' },
+            options: {
+              type: 'object',
+              additionalProperties: { type: 'string' },
+            },
+            responseType: {
+              type: 'string',
+              enum: [
+                'booleanField',
+                'stringField',
+                'longField',
+                'enumField',
+                'dateField',
+                'customTypeField',
+                'unknownFieldType',
+              ],
+            },
+            value: { type: 'string' },
           },
+          title: 'CamundaFormField',
         },
       },
     };
 
     const ts = format(`
-    export interface Credentials {
-      [name: string]: string;
+    export interface CamundaFormField {
+      displayType: 'radio' | 'date' | 'select' | 'textfield' | 'unknown';
+      id: string;
+      label: string;
+      options: { [key: string]: string }
+      responseType:
+        | 'booleanField'
+        | 'stringField'
+        | 'longField'
+        | 'enumField'
+        | 'dateField'
+        | 'customTypeField'
+        | 'unknownFieldType';
+      value?: string;
     }`);
 
     expect(swaggerToTS(swagger)).toBe(ts);
@@ -561,6 +618,7 @@ describe('Swagger 2 spec', () => {
   describe('other output', () => {
     it('skips top-level array definitions', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           Colors: {
             type: 'array',
@@ -579,6 +637,7 @@ describe('Swagger 2 spec', () => {
   describe('wrapper option', () => {
     it('has a default wrapper', () => {
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           Name: {
             properties: {
@@ -603,6 +662,7 @@ describe('Swagger 2 spec', () => {
       const wrapper = 'export namespace MyNamespace';
 
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           Name: {
             properties: {
@@ -630,6 +690,7 @@ describe('Swagger 2 spec', () => {
       const wrapper = 'declare module MyNamespace';
 
       const swagger: Swagger2 = {
+        swagger: '2.0',
         definitions: {
           Name: {
             properties: {
@@ -656,6 +717,7 @@ describe('Swagger 2 spec', () => {
 
   describe('properties mapper', () => {
     const swagger: Swagger2 = {
+      swagger: '2.0',
       definitions: {
         Name: {
           properties: {
