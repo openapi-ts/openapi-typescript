@@ -79,7 +79,11 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
   }
 
   // Returns primitive type, or 'object' or 'any'
-  function getType(definition: Swagger2Definition, nestedName: string): string {
+  function getType(
+    definition: Swagger2Definition,
+    nestedName: string,
+    getTypeOptions: { camelcase: boolean }
+  ): string {
     const { $ref, items, type, ...value } = definition;
 
     const nextInterface = camelCase(nestedName); // if this becomes an interface, it’ll need to be camelCased
@@ -88,10 +92,13 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
 
     if ($ref) {
       const [refName, refProperties] = getRef($ref);
-      const convertedRefName = spacesToUnderscores(refName);
+      let convertedRefName = spacesToUnderscores(refName);
+      if (options && options.camelcase === true) {
+        convertedRefName = camelCase(convertedRefName);
+      }
       // If a shallow array interface, return that instead
       if (refProperties.items && refProperties.items.$ref) {
-        return getType(refProperties, refName);
+        return getType(refProperties, refName, getTypeOptions);
       }
       if (refProperties.type && PRIMITIVE[refProperties.type]) {
         return PRIMITIVE[refProperties.type];
@@ -101,13 +108,13 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
 
     if (items && items.$ref) {
       const [refName] = getRef(items.$ref);
-      return `${getType(items, refName)}[]`;
+      return `${getType(items, refName, getTypeOptions)}[]`;
     }
 
     if (items) {
       // if an array, keep nesting
       if (items.type === 'array') {
-        return `${getType(items, nestedName)}[]`;
+        return `${getType(items, nestedName, getTypeOptions)}[]`;
       }
       // else if primitive, return type
       if (items.type && PRIMITIVE[items.type]) {
@@ -119,7 +126,7 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
     }
 
     if (Array.isArray(value.oneOf)) {
-      return value.oneOf.map((def): string => getType(def, '')).join(' | ');
+      return value.oneOf.map((def): string => getType(def, '', getTypeOptions)).join(' | ');
     }
 
     if (value.properties) {
@@ -180,7 +187,7 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
       const newID = `${ID}${capitalize(formattedKey)}`;
       const interfaceType = Array.isArray(value.enum)
         ? ` ${value.enum.map(option => JSON.stringify(option)).join(' | ')}` // Handle enums in the same definition
-        : getType(value, newID);
+        : getType(value, newID, { camelcase: shouldCamelCase });
 
       let property: Property = {
         interfaceType,
@@ -205,7 +212,9 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
       }
 
       if ((additionalProperties as Swagger2Definition).type) {
-        const interfaceType = getType(additionalProperties as Swagger2Definition, '');
+        const interfaceType = getType(additionalProperties as Swagger2Definition, '', {
+          camelcase: shouldCamelCase,
+        });
         output.push(`[name: string]: ${interfaceType}`);
       }
     }

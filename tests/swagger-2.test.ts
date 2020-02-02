@@ -362,10 +362,17 @@ describe('Swagger 2 spec', () => {
     it('converts snake_case to camelCase if specified', () => {
       const swagger: Swagger2 = {
         definitions: {
+          User_Team: {
+            properties: {
+              id: { type: 'string' },
+            },
+            type: 'object',
+          },
           User: {
             properties: {
               profile_image: { type: 'string' },
               address_line_1: { type: 'string' },
+              user_team: { $ref: '#/definitions/User_Team' },
             },
             type: 'object',
           },
@@ -373,9 +380,13 @@ describe('Swagger 2 spec', () => {
       };
 
       const ts = format(`
+      export interface UserTeam {
+        id?: string;
+      }
       export interface User {
         profileImage?: string;
         addressLine1?: string;
+        userTeam?: UserTeam;
       }`);
 
       expect(swaggerToTS(swagger, { camelcase: true })).toBe(ts);
