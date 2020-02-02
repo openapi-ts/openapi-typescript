@@ -18,7 +18,6 @@ Options
   --wrapper, -w         specify wrapper (default: "declare namespace OpenAPI2")
   --output, -o          specify output file
   --camelcase, -c       convert snake_case properties to camelCase (default: off)
-  --swagger, -s         specify Swagger version (default: 2)
   --nowrapper -nw       disables rendering the wrapper
   --no-warning          hides the warning at the top of the generated file (default: off)
 `,
@@ -37,10 +36,6 @@ Options
       output: {
         type: 'string',
         alias: 'o',
-      },
-      swagger: {
-        type: 'number',
-        alias: 's',
       },
       namespace: {
         type: 'string',

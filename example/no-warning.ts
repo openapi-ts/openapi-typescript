@@ -371,7 +371,7 @@ declare namespace OpenAPI2 {
     cost_ranges?: FeatureNumericRange[];
   }
   export interface FeatureMap {
-    [name: string]: any;
+    [key: string]: any;
   }
   export interface ExpandedProduct {
     id: string;
@@ -423,7 +423,7 @@ declare namespace OpenAPI2 {
     message: string[];
   }
   export interface Credentials {
-    [name: string]: string;
+    [key: string]: string;
   }
   export interface CreateRegion {
     body: RegionBody;

@@ -26,6 +26,8 @@ export interface Property {
 }
 
 export interface Swagger2 {
+  swagger?: string;
+  openapi?: string;
   definitions: {
     [index: string]: Swagger2Definition;
   };
@@ -142,6 +144,17 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
     return DEFAULT_TYPE;
   }
 
+  function handleAdditionalProperties(additionalProperties: boolean | Swagger2Definition): string {
+    if ((additionalProperties as Swagger2Definition).type) {
+      const interfaceType = getType(additionalProperties as Swagger2Definition, '', {
+        camelcase: shouldCamelCase,
+      });
+      return `[key: string]: ${interfaceType}`;
+    }
+
+    return '[key: string]: any;';
+  }
+
   function buildNextInterface(): void {
     const nextObject = queue.pop();
     if (!nextObject) return; // Geez TypeScript it’s going to be OK
@@ -203,20 +216,15 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
         output.push(`/**\n* ${property.description.replace(/\n$/, '').replace(/\n/g, '\n* ')}\n*/`);
       }
 
-      output.push(`${name}: ${interfaceType};`);
+      if (value.additionalProperties) {
+        output.push(`${name}: { ${handleAdditionalProperties(value.additionalProperties)} }`);
+      } else {
+        output.push(`${name}: ${interfaceType};`);
+      }
     });
 
     if (additionalProperties) {
-      if ((additionalProperties as boolean) === true) {
-        output.push('[name: string]: any');
-      }
-
-      if ((additionalProperties as Swagger2Definition).type) {
-        const interfaceType = getType(additionalProperties as Swagger2Definition, '', {
-          camelcase: shouldCamelCase,
-        });
-        output.push(`[name: string]: ${interfaceType}`);
-      }
+      output.push(handleAdditionalProperties(additionalProperties));
     }
 
     // Close interface
