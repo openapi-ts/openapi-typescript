@@ -19,6 +19,7 @@ describe('sanitize', () => {
   });
   it('invalid', () => {
     expect(sanitize('0')).toBe("'0'");
+    expect(sanitize('@type')).toBe("'@type'");
     expect(sanitize('bad-key')).toBe("'bad-key'");
   });
 });
