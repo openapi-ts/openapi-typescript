@@ -20,6 +20,12 @@ export function sanitize(name: string): string {
   if (name.includes('-')) {
     return sanitized;
   }
+
+  // if key contains at sign
+  if (name.includes('@')) {
+    return sanitized;
+  }
+
   return name;
 }
 
