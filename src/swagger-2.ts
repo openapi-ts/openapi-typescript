@@ -1,5 +1,5 @@
 import * as prettier from 'prettier';
-import { camelCase, capitalize, sanitize, spacesToUnderscores } from './utils';
+import { camelCase, capitalize, sanitize, snakeCase } from './utils';
 
 export interface Swagger2Definition {
   $ref?: string;
@@ -94,7 +94,7 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
 
     if ($ref) {
       const [refName, refProperties] = getRef($ref);
-      let convertedRefName = spacesToUnderscores(refName);
+      let convertedRefName = snakeCase(refName);
       if (options && options.camelcase === true) {
         convertedRefName = camelCase(convertedRefName);
       }
@@ -189,9 +189,7 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
     const isExtending = includes.length ? ` extends ${includes.join(', ')}` : '';
 
     output.push(
-      `export interface ${
-        shouldCamelCase ? camelCase(ID) : spacesToUnderscores(ID)
-      }${isExtending} {`
+      `export interface ${shouldCamelCase ? camelCase(ID) : snakeCase(ID)}${isExtending} {`
     );
 
     // Populate interface
@@ -199,7 +197,7 @@ function parse(spec: Swagger2, options: Swagger2Options = {}): string {
       const formattedKey = shouldCamelCase ? camelCase(key) : key;
       const newID = `${ID}${capitalize(formattedKey)}`;
       const interfaceType = Array.isArray(value.enum)
-        ? ` ${value.enum.map(option => JSON.stringify(option)).join(' | ')}` // Handle enums in the same definition
+        ? ` ${value.enum.map((option) => JSON.stringify(option)).join(' | ')}` // Handle enums in the same definition
         : getType(value, newID, { camelcase: shouldCamelCase });
 
       let property: Property = {

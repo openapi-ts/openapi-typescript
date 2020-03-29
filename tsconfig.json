@@ -2,18 +2,20 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "declaration": true,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["esnext"],
-    "module": "esnext",
+    "lib": ["ESNext"],
+    "module": "ESNext",
     "moduleResolution": "node",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "outDir": "dist",
     "removeComments": true,
+    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es2018"
+    "target": "ESNext"
   },
   "exclude": ["example/*", "tests/**/*"]
 }

@@ -1,9 +1,11 @@
-import { readFileSync } from 'fs';
-import { resolve } from 'path';
-import * as yaml from 'js-yaml';
-import * as prettier from 'prettier';
-import swaggerToTS, { Swagger2Definition, Property } from '../src';
-import { Swagger2, warningMessage } from '../src/swagger-2';
+import fs from 'fs';
+import path from 'path';
+import yaml from 'js-yaml';
+import prettier from 'prettier';
+import swaggerToTS, { Swagger2Definition, Property } from '../../src';
+import { Swagger2, warningMessage } from '../../src/swagger-2';
+
+const EXAMPLE_DIR = path.resolve(__dirname, '..', '..', 'example');
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
@@ -787,33 +789,33 @@ describe('Swagger 2 spec', () => {
     // If changes are all good, run `npm run generate` to update (⚠️ This will cement your changes so be sure they’re 100% correct!)
     it('basic', () => {
       const input = yaml.safeLoad(
-        readFileSync(resolve(__dirname, '..', 'example', 'basic.yaml'), 'UTF-8')
+        fs.readFileSync(path.resolve(EXAMPLE_DIR, 'basic.yaml'), 'UTF-8')
       );
-      const output = readFileSync(resolve(__dirname, '..', 'example', 'basic.ts'), 'UTF-8');
+      const output = fs.readFileSync(path.resolve(EXAMPLE_DIR, 'basic.ts'), 'UTF-8');
       expect(swaggerToTS(input)).toBe(output);
     });
 
     it('no warning', () => {
       const input = yaml.safeLoad(
-        readFileSync(resolve(__dirname, '..', 'example', 'basic.yaml'), 'UTF-8')
+        fs.readFileSync(path.resolve(EXAMPLE_DIR, 'basic.yaml'), 'UTF-8')
       );
-      const output = readFileSync(resolve(__dirname, '..', 'example', 'no-warning.ts'), 'UTF-8');
+      const output = fs.readFileSync(path.resolve(EXAMPLE_DIR, 'no-warning.ts'), 'UTF-8');
       expect(swaggerToTS(input, { warning: false })).toBe(output);
     });
 
     it('no wrapper', () => {
       const input = yaml.safeLoad(
-        readFileSync(resolve(__dirname, '..', 'example', 'basic.yaml'), 'UTF-8')
+        fs.readFileSync(path.resolve(EXAMPLE_DIR, 'basic.yaml'), 'UTF-8')
       );
-      const output = readFileSync(resolve(__dirname, '..', 'example', 'no-wrapper.ts'), 'UTF-8');
+      const output = fs.readFileSync(path.resolve(EXAMPLE_DIR, 'no-wrapper.ts'), 'UTF-8');
       expect(swaggerToTS(input, { wrapper: false })).toBe(output);
     });
 
     it('no types', () => {
       const input = yaml.safeLoad(
-        readFileSync(resolve(__dirname, '..', 'example', 'no-types.yaml'), 'UTF-8')
+        fs.readFileSync(path.resolve(EXAMPLE_DIR, 'no-types.yaml'), 'UTF-8')
       );
-      const output = readFileSync(resolve(__dirname, '..', 'example', 'no-types.ts'), 'UTF-8');
+      const output = fs.readFileSync(path.resolve(EXAMPLE_DIR, 'no-types.ts'), 'UTF-8');
       expect(swaggerToTS(input)).toBe(output);
     });
   });

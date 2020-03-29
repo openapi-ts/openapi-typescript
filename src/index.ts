@@ -4,7 +4,7 @@ export { Swagger2Definition, Property } from './swagger-2';
 
 export type Options = Swagger2Options;
 
-export default function(spec: Swagger2, options?: Swagger2Options): string {
+export default function (spec: Swagger2, options?: Swagger2Options): string {
   let version: number | undefined;
 
   if (spec.swagger && parseInt(spec.swagger, 10) === 2) {

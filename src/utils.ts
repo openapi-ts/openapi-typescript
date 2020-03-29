@@ -16,19 +16,14 @@ export function sanitize(name: string): string {
     return sanitized;
   }
 
-  // if key contains hyphen
-  if (name.includes('-')) {
-    return sanitized;
-  }
-
-  // if key contains at sign
-  if (name.includes('@')) {
+  // if key contains invalid charactors
+  if (/[-@./\\]/.test(name)) {
     return sanitized;
   }
 
   return name;
 }
 
-export function spacesToUnderscores(name: string): string {
-  return name.replace(/\s/g, '_');
+export function snakeCase(name: string): string {
+  return name.replace(/[-\.\s]/g, '_');
 }
