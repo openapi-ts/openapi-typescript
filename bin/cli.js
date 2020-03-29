@@ -9,8 +9,7 @@ const yaml = require('js-yaml');
 const { default: swaggerToTS } = require('../dist-node');
 
 const cli = meow(
-  `
-Usage
+  `Usage
   $ swagger-to-ts [input] [options]
 
 Options

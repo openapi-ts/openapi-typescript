@@ -1,4 +1,4 @@
-import { camelCase, capitalize, sanitize, spacesToUnderscores } from '../src/utils';
+import { camelCase, capitalize, sanitize, snakeCase } from '../src/utils';
 
 it('camelCase', () => {
   expect(camelCase('my-test-string')).toBe('myTestString');
@@ -25,5 +25,6 @@ describe('sanitize', () => {
 });
 
 it('spacesToUnderscores', () => {
-  expect(spacesToUnderscores('one space  two  space')).toBe('one_space__two__space');
+  expect(snakeCase('one space  two  space')).toBe('one_space__two__space');
+  expect(snakeCase('terminal.register')).toBe('terminal_register');
 });
