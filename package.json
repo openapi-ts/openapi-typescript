@@ -61,7 +61,7 @@
     "version": "npm run build"
   },
   "dependencies": {
-    "chalk": "^3.0.0",
+    "chalk": "^4.0.0",
     "fs-extra": "^9.0.0",
     "js-yaml": "^3.13.1",
     "meow": "^6.1.0",
