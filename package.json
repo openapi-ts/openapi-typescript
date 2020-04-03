@@ -74,7 +74,7 @@
     "@pika/plugin-ts-standard-pkg": "^0.9.2",
     "@types/jest": "^25.1.4",
     "@types/js-yaml": "^3.12.3",
-    "@types/prettier": "^1.19.1",
+    "@types/prettier": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
     "eslint": "^6.8.0",
