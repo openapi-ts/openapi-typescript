@@ -1,18 +1,21 @@
 import fs from 'fs';
+import { execSync } from 'child_process';
 import path from 'path';
-import yaml from 'js-yaml';
 import prettier from 'prettier';
 import { OpenAPI2, Property, OpenAPI2SchemaObject } from '../../src';
 import v2, { PRETTIER_OPTIONS, WARNING_MESSAGE } from '../../src/v2';
 
 // simple snapshot tests with valid schemas to make sure it can generally parse & generate output
-describe('parsing & output', () => {
-  it('manifold', () => {});
-
-  it('stripe', () => {
-    const input = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, 'stripe.yaml'), 'utf8'));
-    const output = fs.readFileSync(path.resolve(__dirname, 'stripe.ts'), 'utf8');
-    expect(v2(input)).toBe(output);
+describe('cli', () => {
+  ['manifold', 'stripe'].forEach((file) => {
+    it(file, () => {
+      execSync(`../../pkg/bin/cli.js ${file}.yaml -o ${file}.ts.snap`, {
+        cwd: path.resolve(__dirname),
+      });
+      expect(fs.readFileSync(path.resolve(__dirname, `${file}.ts`), 'utf8')).toBe(
+        fs.readFileSync(path.resolve(__dirname, `${file}.ts.snap`), 'utf8')
+      );
+    });
   });
 });
 
@@ -27,46 +30,31 @@ describe('transformation', () => {
     it('string', () => {
       const schema: OpenAPI2 = {
         swagger: '2.0',
-        definitions: { User: { properties: { email: { type: 'string' } }, type: 'object' } },
-      };
-      expect(v2(schema)).toBe(
-        format(`
-        export interface definitions {
-          User: { email?: string }
-        }`)
-      );
-    });
-
-    it('string from top-level', () => {
-      const schema: OpenAPI2 = {
-        swagger: '2.0',
-        definitions: { base_url: { type: 'string' } },
-      };
-      expect(v2(schema)).toBe(
-        format(`
-        export interface definitions {
-          base_url: string;
-        }`)
-      );
-    });
-
-    it('string with $ref', () => {
-      const schema: OpenAPI2 = {
-        swagger: '2.0',
         definitions: {
-          User: {
-            properties: { password: { $ref: '#/definitions/UserPassword' } },
+          object: {
+            properties: {
+              binary: { type: 'binary' },
+              byte: { type: 'byte' },
+              password: { type: 'password' },
+              string: { type: 'string' },
+            },
             type: 'object',
           },
-          UserPassword: { type: 'string' },
+          string: { type: 'string' },
+          string_ref: { $ref: '#/definitions/string' },
         },
       };
-
       expect(v2(schema)).toBe(
         format(`
         export interface definitions {
-          User: { password?: definitions['UserPassword'] }
-          UserPassword: string;
+          object: {
+            binary?: string
+            byte?: string
+            password?: string
+            string?: string
+          };
+          string: string;
+          string_ref: definitions['string'];
         }`)
       );
     });
@@ -74,12 +62,31 @@ describe('transformation', () => {
     it('number', () => {
       const schema: OpenAPI2 = {
         swagger: '2.0',
-        definitions: { User: { properties: { age: { type: 'integer' } }, type: 'object' } },
+        definitions: {
+          object: {
+            properties: {
+              double: { type: 'double' },
+              float: { type: 'float' },
+              integer: { type: 'integer' },
+              number: { type: 'number' },
+            },
+            type: 'object',
+          },
+          number: { type: 'number' },
+          number_ref: { $ref: '#/definitions/number' },
+        },
       };
       expect(v2(schema)).toBe(
         format(`
         export interface definitions {
-          User: { age?: number }
+          object: {
+            double?: number;
+            float?: number;
+            integer?: number;
+            number?: number;
+          }
+          number: number;
+          number_ref: definitions['number'];
         }`)
       );
     });
@@ -87,145 +94,90 @@ describe('transformation', () => {
     it('boolean', () => {
       const schema: OpenAPI2 = {
         swagger: '2.0',
-        definitions: { User: { properties: { active: { type: 'boolean' } }, type: 'object' } },
-      };
-      expect(v2(schema)).toBe(
-        format(`
-        export interface definitions {
-          User: { active?: boolean }
-        }`)
-      );
-    });
-
-    it('array of $refs', () => {
-      const schema: OpenAPI2 = {
-        swagger: '2.0',
         definitions: {
-          Team: { properties: { id: { type: 'string' } }, type: 'object' },
-          User: {
-            properties: { teams: { type: 'array', items: { $ref: '#/definitions/Team' } } },
-            type: 'object',
-          },
-        },
-      };
-
-      expect(v2(schema)).toBe(
-        format(`
-        export interface definitions {
-          Team: { id?: string }
-          User: { teams?: definitions['Team'][] }
-        }`)
-      );
-    });
-
-    it('array of strings', () => {
-      const schema: OpenAPI2 = {
-        swagger: '2.0',
-        definitions: {
-          Post: {
-            properties: {
-              tags: {
-                type: 'array',
-                items: { type: 'string' },
-              },
-            },
-            type: 'object',
-          },
+          object: { properties: { boolean: { type: 'boolean' } }, type: 'object' },
+          boolean: { type: 'boolean' },
+          boolean_ref: { $ref: '#/definitions/boolean' },
         },
       };
       expect(v2(schema)).toBe(
         format(`
         export interface definitions {
-          Post: { tags?: string[] }
+          object: { boolean?: boolean };
+          boolean: boolean;
+          boolean_ref: definitions['boolean'];
         }`)
       );
     });
 
-    it('array of objects', () => {
+    it('object', () => {
       const schema: OpenAPI2 = {
         swagger: '2.0',
         definitions: {
-          User: {
+          object: {
             properties: {
-              remote_ids: {
-                type: 'array',
-                items: { type: 'object', properties: { id: { type: 'string' } } },
-              },
-            },
-            type: 'object',
-          },
-        },
-      };
-      expect(v2(schema)).toBe(
-        format(`
-        export interface definitions {
-          User: { remote_ids?: { id?: string }[] }
-        }`)
-      );
-    });
-
-    it('array of arrays', () => {
-      const schema: OpenAPI2 = {
-        swagger: '2.0',
-        definitions: {
-          Resource: {
-            properties: {
-              environments: {
-                type: 'array',
-                // 3 nested arrays just for good measure
-                items: { type: 'array', items: { type: 'array', items: { type: 'string' } } },
-              },
-            },
-            type: 'object',
-          },
-        },
-      };
-      expect(v2(schema)).toBe(
-        format(`
-        export interface definitions {
-          Resource: { environments?: string[][][] }
-        }`)
-      );
-    });
-
-    it('object of objects', () => {
-      const schema: OpenAPI2 = {
-        swagger: '2.0',
-        definitions: {
-          user: {
-            properties: {
-              RemoteID: {
+              object: {
+                properties: {
+                  object: {
+                    properties: {
+                      string: { type: 'string' },
+                      number: { $ref: '#/definitions/object_ref' },
+                    },
+                    type: 'object',
+                  },
+                },
                 type: 'object',
-                properties: { id: { type: 'string' } },
               },
             },
             type: 'object',
           },
+          object_ref: { properties: { number: { type: 'number' } }, type: 'object' },
+          object_unknown: { type: 'object' },
         },
       };
-
       expect(v2(schema)).toBe(
         format(`
         export interface definitions {
-          user: { RemoteID?: { id?: string } }
+          object: {
+            object?: {
+              object?: { string?: string; number?: definitions['object_ref'] };
+            };
+          };
+          object_ref: { number?: number };
+          object_unknown: { [key: string]: any };
         }`)
       );
     });
 
-    it('object from unknown', () => {
+    it('array', () => {
       const schema: OpenAPI2 = {
         swagger: '2.0',
         definitions: {
-          BrokerStatus: {
-            // missing type
-            properties: { address: { type: 'string' }, certifiedFee: { type: 'integer' } },
+          array: {
+            properties: {
+              arrays: { type: 'array', items: { type: 'array', items: { type: 'number' } } },
+              strings: { type: 'array', items: { type: 'string' } },
+              numbers: { type: 'array', items: { type: 'number' } },
+              refs: { type: 'array', items: { $ref: '#/definitions/string' } },
+            },
+            type: 'object',
           },
+          string: { type: 'string' },
+          array_ref: { items: { $ref: '#/definitions/array' }, type: 'array' },
         },
       };
+
       expect(v2(schema)).toBe(
         format(`
         export interface definitions {
-          BrokerStatus: { address?: string; certifiedFee?: number }
+          array: {
+            arrays?: number[][];
+            strings?: string[];
+            numbers?: number[];
+            refs?: definitions['string'][];
+          };
+          string: string;
+          array_ref: definitions['array'][];
         }`)
       );
     });
@@ -234,8 +186,10 @@ describe('transformation', () => {
       const schema: OpenAPI2 = {
         swagger: '2.0',
         definitions: {
-          User: {
-            properties: { role: { type: 'string', enum: ['user', 'admin'] } },
+          union: {
+            properties: {
+              string: { type: 'string', enum: ['Totoro', 'Satsuki', 'Mei'] },
+            },
             type: 'object',
           },
         },
@@ -243,136 +197,52 @@ describe('transformation', () => {
       expect(v2(schema)).toBe(
         format(`
         export interface definitions {
-          User: { role?: 'user' | 'admin' }
+          union: { string?: 'Totoro' | 'Satsuki' | 'Mei' }
         }`)
       );
     });
   });
 
   describe('OpenAPI2 features', () => {
-    describe('additionalProperties', () => {
-      it('true', () => {
-        const schema: OpenAPI2 = {
-          swagger: '2.0',
-          definitions: { FeatureMap: { type: 'object', additionalProperties: true } },
-        };
-        expect(v2(schema)).toBe(
-          format(`
-          export interface definitions {
-            FeatureMap: [key: string]: any;
-          }`)
-        );
-      });
-
-      it('object', () => {
-        const schema: OpenAPI2 = {
-          swagger: '2.0',
-          definitions: {
-            CamundaFormField: {
-              type: 'object',
-              required: ['displayType', 'id', 'label', 'options', 'responseType'],
-              properties: {
-                displayType: {
-                  type: 'string',
-                  enum: ['radio', 'date', 'select', 'textfield', 'unknown'],
-                },
-                id: { type: 'string' },
-                label: { type: 'string' },
-                options: { type: 'object', additionalProperties: { type: 'string' } },
-                responseType: {
-                  type: 'string',
-                  enum: [
-                    'booleanField',
-                    'stringField',
-                    'longField',
-                    'enumField',
-                    'dateField',
-                    'customTypeField',
-                    'unknownFieldType',
-                  ],
-                },
-                value: { type: 'string' },
-              },
-              title: 'CamundaFormField',
-            },
+    it('additionalProperties', () => {
+      const schema: OpenAPI2 = {
+        swagger: '2.0',
+        definitions: {
+          additional_properties: {
+            type: 'object',
+            properties: { number: { type: 'number' } },
+            additionalProperties: true,
           },
-        };
-
-        expect(v2(schema)).toBe(
-          format(`
+          additional_properties_string: {
+            type: 'object',
+            properties: { string: { type: 'string' } },
+            additionalProperties: { type: 'string' },
+          },
+        },
+      };
+      expect(v2(schema)).toBe(
+        format(`
           export interface definitions {
-            CamundaFormField: {
-              displayType: 'radio' | 'date' | 'select' | 'textfield' | 'unknown';
-              id: string;
-              label: string;
-              options: { [key: string]: string }
-              responseType:
-                | 'booleanField'
-                | 'stringField'
-                | 'longField'
-                | 'enumField'
-                | 'dateField'
-                | 'customTypeField'
-                | 'unknownFieldType';
-              value?: string;
-            }
+            additional_properties: { number?: number; [key: string]: any };
+            additional_properties_string: { string?: string; [key: string]: string };
           }`)
-        );
-      });
+      );
     });
 
     it('allOf', () => {
       const schema: OpenAPI2 = {
         swagger: '2.0',
         definitions: {
-          Admin: {
+          base: {
+            properties: { boolean: { type: 'boolean' }, number: { type: 'number' } },
+            type: 'object',
+          },
+          all_of: {
             allOf: [
-              { $ref: '#/definitions/User' },
-              { properties: { rbac: { type: 'string' } }, type: 'object' },
+              { $ref: '#/definitions/base' },
+              { properties: { string: { type: 'string' } }, type: 'object' },
             ],
-            type: 'object',
-          },
-          User: { properties: { email: { type: 'string' } }, type: 'object' },
-        },
-      };
-      expect(v2(schema)).toBe(
-        format(`
-        export interface definitions {
-          Admin: { rbac?: string }
-          User: { email?: string; rbac?: string }
-        }`)
-      );
-    });
-
-    it('description', () => {
-      const schema: OpenAPI2 = {
-        swagger: '2.0',
-        definitions: {
-          Post: {
-            description: 'A blog post',
-            type: 'object',
-          }
-        }
-      }
-      expect(v2(schema)).toBe(
-        format(`
-        export interface definitions {
-          Post {
-            /* A blog post */
-            [key: string]: any;
-          }
-        }`)
-      );
-    });
-
-    it('oneOf', () => {
-      const schema: OpenAPI2 = {
-        swagger: '2.0',
-        definitions: {
-          Record: {
-            properties: {
-              rand: { oneOf: [{ type: 'string' }, { type: 'number' }], type: 'array' },
-            },
+            properties: { password: { type: 'string' } },
             type: 'object',
           },
         },
@@ -380,7 +250,8 @@ describe('transformation', () => {
       expect(v2(schema)).toBe(
         format(`
         export interface definitions {
-          Record { rand?: string | number }
+          base: { boolean?: boolean; number?: number };
+          all_of: definitions['base'] & { string?: string } & { password?: string };
         }`)
       );
     });
@@ -389,9 +260,9 @@ describe('transformation', () => {
       const schema: OpenAPI2 = {
         swagger: '2.0',
         definitions: {
-          User: {
-            properties: { username: { type: 'string' } },
-            required: ['username'],
+          required: {
+            properties: { required: { type: 'string' }, optional: { type: 'boolean' } },
+            required: ['required'],
             type: 'object',
           },
         },
@@ -399,7 +270,7 @@ describe('transformation', () => {
       expect(v2(schema)).toBe(
         format(`
         export interface definitions {
-          User: { username: string }
+          required: { required: string; optional?: boolean  }
         }`)
       );
     });

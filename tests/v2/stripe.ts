@@ -384,7 +384,7 @@ export interface definitions {
     recipient?: string;
     tokenization_method?: string;
   };
-  card_mandate_payment_method_details: {};
+  card_mandate_payment_method_details: { [key: string]: any };
   charge: {
     amount: number;
     amount_refunded: number;
@@ -3117,7 +3117,7 @@ export interface definitions {
     details_code?: string;
     front?: string;
   };
-  light_account_logout: {};
+  light_account_logout: { [key: string]: any };
   line_item: {
     amount: number;
     currency: string;
@@ -3152,7 +3152,7 @@ export interface definitions {
     type: 'multi_use' | 'single_use';
   };
   mandate_au_becs_debit: { url: string };
-  mandate_multi_use: {};
+  mandate_multi_use: { [key: string]: any };
   mandate_payment_method_details: {
     au_becs_debit?: definitions['mandate_au_becs_debit'];
     card?: definitions['card_mandate_payment_method_details'];
@@ -3166,7 +3166,7 @@ export interface definitions {
     previous_attributes?: { [key: string]: any };
   };
   notification_event_request: { id?: string; idempotency_key?: string };
-  offline_acceptance: {};
+  offline_acceptance: { [key: string]: any };
   online_acceptance: { ip_address?: string; user_agent?: string };
   order: {
     amount: number;
@@ -3339,7 +3339,7 @@ export interface definitions {
     charge?: string;
     payment_method_details?: definitions['payment_method_details'];
   };
-  payment_method_card_present: {};
+  payment_method_card_present: { [key: string]: any };
   payment_method_card_wallet: {
     amex_express_checkout?: definitions['payment_method_card_wallet_amex_express_checkout'];
     apple_pay?: definitions['payment_method_card_wallet_apple_pay'];
@@ -3356,16 +3356,16 @@ export interface definitions {
       | 'visa_checkout';
     visa_checkout?: definitions['payment_method_card_wallet_visa_checkout'];
   };
-  payment_method_card_wallet_amex_express_checkout: {};
-  payment_method_card_wallet_apple_pay: {};
-  payment_method_card_wallet_google_pay: {};
+  payment_method_card_wallet_amex_express_checkout: { [key: string]: any };
+  payment_method_card_wallet_apple_pay: { [key: string]: any };
+  payment_method_card_wallet_google_pay: { [key: string]: any };
   payment_method_card_wallet_masterpass: {
     billing_address?: definitions['address'];
     email?: string;
     name?: string;
     shipping_address?: definitions['address'];
   };
-  payment_method_card_wallet_samsung_pay: {};
+  payment_method_card_wallet_samsung_pay: { [key: string]: any };
   payment_method_card_wallet_visa_checkout: {
     billing_address?: definitions['address'];
     email?: string;
@@ -3407,7 +3407,7 @@ export interface definitions {
     last4?: string;
     routing_number?: string;
   };
-  payment_method_details_alipay: {};
+  payment_method_details_alipay: { [key: string]: any };
   payment_method_details_au_becs_debit: {
     bsb_number?: string;
     fingerprint?: string;
@@ -3489,16 +3489,18 @@ export interface definitions {
       | 'visa_checkout';
     visa_checkout?: definitions['payment_method_details_card_wallet_visa_checkout'];
   };
-  payment_method_details_card_wallet_amex_express_checkout: {};
-  payment_method_details_card_wallet_apple_pay: {};
-  payment_method_details_card_wallet_google_pay: {};
+  payment_method_details_card_wallet_amex_express_checkout: {
+    [key: string]: any;
+  };
+  payment_method_details_card_wallet_apple_pay: { [key: string]: any };
+  payment_method_details_card_wallet_google_pay: { [key: string]: any };
   payment_method_details_card_wallet_masterpass: {
     billing_address?: definitions['address'];
     email?: string;
     name?: string;
     shipping_address?: definitions['address'];
   };
-  payment_method_details_card_wallet_samsung_pay: {};
+  payment_method_details_card_wallet_samsung_pay: { [key: string]: any };
   payment_method_details_card_wallet_visa_checkout: {
     billing_address?: definitions['address'];
     email?: string;
@@ -3566,7 +3568,7 @@ export interface definitions {
     iban_last4?: string;
     verified_name?: string;
   };
-  payment_method_details_klarna: {};
+  payment_method_details_klarna: { [key: string]: any };
   payment_method_details_multibanco: { entity?: string; reference?: string };
   payment_method_details_p24: { reference?: string; verified_name?: string };
   payment_method_details_sepa_debit: {
@@ -3585,8 +3587,8 @@ export interface definitions {
     iban_last4?: string;
     verified_name?: string;
   };
-  payment_method_details_stripe_account: {};
-  payment_method_details_wechat: {};
+  payment_method_details_stripe_account: { [key: string]: any };
+  payment_method_details_wechat: { [key: string]: any };
   payment_method_fpx: {
     bank:
       | 'affin_bank'

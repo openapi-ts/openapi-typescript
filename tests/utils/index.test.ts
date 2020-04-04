@@ -1,67 +1,35 @@
-import {
-  camelCase,
-  capitalize,
-  descriptionToComment,
-  findRef,
-  pascalCase,
-  snakeCase,
-  swaggerVersion,
-} from '../../src/utils';
+import { escape, swaggerVersion, unescape, isRootNodeV2 } from '../../src/utils';
 
-describe('camelCase', () => {
-  it('hyphenated', () => {
-    expect(camelCase('my-test-string')).toBe('myTestString');
+describe('escape', () => {
+  it('escape', () => {
+    expect(escape('string')).toBe('<@string@>');
+  });
+  it('unescape', () => {
+    expect(unescape('"<@string@>"')).toBe('string');
   });
 });
 
-describe('capitalize', () => {
-  it('lowercase', () => {
-    expect(capitalize('capitalized')).toBe('Capitalized');
-  });
-  it('uppercase', () => {
-    expect(capitalize('API')).toBe('API');
-  });
-});
-
-describe('descriptionToComment', () => {
-  it('single-line', () => {
-    expect(descriptionToComment('Single-line comment')).toBe('/**\n * Single-line comment\n */');
-  });
-  it('multi-line', () => {
-    expect(descriptionToComment('Multi\nLine\nComment')).toBe(
-      '/**\n * Multi\n * Line\n * Comment\n */'
-    );
-  });
-});
-
-describe('findRef', () => {
-  it('shallow', () => {
-    expect(findRef('#/definitions/user', { definitions: { user: { type: 'object' } } })).toEqual({
-      type: 'object',
-    });
-  });
-
-  it('deep', () => {
+describe('isRootNodeV2', () => {
+  it('returns true for shallow objects', () => {
     expect(
-      findRef('#/components/schemas/user', {
-        components: { schemas: { user: { type: 'object' } } },
-      })
-    ).toEqual({ type: 'object' });
+      isRootNodeV2([
+        { type: 'string' },
+        { type: 'number' },
+        { type: 'boolean' },
+        { type: 'array', items: { type: 'string' } },
+        "<@definitions['remote_ref']",
+      ])
+    ).toBe(true);
   });
-});
 
-describe('pascalCase', () => {
-  it('snake_case', () => {
-    expect(pascalCase('my_key')).toBe('MyKey');
-  });
-});
-
-describe('snakeCase', () => {
-  it('spaces', () => {
-    expect(snakeCase('one space  two  space')).toBe('one_space__two__space');
-  });
-  it('period', () => {
-    expect(snakeCase('terminal.register')).toBe('terminal_register');
+  it('returns false for nested objects', () => {
+    expect(
+      isRootNodeV2([
+        { type: 'object', properties: { boolean: { type: 'boolean' } } },
+        { type: 'array', items: { type: 'object', properties: { string: { type: 'string' } } } },
+        { type: 'string' }, // end on shallow type to try and trick it
+      ])
+    ).toBe(false);
   });
 });
 

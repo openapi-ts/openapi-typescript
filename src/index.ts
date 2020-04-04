@@ -1,6 +1,6 @@
-import { swaggerVersion } from './utils/index';
+import { swaggerVersion } from './utils';
 import { OpenAPI2, OpenAPI3 } from './types/index';
-import v2 from './v2/index';
+import v2 from './v2';
 
 // export all types
 export * from './types/index';

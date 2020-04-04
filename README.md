@@ -4,9 +4,9 @@
 
 # 📘️ swagger-to-ts
 
-Convert [OpenAPI v3][openapi3] and [OpenAPI v2][openapi2] schemas to TypeScript interfaces using
-Node.js. It can handle large definition files within milliseconds because it neither validates nor
-parses; it only transforms the bare minimum of what it needs to.
+Convert [OpenAPI v2][openapi2] schemas to TypeScript interfaces using Node.js. It can handle large
+definition files within milliseconds because it neither validates nor parses; it only transforms the
+bare minimum of what it needs to.
 
 💅 Prettifies output with [Prettier][prettier].
 
@@ -96,120 +96,6 @@ const output = swaggerToTS(swagger, (swaggerDefinition, property): Property => (
   optional: getNullable(swaggerDefinition),
 }));
 ```
-
-### Upgrading from v1 to v2
-
-Some options were removed in v2 that will break existing setups, but don’t worry—it actually gives
-you more control, and it generates more resilient types.
-
-#### Explanation
-
-In order to explain the change, let’s go through an example with the following Swagger definition
-(partial):
-
-```yaml
-swagger: 2.0
-definitions:
-  user:
-    type: object
-    properties:
-      role:
-        type: object
-        properties:
-          access:
-            enum:
-              - admin
-              - user
-  user_role:
-    type: object
-      role:
-        type: string
-  team:
-    type: object
-    properties:
-      users:
-        type: array
-        items:
-          $ref: user
-```
-
-This is how **v1** would have generated those types:
-
-```ts
-declare namespace OpenAPI2 {
-  export interface User {
-    role?: UserRole;
-  }
-  export interface UserRole {
-    access?: 'admin' | 'user';
-  }
-  export interface UserRole {
-    role?: string;
-  }
-  export interface Team {
-    users?: User[];
-  }
-}
-```
-
-Uh oh. It tried to be intelligent, and keep interfaces shallow by transforming `user.role` into
-`UserRole.` However, we also have another `user_role` entry that has a conflicting `UserRole`
-interface. This is not what we want.
-
-v1 of this project made certain assumptions about your schema that don’t conform to the schema, and
-don’t always hold true. That can be limiting and frustrating in many ways.
-
-This is how **v2** generates types from that same schema:
-
-```ts
-export interface definitions {
-  user: {
-    role?: {
-      access?: 'admin' | 'user';
-    };
-  };
-  user_role: {
-    role?: string;
-  };
-  team: {
-    users?: definitions['user'][];
-  };
-}
-```
-
-This matches your schema more accurately, and doesn’t try to be clever by keeping things shallow.
-It’s also more predictable, with the generated types matching your schema naming. In your code
-here’s what would change:
-
-```diff
--UserRole
-+definitions['user']['role'];
-```
-
-v2 also improves how `$ref`s are used. Notice how v1 invented a `$ref` for `User.role`, but v2
-didn’t. v2 more closely-matched your schema. Again, this is not only more predictable, but it puts
-more faith in your schema to handle collisions than swagger-to-ts.
-
-#### Wrappers
-
-The `--wrapper` CLI flag was removed because it was awkward having to manage part of your TypeScript
-definition in a CLI flag. In v2, simply compose the wrapper yourself however you’d like:
-
-```ts
-import { components as Schema1 } from './generated/schema-1.ts';
-import { components as Schema2 } from './generated/schema-2.ts';
-
-declare namespace OpenAPI3 {
-  export Schema1;
-  export Schema2;
-}
-```
-
-#### CamelCasing
-
-Similarly, the `--camelcase` was removed because it transformed your schema in unpredictable ways.
-It didn’t always transform words as expected. In v2, all generated types must conform to your
-schema’s exact naming.
 
 [glob]: https://www.npmjs.com/package/glob
 [js-yaml]: https://www.npmjs.com/package/js-yaml

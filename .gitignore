@@ -1,5 +1,6 @@
 .cache
 .DS_Store
+*.ts.snap
 coverage
 pkg
 node_modules
