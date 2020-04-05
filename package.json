@@ -4,7 +4,7 @@
   "main": "dist/cjs",
   "version": "1.7.1",
   "engines": {
-    "node": ">= 8.0.0"
+    "node": ">= 10.0.0"
   },
   "bin": {
     "swagger-to-ts": "bin/cli.js"

@@ -20,16 +20,17 @@ export type OpenAPI2Type =
   | 'password'
   | 'string';
 
+export type OpenAPI2Reference = { $ref: string };
+
 export interface OpenAPI2SchemaObject {
-  $ref?: string;
-  additionalProperties?: boolean | OpenAPI2SchemaObject;
+  additionalProperties?: OpenAPI2SchemaObject | OpenAPI2Reference | boolean;
   allOf?: OpenAPI2SchemaObject[];
   description?: string;
   enum?: string[];
   format?: string;
-  items?: OpenAPI2SchemaObject;
-  oneOf?: OpenAPI2SchemaObject[];
-  properties?: { [index: string]: OpenAPI2SchemaObject };
+  items?: OpenAPI2SchemaObject | OpenAPI2Reference;
+  oneOf?: (OpenAPI2SchemaObject | OpenAPI2Reference)[];
+  properties?: { [index: string]: OpenAPI2SchemaObject | OpenAPI2Reference };
   required?: string[];
   title?: string;
   type?: OpenAPI2Type;

@@ -69,10 +69,17 @@ export default function generateTypesV2(schema: OpenAPI2, propertyMapper?: Prope
       // map over properties, transforming if needed
       node.properties = fromEntries(
         Object.entries(node.properties).map(([key, val]) => {
-          const property = propertyMapper(val, {
-            interfaceType: val.type as string,
+          // if $ref, skip
+          if (val.$ref) {
+            return [key, val];
+          }
+
+          const schemaObject = val as OpenAPI2SchemaObject;
+
+          const property = propertyMapper(schemaObject, {
+            interfaceType: schemaObject.type as string,
             optional: !Array.isArray(node.required) || node.required.includes(key),
-            description: val.description,
+            description: schemaObject.description,
           });
 
           // update requirements
@@ -87,7 +94,7 @@ export default function generateTypesV2(schema: OpenAPI2, propertyMapper?: Prope
           // transform node from mapper
           return [key, { ...val, type: property.interfaceType, description: property.description }];
         })
-      ) as any;
+      ) as OpenAPI2SchemaObject['properties'];
 
       return node; // return by default
     });
@@ -105,7 +112,7 @@ export default function generateTypesV2(schema: OpenAPI2, propertyMapper?: Prope
   });
 
   // 5th pass: objects & arrays
-  const objectsAndArrays = JSON.parse(JSON.stringify(primitives), (k, node) => {
+  const objectsAndArrays = JSON.parse(JSON.stringify(primitives), (_, node) => {
     // object
     if (isObjNodeV2(node)) {
       const allProperties: any[] = [
