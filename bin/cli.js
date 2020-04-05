@@ -14,43 +14,13 @@ const cli = meow(
 
 Options
   --help                display this
-  --wrapper, -w         specify wrapper (default: "declare namespace OpenAPI2")
   --output, -o          specify output file
-  --camelcase, -c       convert snake_case properties to camelCase (default: off)
-  --nowrapper -nw       disables rendering the wrapper
-  --no-warning          hides the warning at the top of the generated file (default: off)
 `,
   {
     flags: {
-      camelcase: {
-        type: 'boolean',
-        default: false,
-        alias: 'c',
-      },
-      wrapper: {
-        type: 'string',
-        default: 'declare namespace OpenAPI2',
-        alias: 'w',
-      },
       output: {
         type: 'string',
         alias: 'o',
-      },
-      namespace: {
-        type: 'string',
-        alias: 'n',
-      },
-      export: {
-        type: 'boolean',
-        alias: 'e',
-      },
-      nowrapper: {
-        type: 'boolean',
-        alias: 'nw',
-      },
-      warning: {
-        type: 'boolean',
-        default: true,
       },
     },
   }
@@ -58,15 +28,7 @@ Options
 
 let spec = cli.input[0];
 
-if (typeof cli.flags.namespace === 'string' && cli.flags.namespace.length > 0) {
-  console.error(chalk.red('--namespace option is deprecated. Please use --wrapper instead.'));
-  return;
-}
-
-if (cli.flags.export === true) {
-  console.error(chalk.red('--export option is deprecated. Please use --wrapper instead.'));
-  return;
-}
+const timeStart = process.hrtime();
 
 // If input is a file, load it
 const pathname = resolve(process.cwd(), spec);
@@ -98,15 +60,10 @@ try {
   );
 }
 
-if (cli.flags.nowrapper) {
-  cli.flags.wrapper = false;
-}
-
-const result = swaggerToTS(spec, cli.flags);
+const result = swaggerToTS(spec);
 
 // Write to file if specifying output
 if (cli.flags.output) {
-  const timeStart = process.hrtime();
   const outputFile = resolve(process.cwd(), cli.flags.output);
   const parent = dirname(outputFile);
   mkdirpSync(parent);

@@ -3,8022 +3,103 @@
  * Do not make direct changes to the file.
  */
 
-declare namespace OpenAPI2 {
-  export interface webhook_endpoint {
-    /**
-     * The API version events are rendered as for this webhook endpoint.
-     */
-    api_version?: string;
-    /**
-     * The ID of the associated Connect application.
-     */
-    application?: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * The list of events to enable for this endpoint. `['*']` indicates that all events are enabled, except those that require explicit selection.
-     */
-    enabled_events: string[];
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'webhook_endpoint';
-    /**
-     * The endpoint's secret, used to generate [webhook signatures](https://stripe.com/docs/webhooks/signatures). Only returned at creation.
-     */
-    secret?: string;
-    /**
-     * The status of the webhook. It can be `enabled` or `disabled`.
-     */
-    status: string;
-    /**
-     * The URL of the webhook endpoint.
-     */
-    url: string;
-  }
-  export interface usage_record_summary {
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * The invoice in which this usage period has been billed for.
-     */
-    invoice?: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'usage_record_summary';
-    period: period;
-    /**
-     * The ID of the subscription item this summary is describing.
-     */
-    subscription_item: string;
-    /**
-     * The total usage within this usage period.
-     */
-    total_usage: number;
-  }
-  export interface usage_record {
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'usage_record';
-    /**
-     * The usage quantity for the specified date.
-     */
-    quantity: number;
-    /**
-     * The ID of the subscription item this usage record contains data for.
-     */
-    subscription_item: string;
-    /**
-     * The timestamp when this usage occurred.
-     */
-    timestamp: number;
-  }
-  export interface transform_usage {
-    /**
-     * Divide usage by this number.
-     */
-    divide_by: number;
-    /**
-     * After division, either round the result `up` or `down`.
-     */
-    round: 'down' | 'up';
-  }
-  export interface transfer_schedule {
-    /**
-     * The number of days charges for the account will be held before being paid out.
-     */
-    delay_days: number;
-    /**
-     * How frequently funds will be paid out. One of `manual` (payouts only created via API call), `daily`, `weekly`, or `monthly`.
-     */
-    interval: string;
-    /**
-     * The day of the month funds will be paid out. Only shown if `interval` is monthly. Payouts scheduled between the 29th and 31st of the month are sent on the last day of shorter months.
-     */
-    monthly_anchor?: number;
-    /**
-     * The day of the week funds will be paid out, of the style 'monday', 'tuesday', etc. Only shown if `interval` is weekly.
-     */
-    weekly_anchor?: string;
-  }
-  export interface transfer_reversal {
-    /**
-     * Amount, in %s.
-     */
-    amount: number;
-    /**
-     * Balance transaction that describes the impact on your account balance.
-     */
-    balance_transaction?: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * Linked payment refund for the transfer reversal.
-     */
-    destination_payment_refund?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'transfer_reversal';
-    /**
-     * ID of the refund responsible for the transfer reversal.
-     */
-    source_refund?: string;
-    /**
-     * ID of the transfer that was reversed.
-     */
-    transfer: string;
-  }
-  export interface transfer_data {
-    /**
-     * Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
-     */
-    amount?: number;
-    /**
-     * The account (if any) the payment will be attributed to for tax
-     * reporting, and where funds from the payment will be transferred to upon
-     * payment success.
-     */
-    destination: string;
-  }
-  export interface transfer {
-    /**
-     * Amount in %s to be transferred.
-     */
-    amount: number;
-    /**
-     * Amount in %s reversed (can be less than the amount attribute on the transfer if a partial reversal was issued).
-     */
-    amount_reversed: number;
-    /**
-     * Balance transaction that describes the impact of this transfer on your account balance.
-     */
-    balance_transaction?: string;
-    /**
-     * Time that this record of the transfer was first created.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * An arbitrary string attached to the object. Often useful for displaying to users.
-     */
-    description?: string;
-    /**
-     * ID of the Stripe account the transfer was sent to.
-     */
-    destination?: string;
-    /**
-     * If the destination is a Stripe account, this will be the ID of the payment that the destination account received for the transfer.
-     */
-    destination_payment?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'transfer';
-    /**
-     * A list of reversals that have been applied to the transfer.
-     */
-    reversals: transferReversals;
-    /**
-     * Whether the transfer has been fully reversed. If the transfer is only partially reversed, this attribute will still be false.
-     */
-    reversed: boolean;
-    /**
-     * ID of the charge or payment that was used to fund the transfer. If null, the transfer was funded from the available balance.
-     */
-    source_transaction?: string;
-    /**
-     * The source balance this transfer came from. One of `card`, `fpx`, or `bank_account`.
-     */
-    source_type?: string;
-    /**
-     * A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details.
-     */
-    transfer_group?: string;
-  }
-  export interface transferReversals {
-    /**
-     * Details about each object.
-     */
-    data: transfer_reversal[];
-    /**
-     * True if this list has another page of items after this one that can be fetched.
-     */
-    has_more: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
-     */
-    object: 'list';
-    /**
-     * The URL where this list can be accessed.
-     */
-    url: string;
-  }
-  export interface topup {
-    /**
-     * Amount transferred.
-     */
-    amount: number;
-    /**
-     * ID of the balance transaction that describes the impact of this top-up on your account balance. May not be specified depending on status of top-up.
-     */
-    balance_transaction?: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * An arbitrary string attached to the object. Often useful for displaying to users.
-     */
-    description?: string;
-    /**
-     * Date the funds are expected to arrive in your Stripe account for payouts. This factors in delays like weekends or bank holidays. May not be specified depending on status of top-up.
-     */
-    expected_availability_date?: number;
-    /**
-     * Error code explaining reason for top-up failure if available (see [the errors section](https://stripe.com/docs/api#errors) for a list of codes).
-     */
-    failure_code?: string;
-    /**
-     * Message to user further explaining reason for top-up failure if available.
-     */
-    failure_message?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'topup';
-    source: source;
-    /**
-     * Extra information about a top-up. This will appear on your source's bank statement. It must contain at least one letter.
-     */
-    statement_descriptor?: string;
-    /**
-     * The status of the top-up is either `canceled`, `failed`, `pending`, `reversed`, or `succeeded`.
-     */
-    status: 'canceled' | 'failed' | 'pending' | 'reversed' | 'succeeded';
-    /**
-     * A string that identifies this top-up as part of a group.
-     */
-    transfer_group?: string;
-  }
-  export interface token {
-    bank_account?: bank_account;
-    card?: card;
-    /**
-     * IP address of the client that generated the token.
-     */
-    client_ip?: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'token';
-    /**
-     * Type of the token: `account`, `bank_account`, `card`, or `pii`.
-     */
-    type: string;
-    /**
-     * Whether this token has already been used (tokens can be used only once).
-     */
-    used: boolean;
-  }
-  export interface three_d_secure_usage {
-    /**
-     * Whether 3D Secure is supported on this card.
-     */
-    supported: boolean;
-  }
-  export interface three_d_secure_details {
-    /**
-     * Whether or not authentication was performed. 3D Secure will succeed without authentication when the card is not enrolled.
-     */
-    authenticated?: boolean;
-    /**
-     * Whether or not 3D Secure succeeded.
-     */
-    succeeded?: boolean;
-    /**
-     * The version of 3D Secure that was used for this payment.
-     */
-    version: string;
-  }
-  export interface three_d_secure {
-    /**
-     * Amount of the charge that you will create when authentication completes.
-     */
-    amount: number;
-    /**
-     * True if the cardholder went through the authentication flow and their bank indicated that authentication succeeded.
-     */
-    authenticated: boolean;
-    card: card;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'three_d_secure';
-    /**
-     * If present, this is the URL that you should send the cardholder to for authentication. If you are going to use Stripe.js to display the authentication page in an iframe, you should use the value "_callback".
-     */
-    redirect_url?: string;
-    /**
-     * Possible values are `redirect_pending`, `succeeded`, or `failed`. When the cardholder can be authenticated, the object starts with status `redirect_pending`. When liability will be shifted to the cardholder's bank (either because the cardholder was successfully authenticated, or because the bank has not implemented 3D Secure, the object wlil be in status `succeeded`. `failed` indicates that authentication was attempted unsuccessfully.
-     */
-    status: string;
-  }
-  export interface terminal_reader {
-    /**
-     * The current software version of the reader.
-     */
-    device_sw_version?: string;
-    /**
-     * Type of reader, one of `bbpos_chipper2x` or `verifone_P400`.
-     */
-    device_type: 'bbpos_chipper2x' | 'verifone_P400';
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * The local IP address of the reader.
-     */
-    ip_address?: string;
-    /**
-     * Custom label given to the reader for easier identification.
-     */
-    label: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * The location identifier of the reader.
-     */
-    location?: string;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'terminal.reader';
-    /**
-     * Serial number of the reader.
-     */
-    serial_number: string;
-    /**
-     * The networking status of the reader.
-     */
-    status?: string;
-  }
-  export interface terminal_location {
-    address: address;
-    /**
-     * The display name of the location.
-     */
-    display_name: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'terminal.location';
-  }
-  export interface terminal_connection_token {
-    /**
-     * The id of the location that this connection token is scoped to.
-     */
-    location?: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'terminal.connection_token';
-    /**
-     * Your application should pass this token to the Stripe Terminal SDK.
-     */
-    secret: string;
-  }
-  export interface tax_rate {
-    /**
-     * Defaults to `true`. When set to `false`, this tax rate cannot be applied to objects in the API, but will still be applied to subscriptions and invoices that already have it set.
-     */
-    active: boolean;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
-     */
-    description?: string;
-    /**
-     * The display name of the tax rates as it will appear to your customer on their receipt email, PDF, and the hosted invoice page.
-     */
-    display_name: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * This specifies if the tax rate is inclusive or exclusive.
-     */
-    inclusive: boolean;
-    /**
-     * The jurisdiction for the tax rate.
-     */
-    jurisdiction?: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'tax_rate';
-    /**
-     * This represents the tax rate percent out of 100.
-     */
-    percentage: number;
-  }
-  export interface tax_id_verification {
-    /**
-     * Verification status, one of `pending`, `verified`, `unverified`, or `unavailable`.
-     */
-    status: 'pending' | 'unavailable' | 'unverified' | 'verified';
-    /**
-     * Verified address.
-     */
-    verified_address?: string;
-    /**
-     * Verified name.
-     */
-    verified_name?: string;
-  }
-  export interface tax_id {
-    /**
-     * Two-letter ISO code representing the country of the tax ID.
-     */
+export interface definitions {
+  account: {
+    business_profile?: definitions['account_business_profile'];
+    business_type?:
+      | 'company'
+      | 'government_entity'
+      | 'individual'
+      | 'non_profit';
+    capabilities?: definitions['account_capabilities'];
+    charges_enabled?: boolean;
+    company?: definitions['legal_entity_company'];
     country?: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * ID of the customer.
-     */
-    customer: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'tax_id';
-    /**
-     * Type of the tax ID, one of `au_abn`, `ca_bn`, `ca_qst`, `ch_vat`, `es_cif`, `eu_vat`, `hk_br`, `in_gst`, `jp_cn`, `kr_brn`, `li_uid`, `mx_rfc`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `ru_inn`, `sg_uen`, `th_vat`, `tw_vat`, `us_ein`, or `za_vat`. Note that some legacy tax IDs have type `unknown`
-     */
-    type:
-      | 'au_abn'
-      | 'ca_bn'
-      | 'ca_qst'
-      | 'ch_vat'
-      | 'es_cif'
-      | 'eu_vat'
-      | 'hk_br'
-      | 'in_gst'
-      | 'jp_cn'
-      | 'kr_brn'
-      | 'li_uid'
-      | 'mx_rfc'
-      | 'my_itn'
-      | 'my_sst'
-      | 'no_vat'
-      | 'nz_gst'
-      | 'ru_inn'
-      | 'sg_uen'
-      | 'th_vat'
-      | 'tw_vat'
-      | 'unknown'
-      | 'us_ein'
-      | 'za_vat';
-    /**
-     * Value of the tax ID.
-     */
-    value: string;
-    verification: tax_id_verification;
-  }
-  export interface tax_deducted_at_source {
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'tax_deducted_at_source';
-    /**
-     * The end of the invoicing period. This TDS applies to Stripe fees collected during this invoicing period.
-     */
-    period_end: number;
-    /**
-     * The start of the invoicing period. This TDS applies to Stripe fees collected during this invoicing period.
-     */
-    period_start: number;
-    /**
-     * The TAN that was supplied to Stripe when TDS was assessed
-     */
-    tax_deduction_account_number: string;
-  }
-  export interface subscriptions_resource_pending_update {
-    /**
-     * If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices.
-     */
-    billing_cycle_anchor?: number;
-    /**
-     * The point after which the changes reflected by this update will be discarded and no longer applied.
-     */
-    expires_at: number;
-    /**
-     * List of subscription items, each with an attached plan, that will be set if the update is applied.
-     */
-    subscription_items?: subscription_item[];
-    /**
-     * Unix timestamp representing the end of the trial period the customer will get before being charged for the first time, if the update is applied.
-     */
-    trial_end?: number;
-    /**
-     * Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed.
-     */
-    trial_from_plan?: boolean;
-  }
-  export interface subscriptions_resource_pause_collection {
-    /**
-     * The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
-     */
-    behavior: 'keep_as_draft' | 'mark_uncollectible' | 'void';
-    /**
-     * The time after which the subscription will resume collecting payments.
-     */
-    resumes_at?: number;
-  }
-  export interface subscription_schedules_resource_default_settings {
-    billing_thresholds?: subscription_billing_thresholds;
-    /**
-     * Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions.
-     */
-    collection_method?: 'charge_automatically' | 'send_invoice';
-    /**
-     * ID of the default payment method for the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
-     */
-    default_payment_method?: string;
-    invoice_settings?: invoice_setting_subscription_schedule_setting;
-  }
-  export interface subscription_schedule_phase_configuration {
-    /**
-     * A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account during this phase of the schedule.
-     */
-    application_fee_percent?: number;
-    billing_thresholds?: subscription_billing_thresholds;
-    /**
-     * Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions.
-     */
-    collection_method?: 'charge_automatically' | 'send_invoice';
-    /**
-     * ID of the coupon to use during this phase of the subscription schedule.
-     */
-    coupon?: string;
-    /**
-     * ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
-     */
-    default_payment_method?: string;
-    /**
-     * The default tax rates to apply to the subscription during this phase of the subscription schedule.
-     */
-    default_tax_rates?: tax_rate[];
-    /**
-     * The end of this phase of the subscription schedule.
-     */
-    end_date: number;
-    invoice_settings?: invoice_setting_subscription_schedule_setting;
-    /**
-     * Plans to subscribe during this phase of the subscription schedule.
-     */
-    plans: subscription_schedule_configuration_item[];
-    /**
-     * Controls whether or not the subscription schedule will prorate when transitioning to this phase. Values are `create_prorations` and `none`.
-     */
-    proration_behavior?: 'always_invoice' | 'create_prorations' | 'none';
-    /**
-     * The start of this phase of the subscription schedule.
-     */
-    start_date: number;
-    /**
-     * If provided, each invoice created during this phase of the subscription schedule will apply the tax rate, increasing the amount billed to the customer.
-     */
-    tax_percent?: number;
-    /**
-     * When the trial ends within the phase.
-     */
-    trial_end?: number;
-  }
-  export interface subscription_schedule_current_phase {
-    /**
-     * The end of this phase of the subscription schedule.
-     */
-    end_date: number;
-    /**
-     * The start of this phase of the subscription schedule.
-     */
-    start_date: number;
-  }
-  export interface subscription_schedule_configuration_item {
-    billing_thresholds?: subscription_item_billing_thresholds;
-    /**
-     * ID of the plan to which the customer should be subscribed.
-     */
-    plan: string;
-    /**
-     * Quantity of the plan to which the customer should be subscribed.
-     */
-    quantity?: number;
-    /**
-     * The tax rates which apply to this `phase_item`. When set, the `default_tax_rates` on the phase do not apply to this `phase_item`.
-     */
-    tax_rates?: tax_rate[];
-  }
-  export interface subscription_schedule {
-    /**
-     * Time at which the subscription schedule was canceled. Measured in seconds since the Unix epoch.
-     */
-    canceled_at?: number;
-    /**
-     * Time at which the subscription schedule was completed. Measured in seconds since the Unix epoch.
-     */
-    completed_at?: number;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    current_phase?: subscription_schedule_current_phase;
-    /**
-     * ID of the customer who owns the subscription schedule.
-     */
-    customer: string;
-    default_settings: subscription_schedules_resource_default_settings;
-    /**
-     * Behavior of the subscription schedule and underlying subscription when it ends.
-     */
-    end_behavior: 'cancel' | 'none' | 'release' | 'renew';
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata?: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'subscription_schedule';
-    /**
-     * Configuration for the subscription schedule's phases.
-     */
-    phases: subscription_schedule_phase_configuration[];
-    /**
-     * Time at which the subscription schedule was released. Measured in seconds since the Unix epoch.
-     */
-    released_at?: number;
-    /**
-     * ID of the subscription once managed by the subscription schedule (if it is released).
-     */
-    released_subscription?: string;
-    /**
-     * The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://stripe.com/docs/billing/subscriptions/subscription-schedules).
-     */
-    status: 'active' | 'canceled' | 'completed' | 'not_started' | 'released';
-    /**
-     * ID of the subscription managed by the subscription schedule.
-     */
-    subscription?: string;
-  }
-  export interface subscription_pending_invoice_item_interval {
-    /**
-     * Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
-     */
-    interval: 'day' | 'month' | 'week' | 'year';
-    /**
-     * The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
-     */
-    interval_count: number;
-  }
-  export interface subscription_item_billing_thresholds {
-    /**
-     * Usage threshold that triggers the subscription to create an invoice
-     */
-    usage_gte?: number;
-  }
-  export interface subscription_item {
-    billing_thresholds?: subscription_item_billing_thresholds;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'subscription_item';
-    plan: plan;
-    /**
-     * The [quantity](https://stripe.com/docs/subscriptions/quantities) of the plan to which the customer should be subscribed.
-     */
-    quantity?: number;
-    /**
-     * The `subscription` this `subscription_item` belongs to.
-     */
-    subscription: string;
-    /**
-     * The tax rates which apply to this `subscription_item`. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
-     */
-    tax_rates?: tax_rate[];
-  }
-  export interface subscription_billing_thresholds {
-    /**
-     * Monetary threshold that triggers the subscription to create an invoice
-     */
-    amount_gte?: number;
-    /**
-     * Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
-     */
-    reset_billing_cycle_anchor?: boolean;
-  }
-  export interface subscription {
-    /**
-     * A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account.
-     */
-    application_fee_percent?: number;
-    /**
-     * Determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices.
-     */
-    billing_cycle_anchor: number;
-    billing_thresholds?: subscription_billing_thresholds;
-    /**
-     * A date in the future at which the subscription will automatically get canceled
-     */
-    cancel_at?: number;
-    /**
-     * If the subscription has been canceled with the `at_period_end` flag set to `true`, `cancel_at_period_end` on the subscription will be true. You can use this attribute to determine whether a subscription that has a status of active is scheduled to be canceled at the end of the current period.
-     */
-    cancel_at_period_end: boolean;
-    /**
-     * If the subscription has been canceled, the date of that cancellation. If the subscription was canceled with `cancel_at_period_end`, `canceled_at` will still reflect the date of the initial cancellation request, not the end of the subscription period when the subscription is automatically moved to a canceled state.
-     */
-    canceled_at?: number;
-    /**
-     * Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions.
-     */
-    collection_method?: 'charge_automatically' | 'send_invoice';
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * End of the current period that the subscription has been invoiced for. At the end of this period, a new invoice will be created.
-     */
-    current_period_end: number;
-    /**
-     * Start of the current period that the subscription has been invoiced for.
-     */
-    current_period_start: number;
-    /**
-     * ID of the customer who owns the subscription.
-     */
-    customer: string;
-    /**
-     * Number of days a customer has to pay invoices generated by this subscription. This value will be `null` for subscriptions where `collection_method=charge_automatically`.
-     */
-    days_until_due?: number;
-    /**
-     * ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. If not set, invoices will use the default payment method in the customer's invoice settings.
-     */
-    default_payment_method?: string;
-    /**
-     * ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If not set, defaults to the customer's default source.
-     */
-    default_source?: string;
-    /**
-     * The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription.
-     */
-    default_tax_rates?: tax_rate[];
-    discount?: discount;
-    /**
-     * If the subscription has ended, the date the subscription ended.
-     */
-    ended_at?: number;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * List of subscription items, each with an attached plan.
-     */
-    items: subscriptionItems;
-    /**
-     * The most recent invoice this subscription has generated.
-     */
-    latest_invoice?: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * Specifies the approximate timestamp on which any pending invoice items will be billed according to the schedule provided at `pending_invoice_item_interval`.
-     */
-    next_pending_invoice_item_invoice?: number;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'subscription';
-    pause_collection?: subscriptions_resource_pause_collection;
-    pending_invoice_item_interval?: subscription_pending_invoice_item_interval;
-    /**
-     * You can use this [SetupIntent](https://stripe.com/docs/api/setup_intents) to collect user authentication when creating a subscription without immediate payment or updating a subscription's payment method, allowing you to optimize for off-session payments. Learn more in the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication#scenario-2).
-     */
-    pending_setup_intent?: string;
-    pending_update?: subscriptions_resource_pending_update;
-    plan?: plan;
-    /**
-     * The quantity of the plan to which the customer is subscribed. For example, if your plan is $10/user/month, and your customer has 5 users, you could pass 5 as the quantity to have the customer charged $50 (5 x $10) monthly. Only set if the subscription contains a single plan.
-     */
-    quantity?: number;
-    /**
-     * The schedule attached to the subscription
-     */
-    schedule?: string;
-    /**
-     * Date when the subscription was first created. The date might differ from the `created` date due to backdating.
-     */
-    start_date: number;
-    /**
-     * Possible values are `incomplete`, `incomplete_expired`, `trialing`, `active`, `past_due`, `canceled`, or `unpaid`.
-     *
-     * For `collection_method=charge_automatically` a subscription moves into `incomplete` if the initial payment attempt fails. A subscription in this state can only have metadata and default_source updated. Once the first invoice is paid, the subscription moves into an `active` state. If the first invoice is not paid within 23 hours, the subscription transitions to `incomplete_expired`. This is a terminal state, the open invoice will be voided and no further invoices will be generated.
-     *
-     * A subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.
-     *
-     * If subscription `collection_method=charge_automatically` it becomes `past_due` when payment to renew it fails and `canceled` or `unpaid` (depending on your subscriptions settings) when Stripe has exhausted all payment retry attempts.
-     *
-     * If subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.
-     */
-    status:
-      | 'active'
-      | 'canceled'
-      | 'incomplete'
-      | 'incomplete_expired'
-      | 'past_due'
-      | 'trialing'
-      | 'unpaid';
-    /**
-     * If provided, each invoice created by this subscription will apply the tax rate, increasing the amount billed to the customer.
-     */
-    tax_percent?: number;
-    /**
-     * If the subscription has a trial, the end of that trial.
-     */
-    trial_end?: number;
-    /**
-     * If the subscription has a trial, the beginning of that trial.
-     */
-    trial_start?: number;
-  }
-  export interface subscriptionItems {
-    /**
-     * Details about each object.
-     */
-    data: subscription_item[];
-    /**
-     * True if this list has another page of items after this one that can be fetched.
-     */
-    has_more: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
-     */
-    object: 'list';
-    /**
-     * The URL where this list can be accessed.
-     */
-    url: string;
-  }
-  export interface status_transitions {
-    /**
-     * The time that the order was canceled.
-     */
-    canceled?: number;
-    /**
-     * The time that the order was fulfilled.
-     */
-    fulfiled?: number;
-    /**
-     * The time that the order was paid.
-     */
-    paid?: number;
-    /**
-     * The time that the order was returned.
-     */
-    returned?: number;
-  }
-  export interface source_type_wechat {
-    prepay_id?: string;
-    qr_code_url?: string;
-    statement_descriptor?: string;
-  }
-  export interface source_type_three_d_secure {
-    address_line1_check?: string;
-    address_zip_check?: string;
-    authenticated?: boolean;
-    brand?: string;
-    card?: string;
-    country?: string;
-    customer?: string;
-    cvc_check?: string;
-    dynamic_last4?: string;
-    exp_month?: number;
-    exp_year?: number;
-    fingerprint?: string;
-    funding?: string;
-    last4?: string;
-    name?: string;
-    three_d_secure?: string;
-    tokenization_method?: string;
-  }
-  export interface source_type_sofort {
-    bank_code?: string;
-    bank_name?: string;
-    bic?: string;
-    country?: string;
-    iban_last4?: string;
-    preferred_language?: string;
-    statement_descriptor?: string;
-  }
-  export interface source_type_sepa_debit {
-    bank_code?: string;
-    branch_code?: string;
-    country?: string;
-    fingerprint?: string;
-    last4?: string;
-    mandate_reference?: string;
-    mandate_url?: string;
-  }
-  export interface source_type_p24 {
-    reference?: string;
-  }
-  export interface source_type_multibanco {
-    entity?: string;
-    reference?: string;
-    refund_account_holder_address_city?: string;
-    refund_account_holder_address_country?: string;
-    refund_account_holder_address_line1?: string;
-    refund_account_holder_address_line2?: string;
-    refund_account_holder_address_postal_code?: string;
-    refund_account_holder_address_state?: string;
-    refund_account_holder_name?: string;
-    refund_iban?: string;
-  }
-  export interface source_type_klarna {
-    background_image_url?: string;
-    client_token?: string;
-    first_name?: string;
-    last_name?: string;
-    locale?: string;
-    logo_url?: string;
-    page_title?: string;
-    pay_later_asset_urls_descriptive?: string;
-    pay_later_asset_urls_standard?: string;
-    pay_later_name?: string;
-    pay_later_redirect_url?: string;
-    pay_now_asset_urls_descriptive?: string;
-    pay_now_asset_urls_standard?: string;
-    pay_now_name?: string;
-    pay_now_redirect_url?: string;
-    pay_over_time_asset_urls_descriptive?: string;
-    pay_over_time_asset_urls_standard?: string;
-    pay_over_time_name?: string;
-    pay_over_time_redirect_url?: string;
-    payment_method_categories?: string;
-    purchase_country?: string;
-    purchase_type?: string;
-    redirect_url?: string;
-    shipping_first_name?: string;
-    shipping_last_name?: string;
-  }
-  export interface source_type_ideal {
-    bank?: string;
-    bic?: string;
-    iban_last4?: string;
-    statement_descriptor?: string;
-  }
-  export interface source_type_giropay {
-    bank_code?: string;
-    bank_name?: string;
-    bic?: string;
-    statement_descriptor?: string;
-  }
-  export interface source_type_eps {
-    reference?: string;
-    statement_descriptor?: string;
-  }
-  export interface source_type_card_present {
-    application_cryptogram?: string;
-    application_preferred_name?: string;
-    authorization_code?: string;
-    authorization_response_code?: string;
-    brand?: string;
-    country?: string;
-    cvm_type?: string;
-    data_type?: string;
-    dedicated_file_name?: string;
-    emv_auth_data?: string;
-    evidence_customer_signature?: string;
-    evidence_transaction_certificate?: string;
-    exp_month?: number;
-    exp_year?: number;
-    fingerprint?: string;
-    funding?: string;
-    last4?: string;
-    pos_device_id?: string;
-    pos_entry_mode?: string;
-    read_method?: string;
-    reader?: string;
-    terminal_verification_results?: string;
-    transaction_status_information?: string;
-  }
-  export interface source_type_card {
-    address_line1_check?: string;
-    address_zip_check?: string;
-    brand?: string;
-    country?: string;
-    cvc_check?: string;
-    dynamic_last4?: string;
-    exp_month?: number;
-    exp_year?: number;
-    fingerprint?: string;
-    funding?: string;
-    last4?: string;
-    name?: string;
-    three_d_secure?: string;
-    tokenization_method?: string;
-  }
-  export interface source_type_bancontact {
-    bank_code?: string;
-    bank_name?: string;
-    bic?: string;
-    iban_last4?: string;
-    preferred_language?: string;
-    statement_descriptor?: string;
-  }
-  export interface source_type_au_becs_debit {
-    bsb_number?: string;
-    fingerprint?: string;
-    last4?: string;
-  }
-  export interface source_type_alipay {
-    data_string?: string;
-    native_url?: string;
-    statement_descriptor?: string;
-  }
-  export interface source_type_ach_debit {
-    bank_name?: string;
-    country?: string;
-    fingerprint?: string;
-    last4?: string;
-    routing_number?: string;
-    type?: string;
-  }
-  export interface source_type_ach_credit_transfer {
-    account_number?: string;
-    bank_name?: string;
-    fingerprint?: string;
-    refund_account_holder_name?: string;
-    refund_account_holder_type?: string;
-    refund_routing_number?: string;
-    routing_number?: string;
-    swift_code?: string;
-  }
-  export interface source_transaction_sepa_credit_transfer_data {
-    /**
-     * Reference associated with the transfer.
-     */
-    reference?: string;
-    /**
-     * Sender's bank account IBAN.
-     */
-    sender_iban?: string;
-    /**
-     * Sender's name.
-     */
-    sender_name?: string;
-  }
-  export interface source_transaction_paper_check_data {
-    /**
-     * Time at which the deposited funds will be available for use. Measured in seconds since the Unix epoch.
-     */
-    available_at?: string;
-    /**
-     * Comma-separated list of invoice IDs associated with the paper check.
-     */
-    invoices?: string;
-  }
-  export interface source_transaction_gbp_credit_transfer_data {
-    /**
-     * Bank account fingerprint associated with the Stripe owned bank account receiving the transfer.
-     */
-    fingerprint?: string;
-    /**
-     * The credit transfer rails the sender used to push this transfer. The possible rails are: Faster Payments, BACS, CHAPS, and wire transfers. Currently only Faster Payments is supported.
-     */
-    funding_method?: string;
-    /**
-     * Last 4 digits of sender account number associated with the transfer.
-     */
-    last4?: string;
-    /**
-     * Sender entered arbitrary information about the transfer.
-     */
-    reference?: string;
-    /**
-     * Sender account number associated with the transfer.
-     */
-    sender_account_number?: string;
-    /**
-     * Sender name associated with the transfer.
-     */
-    sender_name?: string;
-    /**
-     * Sender sort code associated with the transfer.
-     */
-    sender_sort_code?: string;
-  }
-  export interface source_transaction_chf_credit_transfer_data {
-    /**
-     * Reference associated with the transfer.
-     */
-    reference?: string;
-    /**
-     * Sender's country address.
-     */
-    sender_address_country?: string;
-    /**
-     * Sender's line 1 address.
-     */
-    sender_address_line1?: string;
-    /**
-     * Sender's bank account IBAN.
-     */
-    sender_iban?: string;
-    /**
-     * Sender's name.
-     */
-    sender_name?: string;
-  }
-  export interface source_transaction_ach_credit_transfer_data {
-    /**
-     * Customer data associated with the transfer.
-     */
-    customer_data?: string;
-    /**
-     * Bank account fingerprint associated with the transfer.
-     */
-    fingerprint?: string;
-    /**
-     * Last 4 digits of the account number associated with the transfer.
-     */
-    last4?: string;
-    /**
-     * Routing number associated with the transfer.
-     */
-    routing_number?: string;
-  }
-  export interface source_transaction {
-    ach_credit_transfer?: source_transaction_ach_credit_transfer_data;
-    /**
-     * A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the amount your customer has pushed to the receiver.
-     */
-    amount: number;
-    chf_credit_transfer?: source_transaction_chf_credit_transfer_data;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    gbp_credit_transfer?: source_transaction_gbp_credit_transfer_data;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'source_transaction';
-    paper_check?: source_transaction_paper_check_data;
-    sepa_credit_transfer?: source_transaction_sepa_credit_transfer_data;
-    /**
-     * The ID of the source this transaction is attached to.
-     */
-    source: string;
-    /**
-     * The status of the transaction, one of `succeeded`, `pending`, or `failed`.
-     */
-    status: string;
-    /**
-     * The type of source this transaction is attached to.
-     */
-    type:
-      | 'ach_credit_transfer'
-      | 'ach_debit'
-      | 'alipay'
-      | 'bancontact'
-      | 'card'
-      | 'card_present'
-      | 'eps'
-      | 'giropay'
-      | 'ideal'
-      | 'klarna'
-      | 'multibanco'
-      | 'p24'
-      | 'sepa_debit'
-      | 'sofort'
-      | 'three_d_secure'
-      | 'wechat';
-  }
-  export interface source_redirect_flow {
-    /**
-     * The failure reason for the redirect, either `user_abort` (the customer aborted or dropped out of the redirect flow), `declined` (the authentication failed or the transaction was declined), or `processing_error` (the redirect failed due to a technical error). Present only if the redirect status is `failed`.
-     */
-    failure_reason?: string;
-    /**
-     * The URL you provide to redirect the customer to after they authenticated their payment.
-     */
-    return_url: string;
-    /**
-     * The status of the redirect, either `pending` (ready to be used by your customer to authenticate the transaction), `succeeded` (succesful authentication, cannot be reused) or `not_required` (redirect should not be used) or `failed` (failed authentication, cannot be reused).
-     */
-    status: string;
-    /**
-     * The URL provided to you to redirect a customer to as part of a `redirect` authentication flow.
-     */
-    url: string;
-  }
-  export interface source_receiver_flow {
-    /**
-     * The address of the receiver source. This is the value that should be communicated to the customer to send their funds to.
-     */
-    address?: string;
-    /**
-     * The total amount that was charged by you. The amount charged is expressed in the source's currency.
-     */
-    amount_charged: number;
-    /**
-     * The total amount received by the receiver source. `amount_received = amount_returned + amount_charged` is true at all time. The amount received is expressed in the source's currency.
-     */
-    amount_received: number;
-    /**
-     * The total amount that was returned to the customer. The amount returned is expressed in the source's currency.
-     */
-    amount_returned: number;
-    /**
-     * Type of refund attribute method, one of `email`, `manual`, or `none`.
-     */
-    refund_attributes_method: string;
-    /**
-     * Type of refund attribute status, one of `missing`, `requested`, or `available`.
-     */
-    refund_attributes_status: string;
-  }
-  export interface source_owner {
-    address?: address;
-    /**
-     * Owner's email address.
-     */
+    created?: number;
+    default_currency?: string;
+    details_submitted?: boolean;
     email?: string;
-    /**
-     * Owner's full name.
-     */
-    name?: string;
-    /**
-     * Owner's phone number (including extension).
-     */
-    phone?: string;
-    verified_address?: address;
-    /**
-     * Verified owner's email address. Verified values are verified or provided by the payment method directly (and if supported) at the time of authorization or settlement. They cannot be set or mutated.
-     */
-    verified_email?: string;
-    /**
-     * Verified owner's full name. Verified values are verified or provided by the payment method directly (and if supported) at the time of authorization or settlement. They cannot be set or mutated.
-     */
-    verified_name?: string;
-    /**
-     * Verified owner's phone number (including extension). Verified values are verified or provided by the payment method directly (and if supported) at the time of authorization or settlement. They cannot be set or mutated.
-     */
-    verified_phone?: string;
-  }
-  export interface source_order_item {
-    /**
-     * The amount (price) for this order item.
-     */
-    amount?: number;
-    /**
-     * This currency of this order item. Required when `amount` is present.
-     */
-    currency?: string;
-    /**
-     * Human-readable description for this order item.
-     */
-    description?: string;
-    /**
-     * The quantity of this order item. When type is `sku`, this is the number of instances of the SKU to be ordered.
-     */
-    quantity?: number;
-    /**
-     * The type of this order item. Must be `sku`, `tax`, or `shipping`.
-     */
-    type?: string;
-  }
-  export interface source_order {
-    /**
-     * A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount for the order.
-     */
-    amount: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * The email address of the customer placing the order.
-     */
-    email?: string;
-    /**
-     * List of items constituting the order.
-     */
-    items?: source_order_item[];
-    shipping?: shipping;
-  }
-  export interface source_mandate_notification_sepa_debit_data {
-    /**
-     * SEPA creditor ID.
-     */
-    creditor_identifier?: string;
-    /**
-     * Last 4 digits of the account number associated with the debit.
-     */
-    last4?: string;
-    /**
-     * Mandate reference associated with the debit.
-     */
-    mandate_reference?: string;
-  }
-  export interface source_mandate_notification_bacs_debit_data {
-    /**
-     * Last 4 digits of the account number associated with the debit.
-     */
-    last4?: string;
-  }
-  export interface source_mandate_notification {
-    /**
-     * A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the amount associated with the mandate notification. The amount is expressed in the currency of the underlying source. Required if the notification type is `debit_initiated`.
-     */
-    amount?: number;
-    bacs_debit?: source_mandate_notification_bacs_debit_data;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Unique identifier for the object.
-     */
+    external_accounts?: {
+      data: definitions['bank_account'][];
+      has_more: boolean;
+      object: 'list';
+      url: string;
+    };
     id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'source_mandate_notification';
-    /**
-     * The reason of the mandate notification. Valid reasons are `mandate_confirmed` or `debit_initiated`.
-     */
-    reason: string;
-    sepa_debit?: source_mandate_notification_sepa_debit_data;
-    source: source;
-    /**
-     * The status of the mandate notification. Valid statuses are `pending` or `submitted`.
-     */
-    status: string;
-    /**
-     * The type of source this mandate notification is attached to. Should be the source type identifier code for the payment method, such as `three_d_secure`.
-     */
-    type: string;
-  }
-  export interface source_code_verification_flow {
-    /**
-     * The number of attempts remaining to authenticate the source object with a verification code.
-     */
-    attempts_remaining: number;
-    /**
-     * The status of the code verification, either `pending` (awaiting verification, `attempts_remaining` should be greater than 0), `succeeded` (successful verification) or `failed` (failed verification, cannot be verified anymore as `attempts_remaining` should be 0).
-     */
-    status: string;
-  }
-  export interface source {
-    ach_credit_transfer?: source_type_ach_credit_transfer;
-    ach_debit?: source_type_ach_debit;
-    alipay?: source_type_alipay;
-    /**
-     * A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount associated with the source. This is the amount for which the source will be chargeable once ready. Required for `single_use` sources.
-     */
-    amount?: number;
-    au_becs_debit?: source_type_au_becs_debit;
-    bancontact?: source_type_bancontact;
-    card?: source_type_card;
-    card_present?: source_type_card_present;
-    /**
-     * The client secret of the source. Used for client-side retrieval using a publishable key.
-     */
-    client_secret: string;
-    code_verification?: source_code_verification_flow;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) associated with the source. This is the currency for which the source will be chargeable once ready. Required for `single_use` sources.
-     */
-    currency?: string;
-    /**
-     * The ID of the customer to which this source is attached. This will not be present when the source has not been attached to a customer.
-     */
-    customer?: string;
-    eps?: source_type_eps;
-    /**
-     * The authentication `flow` of the source. `flow` is one of `redirect`, `receiver`, `code_verification`, `none`.
-     */
-    flow: string;
-    giropay?: source_type_giropay;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    ideal?: source_type_ideal;
-    klarna?: source_type_klarna;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata?: object;
-    multibanco?: source_type_multibanco;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'source';
-    owner?: source_owner;
-    p24?: source_type_p24;
-    receiver?: source_receiver_flow;
-    redirect?: source_redirect_flow;
-    sepa_debit?: source_type_sepa_debit;
-    sofort?: source_type_sofort;
-    source_order?: source_order;
-    /**
-     * Extra information about a source. This will appear on your customer's statement every time you charge the source.
-     */
-    statement_descriptor?: string;
-    /**
-     * The status of the source, one of `canceled`, `chargeable`, `consumed`, `failed`, or `pending`. Only `chargeable` sources can be used to create a charge.
-     */
-    status: string;
-    three_d_secure?: source_type_three_d_secure;
-    /**
-     * The `type` of the source. The `type` is a payment method, one of `ach_credit_transfer`, `ach_debit`, `alipay`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `multibanco`, `klarna`, `p24`, `sepa_debit`, `sofort`, `three_d_secure`, or `wechat`. An additional hash is included on the source with a name matching this value. It contains additional information specific to the [payment method](https://stripe.com/docs/sources) used.
-     */
-    type:
-      | 'ach_credit_transfer'
-      | 'ach_debit'
-      | 'alipay'
-      | 'au_becs_debit'
-      | 'bancontact'
-      | 'card'
-      | 'card_present'
-      | 'eps'
-      | 'giropay'
-      | 'ideal'
-      | 'klarna'
-      | 'multibanco'
-      | 'p24'
-      | 'sepa_debit'
-      | 'sofort'
-      | 'three_d_secure'
-      | 'wechat';
-    /**
-     * Either `reusable` or `single_use`. Whether this source should be reusable or not. Some source types may or may not be reusable by construction, while others may leave the option at creation. If an incompatible value is passed, an error will be returned.
-     */
-    usage?: string;
-    wechat?: source_type_wechat;
-  }
-  export interface sku {
-    /**
-     * Whether the SKU is available for purchase.
-     */
-    active: boolean;
-    /**
-     * A dictionary of attributes and values for the attributes defined by the product. If, for example, a product's attributes are `["size", "gender"]`, a valid SKU has the following dictionary of attributes: `{"size": "Medium", "gender": "Unisex"}`.
-     */
-    attributes: object;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * The URL of an image for this SKU, meant to be displayable to the customer.
-     */
-    image?: string;
-    inventory: inventory;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'sku';
-    package_dimensions?: package_dimensions;
-    /**
-     * The cost of the item as a positive integer in the smallest currency unit (that is, 100 cents to charge $1.00, or 100 to charge ¥100, Japanese Yen being a zero-decimal currency).
-     */
-    price: number;
-    /**
-     * The ID of the product this SKU is associated with. The product must be currently active.
-     */
-    product: string;
-    /**
-     * Time at which the object was last updated. Measured in seconds since the Unix epoch.
-     */
-    updated: number;
-  }
-  export interface sigma_scheduled_query_run_error {
-    /**
-     * Information about the run failure.
-     */
-    message: string;
-  }
-  export interface shipping_method {
-    /**
-     * A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount for the line item.
-     */
-    amount: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    delivery_estimate?: delivery_estimate;
-    /**
-     * An arbitrary string attached to the object. Often useful for displaying to users.
-     */
-    description: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-  }
-  export interface shipping {
-    address?: address;
-    /**
-     * The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-     */
-    carrier?: string;
-    /**
-     * Recipient name.
-     */
-    name?: string;
-    /**
-     * Recipient phone (including extension).
-     */
-    phone?: string;
-    /**
-     * The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-     */
-    tracking_number?: string;
-  }
-  export interface setup_intent_payment_method_options_card {
-    /**
-     * We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
-     */
-    request_three_d_secure?: 'any' | 'automatic' | 'challenge_only';
-  }
-  export interface setup_intent_payment_method_options {
-    card?: setup_intent_payment_method_options_card;
-  }
-  export interface setup_intent_next_action_redirect_to_url {
-    /**
-     * If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
-     */
-    return_url?: string;
-    /**
-     * The URL you must redirect your customer to in order to authenticate.
-     */
-    url?: string;
-  }
-  export interface setup_intent_next_action {
-    redirect_to_url?: setup_intent_next_action_redirect_to_url;
-    /**
-     * Type of the next action to perform, one of `redirect_to_url` or `use_stripe_sdk`.
-     */
-    type: string;
-    /**
-     * When confirming a SetupIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js.
-     */
-    use_stripe_sdk?: object;
-  }
-  export interface setup_intent {
-    /**
-     * ID of the Connect application that created the SetupIntent.
-     */
-    application?: string;
-    /**
-     * Reason for cancellation of this SetupIntent, one of `abandoned`, `requested_by_customer`, or `duplicate`.
-     */
-    cancellation_reason?: 'abandoned' | 'duplicate' | 'requested_by_customer';
-    /**
-     * The client secret of this SetupIntent. Used for client-side retrieval using a publishable key.
-     *
-     * The client secret can be used to complete payment setup from your frontend. It should not be stored, logged, embedded in URLs, or exposed to anyone other than the customer. Make sure that you have TLS enabled on any page that includes the client secret.
-     */
-    client_secret?: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * ID of the Customer this SetupIntent belongs to, if one exists.
-     *
-     * If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
-     */
-    customer?: string;
-    /**
-     * An arbitrary string attached to the object. Often useful for displaying to users.
-     */
-    description?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    last_setup_error?: api_errors;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * ID of the multi use Mandate generated by the SetupIntent.
-     */
-    mandate?: string;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata?: object;
-    next_action?: setup_intent_next_action;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'setup_intent';
-    /**
-     * The account (if any) for which the setup is intended.
-     */
-    on_behalf_of?: string;
-    /**
-     * ID of the payment method used with this SetupIntent.
-     */
-    payment_method?: string;
-    payment_method_options?: setup_intent_payment_method_options;
-    /**
-     * The list of payment method types (e.g. card) that this SetupIntent is allowed to set up.
-     */
-    payment_method_types: string[];
-    /**
-     * ID of the single_use Mandate generated by the SetupIntent.
-     */
-    single_use_mandate?: string;
-    /**
-     * [Status](https://stripe.com/docs/payments/intents#intent-statuses) of this SetupIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `canceled`, or `succeeded`.
-     */
-    status:
-      | 'canceled'
-      | 'processing'
-      | 'requires_action'
-      | 'requires_confirmation'
-      | 'requires_payment_method'
-      | 'succeeded';
-    /**
-     * Indicates how the payment method is intended to be used in the future.
-     *
-     * Use `on_session` if you intend to only reuse the payment method when the customer is in your checkout flow. Use `off_session` if your customer may or may not be in your checkout flow. If not provided, this value defaults to `off_session`.
-     */
-    usage: string;
-  }
-  export interface scheduled_query_run {
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * When the query was run, Sigma contained a snapshot of your Stripe data at this time.
-     */
-    data_load_time: number;
-    error?: sigma_scheduled_query_run_error;
-    file?: file;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'scheduled_query_run';
-    /**
-     * Time at which the result expires and is no longer available for download.
-     */
-    result_available_until: number;
-    /**
-     * SQL for the query.
-     */
-    sql: string;
-    /**
-     * The query's execution status, which will be `completed` for successful runs, and `canceled`, `failed`, or `timed_out` otherwise.
-     */
-    status: string;
-    /**
-     * Title of the query.
-     */
-    title: string;
-  }
-  export interface rule {
-    /**
-     * The action taken on the payment.
-     */
-    action: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * The predicate to evaluate the payment against.
-     */
-    predicate: string;
-  }
-  export interface review {
-    /**
-     * The ZIP or postal code of the card used, if applicable.
-     */
-    billing_zip?: string;
-    /**
-     * The charge associated with this review.
-     */
-    charge?: string;
-    /**
-     * The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, or `disputed`.
-     */
-    closed_reason?: 'approved' | 'disputed' | 'refunded' | 'refunded_as_fraud';
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * The IP address where the payment originated.
-     */
-    ip_address?: string;
-    ip_address_location?: radar_review_resource_location;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'review';
-    /**
-     * If `true`, the review needs action.
-     */
-    open: boolean;
-    /**
-     * The reason the review was opened. One of `rule` or `manual`.
-     */
-    opened_reason: 'manual' | 'rule';
-    /**
-     * The PaymentIntent ID associated with this review, if one exists.
-     */
-    payment_intent?: string;
-    /**
-     * The reason the review is currently open or closed. One of `rule`, `manual`, `approved`, `refunded`, `refunded_as_fraud`, or `disputed`.
-     */
-    reason: string;
-    session?: radar_review_resource_session;
-  }
-  export interface reserve_transaction {
-    amount: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * An arbitrary string attached to the object. Often useful for displaying to users.
-     */
-    description?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'reserve_transaction';
-  }
-  export interface reporting_report_type {
-    /**
-     * Most recent time for which this Report Type is available. Measured in seconds since the Unix epoch.
-     */
-    data_available_end: number;
-    /**
-     * Earliest time for which this Report Type is available. Measured in seconds since the Unix epoch.
-     */
-    data_available_start: number;
-    /**
-     * List of column names that are included by default when this Report Type gets run. (If the Report Type doesn't support the `columns` parameter, this will be null.)
-     */
-    default_columns?: string[];
-    /**
-     * The [ID of the Report Type](https://stripe.com/docs/reporting/statements/api#available-report-types), such as `balance.summary.1`.
-     */
-    id: string;
-    /**
-     * Human-readable name of the Report Type
-     */
-    name: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'reporting.report_type';
-    /**
-     * When this Report Type was latest updated. Measured in seconds since the Unix epoch.
-     */
-    updated: number;
-    /**
-     * Version of the Report Type. Different versions report with the same ID will have the same purpose, but may take different run parameters or have different result schemas.
-     */
-    version: number;
-  }
-  export interface reporting_report_run {
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * If something should go wrong during the run, a message about the failure (populated when
-     *  `status=failed`).
-     */
-    error?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Always `true`: reports can only be run on live-mode data.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'reporting.report_run';
-    parameters: financial_reporting_finance_report_run_run_parameters;
-    /**
-     * The ID of the [report type](https://stripe.com/docs/reporting/statements/api#report-types) to run, such as `"balance.summary.1"`.
-     */
-    report_type: string;
-    result?: file;
-    /**
-     * Status of this report run. This will be `pending` when the run is initially created.
-     *  When the run finishes, this will be set to `succeeded` and the `result` field will be populated.
-     *  Rarely, we may encounter an error, at which point this will be set to `failed` and the `error` field will be populated.
-     */
-    status: string;
-    /**
-     * Timestamp at which this run successfully finished (populated when
-     *  `status=succeeded`). Measured in seconds since the Unix epoch.
-     */
-    succeeded_at?: number;
-  }
-  export interface refund {
-    /**
-     * Amount, in %s.
-     */
-    amount: number;
-    /**
-     * Balance transaction that describes the impact on your account balance.
-     */
-    balance_transaction?: string;
-    /**
-     * ID of the charge that was refunded.
-     */
-    charge?: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * An arbitrary string attached to the object. Often useful for displaying to users. (Available on non-card refunds only)
-     */
-    description?: string;
-    /**
-     * If the refund failed, this balance transaction describes the adjustment made on your account balance that reverses the initial balance transaction.
-     */
-    failure_balance_transaction?: string;
-    /**
-     * If the refund failed, the reason for refund failure if known. Possible values are `lost_or_stolen_card`, `expired_or_canceled_card`, or `unknown`.
-     */
-    failure_reason?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'refund';
-    /**
-     * ID of the PaymentIntent that was refunded.
-     */
-    payment_intent?: string;
-    /**
-     * Reason for the refund, either user-provided (`duplicate`, `fraudulent`, or `requested_by_customer`) or generated by Stripe internally (`expired_uncaptured_charge`).
-     */
-    reason?: string;
-    /**
-     * This is the transaction number that appears on email receipts sent for this refund.
-     */
-    receipt_number?: string;
-    /**
-     * The transfer reversal that is associated with the refund. Only present if the charge came from another Stripe account. See the Connect documentation for details.
-     */
-    source_transfer_reversal?: string;
-    /**
-     * Status of the refund. For credit card refunds, this can be `pending`, `succeeded`, or `failed`. For other types of refunds, it can be `pending`, `succeeded`, `failed`, or `canceled`. Refer to our [refunds](https://stripe.com/docs/refunds#failed-refunds) documentation for more details.
-     */
-    status?: string;
-    /**
-     * If the accompanying transfer was reversed, the transfer reversal object. Only applicable if the charge was created using the destination parameter.
-     */
-    transfer_reversal?: string;
-  }
-  export interface recipient {
-    active_account?: bank_account;
-    /**
-     *
-     */
-    cards?: recipientCards;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * The default card to use for creating transfers to this recipient.
-     */
-    default_card?: string;
-    /**
-     * An arbitrary string attached to the object. Often useful for displaying to users.
-     */
-    description?: string;
-    email?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * The ID of the [Custom account](https://stripe.com/docs/connect/custom-accounts) this recipient was migrated to. If set, the recipient can no longer be updated, nor can transfers be made to it: use the Custom account instead.
-     */
-    migrated_to?: string;
-    /**
-     * Full, legal name of the recipient.
-     */
-    name?: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'recipient';
-    rolled_back_from?: string;
-    /**
-     * Type of the recipient, one of `individual` or `corporation`.
-     */
-    type: string;
-  }
-  export interface recipientCards {
-    data: card[];
-    /**
-     * True if this list has another page of items after this one that can be fetched.
-     */
-    has_more: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
-     */
-    object: 'list';
-    /**
-     * The URL where this list can be accessed.
-     */
-    url: string;
-  }
-  export interface radar_value_list_item {
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * The name or email address of the user who added this item to the value list.
-     */
-    created_by: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'radar.value_list_item';
-    /**
-     * The value of the item.
-     */
-    value: string;
-    /**
-     * The identifier of the value list this item belongs to.
-     */
-    value_list: string;
-  }
-  export interface radar_value_list {
-    /**
-     * The name of the value list for use in rules.
-     */
-    alias: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * The name or email address of the user who created this value list.
-     */
-    created_by: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * The type of items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, or `case_sensitive_string`.
-     */
-    item_type:
-      | 'card_bin'
-      | 'card_fingerprint'
-      | 'case_sensitive_string'
-      | 'country'
-      | 'email'
-      | 'ip_address'
-      | 'string';
-    /**
-     * List of items contained within this value list.
-     */
-    list_items: radar.value_listList_items;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * The name of the value list.
-     */
-    name: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'radar.value_list';
-  }
-  export interface radar_value_listList_items {
-    /**
-     * Details about each object.
-     */
-    data: radar_value_list_item[];
-    /**
-     * True if this list has another page of items after this one that can be fetched.
-     */
-    has_more: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
-     */
-    object: 'list';
-    /**
-     * The URL where this list can be accessed.
-     */
-    url: string;
-  }
-  export interface radar_early_fraud_warning {
-    /**
-     * An EFW is actionable if it has not received a dispute and has not been fully refunded. You may wish to proactively refund a charge that receives an EFW, in order to avoid receiving a dispute later.
-     */
-    actionable: boolean;
-    /**
-     * ID of the charge this early fraud warning is for, optionally expanded.
-     */
-    charge: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * The type of fraud labelled by the issuer. One of `card_never_received`, `fraudulent_card_application`, `made_with_counterfeit_card`, `made_with_lost_card`, `made_with_stolen_card`, `misc`, `unauthorized_use_of_card`.
-     */
-    fraud_type: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'radar.early_fraud_warning';
-  }
-  export interface radar_review_resource_session {
-    /**
-     * The browser used in this browser session (e.g., `Chrome`).
-     */
-    browser?: string;
-    /**
-     * Information about the device used for the browser session (e.g., `Samsung SM-G930T`).
-     */
-    device?: string;
-    /**
-     * The platform for the browser session (e.g., `Macintosh`).
-     */
-    platform?: string;
-    /**
-     * The version for the browser session (e.g., `61.0.3163.100`).
-     */
-    version?: string;
-  }
-  export interface radar_review_resource_location {
-    /**
-     * The city where the payment originated.
-     */
-    city?: string;
-    /**
-     * Two-letter ISO code representing the country where the payment originated.
-     */
-    country?: string;
-    /**
-     * The geographic latitude where the payment originated.
-     */
-    latitude?: number;
-    /**
-     * The geographic longitude where the payment originated.
-     */
-    longitude?: number;
-    /**
-     * The state/county/province/region where the payment originated.
-     */
-    region?: string;
-  }
-  export interface product {
-    /**
-     * Whether the product is currently available for purchase.
-     */
-    active: boolean;
-    /**
-     * A list of up to 5 attributes that each SKU can provide values for (e.g., `["color", "size"]`).
-     */
-    attributes?: string[];
-    /**
-     * A short one-line description of the product, meant to be displayable to the customer. Only applicable to products of `type=good`.
-     */
-    caption?: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * An array of connect application identifiers that cannot purchase this product. Only applicable to products of `type=good`.
-     */
-    deactivate_on?: string[];
-    /**
-     * The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
-     */
-    description?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
-     */
-    images: string[];
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * The product's name, meant to be displayable to the customer. Whenever this product is sold via a subscription, name will show up on associated invoice line item descriptions.
-     */
-    name: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'product';
-    package_dimensions?: package_dimensions;
-    /**
-     * Whether this product is a shipped good. Only applicable to products of `type=good`.
-     */
-    shippable?: boolean;
-    /**
-     * Extra information about a product which will appear on your customer's credit card statement. In the case that multiple products are billed at once, the first statement descriptor will be used.
-     */
-    statement_descriptor?: string;
-    /**
-     * The type of the product. The product is either of type `good`, which is eligible for use with Orders and SKUs, or `service`, which is eligible for use with Subscriptions and Plans.
-     */
-    type: 'good' | 'service';
-    /**
-     * A label that represents units of this product in Stripe and on customers’ receipts and invoices. When set, this will be included in associated invoice line item descriptions.
-     */
-    unit_label?: string;
-    /**
-     * Time at which the object was last updated. Measured in seconds since the Unix epoch.
-     */
-    updated: number;
-    /**
-     * A URL of a publicly-accessible webpage for this product. Only applicable to products of `type=good`.
-     */
-    url?: string;
-  }
-  export interface platform_tax_fee {
-    /**
-     * The Connected account that incurred this charge.
-     */
-    account: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'platform_tax_fee';
-    /**
-     * The payment object that caused this tax to be inflicted.
-     */
-    source_transaction: string;
-    /**
-     * The type of tax (VAT).
-     */
-    type: string;
-  }
-  export interface plan_tier {
-    /**
-     * Price for the entire tier.
-     */
-    flat_amount?: number;
-    /**
-     * Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
-     */
-    flat_amount_decimal?: string;
-    /**
-     * Per unit price for units relevant to the tier.
-     */
-    unit_amount?: number;
-    /**
-     * Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
-     */
-    unit_amount_decimal?: string;
-    /**
-     * Up to and including to this quantity will be contained in the tier.
-     */
-    up_to?: number;
-  }
-  export interface plan {
-    /**
-     * Whether the plan is currently available for new subscriptions.
-     */
-    active: boolean;
-    /**
-     * Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
-     */
-    aggregate_usage?: 'last_during_period' | 'last_ever' | 'max' | 'sum';
-    /**
-     * The amount in %s to be charged on the interval specified.
-     */
-    amount?: number;
-    /**
-     * Same as `amount`, but contains a decimal value with at most 12 decimal places.
-     */
-    amount_decimal?: string;
-    /**
-     * Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
-     */
-    billing_scheme: 'per_unit' | 'tiered';
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
-     */
-    interval: 'day' | 'month' | 'week' | 'year';
-    /**
-     * The number of intervals (specified in the `interval` attribute) between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months.
-     */
-    interval_count: number;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * A brief description of the plan, hidden from customers.
-     */
-    nickname?: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'plan';
-    /**
-     * The product whose pricing this plan determines.
-     */
-    product?: string;
-    /**
-     * Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
-     */
-    tiers?: plan_tier[];
-    /**
-     * Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows.
-     */
-    tiers_mode?: 'graduated' | 'volume';
-    transform_usage?: transform_usage;
-    /**
-     * Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan).
-     */
-    trial_period_days?: number;
-    /**
-     * Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
-     */
-    usage_type: 'licensed' | 'metered';
-  }
-  export interface person_requirements {
-    /**
-     * Fields that need to be collected to keep the person's account enabled. If not collected by the account's `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
-     */
-    currently_due: string[];
-    /**
-     * The fields that need to be collected again because validation or verification failed for some reason.
-     */
-    errors?: account_requirements_error[];
-    /**
-     * Fields that need to be collected assuming all volume thresholds are reached. As fields are needed, they are moved to `currently_due` and the account's `current_deadline` is set.
-     */
-    eventually_due: string[];
-    /**
-     * Fields that weren't collected by the account's `current_deadline`. These fields need to be collected to enable payouts for the person's account.
-     */
-    past_due: string[];
-    /**
-     * Fields that may become required depending on the results of verification or review. An empty array unless an asynchronous verification is pending. If verification fails, the fields in this array become required and move to `currently_due` or `past_due`.
-     */
-    pending_verification: string[];
-  }
-  export interface person_relationship {
-    /**
-     * Whether the person is a director of the account's legal entity. Currently only required for accounts in the EU. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
-     */
-    director?: boolean;
-    /**
-     * Whether the person has significant responsibility to control, manage, or direct the organization.
-     */
-    executive?: boolean;
-    /**
-     * Whether the person is an owner of the account’s legal entity.
-     */
-    owner?: boolean;
-    /**
-     * The percent owned by the person of the account's legal entity.
-     */
-    percent_ownership?: number;
-    /**
-     * Whether the person is authorized as the primary representative of the account. This is the person nominated by the business to provide information about themselves, and general information about the account. There can only be one representative at any given time. At the time the account is created, this person should be set to the person responsible for opening the account.
-     */
-    representative?: boolean;
-    /**
-     * The person's title (e.g., CEO, Support Engineer).
-     */
-    title?: string;
-  }
-  export interface person {
-    account: string;
-    address?: address;
-    address_kana?: legal_entity_japan_address;
-    address_kanji?: legal_entity_japan_address;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    dob?: legal_entity_dob;
-    email?: string;
-    first_name?: string;
-    first_name_kana?: string;
-    first_name_kanji?: string;
-    gender?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    id_number_provided?: boolean;
-    last_name?: string;
-    last_name_kana?: string;
-    last_name_kanji?: string;
-    maiden_name?: string;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata?: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'person';
-    phone?: string;
-    relationship?: person_relationship;
-    requirements?: person_requirements;
-    ssn_last_4_provided?: boolean;
-    verification?: legal_entity_person_verification;
-  }
-  export interface period {
-    /**
-     * The end date of this usage period. All usage up to and including this point in time is included.
-     */
-    end?: number;
-    /**
-     * The start date of this usage period. All usage after this point in time is included.
-     */
-    start?: number;
-  }
-  export interface payout {
-    /**
-     * Amount (in %s) to be transferred to your bank account or debit card.
-     */
-    amount: number;
-    /**
-     * Date the payout is expected to arrive in the bank. This factors in delays like weekends or bank holidays.
-     */
-    arrival_date: number;
-    /**
-     * Returns `true` if the payout was created by an [automated payout schedule](https://stripe.com/docs/payouts#payout-schedule), and `false` if it was [requested manually](https://stripe.com/docs/payouts#manual-payouts).
-     */
-    automatic: boolean;
-    /**
-     * ID of the balance transaction that describes the impact of this payout on your account balance.
-     */
-    balance_transaction?: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * An arbitrary string attached to the object. Often useful for displaying to users.
-     */
-    description?: string;
-    /**
-     * ID of the bank account or card the payout was sent to.
-     */
-    destination?: string;
-    /**
-     * If the payout failed or was canceled, this will be the ID of the balance transaction that reversed the initial balance transaction, and puts the funds from the failed payout back in your balance.
-     */
-    failure_balance_transaction?: string;
-    /**
-     * Error code explaining reason for payout failure if available. See [Types of payout failures](https://stripe.com/docs/api#payout_failures) for a list of failure codes.
-     */
-    failure_code?: string;
-    /**
-     * Message to user further explaining reason for payout failure if available.
-     */
-    failure_message?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces](https://stripe.com/blog/instant-payouts-for-marketplaces) for more information.)
-     */
-    method: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'payout';
-    /**
-     * The source balance this payout came from. One of `card`, `fpx`, or `bank_account`.
-     */
-    source_type: string;
-    /**
-     * Extra information about a payout to be displayed on the user's bank statement.
-     */
-    statement_descriptor?: string;
-    /**
-     * Current status of the payout (`paid`, `pending`, `in_transit`, `canceled` or `failed`). A payout will be `pending` until it is submitted to the bank, at which point it becomes `in_transit`. It will then change to `paid` if the transaction goes through. If it does not go through successfully, its status will change to `failed` or `canceled`.
-     */
-    status: string;
-    /**
-     * Can be `bank_account` or `card`.
-     */
-    type: 'bank_account' | 'card';
-  }
-  export interface payment_source {
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata?: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
+    individual?: definitions['person'];
+    metadata?: { [key: string]: any };
     object: 'account';
-  }
-  export interface payment_pages_payment_page_resources_shipping_address_collection {
-    /**
-     * An array of two-letter ISO country codes representing which countries Checkout should provide as options for
-     * shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
-     */
-    allowed_countries: string[];
-  }
-  export interface payment_method_sepa_debit {
-    /**
-     * Bank code of bank associated with the bank account.
-     */
-    bank_code?: string;
-    /**
-     * Branch code of bank associated with the bank account.
-     */
-    branch_code?: string;
-    /**
-     * Two-letter ISO code representing the country the bank account is located in.
-     */
-    country?: string;
-    /**
-     * Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
-     */
-    fingerprint?: string;
-    /**
-     * Last four characters of the IBAN.
-     */
-    last4?: string;
-  }
-  export interface payment_method_options_card_installments {
-    /**
-     * Installment plans that may be selected for this PaymentIntent.
-     */
-    available_plans?: payment_method_details_card_installments_plan[];
-    /**
-     * Whether Installments are enabled for this PaymentIntent.
-     */
-    enabled: boolean;
-    plan?: payment_method_details_card_installments_plan;
-  }
-  export interface payment_method_ideal {
-    /**
-     * The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `sns_bank`, `triodos_bank`, or `van_lanschot`.
-     */
-    bank?:
-      | 'abn_amro'
-      | 'asn_bank'
-      | 'bunq'
-      | 'handelsbanken'
-      | 'ing'
-      | 'knab'
-      | 'moneyou'
-      | 'rabobank'
-      | 'regiobank'
-      | 'sns_bank'
-      | 'triodos_bank'
-      | 'van_lanschot';
-    /**
-     * The Bank Identifier Code of the customer's bank, if the bank was provided.
-     */
-    bic?:
-      | 'ABNANL2A'
-      | 'ASNBNL21'
-      | 'BUNQNL2A'
-      | 'FVLBNL22'
-      | 'HANDNL2A'
-      | 'INGBNL2A'
-      | 'KNABNL2H'
-      | 'MOYONL21'
-      | 'RABONL2U'
-      | 'RBRBNL21'
-      | 'SNSBNL2A'
-      | 'TRIONL2U';
-  }
-  export interface payment_method_fpx {
-    /**
-     * The customer's bank, if provided. Can be one of `affin_bank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, or `pb_enterprise`.
-     */
-    bank:
-      | 'affin_bank'
-      | 'alliance_bank'
-      | 'ambank'
-      | 'bank_islam'
-      | 'bank_muamalat'
-      | 'bank_rakyat'
-      | 'bsn'
-      | 'cimb'
-      | 'deutsche_bank'
-      | 'hong_leong_bank'
-      | 'hsbc'
-      | 'kfh'
-      | 'maybank2e'
-      | 'maybank2u'
-      | 'ocbc'
-      | 'pb_enterprise'
-      | 'public_bank'
-      | 'rhb'
-      | 'standard_chartered'
-      | 'uob';
-  }
-  export interface payment_method_details_wechat {}
-  export interface payment_method_details_stripe_account {}
-  export interface payment_method_details_sofort {
-    /**
-     * Bank code of bank associated with the bank account.
-     */
-    bank_code?: string;
-    /**
-     * Name of the bank associated with the bank account.
-     */
-    bank_name?: string;
-    /**
-     * Bank Identifier Code of the bank associated with the bank account.
-     */
-    bic?: string;
-    /**
-     * Two-letter ISO code representing the country the bank account is located in.
-     */
-    country?: string;
-    /**
-     * Last four characters of the IBAN.
-     */
-    iban_last4?: string;
-    /**
-     * Owner's verified full name. Values are verified or provided by SOFORT directly
-     * (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-     */
-    verified_name?: string;
-  }
-  export interface payment_method_details_sepa_debit {
-    /**
-     * Bank code of bank associated with the bank account.
-     */
-    bank_code?: string;
-    /**
-     * Branch code of bank associated with the bank account.
-     */
-    branch_code?: string;
-    /**
-     * Two-letter ISO code representing the country the bank account is located in.
-     */
-    country?: string;
-    /**
-     * Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
-     */
-    fingerprint?: string;
-    /**
-     * Last four characters of the IBAN.
-     */
-    last4?: string;
-    /**
-     * ID of the mandate used to make this payment.
-     */
-    mandate?: string;
-  }
-  export interface payment_method_details_p24 {
-    /**
-     * Unique reference for this Przelewy24 payment.
-     */
-    reference?: string;
-    /**
-     * Owner's verified full name. Values are verified or provided by Przelewy24 directly
-     * (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-     */
-    verified_name?: string;
-  }
-  export interface payment_method_details_multibanco {
-    /**
-     * Entity number associated with this Multibanco payment.
-     */
-    entity?: string;
-    /**
-     * Reference number associated with this Multibanco payment.
-     */
-    reference?: string;
-  }
-  export interface payment_method_details_klarna {}
-  export interface payment_method_details_ideal {
-    /**
-     * The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `sns_bank`, `triodos_bank`, or `van_lanschot`.
-     */
-    bank?:
-      | 'abn_amro'
-      | 'asn_bank'
-      | 'bunq'
-      | 'handelsbanken'
-      | 'ing'
-      | 'knab'
-      | 'moneyou'
-      | 'rabobank'
-      | 'regiobank'
-      | 'sns_bank'
-      | 'triodos_bank'
-      | 'van_lanschot';
-    /**
-     * The Bank Identifier Code of the customer's bank.
-     */
-    bic?:
-      | 'ABNANL2A'
-      | 'ASNBNL21'
-      | 'BUNQNL2A'
-      | 'FVLBNL22'
-      | 'HANDNL2A'
-      | 'INGBNL2A'
-      | 'KNABNL2H'
-      | 'MOYONL21'
-      | 'RABONL2U'
-      | 'RBRBNL21'
-      | 'SNSBNL2A'
-      | 'TRIONL2U';
-    /**
-     * Last four characters of the IBAN.
-     */
-    iban_last4?: string;
-    /**
-     * Owner's verified full name. Values are verified or provided by iDEAL directly
-     * (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-     */
-    verified_name?: string;
-  }
-  export interface payment_method_details_giropay {
-    /**
-     * Bank code of bank associated with the bank account.
-     */
-    bank_code?: string;
-    /**
-     * Name of the bank associated with the bank account.
-     */
-    bank_name?: string;
-    /**
-     * Bank Identifier Code of the bank associated with the bank account.
-     */
-    bic?: string;
-    /**
-     * Owner's verified full name. Values are verified or provided by Giropay directly
-     * (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-     */
-    verified_name?: string;
-  }
-  export interface payment_method_details_fpx {
-    /**
-     * The customer's bank. Can be one of `affin_bank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, or `pb_enterprise`.
-     */
-    bank:
-      | 'affin_bank'
-      | 'alliance_bank'
-      | 'ambank'
-      | 'bank_islam'
-      | 'bank_muamalat'
-      | 'bank_rakyat'
-      | 'bsn'
-      | 'cimb'
-      | 'deutsche_bank'
-      | 'hong_leong_bank'
-      | 'hsbc'
-      | 'kfh'
-      | 'maybank2e'
-      | 'maybank2u'
-      | 'ocbc'
-      | 'pb_enterprise'
-      | 'public_bank'
-      | 'rhb'
-      | 'standard_chartered'
-      | 'uob';
-    /**
-     * Unique transaction id generated by FPX for every request from the merchant
-     */
-    transaction_id?: string;
-  }
-  export interface payment_method_details_eps {
-    /**
-     * Owner's verified full name. Values are verified or provided by EPS directly
-     * (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-     */
-    verified_name?: string;
-  }
-  export interface payment_method_details_card_wallet_visa_checkout {
-    billing_address?: address;
-    /**
-     * Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-     */
-    email?: string;
-    /**
-     * Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-     */
+    payouts_enabled?: boolean;
+    requirements?: definitions['account_requirements'];
+    settings?: definitions['account_settings'];
+    tos_acceptance?: definitions['account_tos_acceptance'];
+    type?: 'custom' | 'express' | 'standard';
+  };
+  account_branding_settings: {
+    icon?: string;
+    logo?: string;
+    primary_color?: string;
+  };
+  account_business_profile: {
+    mcc?: string;
     name?: string;
-    shipping_address?: address;
-  }
-  export interface payment_method_details_card_wallet_samsung_pay {}
-  export interface payment_method_details_card_wallet_masterpass {
-    billing_address?: address;
-    /**
-     * Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-     */
-    email?: string;
-    /**
-     * Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-     */
-    name?: string;
-    shipping_address?: address;
-  }
-  export interface payment_method_details_card_wallet_google_pay {}
-  export interface payment_method_details_card_wallet_apple_pay {}
-  export interface payment_method_details_card_wallet_amex_express_checkout {}
-  export interface payment_method_details_card_wallet {
-    amex_express_checkout?: payment_method_details_card_wallet_amex_express_checkout;
-    apple_pay?: payment_method_details_card_wallet_apple_pay;
-    /**
-     * (For tokenized numbers only.) The last four digits of the device account number.
-     */
-    dynamic_last4?: string;
-    google_pay?: payment_method_details_card_wallet_google_pay;
-    masterpass?: payment_method_details_card_wallet_masterpass;
-    samsung_pay?: payment_method_details_card_wallet_samsung_pay;
-    /**
-     * The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, or `visa_checkout`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
-     */
-    type:
-      | 'amex_express_checkout'
-      | 'apple_pay'
-      | 'google_pay'
-      | 'masterpass'
-      | 'samsung_pay'
-      | 'visa_checkout';
-    visa_checkout?: payment_method_details_card_wallet_visa_checkout;
-  }
-  export interface payment_method_details_card_present_receipt {
-    /**
-     * EMV tag 9F26, cryptogram generated by the integrated circuit chip.
-     */
-    application_cryptogram?: string;
-    /**
-     * Mnenomic of the Application Identifier.
-     */
-    application_preferred_name?: string;
-    /**
-     * Identifier for this transaction.
-     */
-    authorization_code?: string;
-    /**
-     * EMV tag 8A. A code returned by the card issuer.
-     */
-    authorization_response_code?: string;
-    /**
-     * How the cardholder verified ownership of the card.
-     */
-    cardholder_verification_method?: string;
-    /**
-     * EMV tag 84. Similar to the application identifier stored on the integrated circuit chip.
-     */
-    dedicated_file_name?: string;
-    /**
-     * The outcome of a series of EMV functions performed by the card reader.
-     */
-    terminal_verification_results?: string;
-    /**
-     * An indication of various EMV functions performed during the transaction.
-     */
-    transaction_status_information?: string;
-  }
-  export interface payment_method_details_card_present {
-    /**
-     * Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
-     */
-    brand?: string;
-    /**
-     * Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
-     */
-    country?: string;
-    /**
-     * Authorization response cryptogram.
-     */
-    emv_auth_data?: string;
-    /**
-     * Two-digit number representing the card's expiration month.
-     */
-    exp_month?: number;
-    /**
-     * Four-digit number representing the card's expiration year.
-     */
-    exp_year?: number;
-    /**
-     * Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number,for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
-     */
-    fingerprint?: string;
-    /**
-     * Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
-     */
-    funding?: string;
-    /**
-     * ID of a card PaymentMethod generated from the card_present PaymentMethod that may be attached to a Customer for future transactions. Only present if it was possible to generate a card PaymentMethod.
-     */
-    generated_card?: string;
-    /**
-     * The last four digits of the card.
-     */
-    last4?: string;
-    /**
-     * Identifies which network this charge was processed on. Can be `amex`, `diners`, `discover`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
-     */
-    network?: string;
-    /**
-     * How were card details read in this transaction. Can be contact_emv, contactless_emv, magnetic_stripe_fallback, magnetic_stripe_track2, or contactless_magstripe_mode
-     */
-    read_method?: string;
-    receipt?: payment_method_details_card_present_receipt;
-  }
-  export interface payment_method_details_card_installments_plan {
-    /**
-     * For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
-     */
-    count?: number;
-    /**
-     * For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
-     * One of `month`.
-     */
-    interval?: 'month';
-    /**
-     * Type of installment plan, one of `fixed_count`.
-     */
-    type: 'fixed_count';
-  }
-  export interface payment_method_details_card_installments {
-    plan?: payment_method_details_card_installments_plan;
-  }
-  export interface payment_method_details_card_checks {
-    /**
-     * If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
-     */
-    address_line1_check?: string;
-    /**
-     * If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
-     */
-    address_postal_code_check?: string;
-    /**
-     * If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
-     */
-    cvc_check?: string;
-  }
-  export interface payment_method_details_card {
-    /**
-     * Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
-     */
-    brand?: string;
-    checks?: payment_method_details_card_checks;
-    /**
-     * Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
-     */
-    country?: string;
-    /**
-     * Two-digit number representing the card's expiration month.
-     */
-    exp_month?: number;
-    /**
-     * Four-digit number representing the card's expiration year.
-     */
-    exp_year?: number;
-    /**
-     * Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number,for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
-     */
-    fingerprint?: string;
-    /**
-     * Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
-     */
-    funding?: string;
-    installments?: payment_method_details_card_installments;
-    /**
-     * The last four digits of the card.
-     */
-    last4?: string;
-    /**
-     * Identifies which network this charge was processed on. Can be `amex`, `diners`, `discover`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
-     */
-    network?: string;
-    three_d_secure?: three_d_secure_details;
-    wallet?: payment_method_details_card_wallet;
-  }
-  export interface payment_method_details_bancontact {
-    /**
-     * Bank code of bank associated with the bank account.
-     */
-    bank_code?: string;
-    /**
-     * Name of the bank associated with the bank account.
-     */
-    bank_name?: string;
-    /**
-     * Bank Identifier Code of the bank associated with the bank account.
-     */
-    bic?: string;
-    /**
-     * Last four characters of the IBAN.
-     */
-    iban_last4?: string;
-    /**
-     * Preferred language of the Bancontact authorization page that the customer is redirected to.
-     * Can be one of `en`, `de`, `fr`, or `nl`
-     */
-    preferred_language?: 'de' | 'en' | 'fr' | 'nl';
-    /**
-     * Owner's verified full name. Values are verified or provided by Bancontact directly
-     * (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-     */
-    verified_name?: string;
-  }
-  export interface payment_method_details_au_becs_debit {
-    /**
-     * Bank-State-Branch number of the bank account.
-     */
-    bsb_number?: string;
-    /**
-     * Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
-     */
-    fingerprint?: string;
-    /**
-     * Last four digits of the bank account number.
-     */
-    last4?: string;
-    /**
-     * ID of the mandate used to make this payment.
-     */
-    mandate?: string;
-  }
-  export interface payment_method_details_alipay {}
-  export interface payment_method_details_ach_debit {
-    /**
-     * Type of entity that holds the account. This can be either `individual` or `company`.
-     */
-    account_holder_type?: 'company' | 'individual';
-    /**
-     * Name of the bank associated with the bank account.
-     */
-    bank_name?: string;
-    /**
-     * Two-letter ISO code representing the country the bank account is located in.
-     */
-    country?: string;
-    /**
-     * Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
-     */
-    fingerprint?: string;
-    /**
-     * Last four digits of the bank account number.
-     */
-    last4?: string;
-    /**
-     * Routing transit number of the bank account.
-     */
-    routing_number?: string;
-  }
-  export interface payment_method_details_ach_credit_transfer {
-    /**
-     * Account number to transfer funds to.
-     */
-    account_number?: string;
-    /**
-     * Name of the bank associated with the routing number.
-     */
-    bank_name?: string;
-    /**
-     * Routing transit number for the bank account to transfer funds to.
-     */
-    routing_number?: string;
-    /**
-     * SWIFT code of the bank associated with the routing number.
-     */
-    swift_code?: string;
-  }
-  export interface payment_method_details {
-    ach_credit_transfer?: payment_method_details_ach_credit_transfer;
-    ach_debit?: payment_method_details_ach_debit;
-    alipay?: payment_method_details_alipay;
-    au_becs_debit?: payment_method_details_au_becs_debit;
-    bancontact?: payment_method_details_bancontact;
-    card?: payment_method_details_card;
-    card_present?: payment_method_details_card_present;
-    eps?: payment_method_details_eps;
-    fpx?: payment_method_details_fpx;
-    giropay?: payment_method_details_giropay;
-    ideal?: payment_method_details_ideal;
-    klarna?: payment_method_details_klarna;
-    multibanco?: payment_method_details_multibanco;
-    p24?: payment_method_details_p24;
-    sepa_debit?: payment_method_details_sepa_debit;
-    sofort?: payment_method_details_sofort;
-    stripe_account?: payment_method_details_stripe_account;
-    /**
-     * The type of transaction-specific details of the payment method used in the payment, one of `ach_credit_transfer`, `ach_debit`, `alipay`, `au_becs_debit`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `klarna`, `multibanco`, `p24`, `sepa_debit`, `sofort`, `stripe_account`, or `wechat`.
-     * An additional hash is included on `payment_method_details` with a name matching this value.
-     * It contains information specific to the payment method.
-     */
-    type: string;
-    wechat?: payment_method_details_wechat;
-  }
-  export interface payment_method_card_wallet_visa_checkout {
-    billing_address?: address;
-    /**
-     * Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-     */
-    email?: string;
-    /**
-     * Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-     */
-    name?: string;
-    shipping_address?: address;
-  }
-  export interface payment_method_card_wallet_samsung_pay {}
-  export interface payment_method_card_wallet_masterpass {
-    billing_address?: address;
-    /**
-     * Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-     */
-    email?: string;
-    /**
-     * Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-     */
-    name?: string;
-    shipping_address?: address;
-  }
-  export interface payment_method_card_wallet_google_pay {}
-  export interface payment_method_card_wallet_apple_pay {}
-  export interface payment_method_card_wallet_amex_express_checkout {}
-  export interface payment_method_card_wallet {
-    amex_express_checkout?: payment_method_card_wallet_amex_express_checkout;
-    apple_pay?: payment_method_card_wallet_apple_pay;
-    /**
-     * (For tokenized numbers only.) The last four digits of the device account number.
-     */
-    dynamic_last4?: string;
-    google_pay?: payment_method_card_wallet_google_pay;
-    masterpass?: payment_method_card_wallet_masterpass;
-    samsung_pay?: payment_method_card_wallet_samsung_pay;
-    /**
-     * The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, or `visa_checkout`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
-     */
-    type:
-      | 'amex_express_checkout'
-      | 'apple_pay'
-      | 'google_pay'
-      | 'masterpass'
-      | 'samsung_pay'
-      | 'visa_checkout';
-    visa_checkout?: payment_method_card_wallet_visa_checkout;
-  }
-  export interface payment_method_card_present {}
-  export interface payment_method_card_generated_card {
-    /**
-     * The charge that created this object.
-     */
-    charge?: string;
-    payment_method_details?: payment_method_details;
-  }
-  export interface payment_method_card_checks {
-    /**
-     * If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
-     */
-    address_line1_check?: string;
-    /**
-     * If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
-     */
-    address_postal_code_check?: string;
-    /**
-     * If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
-     */
-    cvc_check?: string;
-  }
-  export interface payment_method_card {
-    /**
-     * Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
-     */
-    brand: string;
-    checks?: payment_method_card_checks;
-    /**
-     * Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
-     */
-    country?: string;
-    /**
-     * Two-digit number representing the card's expiration month.
-     */
-    exp_month: number;
-    /**
-     * Four-digit number representing the card's expiration year.
-     */
-    exp_year: number;
-    /**
-     * Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number,for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
-     */
-    fingerprint?: string;
-    /**
-     * Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
-     */
-    funding: string;
-    generated_from?: payment_method_card_generated_card;
-    /**
-     * The last four digits of the card.
-     */
-    last4: string;
-    three_d_secure_usage?: three_d_secure_usage;
-    wallet?: payment_method_card_wallet;
-  }
-  export interface payment_method_au_becs_debit {
-    /**
-     * Six-digit number identifying bank and branch associated with this bank account.
-     */
-    bsb_number?: string;
-    /**
-     * Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
-     */
-    fingerprint?: string;
-    /**
-     * Last four digits of the bank account number.
-     */
-    last4?: string;
-  }
-  export interface payment_method {
-    au_becs_debit?: payment_method_au_becs_debit;
-    billing_details: billing_details;
-    card?: payment_method_card;
-    card_present?: payment_method_card_present;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
-     */
-    customer?: string;
-    fpx?: payment_method_fpx;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    ideal?: payment_method_ideal;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'payment_method';
-    sepa_debit?: payment_method_sepa_debit;
-    /**
-     * The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
-     */
-    type: 'au_becs_debit' | 'card' | 'fpx' | 'ideal' | 'sepa_debit';
-  }
-  export interface payment_intent_payment_method_options_card {
-    installments?: payment_method_options_card_installments;
-    /**
-     * We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
-     */
-    request_three_d_secure?: 'any' | 'automatic' | 'challenge_only';
-  }
-  export interface payment_intent_payment_method_options {
-    card?: payment_intent_payment_method_options_card;
-  }
-  export interface payment_intent_next_action_redirect_to_url {
-    /**
-     * If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
-     */
-    return_url?: string;
-    /**
-     * The URL you must redirect your customer to in order to authenticate the payment.
-     */
-    url?: string;
-  }
-  export interface payment_intent_next_action {
-    redirect_to_url?: payment_intent_next_action_redirect_to_url;
-    /**
-     * Type of the next action to perform, one of `redirect_to_url` or `use_stripe_sdk`.
-     */
-    type: string;
-    /**
-     * When confirming a PaymentIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js.
-     */
-    use_stripe_sdk?: object;
-  }
-  export interface payment_intent {
-    /**
-     * Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
-     */
-    amount: number;
-    /**
-     * Amount that can be captured from this PaymentIntent.
-     */
-    amount_capturable?: number;
-    /**
-     * Amount that was collected by this PaymentIntent.
-     */
-    amount_received?: number;
-    /**
-     * ID of the Connect application that created the PaymentIntent.
-     */
-    application?: string;
-    /**
-     * The amount of the application fee (if any) for the resulting payment. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details.
-     */
-    application_fee_amount?: number;
-    /**
-     * Populated when `status` is `canceled`, this is the time at which the PaymentIntent was canceled. Measured in seconds since the Unix epoch.
-     */
-    canceled_at?: number;
-    /**
-     * Reason for cancellation of this PaymentIntent, either user-provided (`duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`) or generated by Stripe internally (`failed_invoice`, `void_invoice`, or `automatic`).
-     */
-    cancellation_reason?:
-      | 'abandoned'
-      | 'automatic'
-      | 'duplicate'
-      | 'failed_invoice'
-      | 'fraudulent'
-      | 'requested_by_customer'
-      | 'void_invoice';
-    /**
-     * Controls when the funds will be captured from the customer's account.
-     */
-    capture_method: 'automatic' | 'manual';
-    /**
-     * Charges that were created by this PaymentIntent, if any.
-     */
-    charges?: payment_intentCharges;
-    /**
-     * The client secret of this PaymentIntent. Used for client-side retrieval using a publishable key.
-     *
-     * The client secret can be used to complete a payment from your frontend. It should not be stored, logged, embedded in URLs, or exposed to anyone other than the customer. Make sure that you have TLS enabled on any page that includes the client secret.
-     *
-     * Refer to our docs to [accept a payment](https://stripe.com/docs/payments/accept-a-payment) and learn about how `client_secret` should be handled.
-     */
-    client_secret?: string;
-    confirmation_method: 'automatic' | 'manual';
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * ID of the Customer this PaymentIntent belongs to, if one exists.
-     *
-     * Payment methods attached to other Customers cannot be used with this PaymentIntent.
-     *
-     * If present in combination with [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage), this PaymentIntent's payment method will be attached to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete.
-     */
-    customer?: string;
-    /**
-     * An arbitrary string attached to the object. Often useful for displaying to users.
-     */
-    description?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * ID of the invoice that created this PaymentIntent, if it exists.
-     */
-    invoice?: string;
-    last_payment_error?: api_errors;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. For more information, see the [documentation](https://stripe.com/docs/payments/payment-intents/creating-payment-intents#storing-information-in-metadata).
-     */
-    metadata?: object;
-    next_action?: payment_intent_next_action;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'payment_intent';
-    /**
-     * The account (if any) for which the funds of the PaymentIntent are intended. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details.
-     */
-    on_behalf_of?: string;
-    /**
-     * ID of the payment method used in this PaymentIntent.
-     */
-    payment_method?: string;
-    payment_method_options?: payment_intent_payment_method_options;
-    /**
-     * The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
-     */
-    payment_method_types: string[];
-    /**
-     * Email address that the receipt for the resulting payment will be sent to.
-     */
-    receipt_email?: string;
-    /**
-     * ID of the review associated with this PaymentIntent, if any.
-     */
-    review?: string;
-    /**
-     * Indicates that you intend to make future payments with this PaymentIntent's payment method.
-     *
-     * Providing this parameter will attach the payment method to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-     *
-     * For more, learn to [save card details during payment](https://stripe.com/docs/payments/save-during-payment).
-     *
-     * Stripe uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules. For example, if your customer is impacted by [SCA](https://stripe.com/docs/strong-customer-authentication), using `off_session` will ensure that they are authenticated while processing this PaymentIntent. You will then be able to collect [off-session payments](https://stripe.com/docs/payments/cards/charging-saved-cards#off-session-payments-with-saved-cards) for this customer.
-     */
-    setup_future_usage?: 'off_session' | 'on_session';
-    shipping?: shipping;
-    /**
-     * For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters.
-     */
-    statement_descriptor?: string;
-    /**
-     * Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
-     */
-    statement_descriptor_suffix?: string;
-    /**
-     * Status of this PaymentIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `requires_capture`, `canceled`, or `succeeded`. Read more about each PaymentIntent [status](https://stripe.com/docs/payments/intents#intent-statuses).
-     */
-    status:
-      | 'canceled'
-      | 'processing'
-      | 'requires_action'
-      | 'requires_capture'
-      | 'requires_confirmation'
-      | 'requires_payment_method'
-      | 'succeeded';
-    transfer_data?: transfer_data;
-    /**
-     * A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details.
-     */
-    transfer_group?: string;
-  }
-  export interface payment_intentCharges {
-    /**
-     * This list only contains the latest charge, even if there were previously multiple unsuccessful charges. To view all previous charges for a PaymentIntent, you can filter the charges list using the `payment_intent` [parameter](https://stripe.com/docs/api/charges/list#list_charges-payment_intent).
-     */
-    data: charge[];
-    /**
-     * True if this list has another page of items after this one that can be fetched.
-     */
-    has_more: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
-     */
-    object: 'list';
-    /**
-     * The URL where this list can be accessed.
-     */
-    url: string;
-  }
-  export interface package_dimensions {
-    /**
-     * Height, in inches.
-     */
-    height: number;
-    /**
-     * Length, in inches.
-     */
-    length: number;
-    /**
-     * Weight, in ounces.
-     */
-    weight: number;
-    /**
-     * Width, in inches.
-     */
-    width: number;
-  }
-  export interface order_return {
-    /**
-     * A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount for the returned line item.
-     */
-    amount: number;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * The items included in this order return.
-     */
-    items: order_item[];
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'order_return';
-    /**
-     * The order that this return includes items from.
-     */
-    order?: string;
-    /**
-     * The ID of the refund issued for this return.
-     */
-    refund?: string;
-  }
-  export interface order_item {
-    /**
-     * A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount for the line item.
-     */
-    amount: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * Description of the line item, meant to be displayable to the user (e.g., `"Express shipping"`).
-     */
-    description: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'order_item';
-    /**
-     * The ID of the associated object for this line item. Expandable if not null (e.g., expandable to a SKU).
-     */
-    parent?: string;
-    /**
-     * A positive integer representing the number of instances of `parent` that are included in this order item. Applicable/present only if `type` is `sku`.
-     */
-    quantity?: number;
-    /**
-     * The type of line item. One of `sku`, `tax`, `shipping`, or `discount`.
-     */
-    type: string;
-  }
-  export interface order {
-    /**
-     * A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount for the order.
-     */
-    amount: number;
-    /**
-     * The total amount that was returned to the customer.
-     */
-    amount_returned?: number;
-    /**
-     * ID of the Connect Application that created the order.
-     */
-    application?: string;
-    /**
-     * A fee in cents that will be applied to the order and transferred to the application owner’s Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees documentation.
-     */
-    application_fee?: number;
-    /**
-     * The ID of the payment used to pay for the order. Present if the order status is `paid`, `fulfilled`, or `refunded`.
-     */
-    charge?: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * The customer used for the order.
-     */
-    customer?: string;
-    /**
-     * The email address of the customer placing the order.
-     */
-    email?: string;
-    /**
-     * External coupon code to load for this order.
-     */
-    external_coupon_code?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * List of items constituting the order. An order can have up to 25 items.
-     */
-    items: order_item[];
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'order';
-    /**
-     * A list of returns that have taken place for this order.
-     */
-    returns?: orderReturns;
-    /**
-     * The shipping method that is currently selected for this order, if any. If present, it is equal to one of the `id`s of shipping methods in the `shipping_methods` array. At order creation time, if there are multiple shipping methods, Stripe will automatically selected the first method.
-     */
-    selected_shipping_method?: string;
-    shipping?: shipping;
-    /**
-     * A list of supported shipping methods for this order. The desired shipping method can be specified either by updating the order, or when paying it.
-     */
-    shipping_methods?: shipping_method[];
-    /**
-     * Current order status. One of `created`, `paid`, `canceled`, `fulfilled`, or `returned`. More details in the [Orders Guide](https://stripe.com/docs/orders/guide#understanding-order-statuses).
-     */
-    status: string;
-    status_transitions?: status_transitions;
-    /**
-     * Time at which the object was last updated. Measured in seconds since the Unix epoch.
-     */
-    updated?: number;
-    /**
-     * The user's order ID if it is different from the Stripe order ID.
-     */
-    upstream_id?: string;
-  }
-  export interface orderReturns {
-    /**
-     * Details about each object.
-     */
-    data: order_return[];
-    /**
-     * True if this list has another page of items after this one that can be fetched.
-     */
-    has_more: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
-     */
-    object: 'list';
-    /**
-     * The URL where this list can be accessed.
-     */
-    url: string;
-  }
-  export interface online_acceptance {
-    /**
-     * The IP address from which the Mandate was accepted by the customer.
-     */
-    ip_address?: string;
-    /**
-     * The user agent of the browser from which the Mandate was accepted by the customer.
-     */
-    user_agent?: string;
-  }
-  export interface offline_acceptance {}
-  export interface notification_event_request {
-    /**
-     * ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
-     */
-    id?: string;
-    /**
-     * The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
-     */
-    idempotency_key?: string;
-  }
-  export interface notification_event_data {
-    /**
-     * Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://stripe.com/docs/api#invoice_object) as the value of the object key.
-     */
-    object: object;
-    /**
-     * Object containing the names of the attributes that have changed, and their previous values (sent along only with *.updated events).
-     */
-    previous_attributes?: object;
-  }
-  export interface mandate_single_use {
-    /**
-     * On a single use mandate, the amount of the payment.
-     */
-    amount: number;
-    /**
-     * On a single use mandate, the currency of the payment.
-     */
-    currency: string;
-  }
-  export interface mandate_sepa_debit {
-    /**
-     * The unique reference of the mandate.
-     */
-    reference: string;
-    /**
-     * The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively.
-     */
-    url: string;
-  }
-  export interface mandate_payment_method_details {
-    au_becs_debit?: mandate_au_becs_debit;
-    card?: card_mandate_payment_method_details;
-    sepa_debit?: mandate_sepa_debit;
-    /**
-     * The type of the payment method associated with this mandate. An additional hash is included on `payment_method_details` with a name matching this value. It contains mandate information specific to the payment method.
-     */
-    type: string;
-  }
-  export interface mandate_multi_use {}
-  export interface mandate_au_becs_debit {
-    /**
-     * The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively.
-     */
-    url: string;
-  }
-  export interface mandate {
-    customer_acceptance: customer_acceptance;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    multi_use?: mandate_multi_use;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'mandate';
-    /**
-     * ID of the payment method associated with this mandate.
-     */
-    payment_method: string;
-    payment_method_details: mandate_payment_method_details;
-    single_use?: mandate_single_use;
-    /**
-     * The status of the Mandate, one of `pending`, `inactive`, or `active`. The Mandate can be used to initiate a payment only if status=active.
-     */
-    status: 'active' | 'inactive' | 'pending';
-    /**
-     * The type of the mandate, one of `single_use` or `multi_use`
-     */
-    type: 'multi_use' | 'single_use';
-  }
-  export interface login_link {
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'login_link';
-    /**
-     * The URL for the login link.
-     */
-    url: string;
-  }
-  export interface line_item {
-    /**
-     * The amount, in %s.
-     */
-    amount: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * An arbitrary string attached to the object. Often useful for displaying to users.
-     */
-    description?: string;
-    /**
-     * If true, discounts will apply to this line item. Always false for prorations.
-     */
-    discountable: boolean;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * The ID of the [invoice item](https://stripe.com/docs/api/invoiceitems) associated with this line item if any.
-     */
-    invoice_item?: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Note that for line items with `type=subscription` this will reflect the metadata of the subscription that caused the line item to be created.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'line_item';
-    period: invoice_line_item_period;
-    plan?: plan;
-    /**
-     * Whether this is a proration.
-     */
-    proration: boolean;
-    /**
-     * The quantity of the subscription, if the line item is a subscription or a proration.
-     */
-    quantity?: number;
-    /**
-     * The subscription that the invoice item pertains to, if any.
-     */
-    subscription?: string;
-    /**
-     * The subscription item that generated this invoice item. Left empty if the line item is not an explicit result of a subscription.
-     */
-    subscription_item?: string;
-    /**
-     * The amount of tax calculated per tax rate for this line item
-     */
-    tax_amounts?: invoice_tax_amount[];
-    /**
-     * The tax rates which apply to the line item.
-     */
-    tax_rates?: tax_rate[];
-    /**
-     * A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`.
-     */
-    type: 'invoiceitem' | 'subscription';
-  }
-  export interface light_account_logout {}
-  export interface legal_entity_person_verification_document {
-    /**
-     * The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
-     */
-    back?: string;
-    /**
-     * A user-displayable string describing the verification state of this document. For example, if a document is uploaded and the picture is too fuzzy, this may say "Identity document is too unclear to read".
-     */
-    details?: string;
-    /**
-     * One of `document_corrupt`, `document_country_not_supported`, `document_expired`, `document_failed_copy`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_failed_greyscale`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_missing_back`, `document_missing_front`, `document_not_readable`, `document_not_uploaded`, `document_photo_mismatch`, `document_too_large`, or `document_type_not_supported`. A machine-readable code specifying the verification state for this document.
-     */
-    details_code?: string;
-    /**
-     * The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
-     */
-    front?: string;
-  }
-  export interface legal_entity_person_verification {
-    additional_document?: legal_entity_person_verification_document;
-    /**
-     * A user-displayable string describing the verification state for the person. For example, this may say "Provided identity information could not be verified".
-     */
-    details?: string;
-    /**
-     * One of `document_address_mismatch`, `document_dob_mismatch`, `document_duplicate_type`, `document_id_number_mismatch`, `document_name_mismatch`, `document_nationality_mismatch`, `failed_keyed_identity`, or `failed_other`. A machine-readable code specifying the verification state for the person.
-     */
-    details_code?: string;
-    document?: legal_entity_person_verification_document;
-    /**
-     * The state of verification for the person. Possible values are `unverified`, `pending`, or `verified`.
-     */
-    status: string;
-  }
-  export interface legal_entity_japan_address {
-    /**
-     * City/Ward.
-     */
-    city?: string;
-    /**
-     * Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-     */
-    country?: string;
-    /**
-     * Block/Building number.
-     */
-    line1?: string;
-    /**
-     * Building details.
-     */
-    line2?: string;
-    /**
-     * ZIP or postal code.
-     */
-    postal_code?: string;
-    /**
-     * Prefecture.
-     */
-    state?: string;
-    /**
-     * Town/cho-me.
-     */
-    town?: string;
-  }
-  export interface legal_entity_dob {
-    /**
-     * The day of birth, between 1 and 31.
-     */
-    day?: number;
-    /**
-     * The month of birth, between 1 and 12.
-     */
-    month?: number;
-    /**
-     * The four-digit year of birth.
-     */
-    year?: number;
-  }
-  export interface legal_entity_company_verification_document {
-    /**
-     * The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`.
-     */
-    back?: string;
-    /**
-     * A user-displayable string describing the verification state of this document.
-     */
-    details?: string;
-    /**
-     * One of `document_corrupt`, `document_expired`, `document_failed_copy`, `document_failed_greyscale`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_not_readable`, `document_not_uploaded`, `document_type_not_supported`, or `document_too_large`. A machine-readable code specifying the verification state for this document.
-     */
-    details_code?: string;
-    /**
-     * The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`.
-     */
-    front?: string;
-  }
-  export interface legal_entity_company_verification {
-    document: legal_entity_company_verification_document;
-  }
-  export interface legal_entity_company {
-    address?: address;
-    address_kana?: legal_entity_japan_address;
-    address_kanji?: legal_entity_japan_address;
-    /**
-     * Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-directors_provided).
-     */
-    directors_provided?: boolean;
-    /**
-     * Whether the company's executives have been provided. This Boolean will be `true` if you've manually indicated that all executives are provided via [the `executives_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-executives_provided), or if Stripe determined that sufficient executives were provided.
-     */
-    executives_provided?: boolean;
-    /**
-     * The company's legal name.
-     */
-    name?: string;
-    /**
-     * The Kana variation of the company's legal name (Japan only).
-     */
-    name_kana?: string;
-    /**
-     * The Kanji variation of the company's legal name (Japan only).
-     */
-    name_kanji?: string;
-    /**
-     * Whether the company's owners have been provided. This Boolean will be `true` if you've manually indicated that all owners are provided via [the `owners_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-owners_provided), or if Stripe determined that sufficient owners were provided. Stripe determines ownership requirements using both the number of owners provided and their total percent ownership (calculated by adding the `percent_ownership` of each owner together).
-     */
-    owners_provided?: boolean;
-    /**
-     * The company's phone number (used for verification).
-     */
-    phone?: string;
-    /**
-     * The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
-     */
-    structure?:
-      | 'government_instrumentality'
-      | 'governmental_unit'
-      | 'incorporated_non_profit'
-      | 'multi_member_llc'
-      | 'private_corporation'
-      | 'private_partnership'
-      | 'public_corporation'
-      | 'public_partnership'
-      | 'tax_exempt_government_instrumentality'
-      | 'unincorporated_association'
-      | 'unincorporated_non_profit';
-    /**
-     * Whether the company's business ID number was provided.
-     */
-    tax_id_provided?: boolean;
-    /**
-     * The jurisdiction in which the `tax_id` is registered (Germany-based companies only).
-     */
-    tax_id_registrar?: string;
-    /**
-     * Whether the company's business VAT number was provided.
-     */
-    vat_id_provided?: boolean;
-    verification?: legal_entity_company_verification;
-  }
-  export interface issuing_verification {
-    /**
-     * The id of the `Card` on which the verification was requested
-     */
-    card: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Timestamp of the expiry for that verification
-     */
-    expires_at: number;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'issuing.verification';
-    /**
-     * The scope of the verification (one of `card_pin_retrieve` or `card_pin_update`)
-     */
-    scope: 'card_pin_retrieve' | 'card_pin_update';
-    /**
-     * The method by which the cardholder will be sent a one-time code (one of `email` or `sms`)
-     */
-    verification_method: 'email' | 'sms';
-  }
-  export interface issuing_transaction {
-    /**
-     * The amount of this transaction in your currency. This is the amount that your balance will be updated by.
-     */
-    amount: number;
-    /**
-     * The `Authorization` object that led to this transaction.
-     */
-    authorization?: string;
-    /**
-     * ID of the [balance transaction](https://stripe.com/docs/api/balance_transactions) associated with this transaction.
-     */
-    balance_transaction?: string;
-    /**
-     * The card used to make this transaction.
-     */
-    card: string;
-    /**
-     * The cardholder to whom this transaction belongs.
-     */
-    cardholder?: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * If you've disputed the transaction, the ID of the dispute.
-     */
-    dispute?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * The amount that the merchant will receive, denominated in `merchant_currency`. It will be different from `amount` if the merchant is taking payment in a different currency.
-     */
-    merchant_amount: number;
-    /**
-     * The currency with which the merchant is taking payment.
-     */
-    merchant_currency: string;
-    merchant_data: issuing_authorization_merchant_data;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'issuing.transaction';
-    /**
-     * The nature of the transaction.
-     */
-    type: 'capture' | 'dispute' | 'refund';
-  }
-  export interface issuing_settlement {
-    /**
-     * The Bank Identification Number reflecting this settlement record.
-     */
-    bin: string;
-    /**
-     * The date that the transactions are cleared and posted to user's accounts.
-     */
-    clearing_date: number;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * The total interchange received as reimbursement for the transactions.
-     */
-    interchange_fees: number;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * The total net amount required to settle with the network.
-     */
-    net_total: number;
-    /**
-     * The card network for this settlement report. One of ["visa"]
-     */
-    network: 'visa';
-    /**
-     * The total amount of fees owed to the network.
-     */
-    network_fees: number;
-    /**
-     * The Settlement Identification Number assigned by the network.
-     */
-    network_settlement_identifier: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'issuing.settlement';
-    /**
-     * One of `international` or `uk_national_net`.
-     */
-    settlement_service: string;
-    /**
-     * The total number of transactions reflected in this settlement.
-     */
-    transaction_count: number;
-    /**
-     * The total transaction amount reflected in this settlement.
-     */
-    transaction_volume: number;
-  }
-  export interface issuing_dispute {
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'issuing.dispute';
-  }
-  export interface issuing_cardholder {
-    billing: issuing_cardholder_address;
-    company?: issuing_cardholder_company;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * The cardholder's email address.
-     */
-    email?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    individual?: issuing_cardholder_individual;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * The cardholder's name. This will be printed on cards issued to them.
-     */
-    name: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'issuing.cardholder';
-    /**
-     * The cardholder's phone number.
-     */
-    phone_number?: string;
-    requirements: issuing_cardholder_requirements;
-    spending_controls?: issuing_cardholder_authorization_controls;
-    /**
-     * Specifies whether to permit authorizations on this cardholder's cards.
-     */
-    status: 'active' | 'blocked' | 'inactive';
-    /**
-     * One of `individual` or `company`.
-     */
-    type: 'company' | 'individual';
-  }
-  export interface issuing_card_pin {
-    card: issuing_card;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'issuing.card_pin';
-    /**
-     * The PIN (4 digits number)
-     */
-    pin?: string;
-  }
-  export interface issuing_card_details {
-    card: issuing_card;
-    /**
-     * The CVC number for the card.
-     */
-    cvc: string;
-    /**
-     * The expiration month of the card.
-     */
-    exp_month: number;
-    /**
-     * The expiration year of the card.
-     */
-    exp_year: number;
-    /**
-     * The card number.
-     */
-    number: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'issuing.card_details';
-  }
-  export interface issuing_card {
-    /**
-     * The brand of the card.
-     */
-    brand: string;
-    cardholder: issuing_cardholder;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * The expiration month of the card.
-     */
-    exp_month: number;
-    /**
-     * The expiration year of the card.
-     */
-    exp_year: number;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * The last 4 digits of the card number.
-     */
-    last4: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'issuing.card';
-    pin?: issuing_card_pin;
-    /**
-     * The latest card that replaces this card, if any.
-     */
-    replaced_by?: string;
-    /**
-     * The card this card replaces, if any.
-     */
-    replacement_for?: string;
-    /**
-     * The reason why the previous card needed to be replaced.
-     */
-    replacement_reason?: 'damage' | 'expiration' | 'loss' | 'theft';
-    shipping?: issuing_card_shipping;
-    spending_controls: issuing_card_authorization_controls;
-    /**
-     * Whether authorizations can be approved on this card.
-     */
-    status: 'active' | 'canceled' | 'inactive' | 'lost' | 'stolen';
-    /**
-     * The type of the card.
-     */
-    type: 'physical' | 'virtual';
-  }
-  export interface issuing_authorization {
-    /**
-     * The total amount in the card's currency that was authorized or rejected.
-     */
-    amount: number;
-    /**
-     * Whether the authorization has been approved.
-     */
-    approved: boolean;
-    /**
-     * How the card details were provided.
-     */
-    authorization_method:
-      | 'chip'
-      | 'contactless'
-      | 'keyed_in'
-      | 'online'
-      | 'swipe';
-    /**
-     * List of balance transactions associated with this authorization.
-     */
-    balance_transactions: balance_transaction[];
-    card: issuing_card;
-    /**
-     * The cardholder to whom this authorization belongs.
-     */
-    cardholder?: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * The total amount that was authorized or rejected in the local merchant_currency.
-     */
-    merchant_amount: number;
-    /**
-     * The currency that was presented to the cardholder for the authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    merchant_currency: string;
-    merchant_data: issuing_authorization_merchant_data;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'issuing.authorization';
-    pending_request?: issuing_authorization_pending_request;
-    /**
-     * History of every time the authorization was approved/denied (whether approved/denied by you directly, or by Stripe based on your authorization_controls). If the merchant changes the authorization by performing an [incremental authorization or partial capture](https://stripe.com/docs/issuing/purchases/authorizations), you can look at request_history to see the previous states of the authorization.
-     */
-    request_history: issuing_authorization_request[];
-    /**
-     * The current status of the authorization in its lifecycle.
-     */
-    status: 'closed' | 'pending' | 'reversed';
-    /**
-     * List of [transactions](https://stripe.com/docs/api/issuing/transactions) associated with this authorization.
-     */
-    transactions: issuing_transaction[];
-    verification_data: issuing_authorization_verification_data;
-    /**
-     * What, if any, digital wallet was used for this authorization. One of `apple_pay`, `google_pay`, or `samsung_pay`.
-     */
-    wallet?: string;
-  }
-  export interface issuing_cardholder_verification {
-    document?: issuing_cardholder_id_document;
-  }
-  export interface issuing_cardholder_spending_limit {
-    /**
-     * Maximum amount allowed to spend per time interval.
-     */
-    amount: number;
-    /**
-     * Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) on which to apply the spending limit. Leave this blank to limit all charges.
-     */
-    categories?: string[];
-    /**
-     * The time interval or event with which to apply this spending limit towards.
-     */
-    interval:
-      | 'all_time'
-      | 'daily'
-      | 'monthly'
-      | 'per_authorization'
-      | 'weekly'
-      | 'yearly';
-  }
-  export interface issuing_cardholder_requirements {
-    /**
-     * If `disabled_reason` is present, all cards will decline authorizations with `cardholder_verification_required` reason.
-     */
-    disabled_reason?: 'listed' | 'rejected.listed' | 'under_review';
-    /**
-     * If not empty, this field contains the list of fields that need to be collected in order to verify and re-enabled the cardholder.
-     */
-    past_due?: string[];
-  }
-  export interface issuing_cardholder_individual_dob {
-    /**
-     * The day of birth, between 1 and 31.
-     */
-    day?: number;
-    /**
-     * The month of birth, between 1 and 12.
-     */
-    month?: number;
-    /**
-     * The four-digit year of birth.
-     */
-    year?: number;
-  }
-  export interface issuing_cardholder_individual {
-    dob?: issuing_cardholder_individual_dob;
-    /**
-     * The first name of this cardholder.
-     */
-    first_name: string;
-    /**
-     * The last name of this cardholder.
-     */
-    last_name: string;
-    verification?: issuing_cardholder_verification;
-  }
-  export interface issuing_cardholder_id_document {
-    /**
-     * The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
-     */
-    back?: string;
-    /**
-     * The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
-     */
-    front?: string;
-  }
-  export interface issuing_cardholder_company {
-    /**
-     * Whether the company's business ID number was provided.
-     */
-    tax_id_provided: boolean;
-  }
-  export interface issuing_cardholder_authorization_controls {
-    /**
-     * Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations permitted on this cardholder's cards.
-     */
-    allowed_categories?: string[];
-    /**
-     * Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to always decline on this cardholder's cards.
-     */
-    blocked_categories?: string[];
-    /**
-     * Limit the spending with rules based on time intervals and categories.
-     */
-    spending_limits?: issuing_cardholder_spending_limit[];
-    /**
-     * Currency for the amounts within spending_limits.
-     */
-    spending_limits_currency?: string;
-  }
-  export interface issuing_cardholder_address {
-    address: address;
-  }
-  export interface issuing_card_spending_limit {
-    /**
-     * Maximum amount allowed to spend per time interval.
-     */
-    amount: number;
-    /**
-     * Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) on which to apply the spending limit. Leave this blank to limit all charges.
-     */
-    categories?: string[];
-    /**
-     * The time interval or event with which to apply this spending limit towards.
-     */
-    interval:
-      | 'all_time'
-      | 'daily'
-      | 'monthly'
-      | 'per_authorization'
-      | 'weekly'
-      | 'yearly';
-  }
-  export interface issuing_card_shipping {
-    address: address;
-    /**
-     * The delivery company that shipped a card.
-     */
-    carrier?: 'fedex' | 'usps';
-    /**
-     * A unix timestamp representing a best estimate of when the card will be delivered.
-     */
-    eta?: number;
-    /**
-     * Recipient name.
-     */
-    name: string;
-    /**
-     * Shipment service, such as `standard` or `express`.
-     */
-    service: 'express' | 'priority' | 'standard';
-    /**
-     * The delivery status of the card.
-     */
-    status?:
-      | 'canceled'
-      | 'delivered'
-      | 'failure'
-      | 'pending'
-      | 'returned'
-      | 'shipped';
-    /**
-     * A tracking number for a card shipment.
-     */
-    tracking_number?: string;
-    /**
-     * A link to the shipping carrier's site where you can view detailed information about a card shipment.
-     */
-    tracking_url?: string;
-    /**
-     * Packaging options.
-     */
-    type: 'bulk' | 'individual';
-  }
-  export interface issuing_card_pin {
-    /**
-     * Wether the PIN will be accepted or not.
-     */
-    status: 'active' | 'blocked';
-  }
-  export interface issuing_card_authorization_controls {
-    /**
-     * Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations permitted on this card.
-     */
-    allowed_categories?: string[];
-    /**
-     * Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to always decline on this card.
-     */
-    blocked_categories?: string[];
-    /**
-     * Maximum count of approved authorizations on this card. Counts all authorizations retroactively.
-     */
-    max_approvals?: number;
-    /**
-     * Limit the spending with rules based on time intervals and categories.
-     */
-    spending_limits?: issuing_card_spending_limit[];
-    /**
-     * Currency for the amounts within spending_limits. Locked to the currency of the card.
-     */
-    spending_limits_currency?: string;
-  }
-  export interface issuing_authorization_verification_data {
-    /**
-     * Whether the cardholder provided an address first line and if it matched the cardholder’s `billing.address.line1`.
-     */
-    address_line1_check: 'match' | 'mismatch' | 'not_provided';
-    /**
-     * Whether the cardholder provided a postal code and if it matched the cardholder’s `billing.address.postal_code`.
-     */
-    address_postal_code_check: 'match' | 'mismatch' | 'not_provided';
-    /**
-     * Whether the cardholder provided a CVC and if it matched Stripe’s record.
-     */
-    cvc_check: 'match' | 'mismatch' | 'not_provided';
-    /**
-     * Whether the cardholder provided an expiry date and if it matched Stripe’s record.
-     */
-    expiry_check: 'match' | 'mismatch' | 'not_provided';
-    three_d_secure?: issuing_authorization_three_d_secure;
-  }
-  export interface issuing_authorization_three_d_secure {
-    /**
-     * The outcome of the 3D Secure authentication request.
-     */
-    result: 'attempt_acknowledged' | 'authenticated' | 'failed';
-  }
-  export interface issuing_authorization_request {
-    /**
-     * The amount of the authorization in your card's currency. Stripe held this amount from your account to fund the authorization, if the request was approved.
-     */
-    amount: number;
-    /**
-     * Whether this request was approved.
-     */
-    approved: boolean;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * The amount that was authorized at the time of this request.
-     */
-    merchant_amount: number;
-    /**
-     * The currency that was collected by the merchant and presented to the cardholder for the authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    merchant_currency: string;
-    /**
-     * The reason for the approval or decline.
-     */
-    reason:
-      | 'account_compliance_disabled'
-      | 'account_inactive'
-      | 'card_active'
-      | 'card_inactive'
-      | 'cardholder_inactive'
-      | 'cardholder_verification_required'
-      | 'insufficient_funds'
-      | 'not_allowed'
-      | 'spending_controls'
-      | 'suspected_fraud'
-      | 'verification_failed'
-      | 'webhook_approved'
-      | 'webhook_declined'
-      | 'webhook_timeout';
-  }
-  export interface issuing_authorization_pending_request {
-    /**
-     * The additional amount Stripe will hold if the authorization is approved, in the [currency](https://stripe.com/docs/api#issuing_authorization_object-pending-request-currency), which is always the card's currency.
-     */
-    amount: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
-     */
-    is_amount_controllable: boolean;
-    /**
-     * The amount the merchant is requesting to be authorized in the `merchant_currency`.
-     */
-    merchant_amount: number;
-    /**
-     * The local currency the merchant is requesting to authorize.
-     */
-    merchant_currency: string;
-  }
-  export interface issuing_authorization_merchant_data {
-    /**
-     * A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
-     */
-    category: string;
-    /**
-     * City where the seller is located
-     */
-    city?: string;
-    /**
-     * Country where the seller is located
-     */
-    country?: string;
-    /**
-     * Name of the seller
-     */
-    name?: string;
-    /**
-     * Identifier assigned to the seller by the card brand
-     */
-    network_id: string;
-    /**
-     * Postal code where the seller is located
-     */
-    postal_code?: string;
-    /**
-     * State where the seller is located
-     */
-    state?: string;
-    /**
-     * The url an online purchase was made from
-     */
-    url?: string;
-  }
-  export interface issuer_fraud_record {
-    /**
-     * An IFR is actionable if it has not received a dispute and has not been fully refunded. You may wish to proactively refund a charge that receives an IFR, in order to avoid receiving a dispute later.
-     */
-    actionable: boolean;
-    /**
-     * ID of the charge this issuer fraud record is for, optionally expanded.
-     */
-    charge: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * The type of fraud labelled by the issuer. One of `card_never_received`, `fraudulent_card_application`, `made_with_counterfeit_card`, `made_with_lost_card`, `made_with_stolen_card`, `misc`, `unauthorized_use_of_card`.
-     */
-    fraud_type: string;
-    /**
-     * If true, the associated charge is subject to [liability shift](https://stripe.com/docs/payments/3d-secure#disputed-payments).
-     */
-    has_liability_shift: boolean;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'issuer_fraud_record';
-    /**
-     * The timestamp at which the card issuer posted the issuer fraud record.
-     */
-    post_date: number;
-  }
-  export interface invoices_status_transitions {
-    /**
-     * The time that the invoice draft was finalized.
-     */
-    finalized_at?: number;
-    /**
-     * The time that the invoice was marked uncollectible.
-     */
-    marked_uncollectible_at?: number;
-    /**
-     * The time that the invoice was paid.
-     */
-    paid_at?: number;
-    /**
-     * The time that the invoice was voided.
-     */
-    voided_at?: number;
-  }
-  export interface invoices_resource_invoice_tax_id {
-    /**
-     * The type of the tax ID, one of `eu_vat`, `nz_gst`, `au_abn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `my_sst`, or `unknown`
-     */
-    type:
-      | 'au_abn'
-      | 'ca_bn'
-      | 'ca_qst'
-      | 'ch_vat'
-      | 'es_cif'
-      | 'eu_vat'
-      | 'hk_br'
-      | 'in_gst'
-      | 'jp_cn'
-      | 'kr_brn'
-      | 'li_uid'
-      | 'mx_rfc'
-      | 'my_itn'
-      | 'my_sst'
-      | 'no_vat'
-      | 'nz_gst'
-      | 'ru_inn'
-      | 'sg_uen'
-      | 'th_vat'
-      | 'tw_vat'
-      | 'unknown'
-      | 'us_ein'
-      | 'za_vat';
-    /**
-     * The value of the tax ID.
-     */
-    value?: string;
-  }
-  export interface invoiceitem {
-    /**
-     * Amount (in the `currency` specified) of the invoice item. This should always be equal to `unit_amount * quantity`.
-     */
-    amount: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * The ID of the customer who will be billed when this invoice item is billed.
-     */
-    customer: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    date: number;
-    /**
-     * An arbitrary string attached to the object. Often useful for displaying to users.
-     */
-    description?: string;
-    /**
-     * If true, discounts will apply to this invoice item. Always false for prorations.
-     */
-    discountable: boolean;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * The ID of the invoice this invoice item belongs to.
-     */
-    invoice?: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'invoiceitem';
-    period: invoice_line_item_period;
-    plan?: plan;
-    /**
-     * Whether the invoice item was created automatically as a proration adjustment when the customer switched plans.
-     */
-    proration: boolean;
-    /**
-     * Quantity of units for the invoice item. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
-     */
-    quantity: number;
-    /**
-     * The subscription that this invoice item has been created for, if any.
-     */
-    subscription?: string;
-    /**
-     * The subscription item that this invoice item has been created for, if any.
-     */
-    subscription_item?: string;
-    /**
-     * The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item.
-     */
-    tax_rates?: tax_rate[];
-    /**
-     * Unit Amount (in the `currency` specified) of the invoice item.
-     */
-    unit_amount?: number;
-    /**
-     * Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
-     */
-    unit_amount_decimal?: string;
-  }
-  export interface invoice_threshold_reason {
-    /**
-     * The total invoice amount threshold boundary if it triggered the threshold invoice.
-     */
-    amount_gte?: number;
-    /**
-     * Indicates which line items triggered a threshold invoice.
-     */
-    item_reasons: invoice_item_threshold_reason[];
-  }
-  export interface invoice_tax_amount {
-    /**
-     * The amount, in %s, of the tax.
-     */
-    amount: number;
-    /**
-     * Whether this tax amount is inclusive or exclusive.
-     */
-    inclusive: boolean;
-    /**
-     * The tax rate that was applied to get this tax amount.
-     */
-    tax_rate: string;
-  }
-  export interface invoice_setting_subscription_schedule_setting {
-    /**
-     * Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
-     */
-    days_until_due?: number;
-  }
-  export interface invoice_setting_customer_setting {
-    /**
-     * Default custom fields to be displayed on invoices for this customer.
-     */
-    custom_fields?: invoice_setting_custom_field[];
-    /**
-     * ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
-     */
-    default_payment_method?: string;
-    /**
-     * Default footer to be displayed on invoices for this customer.
-     */
-    footer?: string;
-  }
-  export interface invoice_setting_custom_field {
-    /**
-     * The name of the custom field.
-     */
-    name: string;
-    /**
-     * The value of the custom field.
-     */
-    value: string;
-  }
-  export interface invoice_line_item_period {
-    /**
-     * End of the line item's billing period
-     */
-    end: number;
-    /**
-     * Start of the line item's billing period
-     */
-    start: number;
-  }
-  export interface invoice_item_threshold_reason {
-    /**
-     * The IDs of the line items that triggered the threshold invoice.
-     */
-    line_item_ids: string[];
-    /**
-     * The quantity threshold boundary that applied to the given line item.
-     */
-    usage_gte: number;
-  }
-  export interface invoice {
-    /**
-     * The country of the business associated with this invoice, most often the business creating the invoice.
-     */
-    account_country?: string;
-    /**
-     * The public name of the business associated with this invoice, most often the business creating the invoice.
-     */
-    account_name?: string;
-    /**
-     * Final amount due at this time for this invoice. If the invoice's total is smaller than the minimum charge amount, for example, or if there is account credit that can be applied to the invoice, the `amount_due` may be 0. If there is a positive `starting_balance` for the invoice (the customer owes money), the `amount_due` will also take that into account. The charge that gets generated for the invoice will be for the amount specified in `amount_due`.
-     */
-    amount_due: number;
-    /**
-     * The amount, in %s, that was paid.
-     */
-    amount_paid: number;
-    /**
-     * The amount remaining, in %s, that is due.
-     */
-    amount_remaining: number;
-    /**
-     * The fee in %s that will be applied to the invoice and transferred to the application owner's Stripe account when the invoice is paid.
-     */
-    application_fee_amount?: number;
-    /**
-     * Number of payment attempts made for this invoice, from the perspective of the payment retry schedule. Any payment attempt counts as the first attempt, and subsequently only automatic retries increment the attempt count. In other words, manual payment attempts after the first attempt do not affect the retry schedule.
-     */
-    attempt_count: number;
-    /**
-     * Whether an attempt has been made to pay the invoice. An invoice is not attempted until 1 hour after the `invoice.created` webhook, for example, so you might not want to display that invoice as unpaid to your users.
-     */
-    attempted: boolean;
-    /**
-     * Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. When `false`, the invoice's state will not automatically advance without an explicit action.
-     */
-    auto_advance?: boolean;
-    /**
-     * Indicates the reason why the invoice was created. `subscription_cycle` indicates an invoice created by a subscription advancing into a new period. `subscription_create` indicates an invoice created due to creating a subscription. `subscription_update` indicates an invoice created due to updating a subscription. `subscription` is set for all old invoices to indicate either a change to a subscription or a period advancement. `manual` is set for all invoices unrelated to a subscription (for example: created via the invoice editor). The `upcoming` value is reserved for simulated invoices per the upcoming invoice endpoint. `subscription_threshold` indicates an invoice created due to a billing threshold being reached.
-     */
-    billing_reason?:
-      | 'automatic_pending_invoice_item_invoice'
-      | 'manual'
-      | 'subscription'
-      | 'subscription_create'
-      | 'subscription_cycle'
-      | 'subscription_threshold'
-      | 'subscription_update'
-      | 'upcoming';
-    /**
-     * ID of the latest charge generated for this invoice, if any.
-     */
-    charge?: string;
-    /**
-     * Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions.
-     */
-    collection_method?: 'charge_automatically' | 'send_invoice';
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * Custom fields displayed on the invoice.
-     */
-    custom_fields?: invoice_setting_custom_field[];
-    /**
-     * The ID of the customer who will be billed.
-     */
-    customer: string;
-    customer_address?: address;
-    /**
-     * The customer's email. Until the invoice is finalized, this field will equal `customer.email`. Once the invoice is finalized, this field will no longer be updated.
-     */
-    customer_email?: string;
-    /**
-     * The customer's name. Until the invoice is finalized, this field will equal `customer.name`. Once the invoice is finalized, this field will no longer be updated.
-     */
-    customer_name?: string;
-    /**
-     * The customer's phone number. Until the invoice is finalized, this field will equal `customer.phone`. Once the invoice is finalized, this field will no longer be updated.
-     */
-    customer_phone?: string;
-    customer_shipping?: shipping;
-    /**
-     * The customer's tax exempt status. Until the invoice is finalized, this field will equal `customer.tax_exempt`. Once the invoice is finalized, this field will no longer be updated.
-     */
-    customer_tax_exempt?: 'exempt' | 'none' | 'reverse';
-    /**
-     * The customer's tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as `customer.tax_ids`. Once the invoice is finalized, this field will no longer be updated.
-     */
-    customer_tax_ids?: invoices_resource_invoice_tax_id[];
-    /**
-     * ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings.
-     */
-    default_payment_method?: string;
-    /**
-     * ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source.
-     */
-    default_source?: string;
-    /**
-     * The tax rates applied to this invoice, if any.
-     */
-    default_tax_rates?: tax_rate[];
-    /**
-     * An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard.
-     */
-    description?: string;
-    discount?: discount;
-    /**
-     * The date on which payment for this invoice is due. This value will be `null` for invoices where `collection_method=charge_automatically`.
-     */
-    due_date?: number;
-    /**
-     * Ending customer balance after the invoice is finalized. Invoices are finalized approximately an hour after successful webhook delivery or when payment collection is attempted for the invoice. If the invoice has not been finalized yet, this will be null.
-     */
-    ending_balance?: number;
-    /**
-     * Footer displayed on the invoice.
-     */
-    footer?: string;
-    /**
-     * The URL for the hosted invoice page, which allows customers to view and pay an invoice. If the invoice has not been finalized yet, this will be null.
-     */
-    hosted_invoice_url?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id?: string;
-    /**
-     * The link to download the PDF for the invoice. If the invoice has not been finalized yet, this will be null.
-     */
-    invoice_pdf?: string;
-    /**
-     * The individual line items that make up the invoice. `lines` is sorted as follows: invoice items in reverse chronological order, followed by the subscription, if any.
-     */
-    lines: invoiceLines;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata?: object;
-    /**
-     * The time at which payment will next be attempted. This value will be `null` for invoices where `collection_method=send_invoice`.
-     */
-    next_payment_attempt?: number;
-    /**
-     * A unique, identifying string that appears on emails sent to the customer for this invoice. This starts with the customer's unique invoice_prefix if it is specified.
-     */
-    number?: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'invoice';
-    /**
-     * Whether payment was successfully collected for this invoice. An invoice can be paid (most commonly) with a charge or with credit from the customer's account balance.
-     */
-    paid: boolean;
-    /**
-     * The PaymentIntent associated with this invoice. The PaymentIntent is generated when the invoice is finalized, and can then be used to pay the invoice. Note that voiding an invoice will cancel the PaymentIntent.
-     */
-    payment_intent?: string;
-    /**
-     * End of the usage period during which invoice items were added to this invoice.
-     */
-    period_end: number;
-    /**
-     * Start of the usage period during which invoice items were added to this invoice.
-     */
-    period_start: number;
-    /**
-     * Total amount of all post-payment credit notes issued for this invoice.
-     */
-    post_payment_credit_notes_amount: number;
-    /**
-     * Total amount of all pre-payment credit notes issued for this invoice.
-     */
-    pre_payment_credit_notes_amount: number;
-    /**
-     * This is the transaction number that appears on email receipts sent for this invoice.
-     */
-    receipt_number?: string;
-    /**
-     * Starting customer balance before the invoice is finalized. If the invoice has not been finalized yet, this will be the current customer balance.
-     */
-    starting_balance: number;
-    /**
-     * Extra information about an invoice for the customer's credit card statement.
-     */
-    statement_descriptor?: string;
-    /**
-     * The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview)
-     */
-    status?: 'deleted' | 'draft' | 'open' | 'paid' | 'uncollectible' | 'void';
-    status_transitions: invoices_status_transitions;
-    /**
-     * The subscription that this invoice was prepared for, if any.
-     */
-    subscription?: string;
-    /**
-     * Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
-     */
-    subscription_proration_date?: number;
-    /**
-     * Total of all subscriptions, invoice items, and prorations on the invoice before any discount or tax is applied.
-     */
-    subtotal: number;
-    /**
-     * The amount of tax on this invoice. This is the sum of all the tax amounts on this invoice.
-     */
-    tax?: number;
-    /**
-     * This percentage of the subtotal has been added to the total amount of the invoice, including invoice line items and discounts. This field is inherited from the subscription's `tax_percent` field, but can be changed before the invoice is paid. This field defaults to null.
-     */
-    tax_percent?: number;
-    threshold_reason?: invoice_threshold_reason;
-    /**
-     * Total after discounts and taxes.
-     */
-    total: number;
-    /**
-     * The aggregate amounts calculated per tax rate for all line items.
-     */
-    total_tax_amounts?: invoice_tax_amount[];
-    /**
-     * The time at which webhooks for this invoice were successfully delivered (if the invoice had no webhooks to deliver, this will match `created`). Invoice payment is delayed until webhooks are delivered, or until all webhook delivery attempts have been exhausted.
-     */
-    webhooks_delivered_at?: number;
-  }
-  export interface invoiceLines {
-    /**
-     * Details about each object.
-     */
-    data: line_item[];
-    /**
-     * True if this list has another page of items after this one that can be fetched.
-     */
-    has_more: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
-     */
-    object: 'list';
-    /**
-     * The URL where this list can be accessed.
-     */
-    url: string;
-  }
-  export interface inventory {
-    /**
-     * The count of inventory available. Will be present if and only if `type` is `finite`.
-     */
-    quantity?: number;
-    /**
-     * Inventory type. Possible values are `finite`, `bucket` (not quantified), and `infinite`.
-     */
-    type: string;
-    /**
-     * An indicator of the inventory available. Possible values are `in_stock`, `limited`, and `out_of_stock`. Will be present if and only if `type` is `bucket`.
-     */
-    value?: string;
-  }
-  export interface financial_reporting_finance_report_run_run_parameters {
-    /**
-     * The set of output columns requested for inclusion in the report run.
-     */
-    columns?: string[];
-    /**
-     * Connected account ID by which to filter the report run.
-     */
-    connected_account?: string;
-    /**
-     * Currency of objects to be included in the report run.
-     */
-    currency?: string;
-    /**
-     * Ending timestamp of data to be included in the report run (exclusive).
-     */
-    interval_end?: number;
-    /**
-     * Starting timestamp of data to be included in the report run.
-     */
-    interval_start?: number;
-    /**
-     * Payout ID by which to filter the report run.
-     */
-    payout?: string;
-    /**
-     * Category of balance transactions to be included in the report run.
-     */
-    reporting_category?: string;
-    /**
-     * Defaults to `Etc/UTC`. The output timezone for all timestamps in the report. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones). Has no effect on `interval_start` or `interval_end`.
-     */
-    timezone?: string;
-  }
-  export interface file_link {
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Whether this link is already expired.
-     */
-    expired: boolean;
-    /**
-     * Time at which the link expires.
-     */
-    expires_at?: number;
-    /**
-     * The file object this link points to.
-     */
-    file: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'file_link';
-    /**
-     * The publicly accessible URL to download the file.
-     */
-    url?: string;
-  }
-  export interface file {
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * A filename for the file, suitable for saving to a filesystem.
-     */
-    filename?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * A list of [file links](https://stripe.com/docs/api#file_links) that point at this file.
-     */
-    links?: fileLinks;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'file';
-    /**
-     * The purpose of the file. Possible values are `additional_verification`, `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `identity_document`, `pci_document`, `sigma_scheduled_query`, or `tax_document_user_upload`.
-     */
-    purpose: string;
-    /**
-     * The size in bytes of the file object.
-     */
-    size: number;
-    /**
-     * A user friendly title for the document.
-     */
-    title?: string;
-    /**
-     * The type of the file returned (e.g., `csv`, `pdf`, `jpg`, or `png`).
-     */
-    type?: string;
-    /**
-     * The URL from which the file can be downloaded using your live secret API key.
-     */
-    url?: string;
-  }
-  export interface fileLinks {
-    /**
-     * Details about each object.
-     */
-    data: file_link[];
-    /**
-     * True if this list has another page of items after this one that can be fetched.
-     */
-    has_more: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
-     */
-    object: 'list';
-    /**
-     * The URL where this list can be accessed.
-     */
-    url: string;
-  }
-  export interface fee_refund {
-    /**
-     * Amount, in %s.
-     */
-    amount: number;
-    /**
-     * Balance transaction that describes the impact on your account balance.
-     */
-    balance_transaction?: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * ID of the application fee that was refunded.
-     */
-    fee: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'fee_refund';
-  }
-  export interface fee {
-    /**
-     * Amount of the fee, in cents.
-     */
-    amount: number;
-    /**
-     * ID of the Connect application that earned the fee.
-     */
-    application?: string;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * An arbitrary string attached to the object. Often useful for displaying to users.
-     */
-    description?: string;
-    /**
-     * Type of the fee, one of: `application_fee`, `stripe_fee` or `tax`.
-     */
-    type: string;
-  }
-  export interface external_account {
-    /**
-     * The ID of the account that the bank account is associated with.
-     */
-    account?: string;
-    /**
-     * Two-letter ISO code representing the country the bank account is located in.
-     */
-    country: string;
-    /**
-     * Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account.
-     */
-    currency: string;
-    /**
-     * The ID of the customer that the bank account is associated with.
-     */
-    customer?: string;
-    /**
-     * Whether this bank account is the default external account for its currency.
-     */
-    default_for_currency?: boolean;
-    /**
-     * Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
-     */
-    fingerprint?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * The last four digits of the bank account number.
-     */
-    last4: string;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata?: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'bank_account';
-  }
-  export interface exchange_rate {
-    /**
-     * Unique identifier for the object. Represented as the three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) in lowercase.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'exchange_rate';
-    /**
-     * Hash where the keys are supported currencies and the values are the exchange rate at which the base id currency converts to the key currency.
-     */
-    rates: object;
-  }
-  export interface event {
-    /**
-     * The connected account that originated the event.
-     */
-    account?: string;
-    /**
-     * The Stripe API version used to render `data`. *Note: This property is populated only for events on or after October 31, 2014*.
-     */
-    api_version?: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    data: notification_event_data;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'event';
-    /**
-     * Number of webhooks that have yet to be successfully delivered (i.e., to return a 20x response) to the URLs you've specified.
-     */
-    pending_webhooks: number;
-    request?: notification_event_request;
-    /**
-     * Description of the event (e.g., `invoice.created` or `charge.refunded`).
-     */
-    type: string;
-  }
-  export interface error {
-    error: api_errors;
-  }
-  export interface ephemeral_key {
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Time at which the key will expire. Measured in seconds since the Unix epoch.
-     */
-    expires: number;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'ephemeral_key';
-    /**
-     * The key's secret. You can use this value to make authorized requests to the Stripe API.
-     */
-    secret?: string;
-  }
-  export interface dispute_evidence_details {
-    /**
-     * Date by which evidence must be submitted in order to successfully challenge dispute. Will be null if the customer's bank or credit card company doesn't allow a response for this particular dispute.
-     */
-    due_by?: number;
-    /**
-     * Whether evidence has been staged for this dispute.
-     */
-    has_evidence: boolean;
-    /**
-     * Whether the last evidence submission was submitted past the due date. Defaults to `false` if no evidence submissions have occurred. If `true`, then delivery of the latest evidence is *not* guaranteed.
-     */
-    past_due: boolean;
-    /**
-     * The number of times evidence has been submitted. Typically, you may only submit evidence once.
-     */
-    submission_count: number;
-  }
-  export interface dispute_evidence {
-    /**
-     * Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity.
-     */
-    access_activity_log?: string;
-    /**
-     * The billing address provided by the customer.
-     */
-    billing_address?: string;
-    /**
-     * (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your subscription cancellation policy, as shown to the customer.
-     */
-    cancellation_policy?: string;
-    /**
-     * An explanation of how and when the customer was shown your refund policy prior to purchase.
-     */
-    cancellation_policy_disclosure?: string;
-    /**
-     * A justification for why the customer's subscription was not canceled.
-     */
-    cancellation_rebuttal?: string;
-    /**
-     * (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any communication with the customer that you feel is relevant to your case. Examples include emails proving that the customer received the product or service, or demonstrating their use of or satisfaction with the product or service.
-     */
-    customer_communication?: string;
-    /**
-     * The email address of the customer.
-     */
-    customer_email_address?: string;
-    /**
-     * The name of the customer.
-     */
-    customer_name?: string;
-    /**
-     * The IP address that the customer used when making the purchase.
-     */
-    customer_purchase_ip?: string;
-    /**
-     * (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A relevant document or contract showing the customer's signature.
-     */
-    customer_signature?: string;
-    /**
-     * (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation for the prior charge that can uniquely identify the charge, such as a receipt, shipping label, work order, etc. This document should be paired with a similar document from the disputed payment that proves the two payments are separate.
-     */
-    duplicate_charge_documentation?: string;
-    /**
-     * An explanation of the difference between the disputed charge versus the prior charge that appears to be a duplicate.
-     */
-    duplicate_charge_explanation?: string;
-    /**
-     * The Stripe ID for the prior charge which appears to be a duplicate of the disputed charge.
-     */
-    duplicate_charge_id?: string;
-    /**
-     * A description of the product or service that was sold.
-     */
     product_description?: string;
-    /**
-     * (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any receipt or message sent to the customer notifying them of the charge.
-     */
-    receipt?: string;
-    /**
-     * (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your refund policy, as shown to the customer.
-     */
-    refund_policy?: string;
-    /**
-     * Documentation demonstrating that the customer was shown your refund policy prior to purchase.
-     */
-    refund_policy_disclosure?: string;
-    /**
-     * A justification for why the customer is not entitled to a refund.
-     */
-    refund_refusal_explanation?: string;
-    /**
-     * The date on which the customer received or began receiving the purchased service, in a clear human-readable format.
-     */
-    service_date?: string;
-    /**
-     * (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation showing proof that a service was provided to the customer. This could include a copy of a signed contract, work order, or other form of written agreement.
-     */
-    service_documentation?: string;
-    /**
-     * The address to which a physical product was shipped. You should try to include as complete address information as possible.
-     */
-    shipping_address?: string;
-    /**
-     * The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc. If multiple carriers were used for this purchase, please separate them with commas.
-     */
-    shipping_carrier?: string;
-    /**
-     * The date on which a physical product began its route to the shipping address, in a clear human-readable format.
-     */
-    shipping_date?: string;
-    /**
-     * (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation showing proof that a product was shipped to the customer at the same address the customer provided to you. This could include a copy of the shipment receipt, shipping label, etc. It should show the customer's full shipping address, if possible.
-     */
-    shipping_documentation?: string;
-    /**
-     * The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-     */
-    shipping_tracking_number?: string;
-    /**
-     * (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any additional evidence or statements.
-     */
-    uncategorized_file?: string;
-    /**
-     * Any additional evidence or statements.
-     */
-    uncategorized_text?: string;
-  }
-  export interface dispute {
-    /**
-     * Disputed amount. Usually the amount of the charge, but can differ (usually because of currency fluctuation or because only part of the order is disputed).
-     */
-    amount: number;
-    /**
-     * List of zero, one, or two balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute.
-     */
-    balance_transactions: balance_transaction[];
-    /**
-     * ID of the charge that was disputed.
-     */
-    charge: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
+    support_address?: definitions['address'];
+    support_email?: string;
+    support_phone?: string;
+    support_url?: string;
+    url?: string;
+  };
+  account_capabilities: {
+    au_becs_debit_payments?: 'active' | 'inactive' | 'pending';
+    card_issuing?: 'active' | 'inactive' | 'pending';
+    card_payments?: 'active' | 'inactive' | 'pending';
+    legacy_payments?: 'active' | 'inactive' | 'pending';
+    tax_reporting_us_1099_k?: 'active' | 'inactive' | 'pending';
+    tax_reporting_us_1099_misc?: 'active' | 'inactive' | 'pending';
+    transfers?: 'active' | 'inactive' | 'pending';
+  };
+  account_capability_requirements: {
+    current_deadline?: number;
+    currently_due: string[];
+    disabled_reason?: string;
+    errors?: definitions['account_requirements_error'][];
+    eventually_due: string[];
+    past_due: string[];
+    pending_verification: string[];
+  };
+  account_card_payments_settings: {
+    decline_on?: definitions['account_decline_charge_on'];
+    statement_descriptor_prefix?: string;
+  };
+  account_dashboard_settings: { display_name?: string; timezone?: string };
+  account_decline_charge_on: { avs_failure: boolean; cvc_failure: boolean };
+  account_link: {
     created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    evidence: dispute_evidence;
-    evidence_details: dispute_evidence_details;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * If true, it is still possible to refund the disputed payment. Once the payment has been fully refunded, no further funds will be withdrawn from your Stripe account as a result of this dispute.
-     */
-    is_charge_refundable: boolean;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'dispute';
-    /**
-     * ID of the PaymentIntent that was disputed.
-     */
-    payment_intent?: string;
-    /**
-     * Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Read more about [dispute reasons](https://stripe.com/docs/disputes/categories).
-     */
-    reason: string;
-    /**
-     * Current status of dispute. Possible values are `warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `charge_refunded`, `won`, or `lost`.
-     */
-    status:
-      | 'charge_refunded'
-      | 'lost'
-      | 'needs_response'
-      | 'under_review'
-      | 'warning_closed'
-      | 'warning_needs_response'
-      | 'warning_under_review'
-      | 'won';
-  }
-  export interface discount {
-    coupon: coupon;
-    /**
-     * The ID of the customer associated with this discount.
-     */
-    customer?: string;
-    /**
-     * If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null.
-     */
-    end?: number;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'discount';
-    /**
-     * Date that the coupon was applied.
-     */
-    start: number;
-    /**
-     * The subscription that this coupon is applied to, if it is applied to a particular subscription.
-     */
-    subscription?: string;
-  }
-  export interface delivery_estimate {
-    /**
-     * If `type` is `"exact"`, `date` will be the expected delivery date in the format YYYY-MM-DD.
-     */
-    date?: string;
-    /**
-     * If `type` is `"range"`, `earliest` will be be the earliest delivery date in the format YYYY-MM-DD.
-     */
-    earliest?: string;
-    /**
-     * If `type` is `"range"`, `latest` will be the latest delivery date in the format YYYY-MM-DD.
-     */
-    latest?: string;
-    /**
-     * The type of estimate. Must be either `"range"` or `"exact"`.
-     */
-    type: string;
-  }
-  export interface deleted_webhook_endpoint {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'webhook_endpoint';
-  }
-  export interface deleted_terminal_reader {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'terminal.reader';
-  }
-  export interface deleted_terminal_location {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'terminal.location';
-  }
-  export interface deleted_tax_id {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'tax_id';
-  }
-  export interface deleted_subscription_item {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'subscription_item';
-  }
-  export interface deleted_sku {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'sku';
-  }
-  export interface deleted_recipient {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'recipient';
-  }
-  export interface deleted_radar_value_list_item {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'radar.value_list_item';
-  }
-  export interface deleted_radar_value_list {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'radar.value_list';
-  }
-  export interface deleted_product {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'product';
-  }
-  export interface deleted_plan {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'plan';
-  }
-  export interface deleted_person {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'person';
-  }
-  export interface deleted_payment_source {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'alipay_account';
-  }
-  export interface deleted_invoiceitem {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'invoiceitem';
-  }
-  export interface deleted_invoice {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'invoice';
-  }
-  export interface deleted_external_account {
-    /**
-     * Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account.
-     */
-    currency?: string;
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'bank_account';
-  }
-  export interface deleted_discount {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'discount';
-  }
-  export interface deleted_customer {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'customer';
-  }
-  export interface deleted_coupon {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'coupon';
-  }
-  export interface deleted_card {
-    /**
-     * Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account.
-     */
-    currency?: string;
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'card';
-  }
-  export interface deleted_bitcoin_receiver {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'bitcoin_receiver';
-  }
-  export interface deleted_bank_account {
-    /**
-     * Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account.
-     */
-    currency?: string;
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'bank_account';
-  }
-  export interface deleted_apple_pay_domain {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'apple_pay_domain';
-  }
-  export interface deleted_alipay_account {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'alipay_account';
-  }
-  export interface deleted_account {
-    /**
-     * Always true for a deleted object
-     */
-    deleted: true;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'account';
-  }
-  export interface customer_balance_transaction {
-    /**
-     * The amount of the transaction. A negative value is a credit for the customer's balance, and a positive value is a debit to the customer's `balance`.
-     */
-    amount: number;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * The ID of the credit note (if any) related to the transaction.
-     */
-    credit_note?: string;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * The ID of the customer the transaction belongs to.
-     */
-    customer: string;
-    /**
-     * An arbitrary string attached to the object. Often useful for displaying to users.
-     */
-    description?: string;
-    /**
-     * The customer's `balance` after the transaction was applied. A negative value decreases the amount due on the customer's next invoice. A positive value increases the amount due on the customer's next invoice.
-     */
-    ending_balance: number;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * The ID of the invoice (if any) related to the transaction.
-     */
-    invoice?: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata?: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'customer_balance_transaction';
-    /**
-     * Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, or `unapplied_from_invoice`. See the [Customer Balance page](https://stripe.com/docs/billing/customer/balance#types) to learn more about transaction types.
-     */
-    type:
-      | 'adjustment'
-      | 'applied_to_invoice'
-      | 'credit_note'
-      | 'initial'
-      | 'invoice_too_large'
-      | 'invoice_too_small'
-      | 'migration'
-      | 'unapplied_from_invoice'
-      | 'unspent_receiver_credit';
-  }
-  export interface customer_acceptance {
-    /**
-     * The time at which the customer accepted the Mandate.
-     */
-    accepted_at?: number;
-    offline?: offline_acceptance;
-    online?: online_acceptance;
-    /**
-     * The type of customer acceptance information included with the Mandate. One of `online` or `offline`.
-     */
-    type: 'offline' | 'online';
-  }
-  export interface customer {
-    address?: address;
-    /**
-     * Current balance, if any, being stored on the customer. If negative, the customer has credit to apply to their next invoice. If positive, the customer has an amount owed that will be added to their next invoice. The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice. This balance is only taken into account as invoices are finalized.
-     */
-    balance?: number;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) the customer can be charged in for recurring billing purposes.
-     */
-    currency?: string;
-    /**
-     * ID of the default payment source for the customer.
-     *
-     * If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) field instead.
-     */
-    default_source?: string;
-    /**
-     * When the customer's latest invoice is billed by charging automatically, delinquent is true if the invoice's latest charge is failed. When the customer's latest invoice is billed by sending an invoice, delinquent is true if the invoice is not paid by its due date.
-     */
-    delinquent?: boolean;
-    /**
-     * An arbitrary string attached to the object. Often useful for displaying to users.
-     */
-    description?: string;
-    discount?: discount;
-    /**
-     * The customer's email address.
-     */
-    email?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * The prefix for the customer used to generate unique invoice numbers.
-     */
-    invoice_prefix?: string;
-    invoice_settings?: invoice_setting_customer_setting;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata?: object;
-    /**
-     * The customer's full name or business name.
-     */
-    name?: string;
-    /**
-     * The suffix of the customer's next invoice number, e.g., 0001.
-     */
-    next_invoice_sequence?: number;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'customer';
-    /**
-     * The customer's phone number.
-     */
-    phone?: string;
-    /**
-     * The customer's preferred locales (languages), ordered by preference.
-     */
-    preferred_locales?: string[];
-    shipping?: shipping;
-    /**
-     * The customer's payment sources, if any.
-     */
-    sources: customerSources;
-    /**
-     * The customer's current subscriptions, if any.
-     */
-    subscriptions?: customerSubscriptions;
-    /**
-     * Describes the customer's tax exemption status. One of `none`, `exempt`, or `reverse`. When set to `reverse`, invoice and receipt PDFs include the text **"Reverse charge"**.
-     */
-    tax_exempt?: 'exempt' | 'none' | 'reverse';
-    /**
-     * The customer's tax IDs.
-     */
-    tax_ids?: customerTax_ids;
-  }
-  export interface customerTax_ids {
-    /**
-     * Details about each object.
-     */
-    data: tax_id[];
-    /**
-     * True if this list has another page of items after this one that can be fetched.
-     */
-    has_more: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
-     */
-    object: 'list';
-    /**
-     * The URL where this list can be accessed.
-     */
+    expires_at: number;
+    object: 'account_link';
     url: string;
-  }
-  export interface customerSubscriptions {
-    /**
-     * Details about each object.
-     */
-    data: subscription[];
-    /**
-     * True if this list has another page of items after this one that can be fetched.
-     */
-    has_more: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
-     */
-    object: 'list';
-    /**
-     * The URL where this list can be accessed.
-     */
-    url: string;
-  }
-  export interface customerSources {
-    /**
-     * Details about each object.
-     */
-    data: alipay_account[];
-    /**
-     * True if this list has another page of items after this one that can be fetched.
-     */
-    has_more: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
-     */
-    object: 'list';
-    /**
-     * The URL where this list can be accessed.
-     */
-    url: string;
-  }
-  export interface credit_note_tax_amount {
-    /**
-     * The amount, in %s, of the tax.
-     */
-    amount: number;
-    /**
-     * Whether this tax amount is inclusive or exclusive.
-     */
-    inclusive: boolean;
-    /**
-     * The tax rate that was applied to get this tax amount.
-     */
-    tax_rate: string;
-  }
-  export interface credit_note_line_item {
-    /**
-     * The integer amount in **%s** representing the gross amount being credited for this line item, excluding (exclusive) tax and discounts.
-     */
-    amount: number;
-    /**
-     * Description of the item being credited.
-     */
-    description?: string;
-    /**
-     * The integer amount in **%s** representing the discount being credited for this line item.
-     */
-    discount_amount: number;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * ID of the invoice line item being credited
-     */
-    invoice_line_item?: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'credit_note_line_item';
-    /**
-     * The number of units of product being credited.
-     */
-    quantity?: number;
-    /**
-     * The amount of tax calculated per tax rate for this line item
-     */
-    tax_amounts: credit_note_tax_amount[];
-    /**
-     * The tax rates which apply to the line item.
-     */
-    tax_rates: tax_rate[];
-    /**
-     * The type of the credit note line item, one of `invoice_line_item` or `custom_line_item`. When the type is `invoice_line_item` there is an additional `invoice_line_item` property on the resource the value of which is the id of the credited line item on the invoice.
-     */
-    type: 'custom_line_item' | 'invoice_line_item';
-    /**
-     * The cost of each unit of product being credited.
-     */
-    unit_amount?: number;
-    /**
-     * Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
-     */
-    unit_amount_decimal?: string;
-  }
-  export interface credit_note {
-    /**
-     * The integer amount in **%s** representing the total amount of the credit note, including tax.
-     */
-    amount: number;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * ID of the customer.
-     */
-    customer: string;
-    /**
-     * Customer balance transaction related to this credit note.
-     */
-    customer_balance_transaction?: string;
-    /**
-     * The integer amount in **%s** representing the amount of the discount that was credited.
-     */
-    discount_amount: number;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * ID of the invoice.
-     */
-    invoice: string;
-    /**
-     * Line items that make up the credit note
-     */
-    lines: credit_noteLines;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Customer-facing text that appears on the credit note PDF.
-     */
-    memo?: string;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * A unique number that identifies this particular credit note and appears on the PDF of the credit note and its associated invoice.
-     */
-    number: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'credit_note';
-    /**
-     * Amount that was credited outside of Stripe.
-     */
-    out_of_band_amount?: number;
-    /**
-     * The link to download the PDF of the credit note.
-     */
-    pdf: string;
-    /**
-     * Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
-     */
-    reason?:
-      | 'duplicate'
-      | 'fraudulent'
-      | 'order_change'
-      | 'product_unsatisfactory';
-    /**
-     * Refund related to this credit note.
-     */
-    refund?: string;
-    /**
-     * Status of this credit note, one of `issued` or `void`. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
-     */
-    status: 'issued' | 'void';
-    /**
-     * The integer amount in **%s** representing the amount of the credit note, excluding tax and discount.
-     */
-    subtotal: number;
-    /**
-     * The aggregate amounts calculated per tax rate for all line items.
-     */
-    tax_amounts: credit_note_tax_amount[];
-    /**
-     * The integer amount in **%s** representing the total amount of the credit note, including tax and discount.
-     */
-    total: number;
-    /**
-     * Type of this credit note, one of `pre_payment` or `post_payment`. A `pre_payment` credit note means it was issued when the invoice was open. A `post_payment` credit note means it was issued when the invoice was paid.
-     */
-    type: 'post_payment' | 'pre_payment';
-    /**
-     * The time that the credit note was voided.
-     */
-    voided_at?: number;
-  }
-  export interface credit_noteLines {
-    /**
-     * Details about each object.
-     */
-    data: credit_note_line_item[];
-    /**
-     * True if this list has another page of items after this one that can be fetched.
-     */
-    has_more: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
-     */
-    object: 'list';
-    /**
-     * The URL where this list can be accessed.
-     */
-    url: string;
-  }
-  export interface coupon {
-    /**
-     * Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
-     */
-    amount_off?: number;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * If `amount_off` has been set, the three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the amount to take off.
-     */
-    currency?: string;
-    /**
-     * One of `forever`, `once`, and `repeating`. Describes how long a customer who applies this coupon will get the discount.
-     */
-    duration: 'forever' | 'once' | 'repeating';
-    /**
-     * If `duration` is `repeating`, the number of months the coupon applies. Null if coupon `duration` is `forever` or `once`.
-     */
-    duration_in_months?: number;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Maximum number of times this coupon can be redeemed, in total, across all customers, before it is no longer valid.
-     */
-    max_redemptions?: number;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * Name of the coupon displayed to customers on for instance invoices or receipts.
-     */
-    name?: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'coupon';
-    /**
-     * Percent that will be taken off the subtotal of any invoices for this customer for the duration of the coupon. For example, a coupon with percent_off of 50 will make a %s100 invoice %s50 instead.
-     */
-    percent_off?: number;
-    /**
-     * Date after which the coupon can no longer be redeemed.
-     */
-    redeem_by?: number;
-    /**
-     * Number of times this coupon has been applied to a customer.
-     */
-    times_redeemed: number;
-    /**
-     * Taking account of the above properties, whether this coupon can still be applied to a customer.
-     */
-    valid: boolean;
-  }
-  export interface country_spec_verification_fields {
-    company: country_spec_verification_field_details;
-    individual: country_spec_verification_field_details;
-  }
-  export interface country_spec_verification_field_details {
-    /**
-     * Additional fields which are only required for some users.
-     */
-    additional: string[];
-    /**
-     * Fields which every account must eventually provide.
-     */
-    minimum: string[];
-  }
-  export interface country_spec {
-    /**
-     * The default currency for this country. This applies to both payment methods and bank accounts.
-     */
-    default_currency: string;
-    /**
-     * Unique identifier for the object. Represented as the ISO country code for this country.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'country_spec';
-    /**
-     * Currencies that can be accepted in the specific country (for transfers).
-     */
-    supported_bank_account_currencies: object;
-    /**
-     * Currencies that can be accepted in the specified country (for payments).
-     */
-    supported_payment_currencies: string[];
-    /**
-     * Payment methods available in the specified country. You may need to enable some payment methods (e.g., [ACH](https://stripe.com/docs/ach)) on your account before they appear in this list. The `stripe` payment method refers to [charging through your platform](https://stripe.com/docs/connect/destination-charges).
-     */
-    supported_payment_methods: string[];
-    /**
-     * Countries that can accept transfers from the specified country.
-     */
-    supported_transfer_countries: string[];
-    verification_fields: country_spec_verification_fields;
-  }
-  export interface connect_collection_transfer {
-    /**
-     * Amount transferred, in %s.
-     */
-    amount: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * ID of the account that funds are being collected for.
-     */
-    destination: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'connect_collection_transfer';
-  }
-  export interface checkout_session {
-    /**
-     * The value (`auto` or `required`) for whether Checkout collected the
-     * customer's billing address.
-     */
-    billing_address_collection?: string;
-    /**
-     * The URL the customer will be directed to if they decide to cancel payment and return to your website.
-     */
-    cancel_url: string;
-    /**
-     * A unique string to reference the Checkout Session. This can be a
-     * customer ID, a cart ID, or similar, and can be used to reconcile the
-     * session with your internal systems.
-     */
-    client_reference_id?: string;
-    /**
-     * The ID of the customer for this session.
-     * For Checkout Sessions in `payment` or `subscription` mode, Checkout
-     * will create a new customer object based on information provided
-     * during the session unless an existing customer was provided when
-     * the session was created.
-     */
-    customer?: string;
-    /**
-     * If provided, this value will be used when the Customer object is created.
-     * If not provided, customers will be asked to enter their email address.
-     * Use this parameter to prefill customer data if you already have an email
-     * on file. To access information about the customer once a session is
-     * complete, use the `customer` field.
-     */
-    customer_email?: string;
-    /**
-     * The line items, plans, or SKUs purchased by the customer.
-     */
-    display_items?: checkout_session_display_item[];
-    /**
-     * Unique identifier for the object. Used to pass to `redirectToCheckout`
-     * in Stripe.js.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
-     */
-    locale?:
-      | 'auto'
-      | 'da'
-      | 'de'
-      | 'en'
-      | 'es'
-      | 'fi'
-      | 'fr'
-      | 'it'
-      | 'ja'
-      | 'ms'
-      | 'nb'
-      | 'nl'
-      | 'pl'
-      | 'pt'
-      | 'pt-BR'
-      | 'sv'
-      | 'zh';
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata?: object;
-    /**
-     * The mode of the Checkout Session, one of `payment`, `setup`, or `subscription`.
-     */
-    mode?: 'payment' | 'setup' | 'subscription';
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'checkout.session';
-    /**
-     * The ID of the PaymentIntent for Checkout Sessions in `payment` mode.
-     */
-    payment_intent?: string;
-    /**
-     * A list of the types of payment methods (e.g. card) this Checkout
-     * Session is allowed to accept.
-     */
-    payment_method_types: string[];
-    /**
-     * The ID of the SetupIntent for Checkout Sessions in `setup` mode.
-     */
-    setup_intent?: string;
-    shipping?: shipping;
-    shipping_address_collection?: payment_pages_payment_page_resources_shipping_address_collection;
-    /**
-     * Describes the type of transaction being performed by Checkout in order to customize
-     * relevant text on the page, such as the submit button. `submit_type` can only be
-     * specified on Checkout Sessions in `payment` mode, but not Checkout Sessions
-     * in `subscription` or `setup` mode.
-     */
-    submit_type?: 'auto' | 'book' | 'donate' | 'pay';
-    /**
-     * The ID of the subscription for Checkout Sessions in `subscription` mode.
-     */
-    subscription?: string;
-    /**
-     * The URL the customer will be directed to after the payment or
-     * subscription creation is successful.
-     */
-    success_url: string;
-  }
-  export interface checkout_session_display_item {
-    /**
-     * Amount for the display item.
-     */
-    amount?: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency?: string;
-    custom?: checkout_session_custom_display_item_description;
-    plan?: plan;
-    /**
-     * Quantity of the display item being purchased.
-     */
-    quantity?: number;
-    sku?: sku;
-    /**
-     * The type of display item. One of `custom`, `plan` or `sku`
-     */
-    type?: string;
-  }
-  export interface checkout_session_custom_display_item_description {
-    /**
-     * The description of the line item.
-     */
-    description?: string;
-    /**
-     * The images of the line item.
-     */
-    images?: string[];
-    /**
-     * The name of the line item.
-     */
-    name: string;
-  }
-  export interface charge_transfer_data {
-    /**
-     * The amount transferred to the destination account, if specified. By default, the entire charge amount is transferred to the destination account.
-     */
-    amount?: number;
-    /**
-     * ID of an existing, connected Stripe account to transfer funds to if `transfer_data` was specified in the charge request.
-     */
-    destination: string;
-  }
-  export interface charge_outcome {
-    /**
-     * Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://stripe.com/docs/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement.
-     */
-    network_status?: string;
-    /**
-     * An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://stripe.com/docs/declines) for more details.
-     */
-    reason?: string;
-    /**
-     * Stripe's evaluation of the riskiness of the payment. Possible values for evaluated payments are `normal`, `elevated`, `highest`. For non-card payments, and card-based payments predating the public assignment of risk levels, this field will have the value `not_assessed`. In the event of an error in the evaluation, this field will have the value `unknown`.
-     */
-    risk_level?: string;
-    /**
-     * Stripe's evaluation of the riskiness of the payment. Possible values for evaluated payments are between 0 and 100. For non-card payments, card-based payments predating the public assignment of risk scores, or in the event of an error during evaluation, this field will not be present. This field is only available with Radar for Fraud Teams.
-     */
-    risk_score?: number;
-    /**
-     * The ID of the Radar rule that matched the payment, if applicable.
-     */
-    rule?: string;
-    /**
-     * A human-readable description of the outcome type and reason, designed for you (the recipient of the payment), not your customer.
-     */
-    seller_message?: string;
-    /**
-     * Possible values are `authorized`, `manual_review`, `issuer_declined`, `blocked`, and `invalid`. See [understanding declines](https://stripe.com/docs/declines) and [Radar reviews](https://stripe.com/docs/radar/reviews) for details.
-     */
-    type: string;
-  }
-  export interface charge_fraud_details {
-    /**
-     * Assessments from Stripe. If set, the value is `fraudulent`.
-     */
-    stripe_report?: string;
-    /**
-     * Assessments reported by you. If set, possible values of are `safe` and `fraudulent`.
-     */
-    user_report?: string;
-  }
-  export interface charge {
-    /**
-     * Amount intended to be collected by this payment. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
-     */
-    amount: number;
-    /**
-     * Amount in %s refunded (can be less than the amount attribute on the charge if a partial refund was issued).
-     */
-    amount_refunded: number;
-    /**
-     * ID of the Connect application that created the charge.
-     */
-    application?: string;
-    /**
-     * The application fee (if any) for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees) for details.
-     */
-    application_fee?: string;
-    /**
-     * The amount of the application fee (if any) for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees) for details.
-     */
-    application_fee_amount?: number;
-    /**
-     * ID of the balance transaction that describes the impact of this charge on your account balance (not including refunds or disputes).
-     */
-    balance_transaction?: string;
-    billing_details: billing_details;
-    /**
-     * If the charge was created without capturing, this Boolean represents whether it is still uncaptured or has since been captured.
-     */
-    captured: boolean;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * ID of the customer this charge is for if one exists.
-     */
-    customer?: string;
-    /**
-     * An arbitrary string attached to the object. Often useful for displaying to users.
-     */
-    description?: string;
-    /**
-     * Whether the charge has been disputed.
-     */
-    disputed: boolean;
-    /**
-     * Error code explaining reason for charge failure if available (see [the errors section](https://stripe.com/docs/api#errors) for a list of codes).
-     */
-    failure_code?: string;
-    /**
-     * Message to user further explaining reason for charge failure if available.
-     */
-    failure_message?: string;
-    fraud_details?: charge_fraud_details;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * ID of the invoice this charge is for if one exists.
-     */
-    invoice?: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'charge';
-    /**
-     * The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers) for details.
-     */
-    on_behalf_of?: string;
-    /**
-     * ID of the order this charge is for if one exists.
-     */
-    order?: string;
-    outcome?: charge_outcome;
-    /**
-     * `true` if the charge succeeded, or was successfully authorized for later capture.
-     */
-    paid: boolean;
-    /**
-     * ID of the PaymentIntent associated with this charge, if one exists.
-     */
-    payment_intent?: string;
-    /**
-     * ID of the payment method used in this charge.
-     */
-    payment_method?: string;
-    payment_method_details?: payment_method_details;
-    /**
-     * This is the email address that the receipt for this charge was sent to.
-     */
-    receipt_email?: string;
-    /**
-     * This is the transaction number that appears on email receipts sent for this charge. This attribute will be `null` until a receipt has been sent.
-     */
-    receipt_number?: string;
-    /**
-     * This is the URL to view the receipt for this charge. The receipt is kept up-to-date to the latest state of the charge, including any refunds. If the charge is for an Invoice, the receipt will be stylized as an Invoice receipt.
-     */
-    receipt_url: string;
-    /**
-     * Whether the charge has been fully refunded. If the charge is only partially refunded, this attribute will still be false.
-     */
-    refunded: boolean;
-    /**
-     * A list of refunds that have been applied to the charge.
-     */
-    refunds: chargeRefunds;
-    /**
-     * ID of the review associated with this charge if one exists.
-     */
-    review?: string;
-    shipping?: shipping;
-    /**
-     * The transfer ID which created this charge. Only present if the charge came from another Stripe account. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details.
-     */
-    source_transfer?: string;
-    /**
-     * For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers’ statements. Must contain at least one letter, maximum 22 characters.
-     */
+  };
+  account_payments_settings: {
     statement_descriptor?: string;
-    /**
-     * Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
-     */
-    statement_descriptor_suffix?: string;
-    /**
-     * The status of the payment is either `succeeded`, `pending`, or `failed`.
-     */
-    status: string;
-    /**
-     * ID of the transfer to the `destination` account (only applicable if the charge was created using the `destination` parameter).
-     */
-    transfer?: string;
-    transfer_data?: charge_transfer_data;
-    /**
-     * A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details.
-     */
-    transfer_group?: string;
-  }
-  export interface chargeRefunds {
-    /**
-     * Details about each object.
-     */
-    data: refund[];
-    /**
-     * True if this list has another page of items after this one that can be fetched.
-     */
-    has_more: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
-     */
-    object: 'list';
-    /**
-     * The URL where this list can be accessed.
-     */
-    url: string;
-  }
-  export interface card_mandate_payment_method_details {}
-  export interface card {
-    /**
-     * The account this card belongs to. This attribute will not be in the card object if the card belongs to a customer or recipient instead.
-     */
-    account?: string;
-    /**
-     * City/District/Suburb/Town/Village.
-     */
-    address_city?: string;
-    /**
-     * Billing address country, if provided when creating card.
-     */
-    address_country?: string;
-    /**
-     * Address line 1 (Street address/PO Box/Company name).
-     */
-    address_line1?: string;
-    /**
-     * If `address_line1` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.
-     */
-    address_line1_check?: string;
-    /**
-     * Address line 2 (Apartment/Suite/Unit/Building).
-     */
-    address_line2?: string;
-    /**
-     * State/County/Province/Region.
-     */
-    address_state?: string;
-    /**
-     * ZIP or postal code.
-     */
-    address_zip?: string;
-    /**
-     * If `address_zip` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.
-     */
-    address_zip_check?: string;
-    /**
-     * A set of available payout methods for this card. Will be either `["standard"]` or `["standard", "instant"]`. Only values from this set should be passed as the `method` when creating a transfer.
-     */
-    available_payout_methods?: string[];
-    /**
-     * Card brand. Can be `American Express`, `Diners Club`, `Discover`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
-     */
-    brand: string;
-    /**
-     * Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
-     */
-    country?: string;
-    currency?: string;
-    /**
-     * The customer that this card belongs to. This attribute will not be in the card object if the card belongs to an account or recipient instead.
-     */
-    customer?: string;
-    /**
-     * If a CVC was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.
-     */
-    cvc_check?: string;
-    /**
-     * Whether this card is the default external account for its currency.
-     */
-    default_for_currency?: boolean;
-    /**
-     * (For tokenized numbers only.) The last four digits of the device account number.
-     */
-    dynamic_last4?: string;
-    /**
-     * Two-digit number representing the card's expiration month.
-     */
-    exp_month: number;
-    /**
-     * Four-digit number representing the card's expiration year.
-     */
-    exp_year: number;
-    /**
-     * Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number,for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
-     */
-    fingerprint?: string;
-    /**
-     * Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
-     */
-    funding: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * The last four digits of the card.
-     */
-    last4: string;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * Cardholder name.
-     */
-    name?: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'card';
-    /**
-     * The recipient that this card belongs to. This attribute will not be in the card object if the card belongs to a customer or account instead.
-     */
-    recipient?: string;
-    /**
-     * If the card number is tokenized, this is the method that was used. Can be `amex_express_checkout`, `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null.
-     */
-    tokenization_method?: string;
-  }
-  export interface capability {
-    /**
-     * The account for which the capability enables functionality.
-     */
-    account: string;
-    /**
-     * The identifier for the capability.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'capability';
-    /**
-     * Whether the capability has been requested.
-     */
-    requested: boolean;
-    /**
-     * Time at which the capability was requested. Measured in seconds since the Unix epoch.
-     */
-    requested_at?: number;
-    requirements?: account_capability_requirements;
-    /**
-     * The status of the capability. Can be `active`, `inactive`, `pending`, or `unrequested`.
-     */
-    status: 'active' | 'disabled' | 'inactive' | 'pending' | 'unrequested';
-  }
-  export interface bitcoin_transaction {
-    /**
-     * The amount of `currency` that the transaction was converted to in real-time.
-     */
-    amount: number;
-    /**
-     * The amount of bitcoin contained in the transaction.
-     */
-    bitcoin_amount: number;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) to which this transaction was converted.
-     */
-    currency: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'bitcoin_transaction';
-    /**
-     * The receiver to which this transaction was sent.
-     */
-    receiver: string;
-  }
-  export interface bitcoin_receiver {
-    /**
-     * True when this bitcoin receiver has received a non-zero amount of bitcoin.
-     */
-    active: boolean;
-    /**
-     * The amount of `currency` that you are collecting as payment.
-     */
-    amount: number;
-    /**
-     * The amount of `currency` to which `bitcoin_amount_received` has been converted.
-     */
-    amount_received: number;
-    /**
-     * The amount of bitcoin that the customer should send to fill the receiver. The `bitcoin_amount` is denominated in Satoshi: there are 10^8 Satoshi in one bitcoin.
-     */
-    bitcoin_amount: number;
-    /**
-     * The amount of bitcoin that has been sent by the customer to this receiver.
-     */
-    bitcoin_amount_received: number;
-    /**
-     * This URI can be displayed to the customer as a clickable link (to activate their bitcoin client) or as a QR code (for mobile wallets).
-     */
-    bitcoin_uri: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) to which the bitcoin will be converted.
-     */
-    currency: string;
-    /**
-     * The customer ID of the bitcoin receiver.
-     */
-    customer?: string;
-    /**
-     * An arbitrary string attached to the object. Often useful for displaying to users.
-     */
-    description?: string;
-    /**
-     * The customer's email address, set by the API call that creates the receiver.
-     */
-    email?: string;
-    /**
-     * This flag is initially false and updates to true when the customer sends the `bitcoin_amount` to this receiver.
-     */
-    filled: boolean;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * A bitcoin address that is specific to this receiver. The customer can send bitcoin to this address to fill the receiver.
-     */
-    inbound_address: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'bitcoin_receiver';
-    /**
-     * The ID of the payment created from the receiver, if any. Hidden when viewing the receiver with a publishable key.
-     */
-    payment?: string;
-    /**
-     * The refund address of this bitcoin receiver.
-     */
-    refund_address?: string;
-    /**
-     * A list with one entry for each time that the customer sent bitcoin to the receiver. Hidden when viewing the receiver with a publishable key.
-     */
-    transactions?: bitcoin_receiverTransactions;
-    /**
-     * This receiver contains uncaptured funds that can be used for a payment or refunded.
-     */
-    uncaptured_funds: boolean;
-    /**
-     * Indicate if this source is used for payment.
-     */
-    used_for_payment?: boolean;
-  }
-  export interface bitcoin_receiverTransactions {
-    /**
-     * Details about each object.
-     */
-    data: bitcoin_transaction[];
-    /**
-     * True if this list has another page of items after this one that can be fetched.
-     */
-    has_more: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
-     */
-    object: 'list';
-    /**
-     * The URL where this list can be accessed.
-     */
-    url: string;
-  }
-  export interface billing_details {
-    address?: address;
-    /**
-     * Email address.
-     */
-    email?: string;
-    /**
-     * Full name.
-     */
-    name?: string;
-    /**
-     * Billing phone number (including extension).
-     */
-    phone?: string;
-  }
-  export interface bank_account {
-    /**
-     * The ID of the account that the bank account is associated with.
-     */
-    account?: string;
-    /**
-     * The name of the person or business that owns the bank account.
-     */
-    account_holder_name?: string;
-    /**
-     * The type of entity that holds the account. This can be either `individual` or `company`.
-     */
-    account_holder_type?: string;
-    /**
-     * Name of the bank associated with the routing number (e.g., `WELLS FARGO`).
-     */
-    bank_name?: string;
-    /**
-     * Two-letter ISO code representing the country the bank account is located in.
-     */
-    country: string;
-    /**
-     * Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account.
-     */
-    currency: string;
-    /**
-     * The ID of the customer that the bank account is associated with.
-     */
-    customer?: string;
-    /**
-     * Whether this bank account is the default external account for its currency.
-     */
-    default_for_currency?: boolean;
-    /**
-     * Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
-     */
-    fingerprint?: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * The last four digits of the bank account number.
-     */
-    last4: string;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata?: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'bank_account';
-    /**
-     * The routing transit number for the bank account.
-     */
-    routing_number?: string;
-    /**
-     * For bank accounts, possible values are `new`, `validated`, `verified`, `verification_failed`, or `errored`. A bank account that hasn't had any activity or validation performed is `new`. If Stripe can determine that the bank account exists, its status will be `validated`. Note that there often isn’t enough information to know (e.g., for smaller credit unions), and the validation is not always run. If customer bank account verification has succeeded, the bank account status will be `verified`. If the verification failed for any reason, such as microdeposit failure, the status will be `verification_failed`. If a transfer sent to this bank account fails, we'll set the status to `errored` and will not continue to send transfers until the bank details are updated.
-     *
-     * For external accounts, possible values are `new` and `errored`. Validations aren't run against external accounts because they're only used for payouts. This means the other statuses don't apply. If a transfer fails, the status is set to `errored` and transfers are stopped until account details are updated.
-     */
-    status: string;
-  }
-  export interface balance_transaction {
-    /**
-     * Gross amount of the transaction, in %s.
-     */
-    amount: number;
-    /**
-     * The date the transaction's net funds will become available in the Stripe balance.
-     */
-    available_on: number;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * An arbitrary string attached to the object. Often useful for displaying to users.
-     */
-    description?: string;
-    /**
-     * The exchange rate used, if applicable, for this transaction. Specifically, if money was converted from currency A to currency B, then the `amount` in currency A, times `exchange_rate`, would be the `amount` in currency B. For example, suppose you charged a customer 10.00 EUR. Then the PaymentIntent's `amount` would be `1000` and `currency` would be `eur`. Suppose this was converted into 12.34 USD in your Stripe account. Then the BalanceTransaction's `amount` would be `1234`, `currency` would be `usd`, and `exchange_rate` would be `1.234`.
-     */
-    exchange_rate?: number;
-    /**
-     * Fees (in %s) paid for this transaction.
-     */
-    fee: number;
-    /**
-     * Detailed breakdown of fees (in %s) paid for this transaction.
-     */
-    fee_details: fee[];
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Net amount of the transaction, in %s.
-     */
-    net: number;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'balance_transaction';
-    /**
-     * [Learn more](https://stripe.com/docs/reports/reporting-categories) about how reporting categories can help you understand balance transactions from an accounting perspective.
-     */
-    reporting_category: string;
-    /**
-     * The Stripe object to which this transaction is related.
-     */
-    source?: string;
-    /**
-     * If the transaction's net funds are available in the Stripe balance yet. Either `available` or `pending`.
-     */
-    status: string;
-    /**
-     * Transaction type: `adjustment`, `advance`, `advance_funding`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_transaction`, `payment`, `payment_failure_refund`, `payment_refund`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. [Learn more](https://stripe.com/docs/reports/balance-transaction-types) about balance transaction types and what they represent. If you are looking to classify transactions for accounting purposes, you might want to consider `reporting_category` instead.
-     */
-    type:
-      | 'adjustment'
-      | 'advance'
-      | 'advance_funding'
-      | 'application_fee'
-      | 'application_fee_refund'
-      | 'charge'
-      | 'connect_collection_transfer'
-      | 'issuing_authorization_hold'
-      | 'issuing_authorization_release'
-      | 'issuing_transaction'
-      | 'payment'
-      | 'payment_failure_refund'
-      | 'payment_refund'
-      | 'payout'
-      | 'payout_cancel'
-      | 'payout_failure'
-      | 'refund'
-      | 'refund_failure'
-      | 'reserve_transaction'
-      | 'reserved_funds'
-      | 'stripe_fee'
-      | 'stripe_fx_fee'
-      | 'tax_fee'
-      | 'topup'
-      | 'topup_reversal'
-      | 'transfer'
-      | 'transfer_cancel'
-      | 'transfer_failure'
-      | 'transfer_refund';
-  }
-  export interface balance_amount_by_source_type {
-    /**
-     * Amount for bank account.
-     */
-    bank_account?: number;
-    /**
-     * Amount for card.
-     */
-    card?: number;
-    /**
-     * Amount for FPX.
-     */
-    fpx?: number;
-  }
-  export interface balance_amount {
-    /**
-     * Balance amount.
-     */
-    amount: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    source_types?: balance_amount_by_source_type;
-  }
-  export interface balance {
-    /**
-     * Funds that are available to be transferred or paid out, whether automatically by Stripe or explicitly via the [Transfers API](https://stripe.com/docs/api#transfers) or [Payouts API](https://stripe.com/docs/api#payouts). The available balance for each currency and payment type can be found in the `source_types` property.
-     */
-    available: balance_amount[];
-    /**
-     * Funds held due to negative balances on connected Custom accounts. The connect reserve balance for each currency and payment type can be found in the `source_types` property.
-     */
-    connect_reserved?: balance_amount[];
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'balance';
-    /**
-     * Funds that are not yet available in the balance, due to the 7-day rolling pay cycle. The pending balance for each currency, and for each payment type, can be found in the `source_types` property.
-     */
-    pending: balance_amount[];
-  }
-  export interface application_fee {
-    /**
-     * ID of the Stripe account this fee was taken from.
-     */
-    account: string;
-    /**
-     * Amount earned, in %s.
-     */
-    amount: number;
-    /**
-     * Amount in %s refunded (can be less than the amount attribute on the fee if a partial refund was issued)
-     */
-    amount_refunded: number;
-    /**
-     * ID of the Connect application that earned the fee.
-     */
-    application: string;
-    /**
-     * Balance transaction that describes the impact of this collected application fee on your account balance (not including refunds).
-     */
-    balance_transaction?: string;
-    /**
-     * ID of the charge that the application fee was taken from.
-     */
-    charge: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-     */
-    currency: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'application_fee';
-    /**
-     * ID of the corresponding charge on the platform account, if this fee was the result of a charge using the `destination` parameter.
-     */
-    originating_transaction?: string;
-    /**
-     * Whether the fee has been fully refunded. If the fee is only partially refunded, this attribute will still be false.
-     */
-    refunded: boolean;
-    /**
-     * A list of refunds that have been applied to the fee.
-     */
-    refunds: application_feeRefunds;
-  }
-  export interface application_feeRefunds {
-    /**
-     * Details about each object.
-     */
-    data: fee_refund[];
-    /**
-     * True if this list has another page of items after this one that can be fetched.
-     */
-    has_more: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
-     */
-    object: 'list';
-    /**
-     * The URL where this list can be accessed.
-     */
-    url: string;
-  }
-  export interface application {
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * The name of the application.
-     */
-    name?: string;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'application';
-  }
-  export interface apple_pay_domain {
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    domain_name: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'apple_pay_domain';
-  }
-  export interface api_errors {
-    /**
-     * For card errors, the ID of the failed charge.
-     */
-    charge?: string;
-    /**
-     * For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported.
-     */
-    code?: string;
-    /**
-     * For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one.
-     */
-    decline_code?: string;
-    /**
-     * A URL to more information about the [error code](https://stripe.com/docs/error-codes) reported.
-     */
-    doc_url?: string;
-    /**
-     * A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
-     */
-    message?: string;
-    /**
-     * If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
-     */
-    param?: string;
-    payment_intent?: payment_intent;
-    payment_method?: payment_method;
-    setup_intent?: setup_intent;
-    source?: bank_account;
-    /**
-     * The type of error returned. One of `api_connection_error`, `api_error`, `authentication_error`, `card_error`, `idempotency_error`, `invalid_request_error`, or `rate_limit_error`
-     */
-    type:
-      | 'api_connection_error'
-      | 'api_error'
-      | 'authentication_error'
-      | 'card_error'
-      | 'idempotency_error'
-      | 'invalid_request_error'
-      | 'rate_limit_error';
-  }
-  export interface alipay_account {
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * The ID of the customer associated with this Alipay Account.
-     */
-    customer?: string;
-    /**
-     * Uniquely identifies the account and will be the same across all Alipay account objects that are linked to the same Alipay account.
-     */
-    fingerprint: string;
-    /**
-     * Unique identifier for the object.
-     */
-    id: string;
-    /**
-     * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-     */
-    livemode: boolean;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata?: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'alipay_account';
-    /**
-     * If the Alipay account object is not reusable, the exact amount that you can create a charge for.
-     */
-    payment_amount?: number;
-    /**
-     * If the Alipay account object is not reusable, the exact currency that you can create a charge for.
-     */
-    payment_currency?: string;
-    /**
-     * True if you can create multiple payments using this account. If the account is reusable, then you can freely choose the amount of each payment.
-     */
-    reusable: boolean;
-    /**
-     * Whether this Alipay account object has ever been used for a payment.
-     */
-    used: boolean;
-    /**
-     * The username for the Alipay account.
-     */
-    username: string;
-  }
-  export interface address {
-    /**
-     * City, district, suburb, town, or village.
-     */
-    city?: string;
-    /**
-     * Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-     */
-    country?: string;
-    /**
-     * Address line 1 (e.g., street, PO Box, or company name).
-     */
-    line1?: string;
-    /**
-     * Address line 2 (e.g., apartment, suite, unit, or building).
-     */
-    line2?: string;
-    /**
-     * ZIP or postal code.
-     */
-    postal_code?: string;
-    /**
-     * State, county, province, or region.
-     */
-    state?: string;
-  }
-  export interface account_tos_acceptance {
-    /**
-     * The Unix timestamp marking when the Stripe Services Agreement was accepted by the account representative
-     */
-    date?: number;
-    /**
-     * The IP address from which the Stripe Services Agreement was accepted by the account representative
-     */
-    ip?: string;
-    /**
-     * The user agent of the browser from which the Stripe Services Agreement was accepted by the account representative
-     */
-    user_agent?: string;
-  }
-  export interface account_settings {
-    branding: account_branding_settings;
-    card_payments: account_card_payments_settings;
-    dashboard: account_dashboard_settings;
-    payments: account_payments_settings;
-    payouts?: account_payout_settings;
-  }
-  export interface account_requirements_error {
-    /**
-     * The code for the type of error.
-     */
+    statement_descriptor_kana?: string;
+    statement_descriptor_kanji?: string;
+  };
+  account_payout_settings: {
+    debit_negative_balances: boolean;
+    schedule: definitions['transfer_schedule'];
+    statement_descriptor?: string;
+  };
+  account_requirements: {
+    current_deadline?: number;
+    currently_due?: string[];
+    disabled_reason?: string;
+    errors?: definitions['account_requirements_error'][];
+    eventually_due?: string[];
+    past_due?: string[];
+    pending_verification?: string[];
+  };
+  account_requirements_error: {
     code:
       | 'invalid_address_city_state_postal_code'
       | 'invalid_street_address'
@@ -8058,301 +139,4798 @@ declare namespace OpenAPI2 {
       | 'verification_failed_keyed_match'
       | 'verification_failed_name_match'
       | 'verification_failed_other';
-    /**
-     * An informative message that indicates the error type and provides additional details about the error.
-     */
     reason: string;
-    /**
-     * The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
-     */
     requirement: string;
-  }
-  export interface account_requirements {
-    /**
-     * The date the fields in `currently_due` must be collected by to keep payouts enabled for the account. These fields might block payouts sooner if the next threshold is reached before these fields are collected.
-     */
-    current_deadline?: number;
-    /**
-     * The fields that need to be collected to keep the account enabled. If not collected by the `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
-     */
-    currently_due?: string[];
-    /**
-     * If the account is disabled, this string describes why the account can’t create charges or receive payouts. Can be `requirements.past_due`, `requirements.pending_verification`, `rejected.fraud`, `rejected.terms_of_service`, `rejected.listed`, `rejected.other`, `listed`, `under_review`, or `other`.
-     */
-    disabled_reason?: string;
-    /**
-     * The fields that need to be collected again because validation or verification failed for some reason.
-     */
-    errors?: account_requirements_error[];
-    /**
-     * The fields that need to be collected assuming all volume thresholds are reached. As they become required, these fields appear in `currently_due` as well, and the `current_deadline` is set.
-     */
-    eventually_due?: string[];
-    /**
-     * The fields that weren't collected by the `current_deadline`. These fields need to be collected to re-enable the account.
-     */
-    past_due?: string[];
-    /**
-     * Fields that may become required depending on the results of verification or review. An empty array unless an asynchronous verification is pending. If verification fails, the fields in this array become required and move to `currently_due` or `past_due`.
-     */
-    pending_verification?: string[];
-  }
-  export interface account_payout_settings {
-    /**
-     * A Boolean indicating if Stripe should try to reclaim negative balances from an attached bank account. See our [Understanding Connect Account Balances](https://stripe.com/docs/connect/account-balances) documentation for details. Default value is `true` for Express accounts and `false` for Custom accounts.
-     */
-    debit_negative_balances: boolean;
-    schedule: transfer_schedule;
-    /**
-     * The text that appears on the bank account statement for payouts. If not set, this defaults to the platform's bank descriptor as set in the Dashboard.
-     */
-    statement_descriptor?: string;
-  }
-  export interface account_payments_settings {
-    /**
-     * The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge.
-     */
-    statement_descriptor?: string;
-    /**
-     * The Kana variation of the default text that appears on credit card statements when a charge is made (Japan only)
-     */
-    statement_descriptor_kana?: string;
-    /**
-     * The Kanji variation of the default text that appears on credit card statements when a charge is made (Japan only)
-     */
-    statement_descriptor_kanji?: string;
-  }
-  export interface account_link {
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created: number;
-    /**
-     * The timestamp at which this account link will expire.
-     */
-    expires_at: number;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    object: 'account_link';
-    /**
-     * The URL for the account link.
-     */
-    url: string;
-  }
-  export interface account_decline_charge_on {
-    /**
-     * Whether Stripe automatically declines charges with an incorrect ZIP or postal code. This setting only applies when a ZIP or postal code is provided and they fail bank verification.
-     */
-    avs_failure: boolean;
-    /**
-     * Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
-     */
-    cvc_failure: boolean;
-  }
-  export interface account_dashboard_settings {
-    /**
-     * The display name for this account. This is used on the Stripe Dashboard to differentiate between accounts.
-     */
-    display_name?: string;
-    /**
-     * The timezone used in the Stripe Dashboard for this account. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones).
-     */
-    timezone?: string;
-  }
-  export interface account_card_payments_settings {
-    decline_on?: account_decline_charge_on;
-    /**
-     * The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge. `statement_descriptor_prefix` is useful for maximizing descriptor space for the dynamic portion.
-     */
-    statement_descriptor_prefix?: string;
-  }
-  export interface account_capability_requirements {
-    /**
-     * The date the fields in `currently_due` must be collected by to keep the capability enabled for the account.
-     */
-    current_deadline?: number;
-    /**
-     * The fields that need to be collected to keep the capability enabled. If not collected by the `current_deadline`, these fields appear in `past_due` as well, and the capability is disabled.
-     */
-    currently_due: string[];
-    /**
-     * If the capability is disabled, this string describes why. Possible values are `requirement.fields_needed`, `pending.onboarding`, `pending.review`, `rejected_fraud`, or `rejected.other`.
-     */
-    disabled_reason?: string;
-    /**
-     * The fields that need to be collected again because validation or verification failed for some reason.
-     */
-    errors?: account_requirements_error[];
-    /**
-     * The fields that need to be collected assuming all volume thresholds are reached. As they become required, these fields appear in `currently_due` as well, and the `current_deadline` is set.
-     */
-    eventually_due: string[];
-    /**
-     * The fields that weren't collected by the `current_deadline`. These fields need to be collected to enable the capability for the account.
-     */
-    past_due: string[];
-    /**
-     * Fields that may become required depending on the results of verification or review. An empty array unless an asynchronous verification is pending. If verification fails, the fields in this array become required and move to `currently_due` or `past_due`.
-     */
-    pending_verification: string[];
-  }
-  export interface account_capabilities {
-    /**
-     * The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges.
-     */
-    au_becs_debit_payments?: 'active' | 'inactive' | 'pending';
-    /**
-     * The status of the card issuing capability of the account, or whether you can use Issuing to distribute funds on cards
-     */
-    card_issuing?: 'active' | 'inactive' | 'pending';
-    /**
-     * The status of the card payments capability of the account, or whether the account can directly process credit and debit card charges.
-     */
-    card_payments?: 'active' | 'inactive' | 'pending';
-    /**
-     * The status of the legacy payments capability of the account.
-     */
-    legacy_payments?: 'active' | 'inactive' | 'pending';
-    /**
-     * The status of the tax reporting 1099-K (US) capability of the account.
-     */
-    tax_reporting_us_1099_k?: 'active' | 'inactive' | 'pending';
-    /**
-     * The status of the tax reporting 1099-MISC (US) capability of the account.
-     */
-    tax_reporting_us_1099_misc?: 'active' | 'inactive' | 'pending';
-    /**
-     * The status of the transfers capability of the account, or whether your platform can transfer funds to the account.
-     */
-    transfers?: 'active' | 'inactive' | 'pending';
-  }
-  export interface account_business_profile {
-    /**
-     * [The merchant category code for the account](https://stripe.com/docs/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
-     */
-    mcc?: string;
-    /**
-     * The customer-facing business name.
-     */
-    name?: string;
-    /**
-     * Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
-     */
-    product_description?: string;
-    support_address?: address;
-    /**
-     * A publicly available email address for sending support issues to.
-     */
-    support_email?: string;
-    /**
-     * A publicly available phone number to call with support issues.
-     */
-    support_phone?: string;
-    /**
-     * A publicly available website for handling support issues.
-     */
-    support_url?: string;
-    /**
-     * The business's publicly available website.
-     */
-    url?: string;
-  }
-  export interface account_branding_settings {
-    /**
-     * (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) An icon for the account. Must be square and at least 128px x 128px.
-     */
-    icon?: string;
-    /**
-     * (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A logo for the account that will be used in Checkout instead of the icon and without the account's name next to it if provided. Must be at least 128px x 128px.
-     */
-    logo?: string;
-    /**
-     * A CSS hex color value representing the primary branding color for this account
-     */
-    primary_color?: string;
-  }
-  export interface account {
-    business_profile?: account_business_profile;
-    /**
-     * The business type.
-     */
-    business_type?:
-      | 'company'
-      | 'government_entity'
-      | 'individual'
-      | 'non_profit';
-    capabilities?: account_capabilities;
-    /**
-     * Whether the account can create live charges.
-     */
-    charges_enabled?: boolean;
-    company?: legal_entity_company;
-    /**
-     * The account's country.
-     */
+  };
+  account_settings: {
+    branding: definitions['account_branding_settings'];
+    card_payments: definitions['account_card_payments_settings'];
+    dashboard: definitions['account_dashboard_settings'];
+    payments: definitions['account_payments_settings'];
+    payouts?: definitions['account_payout_settings'];
+  };
+  account_tos_acceptance: { date?: number; ip?: string; user_agent?: string };
+  address: {
+    city?: string;
     country?: string;
-    /**
-     * Time at which the object was created. Measured in seconds since the Unix epoch.
-     */
-    created?: number;
-    /**
-     * Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts).
-     */
-    default_currency?: string;
-    /**
-     * Whether account details have been submitted. Standard accounts cannot receive payouts before this is true.
-     */
-    details_submitted?: boolean;
-    /**
-     * The primary user's email address.
-     */
-    email?: string;
-    /**
-     * External accounts (bank accounts and debit cards) currently attached to this account
-     */
-    external_accounts?: accountExternal_accounts;
-    /**
-     * Unique identifier for the object.
-     */
+    line1?: string;
+    line2?: string;
+    postal_code?: string;
+    state?: string;
+  };
+  alipay_account: {
+    created: number;
+    customer?: string;
+    fingerprint: string;
     id: string;
-    individual?: person;
-    /**
-     * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-     */
-    metadata?: object;
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
+    livemode: boolean;
+    metadata?: { [key: string]: any };
+    object: 'alipay_account';
+    payment_amount?: number;
+    payment_currency?: string;
+    reusable: boolean;
+    used: boolean;
+    username: string;
+  };
+  api_errors: {
+    charge?: string;
+    code?: string;
+    decline_code?: string;
+    doc_url?: string;
+    message?: string;
+    param?: string;
+    payment_intent?: definitions['payment_intent'];
+    payment_method?: definitions['payment_method'];
+    setup_intent?: definitions['setup_intent'];
+    source?: definitions['bank_account'];
+    type:
+      | 'api_connection_error'
+      | 'api_error'
+      | 'authentication_error'
+      | 'card_error'
+      | 'idempotency_error'
+      | 'invalid_request_error'
+      | 'rate_limit_error';
+  };
+  apple_pay_domain: {
+    created: number;
+    domain_name: string;
+    id: string;
+    livemode: boolean;
+    object: 'apple_pay_domain';
+  };
+  application: { id: string; name?: string; object: 'application' };
+  application_fee: {
+    account: string;
+    amount: number;
+    amount_refunded: number;
+    application: string;
+    balance_transaction?: string;
+    charge: string;
+    created: number;
+    currency: string;
+    id: string;
+    livemode: boolean;
+    object: 'application_fee';
+    originating_transaction?: string;
+    refunded: boolean;
+    refunds: {
+      data: definitions['fee_refund'][];
+      has_more: boolean;
+      object: 'list';
+      url: string;
+    };
+  };
+  balance: {
+    available: definitions['balance_amount'][];
+    connect_reserved?: definitions['balance_amount'][];
+    livemode: boolean;
+    object: 'balance';
+    pending: definitions['balance_amount'][];
+  };
+  balance_amount: {
+    amount: number;
+    currency: string;
+    source_types?: definitions['balance_amount_by_source_type'];
+  };
+  balance_amount_by_source_type: {
+    bank_account?: number;
+    card?: number;
+    fpx?: number;
+  };
+  balance_transaction: {
+    amount: number;
+    available_on: number;
+    created: number;
+    currency: string;
+    description?: string;
+    exchange_rate?: number;
+    fee: number;
+    fee_details: definitions['fee'][];
+    id: string;
+    net: number;
+    object: 'balance_transaction';
+    reporting_category: string;
+    source?: string;
+    status: string;
+    type:
+      | 'adjustment'
+      | 'advance'
+      | 'advance_funding'
+      | 'application_fee'
+      | 'application_fee_refund'
+      | 'charge'
+      | 'connect_collection_transfer'
+      | 'issuing_authorization_hold'
+      | 'issuing_authorization_release'
+      | 'issuing_transaction'
+      | 'payment'
+      | 'payment_failure_refund'
+      | 'payment_refund'
+      | 'payout'
+      | 'payout_cancel'
+      | 'payout_failure'
+      | 'refund'
+      | 'refund_failure'
+      | 'reserve_transaction'
+      | 'reserved_funds'
+      | 'stripe_fee'
+      | 'stripe_fx_fee'
+      | 'tax_fee'
+      | 'topup'
+      | 'topup_reversal'
+      | 'transfer'
+      | 'transfer_cancel'
+      | 'transfer_failure'
+      | 'transfer_refund';
+  };
+  bank_account: {
+    account?: string;
+    account_holder_name?: string;
+    account_holder_type?: string;
+    bank_name?: string;
+    country: string;
+    currency: string;
+    customer?: string;
+    default_for_currency?: boolean;
+    fingerprint?: string;
+    id: string;
+    last4: string;
+    metadata?: { [key: string]: any };
+    object: 'bank_account';
+    routing_number?: string;
+    status: string;
+  };
+  billing_details: {
+    address?: definitions['address'];
+    email?: string;
+    name?: string;
+    phone?: string;
+  };
+  bitcoin_receiver: {
+    active: boolean;
+    amount: number;
+    amount_received: number;
+    bitcoin_amount: number;
+    bitcoin_amount_received: number;
+    bitcoin_uri: string;
+    created: number;
+    currency: string;
+    customer?: string;
+    description?: string;
+    email?: string;
+    filled: boolean;
+    id: string;
+    inbound_address: string;
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    object: 'bitcoin_receiver';
+    payment?: string;
+    refund_address?: string;
+    transactions?: {
+      data: definitions['bitcoin_transaction'][];
+      has_more: boolean;
+      object: 'list';
+      url: string;
+    };
+    uncaptured_funds: boolean;
+    used_for_payment?: boolean;
+  };
+  bitcoin_transaction: {
+    amount: number;
+    bitcoin_amount: number;
+    created: number;
+    currency: string;
+    id: string;
+    object: 'bitcoin_transaction';
+    receiver: string;
+  };
+  capability: {
+    account: string;
+    id: string;
+    object: 'capability';
+    requested: boolean;
+    requested_at?: number;
+    requirements?: definitions['account_capability_requirements'];
+    status: 'active' | 'disabled' | 'inactive' | 'pending' | 'unrequested';
+  };
+  card: {
+    account?: string;
+    address_city?: string;
+    address_country?: string;
+    address_line1?: string;
+    address_line1_check?: string;
+    address_line2?: string;
+    address_state?: string;
+    address_zip?: string;
+    address_zip_check?: string;
+    available_payout_methods?: 'instant' | 'standard'[];
+    brand: string;
+    country?: string;
+    currency?: string;
+    customer?: string;
+    cvc_check?: string;
+    default_for_currency?: boolean;
+    dynamic_last4?: string;
+    exp_month: number;
+    exp_year: number;
+    fingerprint?: string;
+    funding: string;
+    id: string;
+    last4: string;
+    metadata: { [key: string]: any };
+    name?: string;
+    object: 'card';
+    recipient?: string;
+    tokenization_method?: string;
+  };
+  card_mandate_payment_method_details: { [key: string]: any };
+  charge: {
+    amount: number;
+    amount_refunded: number;
+    application?: string;
+    application_fee?: string;
+    application_fee_amount?: number;
+    balance_transaction?: string;
+    billing_details: definitions['billing_details'];
+    captured: boolean;
+    created: number;
+    currency: string;
+    customer?: string;
+    description?: string;
+    disputed: boolean;
+    failure_code?: string;
+    failure_message?: string;
+    fraud_details?: definitions['charge_fraud_details'];
+    id: string;
+    invoice?: string;
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    object: 'charge';
+    on_behalf_of?: string;
+    order?: string;
+    outcome?: definitions['charge_outcome'];
+    paid: boolean;
+    payment_intent?: string;
+    payment_method?: string;
+    payment_method_details?: definitions['payment_method_details'];
+    receipt_email?: string;
+    receipt_number?: string;
+    receipt_url: string;
+    refunded: boolean;
+    refunds: {
+      data: definitions['refund'][];
+      has_more: boolean;
+      object: 'list';
+      url: string;
+    };
+    review?: string;
+    shipping?: definitions['shipping'];
+    source_transfer?: string;
+    statement_descriptor?: string;
+    statement_descriptor_suffix?: string;
+    status: string;
+    transfer?: string;
+    transfer_data?: definitions['charge_transfer_data'];
+    transfer_group?: string;
+  };
+  charge_fraud_details: { stripe_report?: string; user_report?: string };
+  charge_outcome: {
+    network_status?: string;
+    reason?: string;
+    risk_level?: string;
+    risk_score?: number;
+    rule?: string;
+    seller_message?: string;
+    type: string;
+  };
+  charge_transfer_data: { amount?: number; destination: string };
+  'checkout.session': {
+    billing_address_collection?: string;
+    cancel_url: string;
+    client_reference_id?: string;
+    customer?: string;
+    customer_email?: string;
+    display_items?: definitions['checkout_session_display_item'][];
+    id: string;
+    livemode: boolean;
+    locale?:
+      | 'auto'
+      | 'da'
+      | 'de'
+      | 'en'
+      | 'es'
+      | 'fi'
+      | 'fr'
+      | 'it'
+      | 'ja'
+      | 'ms'
+      | 'nb'
+      | 'nl'
+      | 'pl'
+      | 'pt'
+      | 'pt-BR'
+      | 'sv'
+      | 'zh';
+    metadata?: { [key: string]: any };
+    mode?: 'payment' | 'setup' | 'subscription';
+    object: 'checkout.session';
+    payment_intent?: string;
+    payment_method_types: string[];
+    setup_intent?: string;
+    shipping?: definitions['shipping'];
+    shipping_address_collection?: definitions['payment_pages_payment_page_resources_shipping_address_collection'];
+    submit_type?: 'auto' | 'book' | 'donate' | 'pay';
+    subscription?: string;
+    success_url: string;
+  };
+  checkout_session_custom_display_item_description: {
+    description?: string;
+    images?: string[];
+    name: string;
+  };
+  checkout_session_display_item: {
+    amount?: number;
+    currency?: string;
+    custom?: definitions['checkout_session_custom_display_item_description'];
+    plan?: definitions['plan'];
+    quantity?: number;
+    sku?: definitions['sku'];
+    type?: string;
+  };
+  connect_collection_transfer: {
+    amount: number;
+    currency: string;
+    destination: string;
+    id: string;
+    livemode: boolean;
+    object: 'connect_collection_transfer';
+  };
+  country_spec: {
+    default_currency: string;
+    id: string;
+    object: 'country_spec';
+    supported_bank_account_currencies: { [key: string]: any };
+    supported_payment_currencies: string[];
+    supported_payment_methods: string[];
+    supported_transfer_countries: string[];
+    verification_fields: definitions['country_spec_verification_fields'];
+  };
+  country_spec_verification_field_details: {
+    additional: string[];
+    minimum: string[];
+  };
+  country_spec_verification_fields: {
+    company: definitions['country_spec_verification_field_details'];
+    individual: definitions['country_spec_verification_field_details'];
+  };
+  coupon: {
+    amount_off?: number;
+    created: number;
+    currency?: string;
+    duration: 'forever' | 'once' | 'repeating';
+    duration_in_months?: number;
+    id: string;
+    livemode: boolean;
+    max_redemptions?: number;
+    metadata: { [key: string]: any };
+    name?: string;
+    object: 'coupon';
+    percent_off?: number;
+    redeem_by?: number;
+    times_redeemed: number;
+    valid: boolean;
+  };
+  credit_note: {
+    amount: number;
+    created: number;
+    currency: string;
+    customer: string;
+    customer_balance_transaction?: string;
+    discount_amount: number;
+    id: string;
+    invoice: string;
+    lines: {
+      data: definitions['credit_note_line_item'][];
+      has_more: boolean;
+      object: 'list';
+      url: string;
+    };
+    livemode: boolean;
+    memo?: string;
+    metadata: { [key: string]: any };
+    number: string;
+    object: 'credit_note';
+    out_of_band_amount?: number;
+    pdf: string;
+    reason?:
+      | 'duplicate'
+      | 'fraudulent'
+      | 'order_change'
+      | 'product_unsatisfactory';
+    refund?: string;
+    status: 'issued' | 'void';
+    subtotal: number;
+    tax_amounts: definitions['credit_note_tax_amount'][];
+    total: number;
+    type: 'post_payment' | 'pre_payment';
+    voided_at?: number;
+  };
+  credit_note_line_item: {
+    amount: number;
+    description?: string;
+    discount_amount: number;
+    id: string;
+    invoice_line_item?: string;
+    livemode: boolean;
+    object: 'credit_note_line_item';
+    quantity?: number;
+    tax_amounts: definitions['credit_note_tax_amount'][];
+    tax_rates: definitions['tax_rate'][];
+    type: 'custom_line_item' | 'invoice_line_item';
+    unit_amount?: number;
+    unit_amount_decimal?: string;
+  };
+  credit_note_tax_amount: {
+    amount: number;
+    inclusive: boolean;
+    tax_rate: string;
+  };
+  customer: {
+    address?: definitions['address'];
+    balance?: number;
+    created: number;
+    currency?: string;
+    default_source?: string;
+    delinquent?: boolean;
+    description?: string;
+    discount?: definitions['discount'];
+    email?: string;
+    id: string;
+    invoice_prefix?: string;
+    invoice_settings?: definitions['invoice_setting_customer_setting'];
+    livemode: boolean;
+    metadata?: { [key: string]: any };
+    name?: string;
+    next_invoice_sequence?: number;
+    object: 'customer';
+    phone?: string;
+    preferred_locales?: string[];
+    shipping?: definitions['shipping'];
+    sources: {
+      data: definitions['alipay_account'][];
+      has_more: boolean;
+      object: 'list';
+      url: string;
+    };
+    subscriptions?: {
+      data: definitions['subscription'][];
+      has_more: boolean;
+      object: 'list';
+      url: string;
+    };
+    tax_exempt?: 'exempt' | 'none' | 'reverse';
+    tax_ids?: {
+      data: definitions['tax_id'][];
+      has_more: boolean;
+      object: 'list';
+      url: string;
+    };
+  };
+  customer_acceptance: {
+    accepted_at?: number;
+    offline?: definitions['offline_acceptance'];
+    online?: definitions['online_acceptance'];
+    type: 'offline' | 'online';
+  };
+  customer_balance_transaction: {
+    amount: number;
+    created: number;
+    credit_note?: string;
+    currency: string;
+    customer: string;
+    description?: string;
+    ending_balance: number;
+    id: string;
+    invoice?: string;
+    livemode: boolean;
+    metadata?: { [key: string]: any };
+    object: 'customer_balance_transaction';
+    type:
+      | 'adjustment'
+      | 'applied_to_invoice'
+      | 'credit_note'
+      | 'initial'
+      | 'invoice_too_large'
+      | 'invoice_too_small'
+      | 'migration'
+      | 'unapplied_from_invoice'
+      | 'unspent_receiver_credit';
+  };
+  deleted_account: { deleted: 'true'; id: string; object: 'account' };
+  deleted_alipay_account: {
+    deleted: 'true';
+    id: string;
+    object: 'alipay_account';
+  };
+  deleted_apple_pay_domain: {
+    deleted: 'true';
+    id: string;
+    object: 'apple_pay_domain';
+  };
+  deleted_bank_account: {
+    currency?: string;
+    deleted: 'true';
+    id: string;
+    object: 'bank_account';
+  };
+  deleted_bitcoin_receiver: {
+    deleted: 'true';
+    id: string;
+    object: 'bitcoin_receiver';
+  };
+  deleted_card: {
+    currency?: string;
+    deleted: 'true';
+    id: string;
+    object: 'card';
+  };
+  deleted_coupon: { deleted: 'true'; id: string; object: 'coupon' };
+  deleted_customer: { deleted: 'true'; id: string; object: 'customer' };
+  deleted_discount: { deleted: 'true'; object: 'discount' };
+  deleted_external_account: {
+    currency?: string;
+    deleted: 'true';
+    id: string;
+    object: 'bank_account';
+  };
+  deleted_invoice: { deleted: 'true'; id: string; object: 'invoice' };
+  deleted_invoiceitem: { deleted: 'true'; id: string; object: 'invoiceitem' };
+  deleted_payment_source: {
+    deleted: 'true';
+    id: string;
+    object: 'alipay_account';
+  };
+  deleted_person: { deleted: 'true'; id: string; object: 'person' };
+  deleted_plan: { deleted: 'true'; id: string; object: 'plan' };
+  deleted_product: { deleted: 'true'; id: string; object: 'product' };
+  'deleted_radar.value_list': {
+    deleted: 'true';
+    id: string;
+    object: 'radar.value_list';
+  };
+  'deleted_radar.value_list_item': {
+    deleted: 'true';
+    id: string;
+    object: 'radar.value_list_item';
+  };
+  deleted_recipient: { deleted: 'true'; id: string; object: 'recipient' };
+  deleted_sku: { deleted: 'true'; id: string; object: 'sku' };
+  deleted_subscription_item: {
+    deleted: 'true';
+    id: string;
+    object: 'subscription_item';
+  };
+  deleted_tax_id: { deleted: 'true'; id: string; object: 'tax_id' };
+  'deleted_terminal.location': {
+    deleted: 'true';
+    id: string;
+    object: 'terminal.location';
+  };
+  'deleted_terminal.reader': {
+    deleted: 'true';
+    id: string;
+    object: 'terminal.reader';
+  };
+  deleted_webhook_endpoint: {
+    deleted: 'true';
+    id: string;
+    object: 'webhook_endpoint';
+  };
+  delivery_estimate: {
+    date?: string;
+    earliest?: string;
+    latest?: string;
+    type: string;
+  };
+  discount: {
+    coupon: definitions['coupon'];
+    customer?: string;
+    end?: number;
+    object: 'discount';
+    start: number;
+    subscription?: string;
+  };
+  dispute: {
+    amount: number;
+    balance_transactions: definitions['balance_transaction'][];
+    charge: string;
+    created: number;
+    currency: string;
+    evidence: definitions['dispute_evidence'];
+    evidence_details: definitions['dispute_evidence_details'];
+    id: string;
+    is_charge_refundable: boolean;
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    object: 'dispute';
+    payment_intent?: string;
+    reason: string;
+    status:
+      | 'charge_refunded'
+      | 'lost'
+      | 'needs_response'
+      | 'under_review'
+      | 'warning_closed'
+      | 'warning_needs_response'
+      | 'warning_under_review'
+      | 'won';
+  };
+  dispute_evidence: {
+    access_activity_log?: string;
+    billing_address?: string;
+    cancellation_policy?: string;
+    cancellation_policy_disclosure?: string;
+    cancellation_rebuttal?: string;
+    customer_communication?: string;
+    customer_email_address?: string;
+    customer_name?: string;
+    customer_purchase_ip?: string;
+    customer_signature?: string;
+    duplicate_charge_documentation?: string;
+    duplicate_charge_explanation?: string;
+    duplicate_charge_id?: string;
+    product_description?: string;
+    receipt?: string;
+    refund_policy?: string;
+    refund_policy_disclosure?: string;
+    refund_refusal_explanation?: string;
+    service_date?: string;
+    service_documentation?: string;
+    shipping_address?: string;
+    shipping_carrier?: string;
+    shipping_date?: string;
+    shipping_documentation?: string;
+    shipping_tracking_number?: string;
+    uncategorized_file?: string;
+    uncategorized_text?: string;
+  };
+  dispute_evidence_details: {
+    due_by?: number;
+    has_evidence: boolean;
+    past_due: boolean;
+    submission_count: number;
+  };
+  ephemeral_key: {
+    created: number;
+    expires: number;
+    id: string;
+    livemode: boolean;
+    object: 'ephemeral_key';
+    secret?: string;
+  };
+  error: { error: definitions['api_errors'] };
+  event: {
+    account?: string;
+    api_version?: string;
+    created: number;
+    data: definitions['notification_event_data'];
+    id: string;
+    livemode: boolean;
+    object: 'event';
+    pending_webhooks: number;
+    request?: definitions['notification_event_request'];
+    type: string;
+  };
+  exchange_rate: {
+    id: string;
+    object: 'exchange_rate';
+    rates: { [key: string]: any };
+  };
+  external_account: {
+    account?: string;
+    country: string;
+    currency: string;
+    customer?: string;
+    default_for_currency?: boolean;
+    fingerprint?: string;
+    id: string;
+    last4: string;
+    metadata?: { [key: string]: any };
+    object: 'bank_account';
+  };
+  fee: {
+    amount: number;
+    application?: string;
+    currency: string;
+    description?: string;
+    type: string;
+  };
+  fee_refund: {
+    amount: number;
+    balance_transaction?: string;
+    created: number;
+    currency: string;
+    fee: string;
+    id: string;
+    metadata: { [key: string]: any };
+    object: 'fee_refund';
+  };
+  file: {
+    created: number;
+    filename?: string;
+    id: string;
+    links?: {
+      data: definitions['file_link'][];
+      has_more: boolean;
+      object: 'list';
+      url: string;
+    };
+    object: 'file';
+    purpose: string;
+    size: number;
+    title?: string;
+    type?: string;
+    url?: string;
+  };
+  file_link: {
+    created: number;
+    expired: boolean;
+    expires_at?: number;
+    file: string;
+    id: string;
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    object: 'file_link';
+    url?: string;
+  };
+  financial_reporting_finance_report_run_run_parameters: {
+    columns?: string[];
+    connected_account?: string;
+    currency?: string;
+    interval_end?: number;
+    interval_start?: number;
+    payout?: string;
+    reporting_category?: string;
+    timezone?: string;
+  };
+  inventory: { quantity?: number; type: string; value?: string };
+  invoice: {
+    account_country?: string;
+    account_name?: string;
+    amount_due: number;
+    amount_paid: number;
+    amount_remaining: number;
+    application_fee_amount?: number;
+    attempt_count: number;
+    attempted: boolean;
+    auto_advance?: boolean;
+    billing_reason?:
+      | 'automatic_pending_invoice_item_invoice'
+      | 'manual'
+      | 'subscription'
+      | 'subscription_create'
+      | 'subscription_cycle'
+      | 'subscription_threshold'
+      | 'subscription_update'
+      | 'upcoming';
+    charge?: string;
+    collection_method?: 'charge_automatically' | 'send_invoice';
+    created: number;
+    currency: string;
+    custom_fields?: definitions['invoice_setting_custom_field'][];
+    customer: string;
+    customer_address?: definitions['address'];
+    customer_email?: string;
+    customer_name?: string;
+    customer_phone?: string;
+    customer_shipping?: definitions['shipping'];
+    customer_tax_exempt?: 'exempt' | 'none' | 'reverse';
+    customer_tax_ids?: definitions['invoices_resource_invoice_tax_id'][];
+    default_payment_method?: string;
+    default_source?: string;
+    default_tax_rates?: definitions['tax_rate'][];
+    description?: string;
+    discount?: definitions['discount'];
+    due_date?: number;
+    ending_balance?: number;
+    footer?: string;
+    hosted_invoice_url?: string;
+    id?: string;
+    invoice_pdf?: string;
+    lines: {
+      data: definitions['line_item'][];
+      has_more: boolean;
+      object: 'list';
+      url: string;
+    };
+    livemode: boolean;
+    metadata?: { [key: string]: any };
+    next_payment_attempt?: number;
+    number?: string;
+    object: 'invoice';
+    paid: boolean;
+    payment_intent?: string;
+    period_end: number;
+    period_start: number;
+    post_payment_credit_notes_amount: number;
+    pre_payment_credit_notes_amount: number;
+    receipt_number?: string;
+    starting_balance: number;
+    statement_descriptor?: string;
+    status?: 'deleted' | 'draft' | 'open' | 'paid' | 'uncollectible' | 'void';
+    status_transitions: definitions['invoices_status_transitions'];
+    subscription?: string;
+    subscription_proration_date?: number;
+    subtotal: number;
+    tax?: number;
+    tax_percent?: number;
+    threshold_reason?: definitions['invoice_threshold_reason'];
+    total: number;
+    total_tax_amounts?: definitions['invoice_tax_amount'][];
+    webhooks_delivered_at?: number;
+  };
+  invoice_item_threshold_reason: { line_item_ids: string[]; usage_gte: number };
+  invoice_line_item_period: { end: number; start: number };
+  invoice_setting_custom_field: { name: string; value: string };
+  invoice_setting_customer_setting: {
+    custom_fields?: definitions['invoice_setting_custom_field'][];
+    default_payment_method?: string;
+    footer?: string;
+  };
+  invoice_setting_subscription_schedule_setting: { days_until_due?: number };
+  invoice_tax_amount: { amount: number; inclusive: boolean; tax_rate: string };
+  invoice_threshold_reason: {
+    amount_gte?: number;
+    item_reasons: definitions['invoice_item_threshold_reason'][];
+  };
+  invoiceitem: {
+    amount: number;
+    currency: string;
+    customer: string;
+    date: number;
+    description?: string;
+    discountable: boolean;
+    id: string;
+    invoice?: string;
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    object: 'invoiceitem';
+    period: definitions['invoice_line_item_period'];
+    plan?: definitions['plan'];
+    proration: boolean;
+    quantity: number;
+    subscription?: string;
+    subscription_item?: string;
+    tax_rates?: definitions['tax_rate'][];
+    unit_amount?: number;
+    unit_amount_decimal?: string;
+  };
+  invoices_resource_invoice_tax_id: {
+    type:
+      | 'au_abn'
+      | 'ca_bn'
+      | 'ca_qst'
+      | 'ch_vat'
+      | 'es_cif'
+      | 'eu_vat'
+      | 'hk_br'
+      | 'in_gst'
+      | 'jp_cn'
+      | 'kr_brn'
+      | 'li_uid'
+      | 'mx_rfc'
+      | 'my_itn'
+      | 'my_sst'
+      | 'no_vat'
+      | 'nz_gst'
+      | 'ru_inn'
+      | 'sg_uen'
+      | 'th_vat'
+      | 'tw_vat'
+      | 'unknown'
+      | 'us_ein'
+      | 'za_vat';
+    value?: string;
+  };
+  invoices_status_transitions: {
+    finalized_at?: number;
+    marked_uncollectible_at?: number;
+    paid_at?: number;
+    voided_at?: number;
+  };
+  issuer_fraud_record: {
+    actionable: boolean;
+    charge: string;
+    created: number;
+    fraud_type: string;
+    has_liability_shift: boolean;
+    id: string;
+    livemode: boolean;
+    object: 'issuer_fraud_record';
+    post_date: number;
+  };
+  'issuing.authorization': {
+    amount: number;
+    approved: boolean;
+    authorization_method:
+      | 'chip'
+      | 'contactless'
+      | 'keyed_in'
+      | 'online'
+      | 'swipe';
+    balance_transactions: definitions['balance_transaction'][];
+    card: definitions['issuing.card'];
+    cardholder?: string;
+    created: number;
+    currency: string;
+    id: string;
+    livemode: boolean;
+    merchant_amount: number;
+    merchant_currency: string;
+    merchant_data: definitions['issuing_authorization_merchant_data'];
+    metadata: { [key: string]: any };
+    object: 'issuing.authorization';
+    pending_request?: definitions['issuing_authorization_pending_request'];
+    request_history: definitions['issuing_authorization_request'][];
+    status: 'closed' | 'pending' | 'reversed';
+    transactions: definitions['issuing.transaction'][];
+    verification_data: definitions['issuing_authorization_verification_data'];
+    wallet?: string;
+  };
+  'issuing.card': {
+    brand: string;
+    cardholder: definitions['issuing.cardholder'];
+    created: number;
+    currency: string;
+    exp_month: number;
+    exp_year: number;
+    id: string;
+    last4: string;
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    object: 'issuing.card';
+    pin?: definitions['issuing_card_pin'];
+    replaced_by?: string;
+    replacement_for?: string;
+    replacement_reason?: 'damage' | 'expiration' | 'loss' | 'theft';
+    shipping?: definitions['issuing_card_shipping'];
+    spending_controls: definitions['issuing_card_authorization_controls'];
+    status: 'active' | 'canceled' | 'inactive' | 'lost' | 'stolen';
+    type: 'physical' | 'virtual';
+  };
+  'issuing.card_details': {
+    card: definitions['issuing.card'];
+    cvc: string;
+    exp_month: number;
+    exp_year: number;
+    number: string;
+    object: 'issuing.card_details';
+  };
+  'issuing.card_pin': {
+    card: definitions['issuing.card'];
+    object: 'issuing.card_pin';
+    pin?: string;
+  };
+  'issuing.cardholder': {
+    billing: definitions['issuing_cardholder_address'];
+    company?: definitions['issuing_cardholder_company'];
+    created: number;
+    email?: string;
+    id: string;
+    individual?: definitions['issuing_cardholder_individual'];
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    name: string;
+    object: 'issuing.cardholder';
+    phone_number?: string;
+    requirements: definitions['issuing_cardholder_requirements'];
+    spending_controls?: definitions['issuing_cardholder_authorization_controls'];
+    status: 'active' | 'blocked' | 'inactive';
+    type: 'company' | 'individual';
+  };
+  'issuing.dispute': {
+    id: string;
+    livemode: boolean;
+    object: 'issuing.dispute';
+  };
+  'issuing.settlement': {
+    bin: string;
+    clearing_date: number;
+    created: number;
+    currency: string;
+    id: string;
+    interchange_fees: number;
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    net_total: number;
+    network: 'visa';
+    network_fees: number;
+    network_settlement_identifier: string;
+    object: 'issuing.settlement';
+    settlement_service: string;
+    transaction_count: number;
+    transaction_volume: number;
+  };
+  'issuing.transaction': {
+    amount: number;
+    authorization?: string;
+    balance_transaction?: string;
+    card: string;
+    cardholder?: string;
+    created: number;
+    currency: string;
+    dispute?: string;
+    id: string;
+    livemode: boolean;
+    merchant_amount: number;
+    merchant_currency: string;
+    merchant_data: definitions['issuing_authorization_merchant_data'];
+    metadata: { [key: string]: any };
+    object: 'issuing.transaction';
+    type: 'capture' | 'dispute' | 'refund';
+  };
+  'issuing.verification': {
+    card: string;
+    created: number;
+    expires_at: number;
+    id: string;
+    object: 'issuing.verification';
+    scope: 'card_pin_retrieve' | 'card_pin_update';
+    verification_method: 'email' | 'sms';
+  };
+  issuing_authorization_merchant_data: {
+    category: string;
+    city?: string;
+    country?: string;
+    name?: string;
+    network_id: string;
+    postal_code?: string;
+    state?: string;
+    url?: string;
+  };
+  issuing_authorization_pending_request: {
+    amount: number;
+    currency: string;
+    is_amount_controllable: boolean;
+    merchant_amount: number;
+    merchant_currency: string;
+  };
+  issuing_authorization_request: {
+    amount: number;
+    approved: boolean;
+    created: number;
+    currency: string;
+    merchant_amount: number;
+    merchant_currency: string;
+    reason:
+      | 'account_compliance_disabled'
+      | 'account_inactive'
+      | 'card_active'
+      | 'card_inactive'
+      | 'cardholder_inactive'
+      | 'cardholder_verification_required'
+      | 'insufficient_funds'
+      | 'not_allowed'
+      | 'spending_controls'
+      | 'suspected_fraud'
+      | 'verification_failed'
+      | 'webhook_approved'
+      | 'webhook_declined'
+      | 'webhook_timeout';
+  };
+  issuing_authorization_three_d_secure: {
+    result: 'attempt_acknowledged' | 'authenticated' | 'failed';
+  };
+  issuing_authorization_verification_data: {
+    address_line1_check: 'match' | 'mismatch' | 'not_provided';
+    address_postal_code_check: 'match' | 'mismatch' | 'not_provided';
+    cvc_check: 'match' | 'mismatch' | 'not_provided';
+    expiry_check: 'match' | 'mismatch' | 'not_provided';
+    three_d_secure?: definitions['issuing_authorization_three_d_secure'];
+  };
+  issuing_card_authorization_controls: {
+    allowed_categories?:
+      | 'ac_refrigeration_repair'
+      | 'accounting_bookkeeping_services'
+      | 'advertising_services'
+      | 'agricultural_cooperative'
+      | 'airlines_air_carriers'
+      | 'airports_flying_fields'
+      | 'ambulance_services'
+      | 'amusement_parks_carnivals'
+      | 'antique_reproductions'
+      | 'antique_shops'
+      | 'aquariums'
+      | 'architectural_surveying_services'
+      | 'art_dealers_and_galleries'
+      | 'artists_supply_and_craft_shops'
+      | 'auto_and_home_supply_stores'
+      | 'auto_body_repair_shops'
+      | 'auto_paint_shops'
+      | 'auto_service_shops'
+      | 'automated_cash_disburse'
+      | 'automated_fuel_dispensers'
+      | 'automobile_associations'
+      | 'automotive_parts_and_accessories_stores'
+      | 'automotive_tire_stores'
+      | 'bail_and_bond_payments'
+      | 'bakeries'
+      | 'bands_orchestras'
+      | 'barber_and_beauty_shops'
+      | 'betting_casino_gambling'
+      | 'bicycle_shops'
+      | 'billiard_pool_establishments'
+      | 'boat_dealers'
+      | 'boat_rentals_and_leases'
+      | 'book_stores'
+      | 'books_periodicals_and_newspapers'
+      | 'bowling_alleys'
+      | 'bus_lines'
+      | 'business_secretarial_schools'
+      | 'buying_shopping_services'
+      | 'cable_satellite_and_other_pay_television_and_radio'
+      | 'camera_and_photographic_supply_stores'
+      | 'candy_nut_and_confectionery_stores'
+      | 'car_and_truck_dealers_new_used'
+      | 'car_and_truck_dealers_used_only'
+      | 'car_rental_agencies'
+      | 'car_washes'
+      | 'carpentry_services'
+      | 'carpet_upholstery_cleaning'
+      | 'caterers'
+      | 'charitable_and_social_service_organizations_fundraising'
+      | 'chemicals_and_allied_products'
+      | 'child_care_services'
+      | 'childrens_and_infants_wear_stores'
+      | 'chiropodists_podiatrists'
+      | 'chiropractors'
+      | 'cigar_stores_and_stands'
+      | 'civic_social_fraternal_associations'
+      | 'cleaning_and_maintenance'
+      | 'clothing_rental'
+      | 'colleges_universities'
+      | 'commercial_equipment'
+      | 'commercial_footwear'
+      | 'commercial_photography_art_and_graphics'
+      | 'commuter_transport_and_ferries'
+      | 'computer_network_services'
+      | 'computer_programming'
+      | 'computer_repair'
+      | 'computer_software_stores'
+      | 'computers_peripherals_and_software'
+      | 'concrete_work_services'
+      | 'construction_materials'
+      | 'consulting_public_relations'
+      | 'correspondence_schools'
+      | 'cosmetic_stores'
+      | 'counseling_services'
+      | 'country_clubs'
+      | 'courier_services'
+      | 'court_costs'
+      | 'credit_reporting_agencies'
+      | 'cruise_lines'
+      | 'dairy_products_stores'
+      | 'dance_hall_studios_schools'
+      | 'dating_escort_services'
+      | 'dentists_orthodontists'
+      | 'department_stores'
+      | 'detective_agencies'
+      | 'digital_goods_applications'
+      | 'digital_goods_games'
+      | 'digital_goods_large_volume'
+      | 'digital_goods_media'
+      | 'direct_marketing_catalog_merchant'
+      | 'direct_marketing_combination_catalog_and_retail_merchant'
+      | 'direct_marketing_inbound_telemarketing'
+      | 'direct_marketing_insurance_services'
+      | 'direct_marketing_other'
+      | 'direct_marketing_outbound_telemarketing'
+      | 'direct_marketing_subscription'
+      | 'direct_marketing_travel'
+      | 'discount_stores'
+      | 'doctors'
+      | 'door_to_door_sales'
+      | 'drapery_window_covering_and_upholstery_stores'
+      | 'drinking_places'
+      | 'drug_stores_and_pharmacies'
+      | 'drugs_drug_proprietaries_and_druggist_sundries'
+      | 'dry_cleaners'
+      | 'durable_goods'
+      | 'duty_free_stores'
+      | 'eating_places_restaurants'
+      | 'educational_services'
+      | 'electric_razor_stores'
+      | 'electrical_parts_and_equipment'
+      | 'electrical_services'
+      | 'electronics_repair_shops'
+      | 'electronics_stores'
+      | 'elementary_secondary_schools'
+      | 'employment_temp_agencies'
+      | 'equipment_rental'
+      | 'exterminating_services'
+      | 'family_clothing_stores'
+      | 'fast_food_restaurants'
+      | 'financial_institutions'
+      | 'fines_government_administrative_entities'
+      | 'fireplace_fireplace_screens_and_accessories_stores'
+      | 'floor_covering_stores'
+      | 'florists'
+      | 'florists_supplies_nursery_stock_and_flowers'
+      | 'freezer_and_locker_meat_provisioners'
+      | 'fuel_dealers_non_automotive'
+      | 'funeral_services_crematories'
+      | 'furniture_home_furnishings_and_equipment_stores_except_appliances'
+      | 'furniture_repair_refinishing'
+      | 'furriers_and_fur_shops'
+      | 'general_services'
+      | 'gift_card_novelty_and_souvenir_shops'
+      | 'glass_paint_and_wallpaper_stores'
+      | 'glassware_crystal_stores'
+      | 'golf_courses_public'
+      | 'government_services'
+      | 'grocery_stores_supermarkets'
+      | 'hardware_equipment_and_supplies'
+      | 'hardware_stores'
+      | 'health_and_beauty_spas'
+      | 'hearing_aids_sales_and_supplies'
+      | 'heating_plumbing_a_c'
+      | 'hobby_toy_and_game_shops'
+      | 'home_supply_warehouse_stores'
+      | 'hospitals'
+      | 'hotels_motels_and_resorts'
+      | 'household_appliance_stores'
+      | 'industrial_supplies'
+      | 'information_retrieval_services'
+      | 'insurance_default'
+      | 'insurance_underwriting_premiums'
+      | 'intra_company_purchases'
+      | 'jewelry_stores_watches_clocks_and_silverware_stores'
+      | 'landscaping_services'
+      | 'laundries'
+      | 'laundry_cleaning_services'
+      | 'legal_services_attorneys'
+      | 'luggage_and_leather_goods_stores'
+      | 'lumber_building_materials_stores'
+      | 'manual_cash_disburse'
+      | 'marinas_service_and_supplies'
+      | 'masonry_stonework_and_plaster'
+      | 'massage_parlors'
+      | 'medical_and_dental_labs'
+      | 'medical_dental_ophthalmic_and_hospital_equipment_and_supplies'
+      | 'medical_services'
+      | 'membership_organizations'
+      | 'mens_and_boys_clothing_and_accessories_stores'
+      | 'mens_womens_clothing_stores'
+      | 'metal_service_centers'
+      | 'miscellaneous'
+      | 'miscellaneous_apparel_and_accessory_shops'
+      | 'miscellaneous_auto_dealers'
+      | 'miscellaneous_business_services'
+      | 'miscellaneous_food_stores'
+      | 'miscellaneous_general_merchandise'
+      | 'miscellaneous_general_services'
+      | 'miscellaneous_home_furnishing_specialty_stores'
+      | 'miscellaneous_publishing_and_printing'
+      | 'miscellaneous_recreation_services'
+      | 'miscellaneous_repair_shops'
+      | 'miscellaneous_specialty_retail'
+      | 'mobile_home_dealers'
+      | 'motion_picture_theaters'
+      | 'motor_freight_carriers_and_trucking'
+      | 'motor_homes_dealers'
+      | 'motor_vehicle_supplies_and_new_parts'
+      | 'motorcycle_shops_and_dealers'
+      | 'motorcycle_shops_dealers'
+      | 'music_stores_musical_instruments_pianos_and_sheet_music'
+      | 'news_dealers_and_newsstands'
+      | 'non_fi_money_orders'
+      | 'non_fi_stored_value_card_purchase_load'
+      | 'nondurable_goods'
+      | 'nurseries_lawn_and_garden_supply_stores'
+      | 'nursing_personal_care'
+      | 'office_and_commercial_furniture'
+      | 'opticians_eyeglasses'
+      | 'optometrists_ophthalmologist'
+      | 'orthopedic_goods_prosthetic_devices'
+      | 'osteopaths'
+      | 'package_stores_beer_wine_and_liquor'
+      | 'paints_varnishes_and_supplies'
+      | 'parking_lots_garages'
+      | 'passenger_railways'
+      | 'pawn_shops'
+      | 'pet_shops_pet_food_and_supplies'
+      | 'petroleum_and_petroleum_products'
+      | 'photo_developing'
+      | 'photographic_photocopy_microfilm_equipment_and_supplies'
+      | 'photographic_studios'
+      | 'picture_video_production'
+      | 'piece_goods_notions_and_other_dry_goods'
+      | 'plumbing_heating_equipment_and_supplies'
+      | 'political_organizations'
+      | 'postal_services_government_only'
+      | 'precious_stones_and_metals_watches_and_jewelry'
+      | 'professional_services'
+      | 'public_warehousing_and_storage'
+      | 'quick_copy_repro_and_blueprint'
+      | 'railroads'
+      | 'real_estate_agents_and_managers_rentals'
+      | 'record_stores'
+      | 'recreational_vehicle_rentals'
+      | 'religious_goods_stores'
+      | 'religious_organizations'
+      | 'roofing_siding_sheet_metal'
+      | 'secretarial_support_services'
+      | 'security_brokers_dealers'
+      | 'service_stations'
+      | 'sewing_needlework_fabric_and_piece_goods_stores'
+      | 'shoe_repair_hat_cleaning'
+      | 'shoe_stores'
+      | 'small_appliance_repair'
+      | 'snowmobile_dealers'
+      | 'special_trade_services'
+      | 'specialty_cleaning'
+      | 'sporting_goods_stores'
+      | 'sporting_recreation_camps'
+      | 'sports_and_riding_apparel_stores'
+      | 'sports_clubs_fields'
+      | 'stamp_and_coin_stores'
+      | 'stationary_office_supplies_printing_and_writing_paper'
+      | 'stationery_stores_office_and_school_supply_stores'
+      | 'swimming_pools_sales'
+      | 't_ui_travel_germany'
+      | 'tailors_alterations'
+      | 'tax_payments_government_agencies'
+      | 'tax_preparation_services'
+      | 'taxicabs_limousines'
+      | 'telecommunication_equipment_and_telephone_sales'
+      | 'telecommunication_services'
+      | 'telegraph_services'
+      | 'tent_and_awning_shops'
+      | 'testing_laboratories'
+      | 'theatrical_ticket_agencies'
+      | 'timeshares'
+      | 'tire_retreading_and_repair'
+      | 'tolls_bridge_fees'
+      | 'tourist_attractions_and_exhibits'
+      | 'towing_services'
+      | 'trailer_parks_campgrounds'
+      | 'transportation_services'
+      | 'travel_agencies_tour_operators'
+      | 'truck_stop_iteration'
+      | 'truck_utility_trailer_rentals'
+      | 'typesetting_plate_making_and_related_services'
+      | 'typewriter_stores'
+      | 'u_s_federal_government_agencies_or_departments'
+      | 'uniforms_commercial_clothing'
+      | 'used_merchandise_and_secondhand_stores'
+      | 'utilities'
+      | 'variety_stores'
+      | 'veterinary_services'
+      | 'video_amusement_game_supplies'
+      | 'video_game_arcades'
+      | 'video_tape_rental_stores'
+      | 'vocational_trade_schools'
+      | 'watch_jewelry_repair'
+      | 'welding_repair'
+      | 'wholesale_clubs'
+      | 'wig_and_toupee_stores'
+      | 'wires_money_orders'
+      | 'womens_accessory_and_specialty_shops'
+      | 'womens_ready_to_wear_stores'
+      | 'wrecking_and_salvage_yards'[];
+    blocked_categories?:
+      | 'ac_refrigeration_repair'
+      | 'accounting_bookkeeping_services'
+      | 'advertising_services'
+      | 'agricultural_cooperative'
+      | 'airlines_air_carriers'
+      | 'airports_flying_fields'
+      | 'ambulance_services'
+      | 'amusement_parks_carnivals'
+      | 'antique_reproductions'
+      | 'antique_shops'
+      | 'aquariums'
+      | 'architectural_surveying_services'
+      | 'art_dealers_and_galleries'
+      | 'artists_supply_and_craft_shops'
+      | 'auto_and_home_supply_stores'
+      | 'auto_body_repair_shops'
+      | 'auto_paint_shops'
+      | 'auto_service_shops'
+      | 'automated_cash_disburse'
+      | 'automated_fuel_dispensers'
+      | 'automobile_associations'
+      | 'automotive_parts_and_accessories_stores'
+      | 'automotive_tire_stores'
+      | 'bail_and_bond_payments'
+      | 'bakeries'
+      | 'bands_orchestras'
+      | 'barber_and_beauty_shops'
+      | 'betting_casino_gambling'
+      | 'bicycle_shops'
+      | 'billiard_pool_establishments'
+      | 'boat_dealers'
+      | 'boat_rentals_and_leases'
+      | 'book_stores'
+      | 'books_periodicals_and_newspapers'
+      | 'bowling_alleys'
+      | 'bus_lines'
+      | 'business_secretarial_schools'
+      | 'buying_shopping_services'
+      | 'cable_satellite_and_other_pay_television_and_radio'
+      | 'camera_and_photographic_supply_stores'
+      | 'candy_nut_and_confectionery_stores'
+      | 'car_and_truck_dealers_new_used'
+      | 'car_and_truck_dealers_used_only'
+      | 'car_rental_agencies'
+      | 'car_washes'
+      | 'carpentry_services'
+      | 'carpet_upholstery_cleaning'
+      | 'caterers'
+      | 'charitable_and_social_service_organizations_fundraising'
+      | 'chemicals_and_allied_products'
+      | 'child_care_services'
+      | 'childrens_and_infants_wear_stores'
+      | 'chiropodists_podiatrists'
+      | 'chiropractors'
+      | 'cigar_stores_and_stands'
+      | 'civic_social_fraternal_associations'
+      | 'cleaning_and_maintenance'
+      | 'clothing_rental'
+      | 'colleges_universities'
+      | 'commercial_equipment'
+      | 'commercial_footwear'
+      | 'commercial_photography_art_and_graphics'
+      | 'commuter_transport_and_ferries'
+      | 'computer_network_services'
+      | 'computer_programming'
+      | 'computer_repair'
+      | 'computer_software_stores'
+      | 'computers_peripherals_and_software'
+      | 'concrete_work_services'
+      | 'construction_materials'
+      | 'consulting_public_relations'
+      | 'correspondence_schools'
+      | 'cosmetic_stores'
+      | 'counseling_services'
+      | 'country_clubs'
+      | 'courier_services'
+      | 'court_costs'
+      | 'credit_reporting_agencies'
+      | 'cruise_lines'
+      | 'dairy_products_stores'
+      | 'dance_hall_studios_schools'
+      | 'dating_escort_services'
+      | 'dentists_orthodontists'
+      | 'department_stores'
+      | 'detective_agencies'
+      | 'digital_goods_applications'
+      | 'digital_goods_games'
+      | 'digital_goods_large_volume'
+      | 'digital_goods_media'
+      | 'direct_marketing_catalog_merchant'
+      | 'direct_marketing_combination_catalog_and_retail_merchant'
+      | 'direct_marketing_inbound_telemarketing'
+      | 'direct_marketing_insurance_services'
+      | 'direct_marketing_other'
+      | 'direct_marketing_outbound_telemarketing'
+      | 'direct_marketing_subscription'
+      | 'direct_marketing_travel'
+      | 'discount_stores'
+      | 'doctors'
+      | 'door_to_door_sales'
+      | 'drapery_window_covering_and_upholstery_stores'
+      | 'drinking_places'
+      | 'drug_stores_and_pharmacies'
+      | 'drugs_drug_proprietaries_and_druggist_sundries'
+      | 'dry_cleaners'
+      | 'durable_goods'
+      | 'duty_free_stores'
+      | 'eating_places_restaurants'
+      | 'educational_services'
+      | 'electric_razor_stores'
+      | 'electrical_parts_and_equipment'
+      | 'electrical_services'
+      | 'electronics_repair_shops'
+      | 'electronics_stores'
+      | 'elementary_secondary_schools'
+      | 'employment_temp_agencies'
+      | 'equipment_rental'
+      | 'exterminating_services'
+      | 'family_clothing_stores'
+      | 'fast_food_restaurants'
+      | 'financial_institutions'
+      | 'fines_government_administrative_entities'
+      | 'fireplace_fireplace_screens_and_accessories_stores'
+      | 'floor_covering_stores'
+      | 'florists'
+      | 'florists_supplies_nursery_stock_and_flowers'
+      | 'freezer_and_locker_meat_provisioners'
+      | 'fuel_dealers_non_automotive'
+      | 'funeral_services_crematories'
+      | 'furniture_home_furnishings_and_equipment_stores_except_appliances'
+      | 'furniture_repair_refinishing'
+      | 'furriers_and_fur_shops'
+      | 'general_services'
+      | 'gift_card_novelty_and_souvenir_shops'
+      | 'glass_paint_and_wallpaper_stores'
+      | 'glassware_crystal_stores'
+      | 'golf_courses_public'
+      | 'government_services'
+      | 'grocery_stores_supermarkets'
+      | 'hardware_equipment_and_supplies'
+      | 'hardware_stores'
+      | 'health_and_beauty_spas'
+      | 'hearing_aids_sales_and_supplies'
+      | 'heating_plumbing_a_c'
+      | 'hobby_toy_and_game_shops'
+      | 'home_supply_warehouse_stores'
+      | 'hospitals'
+      | 'hotels_motels_and_resorts'
+      | 'household_appliance_stores'
+      | 'industrial_supplies'
+      | 'information_retrieval_services'
+      | 'insurance_default'
+      | 'insurance_underwriting_premiums'
+      | 'intra_company_purchases'
+      | 'jewelry_stores_watches_clocks_and_silverware_stores'
+      | 'landscaping_services'
+      | 'laundries'
+      | 'laundry_cleaning_services'
+      | 'legal_services_attorneys'
+      | 'luggage_and_leather_goods_stores'
+      | 'lumber_building_materials_stores'
+      | 'manual_cash_disburse'
+      | 'marinas_service_and_supplies'
+      | 'masonry_stonework_and_plaster'
+      | 'massage_parlors'
+      | 'medical_and_dental_labs'
+      | 'medical_dental_ophthalmic_and_hospital_equipment_and_supplies'
+      | 'medical_services'
+      | 'membership_organizations'
+      | 'mens_and_boys_clothing_and_accessories_stores'
+      | 'mens_womens_clothing_stores'
+      | 'metal_service_centers'
+      | 'miscellaneous'
+      | 'miscellaneous_apparel_and_accessory_shops'
+      | 'miscellaneous_auto_dealers'
+      | 'miscellaneous_business_services'
+      | 'miscellaneous_food_stores'
+      | 'miscellaneous_general_merchandise'
+      | 'miscellaneous_general_services'
+      | 'miscellaneous_home_furnishing_specialty_stores'
+      | 'miscellaneous_publishing_and_printing'
+      | 'miscellaneous_recreation_services'
+      | 'miscellaneous_repair_shops'
+      | 'miscellaneous_specialty_retail'
+      | 'mobile_home_dealers'
+      | 'motion_picture_theaters'
+      | 'motor_freight_carriers_and_trucking'
+      | 'motor_homes_dealers'
+      | 'motor_vehicle_supplies_and_new_parts'
+      | 'motorcycle_shops_and_dealers'
+      | 'motorcycle_shops_dealers'
+      | 'music_stores_musical_instruments_pianos_and_sheet_music'
+      | 'news_dealers_and_newsstands'
+      | 'non_fi_money_orders'
+      | 'non_fi_stored_value_card_purchase_load'
+      | 'nondurable_goods'
+      | 'nurseries_lawn_and_garden_supply_stores'
+      | 'nursing_personal_care'
+      | 'office_and_commercial_furniture'
+      | 'opticians_eyeglasses'
+      | 'optometrists_ophthalmologist'
+      | 'orthopedic_goods_prosthetic_devices'
+      | 'osteopaths'
+      | 'package_stores_beer_wine_and_liquor'
+      | 'paints_varnishes_and_supplies'
+      | 'parking_lots_garages'
+      | 'passenger_railways'
+      | 'pawn_shops'
+      | 'pet_shops_pet_food_and_supplies'
+      | 'petroleum_and_petroleum_products'
+      | 'photo_developing'
+      | 'photographic_photocopy_microfilm_equipment_and_supplies'
+      | 'photographic_studios'
+      | 'picture_video_production'
+      | 'piece_goods_notions_and_other_dry_goods'
+      | 'plumbing_heating_equipment_and_supplies'
+      | 'political_organizations'
+      | 'postal_services_government_only'
+      | 'precious_stones_and_metals_watches_and_jewelry'
+      | 'professional_services'
+      | 'public_warehousing_and_storage'
+      | 'quick_copy_repro_and_blueprint'
+      | 'railroads'
+      | 'real_estate_agents_and_managers_rentals'
+      | 'record_stores'
+      | 'recreational_vehicle_rentals'
+      | 'religious_goods_stores'
+      | 'religious_organizations'
+      | 'roofing_siding_sheet_metal'
+      | 'secretarial_support_services'
+      | 'security_brokers_dealers'
+      | 'service_stations'
+      | 'sewing_needlework_fabric_and_piece_goods_stores'
+      | 'shoe_repair_hat_cleaning'
+      | 'shoe_stores'
+      | 'small_appliance_repair'
+      | 'snowmobile_dealers'
+      | 'special_trade_services'
+      | 'specialty_cleaning'
+      | 'sporting_goods_stores'
+      | 'sporting_recreation_camps'
+      | 'sports_and_riding_apparel_stores'
+      | 'sports_clubs_fields'
+      | 'stamp_and_coin_stores'
+      | 'stationary_office_supplies_printing_and_writing_paper'
+      | 'stationery_stores_office_and_school_supply_stores'
+      | 'swimming_pools_sales'
+      | 't_ui_travel_germany'
+      | 'tailors_alterations'
+      | 'tax_payments_government_agencies'
+      | 'tax_preparation_services'
+      | 'taxicabs_limousines'
+      | 'telecommunication_equipment_and_telephone_sales'
+      | 'telecommunication_services'
+      | 'telegraph_services'
+      | 'tent_and_awning_shops'
+      | 'testing_laboratories'
+      | 'theatrical_ticket_agencies'
+      | 'timeshares'
+      | 'tire_retreading_and_repair'
+      | 'tolls_bridge_fees'
+      | 'tourist_attractions_and_exhibits'
+      | 'towing_services'
+      | 'trailer_parks_campgrounds'
+      | 'transportation_services'
+      | 'travel_agencies_tour_operators'
+      | 'truck_stop_iteration'
+      | 'truck_utility_trailer_rentals'
+      | 'typesetting_plate_making_and_related_services'
+      | 'typewriter_stores'
+      | 'u_s_federal_government_agencies_or_departments'
+      | 'uniforms_commercial_clothing'
+      | 'used_merchandise_and_secondhand_stores'
+      | 'utilities'
+      | 'variety_stores'
+      | 'veterinary_services'
+      | 'video_amusement_game_supplies'
+      | 'video_game_arcades'
+      | 'video_tape_rental_stores'
+      | 'vocational_trade_schools'
+      | 'watch_jewelry_repair'
+      | 'welding_repair'
+      | 'wholesale_clubs'
+      | 'wig_and_toupee_stores'
+      | 'wires_money_orders'
+      | 'womens_accessory_and_specialty_shops'
+      | 'womens_ready_to_wear_stores'
+      | 'wrecking_and_salvage_yards'[];
+    max_approvals?: number;
+    spending_limits?: definitions['issuing_card_spending_limit'][];
+    spending_limits_currency?: string;
+  };
+  issuing_card_pin: { status: 'active' | 'blocked' };
+  issuing_card_shipping: {
+    address: definitions['address'];
+    carrier?: 'fedex' | 'usps';
+    eta?: number;
+    name: string;
+    service: 'express' | 'priority' | 'standard';
+    status?:
+      | 'canceled'
+      | 'delivered'
+      | 'failure'
+      | 'pending'
+      | 'returned'
+      | 'shipped';
+    tracking_number?: string;
+    tracking_url?: string;
+    type: 'bulk' | 'individual';
+  };
+  issuing_card_spending_limit: {
+    amount: number;
+    categories?:
+      | 'ac_refrigeration_repair'
+      | 'accounting_bookkeeping_services'
+      | 'advertising_services'
+      | 'agricultural_cooperative'
+      | 'airlines_air_carriers'
+      | 'airports_flying_fields'
+      | 'ambulance_services'
+      | 'amusement_parks_carnivals'
+      | 'antique_reproductions'
+      | 'antique_shops'
+      | 'aquariums'
+      | 'architectural_surveying_services'
+      | 'art_dealers_and_galleries'
+      | 'artists_supply_and_craft_shops'
+      | 'auto_and_home_supply_stores'
+      | 'auto_body_repair_shops'
+      | 'auto_paint_shops'
+      | 'auto_service_shops'
+      | 'automated_cash_disburse'
+      | 'automated_fuel_dispensers'
+      | 'automobile_associations'
+      | 'automotive_parts_and_accessories_stores'
+      | 'automotive_tire_stores'
+      | 'bail_and_bond_payments'
+      | 'bakeries'
+      | 'bands_orchestras'
+      | 'barber_and_beauty_shops'
+      | 'betting_casino_gambling'
+      | 'bicycle_shops'
+      | 'billiard_pool_establishments'
+      | 'boat_dealers'
+      | 'boat_rentals_and_leases'
+      | 'book_stores'
+      | 'books_periodicals_and_newspapers'
+      | 'bowling_alleys'
+      | 'bus_lines'
+      | 'business_secretarial_schools'
+      | 'buying_shopping_services'
+      | 'cable_satellite_and_other_pay_television_and_radio'
+      | 'camera_and_photographic_supply_stores'
+      | 'candy_nut_and_confectionery_stores'
+      | 'car_and_truck_dealers_new_used'
+      | 'car_and_truck_dealers_used_only'
+      | 'car_rental_agencies'
+      | 'car_washes'
+      | 'carpentry_services'
+      | 'carpet_upholstery_cleaning'
+      | 'caterers'
+      | 'charitable_and_social_service_organizations_fundraising'
+      | 'chemicals_and_allied_products'
+      | 'child_care_services'
+      | 'childrens_and_infants_wear_stores'
+      | 'chiropodists_podiatrists'
+      | 'chiropractors'
+      | 'cigar_stores_and_stands'
+      | 'civic_social_fraternal_associations'
+      | 'cleaning_and_maintenance'
+      | 'clothing_rental'
+      | 'colleges_universities'
+      | 'commercial_equipment'
+      | 'commercial_footwear'
+      | 'commercial_photography_art_and_graphics'
+      | 'commuter_transport_and_ferries'
+      | 'computer_network_services'
+      | 'computer_programming'
+      | 'computer_repair'
+      | 'computer_software_stores'
+      | 'computers_peripherals_and_software'
+      | 'concrete_work_services'
+      | 'construction_materials'
+      | 'consulting_public_relations'
+      | 'correspondence_schools'
+      | 'cosmetic_stores'
+      | 'counseling_services'
+      | 'country_clubs'
+      | 'courier_services'
+      | 'court_costs'
+      | 'credit_reporting_agencies'
+      | 'cruise_lines'
+      | 'dairy_products_stores'
+      | 'dance_hall_studios_schools'
+      | 'dating_escort_services'
+      | 'dentists_orthodontists'
+      | 'department_stores'
+      | 'detective_agencies'
+      | 'digital_goods_applications'
+      | 'digital_goods_games'
+      | 'digital_goods_large_volume'
+      | 'digital_goods_media'
+      | 'direct_marketing_catalog_merchant'
+      | 'direct_marketing_combination_catalog_and_retail_merchant'
+      | 'direct_marketing_inbound_telemarketing'
+      | 'direct_marketing_insurance_services'
+      | 'direct_marketing_other'
+      | 'direct_marketing_outbound_telemarketing'
+      | 'direct_marketing_subscription'
+      | 'direct_marketing_travel'
+      | 'discount_stores'
+      | 'doctors'
+      | 'door_to_door_sales'
+      | 'drapery_window_covering_and_upholstery_stores'
+      | 'drinking_places'
+      | 'drug_stores_and_pharmacies'
+      | 'drugs_drug_proprietaries_and_druggist_sundries'
+      | 'dry_cleaners'
+      | 'durable_goods'
+      | 'duty_free_stores'
+      | 'eating_places_restaurants'
+      | 'educational_services'
+      | 'electric_razor_stores'
+      | 'electrical_parts_and_equipment'
+      | 'electrical_services'
+      | 'electronics_repair_shops'
+      | 'electronics_stores'
+      | 'elementary_secondary_schools'
+      | 'employment_temp_agencies'
+      | 'equipment_rental'
+      | 'exterminating_services'
+      | 'family_clothing_stores'
+      | 'fast_food_restaurants'
+      | 'financial_institutions'
+      | 'fines_government_administrative_entities'
+      | 'fireplace_fireplace_screens_and_accessories_stores'
+      | 'floor_covering_stores'
+      | 'florists'
+      | 'florists_supplies_nursery_stock_and_flowers'
+      | 'freezer_and_locker_meat_provisioners'
+      | 'fuel_dealers_non_automotive'
+      | 'funeral_services_crematories'
+      | 'furniture_home_furnishings_and_equipment_stores_except_appliances'
+      | 'furniture_repair_refinishing'
+      | 'furriers_and_fur_shops'
+      | 'general_services'
+      | 'gift_card_novelty_and_souvenir_shops'
+      | 'glass_paint_and_wallpaper_stores'
+      | 'glassware_crystal_stores'
+      | 'golf_courses_public'
+      | 'government_services'
+      | 'grocery_stores_supermarkets'
+      | 'hardware_equipment_and_supplies'
+      | 'hardware_stores'
+      | 'health_and_beauty_spas'
+      | 'hearing_aids_sales_and_supplies'
+      | 'heating_plumbing_a_c'
+      | 'hobby_toy_and_game_shops'
+      | 'home_supply_warehouse_stores'
+      | 'hospitals'
+      | 'hotels_motels_and_resorts'
+      | 'household_appliance_stores'
+      | 'industrial_supplies'
+      | 'information_retrieval_services'
+      | 'insurance_default'
+      | 'insurance_underwriting_premiums'
+      | 'intra_company_purchases'
+      | 'jewelry_stores_watches_clocks_and_silverware_stores'
+      | 'landscaping_services'
+      | 'laundries'
+      | 'laundry_cleaning_services'
+      | 'legal_services_attorneys'
+      | 'luggage_and_leather_goods_stores'
+      | 'lumber_building_materials_stores'
+      | 'manual_cash_disburse'
+      | 'marinas_service_and_supplies'
+      | 'masonry_stonework_and_plaster'
+      | 'massage_parlors'
+      | 'medical_and_dental_labs'
+      | 'medical_dental_ophthalmic_and_hospital_equipment_and_supplies'
+      | 'medical_services'
+      | 'membership_organizations'
+      | 'mens_and_boys_clothing_and_accessories_stores'
+      | 'mens_womens_clothing_stores'
+      | 'metal_service_centers'
+      | 'miscellaneous'
+      | 'miscellaneous_apparel_and_accessory_shops'
+      | 'miscellaneous_auto_dealers'
+      | 'miscellaneous_business_services'
+      | 'miscellaneous_food_stores'
+      | 'miscellaneous_general_merchandise'
+      | 'miscellaneous_general_services'
+      | 'miscellaneous_home_furnishing_specialty_stores'
+      | 'miscellaneous_publishing_and_printing'
+      | 'miscellaneous_recreation_services'
+      | 'miscellaneous_repair_shops'
+      | 'miscellaneous_specialty_retail'
+      | 'mobile_home_dealers'
+      | 'motion_picture_theaters'
+      | 'motor_freight_carriers_and_trucking'
+      | 'motor_homes_dealers'
+      | 'motor_vehicle_supplies_and_new_parts'
+      | 'motorcycle_shops_and_dealers'
+      | 'motorcycle_shops_dealers'
+      | 'music_stores_musical_instruments_pianos_and_sheet_music'
+      | 'news_dealers_and_newsstands'
+      | 'non_fi_money_orders'
+      | 'non_fi_stored_value_card_purchase_load'
+      | 'nondurable_goods'
+      | 'nurseries_lawn_and_garden_supply_stores'
+      | 'nursing_personal_care'
+      | 'office_and_commercial_furniture'
+      | 'opticians_eyeglasses'
+      | 'optometrists_ophthalmologist'
+      | 'orthopedic_goods_prosthetic_devices'
+      | 'osteopaths'
+      | 'package_stores_beer_wine_and_liquor'
+      | 'paints_varnishes_and_supplies'
+      | 'parking_lots_garages'
+      | 'passenger_railways'
+      | 'pawn_shops'
+      | 'pet_shops_pet_food_and_supplies'
+      | 'petroleum_and_petroleum_products'
+      | 'photo_developing'
+      | 'photographic_photocopy_microfilm_equipment_and_supplies'
+      | 'photographic_studios'
+      | 'picture_video_production'
+      | 'piece_goods_notions_and_other_dry_goods'
+      | 'plumbing_heating_equipment_and_supplies'
+      | 'political_organizations'
+      | 'postal_services_government_only'
+      | 'precious_stones_and_metals_watches_and_jewelry'
+      | 'professional_services'
+      | 'public_warehousing_and_storage'
+      | 'quick_copy_repro_and_blueprint'
+      | 'railroads'
+      | 'real_estate_agents_and_managers_rentals'
+      | 'record_stores'
+      | 'recreational_vehicle_rentals'
+      | 'religious_goods_stores'
+      | 'religious_organizations'
+      | 'roofing_siding_sheet_metal'
+      | 'secretarial_support_services'
+      | 'security_brokers_dealers'
+      | 'service_stations'
+      | 'sewing_needlework_fabric_and_piece_goods_stores'
+      | 'shoe_repair_hat_cleaning'
+      | 'shoe_stores'
+      | 'small_appliance_repair'
+      | 'snowmobile_dealers'
+      | 'special_trade_services'
+      | 'specialty_cleaning'
+      | 'sporting_goods_stores'
+      | 'sporting_recreation_camps'
+      | 'sports_and_riding_apparel_stores'
+      | 'sports_clubs_fields'
+      | 'stamp_and_coin_stores'
+      | 'stationary_office_supplies_printing_and_writing_paper'
+      | 'stationery_stores_office_and_school_supply_stores'
+      | 'swimming_pools_sales'
+      | 't_ui_travel_germany'
+      | 'tailors_alterations'
+      | 'tax_payments_government_agencies'
+      | 'tax_preparation_services'
+      | 'taxicabs_limousines'
+      | 'telecommunication_equipment_and_telephone_sales'
+      | 'telecommunication_services'
+      | 'telegraph_services'
+      | 'tent_and_awning_shops'
+      | 'testing_laboratories'
+      | 'theatrical_ticket_agencies'
+      | 'timeshares'
+      | 'tire_retreading_and_repair'
+      | 'tolls_bridge_fees'
+      | 'tourist_attractions_and_exhibits'
+      | 'towing_services'
+      | 'trailer_parks_campgrounds'
+      | 'transportation_services'
+      | 'travel_agencies_tour_operators'
+      | 'truck_stop_iteration'
+      | 'truck_utility_trailer_rentals'
+      | 'typesetting_plate_making_and_related_services'
+      | 'typewriter_stores'
+      | 'u_s_federal_government_agencies_or_departments'
+      | 'uniforms_commercial_clothing'
+      | 'used_merchandise_and_secondhand_stores'
+      | 'utilities'
+      | 'variety_stores'
+      | 'veterinary_services'
+      | 'video_amusement_game_supplies'
+      | 'video_game_arcades'
+      | 'video_tape_rental_stores'
+      | 'vocational_trade_schools'
+      | 'watch_jewelry_repair'
+      | 'welding_repair'
+      | 'wholesale_clubs'
+      | 'wig_and_toupee_stores'
+      | 'wires_money_orders'
+      | 'womens_accessory_and_specialty_shops'
+      | 'womens_ready_to_wear_stores'
+      | 'wrecking_and_salvage_yards'[];
+    interval:
+      | 'all_time'
+      | 'daily'
+      | 'monthly'
+      | 'per_authorization'
+      | 'weekly'
+      | 'yearly';
+  };
+  issuing_cardholder_address: { address: definitions['address'] };
+  issuing_cardholder_authorization_controls: {
+    allowed_categories?:
+      | 'ac_refrigeration_repair'
+      | 'accounting_bookkeeping_services'
+      | 'advertising_services'
+      | 'agricultural_cooperative'
+      | 'airlines_air_carriers'
+      | 'airports_flying_fields'
+      | 'ambulance_services'
+      | 'amusement_parks_carnivals'
+      | 'antique_reproductions'
+      | 'antique_shops'
+      | 'aquariums'
+      | 'architectural_surveying_services'
+      | 'art_dealers_and_galleries'
+      | 'artists_supply_and_craft_shops'
+      | 'auto_and_home_supply_stores'
+      | 'auto_body_repair_shops'
+      | 'auto_paint_shops'
+      | 'auto_service_shops'
+      | 'automated_cash_disburse'
+      | 'automated_fuel_dispensers'
+      | 'automobile_associations'
+      | 'automotive_parts_and_accessories_stores'
+      | 'automotive_tire_stores'
+      | 'bail_and_bond_payments'
+      | 'bakeries'
+      | 'bands_orchestras'
+      | 'barber_and_beauty_shops'
+      | 'betting_casino_gambling'
+      | 'bicycle_shops'
+      | 'billiard_pool_establishments'
+      | 'boat_dealers'
+      | 'boat_rentals_and_leases'
+      | 'book_stores'
+      | 'books_periodicals_and_newspapers'
+      | 'bowling_alleys'
+      | 'bus_lines'
+      | 'business_secretarial_schools'
+      | 'buying_shopping_services'
+      | 'cable_satellite_and_other_pay_television_and_radio'
+      | 'camera_and_photographic_supply_stores'
+      | 'candy_nut_and_confectionery_stores'
+      | 'car_and_truck_dealers_new_used'
+      | 'car_and_truck_dealers_used_only'
+      | 'car_rental_agencies'
+      | 'car_washes'
+      | 'carpentry_services'
+      | 'carpet_upholstery_cleaning'
+      | 'caterers'
+      | 'charitable_and_social_service_organizations_fundraising'
+      | 'chemicals_and_allied_products'
+      | 'child_care_services'
+      | 'childrens_and_infants_wear_stores'
+      | 'chiropodists_podiatrists'
+      | 'chiropractors'
+      | 'cigar_stores_and_stands'
+      | 'civic_social_fraternal_associations'
+      | 'cleaning_and_maintenance'
+      | 'clothing_rental'
+      | 'colleges_universities'
+      | 'commercial_equipment'
+      | 'commercial_footwear'
+      | 'commercial_photography_art_and_graphics'
+      | 'commuter_transport_and_ferries'
+      | 'computer_network_services'
+      | 'computer_programming'
+      | 'computer_repair'
+      | 'computer_software_stores'
+      | 'computers_peripherals_and_software'
+      | 'concrete_work_services'
+      | 'construction_materials'
+      | 'consulting_public_relations'
+      | 'correspondence_schools'
+      | 'cosmetic_stores'
+      | 'counseling_services'
+      | 'country_clubs'
+      | 'courier_services'
+      | 'court_costs'
+      | 'credit_reporting_agencies'
+      | 'cruise_lines'
+      | 'dairy_products_stores'
+      | 'dance_hall_studios_schools'
+      | 'dating_escort_services'
+      | 'dentists_orthodontists'
+      | 'department_stores'
+      | 'detective_agencies'
+      | 'digital_goods_applications'
+      | 'digital_goods_games'
+      | 'digital_goods_large_volume'
+      | 'digital_goods_media'
+      | 'direct_marketing_catalog_merchant'
+      | 'direct_marketing_combination_catalog_and_retail_merchant'
+      | 'direct_marketing_inbound_telemarketing'
+      | 'direct_marketing_insurance_services'
+      | 'direct_marketing_other'
+      | 'direct_marketing_outbound_telemarketing'
+      | 'direct_marketing_subscription'
+      | 'direct_marketing_travel'
+      | 'discount_stores'
+      | 'doctors'
+      | 'door_to_door_sales'
+      | 'drapery_window_covering_and_upholstery_stores'
+      | 'drinking_places'
+      | 'drug_stores_and_pharmacies'
+      | 'drugs_drug_proprietaries_and_druggist_sundries'
+      | 'dry_cleaners'
+      | 'durable_goods'
+      | 'duty_free_stores'
+      | 'eating_places_restaurants'
+      | 'educational_services'
+      | 'electric_razor_stores'
+      | 'electrical_parts_and_equipment'
+      | 'electrical_services'
+      | 'electronics_repair_shops'
+      | 'electronics_stores'
+      | 'elementary_secondary_schools'
+      | 'employment_temp_agencies'
+      | 'equipment_rental'
+      | 'exterminating_services'
+      | 'family_clothing_stores'
+      | 'fast_food_restaurants'
+      | 'financial_institutions'
+      | 'fines_government_administrative_entities'
+      | 'fireplace_fireplace_screens_and_accessories_stores'
+      | 'floor_covering_stores'
+      | 'florists'
+      | 'florists_supplies_nursery_stock_and_flowers'
+      | 'freezer_and_locker_meat_provisioners'
+      | 'fuel_dealers_non_automotive'
+      | 'funeral_services_crematories'
+      | 'furniture_home_furnishings_and_equipment_stores_except_appliances'
+      | 'furniture_repair_refinishing'
+      | 'furriers_and_fur_shops'
+      | 'general_services'
+      | 'gift_card_novelty_and_souvenir_shops'
+      | 'glass_paint_and_wallpaper_stores'
+      | 'glassware_crystal_stores'
+      | 'golf_courses_public'
+      | 'government_services'
+      | 'grocery_stores_supermarkets'
+      | 'hardware_equipment_and_supplies'
+      | 'hardware_stores'
+      | 'health_and_beauty_spas'
+      | 'hearing_aids_sales_and_supplies'
+      | 'heating_plumbing_a_c'
+      | 'hobby_toy_and_game_shops'
+      | 'home_supply_warehouse_stores'
+      | 'hospitals'
+      | 'hotels_motels_and_resorts'
+      | 'household_appliance_stores'
+      | 'industrial_supplies'
+      | 'information_retrieval_services'
+      | 'insurance_default'
+      | 'insurance_underwriting_premiums'
+      | 'intra_company_purchases'
+      | 'jewelry_stores_watches_clocks_and_silverware_stores'
+      | 'landscaping_services'
+      | 'laundries'
+      | 'laundry_cleaning_services'
+      | 'legal_services_attorneys'
+      | 'luggage_and_leather_goods_stores'
+      | 'lumber_building_materials_stores'
+      | 'manual_cash_disburse'
+      | 'marinas_service_and_supplies'
+      | 'masonry_stonework_and_plaster'
+      | 'massage_parlors'
+      | 'medical_and_dental_labs'
+      | 'medical_dental_ophthalmic_and_hospital_equipment_and_supplies'
+      | 'medical_services'
+      | 'membership_organizations'
+      | 'mens_and_boys_clothing_and_accessories_stores'
+      | 'mens_womens_clothing_stores'
+      | 'metal_service_centers'
+      | 'miscellaneous'
+      | 'miscellaneous_apparel_and_accessory_shops'
+      | 'miscellaneous_auto_dealers'
+      | 'miscellaneous_business_services'
+      | 'miscellaneous_food_stores'
+      | 'miscellaneous_general_merchandise'
+      | 'miscellaneous_general_services'
+      | 'miscellaneous_home_furnishing_specialty_stores'
+      | 'miscellaneous_publishing_and_printing'
+      | 'miscellaneous_recreation_services'
+      | 'miscellaneous_repair_shops'
+      | 'miscellaneous_specialty_retail'
+      | 'mobile_home_dealers'
+      | 'motion_picture_theaters'
+      | 'motor_freight_carriers_and_trucking'
+      | 'motor_homes_dealers'
+      | 'motor_vehicle_supplies_and_new_parts'
+      | 'motorcycle_shops_and_dealers'
+      | 'motorcycle_shops_dealers'
+      | 'music_stores_musical_instruments_pianos_and_sheet_music'
+      | 'news_dealers_and_newsstands'
+      | 'non_fi_money_orders'
+      | 'non_fi_stored_value_card_purchase_load'
+      | 'nondurable_goods'
+      | 'nurseries_lawn_and_garden_supply_stores'
+      | 'nursing_personal_care'
+      | 'office_and_commercial_furniture'
+      | 'opticians_eyeglasses'
+      | 'optometrists_ophthalmologist'
+      | 'orthopedic_goods_prosthetic_devices'
+      | 'osteopaths'
+      | 'package_stores_beer_wine_and_liquor'
+      | 'paints_varnishes_and_supplies'
+      | 'parking_lots_garages'
+      | 'passenger_railways'
+      | 'pawn_shops'
+      | 'pet_shops_pet_food_and_supplies'
+      | 'petroleum_and_petroleum_products'
+      | 'photo_developing'
+      | 'photographic_photocopy_microfilm_equipment_and_supplies'
+      | 'photographic_studios'
+      | 'picture_video_production'
+      | 'piece_goods_notions_and_other_dry_goods'
+      | 'plumbing_heating_equipment_and_supplies'
+      | 'political_organizations'
+      | 'postal_services_government_only'
+      | 'precious_stones_and_metals_watches_and_jewelry'
+      | 'professional_services'
+      | 'public_warehousing_and_storage'
+      | 'quick_copy_repro_and_blueprint'
+      | 'railroads'
+      | 'real_estate_agents_and_managers_rentals'
+      | 'record_stores'
+      | 'recreational_vehicle_rentals'
+      | 'religious_goods_stores'
+      | 'religious_organizations'
+      | 'roofing_siding_sheet_metal'
+      | 'secretarial_support_services'
+      | 'security_brokers_dealers'
+      | 'service_stations'
+      | 'sewing_needlework_fabric_and_piece_goods_stores'
+      | 'shoe_repair_hat_cleaning'
+      | 'shoe_stores'
+      | 'small_appliance_repair'
+      | 'snowmobile_dealers'
+      | 'special_trade_services'
+      | 'specialty_cleaning'
+      | 'sporting_goods_stores'
+      | 'sporting_recreation_camps'
+      | 'sports_and_riding_apparel_stores'
+      | 'sports_clubs_fields'
+      | 'stamp_and_coin_stores'
+      | 'stationary_office_supplies_printing_and_writing_paper'
+      | 'stationery_stores_office_and_school_supply_stores'
+      | 'swimming_pools_sales'
+      | 't_ui_travel_germany'
+      | 'tailors_alterations'
+      | 'tax_payments_government_agencies'
+      | 'tax_preparation_services'
+      | 'taxicabs_limousines'
+      | 'telecommunication_equipment_and_telephone_sales'
+      | 'telecommunication_services'
+      | 'telegraph_services'
+      | 'tent_and_awning_shops'
+      | 'testing_laboratories'
+      | 'theatrical_ticket_agencies'
+      | 'timeshares'
+      | 'tire_retreading_and_repair'
+      | 'tolls_bridge_fees'
+      | 'tourist_attractions_and_exhibits'
+      | 'towing_services'
+      | 'trailer_parks_campgrounds'
+      | 'transportation_services'
+      | 'travel_agencies_tour_operators'
+      | 'truck_stop_iteration'
+      | 'truck_utility_trailer_rentals'
+      | 'typesetting_plate_making_and_related_services'
+      | 'typewriter_stores'
+      | 'u_s_federal_government_agencies_or_departments'
+      | 'uniforms_commercial_clothing'
+      | 'used_merchandise_and_secondhand_stores'
+      | 'utilities'
+      | 'variety_stores'
+      | 'veterinary_services'
+      | 'video_amusement_game_supplies'
+      | 'video_game_arcades'
+      | 'video_tape_rental_stores'
+      | 'vocational_trade_schools'
+      | 'watch_jewelry_repair'
+      | 'welding_repair'
+      | 'wholesale_clubs'
+      | 'wig_and_toupee_stores'
+      | 'wires_money_orders'
+      | 'womens_accessory_and_specialty_shops'
+      | 'womens_ready_to_wear_stores'
+      | 'wrecking_and_salvage_yards'[];
+    blocked_categories?:
+      | 'ac_refrigeration_repair'
+      | 'accounting_bookkeeping_services'
+      | 'advertising_services'
+      | 'agricultural_cooperative'
+      | 'airlines_air_carriers'
+      | 'airports_flying_fields'
+      | 'ambulance_services'
+      | 'amusement_parks_carnivals'
+      | 'antique_reproductions'
+      | 'antique_shops'
+      | 'aquariums'
+      | 'architectural_surveying_services'
+      | 'art_dealers_and_galleries'
+      | 'artists_supply_and_craft_shops'
+      | 'auto_and_home_supply_stores'
+      | 'auto_body_repair_shops'
+      | 'auto_paint_shops'
+      | 'auto_service_shops'
+      | 'automated_cash_disburse'
+      | 'automated_fuel_dispensers'
+      | 'automobile_associations'
+      | 'automotive_parts_and_accessories_stores'
+      | 'automotive_tire_stores'
+      | 'bail_and_bond_payments'
+      | 'bakeries'
+      | 'bands_orchestras'
+      | 'barber_and_beauty_shops'
+      | 'betting_casino_gambling'
+      | 'bicycle_shops'
+      | 'billiard_pool_establishments'
+      | 'boat_dealers'
+      | 'boat_rentals_and_leases'
+      | 'book_stores'
+      | 'books_periodicals_and_newspapers'
+      | 'bowling_alleys'
+      | 'bus_lines'
+      | 'business_secretarial_schools'
+      | 'buying_shopping_services'
+      | 'cable_satellite_and_other_pay_television_and_radio'
+      | 'camera_and_photographic_supply_stores'
+      | 'candy_nut_and_confectionery_stores'
+      | 'car_and_truck_dealers_new_used'
+      | 'car_and_truck_dealers_used_only'
+      | 'car_rental_agencies'
+      | 'car_washes'
+      | 'carpentry_services'
+      | 'carpet_upholstery_cleaning'
+      | 'caterers'
+      | 'charitable_and_social_service_organizations_fundraising'
+      | 'chemicals_and_allied_products'
+      | 'child_care_services'
+      | 'childrens_and_infants_wear_stores'
+      | 'chiropodists_podiatrists'
+      | 'chiropractors'
+      | 'cigar_stores_and_stands'
+      | 'civic_social_fraternal_associations'
+      | 'cleaning_and_maintenance'
+      | 'clothing_rental'
+      | 'colleges_universities'
+      | 'commercial_equipment'
+      | 'commercial_footwear'
+      | 'commercial_photography_art_and_graphics'
+      | 'commuter_transport_and_ferries'
+      | 'computer_network_services'
+      | 'computer_programming'
+      | 'computer_repair'
+      | 'computer_software_stores'
+      | 'computers_peripherals_and_software'
+      | 'concrete_work_services'
+      | 'construction_materials'
+      | 'consulting_public_relations'
+      | 'correspondence_schools'
+      | 'cosmetic_stores'
+      | 'counseling_services'
+      | 'country_clubs'
+      | 'courier_services'
+      | 'court_costs'
+      | 'credit_reporting_agencies'
+      | 'cruise_lines'
+      | 'dairy_products_stores'
+      | 'dance_hall_studios_schools'
+      | 'dating_escort_services'
+      | 'dentists_orthodontists'
+      | 'department_stores'
+      | 'detective_agencies'
+      | 'digital_goods_applications'
+      | 'digital_goods_games'
+      | 'digital_goods_large_volume'
+      | 'digital_goods_media'
+      | 'direct_marketing_catalog_merchant'
+      | 'direct_marketing_combination_catalog_and_retail_merchant'
+      | 'direct_marketing_inbound_telemarketing'
+      | 'direct_marketing_insurance_services'
+      | 'direct_marketing_other'
+      | 'direct_marketing_outbound_telemarketing'
+      | 'direct_marketing_subscription'
+      | 'direct_marketing_travel'
+      | 'discount_stores'
+      | 'doctors'
+      | 'door_to_door_sales'
+      | 'drapery_window_covering_and_upholstery_stores'
+      | 'drinking_places'
+      | 'drug_stores_and_pharmacies'
+      | 'drugs_drug_proprietaries_and_druggist_sundries'
+      | 'dry_cleaners'
+      | 'durable_goods'
+      | 'duty_free_stores'
+      | 'eating_places_restaurants'
+      | 'educational_services'
+      | 'electric_razor_stores'
+      | 'electrical_parts_and_equipment'
+      | 'electrical_services'
+      | 'electronics_repair_shops'
+      | 'electronics_stores'
+      | 'elementary_secondary_schools'
+      | 'employment_temp_agencies'
+      | 'equipment_rental'
+      | 'exterminating_services'
+      | 'family_clothing_stores'
+      | 'fast_food_restaurants'
+      | 'financial_institutions'
+      | 'fines_government_administrative_entities'
+      | 'fireplace_fireplace_screens_and_accessories_stores'
+      | 'floor_covering_stores'
+      | 'florists'
+      | 'florists_supplies_nursery_stock_and_flowers'
+      | 'freezer_and_locker_meat_provisioners'
+      | 'fuel_dealers_non_automotive'
+      | 'funeral_services_crematories'
+      | 'furniture_home_furnishings_and_equipment_stores_except_appliances'
+      | 'furniture_repair_refinishing'
+      | 'furriers_and_fur_shops'
+      | 'general_services'
+      | 'gift_card_novelty_and_souvenir_shops'
+      | 'glass_paint_and_wallpaper_stores'
+      | 'glassware_crystal_stores'
+      | 'golf_courses_public'
+      | 'government_services'
+      | 'grocery_stores_supermarkets'
+      | 'hardware_equipment_and_supplies'
+      | 'hardware_stores'
+      | 'health_and_beauty_spas'
+      | 'hearing_aids_sales_and_supplies'
+      | 'heating_plumbing_a_c'
+      | 'hobby_toy_and_game_shops'
+      | 'home_supply_warehouse_stores'
+      | 'hospitals'
+      | 'hotels_motels_and_resorts'
+      | 'household_appliance_stores'
+      | 'industrial_supplies'
+      | 'information_retrieval_services'
+      | 'insurance_default'
+      | 'insurance_underwriting_premiums'
+      | 'intra_company_purchases'
+      | 'jewelry_stores_watches_clocks_and_silverware_stores'
+      | 'landscaping_services'
+      | 'laundries'
+      | 'laundry_cleaning_services'
+      | 'legal_services_attorneys'
+      | 'luggage_and_leather_goods_stores'
+      | 'lumber_building_materials_stores'
+      | 'manual_cash_disburse'
+      | 'marinas_service_and_supplies'
+      | 'masonry_stonework_and_plaster'
+      | 'massage_parlors'
+      | 'medical_and_dental_labs'
+      | 'medical_dental_ophthalmic_and_hospital_equipment_and_supplies'
+      | 'medical_services'
+      | 'membership_organizations'
+      | 'mens_and_boys_clothing_and_accessories_stores'
+      | 'mens_womens_clothing_stores'
+      | 'metal_service_centers'
+      | 'miscellaneous'
+      | 'miscellaneous_apparel_and_accessory_shops'
+      | 'miscellaneous_auto_dealers'
+      | 'miscellaneous_business_services'
+      | 'miscellaneous_food_stores'
+      | 'miscellaneous_general_merchandise'
+      | 'miscellaneous_general_services'
+      | 'miscellaneous_home_furnishing_specialty_stores'
+      | 'miscellaneous_publishing_and_printing'
+      | 'miscellaneous_recreation_services'
+      | 'miscellaneous_repair_shops'
+      | 'miscellaneous_specialty_retail'
+      | 'mobile_home_dealers'
+      | 'motion_picture_theaters'
+      | 'motor_freight_carriers_and_trucking'
+      | 'motor_homes_dealers'
+      | 'motor_vehicle_supplies_and_new_parts'
+      | 'motorcycle_shops_and_dealers'
+      | 'motorcycle_shops_dealers'
+      | 'music_stores_musical_instruments_pianos_and_sheet_music'
+      | 'news_dealers_and_newsstands'
+      | 'non_fi_money_orders'
+      | 'non_fi_stored_value_card_purchase_load'
+      | 'nondurable_goods'
+      | 'nurseries_lawn_and_garden_supply_stores'
+      | 'nursing_personal_care'
+      | 'office_and_commercial_furniture'
+      | 'opticians_eyeglasses'
+      | 'optometrists_ophthalmologist'
+      | 'orthopedic_goods_prosthetic_devices'
+      | 'osteopaths'
+      | 'package_stores_beer_wine_and_liquor'
+      | 'paints_varnishes_and_supplies'
+      | 'parking_lots_garages'
+      | 'passenger_railways'
+      | 'pawn_shops'
+      | 'pet_shops_pet_food_and_supplies'
+      | 'petroleum_and_petroleum_products'
+      | 'photo_developing'
+      | 'photographic_photocopy_microfilm_equipment_and_supplies'
+      | 'photographic_studios'
+      | 'picture_video_production'
+      | 'piece_goods_notions_and_other_dry_goods'
+      | 'plumbing_heating_equipment_and_supplies'
+      | 'political_organizations'
+      | 'postal_services_government_only'
+      | 'precious_stones_and_metals_watches_and_jewelry'
+      | 'professional_services'
+      | 'public_warehousing_and_storage'
+      | 'quick_copy_repro_and_blueprint'
+      | 'railroads'
+      | 'real_estate_agents_and_managers_rentals'
+      | 'record_stores'
+      | 'recreational_vehicle_rentals'
+      | 'religious_goods_stores'
+      | 'religious_organizations'
+      | 'roofing_siding_sheet_metal'
+      | 'secretarial_support_services'
+      | 'security_brokers_dealers'
+      | 'service_stations'
+      | 'sewing_needlework_fabric_and_piece_goods_stores'
+      | 'shoe_repair_hat_cleaning'
+      | 'shoe_stores'
+      | 'small_appliance_repair'
+      | 'snowmobile_dealers'
+      | 'special_trade_services'
+      | 'specialty_cleaning'
+      | 'sporting_goods_stores'
+      | 'sporting_recreation_camps'
+      | 'sports_and_riding_apparel_stores'
+      | 'sports_clubs_fields'
+      | 'stamp_and_coin_stores'
+      | 'stationary_office_supplies_printing_and_writing_paper'
+      | 'stationery_stores_office_and_school_supply_stores'
+      | 'swimming_pools_sales'
+      | 't_ui_travel_germany'
+      | 'tailors_alterations'
+      | 'tax_payments_government_agencies'
+      | 'tax_preparation_services'
+      | 'taxicabs_limousines'
+      | 'telecommunication_equipment_and_telephone_sales'
+      | 'telecommunication_services'
+      | 'telegraph_services'
+      | 'tent_and_awning_shops'
+      | 'testing_laboratories'
+      | 'theatrical_ticket_agencies'
+      | 'timeshares'
+      | 'tire_retreading_and_repair'
+      | 'tolls_bridge_fees'
+      | 'tourist_attractions_and_exhibits'
+      | 'towing_services'
+      | 'trailer_parks_campgrounds'
+      | 'transportation_services'
+      | 'travel_agencies_tour_operators'
+      | 'truck_stop_iteration'
+      | 'truck_utility_trailer_rentals'
+      | 'typesetting_plate_making_and_related_services'
+      | 'typewriter_stores'
+      | 'u_s_federal_government_agencies_or_departments'
+      | 'uniforms_commercial_clothing'
+      | 'used_merchandise_and_secondhand_stores'
+      | 'utilities'
+      | 'variety_stores'
+      | 'veterinary_services'
+      | 'video_amusement_game_supplies'
+      | 'video_game_arcades'
+      | 'video_tape_rental_stores'
+      | 'vocational_trade_schools'
+      | 'watch_jewelry_repair'
+      | 'welding_repair'
+      | 'wholesale_clubs'
+      | 'wig_and_toupee_stores'
+      | 'wires_money_orders'
+      | 'womens_accessory_and_specialty_shops'
+      | 'womens_ready_to_wear_stores'
+      | 'wrecking_and_salvage_yards'[];
+    spending_limits?: definitions['issuing_cardholder_spending_limit'][];
+    spending_limits_currency?: string;
+  };
+  issuing_cardholder_company: { tax_id_provided: boolean };
+  issuing_cardholder_id_document: { back?: string; front?: string };
+  issuing_cardholder_individual: {
+    dob?: definitions['issuing_cardholder_individual_dob'];
+    first_name: string;
+    last_name: string;
+    verification?: definitions['issuing_cardholder_verification'];
+  };
+  issuing_cardholder_individual_dob: {
+    day?: number;
+    month?: number;
+    year?: number;
+  };
+  issuing_cardholder_requirements: {
+    disabled_reason?: 'listed' | 'rejected.listed' | 'under_review';
+    past_due?:
+      | 'individual.dob.day'
+      | 'individual.dob.month'
+      | 'individual.dob.year'
+      | 'individual.first_name'
+      | 'individual.last_name'
+      | 'individual.verification.document'[];
+  };
+  issuing_cardholder_spending_limit: {
+    amount: number;
+    categories?:
+      | 'ac_refrigeration_repair'
+      | 'accounting_bookkeeping_services'
+      | 'advertising_services'
+      | 'agricultural_cooperative'
+      | 'airlines_air_carriers'
+      | 'airports_flying_fields'
+      | 'ambulance_services'
+      | 'amusement_parks_carnivals'
+      | 'antique_reproductions'
+      | 'antique_shops'
+      | 'aquariums'
+      | 'architectural_surveying_services'
+      | 'art_dealers_and_galleries'
+      | 'artists_supply_and_craft_shops'
+      | 'auto_and_home_supply_stores'
+      | 'auto_body_repair_shops'
+      | 'auto_paint_shops'
+      | 'auto_service_shops'
+      | 'automated_cash_disburse'
+      | 'automated_fuel_dispensers'
+      | 'automobile_associations'
+      | 'automotive_parts_and_accessories_stores'
+      | 'automotive_tire_stores'
+      | 'bail_and_bond_payments'
+      | 'bakeries'
+      | 'bands_orchestras'
+      | 'barber_and_beauty_shops'
+      | 'betting_casino_gambling'
+      | 'bicycle_shops'
+      | 'billiard_pool_establishments'
+      | 'boat_dealers'
+      | 'boat_rentals_and_leases'
+      | 'book_stores'
+      | 'books_periodicals_and_newspapers'
+      | 'bowling_alleys'
+      | 'bus_lines'
+      | 'business_secretarial_schools'
+      | 'buying_shopping_services'
+      | 'cable_satellite_and_other_pay_television_and_radio'
+      | 'camera_and_photographic_supply_stores'
+      | 'candy_nut_and_confectionery_stores'
+      | 'car_and_truck_dealers_new_used'
+      | 'car_and_truck_dealers_used_only'
+      | 'car_rental_agencies'
+      | 'car_washes'
+      | 'carpentry_services'
+      | 'carpet_upholstery_cleaning'
+      | 'caterers'
+      | 'charitable_and_social_service_organizations_fundraising'
+      | 'chemicals_and_allied_products'
+      | 'child_care_services'
+      | 'childrens_and_infants_wear_stores'
+      | 'chiropodists_podiatrists'
+      | 'chiropractors'
+      | 'cigar_stores_and_stands'
+      | 'civic_social_fraternal_associations'
+      | 'cleaning_and_maintenance'
+      | 'clothing_rental'
+      | 'colleges_universities'
+      | 'commercial_equipment'
+      | 'commercial_footwear'
+      | 'commercial_photography_art_and_graphics'
+      | 'commuter_transport_and_ferries'
+      | 'computer_network_services'
+      | 'computer_programming'
+      | 'computer_repair'
+      | 'computer_software_stores'
+      | 'computers_peripherals_and_software'
+      | 'concrete_work_services'
+      | 'construction_materials'
+      | 'consulting_public_relations'
+      | 'correspondence_schools'
+      | 'cosmetic_stores'
+      | 'counseling_services'
+      | 'country_clubs'
+      | 'courier_services'
+      | 'court_costs'
+      | 'credit_reporting_agencies'
+      | 'cruise_lines'
+      | 'dairy_products_stores'
+      | 'dance_hall_studios_schools'
+      | 'dating_escort_services'
+      | 'dentists_orthodontists'
+      | 'department_stores'
+      | 'detective_agencies'
+      | 'digital_goods_applications'
+      | 'digital_goods_games'
+      | 'digital_goods_large_volume'
+      | 'digital_goods_media'
+      | 'direct_marketing_catalog_merchant'
+      | 'direct_marketing_combination_catalog_and_retail_merchant'
+      | 'direct_marketing_inbound_telemarketing'
+      | 'direct_marketing_insurance_services'
+      | 'direct_marketing_other'
+      | 'direct_marketing_outbound_telemarketing'
+      | 'direct_marketing_subscription'
+      | 'direct_marketing_travel'
+      | 'discount_stores'
+      | 'doctors'
+      | 'door_to_door_sales'
+      | 'drapery_window_covering_and_upholstery_stores'
+      | 'drinking_places'
+      | 'drug_stores_and_pharmacies'
+      | 'drugs_drug_proprietaries_and_druggist_sundries'
+      | 'dry_cleaners'
+      | 'durable_goods'
+      | 'duty_free_stores'
+      | 'eating_places_restaurants'
+      | 'educational_services'
+      | 'electric_razor_stores'
+      | 'electrical_parts_and_equipment'
+      | 'electrical_services'
+      | 'electronics_repair_shops'
+      | 'electronics_stores'
+      | 'elementary_secondary_schools'
+      | 'employment_temp_agencies'
+      | 'equipment_rental'
+      | 'exterminating_services'
+      | 'family_clothing_stores'
+      | 'fast_food_restaurants'
+      | 'financial_institutions'
+      | 'fines_government_administrative_entities'
+      | 'fireplace_fireplace_screens_and_accessories_stores'
+      | 'floor_covering_stores'
+      | 'florists'
+      | 'florists_supplies_nursery_stock_and_flowers'
+      | 'freezer_and_locker_meat_provisioners'
+      | 'fuel_dealers_non_automotive'
+      | 'funeral_services_crematories'
+      | 'furniture_home_furnishings_and_equipment_stores_except_appliances'
+      | 'furniture_repair_refinishing'
+      | 'furriers_and_fur_shops'
+      | 'general_services'
+      | 'gift_card_novelty_and_souvenir_shops'
+      | 'glass_paint_and_wallpaper_stores'
+      | 'glassware_crystal_stores'
+      | 'golf_courses_public'
+      | 'government_services'
+      | 'grocery_stores_supermarkets'
+      | 'hardware_equipment_and_supplies'
+      | 'hardware_stores'
+      | 'health_and_beauty_spas'
+      | 'hearing_aids_sales_and_supplies'
+      | 'heating_plumbing_a_c'
+      | 'hobby_toy_and_game_shops'
+      | 'home_supply_warehouse_stores'
+      | 'hospitals'
+      | 'hotels_motels_and_resorts'
+      | 'household_appliance_stores'
+      | 'industrial_supplies'
+      | 'information_retrieval_services'
+      | 'insurance_default'
+      | 'insurance_underwriting_premiums'
+      | 'intra_company_purchases'
+      | 'jewelry_stores_watches_clocks_and_silverware_stores'
+      | 'landscaping_services'
+      | 'laundries'
+      | 'laundry_cleaning_services'
+      | 'legal_services_attorneys'
+      | 'luggage_and_leather_goods_stores'
+      | 'lumber_building_materials_stores'
+      | 'manual_cash_disburse'
+      | 'marinas_service_and_supplies'
+      | 'masonry_stonework_and_plaster'
+      | 'massage_parlors'
+      | 'medical_and_dental_labs'
+      | 'medical_dental_ophthalmic_and_hospital_equipment_and_supplies'
+      | 'medical_services'
+      | 'membership_organizations'
+      | 'mens_and_boys_clothing_and_accessories_stores'
+      | 'mens_womens_clothing_stores'
+      | 'metal_service_centers'
+      | 'miscellaneous'
+      | 'miscellaneous_apparel_and_accessory_shops'
+      | 'miscellaneous_auto_dealers'
+      | 'miscellaneous_business_services'
+      | 'miscellaneous_food_stores'
+      | 'miscellaneous_general_merchandise'
+      | 'miscellaneous_general_services'
+      | 'miscellaneous_home_furnishing_specialty_stores'
+      | 'miscellaneous_publishing_and_printing'
+      | 'miscellaneous_recreation_services'
+      | 'miscellaneous_repair_shops'
+      | 'miscellaneous_specialty_retail'
+      | 'mobile_home_dealers'
+      | 'motion_picture_theaters'
+      | 'motor_freight_carriers_and_trucking'
+      | 'motor_homes_dealers'
+      | 'motor_vehicle_supplies_and_new_parts'
+      | 'motorcycle_shops_and_dealers'
+      | 'motorcycle_shops_dealers'
+      | 'music_stores_musical_instruments_pianos_and_sheet_music'
+      | 'news_dealers_and_newsstands'
+      | 'non_fi_money_orders'
+      | 'non_fi_stored_value_card_purchase_load'
+      | 'nondurable_goods'
+      | 'nurseries_lawn_and_garden_supply_stores'
+      | 'nursing_personal_care'
+      | 'office_and_commercial_furniture'
+      | 'opticians_eyeglasses'
+      | 'optometrists_ophthalmologist'
+      | 'orthopedic_goods_prosthetic_devices'
+      | 'osteopaths'
+      | 'package_stores_beer_wine_and_liquor'
+      | 'paints_varnishes_and_supplies'
+      | 'parking_lots_garages'
+      | 'passenger_railways'
+      | 'pawn_shops'
+      | 'pet_shops_pet_food_and_supplies'
+      | 'petroleum_and_petroleum_products'
+      | 'photo_developing'
+      | 'photographic_photocopy_microfilm_equipment_and_supplies'
+      | 'photographic_studios'
+      | 'picture_video_production'
+      | 'piece_goods_notions_and_other_dry_goods'
+      | 'plumbing_heating_equipment_and_supplies'
+      | 'political_organizations'
+      | 'postal_services_government_only'
+      | 'precious_stones_and_metals_watches_and_jewelry'
+      | 'professional_services'
+      | 'public_warehousing_and_storage'
+      | 'quick_copy_repro_and_blueprint'
+      | 'railroads'
+      | 'real_estate_agents_and_managers_rentals'
+      | 'record_stores'
+      | 'recreational_vehicle_rentals'
+      | 'religious_goods_stores'
+      | 'religious_organizations'
+      | 'roofing_siding_sheet_metal'
+      | 'secretarial_support_services'
+      | 'security_brokers_dealers'
+      | 'service_stations'
+      | 'sewing_needlework_fabric_and_piece_goods_stores'
+      | 'shoe_repair_hat_cleaning'
+      | 'shoe_stores'
+      | 'small_appliance_repair'
+      | 'snowmobile_dealers'
+      | 'special_trade_services'
+      | 'specialty_cleaning'
+      | 'sporting_goods_stores'
+      | 'sporting_recreation_camps'
+      | 'sports_and_riding_apparel_stores'
+      | 'sports_clubs_fields'
+      | 'stamp_and_coin_stores'
+      | 'stationary_office_supplies_printing_and_writing_paper'
+      | 'stationery_stores_office_and_school_supply_stores'
+      | 'swimming_pools_sales'
+      | 't_ui_travel_germany'
+      | 'tailors_alterations'
+      | 'tax_payments_government_agencies'
+      | 'tax_preparation_services'
+      | 'taxicabs_limousines'
+      | 'telecommunication_equipment_and_telephone_sales'
+      | 'telecommunication_services'
+      | 'telegraph_services'
+      | 'tent_and_awning_shops'
+      | 'testing_laboratories'
+      | 'theatrical_ticket_agencies'
+      | 'timeshares'
+      | 'tire_retreading_and_repair'
+      | 'tolls_bridge_fees'
+      | 'tourist_attractions_and_exhibits'
+      | 'towing_services'
+      | 'trailer_parks_campgrounds'
+      | 'transportation_services'
+      | 'travel_agencies_tour_operators'
+      | 'truck_stop_iteration'
+      | 'truck_utility_trailer_rentals'
+      | 'typesetting_plate_making_and_related_services'
+      | 'typewriter_stores'
+      | 'u_s_federal_government_agencies_or_departments'
+      | 'uniforms_commercial_clothing'
+      | 'used_merchandise_and_secondhand_stores'
+      | 'utilities'
+      | 'variety_stores'
+      | 'veterinary_services'
+      | 'video_amusement_game_supplies'
+      | 'video_game_arcades'
+      | 'video_tape_rental_stores'
+      | 'vocational_trade_schools'
+      | 'watch_jewelry_repair'
+      | 'welding_repair'
+      | 'wholesale_clubs'
+      | 'wig_and_toupee_stores'
+      | 'wires_money_orders'
+      | 'womens_accessory_and_specialty_shops'
+      | 'womens_ready_to_wear_stores'
+      | 'wrecking_and_salvage_yards'[];
+    interval:
+      | 'all_time'
+      | 'daily'
+      | 'monthly'
+      | 'per_authorization'
+      | 'weekly'
+      | 'yearly';
+  };
+  issuing_cardholder_verification: {
+    document?: definitions['issuing_cardholder_id_document'];
+  };
+  legal_entity_company: {
+    address?: definitions['address'];
+    address_kana?: definitions['legal_entity_japan_address'];
+    address_kanji?: definitions['legal_entity_japan_address'];
+    directors_provided?: boolean;
+    executives_provided?: boolean;
+    name?: string;
+    name_kana?: string;
+    name_kanji?: string;
+    owners_provided?: boolean;
+    phone?: string;
+    structure?:
+      | 'government_instrumentality'
+      | 'governmental_unit'
+      | 'incorporated_non_profit'
+      | 'multi_member_llc'
+      | 'private_corporation'
+      | 'private_partnership'
+      | 'public_corporation'
+      | 'public_partnership'
+      | 'tax_exempt_government_instrumentality'
+      | 'unincorporated_association'
+      | 'unincorporated_non_profit';
+    tax_id_provided?: boolean;
+    tax_id_registrar?: string;
+    vat_id_provided?: boolean;
+    verification?: definitions['legal_entity_company_verification'];
+  };
+  legal_entity_company_verification: {
+    document: definitions['legal_entity_company_verification_document'];
+  };
+  legal_entity_company_verification_document: {
+    back?: string;
+    details?: string;
+    details_code?: string;
+    front?: string;
+  };
+  legal_entity_dob: { day?: number; month?: number; year?: number };
+  legal_entity_japan_address: {
+    city?: string;
+    country?: string;
+    line1?: string;
+    line2?: string;
+    postal_code?: string;
+    state?: string;
+    town?: string;
+  };
+  legal_entity_person_verification: {
+    additional_document?: definitions['legal_entity_person_verification_document'];
+    details?: string;
+    details_code?: string;
+    document?: definitions['legal_entity_person_verification_document'];
+    status: string;
+  };
+  legal_entity_person_verification_document: {
+    back?: string;
+    details?: string;
+    details_code?: string;
+    front?: string;
+  };
+  light_account_logout: { [key: string]: any };
+  line_item: {
+    amount: number;
+    currency: string;
+    description?: string;
+    discountable: boolean;
+    id: string;
+    invoice_item?: string;
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    object: 'line_item';
+    period: definitions['invoice_line_item_period'];
+    plan?: definitions['plan'];
+    proration: boolean;
+    quantity?: number;
+    subscription?: string;
+    subscription_item?: string;
+    tax_amounts?: definitions['invoice_tax_amount'][];
+    tax_rates?: definitions['tax_rate'][];
+    type: 'invoiceitem' | 'subscription';
+  };
+  login_link: { created: number; object: 'login_link'; url: string };
+  mandate: {
+    customer_acceptance: definitions['customer_acceptance'];
+    id: string;
+    livemode: boolean;
+    multi_use?: definitions['mandate_multi_use'];
+    object: 'mandate';
+    payment_method: string;
+    payment_method_details: definitions['mandate_payment_method_details'];
+    single_use?: definitions['mandate_single_use'];
+    status: 'active' | 'inactive' | 'pending';
+    type: 'multi_use' | 'single_use';
+  };
+  mandate_au_becs_debit: { url: string };
+  mandate_multi_use: { [key: string]: any };
+  mandate_payment_method_details: {
+    au_becs_debit?: definitions['mandate_au_becs_debit'];
+    card?: definitions['card_mandate_payment_method_details'];
+    sepa_debit?: definitions['mandate_sepa_debit'];
+    type: string;
+  };
+  mandate_sepa_debit: { reference: string; url: string };
+  mandate_single_use: { amount: number; currency: string };
+  notification_event_data: {
+    object: { [key: string]: any };
+    previous_attributes?: { [key: string]: any };
+  };
+  notification_event_request: { id?: string; idempotency_key?: string };
+  offline_acceptance: { [key: string]: any };
+  online_acceptance: { ip_address?: string; user_agent?: string };
+  order: {
+    amount: number;
+    amount_returned?: number;
+    application?: string;
+    application_fee?: number;
+    charge?: string;
+    created: number;
+    currency: string;
+    customer?: string;
+    email?: string;
+    external_coupon_code?: string;
+    id: string;
+    items: definitions['order_item'][];
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    object: 'order';
+    returns?: {
+      data: definitions['order_return'][];
+      has_more: boolean;
+      object: 'list';
+      url: string;
+    };
+    selected_shipping_method?: string;
+    shipping?: definitions['shipping'];
+    shipping_methods?: definitions['shipping_method'][];
+    status: string;
+    status_transitions?: definitions['status_transitions'];
+    updated?: number;
+    upstream_id?: string;
+  };
+  order_item: {
+    amount: number;
+    currency: string;
+    description: string;
+    object: 'order_item';
+    parent?: string;
+    quantity?: number;
+    type: string;
+  };
+  order_return: {
+    amount: number;
+    created: number;
+    currency: string;
+    id: string;
+    items: definitions['order_item'][];
+    livemode: boolean;
+    object: 'order_return';
+    order?: string;
+    refund?: string;
+  };
+  package_dimensions: {
+    height: number;
+    length: number;
+    weight: number;
+    width: number;
+  };
+  payment_intent: {
+    amount: number;
+    amount_capturable?: number;
+    amount_received?: number;
+    application?: string;
+    application_fee_amount?: number;
+    canceled_at?: number;
+    cancellation_reason?:
+      | 'abandoned'
+      | 'automatic'
+      | 'duplicate'
+      | 'failed_invoice'
+      | 'fraudulent'
+      | 'requested_by_customer'
+      | 'void_invoice';
+    capture_method: 'automatic' | 'manual';
+    charges?: {
+      data: definitions['charge'][];
+      has_more: boolean;
+      object: 'list';
+      url: string;
+    };
+    client_secret?: string;
+    confirmation_method: 'automatic' | 'manual';
+    created: number;
+    currency: string;
+    customer?: string;
+    description?: string;
+    id: string;
+    invoice?: string;
+    last_payment_error?: definitions['api_errors'];
+    livemode: boolean;
+    metadata?: { [key: string]: any };
+    next_action?: definitions['payment_intent_next_action'];
+    object: 'payment_intent';
+    on_behalf_of?: string;
+    payment_method?: string;
+    payment_method_options?: definitions['payment_intent_payment_method_options'];
+    payment_method_types: string[];
+    receipt_email?: string;
+    review?: string;
+    setup_future_usage?: 'off_session' | 'on_session';
+    shipping?: definitions['shipping'];
+    statement_descriptor?: string;
+    statement_descriptor_suffix?: string;
+    status:
+      | 'canceled'
+      | 'processing'
+      | 'requires_action'
+      | 'requires_capture'
+      | 'requires_confirmation'
+      | 'requires_payment_method'
+      | 'succeeded';
+    transfer_data?: definitions['transfer_data'];
+    transfer_group?: string;
+  };
+  payment_intent_next_action: {
+    redirect_to_url?: definitions['payment_intent_next_action_redirect_to_url'];
+    type: string;
+    use_stripe_sdk?: { [key: string]: any };
+  };
+  payment_intent_next_action_redirect_to_url: {
+    return_url?: string;
+    url?: string;
+  };
+  payment_intent_payment_method_options: {
+    card?: definitions['payment_intent_payment_method_options_card'];
+  };
+  payment_intent_payment_method_options_card: {
+    installments?: definitions['payment_method_options_card_installments'];
+    request_three_d_secure?: 'any' | 'automatic' | 'challenge_only';
+  };
+  payment_method: {
+    au_becs_debit?: definitions['payment_method_au_becs_debit'];
+    billing_details: definitions['billing_details'];
+    card?: definitions['payment_method_card'];
+    card_present?: definitions['payment_method_card_present'];
+    created: number;
+    customer?: string;
+    fpx?: definitions['payment_method_fpx'];
+    id: string;
+    ideal?: definitions['payment_method_ideal'];
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    object: 'payment_method';
+    sepa_debit?: definitions['payment_method_sepa_debit'];
+    type: 'au_becs_debit' | 'card' | 'fpx' | 'ideal' | 'sepa_debit';
+  };
+  payment_method_au_becs_debit: {
+    bsb_number?: string;
+    fingerprint?: string;
+    last4?: string;
+  };
+  payment_method_card: {
+    brand: string;
+    checks?: definitions['payment_method_card_checks'];
+    country?: string;
+    exp_month: number;
+    exp_year: number;
+    fingerprint?: string;
+    funding: string;
+    generated_from?: definitions['payment_method_card_generated_card'];
+    last4: string;
+    three_d_secure_usage?: definitions['three_d_secure_usage'];
+    wallet?: definitions['payment_method_card_wallet'];
+  };
+  payment_method_card_checks: {
+    address_line1_check?: string;
+    address_postal_code_check?: string;
+    cvc_check?: string;
+  };
+  payment_method_card_generated_card: {
+    charge?: string;
+    payment_method_details?: definitions['payment_method_details'];
+  };
+  payment_method_card_present: { [key: string]: any };
+  payment_method_card_wallet: {
+    amex_express_checkout?: definitions['payment_method_card_wallet_amex_express_checkout'];
+    apple_pay?: definitions['payment_method_card_wallet_apple_pay'];
+    dynamic_last4?: string;
+    google_pay?: definitions['payment_method_card_wallet_google_pay'];
+    masterpass?: definitions['payment_method_card_wallet_masterpass'];
+    samsung_pay?: definitions['payment_method_card_wallet_samsung_pay'];
+    type:
+      | 'amex_express_checkout'
+      | 'apple_pay'
+      | 'google_pay'
+      | 'masterpass'
+      | 'samsung_pay'
+      | 'visa_checkout';
+    visa_checkout?: definitions['payment_method_card_wallet_visa_checkout'];
+  };
+  payment_method_card_wallet_amex_express_checkout: { [key: string]: any };
+  payment_method_card_wallet_apple_pay: { [key: string]: any };
+  payment_method_card_wallet_google_pay: { [key: string]: any };
+  payment_method_card_wallet_masterpass: {
+    billing_address?: definitions['address'];
+    email?: string;
+    name?: string;
+    shipping_address?: definitions['address'];
+  };
+  payment_method_card_wallet_samsung_pay: { [key: string]: any };
+  payment_method_card_wallet_visa_checkout: {
+    billing_address?: definitions['address'];
+    email?: string;
+    name?: string;
+    shipping_address?: definitions['address'];
+  };
+  payment_method_details: {
+    ach_credit_transfer?: definitions['payment_method_details_ach_credit_transfer'];
+    ach_debit?: definitions['payment_method_details_ach_debit'];
+    alipay?: definitions['payment_method_details_alipay'];
+    au_becs_debit?: definitions['payment_method_details_au_becs_debit'];
+    bancontact?: definitions['payment_method_details_bancontact'];
+    card?: definitions['payment_method_details_card'];
+    card_present?: definitions['payment_method_details_card_present'];
+    eps?: definitions['payment_method_details_eps'];
+    fpx?: definitions['payment_method_details_fpx'];
+    giropay?: definitions['payment_method_details_giropay'];
+    ideal?: definitions['payment_method_details_ideal'];
+    klarna?: definitions['payment_method_details_klarna'];
+    multibanco?: definitions['payment_method_details_multibanco'];
+    p24?: definitions['payment_method_details_p24'];
+    sepa_debit?: definitions['payment_method_details_sepa_debit'];
+    sofort?: definitions['payment_method_details_sofort'];
+    stripe_account?: definitions['payment_method_details_stripe_account'];
+    type: string;
+    wechat?: definitions['payment_method_details_wechat'];
+  };
+  payment_method_details_ach_credit_transfer: {
+    account_number?: string;
+    bank_name?: string;
+    routing_number?: string;
+    swift_code?: string;
+  };
+  payment_method_details_ach_debit: {
+    account_holder_type?: 'company' | 'individual';
+    bank_name?: string;
+    country?: string;
+    fingerprint?: string;
+    last4?: string;
+    routing_number?: string;
+  };
+  payment_method_details_alipay: { [key: string]: any };
+  payment_method_details_au_becs_debit: {
+    bsb_number?: string;
+    fingerprint?: string;
+    last4?: string;
+    mandate?: string;
+  };
+  payment_method_details_bancontact: {
+    bank_code?: string;
+    bank_name?: string;
+    bic?: string;
+    iban_last4?: string;
+    preferred_language?: 'de' | 'en' | 'fr' | 'nl';
+    verified_name?: string;
+  };
+  payment_method_details_card: {
+    brand?: string;
+    checks?: definitions['payment_method_details_card_checks'];
+    country?: string;
+    exp_month?: number;
+    exp_year?: number;
+    fingerprint?: string;
+    funding?: string;
+    installments?: definitions['payment_method_details_card_installments'];
+    last4?: string;
+    network?: string;
+    three_d_secure?: definitions['three_d_secure_details'];
+    wallet?: definitions['payment_method_details_card_wallet'];
+  };
+  payment_method_details_card_checks: {
+    address_line1_check?: string;
+    address_postal_code_check?: string;
+    cvc_check?: string;
+  };
+  payment_method_details_card_installments: {
+    plan?: definitions['payment_method_details_card_installments_plan'];
+  };
+  payment_method_details_card_installments_plan: {
+    count?: number;
+    interval?: 'month';
+    type: 'fixed_count';
+  };
+  payment_method_details_card_present: {
+    brand?: string;
+    country?: string;
+    emv_auth_data?: string;
+    exp_month?: number;
+    exp_year?: number;
+    fingerprint?: string;
+    funding?: string;
+    generated_card?: string;
+    last4?: string;
+    network?: string;
+    read_method?: string;
+    receipt?: definitions['payment_method_details_card_present_receipt'];
+  };
+  payment_method_details_card_present_receipt: {
+    application_cryptogram?: string;
+    application_preferred_name?: string;
+    authorization_code?: string;
+    authorization_response_code?: string;
+    cardholder_verification_method?: string;
+    dedicated_file_name?: string;
+    terminal_verification_results?: string;
+    transaction_status_information?: string;
+  };
+  payment_method_details_card_wallet: {
+    amex_express_checkout?: definitions['payment_method_details_card_wallet_amex_express_checkout'];
+    apple_pay?: definitions['payment_method_details_card_wallet_apple_pay'];
+    dynamic_last4?: string;
+    google_pay?: definitions['payment_method_details_card_wallet_google_pay'];
+    masterpass?: definitions['payment_method_details_card_wallet_masterpass'];
+    samsung_pay?: definitions['payment_method_details_card_wallet_samsung_pay'];
+    type:
+      | 'amex_express_checkout'
+      | 'apple_pay'
+      | 'google_pay'
+      | 'masterpass'
+      | 'samsung_pay'
+      | 'visa_checkout';
+    visa_checkout?: definitions['payment_method_details_card_wallet_visa_checkout'];
+  };
+  payment_method_details_card_wallet_amex_express_checkout: {
+    [key: string]: any;
+  };
+  payment_method_details_card_wallet_apple_pay: { [key: string]: any };
+  payment_method_details_card_wallet_google_pay: { [key: string]: any };
+  payment_method_details_card_wallet_masterpass: {
+    billing_address?: definitions['address'];
+    email?: string;
+    name?: string;
+    shipping_address?: definitions['address'];
+  };
+  payment_method_details_card_wallet_samsung_pay: { [key: string]: any };
+  payment_method_details_card_wallet_visa_checkout: {
+    billing_address?: definitions['address'];
+    email?: string;
+    name?: string;
+    shipping_address?: definitions['address'];
+  };
+  payment_method_details_eps: { verified_name?: string };
+  payment_method_details_fpx: {
+    bank:
+      | 'affin_bank'
+      | 'alliance_bank'
+      | 'ambank'
+      | 'bank_islam'
+      | 'bank_muamalat'
+      | 'bank_rakyat'
+      | 'bsn'
+      | 'cimb'
+      | 'deutsche_bank'
+      | 'hong_leong_bank'
+      | 'hsbc'
+      | 'kfh'
+      | 'maybank2e'
+      | 'maybank2u'
+      | 'ocbc'
+      | 'pb_enterprise'
+      | 'public_bank'
+      | 'rhb'
+      | 'standard_chartered'
+      | 'uob';
+    transaction_id?: string;
+  };
+  payment_method_details_giropay: {
+    bank_code?: string;
+    bank_name?: string;
+    bic?: string;
+    verified_name?: string;
+  };
+  payment_method_details_ideal: {
+    bank?:
+      | 'abn_amro'
+      | 'asn_bank'
+      | 'bunq'
+      | 'handelsbanken'
+      | 'ing'
+      | 'knab'
+      | 'moneyou'
+      | 'rabobank'
+      | 'regiobank'
+      | 'sns_bank'
+      | 'triodos_bank'
+      | 'van_lanschot';
+    bic?:
+      | 'ABNANL2A'
+      | 'ASNBNL21'
+      | 'BUNQNL2A'
+      | 'FVLBNL22'
+      | 'HANDNL2A'
+      | 'INGBNL2A'
+      | 'KNABNL2H'
+      | 'MOYONL21'
+      | 'RABONL2U'
+      | 'RBRBNL21'
+      | 'SNSBNL2A'
+      | 'TRIONL2U';
+    iban_last4?: string;
+    verified_name?: string;
+  };
+  payment_method_details_klarna: { [key: string]: any };
+  payment_method_details_multibanco: { entity?: string; reference?: string };
+  payment_method_details_p24: { reference?: string; verified_name?: string };
+  payment_method_details_sepa_debit: {
+    bank_code?: string;
+    branch_code?: string;
+    country?: string;
+    fingerprint?: string;
+    last4?: string;
+    mandate?: string;
+  };
+  payment_method_details_sofort: {
+    bank_code?: string;
+    bank_name?: string;
+    bic?: string;
+    country?: string;
+    iban_last4?: string;
+    verified_name?: string;
+  };
+  payment_method_details_stripe_account: { [key: string]: any };
+  payment_method_details_wechat: { [key: string]: any };
+  payment_method_fpx: {
+    bank:
+      | 'affin_bank'
+      | 'alliance_bank'
+      | 'ambank'
+      | 'bank_islam'
+      | 'bank_muamalat'
+      | 'bank_rakyat'
+      | 'bsn'
+      | 'cimb'
+      | 'deutsche_bank'
+      | 'hong_leong_bank'
+      | 'hsbc'
+      | 'kfh'
+      | 'maybank2e'
+      | 'maybank2u'
+      | 'ocbc'
+      | 'pb_enterprise'
+      | 'public_bank'
+      | 'rhb'
+      | 'standard_chartered'
+      | 'uob';
+  };
+  payment_method_ideal: {
+    bank?:
+      | 'abn_amro'
+      | 'asn_bank'
+      | 'bunq'
+      | 'handelsbanken'
+      | 'ing'
+      | 'knab'
+      | 'moneyou'
+      | 'rabobank'
+      | 'regiobank'
+      | 'sns_bank'
+      | 'triodos_bank'
+      | 'van_lanschot';
+    bic?:
+      | 'ABNANL2A'
+      | 'ASNBNL21'
+      | 'BUNQNL2A'
+      | 'FVLBNL22'
+      | 'HANDNL2A'
+      | 'INGBNL2A'
+      | 'KNABNL2H'
+      | 'MOYONL21'
+      | 'RABONL2U'
+      | 'RBRBNL21'
+      | 'SNSBNL2A'
+      | 'TRIONL2U';
+  };
+  payment_method_options_card_installments: {
+    available_plans?: definitions['payment_method_details_card_installments_plan'][];
+    enabled: boolean;
+    plan?: definitions['payment_method_details_card_installments_plan'];
+  };
+  payment_method_sepa_debit: {
+    bank_code?: string;
+    branch_code?: string;
+    country?: string;
+    fingerprint?: string;
+    last4?: string;
+  };
+  payment_pages_payment_page_resources_shipping_address_collection: {
+    allowed_countries:
+      | 'AC'
+      | 'AD'
+      | 'AE'
+      | 'AF'
+      | 'AG'
+      | 'AI'
+      | 'AL'
+      | 'AM'
+      | 'AO'
+      | 'AQ'
+      | 'AR'
+      | 'AT'
+      | 'AU'
+      | 'AW'
+      | 'AX'
+      | 'AZ'
+      | 'BA'
+      | 'BB'
+      | 'BD'
+      | 'BE'
+      | 'BF'
+      | 'BG'
+      | 'BH'
+      | 'BI'
+      | 'BJ'
+      | 'BL'
+      | 'BM'
+      | 'BN'
+      | 'BO'
+      | 'BQ'
+      | 'BR'
+      | 'BS'
+      | 'BT'
+      | 'BV'
+      | 'BW'
+      | 'BY'
+      | 'BZ'
+      | 'CA'
+      | 'CD'
+      | 'CF'
+      | 'CG'
+      | 'CH'
+      | 'CI'
+      | 'CK'
+      | 'CL'
+      | 'CM'
+      | 'CN'
+      | 'CO'
+      | 'CR'
+      | 'CV'
+      | 'CW'
+      | 'CY'
+      | 'CZ'
+      | 'DE'
+      | 'DJ'
+      | 'DK'
+      | 'DM'
+      | 'DO'
+      | 'DZ'
+      | 'EC'
+      | 'EE'
+      | 'EG'
+      | 'EH'
+      | 'ER'
+      | 'ES'
+      | 'ET'
+      | 'FI'
+      | 'FJ'
+      | 'FK'
+      | 'FO'
+      | 'FR'
+      | 'GA'
+      | 'GB'
+      | 'GD'
+      | 'GE'
+      | 'GF'
+      | 'GG'
+      | 'GH'
+      | 'GI'
+      | 'GL'
+      | 'GM'
+      | 'GN'
+      | 'GP'
+      | 'GQ'
+      | 'GR'
+      | 'GS'
+      | 'GT'
+      | 'GU'
+      | 'GW'
+      | 'GY'
+      | 'HK'
+      | 'HN'
+      | 'HR'
+      | 'HT'
+      | 'HU'
+      | 'ID'
+      | 'IE'
+      | 'IL'
+      | 'IM'
+      | 'IN'
+      | 'IO'
+      | 'IQ'
+      | 'IS'
+      | 'IT'
+      | 'JE'
+      | 'JM'
+      | 'JO'
+      | 'JP'
+      | 'KE'
+      | 'KG'
+      | 'KH'
+      | 'KI'
+      | 'KM'
+      | 'KN'
+      | 'KR'
+      | 'KW'
+      | 'KY'
+      | 'KZ'
+      | 'LA'
+      | 'LB'
+      | 'LC'
+      | 'LI'
+      | 'LK'
+      | 'LR'
+      | 'LS'
+      | 'LT'
+      | 'LU'
+      | 'LV'
+      | 'LY'
+      | 'MA'
+      | 'MC'
+      | 'MD'
+      | 'ME'
+      | 'MF'
+      | 'MG'
+      | 'MK'
+      | 'ML'
+      | 'MM'
+      | 'MN'
+      | 'MO'
+      | 'MQ'
+      | 'MR'
+      | 'MS'
+      | 'MT'
+      | 'MU'
+      | 'MV'
+      | 'MW'
+      | 'MX'
+      | 'MY'
+      | 'MZ'
+      | 'NA'
+      | 'NC'
+      | 'NE'
+      | 'NG'
+      | 'NI'
+      | 'NL'
+      | 'NO'
+      | 'NP'
+      | 'NR'
+      | 'NU'
+      | 'NZ'
+      | 'OM'
+      | 'PA'
+      | 'PE'
+      | 'PF'
+      | 'PG'
+      | 'PH'
+      | 'PK'
+      | 'PL'
+      | 'PM'
+      | 'PN'
+      | 'PR'
+      | 'PS'
+      | 'PT'
+      | 'PY'
+      | 'QA'
+      | 'RE'
+      | 'RO'
+      | 'RS'
+      | 'RU'
+      | 'RW'
+      | 'SA'
+      | 'SB'
+      | 'SC'
+      | 'SE'
+      | 'SG'
+      | 'SH'
+      | 'SI'
+      | 'SJ'
+      | 'SK'
+      | 'SL'
+      | 'SM'
+      | 'SN'
+      | 'SO'
+      | 'SR'
+      | 'SS'
+      | 'ST'
+      | 'SV'
+      | 'SX'
+      | 'SZ'
+      | 'TA'
+      | 'TC'
+      | 'TD'
+      | 'TF'
+      | 'TG'
+      | 'TH'
+      | 'TJ'
+      | 'TK'
+      | 'TL'
+      | 'TM'
+      | 'TN'
+      | 'TO'
+      | 'TR'
+      | 'TT'
+      | 'TV'
+      | 'TW'
+      | 'TZ'
+      | 'UA'
+      | 'UG'
+      | 'US'
+      | 'UY'
+      | 'UZ'
+      | 'VA'
+      | 'VC'
+      | 'VE'
+      | 'VG'
+      | 'VN'
+      | 'VU'
+      | 'WF'
+      | 'WS'
+      | 'XK'
+      | 'YE'
+      | 'YT'
+      | 'ZA'
+      | 'ZM'
+      | 'ZW'
+      | 'ZZ'[];
+  };
+  payment_source: {
+    id: string;
+    metadata?: { [key: string]: any };
     object: 'account';
-    /**
-     * Whether Stripe can send payouts to this account.
-     */
-    payouts_enabled?: boolean;
-    requirements?: account_requirements;
-    settings?: account_settings;
-    tos_acceptance?: account_tos_acceptance;
-    /**
-     * The Stripe account type. Can be `standard`, `express`, or `custom`.
-     */
-    type?: 'custom' | 'express' | 'standard';
-  }
-  export interface accountExternal_accounts {
-    /**
-     * The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards.
-     */
-    data: bank_account[];
-    /**
-     * True if this list has another page of items after this one that can be fetched.
-     */
-    has_more: boolean;
-    /**
-     * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
-     */
-    object: 'list';
-    /**
-     * The URL where this list can be accessed.
-     */
+  };
+  payout: {
+    amount: number;
+    arrival_date: number;
+    automatic: boolean;
+    balance_transaction?: string;
+    created: number;
+    currency: string;
+    description?: string;
+    destination?: string;
+    failure_balance_transaction?: string;
+    failure_code?: string;
+    failure_message?: string;
+    id: string;
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    method: string;
+    object: 'payout';
+    source_type: string;
+    statement_descriptor?: string;
+    status: string;
+    type: 'bank_account' | 'card';
+  };
+  period: { end?: number; start?: number };
+  person: {
+    account: string;
+    address?: definitions['address'];
+    address_kana?: definitions['legal_entity_japan_address'];
+    address_kanji?: definitions['legal_entity_japan_address'];
+    created: number;
+    dob?: definitions['legal_entity_dob'];
+    email?: string;
+    first_name?: string;
+    first_name_kana?: string;
+    first_name_kanji?: string;
+    gender?: string;
+    id: string;
+    id_number_provided?: boolean;
+    last_name?: string;
+    last_name_kana?: string;
+    last_name_kanji?: string;
+    maiden_name?: string;
+    metadata?: { [key: string]: any };
+    object: 'person';
+    phone?: string;
+    relationship?: definitions['person_relationship'];
+    requirements?: definitions['person_requirements'];
+    ssn_last_4_provided?: boolean;
+    verification?: definitions['legal_entity_person_verification'];
+  };
+  person_relationship: {
+    director?: boolean;
+    executive?: boolean;
+    owner?: boolean;
+    percent_ownership?: number;
+    representative?: boolean;
+    title?: string;
+  };
+  person_requirements: {
+    currently_due: string[];
+    errors?: definitions['account_requirements_error'][];
+    eventually_due: string[];
+    past_due: string[];
+    pending_verification: string[];
+  };
+  plan: {
+    active: boolean;
+    aggregate_usage?: 'last_during_period' | 'last_ever' | 'max' | 'sum';
+    amount?: number;
+    amount_decimal?: string;
+    billing_scheme: 'per_unit' | 'tiered';
+    created: number;
+    currency: string;
+    id: string;
+    interval: 'day' | 'month' | 'week' | 'year';
+    interval_count: number;
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    nickname?: string;
+    object: 'plan';
+    product?: string;
+    tiers?: definitions['plan_tier'][];
+    tiers_mode?: 'graduated' | 'volume';
+    transform_usage?: definitions['transform_usage'];
+    trial_period_days?: number;
+    usage_type: 'licensed' | 'metered';
+  };
+  plan_tier: {
+    flat_amount?: number;
+    flat_amount_decimal?: string;
+    unit_amount?: number;
+    unit_amount_decimal?: string;
+    up_to?: number;
+  };
+  platform_tax_fee: {
+    account: string;
+    id: string;
+    object: 'platform_tax_fee';
+    source_transaction: string;
+    type: string;
+  };
+  product: {
+    active: boolean;
+    attributes?: string[];
+    caption?: string;
+    created: number;
+    deactivate_on?: string[];
+    description?: string;
+    id: string;
+    images: string[];
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    name: string;
+    object: 'product';
+    package_dimensions?: definitions['package_dimensions'];
+    shippable?: boolean;
+    statement_descriptor?: string;
+    type: 'good' | 'service';
+    unit_label?: string;
+    updated: number;
+    url?: string;
+  };
+  'radar.early_fraud_warning': {
+    actionable: boolean;
+    charge: string;
+    created: number;
+    fraud_type: string;
+    id: string;
+    livemode: boolean;
+    object: 'radar.early_fraud_warning';
+  };
+  'radar.value_list': {
+    alias: string;
+    created: number;
+    created_by: string;
+    id: string;
+    item_type:
+      | 'card_bin'
+      | 'card_fingerprint'
+      | 'case_sensitive_string'
+      | 'country'
+      | 'email'
+      | 'ip_address'
+      | 'string';
+    list_items: {
+      data: definitions['radar.value_list_item'][];
+      has_more: boolean;
+      object: 'list';
+      url: string;
+    };
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    name: string;
+    object: 'radar.value_list';
+  };
+  'radar.value_list_item': {
+    created: number;
+    created_by: string;
+    id: string;
+    livemode: boolean;
+    object: 'radar.value_list_item';
+    value: string;
+    value_list: string;
+  };
+  radar_review_resource_location: {
+    city?: string;
+    country?: string;
+    latitude?: number;
+    longitude?: number;
+    region?: string;
+  };
+  radar_review_resource_session: {
+    browser?: string;
+    device?: string;
+    platform?: string;
+    version?: string;
+  };
+  recipient: {
+    active_account?: definitions['bank_account'];
+    cards?: {
+      data: definitions['card'][];
+      has_more: boolean;
+      object: 'list';
+      url: string;
+    };
+    created: number;
+    default_card?: string;
+    description?: string;
+    email?: string;
+    id: string;
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    migrated_to?: string;
+    name?: string;
+    object: 'recipient';
+    rolled_back_from?: string;
+    type: string;
+  };
+  refund: {
+    amount: number;
+    balance_transaction?: string;
+    charge?: string;
+    created: number;
+    currency: string;
+    description?: string;
+    failure_balance_transaction?: string;
+    failure_reason?: string;
+    id: string;
+    metadata: { [key: string]: any };
+    object: 'refund';
+    payment_intent?: string;
+    reason?: string;
+    receipt_number?: string;
+    source_transfer_reversal?: string;
+    status?: string;
+    transfer_reversal?: string;
+  };
+  'reporting.report_run': {
+    created: number;
+    error?: string;
+    id: string;
+    livemode: boolean;
+    object: 'reporting.report_run';
+    parameters: definitions['financial_reporting_finance_report_run_run_parameters'];
+    report_type: string;
+    result?: definitions['file'];
+    status: string;
+    succeeded_at?: number;
+  };
+  'reporting.report_type': {
+    data_available_end: number;
+    data_available_start: number;
+    default_columns?: string[];
+    id: string;
+    name: string;
+    object: 'reporting.report_type';
+    updated: number;
+    version: number;
+  };
+  reserve_transaction: {
+    amount: number;
+    currency: string;
+    description?: string;
+    id: string;
+    object: 'reserve_transaction';
+  };
+  review: {
+    billing_zip?: string;
+    charge?: string;
+    closed_reason?: 'approved' | 'disputed' | 'refunded' | 'refunded_as_fraud';
+    created: number;
+    id: string;
+    ip_address?: string;
+    ip_address_location?: definitions['radar_review_resource_location'];
+    livemode: boolean;
+    object: 'review';
+    open: boolean;
+    opened_reason: 'manual' | 'rule';
+    payment_intent?: string;
+    reason: string;
+    session?: definitions['radar_review_resource_session'];
+  };
+  rule: { action: string; id: string; predicate: string };
+  scheduled_query_run: {
+    created: number;
+    data_load_time: number;
+    error?: definitions['sigma_scheduled_query_run_error'];
+    file?: definitions['file'];
+    id: string;
+    livemode: boolean;
+    object: 'scheduled_query_run';
+    result_available_until: number;
+    sql: string;
+    status: string;
+    title: string;
+  };
+  setup_intent: {
+    application?: string;
+    cancellation_reason?: 'abandoned' | 'duplicate' | 'requested_by_customer';
+    client_secret?: string;
+    created: number;
+    customer?: string;
+    description?: string;
+    id: string;
+    last_setup_error?: definitions['api_errors'];
+    livemode: boolean;
+    mandate?: string;
+    metadata?: { [key: string]: any };
+    next_action?: definitions['setup_intent_next_action'];
+    object: 'setup_intent';
+    on_behalf_of?: string;
+    payment_method?: string;
+    payment_method_options?: definitions['setup_intent_payment_method_options'];
+    payment_method_types: string[];
+    single_use_mandate?: string;
+    status:
+      | 'canceled'
+      | 'processing'
+      | 'requires_action'
+      | 'requires_confirmation'
+      | 'requires_payment_method'
+      | 'succeeded';
+    usage: string;
+  };
+  setup_intent_next_action: {
+    redirect_to_url?: definitions['setup_intent_next_action_redirect_to_url'];
+    type: string;
+    use_stripe_sdk?: { [key: string]: any };
+  };
+  setup_intent_next_action_redirect_to_url: {
+    return_url?: string;
+    url?: string;
+  };
+  setup_intent_payment_method_options: {
+    card?: definitions['setup_intent_payment_method_options_card'];
+  };
+  setup_intent_payment_method_options_card: {
+    request_three_d_secure?: 'any' | 'automatic' | 'challenge_only';
+  };
+  shipping: {
+    address?: definitions['address'];
+    carrier?: string;
+    name?: string;
+    phone?: string;
+    tracking_number?: string;
+  };
+  shipping_method: {
+    amount: number;
+    currency: string;
+    delivery_estimate?: definitions['delivery_estimate'];
+    description: string;
+    id: string;
+  };
+  sigma_scheduled_query_run_error: { message: string };
+  sku: {
+    active: boolean;
+    attributes: { [key: string]: any };
+    created: number;
+    currency: string;
+    id: string;
+    image?: string;
+    inventory: definitions['inventory'];
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    object: 'sku';
+    package_dimensions?: definitions['package_dimensions'];
+    price: number;
+    product: string;
+    updated: number;
+  };
+  source: {
+    ach_credit_transfer?: definitions['source_type_ach_credit_transfer'];
+    ach_debit?: definitions['source_type_ach_debit'];
+    alipay?: definitions['source_type_alipay'];
+    amount?: number;
+    au_becs_debit?: definitions['source_type_au_becs_debit'];
+    bancontact?: definitions['source_type_bancontact'];
+    card?: definitions['source_type_card'];
+    card_present?: definitions['source_type_card_present'];
+    client_secret: string;
+    code_verification?: definitions['source_code_verification_flow'];
+    created: number;
+    currency?: string;
+    customer?: string;
+    eps?: definitions['source_type_eps'];
+    flow: string;
+    giropay?: definitions['source_type_giropay'];
+    id: string;
+    ideal?: definitions['source_type_ideal'];
+    klarna?: definitions['source_type_klarna'];
+    livemode: boolean;
+    metadata?: { [key: string]: any };
+    multibanco?: definitions['source_type_multibanco'];
+    object: 'source';
+    owner?: definitions['source_owner'];
+    p24?: definitions['source_type_p24'];
+    receiver?: definitions['source_receiver_flow'];
+    redirect?: definitions['source_redirect_flow'];
+    sepa_debit?: definitions['source_type_sepa_debit'];
+    sofort?: definitions['source_type_sofort'];
+    source_order?: definitions['source_order'];
+    statement_descriptor?: string;
+    status: string;
+    three_d_secure?: definitions['source_type_three_d_secure'];
+    type:
+      | 'ach_credit_transfer'
+      | 'ach_debit'
+      | 'alipay'
+      | 'au_becs_debit'
+      | 'bancontact'
+      | 'card'
+      | 'card_present'
+      | 'eps'
+      | 'giropay'
+      | 'ideal'
+      | 'klarna'
+      | 'multibanco'
+      | 'p24'
+      | 'sepa_debit'
+      | 'sofort'
+      | 'three_d_secure'
+      | 'wechat';
+    usage?: string;
+    wechat?: definitions['source_type_wechat'];
+  };
+  source_code_verification_flow: { attempts_remaining: number; status: string };
+  source_mandate_notification: {
+    amount?: number;
+    bacs_debit?: definitions['source_mandate_notification_bacs_debit_data'];
+    created: number;
+    id: string;
+    livemode: boolean;
+    object: 'source_mandate_notification';
+    reason: string;
+    sepa_debit?: definitions['source_mandate_notification_sepa_debit_data'];
+    source: definitions['source'];
+    status: string;
+    type: string;
+  };
+  source_mandate_notification_bacs_debit_data: { last4?: string };
+  source_mandate_notification_sepa_debit_data: {
+    creditor_identifier?: string;
+    last4?: string;
+    mandate_reference?: string;
+  };
+  source_order: {
+    amount: number;
+    currency: string;
+    email?: string;
+    items?: definitions['source_order_item'][];
+    shipping?: definitions['shipping'];
+  };
+  source_order_item: {
+    amount?: number;
+    currency?: string;
+    description?: string;
+    quantity?: number;
+    type?: string;
+  };
+  source_owner: {
+    address?: definitions['address'];
+    email?: string;
+    name?: string;
+    phone?: string;
+    verified_address?: definitions['address'];
+    verified_email?: string;
+    verified_name?: string;
+    verified_phone?: string;
+  };
+  source_receiver_flow: {
+    address?: string;
+    amount_charged: number;
+    amount_received: number;
+    amount_returned: number;
+    refund_attributes_method: string;
+    refund_attributes_status: string;
+  };
+  source_redirect_flow: {
+    failure_reason?: string;
+    return_url: string;
+    status: string;
     url: string;
-  }
+  };
+  source_transaction: {
+    ach_credit_transfer?: definitions['source_transaction_ach_credit_transfer_data'];
+    amount: number;
+    chf_credit_transfer?: definitions['source_transaction_chf_credit_transfer_data'];
+    created: number;
+    currency: string;
+    gbp_credit_transfer?: definitions['source_transaction_gbp_credit_transfer_data'];
+    id: string;
+    livemode: boolean;
+    object: 'source_transaction';
+    paper_check?: definitions['source_transaction_paper_check_data'];
+    sepa_credit_transfer?: definitions['source_transaction_sepa_credit_transfer_data'];
+    source: string;
+    status: string;
+    type:
+      | 'ach_credit_transfer'
+      | 'ach_debit'
+      | 'alipay'
+      | 'bancontact'
+      | 'card'
+      | 'card_present'
+      | 'eps'
+      | 'giropay'
+      | 'ideal'
+      | 'klarna'
+      | 'multibanco'
+      | 'p24'
+      | 'sepa_debit'
+      | 'sofort'
+      | 'three_d_secure'
+      | 'wechat';
+  };
+  source_transaction_ach_credit_transfer_data: {
+    customer_data?: string;
+    fingerprint?: string;
+    last4?: string;
+    routing_number?: string;
+  };
+  source_transaction_chf_credit_transfer_data: {
+    reference?: string;
+    sender_address_country?: string;
+    sender_address_line1?: string;
+    sender_iban?: string;
+    sender_name?: string;
+  };
+  source_transaction_gbp_credit_transfer_data: {
+    fingerprint?: string;
+    funding_method?: string;
+    last4?: string;
+    reference?: string;
+    sender_account_number?: string;
+    sender_name?: string;
+    sender_sort_code?: string;
+  };
+  source_transaction_paper_check_data: {
+    available_at?: string;
+    invoices?: string;
+  };
+  source_transaction_sepa_credit_transfer_data: {
+    reference?: string;
+    sender_iban?: string;
+    sender_name?: string;
+  };
+  source_type_ach_credit_transfer: {
+    account_number?: string;
+    bank_name?: string;
+    fingerprint?: string;
+    refund_account_holder_name?: string;
+    refund_account_holder_type?: string;
+    refund_routing_number?: string;
+    routing_number?: string;
+    swift_code?: string;
+  };
+  source_type_ach_debit: {
+    bank_name?: string;
+    country?: string;
+    fingerprint?: string;
+    last4?: string;
+    routing_number?: string;
+    type?: string;
+  };
+  source_type_alipay: {
+    data_string?: string;
+    native_url?: string;
+    statement_descriptor?: string;
+  };
+  source_type_au_becs_debit: {
+    bsb_number?: string;
+    fingerprint?: string;
+    last4?: string;
+  };
+  source_type_bancontact: {
+    bank_code?: string;
+    bank_name?: string;
+    bic?: string;
+    iban_last4?: string;
+    preferred_language?: string;
+    statement_descriptor?: string;
+  };
+  source_type_card: {
+    address_line1_check?: string;
+    address_zip_check?: string;
+    brand?: string;
+    country?: string;
+    cvc_check?: string;
+    dynamic_last4?: string;
+    exp_month?: number;
+    exp_year?: number;
+    fingerprint?: string;
+    funding?: string;
+    last4?: string;
+    name?: string;
+    three_d_secure?: string;
+    tokenization_method?: string;
+  };
+  source_type_card_present: {
+    application_cryptogram?: string;
+    application_preferred_name?: string;
+    authorization_code?: string;
+    authorization_response_code?: string;
+    brand?: string;
+    country?: string;
+    cvm_type?: string;
+    data_type?: string;
+    dedicated_file_name?: string;
+    emv_auth_data?: string;
+    evidence_customer_signature?: string;
+    evidence_transaction_certificate?: string;
+    exp_month?: number;
+    exp_year?: number;
+    fingerprint?: string;
+    funding?: string;
+    last4?: string;
+    pos_device_id?: string;
+    pos_entry_mode?: string;
+    read_method?: string;
+    reader?: string;
+    terminal_verification_results?: string;
+    transaction_status_information?: string;
+  };
+  source_type_eps: { reference?: string; statement_descriptor?: string };
+  source_type_giropay: {
+    bank_code?: string;
+    bank_name?: string;
+    bic?: string;
+    statement_descriptor?: string;
+  };
+  source_type_ideal: {
+    bank?: string;
+    bic?: string;
+    iban_last4?: string;
+    statement_descriptor?: string;
+  };
+  source_type_klarna: {
+    background_image_url?: string;
+    client_token?: string;
+    first_name?: string;
+    last_name?: string;
+    locale?: string;
+    logo_url?: string;
+    page_title?: string;
+    pay_later_asset_urls_descriptive?: string;
+    pay_later_asset_urls_standard?: string;
+    pay_later_name?: string;
+    pay_later_redirect_url?: string;
+    pay_now_asset_urls_descriptive?: string;
+    pay_now_asset_urls_standard?: string;
+    pay_now_name?: string;
+    pay_now_redirect_url?: string;
+    pay_over_time_asset_urls_descriptive?: string;
+    pay_over_time_asset_urls_standard?: string;
+    pay_over_time_name?: string;
+    pay_over_time_redirect_url?: string;
+    payment_method_categories?: string;
+    purchase_country?: string;
+    purchase_type?: string;
+    redirect_url?: string;
+    shipping_first_name?: string;
+    shipping_last_name?: string;
+  };
+  source_type_multibanco: {
+    entity?: string;
+    reference?: string;
+    refund_account_holder_address_city?: string;
+    refund_account_holder_address_country?: string;
+    refund_account_holder_address_line1?: string;
+    refund_account_holder_address_line2?: string;
+    refund_account_holder_address_postal_code?: string;
+    refund_account_holder_address_state?: string;
+    refund_account_holder_name?: string;
+    refund_iban?: string;
+  };
+  source_type_p24: { reference?: string };
+  source_type_sepa_debit: {
+    bank_code?: string;
+    branch_code?: string;
+    country?: string;
+    fingerprint?: string;
+    last4?: string;
+    mandate_reference?: string;
+    mandate_url?: string;
+  };
+  source_type_sofort: {
+    bank_code?: string;
+    bank_name?: string;
+    bic?: string;
+    country?: string;
+    iban_last4?: string;
+    preferred_language?: string;
+    statement_descriptor?: string;
+  };
+  source_type_three_d_secure: {
+    address_line1_check?: string;
+    address_zip_check?: string;
+    authenticated?: boolean;
+    brand?: string;
+    card?: string;
+    country?: string;
+    customer?: string;
+    cvc_check?: string;
+    dynamic_last4?: string;
+    exp_month?: number;
+    exp_year?: number;
+    fingerprint?: string;
+    funding?: string;
+    last4?: string;
+    name?: string;
+    three_d_secure?: string;
+    tokenization_method?: string;
+  };
+  source_type_wechat: {
+    prepay_id?: string;
+    qr_code_url?: string;
+    statement_descriptor?: string;
+  };
+  status_transitions: {
+    canceled?: number;
+    fulfiled?: number;
+    paid?: number;
+    returned?: number;
+  };
+  subscription: {
+    application_fee_percent?: number;
+    billing_cycle_anchor: number;
+    billing_thresholds?: definitions['subscription_billing_thresholds'];
+    cancel_at?: number;
+    cancel_at_period_end: boolean;
+    canceled_at?: number;
+    collection_method?: 'charge_automatically' | 'send_invoice';
+    created: number;
+    current_period_end: number;
+    current_period_start: number;
+    customer: string;
+    days_until_due?: number;
+    default_payment_method?: string;
+    default_source?: string;
+    default_tax_rates?: definitions['tax_rate'][];
+    discount?: definitions['discount'];
+    ended_at?: number;
+    id: string;
+    items: {
+      data: definitions['subscription_item'][];
+      has_more: boolean;
+      object: 'list';
+      url: string;
+    };
+    latest_invoice?: string;
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    next_pending_invoice_item_invoice?: number;
+    object: 'subscription';
+    pause_collection?: definitions['subscriptions_resource_pause_collection'];
+    pending_invoice_item_interval?: definitions['subscription_pending_invoice_item_interval'];
+    pending_setup_intent?: string;
+    pending_update?: definitions['subscriptions_resource_pending_update'];
+    plan?: definitions['plan'];
+    quantity?: number;
+    schedule?: string;
+    start_date: number;
+    status:
+      | 'active'
+      | 'canceled'
+      | 'incomplete'
+      | 'incomplete_expired'
+      | 'past_due'
+      | 'trialing'
+      | 'unpaid';
+    tax_percent?: number;
+    trial_end?: number;
+    trial_start?: number;
+  };
+  subscription_billing_thresholds: {
+    amount_gte?: number;
+    reset_billing_cycle_anchor?: boolean;
+  };
+  subscription_item: {
+    billing_thresholds?: definitions['subscription_item_billing_thresholds'];
+    created: number;
+    id: string;
+    metadata: { [key: string]: any };
+    object: 'subscription_item';
+    plan: definitions['plan'];
+    quantity?: number;
+    subscription: string;
+    tax_rates?: definitions['tax_rate'][];
+  };
+  subscription_item_billing_thresholds: { usage_gte?: number };
+  subscription_pending_invoice_item_interval: {
+    interval: 'day' | 'month' | 'week' | 'year';
+    interval_count: number;
+  };
+  subscription_schedule: {
+    canceled_at?: number;
+    completed_at?: number;
+    created: number;
+    current_phase?: definitions['subscription_schedule_current_phase'];
+    customer: string;
+    default_settings: definitions['subscription_schedules_resource_default_settings'];
+    end_behavior: 'cancel' | 'none' | 'release' | 'renew';
+    id: string;
+    livemode: boolean;
+    metadata?: { [key: string]: any };
+    object: 'subscription_schedule';
+    phases: definitions['subscription_schedule_phase_configuration'][];
+    released_at?: number;
+    released_subscription?: string;
+    status: 'active' | 'canceled' | 'completed' | 'not_started' | 'released';
+    subscription?: string;
+  };
+  subscription_schedule_configuration_item: {
+    billing_thresholds?: definitions['subscription_item_billing_thresholds'];
+    plan: string;
+    quantity?: number;
+    tax_rates?: definitions['tax_rate'][];
+  };
+  subscription_schedule_current_phase: { end_date: number; start_date: number };
+  subscription_schedule_phase_configuration: {
+    application_fee_percent?: number;
+    billing_thresholds?: definitions['subscription_billing_thresholds'];
+    collection_method?: 'charge_automatically' | 'send_invoice';
+    coupon?: string;
+    default_payment_method?: string;
+    default_tax_rates?: definitions['tax_rate'][];
+    end_date: number;
+    invoice_settings?: definitions['invoice_setting_subscription_schedule_setting'];
+    plans: definitions['subscription_schedule_configuration_item'][];
+    proration_behavior?: 'always_invoice' | 'create_prorations' | 'none';
+    start_date: number;
+    tax_percent?: number;
+    trial_end?: number;
+  };
+  subscription_schedules_resource_default_settings: {
+    billing_thresholds?: definitions['subscription_billing_thresholds'];
+    collection_method?: 'charge_automatically' | 'send_invoice';
+    default_payment_method?: string;
+    invoice_settings?: definitions['invoice_setting_subscription_schedule_setting'];
+  };
+  subscriptions_resource_pause_collection: {
+    behavior: 'keep_as_draft' | 'mark_uncollectible' | 'void';
+    resumes_at?: number;
+  };
+  subscriptions_resource_pending_update: {
+    billing_cycle_anchor?: number;
+    expires_at: number;
+    subscription_items?: definitions['subscription_item'][];
+    trial_end?: number;
+    trial_from_plan?: boolean;
+  };
+  tax_deducted_at_source: {
+    id: string;
+    object: 'tax_deducted_at_source';
+    period_end: number;
+    period_start: number;
+    tax_deduction_account_number: string;
+  };
+  tax_id: {
+    country?: string;
+    created: number;
+    customer: string;
+    id: string;
+    livemode: boolean;
+    object: 'tax_id';
+    type:
+      | 'au_abn'
+      | 'ca_bn'
+      | 'ca_qst'
+      | 'ch_vat'
+      | 'es_cif'
+      | 'eu_vat'
+      | 'hk_br'
+      | 'in_gst'
+      | 'jp_cn'
+      | 'kr_brn'
+      | 'li_uid'
+      | 'mx_rfc'
+      | 'my_itn'
+      | 'my_sst'
+      | 'no_vat'
+      | 'nz_gst'
+      | 'ru_inn'
+      | 'sg_uen'
+      | 'th_vat'
+      | 'tw_vat'
+      | 'unknown'
+      | 'us_ein'
+      | 'za_vat';
+    value: string;
+    verification: definitions['tax_id_verification'];
+  };
+  tax_id_verification: {
+    status: 'pending' | 'unavailable' | 'unverified' | 'verified';
+    verified_address?: string;
+    verified_name?: string;
+  };
+  tax_rate: {
+    active: boolean;
+    created: number;
+    description?: string;
+    display_name: string;
+    id: string;
+    inclusive: boolean;
+    jurisdiction?: string;
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    object: 'tax_rate';
+    percentage: number;
+  };
+  'terminal.connection_token': {
+    location?: string;
+    object: 'terminal.connection_token';
+    secret: string;
+  };
+  'terminal.location': {
+    address: definitions['address'];
+    display_name: string;
+    id: string;
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    object: 'terminal.location';
+  };
+  'terminal.reader': {
+    device_sw_version?: string;
+    device_type: 'bbpos_chipper2x' | 'verifone_P400';
+    id: string;
+    ip_address?: string;
+    label: string;
+    livemode: boolean;
+    location?: string;
+    metadata: { [key: string]: any };
+    object: 'terminal.reader';
+    serial_number: string;
+    status?: string;
+  };
+  three_d_secure: {
+    amount: number;
+    authenticated: boolean;
+    card: definitions['card'];
+    created: number;
+    currency: string;
+    id: string;
+    livemode: boolean;
+    object: 'three_d_secure';
+    redirect_url?: string;
+    status: string;
+  };
+  three_d_secure_details: {
+    authenticated?: boolean;
+    succeeded?: boolean;
+    version: string;
+  };
+  three_d_secure_usage: { supported: boolean };
+  token: {
+    bank_account?: definitions['bank_account'];
+    card?: definitions['card'];
+    client_ip?: string;
+    created: number;
+    id: string;
+    livemode: boolean;
+    object: 'token';
+    type: string;
+    used: boolean;
+  };
+  topup: {
+    amount: number;
+    balance_transaction?: string;
+    created: number;
+    currency: string;
+    description?: string;
+    expected_availability_date?: number;
+    failure_code?: string;
+    failure_message?: string;
+    id: string;
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    object: 'topup';
+    source: definitions['source'];
+    statement_descriptor?: string;
+    status: 'canceled' | 'failed' | 'pending' | 'reversed' | 'succeeded';
+    transfer_group?: string;
+  };
+  transfer: {
+    amount: number;
+    amount_reversed: number;
+    balance_transaction?: string;
+    created: number;
+    currency: string;
+    description?: string;
+    destination?: string;
+    destination_payment?: string;
+    id: string;
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    object: 'transfer';
+    reversals: {
+      data: definitions['transfer_reversal'][];
+      has_more: boolean;
+      object: 'list';
+      url: string;
+    };
+    reversed: boolean;
+    source_transaction?: string;
+    source_type?: string;
+    transfer_group?: string;
+  };
+  transfer_data: { amount?: number; destination: string };
+  transfer_reversal: {
+    amount: number;
+    balance_transaction?: string;
+    created: number;
+    currency: string;
+    destination_payment_refund?: string;
+    id: string;
+    metadata: { [key: string]: any };
+    object: 'transfer_reversal';
+    source_refund?: string;
+    transfer: string;
+  };
+  transfer_schedule: {
+    delay_days: number;
+    interval: string;
+    monthly_anchor?: number;
+    weekly_anchor?: string;
+  };
+  transform_usage: { divide_by: number; round: 'down' | 'up' };
+  usage_record: {
+    id: string;
+    livemode: boolean;
+    object: 'usage_record';
+    quantity: number;
+    subscription_item: string;
+    timestamp: number;
+  };
+  usage_record_summary: {
+    id: string;
+    invoice?: string;
+    livemode: boolean;
+    object: 'usage_record_summary';
+    period: definitions['period'];
+    subscription_item: string;
+    total_usage: number;
+  };
+  webhook_endpoint: {
+    api_version?: string;
+    application?: string;
+    created: number;
+    enabled_events: string[];
+    id: string;
+    livemode: boolean;
+    metadata: { [key: string]: any };
+    object: 'webhook_endpoint';
+    secret?: string;
+    status: string;
+    url: string;
+  };
 }
