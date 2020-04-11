@@ -6,7 +6,7 @@
 
 🚀 Convert [OpenAPI v2][openapi2] schemas to TypeScript interfaces using Node.js. 
 
-💅 The output is prettyfied with [Prettier][prettier].
+💅 The output is prettified with [Prettier][prettier].
 
 👉 Works for both local and remote resources (filesystem and http).
 
