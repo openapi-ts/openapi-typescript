@@ -4,22 +4,30 @@
 
 # 📘️ swagger-to-ts
 
-Convert [OpenAPI v2][openapi2] schemas to TypeScript interfaces using Node.js. It can handle large
-definition files within milliseconds because it neither validates nor parses; it only transforms the
-bare minimum of what it needs to.
+🚀 Convert [OpenAPI v2][openapi2] schemas to TypeScript interfaces using Node.js. 
 
-💅 Prettifies output with [Prettier][prettier].
+💅 The output is prettyfied with [Prettier][prettier].
+
+👉 Works for both local and remote resources (filesystem and http).
 
 To compare actual generated output, see the [example](./example) folder.
+
+(**swagger-to-ts** can handle large definition files within milliseconds because it neither validates nor parses; it only transforms the bare minimum of what it needs to.)
 
 ## Usage
 
 ### CLI
 
+#### Reading specs from file system
+
 ```bash
 npx @manifoldco/swagger-to-ts schema.yaml --output schema.d.ts
+```
 
-# 🚀 schema.yaml -> schema.d.ts [500ms]
+#### Reading specs from remote resource
+
+```bash
+npx @manifoldco/swagger-to-ts http://myapi.com/schema --output schema.d.ts
 ```
 
 This will save a `schema.d.ts` file in the current folder under the TypeScript
