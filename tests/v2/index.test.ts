@@ -5,24 +5,31 @@ import prettier from 'prettier';
 import { OpenAPI2, Property, OpenAPI2SchemaObject } from '../../src';
 import v2, { PRETTIER_OPTIONS, WARNING_MESSAGE } from '../../src/v2';
 
-// simple snapshot tests with valid schemas to make sure it can generally parse & generate output
-describe('cli', () => {
-  ['manifold', 'stripe'].forEach((file) => {
-    it(file, () => {
-      execSync(`../../pkg/bin/cli.js ${file}.yaml -o ${file}.ts.snap`, {
-        cwd: path.resolve(__dirname),
-      });
-      expect(fs.readFileSync(path.resolve(__dirname, `${file}.ts`), 'utf8')).toBe(
-        fs.readFileSync(path.resolve(__dirname, `${file}.ts.snap`), 'utf8')
-      );
-    });
-  });
-});
-
 // test helper: don’t throw the test due to whitespace differences
 function format(types: string): string {
   return prettier.format([WARNING_MESSAGE, types.trim()].join('\n'), PRETTIER_OPTIONS);
 }
+
+// simple snapshot tests with valid schemas to make sure it can generally parse & generate output
+describe('cli', () => {
+  it('reads stripe.yaml spec (v2) from file', () => {
+    execSync(`../../pkg/bin/cli.js stripe.yaml -o stripe.ts.snap`, {
+      cwd: path.resolve(__dirname),
+    });
+    expect(fs.readFileSync(path.resolve(__dirname, `stripe.ts`), 'utf8')).toBe(
+      fs.readFileSync(path.resolve(__dirname, `stripe.ts.snap`), 'utf8')
+    );
+  });
+
+  it('reads manifold.yaml spec (v2) from file', () => {
+    execSync(`../../pkg/bin/cli.js manifold.yaml -o manifold.ts.snap`, {
+      cwd: path.resolve(__dirname),
+    });
+    expect(fs.readFileSync(path.resolve(__dirname, `manifold.ts`), 'utf8')).toBe(
+      fs.readFileSync(path.resolve(__dirname, `manifold.ts.snap`), 'utf8')
+    );
+  });
+});
 
 // check individual transformations
 describe('transformation', () => {
