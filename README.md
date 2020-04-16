@@ -27,7 +27,7 @@ npx @manifoldco/swagger-to-ts schema.yaml --output schema.d.ts
 #### Reading specs from remote resource
 
 ```bash
-npx @manifoldco/swagger-to-ts http://myapi.com/schema --output schema.d.ts
+npx @manifoldco/swagger-to-ts https://petstore.swagger.io/v2/swagger.json --output petstore.d.ts
 ```
 
 This will save a `schema.d.ts` file in the current folder under the TypeScript
