@@ -13,22 +13,31 @@ function format(types: string): string {
 // simple snapshot tests with valid schemas to make sure it can generally parse & generate output
 describe('cli', () => {
   it('reads stripe.yaml spec (v2) from file', () => {
-    execSync(`../../pkg/bin/cli.js stripe.yaml -o stripe.ts.snap`, {
+    execSync('../../pkg/bin/cli.js specs/stripe.yaml -o data/stripe.ts.snap', {
       cwd: path.resolve(__dirname),
     });
-    expect(fs.readFileSync(path.resolve(__dirname, `stripe.ts`), 'utf8')).toBe(
-      fs.readFileSync(path.resolve(__dirname, `stripe.ts.snap`), 'utf8')
+    expect(fs.readFileSync(path.resolve(__dirname, 'data/stripe.ts'), 'utf8')).toBe(
+      fs.readFileSync(path.resolve(__dirname, 'data/stripe.ts.snap'), 'utf8')
     );
   });
 
   it('reads manifold.yaml spec (v2) from file', () => {
-    execSync(`../../pkg/bin/cli.js manifold.yaml -o manifold.ts.snap`, {
+    execSync('../../pkg/bin/cli.js specs/manifold.yaml -o data/manifold.ts.snap', {
       cwd: path.resolve(__dirname),
     });
-    expect(fs.readFileSync(path.resolve(__dirname, `manifold.ts`), 'utf8')).toBe(
-      fs.readFileSync(path.resolve(__dirname, `manifold.ts.snap`), 'utf8')
+    expect(fs.readFileSync(path.resolve(__dirname, 'data/manifold.ts'), 'utf8')).toBe(
+      fs.readFileSync(path.resolve(__dirname, 'data/manifold.ts.snap'), 'utf8')
     );
   });
+
+  it('reads swagger.json spec (v2) from remote resource', () => {
+    execSync('../../pkg/bin/cli.js https://api.catalog.stage.manifold.co/swagger.json -o data/http.ts.snap', {
+      cwd: path.resolve(__dirname),
+    });
+    expect(fs.readFileSync(path.resolve(__dirname, 'data/http.ts'), 'utf8')).toBe(
+      fs.readFileSync(path.resolve(__dirname, 'data/http.ts.snap'), 'utf8')
+    );
+  })
 });
 
 // check individual transformations
