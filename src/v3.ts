@@ -1,5 +1,5 @@
 import propertyMapper from "./property-mapper";
-import { OpenAPI2, OpenAPI2SchemaObject, SwaggerToTSOptions } from "./types";
+import { OpenAPI3, OpenAPI3SchemaObject, SwaggerToTSOptions } from "./types";
 import {
   escape,
   fromEntries,
@@ -18,36 +18,34 @@ export const PRIMITIVES: { [key: string]: "boolean" | "string" | "number" } = {
   boolean: "boolean",
 
   // string types
-  binary: "string",
-  byte: "string",
-  date: "string",
-  dateTime: "string",
-  password: "string",
   string: "string",
 
   // number types
-  double: "number",
-  float: "number",
   integer: "number",
   number: "number",
 };
 
-export default function generateTypesV2(
-  schema: OpenAPI2,
+export default function generateTypesV3(
+  schema: OpenAPI3,
   options?: SwaggerToTSOptions
 ): string {
-  if (!schema.definitions) {
+  if (!schema.components || !schema.components.schemas) {
     throw new Error(
-      `⛔️ 'definitions' missing from schema https://swagger.io/specification/v2/#definitions-object`
+      `⛔️ 'components' missing from schema https://swagger.io/specification`
     );
   }
 
   // 1st pass: expand $refs first to reduce lookups & prevent circular refs
   const expandedRefs = JSON.parse(
-    JSON.stringify(schema.definitions),
+    JSON.stringify(schema.components.schemas),
     (_, node) =>
       node && node["$ref"]
-        ? escape(`definitions['${node.$ref.replace("#/definitions/", "")}']`) // important: use single-quotes here for JSON (you can always change w/ Prettier at the end)
+        ? escape(
+            `components['schemas']['${node.$ref.replace(
+              "#/components/schemas/",
+              ""
+            )}']`
+          ) // important: use single-quotes here for JSON (you can always change w/ Prettier at the end)
         : node // return by default
   );
 
@@ -59,7 +57,7 @@ export default function generateTypesV2(
   // 3rd pass: primitives
   const primitives = JSON.parse(
     JSON.stringify(propertyMapped),
-    (_, node: OpenAPI2SchemaObject) => {
+    (_, node: OpenAPI3SchemaObject) => {
       if (node.type && PRIMITIVES[node.type]) {
         // prepend comment to each item
         return escape(
@@ -89,7 +87,7 @@ export default function generateTypesV2(
       const properties = makeOptional(
         fromEntries(
           Object.entries(
-            (node.properties as OpenAPI2SchemaObject["properties"]) || {}
+            (node.properties as OpenAPI3SchemaObject["properties"]) || {}
           ).map(([key, val]) => {
             if (typeof val === "string") {
               // try and parse as JSON to remove bad string escapes; otherwise, escape normally
@@ -135,11 +133,13 @@ export default function generateTypesV2(
     return node; // return by default
   });
 
-  return `export interface definitions {
-  ${unescape(
-    Object.entries(objectsAndArrays)
-      .map(([key, val]) => `${JSON.stringify(key)}: ${val}`)
-      .join(";\n")
-  )}
+  return `export interface components {
+    schemas: {
+    ${unescape(
+      Object.entries(objectsAndArrays)
+        .map(([key, val]) => `${JSON.stringify(key)}: ${val}`)
+        .join(";\n")
+    )}
+  }
 }`;
 }

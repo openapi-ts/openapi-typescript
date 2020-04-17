@@ -1,13 +1,13 @@
-const { resolve } = require('path');
-const { existsSync, readFile } = require('fs');
+const fs = require("fs");
+const path = require("path");
 
 module.exports = (pathToSpec) => {
-  const pathname = resolve(process.cwd(), pathToSpec);
-  const pathExists = existsSync(pathname);
+  const pathname = path.resolve(process.cwd(), pathToSpec);
+  const pathExists = fs.existsSync(pathname);
 
   return new Promise((resolve, reject) => {
     if (pathExists) {
-      readFile(pathname, 'UTF-8', (err, data) => {
+      fs.readFile(pathname, "UTF-8", (err, data) => {
         if (err) {
           reject(err);
         }
