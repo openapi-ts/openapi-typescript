@@ -4,7 +4,7 @@
 
 # 📘️ swagger-to-ts
 
-🚀 Convert [OpenAPI v2][openapi2] schemas to TypeScript interfaces using Node.js. 
+🚀 Convert [OpenAPI v2][openapi2] schemas to TypeScript interfaces using Node.js.
 
 💅 The output is prettified with [Prettier][prettier].
 
@@ -12,7 +12,8 @@
 
 To compare actual generated output, see the [example](./example) folder.
 
-(**swagger-to-ts** can handle large definition files within milliseconds because it neither validates nor parses; it only transforms the bare minimum of what it needs to.)
+(**swagger-to-ts** can handle large definition files within milliseconds because it neither
+validates nor parses; it only transforms the bare minimum of what it needs to.)
 
 ## Usage
 
@@ -54,9 +55,10 @@ For anything more complicated, or for generating specs dynamically, you can also
 
 #### CLI Options
 
-| Option                | Alias | Default  | Description                            |
-| :-------------------- | :---- | :------: | :------------------------------------- |
-| `--output [location]` | `-o`  | (stdout) | Where should the output file be saved? |
+| Option                         | Alias | Default  | Description                                                      |
+| :----------------------------- | :---- | :------: | :--------------------------------------------------------------- |
+| `--output [location]`          | `-o`  | (stdout) | Where should the output file be saved?                           |
+| `--prettier-config [location]` |       |          | (optional) Path to your custom Prettier configuration for output |
 
 ### Node
 
@@ -99,10 +101,12 @@ const getNullable = (d: { [key: string]: any }): boolean => {
   return true;
 };
 
-const output = swaggerToTS(swagger, (swaggerDefinition, property): Property => ({
-  ...property,
-  optional: getNullable(swaggerDefinition),
-}));
+const output = swaggerToTS(swagger, {
+  propertyMapper: (swaggerDefinition, property): Property => ({
+    ...property,
+    optional: getNullable(swaggerDefinition),
+  }),
+});
 ```
 
 [glob]: https://www.npmjs.com/package/glob

@@ -1,30 +1,35 @@
-import prettier from 'prettier';
+import prettier from "prettier";
 
-import { OpenAPI3 } from '../../src/types';
-import v3, { WARNING_MESSAGE, PRETTIER_OPTIONS } from '../../src/v3';
+import { OpenAPI3 } from "../../src/types";
+import swaggerToTS, { WARNING_MESSAGE } from "../../src";
 
 // test helper: don’t throw the test due to whitespace differences
 function format(types: string): string {
-  return prettier.format([WARNING_MESSAGE, types.trim()].join('\n'), PRETTIER_OPTIONS);
+  return prettier.format(WARNING_MESSAGE.concat(types).trim(), {
+    parser: "typescript",
+  });
 }
 
-describe('types', () => {
-  it('string', () => {
+describe("types", () => {
+  it("string", () => {
     const schema: OpenAPI3 = {
-      openapi: '3.0',
+      openapi: "3.0",
       components: {
         schemas: {
-          object: { properties: { string: { type: 'string' } }, type: 'object' },
-          string: { type: 'string' },
-          string_ref: { $ref: '#/components/schemas/string' },
+          object: {
+            properties: { string: { type: "string" } },
+            type: "object",
+          },
+          string: { type: "string" },
+          string_ref: { $ref: "#/components/schemas/string" },
         },
       },
     };
-    expect(v3(schema)).toBe(
+    expect(swaggerToTS(schema)).toBe(
       format(`
       export interface components {
         schemas: {
-          object: { string: string };
+          object: { string?: string };
           string: string;
           string_ref: components['schemas']['string'];
         }
@@ -32,25 +37,28 @@ describe('types', () => {
     );
   });
 
-  it('number', () => {
+  it("number", () => {
     const schema: OpenAPI3 = {
-      openapi: '3.0',
+      openapi: "3.0",
       components: {
         schemas: {
           object: {
-            properties: { integer: { type: 'integer' }, number: { type: 'number' } },
-            type: 'object',
+            properties: {
+              integer: { type: "integer" },
+              number: { type: "number" },
+            },
+            type: "object",
           },
-          number: { type: 'number' },
-          number_ref: { $ref: '#/components/schemas/number' },
+          number: { type: "number" },
+          number_ref: { $ref: "#/components/schemas/number" },
         },
       },
     };
-    expect(v3(schema)).toBe(
+    expect(swaggerToTS(schema)).toBe(
       format(`
       export interface components {
         schemas: {
-          object: { integer: number; number: number }
+          object: { integer?: number; number?: number }
           number: number;
           number_ref: components['schemas']['number'];
         }
@@ -58,24 +66,27 @@ describe('types', () => {
     );
   });
 
-  it('boolean', () => {
+  it("boolean", () => {
     const schema: OpenAPI3 = {
-      openapi: '3.0',
+      openapi: "3.0",
       components: {
         schemas: {
-          object: { properties: { boolean: { type: 'boolean' } }, type: 'object' },
-          boolean: { type: 'boolean' },
-          boolean_ref: { $ref: '#/components/schemas/boolean' },
+          object: {
+            properties: { boolean: { type: "boolean" } },
+            type: "object",
+          },
+          boolean: { type: "boolean" },
+          boolean_ref: { $ref: "#/components/schemas/boolean" },
         },
       },
     };
-    expect(v3(schema)).toBe(
+    expect(swaggerToTS(schema)).toBe(
       format(`
       export interface components {
         schemas: {
-          object: { boolean: boolean };
+          object: { boolean?: boolean };
           boolean: boolean;
-          boolean_ref: ['boolean'];
+          boolean_ref: components['schemas']['boolean'];
         }
       }`)
     );

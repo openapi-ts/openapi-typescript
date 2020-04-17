@@ -1,3 +1,9 @@
+/**
+ * OpenAPI2 types
+ * These aren’t exhaustive or complete by any means; they simply provide only
+ * the parts that swagger-to-ts needs to know about.
+ */
+
 export interface OpenAPI2 {
   definitions?: { [key: string]: OpenAPI2SchemaObject };
   swagger: string;
@@ -5,20 +11,20 @@ export interface OpenAPI2 {
 }
 
 export type OpenAPI2Type =
-  | 'array'
-  | 'binary'
-  | 'boolean'
-  | 'byte'
-  | 'date'
-  | 'dateTime'
-  | 'double'
-  | 'float'
-  | 'integer'
-  | 'long'
-  | 'number'
-  | 'object'
-  | 'password'
-  | 'string';
+  | "array"
+  | "binary"
+  | "boolean"
+  | "byte"
+  | "date"
+  | "dateTime"
+  | "double"
+  | "float"
+  | "integer"
+  | "long"
+  | "number"
+  | "object"
+  | "password"
+  | "string";
 
 export type OpenAPI2Reference = { $ref: string };
 
@@ -34,5 +40,5 @@ export interface OpenAPI2SchemaObject {
   required?: string[];
   title?: string;
   type?: OpenAPI2Type;
-  [key: string]: any; // use this construct to allow arbitrary x-something properties
+  [key: string]: any; // allow arbitrary x-something properties
 }

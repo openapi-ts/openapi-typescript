@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 
-const { writeFileSync } = require('fs');
-const { mkdirpSync } = require('fs-extra');
-const chalk = require('chalk');
-const { dirname, resolve } = require('path');
-const meow = require('meow');
-const { default: swaggerToTS } = require('../dist-node');
-const { loadSpec } = require('./loaders');
+const fs = require("fs-extra");
+const chalk = require("chalk");
+const path = require("path");
+const meow = require("meow");
+const { default: swaggerToTS } = require("../dist-node");
+const { loadSpec } = require("./loaders");
 
 const cli = meow(
   `Usage
@@ -15,12 +14,16 @@ const cli = meow(
 Options
   --help                display this
   --output, -o          specify output file
+  --prettier-config     (optional) specify path to Prettier config file
 `,
   {
     flags: {
       output: {
-        type: 'string',
-        alias: 'o',
+        type: "string",
+        alias: "o",
+      },
+      prettierConfig: {
+        type: "string",
       },
     },
   }
@@ -30,7 +33,7 @@ const pathToSpec = cli.input[0];
 const timeStart = process.hrtime();
 
 (async () => {
-  let spec = '';
+  let spec = "";
   try {
     spec = await loadSpec(pathToSpec);
   } catch (e) {
@@ -41,14 +44,18 @@ const timeStart = process.hrtime();
 
   // Write to file if specifying output
   if (cli.flags.output) {
-    const outputFile = resolve(process.cwd(), cli.flags.output);
-    const parent = dirname(outputFile);
-    mkdirpSync(parent);
-    writeFileSync(outputFile, result);
+    const outputFile = path.resolve(process.cwd(), cli.flags.output);
+    const parent = path.dirname(outputFile);
+    fs.mkdirpSync(parent);
+    fs.writeFileSync(outputFile, result, "utf8");
 
     const timeEnd = process.hrtime(timeStart);
     const time = timeEnd[0] + Math.round(timeEnd[1] / 1e6);
-    console.log(chalk.green(`🚀 ${cli.input[0]} -> ${chalk.bold(cli.flags.output)} [${time}ms]`));
+    console.log(
+      chalk.green(
+        `🚀 ${cli.input[0]} -> ${chalk.bold(cli.flags.output)} [${time}ms]`
+      )
+    );
     return;
   }
 

@@ -1,66 +1,80 @@
-import fs from 'fs';
-import { execSync } from 'child_process';
-import path from 'path';
-import prettier from 'prettier';
-import { OpenAPI2, Property, OpenAPI2SchemaObject } from '../../src';
-import v2, { PRETTIER_OPTIONS, WARNING_MESSAGE } from '../../src/v2';
+import fs from "fs";
+import { execSync } from "child_process";
+import path from "path";
+import prettier from "prettier";
+import { OpenAPI2, OpenAPI2SchemaObject, Property } from "../../src/types";
+import swaggerToTS, { WARNING_MESSAGE } from "../../src";
 
 // test helper: don’t throw the test due to whitespace differences
 function format(types: string): string {
-  return prettier.format([WARNING_MESSAGE, types.trim()].join('\n'), PRETTIER_OPTIONS);
+  return prettier.format([WARNING_MESSAGE, types.trim()].join("\n"), {
+    parser: "typescript",
+  });
 }
 
 // simple snapshot tests with valid schemas to make sure it can generally parse & generate output
-describe('cli', () => {
-  it('reads stripe.yaml spec (v2) from file', () => {
-    execSync('../../pkg/bin/cli.js specs/stripe.yaml -o data/stripe.ts.snap', {
+describe("cli", () => {
+  it("reads stripe.yaml spec (v2) from file", () => {
+    execSync("../../pkg/bin/cli.js specs/stripe.yaml -o generated/stripe.ts", {
       cwd: path.resolve(__dirname),
     });
-    expect(fs.readFileSync(path.resolve(__dirname, 'data/stripe.ts'), 'utf8')).toBe(
-      fs.readFileSync(path.resolve(__dirname, 'data/stripe.ts.snap'), 'utf8')
+    expect(
+      fs.readFileSync(path.resolve(__dirname, "expected/stripe.ts"), "utf8")
+    ).toBe(
+      fs.readFileSync(path.resolve(__dirname, "generated/stripe.ts"), "utf8")
     );
   });
 
-  it('reads manifold.yaml spec (v2) from file', () => {
-    execSync('../../pkg/bin/cli.js specs/manifold.yaml -o data/manifold.ts.snap', {
-      cwd: path.resolve(__dirname),
-    });
-    expect(fs.readFileSync(path.resolve(__dirname, 'data/manifold.ts'), 'utf8')).toBe(
-      fs.readFileSync(path.resolve(__dirname, 'data/manifold.ts.snap'), 'utf8')
+  it("reads manifold.yaml spec (v2) from file", () => {
+    execSync(
+      "../../pkg/bin/cli.js specs/manifold.yaml -o generated/manifold.ts",
+      {
+        cwd: path.resolve(__dirname),
+      }
+    );
+    expect(
+      fs.readFileSync(path.resolve(__dirname, "expected/manifold.ts"), "utf8")
+    ).toBe(
+      fs.readFileSync(path.resolve(__dirname, "generated/manifold.ts"), "utf8")
     );
   });
 
-  it('reads swagger.json spec (v2) from remote resource', () => {
-    execSync('../../pkg/bin/cli.js https://api.catalog.stage.manifold.co/swagger.json -o data/http.ts.snap', {
-      cwd: path.resolve(__dirname),
-    });
-    expect(fs.readFileSync(path.resolve(__dirname, 'data/http.ts'), 'utf8')).toBe(
-      fs.readFileSync(path.resolve(__dirname, 'data/http.ts.snap'), 'utf8')
+  it("reads swagger.json spec (v2) from remote resource", () => {
+    execSync(
+      "../../pkg/bin/cli.js https://api.catalog.stage.manifold.co/swagger.json -o generated/http.ts",
+      {
+        cwd: path.resolve(__dirname),
+      }
     );
-  })
+    expect(
+      fs.readFileSync(path.resolve(__dirname, "expected/http.ts"), "utf8")
+    ).toBe(
+      fs.readFileSync(path.resolve(__dirname, "generated/http.ts"), "utf8")
+    );
+  });
 });
 
 // check individual transformations
-describe('transformation', () => {
-  describe('types', () => {
-    it('string', () => {
+describe("transformation", () => {
+  describe("types", () => {
+    it("string", () => {
       const schema: OpenAPI2 = {
-        swagger: '2.0',
+        swagger: "2.0",
         definitions: {
           object: {
             properties: {
-              binary: { type: 'binary' },
-              byte: { type: 'byte' },
-              password: { type: 'password' },
-              string: { type: 'string' },
+              binary: { type: "binary" },
+              byte: { type: "byte" },
+              password: { type: "password" },
+              string: { type: "string" },
             },
-            type: 'object',
+            type: "object",
           },
-          string: { type: 'string' },
-          string_ref: { $ref: '#/definitions/string' },
+          string: { type: "string" },
+          string_ref: { $ref: "#/definitions/string" },
         },
       };
-      expect(v2(schema)).toBe(
+      expect(swaggerToTS(schema)).toBe(
         format(`
         export interface definitions {
           object: {
@@ -75,24 +89,24 @@ describe('transformation', () => {
       );
     });
 
-    it('number', () => {
+    it("number", () => {
       const schema: OpenAPI2 = {
-        swagger: '2.0',
+        swagger: "2.0",
         definitions: {
           object: {
             properties: {
-              double: { type: 'double' },
-              float: { type: 'float' },
-              integer: { type: 'integer' },
-              number: { type: 'number' },
+              double: { type: "double" },
+              float: { type: "float" },
+              integer: { type: "integer" },
+              number: { type: "number" },
             },
-            type: 'object',
+            type: "object",
           },
-          number: { type: 'number' },
-          number_ref: { $ref: '#/definitions/number' },
+          number: { type: "number" },
+          number_ref: { $ref: "#/definitions/number" },
         },
       };
-      expect(v2(schema)).toBe(
+      expect(swaggerToTS(schema)).toBe(
         format(`
         export interface definitions {
           object: {
@@ -107,16 +121,19 @@ describe('transformation', () => {
       );
     });
 
-    it('boolean', () => {
+    it("boolean", () => {
       const schema: OpenAPI2 = {
-        swagger: '2.0',
+        swagger: "2.0",
         definitions: {
-          object: { properties: { boolean: { type: 'boolean' } }, type: 'object' },
-          boolean: { type: 'boolean' },
-          boolean_ref: { $ref: '#/definitions/boolean' },
+          object: {
+            properties: { boolean: { type: "boolean" } },
+            type: "object",
+          },
+          boolean: { type: "boolean" },
+          boolean_ref: { $ref: "#/definitions/boolean" },
         },
       };
-      expect(v2(schema)).toBe(
+      expect(swaggerToTS(schema)).toBe(
         format(`
         export interface definitions {
           object: { boolean?: boolean };
@@ -126,9 +143,9 @@ describe('transformation', () => {
       );
     });
 
-    it('object', () => {
+    it("object", () => {
       const schema: OpenAPI2 = {
-        swagger: '2.0',
+        swagger: "2.0",
         definitions: {
           object: {
             properties: {
@@ -136,22 +153,25 @@ describe('transformation', () => {
                 properties: {
                   object: {
                     properties: {
-                      string: { type: 'string' },
-                      number: { $ref: '#/definitions/object_ref' },
+                      string: { type: "string" },
+                      number: { $ref: "#/definitions/object_ref" },
                     },
-                    type: 'object',
+                    type: "object",
                   },
                 },
-                type: 'object',
+                type: "object",
               },
             },
-            type: 'object',
+            type: "object",
           },
-          object_ref: { properties: { number: { type: 'number' } }, type: 'object' },
-          object_unknown: { type: 'object' },
+          object_ref: {
+            properties: { number: { type: "number" } },
+            type: "object",
+          },
+          object_unknown: { type: "object" },
         },
       };
-      expect(v2(schema)).toBe(
+      expect(swaggerToTS(schema)).toBe(
         format(`
         export interface definitions {
           object: {
@@ -165,25 +185,28 @@ describe('transformation', () => {
       );
     });
 
-    it('array', () => {
+    it("array", () => {
       const schema: OpenAPI2 = {
-        swagger: '2.0',
+        swagger: "2.0",
         definitions: {
           array: {
             properties: {
-              arrays: { type: 'array', items: { type: 'array', items: { type: 'number' } } },
-              strings: { type: 'array', items: { type: 'string' } },
-              numbers: { type: 'array', items: { type: 'number' } },
-              refs: { type: 'array', items: { $ref: '#/definitions/string' } },
+              arrays: {
+                type: "array",
+                items: { type: "array", items: { type: "number" } },
+              },
+              strings: { type: "array", items: { type: "string" } },
+              numbers: { type: "array", items: { type: "number" } },
+              refs: { type: "array", items: { $ref: "#/definitions/string" } },
             },
-            type: 'object',
+            type: "object",
           },
-          string: { type: 'string' },
-          array_ref: { items: { $ref: '#/definitions/array' }, type: 'array' },
+          string: { type: "string" },
+          array_ref: { items: { $ref: "#/definitions/array" }, type: "array" },
         },
       };
 
-      expect(v2(schema)).toBe(
+      expect(swaggerToTS(schema)).toBe(
         format(`
         export interface definitions {
           array: {
@@ -198,19 +221,19 @@ describe('transformation', () => {
       );
     });
 
-    it('union', () => {
+    it("union", () => {
       const schema: OpenAPI2 = {
-        swagger: '2.0',
+        swagger: "2.0",
         definitions: {
           union: {
             properties: {
-              string: { type: 'string', enum: ['Totoro', 'Satsuki', 'Mei'] },
+              string: { type: "string", enum: ["Totoro", "Satsuki", "Mei"] },
             },
-            type: 'object',
+            type: "object",
           },
         },
       };
-      expect(v2(schema)).toBe(
+      expect(swaggerToTS(schema)).toBe(
         format(`
         export interface definitions {
           union: { string?: 'Totoro' | 'Satsuki' | 'Mei' }
@@ -219,51 +242,54 @@ describe('transformation', () => {
     });
   });
 
-  describe('OpenAPI2 features', () => {
-    it('additionalProperties', () => {
+  describe("OpenAPI2 features", () => {
+    it("additionalProperties", () => {
       const schema: OpenAPI2 = {
-        swagger: '2.0',
+        swagger: "2.0",
         definitions: {
           additional_properties: {
-            type: 'object',
-            properties: { number: { type: 'number' } },
+            type: "object",
+            properties: { number: { type: "number" } },
             additionalProperties: true,
           },
           additional_properties_string: {
-            type: 'object',
-            properties: { string: { type: 'string' } },
-            additionalProperties: { type: 'string' },
+            type: "object",
+            properties: { string: { type: "string" } },
+            additionalProperties: { type: "string" },
           },
         },
       };
-      expect(v2(schema)).toBe(
+      expect(swaggerToTS(schema)).toBe(
         format(`
-          export interface definitions {
-            additional_properties: { number?: number; [key: string]: any };
-            additional_properties_string: { string?: string; [key: string]: string };
-          }`)
+        export interface definitions {
+          additional_properties: { number?: number; [key: string]: any };
+          additional_properties_string: { string?: string; [key: string]: string };
+        }`)
       );
     });
 
-    it('allOf', () => {
+    it("allOf", () => {
       const schema: OpenAPI2 = {
-        swagger: '2.0',
+        swagger: "2.0",
         definitions: {
           base: {
-            properties: { boolean: { type: 'boolean' }, number: { type: 'number' } },
-            type: 'object',
+            properties: {
+              boolean: { type: "boolean" },
+              number: { type: "number" },
+            },
+            type: "object",
           },
           all_of: {
             allOf: [
-              { $ref: '#/definitions/base' },
-              { properties: { string: { type: 'string' } }, type: 'object' },
+              { $ref: "#/definitions/base" },
+              { properties: { string: { type: "string" } }, type: "object" },
             ],
-            properties: { password: { type: 'string' } },
-            type: 'object',
+            properties: { password: { type: "string" } },
+            type: "object",
           },
         },
       };
-      expect(v2(schema)).toBe(
+      expect(swaggerToTS(schema)).toBe(
         format(`
         export interface definitions {
           base: { boolean?: boolean; number?: number };
@@ -272,18 +298,21 @@ describe('transformation', () => {
       );
     });
 
-    it('required', () => {
+    it("required", () => {
       const schema: OpenAPI2 = {
-        swagger: '2.0',
+        swagger: "2.0",
         definitions: {
           required: {
-            properties: { required: { type: 'string' }, optional: { type: 'boolean' } },
-            required: ['required'],
-            type: 'object',
+            properties: {
+              required: { type: "string" },
+              optional: { type: "boolean" },
+            },
+            required: ["required"],
+            type: "object",
           },
         },
       };
-      expect(v2(schema)).toBe(
+      expect(swaggerToTS(schema)).toBe(
         format(`
         export interface definitions {
           required: { required: string; optional?: boolean  }
@@ -292,30 +321,33 @@ describe('transformation', () => {
     });
   });
 
-  describe('propertyMapper', () => {
+  describe("propertyMapper", () => {
     const schema: OpenAPI2 = {
-      swagger: '2.0',
+      swagger: "2.0",
       definitions: {
         Name: {
-          properties: { first: { type: 'string' }, last: { type: 'string', 'x-nullable': false } },
-          type: 'object',
+          properties: {
+            first: { type: "string" },
+            last: { type: "string", "x-nullable": false },
+          },
+          type: "object",
         },
       },
     };
 
-    it('accepts a mapper in options', () => {
+    it("accepts a mapper in options", () => {
       const propertyMapper = (
         swaggerDefinition: OpenAPI2SchemaObject,
         property: Property
       ): Property => property;
-      v2(schema, propertyMapper);
+      swaggerToTS(schema, { propertyMapper });
     });
 
-    it('passes definition to mapper', () => {
+    it("passes definition to mapper", () => {
       const propertyMapper = jest.fn((_, prop) => prop);
-      v2(schema, propertyMapper);
+      swaggerToTS(schema, { propertyMapper });
       if (!schema.definitions || !schema.definitions.Name.properties) {
-        throw new Error('properties missing');
+        throw new Error("properties missing");
       }
       expect(propertyMapper).toBeCalledWith(
         schema.definitions.Name.properties.first,
@@ -323,10 +355,10 @@ describe('transformation', () => {
       );
     });
 
-    it('uses result of mapper', () => {
+    it("uses result of mapper", () => {
       const getNullable = (d: { [key: string]: any }): boolean => {
-        const nullable = d['x-nullable'];
-        if (typeof nullable === 'boolean') {
+        const nullable = d["x-nullable"];
+        if (typeof nullable === "boolean") {
           return nullable;
         }
         return true;
@@ -335,17 +367,18 @@ describe('transformation', () => {
       const propertyMapper = (
         swaggerDefinition: OpenAPI2SchemaObject,
         property: Property
-      ): Property => ({ ...property, optional: getNullable(swaggerDefinition) });
+      ): Property => ({
+        ...property,
+        optional: getNullable(swaggerDefinition),
+      });
 
-      v2(schema, propertyMapper);
+      swaggerToTS(schema, { propertyMapper });
 
-      expect(v2(schema, propertyMapper)).toBe(
-        format(
-          `
+      expect(swaggerToTS(schema, { propertyMapper })).toBe(
+        format(`
         export interface definitions {
           Name: { first?: string; last: string }
-        }`
-        )
+        }`)
       );
     });
   });

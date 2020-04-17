@@ -1,8 +1,8 @@
-const yaml = require('js-yaml');
-const chalk = require('chalk');
+const yaml = require("js-yaml");
+const chalk = require("chalk");
 
-const loadFromFs = require('./loadFromFs');
-const loadFromHttp = require('./loadFromHttp');
+const loadFromFs = require("./loadFromFs");
+const loadFromHttp = require("./loadFromHttp");
 
 async function load(pathToSpec) {
   let rawSpec;
@@ -15,11 +15,13 @@ async function load(pathToSpec) {
 }
 
 function isYamlSpec(rawSpec, pathToSpec) {
-  return /\.ya?ml$/i.test(pathToSpec) || rawSpec[0] !== '{';
+  return /\.ya?ml$/i.test(pathToSpec) || rawSpec[0] !== "{";
 }
 
 module.exports.loadSpec = async (pathToSpec) => {
-  console.log(chalk.yellow(`🤞 Loading spec from ${chalk.bold(pathToSpec)}...`));
+  console.log(
+    chalk.yellow(`🤞 Loading spec from ${chalk.bold(pathToSpec)}...`)
+  );
   const rawSpec = await load(pathToSpec);
 
   try {
@@ -27,12 +29,16 @@ module.exports.loadSpec = async (pathToSpec) => {
       return yaml.safeLoad(rawSpec);
     }
   } catch {
-    throw new Error(`The spec under ${pathToSpec} seems to be YAML, but it couldn’t be parsed.`);
+    throw new Error(
+      `The spec under ${pathToSpec} seems to be YAML, but it couldn’t be parsed.`
+    );
   }
 
   try {
     return JSON.parse(rawSpec);
   } catch {
-    throw new Error(`The spec under ${pathToSpec} couldn’t be parsed neither as YAML nor JSON.`);
+    throw new Error(
+      `The spec under ${pathToSpec} couldn’t be parsed neither as YAML nor JSON.`
+    );
   }
 };
