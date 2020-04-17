@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const fs = require("fs-extra");
+const fs = require("fs");
 const chalk = require("chalk");
 const path = require("path");
 const meow = require("meow");
@@ -45,8 +45,6 @@ const timeStart = process.hrtime();
   // Write to file if specifying output
   if (cli.flags.output) {
     const outputFile = path.resolve(process.cwd(), cli.flags.output);
-    const parent = path.dirname(outputFile);
-    fs.mkdirpSync(parent);
     fs.writeFileSync(outputFile, result, "utf8");
 
     const timeEnd = process.hrtime(timeStart);
