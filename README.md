@@ -67,10 +67,10 @@ npm i --save-dev @manifoldco/swagger-to-ts
 ```
 
 ```js
-const { readFileSync } = require('fs');
-const swaggerToTS = require('@manifoldco/swagger-to-ts');
+const { readFileSync } = require("fs");
+const swaggerToTS = require("@manifoldco/swagger-to-ts");
 
-const input = JSON.parse(readFileSync('spec.json', 'utf8')); // Input can be any JS object (OpenAPI format)
+const input = JSON.parse(readFileSync("spec.json", "utf8")); // Input can be any JS object (OpenAPI format)
 const output = swaggerToTS(input); // Outputs TypeScript defs as a string (to be parsed, or written to a file)
 ```
 
@@ -94,8 +94,8 @@ An example on how to use the `x-nullable` property to control if a property is o
 
 ```js
 const getNullable = (d: { [key: string]: any }): boolean => {
-  const nullable = d['x-nullable'];
-  if (typeof nullable === 'boolean') {
+  const nullable = d["x-nullable"];
+  if (typeof nullable === "boolean") {
     return nullable;
   }
   return true;
