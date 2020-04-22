@@ -105,6 +105,18 @@
         "ideas",
         "test"
       ]
+    },
+    {
+      "login": "lbenie",
+      "name": "Lucien Bénié",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/7316046?v=4",
+      "profile": "https://lbenie.netlify.com/",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
