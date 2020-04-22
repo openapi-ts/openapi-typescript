@@ -67,7 +67,9 @@
       "profile": "https://github.com/tombarton",
       "contributions": [
         "code",
-        "ideas"
+        "doc",
+        "ideas",
+        "test"
       ]
     }
   ],
