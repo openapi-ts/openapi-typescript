@@ -125,6 +125,8 @@ const output = swaggerToTS(swagger, {
 });
 ```
 
+_Thanks to @atlefren for this feature!_
+
 ## Upgrading from v1 to v2
 
 Some options were removed in swagger-to-ts v2 that will break apps using v1, but it does so in exchange for more control, more stability, and more resilient types.
