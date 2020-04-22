@@ -28,6 +28,16 @@
         "ideas",
         "test"
       ]
+    },
+    {
+      "login": "enmand",
+      "name": "Dan Enman",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/432487?v=4",
+      "profile": "https://danielenman.com",
+      "contributions": [
+        "bug",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
