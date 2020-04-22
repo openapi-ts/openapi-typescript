@@ -148,3 +148,10 @@ export function tsIntersectionOf(types: string[]): string {
 export function tsUnionOf(types: string[]): string {
   return types.join(" | ");
 }
+
+/**
+ * Conditionally convert value into nullable
+ */
+export function nullableWrap(nullable: boolean, value: string): string {
+  return nullable ? tsUnionOf([`(${value})`, "null"]) : value;
+}

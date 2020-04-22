@@ -9,6 +9,7 @@ import {
   isOneOfNode,
   isSchemaObj,
   makeOptional,
+  nullableWrap,
   tsArrayOf,
   tsIntersectionOf,
   tsUnionOf,
@@ -46,7 +47,8 @@ export default function generateTypesV3(
   const objectsAndArrays = JSON.parse(
     JSON.stringify(propertyMapped),
     (_, node) => {
-      if (node === null) return "null";
+      // avoiding runtime exceptions for `null` values
+      if (node === null) return null;
 
       // $ref
       if (node["$ref"]) {
@@ -57,26 +59,34 @@ export default function generateTypesV3(
         ); // important: use single-quotes here for JSON (you can always change w/ Prettier at the end)
       }
 
+      const { nullable = false } = node;
+
       // oneOf
       if (isOneOfNode(node)) {
-        return escape(tsUnionOf(node.oneOf));
+        return nullableWrap(nullable, escape(tsUnionOf(node.oneOf)));
       }
 
       // anyOf
       if (isAnyOfNode(node)) {
-        return escape(
-          tsIntersectionOf(
-            (node.anyOf as string[]).map((item) => escape(`Partial<${item}>`))
+        return nullableWrap(
+          nullable,
+          escape(
+            tsIntersectionOf(
+              (node.anyOf as string[]).map((item) => escape(`Partial<${item}>`))
+            )
           )
         );
       }
 
       // primitive
       if (node.type && PRIMITIVES[node.type]) {
-        return escape(
-          node.enum
-            ? tsUnionOf((node.enum as string[]).map((item) => `'${item}'`))
-            : PRIMITIVES[node.type]
+        return nullableWrap(
+          nullable,
+          escape(
+            node.enum
+              ? tsUnionOf((node.enum as string[]).map((item) => `'${item}'`))
+              : PRIMITIVES[node.type]
+          )
         );
       }
 
@@ -88,7 +98,7 @@ export default function generateTypesV3(
           (!node.allOf || !node.allOf.length) &&
           !node.additionalProperties
         ) {
-          return escape(`{[key: string]: any}`);
+          return nullableWrap(nullable, escape(`{[key: string]: any}`));
         }
 
         // unescape properties if some have been transformed already for nested objects
@@ -119,25 +129,28 @@ export default function generateTypesV3(
           properties[escape("[key: string]")] = escape(addlType || "any");
         }
 
-        return tsIntersectionOf([
-          // append allOf first
-          ...(node.allOf
-            ? node.allOf.map((item: any) =>
-                isSchemaObj(item)
-                  ? JSON.stringify(makeOptional(item, node.required))
-                  : item
-              )
-            : []),
-          // then properties + additionalProperties
-          ...(Object.keys(properties).length
-            ? [JSON.stringify(properties)]
-            : []),
-        ]);
+        return nullableWrap(
+          nullable,
+          tsIntersectionOf([
+            // append allOf first
+            ...(node.allOf
+              ? node.allOf.map((item: any) =>
+                  isSchemaObj(item)
+                    ? JSON.stringify(makeOptional(item, node.required))
+                    : item
+                )
+              : []),
+            // then properties + additionalProperties
+            ...(Object.keys(properties).length
+              ? [JSON.stringify(properties)]
+              : []),
+          ])
+        );
       }
 
       // arrays
       if (isArrayNode(node) && typeof node.items === "string") {
-        return escape(tsArrayOf(node.items));
+        return nullableWrap(nullable, escape(tsArrayOf(node.items)));
       }
 
       return node; // return by default
