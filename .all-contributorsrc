@@ -38,6 +38,17 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "atlefren",
+      "name": "Atle Frenvik Sveen",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1829927?v=4",
+      "profile": "http://atlefren.net",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
