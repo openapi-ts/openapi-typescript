@@ -93,6 +93,18 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "scvnathan",
+      "name": "Nathan Schneirov",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/73474?v=4",
+      "profile": "https://github.com/scvnathan",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
