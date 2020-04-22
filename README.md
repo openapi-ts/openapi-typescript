@@ -3,7 +3,7 @@
 [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fmanifoldco%2Fswagger-to-ts%2Fbadge&style=flat)](https://actions-badge.atrox.dev/manifoldco/swagger-to-ts/goto)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ swagger-to-ts
@@ -269,6 +269,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://toot.cafe/@sorin"><img src="https://avatars1.githubusercontent.com/u/2109702?v=4" width="100px;" alt=""/><br /><sub><b>Sorin Davidoi</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/issues?q=author%3Asorin-davidoi" title="Bug reports">🐛</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=sorin-davidoi" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=sorin-davidoi" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://github.com/scvnathan"><img src="https://avatars3.githubusercontent.com/u/73474?v=4" width="100px;" alt=""/><br /><sub><b>Nathan Schneirov</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=scvnathan" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=scvnathan" title="Documentation">📖</a> <a href="#ideas-scvnathan" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=scvnathan" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://lbenie.netlify.com/"><img src="https://avatars1.githubusercontent.com/u/7316046?v=4" width="100px;" alt=""/><br /><sub><b>Lucien Bénié</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=lbenie" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=lbenie" title="Documentation">📖</a> <a href="#ideas-lbenie" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=lbenie" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
