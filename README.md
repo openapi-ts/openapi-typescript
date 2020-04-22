@@ -1,7 +1,9 @@
 [![version
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 (scoped)](https://img.shields.io/npm/v/@manifoldco/swagger-to-ts.svg)](https://www.npmjs.com/package/@manifoldco/swagger-to-ts)
@@ -264,11 +266,13 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://danielenman.com"><img src="https://avatars3.githubusercontent.com/u/432487?v=4" width="100px;" alt=""/><br /><sub><b>Dan Enman</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/issues?q=author%3Aenmand" title="Bug reports">🐛</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=enmand" title="Code">💻</a></td>
     <td align="center"><a href="http://atlefren.net"><img src="https://avatars2.githubusercontent.com/u/1829927?v=4" width="100px;" alt=""/><br /><sub><b>Atle Frenvik Sveen</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=atlefren" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=atlefren" title="Documentation">📖</a> <a href="#ideas-atlefren" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="http://www.timdewolf.com"><img src="https://avatars0.githubusercontent.com/u/4455209?v=4" width="100px;" alt=""/><br /><sub><b>Tim de Wolf</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=tpdewolf" title="Code">💻</a> <a href="#ideas-tpdewolf" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/tombarton"><img src="https://avatars1.githubusercontent.com/u/6222711?v=4" width="100px;" alt=""/><br /><sub><b>Tom Barton</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=tombarton" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=dangodev" title="Documentation">📖</a> <a href="#ideas-tombarton" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=dangodev" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

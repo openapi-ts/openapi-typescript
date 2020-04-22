@@ -59,6 +59,18 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "tombarton",
+      "name": "Tom Barton",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/6222711?v=4",
+      "profile": "https://github.com/tombarton",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
