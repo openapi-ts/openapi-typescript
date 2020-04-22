@@ -4,54 +4,61 @@
 
 # 📘️ swagger-to-ts
 
-🚀 Convert [OpenAPI v2][openapi2] schemas to TypeScript interfaces using Node.js.
+🚀 Convert [OpenAPI 2.0][openapi2] and [OpenAPI 3.0][openapi3] schemas to TypeScript interfaces using Node.js.
 
-💅 The output is prettified with [Prettier][prettier].
+💅 The output is prettified with [Prettier][prettier] (and can be customized!).
 
-👉 Works for both local and remote resources (filesystem and http).
+👉 Works for both local and remote resources (filesystem and HTTP).
 
-To compare actual generated output, see the [example](./example) folder.
+View examples:
 
-(**swagger-to-ts** can handle large definition files within milliseconds because it neither
-validates nor parses; it only transforms the bare minimum of what it needs to.)
+- [Stripe, OpenAPI 2.0](./examples/stripe-openapi2.ts)
+- [Stripe, OpenAPI 3.0](./examples/stripe-openapi3.ts)
 
 ## Usage
 
 ### CLI
 
-#### Reading specs from file system
+#### 🗄️ Reading specs from file system
 
 ```bash
-npx @manifoldco/swagger-to-ts schema.yaml --output schema.d.ts
+npx @manifoldco/swagger-to-ts schema.yaml --output schema.ts
+
+# 🤞 Loading spec from tests/v2/specs/stripe.yaml…
+# 🚀 schema.yaml -> schema.ts [250ms]
 ```
 
-#### Reading specs from remote resource
+#### ☁️ Reading specs from remote resource
 
 ```bash
-npx @manifoldco/swagger-to-ts https://petstore.swagger.io/v2/swagger.json --output petstore.d.ts
-```
+npx @manifoldco/swagger-to-ts https://petstore.swagger.io/v2/swagger.json --output petstore.ts
 
-This will save a `schema.d.ts` file in the current folder under the TypeScript
-[namespace][namespace] `OpenAPI` (namespaces are required because chances of collision among specs
-is highly likely). The CLI can accept YAML or JSON for the input file.
+# 🤞 Loading spec from https://petstore.swagger.io/v2/swagger.json…
+# 🚀 https://petstore.swagger.io/v2/swagger.json -> petstore.ts [650ms]
+```
 
 #### Generating multiple schemas
 
-Say you have multiple schemas you need to parse. I’ve found the simplest way to do that is to use
-npm scripts. In your `package.json`, you can do something like the following:
+In your `package.json`, for each schema you’d like to transform add one `generate:specs:[name]` npm-script. Then combine them all into one `generate:specs` script, like so:
 
 ```json
 "scripts": {
-  "generate:specs": "npm run generate:specs:one && npm run generate:specs:two",
-  "generate:specs:one": "npx @manifoldco/swagger-to-ts one.yaml -o one.d.ts",
-  "generate:specs:two": "npx @manifoldco/swagger-to-ts two.yaml -o two.d.ts"
+  "generate:specs": "npm run generate:specs:one && npm run generate:specs:two && npm run generate:specs:three",
+  "generate:specs:one": "npx @manifoldco/swagger-to-ts one.yaml -o one.ts",
+  "generate:specs:two": "npx @manifoldco/swagger-to-ts two.yaml -o two.ts",
+  "generate:specs:three": "npx @manifoldco/swagger-to-ts three.yaml -o three.ts"
 }
+```
+
+You can even specify unique options per-spec, if needed. To generate them all together, run:
+
+```bash
+npm run generate:specs
 ```
 
 Rinse and repeat for more specs.
 
-For anything more complicated, or for generating specs dynamically, you can also use the Node API
-(below).
+For anything more complicated, or for generating specs dynamically, you can also use the [Node API](#node).
 
 #### CLI Options
 
@@ -199,11 +206,13 @@ This matches your schema more accurately, and doesn’t try to be clever by keep
 +definitions['user']['role'];
 ```
 
-While this is a change, it’s more predictable. Now you don’t have to guess whether or not `user_role` was renamed as; you simply chain your type from the Swagger definition you‘re used to.
+While this is a change, it’s more predictable. Now you don’t have to guess what `user_role` was renamed to; you simply chain your type from the Swagger definition you‘re used to.
 
 #### Better \$ref generation
 
-swagger-to-ts v2 no longer tries to resolve `$ref`s like it used to. This would not only break on circular refs; in trying to invent names for things it would often fail and cause bugs in your generated types. Transforming your schema as-is puts the responsibility on your schema to handle collisions rather than swagger-to-ts, which is a better approach in general.
+swagger-to-ts v1 would attempt to resolve and flatten `$ref`s. This was bad because it would break on circular references (which both Swagger and TypeScript allow), and resolution also slowed it down.
+
+In v2, your `$ref`s are preserved as-declared, and TypeScript does all the work. Now the responsibility is on your schema to handle collisions rather than swagger-to-ts, which is a better approach in general.
 
 #### No Wrappers
 
@@ -221,7 +230,7 @@ declare namespace OpenAPI3 {
 
 #### No CamelCasing
 
-Similarly, the `--camelcase` flag was removed because it would sometimes mangle object names, or break trying to sanitize them (for example, you couldn’t run camelcase on a schema with `my.obj` and `my-obj`—they both would transfom to the same thing causing unexpected results).
+The `--camelcase` flag was removed because it would mangle object names incorrectly or break trying to sanitize them (for example, you couldn’t run camelcase on a schema with `my.obj` and `my-obj`—they both would transfom to the same thing causing unexpected results).
 
 OpenAPI allows for far more flexibility in naming schema objects than JavaScript, so that should be carried over from your schema. In v2, the naming of generated types maps 1:1 with your schema name.
 

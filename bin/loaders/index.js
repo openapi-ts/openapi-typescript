@@ -19,9 +19,7 @@ function isYamlSpec(rawSpec, pathToSpec) {
 }
 
 module.exports.loadSpec = async (pathToSpec) => {
-  console.log(
-    chalk.yellow(`🤞 Loading spec from ${chalk.bold(pathToSpec)}...`)
-  );
+  console.log(chalk.yellow(`🤞 Loading spec from ${chalk.bold(pathToSpec)}…`));
   const rawSpec = await load(pathToSpec);
 
   try {
