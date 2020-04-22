@@ -19,12 +19,14 @@ export type OpenAPI3Type =
   | "object"
   | "string";
 
-export type OpenAPI3Reference = { $ref: string };
+export type OpenAPI3Reference =
+  | { $ref: string }
+  | { anyOf: (OpenAPI3SchemaObject | OpenAPI3Reference)[] }
+  | { oneOf: (OpenAPI3SchemaObject | OpenAPI3Reference)[] };
 
 export interface OpenAPI3SchemaObject {
   additionalProperties?: OpenAPI3SchemaObject | OpenAPI3Reference | boolean;
   allOf?: (OpenAPI3SchemaObject | OpenAPI3Reference)[];
-  anyOf?: (OpenAPI3SchemaObject | OpenAPI3Reference)[];
   description?: string;
   enum?: string[];
   items?: OpenAPI3SchemaObject | OpenAPI3Reference;

@@ -47,7 +47,11 @@ export default function generateTypesV2(
     JSON.stringify(schema.definitions),
     (_, node) =>
       node && node["$ref"]
-        ? escape(`definitions['${node.$ref.replace("#/definitions/", "")}']`) // important: use single-quotes here for JSON (you can always change w/ Prettier at the end)
+        ? escape(
+            `definitions['${node.$ref
+              .replace("#/definitions/", "")
+              .replace(/\//g, "']['")}']`
+          ) // important: use single-quotes here for JSON (you can always change w/ Prettier at the end)
         : node // return by default
   );
 

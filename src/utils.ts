@@ -51,6 +51,16 @@ export function isObjNode(node: any): boolean {
 }
 
 /**
+ * Return ture if oneOf type
+ */
+export function isOneOfNode(node: any): boolean {
+  if (!isSchemaObj(node)) {
+    return false;
+  }
+  return Array.isArray(node.oneOf);
+}
+
+/**
  * Return true if item is schema object
  */
 export function isSchemaObj(obj: any): boolean {
@@ -58,7 +68,12 @@ export function isSchemaObj(obj: any): boolean {
     return false;
   }
   return (
-    !!obj.type || !!obj.properties || !!obj.allOf || !!obj.additionalProperties
+    !!obj.additionalProperties ||
+    !!obj.allOf ||
+    !!obj.anyOf ||
+    !!obj.oneOf ||
+    !!obj.properties ||
+    !!obj.type
   );
 }
 

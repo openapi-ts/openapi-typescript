@@ -11,6 +11,7 @@ import {
   tsIntersectionOf,
   tsUnionOf,
   unescape,
+  isOneOfNode,
 } from "./utils";
 
 export const PRIMITIVES: { [key: string]: "boolean" | "string" | "number" } = {
@@ -35,26 +36,31 @@ export default function generateTypesV3(
     );
   }
 
-  // 1st pass: expand $refs first to reduce lookups & prevent circular refs
-  const expandedRefs = JSON.parse(
+  // 1st pass: convert anyOf to “any” since this is neither an “Intersection” nor “Union”
+  const anyOf = JSON.parse(
     JSON.stringify(schema.components.schemas),
+    (_, node) => (node && node.anyOf ? escape("any") : node)
+  );
+
+  // 2nd pass: expand $refs first to reduce lookups & prevent circular refs
+  const expandedRefs = JSON.parse(
+    JSON.stringify(anyOf),
     (_, node) =>
       node && node["$ref"]
         ? escape(
-            `components['schemas']['${node.$ref.replace(
-              "#/components/schemas/",
-              ""
-            )}']`
+            `components['${node.$ref
+              .replace("#/components/", "")
+              .replace(/\//g, "']['")}']`
           ) // important: use single-quotes here for JSON (you can always change w/ Prettier at the end)
         : node // return by default
   );
 
-  // 2nd pass: propertyMapper
+  // 3rd pass: propertyMapper
   const propertyMapped = options
     ? propertyMapper(expandedRefs, options.propertyMapper)
     : expandedRefs;
 
-  // 3rd pass: primitives
+  // 4th pass: primitives
   const primitives = JSON.parse(
     JSON.stringify(propertyMapped),
     (_, node: OpenAPI3SchemaObject) => {
@@ -70,7 +76,7 @@ export default function generateTypesV3(
     }
   );
 
-  // 4th pass: objects & arrays
+  // 5th pass: objects & arrays
   const objectsAndArrays = JSON.parse(JSON.stringify(primitives), (_, node) => {
     // object
     if (isObjNode(node)) {
@@ -128,6 +134,11 @@ export default function generateTypesV3(
     // arrays
     if (isArrayNode(node) && typeof node.items === "string") {
       return escape(tsArrayOf(node.items));
+    }
+
+    // oneOf
+    if (isOneOfNode(node)) {
+      return escape(tsUnionOf(node.oneOf));
     }
 
     return node; // return by default

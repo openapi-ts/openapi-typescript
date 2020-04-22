@@ -1,6 +1,6 @@
 .cache
 .DS_Store
-./generated/*.ts
+**/generated/*.ts
 coverage
 pkg
 node_modules

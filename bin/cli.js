@@ -45,6 +45,16 @@ const timeStart = process.hrtime();
   // Write to file if specifying output
   if (cli.flags.output) {
     const outputFile = path.resolve(process.cwd(), cli.flags.output);
+
+    // recursively create parent directories if they don’t exist
+    const parentDirs = cli.flags.output.split(path.sep);
+    for (var i = 1; i < parentDirs.length; i++) {
+      const dir = path.resolve(process.cwd(), ...parentDirs.slice(0, i));
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+    }
+
     fs.writeFileSync(outputFile, result, "utf8");
 
     const timeEnd = process.hrtime(timeStart);
