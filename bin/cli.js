@@ -40,7 +40,9 @@ const timeStart = process.hrtime();
     console.error(chalk.red(`❌ "${e}"`));
   }
 
-  const result = swaggerToTS(spec);
+  const result = swaggerToTS(spec, {
+    prettierConfig: cli.flags.prettierConfig,
+  });
 
   // Write to file if specifying output
   if (cli.flags.output) {
