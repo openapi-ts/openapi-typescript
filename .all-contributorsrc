@@ -82,6 +82,17 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "sorin-davidoi",
+      "name": "Sorin Davidoi",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/2109702?v=4",
+      "profile": "https://toot.cafe/@sorin",
+      "contributions": [
+        "bug",
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
