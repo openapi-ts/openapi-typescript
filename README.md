@@ -1,7 +1,11 @@
 [![version
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 (scoped)](https://img.shields.io/npm/v/@manifoldco/swagger-to-ts.svg)](https://www.npmjs.com/package/@manifoldco/swagger-to-ts)
 [![codecov](https://codecov.io/gh/manifoldco/swagger-to-ts/branch/master/graph/badge.svg)](https://codecov.io/gh/manifoldco/swagger-to-ts)
 
@@ -39,6 +43,8 @@ npx @manifoldco/swagger-to-ts https://petstore.swagger.io/v2/swagger.json --outp
 # 🤞 Loading spec from https://petstore.swagger.io/v2/swagger.json…
 # 🚀 https://petstore.swagger.io/v2/swagger.json -> petstore.ts [650ms]
 ```
+
+_Thanks to @psmyrdek for this feature!_
 
 #### Generating multiple schemas
 
@@ -260,6 +266,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
