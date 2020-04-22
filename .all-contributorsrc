@@ -47,7 +47,8 @@
       "contributions": [
         "code",
         "doc",
-        "ideas"
+        "ideas",
+        "test"
       ]
     },
     {
@@ -99,6 +100,18 @@
       "name": "Nathan Schneirov",
       "avatar_url": "https://avatars3.githubusercontent.com/u/73474?v=4",
       "profile": "https://github.com/scvnathan",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas",
+        "test"
+      ]
+    },
+    {
+      "login": "lbenie",
+      "name": "Lucien Bénié",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/7316046?v=4",
+      "profile": "https://lbenie.netlify.com/",
       "contributions": [
         "code",
         "doc",
