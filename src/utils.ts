@@ -51,7 +51,17 @@ export function isObjNode(node: any): boolean {
 }
 
 /**
- * Return ture if oneOf type
+ * Return true if anyOf type
+ */
+export function isAnyOfNode(node: any): boolean {
+  if (!isSchemaObj(node)) {
+    return false;
+  }
+  return Array.isArray(node.anyOf);
+}
+
+/**
+ * Return true if oneOf type
  */
 export function isOneOfNode(node: any): boolean {
   if (!isSchemaObj(node)) {

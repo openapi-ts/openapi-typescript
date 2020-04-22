@@ -3,15 +3,16 @@ import { OpenAPI3, OpenAPI3SchemaObject, SwaggerToTSOptions } from "./types";
 import {
   escape,
   fromEntries,
+  isAnyOfNode,
   isArrayNode,
   isObjNode,
+  isOneOfNode,
   isSchemaObj,
   makeOptional,
   tsArrayOf,
   tsIntersectionOf,
   tsUnionOf,
   unescape,
-  isOneOfNode,
 } from "./utils";
 
 export const PRIMITIVES: { [key: string]: "boolean" | "string" | "number" } = {
@@ -36,113 +37,110 @@ export default function generateTypesV3(
     );
   }
 
-  // 1st pass: convert anyOf to “any” since this is neither an “Intersection” nor “Union”
-  const anyOf = JSON.parse(
-    JSON.stringify(schema.components.schemas),
-    (_, node) => (node && node.anyOf ? escape("any") : node)
-  );
-
-  // 2nd pass: expand $refs first to reduce lookups & prevent circular refs
-  const expandedRefs = JSON.parse(
-    JSON.stringify(anyOf),
-    (_, node) =>
-      node && node["$ref"]
-        ? escape(
-            `components['${node.$ref
-              .replace("#/components/", "")
-              .replace(/\//g, "']['")}']`
-          ) // important: use single-quotes here for JSON (you can always change w/ Prettier at the end)
-        : node // return by default
-  );
-
-  // 3rd pass: propertyMapper
+  // propertyMapper
   const propertyMapped = options
-    ? propertyMapper(expandedRefs, options.propertyMapper)
-    : expandedRefs;
+    ? propertyMapper(schema.components.schemas, options.propertyMapper)
+    : schema.components.schemas;
 
-  // 4th pass: primitives
-  const primitives = JSON.parse(
+  // type converter
+  const objectsAndArrays = JSON.parse(
     JSON.stringify(propertyMapped),
-    (_, node: OpenAPI3SchemaObject) => {
+    (_, node) => {
+      // $ref
+      if (node["$ref"]) {
+        return escape(
+          `components['${node.$ref
+            .replace("#/components/", "")
+            .replace(/\//g, "']['")}']`
+        ); // important: use single-quotes here for JSON (you can always change w/ Prettier at the end)
+      }
+
+      // oneOf
+      if (isOneOfNode(node)) {
+        return escape(tsUnionOf(node.oneOf));
+      }
+
+      // anyOf
+      if (isAnyOfNode(node)) {
+        return escape(
+          tsIntersectionOf(
+            (node.anyOf as string[]).map((item) => escape(`Partial<${item}>`))
+          )
+        );
+      }
+
+      // primitive
       if (node.type && PRIMITIVES[node.type]) {
-        // prepend comment to each item
         return escape(
           node.enum
-            ? tsUnionOf(node.enum.map((item) => `'${item}'`))
+            ? tsUnionOf((node.enum as string[]).map((item) => `'${item}'`))
             : PRIMITIVES[node.type]
         );
       }
+
+      // object
+      if (isObjNode(node)) {
+        // handle no properties
+        if (
+          (!node.properties || !Object.keys(node.properties).length) &&
+          (!node.allOf || !node.allOf.length) &&
+          !node.additionalProperties
+        ) {
+          return escape(`{[key: string]: any}`);
+        }
+
+        // unescape properties if some have been transformed already for nested objects
+        const properties = makeOptional(
+          fromEntries(
+            Object.entries(
+              (node.properties as OpenAPI3SchemaObject["properties"]) || {}
+            ).map(([key, val]) => {
+              if (typeof val === "string") {
+                // try and parse as JSON to remove bad string escapes; otherwise, escape normally
+                try {
+                  return [key, JSON.parse(val)];
+                } catch (err) {
+                  return [key, escape(unescape(val))];
+                }
+              }
+              return [key, val];
+            })
+          ),
+          node.required
+        );
+
+        // if additional properties, add to end of properties
+        if (node.additionalProperties) {
+          const addlType =
+            typeof node.additionalProperties === "string" &&
+            PRIMITIVES[unescape(node.additionalProperties)];
+          properties[escape("[key: string]")] = escape(addlType || "any");
+        }
+
+        return tsIntersectionOf([
+          // append allOf first
+          ...(node.allOf
+            ? node.allOf.map((item: any) =>
+                isSchemaObj(item)
+                  ? JSON.stringify(makeOptional(item, node.required))
+                  : item
+              )
+            : []),
+          // then properties + additionalProperties
+          ...(Object.keys(properties).length
+            ? [JSON.stringify(properties)]
+            : []),
+        ]);
+      }
+
+      // arrays
+      if (isArrayNode(node) && typeof node.items === "string") {
+        return escape(tsArrayOf(node.items));
+      }
+
       return node; // return by default
     }
   );
-
-  // 5th pass: objects & arrays
-  const objectsAndArrays = JSON.parse(JSON.stringify(primitives), (_, node) => {
-    // object
-    if (isObjNode(node)) {
-      // handle no properties
-      if (
-        (!node.properties || !Object.keys(node.properties).length) &&
-        (!node.allOf || !node.allOf.length) &&
-        !node.additionalProperties
-      ) {
-        return escape(`{[key: string]: any}`);
-      }
-
-      // unescape properties if some have been transformed already for nested objects
-      const properties = makeOptional(
-        fromEntries(
-          Object.entries(
-            (node.properties as OpenAPI3SchemaObject["properties"]) || {}
-          ).map(([key, val]) => {
-            if (typeof val === "string") {
-              // try and parse as JSON to remove bad string escapes; otherwise, escape normally
-              try {
-                return [key, JSON.parse(val)];
-              } catch (err) {
-                return [key, escape(unescape(val))];
-              }
-            }
-            return [key, val];
-          })
-        ),
-        node.required
-      );
-
-      // if additional properties, add to end of properties
-      if (node.additionalProperties) {
-        const addlType =
-          typeof node.additionalProperties === "string" &&
-          PRIMITIVES[unescape(node.additionalProperties)];
-        properties[escape("[key: string]")] = escape(addlType || "any");
-      }
-
-      return tsIntersectionOf([
-        // append allOf first
-        ...(node.allOf
-          ? node.allOf.map((item: any) =>
-              isSchemaObj(item)
-                ? JSON.stringify(makeOptional(item, node.required))
-                : item
-            )
-          : []),
-        // then properties + additionalProperties
-        ...(Object.keys(properties).length ? [JSON.stringify(properties)] : []),
-      ]);
-    }
-
-    // arrays
-    if (isArrayNode(node) && typeof node.items === "string") {
-      return escape(tsArrayOf(node.items));
-    }
-
-    // oneOf
-    if (isOneOfNode(node)) {
-      return escape(tsUnionOf(node.oneOf));
-    }
-
-    return node; // return by default
-  });
 
   return `export interface components {
     schemas: {

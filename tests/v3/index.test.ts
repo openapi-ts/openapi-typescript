@@ -301,16 +301,28 @@ describe("OpenAPI3 features", () => {
         schemas: {
           any_of: {
             anyOf: [
-              { type: "string" },
-              { type: "boolean" },
-              { $ref: "#/components/schemas/ref1" },
+              { $ref: "#/components/schemas/string" },
+              { $ref: "#/components/schemas/number" },
+              { $ref: "#/components/schemas/boolean" },
             ],
           },
-          ref1: {
-            $ref: "#/components/schemas/ref2",
+          string: {
+            type: "object",
+            properties: {
+              string: { type: "string" },
+            },
           },
-          ref2: {
-            type: "number",
+          number: {
+            type: "object",
+            properties: {
+              number: { type: "number" },
+            },
+          },
+          boolean: {
+            type: "object",
+            properties: {
+              boolean: { type: "boolean" },
+            },
           },
         },
       },
@@ -319,9 +331,10 @@ describe("OpenAPI3 features", () => {
       format(`
       export interface components {
         schemas: {
-          any_of: any;
-          ref1: components['schemas']['ref2'];
-          ref2: number;
+          any_of: Partial<components['schemas']['string']> & Partial<components['schemas']['number']> & Partial<components['schemas']['boolean']>;
+          string: {string?: string };
+          number: {number?: number };
+          boolean: {boolean?: boolean };
         }
       }`)
     );

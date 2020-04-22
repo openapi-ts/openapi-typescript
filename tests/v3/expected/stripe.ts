@@ -6,7 +6,9 @@
 export interface components {
   schemas: {
     account: {
-      business_profile?: any;
+      business_profile?: Partial<
+        components["schemas"]["account_business_profile"]
+      >;
       business_type?:
         | "company"
         | "government_entity"
@@ -21,7 +23,8 @@ export interface components {
       details_submitted?: boolean;
       email?: string;
       external_accounts?: {
-        data: any[];
+        data: Partial<components["schemas"]["bank_account"]> &
+          Partial<components["schemas"]["card"]>[];
         has_more: boolean;
         object: "list";
         url: string;
@@ -32,13 +35,13 @@ export interface components {
       object: "account";
       payouts_enabled?: boolean;
       requirements?: components["schemas"]["account_requirements"];
-      settings?: any;
+      settings?: Partial<components["schemas"]["account_settings"]>;
       tos_acceptance?: components["schemas"]["account_tos_acceptance"];
       type?: "custom" | "express" | "standard";
     };
     account_branding_settings: {
-      icon?: any;
-      logo?: any;
+      icon?: Partial<string> & Partial<components["schemas"]["file"]>;
+      logo?: Partial<string> & Partial<components["schemas"]["file"]>;
       primary_color?: string;
       secondary_color?: string;
     };
@@ -46,7 +49,7 @@ export interface components {
       mcc?: string;
       name?: string;
       product_description?: string;
-      support_address?: any;
+      support_address?: Partial<components["schemas"]["address"]>;
       support_email?: string;
       support_phone?: string;
       support_url?: string;
@@ -162,7 +165,9 @@ export interface components {
     };
     alipay_account: {
       created: number;
-      customer?: any;
+      customer?: Partial<string> &
+        Partial<components["schemas"]["customer"]> &
+        Partial<components["schemas"]["deleted_customer"]>;
       fingerprint: string;
       id: string;
       livemode: boolean;
@@ -184,7 +189,9 @@ export interface components {
       payment_intent?: components["schemas"]["payment_intent"];
       payment_method?: components["schemas"]["payment_method"];
       setup_intent?: components["schemas"]["setup_intent"];
-      source?: any;
+      source?: Partial<components["schemas"]["bank_account"]> &
+        Partial<components["schemas"]["card"]> &
+        Partial<components["schemas"]["source"]>;
       type:
         | "api_connection_error"
         | "api_error"
@@ -203,18 +210,21 @@ export interface components {
     };
     application: { id: string; name?: string; object: "application" };
     application_fee: {
-      account: any;
+      account: Partial<string> & Partial<components["schemas"]["account"]>;
       amount: number;
       amount_refunded: number;
-      application: any;
-      balance_transaction?: any;
-      charge: any;
+      application: Partial<string> &
+        Partial<components["schemas"]["application"]>;
+      balance_transaction?: Partial<string> &
+        Partial<components["schemas"]["balance_transaction"]>;
+      charge: Partial<string> & Partial<components["schemas"]["charge"]>;
       created: number;
       currency: string;
       id: string;
       livemode: boolean;
       object: "application_fee";
-      originating_transaction?: any;
+      originating_transaction?: Partial<string> &
+        Partial<components["schemas"]["charge"]>;
       refunded: boolean;
       refunds: {
         data: components["schemas"]["fee_refund"][];
@@ -253,7 +263,22 @@ export interface components {
       net: number;
       object: "balance_transaction";
       reporting_category: string;
-      source?: any;
+      source?: Partial<string> &
+        Partial<components["schemas"]["application_fee"]> &
+        Partial<components["schemas"]["charge"]> &
+        Partial<components["schemas"]["connect_collection_transfer"]> &
+        Partial<components["schemas"]["dispute"]> &
+        Partial<components["schemas"]["fee_refund"]> &
+        Partial<components["schemas"]["issuing.authorization"]> &
+        Partial<components["schemas"]["issuing.transaction"]> &
+        Partial<components["schemas"]["payout"]> &
+        Partial<components["schemas"]["platform_tax_fee"]> &
+        Partial<components["schemas"]["refund"]> &
+        Partial<components["schemas"]["reserve_transaction"]> &
+        Partial<components["schemas"]["tax_deducted_at_source"]> &
+        Partial<components["schemas"]["topup"]> &
+        Partial<components["schemas"]["transfer"]> &
+        Partial<components["schemas"]["transfer_reversal"]>;
       status: string;
       type:
         | "adjustment"
@@ -287,13 +312,15 @@ export interface components {
         | "transfer_refund";
     };
     bank_account: {
-      account?: any;
+      account?: Partial<string> & Partial<components["schemas"]["account"]>;
       account_holder_name?: string;
       account_holder_type?: string;
       bank_name?: string;
       country: string;
       currency: string;
-      customer?: any;
+      customer?: Partial<string> &
+        Partial<components["schemas"]["customer"]> &
+        Partial<components["schemas"]["deleted_customer"]>;
       default_for_currency?: boolean;
       fingerprint?: string;
       id: string;
@@ -304,7 +331,7 @@ export interface components {
       status: string;
     };
     billing_details: {
-      address?: any;
+      address?: Partial<components["schemas"]["address"]>;
       email?: string;
       name?: string;
       phone?: string;
@@ -357,7 +384,7 @@ export interface components {
       receiver: string;
     };
     capability: {
-      account: any;
+      account: Partial<string> & Partial<components["schemas"]["account"]>;
       id: string;
       object: "capability";
       requested: boolean;
@@ -366,7 +393,7 @@ export interface components {
       status: "active" | "disabled" | "inactive" | "pending" | "unrequested";
     };
     card: {
-      account?: any;
+      account?: Partial<string> & Partial<components["schemas"]["account"]>;
       address_city?: string;
       address_country?: string;
       address_line1?: string;
@@ -379,7 +406,9 @@ export interface components {
       brand: string;
       country?: string;
       currency?: string;
-      customer?: any;
+      customer?: Partial<string> &
+        Partial<components["schemas"]["customer"]> &
+        Partial<components["schemas"]["deleted_customer"]>;
       cvc_check?: string;
       default_for_currency?: boolean;
       dynamic_last4?: string;
@@ -392,40 +421,49 @@ export interface components {
       metadata: { [key: string]: string };
       name?: string;
       object: "card";
-      recipient?: any;
+      recipient?: Partial<string> & Partial<components["schemas"]["recipient"]>;
       tokenization_method?: string;
     };
     card_mandate_payment_method_details: { [key: string]: any };
     charge: {
       amount: number;
       amount_refunded: number;
-      application?: any;
-      application_fee?: any;
+      application?: Partial<string> &
+        Partial<components["schemas"]["application"]>;
+      application_fee?: Partial<string> &
+        Partial<components["schemas"]["application_fee"]>;
       application_fee_amount?: number;
-      balance_transaction?: any;
+      balance_transaction?: Partial<string> &
+        Partial<components["schemas"]["balance_transaction"]>;
       billing_details: components["schemas"]["billing_details"];
       calculated_statement_descriptor?: string;
       captured: boolean;
       created: number;
       currency: string;
-      customer?: any;
+      customer?: Partial<string> &
+        Partial<components["schemas"]["customer"]> &
+        Partial<components["schemas"]["deleted_customer"]>;
       description?: string;
       disputed: boolean;
       failure_code?: string;
       failure_message?: string;
-      fraud_details?: any;
+      fraud_details?: Partial<components["schemas"]["charge_fraud_details"]>;
       id: string;
-      invoice?: any;
+      invoice?: Partial<string> & Partial<components["schemas"]["invoice"]>;
       livemode: boolean;
       metadata: { [key: string]: string };
       object: "charge";
-      on_behalf_of?: any;
-      order?: any;
-      outcome?: any;
+      on_behalf_of?: Partial<string> &
+        Partial<components["schemas"]["account"]>;
+      order?: Partial<string> & Partial<components["schemas"]["order"]>;
+      outcome?: Partial<components["schemas"]["charge_outcome"]>;
       paid: boolean;
-      payment_intent?: any;
+      payment_intent?: Partial<string> &
+        Partial<components["schemas"]["payment_intent"]>;
       payment_method?: string;
-      payment_method_details?: any;
+      payment_method_details?: Partial<
+        components["schemas"]["payment_method_details"]
+      >;
       receipt_email?: string;
       receipt_number?: string;
       receipt_url?: string;
@@ -436,14 +474,15 @@ export interface components {
         object: "list";
         url: string;
       };
-      review?: any;
-      shipping?: any;
-      source_transfer?: any;
+      review?: Partial<string> & Partial<components["schemas"]["review"]>;
+      shipping?: Partial<components["schemas"]["shipping"]>;
+      source_transfer?: Partial<string> &
+        Partial<components["schemas"]["transfer"]>;
       statement_descriptor?: string;
       statement_descriptor_suffix?: string;
       status: string;
-      transfer?: any;
-      transfer_data?: any;
+      transfer?: Partial<string> & Partial<components["schemas"]["transfer"]>;
+      transfer_data?: Partial<components["schemas"]["charge_transfer_data"]>;
       transfer_group?: string;
     };
     charge_fraud_details: { stripe_report?: string; user_report?: string };
@@ -452,16 +491,19 @@ export interface components {
       reason?: string;
       risk_level?: string;
       risk_score?: number;
-      rule?: any;
+      rule?: Partial<string> & Partial<components["schemas"]["rule"]>;
       seller_message?: string;
       type: string;
     };
-    charge_transfer_data: { amount?: number; destination: any };
+    charge_transfer_data: {
+      amount?: number;
+      destination: Partial<string> & Partial<components["schemas"]["account"]>;
+    };
     "checkout.session": {
       billing_address_collection?: string;
       cancel_url: string;
       client_reference_id?: string;
-      customer?: any;
+      customer?: Partial<string> & Partial<components["schemas"]["customer"]>;
       customer_email?: string;
       display_items?: components["schemas"]["checkout_session_display_item"][];
       id: string;
@@ -487,13 +529,18 @@ export interface components {
       metadata?: { [key: string]: string };
       mode?: "payment" | "setup" | "subscription";
       object: "checkout.session";
-      payment_intent?: any;
+      payment_intent?: Partial<string> &
+        Partial<components["schemas"]["payment_intent"]>;
       payment_method_types: string[];
-      setup_intent?: any;
-      shipping?: any;
-      shipping_address_collection?: any;
+      setup_intent?: Partial<string> &
+        Partial<components["schemas"]["setup_intent"]>;
+      shipping?: Partial<components["schemas"]["shipping"]>;
+      shipping_address_collection?: Partial<
+        components["schemas"]["payment_pages_payment_page_resources_shipping_address_collection"]
+      >;
       submit_type?: "auto" | "book" | "donate" | "pay";
-      subscription?: any;
+      subscription?: Partial<string> &
+        Partial<components["schemas"]["subscription"]>;
       success_url: string;
     };
     checkout_session_custom_display_item_description: {
@@ -513,7 +560,7 @@ export interface components {
     connect_collection_transfer: {
       amount: number;
       currency: string;
-      destination: any;
+      destination: Partial<string> & Partial<components["schemas"]["account"]>;
       id: string;
       livemode: boolean;
       object: "connect_collection_transfer";
@@ -557,11 +604,12 @@ export interface components {
       amount: number;
       created: number;
       currency: string;
-      customer: any;
-      customer_balance_transaction?: any;
+      customer: Partial<string> & Partial<components["schemas"]["customer"]>;
+      customer_balance_transaction?: Partial<string> &
+        Partial<components["schemas"]["customer_balance_transaction"]>;
       discount_amount: number;
       id: string;
-      invoice: any;
+      invoice: Partial<string> & Partial<components["schemas"]["invoice"]>;
       lines: {
         data: components["schemas"]["credit_note_line_item"][];
         has_more: boolean;
@@ -580,7 +628,7 @@ export interface components {
         | "fraudulent"
         | "order_change"
         | "product_unsatisfactory";
-      refund?: any;
+      refund?: Partial<string> & Partial<components["schemas"]["refund"]>;
       status: "issued" | "void";
       subtotal: number;
       tax_amounts: components["schemas"]["credit_note_tax_amount"][];
@@ -606,17 +654,22 @@ export interface components {
     credit_note_tax_amount: {
       amount: number;
       inclusive: boolean;
-      tax_rate: any;
+      tax_rate: Partial<string> & Partial<components["schemas"]["tax_rate"]>;
     };
     customer: {
-      address?: any;
+      address?: Partial<components["schemas"]["address"]>;
       balance?: number;
       created: number;
       currency?: string;
-      default_source?: any;
+      default_source?: Partial<string> &
+        Partial<components["schemas"]["alipay_account"]> &
+        Partial<components["schemas"]["bank_account"]> &
+        Partial<components["schemas"]["bitcoin_receiver"]> &
+        Partial<components["schemas"]["card"]> &
+        Partial<components["schemas"]["source"]>;
       delinquent?: boolean;
       description?: string;
-      discount?: any;
+      discount?: Partial<components["schemas"]["discount"]>;
       email?: string;
       id: string;
       invoice_prefix?: string;
@@ -628,8 +681,17 @@ export interface components {
       object: "customer";
       phone?: string;
       preferred_locales?: string[];
-      shipping?: any;
-      sources: { data: any[]; has_more: boolean; object: "list"; url: string };
+      shipping?: Partial<components["schemas"]["shipping"]>;
+      sources: {
+        data: Partial<components["schemas"]["alipay_account"]> &
+          Partial<components["schemas"]["bank_account"]> &
+          Partial<components["schemas"]["bitcoin_receiver"]> &
+          Partial<components["schemas"]["card"]> &
+          Partial<components["schemas"]["source"]>[];
+        has_more: boolean;
+        object: "list";
+        url: string;
+      };
       subscriptions?: {
         data: components["schemas"]["subscription"][];
         has_more: boolean;
@@ -653,13 +715,14 @@ export interface components {
     customer_balance_transaction: {
       amount: number;
       created: number;
-      credit_note?: any;
+      credit_note?: Partial<string> &
+        Partial<components["schemas"]["credit_note"]>;
       currency: string;
-      customer: any;
+      customer: Partial<string> & Partial<components["schemas"]["customer"]>;
       description?: string;
       ending_balance: number;
       id: string;
-      invoice?: any;
+      invoice?: Partial<string> & Partial<components["schemas"]["invoice"]>;
       livemode: boolean;
       metadata?: { [key: string]: string };
       object: "customer_balance_transaction";
@@ -705,10 +768,18 @@ export interface components {
     deleted_coupon: { deleted: "true"; id: string; object: "coupon" };
     deleted_customer: { deleted: "true"; id: string; object: "customer" };
     deleted_discount: { deleted: "true"; object: "discount" };
-    deleted_external_account: any;
+    deleted_external_account: Partial<
+      components["schemas"]["deleted_bank_account"]
+    > &
+      Partial<components["schemas"]["deleted_card"]>;
     deleted_invoice: { deleted: "true"; id: string; object: "invoice" };
     deleted_invoiceitem: { deleted: "true"; id: string; object: "invoiceitem" };
-    deleted_payment_source: any;
+    deleted_payment_source: Partial<
+      components["schemas"]["deleted_alipay_account"]
+    > &
+      Partial<components["schemas"]["deleted_bank_account"]> &
+      Partial<components["schemas"]["deleted_bitcoin_receiver"]> &
+      Partial<components["schemas"]["deleted_card"]>;
     deleted_person: { deleted: "true"; id: string; object: "person" };
     deleted_plan: { deleted: "true"; id: string; object: "plan" };
     deleted_product: { deleted: "true"; id: string; object: "product" };
@@ -753,7 +824,9 @@ export interface components {
     };
     discount: {
       coupon: components["schemas"]["coupon"];
-      customer?: any;
+      customer?: Partial<string> &
+        Partial<components["schemas"]["customer"]> &
+        Partial<components["schemas"]["deleted_customer"]>;
       end?: number;
       object: "discount";
       start: number;
@@ -762,7 +835,7 @@ export interface components {
     dispute: {
       amount: number;
       balance_transactions: components["schemas"]["balance_transaction"][];
-      charge: any;
+      charge: Partial<string> & Partial<components["schemas"]["charge"]>;
       created: number;
       currency: string;
       evidence: components["schemas"]["dispute_evidence"];
@@ -772,7 +845,8 @@ export interface components {
       livemode: boolean;
       metadata: { [key: string]: string };
       object: "dispute";
-      payment_intent?: any;
+      payment_intent?: Partial<string> &
+        Partial<components["schemas"]["payment_intent"]>;
       reason: string;
       status:
         | "charge_refunded"
@@ -787,30 +861,37 @@ export interface components {
     dispute_evidence: {
       access_activity_log?: string;
       billing_address?: string;
-      cancellation_policy?: any;
+      cancellation_policy?: Partial<string> &
+        Partial<components["schemas"]["file"]>;
       cancellation_policy_disclosure?: string;
       cancellation_rebuttal?: string;
-      customer_communication?: any;
+      customer_communication?: Partial<string> &
+        Partial<components["schemas"]["file"]>;
       customer_email_address?: string;
       customer_name?: string;
       customer_purchase_ip?: string;
-      customer_signature?: any;
-      duplicate_charge_documentation?: any;
+      customer_signature?: Partial<string> &
+        Partial<components["schemas"]["file"]>;
+      duplicate_charge_documentation?: Partial<string> &
+        Partial<components["schemas"]["file"]>;
       duplicate_charge_explanation?: string;
       duplicate_charge_id?: string;
       product_description?: string;
-      receipt?: any;
-      refund_policy?: any;
+      receipt?: Partial<string> & Partial<components["schemas"]["file"]>;
+      refund_policy?: Partial<string> & Partial<components["schemas"]["file"]>;
       refund_policy_disclosure?: string;
       refund_refusal_explanation?: string;
       service_date?: string;
-      service_documentation?: any;
+      service_documentation?: Partial<string> &
+        Partial<components["schemas"]["file"]>;
       shipping_address?: string;
       shipping_carrier?: string;
       shipping_date?: string;
-      shipping_documentation?: any;
+      shipping_documentation?: Partial<string> &
+        Partial<components["schemas"]["file"]>;
       shipping_tracking_number?: string;
-      uncategorized_file?: any;
+      uncategorized_file?: Partial<string> &
+        Partial<components["schemas"]["file"]>;
       uncategorized_text?: string;
     };
     dispute_evidence_details: {
@@ -837,7 +918,7 @@ export interface components {
       livemode: boolean;
       object: "event";
       pending_webhooks: number;
-      request?: any;
+      request?: Partial<components["schemas"]["notification_event_request"]>;
       type: string;
     };
     exchange_rate: {
@@ -845,7 +926,8 @@ export interface components {
       object: "exchange_rate";
       rates: { [key: string]: number };
     };
-    external_account: any;
+    external_account: Partial<components["schemas"]["bank_account"]> &
+      Partial<components["schemas"]["card"]>;
     fee: {
       amount: number;
       application?: string;
@@ -855,10 +937,11 @@ export interface components {
     };
     fee_refund: {
       amount: number;
-      balance_transaction?: any;
+      balance_transaction?: Partial<string> &
+        Partial<components["schemas"]["balance_transaction"]>;
       created: number;
       currency: string;
-      fee: any;
+      fee: Partial<string> & Partial<components["schemas"]["application_fee"]>;
       id: string;
       metadata: { [key: string]: string };
       object: "fee_refund";
@@ -884,7 +967,7 @@ export interface components {
       created: number;
       expired: boolean;
       expires_at?: number;
-      file: any;
+      file: Partial<string> & Partial<components["schemas"]["file"]>;
       id: string;
       livemode: boolean;
       metadata: { [key: string]: string };
@@ -921,24 +1004,32 @@ export interface components {
         | "subscription_threshold"
         | "subscription_update"
         | "upcoming";
-      charge?: any;
+      charge?: Partial<string> & Partial<components["schemas"]["charge"]>;
       collection_method?: "charge_automatically" | "send_invoice";
       created: number;
       currency: string;
       custom_fields?: components["schemas"]["invoice_setting_custom_field"][];
-      customer: any;
-      customer_address?: any;
+      customer: Partial<string> &
+        Partial<components["schemas"]["customer"]> &
+        Partial<components["schemas"]["deleted_customer"]>;
+      customer_address?: Partial<components["schemas"]["address"]>;
       customer_email?: string;
       customer_name?: string;
       customer_phone?: string;
-      customer_shipping?: any;
+      customer_shipping?: Partial<components["schemas"]["shipping"]>;
       customer_tax_exempt?: "exempt" | "none" | "reverse";
       customer_tax_ids?: components["schemas"]["invoices_resource_invoice_tax_id"][];
-      default_payment_method?: any;
-      default_source?: any;
+      default_payment_method?: Partial<string> &
+        Partial<components["schemas"]["payment_method"]>;
+      default_source?: Partial<string> &
+        Partial<components["schemas"]["alipay_account"]> &
+        Partial<components["schemas"]["bank_account"]> &
+        Partial<components["schemas"]["bitcoin_receiver"]> &
+        Partial<components["schemas"]["card"]> &
+        Partial<components["schemas"]["source"]>;
       default_tax_rates?: components["schemas"]["tax_rate"][];
       description?: string;
-      discount?: any;
+      discount?: Partial<components["schemas"]["discount"]>;
       due_date?: number;
       ending_balance?: number;
       footer?: string;
@@ -957,7 +1048,8 @@ export interface components {
       number?: string;
       object: "invoice";
       paid: boolean;
-      payment_intent?: any;
+      payment_intent?: Partial<string> &
+        Partial<components["schemas"]["payment_intent"]>;
       period_end: number;
       period_start: number;
       post_payment_credit_notes_amount: number;
@@ -967,7 +1059,8 @@ export interface components {
       statement_descriptor?: string;
       status?: "deleted" | "draft" | "open" | "paid" | "uncollectible" | "void";
       status_transitions: components["schemas"]["invoices_status_transitions"];
-      subscription?: any;
+      subscription?: Partial<string> &
+        Partial<components["schemas"]["subscription"]>;
       subscription_proration_date?: number;
       subtotal: number;
       tax?: number;
@@ -985,11 +1078,16 @@ export interface components {
     invoice_setting_custom_field: { name: string; value: string };
     invoice_setting_customer_setting: {
       custom_fields?: components["schemas"]["invoice_setting_custom_field"][];
-      default_payment_method?: any;
+      default_payment_method?: Partial<string> &
+        Partial<components["schemas"]["payment_method"]>;
       footer?: string;
     };
     invoice_setting_subscription_schedule_setting: { days_until_due?: number };
-    invoice_tax_amount: { amount: number; inclusive: boolean; tax_rate: any };
+    invoice_tax_amount: {
+      amount: number;
+      inclusive: boolean;
+      tax_rate: Partial<string> & Partial<components["schemas"]["tax_rate"]>;
+    };
     invoice_threshold_reason: {
       amount_gte?: number;
       item_reasons: components["schemas"]["invoice_item_threshold_reason"][];
@@ -997,20 +1095,23 @@ export interface components {
     invoiceitem: {
       amount: number;
       currency: string;
-      customer: any;
+      customer: Partial<string> &
+        Partial<components["schemas"]["customer"]> &
+        Partial<components["schemas"]["deleted_customer"]>;
       date: number;
       description?: string;
       discountable: boolean;
       id: string;
-      invoice?: any;
+      invoice?: Partial<string> & Partial<components["schemas"]["invoice"]>;
       livemode: boolean;
       metadata: { [key: string]: string };
       object: "invoiceitem";
       period: components["schemas"]["invoice_line_item_period"];
-      plan?: any;
+      plan?: Partial<components["schemas"]["plan"]>;
       proration: boolean;
       quantity: number;
-      subscription?: any;
+      subscription?: Partial<string> &
+        Partial<components["schemas"]["subscription"]>;
       subscription_item?: string;
       tax_rates?: components["schemas"]["tax_rate"][];
       unit_amount?: number;
@@ -1052,7 +1153,7 @@ export interface components {
     };
     issuer_fraud_record: {
       actionable: boolean;
-      charge: any;
+      charge: Partial<string> & Partial<components["schemas"]["charge"]>;
       created: number;
       fraud_type: string;
       has_liability_shift: boolean;
@@ -1072,7 +1173,8 @@ export interface components {
         | "swipe";
       balance_transactions: components["schemas"]["balance_transaction"][];
       card: components["schemas"]["issuing.card"];
-      cardholder?: any;
+      cardholder?: Partial<string> &
+        Partial<components["schemas"]["issuing.cardholder"]>;
       created: number;
       currency: string;
       id: string;
@@ -1082,7 +1184,9 @@ export interface components {
       merchant_data: components["schemas"]["issuing_authorization_merchant_data"];
       metadata: { [key: string]: string };
       object: "issuing.authorization";
-      pending_request?: any;
+      pending_request?: Partial<
+        components["schemas"]["issuing_authorization_pending_request"]
+      >;
       request_history: components["schemas"]["issuing_authorization_request"][];
       status: "closed" | "pending" | "reversed";
       transactions: components["schemas"]["issuing.transaction"][];
@@ -1104,28 +1208,34 @@ export interface components {
       metadata: { [key: string]: string };
       number?: string;
       object: "issuing.card";
-      replaced_by?: any;
-      replacement_for?: any;
+      replaced_by?: Partial<string> &
+        Partial<components["schemas"]["issuing.card"]>;
+      replacement_for?: Partial<string> &
+        Partial<components["schemas"]["issuing.card"]>;
       replacement_reason?: "damaged" | "expired" | "lost" | "stolen";
-      shipping?: any;
+      shipping?: Partial<components["schemas"]["issuing_card_shipping"]>;
       spending_controls: components["schemas"]["issuing_card_authorization_controls"];
       status: "active" | "canceled" | "inactive";
       type: "physical" | "virtual";
     };
     "issuing.cardholder": {
       billing: components["schemas"]["issuing_cardholder_address"];
-      company?: any;
+      company?: Partial<components["schemas"]["issuing_cardholder_company"]>;
       created: number;
       email?: string;
       id: string;
-      individual?: any;
+      individual?: Partial<
+        components["schemas"]["issuing_cardholder_individual"]
+      >;
       livemode: boolean;
       metadata: { [key: string]: string };
       name: string;
       object: "issuing.cardholder";
       phone_number?: string;
       requirements: components["schemas"]["issuing_cardholder_requirements"];
-      spending_controls?: any;
+      spending_controls?: Partial<
+        components["schemas"]["issuing_cardholder_authorization_controls"]
+      >;
       status: "active" | "blocked" | "inactive";
       type: "company" | "individual";
     };
@@ -1154,10 +1264,13 @@ export interface components {
     };
     "issuing.transaction": {
       amount: number;
-      authorization?: any;
-      balance_transaction?: any;
-      card: any;
-      cardholder?: any;
+      authorization?: Partial<string> &
+        Partial<components["schemas"]["issuing.authorization"]>;
+      balance_transaction?: Partial<string> &
+        Partial<components["schemas"]["balance_transaction"]>;
+      card: Partial<string> & Partial<components["schemas"]["issuing.card"]>;
+      cardholder?: Partial<string> &
+        Partial<components["schemas"]["issuing.cardholder"]>;
       created: number;
       currency: string;
       id: string;
@@ -2695,12 +2808,17 @@ export interface components {
       spending_limits_currency?: string;
     };
     issuing_cardholder_company: { tax_id_provided: boolean };
-    issuing_cardholder_id_document: { back?: any; front?: any };
+    issuing_cardholder_id_document: {
+      back?: Partial<string> & Partial<components["schemas"]["file"]>;
+      front?: Partial<string> & Partial<components["schemas"]["file"]>;
+    };
     issuing_cardholder_individual: {
-      dob?: any;
+      dob?: Partial<components["schemas"]["issuing_cardholder_individual_dob"]>;
       first_name: string;
       last_name: string;
-      verification?: any;
+      verification?: Partial<
+        components["schemas"]["issuing_cardholder_verification"]
+      >;
     };
     issuing_cardholder_individual_dob: {
       day?: number;
@@ -3017,11 +3135,19 @@ export interface components {
         | "weekly"
         | "yearly";
     };
-    issuing_cardholder_verification: { document?: any };
+    issuing_cardholder_verification: {
+      document?: Partial<
+        components["schemas"]["issuing_cardholder_id_document"]
+      >;
+    };
     legal_entity_company: {
       address?: components["schemas"]["address"];
-      address_kana?: any;
-      address_kanji?: any;
+      address_kana?: Partial<
+        components["schemas"]["legal_entity_japan_address"]
+      >;
+      address_kanji?: Partial<
+        components["schemas"]["legal_entity_japan_address"]
+      >;
       directors_provided?: boolean;
       executives_provided?: boolean;
       name?: string;
@@ -3048,16 +3174,18 @@ export interface components {
       tax_id_provided?: boolean;
       tax_id_registrar?: string;
       vat_id_provided?: boolean;
-      verification?: any;
+      verification?: Partial<
+        components["schemas"]["legal_entity_company_verification"]
+      >;
     };
     legal_entity_company_verification: {
       document: components["schemas"]["legal_entity_company_verification_document"];
     };
     legal_entity_company_verification_document: {
-      back?: any;
+      back?: Partial<string> & Partial<components["schemas"]["file"]>;
       details?: string;
       details_code?: string;
-      front?: any;
+      front?: Partial<string> & Partial<components["schemas"]["file"]>;
     };
     legal_entity_dob: { day?: number; month?: number; year?: number };
     legal_entity_japan_address: {
@@ -3070,17 +3198,19 @@ export interface components {
       town?: string;
     };
     legal_entity_person_verification: {
-      additional_document?: any;
+      additional_document?: Partial<
+        components["schemas"]["legal_entity_person_verification_document"]
+      >;
       details?: string;
       details_code?: string;
       document?: components["schemas"]["legal_entity_person_verification_document"];
       status: string;
     };
     legal_entity_person_verification_document: {
-      back?: any;
+      back?: Partial<string> & Partial<components["schemas"]["file"]>;
       details?: string;
       details_code?: string;
-      front?: any;
+      front?: Partial<string> & Partial<components["schemas"]["file"]>;
     };
     light_account_logout: { [key: string]: any };
     line_item: {
@@ -3094,7 +3224,7 @@ export interface components {
       metadata: { [key: string]: string };
       object: "line_item";
       period: components["schemas"]["invoice_line_item_period"];
-      plan?: any;
+      plan?: Partial<components["schemas"]["plan"]>;
       proration: boolean;
       quantity?: number;
       subscription?: string;
@@ -3110,7 +3240,8 @@ export interface components {
       livemode: boolean;
       multi_use?: components["schemas"]["mandate_multi_use"];
       object: "mandate";
-      payment_method: any;
+      payment_method: Partial<string> &
+        Partial<components["schemas"]["payment_method"]>;
       payment_method_details: components["schemas"]["mandate_payment_method_details"];
       single_use?: components["schemas"]["mandate_single_use"];
       status: "active" | "inactive" | "pending";
@@ -3138,10 +3269,12 @@ export interface components {
       amount_returned?: number;
       application?: string;
       application_fee?: number;
-      charge?: any;
+      charge?: Partial<string> & Partial<components["schemas"]["charge"]>;
       created: number;
       currency: string;
-      customer?: any;
+      customer?: Partial<string> &
+        Partial<components["schemas"]["customer"]> &
+        Partial<components["schemas"]["deleted_customer"]>;
       email?: string;
       external_coupon_code?: string;
       id: string;
@@ -3156,10 +3289,10 @@ export interface components {
         url: string;
       };
       selected_shipping_method?: string;
-      shipping?: any;
+      shipping?: Partial<components["schemas"]["shipping"]>;
       shipping_methods?: components["schemas"]["shipping_method"][];
       status: string;
-      status_transitions?: any;
+      status_transitions?: Partial<components["schemas"]["status_transitions"]>;
       updated?: number;
       upstream_id?: string;
     };
@@ -3168,7 +3301,7 @@ export interface components {
       currency: string;
       description: string;
       object: "order_item";
-      parent?: any;
+      parent?: Partial<string> & Partial<components["schemas"]["sku"]>;
       quantity?: number;
       type: string;
     };
@@ -3180,8 +3313,8 @@ export interface components {
       items: components["schemas"]["order_item"][];
       livemode: boolean;
       object: "order_return";
-      order?: any;
-      refund?: any;
+      order?: Partial<string> & Partial<components["schemas"]["order"]>;
+      refund?: Partial<string> & Partial<components["schemas"]["refund"]>;
     };
     package_dimensions: {
       height: number;
@@ -3193,7 +3326,8 @@ export interface components {
       amount: number;
       amount_capturable?: number;
       amount_received?: number;
-      application?: any;
+      application?: Partial<string> &
+        Partial<components["schemas"]["application"]>;
       application_fee_amount?: number;
       canceled_at?: number;
       cancellation_reason?:
@@ -3215,23 +3349,31 @@ export interface components {
       confirmation_method: "automatic" | "manual";
       created: number;
       currency: string;
-      customer?: any;
+      customer?: Partial<string> &
+        Partial<components["schemas"]["customer"]> &
+        Partial<components["schemas"]["deleted_customer"]>;
       description?: string;
       id: string;
-      invoice?: any;
-      last_payment_error?: any;
+      invoice?: Partial<string> & Partial<components["schemas"]["invoice"]>;
+      last_payment_error?: Partial<components["schemas"]["api_errors"]>;
       livemode: boolean;
       metadata?: { [key: string]: string };
-      next_action?: any;
+      next_action?: Partial<
+        components["schemas"]["payment_intent_next_action"]
+      >;
       object: "payment_intent";
-      on_behalf_of?: any;
-      payment_method?: any;
-      payment_method_options?: any;
+      on_behalf_of?: Partial<string> &
+        Partial<components["schemas"]["account"]>;
+      payment_method?: Partial<string> &
+        Partial<components["schemas"]["payment_method"]>;
+      payment_method_options?: Partial<
+        components["schemas"]["payment_intent_payment_method_options"]
+      >;
       payment_method_types: string[];
       receipt_email?: string;
-      review?: any;
+      review?: Partial<string> & Partial<components["schemas"]["review"]>;
       setup_future_usage?: "off_session" | "on_session";
-      shipping?: any;
+      shipping?: Partial<components["schemas"]["shipping"]>;
       statement_descriptor?: string;
       statement_descriptor_suffix?: string;
       status:
@@ -3242,7 +3384,7 @@ export interface components {
         | "requires_confirmation"
         | "requires_payment_method"
         | "succeeded";
-      transfer_data?: any;
+      transfer_data?: Partial<components["schemas"]["transfer_data"]>;
       transfer_group?: string;
     };
     payment_intent_next_action: {
@@ -3258,7 +3400,9 @@ export interface components {
       card?: components["schemas"]["payment_intent_payment_method_options_card"];
     };
     payment_intent_payment_method_options_card: {
-      installments?: any;
+      installments?: Partial<
+        components["schemas"]["payment_method_options_card_installments"]
+      >;
       request_three_d_secure?: "any" | "automatic" | "challenge_only";
     };
     payment_method: {
@@ -3267,7 +3411,7 @@ export interface components {
       card?: components["schemas"]["payment_method_card"];
       card_present?: components["schemas"]["payment_method_card_present"];
       created: number;
-      customer?: any;
+      customer?: Partial<string> & Partial<components["schemas"]["customer"]>;
       fpx?: components["schemas"]["payment_method_fpx"];
       id: string;
       ideal?: components["schemas"]["payment_method_ideal"];
@@ -3284,16 +3428,20 @@ export interface components {
     };
     payment_method_card: {
       brand: string;
-      checks?: any;
+      checks?: Partial<components["schemas"]["payment_method_card_checks"]>;
       country?: string;
       exp_month: number;
       exp_year: number;
       fingerprint?: string;
       funding: string;
-      generated_from?: any;
+      generated_from?: Partial<
+        components["schemas"]["payment_method_card_generated_card"]
+      >;
       last4: string;
-      three_d_secure_usage?: any;
-      wallet?: any;
+      three_d_secure_usage?: Partial<
+        components["schemas"]["three_d_secure_usage"]
+      >;
+      wallet?: Partial<components["schemas"]["payment_method_card_wallet"]>;
     };
     payment_method_card_checks: {
       address_line1_check?: string;
@@ -3302,7 +3450,9 @@ export interface components {
     };
     payment_method_card_generated_card: {
       charge?: string;
-      payment_method_details?: any;
+      payment_method_details?: Partial<
+        components["schemas"]["payment_method_details"]
+      >;
     };
     payment_method_card_present: { [key: string]: any };
     payment_method_card_wallet: {
@@ -3325,17 +3475,17 @@ export interface components {
     payment_method_card_wallet_apple_pay: { [key: string]: any };
     payment_method_card_wallet_google_pay: { [key: string]: any };
     payment_method_card_wallet_masterpass: {
-      billing_address?: any;
+      billing_address?: Partial<components["schemas"]["address"]>;
       email?: string;
       name?: string;
-      shipping_address?: any;
+      shipping_address?: Partial<components["schemas"]["address"]>;
     };
     payment_method_card_wallet_samsung_pay: { [key: string]: any };
     payment_method_card_wallet_visa_checkout: {
-      billing_address?: any;
+      billing_address?: Partial<components["schemas"]["address"]>;
       email?: string;
       name?: string;
-      shipping_address?: any;
+      shipping_address?: Partial<components["schemas"]["address"]>;
     };
     payment_method_details: {
       ach_credit_transfer?: components["schemas"]["payment_method_details_ach_credit_transfer"];
@@ -3389,24 +3539,34 @@ export interface components {
     };
     payment_method_details_card: {
       brand?: string;
-      checks?: any;
+      checks?: Partial<
+        components["schemas"]["payment_method_details_card_checks"]
+      >;
       country?: string;
       exp_month?: number;
       exp_year?: number;
       fingerprint?: string;
       funding?: string;
-      installments?: any;
+      installments?: Partial<
+        components["schemas"]["payment_method_details_card_installments"]
+      >;
       last4?: string;
       network?: string;
-      three_d_secure?: any;
-      wallet?: any;
+      three_d_secure?: Partial<components["schemas"]["three_d_secure_details"]>;
+      wallet?: Partial<
+        components["schemas"]["payment_method_details_card_wallet"]
+      >;
     };
     payment_method_details_card_checks: {
       address_line1_check?: string;
       address_postal_code_check?: string;
       cvc_check?: string;
     };
-    payment_method_details_card_installments: { plan?: any };
+    payment_method_details_card_installments: {
+      plan?: Partial<
+        components["schemas"]["payment_method_details_card_installments_plan"]
+      >;
+    };
     payment_method_details_card_installments_plan: {
       count?: number;
       interval?: "month";
@@ -3425,7 +3585,9 @@ export interface components {
       last4?: string;
       network?: string;
       read_method?: string;
-      receipt?: any;
+      receipt?: Partial<
+        components["schemas"]["payment_method_details_card_present_receipt"]
+      >;
     };
     payment_method_details_card_present_receipt: {
       application_cryptogram?: string;
@@ -3459,17 +3621,17 @@ export interface components {
     payment_method_details_card_wallet_apple_pay: { [key: string]: any };
     payment_method_details_card_wallet_google_pay: { [key: string]: any };
     payment_method_details_card_wallet_masterpass: {
-      billing_address?: any;
+      billing_address?: Partial<components["schemas"]["address"]>;
       email?: string;
       name?: string;
-      shipping_address?: any;
+      shipping_address?: Partial<components["schemas"]["address"]>;
     };
     payment_method_details_card_wallet_samsung_pay: { [key: string]: any };
     payment_method_details_card_wallet_visa_checkout: {
-      billing_address?: any;
+      billing_address?: Partial<components["schemas"]["address"]>;
       email?: string;
       name?: string;
-      shipping_address?: any;
+      shipping_address?: Partial<components["schemas"]["address"]>;
     };
     payment_method_details_eps: { verified_name?: string };
     payment_method_details_fpx: {
@@ -3607,7 +3769,9 @@ export interface components {
     payment_method_options_card_installments: {
       available_plans?: components["schemas"]["payment_method_details_card_installments_plan"][];
       enabled: boolean;
-      plan?: any;
+      plan?: Partial<
+        components["schemas"]["payment_method_details_card_installments_plan"]
+      >;
     };
     payment_method_sepa_debit: {
       bank_code?: string;
@@ -3856,17 +4020,28 @@ export interface components {
         | "ZW"
         | "ZZ"[];
     };
-    payment_source: any;
+    payment_source: Partial<components["schemas"]["account"]> &
+      Partial<components["schemas"]["alipay_account"]> &
+      Partial<components["schemas"]["bank_account"]> &
+      Partial<components["schemas"]["bitcoin_receiver"]> &
+      Partial<components["schemas"]["card"]> &
+      Partial<components["schemas"]["source"]>;
     payout: {
       amount: number;
       arrival_date: number;
       automatic: boolean;
-      balance_transaction?: any;
+      balance_transaction?: Partial<string> &
+        Partial<components["schemas"]["balance_transaction"]>;
       created: number;
       currency: string;
       description?: string;
-      destination?: any;
-      failure_balance_transaction?: any;
+      destination?: Partial<string> &
+        Partial<components["schemas"]["bank_account"]> &
+        Partial<components["schemas"]["card"]> &
+        Partial<components["schemas"]["deleted_bank_account"]> &
+        Partial<components["schemas"]["deleted_card"]>;
+      failure_balance_transaction?: Partial<string> &
+        Partial<components["schemas"]["balance_transaction"]>;
       failure_code?: string;
       failure_message?: string;
       id: string;
@@ -3883,8 +4058,12 @@ export interface components {
     person: {
       account: string;
       address?: components["schemas"]["address"];
-      address_kana?: any;
-      address_kanji?: any;
+      address_kana?: Partial<
+        components["schemas"]["legal_entity_japan_address"]
+      >;
+      address_kanji?: Partial<
+        components["schemas"]["legal_entity_japan_address"]
+      >;
       created: number;
       dob?: components["schemas"]["legal_entity_dob"];
       email?: string;
@@ -3902,7 +4081,7 @@ export interface components {
       object: "person";
       phone?: string;
       relationship?: components["schemas"]["person_relationship"];
-      requirements?: any;
+      requirements?: Partial<components["schemas"]["person_requirements"]>;
       ssn_last_4_provided?: boolean;
       verification?: components["schemas"]["legal_entity_person_verification"];
     };
@@ -3936,10 +4115,12 @@ export interface components {
       metadata: { [key: string]: string };
       nickname?: string;
       object: "plan";
-      product?: any;
+      product?: Partial<string> &
+        Partial<components["schemas"]["product"]> &
+        Partial<components["schemas"]["deleted_product"]>;
       tiers?: components["schemas"]["plan_tier"][];
       tiers_mode?: "graduated" | "volume";
-      transform_usage?: any;
+      transform_usage?: Partial<components["schemas"]["transform_usage"]>;
       trial_period_days?: number;
       usage_type: "licensed" | "metered";
     };
@@ -3970,7 +4151,7 @@ export interface components {
       metadata: { [key: string]: string };
       name: string;
       object: "product";
-      package_dimensions?: any;
+      package_dimensions?: Partial<components["schemas"]["package_dimensions"]>;
       shippable?: boolean;
       statement_descriptor?: string;
       type: "good" | "service";
@@ -3980,7 +4161,7 @@ export interface components {
     };
     "radar.early_fraud_warning": {
       actionable: boolean;
-      charge: any;
+      charge: Partial<string> & Partial<components["schemas"]["charge"]>;
       created: number;
       fraud_type: string;
       id: string;
@@ -4034,7 +4215,7 @@ export interface components {
       version?: string;
     };
     recipient: {
-      active_account?: any;
+      active_account?: Partial<components["schemas"]["bank_account"]>;
       cards?: {
         data: components["schemas"]["card"][];
         has_more: boolean;
@@ -4042,36 +4223,42 @@ export interface components {
         url: string;
       };
       created: number;
-      default_card?: any;
+      default_card?: Partial<string> & Partial<components["schemas"]["card"]>;
       description?: string;
       email?: string;
       id: string;
       livemode: boolean;
       metadata: { [key: string]: string };
-      migrated_to?: any;
+      migrated_to?: Partial<string> & Partial<components["schemas"]["account"]>;
       name?: string;
       object: "recipient";
-      rolled_back_from?: any;
+      rolled_back_from?: Partial<string> &
+        Partial<components["schemas"]["account"]>;
       type: string;
     };
     refund: {
       amount: number;
-      balance_transaction?: any;
-      charge?: any;
+      balance_transaction?: Partial<string> &
+        Partial<components["schemas"]["balance_transaction"]>;
+      charge?: Partial<string> & Partial<components["schemas"]["charge"]>;
       created: number;
       currency: string;
       description?: string;
-      failure_balance_transaction?: any;
+      failure_balance_transaction?: Partial<string> &
+        Partial<components["schemas"]["balance_transaction"]>;
       failure_reason?: string;
       id: string;
       metadata: { [key: string]: string };
       object: "refund";
-      payment_intent?: any;
+      payment_intent?: Partial<string> &
+        Partial<components["schemas"]["payment_intent"]>;
       reason?: string;
       receipt_number?: string;
-      source_transfer_reversal?: any;
+      source_transfer_reversal?: Partial<string> &
+        Partial<components["schemas"]["transfer_reversal"]>;
       status?: string;
-      transfer_reversal?: any;
+      transfer_reversal?: Partial<string> &
+        Partial<components["schemas"]["transfer_reversal"]>;
     };
     "reporting.report_run": {
       created: number;
@@ -4081,7 +4268,7 @@ export interface components {
       object: "reporting.report_run";
       parameters: components["schemas"]["financial_reporting_finance_report_run_run_parameters"];
       report_type: string;
-      result?: any;
+      result?: Partial<components["schemas"]["file"]>;
       status: string;
       succeeded_at?: number;
     };
@@ -4104,7 +4291,7 @@ export interface components {
     };
     review: {
       billing_zip?: string;
-      charge?: any;
+      charge?: Partial<string> & Partial<components["schemas"]["charge"]>;
       closed_reason?:
         | "approved"
         | "disputed"
@@ -4113,21 +4300,24 @@ export interface components {
       created: number;
       id: string;
       ip_address?: string;
-      ip_address_location?: any;
+      ip_address_location?: Partial<
+        components["schemas"]["radar_review_resource_location"]
+      >;
       livemode: boolean;
       object: "review";
       open: boolean;
       opened_reason: "manual" | "rule";
-      payment_intent?: any;
+      payment_intent?: Partial<string> &
+        Partial<components["schemas"]["payment_intent"]>;
       reason: string;
-      session?: any;
+      session?: Partial<components["schemas"]["radar_review_resource_session"]>;
     };
     rule: { action: string; id: string; predicate: string };
     scheduled_query_run: {
       created: number;
       data_load_time: number;
       error?: components["schemas"]["sigma_scheduled_query_run_error"];
-      file?: any;
+      file?: Partial<components["schemas"]["file"]>;
       id: string;
       livemode: boolean;
       object: "scheduled_query_run";
@@ -4137,24 +4327,32 @@ export interface components {
       title: string;
     };
     setup_intent: {
-      application?: any;
+      application?: Partial<string> &
+        Partial<components["schemas"]["application"]>;
       cancellation_reason?: "abandoned" | "duplicate" | "requested_by_customer";
       client_secret?: string;
       created: number;
-      customer?: any;
+      customer?: Partial<string> &
+        Partial<components["schemas"]["customer"]> &
+        Partial<components["schemas"]["deleted_customer"]>;
       description?: string;
       id: string;
-      last_setup_error?: any;
+      last_setup_error?: Partial<components["schemas"]["api_errors"]>;
       livemode: boolean;
-      mandate?: any;
+      mandate?: Partial<string> & Partial<components["schemas"]["mandate"]>;
       metadata?: { [key: string]: string };
-      next_action?: any;
+      next_action?: Partial<components["schemas"]["setup_intent_next_action"]>;
       object: "setup_intent";
-      on_behalf_of?: any;
-      payment_method?: any;
-      payment_method_options?: any;
+      on_behalf_of?: Partial<string> &
+        Partial<components["schemas"]["account"]>;
+      payment_method?: Partial<string> &
+        Partial<components["schemas"]["payment_method"]>;
+      payment_method_options?: Partial<
+        components["schemas"]["setup_intent_payment_method_options"]
+      >;
       payment_method_types: string[];
-      single_use_mandate?: any;
+      single_use_mandate?: Partial<string> &
+        Partial<components["schemas"]["mandate"]>;
       status:
         | "canceled"
         | "processing"
@@ -4189,7 +4387,7 @@ export interface components {
     shipping_method: {
       amount: number;
       currency: string;
-      delivery_estimate?: any;
+      delivery_estimate?: Partial<components["schemas"]["delivery_estimate"]>;
       description: string;
       id: string;
     };
@@ -4205,9 +4403,9 @@ export interface components {
       livemode: boolean;
       metadata: { [key: string]: string };
       object: "sku";
-      package_dimensions?: any;
+      package_dimensions?: Partial<components["schemas"]["package_dimensions"]>;
       price: number;
-      product: any;
+      product: Partial<string> & Partial<components["schemas"]["product"]>;
       updated: number;
     };
     source: {
@@ -4234,7 +4432,7 @@ export interface components {
       metadata?: { [key: string]: string };
       multibanco?: components["schemas"]["source_type_multibanco"];
       object: "source";
-      owner?: any;
+      owner?: Partial<components["schemas"]["source_owner"]>;
       p24?: components["schemas"]["source_type_p24"];
       receiver?: components["schemas"]["source_receiver_flow"];
       redirect?: components["schemas"]["source_redirect_flow"];
@@ -4303,11 +4501,11 @@ export interface components {
       type?: string;
     };
     source_owner: {
-      address?: any;
+      address?: Partial<components["schemas"]["address"]>;
       email?: string;
       name?: string;
       phone?: string;
-      verified_address?: any;
+      verified_address?: Partial<components["schemas"]["address"]>;
       verified_email?: string;
       verified_name?: string;
       verified_phone?: string;
@@ -4570,7 +4768,9 @@ export interface components {
     subscription: {
       application_fee_percent?: number;
       billing_cycle_anchor: number;
-      billing_thresholds?: any;
+      billing_thresholds?: Partial<
+        components["schemas"]["subscription_billing_thresholds"]
+      >;
       cancel_at?: number;
       cancel_at_period_end: boolean;
       canceled_at?: number;
@@ -4578,12 +4778,20 @@ export interface components {
       created: number;
       current_period_end: number;
       current_period_start: number;
-      customer: any;
+      customer: Partial<string> &
+        Partial<components["schemas"]["customer"]> &
+        Partial<components["schemas"]["deleted_customer"]>;
       days_until_due?: number;
-      default_payment_method?: any;
-      default_source?: any;
+      default_payment_method?: Partial<string> &
+        Partial<components["schemas"]["payment_method"]>;
+      default_source?: Partial<string> &
+        Partial<components["schemas"]["alipay_account"]> &
+        Partial<components["schemas"]["bank_account"]> &
+        Partial<components["schemas"]["bitcoin_receiver"]> &
+        Partial<components["schemas"]["card"]> &
+        Partial<components["schemas"]["source"]>;
       default_tax_rates?: components["schemas"]["tax_rate"][];
-      discount?: any;
+      discount?: Partial<components["schemas"]["discount"]>;
       ended_at?: number;
       id: string;
       items: {
@@ -4592,18 +4800,27 @@ export interface components {
         object: "list";
         url: string;
       };
-      latest_invoice?: any;
+      latest_invoice?: Partial<string> &
+        Partial<components["schemas"]["invoice"]>;
       livemode: boolean;
       metadata: { [key: string]: string };
       next_pending_invoice_item_invoice?: number;
       object: "subscription";
-      pause_collection?: any;
-      pending_invoice_item_interval?: any;
-      pending_setup_intent?: any;
-      pending_update?: any;
-      plan?: any;
+      pause_collection?: Partial<
+        components["schemas"]["subscriptions_resource_pause_collection"]
+      >;
+      pending_invoice_item_interval?: Partial<
+        components["schemas"]["subscription_pending_invoice_item_interval"]
+      >;
+      pending_setup_intent?: Partial<string> &
+        Partial<components["schemas"]["setup_intent"]>;
+      pending_update?: Partial<
+        components["schemas"]["subscriptions_resource_pending_update"]
+      >;
+      plan?: Partial<components["schemas"]["plan"]>;
       quantity?: number;
-      schedule?: any;
+      schedule?: Partial<string> &
+        Partial<components["schemas"]["subscription_schedule"]>;
       start_date: number;
       status:
         | "active"
@@ -4622,7 +4839,9 @@ export interface components {
       reset_billing_cycle_anchor?: boolean;
     };
     subscription_item: {
-      billing_thresholds?: any;
+      billing_thresholds?: Partial<
+        components["schemas"]["subscription_item_billing_thresholds"]
+      >;
       created: number;
       id: string;
       metadata: { [key: string]: string };
@@ -4641,8 +4860,12 @@ export interface components {
       canceled_at?: number;
       completed_at?: number;
       created: number;
-      current_phase?: any;
-      customer: any;
+      current_phase?: Partial<
+        components["schemas"]["subscription_schedule_current_phase"]
+      >;
+      customer: Partial<string> &
+        Partial<components["schemas"]["customer"]> &
+        Partial<components["schemas"]["deleted_customer"]>;
       default_settings: components["schemas"]["subscription_schedules_resource_default_settings"];
       end_behavior: "cancel" | "none" | "release" | "renew";
       id: string;
@@ -4653,11 +4876,16 @@ export interface components {
       released_at?: number;
       released_subscription?: string;
       status: "active" | "canceled" | "completed" | "not_started" | "released";
-      subscription?: any;
+      subscription?: Partial<string> &
+        Partial<components["schemas"]["subscription"]>;
     };
     subscription_schedule_configuration_item: {
-      billing_thresholds?: any;
-      plan: any;
+      billing_thresholds?: Partial<
+        components["schemas"]["subscription_item_billing_thresholds"]
+      >;
+      plan: Partial<string> &
+        Partial<components["schemas"]["plan"]> &
+        Partial<components["schemas"]["deleted_plan"]>;
       quantity?: number;
       tax_rates?: components["schemas"]["tax_rate"][];
     };
@@ -4667,13 +4895,20 @@ export interface components {
     };
     subscription_schedule_phase_configuration: {
       application_fee_percent?: number;
-      billing_thresholds?: any;
+      billing_thresholds?: Partial<
+        components["schemas"]["subscription_billing_thresholds"]
+      >;
       collection_method?: "charge_automatically" | "send_invoice";
-      coupon?: any;
-      default_payment_method?: any;
+      coupon?: Partial<string> &
+        Partial<components["schemas"]["coupon"]> &
+        Partial<components["schemas"]["deleted_coupon"]>;
+      default_payment_method?: Partial<string> &
+        Partial<components["schemas"]["payment_method"]>;
       default_tax_rates?: components["schemas"]["tax_rate"][];
       end_date: number;
-      invoice_settings?: any;
+      invoice_settings?: Partial<
+        components["schemas"]["invoice_setting_subscription_schedule_setting"]
+      >;
       plans: components["schemas"]["subscription_schedule_configuration_item"][];
       proration_behavior?: "always_invoice" | "create_prorations" | "none";
       start_date: number;
@@ -4681,10 +4916,15 @@ export interface components {
       trial_end?: number;
     };
     subscription_schedules_resource_default_settings: {
-      billing_thresholds?: any;
+      billing_thresholds?: Partial<
+        components["schemas"]["subscription_billing_thresholds"]
+      >;
       collection_method?: "charge_automatically" | "send_invoice";
-      default_payment_method?: any;
-      invoice_settings?: any;
+      default_payment_method?: Partial<string> &
+        Partial<components["schemas"]["payment_method"]>;
+      invoice_settings?: Partial<
+        components["schemas"]["invoice_setting_subscription_schedule_setting"]
+      >;
     };
     subscriptions_resource_pause_collection: {
       behavior: "keep_as_draft" | "mark_uncollectible" | "void";
@@ -4707,7 +4947,7 @@ export interface components {
     tax_id: {
       country?: string;
       created: number;
-      customer: any;
+      customer: Partial<string> & Partial<components["schemas"]["customer"]>;
       id: string;
       livemode: boolean;
       object: "tax_id";
@@ -4814,7 +5054,8 @@ export interface components {
     };
     topup: {
       amount: number;
-      balance_transaction?: any;
+      balance_transaction?: Partial<string> &
+        Partial<components["schemas"]["balance_transaction"]>;
       created: number;
       currency: string;
       description?: string;
@@ -4833,12 +5074,14 @@ export interface components {
     transfer: {
       amount: number;
       amount_reversed: number;
-      balance_transaction?: any;
+      balance_transaction?: Partial<string> &
+        Partial<components["schemas"]["balance_transaction"]>;
       created: number;
       currency: string;
       description?: string;
-      destination?: any;
-      destination_payment?: any;
+      destination?: Partial<string> & Partial<components["schemas"]["account"]>;
+      destination_payment?: Partial<string> &
+        Partial<components["schemas"]["charge"]>;
       id: string;
       livemode: boolean;
       metadata: { [key: string]: string };
@@ -4850,22 +5093,29 @@ export interface components {
         url: string;
       };
       reversed: boolean;
-      source_transaction?: any;
+      source_transaction?: Partial<string> &
+        Partial<components["schemas"]["charge"]>;
       source_type?: string;
       transfer_group?: string;
     };
-    transfer_data: { amount?: number; destination: any };
+    transfer_data: {
+      amount?: number;
+      destination: Partial<string> & Partial<components["schemas"]["account"]>;
+    };
     transfer_reversal: {
       amount: number;
-      balance_transaction?: any;
+      balance_transaction?: Partial<string> &
+        Partial<components["schemas"]["balance_transaction"]>;
       created: number;
       currency: string;
-      destination_payment_refund?: any;
+      destination_payment_refund?: Partial<string> &
+        Partial<components["schemas"]["refund"]>;
       id: string;
       metadata: { [key: string]: string };
       object: "transfer_reversal";
-      source_refund?: any;
-      transfer: any;
+      source_refund?: Partial<string> &
+        Partial<components["schemas"]["refund"]>;
+      transfer: Partial<string> & Partial<components["schemas"]["transfer"]>;
     };
     transfer_schedule: {
       delay_days: number;
