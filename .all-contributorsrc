@@ -118,6 +118,15 @@
         "ideas",
         "test"
       ]
+    },
+    {
+      "login": "bokub",
+      "name": "Boris K",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/17952318?v=4",
+      "profile": "https://boris.sh",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
