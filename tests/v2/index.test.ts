@@ -1,6 +1,6 @@
 import fs from "fs";
-import { execSync } from "child_process";
 import path from "path";
+import { execSync } from "child_process";
 import prettier from "prettier";
 import { OpenAPI2, OpenAPI2SchemaObject, Property } from "../../src/types";
 import swaggerToTS, { WARNING_MESSAGE } from "../../src";
@@ -14,29 +14,20 @@ function format(types: string): string {
 
 // simple snapshot tests with valid schemas to make sure it can generally parse & generate output
 describe("cli", () => {
-  it("reads stripe.yaml spec (v2) from file", () => {
-    execSync("../../pkg/bin/cli.js specs/stripe.yaml -o generated/stripe.ts", {
-      cwd: path.resolve(__dirname),
+  ["stripe", "manifold", "petstore"].forEach((file) => {
+    it(`reads ${file} spec (v2) from file`, () => {
+      execSync(
+        `../../pkg/bin/cli.js specs/${file}.yaml -o generated/${file}.ts`,
+        {
+          cwd: path.resolve(__dirname),
+        }
+      );
+      expect(
+        fs.readFileSync(path.resolve(__dirname, `expected/${file}.ts`), "utf8")
+      ).toBe(
+        fs.readFileSync(path.resolve(__dirname, `generated/${file}.ts`), "utf8")
+      );
     });
-    expect(
-      fs.readFileSync(path.resolve(__dirname, "expected/stripe.ts"), "utf8")
-    ).toBe(
-      fs.readFileSync(path.resolve(__dirname, "generated/stripe.ts"), "utf8")
-    );
-  });
-
-  it("reads manifold.yaml spec (v2) from file", () => {
-    execSync(
-      "../../pkg/bin/cli.js specs/manifold.yaml -o generated/manifold.ts",
-      {
-        cwd: path.resolve(__dirname),
-      }
-    );
-    expect(
-      fs.readFileSync(path.resolve(__dirname, "expected/manifold.ts"), "utf8")
-    ).toBe(
-      fs.readFileSync(path.resolve(__dirname, "generated/manifold.ts"), "utf8")
-    );
   });
 
   it("reads swagger.json spec (v2) from remote resource", () => {

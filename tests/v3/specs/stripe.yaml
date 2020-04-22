@@ -179,6 +179,12 @@ components:
           maxLength: 5000
           nullable: true
           type: string
+        secondary_color:
+          description: A CSS hex color value representing the secondary branding color
+            for this account
+          maxLength: 5000
+          nullable: true
+          type: string
       title: AccountBrandingSettings
       type: object
       x-expandableFields:
@@ -354,6 +360,7 @@ components:
           type: array
       required:
       - currently_due
+      - errors
       - eventually_due
       - past_due
       - pending_verification
@@ -1479,6 +1486,61 @@ components:
       type: object
       x-expandableFields:
       - address
+    billing_portal.session:
+      description: |-
+        A Session describes the instantiation of the Self-serve Portal for
+        a particular customer. By visiting the Self-serve Portal's URL, the customer
+        can manage their subscriptions and view their invoice payment history. For security reasons,
+        Sessions are short-lived and will expire if the customer does not visit the URL.
+        Create Sessions on-demand.
+
+        Related guide: [Self-serve Portal](https://stripe.com/docs/billing/subscriptions/integrating-self-serve).
+      properties:
+        created:
+          description: Time at which the object was created. Measured in seconds since
+            the Unix epoch.
+          format: unix-time
+          type: integer
+        customer:
+          description: The ID of the customer for this session.
+          maxLength: 5000
+          type: string
+        id:
+          description: Unique identifier for the object.
+          maxLength: 5000
+          type: string
+        livemode:
+          description: Has the value `true` if the object exists in live mode or the
+            value `false` if the object exists in test mode.
+          type: boolean
+        object:
+          description: String representing the object's type. Objects of the same
+            type share the same value.
+          enum:
+          - billing_portal.session
+          type: string
+        return_url:
+          description: The URL to which Stripe should send customers when they click
+            on the link to return to your website.
+          maxLength: 5000
+          type: string
+        url:
+          description: The short-lived URL of the session giving customers access
+            to the self-serve portal.
+          maxLength: 5000
+          type: string
+      required:
+      - created
+      - customer
+      - id
+      - livemode
+      - object
+      - return_url
+      - url
+      title: PortalSession
+      type: object
+      x-expandableFields: []
+      x-resourceId: billing_portal.session
     bitcoin_receiver:
       description: ''
       properties:
@@ -2006,6 +2068,14 @@ components:
             - "$ref": "#/components/schemas/balance_transaction"
         billing_details:
           "$ref": "#/components/schemas/billing_details"
+        calculated_statement_descriptor:
+          description: The full statement descriptor that is passed to card networks,
+            and that is displayed on your customers' credit card and bank statements.
+            Allows you to see what the statement descriptor looks like after the static
+            and dynamic portions are combined.
+          maxLength: 5000
+          nullable: true
+          type: string
         captured:
           description: If the charge was created without capturing, this Boolean represents
             whether it is still uncaptured or has since been captured.
@@ -2123,11 +2193,16 @@ components:
             for later capture."
           type: boolean
         payment_intent:
+          anyOf:
+          - maxLength: 5000
+            type: string
+          - "$ref": "#/components/schemas/payment_intent"
           description: ID of the PaymentIntent associated with this charge, if one
             exists.
-          maxLength: 5000
           nullable: true
-          type: string
+          x-expansionResources:
+            oneOf:
+            - "$ref": "#/components/schemas/payment_intent"
         payment_method:
           description: ID of the payment method used in this charge.
           maxLength: 5000
@@ -2157,6 +2232,7 @@ components:
             If the charge is for an Invoice, the receipt will be stylized as an Invoice
             receipt.
           maxLength: 5000
+          nullable: true
           type: string
         refunded:
           description: Whether the charge has been fully refunded. If the charge is
@@ -2278,7 +2354,6 @@ components:
       - metadata
       - object
       - paid
-      - receipt_url
       - refunded
       - refunds
       - status
@@ -2295,6 +2370,7 @@ components:
       - on_behalf_of
       - order
       - outcome
+      - payment_intent
       - payment_method_details
       - refunds
       - review
@@ -5724,10 +5800,11 @@ components:
           nullable: true
           type: array
         webhooks_delivered_at:
-          description: The time at which webhooks for this invoice were successfully
-            delivered (if the invoice had no webhooks to deliver, this will match
-            `created`). Invoice payment is delayed until webhooks are delivered, or
-            until all webhook delivery attempts have been exhausted.
+          description: Invoices are automatically paid or sent 1 hour after webhooks
+            are delivered, or until all webhook delivery attempts have [been exhausted](https://stripe.com/docs/billing/webhooks#understand).
+            This field tracks the time when webhooks for this invoice were successfully
+            delivered. If the invoice had no webhooks to deliver, this will be set
+            while the invoice is being created.
           format: unix-time
           nullable: true
           type: integer
@@ -6069,7 +6146,7 @@ components:
           description: The type of the tax ID, one of `eu_vat`, `nz_gst`, `au_abn`,
             `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`,
             `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `li_uid`, `my_itn`,
-            `us_ein`, `kr_brn`, `ca_qst`, `my_sst`, or `unknown`
+            `us_ein`, `kr_brn`, `ca_qst`, `my_sst`, `sg_gst`, or `unknown`
           enum:
           - au_abn
           - ca_bn
@@ -6088,6 +6165,7 @@ components:
           - no_vat
           - nz_gst
           - ru_inn
+          - sg_gst
           - sg_uen
           - th_vat
           - tw_vat
@@ -6208,8 +6286,8 @@ components:
         Related guide: [Issued Card Authorizations](https://stripe.com/docs/issuing/purchases/authorizations).
       properties:
         amount:
-          description: The total amount in the card's currency that was authorized
-            or rejected.
+          description: The total amount that was authorized or rejected. This amount
+            is in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           type: integer
         approved:
           description: Whether the authorization has been approved.
@@ -6258,8 +6336,8 @@ components:
             value `false` if the object exists in test mode.
           type: boolean
         merchant_amount:
-          description: The total amount that was authorized or rejected in the local
-            merchant_currency.
+          description: The total amount that was authorized or rejected. This amount
+            is in the `merchant_currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           type: integer
         merchant_currency:
           description: The currency that was presented to the cardholder for the authorization.
@@ -6286,14 +6364,14 @@ components:
           anyOf:
           - "$ref": "#/components/schemas/issuing_authorization_pending_request"
           description: The pending authorization request. This field will only be
-            non-null during an `issuing.authorization.request` webhook.
+            non-null during an `issuing_authorization.request` webhook.
           nullable: true
         request_history:
           description: History of every time the authorization was approved/denied
-            (whether approved/denied by you directly, or by Stripe based on your authorization_controls).
+            (whether approved/denied by you directly or by Stripe based on your `spending_controls`).
             If the merchant changes the authorization by performing an [incremental
             authorization or partial capture](https://stripe.com/docs/issuing/purchases/authorizations),
-            you can look at request_history to see the previous states of the authorization.
+            you can look at this field to see the previous states of the authorization.
           items:
             "$ref": "#/components/schemas/issuing_authorization_request"
           type: array
@@ -6357,6 +6435,13 @@ components:
           description: The brand of the card.
           maxLength: 5000
           type: string
+        cancellation_reason:
+          description: The reason why the card was canceled.
+          enum:
+          - lost
+          - stolen
+          nullable: true
+          type: string
         cardholder:
           "$ref": "#/components/schemas/issuing.cardholder"
         created:
@@ -6367,6 +6452,14 @@ components:
         currency:
           description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
             in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          type: string
+        cvc:
+          description: The card's CVC. For security reasons, this is only available
+            for virtual cards, and will be omitted unless you explicitly request it
+            with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects).
+            Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve),
+            not via "List all cards" or any other endpoint.
+          maxLength: 5000
           type: string
         exp_month:
           description: The expiration month of the card.
@@ -6394,17 +6487,20 @@ components:
             can be useful for storing additional information about the object in a
             structured format.
           type: object
+        number:
+          description: The full unredacted card number. For security reasons, this
+            is only available for virtual cards, and will be omitted unless you explicitly
+            request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects).
+            Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve),
+            not via "List all cards" or any other endpoint.
+          maxLength: 5000
+          type: string
         object:
           description: String representing the object's type. Objects of the same
             type share the same value.
           enum:
           - issuing.card
           type: string
-        pin:
-          anyOf:
-          - "$ref": "#/components/schemas/issuing_card_pin"
-          description: Metadata about the PIN on the card.
-          nullable: true
         replaced_by:
           anyOf:
           - maxLength: 5000
@@ -6428,12 +6524,13 @@ components:
         replacement_reason:
           description: The reason why the previous card needed to be replaced.
           enum:
-          - damage
-          - expiration
-          - loss
-          - theft
+          - damaged
+          - expired
+          - lost
+          - stolen
           nullable: true
           type: string
+          x-stripeBypassValidation: true
         shipping:
           anyOf:
           - "$ref": "#/components/schemas/issuing_card_shipping"
@@ -6447,9 +6544,8 @@ components:
           - active
           - canceled
           - inactive
-          - lost
-          - stolen
           type: string
+          x-stripeBypassValidation: true
         type:
           description: The type of the card.
           enum:
@@ -6475,73 +6571,11 @@ components:
       type: object
       x-expandableFields:
       - cardholder
-      - pin
       - replaced_by
       - replacement_for
       - shipping
       - spending_controls
       x-resourceId: issuing.card
-    issuing.card_details:
-      description: ''
-      properties:
-        card:
-          "$ref": "#/components/schemas/issuing.card"
-        cvc:
-          description: The CVC number for the card.
-          maxLength: 5000
-          type: string
-        exp_month:
-          description: The expiration month of the card.
-          type: integer
-        exp_year:
-          description: The expiration year of the card.
-          type: integer
-        number:
-          description: The card number.
-          maxLength: 5000
-          type: string
-        object:
-          description: String representing the object's type. Objects of the same
-            type share the same value.
-          enum:
-          - issuing.card_details
-          type: string
-      required:
-      - card
-      - cvc
-      - exp_month
-      - exp_year
-      - number
-      - object
-      title: IssuingCardDetails
-      type: object
-      x-expandableFields:
-      - card
-      x-resourceId: issuing.card_details
-    issuing.card_pin:
-      description: The PIN of a `Card` object
-      properties:
-        card:
-          "$ref": "#/components/schemas/issuing.card"
-        object:
-          description: String representing the object's type. Objects of the same
-            type share the same value.
-          enum:
-          - issuing.card_pin
-          type: string
-        pin:
-          description: The PIN (4 digits number)
-          maxLength: 5000
-          nullable: true
-          type: string
-      required:
-      - card
-      - object
-      title: IssuingPinPinResponse
-      type: object
-      x-expandableFields:
-      - card
-      x-resourceId: issuing.card_pin
     issuing.cardholder:
       description: |-
         An Issuing `Cardholder` object represents an individual or business entity who is [issued](https://stripe.com/docs/issuing) cards.
@@ -6776,8 +6810,8 @@ components:
         Related guide: [Issued Card Transactions](https://stripe.com/docs/issuing/purchases/transactions).
       properties:
         amount:
-          description: The amount of this transaction in your currency. This is the
-            amount that your balance will be updated by.
+          description: The transaction amount, which will be reflected in your balance.
+            This amount is in your currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           type: integer
         authorization:
           anyOf:
@@ -6828,16 +6862,6 @@ components:
           description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
             in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           type: string
-        dispute:
-          anyOf:
-          - maxLength: 5000
-            type: string
-          - "$ref": "#/components/schemas/issuing.dispute"
-          description: If you've disputed the transaction, the ID of the dispute.
-          nullable: true
-          x-expansionResources:
-            oneOf:
-            - "$ref": "#/components/schemas/issuing.dispute"
         id:
           description: Unique identifier for the object.
           maxLength: 5000
@@ -6847,7 +6871,8 @@ components:
             value `false` if the object exists in test mode.
           type: boolean
         merchant_amount:
-          description: The amount that the merchant will receive, denominated in `merchant_currency`.
+          description: The amount that the merchant will receive, denominated in `merchant_currency`
+            and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
             It will be different from `amount` if the merchant is taking payment in
             a different currency.
           type: integer
@@ -6874,7 +6899,6 @@ components:
           description: The nature of the transaction.
           enum:
           - capture
-          - dispute
           - refund
           type: string
           x-stripeBypassValidation: true
@@ -6898,62 +6922,8 @@ components:
       - balance_transaction
       - card
       - cardholder
-      - dispute
       - merchant_data
       x-resourceId: issuing.transaction
-    issuing.verification:
-      description: An Issuing `Verification` object holds a one-time code request
-        on behalf of a cardholder.
-      properties:
-        card:
-          description: The id of the `Card` on which the verification was requested
-          maxLength: 5000
-          type: string
-        created:
-          description: Time at which the object was created. Measured in seconds since
-            the Unix epoch.
-          format: unix-time
-          type: integer
-        expires_at:
-          description: Timestamp of the expiry for that verification
-          format: unix-time
-          type: integer
-        id:
-          description: Unique identifier for the object.
-          maxLength: 5000
-          type: string
-        object:
-          description: String representing the object's type. Objects of the same
-            type share the same value.
-          enum:
-          - issuing.verification
-          type: string
-        scope:
-          description: The scope of the verification (one of `card_pin_retrieve` or
-            `card_pin_update`)
-          enum:
-          - card_pin_retrieve
-          - card_pin_update
-          type: string
-        verification_method:
-          description: The method by which the cardholder will be sent a one-time
-            code (one of `email` or `sms`)
-          enum:
-          - email
-          - sms
-          type: string
-      required:
-      - card
-      - created
-      - expires_at
-      - id
-      - object
-      - scope
-      - verification_method
-      title: IssuingVerification
-      type: object
-      x-expandableFields: []
-      x-resourceId: issuing.verification
     issuing_authorization_merchant_data:
       description: ''
       properties:
@@ -6992,11 +6962,6 @@ components:
           maxLength: 5000
           nullable: true
           type: string
-        url:
-          description: The url an online purchase was made from
-          maxLength: 5000
-          nullable: true
-          type: string
       required:
       - category
       - network_id
@@ -7008,8 +6973,8 @@ components:
       properties:
         amount:
           description: The additional amount Stripe will hold if the authorization
-            is approved, in the [currency](https://stripe.com/docs/api#issuing_authorization_object-pending-request-currency),
-            which is always the card's currency.
+            is approved, in the card's [currency](https://stripe.com/docs/api#issuing_authorization_object-pending-request-currency)
+            and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           type: integer
         currency:
           description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html),
@@ -7021,7 +6986,7 @@ components:
           type: boolean
         merchant_amount:
           description: The amount the merchant is requesting to be authorized in the
-            `merchant_currency`.
+            `merchant_currency`. The amount is in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
           type: integer
         merchant_currency:
           description: The local currency the merchant is requesting to authorize.
@@ -7039,9 +7004,10 @@ components:
       description: ''
       properties:
         amount:
-          description: The amount of the authorization in your card's currency. Stripe
-            held this amount from your account to fund the authorization, if the request
-            was approved.
+          description: The authorization amount in your card's currency and in the
+            [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+            Stripe held this amount from your account to fund the authorization if
+            the request was approved.
           type: integer
         approved:
           description: Whether this request was approved.
@@ -7058,6 +7024,8 @@ components:
           type: string
         merchant_amount:
           description: The amount that was authorized at the time of this request.
+            This amount is in the `merchant_currency` and in the [smallest currency
+            unit](https://stripe.com/docs/currencies#zero-decimal).
           type: integer
         merchant_currency:
           description: The currency that was collected by the merchant and presented
@@ -7068,8 +7036,7 @@ components:
         reason:
           description: The reason for the approval or decline.
           enum:
-          - account_compliance_disabled
-          - account_inactive
+          - account_disabled
           - card_active
           - card_inactive
           - cardholder_inactive
@@ -7093,21 +7060,6 @@ components:
       - merchant_currency
       - reason
       title: IssuingAuthorizationRequest
-      type: object
-      x-expandableFields: []
-    issuing_authorization_three_d_secure:
-      description: ''
-      properties:
-        result:
-          description: The outcome of the 3D Secure authentication request.
-          enum:
-          - attempt_acknowledged
-          - authenticated
-          - failed
-          type: string
-      required:
-      - result
-      title: IssuingAuthorizationThreeDSecure
       type: object
       x-expandableFields: []
     issuing_authorization_verification_data:
@@ -7145,11 +7097,6 @@ components:
           - mismatch
           - not_provided
           type: string
-        three_d_secure:
-          anyOf:
-          - "$ref": "#/components/schemas/issuing_authorization_three_d_secure"
-          description: 3D Secure details on this authorization.
-          nullable: true
       required:
       - address_line1_check
       - address_postal_code_check
@@ -7157,8 +7104,7 @@ components:
       - expiry_check
       title: IssuingAuthorizationVerificationData
       type: object
-      x-expandableFields:
-      - three_d_secure
+      x-expandableFields: []
     issuing_card_authorization_controls:
       description: ''
       properties:
@@ -7754,11 +7700,6 @@ components:
             type: string
           nullable: true
           type: array
-        max_approvals:
-          description: Maximum count of approved authorizations on this card. Counts
-            all authorizations retroactively.
-          nullable: true
-          type: integer
         spending_limits:
           description: Limit the spending with rules based on time intervals and categories.
           items:
@@ -7774,20 +7715,6 @@ components:
       type: object
       x-expandableFields:
       - spending_limits
-    issuing_card_pin:
-      description: ''
-      properties:
-        status:
-          description: Wether the PIN will be accepted or not.
-          enum:
-          - active
-          - blocked
-          type: string
-      required:
-      - status
-      title: IssuingCardPin
-      type: object
-      x-expandableFields: []
     issuing_card_shipping:
       description: ''
       properties:
@@ -8895,10 +8822,11 @@ components:
           nullable: true
           type: string
         past_due:
-          description: If not empty, this field contains the list of fields that need
-            to be collected in order to verify and re-enabled the cardholder.
+          description: Array of fields that need to be collected in order to verify
+            and re-enable the cardholder.
           items:
             enum:
+            - company.tax_id
             - individual.dob.day
             - individual.dob.month
             - individual.dob.year
@@ -8906,6 +8834,7 @@ components:
             - individual.last_name
             - individual.verification.document
             type: string
+            x-stripeBypassValidation: true
           nullable: true
           type: array
       title: IssuingCardholderRequirements
@@ -9307,11 +9236,15 @@ components:
           - government_instrumentality
           - governmental_unit
           - incorporated_non_profit
+          - limited_liability_partnership
           - multi_member_llc
+          - private_company
           - private_corporation
           - private_partnership
+          - public_company
           - public_corporation
           - public_partnership
+          - sole_proprietorship
           - tax_exempt_government_instrumentality
           - unincorporated_association
           - unincorporated_non_profit
@@ -9724,15 +9657,15 @@ components:
         single_use:
           "$ref": "#/components/schemas/mandate_single_use"
         status:
-          description: The status of the Mandate, one of `pending`, `inactive`, or
-            `active`. The Mandate can be used to initiate a payment only if status=active.
+          description: The status of the mandate, which indicates whether it can be
+            used to initiate a payment.
           enum:
           - active
           - inactive
           - pending
           type: string
         type:
-          description: The type of the mandate, one of `single_use` or `multi_use`
+          description: The type of the mandate.
           enum:
           - multi_use
           - single_use
@@ -10498,11 +10431,9 @@ components:
           description: |-
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-            Providing this parameter will attach the payment method to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
-            For more, learn to [save card details during payment](https://stripe.com/docs/payments/save-during-payment).
-
-            Stripe uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules. For example, if your customer is impacted by [SCA](https://stripe.com/docs/strong-customer-authentication), using `off_session` will ensure that they are authenticated while processing this PaymentIntent. You will then be able to collect [off-session payments](https://stripe.com/docs/payments/cards/charging-saved-cards#off-session-payments-with-saved-cards) for this customer.
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
           enum:
           - off_session
           - on_session
@@ -11405,6 +11336,13 @@ components:
         brand:
           description: Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`,
             `unionpay`, `visa`, or `unknown`.
+          maxLength: 5000
+          nullable: true
+          type: string
+        cardholder_name:
+          description: The cardholder name as read from the card, in [ISO 7813](https://en.wikipedia.org/wiki/ISO/IEC_7813)
+            format. May include alphanumeric characters, special characters and first/last
+            name separator (`/`).
           maxLength: 5000
           nullable: true
           type: string
@@ -12468,11 +12406,12 @@ components:
           nullable: true
           type: string
         status:
-          description: Current status of the payout (`paid`, `pending`, `in_transit`,
-            `canceled` or `failed`). A payout will be `pending` until it is submitted
-            to the bank, at which point it becomes `in_transit`. It will then change
-            to `paid` if the transaction goes through. If it does not go through successfully,
-            its status will change to `failed` or `canceled`.
+          description: 'Current status of the payout: `paid`, `pending`, `in_transit`,
+            `canceled` or `failed`. A payout is `pending` until it is submitted to
+            the bank, when it becomes `in_transit`. The status then changes to `paid`
+            if the transaction goes through, or to `failed` or `canceled` (within
+            5 business days). Some failed payouts may initially show as `paid` but
+            then change to `failed`.'
           maxLength: 5000
           type: string
         type:
@@ -12715,6 +12654,7 @@ components:
           type: array
       required:
       - currently_due
+      - errors
       - eventually_due
       - past_due
       - pending_verification
@@ -12725,14 +12665,14 @@ components:
     plan:
       description: |-
         Plans define the base price, currency, and billing cycle for subscriptions.
-        For example, you might have a <currency>5</currency>/month plan
+        For example, you might have a $5/month plan
         that provides limited access to your products, and a
-        <currency>15</currency>/month plan that allows full access.
+        $15/month plan that allows full access.
 
-        Related guide: [Managing Products and Plans](https://stripe.com/docs/billing/subscriptions/products-and-plans).
+        Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) and more about [products and plans](https://stripe.com/docs/billing/subscriptions/products-and-plans).
       properties:
         active:
-          description: Whether the plan is currently available for new subscriptions.
+          description: Whether the plan can be used for new purchases.
           type: boolean
         aggregate_usage:
           description: Specifies a usage aggregation strategy for plans of `usage_type=metered`.
@@ -14933,13 +14873,17 @@ components:
           nullable: true
           type: string
         amount_charged:
-          description: The total amount that was charged by you. The amount charged
+          description: The total amount that was moved to your balance. This is almost
+            always equal to the amount charged. In rare cases when customers deposit
+            excess funds and we are unable to refund those, those funds get moved
+            to your balance and show up in amount_charged as well. The amount charged
             is expressed in the source's currency.
           type: integer
         amount_received:
           description: The total amount received by the receiver source. `amount_received
-            = amount_returned + amount_charged` is true at all time. The amount received
-            is expressed in the source's currency.
+            = amount_returned + amount_charged` should be true for consumed sources
+            unless customers deposit excess funds. The amount received is expressed
+            in the source's currency.
           type: integer
         amount_returned:
           description: The total amount that was returned to the customer. The amount
@@ -16295,7 +16239,6 @@ components:
             - "$ref": "#/components/schemas/deleted_plan"
         quantity:
           description: Quantity of the plan to which the customer should be subscribed.
-          nullable: true
           type: integer
         tax_rates:
           description: The tax rates which apply to this `phase_item`. When set, the
@@ -16631,9 +16574,9 @@ components:
         type:
           description: Type of the tax ID, one of `au_abn`, `ca_bn`, `ca_qst`, `ch_vat`,
             `es_cif`, `eu_vat`, `hk_br`, `in_gst`, `jp_cn`, `kr_brn`, `li_uid`, `mx_rfc`,
-            `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `ru_inn`, `sg_uen`, `th_vat`,
-            `tw_vat`, `us_ein`, or `za_vat`. Note that some legacy tax IDs have type
-            `unknown`
+            `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `ru_inn`, `sg_gst`, `sg_uen`,
+            `th_vat`, `tw_vat`, `us_ein`, or `za_vat`. Note that some legacy tax IDs
+            have type `unknown`
           enum:
           - au_abn
           - ca_bn
@@ -16652,6 +16595,7 @@ components:
           - no_vat
           - nz_gst
           - ru_inn
+          - sg_gst
           - sg_uen
           - th_vat
           - tw_vat
@@ -17680,6 +17624,11 @@ components:
             the Unix epoch.
           format: unix-time
           type: integer
+        description:
+          description: An optional description of what the wehbook is used for.
+          maxLength: 5000
+          nullable: true
+          type: string
         enabled_events:
           description: The list of events to enable for this endpoint. `['*']` indicates
             that all events are enabled, except those that require explicit selection.
@@ -18152,11 +18101,15 @@ paths:
                       - government_instrumentality
                       - governmental_unit
                       - incorporated_non_profit
+                      - limited_liability_partnership
                       - multi_member_llc
+                      - private_company
                       - private_corporation
                       - private_partnership
+                      - public_company
                       - public_corporation
                       - public_partnership
+                      - sole_proprietorship
                       - tax_exempt_government_instrumentality
                       - unincorporated_association
                       - unincorporated_non_profit
@@ -18424,6 +18377,9 @@ paths:
                           maxLength: 5000
                           type: string
                         primary_color:
+                          maxLength: 5000
+                          type: string
+                        secondary_color:
                           maxLength: 5000
                           type: string
                       title: branding_settings_specs
@@ -21368,11 +21324,15 @@ paths:
                       - government_instrumentality
                       - governmental_unit
                       - incorporated_non_profit
+                      - limited_liability_partnership
                       - multi_member_llc
+                      - private_company
                       - private_corporation
                       - private_partnership
+                      - public_company
                       - public_corporation
                       - public_partnership
+                      - sole_proprietorship
                       - tax_exempt_government_instrumentality
                       - unincorporated_association
                       - unincorporated_non_profit
@@ -21648,6 +21608,9 @@ paths:
                           maxLength: 5000
                           type: string
                         primary_color:
+                          maxLength: 5000
+                          type: string
+                        secondary_color:
                           maxLength: 5000
                           type: string
                       title: branding_settings_specs
@@ -22069,11 +22032,15 @@ paths:
                       - government_instrumentality
                       - governmental_unit
                       - incorporated_non_profit
+                      - limited_liability_partnership
                       - multi_member_llc
+                      - private_company
                       - private_corporation
                       - private_partnership
+                      - public_company
                       - public_corporation
                       - public_partnership
+                      - sole_proprietorship
                       - tax_exempt_government_instrumentality
                       - unincorporated_association
                       - unincorporated_non_profit
@@ -22341,6 +22308,9 @@ paths:
                           maxLength: 5000
                           type: string
                         primary_color:
+                          maxLength: 5000
+                          type: string
+                        secondary_color:
                           maxLength: 5000
                           type: string
                       title: branding_settings_specs
@@ -26311,6 +26281,53 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/balance_transaction"
+          description: Successful response.
+        default:
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/error"
+          description: Error response.
+  "/v1/billing_portal/sessions":
+    post:
+      description: "<p>Creates a session of the Self-service Portal.</p>"
+      operationId: PostBillingPortalSessions
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding:
+              expand:
+                explode: true
+                style: deepObject
+            schema:
+              additionalProperties: false
+              properties:
+                customer:
+                  description: The ID of an existing customer.
+                  maxLength: 5000
+                  type: string
+                expand:
+                  description: Specifies which fields in the response should be expanded.
+                  items:
+                    maxLength: 5000
+                    type: string
+                  type: array
+                return_url:
+                  description: The URL to which Stripe should send customers when
+                    they click on the link to return to your website. This field is
+                    required if a default return URL has not been configured for the
+                    portal.
+                  type: string
+              required:
+              - customer
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/billing_portal.session"
           description: Successful response.
         default:
           content:
@@ -30593,6 +30610,7 @@ paths:
                         - no_vat
                         - nz_gst
                         - ru_inn
+                        - sg_gst
                         - sg_uen
                         - th_vat
                         - tw_vat
@@ -34320,7 +34338,7 @@ paths:
                   description: Type of the tax ID, one of `eu_vat`, `nz_gst`, `au_abn`,
                     `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`,
                     `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `li_uid`,
-                    `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, or `my_sst`
+                    `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `my_sst`, or `sg_gst`
                   enum:
                   - au_abn
                   - ca_bn
@@ -34339,6 +34357,7 @@ paths:
                   - no_vat
                   - nz_gst
                   - ru_inn
+                  - sg_gst
                   - sg_uen
                   - th_vat
                   - tw_vat
@@ -38516,7 +38535,9 @@ paths:
           description: Error response.
   "/v1/issuing/authorizations/{authorization}/approve":
     post:
-      description: "<p>Approves a pending Issuing <code>Authorization</code> object.</p>"
+      description: <p>Approves a pending Issuing <code>Authorization</code> object.
+        This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real-time
+        authorization</a> flow.</p>
       operationId: PostIssuingAuthorizationsAuthorizationApprove
       parameters:
       - in: path
@@ -38581,7 +38602,9 @@ paths:
           description: Error response.
   "/v1/issuing/authorizations/{authorization}/decline":
     post:
-      description: "<p>Declines a pending Issuing <code>Authorization</code> object.</p>"
+      description: <p>Declines a pending Issuing <code>Authorization</code> object.
+        This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real
+        time authorization</a> flow.</p>
       operationId: PostIssuingAuthorizationsAuthorizationDecline
       parameters:
       - in: path
@@ -38733,7 +38756,6 @@ paths:
           - active
           - blocked
           - inactive
-          maxLength: 5000
           type: string
         style: form
       - description: Only return cardholders that have the given type. One of `individual`
@@ -38743,11 +38765,10 @@ paths:
         required: false
         schema:
           enum:
-          - business_entity
           - company
           - individual
-          maxLength: 5000
           type: string
+          x-stripeBypassValidation: true
         style: form
       requestBody:
         content:
@@ -41106,7 +41127,7 @@ paths:
           type: string
         style: form
       - description: Only return cards that have the given status. One of `active`,
-          `inactive`, `canceled`, `lost`, or `stolen`.
+          `inactive`, or `canceled`.
         in: query
         name: status
         required: false
@@ -41115,10 +41136,8 @@ paths:
           - active
           - canceled
           - inactive
-          - lost
-          - stolen
-          maxLength: 5000
           type: string
+          x-stripeBypassValidation: true
         style: form
       - description: Only return cards that have the given type. One of `virtual`
           or `physical`.
@@ -41129,7 +41148,6 @@ paths:
           enum:
           - physical
           - virtual
-          maxLength: 5000
           type: string
         style: form
       requestBody:
@@ -41236,11 +41254,12 @@ paths:
                   description: If `replacement_for` is specified, this should indicate
                     why that card is being replaced.
                   enum:
-                  - damage
-                  - expiration
-                  - loss
-                  - theft
+                  - damaged
+                  - expired
+                  - lost
+                  - stolen
                   type: string
+                  x-stripeBypassValidation: true
                 shipping:
                   description: The address where the card will be shipped.
                   properties:
@@ -41884,8 +41903,6 @@ paths:
                         maxLength: 5000
                         type: string
                       type: array
-                    max_approvals:
-                      type: integer
                     spending_limits:
                       items:
                         properties:
@@ -42308,6 +42325,12 @@ paths:
             schema:
               additionalProperties: false
               properties:
+                cancellation_reason:
+                  description: Reason why the `status` of this card is `canceled`.
+                  enum:
+                  - lost
+                  - stolen
+                  type: string
                 expand:
                   description: Specifies which fields in the response should be expanded.
                   items:
@@ -42920,8 +42943,6 @@ paths:
                         maxLength: 5000
                         type: string
                       type: array
-                    max_approvals:
-                      type: integer
                     spending_limits:
                       items:
                         properties:
@@ -43239,14 +43260,15 @@ paths:
                   title: authorization_controls_param
                   type: object
                 status:
-                  description: Whether authorizations can be approved on this card.
+                  description: Dictates whether authorizations can be approved on
+                    this card. If this card is being canceled because it was lost
+                    or stolen, this information should be provided as `cancellation_reason`.
                   enum:
                   - active
                   - canceled
                   - inactive
-                  - lost
-                  - stolen
                   type: string
+                  x-stripeBypassValidation: true
               type: object
         required: false
       responses:
@@ -43255,189 +43277,6 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/issuing.card"
-          description: Successful response.
-        default:
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/error"
-          description: Error response.
-  "/v1/issuing/cards/{card}/details":
-    get:
-      description: <p>For virtual cards only. Retrieves an Issuing <code>card_details</code>
-        object that contains <a href="/docs/issuing/cards/virtual#virtual-card-info">the
-        sensitive details</a> of a virtual card.</p>
-      operationId: GetIssuingCardsCardDetails
-      parameters:
-      - in: path
-        name: card
-        required: true
-        schema:
-          maxLength: 5000
-          type: string
-        style: simple
-      - description: Specifies which fields in the response should be expanded.
-        explode: true
-        in: query
-        name: expand
-        required: false
-        schema:
-          items:
-            maxLength: 5000
-            type: string
-          type: array
-        style: deepObject
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            encoding: {}
-            schema:
-              additionalProperties: false
-              properties: {}
-              type: object
-        required: false
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/issuing.card_details"
-          description: Successful response.
-        default:
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/error"
-          description: Error response.
-  "/v1/issuing/cards/{card}/pin":
-    get:
-      description: <p>Retrieves the PIN for a card object, subject to cardholder verification,
-        see <a href="/docs/issuing/pin_management">Retrieve and update cardholder
-        PIN</a></p>
-      operationId: GetIssuingCardsCardPin
-      parameters:
-      - in: path
-        name: card
-        required: true
-        schema:
-          maxLength: 5000
-          type: string
-        style: simple
-      - description: Specifies which fields in the response should be expanded.
-        explode: true
-        in: query
-        name: expand
-        required: false
-        schema:
-          items:
-            maxLength: 5000
-            type: string
-          type: array
-        style: deepObject
-      - description: The id of the `Verification` that was sent and the code entered
-          by the cardholder
-        explode: true
-        in: query
-        name: verification
-        required: true
-        schema:
-          properties:
-            id:
-              maxLength: 5000
-              type: string
-            one_time_code:
-              maxLength: 5000
-              type: string
-          required:
-          - id
-          - one_time_code
-          title: verification_params
-          type: object
-        style: deepObject
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            encoding: {}
-            schema:
-              additionalProperties: false
-              properties: {}
-              type: object
-        required: false
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/issuing.card_pin"
-          description: Successful response.
-        default:
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/error"
-          description: Error response.
-    post:
-      description: <p>Updates the PIN for a card, subject to cardholder verification.
-        See <a href="/docs/issuing/pin_management">Retrieve and update cardholder
-        PIN</a></p>
-      operationId: PostIssuingCardsCardPin
-      parameters:
-      - in: path
-        name: card
-        required: true
-        schema:
-          maxLength: 5000
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            encoding:
-              expand:
-                explode: true
-                style: deepObject
-              verification:
-                explode: true
-                style: deepObject
-            schema:
-              additionalProperties: false
-              properties:
-                expand:
-                  description: Specifies which fields in the response should be expanded.
-                  items:
-                    maxLength: 5000
-                    type: string
-                  type: array
-                pin:
-                  description: The new desired PIN
-                  maxLength: 5000
-                  type: string
-                verification:
-                  description: The id of the `Verification` that was sent and the
-                    code entered by the cardholder
-                  properties:
-                    id:
-                      maxLength: 5000
-                      type: string
-                    one_time_code:
-                      maxLength: 5000
-                      type: string
-                  required:
-                  - id
-                  - one_time_code
-                  title: verification_params
-                  type: object
-              required:
-              - pin
-              - verification
-              type: object
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/issuing.card_pin"
           description: Successful response.
         default:
           content:
@@ -43959,14 +43798,6 @@ paths:
             type: object
           - type: integer
         style: deepObject
-      - description: Only return transactions that originate from a given dispute.
-        in: query
-        name: dispute
-        required: false
-        schema:
-          maxLength: 5000
-          type: string
-        style: form
       - description: A cursor for use in pagination. `ending_before` is an object
           ID that defines your place in the list. For instance, if you make a list
           request and receive 100 objects, starting with `obj_bar`, your subsequent
@@ -43997,14 +43828,6 @@ paths:
         required: false
         schema:
           type: integer
-        style: form
-      - description: Only return transactions that are associated with the given settlement.
-        in: query
-        name: settlement
-        required: false
-        schema:
-          maxLength: 5000
-          type: string
         style: form
       - description: A cursor for use in pagination. `starting_after` is an object
           ID that defines your place in the list. For instance, if you make a list
@@ -44166,66 +43989,6 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/issuing.transaction"
-          description: Successful response.
-        default:
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/error"
-          description: Error response.
-  "/v1/issuing/verifications":
-    post:
-      description: "<p>Some actions (eg: updating a PIN) need confirmation from the
-        cardholder</p>"
-      operationId: PostIssuingVerifications
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            encoding:
-              expand:
-                explode: true
-                style: deepObject
-            schema:
-              additionalProperties: false
-              properties:
-                card:
-                  description: The `Card` for which a verification is requested
-                  maxLength: 5000
-                  type: string
-                expand:
-                  description: Specifies which fields in the response should be expanded.
-                  items:
-                    maxLength: 5000
-                    type: string
-                  type: array
-                scope:
-                  description: The scope of the verification (one of `card_pin_retrieve`
-                    or `card_pin_update`)
-                  enum:
-                  - card_pin_retrieve
-                  - card_pin_update
-                  maxLength: 5000
-                  type: string
-                verification_method:
-                  description: The method used to send the cardholder the verification
-                    (one of `email` or `sms`)
-                  enum:
-                  - email
-                  - sms
-                  maxLength: 5000
-                  type: string
-              required:
-              - card
-              - scope
-              - verification_method
-              type: object
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/issuing.verification"
           description: Successful response.
         default:
           content:
@@ -45451,44 +45214,48 @@ paths:
                   description: Payment-method-specific configuration for this PaymentIntent.
                   properties:
                     card:
-                      properties:
-                        installments:
-                          properties:
-                            enabled:
-                              type: boolean
-                            plan:
-                              anyOf:
-                              - properties:
-                                  count:
-                                    type: integer
-                                  interval:
-                                    enum:
-                                    - month
-                                    type: string
-                                  type:
-                                    enum:
-                                    - fixed_count
-                                    type: string
-                                required:
-                                - count
-                                - interval
-                                - type
-                                title: installment_plan
-                                type: object
-                              - enum:
-                                - ''
-                                type: string
-                          title: installments_param
-                          type: object
-                        request_three_d_secure:
-                          enum:
-                          - any
-                          - automatic
-                          maxLength: 5000
-                          type: string
-                          x-stripeBypassValidation: true
-                      title: payment_intent_param
-                      type: object
+                      anyOf:
+                      - properties:
+                          installments:
+                            properties:
+                              enabled:
+                                type: boolean
+                              plan:
+                                anyOf:
+                                - properties:
+                                    count:
+                                      type: integer
+                                    interval:
+                                      enum:
+                                      - month
+                                      type: string
+                                    type:
+                                      enum:
+                                      - fixed_count
+                                      type: string
+                                  required:
+                                  - count
+                                  - interval
+                                  - type
+                                  title: installment_plan
+                                  type: object
+                                - enum:
+                                  - ''
+                                  type: string
+                            title: installments_param
+                            type: object
+                          request_three_d_secure:
+                            enum:
+                            - any
+                            - automatic
+                            maxLength: 5000
+                            type: string
+                            x-stripeBypassValidation: true
+                        title: payment_intent_param
+                        type: object
+                      - enum:
+                        - ''
+                        type: string
                   title: payment_method_options_param
                   type: object
                 payment_method_types:
@@ -45514,11 +45281,9 @@ paths:
                   description: |-
                     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-                    Providing this parameter will attach the payment method to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+                    Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
-                    For more, learn to [save card details during payment](https://stripe.com/docs/payments/save-during-payment).
-
-                    Stripe uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules. For example, if your customer is impacted by [SCA](https://stripe.com/docs/strong-customer-authentication), using `off_session` will ensure that they are authenticated while processing this PaymentIntent. You will then be able to collect [off-session payments](https://stripe.com/docs/payments/cards/charging-saved-cards#off-session-payments-with-saved-cards) for this customer.
+                    When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
                   enum:
                   - off_session
                   - on_session
@@ -45773,14 +45538,18 @@ paths:
                     type: string
                   type: array
                 metadata:
-                  additionalProperties:
+                  anyOf:
+                  - additionalProperties:
+                      type: string
+                    type: object
+                  - enum:
+                    - ''
                     type: string
                   description: Set of key-value pairs that you can attach to an object.
                     This can be useful for storing additional information about the
                     object in a structured format. Individual keys can be unset by
                     posting an empty value to them. All keys can be unset by posting
                     an empty value to `metadata`.
-                  type: object
                 payment_method:
                   description: ID of the payment method (a PaymentMethod, Card, or
                     [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility)
@@ -45791,44 +45560,48 @@ paths:
                   description: Payment-method-specific configuration for this PaymentIntent.
                   properties:
                     card:
-                      properties:
-                        installments:
-                          properties:
-                            enabled:
-                              type: boolean
-                            plan:
-                              anyOf:
-                              - properties:
-                                  count:
-                                    type: integer
-                                  interval:
-                                    enum:
-                                    - month
-                                    type: string
-                                  type:
-                                    enum:
-                                    - fixed_count
-                                    type: string
-                                required:
-                                - count
-                                - interval
-                                - type
-                                title: installment_plan
-                                type: object
-                              - enum:
-                                - ''
-                                type: string
-                          title: installments_param
-                          type: object
-                        request_three_d_secure:
-                          enum:
-                          - any
-                          - automatic
-                          maxLength: 5000
-                          type: string
-                          x-stripeBypassValidation: true
-                      title: payment_intent_param
-                      type: object
+                      anyOf:
+                      - properties:
+                          installments:
+                            properties:
+                              enabled:
+                                type: boolean
+                              plan:
+                                anyOf:
+                                - properties:
+                                    count:
+                                      type: integer
+                                    interval:
+                                      enum:
+                                      - month
+                                      type: string
+                                    type:
+                                      enum:
+                                      - fixed_count
+                                      type: string
+                                  required:
+                                  - count
+                                  - interval
+                                  - type
+                                  title: installment_plan
+                                  type: object
+                                - enum:
+                                  - ''
+                                  type: string
+                            title: installments_param
+                            type: object
+                          request_three_d_secure:
+                            enum:
+                            - any
+                            - automatic
+                            maxLength: 5000
+                            type: string
+                            x-stripeBypassValidation: true
+                        title: payment_intent_param
+                        type: object
+                      - enum:
+                        - ''
+                        type: string
                   title: payment_method_options_param
                   type: object
                 payment_method_types:
@@ -45850,11 +45623,9 @@ paths:
                   description: |-
                     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-                    Providing this parameter will attach the payment method to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+                    Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
-                    For more, learn to [save card details during payment](https://stripe.com/docs/payments/save-during-payment).
-
-                    Stripe uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules. For example, if your customer is impacted by [SCA](https://stripe.com/docs/strong-customer-authentication), using `off_session` will ensure that they are authenticated while processing this PaymentIntent. You will then be able to collect [off-session payments](https://stripe.com/docs/payments/cards/charging-saved-cards#off-session-payments-with-saved-cards) for this customer.
+                    When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
                     If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
                   enum:
@@ -46270,44 +46041,48 @@ paths:
                   description: Payment-method-specific configuration for this PaymentIntent.
                   properties:
                     card:
-                      properties:
-                        installments:
-                          properties:
-                            enabled:
-                              type: boolean
-                            plan:
-                              anyOf:
-                              - properties:
-                                  count:
-                                    type: integer
-                                  interval:
-                                    enum:
-                                    - month
-                                    type: string
-                                  type:
-                                    enum:
-                                    - fixed_count
-                                    type: string
-                                required:
-                                - count
-                                - interval
-                                - type
-                                title: installment_plan
-                                type: object
-                              - enum:
-                                - ''
-                                type: string
-                          title: installments_param
-                          type: object
-                        request_three_d_secure:
-                          enum:
-                          - any
-                          - automatic
-                          maxLength: 5000
-                          type: string
-                          x-stripeBypassValidation: true
-                      title: payment_intent_param
-                      type: object
+                      anyOf:
+                      - properties:
+                          installments:
+                            properties:
+                              enabled:
+                                type: boolean
+                              plan:
+                                anyOf:
+                                - properties:
+                                    count:
+                                      type: integer
+                                    interval:
+                                      enum:
+                                      - month
+                                      type: string
+                                    type:
+                                      enum:
+                                      - fixed_count
+                                      type: string
+                                  required:
+                                  - count
+                                  - interval
+                                  - type
+                                  title: installment_plan
+                                  type: object
+                                - enum:
+                                  - ''
+                                  type: string
+                            title: installments_param
+                            type: object
+                          request_three_d_secure:
+                            enum:
+                            - any
+                            - automatic
+                            maxLength: 5000
+                            type: string
+                            x-stripeBypassValidation: true
+                        title: payment_intent_param
+                        type: object
+                      - enum:
+                        - ''
+                        type: string
                   title: payment_method_options_param
                   type: object
                 payment_method_types:
@@ -46335,11 +46110,9 @@ paths:
                   description: |-
                     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-                    Providing this parameter will attach the payment method to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+                    Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
-                    For more, learn to [save card details during payment](https://stripe.com/docs/payments/save-during-payment).
-
-                    Stripe uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules. For example, if your customer is impacted by [SCA](https://stripe.com/docs/strong-customer-authentication), using `off_session` will ensure that they are authenticated while processing this PaymentIntent. You will then be able to collect [off-session payments](https://stripe.com/docs/payments/cards/charging-saved-cards#off-session-payments-with-saved-cards) for this customer.
+                    When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
                     If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
                   enum:
@@ -46909,14 +46682,18 @@ paths:
                     type: string
                   type: array
                 metadata:
-                  additionalProperties:
+                  anyOf:
+                  - additionalProperties:
+                      type: string
+                    type: object
+                  - enum:
+                    - ''
                     type: string
                   description: Set of key-value pairs that you can attach to an object.
                     This can be useful for storing additional information about the
                     object in a structured format. Individual keys can be unset by
                     posting an empty value to them. All keys can be unset by posting
                     an empty value to `metadata`.
-                  type: object
                 sepa_debit:
                   description: If this is a `sepa_debit` PaymentMethod, this hash
                     contains details about the SEPA debit bank account.
@@ -46942,6 +46719,12 @@ paths:
     post:
       description: |-
         <p>Attaches a PaymentMethod object to a Customer.</p>
+
+        <p>To attach a new PaymentMethod to a customer for future payments, we recommend you use a <a href="/docs/api/setup_intents">SetupIntent</a>
+        or a PaymentIntent with <a href="/docs/api/payment_intents/create#create_payment_intent-setup_future_usage">setup_future_usage</a>.
+        These approaches will perform any necessary steps to ensure that the PaymentMethod can be used in a future payment. Using the
+        <code>/v1/payment_methods/:id/attach</code> endpoint does not ensure that future payments can be made with the attached PaymentMethod.
+        See <a href="/docs/payments/payment-intents#future-usage">Optimizing cards for future payments</a> for more information about setting up future payments.</p>
 
         <p>To use this PaymentMethod as the default for invoice or subscription payments,
         set <a href="/docs/api/customers/update#update_customer-invoice_settings-default_payment_method"><code>invoice_settings.default_payment_method</code></a>,
@@ -47754,7 +47537,7 @@ paths:
                         - type: integer
                     required:
                     - up_to
-                    title: plan_tier_param
+                    title: tier
                     type: object
                   type: array
                 tiers_mode:
@@ -51682,14 +51465,18 @@ paths:
                     type: string
                   type: array
                 metadata:
-                  additionalProperties:
+                  anyOf:
+                  - additionalProperties:
+                      type: string
+                    type: object
+                  - enum:
+                    - ''
                     type: string
                   description: Set of key-value pairs that you can attach to an object.
                     This can be useful for storing additional information about the
                     object in a structured format. Individual keys can be unset by
                     posting an empty value to them. All keys can be unset by posting
                     an empty value to `metadata`.
-                  type: object
                 payment_method:
                   description: ID of the payment method (a PaymentMethod, Card, or
                     saved Source object) to attach to this SetupIntent.
@@ -54600,8 +54387,7 @@ paths:
                     using `now` so that it starts the subscription immediately. You
                     can also use a Unix timestamp to backdate the subscription so
                     that it starts on a past date, or set a future date for the subscription
-                    to start on. When you backdate, the `billing_cycle_anchor` of
-                    the subscription is equivalent to the `start_date`.
+                    to start on.
               type: object
         required: false
       responses:
@@ -57221,11 +57007,15 @@ paths:
                           - government_instrumentality
                           - governmental_unit
                           - incorporated_non_profit
+                          - limited_liability_partnership
                           - multi_member_llc
+                          - private_company
                           - private_corporation
                           - private_partnership
+                          - public_company
                           - public_corporation
                           - public_partnership
+                          - sole_proprietorship
                           - tax_exempt_government_instrumentality
                           - unincorporated_association
                           - unincorporated_non_profit
@@ -59037,6 +58827,11 @@ paths:
                     accounts (`true`), or from your account (`false`). Defaults to
                     `false`.
                   type: boolean
+                description:
+                  description: An optional description of what the wehbook is used
+                    for.
+                  maxLength: 5000
+                  type: string
                 enabled_events:
                   description: The list of events to enable for this endpoint. You
                     may specify `['*']` to enable all events, except those that require
@@ -59116,10 +58911,6 @@ paths:
                     - issuing_card.updated
                     - issuing_cardholder.created
                     - issuing_cardholder.updated
-                    - issuing_dispute.created
-                    - issuing_dispute.updated
-                    - issuing_settlement.created
-                    - issuing_settlement.updated
                     - issuing_transaction.created
                     - issuing_transaction.updated
                     - mandate.updated
@@ -59346,6 +59137,11 @@ paths:
             schema:
               additionalProperties: false
               properties:
+                description:
+                  description: An optional description of what the wehbook is used
+                    for.
+                  maxLength: 5000
+                  type: string
                 disabled:
                   description: Disable the webhook endpoint if set to true.
                   type: boolean
@@ -59428,10 +59224,6 @@ paths:
                     - issuing_card.updated
                     - issuing_cardholder.created
                     - issuing_cardholder.updated
-                    - issuing_dispute.created
-                    - issuing_dispute.updated
-                    - issuing_settlement.created
-                    - issuing_settlement.updated
                     - issuing_transaction.created
                     - issuing_transaction.updated
                     - mandate.updated

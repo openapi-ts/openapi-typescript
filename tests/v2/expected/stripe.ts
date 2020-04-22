@@ -39,6 +39,7 @@ export interface definitions {
     icon?: string;
     logo?: string;
     primary_color?: string;
+    secondary_color?: string;
   };
   account_business_profile: {
     mcc?: string;
@@ -63,7 +64,7 @@ export interface definitions {
     current_deadline?: number;
     currently_due: string[];
     disabled_reason?: string;
-    errors?: definitions["account_requirements_error"][];
+    errors: definitions["account_requirements_error"][];
     eventually_due: string[];
     past_due: string[];
     pending_verification: string[];
@@ -307,6 +308,15 @@ export interface definitions {
     name?: string;
     phone?: string;
   };
+  "billing_portal.session": {
+    created: number;
+    customer: string;
+    id: string;
+    livemode: boolean;
+    object: "billing_portal.session";
+    return_url: string;
+    url: string;
+  };
   bitcoin_receiver: {
     active: boolean;
     amount: number;
@@ -393,6 +403,7 @@ export interface definitions {
     application_fee_amount?: number;
     balance_transaction?: string;
     billing_details: definitions["billing_details"];
+    calculated_statement_descriptor?: string;
     captured: boolean;
     created: number;
     currency: string;
@@ -416,7 +427,7 @@ export interface definitions {
     payment_method_details?: definitions["payment_method_details"];
     receipt_email?: string;
     receipt_number?: string;
-    receipt_url: string;
+    receipt_url?: string;
     refunded: boolean;
     refunds: {
       data: definitions["refund"][];
@@ -1045,6 +1056,7 @@ export interface definitions {
       | "no_vat"
       | "nz_gst"
       | "ru_inn"
+      | "sg_gst"
       | "sg_uen"
       | "th_vat"
       | "tw_vat"
@@ -1100,37 +1112,26 @@ export interface definitions {
   };
   "issuing.card": {
     brand: string;
+    cancellation_reason?: "lost" | "stolen";
     cardholder: definitions["issuing.cardholder"];
     created: number;
     currency: string;
+    cvc?: string;
     exp_month: number;
     exp_year: number;
     id: string;
     last4: string;
     livemode: boolean;
     metadata: { [key: string]: any };
+    number?: string;
     object: "issuing.card";
-    pin?: definitions["issuing_card_pin"];
     replaced_by?: string;
     replacement_for?: string;
-    replacement_reason?: "damage" | "expiration" | "loss" | "theft";
+    replacement_reason?: "damaged" | "expired" | "lost" | "stolen";
     shipping?: definitions["issuing_card_shipping"];
     spending_controls: definitions["issuing_card_authorization_controls"];
-    status: "active" | "canceled" | "inactive" | "lost" | "stolen";
+    status: "active" | "canceled" | "inactive";
     type: "physical" | "virtual";
-  };
-  "issuing.card_details": {
-    card: definitions["issuing.card"];
-    cvc: string;
-    exp_month: number;
-    exp_year: number;
-    number: string;
-    object: "issuing.card_details";
-  };
-  "issuing.card_pin": {
-    card: definitions["issuing.card"];
-    object: "issuing.card_pin";
-    pin?: string;
   };
   "issuing.cardholder": {
     billing: definitions["issuing_cardholder_address"];
@@ -1180,7 +1181,6 @@ export interface definitions {
     cardholder?: string;
     created: number;
     currency: string;
-    dispute?: string;
     id: string;
     livemode: boolean;
     merchant_amount: number;
@@ -1188,16 +1188,7 @@ export interface definitions {
     merchant_data: definitions["issuing_authorization_merchant_data"];
     metadata: { [key: string]: any };
     object: "issuing.transaction";
-    type: "capture" | "dispute" | "refund";
-  };
-  "issuing.verification": {
-    card: string;
-    created: number;
-    expires_at: number;
-    id: string;
-    object: "issuing.verification";
-    scope: "card_pin_retrieve" | "card_pin_update";
-    verification_method: "email" | "sms";
+    type: "capture" | "refund";
   };
   issuing_authorization_merchant_data: {
     category: string;
@@ -1207,7 +1198,6 @@ export interface definitions {
     network_id: string;
     postal_code?: string;
     state?: string;
-    url?: string;
   };
   issuing_authorization_pending_request: {
     amount: number;
@@ -1224,8 +1214,7 @@ export interface definitions {
     merchant_amount: number;
     merchant_currency: string;
     reason:
-      | "account_compliance_disabled"
-      | "account_inactive"
+      | "account_disabled"
       | "card_active"
       | "card_inactive"
       | "cardholder_inactive"
@@ -1239,15 +1228,11 @@ export interface definitions {
       | "webhook_declined"
       | "webhook_timeout";
   };
-  issuing_authorization_three_d_secure: {
-    result: "attempt_acknowledged" | "authenticated" | "failed";
-  };
   issuing_authorization_verification_data: {
     address_line1_check: "match" | "mismatch" | "not_provided";
     address_postal_code_check: "match" | "mismatch" | "not_provided";
     cvc_check: "match" | "mismatch" | "not_provided";
     expiry_check: "match" | "mismatch" | "not_provided";
-    three_d_secure?: definitions["issuing_authorization_three_d_secure"];
   };
   issuing_card_authorization_controls: {
     allowed_categories?:
@@ -1828,11 +1813,9 @@ export interface definitions {
       | "womens_accessory_and_specialty_shops"
       | "womens_ready_to_wear_stores"
       | "wrecking_and_salvage_yards"[];
-    max_approvals?: number;
     spending_limits?: definitions["issuing_card_spending_limit"][];
     spending_limits_currency?: string;
   };
-  issuing_card_pin: { status: "active" | "blocked" };
   issuing_card_shipping: {
     address: definitions["address"];
     carrier?: "fedex" | "usps";
@@ -2748,6 +2731,7 @@ export interface definitions {
   issuing_cardholder_requirements: {
     disabled_reason?: "listed" | "rejected.listed" | "under_review";
     past_due?:
+      | "company.tax_id"
       | "individual.dob.day"
       | "individual.dob.month"
       | "individual.dob.year"
@@ -3072,11 +3056,15 @@ export interface definitions {
       | "government_instrumentality"
       | "governmental_unit"
       | "incorporated_non_profit"
+      | "limited_liability_partnership"
       | "multi_member_llc"
+      | "private_company"
       | "private_corporation"
       | "private_partnership"
+      | "public_company"
       | "public_corporation"
       | "public_partnership"
+      | "sole_proprietorship"
       | "tax_exempt_government_instrumentality"
       | "unincorporated_association"
       | "unincorporated_non_profit";
@@ -3451,6 +3439,7 @@ export interface definitions {
   };
   payment_method_details_card_present: {
     brand?: string;
+    cardholder_name?: string;
     country?: string;
     emv_auth_data?: string;
     exp_month?: number;
@@ -3956,7 +3945,7 @@ export interface definitions {
   };
   person_requirements: {
     currently_due: string[];
-    errors?: definitions["account_requirements_error"][];
+    errors: definitions["account_requirements_error"][];
     eventually_due: string[];
     past_due: string[];
     pending_verification: string[];
@@ -4759,6 +4748,7 @@ export interface definitions {
       | "no_vat"
       | "nz_gst"
       | "ru_inn"
+      | "sg_gst"
       | "sg_uen"
       | "th_vat"
       | "tw_vat"
@@ -4924,6 +4914,7 @@ export interface definitions {
     api_version?: string;
     application?: string;
     created: number;
+    description?: string;
     enabled_events: string[];
     id: string;
     livemode: boolean;
