@@ -16,6 +16,18 @@
         "infra",
         "test"
       ]
+    },
+    {
+      "login": "psmyrdek",
+      "name": "Przemek Smyrdek",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/6187417?v=4",
+      "profile": "http://smyrdek.com",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
