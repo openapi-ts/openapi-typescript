@@ -9,6 +9,7 @@ export interface OpenAPI3 {
   components: {
     schemas: { [key: string]: OpenAPI3SchemaObject | OpenAPI3Reference };
   };
+  [key: string]: any; // handle other properties beyond swagger-to-ts’ concern
 }
 
 export type OpenAPI3Type =
@@ -36,4 +37,5 @@ export interface OpenAPI3SchemaObject {
   required?: string[];
   title?: string;
   type: OpenAPI3Type;
+  [key: string]: any; // allow arbitrary x-something properties
 }
