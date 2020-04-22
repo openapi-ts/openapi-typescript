@@ -46,6 +46,8 @@ export default function generateTypesV3(
   const objectsAndArrays = JSON.parse(
     JSON.stringify(propertyMapped),
     (_, node) => {
+      if (node === null) return "null";
+
       // $ref
       if (node["$ref"]) {
         return escape(
