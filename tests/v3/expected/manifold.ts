@@ -6,18 +6,18 @@
 export interface components {
   schemas: {
     ID: string;
-    OptionalID: string;
+    OptionalID: string | null;
     FlexID: string;
-    OptionalFlexID: string;
+    OptionalFlexID: string | null;
     Label: string;
-    OptionalLabel: string;
+    OptionalLabel: string | null;
     FeatureValueLabel: string;
     Location: string;
     Platform: string;
     Name: string;
-    OptionalName: string;
+    OptionalName: string | null;
     LogoURL: string;
-    OptionalLogoURL: string;
+    OptionalLogoURL: string | null;
     RegionBody: {
       platform: components["schemas"]["Platform"];
       location: components["schemas"]["Location"];
@@ -47,8 +47,8 @@ export interface components {
       label?: components["schemas"]["OptionalLabel"];
       name?: components["schemas"]["OptionalName"];
       logo_url?: components["schemas"]["OptionalLogoURL"];
-      support_email?: string;
-      documentation_url?: string;
+      support_email?: string | null;
+      documentation_url?: string | null;
     };
     Provider: {
       id: components["schemas"]["ID"];
@@ -70,27 +70,27 @@ export interface components {
       label?: components["schemas"]["Label"];
       logo_url?: components["schemas"]["LogoURL"];
       listing?: components["schemas"]["ProductListing"];
-      tagline?: string;
-      value_props?: components["schemas"]["ValueProp"][];
-      setup_steps?: string[];
-      images?: components["schemas"]["ProductImageURL"][];
-      support_email?: string;
-      documentation_url?: string;
-      terms_url?: string;
-      feature_types?: components["schemas"]["FeatureType"][];
+      tagline?: string | null;
+      value_props?: components["schemas"]["ValueProp"][] | null;
+      setup_steps?: string[] | null;
+      images?: components["schemas"]["ProductImageURL"][] | null;
+      support_email?: string | null;
+      documentation_url?: string | null;
+      terms_url?: string | null;
+      feature_types?: components["schemas"]["FeatureType"][] | null;
       integration?: {
         provisioning?: components["schemas"]["ProductProvisioning"];
-        base_url?: string;
-        sso_url?: string;
-        version?: "v1";
+        base_url?: string | null;
+        sso_url?: string | null;
+        version?: "v1" | null;
         features?: {
-          access_code?: boolean;
-          sso?: boolean;
-          plan_change?: boolean;
-          credential?: "none" | "single" | "multiple" | "unknown";
+          access_code?: boolean | null;
+          sso?: boolean | null;
+          plan_change?: boolean | null;
+          credential?: ("none" | "single" | "multiple" | "unknown") | null;
         };
-      };
-      platform_ids?: components["schemas"]["ID"][];
+      } | null;
+      platform_ids?: components["schemas"]["ID"][] | null;
       tags?: components["schemas"]["ProductTags"];
     };
     UpdatePlan: {
@@ -101,12 +101,12 @@ export interface components {
       name?: components["schemas"]["Name"];
       label?: components["schemas"]["Label"];
       state?: components["schemas"]["PlanState"];
-      has_resize_constraints?: boolean;
+      has_resize_constraints?: boolean | null;
       resizable_to?: components["schemas"]["PlanResizeList"];
-      regions?: components["schemas"]["ID"][];
-      features?: components["schemas"]["FeatureValue"][];
-      trial_days?: number;
-      cost?: number;
+      regions?: components["schemas"]["ID"][] | null;
+      features?: components["schemas"]["FeatureValue"][] | null;
+      trial_days?: number | null;
+      cost?: number | null;
     };
     FeatureType: {
       label: components["schemas"]["Label"];
@@ -118,7 +118,7 @@ export interface components {
       measurable?: boolean;
       values?: components["schemas"]["FeatureValuesList"];
     };
-    FeatureValuesList: components["schemas"]["FeatureValueDetails"][];
+    FeatureValuesList: components["schemas"]["FeatureValueDetails"][] | null;
     FeatureValueDetails: {
       label: components["schemas"]["FeatureValueLabel"];
       name: components["schemas"]["Name"];
@@ -134,10 +134,10 @@ export interface components {
     FeatureNumericDetails: {
       increment?: number;
       min?: number;
-      max?: number;
-      suffix?: string;
-      cost_ranges?: components["schemas"]["FeatureNumericRange"][];
-    };
+      max?: number | null;
+      suffix?: string | null;
+      cost_ranges?: components["schemas"]["FeatureNumericRange"][] | null;
+    } | null;
     FeatureNumericRange: { limit?: number; cost_multiple?: number };
     FeatureValue: {
       feature: components["schemas"]["Label"];
@@ -169,11 +169,11 @@ export interface components {
       logo_url: components["schemas"]["LogoURL"];
       tagline: string;
       value_props: components["schemas"]["ValueProp"][];
-      setup_steps?: string[];
+      setup_steps?: string[] | null;
       images: components["schemas"]["ProductImageURL"][];
       support_email: string;
       documentation_url: string;
-      terms: { url?: string; provided: boolean };
+      terms: { url?: string | null; provided: boolean };
       feature_types: components["schemas"]["FeatureType"][];
       billing: {
         type: "monthly-prorated" | "monthly-anniversary" | "annual-anniversary";
@@ -182,7 +182,7 @@ export interface components {
       integration: {
         provisioning: components["schemas"]["ProductProvisioning"];
         base_url: string;
-        sso_url?: string;
+        sso_url?: string | null;
         version: "v1";
         features: components["schemas"]["ProductIntegrationFeatures"];
       };
@@ -195,7 +195,7 @@ export interface components {
       body: components["schemas"]["ProductBody"];
     };
     CreateProduct: { body: components["schemas"]["ProductBody"] };
-    PlanResizeList: components["schemas"]["ID"][];
+    PlanResizeList: components["schemas"]["ID"][] | null;
     PlanBody: {
       provider_id: components["schemas"]["ID"];
       product_id: components["schemas"]["ID"];
