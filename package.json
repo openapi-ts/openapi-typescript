@@ -44,6 +44,7 @@
       ]
     ]
   },
+  "prettier": {},
   "scripts": {
     "build": "pika build",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts src",
