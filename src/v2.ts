@@ -1,16 +1,12 @@
 import propertyMapper from "./property-mapper";
 import { OpenAPI2, OpenAPI2SchemaObject, SwaggerToTSOptions } from "./types";
 import {
-  escape,
-  fromEntries,
-  isArrayNode,
-  isObjNode,
-  isSchemaObj,
-  makeOptional,
+  comment,
+  nodeType,
+  transformRef,
   tsArrayOf,
   tsIntersectionOf,
   tsUnionOf,
-  unescape,
 } from "./utils";
 
 export const PRIMITIVES: { [key: string]: "boolean" | "string" | "number" } = {
@@ -48,96 +44,78 @@ export default function generateTypesV2(
     : schema.definitions;
 
   // type conversions
-  const objectsAndArrays = JSON.parse(
-    JSON.stringify(propertyMapped),
-    (_, node) => {
-      // $ref
-      if (node["$ref"]) {
-        return escape(
-          `definitions['${node.$ref
-            .replace("#/definitions/", "")
-            .replace(/\//g, "']['")}']`
-        ); // important: use single-quotes her
+  function transform(node: OpenAPI2SchemaObject): string {
+    switch (nodeType(node)) {
+      case "ref": {
+        return transformRef(node.$ref);
       }
-
-      // primitives
-      if (node.type && PRIMITIVES[node.type]) {
-        return escape(
-          node.enum
-            ? tsUnionOf((node.enum as string[]).map((item) => `'${item}'`))
-            : PRIMITIVES[node.type]
-        );
+      case "string":
+      case "number":
+      case "boolean": {
+        return nodeType(node) || "any";
       }
-
-      // object
-      if (isObjNode(node)) {
-        // handle no properties
+      case "enum": {
+        return tsUnionOf((node.enum as string[]).map((item) => `'${item}'`));
+      }
+      case "object": {
         if (
           (!node.properties || !Object.keys(node.properties).length) &&
-          (!node.allOf || !node.allOf.length) &&
+          !node.allOf &&
           !node.additionalProperties
         ) {
-          return escape(`{[key: string]: any}`);
+          return `{ [key: string]: any }`;
         }
 
-        // unescape properties if some have been transformed already for nested objects
-        const properties = makeOptional(
-          fromEntries(
-            Object.entries(
-              (node.properties as OpenAPI2SchemaObject["properties"]) || {}
-            ).map(([key, val]) => {
-              if (typeof val === "string") {
-                // try and parse as JSON to remove bad string escapes; otherwise, escape normally
-                try {
-                  return [key, JSON.parse(val)];
-                } catch (err) {
-                  return [key, escape(unescape(val))];
-                }
-              }
-              return [key, val];
-            })
-          ),
-          node.required
-        );
+        let properties = createKeys(node.properties || {}, node.required);
 
         // if additional properties, add to end of properties
         if (node.additionalProperties) {
-          const addlType =
-            typeof node.additionalProperties === "string" &&
-            PRIMITIVES[unescape(node.additionalProperties)];
-          properties[escape("[key: string]")] = escape(addlType || "any");
+          properties += `[key: string]: ${
+            nodeType(node.additionalProperties) || "any"
+          };\n`;
         }
 
         return tsIntersectionOf([
-          // append allOf first
-          ...(node.allOf
-            ? node.allOf.map((item: any) =>
-                isSchemaObj(item)
-                  ? JSON.stringify(makeOptional(item, node.required))
-                  : item
-              )
-            : []),
-          // then properties + additionalProperties
-          ...(Object.keys(properties).length
-            ? [JSON.stringify(properties)]
-            : []),
+          ...(node.allOf ? (node.allOf as any[]).map(transform) : []), // append allOf first
+          ...(properties ? [`{ ${properties} }`] : []), // then properties + additionalProperties
         ]);
+        break;
       }
-
-      // arrays
-      if (isArrayNode(node) && typeof node.items === "string") {
-        return escape(tsArrayOf(node.items));
+      case "array": {
+        return tsArrayOf(transform(node.items as any));
       }
-
-      return node; // return by default
     }
-  );
 
+    return "";
+  }
+
+  function createKeys(
+    obj: { [key: string]: any },
+    required: string[] = []
+  ): string {
+    let output = "";
+
+    Object.entries(obj).forEach(([key, value]) => {
+      // 1. JSDoc comment (goes above property)
+      if (value.description) {
+        output += comment(value.description);
+      }
+
+      // 2. name (with “?” if optional property)
+      output += `"${key}"${!required || !required.includes(key) ? "?" : ""}: `;
+
+      // 3. get value
+      output += transform(value);
+
+      // 4. close type
+      output += ";\n";
+    });
+
+    return output;
+  }
+
+  // note: make sure that base-level definitions are required
   return `export interface definitions {
-  ${unescape(
-    Object.entries(objectsAndArrays)
-      .map(([key, val]) => `${JSON.stringify(key)}: ${val}`)
-      .join(";\n")
-  )}
-}`;
+    ${createKeys(propertyMapped, Object.keys(propertyMapped))}
+  }`;
 }

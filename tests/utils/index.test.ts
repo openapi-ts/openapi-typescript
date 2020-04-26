@@ -1,13 +1,4 @@
-import { escape, swaggerVersion, unescape } from "../../src/utils";
-
-describe("escape", () => {
-  it("escape", () => {
-    expect(escape("string")).toBe("<@string@>");
-  });
-  it("unescape", () => {
-    expect(unescape('"<@string@>"')).toBe("string");
-  });
-});
+import { swaggerVersion } from "../../src/utils";
 
 describe("swaggerVersion", () => {
   it("v2", () => {
