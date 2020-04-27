@@ -127,6 +127,18 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "antonk52",
+      "name": "Anton",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/5817809?v=4",
+      "profile": "https://twitter.com/antonk52",
+      "contributions": [
+        "bug",
+        "code",
+        "ideas",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
