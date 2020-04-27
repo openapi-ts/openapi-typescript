@@ -1,4 +1,3 @@
-import fs from "fs";
 import path from "path";
 import prettier from "prettier";
 import { swaggerVersion } from "./utils";
@@ -36,21 +35,15 @@ export default function swaggerToTS(
   let prettierOptions: prettier.Options = { parser: "typescript" };
   if (options && options.prettierConfig) {
     try {
+      const userOptions = prettier.resolveConfig.sync(
+        path.resolve(process.cwd(), options.prettierConfig)
+      );
       prettierOptions = {
         ...prettierOptions,
-        ...JSON.parse(
-          fs.readFileSync(
-            path.resolve(process.cwd(), options.prettierConfig),
-            "utf8"
-          )
-        ),
+        ...userOptions,
       };
     } catch (err) {
-      console.error(
-        `❌ Prettier: couldn’t find '${
-          options.prettierConfig
-        }' in '${path.dirname(process.cwd())}'`
-      );
+      console.error(`❌ ${err}`);
     }
   }
   return prettier.format(output, prettierOptions);
