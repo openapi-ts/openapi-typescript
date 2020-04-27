@@ -36,6 +36,6 @@ export interface OpenAPI3SchemaObject {
   properties?: { [key: string]: OpenAPI3SchemaObject | OpenAPI3Reference };
   required?: string[];
   title?: string;
-  type: OpenAPI3Type;
+  type?: OpenAPI3Type; // allow this to be optional to cover cases when this is missing
   [key: string]: any; // allow arbitrary x-something properties
 }

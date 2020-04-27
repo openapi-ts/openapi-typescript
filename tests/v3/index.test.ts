@@ -140,6 +140,7 @@ describe("types", () => {
             type: "object",
           },
           object_unknown: { type: "object" },
+          object_empty: {},
         },
       },
     };
@@ -154,6 +155,7 @@ describe("types", () => {
           };
           object_ref: { number?: number };
           object_unknown: { [key: string]: any };
+          object_empty: { [key: string]: any };
         }
       }`)
     );
@@ -179,6 +181,9 @@ describe("types", () => {
             },
             type: "object",
           },
+          inferred_array: {
+            items: { $ref: "#/components/schemas/array" },
+          },
           string: { type: "string" },
           array_ref: {
             items: { $ref: "#/components/schemas/array" },
@@ -198,6 +203,7 @@ describe("types", () => {
             numbers?: number[];
             refs?: components['schemas']['string'][];
           };
+          inferred_array: components['schemas']['array'][];
           string: string;
           array_ref: components['schemas']['array'][];
         }
@@ -377,7 +383,7 @@ describe("OpenAPI3 features", () => {
                 oneOf: [
                   { type: "string" },
                   { type: "number" },
-                  { $ref: "#/components/one_of_ref" },
+                  { $ref: "#/components/schemas/one_of_ref" },
                 ],
               },
             },
@@ -389,6 +395,26 @@ describe("OpenAPI3 features", () => {
             },
             type: "object",
           },
+          one_of_inferred: {
+            oneOf: [
+              {
+                properties: {
+                  kibana: {
+                    type: "object",
+                    properties: { versions: { type: "string" } },
+                  },
+                },
+              },
+              {
+                properties: {
+                  elasticsearch: {
+                    type: "object",
+                    properties: { versions: { type: "string" } },
+                  },
+                },
+              },
+            ],
+          },
         },
       },
     };
@@ -397,8 +423,11 @@ describe("OpenAPI3 features", () => {
       format(`
     export interface components {
       schemas: {
-        one_of: { options?: string | number | components['one_of_ref'] };
+        one_of: { options?: string | number | components['schemas']['one_of_ref'] };
         one_of_ref: { boolean?: boolean };
+        one_of_inferred:
+          | { kibana?: { versions?: string } }
+          | { elasticsearch?: { versions?: string } }
       }
     }`)
     );
