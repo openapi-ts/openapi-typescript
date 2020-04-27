@@ -1,115 +1,91 @@
 import { OpenAPI2, OpenAPI3 } from "./types";
 
-// shim for Object.fromEntries() for Node < 13
+export function comment(text: string): string {
+  return `/**
+  * ${text.trim().replace("\n+$", "").replace(/\n/g, "\n  * ")}
+  */
+`;
+}
+
+/** shim for Object.fromEntries() for Node < 13 */
 export function fromEntries(entries: [string, any][]): object {
   return entries.reduce((obj, [key, val]) => ({ ...obj, [key]: val }), {});
 }
 
-/**
- * Escape/unescape
- * JSON handles most of the transformation for us, but it can’t handle refs, so
- * they will all get converted to strings. We need a special “this is a ref”
- * placeholder to distinguish it from actual strings (also, we can’t assume
- * that "string" in JSON is a TypeScript type and not the actual string
- * "string")!
- */
-export function escape(text: string): string {
-  return `<@${text}@>`;
-}
-
-export function unescape(text: string): string {
-  // the " replaces surrounding quotes, if any
-  const REMOVE_OPENER = /["|\\"]?<\@/g;
-  const REMOVE_CLOSER = /\@>["|\\"]?/g;
-  const ESCAPE_NEWLINES = /\\n/g;
-  return text
-    .replace(REMOVE_OPENER, "")
-    .replace(REMOVE_CLOSER, "")
-    .replace(ESCAPE_NEWLINES, "\n");
-}
-
-export function isArrayNode(node: any): boolean {
-  if (!isSchemaObj(node)) {
-    return false;
+/** Return type of node (works for v2 or v3, as there are no conflicting types) */
+type SchemaObjectType =
+  | "anyOf"
+  | "array"
+  | "boolean"
+  | "enum"
+  | "number"
+  | "object"
+  | "oneOf"
+  | "ref"
+  | "string";
+export function nodeType(obj: any): SchemaObjectType | undefined {
+  if (!obj || typeof obj !== "object") {
+    return undefined;
   }
-  return node.type === "array" && node.items;
-}
 
-/**
- * Return true if object type
- */
-export function isObjNode(node: any): boolean {
-  if (!isSchemaObj(node)) {
-    return false;
+  if (obj["$ref"]) {
+    return "ref";
   }
-  return (
-    (node.type && node.type === "object") ||
-    !!node.properties ||
-    !!node.allOf ||
-    !!node.additionalProperties
-  );
-}
 
-/**
- * Return true if anyOf type
- */
-export function isAnyOfNode(node: any): boolean {
-  if (!isSchemaObj(node)) {
-    return false;
+  // enum
+  if (Array.isArray(obj.enum)) {
+    return "enum";
   }
-  return Array.isArray(node.anyOf);
-}
 
-/**
- * Return true if oneOf type
- */
-export function isOneOfNode(node: any): boolean {
-  if (!isSchemaObj(node)) {
-    return false;
+  // boolean
+  if (obj.type === "boolean") {
+    return "boolean";
   }
-  return Array.isArray(node.oneOf);
-}
 
-/**
- * Return true if item is schema object
- */
-export function isSchemaObj(obj: any): boolean {
-  if (!obj || typeof obj !== "object" || Array.isArray(obj)) {
-    return false;
+  // string
+  if (
+    ["binary", "byte", "date", "dateTime", "password", "string"].includes(
+      obj.type
+    )
+  ) {
+    return "string";
   }
-  return (
-    !!obj.additionalProperties ||
-    !!obj.allOf ||
-    !!obj.anyOf ||
-    !!obj.oneOf ||
+
+  // number
+  if (["double", "float", "integer", "number"].includes(obj.type)) {
+    return "number";
+  }
+
+  // anyOf
+  if (Array.isArray(obj.anyOf)) {
+    return "anyOf";
+  }
+
+  // oneOf
+  if (Array.isArray(obj.oneOf)) {
+    return "oneOf";
+  }
+
+  // object
+  if (
+    obj.type === "object" ||
     !!obj.properties ||
-    !!obj.type
-  );
-}
-
-/**
- * Rename object with ? keys if optional
- */
-export function makeOptional(obj: any, required?: string[]): any {
-  if (typeof obj !== "object" || !Object.keys(obj).length) {
-    return obj;
+    !!obj.allOf ||
+    !!obj.additionalProperties
+  ) {
+    return "object";
   }
-  return fromEntries(
-    Object.entries(obj).map(([key, val]) => {
-      const sanitized = unescape(key).replace(/\?$/, "");
 
-      if (Array.isArray(required) && required.includes(key)) {
-        return [sanitized, val]; // required: no `?`
-      }
+  // array
+  if (obj.type === "array") {
+    return "array";
+  }
 
-      return [escape(`${sanitized}?`), val]; // optional: `?`
-    })
-  );
+  // other / unknown
+  return obj.type;
 }
 
-/**
- * Return OpenAPI version from definition
- */
+/** Return OpenAPI version from definition */
 export function swaggerVersion(definition: OpenAPI2 | OpenAPI3): 2 | 3 {
   // OpenAPI 3
   const { openapi } = definition as OpenAPI3;
@@ -128,23 +104,28 @@ export function swaggerVersion(definition: OpenAPI2 | OpenAPI3): 2 | 3 {
   );
 }
 
-/**
- * Convert T into T[];
- */
+/** Convert $ref to TS ref */
+export function transformRef(ref: string): string {
+  const parts = ref.replace(/^#\//, "").split("/");
+  return `${parts[0]}["${parts.slice(1).join('"]["')}"]`;
+}
+
+/** Convert T into T[]; */
 export function tsArrayOf(type: string): string {
-  return type.concat("[]");
+  return `(${type})[]`;
 }
 
-/**
- * Convert T, U into T & U;
- */
+/** Convert T, U into T & U; */
 export function tsIntersectionOf(types: string[]): string {
-  return types.join(" & ");
+  return `(${types.join(") & (")})`;
 }
 
-/**
- * Convert [X, Y, Z] into X | Y | Z
- */
+/** Convert T into Partial<T> */
+export function tsPartial(type: string): string {
+  return `Partial<${type}>`;
+}
+
+/** Convert [X, Y, Z] into X | Y | Z */
 export function tsUnionOf(types: string[]): string {
-  return types.join(" | ");
+  return `(${types.join(") | (")})`;
 }

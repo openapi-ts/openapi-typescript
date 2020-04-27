@@ -10,6 +10,9 @@ export interface components {
       petId?: number;
       quantity?: number;
       shipDate?: string;
+      /**
+       * Order Status
+       */
       status?: "placed" | "approved" | "delivered";
       complete?: boolean;
     };
@@ -22,6 +25,9 @@ export interface components {
       email?: string;
       password?: string;
       phone?: string;
+      /**
+       * User Status
+       */
       userStatus?: number;
     };
     Tag: { id?: number; name?: string };
@@ -31,6 +37,9 @@ export interface components {
       name: string;
       photoUrls: string[];
       tags?: components["schemas"]["Tag"][];
+      /**
+       * pet status in the store
+       */
       status?: "available" | "pending" | "sold";
     };
     ApiResponse: { code?: number; type?: string; message?: string };

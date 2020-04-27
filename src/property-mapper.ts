@@ -3,7 +3,7 @@ import {
   OpenAPI3SchemaObject,
   SwaggerToTSOptions,
 } from "./types";
-import { isObjNode, fromEntries } from "./utils";
+import { fromEntries } from "./utils";
 
 export default function propertyMapper<T = any>(
   schema: T,
@@ -15,7 +15,7 @@ export default function propertyMapper<T = any>(
 
   return JSON.parse(JSON.stringify(schema), (_, node: OpenAPI2SchemaObject) => {
     // if no properties, skip
-    if (!isObjNode(node) || !node.properties) {
+    if (!node.properties) {
       return node;
     }
 
