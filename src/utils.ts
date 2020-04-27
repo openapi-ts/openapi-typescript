@@ -66,23 +66,13 @@ export function nodeType(obj: any): SchemaObjectType | undefined {
     return "oneOf";
   }
 
-  // object
-  if (
-    obj.type === "object" ||
-    !!obj.properties ||
-    !!obj.allOf ||
-    !!obj.additionalProperties
-  ) {
-    return "object";
-  }
-
   // array
-  if (obj.type === "array") {
+  if (obj.type === "array" || obj.items) {
     return "array";
   }
 
-  // other / unknown
-  return obj.type;
+  // return object by default
+  return "object";
 }
 
 /** Return OpenAPI version from definition */

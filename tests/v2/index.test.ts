@@ -160,6 +160,7 @@ describe("transformation", () => {
             type: "object",
           },
           object_unknown: { type: "object" },
+          object_empty: {},
         },
       };
       expect(swaggerToTS(schema)).toBe(
@@ -172,6 +173,7 @@ describe("transformation", () => {
           };
           object_ref: { number?: number };
           object_unknown: { [key: string]: any };
+          object_empty: { [key: string]: any };
         }`)
       );
     });
@@ -192,6 +194,9 @@ describe("transformation", () => {
             },
             type: "object",
           },
+          inferred_array: {
+            items: { $ref: "#/definitions/array" },
+          },
           string: { type: "string" },
           array_ref: { items: { $ref: "#/definitions/array" }, type: "array" },
         },
@@ -206,6 +211,7 @@ describe("transformation", () => {
             numbers?: number[];
             refs?: definitions['string'][];
           };
+          inferred_array: definitions['array'][];
           string: string;
           array_ref: definitions['array'][];
         }`)
