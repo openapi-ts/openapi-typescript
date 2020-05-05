@@ -43,6 +43,10 @@ describe("types", () => {
           },
           string: { type: "string" },
           string_ref: { $ref: "#/components/schemas/string" },
+          nullable: {
+            type: "string",
+            nullable: true,
+          },
         },
       },
     };
@@ -53,6 +57,7 @@ describe("types", () => {
           object: { string?: string };
           string: string;
           string_ref: components['schemas']['string'];
+          nullable: string | null;
         }
       }`)
     );
@@ -72,6 +77,10 @@ describe("types", () => {
           },
           number: { type: "number" },
           number_ref: { $ref: "#/components/schemas/number" },
+          nullable: {
+            type: "number",
+            nullable: true,
+          },
         },
       },
     };
@@ -82,6 +91,7 @@ describe("types", () => {
           object: { integer?: number; number?: number }
           number: number;
           number_ref: components['schemas']['number'];
+          nullable: number | null;
         }
       }`)
     );
@@ -98,6 +108,7 @@ describe("types", () => {
           },
           boolean: { type: "boolean" },
           boolean_ref: { $ref: "#/components/schemas/boolean" },
+          nullable: { type: "boolean", nullable: true },
         },
       },
     };
@@ -108,6 +119,7 @@ describe("types", () => {
           object: { boolean?: boolean };
           boolean: boolean;
           boolean_ref: components['schemas']['boolean'];
+          nullable: boolean | null;
         }
       }`)
     );
@@ -141,6 +153,13 @@ describe("types", () => {
           },
           object_unknown: { type: "object" },
           object_empty: {},
+          nullable: {
+            type: "object",
+            properties: {
+              string: { type: "string" },
+            },
+            nullable: true,
+          },
         },
       },
     };
@@ -156,6 +175,7 @@ describe("types", () => {
           object_ref: { number?: number };
           object_unknown: { [key: string]: any };
           object_empty: { [key: string]: any };
+          nullable: { string?: string } | null;
         }
       }`)
     );
@@ -181,13 +201,19 @@ describe("types", () => {
             },
             type: "object",
           },
-          inferred_array: {
-            items: { $ref: "#/components/schemas/array" },
-          },
+
           string: { type: "string" },
           array_ref: {
             items: { $ref: "#/components/schemas/array" },
             type: "array",
+          },
+          inferred_array: {
+            items: { $ref: "#/components/schemas/array" },
+          },
+          nullable: {
+            type: "array",
+            items: { type: "string" },
+            nullable: true,
           },
         },
       },
@@ -203,9 +229,10 @@ describe("types", () => {
             numbers?: number[];
             refs?: components['schemas']['string'][];
           };
-          inferred_array: components['schemas']['array'][];
           string: string;
           array_ref: components['schemas']['array'][];
+          inferred_array: components['schemas']['array'][];
+          nullable: string[] | null;
         }
       }`)
     );

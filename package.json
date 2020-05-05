@@ -63,7 +63,7 @@
   "dependencies": {
     "chalk": "^4.0.0",
     "js-yaml": "^3.13.1",
-    "meow": "^6.1.0",
+    "meow": "^6.1.1",
     "prettier": "^2.0.5"
   },
   "devDependencies": {
@@ -75,7 +75,7 @@
     "@types/js-yaml": "^3.12.3",
     "@types/prettier": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^2.29.0",
-    "@typescript-eslint/parser": "^2.29.0",
+    "@typescript-eslint/parser": "^2.31.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.3",
