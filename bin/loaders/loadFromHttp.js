@@ -12,7 +12,8 @@ function buildOptions(pathToSpec) {
   const requestUrl = url.parse(pathToSpec);
   return {
     method: "GET",
-    hostname: requestUrl.host,
+    hostname: requestUrl.hostname,
+    port: requestUrl.port,
     path: requestUrl.path,
   };
 }
