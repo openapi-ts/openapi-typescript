@@ -37,14 +37,21 @@ export default function generateTypesV2(
   input: OpenAPI2 | OpenAPI2Schemas,
   options?: SwaggerToTSOptions
 ): string {
-  const definitions = options?.rawSchema
-    ? (input as OpenAPI2Schemas)
-    : (input as OpenAPI2).definitions;
+  const rawSchema = options && options.rawSchema;
 
-  if (!definitions) {
-    throw new Error(
-      `⛔️ 'definitions' missing from schema https://swagger.io/specification/v2/#definitions-object`
-    );
+  let definitions: OpenAPI2Schemas;
+
+  if (rawSchema) {
+    definitions = input as OpenAPI2Schemas;
+  } else {
+    const document = input as OpenAPI2;
+
+    if (!document.definitions) {
+      throw new Error(
+        `⛔️ 'definitions' missing from schema https://swagger.io/specification/v2/#definitions-object`
+      );
+    }
+    definitions = document.definitions;
   }
 
   // propertyMapper
@@ -56,10 +63,7 @@ export default function generateTypesV2(
   function transform(node: OpenAPI2SchemaObject): string {
     switch (nodeType(node)) {
       case "ref": {
-        return transformRef(
-          node.$ref,
-          options?.rawSchema ? "definitions/" : ""
-        );
+        return transformRef(node.$ref, rawSchema ? "definitions/" : "");
       }
       case "string":
       case "number":

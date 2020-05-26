@@ -31,14 +31,20 @@ export default function generateTypesV3(
   input: OpenAPI3 | OpenAPI3Schemas,
   options?: SwaggerToTSOptions
 ): string {
-  const schemas = options?.rawSchema
-    ? (input as OpenAPI3Schemas)
-    : (input as OpenAPI3).components?.schemas;
+  const rawSchema = options && options.rawSchema;
+  let schemas: OpenAPI3Schemas;
 
-  if (!schemas) {
-    throw new Error(
-      `⛔️ 'components' missing from schema https://swagger.io/specification`
-    );
+  if (rawSchema) {
+    schemas = input as OpenAPI3Schemas;
+  } else {
+    const components = (input as OpenAPI3).components;
+
+    if (!components || !components.schemas) {
+      throw new Error(
+        `⛔️ 'components' missing from schema https://swagger.io/specification`
+      );
+    }
+    schemas = components.schemas;
   }
 
   // propertyMapper
@@ -50,7 +56,7 @@ export default function generateTypesV3(
   function transform(node: OpenAPI3SchemaObject): string {
     switch (nodeType(node)) {
       case "ref": {
-        return transformRef(node.$ref, options?.rawSchema ? "schemas/" : "");
+        return transformRef(node.$ref, rawSchema ? "schemas/" : "");
       }
       case "string":
       case "number":
@@ -138,7 +144,7 @@ export default function generateTypesV3(
   // note: make sure that base-level schemas are required
   const output = createKeys(propertyMapped, Object.keys(propertyMapped));
 
-  return options?.rawSchema
+  return rawSchema
     ? `export interface schemas {
     ${output}
   }`

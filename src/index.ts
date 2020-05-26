@@ -25,7 +25,8 @@ export default function swaggerToTS(
 ): string {
   // generate types for V2 and V3
   const version =
-    options?.version || swaggerVersion(schema as OpenAPI2 | OpenAPI3);
+    (options && options.version) ||
+    swaggerVersion(schema as OpenAPI2 | OpenAPI3);
   let output = `${WARNING_MESSAGE}`;
   switch (version) {
     case 2: {
