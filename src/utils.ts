@@ -95,8 +95,8 @@ export function swaggerVersion(definition: OpenAPI2 | OpenAPI3): 2 | 3 {
 }
 
 /** Convert $ref to TS ref */
-export function transformRef(ref: string): string {
-  const parts = ref.replace(/^#\//, "").split("/");
+export function transformRef(ref: string, root = ""): string {
+  const parts = ref.replace(/^#\//, root).split("/");
   return `${parts[0]}["${parts.slice(1).join('"]["')}"]`;
 }
 

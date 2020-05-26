@@ -1,5 +1,10 @@
 import propertyMapper from "./property-mapper";
-import { OpenAPI3, OpenAPI3SchemaObject, SwaggerToTSOptions } from "./types";
+import {
+  OpenAPI3,
+  OpenAPI3Schemas,
+  OpenAPI3SchemaObject,
+  SwaggerToTSOptions,
+} from "./types";
 import {
   comment,
   nodeType,
@@ -23,10 +28,14 @@ export const PRIMITIVES: { [key: string]: "boolean" | "string" | "number" } = {
 };
 
 export default function generateTypesV3(
-  schema: OpenAPI3,
+  input: OpenAPI3 | OpenAPI3Schemas,
   options?: SwaggerToTSOptions
 ): string {
-  if (!schema.components || !schema.components.schemas) {
+  const schemas = options?.rawSchema
+    ? (input as OpenAPI3Schemas)
+    : (input as OpenAPI3).components?.schemas;
+
+  if (!schemas) {
     throw new Error(
       `⛔️ 'components' missing from schema https://swagger.io/specification`
     );
@@ -34,14 +43,14 @@ export default function generateTypesV3(
 
   // propertyMapper
   const propertyMapped = options
-    ? propertyMapper(schema.components.schemas, options.propertyMapper)
-    : schema.components.schemas;
+    ? propertyMapper(schemas, options.propertyMapper)
+    : schemas;
 
   // type converter
   function transform(node: OpenAPI3SchemaObject): string {
     switch (nodeType(node)) {
       case "ref": {
-        return transformRef(node.$ref);
+        return transformRef(node.$ref, options?.rawSchema ? "schemas/" : "");
       }
       case "string":
       case "number":
@@ -127,9 +136,15 @@ export default function generateTypesV3(
   }
 
   // note: make sure that base-level schemas are required
-  return `export interface components {
+  const output = createKeys(propertyMapped, Object.keys(propertyMapped));
+
+  return options?.rawSchema
+    ? `export interface schemas {
+    ${output}
+  }`
+    : `export interface components {
     schemas: {
-      ${createKeys(propertyMapped, Object.keys(propertyMapped))}
+      ${output}
     }
   }`;
 }

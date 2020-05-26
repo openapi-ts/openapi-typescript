@@ -4,8 +4,12 @@
  * the parts that swagger-to-ts needs to know about.
  */
 
+export interface OpenAPI2Schemas {
+  [key: string]: OpenAPI2SchemaObject;
+}
+
 export interface OpenAPI2 {
-  definitions?: { [key: string]: OpenAPI2SchemaObject };
+  definitions?: OpenAPI2Schemas;
   swagger: string;
   [key: string]: any; // handle other properties beyond swagger-to-ts’ concern
 }

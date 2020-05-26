@@ -15,6 +15,8 @@ Options
   --help                display this
   --output, -o          specify output file
   --prettier-config     (optional) specify path to Prettier config file
+  --raw-schema          (optional) Read from raw schema instead of document
+  --version             (optional) Schema version (must be present for raw schemas)
 `,
   {
     flags: {
@@ -25,6 +27,12 @@ Options
       prettierConfig: {
         type: "string",
       },
+      rawSchema: {
+        type: "boolean"
+      },
+      version: {
+        type: "number"
+      }
     },
   }
 );
@@ -47,6 +55,8 @@ const timeStart = process.hrtime();
 
   const result = swaggerToTS(spec, {
     prettierConfig: cli.flags.prettierConfig,
+    rawSchema: cli.flags.rawSchema,
+    version: cli.flags.version
   });
 
   // Write to file if specifying output
