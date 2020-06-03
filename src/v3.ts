@@ -75,7 +75,7 @@ export default function generateTypesV3(
         if (node.additionalProperties) {
           properties += `[key: string]: ${
             node.additionalProperties === true
-              ? 'any'
+              ? "any"
               : transform(node.additionalProperties) || "any"
           };\n`;
         }

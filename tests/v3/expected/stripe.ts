@@ -1744,7 +1744,7 @@ export interface components {
       /**
        * Currencies that can be accepted in the specific country (for transfers).
        */
-      supported_bank_account_currencies: { [key: string]: array };
+      supported_bank_account_currencies: { [key: string]: string[] };
       /**
        * Currencies that can be accepted in the specified country (for payments).
        */
