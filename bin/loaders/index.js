@@ -26,10 +26,14 @@ module.exports.loadSpec = async (pathToSpec) => {
     if (isYamlSpec(rawSpec, pathToSpec)) {
       return yaml.safeLoad(rawSpec);
     }
-  } catch {
-    throw new Error(
-      `The spec under ${pathToSpec} seems to be YAML, but it couldn’t be parsed.`
-    );
+  } catch (err) {
+    let message = `The spec under ${pathToSpec} seems to be YAML, but it couldn’t be parsed.`;
+
+    if (err.message) {
+      message += `\n${err.message}`;
+    }
+
+    throw new Error(message);
   }
 
   try {
