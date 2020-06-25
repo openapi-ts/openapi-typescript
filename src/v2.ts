@@ -55,7 +55,11 @@ export default function generateTypesV2(
         return nodeType(node) || "any";
       }
       case "enum": {
-        return tsUnionOf((node.enum as string[]).map((item) => typeof item === 'number' ? item : `'${item}'`));
+        return tsUnionOf(
+          (node.enum as string[]).map((item) =>
+            typeof item === "number" ? item : `'${item}'`
+          )
+        );
       }
       case "object": {
         if (
