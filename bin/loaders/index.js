@@ -7,7 +7,14 @@ const loadFromHttp = require("./loadFromHttp");
 async function load(pathToSpec) {
   let rawSpec;
   if (/^https?:\/\//.test(pathToSpec)) {
-    rawSpec = await loadFromHttp(pathToSpec);
+    try {
+      rawSpec = await loadFromHttp(pathToSpec);
+    } catch (e) {
+      if (e.code === 'ENOTFOUND') {
+        throw new Error(`The URL ${pathToSpec} could not be reached. Ensure the URL is correct, that you're connected to the internet and that the URL is reachable via a browser.`)
+      }
+      throw e;
+    }
   } else {
     rawSpec = await loadFromFs(pathToSpec);
   }
