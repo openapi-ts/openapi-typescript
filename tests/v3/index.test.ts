@@ -279,6 +279,13 @@ describe("OpenAPI3 features", () => {
             properties: { string: { type: "string" } },
             additionalProperties: { type: "string" },
           },
+          additional_properties_array: {
+            type: "object",
+            additionalProperties: {
+              type: "array",
+              items: { type: "number"},
+            }
+          }
         },
       },
     };
@@ -288,6 +295,7 @@ describe("OpenAPI3 features", () => {
         schemas: {
           additional_properties: { number?: number; [key: string]: any };
           additional_properties_string: { string?: string; [key: string]: string };
+          additional_properties_array: { [key:string]: number[] };
         }
       }`)
     );
