@@ -57,7 +57,9 @@ export default function generateTypesV2(
       case "enum": {
         return tsUnionOf(
           (node.enum as string[]).map((item) =>
-            typeof item === "number" ? item : `'${item}'`
+            typeof item === "number" || typeof item === "boolean"
+              ? item
+              : `'${item}'`
           )
         );
       }
