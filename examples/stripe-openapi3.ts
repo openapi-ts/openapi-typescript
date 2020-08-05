@@ -737,82 +737,82 @@ export interface components {
         | "unapplied_from_invoice"
         | "unspent_receiver_credit";
     };
-    deleted_account: { deleted: "true"; id: string; object: "account" };
+    deleted_account: { deleted: true; id: string; object: "account" };
     deleted_alipay_account: {
-      deleted: "true";
+      deleted: true;
       id: string;
       object: "alipay_account";
     };
     deleted_apple_pay_domain: {
-      deleted: "true";
+      deleted: true;
       id: string;
       object: "apple_pay_domain";
     };
     deleted_bank_account: {
       currency?: string;
-      deleted: "true";
+      deleted: true;
       id: string;
       object: "bank_account";
     };
     deleted_bitcoin_receiver: {
-      deleted: "true";
+      deleted: true;
       id: string;
       object: "bitcoin_receiver";
     };
     deleted_card: {
       currency?: string;
-      deleted: "true";
+      deleted: true;
       id: string;
       object: "card";
     };
-    deleted_coupon: { deleted: "true"; id: string; object: "coupon" };
-    deleted_customer: { deleted: "true"; id: string; object: "customer" };
-    deleted_discount: { deleted: "true"; object: "discount" };
+    deleted_coupon: { deleted: true; id: string; object: "coupon" };
+    deleted_customer: { deleted: true; id: string; object: "customer" };
+    deleted_discount: { deleted: true; object: "discount" };
     deleted_external_account: Partial<
       components["schemas"]["deleted_bank_account"]
     > &
       Partial<components["schemas"]["deleted_card"]>;
-    deleted_invoice: { deleted: "true"; id: string; object: "invoice" };
-    deleted_invoiceitem: { deleted: "true"; id: string; object: "invoiceitem" };
+    deleted_invoice: { deleted: true; id: string; object: "invoice" };
+    deleted_invoiceitem: { deleted: true; id: string; object: "invoiceitem" };
     deleted_payment_source: Partial<
       components["schemas"]["deleted_alipay_account"]
     > &
       Partial<components["schemas"]["deleted_bank_account"]> &
       Partial<components["schemas"]["deleted_bitcoin_receiver"]> &
       Partial<components["schemas"]["deleted_card"]>;
-    deleted_person: { deleted: "true"; id: string; object: "person" };
-    deleted_plan: { deleted: "true"; id: string; object: "plan" };
-    deleted_product: { deleted: "true"; id: string; object: "product" };
+    deleted_person: { deleted: true; id: string; object: "person" };
+    deleted_plan: { deleted: true; id: string; object: "plan" };
+    deleted_product: { deleted: true; id: string; object: "product" };
     "deleted_radar.value_list": {
-      deleted: "true";
+      deleted: true;
       id: string;
       object: "radar.value_list";
     };
     "deleted_radar.value_list_item": {
-      deleted: "true";
+      deleted: true;
       id: string;
       object: "radar.value_list_item";
     };
-    deleted_recipient: { deleted: "true"; id: string; object: "recipient" };
-    deleted_sku: { deleted: "true"; id: string; object: "sku" };
+    deleted_recipient: { deleted: true; id: string; object: "recipient" };
+    deleted_sku: { deleted: true; id: string; object: "sku" };
     deleted_subscription_item: {
-      deleted: "true";
+      deleted: true;
       id: string;
       object: "subscription_item";
     };
-    deleted_tax_id: { deleted: "true"; id: string; object: "tax_id" };
+    deleted_tax_id: { deleted: true; id: string; object: "tax_id" };
     "deleted_terminal.location": {
-      deleted: "true";
+      deleted: true;
       id: string;
       object: "terminal.location";
     };
     "deleted_terminal.reader": {
-      deleted: "true";
+      deleted: true;
       id: string;
       object: "terminal.reader";
     };
     deleted_webhook_endpoint: {
-      deleted: "true";
+      deleted: true;
       id: string;
       object: "webhook_endpoint";
     };
