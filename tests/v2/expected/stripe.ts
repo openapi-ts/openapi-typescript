@@ -2141,7 +2141,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2155,7 +2155,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2169,7 +2169,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2187,7 +2187,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2201,7 +2201,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2219,7 +2219,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2233,7 +2233,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2247,7 +2247,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2261,7 +2261,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
@@ -2275,7 +2275,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2289,7 +2289,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2303,7 +2303,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2317,7 +2317,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2331,7 +2331,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2345,7 +2345,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2359,7 +2359,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2373,7 +2373,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2387,7 +2387,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2401,7 +2401,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2415,7 +2415,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2429,7 +2429,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2443,7 +2443,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2457,7 +2457,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2471,7 +2471,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
@@ -2485,7 +2485,7 @@ export interface definitions {
     /**
      * Always true for a deleted object
      */
-    deleted: "true";
+    deleted: true;
     /**
      * Unique identifier for the object.
      */
