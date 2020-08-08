@@ -149,6 +149,15 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "mmiszy",
+      "name": "Michał Miszczyszyn",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1338731?v=4",
+      "profile": "https://typeofweb.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
