@@ -186,6 +186,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Mause",
+      "name": "Elliana May",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1405026?v=4",
+      "profile": "https://mause.me",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
