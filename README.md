@@ -3,7 +3,7 @@
 [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fmanifoldco%2Fswagger-to-ts%2Fbadge&style=flat)](https://actions-badge.atrox.dev/manifoldco/swagger-to-ts/goto)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-16-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-17-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ swagger-to-ts
@@ -278,6 +278,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/skh-"><img src="https://avatars1.githubusercontent.com/u/1292598?v=4" width="100px;" alt=""/><br /><sub><b>Sam K Hall</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=skh-" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=skh-" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://github.com/BlooJeans"><img src="https://avatars2.githubusercontent.com/u/1751182?v=4" width="100px;" alt=""/><br /><sub><b>Matt Jeanes</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=BlooJeans" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.selbekk.io"><img src="https://avatars1.githubusercontent.com/u/1307267?v=4" width="100px;" alt=""/><br /><sub><b>Kristofer Giltvedt Selbekk</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=selbekk" title="Code">💻</a></td>
   </tr>
 </table>
 
