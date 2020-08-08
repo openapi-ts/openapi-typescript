@@ -149,6 +149,16 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "skh",
+      "name": "Sonja Krause-Harder",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/189073?v=4",
+      "profile": "https://github.com/skh",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
