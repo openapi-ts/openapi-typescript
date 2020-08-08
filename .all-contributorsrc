@@ -168,6 +168,15 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "BlooJeans",
+      "name": "Matt Jeanes",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1751182?v=4",
+      "profile": "https://github.com/BlooJeans",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
