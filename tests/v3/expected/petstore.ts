@@ -42,6 +42,8 @@ export interface components {
        */
       status?: "available" | "pending" | "sold";
     };
+  };
+  responses: {
     ApiResponse: { code?: number; type?: string; message?: string };
   };
 }

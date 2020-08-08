@@ -707,6 +707,7 @@ components:
             - sold
       xml:
         name: Pet
+  responses:
     ApiResponse:
       type: object
       properties:

@@ -126,10 +126,22 @@ export default function generateTypesV3(
     return output;
   }
 
+  const schemas = `schemas: {
+    ${createKeys(propertyMapped, Object.keys(propertyMapped))}
+  }`;
+
+  const responses = !schema.components.responses
+    ? ``
+    : `responses: {
+    ${createKeys(
+      schema.components.responses,
+      Object.keys(schema.components.responses)
+    )}
+  }`;
+
   // note: make sure that base-level schemas are required
   return `export interface components {
-    schemas: {
-      ${createKeys(propertyMapped, Object.keys(propertyMapped))}
-    }
+    ${schemas}
+    ${responses}
   }`;
 }

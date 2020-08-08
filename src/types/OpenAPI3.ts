@@ -8,6 +8,7 @@ export interface OpenAPI3 {
   openapi: string;
   components: {
     schemas: { [key: string]: OpenAPI3SchemaObject | OpenAPI3Reference };
+    responses?: { [key: string]: OpenAPI3SchemaObject | OpenAPI3Reference };
   };
   [key: string]: any; // handle other properties beyond swagger-to-ts’ concern
 }
