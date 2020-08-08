@@ -158,6 +158,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "skh-",
+      "name": "Sam K Hall",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1292598?v=4",
+      "profile": "https://github.com/skh-",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
