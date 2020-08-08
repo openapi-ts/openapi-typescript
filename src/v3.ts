@@ -8,6 +8,7 @@ import {
   tsIntersectionOf,
   tsPartial,
   tsUnionOf,
+  tsTupleOf,
 } from "./utils";
 
 export const PRIMITIVES: { [key: string]: "boolean" | "string" | "number" } = {
@@ -92,7 +93,11 @@ export default function generateTypesV3(
         ]);
       }
       case "array": {
-        return tsArrayOf(transform(node.items as any));
+        if (Array.isArray(node.items)) {
+          return tsTupleOf(node.items.map(transform));
+        } else {
+          return tsArrayOf(transform(node.items as any));
+        }
       }
     }
 
