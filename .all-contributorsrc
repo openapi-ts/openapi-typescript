@@ -151,10 +151,19 @@
       ]
     },
     {
-      "login": "skh",
-      "name": "Sonja Krause-Harder",
-      "avatar_url": "https://avatars2.githubusercontent.com/u/189073?v=4",
-      "profile": "https://github.com/skh",
+      "login": "mmiszy",
+      "name": "Michał Miszczyszyn",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1338731?v=4",
+      "profile": "https://typeofweb.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "skh-",
+      "name": "Sam K Hall",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1292598?v=4",
+      "profile": "https://github.com/skh-",
       "contributions": [
         "code",
         "test"
