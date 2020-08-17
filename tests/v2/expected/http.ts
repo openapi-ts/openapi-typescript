@@ -32,7 +32,7 @@ export interface definitions {
     body: definitions["ExpandedPlanBody"];
     id: definitions["ID"];
     type: "plan";
-    version: "1";
+    version: 1;
   };
   ExpandedPlanBody: definitions["PlanBody"] & {
     /**
@@ -58,7 +58,7 @@ export interface definitions {
     plans?: definitions["ExpandedPlan"][];
     provider: definitions["Provider"];
     type: "product";
-    version: "1";
+    version: 1;
   };
   /**
    * Optional container for additional details relating to numeric features.
@@ -239,7 +239,7 @@ export interface definitions {
     body: definitions["PlanBody"];
     id: definitions["ID"];
     type: "plan";
-    version: "1";
+    version: 1;
   };
   PlanBody: {
     /**
@@ -304,7 +304,7 @@ export interface definitions {
     body: definitions["ProductBody"];
     id: definitions["ID"];
     type: "product";
-    version: "1";
+    version: 1;
   };
   ProductBody: {
     billing: {
@@ -446,7 +446,7 @@ export interface definitions {
     body: definitions["ProviderBody"];
     id: definitions["ID"];
     type: "provider";
-    version: "1";
+    version: 1;
   };
   ProviderBody: {
     documentation_url?: string;
@@ -461,7 +461,7 @@ export interface definitions {
     body: definitions["RegionBody"];
     id: definitions["ID"];
     type: "region";
-    version: "1";
+    version: 1;
   };
   RegionBody: {
     location: definitions["Location"];

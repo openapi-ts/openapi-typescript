@@ -139,6 +139,63 @@
         "ideas",
         "test"
       ]
+    },
+    {
+      "login": "tshelburne",
+      "name": "Tim Shelburne",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1202267?v=4",
+      "profile": "https://github.com/tshelburne",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "mmiszy",
+      "name": "Michał Miszczyszyn",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1338731?v=4",
+      "profile": "https://typeofweb.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "skh-",
+      "name": "Sam K Hall",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1292598?v=4",
+      "profile": "https://github.com/skh-",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "BlooJeans",
+      "name": "Matt Jeanes",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1751182?v=4",
+      "profile": "https://github.com/BlooJeans",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "selbekk",
+      "name": "Kristofer Giltvedt Selbekk",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1307267?v=4",
+      "profile": "https://www.selbekk.io",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Mause",
+      "name": "Elliana May",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1405026?v=4",
+      "profile": "https://mause.me",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,

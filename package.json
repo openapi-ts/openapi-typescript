@@ -71,7 +71,7 @@
     "@pika/plugin-build-node": "^0.9.2",
     "@pika/plugin-copy-assets": "^0.9.2",
     "@pika/plugin-ts-standard-pkg": "^0.9.2",
-    "@types/jest": "^25.2.1",
+    "@types/jest": "^26.0.0",
     "@types/js-yaml": "^3.12.3",
     "@types/prettier": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^2.29.0",

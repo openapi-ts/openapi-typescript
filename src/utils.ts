@@ -105,6 +105,11 @@ export function tsArrayOf(type: string): string {
   return `(${type})[]`;
 }
 
+/** Convert array of types into [T, A, B, ...] */
+export function tsTupleOf(types: string[]): string {
+  return `[${types.join(", ")}]`;
+}
+
 /** Convert T, U into T & U; */
 export function tsIntersectionOf(types: string[]): string {
   return `(${types.join(") & (")})`;

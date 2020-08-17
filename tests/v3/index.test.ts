@@ -210,6 +210,13 @@ describe("types", () => {
           inferred_array: {
             items: { $ref: "#/components/schemas/array" },
           },
+          tuple: {
+            type: "array",
+            items: [
+              { type: "string" },
+              { type: "number" }
+            ]
+          },
           nullable: {
             type: "array",
             items: { type: "string" },
@@ -232,6 +239,7 @@ describe("types", () => {
           string: string;
           array_ref: components['schemas']['array'][];
           inferred_array: components['schemas']['array'][];
+          tuple: [string, number];
           nullable: string[] | null;
         }
       }`)

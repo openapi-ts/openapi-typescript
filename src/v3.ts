@@ -1,8 +1,9 @@
 import propertyMapper from "./property-mapper";
 import {
   OpenAPI3,
-  OpenAPI3Schemas,
+  OpenAPI3Components,
   OpenAPI3SchemaObject,
+  OpenAPI3Schemas,
   SwaggerToTSOptions,
 } from "./types";
 import {
@@ -13,6 +14,7 @@ import {
   tsIntersectionOf,
   tsPartial,
   tsUnionOf,
+  tsTupleOf,
 } from "./utils";
 
 export const PRIMITIVES: { [key: string]: "boolean" | "string" | "number" } = {
@@ -31,26 +33,25 @@ export default function generateTypesV3(
   input: OpenAPI3 | OpenAPI3Schemas,
   options?: SwaggerToTSOptions
 ): string {
-  const rawSchema = options && options.rawSchema;
-  let schemas: OpenAPI3Schemas;
+  const { rawSchema = false } = options || {};
+  let components: OpenAPI3Components;
 
   if (rawSchema) {
-    schemas = input as OpenAPI3Schemas;
+    components = { schemas: input };
   } else {
-    const components = (input as OpenAPI3).components;
+    components = (input as OpenAPI3).components;
 
     if (!components || !components.schemas) {
       throw new Error(
         `⛔️ 'components' missing from schema https://swagger.io/specification`
       );
     }
-    schemas = components.schemas;
   }
 
   // propertyMapper
   const propertyMapped = options
-    ? propertyMapper(schemas, options.propertyMapper)
-    : schemas;
+    ? propertyMapper(components.schemas, options.propertyMapper)
+    : components.schemas;
 
   // type converter
   function transform(node: OpenAPI3SchemaObject): string {
@@ -64,7 +65,13 @@ export default function generateTypesV3(
         return nodeType(node) || "any";
       }
       case "enum": {
-        return tsUnionOf((node.enum as string[]).map((item) => `'${item}'`));
+        return tsUnionOf(
+          (node.enum as string[]).map((item) =>
+            typeof item === "number" || typeof item === "boolean"
+              ? item
+              : `'${item}'`
+          )
+        );
       }
       case "oneOf": {
         return tsUnionOf((node.oneOf as any[]).map(transform));
@@ -89,7 +96,9 @@ export default function generateTypesV3(
         // if additional properties, add to end of properties
         if (node.additionalProperties) {
           properties += `[key: string]: ${
-            nodeType(node.additionalProperties) || "any"
+            node.additionalProperties === true
+              ? "any"
+              : transform(node.additionalProperties) || "any"
           };\n`;
         }
 
@@ -99,7 +108,11 @@ export default function generateTypesV3(
         ]);
       }
       case "array": {
-        return tsArrayOf(transform(node.items as any));
+        if (Array.isArray(node.items)) {
+          return tsTupleOf(node.items.map(transform));
+        } else {
+          return tsArrayOf(transform(node.items as any));
+        }
       }
     }
 
@@ -141,16 +154,27 @@ export default function generateTypesV3(
     return output;
   }
 
-  // note: make sure that base-level schemas are required
-  const output = createKeys(propertyMapped, Object.keys(propertyMapped));
+  if (rawSchema) {
+    const schemas = createKeys(propertyMapped, Object.keys(propertyMapped));
 
-  return rawSchema
-    ? `export interface schemas {
-    ${output}
-  }`
-    : `export interface components {
-    schemas: {
-      ${output}
-    }
+    return `export interface schemas {
+      ${schemas}
+    }`;
+  }
+
+  const schemas = `schemas: {
+    ${createKeys(propertyMapped, Object.keys(propertyMapped))}
+  }`;
+
+  const responses = !components.responses
+    ? ``
+    : `responses: {
+    ${createKeys(components.responses, Object.keys(components.responses))}
+  }`;
+
+  // note: make sure that base-level schemas are required
+  return `export interface components {
+    ${schemas}
+    ${responses}
   }`;
 }

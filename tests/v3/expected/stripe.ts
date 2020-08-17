@@ -1744,7 +1744,7 @@ export interface components {
       /**
        * Currencies that can be accepted in the specific country (for transfers).
        */
-      supported_bank_account_currencies: { [key: string]: array };
+      supported_bank_account_currencies: { [key: string]: string[] };
       /**
        * Currencies that can be accepted in the specified country (for payments).
        */
@@ -2298,7 +2298,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2312,7 +2312,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2326,7 +2326,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2344,7 +2344,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2358,7 +2358,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2376,7 +2376,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2390,7 +2390,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2404,7 +2404,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2418,7 +2418,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * String representing the object's type. Objects of the same type share the same value.
        */
@@ -2432,7 +2432,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2446,7 +2446,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2466,7 +2466,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2480,7 +2480,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2494,7 +2494,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2508,7 +2508,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2522,7 +2522,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2536,7 +2536,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2550,7 +2550,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2564,7 +2564,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2578,7 +2578,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2592,7 +2592,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2606,7 +2606,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */
@@ -2620,7 +2620,7 @@ export interface components {
       /**
        * Always true for a deleted object
        */
-      deleted: "true";
+      deleted: true;
       /**
        * Unique identifier for the object.
        */

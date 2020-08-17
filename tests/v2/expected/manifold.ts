@@ -69,7 +69,7 @@ export interface definitions {
   Region: {
     id: definitions["ID"];
     type: "region";
-    version: "1";
+    version: 1;
     body: definitions["RegionBody"];
   };
   CreateRegion: { body: definitions["RegionBody"] };
@@ -94,7 +94,7 @@ export interface definitions {
   };
   Provider: {
     id: definitions["ID"];
-    version: "1";
+    version: 1;
     type: "provider";
     body: definitions["ProviderBody"];
   };
@@ -451,7 +451,7 @@ export interface definitions {
   };
   Product: {
     id: definitions["ID"];
-    version: "1";
+    version: 1;
     type: "product";
     body: definitions["ProductBody"];
   };
@@ -514,13 +514,13 @@ export interface definitions {
   };
   Plan: {
     id: definitions["ID"];
-    version: "1";
+    version: 1;
     type: "plan";
     body: definitions["PlanBody"];
   };
   ExpandedPlan: {
     id: definitions["ID"];
-    version: "1";
+    version: 1;
     type: "plan";
     body: definitions["ExpandedPlanBody"];
   };
@@ -564,7 +564,7 @@ export interface definitions {
   PriceFormula: string;
   ExpandedProduct: {
     id: definitions["ID"];
-    version: "1";
+    version: 1;
     type: "product";
     body: definitions["ProductBody"];
     plans?: definitions["ExpandedPlan"][];

@@ -18,7 +18,7 @@ export interface SwaggerToTSOptions {
     schemaObject: OpenAPI2SchemaObject | OpenAPI3SchemaObject,
     property: Property
   ) => Property;
-  /** (optinal) Parsing input document as raw schema rather than OpenAPI document */
+  /** (optional) Parsing input document as raw schema rather than OpenAPI document */
   rawSchema?: boolean;
   /** (optional) OpenAPI version. Must be present if parsing raw schema */
   version?: number;

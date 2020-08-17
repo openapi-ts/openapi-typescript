@@ -51,6 +51,7 @@ const timeStart = process.hrtime();
     spec = await loadSpec(pathToSpec);
   } catch (e) {
     console.error(chalk.red(`❌ "${e}"`));
+    return;
   }
 
   const result = swaggerToTS(spec, {

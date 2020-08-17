@@ -8,11 +8,14 @@ export interface OpenAPI3Schemas {
   [key: string]: OpenAPI3SchemaObject | OpenAPI3Reference;
 }
 
+export interface OpenAPI3Components {
+  schemas: OpenAPI3Schemas;
+  responses?: OpenAPI3Schemas;
+}
+
 export interface OpenAPI3 {
   openapi: string;
-  components: {
-    schemas: OpenAPI3Schemas;
-  };
+  components: OpenAPI3Components;
   [key: string]: any; // handle other properties beyond swagger-to-ts’ concern
 }
 
