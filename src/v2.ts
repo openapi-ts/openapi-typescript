@@ -59,7 +59,7 @@ export default function generateTypesV2(
           (node.enum as string[]).map((item) =>
             typeof item === "number" || typeof item === "boolean"
               ? item
-              : `'${item}'`
+              : `'${item.replace(/'/g, "\\'")}'`
           )
         );
       }

@@ -596,9 +596,9 @@ definitions:
         type: "string"
         description: "Order Status"
         enum:
-          - "placed"
-          - "approved"
-          - "delivered"
+          - "it's placed"
+          - "it's approved"
+          - "it's delivered"
       complete:
         type: "boolean"
         default: false

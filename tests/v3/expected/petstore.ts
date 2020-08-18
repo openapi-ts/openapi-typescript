@@ -13,7 +13,7 @@ export interface components {
       /**
        * Order Status
        */
-      status?: "placed" | "approved" | "delivered";
+      status?: "it's placed" | "it's approved" | "it's delivered";
       complete?: boolean;
     };
     Category: { id?: number; name?: string };
