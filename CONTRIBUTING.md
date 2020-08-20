@@ -32,11 +32,25 @@ Please make sure to run the tests (`npm test`) before you commit your changes.
 
 ## Help needed
 
-Please checkout the [the open issues][issues]
+Please checkout the [the open issues][issues]. Issues labelled [**Help
+Wanted**][help-wanted] and [**Good First Issue**][good-first-issue] are
+especially good to help with.
 
 Also, please watch the repo and respond to questions/bug reports/feature
 requests! Thanks!
 
+## Deploying (access only)
+
+If you have access to the npm project, run the following:
+
+```bash
+npm run deploy
+```
+
+Follow the prompts to release.
+
 [all-contributors]: https://github.com/all-contributors/all-contributors
 [egghead]: https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github
+[good-first-issue]: https://github.com/manifoldco/swagger-to-ts/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22
+[help-wanted]: https://github.com/manifoldco/swagger-to-ts/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22
 [issues]: https://github.com/manifoldco/swagger-to-ts/issues
