@@ -3,6 +3,624 @@
  * Do not make direct changes to the file.
  */
 
+export interface paths {
+  "/regions/": {
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Filter results to only include the regions that have this location.
+           */
+          location?: string;
+          /**
+           * Filter results to only include the regions that are on this
+           * platform.
+           */
+          platform?: string;
+        };
+      };
+      responses: {
+        /**
+         * A list of regions.
+         */
+        "200": {
+          "application/json": components["schemas"]["Region"][];
+        };
+        /**
+         * Unexpected Error
+         */
+        "500": {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+    post: {
+      responses: {
+        /**
+         * Complete region object
+         */
+        "201": {
+          "application/json": components["schemas"]["Region"];
+        };
+        /**
+         * Invalid request provided
+         */
+        "400": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Region already exists for that platform and location
+         */
+        "409": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Unexpected Error
+         */
+        "500": {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "/regions/{id}": {
+    get: {
+      parameters: {
+        path: {
+          /**
+           * ID of the region to lookup, stored as a base32 encoded 18 byte identifier.
+           */
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * A region.
+         */
+        "200": {
+          "application/json": components["schemas"]["Region"];
+        };
+        /**
+         * Provided Region ID is Invalid
+         */
+        "400": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Region could not be found
+         */
+        "404": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Unexpected Error
+         */
+        "500": {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+    patch: {
+      parameters: {
+        path: {
+          /**
+           * ID of the region to lookup, stored as a base32 encoded 18 byte identifier.
+           */
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Complete region object
+         */
+        "200": {
+          "application/json": components["schemas"]["Region"];
+        };
+        /**
+         * Invalid request provided
+         */
+        "400": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Unexpected Error
+         */
+        "500": {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "/providers/": {
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Filter results to only include those that have this label.
+           */
+          label?: string;
+        };
+      };
+      responses: {
+        /**
+         * A list of providers.
+         */
+        "200": {
+          "application/json": components["schemas"]["Provider"][];
+        };
+        /**
+         * Unexpected Error
+         */
+        "500": {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+    post: {
+      responses: {
+        /**
+         * Complete provider object
+         */
+        "201": {
+          "application/json": components["schemas"]["Provider"];
+        };
+        /**
+         * Invalid request provided
+         */
+        "400": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Forbidden
+         */
+        "403": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Provider already exists with that label
+         */
+        "409": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Unexpected Error
+         */
+        "500": {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "/providers/{id}": {
+    get: {
+      parameters: {
+        path: {
+          /**
+           * ID of the provider to lookup, stored as a base32 encoded 18 byte identifier.
+           */
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * A provider.
+         */
+        "200": {
+          "application/json": components["schemas"]["Provider"];
+        };
+        /**
+         * Unknown provider error
+         */
+        "404": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Unexpected Error
+         */
+        "500": {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+    patch: {
+      parameters: {
+        path: {
+          /**
+           * ID of the provider to update, stored as a base32 encoded 18 byte identifier.
+           */
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Complete provider object
+         */
+        "200": {
+          "application/json": components["schemas"]["Provider"];
+        };
+        /**
+         * Invalid request provided
+         */
+        "400": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Forbidden
+         */
+        "403": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Provider not found
+         */
+        "404": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Provider already exists with that label
+         */
+        "409": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Unexpected Error
+         */
+        "500": {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "/products/": {
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Base32 encoded 18 byte identifier of the provider that these
+           * products must belong to.
+           */
+          provider_id?: string;
+          /**
+           * Filter results to only include those that have this label.
+           */
+          label?: string;
+          /**
+           * Return only products matching at least one of the tags.
+           */
+          tags?: string[];
+        };
+      };
+      responses: {
+        /**
+         * A product.
+         */
+        "200": {
+          "application/json": components["schemas"]["Product"][];
+        };
+        /**
+         * Invalid provider_id supplied
+         */
+        "400": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Unexpected Error
+         */
+        "500": {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+    post: {
+      responses: {
+        /**
+         * Complete product object
+         */
+        "201": {
+          "application/json": components["schemas"]["Product"];
+        };
+        /**
+         * Invalid request provided
+         */
+        "400": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Forbidden
+         */
+        "403": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Product already exists with that label
+         */
+        "409": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Unexpected Error
+         */
+        "500": {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "/internal/products": {
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Base32 encoded 18 byte identifier of the provider that these
+           * products must belong to.
+           */
+          provider_id?: string;
+          /**
+           * Filter results to only include those that have this label.
+           */
+          label?: string;
+          /**
+           * Return only products matching at least one of the tags.
+           */
+          tags?: string[];
+          /**
+           * Return product listings without plan information
+           */
+          include_plans?: boolean;
+        };
+      };
+      responses: {
+        /**
+         * A product.
+         */
+        "200": {
+          "application/json": components["schemas"]["ExpandedProduct"][];
+        };
+        /**
+         * Invalid provider_id supplied
+         */
+        "400": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Unexpected Error
+         */
+        "500": {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "/products/{id}": {
+    get: {
+      parameters: {
+        path: {
+          /**
+           * ID of the product to lookup, stored as a base32 encoded 18 byte
+           * identifier.
+           */
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * A product.
+         */
+        "200": {
+          "application/json": components["schemas"]["Product"];
+        };
+        /**
+         * Invalid Product ID
+         */
+        "400": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Product not found error
+         */
+        "404": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Unexpected error
+         */
+        "500": {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+    patch: {
+      parameters: {
+        path: {
+          /**
+           * ID of the product to lookup, stored as a base32 encoded 18 byte
+           * identifier.
+           */
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Complete product object
+         */
+        "200": {
+          "application/json": components["schemas"]["Product"];
+        };
+        /**
+         * Invalid Product ID
+         */
+        "400": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Product not found error
+         */
+        "404": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Unexpected error
+         */
+        "500": {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "/plans/{id}": {
+    get: {
+      parameters: {
+        path: {
+          /**
+           * ID of the plan to lookup, stored as a base32 encoded 18 byte
+           * identifier.
+           */
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * A plan.
+         */
+        "200": {
+          "application/json": components["schemas"]["ExpandedPlan"];
+        };
+        /**
+         * Invalid Plan ID Provided
+         */
+        "400": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Unknown plan error
+         */
+        "404": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Unexpected error
+         */
+        default: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+    patch: {
+      parameters: {
+        path: {
+          /**
+           * ID of the plan to lookup, stored as a base32 encoded 18 byte
+           * identifier.
+           */
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Complete product plan
+         */
+        "200": {
+          "application/json": components["schemas"]["Plan"];
+        };
+        /**
+         * Invalid Plan ID
+         */
+        "400": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Plan not found error
+         */
+        "404": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Unexpected error
+         */
+        "500": {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  "/plans/": {
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Return the plans that are associated with this product.
+           */
+          product_id: string[];
+          /**
+           * Filter results to only include those that have this label.
+           */
+          label?: string;
+        };
+      };
+      responses: {
+        /**
+         * A list of plans for the given product.
+         */
+        "200": {
+          "application/json": components["schemas"]["ExpandedPlan"][];
+        };
+        /**
+         * Invalid Parameters Provided
+         */
+        "400": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Could not find product
+         */
+        "404": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Unexpected error
+         */
+        "500": {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+    post: {
+      responses: {
+        /**
+         * Complete plan object
+         */
+        "201": {
+          "application/json": components["schemas"]["Plan"];
+        };
+        /**
+         * Invalid request provided
+         */
+        "400": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Forbidden
+         */
+        "403": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Plan already exists with that label
+         */
+        "409": {
+          "application/json": components["schemas"]["Error"];
+        };
+        /**
+         * Unexpected Error
+         */
+        "500": {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+}
+
 export interface components {
   schemas: {
     /**
