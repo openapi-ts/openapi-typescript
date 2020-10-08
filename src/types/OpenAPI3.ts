@@ -4,12 +4,18 @@
  * the parts that swagger-to-ts needs to know about.
  */
 
+export interface OpenAPI3Schemas {
+  [key: string]: OpenAPI3SchemaObject | OpenAPI3Reference;
+}
+
+export interface OpenAPI3Components {
+  schemas: OpenAPI3Schemas;
+  responses?: OpenAPI3Schemas;
+}
+
 export interface OpenAPI3 {
   openapi: string;
-  components: {
-    schemas: { [key: string]: OpenAPI3SchemaObject | OpenAPI3Reference };
-    responses?: { [key: string]: OpenAPI3SchemaObject | OpenAPI3Reference };
-  };
+  components: OpenAPI3Components;
   [key: string]: any; // handle other properties beyond swagger-to-ts’ concern
 }
 

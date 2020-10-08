@@ -1,5 +1,11 @@
 import propertyMapper from "./property-mapper";
-import { OpenAPI3, OpenAPI3SchemaObject, SwaggerToTSOptions } from "./types";
+import {
+  OpenAPI3,
+  OpenAPI3Components,
+  OpenAPI3SchemaObject,
+  OpenAPI3Schemas,
+  SwaggerToTSOptions,
+} from "./types";
 import {
   comment,
   nodeType,
@@ -24,25 +30,34 @@ export const PRIMITIVES: { [key: string]: "boolean" | "string" | "number" } = {
 };
 
 export default function generateTypesV3(
-  schema: OpenAPI3,
+  input: OpenAPI3 | OpenAPI3Schemas,
   options?: SwaggerToTSOptions
 ): string {
-  if (!schema.components || !schema.components.schemas) {
-    throw new Error(
-      `⛔️ 'components' missing from schema https://swagger.io/specification`
-    );
+  const { rawSchema = false } = options || {};
+  let components: OpenAPI3Components;
+
+  if (rawSchema) {
+    components = { schemas: input };
+  } else {
+    components = (input as OpenAPI3).components;
+
+    if (!components || !components.schemas) {
+      throw new Error(
+        `⛔️ 'components' missing from schema https://swagger.io/specification`
+      );
+    }
   }
 
   // propertyMapper
   const propertyMapped = options
-    ? propertyMapper(schema.components.schemas, options.propertyMapper)
-    : schema.components.schemas;
+    ? propertyMapper(components.schemas, options.propertyMapper)
+    : components.schemas;
 
   // type converter
   function transform(node: OpenAPI3SchemaObject): string {
     switch (nodeType(node)) {
       case "ref": {
-        return transformRef(node.$ref);
+        return transformRef(node.$ref, rawSchema ? "schemas/" : "");
       }
       case "string":
       case "number":
@@ -139,17 +154,22 @@ export default function generateTypesV3(
     return output;
   }
 
+  if (rawSchema) {
+    const schemas = createKeys(propertyMapped, Object.keys(propertyMapped));
+
+    return `export interface schemas {
+      ${schemas}
+    }`;
+  }
+
   const schemas = `schemas: {
     ${createKeys(propertyMapped, Object.keys(propertyMapped))}
   }`;
 
-  const responses = !schema.components.responses
+  const responses = !components.responses
     ? ``
     : `responses: {
-    ${createKeys(
-      schema.components.responses,
-      Object.keys(schema.components.responses)
-    )}
+    ${createKeys(components.responses, Object.keys(components.responses))}
   }`;
 
   // note: make sure that base-level schemas are required

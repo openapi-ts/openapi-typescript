@@ -1,5 +1,10 @@
 import propertyMapper from "./property-mapper";
-import { OpenAPI2, OpenAPI2SchemaObject, SwaggerToTSOptions } from "./types";
+import {
+  OpenAPI2,
+  OpenAPI2SchemaObject,
+  OpenAPI2Schemas,
+  SwaggerToTSOptions,
+} from "./types";
 import {
   comment,
   nodeType,
@@ -29,25 +34,36 @@ export const PRIMITIVES: { [key: string]: "boolean" | "string" | "number" } = {
 };
 
 export default function generateTypesV2(
-  schema: OpenAPI2,
+  input: OpenAPI2 | OpenAPI2Schemas,
   options?: SwaggerToTSOptions
 ): string {
-  if (!schema.definitions) {
-    throw new Error(
-      `⛔️ 'definitions' missing from schema https://swagger.io/specification/v2/#definitions-object`
-    );
+  const rawSchema = options && options.rawSchema;
+
+  let definitions: OpenAPI2Schemas;
+
+  if (rawSchema) {
+    definitions = input as OpenAPI2Schemas;
+  } else {
+    const document = input as OpenAPI2;
+
+    if (!document.definitions) {
+      throw new Error(
+        `⛔️ 'definitions' missing from schema https://swagger.io/specification/v2/#definitions-object`
+      );
+    }
+    definitions = document.definitions;
   }
 
   // propertyMapper
   const propertyMapped = options
-    ? propertyMapper(schema.definitions, options.propertyMapper)
-    : schema.definitions;
+    ? propertyMapper(definitions, options.propertyMapper)
+    : definitions;
 
   // type conversions
   function transform(node: OpenAPI2SchemaObject): string {
     switch (nodeType(node)) {
       case "ref": {
-        return transformRef(node.$ref);
+        return transformRef(node.$ref, rawSchema ? "definitions/" : "");
       }
       case "string":
       case "number":
