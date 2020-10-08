@@ -1,7 +1,8 @@
 import propertyMapper from "./property-mapper";
 import {
   OpenAPI3,
-  OpenAPI3Components,
+  OpenAPI3Parameter,
+  OpenAPI3Paths,
   OpenAPI3SchemaObject,
   OpenAPI3Schemas,
   SwaggerToTSOptions,
@@ -34,16 +35,14 @@ export default function generateTypesV3(
   options?: SwaggerToTSOptions
 ): string {
   const { rawSchema = false } = options || {};
-  let components: OpenAPI3Components;
+  let { paths = {}, components = { schemas: {} } } = input as OpenAPI3;
 
   if (rawSchema) {
     components = { schemas: input };
   } else {
-    components = (input as OpenAPI3).components;
-
-    if (!components || !components.schemas) {
+    if (!input.components && !input.paths) {
       throw new Error(
-        `⛔️ 'components' missing from schema https://swagger.io/specification`
+        `No components or paths found. Specify --raw-schema to load a raw schema.`
       );
     }
   }
@@ -111,7 +110,7 @@ export default function generateTypesV3(
         if (Array.isArray(node.items)) {
           return tsTupleOf(node.items.map(transform));
         } else {
-          return tsArrayOf(transform(node.items as any));
+          return tsArrayOf(node.items ? transform(node.items as any) : "any");
         }
       }
     }
@@ -154,27 +153,107 @@ export default function generateTypesV3(
     return output;
   }
 
-  if (rawSchema) {
-    const schemas = createKeys(propertyMapped, Object.keys(propertyMapped));
+  function transformPaths(paths: OpenAPI3Paths): string {
+    let output = "";
+    Object.entries(paths).forEach(([path, methods]) => {
+      output += `"${path}": {\n`;
+      Object.entries(methods).forEach(([method, responses]) => {
+        if (responses.description) output += comment(responses.description);
+        output += `"${method}": {\n`;
 
-    return `export interface schemas {
-      ${schemas}
-    }`;
+        // handle parameters
+        if (responses.parameters) {
+          output += `parameters: {\n`;
+          const allParameters: Record<
+            string,
+            Record<string, OpenAPI3Parameter>
+          > = {};
+          responses.parameters.forEach((p) => {
+            if (!allParameters[p.in]) allParameters[p.in] = {};
+            // TODO: handle $ref parameters
+            if (p.name) {
+              allParameters[p.in][p.name] = p;
+            }
+          });
+
+          Object.entries(allParameters).forEach(([loc, locParams]) => {
+            output += `"${loc}": {\n`;
+            Object.entries(locParams).forEach(([paramName, paramProps]) => {
+              if (paramProps.description)
+                output += comment(paramProps.description);
+              output += `"${paramName}"${
+                paramProps.required === true ? "" : "?"
+              }: ${transform(paramProps.schema)};\n`;
+            });
+            output += `}\n`;
+          });
+          output += `}\n`;
+        }
+
+        // handle responses
+        output += `responses: {\n`;
+        Object.entries(responses.responses).forEach(
+          ([statusCode, response]) => {
+            if (response.description) output += comment(response.description);
+            if (!response.content || !Object.keys(response.content).length) {
+              output += `"${statusCode}": any;\n`;
+              return;
+            }
+            output += `"${statusCode}": {\n`;
+            Object.entries(response.content).forEach(
+              ([contentType, encodedResponse]) => {
+                output += `"${contentType}": ${transform(
+                  encodedResponse.schema
+                )};\n`;
+              }
+            );
+            output += `}\n`;
+          }
+        );
+        output += `}\n`;
+        output += `}\n`;
+      });
+      output += `}\n`;
+    });
+    return output;
   }
 
-  const schemas = `schemas: {
-    ${createKeys(propertyMapped, Object.keys(propertyMapped))}
-  }`;
+  if (rawSchema) {
+    return `export interface schemas {
+  ${createKeys(propertyMapped, Object.keys(propertyMapped))}
+}`;
+  }
 
-  const responses = !components.responses
-    ? ``
-    : `responses: {
-    ${createKeys(components.responses, Object.keys(components.responses))}
-  }`;
+  // now put everything together
+  let finalOutput = "";
 
-  // note: make sure that base-level schemas are required
-  return `export interface components {
-    ${schemas}
-    ${responses}
-  }`;
+  // handle paths
+  if (Object.keys(paths).length) {
+    finalOutput += `export interface paths {
+  ${transformPaths(paths)}
+}
+
+`;
+  }
+
+  finalOutput += "export interface components {\n";
+
+  // TODO: handle components.parameters
+
+  if (Object.keys(propertyMapped).length) {
+    finalOutput += `schemas: {
+  ${createKeys(propertyMapped, Object.keys(propertyMapped))}
+}`;
+  }
+  if (components.responses && Object.keys(components.responses).length) {
+    finalOutput += `
+responses: {
+  ${createKeys(components.responses, Object.keys(components.responses))}
+}`;
+  }
+
+  // close components wrapper
+  finalOutput += "\n}";
+
+  return finalOutput;
 }

@@ -3,6 +3,12884 @@
  * Do not make direct changes to the file.
  */
 
+export interface paths {
+  "/v1/3d_secure": {
+    /**
+     * <p>Initiate 3D Secure authentication.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["three_d_secure"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/3d_secure/{three_d_secure}": {
+    /**
+     * <p>Retrieves a 3D Secure object.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          three_d_secure: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["three_d_secure"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/account": {
+    /**
+     * <p>With <a href="/docs/connect">Connect</a>, you can delete Custom or Express accounts you manage.</p>
+     *
+     * <p>Accounts created using test-mode keys can be deleted at any time. Accounts created using live-mode keys can only be deleted once all balances are zero.</p>
+     *
+     * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/account">account information tab in your account settings</a> instead.</p>
+     */
+    delete: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves the details of an account.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates a connected <a href="/docs/connect/accounts">Express or Custom account</a> by setting the values of the parameters passed. Any parameters not provided are left unchanged. Most parameters can be changed only for Custom accounts. (These are marked <strong>Custom Only</strong> below.) Parameters marked <strong>Custom and Express</strong> are supported by both account types.</p>
+     *
+     * <p>To update your own account, use the <a href="https://dashboard.stripe.com/account">Dashboard</a>. Refer to our <a href="/docs/connect/updating-accounts">Connect</a> documentation to learn more about updating accounts.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/account/bank_accounts": {
+    /**
+     * <p>Create an external account for a given account.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["external_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/account/bank_accounts/{id}": {
+    /**
+     * <p>Delete a specified external account for a given account.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_external_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieve a specified external account for a given account.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["external_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the metadata, account holder name, and account holder type of a bank account belonging to a <a href="/docs/connect/custom-accounts">Custom account</a>, and optionally sets it as the default for its currency. Other bank account details are not editable by design.</p>
+     * <p>You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["external_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/account/capabilities": {
+    /**
+     * <p>Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["capability"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/account/capabilities/{capability}": {
+    /**
+     * <p>Retrieves information about the specified Account Capability.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          capability: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["capability"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates an existing Account Capability.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          capability: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["capability"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/account/external_accounts": {
+    /**
+     * <p>List external accounts for an account.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            /**
+             * The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards.
+             */
+            data: (Partial<components["schemas"]["bank_account"]> &
+              Partial<components["schemas"]["card"]>)[];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Create an external account for a given account.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["external_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/account/external_accounts/{id}": {
+    /**
+     * <p>Delete a specified external account for a given account.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_external_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieve a specified external account for a given account.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["external_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the metadata, account holder name, and account holder type of a bank account belonging to a <a href="/docs/connect/custom-accounts">Custom account</a>, and optionally sets it as the default for its currency. Other bank account details are not editable by design.</p>
+     * <p>You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["external_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/account/login_links": {
+    /**
+     * <p>Creates a single-use login link for an Express account to access their Stripe dashboard.</p>
+     *
+     * <p><strong>You may only create login links for <a href="/docs/connect/express-accounts">Express accounts</a> connected to your platform</strong>.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["login_link"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/account/logout": {
+    /**
+     * <p>Invalidates all sessions for a light account, for a platform to use during platform logout.</p>
+     *
+     * <p><strong>You may only log out <a href="/docs/connect/express-accounts">Express accounts</a> connected to your platform</strong>.</p>
+     */
+    put: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["light_account_logout"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/account/people": {
+    /**
+     * <p>Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * Filters on the list of people returned based on the person's relationship to the account's company.
+           */
+          relationship?: {
+            director?: boolean;
+            executive?: boolean;
+            owner?: boolean;
+            representative?: boolean;
+          };
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["person"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new person.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["person"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/account/people/{person}": {
+    /**
+     * <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          person: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_person"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves an existing person.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          person: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["person"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates an existing person.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          person: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["person"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/account/persons": {
+    /**
+     * <p>Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * Filters on the list of people returned based on the person's relationship to the account's company.
+           */
+          relationship?: {
+            director?: boolean;
+            executive?: boolean;
+            owner?: boolean;
+            representative?: boolean;
+          };
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["person"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new person.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["person"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/account/persons/{person}": {
+    /**
+     * <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          person: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_person"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves an existing person.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          person: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["person"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates an existing person.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          person: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["person"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/account_links": {
+    /**
+     * <p>Creates an AccountLink object that returns a single-use Stripe URL that the user can redirect their user to in order to take them through the Connect Onboarding flow.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["account_link"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/accounts": {
+    /**
+     * <p>Returns a list of accounts connected to your platform via <a href="/docs/connect">Connect</a>. If you’re not a platform, the list is empty.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["account"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>With <a href="/docs/connect">Connect</a>, you can create Stripe accounts for your users.
+     * To do this, you’ll first need to <a href="https://dashboard.stripe.com/account/applications/settings">register your platform</a>.</p>
+     *
+     * <p>For Standard accounts, parameters other than <code>country</code>, <code>email</code>, and <code>type</code>
+     * are used to prefill the account application that we ask the account holder to complete.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/accounts/{account}": {
+    /**
+     * <p>With <a href="/docs/connect">Connect</a>, you can delete Custom or Express accounts you manage.</p>
+     *
+     * <p>Accounts created using test-mode keys can be deleted at any time. Accounts created using live-mode keys can only be deleted once all balances are zero.</p>
+     *
+     * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/account">account information tab in your account settings</a> instead.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          account: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves the details of an account.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          account: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates a connected <a href="/docs/connect/accounts">Express or Custom account</a> by setting the values of the parameters passed. Any parameters not provided are left unchanged. Most parameters can be changed only for Custom accounts. (These are marked <strong>Custom Only</strong> below.) Parameters marked <strong>Custom and Express</strong> are supported by both account types.</p>
+     *
+     * <p>To update your own account, use the <a href="https://dashboard.stripe.com/account">Dashboard</a>. Refer to our <a href="/docs/connect/updating-accounts">Connect</a> documentation to learn more about updating accounts.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          account: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/accounts/{account}/bank_accounts": {
+    /**
+     * <p>Create an external account for a given account.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          account: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["external_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/accounts/{account}/bank_accounts/{id}": {
+    /**
+     * <p>Delete a specified external account for a given account.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          account: string;
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_external_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieve a specified external account for a given account.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          account: string;
+          id: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["external_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the metadata, account holder name, and account holder type of a bank account belonging to a <a href="/docs/connect/custom-accounts">Custom account</a>, and optionally sets it as the default for its currency. Other bank account details are not editable by design.</p>
+     * <p>You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          account: string;
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["external_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/accounts/{account}/capabilities": {
+    /**
+     * <p>Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          account: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["capability"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/accounts/{account}/capabilities/{capability}": {
+    /**
+     * <p>Retrieves information about the specified Account Capability.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          account: string;
+          capability: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["capability"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates an existing Account Capability.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          account: string;
+          capability: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["capability"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/accounts/{account}/external_accounts": {
+    /**
+     * <p>List external accounts for an account.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          account: string;
+        };
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            /**
+             * The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards.
+             */
+            data: (Partial<components["schemas"]["bank_account"]> &
+              Partial<components["schemas"]["card"]>)[];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Create an external account for a given account.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          account: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["external_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/accounts/{account}/external_accounts/{id}": {
+    /**
+     * <p>Delete a specified external account for a given account.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          account: string;
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_external_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieve a specified external account for a given account.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          account: string;
+          id: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["external_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the metadata, account holder name, and account holder type of a bank account belonging to a <a href="/docs/connect/custom-accounts">Custom account</a>, and optionally sets it as the default for its currency. Other bank account details are not editable by design.</p>
+     * <p>You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          account: string;
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["external_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/accounts/{account}/login_links": {
+    /**
+     * <p>Creates a single-use login link for an Express account to access their Stripe dashboard.</p>
+     *
+     * <p><strong>You may only create login links for <a href="/docs/connect/express-accounts">Express accounts</a> connected to your platform</strong>.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          account: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["login_link"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/accounts/{account}/logout": {
+    /**
+     * <p>Invalidates all sessions for a light account, for a platform to use during platform logout.</p>
+     *
+     * <p><strong>You may only log out <a href="/docs/connect/express-accounts">Express accounts</a> connected to your platform</strong>.</p>
+     */
+    put: {
+      parameters: {
+        path: {
+          account: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["light_account_logout"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/accounts/{account}/people": {
+    /**
+     * <p>Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          account: string;
+        };
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * Filters on the list of people returned based on the person's relationship to the account's company.
+           */
+          relationship?: {
+            director?: boolean;
+            executive?: boolean;
+            owner?: boolean;
+            representative?: boolean;
+          };
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["person"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new person.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          account: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["person"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/accounts/{account}/people/{person}": {
+    /**
+     * <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          account: string;
+          person: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_person"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves an existing person.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          account: string;
+          person: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["person"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates an existing person.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          account: string;
+          person: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["person"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/accounts/{account}/persons": {
+    /**
+     * <p>Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          account: string;
+        };
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * Filters on the list of people returned based on the person's relationship to the account's company.
+           */
+          relationship?: {
+            director?: boolean;
+            executive?: boolean;
+            owner?: boolean;
+            representative?: boolean;
+          };
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["person"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new person.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          account: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["person"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/accounts/{account}/persons/{person}": {
+    /**
+     * <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          account: string;
+          person: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_person"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves an existing person.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          account: string;
+          person: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["person"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates an existing person.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          account: string;
+          person: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["person"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/accounts/{account}/reject": {
+    /**
+     * <p>With <a href="/docs/connect">Connect</a>, you may flag accounts as suspicious.</p>
+     *
+     * <p>Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          account: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/apple_pay/domains": {
+    /**
+     * <p>List apple pay domains.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          domain_name?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["apple_pay_domain"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Create an apple pay domain.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["apple_pay_domain"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/apple_pay/domains/{domain}": {
+    /**
+     * <p>Delete an apple pay domain.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          domain: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_apple_pay_domain"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieve an apple pay domain.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          domain: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["apple_pay_domain"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/application_fees": {
+    /**
+     * <p>Returns a list of application fees you’ve previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Only return application fees for the charge specified by this charge ID.
+           */
+          charge?: string;
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["application_fee"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/application_fees/{fee}/refunds/{id}": {
+    /**
+     * <p>By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          fee: string;
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["fee_refund"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+     *
+     * <p>This request only accepts metadata as an argument.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          fee: string;
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["fee_refund"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/application_fees/{id}": {
+    /**
+     * <p>Retrieves the details of an application fee that your account has collected. The same information is returned when refunding the application fee.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["application_fee"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/application_fees/{id}/refund": {
+    post: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["application_fee"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/application_fees/{id}/refunds": {
+    /**
+     * <p>You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available by default on the application fee object. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional refunds.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            /**
+             * Details about each object.
+             */
+            data: components["schemas"]["fee_refund"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Refunds an application fee that has previously been collected but not yet refunded.
+     * Funds will be refunded to the Stripe account from which the fee was originally collected.</p>
+     *
+     * <p>You can optionally refund only part of an application fee.
+     * You can do so multiple times, until the entire fee has been refunded.</p>
+     *
+     * <p>Once entirely refunded, an application fee can’t be refunded again.
+     * This method will raise an error when called on an already-refunded application fee,
+     * or when trying to refund more money than is left on an application fee.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["fee_refund"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/balance": {
+    /**
+     * <p>Retrieves the current account balance, based on the authentication that was used to make the request.
+     *  For a sample request, see <a href="/docs/connect/account-balances#accounting-for-negative-balances">Accounting for negative balances</a>.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["balance"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/balance/history": {
+    /**
+     * <p>Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.</p>
+     *
+     * <p>Note that this endpoint was previously called “Balance history” and used the path <code>/v1/balance/history</code>.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          available_on?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * Only return transactions in a certain currency. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+           */
+          currency?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * For automatic Stripe payouts only, only returns transactions that were paid out on the specified payout ID.
+           */
+          payout?: string;
+          /**
+           * Only returns the original transaction.
+           */
+          source?: string;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * Only returns transactions of the given type. One of: `charge`, `refund`, `adjustment`, `application_fee`, `application_fee_refund`, `transfer`, `payment`, `payout`, `payout_failure`, `stripe_fee`, or `network_cost`.
+           */
+          type?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["balance_transaction"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/balance/history/{id}": {
+    /**
+     * <p>Retrieves the balance transaction with the given ID.</p>
+     *
+     * <p>Note that this endpoint previously used the path <code>/v1/balance/history/:id</code>.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["balance_transaction"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/balance_transactions": {
+    /**
+     * <p>Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.</p>
+     *
+     * <p>Note that this endpoint was previously called “Balance history” and used the path <code>/v1/balance/history</code>.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          available_on?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * Only return transactions in a certain currency. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+           */
+          currency?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * For automatic Stripe payouts only, only returns transactions that were paid out on the specified payout ID.
+           */
+          payout?: string;
+          /**
+           * Only returns the original transaction.
+           */
+          source?: string;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * Only returns transactions of the given type. One of: `charge`, `refund`, `adjustment`, `application_fee`, `application_fee_refund`, `transfer`, `payment`, `payout`, `payout_failure`, `stripe_fee`, or `network_cost`.
+           */
+          type?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["balance_transaction"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/balance_transactions/{id}": {
+    /**
+     * <p>Retrieves the balance transaction with the given ID.</p>
+     *
+     * <p>Note that this endpoint previously used the path <code>/v1/balance/history/:id</code>.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["balance_transaction"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/billing_portal/sessions": {
+    /**
+     * <p>Creates a session of the Self-service Portal.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["billing_portal.session"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/bitcoin/receivers": {
+    /**
+     * <p>Returns a list of your receivers. Receivers are returned sorted by creation date, with the most recently created receivers appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Filter for active receivers.
+           */
+          active?: boolean;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Filter for filled receivers.
+           */
+          filled?: boolean;
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * Filter for receivers with uncaptured funds.
+           */
+          uncaptured_funds?: boolean;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["bitcoin_receiver"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/bitcoin/receivers/{id}": {
+    /**
+     * <p>Retrieves the Bitcoin receiver with the given ID.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["bitcoin_receiver"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/bitcoin/receivers/{receiver}/transactions": {
+    /**
+     * <p>List bitcoin transacitons for a given receiver.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Only return transactions for the customer specified by this customer ID.
+           */
+          customer?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+        path: {
+          receiver: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            /**
+             * Details about each object.
+             */
+            data: components["schemas"]["bitcoin_transaction"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/bitcoin/transactions": {
+    /**
+     * <p>List bitcoin transacitons for a given receiver.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Only return transactions for the customer specified by this customer ID.
+           */
+          customer?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          receiver?: string;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            /**
+             * Details about each object.
+             */
+            data: components["schemas"]["bitcoin_transaction"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/charges": {
+    /**
+     * <p>Returns a list of charges you’ve previously created. The charges are returned in sorted order, with the most recent charges appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * Only return charges for the customer specified by this customer ID.
+           */
+          customer?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * Only return charges that were created by the PaymentIntent specified by this PaymentIntent ID.
+           */
+          payment_intent?: string;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * Only return charges for this transfer group.
+           */
+          transfer_group?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["charge"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>To charge a credit card or other payment source, you create a <code>Charge</code> object. If your API key is in test mode, the supplied payment source (e.g., card) won’t actually be charged, although everything else will occur as if in live mode. (Stripe assumes that the charge would have completed successfully).</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["charge"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/charges/{charge}": {
+    /**
+     * <p>Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          charge: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["charge"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          charge: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["charge"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/charges/{charge}/capture": {
+    /**
+     * <p>Capture the payment of an existing, uncaptured, charge. This is the second half of the two-step payment flow, where first you <a href="#create_charge">created a charge</a> with the capture option set to false.</p>
+     *
+     * <p>Uncaptured payments expire exactly seven days after they are created. If they are not captured by that point in time, they will be marked as refunded and will no longer be capturable.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          charge: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["charge"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/charges/{charge}/dispute": {
+    /**
+     * <p>Retrieve a dispute for a specified charge.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          charge: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["dispute"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    post: {
+      parameters: {
+        path: {
+          charge: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["dispute"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/charges/{charge}/dispute/close": {
+    post: {
+      parameters: {
+        path: {
+          charge: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["dispute"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/charges/{charge}/refund": {
+    /**
+     * <p>When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.</p>
+     *
+     * <p>Creating a new refund will refund a charge that has previously been created but not yet refunded.
+     * Funds will be refunded to the credit or debit card that was originally charged.</p>
+     *
+     * <p>You can optionally refund only part of a charge.
+     * You can do so multiple times, until the entire charge has been refunded.</p>
+     *
+     * <p>Once entirely refunded, a charge can’t be refunded again.
+     * This method will raise an error when called on an already-refunded charge,
+     * or when trying to refund more money than is left on a charge.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          charge: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["charge"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/charges/{charge}/refunds": {
+    /**
+     * <p>You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional refunds.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          charge: string;
+        };
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            /**
+             * Details about each object.
+             */
+            data: components["schemas"]["refund"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Create a refund.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          charge: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["refund"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/charges/{charge}/refunds/{refund}": {
+    /**
+     * <p>Retrieves the details of an existing refund.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          charge: string;
+          refund: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["refund"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Update a specified refund.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          charge: string;
+          refund: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["refund"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/checkout/sessions": {
+    /**
+     * <p>Returns a list of Checkout Sessions.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * Only return the Checkout Session for the PaymentIntent specified.
+           */
+          payment_intent?: string;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * Only return the Checkout Session for the subscription specified.
+           */
+          subscription?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["checkout.session"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a Session object.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["checkout.session"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/checkout/sessions/{session}": {
+    /**
+     * <p>Retrieves a Session object.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          session: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["checkout.session"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/country_specs": {
+    /**
+     * <p>Lists all Country Spec objects available in the API.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["country_spec"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/country_specs/{country}": {
+    /**
+     * <p>Returns a Country Spec for a given Country code.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          country: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["country_spec"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/coupons": {
+    /**
+     * <p>Returns a list of your coupons.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options.
+           */
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["coupon"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>You can create coupons easily via the <a href="https://dashboard.stripe.com/coupons">coupon management</a> page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.</p>
+     *
+     * <p>A coupon has either a <code>percent_off</code> or an <code>amount_off</code> and <code>currency</code>. If you set an <code>amount_off</code>, that amount will be subtracted from any invoice’s subtotal. For example, an invoice with a subtotal of <currency>100</currency> will have a final total of <currency>0</currency> if a coupon with an <code>amount_off</code> of <amount>200</amount> is applied to it and an invoice with a subtotal of <currency>300</currency> will have a final total of <currency>100</currency> if a coupon with an <code>amount_off</code> of <amount>200</amount> is applied to it.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["coupon"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/coupons/{coupon}": {
+    /**
+     * <p>You can delete coupons via the <a href="https://dashboard.stripe.com/coupons">coupon management</a> page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can’t redeem the coupon. You can also delete coupons via the API.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          coupon: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_coupon"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves the coupon with the given ID.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          coupon: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["coupon"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          coupon: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["coupon"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/credit_notes": {
+    /**
+     * <p>Returns a list of credit notes.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Only return credit notes for the customer specified by this customer ID.
+           */
+          customer?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Only return credit notes for the invoice specified by this invoice ID.
+           */
+          invoice?: string;
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["credit_note"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Issue a credit note to adjust the amount of a finalized invoice. For a <code>status=open</code> invoice, a credit note reduces
+     * its <code>amount_due</code>. For a <code>status=paid</code> invoice, a credit note does not affect its <code>amount_due</code>. Instead, it can result
+     * in any combination of the following:</p>
+     *
+     * <ul>
+     *  <li>Refund: create a new refund (using <code>refund_amount</code>) or link an existing refund (using <code>refund</code>).</li>
+     *  <li>Customer balance credit: credit the customer’s balance (using <code>credit_amount</code>) which will be automatically applied to their next invoice when it’s finalized.</li>
+     *  <li>Outside of Stripe credit: record the amount that is or will be credited outside of Stripe (using <code>out_of_band_amount</code>).</li>
+     * </ul>
+     *
+     * <p>For post-payment credit notes the sum of the refund, credit and outside of Stripe amounts must equal the credit note total.</p>
+     *
+     * <p>You may issue multiple credit notes for an invoice. Each credit note will increment the invoice’s <code>pre_payment_credit_notes_amount</code>
+     * or <code>post_payment_credit_notes_amount</code> depending on its <code>status</code> at the time of credit note creation.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["credit_note"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/credit_notes/preview": {
+    /**
+     * <p>Get a preview of a credit note without creating it.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * The integer amount in **%s** representing the total amount of the credit note.
+           */
+          amount?: number;
+          /**
+           * The integer amount in **%s** representing the amount to credit the customer's balance, which will be automatically applied to their next invoice.
+           */
+          credit_amount?: number;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * ID of the invoice.
+           */
+          invoice: string;
+          /**
+           * Line items that make up the credit note.
+           */
+          lines?: {
+            amount?: number;
+            description?: string;
+            invoice_line_item?: string;
+            quantity?: number;
+            tax_rates?: Partial<string[]> & Partial<"">;
+            type: "custom_line_item" | "invoice_line_item";
+            unit_amount?: number;
+            unit_amount_decimal?: string;
+          }[];
+          /**
+           * The credit note's memo appears on the credit note PDF.
+           */
+          memo?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * The integer amount in **%s** representing the amount that is credited outside of Stripe.
+           */
+          out_of_band_amount?: number;
+          /**
+           * Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
+           */
+          reason?:
+            | "duplicate"
+            | "fraudulent"
+            | "order_change"
+            | "product_unsatisfactory";
+          /**
+           * ID of an existing refund to link this credit note to.
+           */
+          refund?: string;
+          /**
+           * The integer amount in **%s** representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
+           */
+          refund_amount?: number;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["credit_note"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/credit_notes/preview/lines": {
+    /**
+     * <p>When retrieving a credit note preview, you’ll get a <strong>lines</strong> property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * The integer amount in **%s** representing the total amount of the credit note.
+           */
+          amount?: number;
+          /**
+           * The integer amount in **%s** representing the amount to credit the customer's balance, which will be automatically applied to their next invoice.
+           */
+          credit_amount?: number;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * ID of the invoice.
+           */
+          invoice: string;
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * Line items that make up the credit note.
+           */
+          lines?: {
+            amount?: number;
+            description?: string;
+            invoice_line_item?: string;
+            quantity?: number;
+            tax_rates?: Partial<string[]> & Partial<"">;
+            type: "custom_line_item" | "invoice_line_item";
+            unit_amount?: number;
+            unit_amount_decimal?: string;
+          }[];
+          /**
+           * The credit note's memo appears on the credit note PDF.
+           */
+          memo?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * The integer amount in **%s** representing the amount that is credited outside of Stripe.
+           */
+          out_of_band_amount?: number;
+          /**
+           * Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
+           */
+          reason?:
+            | "duplicate"
+            | "fraudulent"
+            | "order_change"
+            | "product_unsatisfactory";
+          /**
+           * ID of an existing refund to link this credit note to.
+           */
+          refund?: string;
+          /**
+           * The integer amount in **%s** representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
+           */
+          refund_amount?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            /**
+             * Details about each object.
+             */
+            data: components["schemas"]["credit_note_line_item"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/credit_notes/{credit_note}/lines": {
+    /**
+     * <p>When retrieving a credit note, you’ll get a <strong>lines</strong> property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          credit_note: string;
+        };
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            /**
+             * Details about each object.
+             */
+            data: components["schemas"]["credit_note_line_item"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/credit_notes/{id}": {
+    /**
+     * <p>Retrieves the credit note object with the given identifier.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["credit_note"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates an existing credit note.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["credit_note"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/credit_notes/{id}/void": {
+    /**
+     * <p>Marks a credit note as void. Learn more about <a href="/docs/billing/invoices/credit-notes#voiding">voiding credit notes</a>.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["credit_note"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/customers": {
+    /**
+     * <p>Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A filter on the list based on the customer's `email` field. The value must be a string.
+           */
+          email?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["customer"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new customer object.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["customer"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/customers/{customer}": {
+    /**
+     * <p>Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          customer: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_customer"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves the details of an existing customer. You need only supply the unique customer identifier that was returned upon customer creation.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          customer: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": Partial<components["schemas"]["customer"]> &
+            Partial<components["schemas"]["deleted_customer"]>;
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the <strong>source</strong> parameter, that becomes the customer’s active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the <strong>source</strong> parameter: for each of the customer’s current subscriptions, if the subscription bills automatically and is in the <code>past_due</code> state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the <strong>default_source</strong> for a customer will not trigger this behavior.</p>
+     *
+     * <p>This request accepts mostly the same arguments as the customer creation call.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          customer: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["customer"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/customers/{customer}/balance_transactions": {
+    /**
+     * <p>Returns a list of transactions that updated the customer’s <a href="/docs/api/customers/object#customer_object-balance"><code>balance</code></a>.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          customer: string;
+        };
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            /**
+             * Details about each object.
+             */
+            data: components["schemas"]["customer_balance_transaction"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates an immutable transaction that updates the customer’s <a href="/docs/api/customers/object#customer_object-balance"><code>balance</code></a>.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          customer: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["customer_balance_transaction"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/customers/{customer}/balance_transactions/{transaction}": {
+    /**
+     * <p>Retrieves a specific transaction that updated the customer’s <a href="/docs/api/customers/object#customer_object-balance"><code>balance</code></a>.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          customer: string;
+          transaction: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["customer_balance_transaction"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Most customer balance transaction fields are immutable, but you may update its <code>description</code> and <code>metadata</code>.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          customer: string;
+          transaction: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["customer_balance_transaction"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/customers/{customer}/bank_accounts": {
+    /**
+     * <p>You can see a list of the bank accounts belonging to a Customer. Note that the 10 most recent sources are always available by default on the Customer. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional bank accounts.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          customer: string;
+        };
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            /**
+             * Details about each object.
+             */
+            data: components["schemas"]["bank_account"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
+     *
+     * <p>If the card’s owner has no default card, then the new card will become the default.
+     * However, if the owner already has a default, then it will not change.
+     * To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          customer: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payment_source"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/customers/{customer}/bank_accounts/{id}": {
+    /**
+     * <p>Delete a specified source for a given customer.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          customer: string;
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": Partial<components["schemas"]["payment_source"]> &
+            Partial<components["schemas"]["deleted_payment_source"]>;
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>By default, you can see the 10 most recent sources stored on a Customer directly on the object, but you can also retrieve details about a specific bank account stored on the Stripe account.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          customer: string;
+          id: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["bank_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Update a specified source for a given customer.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          customer: string;
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": Partial<components["schemas"]["card"]> &
+            Partial<components["schemas"]["bank_account"]> &
+            Partial<components["schemas"]["source"]>;
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/customers/{customer}/bank_accounts/{id}/verify": {
+    /**
+     * <p>Verify a specified bank account for a given customer.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          customer: string;
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["bank_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/customers/{customer}/cards": {
+    /**
+     * <p>You can see a list of the cards belonging to a customer.
+     * Note that the 10 most recent sources are always available on the <code>Customer</code> object.
+     * If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional cards.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          customer: string;
+        };
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["card"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
+     *
+     * <p>If the card’s owner has no default card, then the new card will become the default.
+     * However, if the owner already has a default, then it will not change.
+     * To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          customer: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payment_source"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/customers/{customer}/cards/{id}": {
+    /**
+     * <p>Delete a specified source for a given customer.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          customer: string;
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": Partial<components["schemas"]["payment_source"]> &
+            Partial<components["schemas"]["deleted_payment_source"]>;
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>You can always see the 10 most recent cards directly on a customer; this method lets you retrieve details about a specific card stored on the customer.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          customer: string;
+          id: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["card"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Update a specified source for a given customer.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          customer: string;
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": Partial<components["schemas"]["card"]> &
+            Partial<components["schemas"]["bank_account"]> &
+            Partial<components["schemas"]["source"]>;
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/customers/{customer}/discount": {
+    /**
+     * <p>Removes the currently applied discount on a customer.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          customer: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_discount"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    get: {
+      parameters: {
+        path: {
+          customer: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["discount"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/customers/{customer}/sources": {
+    /**
+     * <p>List sources for a specified customer.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          customer: string;
+        };
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * Filter sources according to a particular object type.
+           */
+          object?: string;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            /**
+             * Details about each object.
+             */
+            data: (Partial<components["schemas"]["alipay_account"]> &
+              Partial<components["schemas"]["bank_account"]> &
+              Partial<components["schemas"]["bitcoin_receiver"]> &
+              Partial<components["schemas"]["card"]> &
+              Partial<components["schemas"]["source"]>)[];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
+     *
+     * <p>If the card’s owner has no default card, then the new card will become the default.
+     * However, if the owner already has a default, then it will not change.
+     * To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          customer: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payment_source"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/customers/{customer}/sources/{id}": {
+    /**
+     * <p>Delete a specified source for a given customer.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          customer: string;
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": Partial<components["schemas"]["payment_source"]> &
+            Partial<components["schemas"]["deleted_payment_source"]>;
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieve a specified source for a given customer.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          customer: string;
+          id: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payment_source"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Update a specified source for a given customer.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          customer: string;
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": Partial<components["schemas"]["card"]> &
+            Partial<components["schemas"]["bank_account"]> &
+            Partial<components["schemas"]["source"]>;
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/customers/{customer}/sources/{id}/verify": {
+    /**
+     * <p>Verify a specified bank account for a given customer.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          customer: string;
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["bank_account"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/customers/{customer}/subscriptions": {
+    /**
+     * <p>You can see a list of the customer’s active subscriptions. Note that the 10 most recent active subscriptions are always available by default on the customer object. If you need more than those 10, you can use the limit and starting_after parameters to page through additional subscriptions.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          customer: string;
+        };
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            /**
+             * Details about each object.
+             */
+            data: components["schemas"]["subscription"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new subscription on an existing customer.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          customer: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["subscription"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}": {
+    /**
+     * <p>Cancels a customer’s subscription. If you set the <code>at_period_end</code> parameter to <code>true</code>, the subscription will remain active until the end of the period, at which point it will be canceled and not renewed. Otherwise, with the default <code>false</code> value, the subscription is terminated immediately. In either case, the customer will not be charged again for the subscription.</p>
+     *
+     * <p>Note, however, that any pending invoice items that you’ve created will still be charged for at the end of the period, unless manually <a href="#delete_invoiceitem">deleted</a>. If you’ve set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.</p>
+     *
+     * <p>By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          customer: string;
+          subscription_exposed_id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["subscription"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves the subscription with the given ID.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          customer: string;
+          subscription_exposed_id: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["subscription"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates an existing subscription on a customer to match the specified parameters. When changing plans or quantities, we will optionally prorate the price we charge next month to make up for any price changes. To preview how the proration will be calculated, use the <a href="#upcoming_invoice">upcoming invoice</a> endpoint.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          customer: string;
+          subscription_exposed_id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["subscription"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}/discount": {
+    /**
+     * <p>Removes the currently applied discount on a customer.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          customer: string;
+          subscription_exposed_id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_discount"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    get: {
+      parameters: {
+        path: {
+          customer: string;
+          subscription_exposed_id: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["discount"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/customers/{customer}/tax_ids": {
+    /**
+     * <p>Returns a list of tax IDs for a customer.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          customer: string;
+        };
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            /**
+             * Details about each object.
+             */
+            data: components["schemas"]["tax_id"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new <code>TaxID</code> object for a customer.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          customer: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["tax_id"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/customers/{customer}/tax_ids/{id}": {
+    /**
+     * <p>Deletes an existing <code>TaxID</code> object.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          customer: string;
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_tax_id"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves the <code>TaxID</code> object with the given identifier.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          customer: string;
+          id: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["tax_id"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/disputes": {
+    /**
+     * <p>Returns a list of your disputes.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Only return disputes associated to the charge specified by this charge ID.
+           */
+          charge?: string;
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * Only return disputes associated to the PaymentIntent specified by this PaymentIntent ID.
+           */
+          payment_intent?: string;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["dispute"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/disputes/{dispute}": {
+    /**
+     * <p>Retrieves the dispute with the given ID.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          dispute: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["dispute"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>When you get a dispute, contacting your customer is always the best first step. If that doesn’t work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your <a href="https://dashboard.stripe.com/disputes">dashboard</a>, but if you prefer, you can use the API to submit evidence programmatically.</p>
+     *
+     * <p>Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our <a href="/docs/disputes/categories">guide to dispute types</a>.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          dispute: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["dispute"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/disputes/{dispute}/close": {
+    /**
+     * <p>Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.</p>
+     *
+     * <p>The status of the dispute will change from <code>needs_response</code> to <code>lost</code>. <em>Closing a dispute is irreversible</em>.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          dispute: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["dispute"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/ephemeral_keys": {
+    /**
+     * <p>Creates a short-lived API key for a given resource.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["ephemeral_key"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/ephemeral_keys/{key}": {
+    /**
+     * <p>Invalidates a short-lived API key for a given resource.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          key: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["ephemeral_key"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/events": {
+    /**
+     * <p>List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in <a href="/docs/api/events/object">event object</a> <code>api_version</code> attribute (not according to your current Stripe API version or <code>Stripe-Version</code> header).</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * Filter events by whether all webhooks were successfully delivered. If false, events which are still pending or have failed all delivery attempts to a webhook endpoint will be returned.
+           */
+          delivery_success?: boolean;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * A string containing a specific event name, or group of events using * as a wildcard. The list will be filtered to include only events with a matching event property.
+           */
+          type?: string;
+          /**
+           * An array of up to 20 strings containing specific event names. The list will be filtered to include only events with a matching event property. You may pass either `type` or `types`, but not both.
+           */
+          types?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["event"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/events/{id}": {
+    /**
+     * <p>Retrieves the details of an event. Supply the unique identifier of the event, which you might have received in a webhook.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["event"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/exchange_rates": {
+    /**
+     * <p>Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with the exchange rate for currency X your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and total number of supported payout currencies, and the default is the max.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with the exchange rate for currency X, your subsequent call can include `starting_after=X` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["exchange_rate"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/exchange_rates/{currency}": {
+    /**
+     * <p>Retrieves the exchange rates from the given currency to every supported currency.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          currency: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["exchange_rate"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/file_links": {
+    /**
+     * <p>Returns a list of file links.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Filter links by their expiration status. By default, all links are returned.
+           */
+          expired?: boolean;
+          /**
+           * Only return links for the given file.
+           */
+          file?: string;
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["file_link"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new file link object.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["file_link"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/file_links/{link}": {
+    /**
+     * <p>Retrieves the file link with the given ID.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          link: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["file_link"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates an existing file link object. Expired links can no longer be updated.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          link: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["file_link"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/files": {
+    /**
+     * <p>Returns a list of the files that your account has access to. The files are returned sorted by creation date, with the most recently created files appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * The file purpose to filter queries by. If none is provided, files will not be filtered by purpose.
+           */
+          purpose?:
+            | "additional_verification"
+            | "business_icon"
+            | "business_logo"
+            | "customer_signature"
+            | "dispute_evidence"
+            | "finance_report_run"
+            | "identity_document"
+            | "pci_document"
+            | "sigma_scheduled_query"
+            | "tax_document_user_upload";
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["file"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>To upload a file to Stripe, you’ll need to send a request of type <code>multipart/form-data</code>. The request should contain the file you would like to upload, as well as the parameters for creating a file.</p>
+     *
+     * <p>All of Stripe’s officially supported Client libraries should have support for sending <code>multipart/form-data</code>.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["file"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/files/{file}": {
+    /**
+     * <p>Retrieves the details of an existing file object. Supply the unique file ID from a file, and Stripe will return the corresponding file object. To access file contents, see the <a href="/docs/file-upload#download-file-contents">File Upload Guide</a>.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          file: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["file"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/invoiceitems": {
+    /**
+     * <p>Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned.
+           */
+          customer?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Only return invoice items belonging to this invoice. If none is provided, all invoice items will be returned. If specifying an invoice, no customer identifier is needed.
+           */
+          invoice?: string;
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * Set to `true` to only show pending invoice items, which are not yet attached to any invoices. Set to `false` to only show invoice items already attached to invoices. If unspecified, no filter is applied.
+           */
+          pending?: boolean;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["invoiceitem"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates an item to be added to a draft invoice. If no invoice is specified, the item will be on the next invoice created for the customer specified.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["invoiceitem"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/invoiceitems/{invoiceitem}": {
+    /**
+     * <p>Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they’re not attached to invoices, or if it’s attached to a draft invoice.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          invoiceitem: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_invoiceitem"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves the invoice item with the given ID.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          invoiceitem: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["invoiceitem"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it’s attached to is closed.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          invoiceitem: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["invoiceitem"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/invoices": {
+    /**
+     * <p>You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * The collection method of the invoice to retrieve. Either `charge_automatically` or `send_invoice`.
+           */
+          collection_method?: "charge_automatically" | "send_invoice";
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * Only return invoices for the customer specified by this customer ID.
+           */
+          customer?: string;
+          due_date?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview)
+           */
+          status?: "draft" | "open" | "paid" | "uncollectible" | "void";
+          /**
+           * Only return invoices for the subscription specified by this subscription ID.
+           */
+          subscription?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["invoice"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>This endpoint creates a draft invoice for a given customer. The draft invoice created pulls in all pending invoice items on that customer, including prorations.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["invoice"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/invoices/upcoming": {
+    /**
+     * <p>At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discount that is applicable to the customer.</p>
+     *
+     * <p>Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer’s discount.</p>
+     *
+     * <p>You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass a <code>proration_date</code> parameter when doing the actual subscription update. The value passed in should be the same as the <code>subscription_proration_date</code> returned on the upcoming invoice resource. The recommended way to get only the prorations being previewed is to consider only proration line items where <code>period[start]</code> is equal to the <code>subscription_proration_date</code> on the upcoming invoice resource.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * The code of the coupon to apply. If `subscription` or `subscription_items` is provided, the invoice returned will preview updating or creating a subscription with that coupon. Otherwise, it will preview applying that coupon to the customer for the next upcoming invoice from among the customer's subscriptions. The invoice can be previewed without a coupon by passing this value as an empty string.
+           */
+          coupon?: string;
+          /**
+           * The identifier of the customer whose upcoming invoice you'd like to retrieve.
+           */
+          customer?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * List of invoice items to add or update in the upcoming invoice preview.
+           */
+          invoice_items?: {
+            amount?: number;
+            currency?: string;
+            description?: string;
+            discountable?: boolean;
+            invoiceitem?: string;
+            metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+            period?: { end: number; start: number };
+            quantity?: number;
+            tax_rates?: Partial<string[]> & Partial<"">;
+            unit_amount?: number;
+            unit_amount_decimal?: string;
+          }[];
+          /**
+           * The identifier of the unstarted schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields.
+           */
+          schedule?: string;
+          /**
+           * The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions.
+           */
+          subscription?: string;
+          /**
+           * For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
+           */
+          subscription_billing_cycle_anchor?: Partial<"now" | "unchanged"> &
+            Partial<number>;
+          /**
+           * Timestamp indicating when the subscription should be scheduled to cancel. Will prorate if within the current period and prorations have been enabled using `proration_behavior`.`
+           */
+          subscription_cancel_at?: Partial<number> & Partial<"">;
+          /**
+           * Boolean indicating whether this subscription should cancel at the end of the current period.
+           */
+          subscription_cancel_at_period_end?: boolean;
+          /**
+           * This simulates the subscription being canceled or expired immediately.
+           */
+          subscription_cancel_now?: boolean;
+          /**
+           * If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set.
+           */
+          subscription_default_tax_rates?: Partial<string[]> & Partial<"">;
+          /**
+           * List of subscription items, each with an attached plan.
+           */
+          subscription_items?: {
+            billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+            clear_usage?: boolean;
+            deleted?: boolean;
+            id?: string;
+            metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+            plan?: string;
+            quantity?: number;
+            tax_rates?: Partial<string[]> & Partial<"">;
+          }[];
+          /**
+           * If previewing an update to a subscription, this decides whether the preview will show the result of applying prorations or not. If set, one of `subscription_items` or `subscription`, and one of `subscription_items` or `subscription_trial_end` are required.
+           */
+          subscription_prorate?: boolean;
+          /**
+           * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
+           *
+           * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
+           *
+           * Prorations can be disabled by passing `none`.
+           */
+          subscription_proration_behavior?:
+            | "always_invoice"
+            | "create_prorations"
+            | "none";
+          /**
+           * If previewing an update to a subscription, and doing proration, `subscription_proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period, and cannot be before the subscription was on its current plan. If set, `subscription`, and one of `subscription_items`, or `subscription_trial_end` are required. Also, `subscription_proration` cannot be set to false.
+           */
+          subscription_proration_date?: number;
+          /**
+           * Date a subscription is intended to start (can be future or past)
+           */
+          subscription_start_date?: number;
+          /**
+           * If provided, the invoice returned will preview updating or creating a subscription with that tax percent. If set, one of `subscription_items` or `subscription` is required. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`.
+           */
+          subscription_tax_percent?: number;
+          /**
+           * If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required.
+           */
+          subscription_trial_end?: Partial<"now"> & Partial<number>;
+          /**
+           * Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed.
+           */
+          subscription_trial_from_plan?: boolean;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["invoice"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/invoices/upcoming/lines": {
+    /**
+     * <p>When retrieving an upcoming invoice, you’ll get a <strong>lines</strong> property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * The code of the coupon to apply. If `subscription` or `subscription_items` is provided, the invoice returned will preview updating or creating a subscription with that coupon. Otherwise, it will preview applying that coupon to the customer for the next upcoming invoice from among the customer's subscriptions. The invoice can be previewed without a coupon by passing this value as an empty string.
+           */
+          coupon?: string;
+          /**
+           * The identifier of the customer whose upcoming invoice you'd like to retrieve.
+           */
+          customer?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * List of invoice items to add or update in the upcoming invoice preview.
+           */
+          invoice_items?: {
+            amount?: number;
+            currency?: string;
+            description?: string;
+            discountable?: boolean;
+            invoiceitem?: string;
+            metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+            period?: { end: number; start: number };
+            quantity?: number;
+            tax_rates?: Partial<string[]> & Partial<"">;
+            unit_amount?: number;
+            unit_amount_decimal?: string;
+          }[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * The identifier of the unstarted schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields.
+           */
+          schedule?: string;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions.
+           */
+          subscription?: string;
+          /**
+           * For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
+           */
+          subscription_billing_cycle_anchor?: Partial<"now" | "unchanged"> &
+            Partial<number>;
+          /**
+           * Timestamp indicating when the subscription should be scheduled to cancel. Will prorate if within the current period and prorations have been enabled using `proration_behavior`.`
+           */
+          subscription_cancel_at?: Partial<number> & Partial<"">;
+          /**
+           * Boolean indicating whether this subscription should cancel at the end of the current period.
+           */
+          subscription_cancel_at_period_end?: boolean;
+          /**
+           * This simulates the subscription being canceled or expired immediately.
+           */
+          subscription_cancel_now?: boolean;
+          /**
+           * If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set.
+           */
+          subscription_default_tax_rates?: Partial<string[]> & Partial<"">;
+          /**
+           * List of subscription items, each with an attached plan.
+           */
+          subscription_items?: {
+            billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+            clear_usage?: boolean;
+            deleted?: boolean;
+            id?: string;
+            metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+            plan?: string;
+            quantity?: number;
+            tax_rates?: Partial<string[]> & Partial<"">;
+          }[];
+          /**
+           * If previewing an update to a subscription, this decides whether the preview will show the result of applying prorations or not. If set, one of `subscription_items` or `subscription`, and one of `subscription_items` or `subscription_trial_end` are required.
+           */
+          subscription_prorate?: boolean;
+          /**
+           * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
+           *
+           * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
+           *
+           * Prorations can be disabled by passing `none`.
+           */
+          subscription_proration_behavior?:
+            | "always_invoice"
+            | "create_prorations"
+            | "none";
+          /**
+           * If previewing an update to a subscription, and doing proration, `subscription_proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period, and cannot be before the subscription was on its current plan. If set, `subscription`, and one of `subscription_items`, or `subscription_trial_end` are required. Also, `subscription_proration` cannot be set to false.
+           */
+          subscription_proration_date?: number;
+          /**
+           * Date a subscription is intended to start (can be future or past)
+           */
+          subscription_start_date?: number;
+          /**
+           * If provided, the invoice returned will preview updating or creating a subscription with that tax percent. If set, one of `subscription_items` or `subscription` is required. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`.
+           */
+          subscription_tax_percent?: number;
+          /**
+           * If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required.
+           */
+          subscription_trial_end?: Partial<"now"> & Partial<number>;
+          /**
+           * Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed.
+           */
+          subscription_trial_from_plan?: boolean;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            /**
+             * Details about each object.
+             */
+            data: components["schemas"]["line_item"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/invoices/{invoice}": {
+    /**
+     * <p>Permanently deletes a draft invoice. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized, it must be <a href="#void_invoice">voided</a>.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          invoice: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_invoice"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves the invoice with the given ID.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          invoice: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["invoice"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Draft invoices are fully editable. Once an invoice is <a href="/docs/billing/invoices/workflow#finalized">finalized</a>,
+     * monetary values, as well as <code>collection_method</code>, become uneditable.</p>
+     *
+     * <p>If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
+     * sending reminders for, or <a href="/docs/billing/invoices/reconciliation">automatically reconciling</a> invoices, pass
+     * <code>auto_advance=false</code>.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          invoice: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["invoice"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/invoices/{invoice}/finalize": {
+    /**
+     * <p>Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you’d like to finalize a draft invoice manually, you can do so using this method.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          invoice: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["invoice"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/invoices/{invoice}/lines": {
+    /**
+     * <p>When retrieving an invoice, you’ll get a <strong>lines</strong> property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+        path: {
+          invoice: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            /**
+             * Details about each object.
+             */
+            data: components["schemas"]["line_item"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/invoices/{invoice}/mark_uncollectible": {
+    /**
+     * <p>Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          invoice: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["invoice"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/invoices/{invoice}/pay": {
+    /**
+     * <p>Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your <a href="https://dashboard.stripe.com/account/billing/automatic">subscriptions settings</a>. However, if you’d like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          invoice: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["invoice"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/invoices/{invoice}/send": {
+    /**
+     * <p>Stripe will automatically send invoices to customers according to your <a href="https://dashboard.stripe.com/account/billing/automatic">subscriptions settings</a>. However, if you’d like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.</p>
+     *
+     * <p>Requests made in test-mode result in no emails being sent, despite sending an <code>invoice.sent</code> event.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          invoice: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["invoice"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/invoices/{invoice}/void": {
+    /**
+     * <p>Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to <a href="#delete_invoice">deletion</a>, however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          invoice: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["invoice"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/issuer_fraud_records": {
+    /**
+     * <p>Returns a list of issuer fraud records.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Only return issuer fraud records for the charge specified by this charge ID.
+           */
+          charge?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["issuer_fraud_record"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/issuer_fraud_records/{issuer_fraud_record}": {
+    /**
+     * <p>Retrieves the details of an issuer fraud record that has previously been created. </p>
+     *
+     * <p>Please refer to the <a href="#issuer_fraud_record_object">issuer fraud record</a> object reference for more details.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          issuer_fraud_record: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["issuer_fraud_record"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/issuing/authorizations": {
+    /**
+     * <p>Returns a list of Issuing <code>Authorization</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Only return issuing transactions that belong to the given card.
+           */
+          card?: string;
+          /**
+           * Only return authorizations belonging to the given cardholder.
+           */
+          cardholder?: string;
+          /**
+           * Only return authorizations that were created during the given date interval.
+           */
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * Only return authorizations with the given status. One of `pending`, `closed`, or `reversed`.
+           */
+          status?: "closed" | "pending" | "reversed";
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["issuing.authorization"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/issuing/authorizations/{authorization}": {
+    /**
+     * <p>Retrieves an Issuing <code>Authorization</code> object.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          authorization: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["issuing.authorization"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specified Issuing <code>Authorization</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          authorization: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["issuing.authorization"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/issuing/authorizations/{authorization}/approve": {
+    /**
+     * <p>Approves a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real-time authorization</a> flow.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          authorization: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["issuing.authorization"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/issuing/authorizations/{authorization}/decline": {
+    /**
+     * <p>Declines a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real time authorization</a> flow.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          authorization: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["issuing.authorization"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/issuing/cardholders": {
+    /**
+     * <p>Returns a list of Issuing <code>Cardholder</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Only return cardholders that were created during the given date interval.
+           */
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * Only return cardholders that have the given email address.
+           */
+          email?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * Only return cardholders that have the given phone number.
+           */
+          phone_number?: string;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * Only return cardholders that have the given status. One of `active`, `inactive`, or `blocked`.
+           */
+          status?: "active" | "blocked" | "inactive";
+          /**
+           * Only return cardholders that have the given type. One of `individual` or `company`.
+           */
+          type?: "company" | "individual";
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["issuing.cardholder"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new Issuing <code>Cardholder</code> object that can be issued cards.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["issuing.cardholder"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/issuing/cardholders/{cardholder}": {
+    /**
+     * <p>Retrieves an Issuing <code>Cardholder</code> object.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          cardholder: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["issuing.cardholder"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specified Issuing <code>Cardholder</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          cardholder: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["issuing.cardholder"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/issuing/cards": {
+    /**
+     * <p>Returns a list of Issuing <code>Card</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Only return cards belonging to the Cardholder with the provided ID.
+           */
+          cardholder?: string;
+          /**
+           * Only return cards that were issued during the given date interval.
+           */
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Only return cards that have the given expiration month.
+           */
+          exp_month?: number;
+          /**
+           * Only return cards that have the given expiration year.
+           */
+          exp_year?: number;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Only return cards that have the given last four digits.
+           */
+          last4?: string;
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * Only return cards that have the given status. One of `active`, `inactive`, or `canceled`.
+           */
+          status?: "active" | "canceled" | "inactive";
+          /**
+           * Only return cards that have the given type. One of `virtual` or `physical`.
+           */
+          type?: "physical" | "virtual";
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["issuing.card"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates an Issuing <code>Card</code> object.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["issuing.card"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/issuing/cards/{card}": {
+    /**
+     * <p>Retrieves an Issuing <code>Card</code> object.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          card: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["issuing.card"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specified Issuing <code>Card</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          card: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["issuing.card"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/issuing/disputes": {
+    /**
+     * <p>Returns a list of Issuing <code>Dispute</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["issuing.dispute"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates an Issuing <code>Dispute</code> object.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["issuing.dispute"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/issuing/disputes/{dispute}": {
+    /**
+     * <p>Retrieves an Issuing <code>Dispute</code> object.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          dispute: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["issuing.dispute"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specified Issuing <code>Dispute</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          dispute: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["issuing.dispute"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/issuing/settlements": {
+    /**
+     * <p>Returns a list of Issuing <code>Settlement</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Only return issuing settlements that were created during the given date interval.
+           */
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["issuing.settlement"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/issuing/settlements/{settlement}": {
+    /**
+     * <p>Retrieves an Issuing <code>Settlement</code> object.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          settlement: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["issuing.settlement"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specified Issuing <code>Settlement</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          settlement: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["issuing.settlement"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/issuing/transactions": {
+    /**
+     * <p>Returns a list of Issuing <code>Transaction</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Only return transactions that belong to the given card.
+           */
+          card?: string;
+          /**
+           * Only return transactions that belong to the given cardholder.
+           */
+          cardholder?: string;
+          /**
+           * Only return transactions that were created during the given date interval.
+           */
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["issuing.transaction"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/issuing/transactions/{transaction}": {
+    /**
+     * <p>Retrieves an Issuing <code>Transaction</code> object.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          transaction: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["issuing.transaction"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specified Issuing <code>Transaction</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          transaction: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["issuing.transaction"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/mandates/{mandate}": {
+    /**
+     * <p>Retrieves a Mandate object.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          mandate: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["mandate"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/order_returns": {
+    /**
+     * <p>Returns a list of your order returns. The returns are returned sorted by creation date, with the most recently created return appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Date this return was created.
+           */
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * The order to retrieve returns for.
+           */
+          order?: string;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["order_return"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/order_returns/{id}": {
+    /**
+     * <p>Retrieves the details of an existing order return. Supply the unique order ID from either an order return creation request or the order return list, and Stripe will return the corresponding order information.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["order_return"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/orders": {
+    /**
+     * <p>Returns a list of your orders. The orders are returned sorted by creation date, with the most recently created orders appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Date this order was created.
+           */
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * Only return orders for the given customer.
+           */
+          customer?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Only return orders with the given IDs.
+           */
+          ids?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * Only return orders that have the given status. One of `created`, `paid`, `fulfilled`, or `refunded`.
+           */
+          status?: string;
+          /**
+           * Filter orders based on when they were paid, fulfilled, canceled, or returned.
+           */
+          status_transitions?: {
+            canceled?: Partial<{
+              gt?: number;
+              gte?: number;
+              lt?: number;
+              lte?: number;
+            }> &
+              Partial<number>;
+            fulfilled?: Partial<{
+              gt?: number;
+              gte?: number;
+              lt?: number;
+              lte?: number;
+            }> &
+              Partial<number>;
+            paid?: Partial<{
+              gt?: number;
+              gte?: number;
+              lt?: number;
+              lte?: number;
+            }> &
+              Partial<number>;
+            returned?: Partial<{
+              gt?: number;
+              gte?: number;
+              lt?: number;
+              lte?: number;
+            }> &
+              Partial<number>;
+          };
+          /**
+           * Only return orders with the given upstream order IDs.
+           */
+          upstream_ids?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["order"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new order object.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["order"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/orders/{id}": {
+    /**
+     * <p>Retrieves the details of an existing order. Supply the unique order ID from either an order creation request or the order list, and Stripe will return the corresponding order information.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["order"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specific order by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["order"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/orders/{id}/pay": {
+    /**
+     * <p>Pay an order by providing a <code>source</code> to create a payment.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["order"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/orders/{id}/returns": {
+    /**
+     * <p>Return all or part of an order. The order must have a status of <code>paid</code> or <code>fulfilled</code> before it can be returned. Once all items have been returned, the order will become <code>canceled</code> or <code>returned</code> depending on which status the order started in.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["order_return"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/payment_intents": {
+    /**
+     * <p>Returns a list of PaymentIntents.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options.
+           */
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * Only return PaymentIntents for the customer specified by this customer ID.
+           */
+          customer?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["payment_intent"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a PaymentIntent object.</p>
+     *
+     * <p>After the PaymentIntent is created, attach a payment method and <a href="/docs/api/payment_intents/confirm">confirm</a>
+     * to continue the payment. You can read more about the different payment flows
+     * available via the Payment Intents API <a href="/docs/payments/payment-intents">here</a>.</p>
+     *
+     * <p>When <code>confirm=true</code> is used during creation, it is equivalent to creating
+     * and confirming the PaymentIntent in the same call. You may use any parameters
+     * available in the <a href="/docs/api/payment_intents/confirm">confirm API</a> when <code>confirm=true</code>
+     * is supplied.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payment_intent"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/payment_intents/{intent}": {
+    /**
+     * <p>Retrieves the details of a PaymentIntent that has previously been created. </p>
+     *
+     * <p>Client-side retrieval using a publishable key is allowed when the <code>client_secret</code> is provided in the query string. </p>
+     *
+     * <p>When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the <a href="#payment_intent_object">payment intent</a> object reference for more details.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * The client secret of the PaymentIntent. Required if a publishable key is used to retrieve the source.
+           */
+          client_secret?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          intent: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payment_intent"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates properties on a PaymentIntent object without confirming.</p>
+     *
+     * <p>Depending on which properties you update, you may need to confirm the
+     * PaymentIntent again. For example, updating the <code>payment_method</code> will
+     * always require you to confirm the PaymentIntent again. If you prefer to
+     * update and confirm at the same time, we recommend updating properties via
+     * the <a href="/docs/api/payment_intents/confirm">confirm API</a> instead.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          intent: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payment_intent"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/payment_intents/{intent}/cancel": {
+    /**
+     * <p>A PaymentIntent object can be canceled when it is in one of these statuses: <code>requires_payment_method</code>, <code>requires_capture</code>, <code>requires_confirmation</code>, <code>requires_action</code>. </p>
+     *
+     * <p>Once canceled, no additional charges will be made by the PaymentIntent and any operations on the PaymentIntent will fail with an error. For PaymentIntents with <code>status='requires_capture'</code>, the remaining <code>amount_capturable</code> will automatically be refunded.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          intent: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payment_intent"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/payment_intents/{intent}/capture": {
+    /**
+     * <p>Capture the funds of an existing uncaptured PaymentIntent when its status is <code>requires_capture</code>.</p>
+     *
+     * <p>Uncaptured PaymentIntents will be canceled exactly seven days after they are created.</p>
+     *
+     * <p>Learn more about <a href="/docs/payments/capture-later">separate authorization and capture</a>.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          intent: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payment_intent"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/payment_intents/{intent}/confirm": {
+    /**
+     * <p>Confirm that your customer intends to pay with current or provided
+     * payment method. Upon confirmation, the PaymentIntent will attempt to initiate
+     * a payment.</p>
+     *
+     * <p>If the selected payment method requires additional authentication steps, the
+     * PaymentIntent will transition to the <code>requires_action</code> status and
+     * suggest additional actions via <code>next_action</code>. If payment fails,
+     * the PaymentIntent will transition to the <code>requires_payment_method</code> status. If
+     * payment succeeds, the PaymentIntent will transition to the <code>succeeded</code>
+     * status (or <code>requires_capture</code>, if <code>capture_method</code> is set to <code>manual</code>).</p>
+     *
+     * <p>If the <code>confirmation_method</code> is <code>automatic</code>, payment may be attempted
+     * using our <a href="/docs/stripe-js/reference#stripe-handle-card-payment">client SDKs</a>
+     * and the PaymentIntent’s <a href="#payment_intent_object-client_secret">client_secret</a>.
+     * After <code>next_action</code>s are handled by the client, no additional
+     * confirmation is required to complete the payment.</p>
+     *
+     * <p>If the <code>confirmation_method</code> is <code>manual</code>, all payment attempts must be
+     * initiated using a secret key.
+     * If any actions are required for the payment, the PaymentIntent will
+     * return to the <code>requires_confirmation</code> state
+     * after those actions are completed. Your server needs to then
+     * explicitly re-confirm the PaymentIntent to initiate the next payment
+     * attempt. Read the <a href="/docs/payments/payment-intents/web-manual">expanded documentation</a>
+     * to learn more about manual confirmation.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          intent: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payment_intent"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/payment_methods": {
+    /**
+     * <p>Returns a list of PaymentMethods for a given Customer</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * The ID of the customer whose PaymentMethods will be retrieved.
+           */
+          customer: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * A required filter on the list, based on the object `type` field.
+           */
+          type:
+            | "au_becs_debit"
+            | "card"
+            | "card_present"
+            | "fpx"
+            | "ideal"
+            | "sepa_debit";
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["payment_method"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a PaymentMethod object. Read the <a href="/docs/stripe-js/reference#stripe-create-payment-method">Stripe.js reference</a> to learn how to create PaymentMethods via Stripe.js.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payment_method"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/payment_methods/{payment_method}": {
+    /**
+     * <p>Retrieves a PaymentMethod object.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          payment_method: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payment_method"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          payment_method: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payment_method"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/payment_methods/{payment_method}/attach": {
+    /**
+     * <p>Attaches a PaymentMethod object to a Customer.</p>
+     *
+     * <p>To attach a new PaymentMethod to a customer for future payments, we recommend you use a <a href="/docs/api/setup_intents">SetupIntent</a>
+     * or a PaymentIntent with <a href="/docs/api/payment_intents/create#create_payment_intent-setup_future_usage">setup_future_usage</a>.
+     * These approaches will perform any necessary steps to ensure that the PaymentMethod can be used in a future payment. Using the
+     * <code>/v1/payment_methods/:id/attach</code> endpoint does not ensure that future payments can be made with the attached PaymentMethod.
+     * See <a href="/docs/payments/payment-intents#future-usage">Optimizing cards for future payments</a> for more information about setting up future payments.</p>
+     *
+     * <p>To use this PaymentMethod as the default for invoice or subscription payments,
+     * set <a href="/docs/api/customers/update#update_customer-invoice_settings-default_payment_method"><code>invoice_settings.default_payment_method</code></a>,
+     * on the Customer to the PaymentMethod’s ID.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          payment_method: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payment_method"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/payment_methods/{payment_method}/detach": {
+    /**
+     * <p>Detaches a PaymentMethod object from a Customer.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          payment_method: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payment_method"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/payouts": {
+    /**
+     * <p>Returns a list of existing payouts sent to third-party bank accounts or that Stripe has sent you. The payouts are returned in sorted order, with the most recently created payouts appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          arrival_date?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * The ID of an external account - only return payouts sent to this external account.
+           */
+          destination?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * Only return payouts that have the given status: `pending`, `paid`, `failed`, or `canceled`.
+           */
+          status?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["payout"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>To send funds to your own bank account, you create a new payout object. Your <a href="#balance">Stripe balance</a> must be able to cover the payout amount, or you’ll receive an “Insufficient Funds” error.</p>
+     *
+     * <p>If your API key is in test mode, money won’t actually be sent, though everything else will occur as if in live mode.</p>
+     *
+     * <p>If you are creating a manual payout on a Stripe account that uses multiple payment source types, you’ll need to specify the source type balance that the payout should draw from. The <a href="#balance_object">balance object</a> details available and pending amounts by source type.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payout"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/payouts/{payout}": {
+    /**
+     * <p>Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list, and Stripe will return the corresponding payout information.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          payout: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payout"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specified payout by setting the values of the parameters passed. Any parameters not provided will be left unchanged. This request accepts only the metadata as arguments.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          payout: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payout"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/payouts/{payout}/cancel": {
+    /**
+     * <p>A previously created payout can be canceled if it has not yet been paid out. Funds will be refunded to your available balance. You may not cancel automatic Stripe payouts.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          payout: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["payout"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/plans": {
+    /**
+     * <p>Returns a list of your plans.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Only return plans that are active or inactive (e.g., pass `false` to list all inactive plans).
+           */
+          active?: boolean;
+          /**
+           * A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options.
+           */
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * Only return plans for the given product.
+           */
+          product?: string;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["plan"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>You can create plans using the API, or in the Stripe <a href="https://dashboard.stripe.com/subscriptions/products">Dashboard</a>.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["plan"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/plans/{plan}": {
+    /**
+     * <p>Deleting plans means new subscribers can’t be added. Existing subscribers aren’t affected.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          plan: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_plan"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves the plan with the given ID.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          plan: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["plan"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan’s ID, amount, currency, or billing cycle.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          plan: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["plan"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/products": {
+    /**
+     * <p>Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Only return products that are active or inactive (e.g., pass `false` to list all inactive products).
+           */
+          active?: boolean;
+          /**
+           * Only return products that were created during the given date interval.
+           */
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Only return products with the given IDs.
+           */
+          ids?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * Only return products that can be shipped (i.e., physical, not digital products).
+           */
+          shippable?: boolean;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * Only return products of this type.
+           */
+          type?: "good" | "service";
+          /**
+           * Only return products with the given url.
+           */
+          url?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["product"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new product object. To create a product for use with orders, see <a href="#create_product">Products</a>.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["product"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/products/{id}": {
+    /**
+     * <p>Delete a product. Deleting a product with type=<code>good</code> is only possible if it has no SKUs associated with it. Deleting a product with type=<code>service</code> is only possible if it has no plans associated with it.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_product"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["product"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["product"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/radar/early_fraud_warnings": {
+    /**
+     * <p>Returns a list of early fraud warnings.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Only return early fraud warnings for the charge specified by this charge ID.
+           */
+          charge?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["radar.early_fraud_warning"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/radar/early_fraud_warnings/{early_fraud_warning}": {
+    /**
+     * <p>Retrieves the details of an early fraud warning that has previously been created. </p>
+     *
+     * <p>Please refer to the <a href="#early_fraud_warning_object">early fraud warning</a> object reference for more details.</p>
+     */
+    get: {
+      parameters: {
+        path: {
+          early_fraud_warning: string;
+        };
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["radar.early_fraud_warning"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/radar/value_list_items": {
+    /**
+     * <p>Returns a list of <code>ValueListItem</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * Return items belonging to the parent list whose value matches the specified value (using an "is like" match).
+           */
+          value?: string;
+          /**
+           * Identifier for the parent value list this item belongs to.
+           */
+          value_list: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["radar.value_list_item"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new <code>ValueListItem</code> object, which is added to the specified parent value list.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["radar.value_list_item"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/radar/value_list_items/{item}": {
+    /**
+     * <p>Deletes a <code>ValueListItem</code> object, removing it from its parent value list.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          item: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_radar.value_list_item"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves a <code>ValueListItem</code> object.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          item: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["radar.value_list_item"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/radar/value_lists": {
+    /**
+     * <p>Returns a list of <code>ValueList</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * The alias used to reference the value list when writing rules.
+           */
+          alias?: string;
+          /**
+           * A value contained within a value list - returns all value lists containing this value.
+           */
+          contains?: string;
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["radar.value_list"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new <code>ValueList</code> object, which can then be referenced in rules.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["radar.value_list"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/radar/value_lists/{value_list}": {
+    /**
+     * <p>Deletes a <code>ValueList</code> object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          value_list: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_radar.value_list"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves a <code>ValueList</code> object.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          value_list: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["radar.value_list"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates a <code>ValueList</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that <code>item_type</code> is immutable.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          value_list: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["radar.value_list"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/recipients": {
+    /**
+     * <p>Returns a list of your recipients. The recipients are returned sorted by creation date, with the most recently created recipients appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          type?: "corporation" | "individual";
+          /**
+           * Only return recipients that are verified or unverified.
+           */
+          verified?: boolean;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["recipient"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new <code>Recipient</code> object and verifies the recipient’s identity.
+     * Also verifies the recipient’s bank account information or debit card, if either is provided.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["recipient"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/recipients/{id}": {
+    /**
+     * <p>Permanently deletes a recipient. It cannot be undone.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_recipient"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves the details of an existing recipient. You need only supply the unique recipient identifier that was returned upon recipient creation.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": Partial<components["schemas"]["recipient"]> &
+            Partial<components["schemas"]["deleted_recipient"]>;
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specified recipient by setting the values of the parameters passed.
+     * Any parameters not provided will be left unchanged.</p>
+     *
+     * <p>If you update the name or tax ID, the identity verification will automatically be rerun.
+     * If you update the bank account, the bank account validation will automatically be rerun.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["recipient"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/refunds": {
+    /**
+     * <p>Returns a list of all refunds you’ve previously created. The refunds are returned in sorted order, with the most recent refunds appearing first. For convenience, the 10 most recent refunds are always available by default on the charge object.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Only return refunds for the charge specified by this charge ID.
+           */
+          charge?: string;
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * Only return refunds for the PaymentIntent specified by this ID.
+           */
+          payment_intent?: string;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["refund"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Create a refund.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["refund"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/refunds/{refund}": {
+    /**
+     * <p>Retrieves the details of an existing refund.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          refund: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["refund"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specified refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+     *
+     * <p>This request only accepts <code>metadata</code> as an argument.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          refund: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["refund"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/reporting/report_runs": {
+    /**
+     * <p>Returns a list of Report Runs, with the most recent appearing first. (Requires a <a href="https://stripe.com/docs/keys#test-live-modes">live-mode API key</a>.)</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["reporting.report_run"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new object and begin running the report. (Requires a <a href="https://stripe.com/docs/keys#test-live-modes">live-mode API key</a>.)</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["reporting.report_run"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/reporting/report_runs/{report_run}": {
+    /**
+     * <p>Retrieves the details of an existing Report Run. (Requires a <a href="https://stripe.com/docs/keys#test-live-modes">live-mode API key</a>.)</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          report_run: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["reporting.report_run"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/reporting/report_types": {
+    /**
+     * <p>Returns a full list of Report Types. (Requires a <a href="https://stripe.com/docs/keys#test-live-modes">live-mode API key</a>.)</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["reporting.report_type"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/reporting/report_types/{report_type}": {
+    /**
+     * <p>Retrieves the details of a Report Type. (Requires a <a href="https://stripe.com/docs/keys#test-live-modes">live-mode API key</a>.)</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          report_type: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["reporting.report_type"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/reviews": {
+    /**
+     * <p>Returns a list of <code>Review</code> objects that have <code>open</code> set to <code>true</code>. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["review"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/reviews/{review}": {
+    /**
+     * <p>Retrieves a <code>Review</code> object.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          review: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["review"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/reviews/{review}/approve": {
+    /**
+     * <p>Approves a <code>Review</code> object, closing it and removing it from the list of reviews.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          review: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["review"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/setup_intents": {
+    /**
+     * <p>Returns a list of SetupIntents.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options.
+           */
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * Only return SetupIntents for the customer specified by this customer ID.
+           */
+          customer?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * Only return SetupIntents associated with the specified payment method.
+           */
+          payment_method?: string;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["setup_intent"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a SetupIntent object.</p>
+     *
+     * <p>After the SetupIntent is created, attach a payment method and <a href="/docs/api/setup_intents/confirm">confirm</a>
+     * to collect any required permissions to charge the payment method later.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["setup_intent"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/setup_intents/{intent}": {
+    /**
+     * <p>Retrieves the details of a SetupIntent that has previously been created. </p>
+     *
+     * <p>Client-side retrieval using a publishable key is allowed when the <code>client_secret</code> is provided in the query string. </p>
+     *
+     * <p>When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the <a href="#setup_intent_object">SetupIntent</a> object reference for more details.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * The client secret of the SetupIntent. Required if a publishable key is used to retrieve the SetupIntent.
+           */
+          client_secret?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          intent: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["setup_intent"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates a SetupIntent object.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          intent: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["setup_intent"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/setup_intents/{intent}/cancel": {
+    /**
+     * <p>A SetupIntent object can be canceled when it is in one of these statuses: <code>requires_payment_method</code>, <code>requires_capture</code>, <code>requires_confirmation</code>, <code>requires_action</code>. </p>
+     *
+     * <p>Once canceled, setup is abandoned and any operations on the SetupIntent will fail with an error.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          intent: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["setup_intent"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/setup_intents/{intent}/confirm": {
+    /**
+     * <p>Confirm that your customer intends to set up the current or
+     * provided payment method. For example, you would confirm a SetupIntent
+     * when a customer hits the “Save” button on a payment method management
+     * page on your website.</p>
+     *
+     * <p>If the selected payment method does not require any additional
+     * steps from the customer, the SetupIntent will transition to the
+     * <code>succeeded</code> status.</p>
+     *
+     * <p>Otherwise, it will transition to the <code>requires_action</code> status and
+     * suggest additional actions via <code>next_action</code>. If setup fails,
+     * the SetupIntent will transition to the
+     * <code>requires_payment_method</code> status.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          intent: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["setup_intent"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/sigma/scheduled_query_runs": {
+    /**
+     * <p>Returns a list of scheduled query runs.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["scheduled_query_run"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/sigma/scheduled_query_runs/{scheduled_query_run}": {
+    /**
+     * <p>Retrieves the details of an scheduled query run.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          scheduled_query_run: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["scheduled_query_run"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/skus": {
+    /**
+     * <p>Returns a list of your SKUs. The SKUs are returned sorted by creation date, with the most recently created SKUs appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Only return SKUs that are active or inactive (e.g., pass `false` to list all inactive products).
+           */
+          active?: boolean;
+          /**
+           * Only return SKUs that have the specified key-value pairs in this partially constructed dictionary. Can be specified only if `product` is also supplied. For instance, if the associated product has attributes `["color", "size"]`, passing in `attributes[color]=red` returns all the SKUs for this product that have `color` set to `red`.
+           */
+          attributes?: { [key: string]: string };
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Only return SKUs with the given IDs.
+           */
+          ids?: string[];
+          /**
+           * Only return SKUs that are either in stock or out of stock (e.g., pass `false` to list all SKUs that are out of stock). If no value is provided, all SKUs are returned.
+           */
+          in_stock?: boolean;
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * The ID of the product whose SKUs will be retrieved. Must be a product with type `good`.
+           */
+          product?: string;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["sku"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new SKU associated with a product.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["sku"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/skus/{id}": {
+    /**
+     * <p>Delete a SKU. Deleting a SKU is only possible until it has been used in an order.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_sku"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves the details of an existing SKU. Supply the unique SKU identifier from either a SKU creation request or from the product, and Stripe will return the corresponding SKU information.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": Partial<components["schemas"]["sku"]> &
+            Partial<components["schemas"]["deleted_sku"]>;
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specific SKU by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+     *
+     * <p>Note that a SKU’s <code>attributes</code> are not editable. Instead, you would need to deactivate the existing SKU and create a new one with the new attribute values.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["sku"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/sources": {
+    /**
+     * <p>Creates a new source object.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["source"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/sources/{source}": {
+    /**
+     * <p>Retrieves an existing source object. Supply the unique source ID from a source creation request and Stripe will return the corresponding up-to-date source object information.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * The client secret of the source. Required if a publishable key is used to retrieve the source.
+           */
+          client_secret?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          source: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["source"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+     *
+     * <p>This request accepts the <code>metadata</code> and <code>owner</code> as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our <a href="/docs/sources">payment method guides</a> for more detail.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          source: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["source"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/sources/{source}/mandate_notifications/{mandate_notification}": {
+    /**
+     * <p>Retrieves a new Source MandateNotification.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          mandate_notification: string;
+          source: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["source_mandate_notification"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/sources/{source}/source_transactions": {
+    /**
+     * <p>List source transactions for a given source.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+        path: {
+          source: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["source_transaction"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/sources/{source}/source_transactions/{source_transaction}": {
+    /**
+     * <p>Retrieve an existing source transaction object. Supply the unique source ID from a source creation request and the source transaction ID and Stripe will return the corresponding up-to-date source object information.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          source: string;
+          source_transaction: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["source_transaction"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/sources/{source}/verify": {
+    /**
+     * <p>Verify a given source.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          source: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["source"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/subscription_items": {
+    /**
+     * <p>Returns a list of your subscription items for a given subscription.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * The ID of the subscription whose items will be retrieved.
+           */
+          subscription: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["subscription_item"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Adds a new item to an existing subscription. No existing items will be changed or replaced.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["subscription_item"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/subscription_items/{item}": {
+    /**
+     * <p>Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          item: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_subscription_item"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves the invoice item with the given ID.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          item: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["subscription_item"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the plan or quantity of an item on a current subscription.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          item: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["subscription_item"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/subscription_items/{subscription_item}/usage_record_summaries": {
+    /**
+     * <p>For the specified subscription item, returns a list of summary objects. Each object in the list provides usage information that’s been summarized from multiple usage records and over a subscription billing period (e.g., 15 usage records in the billing plan’s month of September).</p>
+     *
+     * <p>The list is sorted in reverse-chronological order (newest first). The first list item represents the most current usage period that hasn’t ended yet. Since new usage records can still be added, the returned summary information for the subscription item’s ID should be seen as unstable until the subscription billing period ends.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+        path: {
+          subscription_item: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["usage_record_summary"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/subscription_items/{subscription_item}/usage_records": {
+    /**
+     * <p>Creates a usage record for a specified subscription item and date, and fills it with a quantity.</p>
+     *
+     * <p>Usage records provide <code>quantity</code> information that Stripe uses to track how much a customer is using your service. With usage information and the pricing model set up by the <a href="https://stripe.com/docs/billing/subscriptions/metered-billing">metered billing</a> plan, Stripe helps you send accurate invoices to your customers.</p>
+     *
+     * <p>The default calculation for usage is to add up all the <code>quantity</code> values of the usage records within a billing period. You can change this default behavior with the billing plan’s <code>aggregate_usage</code> <a href="/docs/api/plans/create#create_plan-aggregate_usage">parameter</a>. When there is more than one usage record with the same timestamp, Stripe adds the <code>quantity</code> values together. In most cases, this is the desired resolution, however, you can change this behavior with the <code>action</code> parameter.</p>
+     *
+     * <p>The default pricing model for metered billing is <a href="/docs/api/plans/object#plan_object-billing_scheme">per-unit pricing</a>. For finer granularity, you can configure metered billing to have a <a href="https://stripe.com/docs/billing/subscriptions/tiers">tiered pricing</a> model.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          subscription_item: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["usage_record"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/subscription_schedules": {
+    /**
+     * <p>Retrieves the list of your subscription schedules.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Only return subscription schedules that were created canceled the given date interval.
+           */
+          canceled_at?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * Only return subscription schedules that completed during the given date interval.
+           */
+          completed_at?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * Only return subscription schedules that were created during the given date interval.
+           */
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * Only return subscription schedules for the given customer.
+           */
+          customer?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * Only return subscription schedules that were released during the given date interval.
+           */
+          released_at?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * Only return subscription schedules that have not started yet.
+           */
+          scheduled?: boolean;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["subscription_schedule"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new subscription schedule object. Each customer can have up to 25 active or scheduled subscriptions.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["subscription_schedule"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/subscription_schedules/{schedule}": {
+    /**
+     * <p>Retrieves the details of an existing subscription schedule. You only need to supply the unique subscription schedule identifier that was returned upon subscription schedule creation.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          schedule: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["subscription_schedule"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates an existing subscription schedule.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          schedule: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["subscription_schedule"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/subscription_schedules/{schedule}/cancel": {
+    /**
+     * <p>Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is <code>not_started</code> or <code>active</code>.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          schedule: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["subscription_schedule"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/subscription_schedules/{schedule}/release": {
+    /**
+     * <p>Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is <code>not_started</code> or <code>active</code>. If the subscription schedule is currently associated with a subscription, releasing it will remove its <code>subscription</code> property and set the subscription’s ID to the <code>released_subscription</code> property.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          schedule: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["subscription_schedule"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/subscriptions": {
+    /**
+     * <p>By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify <code>status=canceled</code>.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * The collection method of the subscriptions to retrieve. Either `charge_automatically` or `send_invoice`.
+           */
+          collection_method?: "charge_automatically" | "send_invoice";
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          current_period_end?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          current_period_start?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * The ID of the customer whose subscriptions will be retrieved.
+           */
+          customer?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * The ID of the plan whose subscriptions will be retrieved.
+           */
+          plan?: string;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * The status of the subscriptions to retrieve. One of: `incomplete`, `incomplete_expired`, `trialing`, `active`, `past_due`, `unpaid`, `canceled`, or `all`. Passing in a value of `canceled` will return all canceled subscriptions, including those belonging to deleted customers. Passing in a value of `all` will return subscriptions of all statuses.
+           */
+          status?:
+            | "active"
+            | "all"
+            | "canceled"
+            | "ended"
+            | "incomplete"
+            | "incomplete_expired"
+            | "past_due"
+            | "trialing"
+            | "unpaid";
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["subscription"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new subscription on an existing customer. Each customer can have up to 25 active or scheduled subscriptions.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["subscription"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/subscriptions/{subscription_exposed_id}": {
+    /**
+     * <p>Cancels a customer’s subscription immediately. The customer will not be charged again for the subscription.</p>
+     *
+     * <p>Note, however, that any pending invoice items that you’ve created will still be charged for at the end of the period, unless manually <a href="#delete_invoiceitem">deleted</a>. If you’ve set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.</p>
+     *
+     * <p>By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          subscription_exposed_id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["subscription"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves the subscription with the given ID.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          subscription_exposed_id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["subscription"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates an existing subscription on a customer to match the specified parameters. When changing plans or quantities, we will optionally prorate the price we charge next month to make up for any price changes. To preview how the proration will be calculated, use the <a href="#upcoming_invoice">upcoming invoice</a> endpoint.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          subscription_exposed_id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["subscription"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/subscriptions/{subscription_exposed_id}/discount": {
+    /**
+     * <p>Removes the currently applied discount on a subscription.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          subscription_exposed_id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_discount"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/tax_rates": {
+    /**
+     * <p>Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Optional flag to filter by tax rates that are either active or not active (archived)
+           */
+          active?: boolean;
+          /**
+           * Optional range for filtering created date
+           */
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Optional flag to filter by tax rates that are inclusive (or those that are not inclusive)
+           */
+          inclusive?: boolean;
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["tax_rate"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new tax rate.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["tax_rate"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/tax_rates/{tax_rate}": {
+    /**
+     * <p>Retrieves a tax rate with the given ID</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          tax_rate: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["tax_rate"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates an existing tax rate.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          tax_rate: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["tax_rate"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/terminal/connection_tokens": {
+    /**
+     * <p>To connect to a reader the Stripe Terminal SDK needs to retrieve a short-lived connection token from Stripe, proxied through your server. On your backend, add an endpoint that creates and returns a connection token.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["terminal.connection_token"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/terminal/locations": {
+    /**
+     * <p>Returns a list of <code>Location</code> objects.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["terminal.location"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new <code>Location</code> object.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["terminal.location"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/terminal/locations/{location}": {
+    /**
+     * <p>Deletes a <code>Location</code> object.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          location: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_terminal.location"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves a <code>Location</code> object.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          location: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["terminal.location"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates a <code>Location</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          location: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["terminal.location"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/terminal/readers": {
+    /**
+     * <p>Returns a list of <code>Reader</code> objects.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Filters readers by device type
+           */
+          device_type?: "bbpos_chipper2x" | "verifone_P400";
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A location ID to filter the response list to only readers at the specific location
+           */
+          location?: string;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * A status filter to filter readers to only offline or online readers
+           */
+          status?: "offline" | "online";
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            /**
+             * A list of readers
+             */
+            data: components["schemas"]["terminal.reader"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Creates a new <code>Reader</code> object.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["terminal.reader"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/terminal/readers/{reader}": {
+    /**
+     * <p>Deletes a <code>Reader</code> object.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          reader: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_terminal.reader"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves a <code>Reader</code> object.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          reader: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["terminal.reader"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates a <code>Reader</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          reader: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["terminal.reader"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/tokens": {
+    /**
+     * <p>Creates a single-use token that represents a bank account’s details.
+     * This token can be used with any API method in place of a bank account dictionary. This token can be used only once, by attaching it to a <a href="#accounts">Custom account</a>.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["token"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/tokens/{token}": {
+    /**
+     * <p>Retrieves the token with the given ID.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          token: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["token"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/topups": {
+    /**
+     * <p>Returns a list of top-ups.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A positive integer representing how much to transfer.
+           */
+          amount?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options.
+           */
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * Only return top-ups that have the given status. One of `canceled`, `failed`, `pending` or `succeeded`.
+           */
+          status?: "canceled" | "failed" | "pending" | "succeeded";
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["topup"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Top up the balance of an account</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["topup"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/topups/{topup}": {
+    /**
+     * <p>Retrieves the details of a top-up that has previously been created. Supply the unique top-up ID that was returned from your previous request, and Stripe will return the corresponding top-up information.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          topup: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["topup"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the metadata of a top-up. Other top-up details are not editable by design.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          topup: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["topup"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/topups/{topup}/cancel": {
+    /**
+     * <p>Cancels a top-up. Only pending top-ups can be canceled.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          topup: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["topup"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/transfers": {
+    /**
+     * <p>Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          created?: Partial<{
+            gt?: number;
+            gte?: number;
+            lt?: number;
+            lte?: number;
+          }> &
+            Partial<number>;
+          /**
+           * Only return transfers for the destination specified by this account ID.
+           */
+          destination?: string;
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+          /**
+           * Only return transfers with the specified transfer group.
+           */
+          transfer_group?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            /**
+             * Details about each object.
+             */
+            data: components["schemas"]["transfer"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>To send funds from your Stripe account to a connected account, you create a new transfer object. Your <a href="#balance">Stripe balance</a> must be able to cover the transfer amount, or you’ll receive an “Insufficient Funds” error.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["transfer"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/transfers/{id}/reversals": {
+    /**
+     * <p>You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional reversals.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            /**
+             * Details about each object.
+             */
+            data: components["schemas"]["transfer_reversal"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>When you create a new reversal, you must specify a transfer to create it on.</p>
+     *
+     * <p>When reversing transfers, you can optionally reverse part of the transfer. You can do so as many times as you wish until the entire transfer has been reversed.</p>
+     *
+     * <p>Once entirely reversed, a transfer can’t be reversed again. This method will return an error when called on an already-reversed transfer, or when trying to reverse more money than is left on a transfer.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["transfer_reversal"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/transfers/{transfer}": {
+    /**
+     * <p>Retrieves the details of an existing transfer. Supply the unique transfer ID from either a transfer creation request or the transfer list, and Stripe will return the corresponding transfer information.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          transfer: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["transfer"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+     *
+     * <p>This request accepts only metadata as an argument.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          transfer: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["transfer"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/transfers/{transfer}/reversals/{id}": {
+    /**
+     * <p>By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          id: string;
+          transfer: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["transfer_reversal"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+     *
+     * <p>This request only accepts metadata and description as arguments.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          id: string;
+          transfer: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["transfer_reversal"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/webhook_endpoints": {
+    /**
+     * <p>Returns a list of your webhook endpoints.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+           */
+          ending_before?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+           */
+          limit?: number;
+          /**
+           * A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+           */
+          starting_after?: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": {
+            data: components["schemas"]["webhook_endpoint"][];
+            /**
+             * True if this list has another page of items after this one that can be fetched.
+             */
+            has_more: boolean;
+            /**
+             * String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             */
+            object: "list";
+            /**
+             * The URL where this list can be accessed.
+             */
+            url: string;
+          };
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>A webhook endpoint must have a <code>url</code> and a list of <code>enabled_events</code>. You may optionally specify the Boolean <code>connect</code> parameter. If set to true, then a Connect webhook endpoint that notifies the specified <code>url</code> about events from all connected accounts is created; otherwise an account webhook endpoint that notifies the specified <code>url</code> only about events from your account is created. You can also create webhook endpoints in the <a href="https://dashboard.stripe.com/account/webhooks">webhooks settings</a> section of the Dashboard.</p>
+     */
+    post: {
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["webhook_endpoint"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  "/v1/webhook_endpoints/{webhook_endpoint}": {
+    /**
+     * <p>You can also delete webhook endpoints via the <a href="https://dashboard.stripe.com/account/webhooks">webhook endpoint management</a> page of the Stripe dashboard.</p>
+     */
+    delete: {
+      parameters: {
+        path: {
+          webhook_endpoint: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["deleted_webhook_endpoint"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Retrieves the webhook endpoint with the given ID.</p>
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+        path: {
+          webhook_endpoint: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["webhook_endpoint"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+    /**
+     * <p>Updates the webhook endpoint. You may edit the <code>url</code>, the list of <code>enabled_events</code>, and the status of your endpoint.</p>
+     */
+    post: {
+      parameters: {
+        path: {
+          webhook_endpoint: string;
+        };
+      };
+      responses: {
+        /**
+         * Successful response.
+         */
+        "200": {
+          "application/json": components["schemas"]["webhook_endpoint"];
+        };
+        /**
+         * Error response.
+         */
+        default: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+}
+
 export interface components {
   schemas: {
     /**

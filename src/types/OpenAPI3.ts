@@ -8,14 +8,44 @@ export interface OpenAPI3Schemas {
   [key: string]: OpenAPI3SchemaObject | OpenAPI3Reference;
 }
 
+export interface OpenAPI3Paths {
+  [path: string]: {
+    [method: string]: OpenAPI3Response;
+  };
+}
+
+export interface OpenAPI3Response {
+  description?: string;
+  parameters?: OpenAPI3Parameter[];
+  responses: {
+    [statusCode: string]: OpenAPI3ResponseObject;
+  };
+}
+
+export interface OpenAPI3Parameter {
+  name: string;
+  description?: string;
+  required?: boolean;
+  in: "query" | "header" | "path" | "cookie";
+  schema: OpenAPI3SchemaObject | OpenAPI3Reference;
+}
+
+export interface OpenAPI3ResponseObject {
+  description?: string;
+  content: {
+    [contentType: string]: { schema: OpenAPI3SchemaObject | OpenAPI3Reference };
+  };
+}
+
 export interface OpenAPI3Components {
   schemas: OpenAPI3Schemas;
-  responses?: OpenAPI3Schemas;
+  responses?: { [key: string]: OpenAPI3ResponseObject };
 }
 
 export interface OpenAPI3 {
   openapi: string;
-  components: OpenAPI3Components;
+  paths?: OpenAPI3Paths; // technically required by spec, but this library tries to be lenient
+  components?: OpenAPI3Components;
   [key: string]: any; // handle other properties beyond swagger-to-ts’ concern
 }
 

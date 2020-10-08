@@ -3,6 +3,416 @@
  * Do not make direct changes to the file.
  */
 
+export interface paths {
+  '/pet': {
+    put: {
+      responses: {
+        /**
+         * Invalid ID supplied
+         */
+        '400': any
+        /**
+         * Pet not found
+         */
+        '404': any
+        /**
+         * Validation exception
+         */
+        '405': any
+      }
+    }
+    post: {
+      responses: {
+        /**
+         * Invalid input
+         */
+        '405': any
+      }
+    }
+  }
+  '/pet/findByStatus': {
+    /**
+     * Multiple status values can be provided with comma separated strings
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Status values that need to be considered for filter
+           */
+          status: ('available' | 'pending' | 'sold')[]
+        }
+      }
+      responses: {
+        /**
+         * successful operation
+         */
+        '200': {
+          'application/xml': components['schemas']['Pet'][]
+          'application/json': components['schemas']['Pet'][]
+        }
+        /**
+         * Invalid status value
+         */
+        '400': any
+      }
+    }
+  }
+  '/pet/findByTags': {
+    /**
+     * Muliple tags can be provided with comma separated strings. Use         tag1, tag2, tag3 for testing.
+     */
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Tags to filter by
+           */
+          tags: string[]
+        }
+      }
+      responses: {
+        /**
+         * successful operation
+         */
+        '200': {
+          'application/xml': components['schemas']['Pet'][]
+          'application/json': components['schemas']['Pet'][]
+        }
+        /**
+         * Invalid tag value
+         */
+        '400': any
+      }
+    }
+  }
+  '/pet/{petId}': {
+    /**
+     * Returns a single pet
+     */
+    get: {
+      parameters: {
+        path: {
+          /**
+           * ID of pet to return
+           */
+          petId: number
+        }
+      }
+      responses: {
+        /**
+         * successful operation
+         */
+        '200': {
+          'application/xml': components['schemas']['Pet']
+          'application/json': components['schemas']['Pet']
+        }
+        /**
+         * Invalid ID supplied
+         */
+        '400': any
+        /**
+         * Pet not found
+         */
+        '404': any
+      }
+    }
+    post: {
+      parameters: {
+        path: {
+          /**
+           * ID of pet that needs to be updated
+           */
+          petId: number
+        }
+      }
+      responses: {
+        /**
+         * Invalid input
+         */
+        '405': any
+      }
+    }
+    delete: {
+      parameters: {
+        header: {
+          api_key?: string
+        }
+        path: {
+          /**
+           * Pet id to delete
+           */
+          petId: number
+        }
+      }
+      responses: {
+        /**
+         * Invalid ID supplied
+         */
+        '400': any
+        /**
+         * Pet not found
+         */
+        '404': any
+      }
+    }
+  }
+  '/pet/{petId}/uploadImage': {
+    post: {
+      parameters: {
+        path: {
+          /**
+           * ID of pet to update
+           */
+          petId: number
+        }
+      }
+      responses: {
+        /**
+         * successful operation
+         */
+        '200': {
+          'application/json': components['schemas']['ApiResponse']
+        }
+      }
+    }
+  }
+  '/store/inventory': {
+    /**
+     * Returns a map of status codes to quantities
+     */
+    get: {
+      responses: {
+        /**
+         * successful operation
+         */
+        '200': {
+          'application/json': { [key: string]: number }
+        }
+      }
+    }
+  }
+  '/store/order': {
+    post: {
+      responses: {
+        /**
+         * successful operation
+         */
+        '200': {
+          'application/xml': components['schemas']['Order']
+          'application/json': components['schemas']['Order']
+        }
+        /**
+         * Invalid Order
+         */
+        '400': any
+      }
+    }
+  }
+  '/store/order/{orderId}': {
+    /**
+     * For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions
+     */
+    get: {
+      parameters: {
+        path: {
+          /**
+           * ID of pet that needs to be fetched
+           */
+          orderId: number
+        }
+      }
+      responses: {
+        /**
+         * successful operation
+         */
+        '200': {
+          'application/xml': components['schemas']['Order']
+          'application/json': components['schemas']['Order']
+        }
+        /**
+         * Invalid ID supplied
+         */
+        '400': any
+        /**
+         * Order not found
+         */
+        '404': any
+      }
+    }
+    /**
+     * For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors
+     */
+    delete: {
+      parameters: {
+        path: {
+          /**
+           * ID of the order that needs to be deleted
+           */
+          orderId: number
+        }
+      }
+      responses: {
+        /**
+         * Invalid ID supplied
+         */
+        '400': any
+        /**
+         * Order not found
+         */
+        '404': any
+      }
+    }
+  }
+  '/user': {
+    /**
+     * This can only be done by the logged in user.
+     */
+    post: {
+      responses: {
+        /**
+         * successful operation
+         */
+        default: any
+      }
+    }
+  }
+  '/user/createWithArray': {
+    post: {
+      responses: {
+        /**
+         * successful operation
+         */
+        default: any
+      }
+    }
+  }
+  '/user/createWithList': {
+    post: {
+      responses: {
+        /**
+         * successful operation
+         */
+        default: any
+      }
+    }
+  }
+  '/user/login': {
+    get: {
+      parameters: {
+        query: {
+          /**
+           * The user name for login
+           */
+          username: string
+          /**
+           * The password for login in clear text
+           */
+          password: string
+        }
+      }
+      responses: {
+        /**
+         * successful operation
+         */
+        '200': {
+          'application/xml': string
+          'application/json': string
+        }
+        /**
+         * Invalid username/password supplied
+         */
+        '400': any
+      }
+    }
+  }
+  '/user/logout': {
+    get: {
+      responses: {
+        /**
+         * successful operation
+         */
+        default: any
+      }
+    }
+  }
+  '/user/{username}': {
+    get: {
+      parameters: {
+        path: {
+          /**
+           * The name that needs to be fetched. Use user1 for testing.
+           */
+          username: string
+        }
+      }
+      responses: {
+        /**
+         * successful operation
+         */
+        '200': {
+          'application/xml': components['schemas']['User']
+          'application/json': components['schemas']['User']
+        }
+        /**
+         * Invalid username supplied
+         */
+        '400': any
+        /**
+         * User not found
+         */
+        '404': any
+      }
+    }
+    /**
+     * This can only be done by the logged in user.
+     */
+    put: {
+      parameters: {
+        path: {
+          /**
+           * name that need to be updated
+           */
+          username: string
+        }
+      }
+      responses: {
+        /**
+         * Invalid user supplied
+         */
+        '400': any
+        /**
+         * User not found
+         */
+        '404': any
+      }
+    }
+    /**
+     * This can only be done by the logged in user.
+     */
+    delete: {
+      parameters: {
+        path: {
+          /**
+           * The name that needs to be deleted
+           */
+          username: string
+        }
+      }
+      responses: {
+        /**
+         * Invalid username supplied
+         */
+        '400': any
+        /**
+         * User not found
+         */
+        '404': any
+      }
+    }
+  }
+}
+
 export interface components {
   schemas: {
     Order: {
