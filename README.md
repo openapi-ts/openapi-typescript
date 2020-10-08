@@ -3,7 +3,7 @@
 [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fmanifoldco%2Fswagger-to-ts%2Fbadge&style=flat)](https://actions-badge.atrox.dev/manifoldco/swagger-to-ts/goto)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-18-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-19-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ swagger-to-ts
@@ -280,6 +280,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/BlooJeans"><img src="https://avatars2.githubusercontent.com/u/1751182?v=4" width="100px;" alt=""/><br /><sub><b>Matt Jeanes</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=BlooJeans" title="Code">💻</a></td>
     <td align="center"><a href="https://www.selbekk.io"><img src="https://avatars1.githubusercontent.com/u/1307267?v=4" width="100px;" alt=""/><br /><sub><b>Kristofer Giltvedt Selbekk</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=selbekk" title="Code">💻</a></td>
     <td align="center"><a href="https://mause.me"><img src="https://avatars2.githubusercontent.com/u/1405026?v=4" width="100px;" alt=""/><br /><sub><b>Elliana May</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=Mause" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=Mause" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/henhal"><img src="https://avatars3.githubusercontent.com/u/9608258?v=4" width="100px;" alt=""/><br /><sub><b>Henrik Hall</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=henhal" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=henhal" title="Documentation">📖</a></td>
   </tr>
 </table>
 
