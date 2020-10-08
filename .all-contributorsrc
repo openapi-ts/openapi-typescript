@@ -196,6 +196,16 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "henhal",
+      "name": "Henrik Hall",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/9608258?v=4",
+      "profile": "https://github.com/henhal",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
