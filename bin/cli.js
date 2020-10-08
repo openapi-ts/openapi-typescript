@@ -28,19 +28,16 @@ Options
         type: "string",
       },
       rawSchema: {
-        type: "boolean"
+        type: "boolean",
       },
       version: {
-        type: "number"
-      }
+        type: "number",
+      },
     },
   }
 );
 
 console.info(chalk.bold(`✨ swagger-to-ts 2.0`));
-console.info(
-  "This library has been updated to 2.0 with improved generation. If you experience issues you can use the deprecated v1 with `npx @manifoldco/swagger-to-ts@1 …`"
-);
 
 const pathToSpec = cli.input[0];
 const timeStart = process.hrtime();
@@ -57,7 +54,7 @@ const timeStart = process.hrtime();
   const result = swaggerToTS(spec, {
     prettierConfig: cli.flags.prettierConfig,
     rawSchema: cli.flags.rawSchema,
-    version: cli.flags.version
+    version: cli.flags.version,
   });
 
   // Write to file if specifying output
