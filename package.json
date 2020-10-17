@@ -1,5 +1,5 @@
 {
-  "name": "@manifoldco/swagger-to-ts",
+  "name": "openapi-typescript",
   "description": "Generate TypeScript types from Swagger OpenAPI specs",
   "main": "dist/cjs",
   "version": "2.1.0",
@@ -11,13 +11,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/manifoldco/swagger-to-ts.git"
+    "url": "https://github.com/drwpow/openapi-typescript"
   },
   "keywords": [
     "swagger",
     "typescript",
     "ts",
+    "dts",
     "openapi",
+    "codegen",
+    "generation",
+    "openapi 3",
     "node"
   ],
   "author": "drew@pow.rs",
@@ -50,37 +54,32 @@
     "deploy": "npm run build && pika publish",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts src",
     "pregenerate": "npm run build",
-    "generate": "npm run generate:basic && npm run generate:notypes && npm run generate:nowrapper && npm run generate:nowarning",
-    "generate:basic": "node pkg/bin/cli example/basic.yaml -o example/basic.ts",
-    "generate:notypes": "node pkg/bin/cli example/no-types.yaml -o example/no-types.ts",
-    "generate:nowarning": "node pkg/bin/cli example/basic.yaml -o example/no-warning.ts --no-warning",
-    "generate:nowrapper": "node pkg/bin/cli example/basic.yaml -o example/no-wrapper.ts --nowrapper",
     "test": "npm run build && jest",
     "test:coverage": "npm run build && jest --coverage",
     "typecheck": "tsc --noEmit",
     "version": "npm run build"
   },
   "dependencies": {
-    "chalk": "^4.0.0",
-    "js-yaml": "^3.13.1",
-    "meow": "^7.0.0",
-    "prettier": "^2.0.5"
+    "chalk": "^4.1.0",
+    "js-yaml": "^3.14.0",
+    "meow": "^7.1.1",
+    "prettier": "^2.1.2"
   },
   "devDependencies": {
     "@pika/pack": "^0.5.0",
     "@pika/plugin-build-node": "^0.9.2",
     "@pika/plugin-copy-assets": "^0.9.2",
     "@pika/plugin-ts-standard-pkg": "^0.9.2",
-    "@types/jest": "^26.0.0",
-    "@types/js-yaml": "^3.12.3",
-    "@types/prettier": "^2.0.0",
-    "@typescript-eslint/eslint-plugin": "^2.29.0",
-    "@typescript-eslint/parser": "^2.31.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.3",
-    "jest": "^25.4.0",
-    "ts-jest": "^25.4.0",
-    "typescript": "^3.8.3"
+    "@types/jest": "^26.0.14",
+    "@types/js-yaml": "^3.12.5",
+    "@types/prettier": "^2.1.5",
+    "@typescript-eslint/eslint-plugin": "^4.4.1",
+    "@typescript-eslint/parser": "^4.4.1",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.13.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.5.3",
+    "ts-jest": "^26.4.1",
+    "typescript": "^4.0.3"
   }
 }
