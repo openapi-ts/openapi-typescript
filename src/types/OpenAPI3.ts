@@ -1,7 +1,7 @@
 /**
  * OpenAPI3 types
  * These aren’t exhaustive or complete by any means; they simply provide only
- * the parts that swagger-to-ts needs to know about.
+ * the parts that openapi-typescript needs to know about.
  */
 
 export interface OpenAPI3Schemas {
@@ -46,7 +46,7 @@ export interface OpenAPI3 {
   openapi: string;
   paths?: OpenAPI3Paths; // technically required by spec, but this library tries to be lenient
   components?: OpenAPI3Components;
-  [key: string]: any; // handle other properties beyond swagger-to-ts’ concern
+  [key: string]: any; // handle other properties beyond this library’s concern
 }
 
 export type OpenAPI3Type =

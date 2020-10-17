@@ -7,7 +7,7 @@
     "node": ">= 10.0.0"
   },
   "bin": {
-    "swagger-to-ts": "bin/cli.js"
+    "openapi-typescript": "bin/cli.js"
   },
   "repository": {
     "type": "git",
@@ -27,9 +27,9 @@
   "author": "drew@pow.rs",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/manifoldco/swagger-to-ts/issues"
+    "url": "https://github.com/drwpow/openapi-typescript/issues"
   },
-  "homepage": "https://github.com/manifoldco/swagger-to-ts#readme",
+  "homepage": "https://github.com/drwpow/openapi-typescript#readme",
   "@pika/pack": {
     "pipeline": [
       [

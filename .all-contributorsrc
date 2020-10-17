@@ -209,8 +209,8 @@
     }
   ],
   "contributorsPerLine": 7,
-  "projectName": "swagger-to-ts",
-  "projectOwner": "manifoldco",
+  "projectName": "openapi-typescript",
+  "projectOwner": "drwpow",
   "repoType": "github",
   "repoHost": "https://github.com",
   "skipCi": true

@@ -1,14 +1,15 @@
-[![version(scoped)](https://img.shields.io/npm/v/@manifoldco/swagger-to-ts.svg)](https://www.npmjs.com/package/@manifoldco/swagger-to-ts)
-[![codecov](https://codecov.io/gh/manifoldco/swagger-to-ts/branch/master/graph/badge.svg)](https://codecov.io/gh/manifoldco/swagger-to-ts)
-[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fmanifoldco%2Fswagger-to-ts%2Fbadge&style=flat)](https://actions-badge.atrox.dev/manifoldco/swagger-to-ts/goto)
+[![version(scoped)](https://img.shields.io/npm/v/openapi-typescript.svg)](https://www.npmjs.com/package/openapi-typescript)
+[![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/master/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-19-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-# 📘️ swagger-to-ts
+# 📘️ openapi-typescript
 
-🚀 Convert [OpenAPI 2.0][openapi2] and [OpenAPI 3.0][openapi3] schemas to TypeScript interfaces using Node.js.
+🚀 Convert [OpenAPI 3.0][openapi3] and [OpenAPI 2.0 (Swagger)][openapi2] schemas to TypeScript interfaces using Node.js.
 
 💅 The output is prettified with [Prettier][prettier] (and can be customized!).
 
@@ -26,7 +27,7 @@ View examples:
 #### 🗄️ Reading specs from file system
 
 ```bash
-npx @manifoldco/swagger-to-ts schema.yaml --output schema.ts
+npx openapi-typescript schema.yaml --output schema.ts
 
 # 🤞 Loading spec from tests/v2/specs/stripe.yaml…
 # 🚀 schema.yaml -> schema.ts [250ms]
@@ -35,7 +36,7 @@ npx @manifoldco/swagger-to-ts schema.yaml --output schema.ts
 #### ☁️ Reading specs from remote resource
 
 ```bash
-npx @manifoldco/swagger-to-ts https://petstore.swagger.io/v2/swagger.json --output petstore.ts
+npx openapi-typescript https://petstore.swagger.io/v2/swagger.json --output petstore.ts
 
 # 🤞 Loading spec from https://petstore.swagger.io/v2/swagger.json…
 # 🚀 https://petstore.swagger.io/v2/swagger.json -> petstore.ts [650ms]
@@ -50,9 +51,9 @@ In your `package.json`, for each schema you’d like to transform add one `gener
 ```json
 "scripts": {
   "generate:specs": "npm run generate:specs:one && npm run generate:specs:two && npm run generate:specs:three",
-  "generate:specs:one": "npx @manifoldco/swagger-to-ts one.yaml -o one.ts",
-  "generate:specs:two": "npx @manifoldco/swagger-to-ts two.yaml -o two.ts",
-  "generate:specs:three": "npx @manifoldco/swagger-to-ts three.yaml -o three.ts"
+  "generate:specs:one": "npx openapi-typescript one.yaml -o one.ts",
+  "generate:specs:two": "npx openapi-typescript two.yaml -o two.ts",
+  "generate:specs:three": "npx openapi-typescript three.yaml -o three.ts"
 }
 ```
 
@@ -76,12 +77,12 @@ For anything more complicated, or for generating specs dynamically, you can also
 ### Node
 
 ```bash
-npm i --save-dev @manifoldco/swagger-to-ts
+npm i --save-dev openapi-typescript
 ```
 
 ```js
 const { readFileSync } = require("fs");
-const swaggerToTS = require("@manifoldco/swagger-to-ts");
+const swaggerToTS = require("openapi-typescript");
 
 const input = JSON.parse(readFileSync("spec.json", "utf8")); // Input can be any JS object (OpenAPI format)
 const output = swaggerToTS(input); // Outputs TypeScript defs as a string (to be parsed, or written to a file)
@@ -101,7 +102,7 @@ In order to allow more control over how properties are parsed, and to specifical
 parameter.
 
 This is a function that, if specified, is called for each property and allows you to change how
-swagger-to-ts handles parsing of Swagger files.
+openapi-typescript handles parsing of Swagger files.
 
 An example on how to use the `x-nullable` property to control if a property is optional:
 
@@ -126,7 +127,7 @@ _Thanks to @atlefren for this feature!_
 
 ## Upgrading from v1 to v2
 
-Some options were removed in swagger-to-ts v2 that will break apps using v1, but it does so in exchange for more control, more stability, and more resilient types.
+Some options were removed in openapi-typescript v2 that will break apps using v1, but it does so in exchange for more control, more stability, and more resilient types.
 
 TL;DR:
 
@@ -218,9 +219,9 @@ While this is a change, it’s more predictable. Now you don’t have to guess w
 
 #### Better \$ref generation
 
-swagger-to-ts v1 would attempt to resolve and flatten `$ref`s. This was bad because it would break on circular references (which both Swagger and TypeScript allow), and resolution also slowed it down.
+openapi-typescript v1 would attempt to resolve and flatten `$ref`s. This was bad because it would break on circular references (which both Swagger and TypeScript allow), and resolution also slowed it down.
 
-In v2, your `$ref`s are preserved as-declared, and TypeScript does all the work. Now the responsibility is on your schema to handle collisions rather than swagger-to-ts, which is a better approach in general.
+In v2, your `$ref`s are preserved as-declared, and TypeScript does all the work. Now the responsibility is on your schema to handle collisions rather than openapi-typescript, which is a better approach in general.
 
 #### No Wrappers
 
@@ -258,34 +259,35 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://pow.rs"><img src="https://avatars3.githubusercontent.com/u/1369770?v=4" width="100px;" alt=""/><br /><sub><b>Drew Powers</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=dangodev" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=dangodev" title="Documentation">📖</a> <a href="#infra-dangodev" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=dangodev" title="Tests">⚠️</a></td>
-    <td align="center"><a href="http://smyrdek.com"><img src="https://avatars1.githubusercontent.com/u/6187417?v=4" width="100px;" alt=""/><br /><sub><b>Przemek Smyrdek</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=psmyrdek" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=psmyrdek" title="Documentation">📖</a> <a href="#ideas-psmyrdek" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=psmyrdek" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://danielenman.com"><img src="https://avatars3.githubusercontent.com/u/432487?v=4" width="100px;" alt=""/><br /><sub><b>Dan Enman</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/issues?q=author%3Aenmand" title="Bug reports">🐛</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=enmand" title="Code">💻</a></td>
-    <td align="center"><a href="http://atlefren.net"><img src="https://avatars2.githubusercontent.com/u/1829927?v=4" width="100px;" alt=""/><br /><sub><b>Atle Frenvik Sveen</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=atlefren" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=atlefren" title="Documentation">📖</a> <a href="#ideas-atlefren" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=atlefren" title="Tests">⚠️</a></td>
-    <td align="center"><a href="http://www.timdewolf.com"><img src="https://avatars0.githubusercontent.com/u/4455209?v=4" width="100px;" alt=""/><br /><sub><b>Tim de Wolf</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=tpdewolf" title="Code">💻</a> <a href="#ideas-tpdewolf" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/tombarton"><img src="https://avatars1.githubusercontent.com/u/6222711?v=4" width="100px;" alt=""/><br /><sub><b>Tom Barton</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=tombarton" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=tombarton" title="Documentation">📖</a> <a href="#ideas-tombarton" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=tombarton" title="Tests">⚠️</a></td>
-    <td align="center"><a href="http://www.viig.no"><img src="https://avatars0.githubusercontent.com/u/1080888?v=4" width="100px;" alt=""/><br /><sub><b>Sven Nicolai Viig</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/issues?q=author%3Asvnv" title="Bug reports">🐛</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=svnv" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=svnv" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://pow.rs"><img src="https://avatars3.githubusercontent.com/u/1369770?v=4" width="100px;" alt=""/><br /><sub><b>Drew Powers</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=dangodev" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=dangodev" title="Documentation">📖</a> <a href="#infra-dangodev" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=dangodev" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://smyrdek.com"><img src="https://avatars1.githubusercontent.com/u/6187417?v=4" width="100px;" alt=""/><br /><sub><b>Przemek Smyrdek</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=psmyrdek" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=psmyrdek" title="Documentation">📖</a> <a href="#ideas-psmyrdek" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=psmyrdek" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://danielenman.com"><img src="https://avatars3.githubusercontent.com/u/432487?v=4" width="100px;" alt=""/><br /><sub><b>Dan Enman</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Aenmand" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=enmand" title="Code">💻</a></td>
+    <td align="center"><a href="http://atlefren.net"><img src="https://avatars2.githubusercontent.com/u/1829927?v=4" width="100px;" alt=""/><br /><sub><b>Atle Frenvik Sveen</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=atlefren" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=atlefren" title="Documentation">📖</a> <a href="#ideas-atlefren" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=atlefren" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://www.timdewolf.com"><img src="https://avatars0.githubusercontent.com/u/4455209?v=4" width="100px;" alt=""/><br /><sub><b>Tim de Wolf</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=tpdewolf" title="Code">💻</a> <a href="#ideas-tpdewolf" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/tombarton"><img src="https://avatars1.githubusercontent.com/u/6222711?v=4" width="100px;" alt=""/><br /><sub><b>Tom Barton</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=tombarton" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=tombarton" title="Documentation">📖</a> <a href="#ideas-tombarton" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=tombarton" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://www.viig.no"><img src="https://avatars0.githubusercontent.com/u/1080888?v=4" width="100px;" alt=""/><br /><sub><b>Sven Nicolai Viig</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Asvnv" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=svnv" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=svnv" title="Tests">⚠️</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://toot.cafe/@sorin"><img src="https://avatars1.githubusercontent.com/u/2109702?v=4" width="100px;" alt=""/><br /><sub><b>Sorin Davidoi</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/issues?q=author%3Asorin-davidoi" title="Bug reports">🐛</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=sorin-davidoi" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=sorin-davidoi" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/scvnathan"><img src="https://avatars3.githubusercontent.com/u/73474?v=4" width="100px;" alt=""/><br /><sub><b>Nathan Schneirov</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=scvnathan" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=scvnathan" title="Documentation">📖</a> <a href="#ideas-scvnathan" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=scvnathan" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://lbenie.xyz/"><img src="https://avatars1.githubusercontent.com/u/7316046?v=4" width="100px;" alt=""/><br /><sub><b>Lucien Bénié</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=lbenie" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=lbenie" title="Documentation">📖</a> <a href="#ideas-lbenie" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=lbenie" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://boris.sh"><img src="https://avatars1.githubusercontent.com/u/17952318?v=4" width="100px;" alt=""/><br /><sub><b>Boris K</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=bokub" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://twitter.com/antonk52"><img src="https://avatars1.githubusercontent.com/u/5817809?v=4" width="100px;" alt=""/><br /><sub><b>Anton</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/issues?q=author%3Aantonk52" title="Bug reports">🐛</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=antonk52" title="Code">💻</a> <a href="#ideas-antonk52" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=antonk52" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/tshelburne"><img src="https://avatars3.githubusercontent.com/u/1202267?v=4" width="100px;" alt=""/><br /><sub><b>Tim Shelburne</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=tshelburne" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=tshelburne" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://typeofweb.com"><img src="https://avatars0.githubusercontent.com/u/1338731?v=4" width="100px;" alt=""/><br /><sub><b>Michał Miszczyszyn</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=mmiszy" title="Code">💻</a></td>
+    <td align="center"><a href="https://toot.cafe/@sorin"><img src="https://avatars1.githubusercontent.com/u/2109702?v=4" width="100px;" alt=""/><br /><sub><b>Sorin Davidoi</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Asorin-davidoi" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=sorin-davidoi" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=sorin-davidoi" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/scvnathan"><img src="https://avatars3.githubusercontent.com/u/73474?v=4" width="100px;" alt=""/><br /><sub><b>Nathan Schneirov</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=scvnathan" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=scvnathan" title="Documentation">📖</a> <a href="#ideas-scvnathan" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=scvnathan" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://lbenie.xyz/"><img src="https://avatars1.githubusercontent.com/u/7316046?v=4" width="100px;" alt=""/><br /><sub><b>Lucien Bénié</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=lbenie" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=lbenie" title="Documentation">📖</a> <a href="#ideas-lbenie" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=lbenie" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://boris.sh"><img src="https://avatars1.githubusercontent.com/u/17952318?v=4" width="100px;" alt=""/><br /><sub><b>Boris K</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=bokub" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://twitter.com/antonk52"><img src="https://avatars1.githubusercontent.com/u/5817809?v=4" width="100px;" alt=""/><br /><sub><b>Anton</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Aantonk52" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=antonk52" title="Code">💻</a> <a href="#ideas-antonk52" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=antonk52" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/tshelburne"><img src="https://avatars3.githubusercontent.com/u/1202267?v=4" width="100px;" alt=""/><br /><sub><b>Tim Shelburne</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=tshelburne" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=tshelburne" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://typeofweb.com"><img src="https://avatars0.githubusercontent.com/u/1338731?v=4" width="100px;" alt=""/><br /><sub><b>Michał Miszczyszyn</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=mmiszy" title="Code">💻</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/skh-"><img src="https://avatars1.githubusercontent.com/u/1292598?v=4" width="100px;" alt=""/><br /><sub><b>Sam K Hall</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=skh-" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=skh-" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/BlooJeans"><img src="https://avatars2.githubusercontent.com/u/1751182?v=4" width="100px;" alt=""/><br /><sub><b>Matt Jeanes</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=BlooJeans" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.selbekk.io"><img src="https://avatars1.githubusercontent.com/u/1307267?v=4" width="100px;" alt=""/><br /><sub><b>Kristofer Giltvedt Selbekk</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=selbekk" title="Code">💻</a></td>
-    <td align="center"><a href="https://mause.me"><img src="https://avatars2.githubusercontent.com/u/1405026?v=4" width="100px;" alt=""/><br /><sub><b>Elliana May</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=Mause" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=Mause" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/henhal"><img src="https://avatars3.githubusercontent.com/u/9608258?v=4" width="100px;" alt=""/><br /><sub><b>Henrik Hall</b></sub></a><br /><a href="https://github.com/manifoldco/swagger-to-ts/commits?author=henhal" title="Code">💻</a> <a href="https://github.com/manifoldco/swagger-to-ts/commits?author=henhal" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/skh-"><img src="https://avatars1.githubusercontent.com/u/1292598?v=4" width="100px;" alt=""/><br /><sub><b>Sam K Hall</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=skh-" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=skh-" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/BlooJeans"><img src="https://avatars2.githubusercontent.com/u/1751182?v=4" width="100px;" alt=""/><br /><sub><b>Matt Jeanes</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=BlooJeans" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.selbekk.io"><img src="https://avatars1.githubusercontent.com/u/1307267?v=4" width="100px;" alt=""/><br /><sub><b>Kristofer Giltvedt Selbekk</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=selbekk" title="Code">💻</a></td>
+    <td align="center"><a href="https://mause.me"><img src="https://avatars2.githubusercontent.com/u/1405026?v=4" width="100px;" alt=""/><br /><sub><b>Elliana May</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=Mause" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=Mause" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/henhal"><img src="https://avatars3.githubusercontent.com/u/9608258?v=4" width="100px;" alt=""/><br /><sub><b>Henrik Hall</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=henhal" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=henhal" title="Documentation">📖</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

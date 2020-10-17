@@ -9,7 +9,7 @@ const { loadSpec } = require("./loaders");
 
 const cli = meow(
   `Usage
-  $ swagger-to-ts [input] [options]
+  $ openapi-typescript [input] [options]
 
 Options
   --help                display this
@@ -37,7 +37,7 @@ Options
   }
 );
 
-console.info(chalk.bold(`✨ swagger-to-ts 2.0`));
+console.info(chalk.bold(`✨ openapi-typescript 2.2`));
 
 const pathToSpec = cli.input[0];
 const timeStart = process.hrtime();

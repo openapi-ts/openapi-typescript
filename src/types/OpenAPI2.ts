@@ -1,7 +1,7 @@
 /**
  * OpenAPI2 types
  * These aren’t exhaustive or complete by any means; they simply provide only
- * the parts that swagger-to-ts needs to know about.
+ * the parts that openapi-typescript needs to know about.
  */
 
 export interface OpenAPI2Schemas {
@@ -11,7 +11,7 @@ export interface OpenAPI2Schemas {
 export interface OpenAPI2 {
   definitions?: OpenAPI2Schemas;
   swagger: string;
-  [key: string]: any; // handle other properties beyond swagger-to-ts’ concern
+  [key: string]: any; // handle other properties beyond this library’s concern
 }
 
 export type OpenAPI2Type =

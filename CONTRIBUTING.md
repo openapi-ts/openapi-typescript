@@ -15,7 +15,7 @@ series [How to Contribute to an Open Source Project on GitHub][egghead]
 > pull requests from branches on your fork. To do this, run:
 >
 > ```
-> git remote add upstream https://github.com/manifoldco/swagger-to-ts.git
+> git remote add upstream https://github.com/drwpow/openapi-typescript.git
 > git fetch upstream
 > git branch --set-upstream-to=upstream/master master
 > ```
@@ -51,6 +51,6 @@ Follow the prompts to release.
 
 [all-contributors]: https://github.com/all-contributors/all-contributors
 [egghead]: https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github
-[good-first-issue]: https://github.com/manifoldco/swagger-to-ts/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22
-[help-wanted]: https://github.com/manifoldco/swagger-to-ts/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22
-[issues]: https://github.com/manifoldco/swagger-to-ts/issues
+[good-first-issue]: https://github.com/drwpow/openapi-typescript/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22
+[help-wanted]: https://github.com/drwpow/openapi-typescript/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22
+[issues]: https://github.com/drwpow/openapi-typescript/issues
