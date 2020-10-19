@@ -157,18 +157,18 @@ export default function generateTypesV3(
     let output = "";
     Object.entries(paths).forEach(([path, methods]) => {
       output += `"${path}": {\n`;
-      Object.entries(methods).forEach(([method, responses]) => {
-        if (responses.description) output += comment(responses.description);
+      Object.entries(methods).forEach(([method, operation]) => {
+        if (operation.description) output += comment(operation.description);
         output += `"${method}": {\n`;
 
         // handle parameters
-        if (responses.parameters) {
+        if (operation.parameters) {
           output += `parameters: {\n`;
           const allParameters: Record<
             string,
             Record<string, OpenAPI3Parameter>
           > = {};
-          responses.parameters.forEach((p) => {
+          operation.parameters.forEach((p) => {
             if (!allParameters[p.in]) allParameters[p.in] = {};
             // TODO: handle $ref parameters
             if (p.name) {
@@ -192,7 +192,7 @@ export default function generateTypesV3(
 
         // handle responses
         output += `responses: {\n`;
-        Object.entries(responses.responses).forEach(
+        Object.entries(operation.responses).forEach(
           ([statusCode, response]) => {
             if (response.description) output += comment(response.description);
             if (!response.content || !Object.keys(response.content).length) {
