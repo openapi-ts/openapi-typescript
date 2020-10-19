@@ -8,7 +8,7 @@ export function comment(text: string): string {
 }
 
 /** shim for Object.fromEntries() for Node < 13 */
-export function fromEntries(entries: [string, any][]): object {
+export function fromEntries(entries: [string, any][]): Record<string, unknown> {
   return entries.reduce((obj, [key, val]) => ({ ...obj, [key]: val }), {});
 }
 
