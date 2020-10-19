@@ -704,4 +704,62 @@ describe("OpenAPI3 features", () => {
     `)
     );
   });
+
+  it("$ref-type parameters (#329)", () => {
+    const schema: OpenAPI3 = {
+      openapi: "3.0.1",
+      paths: {
+        "/some/path": {
+          get: {
+            parameters: [
+              {
+                $ref: "#/components/parameters/param",
+              },
+            ],
+            responses: {},
+          },
+        },
+      },
+      components: {
+        schemas: {},
+        parameters: {
+          param: {
+            name: "param",
+            description: "some description",
+            in: "query",
+            schema: {
+              type: "string",
+            },
+          },
+        },
+      },
+    };
+
+    expect(swaggerToTS(schema)).toEqual(
+      format(`
+      export interface paths {
+
+        "/some/path": {
+          get: {
+            parameters: {
+              query: {
+                param: components["parameters"]["param"];
+              }
+            };
+            responses: {};
+          };
+        };
+      }
+
+      export interface components {
+        parameters: {
+          /**
+           * some description
+           */
+          param: string
+        }
+      }
+    `)
+    );
+  });
 });

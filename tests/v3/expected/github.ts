@@ -107,8 +107,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+          since: components["parameters"]["since"];
           outdated?: string;
         };
       };
@@ -130,7 +132,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          installation_id: components["parameters"]["installation_id"];
+        };
       };
       responses: {
         /**
@@ -150,7 +154,9 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          installation_id: components["parameters"]["installation_id"];
+        };
       };
       responses: {
         /**
@@ -169,7 +175,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          installation_id: components["parameters"]["installation_id"];
+        };
       };
       responses: {
         /**
@@ -198,7 +206,9 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          installation_id: components["parameters"]["installation_id"];
+        };
       };
       responses: {
         /**
@@ -219,7 +229,9 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          installation_id: components["parameters"]["installation_id"];
+        };
       };
       responses: {
         /**
@@ -238,7 +250,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -260,7 +275,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          grant_id: components["parameters"]["grant_id"];
+        };
       };
       responses: {
         /**
@@ -281,7 +298,9 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          grant_id: components["parameters"]["grant_id"];
+        };
       };
       responses: {
         /**
@@ -301,7 +320,9 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          client_id: components["parameters"]["client-id"];
+        };
       };
       responses: {
         /**
@@ -322,7 +343,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          client_id: components["parameters"]["client-id"];
+          access_token: components["parameters"]["access-token"];
+        };
       };
       responses: {
         /**
@@ -338,7 +362,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          client_id: components["parameters"]["client-id"];
+        };
       };
       responses: {
         /**
@@ -356,7 +382,9 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          client_id: components["parameters"]["client-id"];
+        };
       };
       responses: {
         /**
@@ -373,7 +401,9 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          client_id: components["parameters"]["client-id"];
+        };
       };
       responses: {
         /**
@@ -392,7 +422,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          client_id: components["parameters"]["client-id"];
+          access_token: components["parameters"]["access-token"];
+        };
       };
       responses: {
         /**
@@ -411,7 +444,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          client_id: components["parameters"]["client-id"];
+          access_token: components["parameters"]["access-token"];
+        };
       };
       responses: {
         /**
@@ -429,7 +465,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          client_id: components["parameters"]["client-id"];
+          access_token: components["parameters"]["access-token"];
+        };
       };
       responses: {
         /**
@@ -447,7 +486,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          app_slug: components["parameters"]["app_slug"];
+        };
       };
       responses: {
         /**
@@ -468,7 +509,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -527,7 +571,9 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          client_id: components["parameters"]["client-id"];
+        };
       };
       responses: {
         /**
@@ -561,8 +607,8 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
         path: {
+          client_id: components["parameters"]["client-id"];
           fingerprint: string;
         };
       };
@@ -589,7 +635,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          authorization_id: components["parameters"]["authorization_id"];
+        };
       };
       responses: {
         /**
@@ -612,7 +660,9 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          authorization_id: components["parameters"]["authorization_id"];
+        };
       };
       responses: {
         /**
@@ -629,7 +679,9 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          authorization_id: components["parameters"]["authorization_id"];
+        };
       };
       responses: {
         /**
@@ -732,7 +784,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -753,7 +811,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+        };
       };
       responses: {
         /**
@@ -773,7 +833,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+        };
       };
       responses: {
         /**
@@ -791,7 +854,10 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+        };
       };
       responses: {
         /**
@@ -809,7 +875,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+        };
       };
       responses: {
         /**
@@ -827,7 +896,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -848,7 +924,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+        };
       };
       responses: {
         /**
@@ -866,7 +945,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+          org_id: components["parameters"]["org_id"];
+        };
       };
       responses: {
         /**
@@ -882,7 +965,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+          org_id: components["parameters"]["org_id"];
+        };
       };
       responses: {
         /**
@@ -900,7 +987,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -921,7 +1015,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+        };
       };
       responses: {
         /**
@@ -940,7 +1037,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+          runner_id: components["parameters"]["runner_id"];
+        };
       };
       responses: {
         /**
@@ -956,7 +1057,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+          runner_id: components["parameters"]["runner_id"];
+        };
       };
       responses: {
         /**
@@ -974,7 +1079,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -997,7 +1108,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+        };
       };
       responses: {
         /**
@@ -1025,7 +1138,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+        };
       };
       responses: {
         /**
@@ -1054,7 +1169,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+        };
       };
       responses: {
         /**
@@ -1074,7 +1191,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          runner_id: components["parameters"]["runner_id"];
+        };
       };
       responses: {
         /**
@@ -1092,7 +1212,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          runner_id: components["parameters"]["runner_id"];
+        };
       };
       responses: {
         /**
@@ -1112,7 +1235,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+        };
       };
       responses: {
         /**
@@ -1134,7 +1259,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+        };
       };
       responses: {
         /**
@@ -1156,7 +1283,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+        };
       };
       responses: {
         /**
@@ -1174,7 +1303,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -1221,7 +1353,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          since: components["parameters"]["since"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -1263,7 +1399,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          since: components["parameters"]["since"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -1284,7 +1424,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          since: components["parameters"]["since"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -1302,7 +1446,9 @@ export interface paths {
   "/gists/{gist_id}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          gist_id: components["parameters"]["gist_id"];
+        };
       };
       responses: {
         /**
@@ -1321,7 +1467,9 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          gist_id: components["parameters"]["gist_id"];
+        };
       };
       responses: {
         /**
@@ -1336,7 +1484,9 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          gist_id: components["parameters"]["gist_id"];
+        };
       };
       responses: {
         /**
@@ -1352,7 +1502,13 @@ export interface paths {
   "/gists/{gist_id}/comments": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          gist_id: components["parameters"]["gist_id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -1368,7 +1524,9 @@ export interface paths {
     };
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          gist_id: components["parameters"]["gist_id"];
+        };
       };
       responses: {
         /**
@@ -1386,7 +1544,10 @@ export interface paths {
   "/gists/{gist_id}/comments/{comment_id}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          gist_id: components["parameters"]["gist_id"];
+          comment_id: components["parameters"]["comment_id"];
+        };
       };
       responses: {
         /**
@@ -1402,7 +1563,10 @@ export interface paths {
     };
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          gist_id: components["parameters"]["gist_id"];
+          comment_id: components["parameters"]["comment_id"];
+        };
       };
       responses: {
         /**
@@ -1416,7 +1580,10 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          gist_id: components["parameters"]["gist_id"];
+          comment_id: components["parameters"]["comment_id"];
+        };
       };
       responses: {
         /**
@@ -1432,7 +1599,13 @@ export interface paths {
   "/gists/{gist_id}/commits": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          gist_id: components["parameters"]["gist_id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -1450,7 +1623,13 @@ export interface paths {
   "/gists/{gist_id}/forks": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          gist_id: components["parameters"]["gist_id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -1469,7 +1648,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          gist_id: components["parameters"]["gist_id"];
+        };
       };
       responses: {
         /**
@@ -1488,7 +1669,9 @@ export interface paths {
   "/gists/{gist_id}/star": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          gist_id: components["parameters"]["gist_id"];
+        };
       };
       responses: {
         /**
@@ -1510,7 +1693,9 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          gist_id: components["parameters"]["gist_id"];
+        };
       };
       responses: {
         /**
@@ -1524,7 +1709,9 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          gist_id: components["parameters"]["gist_id"];
+        };
       };
       responses: {
         /**
@@ -1540,8 +1727,8 @@ export interface paths {
   "/gists/{gist_id}/{sha}": {
     get: {
       parameters: {
-        undefined: {};
         path: {
+          gist_id: components["parameters"]["gist_id"];
           sha: string;
         };
       };
@@ -1605,7 +1792,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -1671,16 +1861,20 @@ export interface paths {
            * Indicates the state of the issues to return. Can be either `open`, `closed`, or `all`.
            */
           state?: "open" | "closed" | "all";
+          labels: components["parameters"]["labels"];
           /**
            * What to sort results by. Can be either `created`, `updated`, `comments`.
            */
           sort?: "created" | "updated" | "comments";
+          direction: components["parameters"]["direction"];
+          since: components["parameters"]["since"];
           collab?: boolean;
           orgs?: boolean;
           owned?: boolean;
           pulls?: boolean;
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
-        undefined: {};
       };
       responses: {
         /**
@@ -1700,8 +1894,8 @@ export interface paths {
       parameters: {
         query: {
           featured?: boolean;
+          per_page: components["parameters"]["per_page"];
         };
-        undefined: {};
       };
       responses: {
         /**
@@ -1771,7 +1965,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          account_id: components["parameters"]["account_id"];
+        };
       };
       responses: {
         /**
@@ -1798,7 +1994,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -1820,12 +2019,17 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          plan_id: components["parameters"]["plan_id"];
+        };
         query: {
+          sort: components["parameters"]["sort"];
           /**
            * To return the oldest accounts first, set to `asc`. Can be one of `asc` or `desc`. Ignored without the `sort` parameter.
            */
           direction?: "asc" | "desc";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -1849,7 +2053,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          account_id: components["parameters"]["account_id"];
+        };
       };
       responses: {
         /**
@@ -1874,7 +2080,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -1895,12 +2104,17 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          plan_id: components["parameters"]["plan_id"];
+        };
         query: {
+          sort: components["parameters"]["sort"];
           /**
            * To return the oldest accounts first, set to `asc`. Can be one of `asc` or `desc`. Ignored without the `sort` parameter.
            */
           direction?: "asc" | "desc";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -1934,7 +2148,14 @@ export interface paths {
   "/networks/{owner}/{repo}/events": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -1956,7 +2177,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          all: components["parameters"]["all"];
+          participating: components["parameters"]["participating"];
+          since: components["parameters"]["since"];
+          before: components["parameters"]["before"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -1996,7 +2224,9 @@ export interface paths {
   "/notifications/threads/{thread_id}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          thread_id: components["parameters"]["thread_id"];
+        };
       };
       responses: {
         /**
@@ -2012,7 +2242,9 @@ export interface paths {
     };
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          thread_id: components["parameters"]["thread_id"];
+        };
       };
       responses: {
         /**
@@ -2032,7 +2264,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          thread_id: components["parameters"]["thread_id"];
+        };
       };
       responses: {
         /**
@@ -2055,7 +2289,9 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          thread_id: components["parameters"]["thread_id"];
+        };
       };
       responses: {
         /**
@@ -2074,7 +2310,9 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          thread_id: components["parameters"]["thread_id"];
+        };
       };
       responses: {
         /**
@@ -2118,7 +2356,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          since: components["parameters"]["since"];
+          per_page: components["parameters"]["per_page"];
+        };
       };
       responses: {
         /**
@@ -2139,7 +2380,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -2158,7 +2401,9 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -2190,7 +2435,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -2213,7 +2464,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -2235,7 +2488,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+        };
       };
       responses: {
         /**
@@ -2255,7 +2511,10 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+        };
       };
       responses: {
         /**
@@ -2275,7 +2534,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+        };
       };
       responses: {
         /**
@@ -2295,7 +2557,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+        };
       };
       responses: {
         /**
@@ -2318,7 +2583,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+        };
       };
       responses: {
         /**
@@ -2340,7 +2608,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+          repository_id: components["parameters"]["repository_id"];
+        };
       };
       responses: {
         /**
@@ -2359,7 +2631,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+          repository_id: components["parameters"]["repository_id"];
+        };
       };
       responses: {
         /**
@@ -2379,7 +2655,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -2402,7 +2685,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+        };
       };
       responses: {
         /**
@@ -2424,7 +2710,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+          runner_id: components["parameters"]["runner_id"];
+        };
       };
       responses: {
         /**
@@ -2443,7 +2733,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          runner_group_id: components["parameters"]["runner_group_id"];
+          runner_id: components["parameters"]["runner_id"];
+        };
       };
       responses: {
         /**
@@ -2461,7 +2755,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -2484,7 +2784,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -2512,7 +2814,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -2541,7 +2845,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -2561,7 +2867,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          runner_id: components["parameters"]["runner_id"];
+        };
       };
       responses: {
         /**
@@ -2579,7 +2888,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          runner_id: components["parameters"]["runner_id"];
+        };
       };
       responses: {
         /**
@@ -2595,7 +2907,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -2616,7 +2934,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -2634,7 +2954,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          secret_name: components["parameters"]["secret_name"];
+        };
       };
       responses: {
         /**
@@ -2724,7 +3047,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          secret_name: components["parameters"]["secret_name"];
+        };
       };
       responses: {
         /**
@@ -2742,7 +3068,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          secret_name: components["parameters"]["secret_name"];
+        };
       };
       responses: {
         /**
@@ -2758,7 +3087,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          secret_name: components["parameters"]["secret_name"];
+        };
       };
       responses: {
         /**
@@ -2777,7 +3109,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          secret_name: components["parameters"]["secret_name"];
+        };
       };
       responses: {
         /**
@@ -2793,8 +3128,9 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
         path: {
+          org: components["parameters"]["org"];
+          secret_name: components["parameters"]["secret_name"];
           repository_id: number;
         };
       };
@@ -2814,8 +3150,9 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
         path: {
+          org: components["parameters"]["org"];
+          secret_name: components["parameters"]["secret_name"];
           repository_id: number;
         };
       };
@@ -2837,7 +3174,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -2853,7 +3192,10 @@ export interface paths {
   "/orgs/{org}/blocks/{username}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -2870,7 +3212,10 @@ export interface paths {
     };
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -2882,7 +3227,10 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -2900,7 +3248,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -2920,8 +3270,8 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
         path: {
+          org: components["parameters"]["org"];
           credential_id: number;
         };
       };
@@ -2937,7 +3287,13 @@ export interface paths {
   "/orgs/{org}/events": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -2952,7 +3308,13 @@ export interface paths {
   "/orgs/{org}/hooks": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -2969,7 +3331,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -2986,7 +3350,10 @@ export interface paths {
   "/orgs/{org}/hooks/{hook_id}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          hook_id: components["parameters"]["hook-id"];
+        };
       };
       responses: {
         /**
@@ -3000,7 +3367,10 @@ export interface paths {
     };
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          hook_id: components["parameters"]["hook-id"];
+        };
       };
       responses: {
         /**
@@ -3015,7 +3385,10 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          hook_id: components["parameters"]["hook-id"];
+        };
       };
       responses: {
         /**
@@ -3032,7 +3405,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          hook_id: components["parameters"]["hook-id"];
+        };
       };
       responses: {
         /**
@@ -3051,7 +3427,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -3069,7 +3447,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -3090,7 +3474,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -3106,7 +3492,9 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -3123,7 +3511,9 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -3139,7 +3529,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -3158,7 +3554,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -3178,7 +3576,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          invitation_id: components["parameters"]["invitation_id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -3202,7 +3607,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
         query: {
           /**
            * Indicates which sorts of issues to return. Can be one of:
@@ -3217,10 +3624,15 @@ export interface paths {
            * Indicates the state of the issues to return. Can be either `open`, `closed`, or `all`.
            */
           state?: "open" | "closed" | "all";
+          labels: components["parameters"]["labels"];
           /**
            * What to sort results by. Can be either `created`, `updated`, `comments`.
            */
           sort?: "created" | "updated" | "comments";
+          direction: components["parameters"]["direction"];
+          since: components["parameters"]["since"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -3240,7 +3652,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
         query: {
           /**
            * Filter members returned in the list. Can be one of:
@@ -3255,6 +3669,8 @@ export interface paths {
            * \* `member` - Non-owner organization members.
            */
           role?: "all" | "admin" | "member";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -3278,7 +3694,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -3300,7 +3719,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -3317,7 +3739,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -3343,7 +3768,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -3363,7 +3791,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -3381,7 +3812,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -3397,7 +3834,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -3424,7 +3863,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          migration_id: components["parameters"]["migration_id"];
+        };
       };
       responses: {
         /**
@@ -3446,7 +3888,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          migration_id: components["parameters"]["migration_id"];
+        };
       };
       responses: {
         /**
@@ -3461,7 +3906,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          migration_id: components["parameters"]["migration_id"];
+        };
       };
       responses: {
         /**
@@ -3478,7 +3926,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          migration_id: components["parameters"]["migration_id"];
+          repo_name: components["parameters"]["repo_name"];
+        };
       };
       responses: {
         /**
@@ -3495,7 +3947,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          migration_id: components["parameters"]["migration_id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -3514,7 +3973,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
         query: {
           /**
            * Filter the list of outside collaborators. Can be one of:
@@ -3522,6 +3983,8 @@ export interface paths {
            * \* `all`: All outside collaborators.
            */
           filter?: "2fa_disabled" | "all";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -3540,7 +4003,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -3565,7 +4031,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -3587,12 +4056,16 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
         query: {
           /**
            * Indicates the state of the projects to return. Can be either `open`, `closed`, or `all`.
            */
           state?: "open" | "closed" | "all";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -3610,7 +4083,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -3633,7 +4108,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -3648,7 +4129,10 @@ export interface paths {
   "/orgs/{org}/public_members/{username}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -3668,7 +4152,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -3680,7 +4167,10 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -3696,7 +4186,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
         query: {
           /**
            * Specifies the types of repositories you want returned. Can be one of `all`, `public`, `private`, `forks`, `sources`, `member`, `internal`. Default: `all`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `type` can also be `internal`.
@@ -3717,6 +4209,8 @@ export interface paths {
            * Can be one of `asc` or `desc`. Default: when using `full_name`: `asc`, otherwise `desc`
            */
           direction?: "asc" | "desc";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -3740,7 +4234,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -3764,7 +4260,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -3786,7 +4284,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -3808,7 +4308,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -3830,7 +4332,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -3848,7 +4356,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -3867,7 +4381,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -3889,7 +4405,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+        };
       };
       responses: {
         /**
@@ -3908,7 +4427,10 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+        };
       };
       responses: {
         /**
@@ -3928,7 +4450,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+        };
       };
       responses: {
         /**
@@ -3946,7 +4471,15 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+        };
+        query: {
+          direction: components["parameters"]["direction"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -3966,7 +4499,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+        };
       };
       responses: {
         /**
@@ -3986,7 +4522,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          discussion_number: components["parameters"]["discussion-number"];
+        };
       };
       responses: {
         /**
@@ -4004,7 +4544,11 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          discussion_number: components["parameters"]["discussion-number"];
+        };
       };
       responses: {
         /**
@@ -4022,7 +4566,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          discussion_number: components["parameters"]["discussion-number"];
+        };
       };
       responses: {
         /**
@@ -4040,7 +4588,16 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          discussion_number: components["parameters"]["discussion-number"];
+        };
+        query: {
+          direction: components["parameters"]["direction"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -4060,7 +4617,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          discussion_number: components["parameters"]["discussion-number"];
+        };
       };
       responses: {
         /**
@@ -4080,7 +4641,12 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          discussion_number: components["parameters"]["discussion-number"];
+          comment_number: components["parameters"]["comment-number"];
+        };
       };
       responses: {
         /**
@@ -4098,7 +4664,12 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          discussion_number: components["parameters"]["discussion-number"];
+          comment_number: components["parameters"]["comment-number"];
+        };
       };
       responses: {
         /**
@@ -4116,7 +4687,12 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          discussion_number: components["parameters"]["discussion-number"];
+          comment_number: components["parameters"]["comment-number"];
+        };
       };
       responses: {
         /**
@@ -4134,7 +4710,12 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          discussion_number: components["parameters"]["discussion-number"];
+          comment_number: components["parameters"]["comment-number"];
+        };
         query: {
           /**
            * Returns a single [reaction type](https://developer.github.com/v3/reactions/#reaction-types). Omit this parameter to list all reactions to a team discussion comment.
@@ -4148,6 +4729,8 @@ export interface paths {
             | "hooray"
             | "rocket"
             | "eyes";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -4166,7 +4749,12 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          discussion_number: components["parameters"]["discussion-number"];
+          comment_number: components["parameters"]["comment-number"];
+        };
       };
       responses: {
         /**
@@ -4186,7 +4774,13 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          discussion_number: components["parameters"]["discussion-number"];
+          comment_number: components["parameters"]["comment-number"];
+          reaction_id: components["parameters"]["reaction-id"];
+        };
       };
       responses: {
         /**
@@ -4204,7 +4798,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          discussion_number: components["parameters"]["discussion-number"];
+        };
         query: {
           /**
            * Returns a single [reaction type](https://developer.github.com/v3/reactions/#reaction-types). Omit this parameter to list all reactions to a team discussion.
@@ -4218,6 +4816,8 @@ export interface paths {
             | "hooray"
             | "rocket"
             | "eyes";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -4236,7 +4836,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          discussion_number: components["parameters"]["discussion-number"];
+        };
       };
       responses: {
         /**
@@ -4256,7 +4860,12 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          discussion_number: components["parameters"]["discussion-number"];
+          reaction_id: components["parameters"]["reaction-id"];
+        };
       };
       responses: {
         /**
@@ -4274,7 +4883,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -4294,7 +4910,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+        };
         query: {
           /**
            * Filters members returned by their role in the team. Can be one of:
@@ -4303,6 +4922,8 @@ export interface paths {
            * \* `all` - all members of the team.
            */
           role?: "member" | "maintainer" | "all";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -4327,7 +4948,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -4357,7 +4982,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -4392,7 +5021,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -4414,7 +5047,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -4434,7 +5074,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          project_id: components["parameters"]["project-id"];
+        };
       };
       responses: {
         /**
@@ -4456,7 +5100,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          project_id: components["parameters"]["project-id"];
+        };
       };
       responses: {
         /**
@@ -4478,7 +5126,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          project_id: components["parameters"]["project-id"];
+        };
       };
       responses: {
         /**
@@ -4496,7 +5148,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -4520,7 +5179,12 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -4548,7 +5212,12 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -4564,7 +5233,12 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -4584,7 +5258,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+        };
       };
       responses: {
         /**
@@ -4604,7 +5281,10 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+        };
       };
       responses: {
         /**
@@ -4624,7 +5304,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          team_slug: components["parameters"]["team_slug"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -4639,7 +5326,9 @@ export interface paths {
   "/projects/columns/cards/{card_id}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          card_id: components["parameters"]["card_id"];
+        };
       };
       responses: {
         /**
@@ -4656,7 +5345,9 @@ export interface paths {
     };
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          card_id: components["parameters"]["card_id"];
+        };
       };
       responses: {
         /**
@@ -4674,7 +5365,9 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          card_id: components["parameters"]["card_id"];
+        };
       };
       responses: {
         /**
@@ -4700,7 +5393,9 @@ export interface paths {
   "/projects/columns/cards/{card_id}/moves": {
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          card_id: components["parameters"]["card_id"];
+        };
       };
       responses: {
         /**
@@ -4744,7 +5439,9 @@ export interface paths {
   "/projects/columns/{column_id}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          column_id: components["parameters"]["column_id"];
+        };
       };
       responses: {
         /**
@@ -4761,7 +5458,9 @@ export interface paths {
     };
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          column_id: components["parameters"]["column_id"];
+        };
       };
       responses: {
         /**
@@ -4777,7 +5476,9 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          column_id: components["parameters"]["column_id"];
+        };
       };
       responses: {
         /**
@@ -4793,12 +5494,16 @@ export interface paths {
   "/projects/columns/{column_id}/cards": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          column_id: components["parameters"]["column_id"];
+        };
         query: {
           /**
            * Filters the project cards that are returned by the card's state. Can be one of `all`,`archived`, or `not_archived`.
            */
           archived_state?: "all" | "archived" | "not_archived";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -4820,7 +5525,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          column_id: components["parameters"]["column_id"];
+        };
       };
       responses: {
         /**
@@ -4857,7 +5564,9 @@ export interface paths {
   "/projects/columns/{column_id}/moves": {
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          column_id: components["parameters"]["column_id"];
+        };
       };
       responses: {
         /**
@@ -4879,7 +5588,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          project_id: components["parameters"]["project-id"];
+        };
       };
       responses: {
         /**
@@ -4898,7 +5609,9 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          project_id: components["parameters"]["project-id"];
+        };
       };
       responses: {
         /**
@@ -4932,7 +5645,9 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          project_id: components["parameters"]["project-id"];
+        };
       };
       responses: {
         /**
@@ -4962,7 +5677,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          project_id: components["parameters"]["project-id"];
+        };
         query: {
           /**
            * Filters the collaborators by their affiliation. Can be one of:
@@ -4971,6 +5688,8 @@ export interface paths {
            * \* `all`: All collaborators the authenticated user can see.
            */
           affiliation?: "outside" | "direct" | "all";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -4995,7 +5714,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          project_id: components["parameters"]["project-id"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -5015,7 +5737,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          project_id: components["parameters"]["project-id"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -5037,7 +5762,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          project_id: components["parameters"]["project-id"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -5058,7 +5786,13 @@ export interface paths {
   "/projects/{project_id}/columns": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          project_id: components["parameters"]["project-id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -5074,7 +5808,9 @@ export interface paths {
     };
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          project_id: components["parameters"]["project-id"];
+        };
       };
       responses: {
         /**
@@ -5118,7 +5854,9 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          reaction_id: components["parameters"]["reaction-id"];
+        };
       };
       responses: {
         /**
@@ -5141,7 +5879,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -5160,7 +5901,10 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -5182,7 +5926,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -5205,7 +5952,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -5226,7 +5980,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          artifact_id: components["parameters"]["artifact_id"];
+        };
       };
       responses: {
         /**
@@ -5242,7 +6000,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          artifact_id: components["parameters"]["artifact_id"];
+        };
       };
       responses: {
         /**
@@ -5261,8 +6023,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          artifact_id: components["parameters"]["artifact_id"];
           archive_format: string;
         };
       };
@@ -5280,7 +6044,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          job_id: components["parameters"]["job_id"];
+        };
       };
       responses: {
         /**
@@ -5301,7 +6069,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          job_id: components["parameters"]["job_id"];
+        };
       };
       responses: {
         /**
@@ -5317,7 +6089,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -5340,7 +6119,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -5367,7 +6149,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -5394,7 +6179,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -5415,7 +6203,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          runner_id: components["parameters"]["runner_id"];
+        };
       };
       responses: {
         /**
@@ -5434,7 +6226,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          runner_id: components["parameters"]["runner_id"];
+        };
       };
       responses: {
         /**
@@ -5452,7 +6248,18 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          actor: components["parameters"]["actor"];
+          branch: components["parameters"]["workflow-run-branch"];
+          event: components["parameters"]["event"];
+          status: components["parameters"]["workflow-run-status"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -5473,7 +6280,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          run_id: components["parameters"]["run-id"];
+        };
       };
       responses: {
         /**
@@ -5491,7 +6302,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          run_id: components["parameters"]["run-id"];
+        };
       };
       responses: {
         /**
@@ -5507,7 +6322,15 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          run_id: components["parameters"]["run-id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -5528,7 +6351,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          run_id: components["parameters"]["run-id"];
+        };
       };
       responses: {
         /**
@@ -5544,7 +6371,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          run_id: components["parameters"]["run-id"];
+        };
         query: {
           /**
            * Filters jobs by their `completed_at` timestamp. Can be one of:
@@ -5552,6 +6383,8 @@ export interface paths {
            * \* `all`: Returns all jobs for a workflow run, including from old executions of the workflow run.
            */
           filter?: "latest" | "all";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -5576,7 +6409,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          run_id: components["parameters"]["run-id"];
+        };
       };
       responses: {
         /**
@@ -5590,7 +6427,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          run_id: components["parameters"]["run-id"];
+        };
       };
       responses: {
         /**
@@ -5606,7 +6447,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          run_id: components["parameters"]["run-id"];
+        };
       };
       responses: {
         /**
@@ -5626,7 +6471,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          run_id: components["parameters"]["run-id"];
+        };
       };
       responses: {
         /**
@@ -5644,7 +6493,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -5665,7 +6521,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -5683,7 +6542,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          secret_name: components["parameters"]["secret_name"];
+        };
       };
       responses: {
         /**
@@ -5773,7 +6636,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          secret_name: components["parameters"]["secret_name"];
+        };
       };
       responses: {
         /**
@@ -5791,7 +6658,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          secret_name: components["parameters"]["secret_name"];
+        };
       };
       responses: {
         /**
@@ -5807,7 +6678,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -5828,7 +6706,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          workflow_id: components["parameters"]["workflow-id"];
+        };
       };
       responses: {
         /**
@@ -5848,7 +6730,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          workflow_id: components["parameters"]["workflow-id"];
+        };
       };
       responses: {
         /**
@@ -5868,7 +6754,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          workflow_id: components["parameters"]["workflow-id"];
+        };
       };
       responses: {
         /**
@@ -5886,7 +6776,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          workflow_id: components["parameters"]["workflow-id"];
+        };
       };
       responses: {
         /**
@@ -5904,7 +6798,19 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          workflow_id: components["parameters"]["workflow-id"];
+        };
+        query: {
+          actor: components["parameters"]["actor"];
+          branch: components["parameters"]["workflow-run-branch"];
+          event: components["parameters"]["event"];
+          status: components["parameters"]["workflow-run-status"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -5929,7 +6835,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          workflow_id: components["parameters"]["workflow-id"];
+        };
       };
       responses: {
         /**
@@ -5947,7 +6857,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -5970,8 +6887,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           assignee: string;
         };
       };
@@ -5995,7 +6913,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -6009,7 +6930,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -6022,12 +6946,17 @@ export interface paths {
   "/repos/{owner}/{repo}/branches": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
         query: {
           /**
            * Setting to `true` returns only protected branches. When set to `false`, only unprotected branches are returned. Omitting this parameter returns all branches.
            */
           protected?: boolean;
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -6044,7 +6973,11 @@ export interface paths {
   "/repos/{owner}/{repo}/branches/{branch}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6064,7 +6997,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6087,7 +7024,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6107,7 +7048,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6124,7 +7069,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6142,7 +7091,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6160,7 +7113,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6177,7 +7134,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6197,7 +7158,11 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6214,7 +7179,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6235,7 +7204,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6254,7 +7227,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6273,7 +7250,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6290,7 +7271,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6309,7 +7294,11 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6327,7 +7316,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6343,7 +7336,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6360,7 +7357,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6379,7 +7380,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6397,7 +7402,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6421,7 +7430,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6440,7 +7453,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6458,7 +7475,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6481,7 +7502,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6504,7 +7529,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6527,7 +7556,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6548,7 +7581,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6571,7 +7608,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6594,7 +7635,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6617,7 +7662,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6638,7 +7687,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6661,7 +7714,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6684,7 +7741,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6707,7 +7768,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          branch: components["parameters"]["branch"];
+        };
       };
       responses: {
         /**
@@ -6728,7 +7793,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -6748,7 +7816,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          check_run_id: components["parameters"]["check_run_id"];
+        };
       };
       responses: {
         /**
@@ -6766,7 +7838,11 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          check_run_id: components["parameters"]["check_run_id"];
+        };
       };
       responses: {
         /**
@@ -6784,7 +7860,15 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          check_run_id: components["parameters"]["check_run_id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -6804,7 +7888,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -6822,7 +7909,10 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -6842,7 +7932,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          check_suite_id: components["parameters"]["check_suite_id"];
+        };
       };
       responses: {
         /**
@@ -6862,12 +7956,20 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          check_suite_id: components["parameters"]["check_suite_id"];
+        };
         query: {
+          check_name: components["parameters"]["check_name"];
+          status: components["parameters"]["status"];
           /**
            * Filters check runs by their `completed_at` timestamp. Can be one of `latest` (returning the most recent check runs) or `all`.
            */
           filter?: "latest" | "all";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -6891,7 +7993,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          check_suite_id: components["parameters"]["check_suite_id"];
+        };
       };
       responses: {
         /**
@@ -6907,7 +8013,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
         query: {
           /**
            * Set to `open`, `fixed`, or `dismissed` to list code scanning alerts in a specific state.
@@ -6942,8 +8051,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           alert_number: number;
         };
       };
@@ -6964,7 +8074,11 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          alert_number: components["parameters"]["alert_number"];
+        };
       };
       responses: {
         /**
@@ -6986,7 +8100,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
         query: {
           /**
            * Set a full Git reference to list alerts for a specific branch. The `ref` must be formatted as `refs/heads/<branch name>`.
@@ -7015,7 +8132,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -7037,7 +8157,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
         query: {
           /**
            * Filter collaborators returned by their affiliation. Can be one of:
@@ -7046,6 +8169,8 @@ export interface paths {
            * \* `all`: All collaborators the authenticated user can see.
            */
           affiliation?: "outside" | "direct" | "all";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -7067,7 +8192,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -7095,7 +8224,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -7114,7 +8247,11 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -7130,7 +8267,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -7151,7 +8292,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -7166,7 +8314,11 @@ export interface paths {
   "/repos/{owner}/{repo}/comments/{comment_id}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          comment_id: components["parameters"]["comment_id"];
+        };
       };
       responses: {
         /**
@@ -7180,7 +8332,11 @@ export interface paths {
     };
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          comment_id: components["parameters"]["comment_id"];
+        };
       };
       responses: {
         /**
@@ -7194,7 +8350,11 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          comment_id: components["parameters"]["comment_id"];
+        };
       };
       responses: {
         /**
@@ -7211,7 +8371,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          comment_id: components["parameters"]["comment_id"];
+        };
         query: {
           /**
            * Returns a single [reaction type](https://developer.github.com/v3/reactions/#reaction-types). Omit this parameter to list all reactions to a commit comment.
@@ -7225,6 +8389,8 @@ export interface paths {
             | "hooray"
             | "rocket"
             | "eyes";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -7243,7 +8409,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          comment_id: components["parameters"]["comment_id"];
+        };
       };
       responses: {
         /**
@@ -7271,7 +8441,12 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          comment_id: components["parameters"]["comment_id"];
+          reaction_id: components["parameters"]["reaction-id"];
+        };
       };
       responses: {
         /**
@@ -7310,7 +8485,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
         query: {
           /**
            * SHA or branch to start listing commits from. Default: the repository’s default branch (usually `master`).
@@ -7324,10 +8502,13 @@ export interface paths {
            * GitHub login or email address by which to filter by commit author.
            */
           author?: string;
+          since: components["parameters"]["since"];
           /**
            * Only commits before this date will be returned. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
            */
           until?: string;
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -7352,7 +8533,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          commit_sha: components["parameters"]["commit_sha"];
+        };
       };
       responses: {
         /**
@@ -7372,7 +8557,15 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          commit_sha: components["parameters"]["commit_sha"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -7390,7 +8583,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          commit_sha: components["parameters"]["commit_sha"];
+        };
       };
       responses: {
         /**
@@ -7410,7 +8607,15 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          commit_sha: components["parameters"]["commit_sha"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -7456,8 +8661,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           /**
            * ref+ parameter
            */
@@ -7485,18 +8691,23 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           /**
            * ref+ parameter
            */
           ref: string;
         };
         query: {
+          check_name: components["parameters"]["check_name"];
+          status: components["parameters"]["status"];
           /**
            * Filters check runs by their `completed_at` timestamp. Can be one of `latest` (returning the most recent check runs) or `all`.
            */
           filter?: "latest" | "all";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -7520,8 +8731,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           /**
            * ref+ parameter
            */
@@ -7532,6 +8744,9 @@ export interface paths {
            * Filters check suites by GitHub App `id`.
            */
           app_id?: number;
+          check_name: components["parameters"]["check_name"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -7561,8 +8776,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           /**
            * ref+ parameter
            */
@@ -7588,12 +8804,17 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           /**
            * ref+ parameter
            */
           ref: string;
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -7613,7 +8834,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -7631,7 +8855,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -7679,8 +8906,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           base: string;
           head: string;
         };
@@ -7734,8 +8962,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           /**
            * path+ parameter
            */
@@ -7770,8 +8999,9 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           /**
            * path+ parameter
            */
@@ -7807,8 +9037,9 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           /**
            * path+ parameter
            */
@@ -7837,12 +9068,17 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
         query: {
           /**
            * Set to `1` or `true` to include anonymous contributors in results.
            */
           anon?: string;
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -7867,7 +9103,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
         query: {
           /**
            * The SHA recorded at creation time.
@@ -7885,6 +9124,8 @@ export interface paths {
            * The name of the environment that was deployed to (e.g., `staging` or `production`).
            */
           environment?: string;
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -7945,7 +9186,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -7973,7 +9217,11 @@ export interface paths {
   "/repos/{owner}/{repo}/deployments/{deployment_id}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          deployment_id: components["parameters"]["deployment_id"];
+        };
       };
       responses: {
         /**
@@ -7997,7 +9245,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          deployment_id: components["parameters"]["deployment_id"];
+        };
       };
       responses: {
         /**
@@ -8015,7 +9267,15 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          deployment_id: components["parameters"]["deployment_id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -8034,7 +9294,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          deployment_id: components["parameters"]["deployment_id"];
+        };
       };
       responses: {
         /**
@@ -8053,8 +9317,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          deployment_id: components["parameters"]["deployment_id"];
           status_id: number;
         };
       };
@@ -8082,7 +9348,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -8096,7 +9365,14 @@ export interface paths {
   "/repos/{owner}/{repo}/events": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -8111,12 +9387,17 @@ export interface paths {
   "/repos/{owner}/{repo}/forks": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
         query: {
           /**
            * The sort order. Can be either `newest`, `oldest`, or `stargazers`.
            */
           sort?: "newest" | "oldest" | "stargazers";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -8136,7 +9417,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -8155,7 +9439,10 @@ export interface paths {
   "/repos/{owner}/{repo}/git/blobs": {
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -8179,8 +9466,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           file_sha: string;
         };
       };
@@ -8227,7 +9515,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -8271,7 +9562,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          commit_sha: components["parameters"]["commit_sha"];
+        };
       };
       responses: {
         /**
@@ -8296,12 +9591,17 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           /**
            * ref+ parameter
            */
           ref: string;
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -8322,8 +9622,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           /**
            * ref+ parameter
            */
@@ -8347,7 +9648,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -8363,8 +9667,9 @@ export interface paths {
   "/repos/{owner}/{repo}/git/refs/{ref}": {
     patch: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           /**
            * ref+ parameter
            */
@@ -8383,8 +9688,9 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           /**
            * ref+ parameter
            */
@@ -8430,7 +9736,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -8472,8 +9781,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           tag_sha: string;
         };
       };
@@ -8496,7 +9806,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -8519,8 +9832,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           tree_sha: string;
         };
         query: {
@@ -8545,7 +9859,14 @@ export interface paths {
   "/repos/{owner}/{repo}/hooks": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -8563,7 +9884,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -8581,7 +9905,11 @@ export interface paths {
   "/repos/{owner}/{repo}/hooks/{hook_id}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          hook_id: components["parameters"]["hook-id"];
+        };
       };
       responses: {
         /**
@@ -8595,7 +9923,11 @@ export interface paths {
     };
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          hook_id: components["parameters"]["hook-id"];
+        };
       };
       responses: {
         /**
@@ -8610,7 +9942,11 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          hook_id: components["parameters"]["hook-id"];
+        };
       };
       responses: {
         /**
@@ -8627,7 +9963,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          hook_id: components["parameters"]["hook-id"];
+        };
       };
       responses: {
         /**
@@ -8646,7 +9986,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          hook_id: components["parameters"]["hook-id"];
+        };
       };
       responses: {
         /**
@@ -8696,7 +10040,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -8713,7 +10060,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -8732,7 +10082,10 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -8748,7 +10101,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -8766,7 +10122,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          since: components["parameters"]["since"];
+        };
       };
       responses: {
         /**
@@ -8785,8 +10147,9 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           author_id: number;
         };
       };
@@ -8808,7 +10171,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -8826,7 +10192,10 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -8847,7 +10216,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -8867,7 +10239,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -8883,7 +10258,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -8899,7 +10277,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -8915,7 +10296,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -8930,7 +10318,11 @@ export interface paths {
   "/repos/{owner}/{repo}/invitations/{invitation_id}": {
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          invitation_id: components["parameters"]["invitation_id"];
+        };
       };
       responses: {
         /**
@@ -8943,7 +10335,11 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          invitation_id: components["parameters"]["invitation_id"];
+        };
       };
       responses: {
         /**
@@ -8964,7 +10360,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
         query: {
           /**
            * If an `integer` is passed, it should refer to a milestone by its `number` field. If the string `*` is passed, issues with any milestone are accepted. If the string `none` is passed, issues without milestones are returned.
@@ -8986,10 +10385,15 @@ export interface paths {
            * A user that's mentioned in the issue.
            */
           mentioned?: string;
+          labels: components["parameters"]["labels"];
           /**
            * What to sort results by. Can be either `created`, `updated`, `comments`.
            */
           sort?: "created" | "updated" | "comments";
+          direction: components["parameters"]["direction"];
+          since: components["parameters"]["since"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -9011,7 +10415,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -9034,12 +10441,19 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
         query: {
+          sort: components["parameters"]["sort"];
           /**
            * Either `asc` or `desc`. Ignored without the `sort` parameter.
            */
           direction?: "asc" | "desc";
+          since: components["parameters"]["since"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -9057,7 +10471,11 @@ export interface paths {
   "/repos/{owner}/{repo}/issues/comments/{comment_id}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          comment_id: components["parameters"]["comment_id"];
+        };
       };
       responses: {
         /**
@@ -9071,7 +10489,11 @@ export interface paths {
     };
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          comment_id: components["parameters"]["comment_id"];
+        };
       };
       responses: {
         /**
@@ -9085,7 +10507,11 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          comment_id: components["parameters"]["comment_id"];
+        };
       };
       responses: {
         /**
@@ -9101,7 +10527,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          comment_id: components["parameters"]["comment_id"];
+        };
         query: {
           /**
            * Returns a single [reaction type](https://developer.github.com/v3/reactions/#reaction-types). Omit this parameter to list all reactions to an issue comment.
@@ -9115,6 +10545,8 @@ export interface paths {
             | "hooray"
             | "rocket"
             | "eyes";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -9133,7 +10565,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          comment_id: components["parameters"]["comment_id"];
+        };
       };
       responses: {
         /**
@@ -9161,7 +10597,12 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          comment_id: components["parameters"]["comment_id"];
+          reaction_id: components["parameters"]["reaction-id"];
+        };
       };
       responses: {
         /**
@@ -9174,7 +10615,14 @@ export interface paths {
   "/repos/{owner}/{repo}/issues/events": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -9190,8 +10638,9 @@ export interface paths {
   "/repos/{owner}/{repo}/issues/events/{event_id}": {
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           event_id: number;
         };
       };
@@ -9224,7 +10673,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          issue_number: components["parameters"]["issue_number"];
+        };
       };
       responses: {
         /**
@@ -9244,7 +10697,11 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          issue_number: components["parameters"]["issue_number"];
+        };
       };
       responses: {
         /**
@@ -9268,7 +10725,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          issue_number: components["parameters"]["issue_number"];
+        };
       };
       responses: {
         /**
@@ -9284,7 +10745,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          issue_number: components["parameters"]["issue_number"];
+        };
       };
       responses: {
         /**
@@ -9302,7 +10767,16 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          issue_number: components["parameters"]["issue_number"];
+        };
+        query: {
+          since: components["parameters"]["since"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -9320,7 +10794,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          issue_number: components["parameters"]["issue_number"];
+        };
       };
       responses: {
         /**
@@ -9339,7 +10817,15 @@ export interface paths {
   "/repos/{owner}/{repo}/issues/{issue_number}/events": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          issue_number: components["parameters"]["issue_number"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -9355,7 +10841,15 @@ export interface paths {
   "/repos/{owner}/{repo}/issues/{issue_number}/labels": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          issue_number: components["parameters"]["issue_number"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -9369,7 +10863,11 @@ export interface paths {
     };
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          issue_number: components["parameters"]["issue_number"];
+        };
       };
       responses: {
         /**
@@ -9387,7 +10885,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          issue_number: components["parameters"]["issue_number"];
+        };
       };
       responses: {
         /**
@@ -9402,7 +10904,11 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          issue_number: components["parameters"]["issue_number"];
+        };
       };
       responses: {
         /**
@@ -9419,8 +10925,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          issue_number: components["parameters"]["issue_number"];
           name: string;
         };
       };
@@ -9444,7 +10952,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          issue_number: components["parameters"]["issue_number"];
+        };
       };
       responses: {
         /**
@@ -9462,7 +10974,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          issue_number: components["parameters"]["issue_number"];
+        };
       };
       responses: {
         /**
@@ -9480,7 +10996,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          issue_number: components["parameters"]["issue_number"];
+        };
         query: {
           /**
            * Returns a single [reaction type](https://developer.github.com/v3/reactions/#reaction-types). Omit this parameter to list all reactions to an issue.
@@ -9494,6 +11014,8 @@ export interface paths {
             | "hooray"
             | "rocket"
             | "eyes";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -9513,7 +11035,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          issue_number: components["parameters"]["issue_number"];
+        };
       };
       responses: {
         /**
@@ -9535,7 +11061,12 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          issue_number: components["parameters"]["issue_number"];
+          reaction_id: components["parameters"]["reaction-id"];
+        };
       };
       responses: {
         /**
@@ -9548,7 +11079,15 @@ export interface paths {
   "/repos/{owner}/{repo}/issues/{issue_number}/timeline": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          issue_number: components["parameters"]["issue_number"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -9566,7 +11105,14 @@ export interface paths {
   "/repos/{owner}/{repo}/keys": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -9582,7 +11128,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -9598,7 +11147,11 @@ export interface paths {
   "/repos/{owner}/{repo}/keys/{key_id}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          key_id: components["parameters"]["key_id"];
+        };
       };
       responses: {
         /**
@@ -9615,7 +11168,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          key_id: components["parameters"]["key_id"];
+        };
       };
       responses: {
         /**
@@ -9628,7 +11185,14 @@ export interface paths {
   "/repos/{owner}/{repo}/labels": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -9642,7 +11206,10 @@ export interface paths {
     };
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -9659,8 +11226,9 @@ export interface paths {
   "/repos/{owner}/{repo}/labels/{name}": {
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           name: string;
         };
       };
@@ -9676,8 +11244,9 @@ export interface paths {
     };
     patch: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           name: string;
         };
       };
@@ -9692,8 +11261,9 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           name: string;
         };
       };
@@ -9711,7 +11281,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -9731,7 +11304,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -9746,7 +11322,10 @@ export interface paths {
   "/repos/{owner}/{repo}/merges": {
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -9775,7 +11354,10 @@ export interface paths {
   "/repos/{owner}/{repo}/milestones": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
         query: {
           /**
            * The state of the milestone. Either `open`, `closed`, or `all`.
@@ -9789,6 +11371,8 @@ export interface paths {
            * The direction of the sort. Either `asc` or `desc`.
            */
           direction?: "asc" | "desc";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -9803,7 +11387,10 @@ export interface paths {
     };
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -9820,7 +11407,11 @@ export interface paths {
   "/repos/{owner}/{repo}/milestones/{milestone_number}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          milestone_number: components["parameters"]["milestone_number"];
+        };
       };
       responses: {
         /**
@@ -9834,7 +11425,11 @@ export interface paths {
     };
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          milestone_number: components["parameters"]["milestone_number"];
+        };
       };
       responses: {
         /**
@@ -9847,7 +11442,11 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          milestone_number: components["parameters"]["milestone_number"];
+        };
       };
       responses: {
         /**
@@ -9861,7 +11460,15 @@ export interface paths {
   "/repos/{owner}/{repo}/milestones/{milestone_number}/labels": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          milestone_number: components["parameters"]["milestone_number"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -9879,7 +11486,18 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          all: components["parameters"]["all"];
+          participating: components["parameters"]["participating"];
+          since: components["parameters"]["since"];
+          before: components["parameters"]["before"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -9895,7 +11513,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -9908,7 +11529,10 @@ export interface paths {
   "/repos/{owner}/{repo}/pages": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -9925,7 +11549,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -9944,7 +11571,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -9957,7 +11587,10 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -9973,7 +11606,14 @@ export interface paths {
   "/repos/{owner}/{repo}/pages/builds": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -9991,7 +11631,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -10006,7 +11649,10 @@ export interface paths {
   "/repos/{owner}/{repo}/pages/builds/latest": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -10021,8 +11667,9 @@ export interface paths {
   "/repos/{owner}/{repo}/pages/builds/{build_id}": {
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           build_id: number;
         };
       };
@@ -10042,12 +11689,17 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
         query: {
           /**
            * Indicates the state of the projects to return. Can be either `open`, `closed`, or `all`.
            */
           state?: "open" | "closed" | "all";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -10069,7 +11721,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -10092,7 +11747,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
         query: {
           /**
            * Either `open`, `closed`, or `all` to filter by state.
@@ -10114,6 +11772,8 @@ export interface paths {
            * The direction of the sort. Can be either `asc` or `desc`. Default: `desc` when sort is `created` or sort is not specified, otherwise `asc`.
            */
           direction?: "asc" | "desc";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -10138,7 +11798,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -10178,12 +11841,19 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
         query: {
+          sort: components["parameters"]["sort"];
           /**
            * Can be either `asc` or `desc`. Ignored without `sort` parameter.
            */
           direction?: "asc" | "desc";
+          since: components["parameters"]["since"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -10222,7 +11892,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          comment_id: components["parameters"]["comment_id"];
+        };
       };
       responses: {
         /**
@@ -10257,7 +11931,11 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          comment_id: components["parameters"]["comment_id"];
+        };
       };
       responses: {
         /**
@@ -10273,7 +11951,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          comment_id: components["parameters"]["comment_id"];
+        };
       };
       responses: {
         /**
@@ -10290,7 +11972,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          comment_id: components["parameters"]["comment_id"];
+        };
         query: {
           /**
            * Returns a single [reaction type](https://developer.github.com/v3/reactions/#reaction-types). Omit this parameter to list all reactions to a pull request review comment.
@@ -10304,6 +11990,8 @@ export interface paths {
             | "hooray"
             | "rocket"
             | "eyes";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -10322,7 +12010,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          comment_id: components["parameters"]["comment_id"];
+        };
       };
       responses: {
         /**
@@ -10350,7 +12042,12 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          comment_id: components["parameters"]["comment_id"];
+          reaction_id: components["parameters"]["reaction-id"];
+        };
       };
       responses: {
         /**
@@ -10380,7 +12077,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+        };
       };
       responses: {
         /**
@@ -10401,7 +12102,11 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+        };
       };
       responses: {
         /**
@@ -10441,12 +12146,20 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+        };
         query: {
+          sort: components["parameters"]["sort"];
           /**
            * Can be either `asc` or `desc`. Ignored without `sort` parameter.
            */
           direction?: "asc" | "desc";
+          since: components["parameters"]["since"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -10487,7 +12200,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+        };
       };
       responses: {
         /**
@@ -10509,7 +12226,12 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+          comment_id: components["parameters"]["comment_id"];
+        };
       };
       responses: {
         /**
@@ -10528,7 +12250,15 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -10546,7 +12276,15 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -10563,7 +12301,11 @@ export interface paths {
   "/repos/{owner}/{repo}/pulls/{pull_number}/merge": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+        };
       };
       responses: {
         /**
@@ -10581,7 +12323,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+        };
       };
       responses: {
         /**
@@ -10611,7 +12357,15 @@ export interface paths {
   "/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -10627,7 +12381,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+        };
       };
       responses: {
         /**
@@ -10645,7 +12403,11 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+        };
       };
       responses: {
         /**
@@ -10662,7 +12424,15 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -10684,7 +12454,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+        };
       };
       responses: {
         /**
@@ -10701,7 +12475,12 @@ export interface paths {
   "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+          review_id: components["parameters"]["review_id"];
+        };
       };
       responses: {
         /**
@@ -10718,7 +12497,12 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+          review_id: components["parameters"]["review_id"];
+        };
       };
       responses: {
         /**
@@ -10732,7 +12516,12 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+          review_id: components["parameters"]["review_id"];
+        };
       };
       responses: {
         /**
@@ -10752,7 +12541,16 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+          review_id: components["parameters"]["review_id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -10771,7 +12569,12 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+          review_id: components["parameters"]["review_id"];
+        };
       };
       responses: {
         /**
@@ -10788,7 +12591,12 @@ export interface paths {
   "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events": {
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+          review_id: components["parameters"]["review_id"];
+        };
       };
       responses: {
         /**
@@ -10809,7 +12617,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          pull_number: components["parameters"]["pull-number"];
+        };
       };
       responses: {
         /**
@@ -10832,7 +12644,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
         query: {
           /**
            * The name of the commit/branch/tag. Default: the repository’s default branch (usually `master`)
@@ -10860,7 +12675,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -10879,7 +12701,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -10898,7 +12723,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          asset_id: components["parameters"]["asset_id"];
+        };
       };
       responses: {
         /**
@@ -10917,7 +12746,11 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          asset_id: components["parameters"]["asset_id"];
+        };
       };
       responses: {
         /**
@@ -10930,7 +12763,11 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          asset_id: components["parameters"]["asset_id"];
+        };
       };
       responses: {
         /**
@@ -10948,7 +12785,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -10966,8 +12806,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           /**
            * tag+ parameter
            */
@@ -10991,7 +12832,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          release_id: components["parameters"]["release_id"];
+        };
       };
       responses: {
         /**
@@ -11008,7 +12853,11 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          release_id: components["parameters"]["release_id"];
+        };
       };
       responses: {
         /**
@@ -11024,7 +12873,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          release_id: components["parameters"]["release_id"];
+        };
       };
       responses: {
         /**
@@ -11037,7 +12890,15 @@ export interface paths {
   "/repos/{owner}/{repo}/releases/{release_id}/assets": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          release_id: components["parameters"]["release_id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -11070,7 +12931,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+          release_id: components["parameters"]["release_id"];
+        };
         query: {
           name?: string;
           label?: string;
@@ -11094,7 +12959,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -11114,7 +12986,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -11132,7 +13007,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -11155,7 +13033,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -11178,7 +13059,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -11203,7 +13087,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -11223,8 +13110,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           sha: string;
         };
       };
@@ -11244,7 +13132,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -11259,7 +13154,10 @@ export interface paths {
   "/repos/{owner}/{repo}/subscription": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -11280,7 +13178,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -11296,7 +13197,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -11309,7 +13213,14 @@ export interface paths {
   "/repos/{owner}/{repo}/tags": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -11330,8 +13241,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           ref: string;
         };
       };
@@ -11346,7 +13258,14 @@ export interface paths {
   "/repos/{owner}/{repo}/teams": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -11361,7 +13280,10 @@ export interface paths {
   "/repos/{owner}/{repo}/topics": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -11376,7 +13298,10 @@ export interface paths {
     };
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -11397,7 +13322,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per: components["parameters"]["per"];
+        };
       };
       responses: {
         /**
@@ -11416,7 +13347,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -11435,7 +13369,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -11454,7 +13391,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
+        query: {
+          per: components["parameters"]["per"];
+        };
       };
       responses: {
         /**
@@ -11473,7 +13416,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -11491,7 +13437,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -11509,7 +13458,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -11523,7 +13475,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -11542,8 +13497,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
           ref: string;
         };
       };
@@ -11591,8 +13547,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
         query: {
+          per_page: components["parameters"]["per_page"];
+          since: components["parameters"]["since"];
           visibility?: string;
         };
       };
@@ -11614,7 +13571,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+        };
+        query: {
+          startIndex: components["parameters"]["start_index"];
+          count: components["parameters"]["count"];
+        };
       };
       responses: {
         /**
@@ -11632,7 +13595,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+        };
       };
       responses: {
         /**
@@ -11650,7 +13615,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          scim_group_id: components["parameters"]["scim_group_id"];
+        };
       };
       responses: {
         /**
@@ -11668,7 +13636,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          scim_group_id: components["parameters"]["scim_group_id"];
+        };
       };
       responses: {
         /**
@@ -11686,7 +13657,10 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          scim_group_id: components["parameters"]["scim_group_id"];
+        };
       };
       responses: {
         /**
@@ -11702,7 +13676,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          scim_group_id: components["parameters"]["scim_group_id"];
+        };
       };
       responses: {
         /**
@@ -11735,7 +13712,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+        };
+        query: {
+          startIndex: components["parameters"]["start_index"];
+          count: components["parameters"]["count"];
+        };
       };
       responses: {
         /**
@@ -11755,7 +13738,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+        };
       };
       responses: {
         /**
@@ -11773,7 +13758,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          scim_user_id: components["parameters"]["scim_user_id"];
+        };
       };
       responses: {
         /**
@@ -11795,7 +13783,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          scim_user_id: components["parameters"]["scim_user_id"];
+        };
       };
       responses: {
         /**
@@ -11828,7 +13819,10 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          scim_user_id: components["parameters"]["scim_user_id"];
+        };
       };
       responses: {
         /**
@@ -11844,7 +13838,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          enterprise: components["parameters"]["enterprise"];
+          scim_user_id: components["parameters"]["scim_user_id"];
+        };
       };
       responses: {
         /**
@@ -11875,7 +13872,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
         query: {
           /**
            * Used for pagination: the index of the first result to return.
@@ -11915,7 +13914,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -11936,7 +13937,10 @@ export interface paths {
   "/scim/v2/organizations/{org}/Users/{scim_user_id}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          scim_user_id: components["parameters"]["scim_user_id"];
+        };
       };
       responses: {
         /**
@@ -11959,7 +13963,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          scim_user_id: components["parameters"]["scim_user_id"];
+        };
       };
       responses: {
         /**
@@ -11993,7 +14000,10 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          scim_user_id: components["parameters"]["scim_user_id"];
+        };
       };
       responses: {
         /**
@@ -12016,7 +14026,10 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+          scim_user_id: components["parameters"]["scim_user_id"];
+        };
       };
       responses: {
         /**
@@ -12061,8 +14074,10 @@ export interface paths {
            * Sorts the results of your query. Can only be `indexed`, which indicates how recently a file has been indexed by the GitHub search infrastructure. Default: [best match](https://developer.github.com/v3/search/#ranking-search-results)
            */
           sort?: "indexed";
+          order: components["parameters"]["order"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
-        undefined: {};
       };
       responses: {
         /**
@@ -12104,8 +14119,10 @@ export interface paths {
            * Sorts the results of your query by `author-date` or `committer-date`. Default: [best match](https://developer.github.com/v3/search/#ranking-search-results)
            */
           sort?: "author-date" | "committer-date";
+          order: components["parameters"]["order"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
-        undefined: {};
       };
       responses: {
         /**
@@ -12158,8 +14175,10 @@ export interface paths {
             | "interactions"
             | "created"
             | "updated";
+          order: components["parameters"]["order"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
-        undefined: {};
       };
       responses: {
         /**
@@ -12206,8 +14225,8 @@ export interface paths {
            * Sorts the results of your query by when the label was `created` or `updated`. Default: [best match](https://developer.github.com/v3/search/#ranking-search-results)
            */
           sort?: "created" | "updated";
+          order: components["parameters"]["order"];
         };
-        undefined: {};
       };
       responses: {
         /**
@@ -12254,8 +14273,10 @@ export interface paths {
            * Sorts the results of your query by number of `stars`, `forks`, or `help-wanted-issues` or how recently the items were `updated`. Default: [best match](https://developer.github.com/v3/search/#ranking-search-results)
            */
           sort?: "stars" | "forks" | "help-wanted-issues" | "updated";
+          order: components["parameters"]["order"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
-        undefined: {};
       };
       responses: {
         /**
@@ -12334,8 +14355,10 @@ export interface paths {
            * Sorts the results of your query by number of `followers` or `repositories`, or when the person `joined` GitHub. Default: [best match](https://developer.github.com/v3/search/#ranking-search-results)
            */
           sort?: "followers" | "repositories" | "joined";
+          order: components["parameters"]["order"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
-        undefined: {};
       };
       responses: {
         /**
@@ -12360,7 +14383,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+        };
       };
       responses: {
         /**
@@ -12381,7 +14406,9 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+        };
       };
       responses: {
         /**
@@ -12404,7 +14431,9 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+        };
       };
       responses: {
         /**
@@ -12424,7 +14453,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+        };
+        query: {
+          direction: components["parameters"]["direction"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -12444,7 +14480,9 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+        };
       };
       responses: {
         /**
@@ -12464,7 +14502,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          discussion_number: components["parameters"]["discussion-number"];
+        };
       };
       responses: {
         /**
@@ -12482,7 +14523,10 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          discussion_number: components["parameters"]["discussion-number"];
+        };
       };
       responses: {
         /**
@@ -12500,7 +14544,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          discussion_number: components["parameters"]["discussion-number"];
+        };
       };
       responses: {
         /**
@@ -12518,7 +14565,15 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          discussion_number: components["parameters"]["discussion-number"];
+        };
+        query: {
+          direction: components["parameters"]["direction"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -12538,7 +14593,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          discussion_number: components["parameters"]["discussion-number"];
+        };
       };
       responses: {
         /**
@@ -12558,7 +14616,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          discussion_number: components["parameters"]["discussion-number"];
+          comment_number: components["parameters"]["comment-number"];
+        };
       };
       responses: {
         /**
@@ -12576,7 +14638,11 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          discussion_number: components["parameters"]["discussion-number"];
+          comment_number: components["parameters"]["comment-number"];
+        };
       };
       responses: {
         /**
@@ -12594,7 +14660,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          discussion_number: components["parameters"]["discussion-number"];
+          comment_number: components["parameters"]["comment-number"];
+        };
       };
       responses: {
         /**
@@ -12612,7 +14682,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          discussion_number: components["parameters"]["discussion-number"];
+          comment_number: components["parameters"]["comment-number"];
+        };
         query: {
           /**
            * Returns a single [reaction type](https://developer.github.com/v3/reactions/#reaction-types). Omit this parameter to list all reactions to a team discussion comment.
@@ -12626,6 +14700,8 @@ export interface paths {
             | "hooray"
             | "rocket"
             | "eyes";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -12644,7 +14720,11 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          discussion_number: components["parameters"]["discussion-number"];
+          comment_number: components["parameters"]["comment-number"];
+        };
       };
       responses: {
         /**
@@ -12664,7 +14744,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          discussion_number: components["parameters"]["discussion-number"];
+        };
         query: {
           /**
            * Returns a single [reaction type](https://developer.github.com/v3/reactions/#reaction-types). Omit this parameter to list all reactions to a team discussion.
@@ -12678,6 +14761,8 @@ export interface paths {
             | "hooray"
             | "rocket"
             | "eyes";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -12696,7 +14781,10 @@ export interface paths {
      */
     post: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          discussion_number: components["parameters"]["discussion-number"];
+        };
       };
       responses: {
         /**
@@ -12716,7 +14804,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -12736,7 +14830,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+        };
         query: {
           /**
            * Filters members returned by their role in the team. Can be one of:
@@ -12745,6 +14841,8 @@ export interface paths {
            * \* `all` - all members of the team.
            */
           role?: "member" | "maintainer" | "all";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -12768,7 +14866,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -12796,7 +14897,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -12833,7 +14937,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -12859,7 +14966,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -12886,7 +14996,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -12923,7 +15036,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -12945,7 +15061,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -12967,7 +15089,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          project_id: components["parameters"]["project-id"];
+        };
       };
       responses: {
         /**
@@ -12990,7 +15115,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          project_id: components["parameters"]["project-id"];
+        };
       };
       responses: {
         /**
@@ -13015,7 +15143,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          project_id: components["parameters"]["project-id"];
+        };
       };
       responses: {
         /**
@@ -13034,7 +15165,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -13057,7 +15194,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -13085,7 +15226,11 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -13103,7 +15248,11 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -13123,7 +15272,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+        };
       };
       responses: {
         /**
@@ -13145,7 +15296,9 @@ export interface paths {
      */
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+        };
       };
       responses: {
         /**
@@ -13165,7 +15318,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          team_id: components["parameters"]["team-id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -13251,7 +15410,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -13271,7 +15432,9 @@ export interface paths {
     };
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -13287,7 +15450,9 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -13328,7 +15493,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -13386,7 +15554,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -13407,7 +15578,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -13425,7 +15599,9 @@ export interface paths {
   "/user/following/{username}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -13450,7 +15626,9 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -13468,7 +15646,9 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -13488,7 +15668,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -13529,7 +15712,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          gpg_key_id: components["parameters"]["gpg_key_id"];
+        };
       };
       responses: {
         /**
@@ -13549,7 +15734,9 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          gpg_key_id: components["parameters"]["gpg_key_id"];
+        };
       };
       responses: {
         /**
@@ -13576,7 +15763,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -13607,7 +15797,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          installation_id: components["parameters"]["installation_id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -13634,7 +15830,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          installation_id: components["parameters"]["installation_id"];
+          repository_id: components["parameters"]["repository_id"];
+        };
       };
       responses: {
         /**
@@ -13653,7 +15852,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          installation_id: components["parameters"]["installation_id"];
+          repository_id: components["parameters"]["repository_id"];
+        };
       };
       responses: {
         /**
@@ -13691,12 +15893,16 @@ export interface paths {
            * Indicates the state of the issues to return. Can be either `open`, `closed`, or `all`.
            */
           state?: "open" | "closed" | "all";
+          labels: components["parameters"]["labels"];
           /**
            * What to sort results by. Can be either `created`, `updated`, `comments`.
            */
           sort?: "created" | "updated" | "comments";
+          direction: components["parameters"]["direction"];
+          since: components["parameters"]["since"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
-        undefined: {};
       };
       responses: {
         /**
@@ -13716,7 +15922,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -13757,7 +15966,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          key_id: components["parameters"]["key_id"];
+        };
       };
       responses: {
         /**
@@ -13777,7 +15988,9 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          key_id: components["parameters"]["key_id"];
+        };
       };
       responses: {
         /**
@@ -13797,7 +16010,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -13818,7 +16034,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -13840,8 +16059,9 @@ export interface paths {
            * Indicates the state of the memberships to return. Can be either `active` or `pending`. If not specified, the API returns both active and pending memberships.
            */
           state?: "active" | "pending";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
-        undefined: {};
       };
       responses: {
         /**
@@ -13860,7 +16080,9 @@ export interface paths {
   "/user/memberships/orgs/{org}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -13875,7 +16097,9 @@ export interface paths {
     };
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          org: components["parameters"]["org"];
+        };
       };
       responses: {
         /**
@@ -13896,7 +16120,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -13942,7 +16169,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          migration_id: components["parameters"]["migration_id"];
+        };
         query: {
           exclude?: string[];
         };
@@ -13987,7 +16216,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          migration_id: components["parameters"]["migration_id"];
+        };
       };
       responses: {
         /**
@@ -14004,7 +16235,9 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          migration_id: components["parameters"]["migration_id"];
+        };
       };
       responses: {
         /**
@@ -14024,7 +16257,10 @@ export interface paths {
      */
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          migration_id: components["parameters"]["migration_id"];
+          repo_name: components["parameters"]["repo_name"];
+        };
       };
       responses: {
         /**
@@ -14044,7 +16280,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          migration_id: components["parameters"]["migration_id"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14067,7 +16309,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14106,7 +16351,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14156,8 +16404,11 @@ export interface paths {
            * Can be one of `asc` or `desc`. Default: `asc` when using `full_name`, otherwise `desc`
            */
           direction?: "asc" | "desc";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+          since: components["parameters"]["since"];
+          before: components["parameters"]["before"];
         };
-        undefined: {};
       };
       responses: {
         /**
@@ -14210,7 +16461,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14229,7 +16483,9 @@ export interface paths {
   "/user/repository_invitations/{invitation_id}": {
     patch: {
       parameters: {
-        undefined: {};
+        path: {
+          invitation_id: components["parameters"]["invitation_id"];
+        };
       };
       responses: {
         /**
@@ -14244,7 +16500,9 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          invitation_id: components["parameters"]["invitation_id"];
+        };
       };
       responses: {
         /**
@@ -14266,7 +16524,12 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          sort: components["parameters"]["sort"];
+          direction: components["parameters"]["direction"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14285,7 +16548,10 @@ export interface paths {
   "/user/starred/{owner}/{repo}": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -14308,7 +16574,10 @@ export interface paths {
      */
     put: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -14323,7 +16592,10 @@ export interface paths {
     };
     delete: {
       parameters: {
-        undefined: {};
+        path: {
+          owner: components["parameters"]["owner"];
+          repo: components["parameters"]["repo"];
+        };
       };
       responses: {
         /**
@@ -14343,7 +16615,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14364,7 +16639,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14387,7 +16665,10 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        query: {
+          since: components["parameters"]["since"];
+          per_page: components["parameters"]["per_page"];
+        };
       };
       responses: {
         /**
@@ -14412,7 +16693,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -14433,7 +16716,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14451,7 +16740,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+          org: components["parameters"]["org"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14466,7 +16762,13 @@ export interface paths {
   "/users/{username}/events/public": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14484,7 +16786,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14502,7 +16810,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14517,8 +16831,8 @@ export interface paths {
   "/users/{username}/following/{target_user}": {
     get: {
       parameters: {
-        undefined: {};
         path: {
+          username: components["parameters"]["username"];
           target_user: string;
         };
       };
@@ -14540,7 +16854,14 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
+        query: {
+          since: components["parameters"]["since"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14559,7 +16880,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14584,7 +16911,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
         query: {
           /**
            * Identifies which additional information you'd like to receive about the person's hovercard. Can be `organization`, `repository`, `issue`, `pull_request`. **Required** when using `subject_id`.
@@ -14620,7 +16949,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -14638,7 +16969,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14658,7 +16995,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14673,12 +17016,16 @@ export interface paths {
   "/users/{username}/projects": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
         query: {
           /**
            * Indicates the state of the projects to return. Can be either `open`, `closed`, or `all`.
            */
           state?: "open" | "closed" | "all";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -14699,7 +17046,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14714,7 +17067,13 @@ export interface paths {
   "/users/{username}/received_events/public": {
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14732,7 +17091,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
         query: {
           /**
            * Can be one of `all`, `owner`, `member`.
@@ -14746,6 +17107,8 @@ export interface paths {
            * Can be one of `asc` or `desc`. Default: `asc` when using `full_name`, otherwise `desc`
            */
           direction?: "asc" | "desc";
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
         };
       };
       responses: {
@@ -14768,7 +17131,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -14790,7 +17155,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -14812,7 +17179,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
       };
       responses: {
         /**
@@ -14832,7 +17201,15 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
+        query: {
+          sort: components["parameters"]["sort"];
+          direction: components["parameters"]["direction"];
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14851,7 +17228,13 @@ export interface paths {
      */
     get: {
       parameters: {
-        undefined: {};
+        path: {
+          username: components["parameters"]["username"];
+        };
+        query: {
+          per_page: components["parameters"]["per_page"];
+          page: components["parameters"]["page"];
+        };
       };
       responses: {
         /**
@@ -14881,6 +17264,248 @@ export interface paths {
 }
 
 export interface components {
+  parameters: {
+    /**
+     * Results per page (max 100)
+     */
+    per_page: number;
+    /**
+     * Page number of the results to fetch.
+     */
+    page: number;
+    /**
+     * Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+     */
+    since: string;
+    /**
+     * installation_id parameter
+     */
+    installation_id: number;
+    /**
+     * grant_id parameter
+     */
+    grant_id: number;
+    "client-id": string;
+    "access-token": string;
+    app_slug: string;
+    /**
+     * authorization_id parameter
+     */
+    authorization_id: number;
+    /**
+     * Unique identifier of the GitHub Enterprise Cloud instance.
+     */
+    enterprise: string;
+    /**
+     * Unique identifier of the self-hosted runner group.
+     */
+    runner_group_id: number;
+    /**
+     * Unique identifier of an organization.
+     */
+    org_id: number;
+    /**
+     * Unique identifier of the self-hosted runner.
+     */
+    runner_id: number;
+    /**
+     * gist_id parameter
+     */
+    gist_id: string;
+    /**
+     * comment_id parameter
+     */
+    comment_id: number;
+    /**
+     * A list of comma separated label names. Example: `bug,ui,@high`
+     */
+    labels: string;
+    /**
+     * One of `asc` (ascending) or `desc` (descending).
+     */
+    direction: "asc" | "desc";
+    /**
+     * account_id parameter
+     */
+    account_id: number;
+    /**
+     * plan_id parameter
+     */
+    plan_id: number;
+    /**
+     * One of `created` (when the repository was starred) or `updated` (when it was last pushed to).
+     */
+    sort: "created" | "updated";
+    owner: string;
+    repo: string;
+    /**
+     * If `true`, show notifications marked as read.
+     */
+    all: boolean;
+    /**
+     * If `true`, only shows notifications in which the user is directly participating or mentioned.
+     */
+    participating: boolean;
+    /**
+     * Only show notifications updated before the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+     */
+    before: string;
+    /**
+     * thread_id parameter
+     */
+    thread_id: number;
+    org: string;
+    repository_id: number;
+    /**
+     * secret_name parameter
+     */
+    secret_name: string;
+    username: string;
+    "hook-id": number;
+    /**
+     * invitation_id parameter
+     */
+    invitation_id: number;
+    /**
+     * migration_id parameter
+     */
+    migration_id: number;
+    /**
+     * repo_name parameter
+     */
+    repo_name: string;
+    /**
+     * team_slug parameter
+     */
+    team_slug: string;
+    "discussion-number": number;
+    "comment-number": number;
+    "reaction-id": number;
+    "project-id": number;
+    /**
+     * card_id parameter
+     */
+    card_id: number;
+    /**
+     * column_id parameter
+     */
+    column_id: number;
+    /**
+     * artifact_id parameter
+     */
+    artifact_id: number;
+    /**
+     * job_id parameter
+     */
+    job_id: number;
+    /**
+     * Returns someone's workflow runs. Use the login for the user who created the `push` associated with the check suite or workflow run.
+     */
+    actor: string;
+    /**
+     * Returns workflow runs associated with a branch. Use the name of the branch of the `push`.
+     */
+    "workflow-run-branch": string;
+    /**
+     * Returns workflow run triggered by the event you specify. For example, `push`, `pull_request` or `issue`. For more information, see "[Events that trigger workflows](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows)."
+     */
+    event: string;
+    /**
+     * Returns workflow runs associated with the check run `status` or `conclusion` you specify. For example, a conclusion can be `success` or a status can be `completed`. For more information, see the `status` and `conclusion` options available in "[Create a check run](https://developer.github.com/v3/checks/runs/#create-a-check-run)."
+     */
+    "workflow-run-status": "completed" | "status" | "conclusion";
+    "run-id": number;
+    /**
+     * The ID of the workflow. You can also pass the workflow file name as a string.
+     */
+    "workflow-id": number | string;
+    /**
+     * branch+ parameter
+     */
+    branch: string;
+    /**
+     * check_run_id parameter
+     */
+    check_run_id: number;
+    /**
+     * check_suite_id parameter
+     */
+    check_suite_id: number;
+    /**
+     * Returns check runs with the specified `name`.
+     */
+    check_name: string;
+    /**
+     * Returns check runs with the specified `status`. Can be one of `queued`, `in_progress`, or `completed`.
+     */
+    status: "queued" | "in_progress" | "completed";
+    /**
+     * The code scanning alert number.
+     */
+    alert_number: components["schemas"]["code-scanning-alert-number"];
+    /**
+     * commit_sha+ parameter
+     */
+    commit_sha: string;
+    /**
+     * deployment_id parameter
+     */
+    deployment_id: number;
+    /**
+     * issue_number parameter
+     */
+    issue_number: number;
+    /**
+     * key_id parameter
+     */
+    key_id: number;
+    /**
+     * milestone_number parameter
+     */
+    milestone_number: number;
+    "pull-number": number;
+    /**
+     * review_id parameter
+     */
+    review_id: number;
+    /**
+     * asset_id parameter
+     */
+    asset_id: number;
+    /**
+     * release_id parameter
+     */
+    release_id: number;
+    /**
+     * Must be one of: `day`, `week`.
+     */
+    per: "day" | "week";
+    /**
+     * Used for pagination: the index of the first result to return.
+     */
+    start_index: number;
+    /**
+     * Used for pagination: the number of results to return.
+     */
+    count: number;
+    /**
+     * Identifier generated by the GitHub SCIM endpoint.
+     */
+    scim_group_id: string;
+    /**
+     * scim_user_id parameter
+     */
+    scim_user_id: string;
+    /**
+     * Determines whether the first search result returned is the highest number of matches (`desc`) or lowest number of matches (`asc`). This parameter is ignored unless you provide `sort`.
+     */
+    order: "desc" | "asc";
+    "team-id": number;
+    /**
+     * gpg_key_id parameter
+     */
+    gpg_key_id: number;
+  };
   schemas: {
     /**
      * Simple User
