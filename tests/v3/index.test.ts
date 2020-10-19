@@ -630,4 +630,78 @@ describe("OpenAPI3 features", () => {
       }`)
     );
   });
+
+  it("empty responses (#333)", () => {
+    const schema: OpenAPI3 = {
+      openapi: "3.0.1",
+      paths: {
+        "/no-content": {
+          get: {
+            responses: {
+              "204": {
+                description: "Empty response",
+              },
+            },
+          },
+        },
+        "/not-modified": {
+          get: {
+            responses: {
+              "304": {
+                description: "Empty response",
+              },
+            },
+          },
+        },
+        "/not-found": {
+          get: {
+            responses: {
+              "404": {
+                description: "Empty response",
+              },
+            },
+          },
+        },
+      },
+    };
+
+    expect(swaggerToTS(schema)).toEqual(
+      format(`
+      export interface paths {
+        "/no-content": {
+          get: {
+            responses: {
+              /**
+               * Empty response
+               */
+              "204": never;
+            };
+          };
+        };
+        "/not-modified": {
+          get: {
+            responses: {
+              /**
+               * Empty response
+               */
+              "304": never;
+            };
+          };
+        };
+        "/not-found": {
+          get: {
+            responses: {
+              /**
+               * Empty response
+               */
+              "404": unknown;
+            };
+          };
+        };
+      }
+
+      export interface components {}
+    `)
+    );
+  });
 });
