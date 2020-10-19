@@ -196,7 +196,11 @@ export default function generateTypesV3(
           ([statusCode, response]) => {
             if (response.description) output += comment(response.description);
             if (!response.content || !Object.keys(response.content).length) {
-              output += `"${statusCode}": any;\n`;
+              const type =
+                statusCode === "204" || Math.floor(+statusCode / 100) === 3
+                  ? "never"
+                  : "unknown";
+              output += `"${statusCode}": ${type};\n`;
               return;
             }
             output += `"${statusCode}": {\n`;
