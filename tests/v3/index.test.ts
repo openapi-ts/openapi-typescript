@@ -666,7 +666,11 @@ describe("OpenAPI3 features", () => {
       export interface paths {
         "/some/path": {
           get: {
-            parameters: {};
+            parameters: {
+              query: {
+                param: components["parameters"]["param"];
+              }
+            };
             responses: {};
           };
         };
