@@ -9,6 +9,34 @@ export interface paths {
      * <p>Initiate 3D Secure authentication.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Amount of the charge that you will create when authentication completes.
+           */
+          amount: number;
+          /**
+           * The ID of a card token, or the ID of a card belonging to the given customer.
+           */
+          card?: string;
+          /**
+           * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+           */
+          currency: string;
+          /**
+           * The customer associated with this 3D secure authentication.
+           */
+          customer?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The URL that the cardholder's browser will be returned to when authentication completes.
+           */
+          return_url: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -41,6 +69,9 @@ export interface paths {
           three_d_secure: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -66,6 +97,9 @@ export interface paths {
      * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/account">account information tab in your account settings</a> instead.</p>
      */
     delete: {
+      requestBody: {
+        "application/x-www-form-urlencoded": { account?: string };
+      };
       responses: {
         /**
          * Successful response.
@@ -93,6 +127,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -114,6 +151,229 @@ export interface paths {
      * <p>To update your own account, use the <a href="https://dashboard.stripe.com/account">Dashboard</a>. Refer to our <a href="/docs/connect/updating-accounts">Connect</a> documentation to learn more about updating accounts.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account.
+           */
+          account_token?: string;
+          /**
+           * Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details.
+           */
+          bank_account?: Partial<{
+            account_holder_name?: string;
+            account_holder_type?: "company" | "individual";
+            account_number: string;
+            country: string;
+            currency?: string;
+            object?: "bank_account";
+            routing_number?: string;
+          }> &
+            Partial<string>;
+          /**
+           * Business information about the account.
+           */
+          business_profile?: {
+            mcc?: string;
+            name?: string;
+            product_description?: string;
+            support_email?: string;
+            support_phone?: string;
+            support_url?: string;
+            url?: string;
+          };
+          /**
+           * The business type.
+           */
+          business_type?:
+            | "company"
+            | "government_entity"
+            | "individual"
+            | "non_profit";
+          /**
+           * Information about the company or business. This field is null unless `business_type` is set to `company`, `government_entity`, or `non_profit`.
+           */
+          company?: {
+            address?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            address_kana?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+              town?: string;
+            };
+            address_kanji?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+              town?: string;
+            };
+            directors_provided?: boolean;
+            executives_provided?: boolean;
+            name?: string;
+            name_kana?: string;
+            name_kanji?: string;
+            owners_provided?: boolean;
+            phone?: string;
+            structure?:
+              | ""
+              | "government_instrumentality"
+              | "governmental_unit"
+              | "incorporated_non_profit"
+              | "limited_liability_partnership"
+              | "multi_member_llc"
+              | "private_company"
+              | "private_corporation"
+              | "private_partnership"
+              | "public_company"
+              | "public_corporation"
+              | "public_partnership"
+              | "sole_proprietorship"
+              | "tax_exempt_government_instrumentality"
+              | "unincorporated_association"
+              | "unincorporated_non_profit";
+            tax_id?: string;
+            tax_id_registrar?: string;
+            vat_id?: string;
+            verification?: { document?: { back?: string; front?: string } };
+          };
+          /**
+           * Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts).
+           */
+          default_currency?: string;
+          /**
+           * Email address of the account representative. For Standard accounts, this is used to ask them to claim their Stripe account. For Custom accounts, this only makes the account easier to identify to platforms; Stripe does not email the account representative.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A card or bank account to attach to the account. You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation. <br><br>By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the bank account or card creation API.
+           */
+          external_account?: string;
+          /**
+           * Information about the person represented by the account. This field is null unless `business_type` is set to `individual`.
+           */
+          individual?: {
+            address?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            address_kana?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+              town?: string;
+            };
+            address_kanji?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+              town?: string;
+            };
+            dob?: Partial<{ day: number; month: number; year: number }> &
+              Partial<"">;
+            email?: string;
+            first_name?: string;
+            first_name_kana?: string;
+            first_name_kanji?: string;
+            gender?: string;
+            id_number?: string;
+            last_name?: string;
+            last_name_kana?: string;
+            last_name_kanji?: string;
+            maiden_name?: string;
+            metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+            phone?: string;
+            ssn_last_4?: string;
+            verification?: {
+              additional_document?: { back?: string; front?: string };
+              document?: { back?: string; front?: string };
+            };
+          };
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * The set of capabilities you want to unlock for this account. Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive.
+           */
+          requested_capabilities?: (
+            | "au_becs_debit_payments"
+            | "card_issuing"
+            | "card_payments"
+            | "legacy_payments"
+            | "tax_reporting_us_1099_k"
+            | "tax_reporting_us_1099_misc"
+            | "transfers"
+          )[];
+          /**
+           * Options for customizing how the account functions within Stripe.
+           */
+          settings?: {
+            branding?: {
+              icon?: string;
+              logo?: string;
+              primary_color?: string;
+              secondary_color?: string;
+            };
+            card_payments?: {
+              decline_on?: { avs_failure?: boolean; cvc_failure?: boolean };
+              statement_descriptor_prefix?: string;
+            };
+            payments?: {
+              statement_descriptor?: string;
+              statement_descriptor_kana?: string;
+              statement_descriptor_kanji?: string;
+            };
+            payouts?: {
+              debit_negative_balances?: boolean;
+              schedule?: {
+                delay_days?: Partial<"minimum"> & Partial<number>;
+                interval?: "daily" | "manual" | "monthly" | "weekly";
+                monthly_anchor?: number;
+                weekly_anchor?:
+                  | "friday"
+                  | "monday"
+                  | "saturday"
+                  | "sunday"
+                  | "thursday"
+                  | "tuesday"
+                  | "wednesday";
+              };
+              statement_descriptor?: string;
+            };
+          };
+          /**
+           * Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance).
+           */
+          tos_acceptance?: { date?: number; ip?: string; user_agent?: string };
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -135,6 +395,39 @@ export interface paths {
      * <p>Create an external account for a given account.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details.
+           */
+          bank_account?: Partial<{
+            account_holder_name?: string;
+            account_holder_type?: "company" | "individual";
+            account_number: string;
+            country: string;
+            currency?: string;
+            object?: "bank_account";
+            routing_number?: string;
+          }> &
+            Partial<string>;
+          /**
+           * When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency.
+           */
+          default_for_currency?: boolean;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Please refer to full [documentation](https://stripe.com/docs/api) instead.
+           */
+          external_account?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -160,6 +453,9 @@ export interface paths {
         path: {
           id: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -191,6 +487,9 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -214,6 +513,66 @@ export interface paths {
       parameters: {
         path: {
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The name of the person or business that owns the bank account.
+           */
+          account_holder_name?: string;
+          /**
+           * The type of entity that holds the account. This can be either `individual` or `company`.
+           */
+          account_holder_type?: "" | "company" | "individual";
+          /**
+           * City/District/Suburb/Town/Village.
+           */
+          address_city?: string;
+          /**
+           * Billing address country, if provided when creating card.
+           */
+          address_country?: string;
+          /**
+           * Address line 1 (Street address/PO Box/Company name).
+           */
+          address_line1?: string;
+          /**
+           * Address line 2 (Apartment/Suite/Unit/Building).
+           */
+          address_line2?: string;
+          /**
+           * State/County/Province/Region.
+           */
+          address_state?: string;
+          /**
+           * ZIP or postal code.
+           */
+          address_zip?: string;
+          /**
+           * When set to true, this becomes the default external account for its currency.
+           */
+          default_for_currency?: boolean;
+          /**
+           * Two digit number representing the card’s expiration month.
+           */
+          exp_month?: string;
+          /**
+           * Four digit number representing the card’s expiration year.
+           */
+          exp_year?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Cardholder name.
+           */
+          name?: string;
         };
       };
       responses: {
@@ -244,6 +603,9 @@ export interface paths {
            */
           expand?: string[];
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -291,6 +653,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -313,6 +678,18 @@ export interface paths {
       parameters: {
         path: {
           capability: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+           */
+          requested?: boolean;
         };
       };
       responses: {
@@ -356,6 +733,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -393,6 +773,39 @@ export interface paths {
      * <p>Create an external account for a given account.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details.
+           */
+          bank_account?: Partial<{
+            account_holder_name?: string;
+            account_holder_type?: "company" | "individual";
+            account_number: string;
+            country: string;
+            currency?: string;
+            object?: "bank_account";
+            routing_number?: string;
+          }> &
+            Partial<string>;
+          /**
+           * When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency.
+           */
+          default_for_currency?: boolean;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Please refer to full [documentation](https://stripe.com/docs/api) instead.
+           */
+          external_account?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -418,6 +831,9 @@ export interface paths {
         path: {
           id: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -449,6 +865,9 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -474,6 +893,66 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The name of the person or business that owns the bank account.
+           */
+          account_holder_name?: string;
+          /**
+           * The type of entity that holds the account. This can be either `individual` or `company`.
+           */
+          account_holder_type?: "" | "company" | "individual";
+          /**
+           * City/District/Suburb/Town/Village.
+           */
+          address_city?: string;
+          /**
+           * Billing address country, if provided when creating card.
+           */
+          address_country?: string;
+          /**
+           * Address line 1 (Street address/PO Box/Company name).
+           */
+          address_line1?: string;
+          /**
+           * Address line 2 (Apartment/Suite/Unit/Building).
+           */
+          address_line2?: string;
+          /**
+           * State/County/Province/Region.
+           */
+          address_state?: string;
+          /**
+           * ZIP or postal code.
+           */
+          address_zip?: string;
+          /**
+           * When set to true, this becomes the default external account for its currency.
+           */
+          default_for_currency?: boolean;
+          /**
+           * Two digit number representing the card’s expiration month.
+           */
+          exp_month?: string;
+          /**
+           * Four digit number representing the card’s expiration year.
+           */
+          exp_year?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Cardholder name.
+           */
+          name?: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -497,6 +976,19 @@ export interface paths {
      * <p><strong>You may only create login links for <a href="/docs/connect/express-accounts">Express accounts</a> connected to your platform</strong>.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          account: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Where to redirect the user after they log out of their dashboard.
+           */
+          redirect_url?: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -520,6 +1012,15 @@ export interface paths {
      * <p><strong>You may only log out <a href="/docs/connect/express-accounts">Express accounts</a> connected to your platform</strong>.</p>
      */
     put: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          account: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -570,6 +1071,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -603,6 +1107,129 @@ export interface paths {
      * <p>Creates a new person.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          account?: string;
+          /**
+           * The person's address.
+           */
+          address?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+          };
+          /**
+           * The Kana variation of the person's address (Japan only).
+           */
+          address_kana?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+            town?: string;
+          };
+          /**
+           * The Kanji variation of the person's address (Japan only).
+           */
+          address_kanji?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+            town?: string;
+          };
+          /**
+           * The person's date of birth.
+           */
+          dob?: Partial<{ day: number; month: number; year: number }> &
+            Partial<"">;
+          /**
+           * The person's email address.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The person's first name.
+           */
+          first_name?: string;
+          /**
+           * The Kana variation of the person's first name (Japan only).
+           */
+          first_name_kana?: string;
+          /**
+           * The Kanji variation of the person's first name (Japan only).
+           */
+          first_name_kanji?: string;
+          /**
+           * The person's gender (International regulations require either "male" or "female").
+           */
+          gender?: string;
+          /**
+           * The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/stripe.js#collecting-pii-data).
+           */
+          id_number?: string;
+          /**
+           * The person's last name.
+           */
+          last_name?: string;
+          /**
+           * The Kana variation of the person's last name (Japan only).
+           */
+          last_name_kana?: string;
+          /**
+           * The Kanji variation of the person's last name (Japan only).
+           */
+          last_name_kanji?: string;
+          /**
+           * The person's maiden name.
+           */
+          maiden_name?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person.
+           */
+          person_token?: string;
+          /**
+           * The person's phone number.
+           */
+          phone?: string;
+          /**
+           * The relationship that this person has with the account's legal entity.
+           */
+          relationship?: {
+            director?: boolean;
+            executive?: boolean;
+            owner?: boolean;
+            percent_ownership?: Partial<number> & Partial<"">;
+            representative?: boolean;
+            title?: string;
+          };
+          /**
+           * The last 4 digits of the person's social security number.
+           */
+          ssn_last_4?: string;
+          /**
+           * The person's verification status.
+           */
+          verification?: {
+            additional_document?: { back?: string; front?: string };
+            document?: { back?: string; front?: string };
+          };
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -628,6 +1255,9 @@ export interface paths {
         path: {
           person: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -659,6 +1289,9 @@ export interface paths {
           person: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -681,6 +1314,129 @@ export interface paths {
       parameters: {
         path: {
           person: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          account?: string;
+          /**
+           * The person's address.
+           */
+          address?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+          };
+          /**
+           * The Kana variation of the person's address (Japan only).
+           */
+          address_kana?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+            town?: string;
+          };
+          /**
+           * The Kanji variation of the person's address (Japan only).
+           */
+          address_kanji?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+            town?: string;
+          };
+          /**
+           * The person's date of birth.
+           */
+          dob?: Partial<{ day: number; month: number; year: number }> &
+            Partial<"">;
+          /**
+           * The person's email address.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The person's first name.
+           */
+          first_name?: string;
+          /**
+           * The Kana variation of the person's first name (Japan only).
+           */
+          first_name_kana?: string;
+          /**
+           * The Kanji variation of the person's first name (Japan only).
+           */
+          first_name_kanji?: string;
+          /**
+           * The person's gender (International regulations require either "male" or "female").
+           */
+          gender?: string;
+          /**
+           * The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/stripe.js#collecting-pii-data).
+           */
+          id_number?: string;
+          /**
+           * The person's last name.
+           */
+          last_name?: string;
+          /**
+           * The Kana variation of the person's last name (Japan only).
+           */
+          last_name_kana?: string;
+          /**
+           * The Kanji variation of the person's last name (Japan only).
+           */
+          last_name_kanji?: string;
+          /**
+           * The person's maiden name.
+           */
+          maiden_name?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person.
+           */
+          person_token?: string;
+          /**
+           * The person's phone number.
+           */
+          phone?: string;
+          /**
+           * The relationship that this person has with the account's legal entity.
+           */
+          relationship?: {
+            director?: boolean;
+            executive?: boolean;
+            owner?: boolean;
+            percent_ownership?: Partial<number> & Partial<"">;
+            representative?: boolean;
+            title?: string;
+          };
+          /**
+           * The last 4 digits of the person's social security number.
+           */
+          ssn_last_4?: string;
+          /**
+           * The person's verification status.
+           */
+          verification?: {
+            additional_document?: { back?: string; front?: string };
+            document?: { back?: string; front?: string };
+          };
         };
       };
       responses: {
@@ -733,6 +1489,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -766,6 +1525,129 @@ export interface paths {
      * <p>Creates a new person.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          account?: string;
+          /**
+           * The person's address.
+           */
+          address?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+          };
+          /**
+           * The Kana variation of the person's address (Japan only).
+           */
+          address_kana?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+            town?: string;
+          };
+          /**
+           * The Kanji variation of the person's address (Japan only).
+           */
+          address_kanji?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+            town?: string;
+          };
+          /**
+           * The person's date of birth.
+           */
+          dob?: Partial<{ day: number; month: number; year: number }> &
+            Partial<"">;
+          /**
+           * The person's email address.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The person's first name.
+           */
+          first_name?: string;
+          /**
+           * The Kana variation of the person's first name (Japan only).
+           */
+          first_name_kana?: string;
+          /**
+           * The Kanji variation of the person's first name (Japan only).
+           */
+          first_name_kanji?: string;
+          /**
+           * The person's gender (International regulations require either "male" or "female").
+           */
+          gender?: string;
+          /**
+           * The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/stripe.js#collecting-pii-data).
+           */
+          id_number?: string;
+          /**
+           * The person's last name.
+           */
+          last_name?: string;
+          /**
+           * The Kana variation of the person's last name (Japan only).
+           */
+          last_name_kana?: string;
+          /**
+           * The Kanji variation of the person's last name (Japan only).
+           */
+          last_name_kanji?: string;
+          /**
+           * The person's maiden name.
+           */
+          maiden_name?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person.
+           */
+          person_token?: string;
+          /**
+           * The person's phone number.
+           */
+          phone?: string;
+          /**
+           * The relationship that this person has with the account's legal entity.
+           */
+          relationship?: {
+            director?: boolean;
+            executive?: boolean;
+            owner?: boolean;
+            percent_ownership?: Partial<number> & Partial<"">;
+            representative?: boolean;
+            title?: string;
+          };
+          /**
+           * The last 4 digits of the person's social security number.
+           */
+          ssn_last_4?: string;
+          /**
+           * The person's verification status.
+           */
+          verification?: {
+            additional_document?: { back?: string; front?: string };
+            document?: { back?: string; front?: string };
+          };
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -791,6 +1673,9 @@ export interface paths {
         path: {
           person: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -822,6 +1707,9 @@ export interface paths {
           person: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -846,6 +1734,129 @@ export interface paths {
           person: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          account?: string;
+          /**
+           * The person's address.
+           */
+          address?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+          };
+          /**
+           * The Kana variation of the person's address (Japan only).
+           */
+          address_kana?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+            town?: string;
+          };
+          /**
+           * The Kanji variation of the person's address (Japan only).
+           */
+          address_kanji?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+            town?: string;
+          };
+          /**
+           * The person's date of birth.
+           */
+          dob?: Partial<{ day: number; month: number; year: number }> &
+            Partial<"">;
+          /**
+           * The person's email address.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The person's first name.
+           */
+          first_name?: string;
+          /**
+           * The Kana variation of the person's first name (Japan only).
+           */
+          first_name_kana?: string;
+          /**
+           * The Kanji variation of the person's first name (Japan only).
+           */
+          first_name_kanji?: string;
+          /**
+           * The person's gender (International regulations require either "male" or "female").
+           */
+          gender?: string;
+          /**
+           * The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/stripe.js#collecting-pii-data).
+           */
+          id_number?: string;
+          /**
+           * The person's last name.
+           */
+          last_name?: string;
+          /**
+           * The Kana variation of the person's last name (Japan only).
+           */
+          last_name_kana?: string;
+          /**
+           * The Kanji variation of the person's last name (Japan only).
+           */
+          last_name_kanji?: string;
+          /**
+           * The person's maiden name.
+           */
+          maiden_name?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person.
+           */
+          person_token?: string;
+          /**
+           * The person's phone number.
+           */
+          phone?: string;
+          /**
+           * The relationship that this person has with the account's legal entity.
+           */
+          relationship?: {
+            director?: boolean;
+            executive?: boolean;
+            owner?: boolean;
+            percent_ownership?: Partial<number> & Partial<"">;
+            representative?: boolean;
+            title?: string;
+          };
+          /**
+           * The last 4 digits of the person's social security number.
+           */
+          ssn_last_4?: string;
+          /**
+           * The person's verification status.
+           */
+          verification?: {
+            additional_document?: { back?: string; front?: string };
+            document?: { back?: string; front?: string };
+          };
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -867,6 +1878,34 @@ export interface paths {
      * <p>Creates an AccountLink object that returns a single-use Stripe URL that the user can redirect their user to in order to take them through the Connect Onboarding flow.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The identifier of the account to create an account link for.
+           */
+          account: string;
+          /**
+           * Which information the platform needs to collect from the user. One of `currently_due` or `eventually_due`. Default is `currently_due`.
+           */
+          collect?: "currently_due" | "eventually_due";
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The URL that the user will be redirected to if the account link is no longer valid.
+           */
+          failure_url: string;
+          /**
+           * The URL that the user will be redirected to upon leaving or completing the linked flow successfully.
+           */
+          success_url: string;
+          /**
+           * The type of account link the user is requesting. Possible values are `custom_account_verification` or `custom_account_update`.
+           */
+          type: "custom_account_update" | "custom_account_verification";
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -915,6 +1954,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -952,6 +1994,237 @@ export interface paths {
      * are used to prefill the account application that we ask the account holder to complete.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account.
+           */
+          account_token?: string;
+          /**
+           * Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details.
+           */
+          bank_account?: Partial<{
+            account_holder_name?: string;
+            account_holder_type?: "company" | "individual";
+            account_number: string;
+            country: string;
+            currency?: string;
+            object?: "bank_account";
+            routing_number?: string;
+          }> &
+            Partial<string>;
+          /**
+           * Business information about the account.
+           */
+          business_profile?: {
+            mcc?: string;
+            name?: string;
+            product_description?: string;
+            support_email?: string;
+            support_phone?: string;
+            support_url?: string;
+            url?: string;
+          };
+          /**
+           * The business type.
+           */
+          business_type?:
+            | "company"
+            | "government_entity"
+            | "individual"
+            | "non_profit";
+          /**
+           * Information about the company or business. This field is null unless `business_type` is set to `company`, `government_entity`, or `non_profit`.
+           */
+          company?: {
+            address?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            address_kana?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+              town?: string;
+            };
+            address_kanji?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+              town?: string;
+            };
+            directors_provided?: boolean;
+            executives_provided?: boolean;
+            name?: string;
+            name_kana?: string;
+            name_kanji?: string;
+            owners_provided?: boolean;
+            phone?: string;
+            structure?:
+              | ""
+              | "government_instrumentality"
+              | "governmental_unit"
+              | "incorporated_non_profit"
+              | "limited_liability_partnership"
+              | "multi_member_llc"
+              | "private_company"
+              | "private_corporation"
+              | "private_partnership"
+              | "public_company"
+              | "public_corporation"
+              | "public_partnership"
+              | "sole_proprietorship"
+              | "tax_exempt_government_instrumentality"
+              | "unincorporated_association"
+              | "unincorporated_non_profit";
+            tax_id?: string;
+            tax_id_registrar?: string;
+            vat_id?: string;
+            verification?: { document?: { back?: string; front?: string } };
+          };
+          /**
+           * The country in which the account holder resides, or in which the business is legally established. This should be an ISO 3166-1 alpha-2 country code. For example, if you are in the United States and the business for which you're creating an account is legally represented in Canada, you would use `CA` as the country for the account being created.
+           */
+          country?: string;
+          /**
+           * Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts).
+           */
+          default_currency?: string;
+          /**
+           * The email address of the account holder. For Custom accounts, this is only to make the account easier to identify to you: Stripe will never directly email your users.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A card or bank account to attach to the account. You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation. <br><br>By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the bank account or card creation API.
+           */
+          external_account?: string;
+          /**
+           * Information about the person represented by the account. This field is null unless `business_type` is set to `individual`.
+           */
+          individual?: {
+            address?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            address_kana?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+              town?: string;
+            };
+            address_kanji?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+              town?: string;
+            };
+            dob?: Partial<{ day: number; month: number; year: number }> &
+              Partial<"">;
+            email?: string;
+            first_name?: string;
+            first_name_kana?: string;
+            first_name_kanji?: string;
+            gender?: string;
+            id_number?: string;
+            last_name?: string;
+            last_name_kana?: string;
+            last_name_kanji?: string;
+            maiden_name?: string;
+            metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+            phone?: string;
+            ssn_last_4?: string;
+            verification?: {
+              additional_document?: { back?: string; front?: string };
+              document?: { back?: string; front?: string };
+            };
+          };
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * The set of capabilities you want to unlock for this account. Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive.
+           */
+          requested_capabilities?: (
+            | "au_becs_debit_payments"
+            | "card_issuing"
+            | "card_payments"
+            | "legacy_payments"
+            | "tax_reporting_us_1099_k"
+            | "tax_reporting_us_1099_misc"
+            | "transfers"
+          )[];
+          /**
+           * Options for customizing how the account functions within Stripe.
+           */
+          settings?: {
+            branding?: {
+              icon?: string;
+              logo?: string;
+              primary_color?: string;
+              secondary_color?: string;
+            };
+            card_payments?: {
+              decline_on?: { avs_failure?: boolean; cvc_failure?: boolean };
+              statement_descriptor_prefix?: string;
+            };
+            payments?: {
+              statement_descriptor?: string;
+              statement_descriptor_kana?: string;
+              statement_descriptor_kanji?: string;
+            };
+            payouts?: {
+              debit_negative_balances?: boolean;
+              schedule?: {
+                delay_days?: Partial<"minimum"> & Partial<number>;
+                interval?: "daily" | "manual" | "monthly" | "weekly";
+                monthly_anchor?: number;
+                weekly_anchor?:
+                  | "friday"
+                  | "monday"
+                  | "saturday"
+                  | "sunday"
+                  | "thursday"
+                  | "tuesday"
+                  | "wednesday";
+              };
+              statement_descriptor?: string;
+            };
+          };
+          /**
+           * Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance).
+           */
+          tos_acceptance?: { date?: number; ip?: string; user_agent?: string };
+          /**
+           * The type of Stripe account to create. Currently must be `custom`, as only [Custom accounts](https://stripe.com/docs/connect/custom-accounts) may be created via the API.
+           */
+          type?: "custom" | "express" | "standard";
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -981,6 +2254,9 @@ export interface paths {
         path: {
           account: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -1012,6 +2288,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -1036,6 +2315,229 @@ export interface paths {
       parameters: {
         path: {
           account: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account.
+           */
+          account_token?: string;
+          /**
+           * Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details.
+           */
+          bank_account?: Partial<{
+            account_holder_name?: string;
+            account_holder_type?: "company" | "individual";
+            account_number: string;
+            country: string;
+            currency?: string;
+            object?: "bank_account";
+            routing_number?: string;
+          }> &
+            Partial<string>;
+          /**
+           * Business information about the account.
+           */
+          business_profile?: {
+            mcc?: string;
+            name?: string;
+            product_description?: string;
+            support_email?: string;
+            support_phone?: string;
+            support_url?: string;
+            url?: string;
+          };
+          /**
+           * The business type.
+           */
+          business_type?:
+            | "company"
+            | "government_entity"
+            | "individual"
+            | "non_profit";
+          /**
+           * Information about the company or business. This field is null unless `business_type` is set to `company`, `government_entity`, or `non_profit`.
+           */
+          company?: {
+            address?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            address_kana?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+              town?: string;
+            };
+            address_kanji?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+              town?: string;
+            };
+            directors_provided?: boolean;
+            executives_provided?: boolean;
+            name?: string;
+            name_kana?: string;
+            name_kanji?: string;
+            owners_provided?: boolean;
+            phone?: string;
+            structure?:
+              | ""
+              | "government_instrumentality"
+              | "governmental_unit"
+              | "incorporated_non_profit"
+              | "limited_liability_partnership"
+              | "multi_member_llc"
+              | "private_company"
+              | "private_corporation"
+              | "private_partnership"
+              | "public_company"
+              | "public_corporation"
+              | "public_partnership"
+              | "sole_proprietorship"
+              | "tax_exempt_government_instrumentality"
+              | "unincorporated_association"
+              | "unincorporated_non_profit";
+            tax_id?: string;
+            tax_id_registrar?: string;
+            vat_id?: string;
+            verification?: { document?: { back?: string; front?: string } };
+          };
+          /**
+           * Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts).
+           */
+          default_currency?: string;
+          /**
+           * Email address of the account representative. For Standard accounts, this is used to ask them to claim their Stripe account. For Custom accounts, this only makes the account easier to identify to platforms; Stripe does not email the account representative.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A card or bank account to attach to the account. You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation. <br><br>By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the bank account or card creation API.
+           */
+          external_account?: string;
+          /**
+           * Information about the person represented by the account. This field is null unless `business_type` is set to `individual`.
+           */
+          individual?: {
+            address?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            address_kana?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+              town?: string;
+            };
+            address_kanji?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+              town?: string;
+            };
+            dob?: Partial<{ day: number; month: number; year: number }> &
+              Partial<"">;
+            email?: string;
+            first_name?: string;
+            first_name_kana?: string;
+            first_name_kanji?: string;
+            gender?: string;
+            id_number?: string;
+            last_name?: string;
+            last_name_kana?: string;
+            last_name_kanji?: string;
+            maiden_name?: string;
+            metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+            phone?: string;
+            ssn_last_4?: string;
+            verification?: {
+              additional_document?: { back?: string; front?: string };
+              document?: { back?: string; front?: string };
+            };
+          };
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * The set of capabilities you want to unlock for this account. Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive.
+           */
+          requested_capabilities?: (
+            | "au_becs_debit_payments"
+            | "card_issuing"
+            | "card_payments"
+            | "legacy_payments"
+            | "tax_reporting_us_1099_k"
+            | "tax_reporting_us_1099_misc"
+            | "transfers"
+          )[];
+          /**
+           * Options for customizing how the account functions within Stripe.
+           */
+          settings?: {
+            branding?: {
+              icon?: string;
+              logo?: string;
+              primary_color?: string;
+              secondary_color?: string;
+            };
+            card_payments?: {
+              decline_on?: { avs_failure?: boolean; cvc_failure?: boolean };
+              statement_descriptor_prefix?: string;
+            };
+            payments?: {
+              statement_descriptor?: string;
+              statement_descriptor_kana?: string;
+              statement_descriptor_kanji?: string;
+            };
+            payouts?: {
+              debit_negative_balances?: boolean;
+              schedule?: {
+                delay_days?: Partial<"minimum"> & Partial<number>;
+                interval?: "daily" | "manual" | "monthly" | "weekly";
+                monthly_anchor?: number;
+                weekly_anchor?:
+                  | "friday"
+                  | "monday"
+                  | "saturday"
+                  | "sunday"
+                  | "thursday"
+                  | "tuesday"
+                  | "wednesday";
+              };
+              statement_descriptor?: string;
+            };
+          };
+          /**
+           * Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance).
+           */
+          tos_acceptance?: { date?: number; ip?: string; user_agent?: string };
         };
       };
       responses: {
@@ -1064,6 +2566,39 @@ export interface paths {
           account: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details.
+           */
+          bank_account?: Partial<{
+            account_holder_name?: string;
+            account_holder_type?: "company" | "individual";
+            account_number: string;
+            country: string;
+            currency?: string;
+            object?: "bank_account";
+            routing_number?: string;
+          }> &
+            Partial<string>;
+          /**
+           * When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency.
+           */
+          default_for_currency?: boolean;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Please refer to full [documentation](https://stripe.com/docs/api) instead.
+           */
+          external_account?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -1090,6 +2625,9 @@ export interface paths {
           account: string;
           id: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -1122,6 +2660,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -1146,6 +2687,66 @@ export interface paths {
         path: {
           account: string;
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The name of the person or business that owns the bank account.
+           */
+          account_holder_name?: string;
+          /**
+           * The type of entity that holds the account. This can be either `individual` or `company`.
+           */
+          account_holder_type?: "" | "company" | "individual";
+          /**
+           * City/District/Suburb/Town/Village.
+           */
+          address_city?: string;
+          /**
+           * Billing address country, if provided when creating card.
+           */
+          address_country?: string;
+          /**
+           * Address line 1 (Street address/PO Box/Company name).
+           */
+          address_line1?: string;
+          /**
+           * Address line 2 (Apartment/Suite/Unit/Building).
+           */
+          address_line2?: string;
+          /**
+           * State/County/Province/Region.
+           */
+          address_state?: string;
+          /**
+           * ZIP or postal code.
+           */
+          address_zip?: string;
+          /**
+           * When set to true, this becomes the default external account for its currency.
+           */
+          default_for_currency?: boolean;
+          /**
+           * Two digit number representing the card’s expiration month.
+           */
+          exp_month?: string;
+          /**
+           * Four digit number representing the card’s expiration year.
+           */
+          exp_year?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Cardholder name.
+           */
+          name?: string;
         };
       };
       responses: {
@@ -1179,6 +2780,9 @@ export interface paths {
            */
           expand?: string[];
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -1227,6 +2831,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -1250,6 +2857,18 @@ export interface paths {
         path: {
           account: string;
           capability: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+           */
+          requested?: boolean;
         };
       };
       responses: {
@@ -1296,6 +2915,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -1338,6 +2960,39 @@ export interface paths {
           account: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details.
+           */
+          bank_account?: Partial<{
+            account_holder_name?: string;
+            account_holder_type?: "company" | "individual";
+            account_number: string;
+            country: string;
+            currency?: string;
+            object?: "bank_account";
+            routing_number?: string;
+          }> &
+            Partial<string>;
+          /**
+           * When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency.
+           */
+          default_for_currency?: boolean;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Please refer to full [documentation](https://stripe.com/docs/api) instead.
+           */
+          external_account?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -1364,6 +3019,9 @@ export interface paths {
           account: string;
           id: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -1396,6 +3054,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -1420,6 +3081,66 @@ export interface paths {
         path: {
           account: string;
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The name of the person or business that owns the bank account.
+           */
+          account_holder_name?: string;
+          /**
+           * The type of entity that holds the account. This can be either `individual` or `company`.
+           */
+          account_holder_type?: "" | "company" | "individual";
+          /**
+           * City/District/Suburb/Town/Village.
+           */
+          address_city?: string;
+          /**
+           * Billing address country, if provided when creating card.
+           */
+          address_country?: string;
+          /**
+           * Address line 1 (Street address/PO Box/Company name).
+           */
+          address_line1?: string;
+          /**
+           * Address line 2 (Apartment/Suite/Unit/Building).
+           */
+          address_line2?: string;
+          /**
+           * State/County/Province/Region.
+           */
+          address_state?: string;
+          /**
+           * ZIP or postal code.
+           */
+          address_zip?: string;
+          /**
+           * When set to true, this becomes the default external account for its currency.
+           */
+          default_for_currency?: boolean;
+          /**
+           * Two digit number representing the card’s expiration month.
+           */
+          exp_month?: string;
+          /**
+           * Four digit number representing the card’s expiration year.
+           */
+          exp_year?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Cardholder name.
+           */
+          name?: string;
         };
       };
       responses: {
@@ -1450,6 +3171,18 @@ export interface paths {
           account: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Where to redirect the user after they log out of their dashboard.
+           */
+          redirect_url?: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -1476,6 +3209,14 @@ export interface paths {
       parameters: {
         path: {
           account: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
         };
       };
       responses: {
@@ -1531,6 +3272,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -1569,6 +3313,128 @@ export interface paths {
           account: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The person's address.
+           */
+          address?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+          };
+          /**
+           * The Kana variation of the person's address (Japan only).
+           */
+          address_kana?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+            town?: string;
+          };
+          /**
+           * The Kanji variation of the person's address (Japan only).
+           */
+          address_kanji?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+            town?: string;
+          };
+          /**
+           * The person's date of birth.
+           */
+          dob?: Partial<{ day: number; month: number; year: number }> &
+            Partial<"">;
+          /**
+           * The person's email address.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The person's first name.
+           */
+          first_name?: string;
+          /**
+           * The Kana variation of the person's first name (Japan only).
+           */
+          first_name_kana?: string;
+          /**
+           * The Kanji variation of the person's first name (Japan only).
+           */
+          first_name_kanji?: string;
+          /**
+           * The person's gender (International regulations require either "male" or "female").
+           */
+          gender?: string;
+          /**
+           * The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/stripe.js#collecting-pii-data).
+           */
+          id_number?: string;
+          /**
+           * The person's last name.
+           */
+          last_name?: string;
+          /**
+           * The Kana variation of the person's last name (Japan only).
+           */
+          last_name_kana?: string;
+          /**
+           * The Kanji variation of the person's last name (Japan only).
+           */
+          last_name_kanji?: string;
+          /**
+           * The person's maiden name.
+           */
+          maiden_name?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person.
+           */
+          person_token?: string;
+          /**
+           * The person's phone number.
+           */
+          phone?: string;
+          /**
+           * The relationship that this person has with the account's legal entity.
+           */
+          relationship?: {
+            director?: boolean;
+            executive?: boolean;
+            owner?: boolean;
+            percent_ownership?: Partial<number> & Partial<"">;
+            representative?: boolean;
+            title?: string;
+          };
+          /**
+           * The last 4 digits of the person's social security number.
+           */
+          ssn_last_4?: string;
+          /**
+           * The person's verification status.
+           */
+          verification?: {
+            additional_document?: { back?: string; front?: string };
+            document?: { back?: string; front?: string };
+          };
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -1595,6 +3461,9 @@ export interface paths {
           account: string;
           person: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -1627,6 +3496,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -1650,6 +3522,128 @@ export interface paths {
         path: {
           account: string;
           person: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The person's address.
+           */
+          address?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+          };
+          /**
+           * The Kana variation of the person's address (Japan only).
+           */
+          address_kana?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+            town?: string;
+          };
+          /**
+           * The Kanji variation of the person's address (Japan only).
+           */
+          address_kanji?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+            town?: string;
+          };
+          /**
+           * The person's date of birth.
+           */
+          dob?: Partial<{ day: number; month: number; year: number }> &
+            Partial<"">;
+          /**
+           * The person's email address.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The person's first name.
+           */
+          first_name?: string;
+          /**
+           * The Kana variation of the person's first name (Japan only).
+           */
+          first_name_kana?: string;
+          /**
+           * The Kanji variation of the person's first name (Japan only).
+           */
+          first_name_kanji?: string;
+          /**
+           * The person's gender (International regulations require either "male" or "female").
+           */
+          gender?: string;
+          /**
+           * The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/stripe.js#collecting-pii-data).
+           */
+          id_number?: string;
+          /**
+           * The person's last name.
+           */
+          last_name?: string;
+          /**
+           * The Kana variation of the person's last name (Japan only).
+           */
+          last_name_kana?: string;
+          /**
+           * The Kanji variation of the person's last name (Japan only).
+           */
+          last_name_kanji?: string;
+          /**
+           * The person's maiden name.
+           */
+          maiden_name?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person.
+           */
+          person_token?: string;
+          /**
+           * The person's phone number.
+           */
+          phone?: string;
+          /**
+           * The relationship that this person has with the account's legal entity.
+           */
+          relationship?: {
+            director?: boolean;
+            executive?: boolean;
+            owner?: boolean;
+            percent_ownership?: Partial<number> & Partial<"">;
+            representative?: boolean;
+            title?: string;
+          };
+          /**
+           * The last 4 digits of the person's social security number.
+           */
+          ssn_last_4?: string;
+          /**
+           * The person's verification status.
+           */
+          verification?: {
+            additional_document?: { back?: string; front?: string };
+            document?: { back?: string; front?: string };
+          };
         };
       };
       responses: {
@@ -1705,6 +3699,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -1743,6 +3740,128 @@ export interface paths {
           account: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The person's address.
+           */
+          address?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+          };
+          /**
+           * The Kana variation of the person's address (Japan only).
+           */
+          address_kana?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+            town?: string;
+          };
+          /**
+           * The Kanji variation of the person's address (Japan only).
+           */
+          address_kanji?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+            town?: string;
+          };
+          /**
+           * The person's date of birth.
+           */
+          dob?: Partial<{ day: number; month: number; year: number }> &
+            Partial<"">;
+          /**
+           * The person's email address.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The person's first name.
+           */
+          first_name?: string;
+          /**
+           * The Kana variation of the person's first name (Japan only).
+           */
+          first_name_kana?: string;
+          /**
+           * The Kanji variation of the person's first name (Japan only).
+           */
+          first_name_kanji?: string;
+          /**
+           * The person's gender (International regulations require either "male" or "female").
+           */
+          gender?: string;
+          /**
+           * The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/stripe.js#collecting-pii-data).
+           */
+          id_number?: string;
+          /**
+           * The person's last name.
+           */
+          last_name?: string;
+          /**
+           * The Kana variation of the person's last name (Japan only).
+           */
+          last_name_kana?: string;
+          /**
+           * The Kanji variation of the person's last name (Japan only).
+           */
+          last_name_kanji?: string;
+          /**
+           * The person's maiden name.
+           */
+          maiden_name?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person.
+           */
+          person_token?: string;
+          /**
+           * The person's phone number.
+           */
+          phone?: string;
+          /**
+           * The relationship that this person has with the account's legal entity.
+           */
+          relationship?: {
+            director?: boolean;
+            executive?: boolean;
+            owner?: boolean;
+            percent_ownership?: Partial<number> & Partial<"">;
+            representative?: boolean;
+            title?: string;
+          };
+          /**
+           * The last 4 digits of the person's social security number.
+           */
+          ssn_last_4?: string;
+          /**
+           * The person's verification status.
+           */
+          verification?: {
+            additional_document?: { back?: string; front?: string };
+            document?: { back?: string; front?: string };
+          };
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -1769,6 +3888,9 @@ export interface paths {
           account: string;
           person: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -1801,6 +3923,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -1824,6 +3949,128 @@ export interface paths {
         path: {
           account: string;
           person: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The person's address.
+           */
+          address?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+          };
+          /**
+           * The Kana variation of the person's address (Japan only).
+           */
+          address_kana?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+            town?: string;
+          };
+          /**
+           * The Kanji variation of the person's address (Japan only).
+           */
+          address_kanji?: {
+            city?: string;
+            country?: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+            town?: string;
+          };
+          /**
+           * The person's date of birth.
+           */
+          dob?: Partial<{ day: number; month: number; year: number }> &
+            Partial<"">;
+          /**
+           * The person's email address.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The person's first name.
+           */
+          first_name?: string;
+          /**
+           * The Kana variation of the person's first name (Japan only).
+           */
+          first_name_kana?: string;
+          /**
+           * The Kanji variation of the person's first name (Japan only).
+           */
+          first_name_kanji?: string;
+          /**
+           * The person's gender (International regulations require either "male" or "female").
+           */
+          gender?: string;
+          /**
+           * The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/stripe.js#collecting-pii-data).
+           */
+          id_number?: string;
+          /**
+           * The person's last name.
+           */
+          last_name?: string;
+          /**
+           * The Kana variation of the person's last name (Japan only).
+           */
+          last_name_kana?: string;
+          /**
+           * The Kanji variation of the person's last name (Japan only).
+           */
+          last_name_kanji?: string;
+          /**
+           * The person's maiden name.
+           */
+          maiden_name?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person.
+           */
+          person_token?: string;
+          /**
+           * The person's phone number.
+           */
+          phone?: string;
+          /**
+           * The relationship that this person has with the account's legal entity.
+           */
+          relationship?: {
+            director?: boolean;
+            executive?: boolean;
+            owner?: boolean;
+            percent_ownership?: Partial<number> & Partial<"">;
+            representative?: boolean;
+            title?: string;
+          };
+          /**
+           * The last 4 digits of the person's social security number.
+           */
+          ssn_last_4?: string;
+          /**
+           * The person's verification status.
+           */
+          verification?: {
+            additional_document?: { back?: string; front?: string };
+            document?: { back?: string; front?: string };
+          };
         };
       };
       responses: {
@@ -1852,6 +4099,18 @@ export interface paths {
       parameters: {
         path: {
           account: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The reason for rejecting the account. Can be `fraud`, `terms_of_service`, or `other`.
+           */
+          reason: string;
         };
       };
       responses: {
@@ -1896,6 +4155,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -1929,6 +4191,15 @@ export interface paths {
      * <p>Create an apple pay domain.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          domain_name: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -1954,6 +4225,9 @@ export interface paths {
         path: {
           domain: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -1984,6 +4258,9 @@ export interface paths {
            */
           expand?: string[];
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -2037,6 +4314,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -2084,6 +4364,9 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -2109,6 +4392,18 @@ export interface paths {
         path: {
           fee: string;
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         };
       };
       responses: {
@@ -2143,6 +4438,9 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -2164,6 +4462,16 @@ export interface paths {
       parameters: {
         path: {
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          amount?: number;
+          directive?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
         };
       };
       responses: {
@@ -2209,6 +4517,9 @@ export interface paths {
         path: {
           id: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -2259,6 +4570,22 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A positive integer, in _%s_, representing how much of this fee to refund. Can refund only up to the remaining unrefunded amount of the fee.
+           */
+          amount?: number;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -2288,6 +4615,9 @@ export interface paths {
            */
           expand?: string[];
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -2362,6 +4692,9 @@ export interface paths {
           type?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -2409,6 +4742,9 @@ export interface paths {
         path: {
           id: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -2483,6 +4819,9 @@ export interface paths {
           type?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -2531,6 +4870,9 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -2552,6 +4894,22 @@ export interface paths {
      * <p>Creates a session of the Self-service Portal.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The ID of an existing customer.
+           */
+          customer: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The URL to which Stripe should send customers when they click on the link to return to your website. This field is required if a default return URL has not been configured for the portal.
+           */
+          return_url?: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -2605,6 +4963,9 @@ export interface paths {
           uncaptured_funds?: boolean;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -2650,6 +5011,9 @@ export interface paths {
         path: {
           id: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -2698,6 +5062,9 @@ export interface paths {
         path: {
           receiver: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -2761,6 +5128,9 @@ export interface paths {
            */
           starting_after?: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -2839,6 +5209,9 @@ export interface paths {
           transfer_group?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -2872,6 +5245,109 @@ export interface paths {
      * <p>To charge a credit card or other payment source, you create a <code>Charge</code> object. If your API key is in test mode, the supplied payment source (e.g., card) won’t actually be charged, although everything else will occur as if in live mode. (Stripe assumes that the charge would have completed successfully).</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Amount intended to be collected by this payment. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+           */
+          amount?: number;
+          application_fee?: number;
+          /**
+           * A fee in %s that will be applied to the charge and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the `Stripe-Account` header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees).
+           */
+          application_fee_amount?: number;
+          /**
+           * Whether to immediately capture the charge. Defaults to `true`. When `false`, the charge issues an authorization (or pre-authorization), and will need to be [captured](https://stripe.com/docs/api#capture_charge) later. Uncaptured charges expire in _seven days_. For more information, see the [authorizing charges and settling later](https://stripe.com/docs/charges/placing-a-hold) documentation.
+           */
+          capture?: boolean;
+          /**
+           * A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js).
+           */
+          card?: Partial<{
+            address_city?: string;
+            address_country?: string;
+            address_line1?: string;
+            address_line2?: string;
+            address_state?: string;
+            address_zip?: string;
+            cvc?: string;
+            exp_month: number;
+            exp_year: number;
+            metadata?: { [key: string]: string };
+            name?: string;
+            number: string;
+            object?: "card";
+          }> &
+            Partial<string>;
+          /**
+           * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+           */
+          currency?: string;
+          /**
+           * The ID of an existing customer that will be charged in this request.
+           */
+          customer?: string;
+          /**
+           * An arbitrary string which you can attach to a `Charge` object. It is displayed when in the web interface alongside the charge. Note that if you use Stripe to send automatic email receipts to your customers, your receipt emails will include the `description` of the charge(s) that they are describing.
+           */
+          description?: string;
+          destination?: Partial<{ account: string; amount?: number }> &
+            Partial<string>;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/charges-transfers#on-behalf-of).
+           */
+          on_behalf_of?: string;
+          /**
+           * The email address to which this charge's [receipt](https://stripe.com/docs/dashboard/receipts) will be sent. The receipt will not be sent until the charge is paid, and no receipts will be sent for test mode charges. If this charge is for a [Customer](https://stripe.com/docs/api/customers/object), the email address specified here will override the customer's email address. If `receipt_email` is specified for a charge in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
+           */
+          receipt_email?: string;
+          /**
+           * Shipping information for the charge. Helps prevent fraud on charges for physical goods.
+           */
+          shipping?: {
+            address: {
+              city?: string;
+              country?: string;
+              line1: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            carrier?: string;
+            name: string;
+            phone?: string;
+            tracking_number?: string;
+          };
+          /**
+           * A payment source to be charged. This can be the ID of a [card](https://stripe.com/docs/api#cards) (i.e., credit or debit card), a [bank account](https://stripe.com/docs/api#bank_accounts), a [source](https://stripe.com/docs/api#sources), a [token](https://stripe.com/docs/api#tokens), or a [connected account](https://stripe.com/docs/connect/account-debits#charging-a-connected-account). For certain sources---namely, [cards](https://stripe.com/docs/api#cards), [bank accounts](https://stripe.com/docs/api#bank_accounts), and attached [sources](https://stripe.com/docs/api#sources)---you must also pass the ID of the associated customer.
+           */
+          source?: string;
+          /**
+           * For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers’ statements. Must contain at least one letter, maximum 22 characters.
+           */
+          statement_descriptor?: string;
+          /**
+           * Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+           */
+          statement_descriptor_suffix?: string;
+          /**
+           * An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details.
+           */
+          transfer_data?: { amount?: number; destination: string };
+          /**
+           * A string that identifies this transaction as part of a group. For details, see [Grouping transactions](https://stripe.com/docs/connect/charges-transfers#transfer-options).
+           */
+          transfer_group?: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -2904,6 +5380,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -2926,6 +5405,55 @@ export interface paths {
       parameters: {
         path: {
           charge: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The ID of an existing customer that will be associated with this request. This field may only be updated if there is no existing associated customer with this charge.
+           */
+          customer?: string;
+          /**
+           * An arbitrary string which you can attach to a charge object. It is displayed when in the web interface alongside the charge. Note that if you use Stripe to send automatic email receipts to your customers, your receipt emails will include the `description` of the charge(s) that they are describing.
+           */
+          description?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A set of key-value pairs you can attach to a charge giving information about its riskiness. If you believe a charge is fraudulent, include a `user_report` key with a value of `fraudulent`. If you believe a charge is safe, include a `user_report` key with a value of `safe`. Stripe will use the information you send to improve our fraud detection algorithms.
+           */
+          fraud_details?: { user_report: "" | "fraudulent" | "safe" };
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * This is the email address that the receipt for this charge will be sent to. If this field is updated, then a new email receipt will be sent to the updated address.
+           */
+          receipt_email?: string;
+          /**
+           * Shipping information for the charge. Helps prevent fraud on charges for physical goods.
+           */
+          shipping?: {
+            address: {
+              city?: string;
+              country?: string;
+              line1: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            carrier?: string;
+            name: string;
+            phone?: string;
+            tracking_number?: string;
+          };
+          /**
+           * A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details.
+           */
+          transfer_group?: string;
         };
       };
       responses: {
@@ -2954,6 +5482,46 @@ export interface paths {
       parameters: {
         path: {
           charge: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The amount to capture, which must be less than or equal to the original amount. Any additional amount will be automatically refunded.
+           */
+          amount?: number;
+          /**
+           * An application fee to add on to this charge.
+           */
+          application_fee?: number;
+          /**
+           * An application fee amount to add on to this charge, which must be less than or equal to the original amount.
+           */
+          application_fee_amount?: number;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The email address to send this charge's receipt to. This will override the previously-specified email address for this charge, if one was set. Receipts will not be sent in test mode.
+           */
+          receipt_email?: string;
+          /**
+           * For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers’ statements. Must contain at least one letter, maximum 22 characters.
+           */
+          statement_descriptor?: string;
+          /**
+           * Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+           */
+          statement_descriptor_suffix?: string;
+          /**
+           * An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details.
+           */
+          transfer_data?: { amount?: number };
+          /**
+           * A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details.
+           */
+          transfer_group?: string;
         };
       };
       responses: {
@@ -2988,6 +5556,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -3007,6 +5578,54 @@ export interface paths {
       parameters: {
         path: {
           charge: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Evidence to upload, to respond to a dispute. Updating any field in the hash will submit all fields in the hash for review. The combined character count of all fields is limited to 150,000.
+           */
+          evidence?: {
+            access_activity_log?: string;
+            billing_address?: string;
+            cancellation_policy?: string;
+            cancellation_policy_disclosure?: string;
+            cancellation_rebuttal?: string;
+            customer_communication?: string;
+            customer_email_address?: string;
+            customer_name?: string;
+            customer_purchase_ip?: string;
+            customer_signature?: string;
+            duplicate_charge_documentation?: string;
+            duplicate_charge_explanation?: string;
+            duplicate_charge_id?: string;
+            product_description?: string;
+            receipt?: string;
+            refund_policy?: string;
+            refund_policy_disclosure?: string;
+            refund_refusal_explanation?: string;
+            service_date?: string;
+            service_documentation?: string;
+            shipping_address?: string;
+            shipping_carrier?: string;
+            shipping_date?: string;
+            shipping_documentation?: string;
+            shipping_tracking_number?: string;
+            uncategorized_file?: string;
+            uncategorized_text?: string;
+          };
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default).
+           */
+          submit?: boolean;
         };
       };
       responses: {
@@ -3030,6 +5649,14 @@ export interface paths {
       parameters: {
         path: {
           charge: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
         };
       };
       responses: {
@@ -3066,6 +5693,23 @@ export interface paths {
       parameters: {
         path: {
           charge: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          amount?: number;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          payment_intent?: string;
+          reason?: "duplicate" | "fraudulent" | "requested_by_customer";
+          refund_application_fee?: boolean;
+          reverse_transfer?: boolean;
         };
       };
       responses: {
@@ -3112,6 +5756,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -3153,6 +5800,23 @@ export interface paths {
           charge: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          amount?: number;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          payment_intent?: string;
+          reason?: "duplicate" | "fraudulent" | "requested_by_customer";
+          refund_application_fee?: boolean;
+          reverse_transfer?: boolean;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -3186,6 +5850,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -3209,6 +5876,15 @@ export interface paths {
         path: {
           charge: string;
           refund: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         };
       };
       responses: {
@@ -3260,6 +5936,9 @@ export interface paths {
           subscription?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -3293,6 +5972,401 @@ export interface paths {
      * <p>Creates a Session object.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specify whether Checkout should collect the customer's billing address.
+           */
+          billing_address_collection?: "auto" | "required";
+          /**
+           * The URL the customer will be directed to if they decide to cancel payment and return to your website.
+           */
+          cancel_url: string;
+          /**
+           * A unique string to reference the Checkout Session. This can be a
+           * customer ID, a cart ID, or similar, and can be used to reconcile the
+           * session with your internal systems.
+           */
+          client_reference_id?: string;
+          /**
+           * ID of an existing customer, if one exists. The email stored on the
+           * customer will be used to prefill the email field on the Checkout page.
+           * If the customer changes their email on the Checkout page, the Customer
+           * object will be updated with the new email.
+           * If blank for Checkout Sessions in `payment` or `subscription` mode,
+           * Checkout will create a new customer object based on information
+           * provided during the session.
+           */
+          customer?: string;
+          /**
+           * If provided, this value will be used when the Customer object is created.
+           * If not provided, customers will be asked to enter their email address.
+           * Use this parameter to prefill customer data if you already have an email
+           * on file. To access information about the customer once a session is
+           * complete, use the `customer` field.
+           */
+          customer_email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A list of items the customer is purchasing. Use this parameter for
+           * one-time payments or adding invoice line items to a subscription (used
+           * in conjunction with `subscription_data`).
+           */
+          line_items?: {
+            amount?: number;
+            currency?: string;
+            description?: string;
+            images?: string[];
+            name?: string;
+            quantity: number;
+            tax_rates?: string[];
+          }[];
+          /**
+           * The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
+           */
+          locale?:
+            | "auto"
+            | "da"
+            | "de"
+            | "en"
+            | "es"
+            | "fi"
+            | "fr"
+            | "it"
+            | "ja"
+            | "ms"
+            | "nb"
+            | "nl"
+            | "pl"
+            | "pt"
+            | "pt-BR"
+            | "sv"
+            | "zh";
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * The mode of the Checkout Session, one of `payment`, `setup`, or `subscription`.
+           */
+          mode?: "payment" | "setup" | "subscription";
+          /**
+           * A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
+           */
+          payment_intent_data?: {
+            application_fee_amount?: number;
+            capture_method?: "automatic" | "manual";
+            description?: string;
+            metadata?: { [key: string]: string };
+            on_behalf_of?: string;
+            receipt_email?: string;
+            setup_future_usage?: "off_session" | "on_session";
+            shipping?: {
+              address: {
+                city?: string;
+                country?: string;
+                line1: string;
+                line2?: string;
+                postal_code?: string;
+                state?: string;
+              };
+              carrier?: string;
+              name: string;
+              phone?: string;
+              tracking_number?: string;
+            };
+            statement_descriptor?: string;
+            statement_descriptor_suffix?: string;
+            transfer_data?: { amount?: number; destination: string };
+          };
+          /**
+           * A list of the types of payment methods (e.g., card) this Checkout session can accept.
+           */
+          payment_method_types: ("card" | "fpx" | "ideal")[];
+          /**
+           * A subset of parameters to be passed to SetupIntent creation for Checkout Sessions in `setup` mode.
+           */
+          setup_intent_data?: {
+            description?: string;
+            metadata?: { [key: string]: string };
+            on_behalf_of?: string;
+          };
+          /**
+           * When set, provides configuration for Checkout to collect a shipping address from a customer.
+           */
+          shipping_address_collection?: {
+            allowed_countries: (
+              | "AC"
+              | "AD"
+              | "AE"
+              | "AF"
+              | "AG"
+              | "AI"
+              | "AL"
+              | "AM"
+              | "AO"
+              | "AQ"
+              | "AR"
+              | "AT"
+              | "AU"
+              | "AW"
+              | "AX"
+              | "AZ"
+              | "BA"
+              | "BB"
+              | "BD"
+              | "BE"
+              | "BF"
+              | "BG"
+              | "BH"
+              | "BI"
+              | "BJ"
+              | "BL"
+              | "BM"
+              | "BN"
+              | "BO"
+              | "BQ"
+              | "BR"
+              | "BS"
+              | "BT"
+              | "BV"
+              | "BW"
+              | "BY"
+              | "BZ"
+              | "CA"
+              | "CD"
+              | "CF"
+              | "CG"
+              | "CH"
+              | "CI"
+              | "CK"
+              | "CL"
+              | "CM"
+              | "CN"
+              | "CO"
+              | "CR"
+              | "CV"
+              | "CW"
+              | "CY"
+              | "CZ"
+              | "DE"
+              | "DJ"
+              | "DK"
+              | "DM"
+              | "DO"
+              | "DZ"
+              | "EC"
+              | "EE"
+              | "EG"
+              | "EH"
+              | "ER"
+              | "ES"
+              | "ET"
+              | "FI"
+              | "FJ"
+              | "FK"
+              | "FO"
+              | "FR"
+              | "GA"
+              | "GB"
+              | "GD"
+              | "GE"
+              | "GF"
+              | "GG"
+              | "GH"
+              | "GI"
+              | "GL"
+              | "GM"
+              | "GN"
+              | "GP"
+              | "GQ"
+              | "GR"
+              | "GS"
+              | "GT"
+              | "GU"
+              | "GW"
+              | "GY"
+              | "HK"
+              | "HN"
+              | "HR"
+              | "HT"
+              | "HU"
+              | "ID"
+              | "IE"
+              | "IL"
+              | "IM"
+              | "IN"
+              | "IO"
+              | "IQ"
+              | "IS"
+              | "IT"
+              | "JE"
+              | "JM"
+              | "JO"
+              | "JP"
+              | "KE"
+              | "KG"
+              | "KH"
+              | "KI"
+              | "KM"
+              | "KN"
+              | "KR"
+              | "KW"
+              | "KY"
+              | "KZ"
+              | "LA"
+              | "LB"
+              | "LC"
+              | "LI"
+              | "LK"
+              | "LR"
+              | "LS"
+              | "LT"
+              | "LU"
+              | "LV"
+              | "LY"
+              | "MA"
+              | "MC"
+              | "MD"
+              | "ME"
+              | "MF"
+              | "MG"
+              | "MK"
+              | "ML"
+              | "MM"
+              | "MN"
+              | "MO"
+              | "MQ"
+              | "MR"
+              | "MS"
+              | "MT"
+              | "MU"
+              | "MV"
+              | "MW"
+              | "MX"
+              | "MY"
+              | "MZ"
+              | "NA"
+              | "NC"
+              | "NE"
+              | "NG"
+              | "NI"
+              | "NL"
+              | "NO"
+              | "NP"
+              | "NR"
+              | "NU"
+              | "NZ"
+              | "OM"
+              | "PA"
+              | "PE"
+              | "PF"
+              | "PG"
+              | "PH"
+              | "PK"
+              | "PL"
+              | "PM"
+              | "PN"
+              | "PR"
+              | "PS"
+              | "PT"
+              | "PY"
+              | "QA"
+              | "RE"
+              | "RO"
+              | "RS"
+              | "RU"
+              | "RW"
+              | "SA"
+              | "SB"
+              | "SC"
+              | "SE"
+              | "SG"
+              | "SH"
+              | "SI"
+              | "SJ"
+              | "SK"
+              | "SL"
+              | "SM"
+              | "SN"
+              | "SO"
+              | "SR"
+              | "SS"
+              | "ST"
+              | "SV"
+              | "SX"
+              | "SZ"
+              | "TA"
+              | "TC"
+              | "TD"
+              | "TF"
+              | "TG"
+              | "TH"
+              | "TJ"
+              | "TK"
+              | "TL"
+              | "TM"
+              | "TN"
+              | "TO"
+              | "TR"
+              | "TT"
+              | "TV"
+              | "TW"
+              | "TZ"
+              | "UA"
+              | "UG"
+              | "US"
+              | "UY"
+              | "UZ"
+              | "VA"
+              | "VC"
+              | "VE"
+              | "VG"
+              | "VN"
+              | "VU"
+              | "WF"
+              | "WS"
+              | "XK"
+              | "YE"
+              | "YT"
+              | "ZA"
+              | "ZM"
+              | "ZW"
+              | "ZZ"
+            )[];
+          };
+          /**
+           * Describes the type of transaction being performed by Checkout in order to customize
+           * relevant text on the page, such as the submit button. `submit_type` can only be
+           * specified on Checkout Sessions in `payment` mode, but not Checkout Sessions
+           * in `subscription` or `setup` mode.
+           */
+          submit_type?: "auto" | "book" | "donate" | "pay";
+          /**
+           * A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
+           */
+          subscription_data?: {
+            application_fee_percent?: number;
+            default_tax_rates?: string[];
+            items?: { plan: string; quantity?: number; tax_rates?: string[] }[];
+            metadata?: { [key: string]: string };
+            trial_end?: number;
+            trial_from_plan?: boolean;
+            trial_period_days?: number;
+          };
+          /**
+           * The URL to which Stripe should send customers when payment or setup
+           * is complete.
+           * If you’d like access to the Checkout Session for the successful
+           * payment, read more about it in our guide on [fulfilling your payments
+           * with webhooks](/docs/payments/checkout/fulfillment#webhooks).
+           */
+          success_url: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -3324,6 +6398,9 @@ export interface paths {
         path: {
           session: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -3365,6 +6442,9 @@ export interface paths {
            */
           starting_after?: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -3411,6 +6491,9 @@ export interface paths {
            */
           expand?: string[];
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -3463,6 +6546,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -3498,6 +6584,54 @@ export interface paths {
      * <p>A coupon has either a <code>percent_off</code> or an <code>amount_off</code> and <code>currency</code>. If you set an <code>amount_off</code>, that amount will be subtracted from any invoice’s subtotal. For example, an invoice with a subtotal of <currency>100</currency> will have a final total of <currency>0</currency> if a coupon with an <code>amount_off</code> of <amount>200</amount> is applied to it and an invoice with a subtotal of <currency>300</currency> will have a final total of <currency>100</currency> if a coupon with an <code>amount_off</code> of <amount>200</amount> is applied to it.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
+           */
+          amount_off?: number;
+          /**
+           * Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
+           */
+          currency?: string;
+          /**
+           * Specifies how long the discount will be in effect. Can be `forever`, `once`, or `repeating`.
+           */
+          duration: "forever" | "once" | "repeating";
+          /**
+           * Required only if `duration` is `repeating`, in which case it must be a positive integer that specifies the number of months the discount will be in effect.
+           */
+          duration_in_months?: number;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Unique string of your choice that will be used to identify this coupon when applying it to a customer. This is often a specific code you'll give to your customer to use when signing up (e.g., `FALL25OFF`). If you don't want to specify a particular code, you can leave the ID blank and we'll generate a random code for you.
+           */
+          id?: string;
+          /**
+           * A positive integer specifying the number of times the coupon can be redeemed before it's no longer valid. For example, you might have a 50% off coupon that the first 20 readers of your blog can use.
+           */
+          max_redemptions?: number;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set.
+           */
+          name?: string;
+          /**
+           * A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed).
+           */
+          percent_off?: number;
+          /**
+           * Unix timestamp specifying the last time at which the coupon can be redeemed. After the redeem_by date, the coupon can no longer be applied to new customers.
+           */
+          redeem_by?: number;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -3523,6 +6657,9 @@ export interface paths {
         path: {
           coupon: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -3554,6 +6691,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -3576,6 +6716,22 @@ export interface paths {
       parameters: {
         path: {
           coupon: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set.
+           */
+          name?: string;
         };
       };
       responses: {
@@ -3627,6 +6783,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -3673,6 +6832,67 @@ export interface paths {
      * or <code>post_payment_credit_notes_amount</code> depending on its <code>status</code> at the time of credit note creation.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The integer amount in **%s** representing the total amount of the credit note.
+           */
+          amount?: number;
+          /**
+           * The integer amount in **%s** representing the amount to credit the customer's balance, which will be automatically applied to their next invoice.
+           */
+          credit_amount?: number;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * ID of the invoice.
+           */
+          invoice: string;
+          /**
+           * Line items that make up the credit note.
+           */
+          lines?: {
+            amount?: number;
+            description?: string;
+            invoice_line_item?: string;
+            quantity?: number;
+            tax_rates?: Partial<string[]> & Partial<"">;
+            type: "custom_line_item" | "invoice_line_item";
+            unit_amount?: number;
+            unit_amount_decimal?: string;
+          }[];
+          /**
+           * The credit note's memo appears on the credit note PDF.
+           */
+          memo?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * The integer amount in **%s** representing the amount that is credited outside of Stripe.
+           */
+          out_of_band_amount?: number;
+          /**
+           * Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
+           */
+          reason?:
+            | "duplicate"
+            | "fraudulent"
+            | "order_change"
+            | "product_unsatisfactory";
+          /**
+           * ID of an existing refund to link this credit note to.
+           */
+          refund?: string;
+          /**
+           * The integer amount in **%s** representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
+           */
+          refund_amount?: number;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -3754,6 +6974,9 @@ export interface paths {
            */
           refund_amount?: number;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -3849,6 +7072,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -3910,6 +7136,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -3959,6 +7188,9 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -3981,6 +7213,22 @@ export interface paths {
       parameters: {
         path: {
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Credit note memo.
+           */
+          memo?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
         };
       };
       responses: {
@@ -4007,6 +7255,14 @@ export interface paths {
       parameters: {
         path: {
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
         };
       };
       responses: {
@@ -4061,6 +7317,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -4094,6 +7353,124 @@ export interface paths {
      * <p>Creates a new customer object.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The customer's address.
+           */
+          address?: Partial<{
+            city?: string;
+            country?: string;
+            line1: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+          }> &
+            Partial<"">;
+          /**
+           * An integer amount in %s that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
+           */
+          balance?: number;
+          coupon?: string;
+          /**
+           * An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
+           */
+          description?: string;
+          /**
+           * Customer's email address. It's displayed alongside the customer in your dashboard and can be useful for searching and tracking. This may be up to *512 characters*.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
+           */
+          invoice_prefix?: string;
+          /**
+           * Default invoice settings for this customer.
+           */
+          invoice_settings?: {
+            custom_fields?: Partial<{ name: string; value: string }[]> &
+              Partial<"">;
+            default_payment_method?: string;
+            footer?: string;
+          };
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * The customer's full name or business name.
+           */
+          name?: string;
+          /**
+           * The sequence to be used on the customer's next invoice. Defaults to 1.
+           */
+          next_invoice_sequence?: number;
+          payment_method?: string;
+          /**
+           * The customer's phone number.
+           */
+          phone?: string;
+          /**
+           * Customer's preferred languages, ordered by preference.
+           */
+          preferred_locales?: string[];
+          /**
+           * The customer's shipping information. Appears on invoices emailed to this customer.
+           */
+          shipping?: Partial<{
+            address: {
+              city?: string;
+              country?: string;
+              line1: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            name: string;
+            phone?: string;
+          }> &
+            Partial<"">;
+          source?: string;
+          /**
+           * The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
+           */
+          tax_exempt?: "" | "exempt" | "none" | "reverse";
+          /**
+           * The customer's tax IDs.
+           */
+          tax_id_data?: {
+            type:
+              | "au_abn"
+              | "ca_bn"
+              | "ca_qst"
+              | "ch_vat"
+              | "es_cif"
+              | "eu_vat"
+              | "hk_br"
+              | "in_gst"
+              | "jp_cn"
+              | "kr_brn"
+              | "li_uid"
+              | "mx_rfc"
+              | "my_itn"
+              | "my_sst"
+              | "no_vat"
+              | "nz_gst"
+              | "ru_inn"
+              | "sg_gst"
+              | "sg_uen"
+              | "th_vat"
+              | "tw_vat"
+              | "us_ein"
+              | "za_vat";
+            value: string;
+          }[];
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -4119,6 +7496,9 @@ export interface paths {
         path: {
           customer: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -4150,6 +7530,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -4175,6 +7558,149 @@ export interface paths {
       parameters: {
         path: {
           customer: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The customer's address.
+           */
+          address?: Partial<{
+            city?: string;
+            country?: string;
+            line1: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+          }> &
+            Partial<"">;
+          /**
+           * An integer amount in %s that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
+           */
+          balance?: number;
+          /**
+           * Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details.
+           */
+          bank_account?: Partial<{
+            account_holder_name?: string;
+            account_holder_type?: "company" | "individual";
+            account_number: string;
+            country: string;
+            currency?: string;
+            object?: "bank_account";
+            routing_number?: string;
+          }> &
+            Partial<string>;
+          /**
+           * A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js).
+           */
+          card?: Partial<{
+            address_city?: string;
+            address_country?: string;
+            address_line1?: string;
+            address_line2?: string;
+            address_state?: string;
+            address_zip?: string;
+            cvc?: string;
+            exp_month: number;
+            exp_year: number;
+            metadata?: { [key: string]: string };
+            name?: string;
+            number: string;
+            object?: "card";
+          }> &
+            Partial<string>;
+          coupon?: string;
+          /**
+           * ID of Alipay account to make the customer's new default for invoice payments.
+           */
+          default_alipay_account?: string;
+          /**
+           * ID of bank account to make the customer's new default for invoice payments.
+           */
+          default_bank_account?: string;
+          /**
+           * ID of card to make the customer's new default for invoice payments.
+           */
+          default_card?: string;
+          /**
+           * If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
+           *
+           * Provide the ID of a payment source already attached to this customer to make it this customer's default payment source.
+           *
+           * If you want to add a new payment source and make it the default, see the [source](https://stripe.com/docs/api/customers/update#update_customer-source) property.
+           */
+          default_source?: string;
+          /**
+           * An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
+           */
+          description?: string;
+          /**
+           * Customer's email address. It's displayed alongside the customer in your dashboard and can be useful for searching and tracking. This may be up to *512 characters*.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
+           */
+          invoice_prefix?: string;
+          /**
+           * Default invoice settings for this customer.
+           */
+          invoice_settings?: {
+            custom_fields?: Partial<{ name: string; value: string }[]> &
+              Partial<"">;
+            default_payment_method?: string;
+            footer?: string;
+          };
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * The customer's full name or business name.
+           */
+          name?: string;
+          /**
+           * The sequence to be used on the customer's next invoice. Defaults to 1.
+           */
+          next_invoice_sequence?: number;
+          /**
+           * The customer's phone number.
+           */
+          phone?: string;
+          /**
+           * Customer's preferred languages, ordered by preference.
+           */
+          preferred_locales?: string[];
+          /**
+           * The customer's shipping information. Appears on invoices emailed to this customer.
+           */
+          shipping?: Partial<{
+            address: {
+              city?: string;
+              country?: string;
+              line1: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            name: string;
+            phone?: string;
+          }> &
+            Partial<"">;
+          source?: string;
+          /**
+           * The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
+           */
+          tax_exempt?: "" | "exempt" | "none" | "reverse";
+          /**
+           * Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`.
+           */
+          trial_end?: Partial<"now"> & Partial<number>;
         };
       };
       responses: {
@@ -4221,6 +7747,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -4262,6 +7791,30 @@ export interface paths {
           customer: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The integer amount in **%s** to apply to the customer's balance. Pass a negative amount to credit the customer's balance, and pass in a positive amount to debit the customer's balance.
+           */
+          amount: number;
+          /**
+           * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). If the customer's [`currency`](https://stripe.com/docs/api/customers/object#customer_object-currency) is set, this value must match it. If the customer's `currency` is not set, it will be updated to this value.
+           */
+          currency: string;
+          /**
+           * An arbitrary string attached to the object. Often useful for displaying to users.
+           */
+          description?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -4295,6 +7848,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -4318,6 +7874,22 @@ export interface paths {
         path: {
           customer: string;
           transaction: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * An arbitrary string attached to the object. Often useful for displaying to users.
+           */
+          description?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         };
       };
       responses: {
@@ -4364,6 +7936,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -4409,6 +7984,58 @@ export interface paths {
           customer: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A token returned by [Stripe.js](https://stripe.com/docs/stripe.js) representing the user’s Alipay account details.
+           */
+          alipay_account?: string;
+          /**
+           * Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details.
+           */
+          bank_account?: Partial<{
+            account_holder_name?: string;
+            account_holder_type?: "company" | "individual";
+            account_number: string;
+            country: string;
+            currency?: string;
+            object?: "bank_account";
+            routing_number?: string;
+          }> &
+            Partial<string>;
+          /**
+           * A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js).
+           */
+          card?: Partial<{
+            address_city?: string;
+            address_country?: string;
+            address_line1?: string;
+            address_line2?: string;
+            address_state?: string;
+            address_zip?: string;
+            cvc?: string;
+            exp_month: number;
+            exp_year: number;
+            metadata?: { [key: string]: string };
+            name?: string;
+            number: string;
+            object?: "card";
+          }> &
+            Partial<string>;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * Please refer to full [documentation](https://stripe.com/docs/api) instead.
+           */
+          source?: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -4434,6 +8061,14 @@ export interface paths {
         path: {
           customer: string;
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
         };
       };
       responses: {
@@ -4468,6 +8103,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -4491,6 +8129,75 @@ export interface paths {
         path: {
           customer: string;
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The name of the person or business that owns the bank account.
+           */
+          account_holder_name?: string;
+          /**
+           * The type of entity that holds the account. This can be either `individual` or `company`.
+           */
+          account_holder_type?: "company" | "individual";
+          /**
+           * City/District/Suburb/Town/Village.
+           */
+          address_city?: string;
+          /**
+           * Billing address country, if provided when creating card.
+           */
+          address_country?: string;
+          /**
+           * Address line 1 (Street address/PO Box/Company name).
+           */
+          address_line1?: string;
+          /**
+           * Address line 2 (Apartment/Suite/Unit/Building).
+           */
+          address_line2?: string;
+          /**
+           * State/County/Province/Region.
+           */
+          address_state?: string;
+          /**
+           * ZIP or postal code.
+           */
+          address_zip?: string;
+          /**
+           * Two digit number representing the card’s expiration month.
+           */
+          exp_month?: string;
+          /**
+           * Four digit number representing the card’s expiration year.
+           */
+          exp_year?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Cardholder name.
+           */
+          name?: string;
+          owner?: {
+            address?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            email?: string;
+            name?: string;
+            phone?: string;
+          };
         };
       };
       responses: {
@@ -4520,6 +8227,18 @@ export interface paths {
         path: {
           customer: string;
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account.
+           */
+          amounts?: number[];
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
         };
       };
       responses: {
@@ -4568,6 +8287,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -4610,6 +8332,58 @@ export interface paths {
           customer: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A token returned by [Stripe.js](https://stripe.com/docs/stripe.js) representing the user’s Alipay account details.
+           */
+          alipay_account?: string;
+          /**
+           * Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details.
+           */
+          bank_account?: Partial<{
+            account_holder_name?: string;
+            account_holder_type?: "company" | "individual";
+            account_number: string;
+            country: string;
+            currency?: string;
+            object?: "bank_account";
+            routing_number?: string;
+          }> &
+            Partial<string>;
+          /**
+           * A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js).
+           */
+          card?: Partial<{
+            address_city?: string;
+            address_country?: string;
+            address_line1?: string;
+            address_line2?: string;
+            address_state?: string;
+            address_zip?: string;
+            cvc?: string;
+            exp_month: number;
+            exp_year: number;
+            metadata?: { [key: string]: string };
+            name?: string;
+            number: string;
+            object?: "card";
+          }> &
+            Partial<string>;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * Please refer to full [documentation](https://stripe.com/docs/api) instead.
+           */
+          source?: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -4635,6 +8409,14 @@ export interface paths {
         path: {
           customer: string;
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
         };
       };
       responses: {
@@ -4669,6 +8451,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -4692,6 +8477,75 @@ export interface paths {
         path: {
           customer: string;
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The name of the person or business that owns the bank account.
+           */
+          account_holder_name?: string;
+          /**
+           * The type of entity that holds the account. This can be either `individual` or `company`.
+           */
+          account_holder_type?: "company" | "individual";
+          /**
+           * City/District/Suburb/Town/Village.
+           */
+          address_city?: string;
+          /**
+           * Billing address country, if provided when creating card.
+           */
+          address_country?: string;
+          /**
+           * Address line 1 (Street address/PO Box/Company name).
+           */
+          address_line1?: string;
+          /**
+           * Address line 2 (Apartment/Suite/Unit/Building).
+           */
+          address_line2?: string;
+          /**
+           * State/County/Province/Region.
+           */
+          address_state?: string;
+          /**
+           * ZIP or postal code.
+           */
+          address_zip?: string;
+          /**
+           * Two digit number representing the card’s expiration month.
+           */
+          exp_month?: string;
+          /**
+           * Four digit number representing the card’s expiration year.
+           */
+          exp_year?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Cardholder name.
+           */
+          name?: string;
+          owner?: {
+            address?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            email?: string;
+            name?: string;
+            phone?: string;
+          };
         };
       };
       responses: {
@@ -4722,6 +8576,9 @@ export interface paths {
           customer: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -4748,6 +8605,9 @@ export interface paths {
            */
           expand?: string[];
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -4796,6 +8656,9 @@ export interface paths {
            */
           starting_after?: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -4846,6 +8709,58 @@ export interface paths {
           customer: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A token returned by [Stripe.js](https://stripe.com/docs/stripe.js) representing the user’s Alipay account details.
+           */
+          alipay_account?: string;
+          /**
+           * Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details.
+           */
+          bank_account?: Partial<{
+            account_holder_name?: string;
+            account_holder_type?: "company" | "individual";
+            account_number: string;
+            country: string;
+            currency?: string;
+            object?: "bank_account";
+            routing_number?: string;
+          }> &
+            Partial<string>;
+          /**
+           * A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js).
+           */
+          card?: Partial<{
+            address_city?: string;
+            address_country?: string;
+            address_line1?: string;
+            address_line2?: string;
+            address_state?: string;
+            address_zip?: string;
+            cvc?: string;
+            exp_month: number;
+            exp_year: number;
+            metadata?: { [key: string]: string };
+            name?: string;
+            number: string;
+            object?: "card";
+          }> &
+            Partial<string>;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * Please refer to full [documentation](https://stripe.com/docs/api) instead.
+           */
+          source?: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -4871,6 +8786,14 @@ export interface paths {
         path: {
           customer: string;
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
         };
       };
       responses: {
@@ -4905,6 +8828,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -4928,6 +8854,75 @@ export interface paths {
         path: {
           customer: string;
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The name of the person or business that owns the bank account.
+           */
+          account_holder_name?: string;
+          /**
+           * The type of entity that holds the account. This can be either `individual` or `company`.
+           */
+          account_holder_type?: "company" | "individual";
+          /**
+           * City/District/Suburb/Town/Village.
+           */
+          address_city?: string;
+          /**
+           * Billing address country, if provided when creating card.
+           */
+          address_country?: string;
+          /**
+           * Address line 1 (Street address/PO Box/Company name).
+           */
+          address_line1?: string;
+          /**
+           * Address line 2 (Apartment/Suite/Unit/Building).
+           */
+          address_line2?: string;
+          /**
+           * State/County/Province/Region.
+           */
+          address_state?: string;
+          /**
+           * ZIP or postal code.
+           */
+          address_zip?: string;
+          /**
+           * Two digit number representing the card’s expiration month.
+           */
+          exp_month?: string;
+          /**
+           * Four digit number representing the card’s expiration year.
+           */
+          exp_year?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Cardholder name.
+           */
+          name?: string;
+          owner?: {
+            address?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            email?: string;
+            name?: string;
+            phone?: string;
+          };
         };
       };
       responses: {
@@ -4957,6 +8952,18 @@ export interface paths {
         path: {
           customer: string;
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account.
+           */
+          amounts?: number[];
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
         };
       };
       responses: {
@@ -5003,6 +9010,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -5044,6 +9054,129 @@ export interface paths {
           customer: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
+           */
+          application_fee_percent?: number;
+          /**
+           * For new subscriptions, a past timestamp to backdate the subscription's start date to. If set, the first invoice will contain a proration for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
+           */
+          backdate_start_date?: number;
+          /**
+           * A future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices.
+           */
+          billing_cycle_anchor?: number;
+          /**
+           * Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+           */
+          billing_thresholds?: Partial<{
+            amount_gte?: number;
+            reset_billing_cycle_anchor?: boolean;
+          }> &
+            Partial<"">;
+          /**
+           * A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
+           */
+          cancel_at?: number;
+          /**
+           * Boolean indicating whether this subscription should cancel at the end of the current period.
+           */
+          cancel_at_period_end?: boolean;
+          /**
+           * Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`.
+           */
+          collection_method?: "charge_automatically" | "send_invoice";
+          /**
+           * The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription.
+           */
+          coupon?: string;
+          /**
+           * Number of days a customer has to pay invoices generated by this subscription. Valid only for subscriptions where `collection_method` is set to `send_invoice`.
+           */
+          days_until_due?: number;
+          /**
+           * ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. If not set, invoices will use the default payment method in the customer's invoice settings.
+           */
+          default_payment_method?: string;
+          /**
+           * ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If not set, defaults to the customer's default source.
+           */
+          default_source?: string;
+          /**
+           * The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription.
+           */
+          default_tax_rates?: Partial<string[]> & Partial<"">;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A list of up to 20 subscription items, each with an attached plan.
+           */
+          items?: {
+            billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+            metadata?: { [key: string]: string };
+            plan?: string;
+            quantity?: number;
+            tax_rates?: Partial<string[]> & Partial<"">;
+          }[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Indicates if a customer is on or off-session while an invoice payment is attempted.
+           */
+          off_session?: boolean;
+          /**
+           * Use `allow_incomplete` to create subscriptions with `status=incomplete` if the first invoice cannot be paid. Creating subscriptions with this status allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
+           *
+           * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+           *
+           * `pending_if_incomplete` is only used with updates and cannot be passed when creating a subscription.
+           */
+          payment_behavior?:
+            | "allow_incomplete"
+            | "error_if_incomplete"
+            | "pending_if_incomplete";
+          /**
+           * Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval.
+           */
+          pending_invoice_item_interval?: Partial<{
+            interval: "day" | "month" | "week" | "year";
+            interval_count?: number;
+          }> &
+            Partial<"">;
+          /**
+           * This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`.
+           */
+          prorate?: boolean;
+          /**
+           * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) resulting from the `billing_cycle_anchor`. Valid values are `create_prorations` or `none`.
+           *
+           * Passing `create_prorations` will cause proration invoice items to be created when applicable. Prorations can be disabled by passing `none`. If no value is passed, the default is `create_prorations`.
+           */
+          proration_behavior?: "always_invoice" | "create_prorations" | "none";
+          /**
+           * A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`.
+           */
+          tax_percent?: Partial<number> & Partial<"">;
+          /**
+           * Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`.
+           */
+          trial_end?: Partial<"now"> & Partial<number>;
+          /**
+           * Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed.
+           */
+          trial_from_plan?: boolean;
+          /**
+           * Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan.
+           */
+          trial_period_days?: number;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -5073,6 +9206,22 @@ export interface paths {
         path: {
           customer: string;
           subscription_exposed_id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Can be set to `true` if `at_period_end` is not set to `true`. Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items.
+           */
+          invoice_now?: boolean;
+          /**
+           * Can be set to `true` if `at_period_end` is not set to `true`. Will generate a proration invoice item that credits remaining unused time until the subscription period end.
+           */
+          prorate?: boolean;
         };
       };
       responses: {
@@ -5106,6 +9255,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -5129,6 +9281,138 @@ export interface paths {
         path: {
           customer: string;
           subscription_exposed_id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
+           */
+          application_fee_percent?: number;
+          /**
+           * Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+           */
+          billing_cycle_anchor?: "now" | "unchanged";
+          /**
+           * Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+           */
+          billing_thresholds?: Partial<{
+            amount_gte?: number;
+            reset_billing_cycle_anchor?: boolean;
+          }> &
+            Partial<"">;
+          /**
+           * A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
+           */
+          cancel_at?: Partial<number> & Partial<"">;
+          /**
+           * Boolean indicating whether this subscription should cancel at the end of the current period.
+           */
+          cancel_at_period_end?: boolean;
+          /**
+           * Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`.
+           */
+          collection_method?: "charge_automatically" | "send_invoice";
+          /**
+           * The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription.
+           */
+          coupon?: string;
+          /**
+           * Number of days a customer has to pay invoices generated by this subscription. Valid only for subscriptions where `collection_method` is set to `send_invoice`.
+           */
+          days_until_due?: number;
+          /**
+           * ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. If not set, invoices will use the default payment method in the customer's invoice settings.
+           */
+          default_payment_method?: string;
+          /**
+           * ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If not set, defaults to the customer's default source.
+           */
+          default_source?: string;
+          /**
+           * The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. Pass an empty string to remove previously-defined tax rates.
+           */
+          default_tax_rates?: Partial<string[]> & Partial<"">;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * List of subscription items, each with an attached plan.
+           */
+          items?: {
+            billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+            clear_usage?: boolean;
+            deleted?: boolean;
+            id?: string;
+            metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+            plan?: string;
+            quantity?: number;
+            tax_rates?: Partial<string[]> & Partial<"">;
+          }[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Indicates if a customer is on or off-session while an invoice payment is attempted.
+           */
+          off_session?: boolean;
+          /**
+           * If specified, payment collection for this subscription will be paused.
+           */
+          pause_collection?: Partial<{
+            behavior: "keep_as_draft" | "mark_uncollectible" | "void";
+            resumes_at?: number;
+          }> &
+            Partial<"">;
+          /**
+           * Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
+           *
+           * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
+           *
+           * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+           */
+          payment_behavior?:
+            | "allow_incomplete"
+            | "error_if_incomplete"
+            | "pending_if_incomplete";
+          /**
+           * Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval.
+           */
+          pending_invoice_item_interval?: Partial<{
+            interval: "day" | "month" | "week" | "year";
+            interval_count?: number;
+          }> &
+            Partial<"">;
+          /**
+           * This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`.
+           */
+          prorate?: boolean;
+          /**
+           * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
+           *
+           * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
+           *
+           * Prorations can be disabled by passing `none`.
+           */
+          proration_behavior?: "always_invoice" | "create_prorations" | "none";
+          /**
+           * If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations.
+           */
+          proration_date?: number;
+          /**
+           * A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`.
+           */
+          tax_percent?: Partial<number> & Partial<"">;
+          /**
+           * Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`.
+           */
+          trial_end?: Partial<"now"> & Partial<number>;
+          /**
+           * Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed.
+           */
+          trial_from_plan?: boolean;
         };
       };
       responses: {
@@ -5158,6 +9442,9 @@ export interface paths {
           subscription_exposed_id: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -5185,6 +9472,9 @@ export interface paths {
            */
           expand?: string[];
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -5230,6 +9520,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -5271,6 +9564,45 @@ export interface paths {
           customer: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Type of the tax ID, one of `eu_vat`, `nz_gst`, `au_abn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `my_sst`, or `sg_gst`
+           */
+          type:
+            | "au_abn"
+            | "ca_bn"
+            | "ca_qst"
+            | "ch_vat"
+            | "es_cif"
+            | "eu_vat"
+            | "hk_br"
+            | "in_gst"
+            | "jp_cn"
+            | "kr_brn"
+            | "li_uid"
+            | "mx_rfc"
+            | "my_itn"
+            | "my_sst"
+            | "no_vat"
+            | "nz_gst"
+            | "ru_inn"
+            | "sg_gst"
+            | "sg_uen"
+            | "th_vat"
+            | "tw_vat"
+            | "us_ein"
+            | "za_vat";
+          /**
+           * Value of the tax ID.
+           */
+          value: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -5297,6 +9629,9 @@ export interface paths {
           customer: string;
           id: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -5328,6 +9663,9 @@ export interface paths {
            */
           expand?: string[];
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -5385,6 +9723,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -5431,6 +9772,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -5455,6 +9799,54 @@ export interface paths {
       parameters: {
         path: {
           dispute: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Evidence to upload, to respond to a dispute. Updating any field in the hash will submit all fields in the hash for review. The combined character count of all fields is limited to 150,000.
+           */
+          evidence?: {
+            access_activity_log?: string;
+            billing_address?: string;
+            cancellation_policy?: string;
+            cancellation_policy_disclosure?: string;
+            cancellation_rebuttal?: string;
+            customer_communication?: string;
+            customer_email_address?: string;
+            customer_name?: string;
+            customer_purchase_ip?: string;
+            customer_signature?: string;
+            duplicate_charge_documentation?: string;
+            duplicate_charge_explanation?: string;
+            duplicate_charge_id?: string;
+            product_description?: string;
+            receipt?: string;
+            refund_policy?: string;
+            refund_policy_disclosure?: string;
+            refund_refusal_explanation?: string;
+            service_date?: string;
+            service_documentation?: string;
+            shipping_address?: string;
+            shipping_carrier?: string;
+            shipping_date?: string;
+            shipping_documentation?: string;
+            shipping_tracking_number?: string;
+            uncategorized_file?: string;
+            uncategorized_text?: string;
+          };
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default).
+           */
+          submit?: boolean;
         };
       };
       responses: {
@@ -5485,6 +9877,14 @@ export interface paths {
           dispute: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -5506,6 +9906,22 @@ export interface paths {
      * <p>Creates a short-lived API key for a given resource.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The ID of the Customer you'd like to modify using the resulting ephemeral key.
+           */
+          customer?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The ID of the Issuing Card you'd like to access using the resulting ephemeral key.
+           */
+          issuing_card?: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -5530,6 +9946,14 @@ export interface paths {
       parameters: {
         path: {
           key: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
         };
       };
       responses: {
@@ -5592,6 +10016,9 @@ export interface paths {
           types?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -5638,6 +10065,9 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -5678,6 +10108,9 @@ export interface paths {
            */
           starting_after?: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -5724,6 +10157,9 @@ export interface paths {
            */
           expand?: string[];
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -5781,6 +10217,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -5814,6 +10253,26 @@ export interface paths {
      * <p>Creates a new file link object.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A future timestamp after which the link will no longer be usable.
+           */
+          expires_at?: number;
+          /**
+           * The ID of the file. The file's `purpose` must be one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `pci_document`, `sigma_scheduled_query`, or `tax_document_user_upload`.
+           */
+          file: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -5846,6 +10305,9 @@ export interface paths {
           link: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -5868,6 +10330,22 @@ export interface paths {
       parameters: {
         path: {
           link: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A future timestamp after which the link will no longer be usable, or `now` to expire the link immediately.
+           */
+          expires_at?: Partial<"now"> & Partial<number> & Partial<"">;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         };
       };
       responses: {
@@ -5932,6 +10410,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -5967,6 +10448,38 @@ export interface paths {
      * <p>All of Stripe’s officially supported Client libraries should have support for sending <code>multipart/form-data</code>.</p>
      */
     post: {
+      requestBody: {
+        "multipart/form-data": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A file to upload. The file should follow the specifications of RFC 2388 (which defines file transfers for the `multipart/form-data` protocol).
+           */
+          file: string;
+          /**
+           * Optional parameters to automatically create a [file link](https://stripe.com/docs/api#file_links) for the newly created file.
+           */
+          file_link_data?: {
+            create: boolean;
+            expires_at?: number;
+            metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          };
+          /**
+           * The purpose of the uploaded file. Possible values are `additional_verification`, `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `identity_document`, `pci_document`, or `tax_document_user_upload`.
+           */
+          purpose:
+            | "additional_verification"
+            | "business_icon"
+            | "business_logo"
+            | "customer_signature"
+            | "dispute_evidence"
+            | "identity_document"
+            | "pci_document"
+            | "tax_document_user_upload";
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -5998,6 +10511,9 @@ export interface paths {
         path: {
           file: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -6059,6 +10575,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -6092,6 +10611,66 @@ export interface paths {
      * <p>Creates an item to be added to a draft invoice. If no invoice is specified, the item will be on the next invoice created for the customer specified.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The integer amount in **%s** of the charge to be applied to the upcoming invoice. Passing in a negative `amount` will reduce the `amount_due` on the invoice.
+           */
+          amount?: number;
+          /**
+           * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+           */
+          currency?: string;
+          /**
+           * The ID of the customer who will be billed when this invoice item is billed.
+           */
+          customer: string;
+          /**
+           * An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking.
+           */
+          description?: string;
+          /**
+           * Controls whether discounts apply to this invoice item. Defaults to false for prorations or negative invoice items, and true for all other invoice items.
+           */
+          discountable?: boolean;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The ID of an existing invoice to add this invoice item to. When left blank, the invoice item will be added to the next upcoming scheduled invoice. This is useful when adding invoice items in response to an invoice.created webhook. You can only add invoice items to draft invoices.
+           */
+          invoice?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * The period associated with this invoice item.
+           */
+          period?: { end: number; start: number };
+          /**
+           * Non-negative integer. The quantity of units for the invoice item.
+           */
+          quantity?: number;
+          /**
+           * The ID of a subscription to add this invoice item to. When left blank, the invoice item will be be added to the next upcoming scheduled invoice. When set, scheduled invoices for subscriptions other than the specified subscription will ignore the invoice item. Use this when you want to express that an invoice item has been accrued within the context of a particular subscription.
+           */
+          subscription?: string;
+          /**
+           * The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item.
+           */
+          tax_rates?: string[];
+          /**
+           * The integer unit amount in **%s** of the charge to be applied to the upcoming invoice. This `unit_amount` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount` will reduce the `amount_due` on the invoice.
+           */
+          unit_amount?: number;
+          /**
+           * Same as `unit_amount`, but accepts a decimal value with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+           */
+          unit_amount_decimal?: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -6117,6 +10696,9 @@ export interface paths {
         path: {
           invoiceitem: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -6148,6 +10730,9 @@ export interface paths {
           invoiceitem: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -6170,6 +10755,50 @@ export interface paths {
       parameters: {
         path: {
           invoiceitem: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The integer amount in **%s** of the charge to be applied to the upcoming invoice. If you want to apply a credit to the customer's account, pass a negative amount.
+           */
+          amount?: number;
+          /**
+           * An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking.
+           */
+          description?: string;
+          /**
+           * Controls whether discounts apply to this invoice item. Defaults to false for prorations or negative invoice items, and true for all other invoice items. Cannot be set to true for prorations.
+           */
+          discountable?: boolean;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * The period associated with this invoice item.
+           */
+          period?: { end: number; start: number };
+          /**
+           * Non-negative integer. The quantity of units for the invoice item.
+           */
+          quantity?: number;
+          /**
+           * The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. Pass an empty string to remove previously-defined tax rates.
+           */
+          tax_rates?: Partial<string[]> & Partial<"">;
+          /**
+           * The integer unit amount in **%s** of the charge to be applied to the upcoming invoice. This unit_amount will be multiplied by the quantity to get the full amount. If you want to apply a credit to the customer's account, pass a negative unit_amount.
+           */
+          unit_amount?: number;
+          /**
+           * Same as `unit_amount`, but accepts a decimal value with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+           */
+          unit_amount_decimal?: string;
         };
       };
       responses: {
@@ -6243,6 +10872,9 @@ export interface paths {
           subscription?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -6276,6 +10908,79 @@ export interface paths {
      * <p>This endpoint creates a draft invoice for a given customer. The draft invoice created pulls in all pending invoice items on that customer, including prorations.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A fee in %s that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#invoices).
+           */
+          application_fee_amount?: number;
+          /**
+           * Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. When `false`, the invoice's state will not automatically advance without an explicit action.
+           */
+          auto_advance?: boolean;
+          /**
+           * Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. Defaults to `charge_automatically`.
+           */
+          collection_method?: "charge_automatically" | "send_invoice";
+          /**
+           * A list of up to 4 custom fields to be displayed on the invoice.
+           */
+          custom_fields?: Partial<{ name: string; value: string }[]> &
+            Partial<"">;
+          /**
+           * The ID of the customer who will be billed.
+           */
+          customer: string;
+          /**
+           * The number of days from when the invoice is created until it is due. Valid only for invoices where `collection_method=send_invoice`.
+           */
+          days_until_due?: number;
+          /**
+           * ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings.
+           */
+          default_payment_method?: string;
+          /**
+           * ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source.
+           */
+          default_source?: string;
+          /**
+           * The tax rates that will apply to any line item that does not have `tax_rates` set.
+           */
+          default_tax_rates?: string[];
+          /**
+           * An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard.
+           */
+          description?: string;
+          /**
+           * The date on which payment for this invoice is due. Valid only for invoices where `collection_method=send_invoice`.
+           */
+          due_date?: number;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Footer to be displayed on the invoice.
+           */
+          footer?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`.
+           */
+          statement_descriptor?: string;
+          /**
+           * The ID of the subscription to invoice, if any. If not set, the created invoice will include all pending invoice items for the customer. If set, the created invoice will only include pending invoice items for that subscription and pending invoice items not associated with any subscription. The subscription's billing cycle and regular subscription events won't be affected.
+           */
+          subscription?: string;
+          /**
+           * The percent tax rate applied to the invoice, represented as a decimal number. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`.
+           */
+          tax_percent?: number;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -6409,6 +11114,9 @@ export interface paths {
            */
           subscription_trial_from_plan?: boolean;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -6552,6 +11260,9 @@ export interface paths {
           subscription_trial_from_plan?: boolean;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -6595,6 +11306,9 @@ export interface paths {
           invoice: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -6625,6 +11339,9 @@ export interface paths {
           invoice: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -6654,6 +11371,71 @@ export interface paths {
           invoice: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A fee in %s that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#invoices).
+           */
+          application_fee_amount?: number;
+          /**
+           * Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice.
+           */
+          auto_advance?: boolean;
+          /**
+           * Either `charge_automatically` or `send_invoice`. This field can be updated only on `draft` invoices.
+           */
+          collection_method?: "charge_automatically" | "send_invoice";
+          /**
+           * A list of up to 4 custom fields to be displayed on the invoice. If a value for `custom_fields` is specified, the list specified will replace the existing custom field list on this invoice. Pass an empty string to remove previously-defined fields.
+           */
+          custom_fields?: Partial<{ name: string; value: string }[]> &
+            Partial<"">;
+          /**
+           * The number of days from which the invoice is created until it is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices.
+           */
+          days_until_due?: number;
+          /**
+           * ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings.
+           */
+          default_payment_method?: string;
+          /**
+           * ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source.
+           */
+          default_source?: string;
+          /**
+           * The tax rates that will apply to any line item that does not have `tax_rates` set. Pass an empty string to remove previously-defined tax rates.
+           */
+          default_tax_rates?: Partial<string[]> & Partial<"">;
+          /**
+           * An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard.
+           */
+          description?: string;
+          /**
+           * The date on which payment for this invoice is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices.
+           */
+          due_date?: number;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Footer to be displayed on the invoice.
+           */
+          footer?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`.
+           */
+          statement_descriptor?: string;
+          /**
+           * The percent tax rate applied to the invoice, represented as a non-negative decimal number (with at most four decimal places) between 0 and 100. To unset a previously-set value, pass an empty string. This field can be updated only on `draft` invoices. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`.
+           */
+          tax_percent?: Partial<number> & Partial<"">;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -6678,6 +11460,18 @@ export interface paths {
       parameters: {
         path: {
           invoice: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. When `false`, the invoice's state will not automatically advance without an explicit action.
+           */
+          auto_advance?: boolean;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
         };
       };
       responses: {
@@ -6724,6 +11518,9 @@ export interface paths {
           invoice: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -6767,6 +11564,14 @@ export interface paths {
           invoice: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -6791,6 +11596,36 @@ export interface paths {
       parameters: {
         path: {
           invoice: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * In cases where the source used to pay the invoice has insufficient funds, passing `forgive=true` controls whether a charge should be attempted for the full amount available on the source, up to the amount to fully pay the invoice. This effectively forgives the difference between the amount available on the source and the amount due.
+           *
+           * Passing `forgive=false` will fail the charge if the source hasn't been pre-funded with the right amount. An example for this case is with ACH Credit Transfers and wires: if the amount wired is less than the amount due by a small amount, you might want to forgive the difference.
+           */
+          forgive?: boolean;
+          /**
+           * Indicates if a customer is on or off-session while an invoice payment is attempted.
+           */
+          off_session?: boolean;
+          /**
+           * Boolean representing whether an invoice is paid outside of Stripe. This will result in no charge being made.
+           */
+          paid_out_of_band?: boolean;
+          /**
+           * A PaymentMethod to be charged. The PaymentMethod must be the ID of a PaymentMethod belonging to the customer associated with the invoice being paid.
+           */
+          payment_method?: string;
+          /**
+           * A payment source to be charged. The source must be the ID of a source belonging to the customer associated with the invoice being paid.
+           */
+          source?: string;
         };
       };
       responses: {
@@ -6821,6 +11656,14 @@ export interface paths {
           invoice: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -6845,6 +11688,14 @@ export interface paths {
       parameters: {
         path: {
           invoice: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
         };
       };
       responses: {
@@ -6891,6 +11742,9 @@ export interface paths {
            */
           starting_after?: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -6939,6 +11793,9 @@ export interface paths {
         path: {
           issuer_fraud_record: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -7003,6 +11860,9 @@ export interface paths {
           status?: "closed" | "pending" | "reversed";
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -7049,6 +11909,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -7071,6 +11934,18 @@ export interface paths {
       parameters: {
         path: {
           authorization: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         };
       };
       responses: {
@@ -7099,6 +11974,22 @@ export interface paths {
           authorization: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * If the authorization's `pending_request.is_amount_controllable` property is `true`, you may provide this value to control how much to hold for the authorization. Must be positive (use [`decline`](https://stripe.com/docs/api/issuing/authorizations/decline) to decline an authorization request).
+           */
+          amount?: number;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -7123,6 +12014,18 @@ export interface paths {
       parameters: {
         path: {
           authorization: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         };
       };
       responses: {
@@ -7192,6 +12095,9 @@ export interface paths {
           type?: "company" | "individual";
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -7225,6 +12131,950 @@ export interface paths {
      * <p>Creates a new Issuing <code>Cardholder</code> object that can be issued cards.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The cardholder's billing address.
+           */
+          billing: {
+            address: {
+              city: string;
+              country: string;
+              line1: string;
+              line2?: string;
+              postal_code: string;
+              state?: string;
+            };
+          };
+          /**
+           * Additional information about a `company` cardholder.
+           */
+          company?: { tax_id?: string };
+          /**
+           * The cardholder's email address.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Additional information about an `individual` cardholder.
+           */
+          individual?: {
+            dob?: { day: number; month: number; year: number };
+            first_name: string;
+            last_name: string;
+            verification?: { document?: { back?: string; front?: string } };
+          };
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * The cardholder's name. This will be printed on cards issued to them.
+           */
+          name: string;
+          /**
+           * The cardholder's phone number. This will be transformed to [E.164](https://en.wikipedia.org/wiki/E.164) if it is not provided in that format already.
+           */
+          phone_number?: string;
+          /**
+           * Spending rules that give you control over how your cardholders can make charges. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details.
+           */
+          spending_controls?: {
+            allowed_categories?: (
+              | "ac_refrigeration_repair"
+              | "accounting_bookkeeping_services"
+              | "advertising_services"
+              | "agricultural_cooperative"
+              | "airlines_air_carriers"
+              | "airports_flying_fields"
+              | "ambulance_services"
+              | "amusement_parks_carnivals"
+              | "antique_reproductions"
+              | "antique_shops"
+              | "aquariums"
+              | "architectural_surveying_services"
+              | "art_dealers_and_galleries"
+              | "artists_supply_and_craft_shops"
+              | "auto_and_home_supply_stores"
+              | "auto_body_repair_shops"
+              | "auto_paint_shops"
+              | "auto_service_shops"
+              | "automated_cash_disburse"
+              | "automated_fuel_dispensers"
+              | "automobile_associations"
+              | "automotive_parts_and_accessories_stores"
+              | "automotive_tire_stores"
+              | "bail_and_bond_payments"
+              | "bakeries"
+              | "bands_orchestras"
+              | "barber_and_beauty_shops"
+              | "betting_casino_gambling"
+              | "bicycle_shops"
+              | "billiard_pool_establishments"
+              | "boat_dealers"
+              | "boat_rentals_and_leases"
+              | "book_stores"
+              | "books_periodicals_and_newspapers"
+              | "bowling_alleys"
+              | "bus_lines"
+              | "business_secretarial_schools"
+              | "buying_shopping_services"
+              | "cable_satellite_and_other_pay_television_and_radio"
+              | "camera_and_photographic_supply_stores"
+              | "candy_nut_and_confectionery_stores"
+              | "car_and_truck_dealers_new_used"
+              | "car_and_truck_dealers_used_only"
+              | "car_rental_agencies"
+              | "car_washes"
+              | "carpentry_services"
+              | "carpet_upholstery_cleaning"
+              | "caterers"
+              | "charitable_and_social_service_organizations_fundraising"
+              | "chemicals_and_allied_products"
+              | "child_care_services"
+              | "childrens_and_infants_wear_stores"
+              | "chiropodists_podiatrists"
+              | "chiropractors"
+              | "cigar_stores_and_stands"
+              | "civic_social_fraternal_associations"
+              | "cleaning_and_maintenance"
+              | "clothing_rental"
+              | "colleges_universities"
+              | "commercial_equipment"
+              | "commercial_footwear"
+              | "commercial_photography_art_and_graphics"
+              | "commuter_transport_and_ferries"
+              | "computer_network_services"
+              | "computer_programming"
+              | "computer_repair"
+              | "computer_software_stores"
+              | "computers_peripherals_and_software"
+              | "concrete_work_services"
+              | "construction_materials"
+              | "consulting_public_relations"
+              | "correspondence_schools"
+              | "cosmetic_stores"
+              | "counseling_services"
+              | "country_clubs"
+              | "courier_services"
+              | "court_costs"
+              | "credit_reporting_agencies"
+              | "cruise_lines"
+              | "dairy_products_stores"
+              | "dance_hall_studios_schools"
+              | "dating_escort_services"
+              | "dentists_orthodontists"
+              | "department_stores"
+              | "detective_agencies"
+              | "digital_goods_applications"
+              | "digital_goods_games"
+              | "digital_goods_large_volume"
+              | "digital_goods_media"
+              | "direct_marketing_catalog_merchant"
+              | "direct_marketing_combination_catalog_and_retail_merchant"
+              | "direct_marketing_inbound_telemarketing"
+              | "direct_marketing_insurance_services"
+              | "direct_marketing_other"
+              | "direct_marketing_outbound_telemarketing"
+              | "direct_marketing_subscription"
+              | "direct_marketing_travel"
+              | "discount_stores"
+              | "doctors"
+              | "door_to_door_sales"
+              | "drapery_window_covering_and_upholstery_stores"
+              | "drinking_places"
+              | "drug_stores_and_pharmacies"
+              | "drugs_drug_proprietaries_and_druggist_sundries"
+              | "dry_cleaners"
+              | "durable_goods"
+              | "duty_free_stores"
+              | "eating_places_restaurants"
+              | "educational_services"
+              | "electric_razor_stores"
+              | "electrical_parts_and_equipment"
+              | "electrical_services"
+              | "electronics_repair_shops"
+              | "electronics_stores"
+              | "elementary_secondary_schools"
+              | "employment_temp_agencies"
+              | "equipment_rental"
+              | "exterminating_services"
+              | "family_clothing_stores"
+              | "fast_food_restaurants"
+              | "financial_institutions"
+              | "fines_government_administrative_entities"
+              | "fireplace_fireplace_screens_and_accessories_stores"
+              | "floor_covering_stores"
+              | "florists"
+              | "florists_supplies_nursery_stock_and_flowers"
+              | "freezer_and_locker_meat_provisioners"
+              | "fuel_dealers_non_automotive"
+              | "funeral_services_crematories"
+              | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+              | "furniture_repair_refinishing"
+              | "furriers_and_fur_shops"
+              | "general_services"
+              | "gift_card_novelty_and_souvenir_shops"
+              | "glass_paint_and_wallpaper_stores"
+              | "glassware_crystal_stores"
+              | "golf_courses_public"
+              | "government_services"
+              | "grocery_stores_supermarkets"
+              | "hardware_equipment_and_supplies"
+              | "hardware_stores"
+              | "health_and_beauty_spas"
+              | "hearing_aids_sales_and_supplies"
+              | "heating_plumbing_a_c"
+              | "hobby_toy_and_game_shops"
+              | "home_supply_warehouse_stores"
+              | "hospitals"
+              | "hotels_motels_and_resorts"
+              | "household_appliance_stores"
+              | "industrial_supplies"
+              | "information_retrieval_services"
+              | "insurance_default"
+              | "insurance_underwriting_premiums"
+              | "intra_company_purchases"
+              | "jewelry_stores_watches_clocks_and_silverware_stores"
+              | "landscaping_services"
+              | "laundries"
+              | "laundry_cleaning_services"
+              | "legal_services_attorneys"
+              | "luggage_and_leather_goods_stores"
+              | "lumber_building_materials_stores"
+              | "manual_cash_disburse"
+              | "marinas_service_and_supplies"
+              | "masonry_stonework_and_plaster"
+              | "massage_parlors"
+              | "medical_and_dental_labs"
+              | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+              | "medical_services"
+              | "membership_organizations"
+              | "mens_and_boys_clothing_and_accessories_stores"
+              | "mens_womens_clothing_stores"
+              | "metal_service_centers"
+              | "miscellaneous"
+              | "miscellaneous_apparel_and_accessory_shops"
+              | "miscellaneous_auto_dealers"
+              | "miscellaneous_business_services"
+              | "miscellaneous_food_stores"
+              | "miscellaneous_general_merchandise"
+              | "miscellaneous_general_services"
+              | "miscellaneous_home_furnishing_specialty_stores"
+              | "miscellaneous_publishing_and_printing"
+              | "miscellaneous_recreation_services"
+              | "miscellaneous_repair_shops"
+              | "miscellaneous_specialty_retail"
+              | "mobile_home_dealers"
+              | "motion_picture_theaters"
+              | "motor_freight_carriers_and_trucking"
+              | "motor_homes_dealers"
+              | "motor_vehicle_supplies_and_new_parts"
+              | "motorcycle_shops_and_dealers"
+              | "motorcycle_shops_dealers"
+              | "music_stores_musical_instruments_pianos_and_sheet_music"
+              | "news_dealers_and_newsstands"
+              | "non_fi_money_orders"
+              | "non_fi_stored_value_card_purchase_load"
+              | "nondurable_goods"
+              | "nurseries_lawn_and_garden_supply_stores"
+              | "nursing_personal_care"
+              | "office_and_commercial_furniture"
+              | "opticians_eyeglasses"
+              | "optometrists_ophthalmologist"
+              | "orthopedic_goods_prosthetic_devices"
+              | "osteopaths"
+              | "package_stores_beer_wine_and_liquor"
+              | "paints_varnishes_and_supplies"
+              | "parking_lots_garages"
+              | "passenger_railways"
+              | "pawn_shops"
+              | "pet_shops_pet_food_and_supplies"
+              | "petroleum_and_petroleum_products"
+              | "photo_developing"
+              | "photographic_photocopy_microfilm_equipment_and_supplies"
+              | "photographic_studios"
+              | "picture_video_production"
+              | "piece_goods_notions_and_other_dry_goods"
+              | "plumbing_heating_equipment_and_supplies"
+              | "political_organizations"
+              | "postal_services_government_only"
+              | "precious_stones_and_metals_watches_and_jewelry"
+              | "professional_services"
+              | "public_warehousing_and_storage"
+              | "quick_copy_repro_and_blueprint"
+              | "railroads"
+              | "real_estate_agents_and_managers_rentals"
+              | "record_stores"
+              | "recreational_vehicle_rentals"
+              | "religious_goods_stores"
+              | "religious_organizations"
+              | "roofing_siding_sheet_metal"
+              | "secretarial_support_services"
+              | "security_brokers_dealers"
+              | "service_stations"
+              | "sewing_needlework_fabric_and_piece_goods_stores"
+              | "shoe_repair_hat_cleaning"
+              | "shoe_stores"
+              | "small_appliance_repair"
+              | "snowmobile_dealers"
+              | "special_trade_services"
+              | "specialty_cleaning"
+              | "sporting_goods_stores"
+              | "sporting_recreation_camps"
+              | "sports_and_riding_apparel_stores"
+              | "sports_clubs_fields"
+              | "stamp_and_coin_stores"
+              | "stationary_office_supplies_printing_and_writing_paper"
+              | "stationery_stores_office_and_school_supply_stores"
+              | "swimming_pools_sales"
+              | "t_ui_travel_germany"
+              | "tailors_alterations"
+              | "tax_payments_government_agencies"
+              | "tax_preparation_services"
+              | "taxicabs_limousines"
+              | "telecommunication_equipment_and_telephone_sales"
+              | "telecommunication_services"
+              | "telegraph_services"
+              | "tent_and_awning_shops"
+              | "testing_laboratories"
+              | "theatrical_ticket_agencies"
+              | "timeshares"
+              | "tire_retreading_and_repair"
+              | "tolls_bridge_fees"
+              | "tourist_attractions_and_exhibits"
+              | "towing_services"
+              | "trailer_parks_campgrounds"
+              | "transportation_services"
+              | "travel_agencies_tour_operators"
+              | "truck_stop_iteration"
+              | "truck_utility_trailer_rentals"
+              | "typesetting_plate_making_and_related_services"
+              | "typewriter_stores"
+              | "u_s_federal_government_agencies_or_departments"
+              | "uniforms_commercial_clothing"
+              | "used_merchandise_and_secondhand_stores"
+              | "utilities"
+              | "variety_stores"
+              | "veterinary_services"
+              | "video_amusement_game_supplies"
+              | "video_game_arcades"
+              | "video_tape_rental_stores"
+              | "vocational_trade_schools"
+              | "watch_jewelry_repair"
+              | "welding_repair"
+              | "wholesale_clubs"
+              | "wig_and_toupee_stores"
+              | "wires_money_orders"
+              | "womens_accessory_and_specialty_shops"
+              | "womens_ready_to_wear_stores"
+              | "wrecking_and_salvage_yards"
+            )[];
+            blocked_categories?: (
+              | "ac_refrigeration_repair"
+              | "accounting_bookkeeping_services"
+              | "advertising_services"
+              | "agricultural_cooperative"
+              | "airlines_air_carriers"
+              | "airports_flying_fields"
+              | "ambulance_services"
+              | "amusement_parks_carnivals"
+              | "antique_reproductions"
+              | "antique_shops"
+              | "aquariums"
+              | "architectural_surveying_services"
+              | "art_dealers_and_galleries"
+              | "artists_supply_and_craft_shops"
+              | "auto_and_home_supply_stores"
+              | "auto_body_repair_shops"
+              | "auto_paint_shops"
+              | "auto_service_shops"
+              | "automated_cash_disburse"
+              | "automated_fuel_dispensers"
+              | "automobile_associations"
+              | "automotive_parts_and_accessories_stores"
+              | "automotive_tire_stores"
+              | "bail_and_bond_payments"
+              | "bakeries"
+              | "bands_orchestras"
+              | "barber_and_beauty_shops"
+              | "betting_casino_gambling"
+              | "bicycle_shops"
+              | "billiard_pool_establishments"
+              | "boat_dealers"
+              | "boat_rentals_and_leases"
+              | "book_stores"
+              | "books_periodicals_and_newspapers"
+              | "bowling_alleys"
+              | "bus_lines"
+              | "business_secretarial_schools"
+              | "buying_shopping_services"
+              | "cable_satellite_and_other_pay_television_and_radio"
+              | "camera_and_photographic_supply_stores"
+              | "candy_nut_and_confectionery_stores"
+              | "car_and_truck_dealers_new_used"
+              | "car_and_truck_dealers_used_only"
+              | "car_rental_agencies"
+              | "car_washes"
+              | "carpentry_services"
+              | "carpet_upholstery_cleaning"
+              | "caterers"
+              | "charitable_and_social_service_organizations_fundraising"
+              | "chemicals_and_allied_products"
+              | "child_care_services"
+              | "childrens_and_infants_wear_stores"
+              | "chiropodists_podiatrists"
+              | "chiropractors"
+              | "cigar_stores_and_stands"
+              | "civic_social_fraternal_associations"
+              | "cleaning_and_maintenance"
+              | "clothing_rental"
+              | "colleges_universities"
+              | "commercial_equipment"
+              | "commercial_footwear"
+              | "commercial_photography_art_and_graphics"
+              | "commuter_transport_and_ferries"
+              | "computer_network_services"
+              | "computer_programming"
+              | "computer_repair"
+              | "computer_software_stores"
+              | "computers_peripherals_and_software"
+              | "concrete_work_services"
+              | "construction_materials"
+              | "consulting_public_relations"
+              | "correspondence_schools"
+              | "cosmetic_stores"
+              | "counseling_services"
+              | "country_clubs"
+              | "courier_services"
+              | "court_costs"
+              | "credit_reporting_agencies"
+              | "cruise_lines"
+              | "dairy_products_stores"
+              | "dance_hall_studios_schools"
+              | "dating_escort_services"
+              | "dentists_orthodontists"
+              | "department_stores"
+              | "detective_agencies"
+              | "digital_goods_applications"
+              | "digital_goods_games"
+              | "digital_goods_large_volume"
+              | "digital_goods_media"
+              | "direct_marketing_catalog_merchant"
+              | "direct_marketing_combination_catalog_and_retail_merchant"
+              | "direct_marketing_inbound_telemarketing"
+              | "direct_marketing_insurance_services"
+              | "direct_marketing_other"
+              | "direct_marketing_outbound_telemarketing"
+              | "direct_marketing_subscription"
+              | "direct_marketing_travel"
+              | "discount_stores"
+              | "doctors"
+              | "door_to_door_sales"
+              | "drapery_window_covering_and_upholstery_stores"
+              | "drinking_places"
+              | "drug_stores_and_pharmacies"
+              | "drugs_drug_proprietaries_and_druggist_sundries"
+              | "dry_cleaners"
+              | "durable_goods"
+              | "duty_free_stores"
+              | "eating_places_restaurants"
+              | "educational_services"
+              | "electric_razor_stores"
+              | "electrical_parts_and_equipment"
+              | "electrical_services"
+              | "electronics_repair_shops"
+              | "electronics_stores"
+              | "elementary_secondary_schools"
+              | "employment_temp_agencies"
+              | "equipment_rental"
+              | "exterminating_services"
+              | "family_clothing_stores"
+              | "fast_food_restaurants"
+              | "financial_institutions"
+              | "fines_government_administrative_entities"
+              | "fireplace_fireplace_screens_and_accessories_stores"
+              | "floor_covering_stores"
+              | "florists"
+              | "florists_supplies_nursery_stock_and_flowers"
+              | "freezer_and_locker_meat_provisioners"
+              | "fuel_dealers_non_automotive"
+              | "funeral_services_crematories"
+              | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+              | "furniture_repair_refinishing"
+              | "furriers_and_fur_shops"
+              | "general_services"
+              | "gift_card_novelty_and_souvenir_shops"
+              | "glass_paint_and_wallpaper_stores"
+              | "glassware_crystal_stores"
+              | "golf_courses_public"
+              | "government_services"
+              | "grocery_stores_supermarkets"
+              | "hardware_equipment_and_supplies"
+              | "hardware_stores"
+              | "health_and_beauty_spas"
+              | "hearing_aids_sales_and_supplies"
+              | "heating_plumbing_a_c"
+              | "hobby_toy_and_game_shops"
+              | "home_supply_warehouse_stores"
+              | "hospitals"
+              | "hotels_motels_and_resorts"
+              | "household_appliance_stores"
+              | "industrial_supplies"
+              | "information_retrieval_services"
+              | "insurance_default"
+              | "insurance_underwriting_premiums"
+              | "intra_company_purchases"
+              | "jewelry_stores_watches_clocks_and_silverware_stores"
+              | "landscaping_services"
+              | "laundries"
+              | "laundry_cleaning_services"
+              | "legal_services_attorneys"
+              | "luggage_and_leather_goods_stores"
+              | "lumber_building_materials_stores"
+              | "manual_cash_disburse"
+              | "marinas_service_and_supplies"
+              | "masonry_stonework_and_plaster"
+              | "massage_parlors"
+              | "medical_and_dental_labs"
+              | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+              | "medical_services"
+              | "membership_organizations"
+              | "mens_and_boys_clothing_and_accessories_stores"
+              | "mens_womens_clothing_stores"
+              | "metal_service_centers"
+              | "miscellaneous"
+              | "miscellaneous_apparel_and_accessory_shops"
+              | "miscellaneous_auto_dealers"
+              | "miscellaneous_business_services"
+              | "miscellaneous_food_stores"
+              | "miscellaneous_general_merchandise"
+              | "miscellaneous_general_services"
+              | "miscellaneous_home_furnishing_specialty_stores"
+              | "miscellaneous_publishing_and_printing"
+              | "miscellaneous_recreation_services"
+              | "miscellaneous_repair_shops"
+              | "miscellaneous_specialty_retail"
+              | "mobile_home_dealers"
+              | "motion_picture_theaters"
+              | "motor_freight_carriers_and_trucking"
+              | "motor_homes_dealers"
+              | "motor_vehicle_supplies_and_new_parts"
+              | "motorcycle_shops_and_dealers"
+              | "motorcycle_shops_dealers"
+              | "music_stores_musical_instruments_pianos_and_sheet_music"
+              | "news_dealers_and_newsstands"
+              | "non_fi_money_orders"
+              | "non_fi_stored_value_card_purchase_load"
+              | "nondurable_goods"
+              | "nurseries_lawn_and_garden_supply_stores"
+              | "nursing_personal_care"
+              | "office_and_commercial_furniture"
+              | "opticians_eyeglasses"
+              | "optometrists_ophthalmologist"
+              | "orthopedic_goods_prosthetic_devices"
+              | "osteopaths"
+              | "package_stores_beer_wine_and_liquor"
+              | "paints_varnishes_and_supplies"
+              | "parking_lots_garages"
+              | "passenger_railways"
+              | "pawn_shops"
+              | "pet_shops_pet_food_and_supplies"
+              | "petroleum_and_petroleum_products"
+              | "photo_developing"
+              | "photographic_photocopy_microfilm_equipment_and_supplies"
+              | "photographic_studios"
+              | "picture_video_production"
+              | "piece_goods_notions_and_other_dry_goods"
+              | "plumbing_heating_equipment_and_supplies"
+              | "political_organizations"
+              | "postal_services_government_only"
+              | "precious_stones_and_metals_watches_and_jewelry"
+              | "professional_services"
+              | "public_warehousing_and_storage"
+              | "quick_copy_repro_and_blueprint"
+              | "railroads"
+              | "real_estate_agents_and_managers_rentals"
+              | "record_stores"
+              | "recreational_vehicle_rentals"
+              | "religious_goods_stores"
+              | "religious_organizations"
+              | "roofing_siding_sheet_metal"
+              | "secretarial_support_services"
+              | "security_brokers_dealers"
+              | "service_stations"
+              | "sewing_needlework_fabric_and_piece_goods_stores"
+              | "shoe_repair_hat_cleaning"
+              | "shoe_stores"
+              | "small_appliance_repair"
+              | "snowmobile_dealers"
+              | "special_trade_services"
+              | "specialty_cleaning"
+              | "sporting_goods_stores"
+              | "sporting_recreation_camps"
+              | "sports_and_riding_apparel_stores"
+              | "sports_clubs_fields"
+              | "stamp_and_coin_stores"
+              | "stationary_office_supplies_printing_and_writing_paper"
+              | "stationery_stores_office_and_school_supply_stores"
+              | "swimming_pools_sales"
+              | "t_ui_travel_germany"
+              | "tailors_alterations"
+              | "tax_payments_government_agencies"
+              | "tax_preparation_services"
+              | "taxicabs_limousines"
+              | "telecommunication_equipment_and_telephone_sales"
+              | "telecommunication_services"
+              | "telegraph_services"
+              | "tent_and_awning_shops"
+              | "testing_laboratories"
+              | "theatrical_ticket_agencies"
+              | "timeshares"
+              | "tire_retreading_and_repair"
+              | "tolls_bridge_fees"
+              | "tourist_attractions_and_exhibits"
+              | "towing_services"
+              | "trailer_parks_campgrounds"
+              | "transportation_services"
+              | "travel_agencies_tour_operators"
+              | "truck_stop_iteration"
+              | "truck_utility_trailer_rentals"
+              | "typesetting_plate_making_and_related_services"
+              | "typewriter_stores"
+              | "u_s_federal_government_agencies_or_departments"
+              | "uniforms_commercial_clothing"
+              | "used_merchandise_and_secondhand_stores"
+              | "utilities"
+              | "variety_stores"
+              | "veterinary_services"
+              | "video_amusement_game_supplies"
+              | "video_game_arcades"
+              | "video_tape_rental_stores"
+              | "vocational_trade_schools"
+              | "watch_jewelry_repair"
+              | "welding_repair"
+              | "wholesale_clubs"
+              | "wig_and_toupee_stores"
+              | "wires_money_orders"
+              | "womens_accessory_and_specialty_shops"
+              | "womens_ready_to_wear_stores"
+              | "wrecking_and_salvage_yards"
+            )[];
+            spending_limits?: {
+              amount: number;
+              categories?: (
+                | "ac_refrigeration_repair"
+                | "accounting_bookkeeping_services"
+                | "advertising_services"
+                | "agricultural_cooperative"
+                | "airlines_air_carriers"
+                | "airports_flying_fields"
+                | "ambulance_services"
+                | "amusement_parks_carnivals"
+                | "antique_reproductions"
+                | "antique_shops"
+                | "aquariums"
+                | "architectural_surveying_services"
+                | "art_dealers_and_galleries"
+                | "artists_supply_and_craft_shops"
+                | "auto_and_home_supply_stores"
+                | "auto_body_repair_shops"
+                | "auto_paint_shops"
+                | "auto_service_shops"
+                | "automated_cash_disburse"
+                | "automated_fuel_dispensers"
+                | "automobile_associations"
+                | "automotive_parts_and_accessories_stores"
+                | "automotive_tire_stores"
+                | "bail_and_bond_payments"
+                | "bakeries"
+                | "bands_orchestras"
+                | "barber_and_beauty_shops"
+                | "betting_casino_gambling"
+                | "bicycle_shops"
+                | "billiard_pool_establishments"
+                | "boat_dealers"
+                | "boat_rentals_and_leases"
+                | "book_stores"
+                | "books_periodicals_and_newspapers"
+                | "bowling_alleys"
+                | "bus_lines"
+                | "business_secretarial_schools"
+                | "buying_shopping_services"
+                | "cable_satellite_and_other_pay_television_and_radio"
+                | "camera_and_photographic_supply_stores"
+                | "candy_nut_and_confectionery_stores"
+                | "car_and_truck_dealers_new_used"
+                | "car_and_truck_dealers_used_only"
+                | "car_rental_agencies"
+                | "car_washes"
+                | "carpentry_services"
+                | "carpet_upholstery_cleaning"
+                | "caterers"
+                | "charitable_and_social_service_organizations_fundraising"
+                | "chemicals_and_allied_products"
+                | "child_care_services"
+                | "childrens_and_infants_wear_stores"
+                | "chiropodists_podiatrists"
+                | "chiropractors"
+                | "cigar_stores_and_stands"
+                | "civic_social_fraternal_associations"
+                | "cleaning_and_maintenance"
+                | "clothing_rental"
+                | "colleges_universities"
+                | "commercial_equipment"
+                | "commercial_footwear"
+                | "commercial_photography_art_and_graphics"
+                | "commuter_transport_and_ferries"
+                | "computer_network_services"
+                | "computer_programming"
+                | "computer_repair"
+                | "computer_software_stores"
+                | "computers_peripherals_and_software"
+                | "concrete_work_services"
+                | "construction_materials"
+                | "consulting_public_relations"
+                | "correspondence_schools"
+                | "cosmetic_stores"
+                | "counseling_services"
+                | "country_clubs"
+                | "courier_services"
+                | "court_costs"
+                | "credit_reporting_agencies"
+                | "cruise_lines"
+                | "dairy_products_stores"
+                | "dance_hall_studios_schools"
+                | "dating_escort_services"
+                | "dentists_orthodontists"
+                | "department_stores"
+                | "detective_agencies"
+                | "digital_goods_applications"
+                | "digital_goods_games"
+                | "digital_goods_large_volume"
+                | "digital_goods_media"
+                | "direct_marketing_catalog_merchant"
+                | "direct_marketing_combination_catalog_and_retail_merchant"
+                | "direct_marketing_inbound_telemarketing"
+                | "direct_marketing_insurance_services"
+                | "direct_marketing_other"
+                | "direct_marketing_outbound_telemarketing"
+                | "direct_marketing_subscription"
+                | "direct_marketing_travel"
+                | "discount_stores"
+                | "doctors"
+                | "door_to_door_sales"
+                | "drapery_window_covering_and_upholstery_stores"
+                | "drinking_places"
+                | "drug_stores_and_pharmacies"
+                | "drugs_drug_proprietaries_and_druggist_sundries"
+                | "dry_cleaners"
+                | "durable_goods"
+                | "duty_free_stores"
+                | "eating_places_restaurants"
+                | "educational_services"
+                | "electric_razor_stores"
+                | "electrical_parts_and_equipment"
+                | "electrical_services"
+                | "electronics_repair_shops"
+                | "electronics_stores"
+                | "elementary_secondary_schools"
+                | "employment_temp_agencies"
+                | "equipment_rental"
+                | "exterminating_services"
+                | "family_clothing_stores"
+                | "fast_food_restaurants"
+                | "financial_institutions"
+                | "fines_government_administrative_entities"
+                | "fireplace_fireplace_screens_and_accessories_stores"
+                | "floor_covering_stores"
+                | "florists"
+                | "florists_supplies_nursery_stock_and_flowers"
+                | "freezer_and_locker_meat_provisioners"
+                | "fuel_dealers_non_automotive"
+                | "funeral_services_crematories"
+                | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+                | "furniture_repair_refinishing"
+                | "furriers_and_fur_shops"
+                | "general_services"
+                | "gift_card_novelty_and_souvenir_shops"
+                | "glass_paint_and_wallpaper_stores"
+                | "glassware_crystal_stores"
+                | "golf_courses_public"
+                | "government_services"
+                | "grocery_stores_supermarkets"
+                | "hardware_equipment_and_supplies"
+                | "hardware_stores"
+                | "health_and_beauty_spas"
+                | "hearing_aids_sales_and_supplies"
+                | "heating_plumbing_a_c"
+                | "hobby_toy_and_game_shops"
+                | "home_supply_warehouse_stores"
+                | "hospitals"
+                | "hotels_motels_and_resorts"
+                | "household_appliance_stores"
+                | "industrial_supplies"
+                | "information_retrieval_services"
+                | "insurance_default"
+                | "insurance_underwriting_premiums"
+                | "intra_company_purchases"
+                | "jewelry_stores_watches_clocks_and_silverware_stores"
+                | "landscaping_services"
+                | "laundries"
+                | "laundry_cleaning_services"
+                | "legal_services_attorneys"
+                | "luggage_and_leather_goods_stores"
+                | "lumber_building_materials_stores"
+                | "manual_cash_disburse"
+                | "marinas_service_and_supplies"
+                | "masonry_stonework_and_plaster"
+                | "massage_parlors"
+                | "medical_and_dental_labs"
+                | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+                | "medical_services"
+                | "membership_organizations"
+                | "mens_and_boys_clothing_and_accessories_stores"
+                | "mens_womens_clothing_stores"
+                | "metal_service_centers"
+                | "miscellaneous"
+                | "miscellaneous_apparel_and_accessory_shops"
+                | "miscellaneous_auto_dealers"
+                | "miscellaneous_business_services"
+                | "miscellaneous_food_stores"
+                | "miscellaneous_general_merchandise"
+                | "miscellaneous_general_services"
+                | "miscellaneous_home_furnishing_specialty_stores"
+                | "miscellaneous_publishing_and_printing"
+                | "miscellaneous_recreation_services"
+                | "miscellaneous_repair_shops"
+                | "miscellaneous_specialty_retail"
+                | "mobile_home_dealers"
+                | "motion_picture_theaters"
+                | "motor_freight_carriers_and_trucking"
+                | "motor_homes_dealers"
+                | "motor_vehicle_supplies_and_new_parts"
+                | "motorcycle_shops_and_dealers"
+                | "motorcycle_shops_dealers"
+                | "music_stores_musical_instruments_pianos_and_sheet_music"
+                | "news_dealers_and_newsstands"
+                | "non_fi_money_orders"
+                | "non_fi_stored_value_card_purchase_load"
+                | "nondurable_goods"
+                | "nurseries_lawn_and_garden_supply_stores"
+                | "nursing_personal_care"
+                | "office_and_commercial_furniture"
+                | "opticians_eyeglasses"
+                | "optometrists_ophthalmologist"
+                | "orthopedic_goods_prosthetic_devices"
+                | "osteopaths"
+                | "package_stores_beer_wine_and_liquor"
+                | "paints_varnishes_and_supplies"
+                | "parking_lots_garages"
+                | "passenger_railways"
+                | "pawn_shops"
+                | "pet_shops_pet_food_and_supplies"
+                | "petroleum_and_petroleum_products"
+                | "photo_developing"
+                | "photographic_photocopy_microfilm_equipment_and_supplies"
+                | "photographic_studios"
+                | "picture_video_production"
+                | "piece_goods_notions_and_other_dry_goods"
+                | "plumbing_heating_equipment_and_supplies"
+                | "political_organizations"
+                | "postal_services_government_only"
+                | "precious_stones_and_metals_watches_and_jewelry"
+                | "professional_services"
+                | "public_warehousing_and_storage"
+                | "quick_copy_repro_and_blueprint"
+                | "railroads"
+                | "real_estate_agents_and_managers_rentals"
+                | "record_stores"
+                | "recreational_vehicle_rentals"
+                | "religious_goods_stores"
+                | "religious_organizations"
+                | "roofing_siding_sheet_metal"
+                | "secretarial_support_services"
+                | "security_brokers_dealers"
+                | "service_stations"
+                | "sewing_needlework_fabric_and_piece_goods_stores"
+                | "shoe_repair_hat_cleaning"
+                | "shoe_stores"
+                | "small_appliance_repair"
+                | "snowmobile_dealers"
+                | "special_trade_services"
+                | "specialty_cleaning"
+                | "sporting_goods_stores"
+                | "sporting_recreation_camps"
+                | "sports_and_riding_apparel_stores"
+                | "sports_clubs_fields"
+                | "stamp_and_coin_stores"
+                | "stationary_office_supplies_printing_and_writing_paper"
+                | "stationery_stores_office_and_school_supply_stores"
+                | "swimming_pools_sales"
+                | "t_ui_travel_germany"
+                | "tailors_alterations"
+                | "tax_payments_government_agencies"
+                | "tax_preparation_services"
+                | "taxicabs_limousines"
+                | "telecommunication_equipment_and_telephone_sales"
+                | "telecommunication_services"
+                | "telegraph_services"
+                | "tent_and_awning_shops"
+                | "testing_laboratories"
+                | "theatrical_ticket_agencies"
+                | "timeshares"
+                | "tire_retreading_and_repair"
+                | "tolls_bridge_fees"
+                | "tourist_attractions_and_exhibits"
+                | "towing_services"
+                | "trailer_parks_campgrounds"
+                | "transportation_services"
+                | "travel_agencies_tour_operators"
+                | "truck_stop_iteration"
+                | "truck_utility_trailer_rentals"
+                | "typesetting_plate_making_and_related_services"
+                | "typewriter_stores"
+                | "u_s_federal_government_agencies_or_departments"
+                | "uniforms_commercial_clothing"
+                | "used_merchandise_and_secondhand_stores"
+                | "utilities"
+                | "variety_stores"
+                | "veterinary_services"
+                | "video_amusement_game_supplies"
+                | "video_game_arcades"
+                | "video_tape_rental_stores"
+                | "vocational_trade_schools"
+                | "watch_jewelry_repair"
+                | "welding_repair"
+                | "wholesale_clubs"
+                | "wig_and_toupee_stores"
+                | "wires_money_orders"
+                | "womens_accessory_and_specialty_shops"
+                | "womens_ready_to_wear_stores"
+                | "wrecking_and_salvage_yards"
+              )[];
+              interval:
+                | "all_time"
+                | "daily"
+                | "monthly"
+                | "per_authorization"
+                | "weekly"
+                | "yearly";
+            }[];
+            spending_limits_currency?: string;
+          };
+          /**
+           * Specifies whether to permit authorizations on this cardholder's cards. Defaults to `active`.
+           */
+          status?: "active" | "inactive";
+          /**
+           * One of `individual` or `company`.
+           */
+          type: "company" | "individual";
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -7257,6 +13107,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -7279,6 +13132,942 @@ export interface paths {
       parameters: {
         path: {
           cardholder: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The cardholder's billing address.
+           */
+          billing?: {
+            address: {
+              city: string;
+              country: string;
+              line1: string;
+              line2?: string;
+              postal_code: string;
+              state?: string;
+            };
+          };
+          /**
+           * Additional information about a `company` cardholder.
+           */
+          company?: { tax_id?: string };
+          /**
+           * The cardholder's email address.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Additional information about an `individual` cardholder.
+           */
+          individual?: {
+            dob?: { day: number; month: number; year: number };
+            first_name: string;
+            last_name: string;
+            verification?: { document?: { back?: string; front?: string } };
+          };
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * The cardholder's phone number.
+           */
+          phone_number?: string;
+          /**
+           * Spending rules that give you some control over how your cards can be used. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details.
+           */
+          spending_controls?: {
+            allowed_categories?: (
+              | "ac_refrigeration_repair"
+              | "accounting_bookkeeping_services"
+              | "advertising_services"
+              | "agricultural_cooperative"
+              | "airlines_air_carriers"
+              | "airports_flying_fields"
+              | "ambulance_services"
+              | "amusement_parks_carnivals"
+              | "antique_reproductions"
+              | "antique_shops"
+              | "aquariums"
+              | "architectural_surveying_services"
+              | "art_dealers_and_galleries"
+              | "artists_supply_and_craft_shops"
+              | "auto_and_home_supply_stores"
+              | "auto_body_repair_shops"
+              | "auto_paint_shops"
+              | "auto_service_shops"
+              | "automated_cash_disburse"
+              | "automated_fuel_dispensers"
+              | "automobile_associations"
+              | "automotive_parts_and_accessories_stores"
+              | "automotive_tire_stores"
+              | "bail_and_bond_payments"
+              | "bakeries"
+              | "bands_orchestras"
+              | "barber_and_beauty_shops"
+              | "betting_casino_gambling"
+              | "bicycle_shops"
+              | "billiard_pool_establishments"
+              | "boat_dealers"
+              | "boat_rentals_and_leases"
+              | "book_stores"
+              | "books_periodicals_and_newspapers"
+              | "bowling_alleys"
+              | "bus_lines"
+              | "business_secretarial_schools"
+              | "buying_shopping_services"
+              | "cable_satellite_and_other_pay_television_and_radio"
+              | "camera_and_photographic_supply_stores"
+              | "candy_nut_and_confectionery_stores"
+              | "car_and_truck_dealers_new_used"
+              | "car_and_truck_dealers_used_only"
+              | "car_rental_agencies"
+              | "car_washes"
+              | "carpentry_services"
+              | "carpet_upholstery_cleaning"
+              | "caterers"
+              | "charitable_and_social_service_organizations_fundraising"
+              | "chemicals_and_allied_products"
+              | "child_care_services"
+              | "childrens_and_infants_wear_stores"
+              | "chiropodists_podiatrists"
+              | "chiropractors"
+              | "cigar_stores_and_stands"
+              | "civic_social_fraternal_associations"
+              | "cleaning_and_maintenance"
+              | "clothing_rental"
+              | "colleges_universities"
+              | "commercial_equipment"
+              | "commercial_footwear"
+              | "commercial_photography_art_and_graphics"
+              | "commuter_transport_and_ferries"
+              | "computer_network_services"
+              | "computer_programming"
+              | "computer_repair"
+              | "computer_software_stores"
+              | "computers_peripherals_and_software"
+              | "concrete_work_services"
+              | "construction_materials"
+              | "consulting_public_relations"
+              | "correspondence_schools"
+              | "cosmetic_stores"
+              | "counseling_services"
+              | "country_clubs"
+              | "courier_services"
+              | "court_costs"
+              | "credit_reporting_agencies"
+              | "cruise_lines"
+              | "dairy_products_stores"
+              | "dance_hall_studios_schools"
+              | "dating_escort_services"
+              | "dentists_orthodontists"
+              | "department_stores"
+              | "detective_agencies"
+              | "digital_goods_applications"
+              | "digital_goods_games"
+              | "digital_goods_large_volume"
+              | "digital_goods_media"
+              | "direct_marketing_catalog_merchant"
+              | "direct_marketing_combination_catalog_and_retail_merchant"
+              | "direct_marketing_inbound_telemarketing"
+              | "direct_marketing_insurance_services"
+              | "direct_marketing_other"
+              | "direct_marketing_outbound_telemarketing"
+              | "direct_marketing_subscription"
+              | "direct_marketing_travel"
+              | "discount_stores"
+              | "doctors"
+              | "door_to_door_sales"
+              | "drapery_window_covering_and_upholstery_stores"
+              | "drinking_places"
+              | "drug_stores_and_pharmacies"
+              | "drugs_drug_proprietaries_and_druggist_sundries"
+              | "dry_cleaners"
+              | "durable_goods"
+              | "duty_free_stores"
+              | "eating_places_restaurants"
+              | "educational_services"
+              | "electric_razor_stores"
+              | "electrical_parts_and_equipment"
+              | "electrical_services"
+              | "electronics_repair_shops"
+              | "electronics_stores"
+              | "elementary_secondary_schools"
+              | "employment_temp_agencies"
+              | "equipment_rental"
+              | "exterminating_services"
+              | "family_clothing_stores"
+              | "fast_food_restaurants"
+              | "financial_institutions"
+              | "fines_government_administrative_entities"
+              | "fireplace_fireplace_screens_and_accessories_stores"
+              | "floor_covering_stores"
+              | "florists"
+              | "florists_supplies_nursery_stock_and_flowers"
+              | "freezer_and_locker_meat_provisioners"
+              | "fuel_dealers_non_automotive"
+              | "funeral_services_crematories"
+              | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+              | "furniture_repair_refinishing"
+              | "furriers_and_fur_shops"
+              | "general_services"
+              | "gift_card_novelty_and_souvenir_shops"
+              | "glass_paint_and_wallpaper_stores"
+              | "glassware_crystal_stores"
+              | "golf_courses_public"
+              | "government_services"
+              | "grocery_stores_supermarkets"
+              | "hardware_equipment_and_supplies"
+              | "hardware_stores"
+              | "health_and_beauty_spas"
+              | "hearing_aids_sales_and_supplies"
+              | "heating_plumbing_a_c"
+              | "hobby_toy_and_game_shops"
+              | "home_supply_warehouse_stores"
+              | "hospitals"
+              | "hotels_motels_and_resorts"
+              | "household_appliance_stores"
+              | "industrial_supplies"
+              | "information_retrieval_services"
+              | "insurance_default"
+              | "insurance_underwriting_premiums"
+              | "intra_company_purchases"
+              | "jewelry_stores_watches_clocks_and_silverware_stores"
+              | "landscaping_services"
+              | "laundries"
+              | "laundry_cleaning_services"
+              | "legal_services_attorneys"
+              | "luggage_and_leather_goods_stores"
+              | "lumber_building_materials_stores"
+              | "manual_cash_disburse"
+              | "marinas_service_and_supplies"
+              | "masonry_stonework_and_plaster"
+              | "massage_parlors"
+              | "medical_and_dental_labs"
+              | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+              | "medical_services"
+              | "membership_organizations"
+              | "mens_and_boys_clothing_and_accessories_stores"
+              | "mens_womens_clothing_stores"
+              | "metal_service_centers"
+              | "miscellaneous"
+              | "miscellaneous_apparel_and_accessory_shops"
+              | "miscellaneous_auto_dealers"
+              | "miscellaneous_business_services"
+              | "miscellaneous_food_stores"
+              | "miscellaneous_general_merchandise"
+              | "miscellaneous_general_services"
+              | "miscellaneous_home_furnishing_specialty_stores"
+              | "miscellaneous_publishing_and_printing"
+              | "miscellaneous_recreation_services"
+              | "miscellaneous_repair_shops"
+              | "miscellaneous_specialty_retail"
+              | "mobile_home_dealers"
+              | "motion_picture_theaters"
+              | "motor_freight_carriers_and_trucking"
+              | "motor_homes_dealers"
+              | "motor_vehicle_supplies_and_new_parts"
+              | "motorcycle_shops_and_dealers"
+              | "motorcycle_shops_dealers"
+              | "music_stores_musical_instruments_pianos_and_sheet_music"
+              | "news_dealers_and_newsstands"
+              | "non_fi_money_orders"
+              | "non_fi_stored_value_card_purchase_load"
+              | "nondurable_goods"
+              | "nurseries_lawn_and_garden_supply_stores"
+              | "nursing_personal_care"
+              | "office_and_commercial_furniture"
+              | "opticians_eyeglasses"
+              | "optometrists_ophthalmologist"
+              | "orthopedic_goods_prosthetic_devices"
+              | "osteopaths"
+              | "package_stores_beer_wine_and_liquor"
+              | "paints_varnishes_and_supplies"
+              | "parking_lots_garages"
+              | "passenger_railways"
+              | "pawn_shops"
+              | "pet_shops_pet_food_and_supplies"
+              | "petroleum_and_petroleum_products"
+              | "photo_developing"
+              | "photographic_photocopy_microfilm_equipment_and_supplies"
+              | "photographic_studios"
+              | "picture_video_production"
+              | "piece_goods_notions_and_other_dry_goods"
+              | "plumbing_heating_equipment_and_supplies"
+              | "political_organizations"
+              | "postal_services_government_only"
+              | "precious_stones_and_metals_watches_and_jewelry"
+              | "professional_services"
+              | "public_warehousing_and_storage"
+              | "quick_copy_repro_and_blueprint"
+              | "railroads"
+              | "real_estate_agents_and_managers_rentals"
+              | "record_stores"
+              | "recreational_vehicle_rentals"
+              | "religious_goods_stores"
+              | "religious_organizations"
+              | "roofing_siding_sheet_metal"
+              | "secretarial_support_services"
+              | "security_brokers_dealers"
+              | "service_stations"
+              | "sewing_needlework_fabric_and_piece_goods_stores"
+              | "shoe_repair_hat_cleaning"
+              | "shoe_stores"
+              | "small_appliance_repair"
+              | "snowmobile_dealers"
+              | "special_trade_services"
+              | "specialty_cleaning"
+              | "sporting_goods_stores"
+              | "sporting_recreation_camps"
+              | "sports_and_riding_apparel_stores"
+              | "sports_clubs_fields"
+              | "stamp_and_coin_stores"
+              | "stationary_office_supplies_printing_and_writing_paper"
+              | "stationery_stores_office_and_school_supply_stores"
+              | "swimming_pools_sales"
+              | "t_ui_travel_germany"
+              | "tailors_alterations"
+              | "tax_payments_government_agencies"
+              | "tax_preparation_services"
+              | "taxicabs_limousines"
+              | "telecommunication_equipment_and_telephone_sales"
+              | "telecommunication_services"
+              | "telegraph_services"
+              | "tent_and_awning_shops"
+              | "testing_laboratories"
+              | "theatrical_ticket_agencies"
+              | "timeshares"
+              | "tire_retreading_and_repair"
+              | "tolls_bridge_fees"
+              | "tourist_attractions_and_exhibits"
+              | "towing_services"
+              | "trailer_parks_campgrounds"
+              | "transportation_services"
+              | "travel_agencies_tour_operators"
+              | "truck_stop_iteration"
+              | "truck_utility_trailer_rentals"
+              | "typesetting_plate_making_and_related_services"
+              | "typewriter_stores"
+              | "u_s_federal_government_agencies_or_departments"
+              | "uniforms_commercial_clothing"
+              | "used_merchandise_and_secondhand_stores"
+              | "utilities"
+              | "variety_stores"
+              | "veterinary_services"
+              | "video_amusement_game_supplies"
+              | "video_game_arcades"
+              | "video_tape_rental_stores"
+              | "vocational_trade_schools"
+              | "watch_jewelry_repair"
+              | "welding_repair"
+              | "wholesale_clubs"
+              | "wig_and_toupee_stores"
+              | "wires_money_orders"
+              | "womens_accessory_and_specialty_shops"
+              | "womens_ready_to_wear_stores"
+              | "wrecking_and_salvage_yards"
+            )[];
+            blocked_categories?: (
+              | "ac_refrigeration_repair"
+              | "accounting_bookkeeping_services"
+              | "advertising_services"
+              | "agricultural_cooperative"
+              | "airlines_air_carriers"
+              | "airports_flying_fields"
+              | "ambulance_services"
+              | "amusement_parks_carnivals"
+              | "antique_reproductions"
+              | "antique_shops"
+              | "aquariums"
+              | "architectural_surveying_services"
+              | "art_dealers_and_galleries"
+              | "artists_supply_and_craft_shops"
+              | "auto_and_home_supply_stores"
+              | "auto_body_repair_shops"
+              | "auto_paint_shops"
+              | "auto_service_shops"
+              | "automated_cash_disburse"
+              | "automated_fuel_dispensers"
+              | "automobile_associations"
+              | "automotive_parts_and_accessories_stores"
+              | "automotive_tire_stores"
+              | "bail_and_bond_payments"
+              | "bakeries"
+              | "bands_orchestras"
+              | "barber_and_beauty_shops"
+              | "betting_casino_gambling"
+              | "bicycle_shops"
+              | "billiard_pool_establishments"
+              | "boat_dealers"
+              | "boat_rentals_and_leases"
+              | "book_stores"
+              | "books_periodicals_and_newspapers"
+              | "bowling_alleys"
+              | "bus_lines"
+              | "business_secretarial_schools"
+              | "buying_shopping_services"
+              | "cable_satellite_and_other_pay_television_and_radio"
+              | "camera_and_photographic_supply_stores"
+              | "candy_nut_and_confectionery_stores"
+              | "car_and_truck_dealers_new_used"
+              | "car_and_truck_dealers_used_only"
+              | "car_rental_agencies"
+              | "car_washes"
+              | "carpentry_services"
+              | "carpet_upholstery_cleaning"
+              | "caterers"
+              | "charitable_and_social_service_organizations_fundraising"
+              | "chemicals_and_allied_products"
+              | "child_care_services"
+              | "childrens_and_infants_wear_stores"
+              | "chiropodists_podiatrists"
+              | "chiropractors"
+              | "cigar_stores_and_stands"
+              | "civic_social_fraternal_associations"
+              | "cleaning_and_maintenance"
+              | "clothing_rental"
+              | "colleges_universities"
+              | "commercial_equipment"
+              | "commercial_footwear"
+              | "commercial_photography_art_and_graphics"
+              | "commuter_transport_and_ferries"
+              | "computer_network_services"
+              | "computer_programming"
+              | "computer_repair"
+              | "computer_software_stores"
+              | "computers_peripherals_and_software"
+              | "concrete_work_services"
+              | "construction_materials"
+              | "consulting_public_relations"
+              | "correspondence_schools"
+              | "cosmetic_stores"
+              | "counseling_services"
+              | "country_clubs"
+              | "courier_services"
+              | "court_costs"
+              | "credit_reporting_agencies"
+              | "cruise_lines"
+              | "dairy_products_stores"
+              | "dance_hall_studios_schools"
+              | "dating_escort_services"
+              | "dentists_orthodontists"
+              | "department_stores"
+              | "detective_agencies"
+              | "digital_goods_applications"
+              | "digital_goods_games"
+              | "digital_goods_large_volume"
+              | "digital_goods_media"
+              | "direct_marketing_catalog_merchant"
+              | "direct_marketing_combination_catalog_and_retail_merchant"
+              | "direct_marketing_inbound_telemarketing"
+              | "direct_marketing_insurance_services"
+              | "direct_marketing_other"
+              | "direct_marketing_outbound_telemarketing"
+              | "direct_marketing_subscription"
+              | "direct_marketing_travel"
+              | "discount_stores"
+              | "doctors"
+              | "door_to_door_sales"
+              | "drapery_window_covering_and_upholstery_stores"
+              | "drinking_places"
+              | "drug_stores_and_pharmacies"
+              | "drugs_drug_proprietaries_and_druggist_sundries"
+              | "dry_cleaners"
+              | "durable_goods"
+              | "duty_free_stores"
+              | "eating_places_restaurants"
+              | "educational_services"
+              | "electric_razor_stores"
+              | "electrical_parts_and_equipment"
+              | "electrical_services"
+              | "electronics_repair_shops"
+              | "electronics_stores"
+              | "elementary_secondary_schools"
+              | "employment_temp_agencies"
+              | "equipment_rental"
+              | "exterminating_services"
+              | "family_clothing_stores"
+              | "fast_food_restaurants"
+              | "financial_institutions"
+              | "fines_government_administrative_entities"
+              | "fireplace_fireplace_screens_and_accessories_stores"
+              | "floor_covering_stores"
+              | "florists"
+              | "florists_supplies_nursery_stock_and_flowers"
+              | "freezer_and_locker_meat_provisioners"
+              | "fuel_dealers_non_automotive"
+              | "funeral_services_crematories"
+              | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+              | "furniture_repair_refinishing"
+              | "furriers_and_fur_shops"
+              | "general_services"
+              | "gift_card_novelty_and_souvenir_shops"
+              | "glass_paint_and_wallpaper_stores"
+              | "glassware_crystal_stores"
+              | "golf_courses_public"
+              | "government_services"
+              | "grocery_stores_supermarkets"
+              | "hardware_equipment_and_supplies"
+              | "hardware_stores"
+              | "health_and_beauty_spas"
+              | "hearing_aids_sales_and_supplies"
+              | "heating_plumbing_a_c"
+              | "hobby_toy_and_game_shops"
+              | "home_supply_warehouse_stores"
+              | "hospitals"
+              | "hotels_motels_and_resorts"
+              | "household_appliance_stores"
+              | "industrial_supplies"
+              | "information_retrieval_services"
+              | "insurance_default"
+              | "insurance_underwriting_premiums"
+              | "intra_company_purchases"
+              | "jewelry_stores_watches_clocks_and_silverware_stores"
+              | "landscaping_services"
+              | "laundries"
+              | "laundry_cleaning_services"
+              | "legal_services_attorneys"
+              | "luggage_and_leather_goods_stores"
+              | "lumber_building_materials_stores"
+              | "manual_cash_disburse"
+              | "marinas_service_and_supplies"
+              | "masonry_stonework_and_plaster"
+              | "massage_parlors"
+              | "medical_and_dental_labs"
+              | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+              | "medical_services"
+              | "membership_organizations"
+              | "mens_and_boys_clothing_and_accessories_stores"
+              | "mens_womens_clothing_stores"
+              | "metal_service_centers"
+              | "miscellaneous"
+              | "miscellaneous_apparel_and_accessory_shops"
+              | "miscellaneous_auto_dealers"
+              | "miscellaneous_business_services"
+              | "miscellaneous_food_stores"
+              | "miscellaneous_general_merchandise"
+              | "miscellaneous_general_services"
+              | "miscellaneous_home_furnishing_specialty_stores"
+              | "miscellaneous_publishing_and_printing"
+              | "miscellaneous_recreation_services"
+              | "miscellaneous_repair_shops"
+              | "miscellaneous_specialty_retail"
+              | "mobile_home_dealers"
+              | "motion_picture_theaters"
+              | "motor_freight_carriers_and_trucking"
+              | "motor_homes_dealers"
+              | "motor_vehicle_supplies_and_new_parts"
+              | "motorcycle_shops_and_dealers"
+              | "motorcycle_shops_dealers"
+              | "music_stores_musical_instruments_pianos_and_sheet_music"
+              | "news_dealers_and_newsstands"
+              | "non_fi_money_orders"
+              | "non_fi_stored_value_card_purchase_load"
+              | "nondurable_goods"
+              | "nurseries_lawn_and_garden_supply_stores"
+              | "nursing_personal_care"
+              | "office_and_commercial_furniture"
+              | "opticians_eyeglasses"
+              | "optometrists_ophthalmologist"
+              | "orthopedic_goods_prosthetic_devices"
+              | "osteopaths"
+              | "package_stores_beer_wine_and_liquor"
+              | "paints_varnishes_and_supplies"
+              | "parking_lots_garages"
+              | "passenger_railways"
+              | "pawn_shops"
+              | "pet_shops_pet_food_and_supplies"
+              | "petroleum_and_petroleum_products"
+              | "photo_developing"
+              | "photographic_photocopy_microfilm_equipment_and_supplies"
+              | "photographic_studios"
+              | "picture_video_production"
+              | "piece_goods_notions_and_other_dry_goods"
+              | "plumbing_heating_equipment_and_supplies"
+              | "political_organizations"
+              | "postal_services_government_only"
+              | "precious_stones_and_metals_watches_and_jewelry"
+              | "professional_services"
+              | "public_warehousing_and_storage"
+              | "quick_copy_repro_and_blueprint"
+              | "railroads"
+              | "real_estate_agents_and_managers_rentals"
+              | "record_stores"
+              | "recreational_vehicle_rentals"
+              | "religious_goods_stores"
+              | "religious_organizations"
+              | "roofing_siding_sheet_metal"
+              | "secretarial_support_services"
+              | "security_brokers_dealers"
+              | "service_stations"
+              | "sewing_needlework_fabric_and_piece_goods_stores"
+              | "shoe_repair_hat_cleaning"
+              | "shoe_stores"
+              | "small_appliance_repair"
+              | "snowmobile_dealers"
+              | "special_trade_services"
+              | "specialty_cleaning"
+              | "sporting_goods_stores"
+              | "sporting_recreation_camps"
+              | "sports_and_riding_apparel_stores"
+              | "sports_clubs_fields"
+              | "stamp_and_coin_stores"
+              | "stationary_office_supplies_printing_and_writing_paper"
+              | "stationery_stores_office_and_school_supply_stores"
+              | "swimming_pools_sales"
+              | "t_ui_travel_germany"
+              | "tailors_alterations"
+              | "tax_payments_government_agencies"
+              | "tax_preparation_services"
+              | "taxicabs_limousines"
+              | "telecommunication_equipment_and_telephone_sales"
+              | "telecommunication_services"
+              | "telegraph_services"
+              | "tent_and_awning_shops"
+              | "testing_laboratories"
+              | "theatrical_ticket_agencies"
+              | "timeshares"
+              | "tire_retreading_and_repair"
+              | "tolls_bridge_fees"
+              | "tourist_attractions_and_exhibits"
+              | "towing_services"
+              | "trailer_parks_campgrounds"
+              | "transportation_services"
+              | "travel_agencies_tour_operators"
+              | "truck_stop_iteration"
+              | "truck_utility_trailer_rentals"
+              | "typesetting_plate_making_and_related_services"
+              | "typewriter_stores"
+              | "u_s_federal_government_agencies_or_departments"
+              | "uniforms_commercial_clothing"
+              | "used_merchandise_and_secondhand_stores"
+              | "utilities"
+              | "variety_stores"
+              | "veterinary_services"
+              | "video_amusement_game_supplies"
+              | "video_game_arcades"
+              | "video_tape_rental_stores"
+              | "vocational_trade_schools"
+              | "watch_jewelry_repair"
+              | "welding_repair"
+              | "wholesale_clubs"
+              | "wig_and_toupee_stores"
+              | "wires_money_orders"
+              | "womens_accessory_and_specialty_shops"
+              | "womens_ready_to_wear_stores"
+              | "wrecking_and_salvage_yards"
+            )[];
+            spending_limits?: {
+              amount: number;
+              categories?: (
+                | "ac_refrigeration_repair"
+                | "accounting_bookkeeping_services"
+                | "advertising_services"
+                | "agricultural_cooperative"
+                | "airlines_air_carriers"
+                | "airports_flying_fields"
+                | "ambulance_services"
+                | "amusement_parks_carnivals"
+                | "antique_reproductions"
+                | "antique_shops"
+                | "aquariums"
+                | "architectural_surveying_services"
+                | "art_dealers_and_galleries"
+                | "artists_supply_and_craft_shops"
+                | "auto_and_home_supply_stores"
+                | "auto_body_repair_shops"
+                | "auto_paint_shops"
+                | "auto_service_shops"
+                | "automated_cash_disburse"
+                | "automated_fuel_dispensers"
+                | "automobile_associations"
+                | "automotive_parts_and_accessories_stores"
+                | "automotive_tire_stores"
+                | "bail_and_bond_payments"
+                | "bakeries"
+                | "bands_orchestras"
+                | "barber_and_beauty_shops"
+                | "betting_casino_gambling"
+                | "bicycle_shops"
+                | "billiard_pool_establishments"
+                | "boat_dealers"
+                | "boat_rentals_and_leases"
+                | "book_stores"
+                | "books_periodicals_and_newspapers"
+                | "bowling_alleys"
+                | "bus_lines"
+                | "business_secretarial_schools"
+                | "buying_shopping_services"
+                | "cable_satellite_and_other_pay_television_and_radio"
+                | "camera_and_photographic_supply_stores"
+                | "candy_nut_and_confectionery_stores"
+                | "car_and_truck_dealers_new_used"
+                | "car_and_truck_dealers_used_only"
+                | "car_rental_agencies"
+                | "car_washes"
+                | "carpentry_services"
+                | "carpet_upholstery_cleaning"
+                | "caterers"
+                | "charitable_and_social_service_organizations_fundraising"
+                | "chemicals_and_allied_products"
+                | "child_care_services"
+                | "childrens_and_infants_wear_stores"
+                | "chiropodists_podiatrists"
+                | "chiropractors"
+                | "cigar_stores_and_stands"
+                | "civic_social_fraternal_associations"
+                | "cleaning_and_maintenance"
+                | "clothing_rental"
+                | "colleges_universities"
+                | "commercial_equipment"
+                | "commercial_footwear"
+                | "commercial_photography_art_and_graphics"
+                | "commuter_transport_and_ferries"
+                | "computer_network_services"
+                | "computer_programming"
+                | "computer_repair"
+                | "computer_software_stores"
+                | "computers_peripherals_and_software"
+                | "concrete_work_services"
+                | "construction_materials"
+                | "consulting_public_relations"
+                | "correspondence_schools"
+                | "cosmetic_stores"
+                | "counseling_services"
+                | "country_clubs"
+                | "courier_services"
+                | "court_costs"
+                | "credit_reporting_agencies"
+                | "cruise_lines"
+                | "dairy_products_stores"
+                | "dance_hall_studios_schools"
+                | "dating_escort_services"
+                | "dentists_orthodontists"
+                | "department_stores"
+                | "detective_agencies"
+                | "digital_goods_applications"
+                | "digital_goods_games"
+                | "digital_goods_large_volume"
+                | "digital_goods_media"
+                | "direct_marketing_catalog_merchant"
+                | "direct_marketing_combination_catalog_and_retail_merchant"
+                | "direct_marketing_inbound_telemarketing"
+                | "direct_marketing_insurance_services"
+                | "direct_marketing_other"
+                | "direct_marketing_outbound_telemarketing"
+                | "direct_marketing_subscription"
+                | "direct_marketing_travel"
+                | "discount_stores"
+                | "doctors"
+                | "door_to_door_sales"
+                | "drapery_window_covering_and_upholstery_stores"
+                | "drinking_places"
+                | "drug_stores_and_pharmacies"
+                | "drugs_drug_proprietaries_and_druggist_sundries"
+                | "dry_cleaners"
+                | "durable_goods"
+                | "duty_free_stores"
+                | "eating_places_restaurants"
+                | "educational_services"
+                | "electric_razor_stores"
+                | "electrical_parts_and_equipment"
+                | "electrical_services"
+                | "electronics_repair_shops"
+                | "electronics_stores"
+                | "elementary_secondary_schools"
+                | "employment_temp_agencies"
+                | "equipment_rental"
+                | "exterminating_services"
+                | "family_clothing_stores"
+                | "fast_food_restaurants"
+                | "financial_institutions"
+                | "fines_government_administrative_entities"
+                | "fireplace_fireplace_screens_and_accessories_stores"
+                | "floor_covering_stores"
+                | "florists"
+                | "florists_supplies_nursery_stock_and_flowers"
+                | "freezer_and_locker_meat_provisioners"
+                | "fuel_dealers_non_automotive"
+                | "funeral_services_crematories"
+                | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+                | "furniture_repair_refinishing"
+                | "furriers_and_fur_shops"
+                | "general_services"
+                | "gift_card_novelty_and_souvenir_shops"
+                | "glass_paint_and_wallpaper_stores"
+                | "glassware_crystal_stores"
+                | "golf_courses_public"
+                | "government_services"
+                | "grocery_stores_supermarkets"
+                | "hardware_equipment_and_supplies"
+                | "hardware_stores"
+                | "health_and_beauty_spas"
+                | "hearing_aids_sales_and_supplies"
+                | "heating_plumbing_a_c"
+                | "hobby_toy_and_game_shops"
+                | "home_supply_warehouse_stores"
+                | "hospitals"
+                | "hotels_motels_and_resorts"
+                | "household_appliance_stores"
+                | "industrial_supplies"
+                | "information_retrieval_services"
+                | "insurance_default"
+                | "insurance_underwriting_premiums"
+                | "intra_company_purchases"
+                | "jewelry_stores_watches_clocks_and_silverware_stores"
+                | "landscaping_services"
+                | "laundries"
+                | "laundry_cleaning_services"
+                | "legal_services_attorneys"
+                | "luggage_and_leather_goods_stores"
+                | "lumber_building_materials_stores"
+                | "manual_cash_disburse"
+                | "marinas_service_and_supplies"
+                | "masonry_stonework_and_plaster"
+                | "massage_parlors"
+                | "medical_and_dental_labs"
+                | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+                | "medical_services"
+                | "membership_organizations"
+                | "mens_and_boys_clothing_and_accessories_stores"
+                | "mens_womens_clothing_stores"
+                | "metal_service_centers"
+                | "miscellaneous"
+                | "miscellaneous_apparel_and_accessory_shops"
+                | "miscellaneous_auto_dealers"
+                | "miscellaneous_business_services"
+                | "miscellaneous_food_stores"
+                | "miscellaneous_general_merchandise"
+                | "miscellaneous_general_services"
+                | "miscellaneous_home_furnishing_specialty_stores"
+                | "miscellaneous_publishing_and_printing"
+                | "miscellaneous_recreation_services"
+                | "miscellaneous_repair_shops"
+                | "miscellaneous_specialty_retail"
+                | "mobile_home_dealers"
+                | "motion_picture_theaters"
+                | "motor_freight_carriers_and_trucking"
+                | "motor_homes_dealers"
+                | "motor_vehicle_supplies_and_new_parts"
+                | "motorcycle_shops_and_dealers"
+                | "motorcycle_shops_dealers"
+                | "music_stores_musical_instruments_pianos_and_sheet_music"
+                | "news_dealers_and_newsstands"
+                | "non_fi_money_orders"
+                | "non_fi_stored_value_card_purchase_load"
+                | "nondurable_goods"
+                | "nurseries_lawn_and_garden_supply_stores"
+                | "nursing_personal_care"
+                | "office_and_commercial_furniture"
+                | "opticians_eyeglasses"
+                | "optometrists_ophthalmologist"
+                | "orthopedic_goods_prosthetic_devices"
+                | "osteopaths"
+                | "package_stores_beer_wine_and_liquor"
+                | "paints_varnishes_and_supplies"
+                | "parking_lots_garages"
+                | "passenger_railways"
+                | "pawn_shops"
+                | "pet_shops_pet_food_and_supplies"
+                | "petroleum_and_petroleum_products"
+                | "photo_developing"
+                | "photographic_photocopy_microfilm_equipment_and_supplies"
+                | "photographic_studios"
+                | "picture_video_production"
+                | "piece_goods_notions_and_other_dry_goods"
+                | "plumbing_heating_equipment_and_supplies"
+                | "political_organizations"
+                | "postal_services_government_only"
+                | "precious_stones_and_metals_watches_and_jewelry"
+                | "professional_services"
+                | "public_warehousing_and_storage"
+                | "quick_copy_repro_and_blueprint"
+                | "railroads"
+                | "real_estate_agents_and_managers_rentals"
+                | "record_stores"
+                | "recreational_vehicle_rentals"
+                | "religious_goods_stores"
+                | "religious_organizations"
+                | "roofing_siding_sheet_metal"
+                | "secretarial_support_services"
+                | "security_brokers_dealers"
+                | "service_stations"
+                | "sewing_needlework_fabric_and_piece_goods_stores"
+                | "shoe_repair_hat_cleaning"
+                | "shoe_stores"
+                | "small_appliance_repair"
+                | "snowmobile_dealers"
+                | "special_trade_services"
+                | "specialty_cleaning"
+                | "sporting_goods_stores"
+                | "sporting_recreation_camps"
+                | "sports_and_riding_apparel_stores"
+                | "sports_clubs_fields"
+                | "stamp_and_coin_stores"
+                | "stationary_office_supplies_printing_and_writing_paper"
+                | "stationery_stores_office_and_school_supply_stores"
+                | "swimming_pools_sales"
+                | "t_ui_travel_germany"
+                | "tailors_alterations"
+                | "tax_payments_government_agencies"
+                | "tax_preparation_services"
+                | "taxicabs_limousines"
+                | "telecommunication_equipment_and_telephone_sales"
+                | "telecommunication_services"
+                | "telegraph_services"
+                | "tent_and_awning_shops"
+                | "testing_laboratories"
+                | "theatrical_ticket_agencies"
+                | "timeshares"
+                | "tire_retreading_and_repair"
+                | "tolls_bridge_fees"
+                | "tourist_attractions_and_exhibits"
+                | "towing_services"
+                | "trailer_parks_campgrounds"
+                | "transportation_services"
+                | "travel_agencies_tour_operators"
+                | "truck_stop_iteration"
+                | "truck_utility_trailer_rentals"
+                | "typesetting_plate_making_and_related_services"
+                | "typewriter_stores"
+                | "u_s_federal_government_agencies_or_departments"
+                | "uniforms_commercial_clothing"
+                | "used_merchandise_and_secondhand_stores"
+                | "utilities"
+                | "variety_stores"
+                | "veterinary_services"
+                | "video_amusement_game_supplies"
+                | "video_game_arcades"
+                | "video_tape_rental_stores"
+                | "vocational_trade_schools"
+                | "watch_jewelry_repair"
+                | "welding_repair"
+                | "wholesale_clubs"
+                | "wig_and_toupee_stores"
+                | "wires_money_orders"
+                | "womens_accessory_and_specialty_shops"
+                | "womens_ready_to_wear_stores"
+                | "wrecking_and_salvage_yards"
+              )[];
+              interval:
+                | "all_time"
+                | "daily"
+                | "monthly"
+                | "per_authorization"
+                | "weekly"
+                | "yearly";
+            }[];
+            spending_limits_currency?: string;
+          };
+          /**
+           * Specifies whether to permit authorizations on this cardholder's cards.
+           */
+          status?: "active" | "inactive";
         };
       };
       responses: {
@@ -7356,6 +14145,9 @@ export interface paths {
           type?: "physical" | "virtual";
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -7389,6 +14181,943 @@ export interface paths {
      * <p>Creates an Issuing <code>Card</code> object.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The [Cardholder](https://stripe.com/docs/api#issuing_cardholder_object) object with which the card will be associated.
+           */
+          cardholder?: string;
+          /**
+           * The currency for the card. This currently must be `usd`.
+           */
+          currency: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * The card this is meant to be a replacement for (if any).
+           */
+          replacement_for?: string;
+          /**
+           * If `replacement_for` is specified, this should indicate why that card is being replaced.
+           */
+          replacement_reason?: "damaged" | "expired" | "lost" | "stolen";
+          /**
+           * The address where the card will be shipped.
+           */
+          shipping?: {
+            address: {
+              city: string;
+              country: string;
+              line1: string;
+              line2?: string;
+              postal_code: string;
+              state?: string;
+            };
+            name: string;
+            service?: "express" | "priority" | "standard";
+            type?: "bulk" | "individual";
+          };
+          /**
+           * Spending rules that give you some control over how your cards can be used. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details.
+           */
+          spending_controls?: {
+            allowed_categories?: (
+              | "ac_refrigeration_repair"
+              | "accounting_bookkeeping_services"
+              | "advertising_services"
+              | "agricultural_cooperative"
+              | "airlines_air_carriers"
+              | "airports_flying_fields"
+              | "ambulance_services"
+              | "amusement_parks_carnivals"
+              | "antique_reproductions"
+              | "antique_shops"
+              | "aquariums"
+              | "architectural_surveying_services"
+              | "art_dealers_and_galleries"
+              | "artists_supply_and_craft_shops"
+              | "auto_and_home_supply_stores"
+              | "auto_body_repair_shops"
+              | "auto_paint_shops"
+              | "auto_service_shops"
+              | "automated_cash_disburse"
+              | "automated_fuel_dispensers"
+              | "automobile_associations"
+              | "automotive_parts_and_accessories_stores"
+              | "automotive_tire_stores"
+              | "bail_and_bond_payments"
+              | "bakeries"
+              | "bands_orchestras"
+              | "barber_and_beauty_shops"
+              | "betting_casino_gambling"
+              | "bicycle_shops"
+              | "billiard_pool_establishments"
+              | "boat_dealers"
+              | "boat_rentals_and_leases"
+              | "book_stores"
+              | "books_periodicals_and_newspapers"
+              | "bowling_alleys"
+              | "bus_lines"
+              | "business_secretarial_schools"
+              | "buying_shopping_services"
+              | "cable_satellite_and_other_pay_television_and_radio"
+              | "camera_and_photographic_supply_stores"
+              | "candy_nut_and_confectionery_stores"
+              | "car_and_truck_dealers_new_used"
+              | "car_and_truck_dealers_used_only"
+              | "car_rental_agencies"
+              | "car_washes"
+              | "carpentry_services"
+              | "carpet_upholstery_cleaning"
+              | "caterers"
+              | "charitable_and_social_service_organizations_fundraising"
+              | "chemicals_and_allied_products"
+              | "child_care_services"
+              | "childrens_and_infants_wear_stores"
+              | "chiropodists_podiatrists"
+              | "chiropractors"
+              | "cigar_stores_and_stands"
+              | "civic_social_fraternal_associations"
+              | "cleaning_and_maintenance"
+              | "clothing_rental"
+              | "colleges_universities"
+              | "commercial_equipment"
+              | "commercial_footwear"
+              | "commercial_photography_art_and_graphics"
+              | "commuter_transport_and_ferries"
+              | "computer_network_services"
+              | "computer_programming"
+              | "computer_repair"
+              | "computer_software_stores"
+              | "computers_peripherals_and_software"
+              | "concrete_work_services"
+              | "construction_materials"
+              | "consulting_public_relations"
+              | "correspondence_schools"
+              | "cosmetic_stores"
+              | "counseling_services"
+              | "country_clubs"
+              | "courier_services"
+              | "court_costs"
+              | "credit_reporting_agencies"
+              | "cruise_lines"
+              | "dairy_products_stores"
+              | "dance_hall_studios_schools"
+              | "dating_escort_services"
+              | "dentists_orthodontists"
+              | "department_stores"
+              | "detective_agencies"
+              | "digital_goods_applications"
+              | "digital_goods_games"
+              | "digital_goods_large_volume"
+              | "digital_goods_media"
+              | "direct_marketing_catalog_merchant"
+              | "direct_marketing_combination_catalog_and_retail_merchant"
+              | "direct_marketing_inbound_telemarketing"
+              | "direct_marketing_insurance_services"
+              | "direct_marketing_other"
+              | "direct_marketing_outbound_telemarketing"
+              | "direct_marketing_subscription"
+              | "direct_marketing_travel"
+              | "discount_stores"
+              | "doctors"
+              | "door_to_door_sales"
+              | "drapery_window_covering_and_upholstery_stores"
+              | "drinking_places"
+              | "drug_stores_and_pharmacies"
+              | "drugs_drug_proprietaries_and_druggist_sundries"
+              | "dry_cleaners"
+              | "durable_goods"
+              | "duty_free_stores"
+              | "eating_places_restaurants"
+              | "educational_services"
+              | "electric_razor_stores"
+              | "electrical_parts_and_equipment"
+              | "electrical_services"
+              | "electronics_repair_shops"
+              | "electronics_stores"
+              | "elementary_secondary_schools"
+              | "employment_temp_agencies"
+              | "equipment_rental"
+              | "exterminating_services"
+              | "family_clothing_stores"
+              | "fast_food_restaurants"
+              | "financial_institutions"
+              | "fines_government_administrative_entities"
+              | "fireplace_fireplace_screens_and_accessories_stores"
+              | "floor_covering_stores"
+              | "florists"
+              | "florists_supplies_nursery_stock_and_flowers"
+              | "freezer_and_locker_meat_provisioners"
+              | "fuel_dealers_non_automotive"
+              | "funeral_services_crematories"
+              | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+              | "furniture_repair_refinishing"
+              | "furriers_and_fur_shops"
+              | "general_services"
+              | "gift_card_novelty_and_souvenir_shops"
+              | "glass_paint_and_wallpaper_stores"
+              | "glassware_crystal_stores"
+              | "golf_courses_public"
+              | "government_services"
+              | "grocery_stores_supermarkets"
+              | "hardware_equipment_and_supplies"
+              | "hardware_stores"
+              | "health_and_beauty_spas"
+              | "hearing_aids_sales_and_supplies"
+              | "heating_plumbing_a_c"
+              | "hobby_toy_and_game_shops"
+              | "home_supply_warehouse_stores"
+              | "hospitals"
+              | "hotels_motels_and_resorts"
+              | "household_appliance_stores"
+              | "industrial_supplies"
+              | "information_retrieval_services"
+              | "insurance_default"
+              | "insurance_underwriting_premiums"
+              | "intra_company_purchases"
+              | "jewelry_stores_watches_clocks_and_silverware_stores"
+              | "landscaping_services"
+              | "laundries"
+              | "laundry_cleaning_services"
+              | "legal_services_attorneys"
+              | "luggage_and_leather_goods_stores"
+              | "lumber_building_materials_stores"
+              | "manual_cash_disburse"
+              | "marinas_service_and_supplies"
+              | "masonry_stonework_and_plaster"
+              | "massage_parlors"
+              | "medical_and_dental_labs"
+              | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+              | "medical_services"
+              | "membership_organizations"
+              | "mens_and_boys_clothing_and_accessories_stores"
+              | "mens_womens_clothing_stores"
+              | "metal_service_centers"
+              | "miscellaneous"
+              | "miscellaneous_apparel_and_accessory_shops"
+              | "miscellaneous_auto_dealers"
+              | "miscellaneous_business_services"
+              | "miscellaneous_food_stores"
+              | "miscellaneous_general_merchandise"
+              | "miscellaneous_general_services"
+              | "miscellaneous_home_furnishing_specialty_stores"
+              | "miscellaneous_publishing_and_printing"
+              | "miscellaneous_recreation_services"
+              | "miscellaneous_repair_shops"
+              | "miscellaneous_specialty_retail"
+              | "mobile_home_dealers"
+              | "motion_picture_theaters"
+              | "motor_freight_carriers_and_trucking"
+              | "motor_homes_dealers"
+              | "motor_vehicle_supplies_and_new_parts"
+              | "motorcycle_shops_and_dealers"
+              | "motorcycle_shops_dealers"
+              | "music_stores_musical_instruments_pianos_and_sheet_music"
+              | "news_dealers_and_newsstands"
+              | "non_fi_money_orders"
+              | "non_fi_stored_value_card_purchase_load"
+              | "nondurable_goods"
+              | "nurseries_lawn_and_garden_supply_stores"
+              | "nursing_personal_care"
+              | "office_and_commercial_furniture"
+              | "opticians_eyeglasses"
+              | "optometrists_ophthalmologist"
+              | "orthopedic_goods_prosthetic_devices"
+              | "osteopaths"
+              | "package_stores_beer_wine_and_liquor"
+              | "paints_varnishes_and_supplies"
+              | "parking_lots_garages"
+              | "passenger_railways"
+              | "pawn_shops"
+              | "pet_shops_pet_food_and_supplies"
+              | "petroleum_and_petroleum_products"
+              | "photo_developing"
+              | "photographic_photocopy_microfilm_equipment_and_supplies"
+              | "photographic_studios"
+              | "picture_video_production"
+              | "piece_goods_notions_and_other_dry_goods"
+              | "plumbing_heating_equipment_and_supplies"
+              | "political_organizations"
+              | "postal_services_government_only"
+              | "precious_stones_and_metals_watches_and_jewelry"
+              | "professional_services"
+              | "public_warehousing_and_storage"
+              | "quick_copy_repro_and_blueprint"
+              | "railroads"
+              | "real_estate_agents_and_managers_rentals"
+              | "record_stores"
+              | "recreational_vehicle_rentals"
+              | "religious_goods_stores"
+              | "religious_organizations"
+              | "roofing_siding_sheet_metal"
+              | "secretarial_support_services"
+              | "security_brokers_dealers"
+              | "service_stations"
+              | "sewing_needlework_fabric_and_piece_goods_stores"
+              | "shoe_repair_hat_cleaning"
+              | "shoe_stores"
+              | "small_appliance_repair"
+              | "snowmobile_dealers"
+              | "special_trade_services"
+              | "specialty_cleaning"
+              | "sporting_goods_stores"
+              | "sporting_recreation_camps"
+              | "sports_and_riding_apparel_stores"
+              | "sports_clubs_fields"
+              | "stamp_and_coin_stores"
+              | "stationary_office_supplies_printing_and_writing_paper"
+              | "stationery_stores_office_and_school_supply_stores"
+              | "swimming_pools_sales"
+              | "t_ui_travel_germany"
+              | "tailors_alterations"
+              | "tax_payments_government_agencies"
+              | "tax_preparation_services"
+              | "taxicabs_limousines"
+              | "telecommunication_equipment_and_telephone_sales"
+              | "telecommunication_services"
+              | "telegraph_services"
+              | "tent_and_awning_shops"
+              | "testing_laboratories"
+              | "theatrical_ticket_agencies"
+              | "timeshares"
+              | "tire_retreading_and_repair"
+              | "tolls_bridge_fees"
+              | "tourist_attractions_and_exhibits"
+              | "towing_services"
+              | "trailer_parks_campgrounds"
+              | "transportation_services"
+              | "travel_agencies_tour_operators"
+              | "truck_stop_iteration"
+              | "truck_utility_trailer_rentals"
+              | "typesetting_plate_making_and_related_services"
+              | "typewriter_stores"
+              | "u_s_federal_government_agencies_or_departments"
+              | "uniforms_commercial_clothing"
+              | "used_merchandise_and_secondhand_stores"
+              | "utilities"
+              | "variety_stores"
+              | "veterinary_services"
+              | "video_amusement_game_supplies"
+              | "video_game_arcades"
+              | "video_tape_rental_stores"
+              | "vocational_trade_schools"
+              | "watch_jewelry_repair"
+              | "welding_repair"
+              | "wholesale_clubs"
+              | "wig_and_toupee_stores"
+              | "wires_money_orders"
+              | "womens_accessory_and_specialty_shops"
+              | "womens_ready_to_wear_stores"
+              | "wrecking_and_salvage_yards"
+            )[];
+            blocked_categories?: (
+              | "ac_refrigeration_repair"
+              | "accounting_bookkeeping_services"
+              | "advertising_services"
+              | "agricultural_cooperative"
+              | "airlines_air_carriers"
+              | "airports_flying_fields"
+              | "ambulance_services"
+              | "amusement_parks_carnivals"
+              | "antique_reproductions"
+              | "antique_shops"
+              | "aquariums"
+              | "architectural_surveying_services"
+              | "art_dealers_and_galleries"
+              | "artists_supply_and_craft_shops"
+              | "auto_and_home_supply_stores"
+              | "auto_body_repair_shops"
+              | "auto_paint_shops"
+              | "auto_service_shops"
+              | "automated_cash_disburse"
+              | "automated_fuel_dispensers"
+              | "automobile_associations"
+              | "automotive_parts_and_accessories_stores"
+              | "automotive_tire_stores"
+              | "bail_and_bond_payments"
+              | "bakeries"
+              | "bands_orchestras"
+              | "barber_and_beauty_shops"
+              | "betting_casino_gambling"
+              | "bicycle_shops"
+              | "billiard_pool_establishments"
+              | "boat_dealers"
+              | "boat_rentals_and_leases"
+              | "book_stores"
+              | "books_periodicals_and_newspapers"
+              | "bowling_alleys"
+              | "bus_lines"
+              | "business_secretarial_schools"
+              | "buying_shopping_services"
+              | "cable_satellite_and_other_pay_television_and_radio"
+              | "camera_and_photographic_supply_stores"
+              | "candy_nut_and_confectionery_stores"
+              | "car_and_truck_dealers_new_used"
+              | "car_and_truck_dealers_used_only"
+              | "car_rental_agencies"
+              | "car_washes"
+              | "carpentry_services"
+              | "carpet_upholstery_cleaning"
+              | "caterers"
+              | "charitable_and_social_service_organizations_fundraising"
+              | "chemicals_and_allied_products"
+              | "child_care_services"
+              | "childrens_and_infants_wear_stores"
+              | "chiropodists_podiatrists"
+              | "chiropractors"
+              | "cigar_stores_and_stands"
+              | "civic_social_fraternal_associations"
+              | "cleaning_and_maintenance"
+              | "clothing_rental"
+              | "colleges_universities"
+              | "commercial_equipment"
+              | "commercial_footwear"
+              | "commercial_photography_art_and_graphics"
+              | "commuter_transport_and_ferries"
+              | "computer_network_services"
+              | "computer_programming"
+              | "computer_repair"
+              | "computer_software_stores"
+              | "computers_peripherals_and_software"
+              | "concrete_work_services"
+              | "construction_materials"
+              | "consulting_public_relations"
+              | "correspondence_schools"
+              | "cosmetic_stores"
+              | "counseling_services"
+              | "country_clubs"
+              | "courier_services"
+              | "court_costs"
+              | "credit_reporting_agencies"
+              | "cruise_lines"
+              | "dairy_products_stores"
+              | "dance_hall_studios_schools"
+              | "dating_escort_services"
+              | "dentists_orthodontists"
+              | "department_stores"
+              | "detective_agencies"
+              | "digital_goods_applications"
+              | "digital_goods_games"
+              | "digital_goods_large_volume"
+              | "digital_goods_media"
+              | "direct_marketing_catalog_merchant"
+              | "direct_marketing_combination_catalog_and_retail_merchant"
+              | "direct_marketing_inbound_telemarketing"
+              | "direct_marketing_insurance_services"
+              | "direct_marketing_other"
+              | "direct_marketing_outbound_telemarketing"
+              | "direct_marketing_subscription"
+              | "direct_marketing_travel"
+              | "discount_stores"
+              | "doctors"
+              | "door_to_door_sales"
+              | "drapery_window_covering_and_upholstery_stores"
+              | "drinking_places"
+              | "drug_stores_and_pharmacies"
+              | "drugs_drug_proprietaries_and_druggist_sundries"
+              | "dry_cleaners"
+              | "durable_goods"
+              | "duty_free_stores"
+              | "eating_places_restaurants"
+              | "educational_services"
+              | "electric_razor_stores"
+              | "electrical_parts_and_equipment"
+              | "electrical_services"
+              | "electronics_repair_shops"
+              | "electronics_stores"
+              | "elementary_secondary_schools"
+              | "employment_temp_agencies"
+              | "equipment_rental"
+              | "exterminating_services"
+              | "family_clothing_stores"
+              | "fast_food_restaurants"
+              | "financial_institutions"
+              | "fines_government_administrative_entities"
+              | "fireplace_fireplace_screens_and_accessories_stores"
+              | "floor_covering_stores"
+              | "florists"
+              | "florists_supplies_nursery_stock_and_flowers"
+              | "freezer_and_locker_meat_provisioners"
+              | "fuel_dealers_non_automotive"
+              | "funeral_services_crematories"
+              | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+              | "furniture_repair_refinishing"
+              | "furriers_and_fur_shops"
+              | "general_services"
+              | "gift_card_novelty_and_souvenir_shops"
+              | "glass_paint_and_wallpaper_stores"
+              | "glassware_crystal_stores"
+              | "golf_courses_public"
+              | "government_services"
+              | "grocery_stores_supermarkets"
+              | "hardware_equipment_and_supplies"
+              | "hardware_stores"
+              | "health_and_beauty_spas"
+              | "hearing_aids_sales_and_supplies"
+              | "heating_plumbing_a_c"
+              | "hobby_toy_and_game_shops"
+              | "home_supply_warehouse_stores"
+              | "hospitals"
+              | "hotels_motels_and_resorts"
+              | "household_appliance_stores"
+              | "industrial_supplies"
+              | "information_retrieval_services"
+              | "insurance_default"
+              | "insurance_underwriting_premiums"
+              | "intra_company_purchases"
+              | "jewelry_stores_watches_clocks_and_silverware_stores"
+              | "landscaping_services"
+              | "laundries"
+              | "laundry_cleaning_services"
+              | "legal_services_attorneys"
+              | "luggage_and_leather_goods_stores"
+              | "lumber_building_materials_stores"
+              | "manual_cash_disburse"
+              | "marinas_service_and_supplies"
+              | "masonry_stonework_and_plaster"
+              | "massage_parlors"
+              | "medical_and_dental_labs"
+              | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+              | "medical_services"
+              | "membership_organizations"
+              | "mens_and_boys_clothing_and_accessories_stores"
+              | "mens_womens_clothing_stores"
+              | "metal_service_centers"
+              | "miscellaneous"
+              | "miscellaneous_apparel_and_accessory_shops"
+              | "miscellaneous_auto_dealers"
+              | "miscellaneous_business_services"
+              | "miscellaneous_food_stores"
+              | "miscellaneous_general_merchandise"
+              | "miscellaneous_general_services"
+              | "miscellaneous_home_furnishing_specialty_stores"
+              | "miscellaneous_publishing_and_printing"
+              | "miscellaneous_recreation_services"
+              | "miscellaneous_repair_shops"
+              | "miscellaneous_specialty_retail"
+              | "mobile_home_dealers"
+              | "motion_picture_theaters"
+              | "motor_freight_carriers_and_trucking"
+              | "motor_homes_dealers"
+              | "motor_vehicle_supplies_and_new_parts"
+              | "motorcycle_shops_and_dealers"
+              | "motorcycle_shops_dealers"
+              | "music_stores_musical_instruments_pianos_and_sheet_music"
+              | "news_dealers_and_newsstands"
+              | "non_fi_money_orders"
+              | "non_fi_stored_value_card_purchase_load"
+              | "nondurable_goods"
+              | "nurseries_lawn_and_garden_supply_stores"
+              | "nursing_personal_care"
+              | "office_and_commercial_furniture"
+              | "opticians_eyeglasses"
+              | "optometrists_ophthalmologist"
+              | "orthopedic_goods_prosthetic_devices"
+              | "osteopaths"
+              | "package_stores_beer_wine_and_liquor"
+              | "paints_varnishes_and_supplies"
+              | "parking_lots_garages"
+              | "passenger_railways"
+              | "pawn_shops"
+              | "pet_shops_pet_food_and_supplies"
+              | "petroleum_and_petroleum_products"
+              | "photo_developing"
+              | "photographic_photocopy_microfilm_equipment_and_supplies"
+              | "photographic_studios"
+              | "picture_video_production"
+              | "piece_goods_notions_and_other_dry_goods"
+              | "plumbing_heating_equipment_and_supplies"
+              | "political_organizations"
+              | "postal_services_government_only"
+              | "precious_stones_and_metals_watches_and_jewelry"
+              | "professional_services"
+              | "public_warehousing_and_storage"
+              | "quick_copy_repro_and_blueprint"
+              | "railroads"
+              | "real_estate_agents_and_managers_rentals"
+              | "record_stores"
+              | "recreational_vehicle_rentals"
+              | "religious_goods_stores"
+              | "religious_organizations"
+              | "roofing_siding_sheet_metal"
+              | "secretarial_support_services"
+              | "security_brokers_dealers"
+              | "service_stations"
+              | "sewing_needlework_fabric_and_piece_goods_stores"
+              | "shoe_repair_hat_cleaning"
+              | "shoe_stores"
+              | "small_appliance_repair"
+              | "snowmobile_dealers"
+              | "special_trade_services"
+              | "specialty_cleaning"
+              | "sporting_goods_stores"
+              | "sporting_recreation_camps"
+              | "sports_and_riding_apparel_stores"
+              | "sports_clubs_fields"
+              | "stamp_and_coin_stores"
+              | "stationary_office_supplies_printing_and_writing_paper"
+              | "stationery_stores_office_and_school_supply_stores"
+              | "swimming_pools_sales"
+              | "t_ui_travel_germany"
+              | "tailors_alterations"
+              | "tax_payments_government_agencies"
+              | "tax_preparation_services"
+              | "taxicabs_limousines"
+              | "telecommunication_equipment_and_telephone_sales"
+              | "telecommunication_services"
+              | "telegraph_services"
+              | "tent_and_awning_shops"
+              | "testing_laboratories"
+              | "theatrical_ticket_agencies"
+              | "timeshares"
+              | "tire_retreading_and_repair"
+              | "tolls_bridge_fees"
+              | "tourist_attractions_and_exhibits"
+              | "towing_services"
+              | "trailer_parks_campgrounds"
+              | "transportation_services"
+              | "travel_agencies_tour_operators"
+              | "truck_stop_iteration"
+              | "truck_utility_trailer_rentals"
+              | "typesetting_plate_making_and_related_services"
+              | "typewriter_stores"
+              | "u_s_federal_government_agencies_or_departments"
+              | "uniforms_commercial_clothing"
+              | "used_merchandise_and_secondhand_stores"
+              | "utilities"
+              | "variety_stores"
+              | "veterinary_services"
+              | "video_amusement_game_supplies"
+              | "video_game_arcades"
+              | "video_tape_rental_stores"
+              | "vocational_trade_schools"
+              | "watch_jewelry_repair"
+              | "welding_repair"
+              | "wholesale_clubs"
+              | "wig_and_toupee_stores"
+              | "wires_money_orders"
+              | "womens_accessory_and_specialty_shops"
+              | "womens_ready_to_wear_stores"
+              | "wrecking_and_salvage_yards"
+            )[];
+            spending_limits?: {
+              amount: number;
+              categories?: (
+                | "ac_refrigeration_repair"
+                | "accounting_bookkeeping_services"
+                | "advertising_services"
+                | "agricultural_cooperative"
+                | "airlines_air_carriers"
+                | "airports_flying_fields"
+                | "ambulance_services"
+                | "amusement_parks_carnivals"
+                | "antique_reproductions"
+                | "antique_shops"
+                | "aquariums"
+                | "architectural_surveying_services"
+                | "art_dealers_and_galleries"
+                | "artists_supply_and_craft_shops"
+                | "auto_and_home_supply_stores"
+                | "auto_body_repair_shops"
+                | "auto_paint_shops"
+                | "auto_service_shops"
+                | "automated_cash_disburse"
+                | "automated_fuel_dispensers"
+                | "automobile_associations"
+                | "automotive_parts_and_accessories_stores"
+                | "automotive_tire_stores"
+                | "bail_and_bond_payments"
+                | "bakeries"
+                | "bands_orchestras"
+                | "barber_and_beauty_shops"
+                | "betting_casino_gambling"
+                | "bicycle_shops"
+                | "billiard_pool_establishments"
+                | "boat_dealers"
+                | "boat_rentals_and_leases"
+                | "book_stores"
+                | "books_periodicals_and_newspapers"
+                | "bowling_alleys"
+                | "bus_lines"
+                | "business_secretarial_schools"
+                | "buying_shopping_services"
+                | "cable_satellite_and_other_pay_television_and_radio"
+                | "camera_and_photographic_supply_stores"
+                | "candy_nut_and_confectionery_stores"
+                | "car_and_truck_dealers_new_used"
+                | "car_and_truck_dealers_used_only"
+                | "car_rental_agencies"
+                | "car_washes"
+                | "carpentry_services"
+                | "carpet_upholstery_cleaning"
+                | "caterers"
+                | "charitable_and_social_service_organizations_fundraising"
+                | "chemicals_and_allied_products"
+                | "child_care_services"
+                | "childrens_and_infants_wear_stores"
+                | "chiropodists_podiatrists"
+                | "chiropractors"
+                | "cigar_stores_and_stands"
+                | "civic_social_fraternal_associations"
+                | "cleaning_and_maintenance"
+                | "clothing_rental"
+                | "colleges_universities"
+                | "commercial_equipment"
+                | "commercial_footwear"
+                | "commercial_photography_art_and_graphics"
+                | "commuter_transport_and_ferries"
+                | "computer_network_services"
+                | "computer_programming"
+                | "computer_repair"
+                | "computer_software_stores"
+                | "computers_peripherals_and_software"
+                | "concrete_work_services"
+                | "construction_materials"
+                | "consulting_public_relations"
+                | "correspondence_schools"
+                | "cosmetic_stores"
+                | "counseling_services"
+                | "country_clubs"
+                | "courier_services"
+                | "court_costs"
+                | "credit_reporting_agencies"
+                | "cruise_lines"
+                | "dairy_products_stores"
+                | "dance_hall_studios_schools"
+                | "dating_escort_services"
+                | "dentists_orthodontists"
+                | "department_stores"
+                | "detective_agencies"
+                | "digital_goods_applications"
+                | "digital_goods_games"
+                | "digital_goods_large_volume"
+                | "digital_goods_media"
+                | "direct_marketing_catalog_merchant"
+                | "direct_marketing_combination_catalog_and_retail_merchant"
+                | "direct_marketing_inbound_telemarketing"
+                | "direct_marketing_insurance_services"
+                | "direct_marketing_other"
+                | "direct_marketing_outbound_telemarketing"
+                | "direct_marketing_subscription"
+                | "direct_marketing_travel"
+                | "discount_stores"
+                | "doctors"
+                | "door_to_door_sales"
+                | "drapery_window_covering_and_upholstery_stores"
+                | "drinking_places"
+                | "drug_stores_and_pharmacies"
+                | "drugs_drug_proprietaries_and_druggist_sundries"
+                | "dry_cleaners"
+                | "durable_goods"
+                | "duty_free_stores"
+                | "eating_places_restaurants"
+                | "educational_services"
+                | "electric_razor_stores"
+                | "electrical_parts_and_equipment"
+                | "electrical_services"
+                | "electronics_repair_shops"
+                | "electronics_stores"
+                | "elementary_secondary_schools"
+                | "employment_temp_agencies"
+                | "equipment_rental"
+                | "exterminating_services"
+                | "family_clothing_stores"
+                | "fast_food_restaurants"
+                | "financial_institutions"
+                | "fines_government_administrative_entities"
+                | "fireplace_fireplace_screens_and_accessories_stores"
+                | "floor_covering_stores"
+                | "florists"
+                | "florists_supplies_nursery_stock_and_flowers"
+                | "freezer_and_locker_meat_provisioners"
+                | "fuel_dealers_non_automotive"
+                | "funeral_services_crematories"
+                | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+                | "furniture_repair_refinishing"
+                | "furriers_and_fur_shops"
+                | "general_services"
+                | "gift_card_novelty_and_souvenir_shops"
+                | "glass_paint_and_wallpaper_stores"
+                | "glassware_crystal_stores"
+                | "golf_courses_public"
+                | "government_services"
+                | "grocery_stores_supermarkets"
+                | "hardware_equipment_and_supplies"
+                | "hardware_stores"
+                | "health_and_beauty_spas"
+                | "hearing_aids_sales_and_supplies"
+                | "heating_plumbing_a_c"
+                | "hobby_toy_and_game_shops"
+                | "home_supply_warehouse_stores"
+                | "hospitals"
+                | "hotels_motels_and_resorts"
+                | "household_appliance_stores"
+                | "industrial_supplies"
+                | "information_retrieval_services"
+                | "insurance_default"
+                | "insurance_underwriting_premiums"
+                | "intra_company_purchases"
+                | "jewelry_stores_watches_clocks_and_silverware_stores"
+                | "landscaping_services"
+                | "laundries"
+                | "laundry_cleaning_services"
+                | "legal_services_attorneys"
+                | "luggage_and_leather_goods_stores"
+                | "lumber_building_materials_stores"
+                | "manual_cash_disburse"
+                | "marinas_service_and_supplies"
+                | "masonry_stonework_and_plaster"
+                | "massage_parlors"
+                | "medical_and_dental_labs"
+                | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+                | "medical_services"
+                | "membership_organizations"
+                | "mens_and_boys_clothing_and_accessories_stores"
+                | "mens_womens_clothing_stores"
+                | "metal_service_centers"
+                | "miscellaneous"
+                | "miscellaneous_apparel_and_accessory_shops"
+                | "miscellaneous_auto_dealers"
+                | "miscellaneous_business_services"
+                | "miscellaneous_food_stores"
+                | "miscellaneous_general_merchandise"
+                | "miscellaneous_general_services"
+                | "miscellaneous_home_furnishing_specialty_stores"
+                | "miscellaneous_publishing_and_printing"
+                | "miscellaneous_recreation_services"
+                | "miscellaneous_repair_shops"
+                | "miscellaneous_specialty_retail"
+                | "mobile_home_dealers"
+                | "motion_picture_theaters"
+                | "motor_freight_carriers_and_trucking"
+                | "motor_homes_dealers"
+                | "motor_vehicle_supplies_and_new_parts"
+                | "motorcycle_shops_and_dealers"
+                | "motorcycle_shops_dealers"
+                | "music_stores_musical_instruments_pianos_and_sheet_music"
+                | "news_dealers_and_newsstands"
+                | "non_fi_money_orders"
+                | "non_fi_stored_value_card_purchase_load"
+                | "nondurable_goods"
+                | "nurseries_lawn_and_garden_supply_stores"
+                | "nursing_personal_care"
+                | "office_and_commercial_furniture"
+                | "opticians_eyeglasses"
+                | "optometrists_ophthalmologist"
+                | "orthopedic_goods_prosthetic_devices"
+                | "osteopaths"
+                | "package_stores_beer_wine_and_liquor"
+                | "paints_varnishes_and_supplies"
+                | "parking_lots_garages"
+                | "passenger_railways"
+                | "pawn_shops"
+                | "pet_shops_pet_food_and_supplies"
+                | "petroleum_and_petroleum_products"
+                | "photo_developing"
+                | "photographic_photocopy_microfilm_equipment_and_supplies"
+                | "photographic_studios"
+                | "picture_video_production"
+                | "piece_goods_notions_and_other_dry_goods"
+                | "plumbing_heating_equipment_and_supplies"
+                | "political_organizations"
+                | "postal_services_government_only"
+                | "precious_stones_and_metals_watches_and_jewelry"
+                | "professional_services"
+                | "public_warehousing_and_storage"
+                | "quick_copy_repro_and_blueprint"
+                | "railroads"
+                | "real_estate_agents_and_managers_rentals"
+                | "record_stores"
+                | "recreational_vehicle_rentals"
+                | "religious_goods_stores"
+                | "religious_organizations"
+                | "roofing_siding_sheet_metal"
+                | "secretarial_support_services"
+                | "security_brokers_dealers"
+                | "service_stations"
+                | "sewing_needlework_fabric_and_piece_goods_stores"
+                | "shoe_repair_hat_cleaning"
+                | "shoe_stores"
+                | "small_appliance_repair"
+                | "snowmobile_dealers"
+                | "special_trade_services"
+                | "specialty_cleaning"
+                | "sporting_goods_stores"
+                | "sporting_recreation_camps"
+                | "sports_and_riding_apparel_stores"
+                | "sports_clubs_fields"
+                | "stamp_and_coin_stores"
+                | "stationary_office_supplies_printing_and_writing_paper"
+                | "stationery_stores_office_and_school_supply_stores"
+                | "swimming_pools_sales"
+                | "t_ui_travel_germany"
+                | "tailors_alterations"
+                | "tax_payments_government_agencies"
+                | "tax_preparation_services"
+                | "taxicabs_limousines"
+                | "telecommunication_equipment_and_telephone_sales"
+                | "telecommunication_services"
+                | "telegraph_services"
+                | "tent_and_awning_shops"
+                | "testing_laboratories"
+                | "theatrical_ticket_agencies"
+                | "timeshares"
+                | "tire_retreading_and_repair"
+                | "tolls_bridge_fees"
+                | "tourist_attractions_and_exhibits"
+                | "towing_services"
+                | "trailer_parks_campgrounds"
+                | "transportation_services"
+                | "travel_agencies_tour_operators"
+                | "truck_stop_iteration"
+                | "truck_utility_trailer_rentals"
+                | "typesetting_plate_making_and_related_services"
+                | "typewriter_stores"
+                | "u_s_federal_government_agencies_or_departments"
+                | "uniforms_commercial_clothing"
+                | "used_merchandise_and_secondhand_stores"
+                | "utilities"
+                | "variety_stores"
+                | "veterinary_services"
+                | "video_amusement_game_supplies"
+                | "video_game_arcades"
+                | "video_tape_rental_stores"
+                | "vocational_trade_schools"
+                | "watch_jewelry_repair"
+                | "welding_repair"
+                | "wholesale_clubs"
+                | "wig_and_toupee_stores"
+                | "wires_money_orders"
+                | "womens_accessory_and_specialty_shops"
+                | "womens_ready_to_wear_stores"
+                | "wrecking_and_salvage_yards"
+              )[];
+              interval:
+                | "all_time"
+                | "daily"
+                | "monthly"
+                | "per_authorization"
+                | "weekly"
+                | "yearly";
+            }[];
+          };
+          /**
+           * Whether authorizations can be approved on this card. Defaults to `inactive`.
+           */
+          status?: "active" | "inactive";
+          /**
+           * The type of card to issue. Possible values are `physical` or `virtual`.
+           */
+          type: "physical" | "virtual";
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -7421,6 +15150,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -7443,6 +15175,911 @@ export interface paths {
       parameters: {
         path: {
           card: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Reason why the `status` of this card is `canceled`.
+           */
+          cancellation_reason?: "lost" | "stolen";
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Spending rules that give you some control over how your cards can be used. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details.
+           */
+          spending_controls?: {
+            allowed_categories?: (
+              | "ac_refrigeration_repair"
+              | "accounting_bookkeeping_services"
+              | "advertising_services"
+              | "agricultural_cooperative"
+              | "airlines_air_carriers"
+              | "airports_flying_fields"
+              | "ambulance_services"
+              | "amusement_parks_carnivals"
+              | "antique_reproductions"
+              | "antique_shops"
+              | "aquariums"
+              | "architectural_surveying_services"
+              | "art_dealers_and_galleries"
+              | "artists_supply_and_craft_shops"
+              | "auto_and_home_supply_stores"
+              | "auto_body_repair_shops"
+              | "auto_paint_shops"
+              | "auto_service_shops"
+              | "automated_cash_disburse"
+              | "automated_fuel_dispensers"
+              | "automobile_associations"
+              | "automotive_parts_and_accessories_stores"
+              | "automotive_tire_stores"
+              | "bail_and_bond_payments"
+              | "bakeries"
+              | "bands_orchestras"
+              | "barber_and_beauty_shops"
+              | "betting_casino_gambling"
+              | "bicycle_shops"
+              | "billiard_pool_establishments"
+              | "boat_dealers"
+              | "boat_rentals_and_leases"
+              | "book_stores"
+              | "books_periodicals_and_newspapers"
+              | "bowling_alleys"
+              | "bus_lines"
+              | "business_secretarial_schools"
+              | "buying_shopping_services"
+              | "cable_satellite_and_other_pay_television_and_radio"
+              | "camera_and_photographic_supply_stores"
+              | "candy_nut_and_confectionery_stores"
+              | "car_and_truck_dealers_new_used"
+              | "car_and_truck_dealers_used_only"
+              | "car_rental_agencies"
+              | "car_washes"
+              | "carpentry_services"
+              | "carpet_upholstery_cleaning"
+              | "caterers"
+              | "charitable_and_social_service_organizations_fundraising"
+              | "chemicals_and_allied_products"
+              | "child_care_services"
+              | "childrens_and_infants_wear_stores"
+              | "chiropodists_podiatrists"
+              | "chiropractors"
+              | "cigar_stores_and_stands"
+              | "civic_social_fraternal_associations"
+              | "cleaning_and_maintenance"
+              | "clothing_rental"
+              | "colleges_universities"
+              | "commercial_equipment"
+              | "commercial_footwear"
+              | "commercial_photography_art_and_graphics"
+              | "commuter_transport_and_ferries"
+              | "computer_network_services"
+              | "computer_programming"
+              | "computer_repair"
+              | "computer_software_stores"
+              | "computers_peripherals_and_software"
+              | "concrete_work_services"
+              | "construction_materials"
+              | "consulting_public_relations"
+              | "correspondence_schools"
+              | "cosmetic_stores"
+              | "counseling_services"
+              | "country_clubs"
+              | "courier_services"
+              | "court_costs"
+              | "credit_reporting_agencies"
+              | "cruise_lines"
+              | "dairy_products_stores"
+              | "dance_hall_studios_schools"
+              | "dating_escort_services"
+              | "dentists_orthodontists"
+              | "department_stores"
+              | "detective_agencies"
+              | "digital_goods_applications"
+              | "digital_goods_games"
+              | "digital_goods_large_volume"
+              | "digital_goods_media"
+              | "direct_marketing_catalog_merchant"
+              | "direct_marketing_combination_catalog_and_retail_merchant"
+              | "direct_marketing_inbound_telemarketing"
+              | "direct_marketing_insurance_services"
+              | "direct_marketing_other"
+              | "direct_marketing_outbound_telemarketing"
+              | "direct_marketing_subscription"
+              | "direct_marketing_travel"
+              | "discount_stores"
+              | "doctors"
+              | "door_to_door_sales"
+              | "drapery_window_covering_and_upholstery_stores"
+              | "drinking_places"
+              | "drug_stores_and_pharmacies"
+              | "drugs_drug_proprietaries_and_druggist_sundries"
+              | "dry_cleaners"
+              | "durable_goods"
+              | "duty_free_stores"
+              | "eating_places_restaurants"
+              | "educational_services"
+              | "electric_razor_stores"
+              | "electrical_parts_and_equipment"
+              | "electrical_services"
+              | "electronics_repair_shops"
+              | "electronics_stores"
+              | "elementary_secondary_schools"
+              | "employment_temp_agencies"
+              | "equipment_rental"
+              | "exterminating_services"
+              | "family_clothing_stores"
+              | "fast_food_restaurants"
+              | "financial_institutions"
+              | "fines_government_administrative_entities"
+              | "fireplace_fireplace_screens_and_accessories_stores"
+              | "floor_covering_stores"
+              | "florists"
+              | "florists_supplies_nursery_stock_and_flowers"
+              | "freezer_and_locker_meat_provisioners"
+              | "fuel_dealers_non_automotive"
+              | "funeral_services_crematories"
+              | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+              | "furniture_repair_refinishing"
+              | "furriers_and_fur_shops"
+              | "general_services"
+              | "gift_card_novelty_and_souvenir_shops"
+              | "glass_paint_and_wallpaper_stores"
+              | "glassware_crystal_stores"
+              | "golf_courses_public"
+              | "government_services"
+              | "grocery_stores_supermarkets"
+              | "hardware_equipment_and_supplies"
+              | "hardware_stores"
+              | "health_and_beauty_spas"
+              | "hearing_aids_sales_and_supplies"
+              | "heating_plumbing_a_c"
+              | "hobby_toy_and_game_shops"
+              | "home_supply_warehouse_stores"
+              | "hospitals"
+              | "hotels_motels_and_resorts"
+              | "household_appliance_stores"
+              | "industrial_supplies"
+              | "information_retrieval_services"
+              | "insurance_default"
+              | "insurance_underwriting_premiums"
+              | "intra_company_purchases"
+              | "jewelry_stores_watches_clocks_and_silverware_stores"
+              | "landscaping_services"
+              | "laundries"
+              | "laundry_cleaning_services"
+              | "legal_services_attorneys"
+              | "luggage_and_leather_goods_stores"
+              | "lumber_building_materials_stores"
+              | "manual_cash_disburse"
+              | "marinas_service_and_supplies"
+              | "masonry_stonework_and_plaster"
+              | "massage_parlors"
+              | "medical_and_dental_labs"
+              | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+              | "medical_services"
+              | "membership_organizations"
+              | "mens_and_boys_clothing_and_accessories_stores"
+              | "mens_womens_clothing_stores"
+              | "metal_service_centers"
+              | "miscellaneous"
+              | "miscellaneous_apparel_and_accessory_shops"
+              | "miscellaneous_auto_dealers"
+              | "miscellaneous_business_services"
+              | "miscellaneous_food_stores"
+              | "miscellaneous_general_merchandise"
+              | "miscellaneous_general_services"
+              | "miscellaneous_home_furnishing_specialty_stores"
+              | "miscellaneous_publishing_and_printing"
+              | "miscellaneous_recreation_services"
+              | "miscellaneous_repair_shops"
+              | "miscellaneous_specialty_retail"
+              | "mobile_home_dealers"
+              | "motion_picture_theaters"
+              | "motor_freight_carriers_and_trucking"
+              | "motor_homes_dealers"
+              | "motor_vehicle_supplies_and_new_parts"
+              | "motorcycle_shops_and_dealers"
+              | "motorcycle_shops_dealers"
+              | "music_stores_musical_instruments_pianos_and_sheet_music"
+              | "news_dealers_and_newsstands"
+              | "non_fi_money_orders"
+              | "non_fi_stored_value_card_purchase_load"
+              | "nondurable_goods"
+              | "nurseries_lawn_and_garden_supply_stores"
+              | "nursing_personal_care"
+              | "office_and_commercial_furniture"
+              | "opticians_eyeglasses"
+              | "optometrists_ophthalmologist"
+              | "orthopedic_goods_prosthetic_devices"
+              | "osteopaths"
+              | "package_stores_beer_wine_and_liquor"
+              | "paints_varnishes_and_supplies"
+              | "parking_lots_garages"
+              | "passenger_railways"
+              | "pawn_shops"
+              | "pet_shops_pet_food_and_supplies"
+              | "petroleum_and_petroleum_products"
+              | "photo_developing"
+              | "photographic_photocopy_microfilm_equipment_and_supplies"
+              | "photographic_studios"
+              | "picture_video_production"
+              | "piece_goods_notions_and_other_dry_goods"
+              | "plumbing_heating_equipment_and_supplies"
+              | "political_organizations"
+              | "postal_services_government_only"
+              | "precious_stones_and_metals_watches_and_jewelry"
+              | "professional_services"
+              | "public_warehousing_and_storage"
+              | "quick_copy_repro_and_blueprint"
+              | "railroads"
+              | "real_estate_agents_and_managers_rentals"
+              | "record_stores"
+              | "recreational_vehicle_rentals"
+              | "religious_goods_stores"
+              | "religious_organizations"
+              | "roofing_siding_sheet_metal"
+              | "secretarial_support_services"
+              | "security_brokers_dealers"
+              | "service_stations"
+              | "sewing_needlework_fabric_and_piece_goods_stores"
+              | "shoe_repair_hat_cleaning"
+              | "shoe_stores"
+              | "small_appliance_repair"
+              | "snowmobile_dealers"
+              | "special_trade_services"
+              | "specialty_cleaning"
+              | "sporting_goods_stores"
+              | "sporting_recreation_camps"
+              | "sports_and_riding_apparel_stores"
+              | "sports_clubs_fields"
+              | "stamp_and_coin_stores"
+              | "stationary_office_supplies_printing_and_writing_paper"
+              | "stationery_stores_office_and_school_supply_stores"
+              | "swimming_pools_sales"
+              | "t_ui_travel_germany"
+              | "tailors_alterations"
+              | "tax_payments_government_agencies"
+              | "tax_preparation_services"
+              | "taxicabs_limousines"
+              | "telecommunication_equipment_and_telephone_sales"
+              | "telecommunication_services"
+              | "telegraph_services"
+              | "tent_and_awning_shops"
+              | "testing_laboratories"
+              | "theatrical_ticket_agencies"
+              | "timeshares"
+              | "tire_retreading_and_repair"
+              | "tolls_bridge_fees"
+              | "tourist_attractions_and_exhibits"
+              | "towing_services"
+              | "trailer_parks_campgrounds"
+              | "transportation_services"
+              | "travel_agencies_tour_operators"
+              | "truck_stop_iteration"
+              | "truck_utility_trailer_rentals"
+              | "typesetting_plate_making_and_related_services"
+              | "typewriter_stores"
+              | "u_s_federal_government_agencies_or_departments"
+              | "uniforms_commercial_clothing"
+              | "used_merchandise_and_secondhand_stores"
+              | "utilities"
+              | "variety_stores"
+              | "veterinary_services"
+              | "video_amusement_game_supplies"
+              | "video_game_arcades"
+              | "video_tape_rental_stores"
+              | "vocational_trade_schools"
+              | "watch_jewelry_repair"
+              | "welding_repair"
+              | "wholesale_clubs"
+              | "wig_and_toupee_stores"
+              | "wires_money_orders"
+              | "womens_accessory_and_specialty_shops"
+              | "womens_ready_to_wear_stores"
+              | "wrecking_and_salvage_yards"
+            )[];
+            blocked_categories?: (
+              | "ac_refrigeration_repair"
+              | "accounting_bookkeeping_services"
+              | "advertising_services"
+              | "agricultural_cooperative"
+              | "airlines_air_carriers"
+              | "airports_flying_fields"
+              | "ambulance_services"
+              | "amusement_parks_carnivals"
+              | "antique_reproductions"
+              | "antique_shops"
+              | "aquariums"
+              | "architectural_surveying_services"
+              | "art_dealers_and_galleries"
+              | "artists_supply_and_craft_shops"
+              | "auto_and_home_supply_stores"
+              | "auto_body_repair_shops"
+              | "auto_paint_shops"
+              | "auto_service_shops"
+              | "automated_cash_disburse"
+              | "automated_fuel_dispensers"
+              | "automobile_associations"
+              | "automotive_parts_and_accessories_stores"
+              | "automotive_tire_stores"
+              | "bail_and_bond_payments"
+              | "bakeries"
+              | "bands_orchestras"
+              | "barber_and_beauty_shops"
+              | "betting_casino_gambling"
+              | "bicycle_shops"
+              | "billiard_pool_establishments"
+              | "boat_dealers"
+              | "boat_rentals_and_leases"
+              | "book_stores"
+              | "books_periodicals_and_newspapers"
+              | "bowling_alleys"
+              | "bus_lines"
+              | "business_secretarial_schools"
+              | "buying_shopping_services"
+              | "cable_satellite_and_other_pay_television_and_radio"
+              | "camera_and_photographic_supply_stores"
+              | "candy_nut_and_confectionery_stores"
+              | "car_and_truck_dealers_new_used"
+              | "car_and_truck_dealers_used_only"
+              | "car_rental_agencies"
+              | "car_washes"
+              | "carpentry_services"
+              | "carpet_upholstery_cleaning"
+              | "caterers"
+              | "charitable_and_social_service_organizations_fundraising"
+              | "chemicals_and_allied_products"
+              | "child_care_services"
+              | "childrens_and_infants_wear_stores"
+              | "chiropodists_podiatrists"
+              | "chiropractors"
+              | "cigar_stores_and_stands"
+              | "civic_social_fraternal_associations"
+              | "cleaning_and_maintenance"
+              | "clothing_rental"
+              | "colleges_universities"
+              | "commercial_equipment"
+              | "commercial_footwear"
+              | "commercial_photography_art_and_graphics"
+              | "commuter_transport_and_ferries"
+              | "computer_network_services"
+              | "computer_programming"
+              | "computer_repair"
+              | "computer_software_stores"
+              | "computers_peripherals_and_software"
+              | "concrete_work_services"
+              | "construction_materials"
+              | "consulting_public_relations"
+              | "correspondence_schools"
+              | "cosmetic_stores"
+              | "counseling_services"
+              | "country_clubs"
+              | "courier_services"
+              | "court_costs"
+              | "credit_reporting_agencies"
+              | "cruise_lines"
+              | "dairy_products_stores"
+              | "dance_hall_studios_schools"
+              | "dating_escort_services"
+              | "dentists_orthodontists"
+              | "department_stores"
+              | "detective_agencies"
+              | "digital_goods_applications"
+              | "digital_goods_games"
+              | "digital_goods_large_volume"
+              | "digital_goods_media"
+              | "direct_marketing_catalog_merchant"
+              | "direct_marketing_combination_catalog_and_retail_merchant"
+              | "direct_marketing_inbound_telemarketing"
+              | "direct_marketing_insurance_services"
+              | "direct_marketing_other"
+              | "direct_marketing_outbound_telemarketing"
+              | "direct_marketing_subscription"
+              | "direct_marketing_travel"
+              | "discount_stores"
+              | "doctors"
+              | "door_to_door_sales"
+              | "drapery_window_covering_and_upholstery_stores"
+              | "drinking_places"
+              | "drug_stores_and_pharmacies"
+              | "drugs_drug_proprietaries_and_druggist_sundries"
+              | "dry_cleaners"
+              | "durable_goods"
+              | "duty_free_stores"
+              | "eating_places_restaurants"
+              | "educational_services"
+              | "electric_razor_stores"
+              | "electrical_parts_and_equipment"
+              | "electrical_services"
+              | "electronics_repair_shops"
+              | "electronics_stores"
+              | "elementary_secondary_schools"
+              | "employment_temp_agencies"
+              | "equipment_rental"
+              | "exterminating_services"
+              | "family_clothing_stores"
+              | "fast_food_restaurants"
+              | "financial_institutions"
+              | "fines_government_administrative_entities"
+              | "fireplace_fireplace_screens_and_accessories_stores"
+              | "floor_covering_stores"
+              | "florists"
+              | "florists_supplies_nursery_stock_and_flowers"
+              | "freezer_and_locker_meat_provisioners"
+              | "fuel_dealers_non_automotive"
+              | "funeral_services_crematories"
+              | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+              | "furniture_repair_refinishing"
+              | "furriers_and_fur_shops"
+              | "general_services"
+              | "gift_card_novelty_and_souvenir_shops"
+              | "glass_paint_and_wallpaper_stores"
+              | "glassware_crystal_stores"
+              | "golf_courses_public"
+              | "government_services"
+              | "grocery_stores_supermarkets"
+              | "hardware_equipment_and_supplies"
+              | "hardware_stores"
+              | "health_and_beauty_spas"
+              | "hearing_aids_sales_and_supplies"
+              | "heating_plumbing_a_c"
+              | "hobby_toy_and_game_shops"
+              | "home_supply_warehouse_stores"
+              | "hospitals"
+              | "hotels_motels_and_resorts"
+              | "household_appliance_stores"
+              | "industrial_supplies"
+              | "information_retrieval_services"
+              | "insurance_default"
+              | "insurance_underwriting_premiums"
+              | "intra_company_purchases"
+              | "jewelry_stores_watches_clocks_and_silverware_stores"
+              | "landscaping_services"
+              | "laundries"
+              | "laundry_cleaning_services"
+              | "legal_services_attorneys"
+              | "luggage_and_leather_goods_stores"
+              | "lumber_building_materials_stores"
+              | "manual_cash_disburse"
+              | "marinas_service_and_supplies"
+              | "masonry_stonework_and_plaster"
+              | "massage_parlors"
+              | "medical_and_dental_labs"
+              | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+              | "medical_services"
+              | "membership_organizations"
+              | "mens_and_boys_clothing_and_accessories_stores"
+              | "mens_womens_clothing_stores"
+              | "metal_service_centers"
+              | "miscellaneous"
+              | "miscellaneous_apparel_and_accessory_shops"
+              | "miscellaneous_auto_dealers"
+              | "miscellaneous_business_services"
+              | "miscellaneous_food_stores"
+              | "miscellaneous_general_merchandise"
+              | "miscellaneous_general_services"
+              | "miscellaneous_home_furnishing_specialty_stores"
+              | "miscellaneous_publishing_and_printing"
+              | "miscellaneous_recreation_services"
+              | "miscellaneous_repair_shops"
+              | "miscellaneous_specialty_retail"
+              | "mobile_home_dealers"
+              | "motion_picture_theaters"
+              | "motor_freight_carriers_and_trucking"
+              | "motor_homes_dealers"
+              | "motor_vehicle_supplies_and_new_parts"
+              | "motorcycle_shops_and_dealers"
+              | "motorcycle_shops_dealers"
+              | "music_stores_musical_instruments_pianos_and_sheet_music"
+              | "news_dealers_and_newsstands"
+              | "non_fi_money_orders"
+              | "non_fi_stored_value_card_purchase_load"
+              | "nondurable_goods"
+              | "nurseries_lawn_and_garden_supply_stores"
+              | "nursing_personal_care"
+              | "office_and_commercial_furniture"
+              | "opticians_eyeglasses"
+              | "optometrists_ophthalmologist"
+              | "orthopedic_goods_prosthetic_devices"
+              | "osteopaths"
+              | "package_stores_beer_wine_and_liquor"
+              | "paints_varnishes_and_supplies"
+              | "parking_lots_garages"
+              | "passenger_railways"
+              | "pawn_shops"
+              | "pet_shops_pet_food_and_supplies"
+              | "petroleum_and_petroleum_products"
+              | "photo_developing"
+              | "photographic_photocopy_microfilm_equipment_and_supplies"
+              | "photographic_studios"
+              | "picture_video_production"
+              | "piece_goods_notions_and_other_dry_goods"
+              | "plumbing_heating_equipment_and_supplies"
+              | "political_organizations"
+              | "postal_services_government_only"
+              | "precious_stones_and_metals_watches_and_jewelry"
+              | "professional_services"
+              | "public_warehousing_and_storage"
+              | "quick_copy_repro_and_blueprint"
+              | "railroads"
+              | "real_estate_agents_and_managers_rentals"
+              | "record_stores"
+              | "recreational_vehicle_rentals"
+              | "religious_goods_stores"
+              | "religious_organizations"
+              | "roofing_siding_sheet_metal"
+              | "secretarial_support_services"
+              | "security_brokers_dealers"
+              | "service_stations"
+              | "sewing_needlework_fabric_and_piece_goods_stores"
+              | "shoe_repair_hat_cleaning"
+              | "shoe_stores"
+              | "small_appliance_repair"
+              | "snowmobile_dealers"
+              | "special_trade_services"
+              | "specialty_cleaning"
+              | "sporting_goods_stores"
+              | "sporting_recreation_camps"
+              | "sports_and_riding_apparel_stores"
+              | "sports_clubs_fields"
+              | "stamp_and_coin_stores"
+              | "stationary_office_supplies_printing_and_writing_paper"
+              | "stationery_stores_office_and_school_supply_stores"
+              | "swimming_pools_sales"
+              | "t_ui_travel_germany"
+              | "tailors_alterations"
+              | "tax_payments_government_agencies"
+              | "tax_preparation_services"
+              | "taxicabs_limousines"
+              | "telecommunication_equipment_and_telephone_sales"
+              | "telecommunication_services"
+              | "telegraph_services"
+              | "tent_and_awning_shops"
+              | "testing_laboratories"
+              | "theatrical_ticket_agencies"
+              | "timeshares"
+              | "tire_retreading_and_repair"
+              | "tolls_bridge_fees"
+              | "tourist_attractions_and_exhibits"
+              | "towing_services"
+              | "trailer_parks_campgrounds"
+              | "transportation_services"
+              | "travel_agencies_tour_operators"
+              | "truck_stop_iteration"
+              | "truck_utility_trailer_rentals"
+              | "typesetting_plate_making_and_related_services"
+              | "typewriter_stores"
+              | "u_s_federal_government_agencies_or_departments"
+              | "uniforms_commercial_clothing"
+              | "used_merchandise_and_secondhand_stores"
+              | "utilities"
+              | "variety_stores"
+              | "veterinary_services"
+              | "video_amusement_game_supplies"
+              | "video_game_arcades"
+              | "video_tape_rental_stores"
+              | "vocational_trade_schools"
+              | "watch_jewelry_repair"
+              | "welding_repair"
+              | "wholesale_clubs"
+              | "wig_and_toupee_stores"
+              | "wires_money_orders"
+              | "womens_accessory_and_specialty_shops"
+              | "womens_ready_to_wear_stores"
+              | "wrecking_and_salvage_yards"
+            )[];
+            spending_limits?: {
+              amount: number;
+              categories?: (
+                | "ac_refrigeration_repair"
+                | "accounting_bookkeeping_services"
+                | "advertising_services"
+                | "agricultural_cooperative"
+                | "airlines_air_carriers"
+                | "airports_flying_fields"
+                | "ambulance_services"
+                | "amusement_parks_carnivals"
+                | "antique_reproductions"
+                | "antique_shops"
+                | "aquariums"
+                | "architectural_surveying_services"
+                | "art_dealers_and_galleries"
+                | "artists_supply_and_craft_shops"
+                | "auto_and_home_supply_stores"
+                | "auto_body_repair_shops"
+                | "auto_paint_shops"
+                | "auto_service_shops"
+                | "automated_cash_disburse"
+                | "automated_fuel_dispensers"
+                | "automobile_associations"
+                | "automotive_parts_and_accessories_stores"
+                | "automotive_tire_stores"
+                | "bail_and_bond_payments"
+                | "bakeries"
+                | "bands_orchestras"
+                | "barber_and_beauty_shops"
+                | "betting_casino_gambling"
+                | "bicycle_shops"
+                | "billiard_pool_establishments"
+                | "boat_dealers"
+                | "boat_rentals_and_leases"
+                | "book_stores"
+                | "books_periodicals_and_newspapers"
+                | "bowling_alleys"
+                | "bus_lines"
+                | "business_secretarial_schools"
+                | "buying_shopping_services"
+                | "cable_satellite_and_other_pay_television_and_radio"
+                | "camera_and_photographic_supply_stores"
+                | "candy_nut_and_confectionery_stores"
+                | "car_and_truck_dealers_new_used"
+                | "car_and_truck_dealers_used_only"
+                | "car_rental_agencies"
+                | "car_washes"
+                | "carpentry_services"
+                | "carpet_upholstery_cleaning"
+                | "caterers"
+                | "charitable_and_social_service_organizations_fundraising"
+                | "chemicals_and_allied_products"
+                | "child_care_services"
+                | "childrens_and_infants_wear_stores"
+                | "chiropodists_podiatrists"
+                | "chiropractors"
+                | "cigar_stores_and_stands"
+                | "civic_social_fraternal_associations"
+                | "cleaning_and_maintenance"
+                | "clothing_rental"
+                | "colleges_universities"
+                | "commercial_equipment"
+                | "commercial_footwear"
+                | "commercial_photography_art_and_graphics"
+                | "commuter_transport_and_ferries"
+                | "computer_network_services"
+                | "computer_programming"
+                | "computer_repair"
+                | "computer_software_stores"
+                | "computers_peripherals_and_software"
+                | "concrete_work_services"
+                | "construction_materials"
+                | "consulting_public_relations"
+                | "correspondence_schools"
+                | "cosmetic_stores"
+                | "counseling_services"
+                | "country_clubs"
+                | "courier_services"
+                | "court_costs"
+                | "credit_reporting_agencies"
+                | "cruise_lines"
+                | "dairy_products_stores"
+                | "dance_hall_studios_schools"
+                | "dating_escort_services"
+                | "dentists_orthodontists"
+                | "department_stores"
+                | "detective_agencies"
+                | "digital_goods_applications"
+                | "digital_goods_games"
+                | "digital_goods_large_volume"
+                | "digital_goods_media"
+                | "direct_marketing_catalog_merchant"
+                | "direct_marketing_combination_catalog_and_retail_merchant"
+                | "direct_marketing_inbound_telemarketing"
+                | "direct_marketing_insurance_services"
+                | "direct_marketing_other"
+                | "direct_marketing_outbound_telemarketing"
+                | "direct_marketing_subscription"
+                | "direct_marketing_travel"
+                | "discount_stores"
+                | "doctors"
+                | "door_to_door_sales"
+                | "drapery_window_covering_and_upholstery_stores"
+                | "drinking_places"
+                | "drug_stores_and_pharmacies"
+                | "drugs_drug_proprietaries_and_druggist_sundries"
+                | "dry_cleaners"
+                | "durable_goods"
+                | "duty_free_stores"
+                | "eating_places_restaurants"
+                | "educational_services"
+                | "electric_razor_stores"
+                | "electrical_parts_and_equipment"
+                | "electrical_services"
+                | "electronics_repair_shops"
+                | "electronics_stores"
+                | "elementary_secondary_schools"
+                | "employment_temp_agencies"
+                | "equipment_rental"
+                | "exterminating_services"
+                | "family_clothing_stores"
+                | "fast_food_restaurants"
+                | "financial_institutions"
+                | "fines_government_administrative_entities"
+                | "fireplace_fireplace_screens_and_accessories_stores"
+                | "floor_covering_stores"
+                | "florists"
+                | "florists_supplies_nursery_stock_and_flowers"
+                | "freezer_and_locker_meat_provisioners"
+                | "fuel_dealers_non_automotive"
+                | "funeral_services_crematories"
+                | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+                | "furniture_repair_refinishing"
+                | "furriers_and_fur_shops"
+                | "general_services"
+                | "gift_card_novelty_and_souvenir_shops"
+                | "glass_paint_and_wallpaper_stores"
+                | "glassware_crystal_stores"
+                | "golf_courses_public"
+                | "government_services"
+                | "grocery_stores_supermarkets"
+                | "hardware_equipment_and_supplies"
+                | "hardware_stores"
+                | "health_and_beauty_spas"
+                | "hearing_aids_sales_and_supplies"
+                | "heating_plumbing_a_c"
+                | "hobby_toy_and_game_shops"
+                | "home_supply_warehouse_stores"
+                | "hospitals"
+                | "hotels_motels_and_resorts"
+                | "household_appliance_stores"
+                | "industrial_supplies"
+                | "information_retrieval_services"
+                | "insurance_default"
+                | "insurance_underwriting_premiums"
+                | "intra_company_purchases"
+                | "jewelry_stores_watches_clocks_and_silverware_stores"
+                | "landscaping_services"
+                | "laundries"
+                | "laundry_cleaning_services"
+                | "legal_services_attorneys"
+                | "luggage_and_leather_goods_stores"
+                | "lumber_building_materials_stores"
+                | "manual_cash_disburse"
+                | "marinas_service_and_supplies"
+                | "masonry_stonework_and_plaster"
+                | "massage_parlors"
+                | "medical_and_dental_labs"
+                | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+                | "medical_services"
+                | "membership_organizations"
+                | "mens_and_boys_clothing_and_accessories_stores"
+                | "mens_womens_clothing_stores"
+                | "metal_service_centers"
+                | "miscellaneous"
+                | "miscellaneous_apparel_and_accessory_shops"
+                | "miscellaneous_auto_dealers"
+                | "miscellaneous_business_services"
+                | "miscellaneous_food_stores"
+                | "miscellaneous_general_merchandise"
+                | "miscellaneous_general_services"
+                | "miscellaneous_home_furnishing_specialty_stores"
+                | "miscellaneous_publishing_and_printing"
+                | "miscellaneous_recreation_services"
+                | "miscellaneous_repair_shops"
+                | "miscellaneous_specialty_retail"
+                | "mobile_home_dealers"
+                | "motion_picture_theaters"
+                | "motor_freight_carriers_and_trucking"
+                | "motor_homes_dealers"
+                | "motor_vehicle_supplies_and_new_parts"
+                | "motorcycle_shops_and_dealers"
+                | "motorcycle_shops_dealers"
+                | "music_stores_musical_instruments_pianos_and_sheet_music"
+                | "news_dealers_and_newsstands"
+                | "non_fi_money_orders"
+                | "non_fi_stored_value_card_purchase_load"
+                | "nondurable_goods"
+                | "nurseries_lawn_and_garden_supply_stores"
+                | "nursing_personal_care"
+                | "office_and_commercial_furniture"
+                | "opticians_eyeglasses"
+                | "optometrists_ophthalmologist"
+                | "orthopedic_goods_prosthetic_devices"
+                | "osteopaths"
+                | "package_stores_beer_wine_and_liquor"
+                | "paints_varnishes_and_supplies"
+                | "parking_lots_garages"
+                | "passenger_railways"
+                | "pawn_shops"
+                | "pet_shops_pet_food_and_supplies"
+                | "petroleum_and_petroleum_products"
+                | "photo_developing"
+                | "photographic_photocopy_microfilm_equipment_and_supplies"
+                | "photographic_studios"
+                | "picture_video_production"
+                | "piece_goods_notions_and_other_dry_goods"
+                | "plumbing_heating_equipment_and_supplies"
+                | "political_organizations"
+                | "postal_services_government_only"
+                | "precious_stones_and_metals_watches_and_jewelry"
+                | "professional_services"
+                | "public_warehousing_and_storage"
+                | "quick_copy_repro_and_blueprint"
+                | "railroads"
+                | "real_estate_agents_and_managers_rentals"
+                | "record_stores"
+                | "recreational_vehicle_rentals"
+                | "religious_goods_stores"
+                | "religious_organizations"
+                | "roofing_siding_sheet_metal"
+                | "secretarial_support_services"
+                | "security_brokers_dealers"
+                | "service_stations"
+                | "sewing_needlework_fabric_and_piece_goods_stores"
+                | "shoe_repair_hat_cleaning"
+                | "shoe_stores"
+                | "small_appliance_repair"
+                | "snowmobile_dealers"
+                | "special_trade_services"
+                | "specialty_cleaning"
+                | "sporting_goods_stores"
+                | "sporting_recreation_camps"
+                | "sports_and_riding_apparel_stores"
+                | "sports_clubs_fields"
+                | "stamp_and_coin_stores"
+                | "stationary_office_supplies_printing_and_writing_paper"
+                | "stationery_stores_office_and_school_supply_stores"
+                | "swimming_pools_sales"
+                | "t_ui_travel_germany"
+                | "tailors_alterations"
+                | "tax_payments_government_agencies"
+                | "tax_preparation_services"
+                | "taxicabs_limousines"
+                | "telecommunication_equipment_and_telephone_sales"
+                | "telecommunication_services"
+                | "telegraph_services"
+                | "tent_and_awning_shops"
+                | "testing_laboratories"
+                | "theatrical_ticket_agencies"
+                | "timeshares"
+                | "tire_retreading_and_repair"
+                | "tolls_bridge_fees"
+                | "tourist_attractions_and_exhibits"
+                | "towing_services"
+                | "trailer_parks_campgrounds"
+                | "transportation_services"
+                | "travel_agencies_tour_operators"
+                | "truck_stop_iteration"
+                | "truck_utility_trailer_rentals"
+                | "typesetting_plate_making_and_related_services"
+                | "typewriter_stores"
+                | "u_s_federal_government_agencies_or_departments"
+                | "uniforms_commercial_clothing"
+                | "used_merchandise_and_secondhand_stores"
+                | "utilities"
+                | "variety_stores"
+                | "veterinary_services"
+                | "video_amusement_game_supplies"
+                | "video_game_arcades"
+                | "video_tape_rental_stores"
+                | "vocational_trade_schools"
+                | "watch_jewelry_repair"
+                | "welding_repair"
+                | "wholesale_clubs"
+                | "wig_and_toupee_stores"
+                | "wires_money_orders"
+                | "womens_accessory_and_specialty_shops"
+                | "womens_ready_to_wear_stores"
+                | "wrecking_and_salvage_yards"
+              )[];
+              interval:
+                | "all_time"
+                | "daily"
+                | "monthly"
+                | "per_authorization"
+                | "weekly"
+                | "yearly";
+            }[];
+          };
+          /**
+           * Dictates whether authorizations can be approved on this card. If this card is being canceled because it was lost or stolen, this information should be provided as `cancellation_reason`.
+           */
+          status?: "active" | "canceled" | "inactive";
         };
       };
       responses: {
@@ -7486,6 +16123,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -7519,6 +16159,18 @@ export interface paths {
      * <p>Creates an Issuing <code>Dispute</code> object.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -7551,6 +16203,9 @@ export interface paths {
           expand?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -7573,6 +16228,18 @@ export interface paths {
       parameters: {
         path: {
           dispute: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
         };
       };
       responses: {
@@ -7626,6 +16293,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -7672,6 +16342,9 @@ export interface paths {
           settlement: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -7694,6 +16367,18 @@ export interface paths {
       parameters: {
         path: {
           settlement: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
         };
       };
       responses: {
@@ -7755,6 +16440,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -7801,6 +16489,9 @@ export interface paths {
           transaction: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -7823,6 +16514,18 @@ export interface paths {
       parameters: {
         path: {
           transaction: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         };
       };
       responses: {
@@ -7856,6 +16559,9 @@ export interface paths {
         path: {
           mandate: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -7912,6 +16618,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -7957,6 +16666,9 @@ export interface paths {
         path: {
           id: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -8058,6 +16770,9 @@ export interface paths {
           upstream_ids?: string[];
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -8091,6 +16806,60 @@ export interface paths {
      * <p>Creates a new order object.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A coupon code that represents a discount to be applied to this order. Must be one-time duration and in same currency as the order. An order can have multiple coupons.
+           */
+          coupon?: string;
+          /**
+           * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+           */
+          currency: string;
+          /**
+           * The ID of an existing customer to use for this order. If provided, the customer email and shipping address will be used to create the order. Subsequently, the customer will also be charged to pay the order. If `email` or `shipping` are also provided, they will override the values retrieved from the customer object.
+           */
+          customer?: string;
+          /**
+           * The email address of the customer placing the order.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * List of items constituting the order. An order can have up to 25 items.
+           */
+          items?: {
+            amount?: number;
+            currency?: string;
+            description?: string;
+            parent?: string;
+            quantity?: number;
+            type?: "discount" | "shipping" | "sku" | "tax";
+          }[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true.
+           */
+          shipping?: {
+            address: {
+              city?: string;
+              country?: string;
+              line1: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            name: string;
+            phone?: string;
+          };
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -8123,6 +16892,9 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -8145,6 +16917,34 @@ export interface paths {
       parameters: {
         path: {
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A coupon code that represents a discount to be applied to this order. Must be one-time duration and in same currency as the order. An order can have multiple coupons.
+           */
+          coupon?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * The shipping method to select for fulfilling this order. If specified, must be one of the `id`s of a shipping method in the `shipping_methods` array. If specified, will overwrite the existing selected shipping method, updating `items` as necessary.
+           */
+          selected_shipping_method?: string;
+          /**
+           * Tracking information once the order has been fulfilled.
+           */
+          shipping?: { carrier: string; tracking_number: string };
+          /**
+           * Current order status. One of `created`, `paid`, `canceled`, `fulfilled`, or `returned`. More detail in the [Orders Guide](https://stripe.com/docs/orders/guide#understanding-order-statuses).
+           */
+          status?: "canceled" | "created" | "fulfilled" | "paid" | "returned";
         };
       };
       responses: {
@@ -8173,6 +16973,34 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A fee in %s that will be applied to the order and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the `Stripe-Account` header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees).
+           */
+          application_fee?: number;
+          /**
+           * The ID of an existing customer that will be charged for this order. If no customer was attached to the order at creation, either `source` or `customer` is required. Otherwise, the specified customer will be charged instead of the one attached to the order.
+           */
+          customer?: string;
+          /**
+           * The email address of the customer placing the order. Required if not previously specified for the order.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * A [Token](https://stripe.com/docs/api#tokens)'s or a [Source](https://stripe.com/docs/api#sources)'s ID, as returned by [Elements](https://stripe.com/docs/elements). If no customer was attached to the order at creation, either `source` or `customer` is required. Otherwise, the specified source will be charged intead of the customer attached to the order.
+           */
+          source?: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -8197,6 +17025,27 @@ export interface paths {
       parameters: {
         path: {
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * List of items to return.
+           */
+          items?: Partial<
+            {
+              amount?: number;
+              description?: string;
+              parent?: string;
+              quantity?: number;
+              type?: "discount" | "shipping" | "sku" | "tax";
+            }[]
+          > &
+            Partial<"">;
         };
       };
       responses: {
@@ -8254,6 +17103,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -8296,6 +17148,162 @@ export interface paths {
      * is supplied.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+           */
+          amount: number;
+          /**
+           * The amount of the application fee (if any) that will be applied to the
+           * payment and transferred to the application owner's Stripe account. For
+           * more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+           */
+          application_fee_amount?: number;
+          /**
+           * Controls when the funds will be captured from the customer's account.
+           */
+          capture_method?: "automatic" | "manual";
+          /**
+           * Set to `true` to attempt to [confirm](https://stripe.com/docs/api/payment_intents/confirm) this PaymentIntent immediately. This parameter defaults to `false`. When creating and confirming a PaymentIntent at the same time, parameters available in the [confirm](https://stripe.com/docs/api/payment_intents/confirm) API may also be provided.
+           */
+          confirm?: boolean;
+          confirmation_method?: "automatic" | "manual";
+          /**
+           * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+           */
+          currency: string;
+          /**
+           * ID of the Customer this PaymentIntent belongs to, if one exists.
+           *
+           * Payment methods attached to other Customers cannot be used with this PaymentIntent.
+           *
+           * If present in combination with [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage), this PaymentIntent's payment method will be attached to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete.
+           */
+          customer?: string;
+          /**
+           * An arbitrary string attached to the object. Often useful for displaying to users.
+           */
+          description?: string;
+          /**
+           * Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
+           */
+          error_on_requires_action?: boolean;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * ID of the mandate to be used for this payment. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
+           */
+          mandate?: string;
+          /**
+           * This hash contains details about the Mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
+           */
+          mandate_data?: {
+            customer_acceptance: {
+              accepted_at?: number;
+              offline?: { [key: string]: any };
+              online?: { ip_address: string; user_agent: string };
+              type: "offline" | "online";
+            };
+          };
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * Set to `true` to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
+           */
+          off_session?: Partial<boolean> & Partial<"one_off" | "recurring">;
+          /**
+           * The Stripe account ID for which these funds are intended. For details, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+           */
+          on_behalf_of?: string;
+          /**
+           * ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent.
+           *
+           * If this parameter is omitted with `confirm=true`, `customer.default_source` will be attached as this PaymentIntent's payment instrument to improve the migration experience for users of the Charges API. We recommend that you explicitly provide the `payment_method` going forward.
+           */
+          payment_method?: string;
+          /**
+           * Payment-method-specific configuration for this PaymentIntent.
+           */
+          payment_method_options?: {
+            card?: Partial<{
+              installments?: {
+                enabled?: boolean;
+                plan?: Partial<{
+                  count: number;
+                  interval: "month";
+                  type: "fixed_count";
+                }> &
+                  Partial<"">;
+              };
+              request_three_d_secure?: "any" | "automatic";
+            }> &
+              Partial<"">;
+          };
+          /**
+           * The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. If this is not provided, defaults to ["card"].
+           */
+          payment_method_types?: string[];
+          /**
+           * Email address that the receipt for the resulting payment will be sent to.
+           */
+          receipt_email?: string;
+          /**
+           * The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
+           */
+          return_url?: string;
+          /**
+           * Indicates that you intend to make future payments with this PaymentIntent's payment method.
+           *
+           * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+           *
+           * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+           */
+          setup_future_usage?: "off_session" | "on_session";
+          /**
+           * Shipping information for this PaymentIntent.
+           */
+          shipping?: {
+            address: {
+              city?: string;
+              country?: string;
+              line1: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            carrier?: string;
+            name: string;
+            phone?: string;
+            tracking_number?: string;
+          };
+          /**
+           * For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters.
+           */
+          statement_descriptor?: string;
+          /**
+           * Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+           */
+          statement_descriptor_suffix?: string;
+          /**
+           * The parameters used to automatically create a Transfer when the payment succeeds.
+           * For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+           */
+          transfer_data?: { amount?: number; destination: string };
+          /**
+           * A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details.
+           */
+          transfer_group?: string;
+          /**
+           * Set to `true` only when using manual confirmation and the iOS or Android SDKs to handle additional authentication steps.
+           */
+          use_stripe_sdk?: boolean;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -8336,6 +17344,9 @@ export interface paths {
           intent: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -8366,6 +17377,116 @@ export interface paths {
           intent: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+           */
+          amount?: number;
+          /**
+           * The amount of the application fee (if any) for the resulting payment. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details.
+           */
+          application_fee_amount?: Partial<number> & Partial<"">;
+          /**
+           * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+           */
+          currency?: string;
+          /**
+           * ID of the Customer this PaymentIntent belongs to, if one exists.
+           *
+           * Payment methods attached to other Customers cannot be used with this PaymentIntent.
+           *
+           * If present in combination with [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage), this PaymentIntent's payment method will be attached to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete.
+           */
+          customer?: string;
+          /**
+           * An arbitrary string attached to the object. Often useful for displaying to users.
+           */
+          description?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent.
+           */
+          payment_method?: string;
+          /**
+           * Payment-method-specific configuration for this PaymentIntent.
+           */
+          payment_method_options?: {
+            card?: Partial<{
+              installments?: {
+                enabled?: boolean;
+                plan?: Partial<{
+                  count: number;
+                  interval: "month";
+                  type: "fixed_count";
+                }> &
+                  Partial<"">;
+              };
+              request_three_d_secure?: "any" | "automatic";
+            }> &
+              Partial<"">;
+          };
+          /**
+           * The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
+           */
+          payment_method_types?: string[];
+          /**
+           * Email address that the receipt for the resulting payment will be sent to.
+           */
+          receipt_email?: Partial<string> & Partial<"">;
+          /**
+           * Indicates that you intend to make future payments with this PaymentIntent's payment method.
+           *
+           * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+           *
+           * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+           *
+           * If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+           */
+          setup_future_usage?: "" | "off_session" | "on_session";
+          /**
+           * Shipping information for this PaymentIntent.
+           */
+          shipping?: Partial<{
+            address: {
+              city?: string;
+              country?: string;
+              line1: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            carrier?: string;
+            name: string;
+            phone?: string;
+            tracking_number?: string;
+          }> &
+            Partial<"">;
+          /**
+           * For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters.
+           */
+          statement_descriptor?: string;
+          /**
+           * Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+           */
+          statement_descriptor_suffix?: string;
+          /**
+           * The parameters used to automatically create a Transfer when the payment succeeds. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+           */
+          transfer_data?: { amount?: number };
+          /**
+           * A string that identifies the resulting payment as part of a group. `transfer_group` may only be provided if it has not been set. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details.
+           */
+          transfer_group?: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -8392,6 +17513,22 @@ export interface paths {
       parameters: {
         path: {
           intent: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Reason for canceling this PaymentIntent. Possible values are `duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`
+           */
+          cancellation_reason?:
+            | "abandoned"
+            | "duplicate"
+            | "fraudulent"
+            | "requested_by_customer";
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
         };
       };
       responses: {
@@ -8422,6 +17559,37 @@ export interface paths {
       parameters: {
         path: {
           intent: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The amount to capture from the PaymentIntent, which must be less than or equal to the original amount. Any additional amount will be automatically refunded. Defaults to the full `amount_capturable` if not provided.
+           */
+          amount_to_capture?: number;
+          /**
+           * The amount of the application fee (if any) that will be applied to the
+           * payment and transferred to the application owner's Stripe account. For
+           * more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+           */
+          application_fee_amount?: number;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters.
+           */
+          statement_descriptor?: string;
+          /**
+           * Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+           */
+          statement_descriptor_suffix?: string;
+          /**
+           * The parameters used to automatically create a Transfer when the payment
+           * is captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+           */
+          transfer_data?: { amount?: number };
         };
       };
       responses: {
@@ -8472,6 +17640,115 @@ export interface paths {
       parameters: {
         path: {
           intent: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The client secret of the PaymentIntent.
+           */
+          client_secret?: string;
+          /**
+           * Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication).
+           */
+          error_on_requires_action?: boolean;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * ID of the mandate to be used for this payment.
+           */
+          mandate?: string;
+          /**
+           * This hash contains details about the Mandate to create
+           */
+          mandate_data?: Partial<{
+            customer_acceptance: {
+              accepted_at?: number;
+              offline?: { [key: string]: any };
+              online?: { ip_address: string; user_agent: string };
+              type: "offline" | "online";
+            };
+          }> &
+            Partial<{
+              customer_acceptance: {
+                online: { ip_address?: string; user_agent?: string };
+                type: "online";
+              };
+            }>;
+          /**
+           * Set to `true` to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards).
+           */
+          off_session?: Partial<boolean> & Partial<"one_off" | "recurring">;
+          /**
+           * ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent.
+           */
+          payment_method?: string;
+          /**
+           * Payment-method-specific configuration for this PaymentIntent.
+           */
+          payment_method_options?: {
+            card?: Partial<{
+              installments?: {
+                enabled?: boolean;
+                plan?: Partial<{
+                  count: number;
+                  interval: "month";
+                  type: "fixed_count";
+                }> &
+                  Partial<"">;
+              };
+              request_three_d_secure?: "any" | "automatic";
+            }> &
+              Partial<"">;
+          };
+          /**
+           * The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
+           */
+          payment_method_types?: string[];
+          /**
+           * Email address that the receipt for the resulting payment will be sent to.
+           */
+          receipt_email?: Partial<string> & Partial<"">;
+          /**
+           * The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
+           * If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
+           * This parameter is only used for cards and other redirect-based payment methods.
+           */
+          return_url?: string;
+          /**
+           * Indicates that you intend to make future payments with this PaymentIntent's payment method.
+           *
+           * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+           *
+           * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+           *
+           * If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+           */
+          setup_future_usage?: "" | "off_session" | "on_session";
+          /**
+           * Shipping information for this PaymentIntent.
+           */
+          shipping?: Partial<{
+            address: {
+              city?: string;
+              country?: string;
+              line1: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            carrier?: string;
+            name: string;
+            phone?: string;
+            tracking_number?: string;
+          }> &
+            Partial<"">;
+          /**
+           * Set to `true` only when using manual confirmation and the iOS or Android SDKs to handle additional authentication steps.
+           */
+          use_stripe_sdk?: boolean;
         };
       };
       responses: {
@@ -8529,6 +17806,9 @@ export interface paths {
             | "sepa_debit";
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -8562,6 +17842,108 @@ export interface paths {
      * <p>Creates a PaymentMethod object. Read the <a href="/docs/stripe-js/reference#stripe-create-payment-method">Stripe.js reference</a> to learn how to create PaymentMethods via Stripe.js.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account.
+           */
+          au_becs_debit?: { account_number: string; bsb_number: string };
+          /**
+           * Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
+           */
+          billing_details?: {
+            address?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            email?: string;
+            name?: string;
+            phone?: string;
+          };
+          /**
+           * If this is a `card` PaymentMethod, this hash contains the user's card details. For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format `card: {token: "tok_visa"}`. When creating with a card number, you must meet the requirements for [PCI compliance](https://stripe.com/docs/security#validating-pci-compliance). We strongly recommend using Stripe.js instead of interacting with this API directly.
+           */
+          card?: Partial<{
+            cvc?: string;
+            exp_month: number;
+            exp_year: number;
+            number: string;
+          }> &
+            Partial<{ token: string }>;
+          /**
+           * The `Customer` to whom the original PaymentMethod is attached.
+           */
+          customer?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
+           */
+          fpx?: {
+            bank:
+              | "affin_bank"
+              | "alliance_bank"
+              | "ambank"
+              | "bank_islam"
+              | "bank_muamalat"
+              | "bank_rakyat"
+              | "bsn"
+              | "cimb"
+              | "deutsche_bank"
+              | "hong_leong_bank"
+              | "hsbc"
+              | "kfh"
+              | "maybank2e"
+              | "maybank2u"
+              | "ocbc"
+              | "pb_enterprise"
+              | "public_bank"
+              | "rhb"
+              | "standard_chartered"
+              | "uob";
+          };
+          /**
+           * If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
+           */
+          ideal?: {
+            bank?:
+              | "abn_amro"
+              | "asn_bank"
+              | "bunq"
+              | "handelsbanken"
+              | "ing"
+              | "knab"
+              | "moneyou"
+              | "rabobank"
+              | "regiobank"
+              | "sns_bank"
+              | "triodos_bank"
+              | "van_lanschot";
+          };
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * The PaymentMethod to share.
+           */
+          payment_method?: string;
+          /**
+           * If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
+           */
+          sepa_debit?: { iban: string };
+          /**
+           * The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type. Required unless `payment_method` is specified (see the [Cloning PaymentMethods](https://stripe.com/docs/payments/payment-methods/connect#cloning-payment-methods) guide)
+           */
+          type?: "au_becs_debit" | "card" | "fpx" | "ideal" | "sepa_debit";
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -8594,6 +17976,9 @@ export interface paths {
           payment_method: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -8616,6 +18001,42 @@ export interface paths {
       parameters: {
         path: {
           payment_method: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
+           */
+          billing_details?: {
+            address?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            email?: string;
+            name?: string;
+            phone?: string;
+          };
+          /**
+           * If this is a `card` PaymentMethod, this hash contains the user's card details.
+           */
+          card?: { exp_month?: number; exp_year?: number };
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
+           */
+          sepa_debit?: { [key: string]: any };
         };
       };
       responses: {
@@ -8654,6 +18075,18 @@ export interface paths {
           payment_method: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The ID of the customer to which to attach the PaymentMethod.
+           */
+          customer: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -8678,6 +18111,14 @@ export interface paths {
       parameters: {
         path: {
           payment_method: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
         };
       };
       responses: {
@@ -8743,6 +18184,9 @@ export interface paths {
           status?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -8780,6 +18224,46 @@ export interface paths {
      * <p>If you are creating a manual payout on a Stripe account that uses multiple payment source types, you’ll need to specify the source type balance that the payout should draw from. The <a href="#balance_object">balance object</a> details available and pending amounts by source type.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A positive integer in cents representing how much to payout.
+           */
+          amount: number;
+          /**
+           * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+           */
+          currency: string;
+          /**
+           * An arbitrary string attached to the object. Often useful for displaying to users.
+           */
+          description?: string;
+          /**
+           * The ID of a bank account or a card to send the payout to. If no destination is supplied, the default external account for the specified currency will be used.
+           */
+          destination?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces for more information](https://stripe.com/blog/instant-payouts-for-marketplaces).)
+           */
+          method?: "instant" | "standard";
+          /**
+           * The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the balances API. One of `bank_account`, `card`, or `fpx`.
+           */
+          source_type?: "bank_account" | "card" | "fpx";
+          /**
+           * A string to be displayed on the recipient's bank or card statement. This may be at most 22 characters. Attempting to use a `statement_descriptor` longer than 22 characters will return an error. Note: Most banks will truncate this information and/or display it inconsistently. Some may not display it at all.
+           */
+          statement_descriptor?: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -8812,6 +18296,9 @@ export interface paths {
           payout: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -8834,6 +18321,18 @@ export interface paths {
       parameters: {
         path: {
           payout: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         };
       };
       responses: {
@@ -8860,6 +18359,14 @@ export interface paths {
       parameters: {
         path: {
           payout: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
         };
       };
       responses: {
@@ -8921,6 +18428,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -8954,6 +18464,93 @@ export interface paths {
      * <p>You can create plans using the API, or in the Stripe <a href="https://dashboard.stripe.com/subscriptions/products">Dashboard</a>.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Whether the plan is currently available for new subscriptions. Defaults to `true`.
+           */
+          active?: boolean;
+          /**
+           * Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
+           */
+          aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum";
+          /**
+           * A positive integer in %s (or 0 for a free plan) representing how much to charge on a recurring basis.
+           */
+          amount?: number;
+          /**
+           * Same as `amount`, but accepts a decimal value with at most 12 decimal places. Only one of `amount` and `amount_decimal` can be set.
+           */
+          amount_decimal?: string;
+          /**
+           * Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
+           */
+          billing_scheme?: "per_unit" | "tiered";
+          /**
+           * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+           */
+          currency: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * An identifier randomly generated by Stripe. Used to identify this plan when subscribing a customer. You can optionally override this ID, but the ID must be unique across all plans in your Stripe account. You can, however, use the same plan ID in both live and test modes.
+           */
+          id?: string;
+          /**
+           * Specifies billing frequency. Either `day`, `week`, `month` or `year`.
+           */
+          interval: "day" | "month" | "week" | "year";
+          /**
+           * The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+           */
+          interval_count?: number;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * A brief description of the plan, hidden from customers.
+           */
+          nickname?: string;
+          product?: Partial<{
+            active?: boolean;
+            id?: string;
+            metadata?: { [key: string]: string };
+            name: string;
+            statement_descriptor?: string;
+            unit_label?: string;
+          }> &
+            Partial<string>;
+          /**
+           * Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
+           */
+          tiers?: {
+            flat_amount?: number;
+            flat_amount_decimal?: string;
+            unit_amount?: number;
+            unit_amount_decimal?: string;
+            up_to: Partial<"inf"> & Partial<number>;
+          }[];
+          /**
+           * Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows.
+           */
+          tiers_mode?: "graduated" | "volume";
+          /**
+           * Apply a transformation to the reported usage or set quantity before computing the billed price. Cannot be combined with `tiers`.
+           */
+          transform_usage?: { divide_by: number; round: "down" | "up" };
+          /**
+           * Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan).
+           */
+          trial_period_days?: number;
+          /**
+           * Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
+           */
+          usage_type?: "licensed" | "metered";
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -8979,6 +18576,9 @@ export interface paths {
         path: {
           plan: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -9010,6 +18610,9 @@ export interface paths {
           plan: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -9032,6 +18635,34 @@ export interface paths {
       parameters: {
         path: {
           plan: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Whether the plan is currently available for new subscriptions.
+           */
+          active?: boolean;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * A brief description of the plan, hidden from customers.
+           */
+          nickname?: string;
+          /**
+           * The product the plan belongs to. Note that after updating, statement descriptors and line items of the plan in active subscriptions will be affected.
+           */
+          product?: string;
+          /**
+           * Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan).
+           */
+          trial_period_days?: number;
         };
       };
       responses: {
@@ -9105,6 +18736,9 @@ export interface paths {
           url?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -9138,6 +18772,82 @@ export interface paths {
      * <p>Creates a new product object. To create a product for use with orders, see <a href="#create_product">Products</a>.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Whether the product is currently available for purchase. Defaults to `true`.
+           */
+          active?: boolean;
+          /**
+           * A list of up to 5 alphanumeric attributes.
+           */
+          attributes?: string[];
+          /**
+           * A short one-line description of the product, meant to be displayable to the customer. May only be set if type=`good`.
+           */
+          caption?: string;
+          /**
+           * An array of Connect application names or identifiers that should not be able to order the SKUs for this product. May only be set if type=`good`.
+           */
+          deactivate_on?: string[];
+          /**
+           * The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
+           */
+          description?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * An identifier will be randomly generated by Stripe. You can optionally override this ID, but the ID must be unique across all products in your Stripe account.
+           */
+          id?: string;
+          /**
+           * A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
+           */
+          images?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * The product's name, meant to be displayable to the customer. Whenever this product is sold via a subscription, name will show up on associated invoice line item descriptions.
+           */
+          name: string;
+          /**
+           * The dimensions of this product for shipping purposes. A SKU associated with this product can override this value by having its own `package_dimensions`. May only be set if type=`good`.
+           */
+          package_dimensions?: {
+            height: number;
+            length: number;
+            weight: number;
+            width: number;
+          };
+          /**
+           * Whether this product is shipped (i.e., physical goods). Defaults to `true`. May only be set if type=`good`.
+           */
+          shippable?: boolean;
+          /**
+           * An arbitrary string to be displayed on your customer's credit card or bank statement. While most banks display this information consistently, some may display it incorrectly or not at all.
+           *
+           * This may be up to 22 characters. The statement description may not include `<`, `>`, `\`, `"`, `'` characters, and will appear on your customer's statement in capital letters. Non-ASCII characters are automatically stripped.
+           *  It must contain at least one letter.
+           */
+          statement_descriptor?: string;
+          /**
+           * The type of the product. Defaults to `service` if not explicitly specified, enabling use of this product with Subscriptions and Plans. Set this parameter to `good` to use this product with Orders and SKUs. On API versions before `2018-02-05`, this field defaults to `good` for compatibility reasons.
+           */
+          type?: "good" | "service";
+          /**
+           * A label that represents units of this product in Stripe and on customers’ receipts and invoices. When set, this will be included in associated invoice line item descriptions.
+           */
+          unit_label?: string;
+          /**
+           * A URL of a publicly-accessible webpage for this product. May only be set if type=`good`.
+           */
+          url?: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -9163,6 +18873,9 @@ export interface paths {
         path: {
           id: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -9194,6 +18907,9 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -9216,6 +18932,75 @@ export interface paths {
       parameters: {
         path: {
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Whether the product is available for purchase.
+           */
+          active?: boolean;
+          /**
+           * A list of up to 5 alphanumeric attributes that each SKU can provide values for (e.g., `["color", "size"]`). If a value for `attributes` is specified, the list specified will replace the existing attributes list on this product. Any attributes not present after the update will be deleted from the SKUs for this product.
+           */
+          attributes?: Partial<string[]> & Partial<"">;
+          /**
+           * A short one-line description of the product, meant to be displayable to the customer. May only be set if `type=good`.
+           */
+          caption?: string;
+          /**
+           * An array of Connect application names or identifiers that should not be able to order the SKUs for this product. May only be set if `type=good`.
+           */
+          deactivate_on?: string[];
+          /**
+           * The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
+           */
+          description?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
+           */
+          images?: Partial<string[]> & Partial<"">;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * The product's name, meant to be displayable to the customer. Whenever this product is sold via a subscription, name will show up on associated invoice line item descriptions.
+           */
+          name?: string;
+          /**
+           * The dimensions of this product for shipping purposes. A SKU associated with this product can override this value by having its own `package_dimensions`. May only be set if `type=good`.
+           */
+          package_dimensions?: Partial<{
+            height: number;
+            length: number;
+            weight: number;
+            width: number;
+          }> &
+            Partial<"">;
+          /**
+           * Whether this product is shipped (i.e., physical goods). Defaults to `true`. May only be set if `type=good`.
+           */
+          shippable?: boolean;
+          /**
+           * An arbitrary string to be displayed on your customer's credit card or bank statement. While most banks display this information consistently, some may display it incorrectly or not at all.
+           *
+           * This may be up to 22 characters. The statement description may not include `<`, `>`, `\`, `"`, `'` characters, and will appear on your customer's statement in capital letters. Non-ASCII characters are automatically stripped.
+           *  It must contain at least one letter. May only be set if `type=service`.
+           */
+          statement_descriptor?: string;
+          /**
+           * A label that represents units of this product in Stripe and on customers’ receipts and invoices. When set, this will be included in associated invoice line item descriptions. May only be set if `type=service`.
+           */
+          unit_label?: string;
+          /**
+           * A URL of a publicly-accessible webpage for this product. May only be set if `type=good`.
+           */
+          url?: string;
         };
       };
       responses: {
@@ -9262,6 +19047,9 @@ export interface paths {
            */
           starting_after?: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -9310,6 +19098,9 @@ export interface paths {
            */
           expand?: string[];
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -9367,6 +19158,9 @@ export interface paths {
           value_list: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -9400,6 +19194,22 @@ export interface paths {
      * <p>Creates a new <code>ValueListItem</code> object, which is added to the specified parent value list.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The value of the item (whose type must match the type of the parent value list).
+           */
+          value: string;
+          /**
+           * The identifier of the value list which the created item will be added to.
+           */
+          value_list: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -9425,6 +19235,9 @@ export interface paths {
         path: {
           item: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -9455,6 +19268,9 @@ export interface paths {
         path: {
           item: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -9512,6 +19328,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -9545,6 +19364,37 @@ export interface paths {
      * <p>Creates a new <code>ValueList</code> object, which can then be referenced in rules.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The name of the value list for use in rules.
+           */
+          alias: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, or `case_sensitive_string`. Use `string` if the item type is unknown or mixed.
+           */
+          item_type?:
+            | "card_bin"
+            | "card_fingerprint"
+            | "case_sensitive_string"
+            | "country"
+            | "email"
+            | "ip_address"
+            | "string";
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * The human-readable name of the value list.
+           */
+          name: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -9570,6 +19420,9 @@ export interface paths {
         path: {
           value_list: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -9601,6 +19454,9 @@ export interface paths {
           value_list: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -9623,6 +19479,26 @@ export interface paths {
       parameters: {
         path: {
           value_list: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The name of the value list for use in rules.
+           */
+          alias?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * The human-readable name of the value list.
+           */
+          name?: string;
         };
       };
       responses: {
@@ -9678,6 +19554,9 @@ export interface paths {
           verified?: boolean;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -9712,6 +19591,46 @@ export interface paths {
      * Also verifies the recipient’s bank account information or debit card, if either is provided.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A bank account to attach to the recipient. You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe-js), or a dictionary containing a user's bank account details, with the options described below.
+           */
+          bank_account?: string;
+          /**
+           * A U.S. Visa or MasterCard debit card (_not_ prepaid) to attach to the recipient. If the debit card is not valid, recipient creation will fail. You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe-js), or a dictionary containing a user's debit card details, with the options described below. Although not all information is required, the extra info helps prevent fraud.
+           */
+          card?: string;
+          /**
+           * An arbitrary string which you can attach to a `Recipient` object. It is displayed alongside the recipient in the web interface.
+           */
+          description?: string;
+          /**
+           * The recipient's email address. It is displayed alongside the recipient in the web interface, and can be useful for searching and tracking.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * The recipient's full, legal name. For type `individual`, should be in the format `First Last`, `First Middle Last`, or `First M Last` (no prefixes or suffixes). For `corporation`, the full, incorporated name.
+           */
+          name: string;
+          /**
+           * The recipient's tax ID, as a string. For type `individual`, the full SSN; for type `corporation`, the full EIN.
+           */
+          tax_id?: string;
+          /**
+           * Type of the recipient: either `individual` or `corporation`.
+           */
+          type: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -9737,6 +19656,9 @@ export interface paths {
         path: {
           id: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -9768,6 +19690,9 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -9795,6 +19720,46 @@ export interface paths {
       parameters: {
         path: {
           id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A bank account to attach to the recipient. You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe-js), or a dictionary containing a user's bank account details, with the options described below.
+           */
+          bank_account?: string;
+          /**
+           * A U.S. Visa or MasterCard debit card (not prepaid) to attach to the recipient. You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe-js), or a dictionary containing a user's debit card details, with the options described below. Passing `card` will create a new card, make it the new recipient default card, and delete the old recipient default (if one exists). If you want to add additional debit cards instead of replacing the existing default, use the [card creation API](https://stripe.com/docs/api#create_card). Whenever you attach a card to a recipient, Stripe will automatically validate the debit card.
+           */
+          card?: string;
+          /**
+           * ID of the card to set as the recipient's new default for payouts.
+           */
+          default_card?: string;
+          /**
+           * An arbitrary string which you can attach to a `Recipient` object. It is displayed alongside the recipient in the web interface.
+           */
+          description?: string;
+          /**
+           * The recipient's email address. It is displayed alongside the recipient in the web interface, and can be useful for searching and tracking.
+           */
+          email?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * The recipient's full, legal name. For type `individual`, should be in the format `First Last`, `First Middle Last`, or `First M Last` (no prefixes or suffixes). For `corporation`, the full, incorporated name.
+           */
+          name?: string;
+          /**
+           * The recipient's tax ID, as a string. For type `individual`, the full SSN; for type `corporation`, the full EIN.
+           */
+          tax_id?: string;
         };
       };
       responses: {
@@ -9853,6 +19818,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -9886,6 +19854,24 @@ export interface paths {
      * <p>Create a refund.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          amount?: number;
+          charge?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          payment_intent?: string;
+          reason?: "duplicate" | "fraudulent" | "requested_by_customer";
+          refund_application_fee?: boolean;
+          reverse_transfer?: boolean;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -9918,6 +19904,9 @@ export interface paths {
           refund: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -9942,6 +19931,18 @@ export interface paths {
       parameters: {
         path: {
           refund: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         };
       };
       responses: {
@@ -9992,6 +19993,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -10025,6 +20029,656 @@ export interface paths {
      * <p>Creates a new object and begin running the report. (Requires a <a href="https://stripe.com/docs/keys#test-live-modes">live-mode API key</a>.)</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Parameters specifying how the report should be run. Different Report Types have different required and optional parameters, listed in the [API Access to Reports](https://stripe.com/docs/reporting/statements/api) documentation.
+           */
+          parameters?: {
+            columns?: string[];
+            connected_account?: string;
+            currency?: string;
+            interval_end?: number;
+            interval_start?: number;
+            payout?: string;
+            reporting_category?:
+              | "advance"
+              | "advance_funding"
+              | "charge"
+              | "charge_failure"
+              | "connect_collection_transfer"
+              | "connect_reserved_funds"
+              | "dispute"
+              | "dispute_reversal"
+              | "fee"
+              | "financing_paydown"
+              | "financing_paydown_reversal"
+              | "financing_payout"
+              | "financing_payout_reversal"
+              | "issuing_authorization_hold"
+              | "issuing_authorization_release"
+              | "issuing_transaction"
+              | "network_cost"
+              | "other_adjustment"
+              | "partial_capture_reversal"
+              | "payout"
+              | "payout_reversal"
+              | "platform_earning"
+              | "platform_earning_refund"
+              | "refund"
+              | "refund_failure"
+              | "risk_reserved_funds"
+              | "tax"
+              | "topup"
+              | "topup_reversal"
+              | "transfer"
+              | "transfer_reversal";
+            timezone?:
+              | "Africa/Abidjan"
+              | "Africa/Accra"
+              | "Africa/Addis_Ababa"
+              | "Africa/Algiers"
+              | "Africa/Asmara"
+              | "Africa/Asmera"
+              | "Africa/Bamako"
+              | "Africa/Bangui"
+              | "Africa/Banjul"
+              | "Africa/Bissau"
+              | "Africa/Blantyre"
+              | "Africa/Brazzaville"
+              | "Africa/Bujumbura"
+              | "Africa/Cairo"
+              | "Africa/Casablanca"
+              | "Africa/Ceuta"
+              | "Africa/Conakry"
+              | "Africa/Dakar"
+              | "Africa/Dar_es_Salaam"
+              | "Africa/Djibouti"
+              | "Africa/Douala"
+              | "Africa/El_Aaiun"
+              | "Africa/Freetown"
+              | "Africa/Gaborone"
+              | "Africa/Harare"
+              | "Africa/Johannesburg"
+              | "Africa/Juba"
+              | "Africa/Kampala"
+              | "Africa/Khartoum"
+              | "Africa/Kigali"
+              | "Africa/Kinshasa"
+              | "Africa/Lagos"
+              | "Africa/Libreville"
+              | "Africa/Lome"
+              | "Africa/Luanda"
+              | "Africa/Lubumbashi"
+              | "Africa/Lusaka"
+              | "Africa/Malabo"
+              | "Africa/Maputo"
+              | "Africa/Maseru"
+              | "Africa/Mbabane"
+              | "Africa/Mogadishu"
+              | "Africa/Monrovia"
+              | "Africa/Nairobi"
+              | "Africa/Ndjamena"
+              | "Africa/Niamey"
+              | "Africa/Nouakchott"
+              | "Africa/Ouagadougou"
+              | "Africa/Porto-Novo"
+              | "Africa/Sao_Tome"
+              | "Africa/Timbuktu"
+              | "Africa/Tripoli"
+              | "Africa/Tunis"
+              | "Africa/Windhoek"
+              | "America/Adak"
+              | "America/Anchorage"
+              | "America/Anguilla"
+              | "America/Antigua"
+              | "America/Araguaina"
+              | "America/Argentina/Buenos_Aires"
+              | "America/Argentina/Catamarca"
+              | "America/Argentina/ComodRivadavia"
+              | "America/Argentina/Cordoba"
+              | "America/Argentina/Jujuy"
+              | "America/Argentina/La_Rioja"
+              | "America/Argentina/Mendoza"
+              | "America/Argentina/Rio_Gallegos"
+              | "America/Argentina/Salta"
+              | "America/Argentina/San_Juan"
+              | "America/Argentina/San_Luis"
+              | "America/Argentina/Tucuman"
+              | "America/Argentina/Ushuaia"
+              | "America/Aruba"
+              | "America/Asuncion"
+              | "America/Atikokan"
+              | "America/Atka"
+              | "America/Bahia"
+              | "America/Bahia_Banderas"
+              | "America/Barbados"
+              | "America/Belem"
+              | "America/Belize"
+              | "America/Blanc-Sablon"
+              | "America/Boa_Vista"
+              | "America/Bogota"
+              | "America/Boise"
+              | "America/Buenos_Aires"
+              | "America/Cambridge_Bay"
+              | "America/Campo_Grande"
+              | "America/Cancun"
+              | "America/Caracas"
+              | "America/Catamarca"
+              | "America/Cayenne"
+              | "America/Cayman"
+              | "America/Chicago"
+              | "America/Chihuahua"
+              | "America/Coral_Harbour"
+              | "America/Cordoba"
+              | "America/Costa_Rica"
+              | "America/Creston"
+              | "America/Cuiaba"
+              | "America/Curacao"
+              | "America/Danmarkshavn"
+              | "America/Dawson"
+              | "America/Dawson_Creek"
+              | "America/Denver"
+              | "America/Detroit"
+              | "America/Dominica"
+              | "America/Edmonton"
+              | "America/Eirunepe"
+              | "America/El_Salvador"
+              | "America/Ensenada"
+              | "America/Fort_Nelson"
+              | "America/Fort_Wayne"
+              | "America/Fortaleza"
+              | "America/Glace_Bay"
+              | "America/Godthab"
+              | "America/Goose_Bay"
+              | "America/Grand_Turk"
+              | "America/Grenada"
+              | "America/Guadeloupe"
+              | "America/Guatemala"
+              | "America/Guayaquil"
+              | "America/Guyana"
+              | "America/Halifax"
+              | "America/Havana"
+              | "America/Hermosillo"
+              | "America/Indiana/Indianapolis"
+              | "America/Indiana/Knox"
+              | "America/Indiana/Marengo"
+              | "America/Indiana/Petersburg"
+              | "America/Indiana/Tell_City"
+              | "America/Indiana/Vevay"
+              | "America/Indiana/Vincennes"
+              | "America/Indiana/Winamac"
+              | "America/Indianapolis"
+              | "America/Inuvik"
+              | "America/Iqaluit"
+              | "America/Jamaica"
+              | "America/Jujuy"
+              | "America/Juneau"
+              | "America/Kentucky/Louisville"
+              | "America/Kentucky/Monticello"
+              | "America/Knox_IN"
+              | "America/Kralendijk"
+              | "America/La_Paz"
+              | "America/Lima"
+              | "America/Los_Angeles"
+              | "America/Louisville"
+              | "America/Lower_Princes"
+              | "America/Maceio"
+              | "America/Managua"
+              | "America/Manaus"
+              | "America/Marigot"
+              | "America/Martinique"
+              | "America/Matamoros"
+              | "America/Mazatlan"
+              | "America/Mendoza"
+              | "America/Menominee"
+              | "America/Merida"
+              | "America/Metlakatla"
+              | "America/Mexico_City"
+              | "America/Miquelon"
+              | "America/Moncton"
+              | "America/Monterrey"
+              | "America/Montevideo"
+              | "America/Montreal"
+              | "America/Montserrat"
+              | "America/Nassau"
+              | "America/New_York"
+              | "America/Nipigon"
+              | "America/Nome"
+              | "America/Noronha"
+              | "America/North_Dakota/Beulah"
+              | "America/North_Dakota/Center"
+              | "America/North_Dakota/New_Salem"
+              | "America/Ojinaga"
+              | "America/Panama"
+              | "America/Pangnirtung"
+              | "America/Paramaribo"
+              | "America/Phoenix"
+              | "America/Port-au-Prince"
+              | "America/Port_of_Spain"
+              | "America/Porto_Acre"
+              | "America/Porto_Velho"
+              | "America/Puerto_Rico"
+              | "America/Punta_Arenas"
+              | "America/Rainy_River"
+              | "America/Rankin_Inlet"
+              | "America/Recife"
+              | "America/Regina"
+              | "America/Resolute"
+              | "America/Rio_Branco"
+              | "America/Rosario"
+              | "America/Santa_Isabel"
+              | "America/Santarem"
+              | "America/Santiago"
+              | "America/Santo_Domingo"
+              | "America/Sao_Paulo"
+              | "America/Scoresbysund"
+              | "America/Shiprock"
+              | "America/Sitka"
+              | "America/St_Barthelemy"
+              | "America/St_Johns"
+              | "America/St_Kitts"
+              | "America/St_Lucia"
+              | "America/St_Thomas"
+              | "America/St_Vincent"
+              | "America/Swift_Current"
+              | "America/Tegucigalpa"
+              | "America/Thule"
+              | "America/Thunder_Bay"
+              | "America/Tijuana"
+              | "America/Toronto"
+              | "America/Tortola"
+              | "America/Vancouver"
+              | "America/Virgin"
+              | "America/Whitehorse"
+              | "America/Winnipeg"
+              | "America/Yakutat"
+              | "America/Yellowknife"
+              | "Antarctica/Casey"
+              | "Antarctica/Davis"
+              | "Antarctica/DumontDUrville"
+              | "Antarctica/Macquarie"
+              | "Antarctica/Mawson"
+              | "Antarctica/McMurdo"
+              | "Antarctica/Palmer"
+              | "Antarctica/Rothera"
+              | "Antarctica/South_Pole"
+              | "Antarctica/Syowa"
+              | "Antarctica/Troll"
+              | "Antarctica/Vostok"
+              | "Arctic/Longyearbyen"
+              | "Asia/Aden"
+              | "Asia/Almaty"
+              | "Asia/Amman"
+              | "Asia/Anadyr"
+              | "Asia/Aqtau"
+              | "Asia/Aqtobe"
+              | "Asia/Ashgabat"
+              | "Asia/Ashkhabad"
+              | "Asia/Atyrau"
+              | "Asia/Baghdad"
+              | "Asia/Bahrain"
+              | "Asia/Baku"
+              | "Asia/Bangkok"
+              | "Asia/Barnaul"
+              | "Asia/Beirut"
+              | "Asia/Bishkek"
+              | "Asia/Brunei"
+              | "Asia/Calcutta"
+              | "Asia/Chita"
+              | "Asia/Choibalsan"
+              | "Asia/Chongqing"
+              | "Asia/Chungking"
+              | "Asia/Colombo"
+              | "Asia/Dacca"
+              | "Asia/Damascus"
+              | "Asia/Dhaka"
+              | "Asia/Dili"
+              | "Asia/Dubai"
+              | "Asia/Dushanbe"
+              | "Asia/Famagusta"
+              | "Asia/Gaza"
+              | "Asia/Harbin"
+              | "Asia/Hebron"
+              | "Asia/Ho_Chi_Minh"
+              | "Asia/Hong_Kong"
+              | "Asia/Hovd"
+              | "Asia/Irkutsk"
+              | "Asia/Istanbul"
+              | "Asia/Jakarta"
+              | "Asia/Jayapura"
+              | "Asia/Jerusalem"
+              | "Asia/Kabul"
+              | "Asia/Kamchatka"
+              | "Asia/Karachi"
+              | "Asia/Kashgar"
+              | "Asia/Kathmandu"
+              | "Asia/Katmandu"
+              | "Asia/Khandyga"
+              | "Asia/Kolkata"
+              | "Asia/Krasnoyarsk"
+              | "Asia/Kuala_Lumpur"
+              | "Asia/Kuching"
+              | "Asia/Kuwait"
+              | "Asia/Macao"
+              | "Asia/Macau"
+              | "Asia/Magadan"
+              | "Asia/Makassar"
+              | "Asia/Manila"
+              | "Asia/Muscat"
+              | "Asia/Nicosia"
+              | "Asia/Novokuznetsk"
+              | "Asia/Novosibirsk"
+              | "Asia/Omsk"
+              | "Asia/Oral"
+              | "Asia/Phnom_Penh"
+              | "Asia/Pontianak"
+              | "Asia/Pyongyang"
+              | "Asia/Qatar"
+              | "Asia/Qostanay"
+              | "Asia/Qyzylorda"
+              | "Asia/Rangoon"
+              | "Asia/Riyadh"
+              | "Asia/Saigon"
+              | "Asia/Sakhalin"
+              | "Asia/Samarkand"
+              | "Asia/Seoul"
+              | "Asia/Shanghai"
+              | "Asia/Singapore"
+              | "Asia/Srednekolymsk"
+              | "Asia/Taipei"
+              | "Asia/Tashkent"
+              | "Asia/Tbilisi"
+              | "Asia/Tehran"
+              | "Asia/Tel_Aviv"
+              | "Asia/Thimbu"
+              | "Asia/Thimphu"
+              | "Asia/Tokyo"
+              | "Asia/Tomsk"
+              | "Asia/Ujung_Pandang"
+              | "Asia/Ulaanbaatar"
+              | "Asia/Ulan_Bator"
+              | "Asia/Urumqi"
+              | "Asia/Ust-Nera"
+              | "Asia/Vientiane"
+              | "Asia/Vladivostok"
+              | "Asia/Yakutsk"
+              | "Asia/Yangon"
+              | "Asia/Yekaterinburg"
+              | "Asia/Yerevan"
+              | "Atlantic/Azores"
+              | "Atlantic/Bermuda"
+              | "Atlantic/Canary"
+              | "Atlantic/Cape_Verde"
+              | "Atlantic/Faeroe"
+              | "Atlantic/Faroe"
+              | "Atlantic/Jan_Mayen"
+              | "Atlantic/Madeira"
+              | "Atlantic/Reykjavik"
+              | "Atlantic/South_Georgia"
+              | "Atlantic/St_Helena"
+              | "Atlantic/Stanley"
+              | "Australia/ACT"
+              | "Australia/Adelaide"
+              | "Australia/Brisbane"
+              | "Australia/Broken_Hill"
+              | "Australia/Canberra"
+              | "Australia/Currie"
+              | "Australia/Darwin"
+              | "Australia/Eucla"
+              | "Australia/Hobart"
+              | "Australia/LHI"
+              | "Australia/Lindeman"
+              | "Australia/Lord_Howe"
+              | "Australia/Melbourne"
+              | "Australia/NSW"
+              | "Australia/North"
+              | "Australia/Perth"
+              | "Australia/Queensland"
+              | "Australia/South"
+              | "Australia/Sydney"
+              | "Australia/Tasmania"
+              | "Australia/Victoria"
+              | "Australia/West"
+              | "Australia/Yancowinna"
+              | "Brazil/Acre"
+              | "Brazil/DeNoronha"
+              | "Brazil/East"
+              | "Brazil/West"
+              | "CET"
+              | "CST6CDT"
+              | "Canada/Atlantic"
+              | "Canada/Central"
+              | "Canada/Eastern"
+              | "Canada/Mountain"
+              | "Canada/Newfoundland"
+              | "Canada/Pacific"
+              | "Canada/Saskatchewan"
+              | "Canada/Yukon"
+              | "Chile/Continental"
+              | "Chile/EasterIsland"
+              | "Cuba"
+              | "EET"
+              | "EST"
+              | "EST5EDT"
+              | "Egypt"
+              | "Eire"
+              | "Etc/GMT"
+              | "Etc/GMT+0"
+              | "Etc/GMT+1"
+              | "Etc/GMT+10"
+              | "Etc/GMT+11"
+              | "Etc/GMT+12"
+              | "Etc/GMT+2"
+              | "Etc/GMT+3"
+              | "Etc/GMT+4"
+              | "Etc/GMT+5"
+              | "Etc/GMT+6"
+              | "Etc/GMT+7"
+              | "Etc/GMT+8"
+              | "Etc/GMT+9"
+              | "Etc/GMT-0"
+              | "Etc/GMT-1"
+              | "Etc/GMT-10"
+              | "Etc/GMT-11"
+              | "Etc/GMT-12"
+              | "Etc/GMT-13"
+              | "Etc/GMT-14"
+              | "Etc/GMT-2"
+              | "Etc/GMT-3"
+              | "Etc/GMT-4"
+              | "Etc/GMT-5"
+              | "Etc/GMT-6"
+              | "Etc/GMT-7"
+              | "Etc/GMT-8"
+              | "Etc/GMT-9"
+              | "Etc/GMT0"
+              | "Etc/Greenwich"
+              | "Etc/UCT"
+              | "Etc/UTC"
+              | "Etc/Universal"
+              | "Etc/Zulu"
+              | "Europe/Amsterdam"
+              | "Europe/Andorra"
+              | "Europe/Astrakhan"
+              | "Europe/Athens"
+              | "Europe/Belfast"
+              | "Europe/Belgrade"
+              | "Europe/Berlin"
+              | "Europe/Bratislava"
+              | "Europe/Brussels"
+              | "Europe/Bucharest"
+              | "Europe/Budapest"
+              | "Europe/Busingen"
+              | "Europe/Chisinau"
+              | "Europe/Copenhagen"
+              | "Europe/Dublin"
+              | "Europe/Gibraltar"
+              | "Europe/Guernsey"
+              | "Europe/Helsinki"
+              | "Europe/Isle_of_Man"
+              | "Europe/Istanbul"
+              | "Europe/Jersey"
+              | "Europe/Kaliningrad"
+              | "Europe/Kiev"
+              | "Europe/Kirov"
+              | "Europe/Lisbon"
+              | "Europe/Ljubljana"
+              | "Europe/London"
+              | "Europe/Luxembourg"
+              | "Europe/Madrid"
+              | "Europe/Malta"
+              | "Europe/Mariehamn"
+              | "Europe/Minsk"
+              | "Europe/Monaco"
+              | "Europe/Moscow"
+              | "Europe/Nicosia"
+              | "Europe/Oslo"
+              | "Europe/Paris"
+              | "Europe/Podgorica"
+              | "Europe/Prague"
+              | "Europe/Riga"
+              | "Europe/Rome"
+              | "Europe/Samara"
+              | "Europe/San_Marino"
+              | "Europe/Sarajevo"
+              | "Europe/Saratov"
+              | "Europe/Simferopol"
+              | "Europe/Skopje"
+              | "Europe/Sofia"
+              | "Europe/Stockholm"
+              | "Europe/Tallinn"
+              | "Europe/Tirane"
+              | "Europe/Tiraspol"
+              | "Europe/Ulyanovsk"
+              | "Europe/Uzhgorod"
+              | "Europe/Vaduz"
+              | "Europe/Vatican"
+              | "Europe/Vienna"
+              | "Europe/Vilnius"
+              | "Europe/Volgograd"
+              | "Europe/Warsaw"
+              | "Europe/Zagreb"
+              | "Europe/Zaporozhye"
+              | "Europe/Zurich"
+              | "Factory"
+              | "GB"
+              | "GB-Eire"
+              | "GMT"
+              | "GMT+0"
+              | "GMT-0"
+              | "GMT0"
+              | "Greenwich"
+              | "HST"
+              | "Hongkong"
+              | "Iceland"
+              | "Indian/Antananarivo"
+              | "Indian/Chagos"
+              | "Indian/Christmas"
+              | "Indian/Cocos"
+              | "Indian/Comoro"
+              | "Indian/Kerguelen"
+              | "Indian/Mahe"
+              | "Indian/Maldives"
+              | "Indian/Mauritius"
+              | "Indian/Mayotte"
+              | "Indian/Reunion"
+              | "Iran"
+              | "Israel"
+              | "Jamaica"
+              | "Japan"
+              | "Kwajalein"
+              | "Libya"
+              | "MET"
+              | "MST"
+              | "MST7MDT"
+              | "Mexico/BajaNorte"
+              | "Mexico/BajaSur"
+              | "Mexico/General"
+              | "NZ"
+              | "NZ-CHAT"
+              | "Navajo"
+              | "PRC"
+              | "PST8PDT"
+              | "Pacific/Apia"
+              | "Pacific/Auckland"
+              | "Pacific/Bougainville"
+              | "Pacific/Chatham"
+              | "Pacific/Chuuk"
+              | "Pacific/Easter"
+              | "Pacific/Efate"
+              | "Pacific/Enderbury"
+              | "Pacific/Fakaofo"
+              | "Pacific/Fiji"
+              | "Pacific/Funafuti"
+              | "Pacific/Galapagos"
+              | "Pacific/Gambier"
+              | "Pacific/Guadalcanal"
+              | "Pacific/Guam"
+              | "Pacific/Honolulu"
+              | "Pacific/Johnston"
+              | "Pacific/Kiritimati"
+              | "Pacific/Kosrae"
+              | "Pacific/Kwajalein"
+              | "Pacific/Majuro"
+              | "Pacific/Marquesas"
+              | "Pacific/Midway"
+              | "Pacific/Nauru"
+              | "Pacific/Niue"
+              | "Pacific/Norfolk"
+              | "Pacific/Noumea"
+              | "Pacific/Pago_Pago"
+              | "Pacific/Palau"
+              | "Pacific/Pitcairn"
+              | "Pacific/Pohnpei"
+              | "Pacific/Ponape"
+              | "Pacific/Port_Moresby"
+              | "Pacific/Rarotonga"
+              | "Pacific/Saipan"
+              | "Pacific/Samoa"
+              | "Pacific/Tahiti"
+              | "Pacific/Tarawa"
+              | "Pacific/Tongatapu"
+              | "Pacific/Truk"
+              | "Pacific/Wake"
+              | "Pacific/Wallis"
+              | "Pacific/Yap"
+              | "Poland"
+              | "Portugal"
+              | "ROC"
+              | "ROK"
+              | "Singapore"
+              | "Turkey"
+              | "UCT"
+              | "US/Alaska"
+              | "US/Aleutian"
+              | "US/Arizona"
+              | "US/Central"
+              | "US/East-Indiana"
+              | "US/Eastern"
+              | "US/Hawaii"
+              | "US/Indiana-Starke"
+              | "US/Michigan"
+              | "US/Mountain"
+              | "US/Pacific"
+              | "US/Pacific-New"
+              | "US/Samoa"
+              | "UTC"
+              | "Universal"
+              | "W-SU"
+              | "WET"
+              | "Zulu";
+          };
+          /**
+           * The ID of the [report type](https://stripe.com/docs/reporting/statements/api#report-types) to run, such as `"balance.summary.1"`.
+           */
+          report_type: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -10057,6 +20711,9 @@ export interface paths {
           report_run: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -10085,6 +20742,9 @@ export interface paths {
            */
           expand?: string[];
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -10131,6 +20791,9 @@ export interface paths {
         path: {
           report_type: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -10180,6 +20843,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -10226,6 +20892,9 @@ export interface paths {
           review: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -10250,6 +20919,14 @@ export interface paths {
       parameters: {
         path: {
           review: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
         };
       };
       responses: {
@@ -10311,6 +20988,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -10347,6 +21027,73 @@ export interface paths {
      * to collect any required permissions to charge the payment method later.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Set to `true` to attempt to confirm this SetupIntent immediately. This parameter defaults to `false`. If the payment method attached is a card, a return_url may be provided in case additional authentication is required.
+           */
+          confirm?: boolean;
+          /**
+           * ID of the Customer this SetupIntent belongs to, if one exists.
+           *
+           * If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
+           */
+          customer?: string;
+          /**
+           * An arbitrary string attached to the object. Often useful for displaying to users.
+           */
+          description?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * This hash contains details about the Mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm).
+           */
+          mandate_data?: {
+            customer_acceptance: {
+              accepted_at?: number;
+              offline?: { [key: string]: any };
+              online?: { ip_address: string; user_agent: string };
+              type: "offline" | "online";
+            };
+          };
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * The Stripe account ID for which this SetupIntent is created.
+           */
+          on_behalf_of?: string;
+          /**
+           * ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
+           */
+          payment_method?: string;
+          /**
+           * Payment-method-specific configuration for this SetupIntent.
+           */
+          payment_method_options?: {
+            card?: { request_three_d_secure?: "any" | "automatic" };
+          };
+          /**
+           * The list of payment method types (e.g. card) that this SetupIntent is allowed to use. If this is not provided, defaults to ["card"].
+           */
+          payment_method_types?: string[];
+          /**
+           * The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm).
+           */
+          return_url?: string;
+          /**
+           * If this hash is populated, this SetupIntent will generate a single_use Mandate on success.
+           */
+          single_use?: { amount: number; currency: string };
+          /**
+           * Indicates how the payment method is intended to be used in the future. If not provided, this value defaults to `off_session`.
+           */
+          usage?: "off_session" | "on_session";
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -10387,6 +21134,9 @@ export interface paths {
           intent: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -10409,6 +21159,42 @@ export interface paths {
       parameters: {
         path: {
           intent: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * ID of the Customer this SetupIntent belongs to, if one exists.
+           *
+           * If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
+           */
+          customer?: string;
+          /**
+           * An arbitrary string attached to the object. Often useful for displaying to users.
+           */
+          description?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
+           */
+          payment_method?: string;
+          /**
+           * Payment-method-specific configuration for this SetupIntent.
+           */
+          payment_method_options?: {
+            card?: { request_three_d_secure?: "any" | "automatic" };
+          };
+          /**
+           * The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. If this is not provided, defaults to ["card"].
+           */
+          payment_method_types?: string[];
         };
       };
       responses: {
@@ -10437,6 +21223,21 @@ export interface paths {
       parameters: {
         path: {
           intent: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Reason for canceling this SetupIntent. Possible values are `abandoned`, `requested_by_customer`, or `duplicate`
+           */
+          cancellation_reason?:
+            | "abandoned"
+            | "duplicate"
+            | "requested_by_customer";
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
         };
       };
       responses: {
@@ -10475,6 +21276,51 @@ export interface paths {
       parameters: {
         path: {
           intent: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The client secret of the SetupIntent.
+           */
+          client_secret?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * This hash contains details about the Mandate to create
+           */
+          mandate_data?: Partial<{
+            customer_acceptance: {
+              accepted_at?: number;
+              offline?: { [key: string]: any };
+              online?: { ip_address: string; user_agent: string };
+              type: "offline" | "online";
+            };
+          }> &
+            Partial<{
+              customer_acceptance: {
+                online: { ip_address?: string; user_agent?: string };
+                type: "online";
+              };
+            }>;
+          /**
+           * ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
+           */
+          payment_method?: string;
+          /**
+           * Payment-method-specific configuration for this SetupIntent.
+           */
+          payment_method_options?: {
+            card?: { request_three_d_secure?: "any" | "automatic" };
+          };
+          /**
+           * The URL to redirect your customer back to after they authenticate on the payment method's app or site.
+           * If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
+           * This parameter is only used for cards and other redirect-based payment methods.
+           */
+          return_url?: string;
         };
       };
       responses: {
@@ -10517,6 +21363,9 @@ export interface paths {
            */
           starting_after?: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -10563,6 +21412,9 @@ export interface paths {
         path: {
           scheduled_query_run: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -10625,6 +21477,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -10658,6 +21513,63 @@ export interface paths {
      * <p>Creates a new SKU associated with a product.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Whether the SKU is available for purchase. Default to `true`.
+           */
+          active?: boolean;
+          /**
+           * A dictionary of attributes and values for the attributes defined by the product. If, for example, a product's attributes are `["size", "gender"]`, a valid SKU has the following dictionary of attributes: `{"size": "Medium", "gender": "Unisex"}`.
+           */
+          attributes?: { [key: string]: string };
+          /**
+           * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+           */
+          currency: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The identifier for the SKU. Must be unique. If not provided, an identifier will be randomly generated.
+           */
+          id?: string;
+          /**
+           * The URL of an image for this SKU, meant to be displayable to the customer.
+           */
+          image?: string;
+          /**
+           * Description of the SKU's inventory.
+           */
+          inventory: {
+            quantity?: number;
+            type?: "bucket" | "finite" | "infinite";
+            value?: "" | "in_stock" | "limited" | "out_of_stock";
+          };
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * The dimensions of this SKU for shipping purposes.
+           */
+          package_dimensions?: {
+            height: number;
+            length: number;
+            weight: number;
+            width: number;
+          };
+          /**
+           * The cost of the item as a nonnegative integer in the smallest currency unit (that is, 100 cents to charge $1.00, or 100 to charge ¥100, Japanese Yen being a zero-decimal currency).
+           */
+          price: number;
+          /**
+           * The ID of the product this SKU is associated with. Must be a product with type `good`.
+           */
+          product: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -10683,6 +21595,9 @@ export interface paths {
         path: {
           id: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -10714,6 +21629,9 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -10741,6 +21659,60 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Whether this SKU is available for purchase.
+           */
+          active?: boolean;
+          /**
+           * A dictionary of attributes and values for the attributes defined by the product. When specified, `attributes` will partially update the existing attributes dictionary on the product, with the postcondition that a value must be present for each attribute key on the product.
+           */
+          attributes?: { [key: string]: string };
+          /**
+           * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+           */
+          currency?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The URL of an image for this SKU, meant to be displayable to the customer.
+           */
+          image?: string;
+          /**
+           * Description of the SKU's inventory.
+           */
+          inventory?: {
+            quantity?: number;
+            type?: "bucket" | "finite" | "infinite";
+            value?: "" | "in_stock" | "limited" | "out_of_stock";
+          };
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * The dimensions of this SKU for shipping purposes.
+           */
+          package_dimensions?: Partial<{
+            height: number;
+            length: number;
+            weight: number;
+            width: number;
+          }> &
+            Partial<"">;
+          /**
+           * The cost of the item as a positive integer in the smallest currency unit (that is, 100 cents to charge $1.00, or 100 to charge ¥100, Japanese Yen being a zero-decimal currency).
+           */
+          price?: number;
+          /**
+           * The ID of the product that this SKU should belong to. The product must exist, have the same set of attribute names as the SKU's current product, and be of type `good`.
+           */
+          product?: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -10762,6 +21734,122 @@ export interface paths {
      * <p>Creates a new source object.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Amount associated with the source. This is the amount for which the source will be chargeable once ready. Required for `single_use` sources. Not supported for `receiver` type sources, where charge amount may not be specified until funds land.
+           */
+          amount?: number;
+          /**
+           * Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) associated with the source. This is the currency for which the source will be chargeable once ready.
+           */
+          currency?: string;
+          /**
+           * The `Customer` to whom the original source is attached to. Must be set when the original source is not a `Source` (e.g., `Card`).
+           */
+          customer?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The authentication `flow` of the source to create. `flow` is one of `redirect`, `receiver`, `code_verification`, `none`. It is generally inferred unless a type supports multiple flows.
+           */
+          flow?: "code_verification" | "none" | "receiver" | "redirect";
+          /**
+           * Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status.
+           */
+          mandate?: {
+            acceptance?: {
+              date?: number;
+              ip?: string;
+              offline?: { contact_email: string };
+              online?: { date?: number; ip?: string; user_agent?: string };
+              status: "accepted" | "pending" | "refused" | "revoked";
+              type?: "offline" | "online";
+              user_agent?: string;
+            };
+            amount?: Partial<number> & Partial<"">;
+            currency?: string;
+            interval?: "one_time" | "scheduled" | "variable";
+            notification_method?:
+              | "deprecated_none"
+              | "email"
+              | "manual"
+              | "none"
+              | "stripe_email";
+          };
+          metadata?: { [key: string]: string };
+          /**
+           * The source to share.
+           */
+          original_source?: string;
+          /**
+           * Information about the owner of the payment instrument that may be used or required by particular source types.
+           */
+          owner?: {
+            address?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            email?: string;
+            name?: string;
+            phone?: string;
+          };
+          /**
+           * Optional parameters for the receiver flow. Can be set only if the source is a receiver (`flow` is `receiver`).
+           */
+          receiver?: { refund_attributes_method?: "email" | "manual" | "none" };
+          /**
+           * Parameters required for the redirect flow. Required if the source is authenticated by a redirect (`flow` is `redirect`).
+           */
+          redirect?: { return_url: string };
+          /**
+           * Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it.
+           */
+          source_order?: {
+            items?: {
+              amount?: number;
+              currency?: string;
+              description?: string;
+              parent?: string;
+              quantity?: number;
+              type?: "discount" | "shipping" | "sku" | "tax";
+            }[];
+            shipping?: {
+              address: {
+                city?: string;
+                country?: string;
+                line1: string;
+                line2?: string;
+                postal_code?: string;
+                state?: string;
+              };
+              carrier?: string;
+              name?: string;
+              phone?: string;
+              tracking_number?: string;
+            };
+          };
+          /**
+           * An arbitrary string to be displayed on your customer's statement. As an example, if your website is `RunClub` and the item you're charging for is a race ticket, you may want to specify a `statement_descriptor` of `RunClub 5K race ticket.` While many payment types will display this information, some may not display it at all.
+           */
+          statement_descriptor?: string;
+          /**
+           * An optional token used to create the source. When passed, token properties will override source parameters.
+           */
+          token?: string;
+          /**
+           * The `type` of the source to create. Required unless `customer` and `original_source` are specified (see the [Cloning card Sources](https://stripe.com/docs/sources/connect#cloning-card-sources) guide)
+           */
+          type?: string;
+          usage?: "reusable" | "single_use";
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -10798,6 +21886,9 @@ export interface paths {
           source: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -10822,6 +21913,88 @@ export interface paths {
       parameters: {
         path: {
           source: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Amount associated with the source.
+           */
+          amount?: number;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status.
+           */
+          mandate?: {
+            acceptance?: {
+              date?: number;
+              ip?: string;
+              offline?: { contact_email: string };
+              online?: { date?: number; ip?: string; user_agent?: string };
+              status: "accepted" | "pending" | "refused" | "revoked";
+              type?: "offline" | "online";
+              user_agent?: string;
+            };
+            amount?: Partial<number> & Partial<"">;
+            currency?: string;
+            interval?: "one_time" | "scheduled" | "variable";
+            notification_method?:
+              | "deprecated_none"
+              | "email"
+              | "manual"
+              | "none"
+              | "stripe_email";
+          };
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Information about the owner of the payment instrument that may be used or required by particular source types.
+           */
+          owner?: {
+            address?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            email?: string;
+            name?: string;
+            phone?: string;
+          };
+          /**
+           * Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it.
+           */
+          source_order?: {
+            items?: {
+              amount?: number;
+              currency?: string;
+              description?: string;
+              parent?: string;
+              quantity?: number;
+              type?: "discount" | "shipping" | "sku" | "tax";
+            }[];
+            shipping?: {
+              address: {
+                city?: string;
+                country?: string;
+                line1: string;
+                line2?: string;
+                postal_code?: string;
+                state?: string;
+              };
+              carrier?: string;
+              name?: string;
+              phone?: string;
+              tracking_number?: string;
+            };
+          };
         };
       };
       responses: {
@@ -10856,6 +22029,9 @@ export interface paths {
           mandate_notification: string;
           source: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -10900,6 +22076,9 @@ export interface paths {
         path: {
           source: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -10948,6 +22127,9 @@ export interface paths {
           source_transaction: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -10972,6 +22154,18 @@ export interface paths {
       parameters: {
         path: {
           source: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The values needed to verify the source.
+           */
+          values: string[];
         };
       };
       responses: {
@@ -11019,6 +22213,9 @@ export interface paths {
           subscription: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -11052,6 +22249,65 @@ export interface paths {
      * <p>Adds a new item to an existing subscription. No existing items will be changed or replaced.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
+           */
+          billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
+           *
+           * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
+           *
+           * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+           */
+          payment_behavior?:
+            | "allow_incomplete"
+            | "error_if_incomplete"
+            | "pending_if_incomplete";
+          /**
+           * The identifier of the plan to add to the subscription.
+           */
+          plan?: string;
+          /**
+           * This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`.
+           */
+          prorate?: boolean;
+          /**
+           * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
+           *
+           * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
+           *
+           * Prorations can be disabled by passing `none`.
+           */
+          proration_behavior?: "always_invoice" | "create_prorations" | "none";
+          /**
+           * If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint.
+           */
+          proration_date?: number;
+          /**
+           * The quantity you'd like to apply to the subscription item you're creating.
+           */
+          quantity?: number;
+          /**
+           * The identifier of the subscription to modify.
+           */
+          subscription: string;
+          /**
+           * A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+           */
+          tax_rates?: Partial<string[]> & Partial<"">;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -11076,6 +22332,30 @@ export interface paths {
       parameters: {
         path: {
           item: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Delete all usage for the given subscription item. Allowed only when the current plan's `usage_type` is `metered`.
+           */
+          clear_usage?: boolean;
+          /**
+           * This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`.
+           */
+          prorate?: boolean;
+          /**
+           * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
+           *
+           * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
+           *
+           * Prorations can be disabled by passing `none`.
+           */
+          proration_behavior?: "always_invoice" | "create_prorations" | "none";
+          /**
+           * If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint.
+           */
+          proration_date?: number;
         };
       };
       responses: {
@@ -11108,6 +22388,9 @@ export interface paths {
           item: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -11130,6 +22413,65 @@ export interface paths {
       parameters: {
         path: {
           item: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
+           */
+          billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Indicates if a customer is on or off-session while an invoice payment is attempted.
+           */
+          off_session?: boolean;
+          /**
+           * Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
+           *
+           * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
+           *
+           * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+           */
+          payment_behavior?:
+            | "allow_incomplete"
+            | "error_if_incomplete"
+            | "pending_if_incomplete";
+          /**
+           * The identifier of the new plan for this subscription item.
+           */
+          plan?: string;
+          /**
+           * This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`.
+           */
+          prorate?: boolean;
+          /**
+           * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
+           *
+           * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
+           *
+           * Prorations can be disabled by passing `none`.
+           */
+          proration_behavior?: "always_invoice" | "create_prorations" | "none";
+          /**
+           * If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint.
+           */
+          proration_date?: number;
+          /**
+           * The quantity you'd like to apply to the subscription item you're creating.
+           */
+          quantity?: number;
+          /**
+           * A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+           */
+          tax_rates?: Partial<string[]> & Partial<"">;
         };
       };
       responses: {
@@ -11178,6 +22520,9 @@ export interface paths {
           subscription_item: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -11222,6 +22567,26 @@ export interface paths {
       parameters: {
         path: {
           subscription_item: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Valid values are `increment` (default) or `set`. When using `increment` the specified `quantity` will be added to the usage at the specified timestamp. The `set` action will overwrite the usage quantity at that timestamp. If the subscription has [billing thresholds](https://stripe.com/docs/api/subscriptions/object#subscription_object-billing_thresholds), `increment` is the only allowed value.
+           */
+          action?: "increment" | "set";
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The usage quantity for the specified timestamp.
+           */
+          quantity: number;
+          /**
+           * The timestamp for the usage event. This timestamp must be within the current billing period of the subscription of the provided `subscription_item`.
+           */
+          timestamp: number;
         };
       };
       responses: {
@@ -11313,6 +22678,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -11346,6 +22714,78 @@ export interface paths {
      * <p>Creates a new subscription schedule object. Each customer can have up to 25 active or scheduled subscriptions.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The identifier of the customer to create the subscription schedule for.
+           */
+          customer?: string;
+          /**
+           * Object representing the subscription schedule's default settings.
+           */
+          default_settings?: {
+            billing_thresholds?: Partial<{
+              amount_gte?: number;
+              reset_billing_cycle_anchor?: boolean;
+            }> &
+              Partial<"">;
+            collection_method?: "charge_automatically" | "send_invoice";
+            default_payment_method?: string;
+            invoice_settings?: { days_until_due?: number };
+          };
+          /**
+           * Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
+           */
+          end_behavior?: "cancel" | "none" | "release" | "renew";
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Migrate an existing subscription to be managed by a subscription schedule. If this parameter is set, a subscription schedule will be created using the subscription's plan(s), set to auto-renew using the subscription's interval. When using this parameter, other parameters (such as phase values) cannot be set. To create a subscription schedule with other modifications, we recommend making two separate API calls.
+           */
+          from_subscription?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase.
+           */
+          phases?: {
+            application_fee_percent?: number;
+            billing_thresholds?: Partial<{
+              amount_gte?: number;
+              reset_billing_cycle_anchor?: boolean;
+            }> &
+              Partial<"">;
+            collection_method?: "charge_automatically" | "send_invoice";
+            coupon?: string;
+            default_payment_method?: string;
+            default_tax_rates?: Partial<string[]> & Partial<"">;
+            end_date?: number;
+            invoice_settings?: { days_until_due?: number };
+            iterations?: number;
+            plans: {
+              billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+              plan?: string;
+              quantity?: number;
+              tax_rates?: Partial<string[]> & Partial<"">;
+            }[];
+            proration_behavior?:
+              | "always_invoice"
+              | "create_prorations"
+              | "none";
+            tax_percent?: number;
+            trial?: boolean;
+            trial_end?: number;
+          }[];
+          /**
+           * When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on.
+           */
+          start_date?: Partial<number> & Partial<"now">;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -11378,6 +22818,9 @@ export interface paths {
           schedule: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -11400,6 +22843,75 @@ export interface paths {
       parameters: {
         path: {
           schedule: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Object representing the subscription schedule's default settings.
+           */
+          default_settings?: {
+            billing_thresholds?: Partial<{
+              amount_gte?: number;
+              reset_billing_cycle_anchor?: boolean;
+            }> &
+              Partial<"">;
+            collection_method?: "charge_automatically" | "send_invoice";
+            default_payment_method?: string;
+            invoice_settings?: { days_until_due?: number };
+          };
+          /**
+           * Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
+           */
+          end_behavior?: "cancel" | "none" | "release" | "renew";
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. Note that past phases can be omitted.
+           */
+          phases?: {
+            application_fee_percent?: number;
+            billing_thresholds?: Partial<{
+              amount_gte?: number;
+              reset_billing_cycle_anchor?: boolean;
+            }> &
+              Partial<"">;
+            collection_method?: "charge_automatically" | "send_invoice";
+            coupon?: string;
+            default_payment_method?: string;
+            default_tax_rates?: Partial<string[]> & Partial<"">;
+            end_date?: Partial<number> & Partial<"now">;
+            invoice_settings?: { days_until_due?: number };
+            iterations?: number;
+            plans: {
+              billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+              plan?: string;
+              quantity?: number;
+              tax_rates?: Partial<string[]> & Partial<"">;
+            }[];
+            proration_behavior?:
+              | "always_invoice"
+              | "create_prorations"
+              | "none";
+            start_date?: Partial<number> & Partial<"now">;
+            tax_percent?: number;
+            trial?: boolean;
+            trial_end?: Partial<number> & Partial<"now">;
+          }[];
+          /**
+           * This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`.
+           */
+          prorate?: boolean;
+          /**
+           * If the update changes the current phase, indicates if the changes should be prorated. Valid values are `create_prorations` or `none`, and the default value is `create_prorations`.
+           */
+          proration_behavior?: "always_invoice" | "create_prorations" | "none";
         };
       };
       responses: {
@@ -11428,6 +22940,22 @@ export interface paths {
           schedule: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * If the subscription schedule is `active`, indicates whether or not to generate a final invoice that contains any un-invoiced metered usage and new/pending proration invoice items. Defaults to `true`.
+           */
+          invoice_now?: boolean;
+          /**
+           * If the subscription schedule is `active`, indicates if the cancellation should be prorated. Defaults to `true`.
+           */
+          prorate?: boolean;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -11452,6 +22980,18 @@ export interface paths {
       parameters: {
         path: {
           schedule: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Keep any cancellation on the subscription that the schedule has set
+           */
+          preserve_cancel_date?: boolean;
         };
       };
       responses: {
@@ -11541,6 +23081,9 @@ export interface paths {
             | "unpaid";
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -11574,6 +23117,133 @@ export interface paths {
      * <p>Creates a new subscription on an existing customer. Each customer can have up to 25 active or scheduled subscriptions.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
+           */
+          application_fee_percent?: number;
+          /**
+           * For new subscriptions, a past timestamp to backdate the subscription's start date to. If set, the first invoice will contain a proration for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
+           */
+          backdate_start_date?: number;
+          /**
+           * A future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices.
+           */
+          billing_cycle_anchor?: number;
+          /**
+           * Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+           */
+          billing_thresholds?: Partial<{
+            amount_gte?: number;
+            reset_billing_cycle_anchor?: boolean;
+          }> &
+            Partial<"">;
+          /**
+           * A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
+           */
+          cancel_at?: number;
+          /**
+           * Boolean indicating whether this subscription should cancel at the end of the current period.
+           */
+          cancel_at_period_end?: boolean;
+          /**
+           * Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`.
+           */
+          collection_method?: "charge_automatically" | "send_invoice";
+          /**
+           * The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription.
+           */
+          coupon?: string;
+          /**
+           * The identifier of the customer to subscribe.
+           */
+          customer: string;
+          /**
+           * Number of days a customer has to pay invoices generated by this subscription. Valid only for subscriptions where `collection_method` is set to `send_invoice`.
+           */
+          days_until_due?: number;
+          /**
+           * ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. If not set, invoices will use the default payment method in the customer's invoice settings.
+           */
+          default_payment_method?: string;
+          /**
+           * ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If not set, defaults to the customer's default source.
+           */
+          default_source?: string;
+          /**
+           * The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription.
+           */
+          default_tax_rates?: Partial<string[]> & Partial<"">;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * A list of up to 20 subscription items, each with an attached plan.
+           */
+          items?: {
+            billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+            metadata?: { [key: string]: string };
+            plan?: string;
+            quantity?: number;
+            tax_rates?: Partial<string[]> & Partial<"">;
+          }[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Indicates if a customer is on or off-session while an invoice payment is attempted.
+           */
+          off_session?: boolean;
+          /**
+           * Use `allow_incomplete` to create subscriptions with `status=incomplete` if the first invoice cannot be paid. Creating subscriptions with this status allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
+           *
+           * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+           *
+           * `pending_if_incomplete` is only used with updates and cannot be passed when creating a subscription.
+           */
+          payment_behavior?:
+            | "allow_incomplete"
+            | "error_if_incomplete"
+            | "pending_if_incomplete";
+          /**
+           * Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval.
+           */
+          pending_invoice_item_interval?: Partial<{
+            interval: "day" | "month" | "week" | "year";
+            interval_count?: number;
+          }> &
+            Partial<"">;
+          /**
+           * This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`.
+           */
+          prorate?: boolean;
+          /**
+           * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) resulting from the `billing_cycle_anchor`. Valid values are `create_prorations` or `none`.
+           *
+           * Passing `create_prorations` will cause proration invoice items to be created when applicable. Prorations can be disabled by passing `none`. If no value is passed, the default is `create_prorations`.
+           */
+          proration_behavior?: "always_invoice" | "create_prorations" | "none";
+          /**
+           * A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`.
+           */
+          tax_percent?: Partial<number> & Partial<"">;
+          /**
+           * Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`.
+           */
+          trial_end?: Partial<"now"> & Partial<number>;
+          /**
+           * Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed.
+           */
+          trial_from_plan?: boolean;
+          /**
+           * Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan.
+           */
+          trial_period_days?: number;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -11602,6 +23272,22 @@ export interface paths {
       parameters: {
         path: {
           subscription_exposed_id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items.
+           */
+          invoice_now?: boolean;
+          /**
+           * Will generate a proration invoice item that credits remaining unused time until the subscription period end.
+           */
+          prorate?: boolean;
         };
       };
       responses: {
@@ -11634,6 +23320,9 @@ export interface paths {
           subscription_exposed_id: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -11656,6 +23345,138 @@ export interface paths {
       parameters: {
         path: {
           subscription_exposed_id: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
+           */
+          application_fee_percent?: number;
+          /**
+           * Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+           */
+          billing_cycle_anchor?: "now" | "unchanged";
+          /**
+           * Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+           */
+          billing_thresholds?: Partial<{
+            amount_gte?: number;
+            reset_billing_cycle_anchor?: boolean;
+          }> &
+            Partial<"">;
+          /**
+           * A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
+           */
+          cancel_at?: Partial<number> & Partial<"">;
+          /**
+           * Boolean indicating whether this subscription should cancel at the end of the current period.
+           */
+          cancel_at_period_end?: boolean;
+          /**
+           * Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`.
+           */
+          collection_method?: "charge_automatically" | "send_invoice";
+          /**
+           * The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription.
+           */
+          coupon?: string;
+          /**
+           * Number of days a customer has to pay invoices generated by this subscription. Valid only for subscriptions where `collection_method` is set to `send_invoice`.
+           */
+          days_until_due?: number;
+          /**
+           * ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. If not set, invoices will use the default payment method in the customer's invoice settings.
+           */
+          default_payment_method?: string;
+          /**
+           * ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If not set, defaults to the customer's default source.
+           */
+          default_source?: string;
+          /**
+           * The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. Pass an empty string to remove previously-defined tax rates.
+           */
+          default_tax_rates?: Partial<string[]> & Partial<"">;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * List of subscription items, each with an attached plan.
+           */
+          items?: {
+            billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+            clear_usage?: boolean;
+            deleted?: boolean;
+            id?: string;
+            metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+            plan?: string;
+            quantity?: number;
+            tax_rates?: Partial<string[]> & Partial<"">;
+          }[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Indicates if a customer is on or off-session while an invoice payment is attempted.
+           */
+          off_session?: boolean;
+          /**
+           * If specified, payment collection for this subscription will be paused.
+           */
+          pause_collection?: Partial<{
+            behavior: "keep_as_draft" | "mark_uncollectible" | "void";
+            resumes_at?: number;
+          }> &
+            Partial<"">;
+          /**
+           * Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
+           *
+           * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
+           *
+           * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+           */
+          payment_behavior?:
+            | "allow_incomplete"
+            | "error_if_incomplete"
+            | "pending_if_incomplete";
+          /**
+           * Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval.
+           */
+          pending_invoice_item_interval?: Partial<{
+            interval: "day" | "month" | "week" | "year";
+            interval_count?: number;
+          }> &
+            Partial<"">;
+          /**
+           * This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`.
+           */
+          prorate?: boolean;
+          /**
+           * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
+           *
+           * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
+           *
+           * Prorations can be disabled by passing `none`.
+           */
+          proration_behavior?: "always_invoice" | "create_prorations" | "none";
+          /**
+           * If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations.
+           */
+          proration_date?: number;
+          /**
+           * A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`.
+           */
+          tax_percent?: Partial<number> & Partial<"">;
+          /**
+           * Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`.
+           */
+          trial_end?: Partial<"now"> & Partial<number>;
+          /**
+           * Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed.
+           */
+          trial_from_plan?: boolean;
         };
       };
       responses: {
@@ -11683,6 +23504,9 @@ export interface paths {
         path: {
           subscription_exposed_id: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -11743,6 +23567,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -11776,6 +23603,42 @@ export interface paths {
      * <p>Creates a new tax rate.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Flag determining whether the tax rate is active or inactive. Inactive tax rates continue to work where they are currently applied however they cannot be used for new applications.
+           */
+          active?: boolean;
+          /**
+           * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+           */
+          description?: string;
+          /**
+           * The display name of the tax rate, which will be shown to users.
+           */
+          display_name: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * This specifies if the tax rate is inclusive or exclusive.
+           */
+          inclusive: boolean;
+          /**
+           * The jurisdiction for the tax rate.
+           */
+          jurisdiction?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * This represents the tax rate percent out of 100.
+           */
+          percentage: number;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -11808,6 +23671,9 @@ export interface paths {
           tax_rate: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -11832,6 +23698,34 @@ export interface paths {
           tax_rate: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Flag determining whether the tax rate is active or inactive. Inactive tax rates continue to work where they are currently applied however they cannot be used for new applications.
+           */
+          active?: boolean;
+          /**
+           * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+           */
+          description?: string;
+          /**
+           * The display name of the tax rate, which will be shown to users.
+           */
+          display_name?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The jurisdiction for the tax rate.
+           */
+          jurisdiction?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -11853,6 +23747,18 @@ export interface paths {
      * <p>To connect to a reader the Stripe Terminal SDK needs to retrieve a short-lived connection token from Stripe, proxied through your server. On your backend, add an endpoint that creates and returns a connection token.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The id of the location that this connection token is scoped to. If specified the connection token will only be usable with readers assigned to that location, otherwise the connection token will be usable with all readers.
+           */
+          location?: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -11894,6 +23800,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -11927,6 +23836,33 @@ export interface paths {
      * <p>Creates a new <code>Location</code> object.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The full address of the location.
+           */
+          address: {
+            city?: string;
+            country: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+          };
+          /**
+           * A name for the location.
+           */
+          display_name: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -11952,6 +23888,9 @@ export interface paths {
         path: {
           location: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -11983,6 +23922,9 @@ export interface paths {
           location: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -12005,6 +23947,33 @@ export interface paths {
       parameters: {
         path: {
           location: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * The full address of the location.
+           */
+          address?: {
+            city?: string;
+            country: string;
+            line1?: string;
+            line2?: string;
+            postal_code?: string;
+            state?: string;
+          };
+          /**
+           * A name for the location.
+           */
+          display_name?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         };
       };
       responses: {
@@ -12060,6 +24029,9 @@ export interface paths {
           status?: "offline" | "online";
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -12096,6 +24068,30 @@ export interface paths {
      * <p>Creates a new <code>Reader</code> object.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Custom label given to the reader for easier identification. If no label is specified, the registration code will be used.
+           */
+          label?: string;
+          /**
+           * The location to assign the reader to. If no location is specified, the reader will be assigned to the account's default location.
+           */
+          location?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * A code generated by the reader used for registering to an account.
+           */
+          registration_code: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -12121,6 +24117,9 @@ export interface paths {
         path: {
           reader: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -12152,6 +24151,9 @@ export interface paths {
           reader: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -12176,6 +24178,22 @@ export interface paths {
           reader: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * The new label of the reader.
+           */
+          label?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -12198,6 +24216,220 @@ export interface paths {
      * This token can be used with any API method in place of a bank account dictionary. This token can be used only once, by attaching it to a <a href="#accounts">Custom account</a>.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Information for the account this token will represent.
+           */
+          account?: {
+            business_type?:
+              | "company"
+              | "government_entity"
+              | "individual"
+              | "non_profit";
+            company?: {
+              address?: {
+                city?: string;
+                country?: string;
+                line1?: string;
+                line2?: string;
+                postal_code?: string;
+                state?: string;
+              };
+              address_kana?: {
+                city?: string;
+                country?: string;
+                line1?: string;
+                line2?: string;
+                postal_code?: string;
+                state?: string;
+                town?: string;
+              };
+              address_kanji?: {
+                city?: string;
+                country?: string;
+                line1?: string;
+                line2?: string;
+                postal_code?: string;
+                state?: string;
+                town?: string;
+              };
+              directors_provided?: boolean;
+              executives_provided?: boolean;
+              name?: string;
+              name_kana?: string;
+              name_kanji?: string;
+              owners_provided?: boolean;
+              phone?: string;
+              structure?:
+                | ""
+                | "government_instrumentality"
+                | "governmental_unit"
+                | "incorporated_non_profit"
+                | "limited_liability_partnership"
+                | "multi_member_llc"
+                | "private_company"
+                | "private_corporation"
+                | "private_partnership"
+                | "public_company"
+                | "public_corporation"
+                | "public_partnership"
+                | "sole_proprietorship"
+                | "tax_exempt_government_instrumentality"
+                | "unincorporated_association"
+                | "unincorporated_non_profit";
+              tax_id?: string;
+              tax_id_registrar?: string;
+              vat_id?: string;
+              verification?: { document?: { back?: string; front?: string } };
+            };
+            individual?: {
+              address?: {
+                city?: string;
+                country?: string;
+                line1?: string;
+                line2?: string;
+                postal_code?: string;
+                state?: string;
+              };
+              address_kana?: {
+                city?: string;
+                country?: string;
+                line1?: string;
+                line2?: string;
+                postal_code?: string;
+                state?: string;
+                town?: string;
+              };
+              address_kanji?: {
+                city?: string;
+                country?: string;
+                line1?: string;
+                line2?: string;
+                postal_code?: string;
+                state?: string;
+                town?: string;
+              };
+              dob?: Partial<{ day: number; month: number; year: number }> &
+                Partial<"">;
+              email?: string;
+              first_name?: string;
+              first_name_kana?: string;
+              first_name_kanji?: string;
+              gender?: string;
+              id_number?: string;
+              last_name?: string;
+              last_name_kana?: string;
+              last_name_kanji?: string;
+              maiden_name?: string;
+              metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+              phone?: string;
+              ssn_last_4?: string;
+              verification?: {
+                additional_document?: { back?: string; front?: string };
+                document?: { back?: string; front?: string };
+              };
+            };
+            tos_shown_and_accepted?: boolean;
+          };
+          /**
+           * The bank account this token will represent.
+           */
+          bank_account?: {
+            account_holder_name?: string;
+            account_holder_type?: "company" | "individual";
+            account_number: string;
+            country: string;
+            currency?: string;
+            routing_number?: string;
+          };
+          card?: Partial<{
+            address_city?: string;
+            address_country?: string;
+            address_line1?: string;
+            address_line2?: string;
+            address_state?: string;
+            address_zip?: string;
+            currency?: string;
+            cvc?: string;
+            exp_month: string;
+            exp_year: string;
+            name?: string;
+            number: string;
+          }> &
+            Partial<string>;
+          /**
+           * The customer (owned by the application's account) for which to create a token. This can be used only with an [OAuth access token](https://stripe.com/docs/connect/standard-accounts) or [Stripe-Account header](https://stripe.com/docs/connect/authentication). For more details, see [Cloning Saved Payment Methods](https://stripe.com/docs/connect/cloning-saved-payment-methods).
+           */
+          customer?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Information for the person this token will represent.
+           */
+          person?: {
+            address?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+            address_kana?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+              town?: string;
+            };
+            address_kanji?: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+              town?: string;
+            };
+            dob?: Partial<{ day: number; month: number; year: number }> &
+              Partial<"">;
+            email?: string;
+            first_name?: string;
+            first_name_kana?: string;
+            first_name_kanji?: string;
+            gender?: string;
+            id_number?: string;
+            last_name?: string;
+            last_name_kana?: string;
+            last_name_kanji?: string;
+            maiden_name?: string;
+            metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+            phone?: string;
+            relationship?: {
+              director?: boolean;
+              executive?: boolean;
+              owner?: boolean;
+              percent_ownership?: Partial<number> & Partial<"">;
+              representative?: boolean;
+              title?: string;
+            };
+            ssn_last_4?: string;
+            verification?: {
+              additional_document?: { back?: string; front?: string };
+              document?: { back?: string; front?: string };
+            };
+          };
+          /**
+           * The PII this token will represent.
+           */
+          pii?: { id_number?: string };
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -12229,6 +24461,9 @@ export interface paths {
         path: {
           token: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -12295,6 +24530,9 @@ export interface paths {
           status?: "canceled" | "failed" | "pending" | "succeeded";
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -12328,6 +24566,42 @@ export interface paths {
      * <p>Top up the balance of an account</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A positive integer representing how much to transfer.
+           */
+          amount: number;
+          /**
+           * Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+           */
+          currency: string;
+          /**
+           * An arbitrary string attached to the object. Often useful for displaying to users.
+           */
+          description?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * The ID of a source to transfer funds from. For most users, this should be left unspecified which will use the bank account that was set up in the dashboard for the specified currency. In test mode, this can be a test bank token (see [Testing Top-ups](https://stripe.com/docs/connect/testing#testing-top-ups)).
+           */
+          source?: string;
+          /**
+           * Extra information about a top-up for the source's bank statement. Limited to 15 ASCII characters.
+           */
+          statement_descriptor?: string;
+          /**
+           * A string that identifies this top-up as part of a group.
+           */
+          transfer_group?: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -12360,6 +24634,9 @@ export interface paths {
           topup: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -12382,6 +24659,22 @@ export interface paths {
       parameters: {
         path: {
           topup: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * An arbitrary string attached to the object. Often useful for displaying to users.
+           */
+          description?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         };
       };
       responses: {
@@ -12408,6 +24701,14 @@ export interface paths {
       parameters: {
         path: {
           topup: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
         };
       };
       responses: {
@@ -12466,6 +24767,9 @@ export interface paths {
           transfer_group?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -12502,6 +24806,46 @@ export interface paths {
      * <p>To send funds from your Stripe account to a connected account, you create a new transfer object. Your <a href="#balance">Stripe balance</a> must be able to cover the transfer amount, or you’ll receive an “Insufficient Funds” error.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A positive integer in %s representing how much to transfer.
+           */
+          amount?: number;
+          /**
+           * 3-letter [ISO code for currency](https://stripe.com/docs/payouts).
+           */
+          currency: string;
+          /**
+           * An arbitrary string attached to the object. Often useful for displaying to users.
+           */
+          description?: string;
+          /**
+           * The ID of a connected Stripe account. <a href="/docs/connect/charges-transfers">See the Connect documentation</a> for details.
+           */
+          destination: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: { [key: string]: string };
+          /**
+           * You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-availability) for details.
+           */
+          source_transaction?: string;
+          /**
+           * The source balance to use for this transfer. One of `bank_account`, `card`, or `fpx`. For most users, this will default to `card`.
+           */
+          source_type?: "bank_account" | "card" | "fpx";
+          /**
+           * A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details.
+           */
+          transfer_group?: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -12545,6 +24889,9 @@ export interface paths {
         path: {
           id: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -12591,6 +24938,30 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * A positive integer in %s representing how much of this transfer to reverse. Can only reverse up to the unreversed amount remaining of the transfer. Partial transfer reversals are only allowed for transfers to Stripe Accounts. Defaults to the entire transfer amount.
+           */
+          amount?: number;
+          /**
+           * An arbitrary string which you can attach to a reversal object. It is displayed alongside the reversal in the Dashboard. This will be unset if you POST an empty value.
+           */
+          description?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * Boolean indicating whether the application fee should be refunded when reversing this transfer. If a full transfer reversal is given, the full application fee will be refunded. Otherwise, the application fee will be refunded with an amount proportional to the amount of the transfer reversed.
+           */
+          refund_application_fee?: boolean;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -12623,6 +24994,9 @@ export interface paths {
           transfer: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -12647,6 +25021,22 @@ export interface paths {
       parameters: {
         path: {
           transfer: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * An arbitrary string attached to the object. Often useful for displaying to users.
+           */
+          description?: string;
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         };
       };
       responses: {
@@ -12682,6 +25072,9 @@ export interface paths {
           transfer: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -12707,6 +25100,18 @@ export interface paths {
         path: {
           id: string;
           transfer: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         };
       };
       responses: {
@@ -12750,6 +25155,9 @@ export interface paths {
           starting_after?: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -12783,6 +25191,283 @@ export interface paths {
      * <p>A webhook endpoint must have a <code>url</code> and a list of <code>enabled_events</code>. You may optionally specify the Boolean <code>connect</code> parameter. If set to true, then a Connect webhook endpoint that notifies the specified <code>url</code> about events from all connected accounts is created; otherwise an account webhook endpoint that notifies the specified <code>url</code> only about events from your account is created. You can also create webhook endpoints in the <a href="https://dashboard.stripe.com/account/webhooks">webhooks settings</a> section of the Dashboard.</p>
      */
     post: {
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * Events sent to this endpoint will be generated with this Stripe Version instead of your account's default Stripe Version.
+           */
+          api_version?:
+            | "2011-01-01"
+            | "2011-06-21"
+            | "2011-06-28"
+            | "2011-08-01"
+            | "2011-09-15"
+            | "2011-11-17"
+            | "2012-02-23"
+            | "2012-03-25"
+            | "2012-06-18"
+            | "2012-06-28"
+            | "2012-07-09"
+            | "2012-09-24"
+            | "2012-10-26"
+            | "2012-11-07"
+            | "2013-02-11"
+            | "2013-02-13"
+            | "2013-07-05"
+            | "2013-08-12"
+            | "2013-08-13"
+            | "2013-10-29"
+            | "2013-12-03"
+            | "2014-01-31"
+            | "2014-03-13"
+            | "2014-03-28"
+            | "2014-05-19"
+            | "2014-06-13"
+            | "2014-06-17"
+            | "2014-07-22"
+            | "2014-07-26"
+            | "2014-08-04"
+            | "2014-08-20"
+            | "2014-09-08"
+            | "2014-10-07"
+            | "2014-11-05"
+            | "2014-11-20"
+            | "2014-12-08"
+            | "2014-12-17"
+            | "2014-12-22"
+            | "2015-01-11"
+            | "2015-01-26"
+            | "2015-02-10"
+            | "2015-02-16"
+            | "2015-02-18"
+            | "2015-03-24"
+            | "2015-04-07"
+            | "2015-06-15"
+            | "2015-07-07"
+            | "2015-07-13"
+            | "2015-07-28"
+            | "2015-08-07"
+            | "2015-08-19"
+            | "2015-09-03"
+            | "2015-09-08"
+            | "2015-09-23"
+            | "2015-10-01"
+            | "2015-10-12"
+            | "2015-10-16"
+            | "2016-02-03"
+            | "2016-02-19"
+            | "2016-02-22"
+            | "2016-02-23"
+            | "2016-02-29"
+            | "2016-03-07"
+            | "2016-06-15"
+            | "2016-07-06"
+            | "2016-10-19"
+            | "2017-01-27"
+            | "2017-02-14"
+            | "2017-04-06"
+            | "2017-05-25"
+            | "2017-06-05"
+            | "2017-08-15"
+            | "2017-12-14"
+            | "2018-01-23"
+            | "2018-02-05"
+            | "2018-02-06"
+            | "2018-02-28"
+            | "2018-05-21"
+            | "2018-07-27"
+            | "2018-08-23"
+            | "2018-09-06"
+            | "2018-09-24"
+            | "2018-10-31"
+            | "2018-11-08"
+            | "2019-02-11"
+            | "2019-02-19"
+            | "2019-03-14"
+            | "2019-05-16"
+            | "2019-08-14"
+            | "2019-09-09"
+            | "2019-10-08"
+            | "2019-10-17"
+            | "2019-11-05"
+            | "2019-12-03"
+            | "2020-03-02";
+          /**
+           * Whether this endpoint should receive events from connected accounts (`true`), or from your account (`false`). Defaults to `false`.
+           */
+          connect?: boolean;
+          /**
+           * An optional description of what the wehbook is used for.
+           */
+          description?: string;
+          /**
+           * The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection.
+           */
+          enabled_events: (
+            | "*"
+            | "account.application.authorized"
+            | "account.application.deauthorized"
+            | "account.external_account.created"
+            | "account.external_account.deleted"
+            | "account.external_account.updated"
+            | "account.updated"
+            | "application_fee.created"
+            | "application_fee.refund.updated"
+            | "application_fee.refunded"
+            | "balance.available"
+            | "capability.updated"
+            | "charge.captured"
+            | "charge.dispute.closed"
+            | "charge.dispute.created"
+            | "charge.dispute.funds_reinstated"
+            | "charge.dispute.funds_withdrawn"
+            | "charge.dispute.updated"
+            | "charge.expired"
+            | "charge.failed"
+            | "charge.pending"
+            | "charge.refund.updated"
+            | "charge.refunded"
+            | "charge.succeeded"
+            | "charge.updated"
+            | "checkout.session.completed"
+            | "coupon.created"
+            | "coupon.deleted"
+            | "coupon.updated"
+            | "credit_note.created"
+            | "credit_note.updated"
+            | "credit_note.voided"
+            | "customer.created"
+            | "customer.deleted"
+            | "customer.discount.created"
+            | "customer.discount.deleted"
+            | "customer.discount.updated"
+            | "customer.source.created"
+            | "customer.source.deleted"
+            | "customer.source.expiring"
+            | "customer.source.updated"
+            | "customer.subscription.created"
+            | "customer.subscription.deleted"
+            | "customer.subscription.pending_update_applied"
+            | "customer.subscription.pending_update_expired"
+            | "customer.subscription.trial_will_end"
+            | "customer.subscription.updated"
+            | "customer.tax_id.created"
+            | "customer.tax_id.deleted"
+            | "customer.tax_id.updated"
+            | "customer.updated"
+            | "file.created"
+            | "invoice.created"
+            | "invoice.deleted"
+            | "invoice.finalized"
+            | "invoice.marked_uncollectible"
+            | "invoice.payment_action_required"
+            | "invoice.payment_failed"
+            | "invoice.payment_succeeded"
+            | "invoice.sent"
+            | "invoice.upcoming"
+            | "invoice.updated"
+            | "invoice.voided"
+            | "invoiceitem.created"
+            | "invoiceitem.deleted"
+            | "invoiceitem.updated"
+            | "issuing_authorization.created"
+            | "issuing_authorization.request"
+            | "issuing_authorization.updated"
+            | "issuing_card.created"
+            | "issuing_card.updated"
+            | "issuing_cardholder.created"
+            | "issuing_cardholder.updated"
+            | "issuing_transaction.created"
+            | "issuing_transaction.updated"
+            | "mandate.updated"
+            | "order.created"
+            | "order.payment_failed"
+            | "order.payment_succeeded"
+            | "order.updated"
+            | "order_return.created"
+            | "payment_intent.amount_capturable_updated"
+            | "payment_intent.canceled"
+            | "payment_intent.created"
+            | "payment_intent.payment_failed"
+            | "payment_intent.processing"
+            | "payment_intent.succeeded"
+            | "payment_method.attached"
+            | "payment_method.card_automatically_updated"
+            | "payment_method.detached"
+            | "payment_method.updated"
+            | "payout.canceled"
+            | "payout.created"
+            | "payout.failed"
+            | "payout.paid"
+            | "payout.updated"
+            | "person.created"
+            | "person.deleted"
+            | "person.updated"
+            | "plan.created"
+            | "plan.deleted"
+            | "plan.updated"
+            | "product.created"
+            | "product.deleted"
+            | "product.updated"
+            | "radar.early_fraud_warning.created"
+            | "radar.early_fraud_warning.updated"
+            | "recipient.created"
+            | "recipient.deleted"
+            | "recipient.updated"
+            | "reporting.report_run.failed"
+            | "reporting.report_run.succeeded"
+            | "reporting.report_type.updated"
+            | "review.closed"
+            | "review.opened"
+            | "setup_intent.canceled"
+            | "setup_intent.created"
+            | "setup_intent.setup_failed"
+            | "setup_intent.succeeded"
+            | "sigma.scheduled_query_run.created"
+            | "sku.created"
+            | "sku.deleted"
+            | "sku.updated"
+            | "source.canceled"
+            | "source.chargeable"
+            | "source.failed"
+            | "source.mandate_notification"
+            | "source.refund_attributes_required"
+            | "source.transaction.created"
+            | "source.transaction.updated"
+            | "subscription_schedule.aborted"
+            | "subscription_schedule.canceled"
+            | "subscription_schedule.completed"
+            | "subscription_schedule.created"
+            | "subscription_schedule.expiring"
+            | "subscription_schedule.released"
+            | "subscription_schedule.updated"
+            | "tax_rate.created"
+            | "tax_rate.updated"
+            | "topup.canceled"
+            | "topup.created"
+            | "topup.failed"
+            | "topup.reversed"
+            | "topup.succeeded"
+            | "transfer.created"
+            | "transfer.failed"
+            | "transfer.paid"
+            | "transfer.reversed"
+            | "transfer.updated"
+          )[];
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * The URL of the webhook endpoint.
+           */
+          url: string;
+        };
+      };
       responses: {
         /**
          * Successful response.
@@ -12808,6 +25493,9 @@ export interface paths {
         path: {
           webhook_endpoint: string;
         };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
       };
       responses: {
         /**
@@ -12839,6 +25527,9 @@ export interface paths {
           webhook_endpoint: string;
         };
       };
+      requestBody: {
+        "application/x-www-form-urlencoded": { [key: string]: any };
+      };
       responses: {
         /**
          * Successful response.
@@ -12861,6 +25552,184 @@ export interface paths {
       parameters: {
         path: {
           webhook_endpoint: string;
+        };
+      };
+      requestBody: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * An optional description of what the wehbook is used for.
+           */
+          description?: string;
+          /**
+           * Disable the webhook endpoint if set to true.
+           */
+          disabled?: boolean;
+          /**
+           * The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection.
+           */
+          enabled_events?: (
+            | "*"
+            | "account.application.authorized"
+            | "account.application.deauthorized"
+            | "account.external_account.created"
+            | "account.external_account.deleted"
+            | "account.external_account.updated"
+            | "account.updated"
+            | "application_fee.created"
+            | "application_fee.refund.updated"
+            | "application_fee.refunded"
+            | "balance.available"
+            | "capability.updated"
+            | "charge.captured"
+            | "charge.dispute.closed"
+            | "charge.dispute.created"
+            | "charge.dispute.funds_reinstated"
+            | "charge.dispute.funds_withdrawn"
+            | "charge.dispute.updated"
+            | "charge.expired"
+            | "charge.failed"
+            | "charge.pending"
+            | "charge.refund.updated"
+            | "charge.refunded"
+            | "charge.succeeded"
+            | "charge.updated"
+            | "checkout.session.completed"
+            | "coupon.created"
+            | "coupon.deleted"
+            | "coupon.updated"
+            | "credit_note.created"
+            | "credit_note.updated"
+            | "credit_note.voided"
+            | "customer.created"
+            | "customer.deleted"
+            | "customer.discount.created"
+            | "customer.discount.deleted"
+            | "customer.discount.updated"
+            | "customer.source.created"
+            | "customer.source.deleted"
+            | "customer.source.expiring"
+            | "customer.source.updated"
+            | "customer.subscription.created"
+            | "customer.subscription.deleted"
+            | "customer.subscription.pending_update_applied"
+            | "customer.subscription.pending_update_expired"
+            | "customer.subscription.trial_will_end"
+            | "customer.subscription.updated"
+            | "customer.tax_id.created"
+            | "customer.tax_id.deleted"
+            | "customer.tax_id.updated"
+            | "customer.updated"
+            | "file.created"
+            | "invoice.created"
+            | "invoice.deleted"
+            | "invoice.finalized"
+            | "invoice.marked_uncollectible"
+            | "invoice.payment_action_required"
+            | "invoice.payment_failed"
+            | "invoice.payment_succeeded"
+            | "invoice.sent"
+            | "invoice.upcoming"
+            | "invoice.updated"
+            | "invoice.voided"
+            | "invoiceitem.created"
+            | "invoiceitem.deleted"
+            | "invoiceitem.updated"
+            | "issuing_authorization.created"
+            | "issuing_authorization.request"
+            | "issuing_authorization.updated"
+            | "issuing_card.created"
+            | "issuing_card.updated"
+            | "issuing_cardholder.created"
+            | "issuing_cardholder.updated"
+            | "issuing_transaction.created"
+            | "issuing_transaction.updated"
+            | "mandate.updated"
+            | "order.created"
+            | "order.payment_failed"
+            | "order.payment_succeeded"
+            | "order.updated"
+            | "order_return.created"
+            | "payment_intent.amount_capturable_updated"
+            | "payment_intent.canceled"
+            | "payment_intent.created"
+            | "payment_intent.payment_failed"
+            | "payment_intent.processing"
+            | "payment_intent.succeeded"
+            | "payment_method.attached"
+            | "payment_method.card_automatically_updated"
+            | "payment_method.detached"
+            | "payment_method.updated"
+            | "payout.canceled"
+            | "payout.created"
+            | "payout.failed"
+            | "payout.paid"
+            | "payout.updated"
+            | "person.created"
+            | "person.deleted"
+            | "person.updated"
+            | "plan.created"
+            | "plan.deleted"
+            | "plan.updated"
+            | "product.created"
+            | "product.deleted"
+            | "product.updated"
+            | "radar.early_fraud_warning.created"
+            | "radar.early_fraud_warning.updated"
+            | "recipient.created"
+            | "recipient.deleted"
+            | "recipient.updated"
+            | "reporting.report_run.failed"
+            | "reporting.report_run.succeeded"
+            | "reporting.report_type.updated"
+            | "review.closed"
+            | "review.opened"
+            | "setup_intent.canceled"
+            | "setup_intent.created"
+            | "setup_intent.setup_failed"
+            | "setup_intent.succeeded"
+            | "sigma.scheduled_query_run.created"
+            | "sku.created"
+            | "sku.deleted"
+            | "sku.updated"
+            | "source.canceled"
+            | "source.chargeable"
+            | "source.failed"
+            | "source.mandate_notification"
+            | "source.refund_attributes_required"
+            | "source.transaction.created"
+            | "source.transaction.updated"
+            | "subscription_schedule.aborted"
+            | "subscription_schedule.canceled"
+            | "subscription_schedule.completed"
+            | "subscription_schedule.created"
+            | "subscription_schedule.expiring"
+            | "subscription_schedule.released"
+            | "subscription_schedule.updated"
+            | "tax_rate.created"
+            | "tax_rate.updated"
+            | "topup.canceled"
+            | "topup.created"
+            | "topup.failed"
+            | "topup.reversed"
+            | "topup.succeeded"
+            | "transfer.created"
+            | "transfer.failed"
+            | "transfer.paid"
+            | "transfer.reversed"
+            | "transfer.updated"
+          )[];
+          /**
+           * Specifies which fields in the response should be expanded.
+           */
+          expand?: string[];
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+           */
+          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          /**
+           * The URL of the webhook endpoint.
+           */
+          url?: string;
         };
       };
       responses: {

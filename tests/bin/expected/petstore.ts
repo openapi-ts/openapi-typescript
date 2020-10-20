@@ -6,6 +6,10 @@
 export interface paths {
   '/pet': {
     put: {
+      requestBody: {
+        'application/json': components['schemas']['Pet']
+        'application/xml': components['schemas']['Pet']
+      }
       responses: {
         /**
          * Invalid ID supplied
@@ -22,6 +26,10 @@ export interface paths {
       }
     }
     post: {
+      requestBody: {
+        'application/json': components['schemas']['Pet']
+        'application/xml': components['schemas']['Pet']
+      }
       responses: {
         /**
          * Invalid input
@@ -126,6 +134,18 @@ export interface paths {
           petId: number
         }
       }
+      requestBody: {
+        'application/x-www-form-urlencoded': {
+          /**
+           * Updated name of the pet
+           */
+          name?: string
+          /**
+           * Updated status of the pet
+           */
+          status?: string
+        }
+      }
       responses: {
         /**
          * Invalid input
@@ -167,6 +187,18 @@ export interface paths {
           petId: number
         }
       }
+      requestBody: {
+        'multipart/form-data': {
+          /**
+           * Additional data to pass to server
+           */
+          additionalMetadata?: string
+          /**
+           * file to upload
+           */
+          file?: string
+        }
+      }
       responses: {
         /**
          * successful operation
@@ -194,6 +226,9 @@ export interface paths {
   }
   '/store/order': {
     post: {
+      requestBody: {
+        '*/*': components['schemas']['Order']
+      }
       responses: {
         /**
          * successful operation
@@ -269,6 +304,9 @@ export interface paths {
      * This can only be done by the logged in user.
      */
     post: {
+      requestBody: {
+        '*/*': components['schemas']['User']
+      }
       responses: {
         /**
          * successful operation
@@ -279,6 +317,9 @@ export interface paths {
   }
   '/user/createWithArray': {
     post: {
+      requestBody: {
+        '*/*': components['schemas']['User'][]
+      }
       responses: {
         /**
          * successful operation
@@ -289,6 +330,9 @@ export interface paths {
   }
   '/user/createWithList': {
     post: {
+      requestBody: {
+        '*/*': components['schemas']['User'][]
+      }
       responses: {
         /**
          * successful operation
@@ -375,6 +419,9 @@ export interface paths {
            */
           username: string
         }
+      }
+      requestBody: {
+        '*/*': components['schemas']['User']
       }
       responses: {
         /**

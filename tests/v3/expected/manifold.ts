@@ -35,6 +35,9 @@ export interface paths {
       };
     };
     post: {
+      requestBody: {
+        "application/json": components["schemas"]["CreateRegion"];
+      };
       responses: {
         /**
          * Complete region object
@@ -109,6 +112,9 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/json": components["schemas"]["UpdateRegion"];
+      };
       responses: {
         /**
          * Complete region object
@@ -157,6 +163,9 @@ export interface paths {
       };
     };
     post: {
+      requestBody: {
+        "application/json": components["schemas"]["CreateProvider"];
+      };
       responses: {
         /**
          * Complete provider object
@@ -230,6 +239,9 @@ export interface paths {
            */
           id: string;
         };
+      };
+      requestBody: {
+        "application/json": components["schemas"]["UpdateProvider"];
       };
       responses: {
         /**
@@ -312,6 +324,9 @@ export interface paths {
       };
     };
     post: {
+      requestBody: {
+        "application/json": components["schemas"]["CreateProduct"];
+      };
       responses: {
         /**
          * Complete product object
@@ -439,6 +454,9 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/json": components["schemas"]["UpdateProduct"];
+      };
       responses: {
         /**
          * Complete product object
@@ -515,6 +533,9 @@ export interface paths {
           id: string;
         };
       };
+      requestBody: {
+        "application/json": components["schemas"]["UpdatePlan"];
+      };
       responses: {
         /**
          * Complete product plan
@@ -585,6 +606,9 @@ export interface paths {
       };
     };
     post: {
+      requestBody: {
+        "application/json": components["schemas"]["CreatePlan"];
+      };
       responses: {
         /**
          * Complete plan object
