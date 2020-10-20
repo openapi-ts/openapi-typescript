@@ -622,6 +622,12 @@ export interface paths {
 }
 
 export interface components {
+  parameters: {
+    /**
+     * Filter results to only include those that have this label.
+     */
+    LabelFilter: string;
+  };
   schemas: {
     /**
      * A base32 encoded 18 byte identifier.

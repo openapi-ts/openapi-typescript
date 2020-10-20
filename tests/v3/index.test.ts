@@ -631,7 +631,7 @@ describe("OpenAPI3 features", () => {
     );
   });
 
-  it.only("$ref-type parameters (#329)", () => {
+  it("$ref-type parameters (#329)", () => {
     const schema: OpenAPI3 = {
       openapi: "3.0.1",
       paths: {
