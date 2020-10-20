@@ -17,6 +17,7 @@ export interface OpenAPI3Paths {
 export interface OpenAPI3Response {
   description?: string;
   parameters?: OpenAPI3Parameter[];
+  requestBody?: OpenAPI3RequestBody;
   responses: {
     [statusCode: string]: OpenAPI3ResponseObject;
   };
@@ -34,6 +35,13 @@ export interface OpenAPI3ResponseObject {
   description?: string;
   content: {
     [contentType: string]: { schema: OpenAPI3SchemaObject | OpenAPI3Reference };
+  };
+}
+
+export interface OpenAPI3RequestBody {
+  description?: string;
+  content: {
+    [contentType: string]: { schema: OpenAPI3SchemaObject | { $ref: string } };
   };
 }
 

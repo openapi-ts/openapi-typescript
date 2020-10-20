@@ -190,6 +190,17 @@ export default function generateTypesV3(
           output += `}\n`;
         }
 
+        // handle requestBody
+        if (responses.requestBody) {
+          output += `requestBody: {\n`;
+          Object.entries(responses.requestBody.content).forEach(
+            ([contentType, { schema }]) => {
+              output += `"${contentType}": ${transform(schema)};\n`;
+            }
+          );
+          output += `}\n`;
+        }
+
         // handle responses
         output += `responses: {\n`;
         Object.entries(responses.responses).forEach(
