@@ -705,6 +705,68 @@ describe("OpenAPI3 features", () => {
     );
   });
 
+  it("requestBody (#338)", () => {
+    const schema: OpenAPI3 = {
+      openapi: "3.0.1",
+      paths: {
+        "/tests": {
+          post: {
+            requestBody: {
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    properties: {
+                      title: { type: "string" },
+                    },
+                    required: ["title"],
+                  },
+                },
+              },
+            },
+            responses: {
+              "201": {
+                content: {
+                  "application/json": {
+                    schema: {
+                      type: "object",
+                      properties: {
+                        id: { type: "string" },
+                        title: { type: "string" },
+                      },
+                      required: ["title", "id"],
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    };
+
+    expect(swaggerToTS(schema)).toEqual(
+      format(`
+      export interface paths {
+        "/tests": {
+          post: {
+            requestBody: {
+              'application/json': { title: string }
+            }
+            responses: {
+              "201": {
+                'application/json': { id: string; title: string}
+              };
+            };
+          };
+        };
+      }
+
+      export interface components {}
+    `)
+    );
+  });
+
   it("$ref-type parameters (#329)", () => {
     const schema: OpenAPI3 = {
       openapi: "3.0.1",

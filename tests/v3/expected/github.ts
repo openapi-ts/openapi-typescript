@@ -179,6 +179,25 @@ export interface paths {
           installation_id: components["parameters"]["installation_id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * List of repository names that the token should have access to
+           */
+          repositories?: string[];
+          /**
+           * List of repository IDs that the token should have access to
+           */
+          repository_ids?: number[];
+          permissions?: {
+            contents?: string;
+            issues?: string;
+            deployments?: string;
+            single_file?: string;
+            def_not_a_repo?: string;
+          };
+        };
+      };
       responses: {
         /**
          * response
@@ -324,6 +343,14 @@ export interface paths {
           client_id: components["parameters"]["client-id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The OAuth access token used to authenticate to the GitHub API.
+           */
+          access_token?: string;
+        };
+      };
       responses: {
         /**
          * Empty response
@@ -366,6 +393,14 @@ export interface paths {
           client_id: components["parameters"]["client-id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The access_token of the OAuth application.
+           */
+          access_token: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -386,6 +421,14 @@ export interface paths {
           client_id: components["parameters"]["client-id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The access_token of the OAuth application.
+           */
+          access_token: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -403,6 +446,14 @@ export interface paths {
       parameters: {
         path: {
           client_id: components["parameters"]["client-id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The OAuth access token used to authenticate to the GitHub API.
+           */
+          access_token?: string;
         };
       };
       responses: {
@@ -542,6 +593,34 @@ export interface paths {
      */
     post: {
       parameters: {};
+      requestBody: {
+        "application/json": {
+          /**
+           * A list of scopes that this authorization is in.
+           */
+          scopes?: string[] | null;
+          /**
+           * A note to remind you what the OAuth token is for.
+           */
+          note?: string;
+          /**
+           * A URL to remind you what app the OAuth token is for.
+           */
+          note_url?: string;
+          /**
+           * The OAuth app client key for which to create the token.
+           */
+          client_id?: string;
+          /**
+           * The OAuth app client secret for which to create the token.
+           */
+          client_secret?: string;
+          /**
+           * A unique string to distinguish an authorization from others created for the same client ID and user.
+           */
+          fingerprint?: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -573,6 +652,30 @@ export interface paths {
       parameters: {
         path: {
           client_id: components["parameters"]["client-id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The OAuth app client secret for which to create the token.
+           */
+          client_secret: string;
+          /**
+           * A list of scopes that this authorization is in.
+           */
+          scopes?: string[] | null;
+          /**
+           * A note to remind you what the OAuth token is for.
+           */
+          note?: string;
+          /**
+           * A URL to remind you what app the OAuth token is for.
+           */
+          note_url?: string;
+          /**
+           * A unique string to distinguish an authorization from others created for the same client ID and user.
+           */
+          fingerprint?: string;
         };
       };
       responses: {
@@ -610,6 +713,26 @@ export interface paths {
         path: {
           client_id: components["parameters"]["client-id"];
           fingerprint: string;
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The OAuth app client secret for which to create the token.
+           */
+          client_secret: string;
+          /**
+           * A list of scopes that this authorization is in.
+           */
+          scopes?: string[] | null;
+          /**
+           * A note to remind you what the OAuth token is for.
+           */
+          note?: string;
+          /**
+           * A URL to remind you what app the OAuth token is for.
+           */
+          note_url?: string;
         };
       };
       responses: {
@@ -662,6 +785,34 @@ export interface paths {
       parameters: {
         path: {
           authorization_id: components["parameters"]["authorization_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * A list of scopes that this authorization is in.
+           */
+          scopes?: string[] | null;
+          /**
+           * A list of scopes to add to this authorization.
+           */
+          add_scopes?: string[];
+          /**
+           * A list of scopes to remove from this authorization.
+           */
+          remove_scopes?: string[];
+          /**
+           * A note to remind you what the OAuth token is for.
+           */
+          note?: string;
+          /**
+           * A URL to remind you what app the OAuth token is for.
+           */
+          note_url?: string;
+          /**
+           * A unique string to distinguish an authorization from others created for the same client ID and user.
+           */
+          fingerprint?: string;
         };
       };
       responses: {
@@ -743,6 +894,18 @@ export interface paths {
           content_reference_id: number;
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The title of the attachment
+           */
+          title: string;
+          /**
+           * The body of the attachment
+           */
+          body: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -815,6 +978,26 @@ export interface paths {
           enterprise: components["parameters"]["enterprise"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * Name of the runner group.
+           */
+          name: string;
+          /**
+           * Visibility of a runner group. You can select all organizations or select individual organization. Can be one of: `all` or `selected`
+           */
+          visibility?: "selected" | "all";
+          /**
+           * List of organization IDs that can access the runner group.
+           */
+          selected_organization_ids?: number[];
+          /**
+           * List of runner IDs to add to the runner group.
+           */
+          runners?: number[];
+        };
+      };
       responses: {
         /**
          * response
@@ -857,6 +1040,18 @@ export interface paths {
         path: {
           enterprise: components["parameters"]["enterprise"];
           runner_group_id: components["parameters"]["runner_group_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * Name of the runner group.
+           */
+          name?: string;
+          /**
+           * Visibility of a runner group. You can select all organizations or select individual organizations. Can be one of: `all` or `selected`
+           */
+          visibility?: "selected" | "all";
         };
       };
       responses: {
@@ -927,6 +1122,14 @@ export interface paths {
         path: {
           enterprise: components["parameters"]["enterprise"];
           runner_group_id: components["parameters"]["runner_group_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * List of organization IDs that can access the runner group.
+           */
+          selected_organization_ids: number[];
         };
       };
       responses: {
@@ -1018,6 +1221,14 @@ export interface paths {
         path: {
           enterprise: components["parameters"]["enterprise"];
           runner_group_id: components["parameters"]["runner_group_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * List of runner IDs to add to the runner group.
+           */
+          runners: number[];
         };
       };
       responses: {
@@ -1377,6 +1588,26 @@ export interface paths {
      */
     post: {
       parameters: {};
+      requestBody: {
+        "application/json": {
+          /**
+           * Description of the gist
+           */
+          description?: string;
+          /**
+           * Names and content for the files that make up the gist
+           */
+          files: {
+            [key: string]: {
+              /**
+               * Content of the file
+               */
+              content: string;
+            };
+          };
+          public?: boolean | ("true" | "false");
+        };
+      };
       responses: {
         /**
          * response
@@ -1471,6 +1702,10 @@ export interface paths {
           gist_id: components["parameters"]["gist_id"];
         };
       };
+      requestBody: {
+        "application/json": Partial<{ [key: string]: any }> &
+          Partial<{ [key: string]: any }>;
+      };
       responses: {
         /**
          * response
@@ -1528,6 +1763,14 @@ export interface paths {
           gist_id: components["parameters"]["gist_id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The comment text.
+           */
+          body: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -1566,6 +1809,14 @@ export interface paths {
         path: {
           gist_id: components["parameters"]["gist_id"];
           comment_id: components["parameters"]["comment_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The comment text.
+           */
+          body: string;
         };
       };
       responses: {
@@ -1931,6 +2182,22 @@ export interface paths {
   "/markdown": {
     post: {
       parameters: {};
+      requestBody: {
+        "application/json": {
+          /**
+           * The Markdown text to render in HTML.
+           */
+          text: string;
+          /**
+           * The rendering mode.
+           */
+          mode?: "markdown" | "gfm";
+          /**
+           * The repository context to use when creating references in `gfm` mode.
+           */
+          context?: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -1946,6 +2213,10 @@ export interface paths {
      */
     post: {
       parameters: {};
+      requestBody: {
+        "text/plain": string;
+        "text/x-markdown": string;
+      };
       responses: {
         /**
          * response
@@ -2204,6 +2475,18 @@ export interface paths {
      */
     put: {
       parameters: {};
+      requestBody: {
+        "application/json": {
+          /**
+           * Describes the last point that notifications were checked.
+           */
+          last_read_at?: string;
+          /**
+           * Whether the notification has been read.
+           */
+          read?: boolean;
+        };
+      };
       responses: {
         /**
          * response
@@ -2291,6 +2574,14 @@ export interface paths {
       parameters: {
         path: {
           thread_id: components["parameters"]["thread_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * Whether to block all notifications from a thread.
+           */
+          ignored?: boolean;
         };
       };
       responses: {
@@ -2405,6 +2696,99 @@ export interface paths {
           org: components["parameters"]["org"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * Billing email address. This address is not publicized.
+           */
+          billing_email?: string;
+          /**
+           * The company name.
+           */
+          company?: string;
+          /**
+           * The publicly visible email address.
+           */
+          email?: string;
+          /**
+           * The Twitter username of the company.
+           */
+          twitter_username?: string;
+          /**
+           * The location.
+           */
+          location?: string;
+          /**
+           * The shorthand name of the company.
+           */
+          name?: string;
+          /**
+           * The description of the company.
+           */
+          description?: string;
+          /**
+           * Toggles whether an organization can use organization projects.
+           */
+          has_organization_projects?: boolean;
+          /**
+           * Toggles whether repositories that belong to the organization can use repository projects.
+           */
+          has_repository_projects?: boolean;
+          /**
+           * Default permission level members have for organization repositories:
+           * \* `read` - can pull, but not push to or administer this repository.
+           * \* `write` - can pull and push, but not administer this repository.
+           * \* `admin` - can pull, push, and administer this repository.
+           * \* `none` - no permissions granted by default.
+           */
+          default_repository_permission?: "read" | "write" | "admin" | "none";
+          /**
+           * Toggles the ability of non-admin organization members to create repositories. Can be one of:
+           * \* `true` - all organization members can create repositories.
+           * \* `false` - only organization owners can create repositories.
+           * Default: `true`
+           * **Note:** A parameter can override this parameter. See `members_allowed_repository_creation_type` in this table for details. **Note:** A parameter can override this parameter. See `members_allowed_repository_creation_type` in this table for details.
+           */
+          members_can_create_repositories?: boolean;
+          /**
+           * Toggles whether organization members can create internal repositories, which are visible to all enterprise members. You can only allow members to create internal repositories if your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+. Can be one of:
+           * \* `true` - all organization members can create internal repositories.
+           * \* `false` - only organization owners can create internal repositories.
+           * Default: `true`. For more information, see "[Restricting repository creation in your organization](https://help.github.com/github/setting-up-and-managing-organizations-and-teams/restricting-repository-creation-in-your-organization)" in the GitHub Help documentation.
+           */
+          members_can_create_internal_repositories?: boolean;
+          /**
+           * Toggles whether organization members can create private repositories, which are visible to organization members with permission. Can be one of:
+           * \* `true` - all organization members can create private repositories.
+           * \* `false` - only organization owners can create private repositories.
+           * Default: `true`. For more information, see "[Restricting repository creation in your organization](https://help.github.com/github/setting-up-and-managing-organizations-and-teams/restricting-repository-creation-in-your-organization)" in the GitHub Help documentation.
+           */
+          members_can_create_private_repositories?: boolean;
+          /**
+           * Toggles whether organization members can create public repositories, which are visible to anyone. Can be one of:
+           * \* `true` - all organization members can create public repositories.
+           * \* `false` - only organization owners can create public repositories.
+           * Default: `true`. For more information, see "[Restricting repository creation in your organization](https://help.github.com/github/setting-up-and-managing-organizations-and-teams/restricting-repository-creation-in-your-organization)" in the GitHub Help documentation.
+           */
+          members_can_create_public_repositories?: boolean;
+          /**
+           * Specifies which types of repositories non-admin organization members can create. Can be one of:
+           * \* `all` - all organization members can create public and private repositories.
+           * \* `private` - members can create private repositories. This option is only available to repositories that are part of an organization on GitHub Enterprise Cloud.
+           * \* `none` - only admin members can create repositories.
+           * **Note:** This parameter is deprecated and will be removed in the future. Its return value ignores internal repositories. Using this parameter overrides values set in `members_can_create_repositories`. See [this note](https://developer.github.com/v3/orgs/#members_can_create_repositories) for details.
+           */
+          members_allowed_repository_creation_type?: "all" | "private" | "none";
+          /**
+           * Toggles whether organization members can create GitHub Pages sites. Can be one of:
+           * \* `true` - all organization members can create GitHub Pages sites.
+           * \* `false` - no organization members can create GitHub Pages sites. Existing published sites will not be impacted.
+           * Default: `true`.
+           */
+          members_can_create_pages?: boolean;
+          blog?: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -2468,6 +2852,26 @@ export interface paths {
           org: components["parameters"]["org"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * Name of the runner group.
+           */
+          name: string;
+          /**
+           * Visibility of a runner group. You can select all repositories, select individual repositories, or limit access to private repositories. Can be one of: `all`, `selected`, or `private`.
+           */
+          visibility?: "selected" | "all" | "private";
+          /**
+           * List of repository IDs that can access the runner group.
+           */
+          selected_repository_ids?: number[];
+          /**
+           * List of runner IDs to add to the runner group.
+           */
+          runners?: number[];
+        };
+      };
       responses: {
         /**
          * response
@@ -2514,6 +2918,18 @@ export interface paths {
         path: {
           org: components["parameters"]["org"];
           runner_group_id: components["parameters"]["runner_group_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * Name of the runner group.
+           */
+          name?: string;
+          /**
+           * Visibility of a runner group. You can select all repositories, select individual repositories, or all private repositories. Can be one of: `all`, `selected`, or `private`.
+           */
+          visibility?: "selected" | "all" | "private";
         };
       };
       responses: {
@@ -2586,6 +3002,14 @@ export interface paths {
         path: {
           org: components["parameters"]["org"];
           runner_group_id: components["parameters"]["runner_group_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * List of repository IDs that can access the runner group.
+           */
+          selected_repository_ids: number[];
         };
       };
       responses: {
@@ -2688,6 +3112,14 @@ export interface paths {
         path: {
           org: components["parameters"]["org"];
           runner_group_id: components["parameters"]["runner_group_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * List of runner IDs to add to the runner group.
+           */
+          runners: number[];
         };
       };
       responses: {
@@ -3052,6 +3484,29 @@ export interface paths {
           secret_name: components["parameters"]["secret_name"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an organization public key](https://developer.github.com/v3/actions/secrets/#get-an-organization-public-key) endpoint.
+           */
+          encrypted_value?: string;
+          /**
+           * ID of the key you used to encrypt the secret.
+           */
+          key_id?: string;
+          /**
+           * Configures the access that repositories have to the organization secret. Can be one of:
+           * \- `all` - All repositories in an organization can access the secret.
+           * \- `private` - Private repositories in an organization can access the secret.
+           * \- `selected` - Only specific repositories can access the secret.
+           */
+          visibility?: "all" | "private" | "selected";
+          /**
+           * An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can manage the list of selected repositories using the [List selected repositories for an organization secret](https://developer.github.com/v3/actions/secrets/#list-selected-repositories-for-an-organization-secret), [Set selected repositories for an organization secret](https://developer.github.com/v3/actions/secrets/#set-selected-repositories-for-an-organization-secret), and [Remove selected repository from an organization secret](https://developer.github.com/v3/actions/secrets/#remove-selected-repository-from-an-organization-secret) endpoints.
+           */
+          selected_repository_ids?: string[];
+        };
+      };
       responses: {
         /**
          * Response when creating a secret
@@ -3112,6 +3567,14 @@ export interface paths {
         path: {
           org: components["parameters"]["org"];
           secret_name: components["parameters"]["secret_name"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Set selected repositories for an organization secret](https://developer.github.com/v3/actions/secrets/#set-selected-repositories-for-an-organization-secret) and [Remove selected repository from an organization secret](https://developer.github.com/v3/actions/secrets/#remove-selected-repository-from-an-organization-secret) endpoints.
+           */
+          selected_repository_ids?: number[];
         };
       };
       responses: {
@@ -3335,6 +3798,45 @@ export interface paths {
           org: components["parameters"]["org"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * Must be passed as "web".
+           */
+          name: string;
+          /**
+           * Key/value pairs to provide settings for this webhook. [These are defined below](https://developer.github.com/v3/orgs/hooks/#create-hook-config-params).
+           */
+          config: {
+            /**
+             * The URL to which the payloads will be delivered.
+             */
+            url: string;
+            /**
+             * The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
+             */
+            content_type?: string;
+            /**
+             * If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value in the [`X-Hub-Signature`](https://developer.github.com/webhooks/event-payloads/#delivery-headers) header.
+             */
+            secret?: string;
+            /**
+             * Determines whether the SSL certificate of the host for `url` will be verified when delivering payloads. Supported values include `0` (verification is performed) and `1` (verification is not performed). The default is `0`. **We strongly recommend not setting this to `1` as you are subject to man-in-the-middle and other attacks.**
+             */
+            insecure_ssl?: string;
+            username?: string;
+            password?: string;
+          };
+          /**
+           * Determines what [events](https://developer.github.com/webhooks/event-payloads) the hook is triggered for.
+           */
+          events?: string[];
+          /**
+           * Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
+           */
+          active?: boolean;
+        };
+      };
       responses: {
         /**
          * response
@@ -3370,6 +3872,40 @@ export interface paths {
         path: {
           org: components["parameters"]["org"];
           hook_id: components["parameters"]["hook-id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * Key/value pairs to provide settings for this webhook. [These are defined below](https://developer.github.com/v3/orgs/hooks/#update-hook-config-params).
+           */
+          config?: {
+            /**
+             * The URL to which the payloads will be delivered.
+             */
+            url: string;
+            /**
+             * The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
+             */
+            content_type?: string;
+            /**
+             * If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value in the [`X-Hub-Signature`](https://developer.github.com/webhooks/event-payloads/#delivery-headers) header.
+             */
+            secret?: string;
+            /**
+             * Determines whether the SSL certificate of the host for `url` will be verified when delivering payloads. Supported values include `0` (verification is performed) and `1` (verification is not performed). The default is `0`. **We strongly recommend not setting this to `1` as you are subject to man-in-the-middle and other attacks.**
+             */
+            insecure_ssl?: string;
+          };
+          /**
+           * Determines what [events](https://developer.github.com/webhooks/event-payloads) the hook is triggered for.
+           */
+          events?: string[];
+          /**
+           * Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
+           */
+          active?: boolean;
+          name?: string;
         };
       };
       responses: {
@@ -3496,6 +4032,14 @@ export interface paths {
           org: components["parameters"]["org"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * Specifies the group of GitHub users who can comment, open issues, or create pull requests in public repositories for the given organization. Must be one of: `existing_users`, `contributors_only`, or `collaborators_only`.
+           */
+          limit: "existing_users" | "contributors_only" | "collaborators_only";
+        };
+      };
       responses: {
         /**
          * response
@@ -3556,6 +4100,29 @@ export interface paths {
       parameters: {
         path: {
           org: components["parameters"]["org"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * **Required unless you provide `email`**. GitHub user ID for the person you are inviting.
+           */
+          invitee_id?: number;
+          /**
+           * **Required unless you provide `invitee_id`**. Email address of the person you are inviting, which can be an existing GitHub user.
+           */
+          email?: string;
+          /**
+           * Specify role for new member. Can be one of:
+           * \* `admin` - Organization owners with full administrative rights to the organization and complete access to all repositories and teams.
+           * \* `direct_member` - Non-owner organization members with ability to see other members and join teams by invitation.
+           * \* `billing_manager` - Non-owner organization members with ability to manage the billing settings of your organization.
+           */
+          role?: "admin" | "direct_member" | "billing_manager";
+          /**
+           * Specify IDs for the teams you want to invite new members to.
+           */
+          team_ids?: number[];
         };
       };
       responses: {
@@ -3773,6 +4340,16 @@ export interface paths {
           username: components["parameters"]["username"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The role to give the user in the organization. Can be one of:
+           * \* `admin` - The user will become an owner of the organization.
+           * \* `member` - The user will become a non-owner member of the organization.
+           */
+          role?: "admin" | "member";
+        };
+      };
       responses: {
         /**
          * response
@@ -3836,6 +4413,23 @@ export interface paths {
       parameters: {
         path: {
           org: components["parameters"]["org"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * A list of arrays indicating which repositories should be migrated.
+           */
+          repositories: string[];
+          /**
+           * Indicates whether repositories should be locked (to prevent manipulation) while migrating data.
+           */
+          lock_repositories?: boolean;
+          /**
+           * Indicates whether attachments should be excluded from the migration (to reduce migration archive file size).
+           */
+          exclude_attachments?: boolean;
+          exclude?: string[];
         };
       };
       responses: {
@@ -4087,6 +4681,18 @@ export interface paths {
           org: components["parameters"]["org"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The name of the project.
+           */
+          name: string;
+          /**
+           * The description of the project.
+           */
+          body?: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -4238,6 +4844,79 @@ export interface paths {
           org: components["parameters"]["org"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The name of the repository.
+           */
+          name: string;
+          /**
+           * A short description of the repository.
+           */
+          description?: string;
+          /**
+           * A URL with more information about the repository.
+           */
+          homepage?: string;
+          /**
+           * Either `true` to create a private repository or `false` to create a public one.
+           */
+          private?: boolean;
+          /**
+           * Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. For more information, see "[Creating an internal repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-repository-visibility#about-internal-repositories)" in the GitHub Help documentation.
+           * The `visibility` parameter overrides the `private` parameter when you use both parameters with the `nebula-preview` preview header.
+           */
+          visibility?: "public" | "private" | "visibility" | "internal";
+          /**
+           * Either `true` to enable issues for this repository or `false` to disable them.
+           */
+          has_issues?: boolean;
+          /**
+           * Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error.
+           */
+          has_projects?: boolean;
+          /**
+           * Either `true` to enable the wiki for this repository or `false` to disable it.
+           */
+          has_wiki?: boolean;
+          /**
+           * Either `true` to make this repo available as a template repository or `false` to prevent it.
+           */
+          is_template?: boolean;
+          /**
+           * The id of the team that will be granted access to this repository. This is only valid when creating a repository in an organization.
+           */
+          team_id?: number;
+          /**
+           * Pass `true` to create an initial commit with empty README.
+           */
+          auto_init?: boolean;
+          /**
+           * Desired language or platform [.gitignore template](https://github.com/github/gitignore) to apply. Use the name of the template without the extension. For example, "Haskell".
+           */
+          gitignore_template?: string;
+          /**
+           * Choose an [open source license template](https://choosealicense.com/) that best suits your needs, and then use the [license keyword](https://help.github.com/articles/licensing-a-repository/#searching-github-by-license-type) as the `license_template` string. For example, "mit" or "mpl-2.0".
+           */
+          license_template?: string;
+          /**
+           * Either `true` to allow squash-merging pull requests, or `false` to prevent squash-merging.
+           */
+          allow_squash_merge?: boolean;
+          /**
+           * Either `true` to allow merging pull requests with a merge commit, or `false` to prevent merging pull requests with merge commits.
+           */
+          allow_merge_commit?: boolean;
+          /**
+           * Either `true` to allow rebase-merging pull requests, or `false` to prevent rebase-merging.
+           */
+          allow_rebase_merge?: boolean;
+          /**
+           * Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion.
+           */
+          delete_branch_on_merge?: boolean;
+        };
+      };
       responses: {
         /**
          * response
@@ -4385,6 +5064,48 @@ export interface paths {
           org: components["parameters"]["org"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The name of the team.
+           */
+          name: string;
+          /**
+           * The description of the team.
+           */
+          description?: string;
+          /**
+           * List GitHub IDs for organization members who will become team maintainers.
+           */
+          maintainers?: string[];
+          /**
+           * The full name (e.g., "organization-name/repository-name") of repositories to add the team to.
+           */
+          repo_names?: string[];
+          /**
+           * The level of privacy this team should have. The options are:
+           * **For a non-nested team:**
+           * \* `secret` - only visible to organization owners and members of this team.
+           * \* `closed` - visible to all members of this organization.
+           * Default: `secret`
+           * **For a parent or child team:**
+           * \* `closed` - visible to all members of this organization.
+           * Default for child team: `closed`
+           */
+          privacy?: "secret" | "closed";
+          /**
+           * **Deprecated**. The permission that new repositories will be added to the team with when none is specified. Can be one of:
+           * \* `pull` - team members can pull, but not push to or administer newly-added repositories.
+           * \* `push` - team members can pull and push, but not administer newly-added repositories.
+           * \* `admin` - team members can pull, push and administer newly-added repositories.
+           */
+          permission?: "pull" | "push" | "admin";
+          /**
+           * The ID of a team to set as the parent team.
+           */
+          parent_team_id?: number;
+        };
+      };
       responses: {
         /**
          * response
@@ -4430,6 +5151,38 @@ export interface paths {
         path: {
           org: components["parameters"]["org"];
           team_slug: components["parameters"]["team_slug"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The name of the team.
+           */
+          name: string;
+          /**
+           * The description of the team.
+           */
+          description?: string;
+          /**
+           * The level of privacy this team should have. Editing teams without specifying this parameter leaves `privacy` intact. When a team is nested, the `privacy` for parent teams cannot be `secret`. The options are:
+           * **For a non-nested team:**
+           * \* `secret` - only visible to organization owners and members of this team.
+           * \* `closed` - visible to all members of this organization.
+           * **For a parent or child team:**
+           * \* `closed` - visible to all members of this organization.
+           */
+          privacy?: "secret" | "closed";
+          /**
+           * **Deprecated**. The permission that new repositories will be added to the team with when none is specified. Can be one of:
+           * \* `pull` - team members can pull, but not push to or administer newly-added repositories.
+           * \* `push` - team members can pull and push, but not administer newly-added repositories.
+           * \* `admin` - team members can pull, push and administer newly-added repositories.
+           */
+          permission?: "pull" | "push" | "admin";
+          /**
+           * The ID of a team to set as the parent team.
+           */
+          parent_team_id?: number;
         };
       };
       responses: {
@@ -4504,6 +5257,22 @@ export interface paths {
           team_slug: components["parameters"]["team_slug"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The discussion post's title.
+           */
+          title: string;
+          /**
+           * The discussion post's body text.
+           */
+          body: string;
+          /**
+           * Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post.
+           */
+          private?: boolean;
+        };
+      };
       responses: {
         /**
          * response
@@ -4548,6 +5317,18 @@ export interface paths {
           org: components["parameters"]["org"];
           team_slug: components["parameters"]["team_slug"];
           discussion_number: components["parameters"]["discussion-number"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The discussion post's title.
+           */
+          title?: string;
+          /**
+           * The discussion post's body text.
+           */
+          body?: string;
         };
       };
       responses: {
@@ -4623,6 +5404,14 @@ export interface paths {
           discussion_number: components["parameters"]["discussion-number"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The discussion comment's body text.
+           */
+          body: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -4669,6 +5458,14 @@ export interface paths {
           team_slug: components["parameters"]["team_slug"];
           discussion_number: components["parameters"]["discussion-number"];
           comment_number: components["parameters"]["comment-number"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The discussion comment's body text.
+           */
+          body: string;
         };
       };
       responses: {
@@ -4756,6 +5553,22 @@ export interface paths {
           comment_number: components["parameters"]["comment-number"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The [reaction type](https://developer.github.com/v3/reactions/#reaction-types) to add to the team discussion comment.
+           */
+          content:
+            | "+1"
+            | "-1"
+            | "laugh"
+            | "confused"
+            | "heart"
+            | "hooray"
+            | "rocket"
+            | "eyes";
+        };
+      };
       responses: {
         /**
          * response
@@ -4840,6 +5653,22 @@ export interface paths {
           org: components["parameters"]["org"];
           team_slug: components["parameters"]["team_slug"];
           discussion_number: components["parameters"]["discussion-number"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The [reaction type](https://developer.github.com/v3/reactions/#reaction-types) to add to the team discussion.
+           */
+          content:
+            | "+1"
+            | "-1"
+            | "laugh"
+            | "confused"
+            | "heart"
+            | "hooray"
+            | "rocket"
+            | "eyes";
         };
       };
       responses: {
@@ -4988,6 +5817,16 @@ export interface paths {
           username: components["parameters"]["username"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The role that this user should have in the team. Can be one of:
+           * \* `member` - a normal member of the team.
+           * \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
+           */
+          role?: "member" | "maintainer";
+        };
+      };
       responses: {
         /**
          * response
@@ -5106,6 +5945,18 @@ export interface paths {
           project_id: components["parameters"]["project-id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The permission to grant to the team for this project. Can be one of:
+           * \* `read` - team members can read, but not write to or administer this project.
+           * \* `write` - team members can read and write, but not administer this project.
+           * \* `admin` - team members can read, write and administer this project.
+           * Default: the team's `permission` attribute will be used to determine what permission to grant the team on this project. Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://developer.github.com/v3/#http-verbs)."
+           */
+          permission?: "read" | "write" | "admin";
+        };
+      };
       responses: {
         /**
          * Empty response
@@ -5219,6 +6070,21 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The permission to grant the team on this repository. Can be one of:
+           * \* `pull` - team members can pull, but not push to or administer this repository.
+           * \* `push` - team members can pull and push, but not administer this repository.
+           * \* `admin` - team members can pull, push and administer this repository.
+           * \* `maintain` - team members can manage the repository without access to sensitive or destructive actions. Recommended for project managers. Only applies to repositories owned by organizations.
+           * \* `triage` - team members can proactively manage issues and pull requests without write access. Recommended for contributors who triage a repository. Only applies to repositories owned by organizations.
+           *
+           * If no permission is specified, the team's `permission` attribute will be used to determine what permission to grant the team on this repository.
+           */
+          permission?: "pull" | "push" | "admin" | "maintain" | "triage";
+        };
+      };
       responses: {
         /**
          * Empty response
@@ -5286,6 +6152,27 @@ export interface paths {
           team_slug: components["parameters"]["team_slug"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The IdP groups you want to connect to a GitHub team. When updating, the new `groups` object will replace the original one. You must include any existing groups that you don't want to remove.
+           */
+          groups: {
+            /**
+             * ID of the IdP group.
+             */
+            group_id: string;
+            /**
+             * Name of the IdP group.
+             */
+            group_name: string;
+            /**
+             * Description of the IdP group.
+             */
+            group_description: string;
+          }[];
+        };
+      };
       responses: {
         /**
          * response
@@ -5349,6 +6236,18 @@ export interface paths {
           card_id: components["parameters"]["card_id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The project card's note
+           */
+          note?: string | null;
+          /**
+           * Whether or not the card is archived
+           */
+          archived?: boolean;
+        };
+      };
       responses: {
         /**
          * response
@@ -5395,6 +6294,18 @@ export interface paths {
       parameters: {
         path: {
           card_id: components["parameters"]["card_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The position of the card in a column
+           */
+          position: string;
+          /**
+           * The unique identifier of the column the card should be moved to
+           */
+          column_id?: number;
         };
       };
       responses: {
@@ -5460,6 +6371,14 @@ export interface paths {
       parameters: {
         path: {
           column_id: components["parameters"]["column_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * Name of the project column
+           */
+          name: string;
         };
       };
       responses: {
@@ -5529,6 +6448,25 @@ export interface paths {
           column_id: components["parameters"]["column_id"];
         };
       };
+      requestBody: {
+        "application/json":
+          | {
+              /**
+               * The project card's note
+               */
+              note: string | null;
+            }
+          | {
+              /**
+               * The unique identifier of the content associated with the card
+               */
+              content_id: number;
+              /**
+               * The piece of content associated with the card
+               */
+              content_type: string;
+            };
+      };
       responses: {
         /**
          * response
@@ -5566,6 +6504,14 @@ export interface paths {
       parameters: {
         path: {
           column_id: components["parameters"]["column_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The position of the column in a project
+           */
+          position: string;
         };
       };
       responses: {
@@ -5611,6 +6557,30 @@ export interface paths {
       parameters: {
         path: {
           project_id: components["parameters"]["project-id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * Name of the project
+           */
+          name?: string;
+          /**
+           * Body of the project
+           */
+          body?: string | null;
+          /**
+           * State of the project; either 'open' or 'closed'
+           */
+          state?: string;
+          /**
+           * The baseline permission that all organization members have on this project
+           */
+          organization_permission?: "read" | "write" | "admin" | "none";
+          /**
+           * Whether or not this project can be seen by everyone.
+           */
+          private?: boolean;
         };
       };
       responses: {
@@ -5719,6 +6689,14 @@ export interface paths {
           username: components["parameters"]["username"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The permission to grant the collaborator.
+           */
+          permission?: "read" | "write" | "admin";
+        };
+      };
       responses: {
         /**
          * Empty response
@@ -5810,6 +6788,14 @@ export interface paths {
       parameters: {
         path: {
           project_id: components["parameters"]["project-id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * Name of the project column
+           */
+          name: string;
         };
       };
       responses: {
@@ -5904,6 +6890,71 @@ export interface paths {
         path: {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The name of the repository.
+           */
+          name?: string;
+          /**
+           * A short description of the repository.
+           */
+          description?: string;
+          /**
+           * A URL with more information about the repository.
+           */
+          homepage?: string;
+          /**
+           * Either `true` to make the repository private or `false` to make it public. Default: `false`.
+           * **Note**: You will get a `422` error if the organization restricts [changing repository visibility](https://help.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories) to organization owners and a non-owner tries to change the value of private. **Note**: You will get a `422` error if the organization restricts [changing repository visibility](https://help.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories) to organization owners and a non-owner tries to change the value of private.
+           */
+          private?: boolean;
+          /**
+           * Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. The `visibility` parameter overrides the `private` parameter when you use both along with the `nebula-preview` preview header.
+           */
+          visibility?: "public" | "private" | "visibility" | "internal";
+          /**
+           * Either `true` to enable issues for this repository or `false` to disable them.
+           */
+          has_issues?: boolean;
+          /**
+           * Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error.
+           */
+          has_projects?: boolean;
+          /**
+           * Either `true` to enable the wiki for this repository or `false` to disable it.
+           */
+          has_wiki?: boolean;
+          /**
+           * Either `true` to make this repo available as a template repository or `false` to prevent it.
+           */
+          is_template?: boolean;
+          /**
+           * Updates the default branch for this repository.
+           */
+          default_branch?: string;
+          /**
+           * Either `true` to allow squash-merging pull requests, or `false` to prevent squash-merging.
+           */
+          allow_squash_merge?: boolean;
+          /**
+           * Either `true` to allow merging pull requests with a merge commit, or `false` to prevent merging pull requests with merge commits.
+           */
+          allow_merge_commit?: boolean;
+          /**
+           * Either `true` to allow rebase-merging pull requests, or `false` to prevent rebase-merging.
+           */
+          allow_rebase_merge?: boolean;
+          /**
+           * Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion.
+           */
+          delete_branch_on_merge?: boolean;
+          /**
+           * `true` to archive this repository. **Note**: You cannot unarchive repositories through the API.
+           */
+          archived?: boolean;
         };
       };
       responses: {
@@ -6642,6 +7693,18 @@ export interface paths {
           secret_name: components["parameters"]["secret_name"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get a repository public key](https://developer.github.com/v3/actions/secrets/#get-a-repository-public-key) endpoint.
+           */
+          encrypted_value?: string;
+          /**
+           * ID of the key you used to encrypt the secret.
+           */
+          key_id?: string;
+        };
+      };
       responses: {
         /**
          * Response when creating a secret
@@ -6758,6 +7821,18 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           workflow_id: components["parameters"]["workflow-id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The reference of the workflow run. The reference can be a branch, tag, or a commit SHA.
+           */
+          ref: string;
+          /**
+           * Input keys and values configured in the workflow file. The maximum number of properties is 10. Any default properties configured in the workflow file will be used when `inputs` are omitted.
+           */
+          inputs?: { [key: string]: string };
         };
       };
       responses: {
@@ -7030,6 +8105,86 @@ export interface paths {
           branch: components["parameters"]["branch"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * Require status checks to pass before merging. Set to `null` to disable.
+           */
+          required_status_checks: {
+            /**
+             * Require branches to be up to date before merging.
+             */
+            strict: boolean;
+            /**
+             * The list of status checks to require in order to merge into this branch
+             */
+            contexts: string[];
+          } | null;
+          /**
+           * Enforce all configured restrictions for administrators. Set to `true` to enforce required status checks for repository administrators. Set to `null` to disable.
+           */
+          enforce_admins: boolean | null;
+          /**
+           * Require at least one approving review on a pull request, before merging. Set to `null` to disable.
+           */
+          required_pull_request_reviews: {
+            /**
+             * Specify which users and teams can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories.
+             */
+            dismissal_restrictions?: {
+              /**
+               * The list of user `login`s with dismissal access
+               */
+              users?: string[];
+              /**
+               * The list of team `slug`s with dismissal access
+               */
+              teams?: string[];
+            };
+            /**
+             * Set to `true` if you want to automatically dismiss approving reviews when someone pushes a new commit.
+             */
+            dismiss_stale_reviews?: boolean;
+            /**
+             * Blocks merging pull requests until [code owners](https://help.github.com/articles/about-code-owners/) review them.
+             */
+            require_code_owner_reviews?: boolean;
+            /**
+             * Specify the number of reviewers required to approve pull requests. Use a number between 1 and 6.
+             */
+            required_approving_review_count?: number;
+          } | null;
+          /**
+           * Restrict who can push to the protected branch. User, app, and team `restrictions` are only available for organization-owned repositories. Set to `null` to disable.
+           */
+          restrictions: {
+            /**
+             * The list of user `login`s with push access
+             */
+            users: string[];
+            /**
+             * The list of team `slug`s with push access
+             */
+            teams: string[];
+            /**
+             * The list of app `slug`s with push access
+             */
+            apps?: string[];
+          } | null;
+          /**
+           * Enforces a linear commit Git history, which prevents anyone from pushing merge commits to a branch. Set to `true` to enforce a linear commit history. Set to `false` to disable a linear commit Git history. Your repository must allow squash merging or rebase merging before you can enable a linear commit history. Default: `false`. For more information, see "[Requiring a linear commit history](https://help.github.com/github/administering-a-repository/requiring-a-linear-commit-history)" in the GitHub Help documentation.
+           */
+          required_linear_history?: boolean;
+          /**
+           * Permits force pushes to the protected branch by anyone with write access to the repository. Set to `true` to allow force pushes. Set to `false` or `null` to block force pushes. Default: `false`. For more information, see "[Enabling force pushes to a protected branch](https://help.github.com/en/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch)" in the GitHub Help documentation."
+           */
+          allow_force_pushes?: boolean | null;
+          /**
+           * Allows deletion of the protected branch by anyone with write access to the repository. Set to `false` to prevent deletion of the protected branch. Default: `false`. For more information, see "[Enabling force pushes to a protected branch](https://help.github.com/en/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch)" in the GitHub Help documentation.
+           */
+          allow_deletions?: boolean;
+        };
+      };
       responses: {
         /**
          * response
@@ -7162,6 +8317,35 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           branch: components["parameters"]["branch"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * Specify which users and teams can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories.
+           */
+          dismissal_restrictions?: {
+            /**
+             * The list of user `login`s with dismissal access
+             */
+            users?: string[];
+            /**
+             * The list of team `slug`s with dismissal access
+             */
+            teams?: string[];
+          };
+          /**
+           * Set to `true` if you want to automatically dismiss approving reviews when someone pushes a new commit.
+           */
+          dismiss_stale_reviews?: boolean;
+          /**
+           * Blocks merging pull requests until [code owners](https://help.github.com/articles/about-code-owners/) have reviewed.
+           */
+          require_code_owner_reviews?: boolean;
+          /**
+           * Specifies the number of reviewers required to approve pull requests. Use a number between 1 and 6.
+           */
+          required_approving_review_count?: number;
         };
       };
       responses: {
@@ -7300,6 +8484,18 @@ export interface paths {
           branch: components["parameters"]["branch"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * Require branches to be up to date before merging.
+           */
+          strict?: boolean;
+          /**
+           * The list of status checks to require in order to merge into this branch
+           */
+          contexts?: string[];
+        };
+      };
       responses: {
         /**
          * response
@@ -7363,6 +8559,9 @@ export interface paths {
           branch: components["parameters"]["branch"];
         };
       };
+      requestBody: {
+        "application/json": string[];
+      };
       responses: {
         /**
          * response
@@ -7386,6 +8585,9 @@ export interface paths {
           branch: components["parameters"]["branch"];
         };
       };
+      requestBody: {
+        "application/json": string[];
+      };
       responses: {
         /**
          * response
@@ -7407,6 +8609,9 @@ export interface paths {
           repo: components["parameters"]["repo"];
           branch: components["parameters"]["branch"];
         };
+      };
+      requestBody: {
+        "application/json": string[];
       };
       responses: {
         /**
@@ -7508,6 +8713,9 @@ export interface paths {
           branch: components["parameters"]["branch"];
         };
       };
+      requestBody: {
+        "application/json": string[];
+      };
       responses: {
         /**
          * response
@@ -7535,6 +8743,9 @@ export interface paths {
           branch: components["parameters"]["branch"];
         };
       };
+      requestBody: {
+        "application/json": string[];
+      };
       responses: {
         /**
          * response
@@ -7561,6 +8772,9 @@ export interface paths {
           repo: components["parameters"]["repo"];
           branch: components["parameters"]["branch"];
         };
+      };
+      requestBody: {
+        "application/json": string[];
       };
       responses: {
         /**
@@ -7614,6 +8828,9 @@ export interface paths {
           branch: components["parameters"]["branch"];
         };
       };
+      requestBody: {
+        "application/json": string[];
+      };
       responses: {
         /**
          * response
@@ -7641,6 +8858,9 @@ export interface paths {
           branch: components["parameters"]["branch"];
         };
       };
+      requestBody: {
+        "application/json": string[];
+      };
       responses: {
         /**
          * response
@@ -7667,6 +8887,9 @@ export interface paths {
           repo: components["parameters"]["repo"];
           branch: components["parameters"]["branch"];
         };
+      };
+      requestBody: {
+        "application/json": string[];
       };
       responses: {
         /**
@@ -7720,6 +8943,9 @@ export interface paths {
           branch: components["parameters"]["branch"];
         };
       };
+      requestBody: {
+        "application/json": string[];
+      };
       responses: {
         /**
          * response
@@ -7746,6 +8972,9 @@ export interface paths {
           repo: components["parameters"]["repo"];
           branch: components["parameters"]["branch"];
         };
+      };
+      requestBody: {
+        "application/json": string[];
       };
       responses: {
         /**
@@ -7774,6 +9003,9 @@ export interface paths {
           branch: components["parameters"]["branch"];
         };
       };
+      requestBody: {
+        "application/json": string[];
+      };
       responses: {
         /**
          * response
@@ -7796,6 +9028,142 @@ export interface paths {
         path: {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The name of the check. For example, "code-coverage".
+           */
+          name: string;
+          /**
+           * The SHA of the commit.
+           */
+          head_sha: string;
+          /**
+           * The URL of the integrator's site that has the full details of the check. If the integrator does not provide this, then the homepage of the GitHub app is used.
+           */
+          details_url?: string;
+          /**
+           * A reference for the run on the integrator's system.
+           */
+          external_id?: string;
+          /**
+           * The current status. Can be one of `queued`, `in_progress`, or `completed`.
+           */
+          status?: "queued" | "in_progress" | "completed";
+          /**
+           * The time that the check run began. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+           */
+          started_at?: string;
+          /**
+           * **Required if you provide `completed_at` or a `status` of `completed`**. The final conclusion of the check. Can be one of `success`, `failure`, `neutral`, `cancelled`, `skipped`, `timed_out`, or `action_required`. When the conclusion is `action_required`, additional details should be provided on the site specified by `details_url`.
+           * **Note:** Providing `conclusion` will automatically set the `status` parameter to `completed`. Only GitHub can change a check run conclusion to `stale`.
+           */
+          conclusion?:
+            | "success"
+            | "failure"
+            | "neutral"
+            | "cancelled"
+            | "skipped"
+            | "timed_out"
+            | "action_required";
+          /**
+           * The time the check completed. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+           */
+          completed_at?: string;
+          /**
+           * Check runs can accept a variety of data in the `output` object, including a `title` and `summary` and can optionally provide descriptive details about the run. See the [`output` object](https://developer.github.com/v3/checks/runs/#output-object) description.
+           */
+          output?: {
+            /**
+             * The title of the check run.
+             */
+            title: string;
+            /**
+             * The summary of the check run. This parameter supports Markdown.
+             */
+            summary: string;
+            /**
+             * The details of the check run. This parameter supports Markdown.
+             */
+            text?: string;
+            /**
+             * Adds information from your analysis to specific lines of code. Annotations are visible on GitHub in the **Checks** and **Files changed** tab of the pull request. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://developer.github.com/v3/checks/runs/#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. For details about how you can view annotations on GitHub, see "[About status checks](https://help.github.com/articles/about-status-checks#checks)". See the [`annotations` object](https://developer.github.com/v3/checks/runs/#annotations-object) description for details about how to use this parameter.
+             */
+            annotations?: {
+              /**
+               * The path of the file to add an annotation to. For example, `assets/css/main.css`.
+               */
+              path: string;
+              /**
+               * The start line of the annotation.
+               */
+              start_line: number;
+              /**
+               * The end line of the annotation.
+               */
+              end_line: number;
+              /**
+               * The start column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values.
+               */
+              start_column?: number;
+              /**
+               * The end column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values.
+               */
+              end_column?: number;
+              /**
+               * The level of the annotation. Can be one of `notice`, `warning`, or `failure`.
+               */
+              annotation_level: "notice" | "warning" | "failure";
+              /**
+               * A short description of the feedback for these lines of code. The maximum size is 64 KB.
+               */
+              message: string;
+              /**
+               * The title that represents the annotation. The maximum size is 255 characters.
+               */
+              title?: string;
+              /**
+               * Details about this annotation. The maximum size is 64 KB.
+               */
+              raw_details?: string;
+            }[];
+            /**
+             * Adds images to the output displayed in the GitHub pull request UI. See the [`images` object](https://developer.github.com/v3/checks/runs/#images-object) description for details.
+             */
+            images?: {
+              /**
+               * The alternative text for the image.
+               */
+              alt: string;
+              /**
+               * The full URL of the image.
+               */
+              image_url: string;
+              /**
+               * A short image description.
+               */
+              caption?: string;
+            }[];
+          };
+          /**
+           * Displays a button on GitHub that can be clicked to alert your app to do additional tasks. For example, a code linting app can display a button that automatically fixes detected errors. The button created in this object is displayed after the check run completes. When a user clicks the button, GitHub sends the [`check_run.requested_action` webhook](https://developer.github.com/webhooks/event-payloads/#check_run) to your app. Each action includes a `label`, `identifier` and `description`. A maximum of three actions are accepted. See the [`actions` object](https://developer.github.com/v3/checks/runs/#actions-object) description. To learn more about check runs and requested actions, see "[Check runs and requested actions](https://developer.github.com/v3/checks/runs/#check-runs-and-requested-actions)." To learn more about check runs and requested actions, see "[Check runs and requested actions](https://developer.github.com/v3/checks/runs/#check-runs-and-requested-actions)."
+           */
+          actions?: {
+            /**
+             * The text to be displayed on a button in the web UI. The maximum size is 20 characters.
+             */
+            label: string;
+            /**
+             * A short explanation of what this action would do. The maximum size is 40 characters.
+             */
+            description: string;
+            /**
+             * A reference for the action on the integrator's system. The maximum size is 20 characters.
+             */
+            identifier: string;
+          }[];
         };
       };
       responses: {
@@ -7842,6 +9210,138 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           check_run_id: components["parameters"]["check_run_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The name of the check. For example, "code-coverage".
+           */
+          name?: string;
+          /**
+           * The URL of the integrator's site that has the full details of the check.
+           */
+          details_url?: string;
+          /**
+           * A reference for the run on the integrator's system.
+           */
+          external_id?: string;
+          /**
+           * This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+           */
+          started_at?: string;
+          /**
+           * The current status. Can be one of `queued`, `in_progress`, or `completed`.
+           */
+          status?: "queued" | "in_progress" | "completed";
+          /**
+           * **Required if you provide `completed_at` or a `status` of `completed`**. The final conclusion of the check. Can be one of `success`, `failure`, `neutral`, `cancelled`, `skipped`, `timed_out`, or `action_required`.
+           * **Note:** Providing `conclusion` will automatically set the `status` parameter to `completed`. Only GitHub can change a check run conclusion to `stale`.
+           */
+          conclusion?:
+            | "success"
+            | "failure"
+            | "neutral"
+            | "cancelled"
+            | "skipped"
+            | "timed_out"
+            | "action_required";
+          /**
+           * The time the check completed. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+           */
+          completed_at?: string;
+          /**
+           * Check runs can accept a variety of data in the `output` object, including a `title` and `summary` and can optionally provide descriptive details about the run. See the [`output` object](https://developer.github.com/v3/checks/runs/#output-object-1) description.
+           */
+          output?: {
+            /**
+             * **Required**.
+             */
+            title?: string;
+            /**
+             * Can contain Markdown.
+             */
+            summary: string;
+            /**
+             * Can contain Markdown.
+             */
+            text?: string;
+            /**
+             * Adds information from your analysis to specific lines of code. Annotations are visible in GitHub's pull request UI. Annotations are visible in GitHub's pull request UI. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://developer.github.com/v3/checks/runs/#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. For details about annotations in the UI, see "[About status checks](https://help.github.com/articles/about-status-checks#checks)". See the [`annotations` object](https://developer.github.com/v3/checks/runs/#annotations-object-1) description for details.
+             */
+            annotations?: {
+              /**
+               * The path of the file to add an annotation to. For example, `assets/css/main.css`.
+               */
+              path: string;
+              /**
+               * The start line of the annotation.
+               */
+              start_line: number;
+              /**
+               * The end line of the annotation.
+               */
+              end_line: number;
+              /**
+               * The start column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values.
+               */
+              start_column?: number;
+              /**
+               * The end column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values.
+               */
+              end_column?: number;
+              /**
+               * The level of the annotation. Can be one of `notice`, `warning`, or `failure`.
+               */
+              annotation_level: "notice" | "warning" | "failure";
+              /**
+               * A short description of the feedback for these lines of code. The maximum size is 64 KB.
+               */
+              message: string;
+              /**
+               * The title that represents the annotation. The maximum size is 255 characters.
+               */
+              title?: string;
+              /**
+               * Details about this annotation. The maximum size is 64 KB.
+               */
+              raw_details?: string;
+            }[];
+            /**
+             * Adds images to the output displayed in the GitHub pull request UI. See the [`images` object](https://developer.github.com/v3/checks/runs/#annotations-object-1) description for details.
+             */
+            images?: {
+              /**
+               * The alternative text for the image.
+               */
+              alt: string;
+              /**
+               * The full URL of the image.
+               */
+              image_url: string;
+              /**
+               * A short image description.
+               */
+              caption?: string;
+            }[];
+          };
+          /**
+           * Possible further actions the integrator can perform, which a user may trigger. Each action includes a `label`, `identifier` and `description`. A maximum of three actions are accepted. See the [`actions` object](https://developer.github.com/v3/checks/runs/#actions-object) description. To learn more about check runs and requested actions, see "[Check runs and requested actions](https://developer.github.com/v3/checks/runs/#check-runs-and-requested-actions)."
+           */
+          actions?: {
+            /**
+             * The text to be displayed on a button in the web UI. The maximum size is 20 characters.
+             */
+            label: string;
+            /**
+             * A short explanation of what this action would do. The maximum size is 40 characters.
+             */
+            description: string;
+            /**
+             * A reference for the action on the integrator's system. The maximum size is 20 characters.
+             */
+            identifier: string;
+          }[];
         };
       };
       responses: {
@@ -7893,6 +9393,14 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The sha of the head commit.
+           */
+          head_sha: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -7912,6 +9420,23 @@ export interface paths {
         path: {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * Enables or disables automatic creation of CheckSuite events upon pushes to the repository. Enabled by default. See the [`auto_trigger_checks` object](https://developer.github.com/v3/checks/suites/#auto_trigger_checks-object) description for details.
+           */
+          auto_trigger_checks?: {
+            /**
+             * The `id` of the GitHub App.
+             */
+            app_id: number;
+            /**
+             * Set to `true` to enable automatic creation of CheckSuite events upon pushes to the repository, or `false` to disable them.
+             */
+            setting: boolean;
+          }[];
         };
       };
       responses: {
@@ -8080,6 +9605,12 @@ export interface paths {
           alert_number: components["parameters"]["alert_number"];
         };
       };
+      requestBody: {
+        "application/json": {
+          state: components["schemas"]["code-scanning-alert-set-state"];
+          dismissed_reason?: components["schemas"]["code-scanning-alert-dismissed-reason"];
+        };
+      };
       responses: {
         /**
          * response
@@ -8135,6 +9666,23 @@ export interface paths {
         path: {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          commit_sha: components["schemas"]["code-scanning-analysis-commit-sha"];
+          ref: components["schemas"]["code-scanning-analysis-ref"];
+          sarif: components["schemas"]["code-scanning-analysis-sarif-file"];
+          /**
+           * The base directory used in the analysis, as it appears in the SARIF file.
+           * This property is used to convert file paths from absolute to relative, so that alerts can be mapped to their correct location in the repository.
+           */
+          checkout_uri?: string;
+          /**
+           * The time that the analysis run began. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+           */
+          started_at?: string;
+          tool_name: components["schemas"]["code-scanning-analysis-tool-name"];
         };
       };
       responses: {
@@ -8228,6 +9776,20 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           username: components["parameters"]["username"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The permission to grant the collaborator. **Only valid on organization-owned repositories.** Can be one of:
+           * \* `pull` - can pull, but not push to or administer this repository.
+           * \* `push` - can pull and push, but not administer this repository.
+           * \* `admin` - can pull, push and administer this repository.
+           * \* `maintain` - Recommended for project managers who need to manage the repository without access to sensitive or destructive actions.
+           * \* `triage` - Recommended for contributors who need to proactively manage issues and pull requests without write access.
+           */
+          permission?: "pull" | "push" | "admin" | "maintain" | "triage";
+          permissions?: string;
         };
       };
       responses: {
@@ -8338,6 +9900,14 @@ export interface paths {
           comment_id: components["parameters"]["comment_id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The contents of the comment
+           */
+          body: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -8413,6 +9983,22 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           comment_id: components["parameters"]["comment_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The [reaction type](https://developer.github.com/v3/reactions/#reaction-types) to add to the commit comment.
+           */
+          content:
+            | "+1"
+            | "-1"
+            | "laugh"
+            | "confused"
+            | "heart"
+            | "hooray"
+            | "rocket"
+            | "eyes";
         };
       };
       responses: {
@@ -8587,6 +10173,26 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           commit_sha: components["parameters"]["commit_sha"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The contents of the comment.
+           */
+          body: string;
+          /**
+           * Relative path of the file to comment on.
+           */
+          path?: string;
+          /**
+           * Line index in the diff to comment on.
+           */
+          position?: number;
+          /**
+           * **Deprecated**. Use **position** parameter instead. Line number in the file to comment on.
+           */
+          line?: number;
         };
       };
       responses: {
@@ -9008,6 +10614,54 @@ export interface paths {
           path: string;
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The commit message.
+           */
+          message: string;
+          /**
+           * The new file content, using Base64 encoding.
+           */
+          content: string;
+          /**
+           * **Required if you are updating a file**. The blob SHA of the file being replaced.
+           */
+          sha?: string;
+          /**
+           * The branch name. Default: the repository’s default branch (usually `master`)
+           */
+          branch?: string;
+          /**
+           * The person that committed the file. Default: the authenticated user.
+           */
+          committer?: {
+            /**
+             * The name of the author or committer of the commit. You'll receive a `422` status code if `name` is omitted.
+             */
+            name: string;
+            /**
+             * The email of the author or committer of the commit. You'll receive a `422` status code if `email` is omitted.
+             */
+            email: string;
+            date?: string;
+          };
+          /**
+           * The author of the file. Default: The `committer` or the authenticated user if you omit `committer`.
+           */
+          author?: {
+            /**
+             * The name of the author or committer of the commit. You'll receive a `422` status code if `name` is omitted.
+             */
+            name: string;
+            /**
+             * The email of the author or committer of the commit. You'll receive a `422` status code if `email` is omitted.
+             */
+            email: string;
+            date?: string;
+          };
+        };
+      };
       responses: {
         /**
          * response
@@ -9044,6 +10698,48 @@ export interface paths {
            * path+ parameter
            */
           path: string;
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The commit message.
+           */
+          message: string;
+          /**
+           * The blob SHA of the file being replaced.
+           */
+          sha: string;
+          /**
+           * The branch name. Default: the repository’s default branch (usually `master`)
+           */
+          branch?: string;
+          /**
+           * object containing information about the committer.
+           */
+          committer?: {
+            /**
+             * The name of the author (or committer) of the commit
+             */
+            name?: string;
+            /**
+             * The email of the author (or committer) of the commit
+             */
+            email?: string;
+          };
+          /**
+           * object containing information about the author.
+           */
+          author?: {
+            /**
+             * The name of the author (or committer) of the commit
+             */
+            name?: string;
+            /**
+             * The email of the author (or committer) of the commit
+             */
+            email?: string;
+          };
         };
       };
       responses: {
@@ -9191,6 +10887,49 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The ref to deploy. This can be a branch, tag, or SHA.
+           */
+          ref: string;
+          /**
+           * Specifies a task to execute (e.g., `deploy` or `deploy:migrations`).
+           */
+          task?: string;
+          /**
+           * Attempts to automatically merge the default branch into the requested ref, if it's behind the default branch.
+           */
+          auto_merge?: boolean;
+          /**
+           * The [status](https://developer.github.com/v3/repos/statuses/) contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts.
+           */
+          required_contexts?: string[];
+          /**
+           * JSON payload with extra information about the deployment.
+           */
+          payload?: string;
+          /**
+           * Name for the target deployment environment (e.g., `production`, `staging`, `qa`).
+           */
+          environment?: string;
+          /**
+           * Short description of the deployment.
+           */
+          description?: string | null;
+          /**
+           * Specifies if the given environment is specific to the deployment and will no longer exist at some point in the future. Default: `false`
+           * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://developer.github.com/v3/previews/#enhanced-deployments) custom media type. **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://developer.github.com/v3/previews/#enhanced-deployments) custom media type.
+           */
+          transient_environment?: boolean;
+          /**
+           * Specifies if the given environment is one that end-users directly interact with. Default: `true` when `environment` is `production` and `false` otherwise.
+           * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://developer.github.com/v3/previews/#enhanced-deployments) custom media type.
+           */
+          production_environment?: boolean;
+          created_at?: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -9300,6 +11039,49 @@ export interface paths {
           deployment_id: components["parameters"]["deployment_id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The state of the status. Can be one of `error`, `failure`, `inactive`, `in_progress`, `queued` `pending`, or `success`. **Note:** To use the `inactive` state, you must provide the [`application/vnd.github.ant-man-preview+json`](https://developer.github.com/v3/previews/#enhanced-deployments) custom media type. To use the `in_progress` and `queued` states, you must provide the [`application/vnd.github.flash-preview+json`](https://developer.github.com/v3/previews/#deployment-statuses) custom media type. When you set a transient deployment to `inactive`, the deployment will be shown as `destroyed` in GitHub.
+           */
+          state:
+            | "error"
+            | "failure"
+            | "inactive"
+            | "in_progress"
+            | "queued"
+            | "pending"
+            | "success";
+          /**
+           * The target URL to associate with this status. This URL should contain output to keep the user updated while the task is running or serve as historical information for what happened in the deployment. **Note:** It's recommended to use the `log_url` parameter, which replaces `target_url`.
+           */
+          target_url?: string;
+          /**
+           * The full URL of the deployment's output. This parameter replaces `target_url`. We will continue to accept `target_url` to support legacy uses, but we recommend replacing `target_url` with `log_url`. Setting `log_url` will automatically set `target_url` to the same value. Default: `""`
+           * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://developer.github.com/v3/previews/#enhanced-deployments) custom media type. **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://developer.github.com/v3/previews/#enhanced-deployments) custom media type.
+           */
+          log_url?: string;
+          /**
+           * A short description of the status. The maximum description length is 140 characters.
+           */
+          description?: string;
+          /**
+           * Name for the target deployment environment, which can be changed when setting a deploy status. For example, `production`, `staging`, or `qa`. **Note:** This parameter requires you to use the [`application/vnd.github.flash-preview+json`](https://developer.github.com/v3/previews/#deployment-statuses) custom media type.
+           */
+          environment?: "production" | "staging" | "qa";
+          /**
+           * Sets the URL for accessing your environment. Default: `""`
+           * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://developer.github.com/v3/previews/#enhanced-deployments) custom media type. **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://developer.github.com/v3/previews/#enhanced-deployments) custom media type.
+           */
+          environment_url?: string;
+          /**
+           * Adds a new `inactive` status to all prior non-transient, non-production environment deployments with the same repository and `environment` name as the created status's deployment. An `inactive` status is only added to deployments that had a `success` state. Default: `true`
+           * **Note:** To add an `inactive` status to `production` environments, you must use the [`application/vnd.github.flash-preview+json`](https://developer.github.com/v3/previews/#deployment-statuses) custom media type.
+           * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://developer.github.com/v3/previews/#enhanced-deployments) custom media type.
+           */
+          auto_inactive?: boolean;
+        };
+      };
       responses: {
         /**
          * response
@@ -9351,6 +11133,18 @@ export interface paths {
         path: {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * A custom webhook event name.
+           */
+          event_type: string;
+          /**
+           * JSON payload with extra information about the webhook event that your action or worklow may use.
+           */
+          client_payload?: { [key: string]: any };
         };
       };
       responses: {
@@ -9422,6 +11216,14 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * Optional parameter to specify the organization name if forking into an organization.
+           */
+          organization?: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -9442,6 +11244,18 @@ export interface paths {
         path: {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The new blob's content.
+           */
+          content: string;
+          /**
+           * The encoding used for `content`. Currently, `"utf-8"` and `"base64"` are supported.
+           */
+          encoding?: string;
         };
       };
       responses: {
@@ -9518,6 +11332,60 @@ export interface paths {
         path: {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The commit message
+           */
+          message: string;
+          /**
+           * The SHA of the tree object this commit points to
+           */
+          tree: string;
+          /**
+           * The SHAs of the commits that were the parents of this commit. If omitted or empty, the commit will be written as a root commit. For a single parent, an array of one SHA should be provided; for a merge commit, an array of more than one should be provided.
+           */
+          parents?: string[];
+          /**
+           * Information about the author of the commit. By default, the `author` will be the authenticated user and the current date. See the `author` and `committer` object below for details.
+           */
+          author?: {
+            /**
+             * The name of the author (or committer) of the commit
+             */
+            name?: string;
+            /**
+             * The email of the author (or committer) of the commit
+             */
+            email?: string;
+            /**
+             * Indicates when this commit was authored (or committed). This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+             */
+            date?: string;
+          };
+          /**
+           * Information about the person who is making the commit. By default, `committer` will use the information set in `author`. See the `author` and `committer` object below for details.
+           */
+          committer?: {
+            /**
+             * The name of the author (or committer) of the commit
+             */
+            name?: string;
+            /**
+             * The email of the author (or committer) of the commit
+             */
+            email?: string;
+            /**
+             * Indicates when this commit was authored (or committed). This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+             */
+            date?: string;
+          };
+          /**
+           * The [PGP signature](https://en.wikipedia.org/wiki/Pretty_Good_Privacy) of the commit. GitHub adds the signature to the `gpgsig` header of the created commit. For a commit signature to be verifiable by Git or GitHub, it must be an ASCII-armored detached PGP signature over the string commit as it would be written to the object database. To pass a `signature` parameter, you need to first manually create a valid PGP signature, which can be complicated. You may find it easier to [use the command line](https://git-scm.com/book/id/v2/Git-Tools-Signing-Your-Work) to create signed commits.
+           */
+          signature?: string;
         };
       };
       responses: {
@@ -9653,6 +11521,19 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The name of the fully qualified reference (ie: `refs/heads/master`). If it doesn't start with 'refs' and have at least two slashes, it will be rejected.
+           */
+          ref: string;
+          /**
+           * The SHA1 value for this reference.
+           */
+          sha: string;
+          key?: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -9674,6 +11555,18 @@ export interface paths {
            * ref+ parameter
            */
           ref: string;
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The SHA1 value to set this reference to
+           */
+          sha: string;
+          /**
+           * Indicates whether to force the update or to make sure the update is a fast-forward update. Leaving this out or setting it to `false` will make sure you're not overwriting work.
+           */
+          force?: boolean;
         };
       };
       responses: {
@@ -9739,6 +11632,43 @@ export interface paths {
         path: {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The tag's name. This is typically a version (e.g., "v0.0.1").
+           */
+          tag: string;
+          /**
+           * The tag message.
+           */
+          message: string;
+          /**
+           * The SHA of the git object this is tagging.
+           */
+          object: string;
+          /**
+           * The type of the object we're tagging. Normally this is a `commit` but it can also be a `tree` or a `blob`.
+           */
+          type: "commit" | "tree" | "blob";
+          /**
+           * An object with information about the individual creating the tag.
+           */
+          tagger?: {
+            /**
+             * The name of the author of the tag
+             */
+            name?: string;
+            /**
+             * The email of the author of the tag
+             */
+            email?: string;
+            /**
+             * When this object was tagged. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+             */
+            date?: string;
+          };
         };
       };
       responses: {
@@ -9809,6 +11739,43 @@ export interface paths {
         path: {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * Objects (of `path`, `mode`, `type`, and `sha`) specifying a tree structure.
+           */
+          tree: {
+            /**
+             * The file referenced in the tree.
+             */
+            path?: string;
+            /**
+             * The file mode; one of `100644` for file (blob), `100755` for executable (blob), `040000` for subdirectory (tree), `160000` for submodule (commit), or `120000` for a blob that specifies the path of a symlink.
+             */
+            mode?: "100644" | "100755" | "040000" | "160000" | "120000";
+            /**
+             * Either `blob`, `tree`, or `commit`.
+             */
+            type?: "blob" | "tree" | "commit";
+            /**
+             * The SHA1 checksum ID of the object in the tree. Also called `tree.sha`. If the value is `null` then the file will be deleted.
+             *
+             * **Note:** Use either `tree.sha` or `content` to specify the contents of the entry. Using both `tree.sha` and `content` will return an error.
+             */
+            sha?: string | null;
+            /**
+             * The content you want this file to have. GitHub will write this blob out and use that SHA for this entry. Use either this, or `tree.sha`.
+             *
+             * **Note:** Use either `tree.sha` or `content` to specify the contents of the entry. Using both `tree.sha` and `content` will return an error.
+             */
+            content?: string;
+          }[];
+          /**
+           * The SHA1 of the tree you want to update with new data. If you don't set this, the commit will be created on top of everything; however, it will only contain your change, the rest of your files will show up as deleted.
+           */
+          base_tree?: string;
         };
       };
       responses: {
@@ -9889,6 +11856,45 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * Use `web` to create a webhook. Default: `web`. This parameter only accepts the value `web`.
+           */
+          name?: string;
+          /**
+           * Key/value pairs to provide settings for this webhook. [These are defined below](https://developer.github.com/v3/repos/hooks/#create-hook-config-params).
+           */
+          config: {
+            /**
+             * The URL to which the payloads will be delivered.
+             */
+            url: string;
+            /**
+             * The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
+             */
+            content_type?: string;
+            /**
+             * If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value in the [`X-Hub-Signature`](https://developer.github.com/webhooks/event-payloads/#delivery-headers) header.
+             */
+            secret?: string;
+            /**
+             * Determines whether the SSL certificate of the host for `url` will be verified when delivering payloads. Supported values include `0` (verification is performed) and `1` (verification is not performed). The default is `0`. **We strongly recommend not setting this to `1` as you are subject to man-in-the-middle and other attacks.**
+             */
+            insecure_ssl?: string;
+            token?: string;
+            digest?: string;
+          };
+          /**
+           * Determines what [events](https://developer.github.com/webhooks/event-payloads) the hook is triggered for.
+           */
+          events?: string[];
+          /**
+           * Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
+           */
+          active?: boolean;
+        };
+      };
       responses: {
         /**
          * response
@@ -9927,6 +11933,49 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           hook_id: components["parameters"]["hook-id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * Key/value pairs to provide settings for this webhook. [These are defined below](https://developer.github.com/v3/repos/hooks/#create-hook-config-params).
+           */
+          config?: {
+            /**
+             * The URL to which the payloads will be delivered.
+             */
+            url: string;
+            /**
+             * The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
+             */
+            content_type?: string;
+            /**
+             * If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value in the [`X-Hub-Signature`](https://developer.github.com/webhooks/event-payloads/#delivery-headers) header.
+             */
+            secret?: string;
+            /**
+             * Determines whether the SSL certificate of the host for `url` will be verified when delivering payloads. Supported values include `0` (verification is performed) and `1` (verification is not performed). The default is `0`. **We strongly recommend not setting this to `1` as you are subject to man-in-the-middle and other attacks.**
+             */
+            insecure_ssl?: string;
+            address?: string;
+            room?: string;
+          };
+          /**
+           * Determines what [events](https://developer.github.com/webhooks/event-payloads) the hook is triggered for. This replaces the entire array of events.
+           */
+          events?: string[];
+          /**
+           * Determines a list of events to be added to the list of events that the Hook triggers for.
+           */
+          add_events?: string[];
+          /**
+           * Determines a list of events to be removed from the list of events that the Hook triggers for.
+           */
+          remove_events?: string[];
+          /**
+           * Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
+           */
+          active?: boolean;
         };
       };
       responses: {
@@ -10065,6 +12114,30 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The URL of the originating repository.
+           */
+          vcs_url: string;
+          /**
+           * The originating VCS type. Can be one of `subversion`, `git`, `mercurial`, or `tfvc`. Please be aware that without this parameter, the import job will take additional time to detect the VCS type before beginning the import. This detection step will be reflected in the response.
+           */
+          vcs?: "subversion" | "git" | "mercurial" | "tfvc";
+          /**
+           * If authentication is required, the username to provide to `vcs_url`.
+           */
+          vcs_username?: string;
+          /**
+           * If authentication is required, the password to provide to `vcs_url`.
+           */
+          vcs_password?: string;
+          /**
+           * For a tfvc import, the name of the project that is being imported.
+           */
+          tfvc_project?: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -10085,6 +12158,20 @@ export interface paths {
         path: {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The username to provide to the originating repository.
+           */
+          vcs_username?: string;
+          /**
+           * The password to provide to the originating repository.
+           */
+          vcs_password?: string;
+          vcs?: string;
+          tfvc_project?: string;
         };
       };
       responses: {
@@ -10153,6 +12240,19 @@ export interface paths {
           author_id: number;
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The new Git author email.
+           */
+          email?: string;
+          /**
+           * The new Git author name.
+           */
+          name?: string;
+          remote_id?: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -10195,6 +12295,14 @@ export interface paths {
         path: {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * Can be one of `opt_in` (large files will be stored using Git LFS) or `opt_out` (large files will be removed during the import).
+           */
+          use_lfs: "opt_in" | "opt_out";
         };
       };
       responses: {
@@ -10263,6 +12371,14 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * Specifies the group of GitHub users who can comment, open issues, or create pull requests for the given repository. Must be one of: `existing_users`, `contributors_only`, or `collaborators_only`.
+           */
+          limit: "existing_users" | "contributors_only" | "collaborators_only";
+        };
+      };
       responses: {
         /**
          * response
@@ -10322,6 +12438,14 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           invitation_id: components["parameters"]["invitation_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The permissions that the associated user will have on the repository. Valid values are `read`, `write`, `maintain`, `triage`, and `admin`.
+           */
+          permissions?: "read" | "write" | "maintain" | "triage" | "admin";
         };
       };
       responses: {
@@ -10420,6 +12544,42 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The title of the issue.
+           */
+          title: string;
+          /**
+           * The contents of the issue.
+           */
+          body?: string;
+          /**
+           * Login for the user that this issue should be assigned to. _NOTE: Only users with push access can set the assignee for new issues. The assignee is silently dropped otherwise. **This field is deprecated.**_
+           */
+          assignee?: string | null;
+          /**
+           * The `number` of the milestone to associate this issue with. _NOTE: Only users with push access can set the milestone for new issues. The milestone is silently dropped otherwise._
+           */
+          milestone?: number | null;
+          /**
+           * Labels to associate with this issue. _NOTE: Only users with push access can set labels for new issues. Labels are silently dropped otherwise._
+           */
+          labels?: (
+            | string
+            | {
+                id?: number;
+                name?: string;
+                description?: string;
+                color?: string;
+              }
+          )[];
+          /**
+           * Logins for Users to assign to this issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._
+           */
+          assignees?: string[];
+        };
+      };
       responses: {
         /**
          * response
@@ -10493,6 +12653,14 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           comment_id: components["parameters"]["comment_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The contents of the comment.
+           */
+          body: string;
         };
       };
       responses: {
@@ -10569,6 +12737,22 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           comment_id: components["parameters"]["comment_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The [reaction type](https://developer.github.com/v3/reactions/#reaction-types) to add to the issue comment.
+           */
+          content:
+            | "+1"
+            | "-1"
+            | "laugh"
+            | "confused"
+            | "heart"
+            | "hooray"
+            | "rocket"
+            | "eyes";
         };
       };
       responses: {
@@ -10703,6 +12887,46 @@ export interface paths {
           issue_number: components["parameters"]["issue_number"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The title of the issue.
+           */
+          title?: string;
+          /**
+           * The contents of the issue.
+           */
+          body?: string;
+          /**
+           * Login for the user that this issue should be assigned to. **This field is deprecated.**
+           */
+          assignee?: string;
+          /**
+           * State of the issue. Either `open` or `closed`.
+           */
+          state?: "open" | "closed";
+          /**
+           * The `number` of the milestone to associate this issue with or `null` to remove current. _NOTE: Only users with push access can set the milestone for issues. The milestone is silently dropped otherwise._
+           */
+          milestone?: number | null;
+          /**
+           * Labels to associate with this issue. Pass one or more Labels to _replace_ the set of Labels on this Issue. Send an empty array (`[]`) to clear all Labels from the Issue. _NOTE: Only users with push access can set labels for issues. Labels are silently dropped otherwise._
+           */
+          labels?: (
+            | string
+            | {
+                id?: number;
+                name?: string;
+                description?: string;
+                color?: string;
+              }
+          )[];
+          /**
+           * Logins for Users to assign to this issue. Pass one or more user logins to _replace_ the set of assignees on this Issue. Send an empty array (`[]`) to clear all assignees from the Issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._
+           */
+          assignees?: string[];
+        };
+      };
       responses: {
         /**
          * response
@@ -10731,6 +12955,14 @@ export interface paths {
           issue_number: components["parameters"]["issue_number"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * Usernames of people to assign this issue to. _NOTE: Only users with push access can add assignees to an issue. Assignees are silently ignored otherwise._
+           */
+          assignees?: string[];
+        };
+      };
       responses: {
         /**
          * response
@@ -10749,6 +12981,14 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           issue_number: components["parameters"]["issue_number"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * Usernames of assignees to remove from an issue. _NOTE: Only users with push access can remove assignees from an issue. Assignees are silently ignored otherwise._
+           */
+          assignees?: string[];
         };
       };
       responses: {
@@ -10798,6 +13038,14 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           issue_number: components["parameters"]["issue_number"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The contents of the comment.
+           */
+          body: string;
         };
       };
       responses: {
@@ -10869,6 +13117,14 @@ export interface paths {
           issue_number: components["parameters"]["issue_number"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The name of the label to add to the issue. Must contain at least one label. **Note:** Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key.
+           */
+          labels: string[];
+        };
+      };
       responses: {
         /**
          * response
@@ -10889,6 +13145,14 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           issue_number: components["parameters"]["issue_number"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The names of the labels to add to the issue. You can pass an empty array to remove all labels. **Note:** Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key.
+           */
+          labels?: string[];
         };
       };
       responses: {
@@ -10956,6 +13220,18 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           issue_number: components["parameters"]["issue_number"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The reason for locking the issue or pull request conversation. Lock will fail if you don't use one of these reasons:
+           * \* `off-topic`
+           * \* `too heated`
+           * \* `resolved`
+           * \* `spam`
+           */
+          lock_reason?: "off-topic" | "too heated" | "resolved" | "spam";
         };
       };
       responses: {
@@ -11039,6 +13315,22 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           issue_number: components["parameters"]["issue_number"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The [reaction type](https://developer.github.com/v3/reactions/#reaction-types) to add to the issue.
+           */
+          content:
+            | "+1"
+            | "-1"
+            | "laugh"
+            | "confused"
+            | "heart"
+            | "hooray"
+            | "rocket"
+            | "eyes";
         };
       };
       responses: {
@@ -11133,6 +13425,24 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * A name for the key.
+           */
+          title?: string;
+          /**
+           * The contents of the key.
+           */
+          key: string;
+          /**
+           * If `true`, the key will only be able to read repository contents. Otherwise, the key will be able to read and write.
+           *
+           * Deploy keys with write access can perform the same actions as an organization member with admin access, or a collaborator on a personal repository. For more information, see "[Repository permission levels for an organization](https://help.github.com/articles/repository-permission-levels-for-an-organization/)" and "[Permission levels for a user account repository](https://help.github.com/articles/permission-levels-for-a-user-account-repository/)."
+           */
+          read_only?: boolean;
+        };
+      };
       responses: {
         /**
          * response
@@ -11211,6 +13521,22 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The name of the label. Emoji can be added to label names, using either native emoji or colon-style markup. For example, typing `:strawberry:` will render the emoji ![:strawberry:](https://github.githubassets.com/images/icons/emoji/unicode/1f353.png ":strawberry:"). For a full list of available emoji and codes, see [emoji-cheat-sheet.com](http://emoji-cheat-sheet.com/).
+           */
+          name: string;
+          /**
+           * The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`.
+           */
+          color?: string;
+          /**
+           * A short description of the label.
+           */
+          description?: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -11248,6 +13574,22 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           name: string;
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The new name of the label. Emoji can be added to label names, using either native emoji or colon-style markup. For example, typing `:strawberry:` will render the emoji ![:strawberry:](https://github.githubassets.com/images/icons/emoji/unicode/1f353.png ":strawberry:"). For a full list of available emoji and codes, see [emoji-cheat-sheet.com](http://emoji-cheat-sheet.com/).
+           */
+          new_name?: string;
+          /**
+           * The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`.
+           */
+          color?: string;
+          /**
+           * A short description of the label.
+           */
+          description?: string;
         };
       };
       responses: {
@@ -11327,6 +13669,22 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The name of the base branch that the head will be merged into.
+           */
+          base: string;
+          /**
+           * The head to merge. This can be a branch name or a commit SHA1.
+           */
+          head: string;
+          /**
+           * Commit message to use for the merge commit. If omitted, a default message will be used.
+           */
+          commit_message?: string;
+        };
+      };
       responses: {
         /**
          * Successful Response (The resulting merge commit)
@@ -11392,6 +13750,26 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The title of the milestone.
+           */
+          title: string;
+          /**
+           * The state of the milestone. Either `open` or `closed`.
+           */
+          state?: "open" | "closed";
+          /**
+           * A description of the milestone.
+           */
+          description?: string;
+          /**
+           * The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+           */
+          due_on?: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -11429,6 +13807,26 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           milestone_number: components["parameters"]["milestone_number"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The title of the milestone.
+           */
+          title?: string;
+          /**
+           * The state of the milestone. Either `open` or `closed`.
+           */
+          state?: "open" | "closed";
+          /**
+           * A description of the milestone.
+           */
+          description?: string;
+          /**
+           * The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+           */
+          due_on?: string;
         };
       };
       responses: {
@@ -11518,6 +13916,14 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * Describes the last point that notifications were checked. Anything updated since this time will not be marked as read. If you omit this parameter, all notifications are marked as read. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. Default: The current timestamp.
+           */
+          last_read_at?: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -11554,6 +13960,23 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The source branch and directory used to publish your Pages site.
+           */
+          source: {
+            /**
+             * The repository branch used to publish your site's source files.
+             */
+            branch: string;
+            /**
+             * The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`. Default: `/`
+             */
+            path?: "/" | "/docs";
+          };
+        };
+      };
       responses: {
         /**
          * response
@@ -11574,6 +13997,25 @@ export interface paths {
         path: {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * Specify a custom domain for the repository. Sending a `null` value will remove the custom domain. For more about custom domains, see "[Using a custom domain with GitHub Pages](https://help.github.com/articles/using-a-custom-domain-with-github-pages/)."
+           */
+          cname?: string | null;
+          source: Partial<"gh-pages" | "master" | "master /docs"> &
+            Partial<{
+              /**
+               * The repository branch used to publish your site's source files.
+               */
+              branch: string;
+              /**
+               * The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`.
+               */
+              path: "/" | "/docs";
+            }>;
         };
       };
       responses: {
@@ -11726,6 +14168,18 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The name of the project.
+           */
+          name: string;
+          /**
+           * The description of the project.
+           */
+          body?: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -11801,6 +14255,35 @@ export interface paths {
         path: {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The title of the new pull request.
+           */
+          title?: string;
+          /**
+           * The name of the branch where your changes are implemented. For cross-repository pull requests in the same network, namespace `head` with a user like this: `username:branch`.
+           */
+          head: string;
+          /**
+           * The name of the branch you want the changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repository that requests a merge to a base of another repository.
+           */
+          base: string;
+          /**
+           * The contents of the pull request.
+           */
+          body?: string;
+          /**
+           * Indicates whether [maintainers can modify](https://help.github.com/articles/allowing-changes-to-a-pull-request-branch-created-from-a-fork/) the pull request.
+           */
+          maintainer_can_modify?: boolean;
+          /**
+           * Indicates whether the pull request is a draft. See "[Draft Pull Requests](https://help.github.com/en/articles/about-pull-requests#draft-pull-requests)" in the GitHub Help documentation to learn more.
+           */
+          draft?: boolean;
+          issue?: number;
         };
       };
       responses: {
@@ -11937,6 +14420,14 @@ export interface paths {
           comment_id: components["parameters"]["comment_id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The text of the reply to the review comment.
+           */
+          body: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -12014,6 +14505,22 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           comment_id: components["parameters"]["comment_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The [reaction type](https://developer.github.com/v3/reactions/#reaction-types) to add to the pull request review comment.
+           */
+          content:
+            | "+1"
+            | "-1"
+            | "laugh"
+            | "confused"
+            | "heart"
+            | "hooray"
+            | "rocket"
+            | "eyes";
         };
       };
       responses: {
@@ -12106,6 +14613,30 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           pull_number: components["parameters"]["pull-number"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The title of the pull request.
+           */
+          title?: string;
+          /**
+           * The contents of the pull request.
+           */
+          body?: string;
+          /**
+           * State of this Pull Request. Either `open` or `closed`.
+           */
+          state?: "open" | "closed";
+          /**
+           * The name of the branch you want your changes pulled into. This should be an existing branch on the current repository. You cannot update the base branch on a pull request to point to another repository.
+           */
+          base?: string;
+          /**
+           * Indicates whether [maintainers can modify](https://help.github.com/articles/allowing-changes-to-a-pull-request-branch-created-from-a-fork/) the pull request.
+           */
+          maintainer_can_modify?: boolean;
         };
       };
       responses: {
@@ -12206,6 +14737,43 @@ export interface paths {
           pull_number: components["parameters"]["pull-number"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The text of the review comment.
+           */
+          body: string;
+          /**
+           * The SHA of the commit needing a comment. Not using the latest commit SHA may render your comment outdated if a subsequent commit modifies the line you specify as the `position`.
+           */
+          commit_id?: string;
+          /**
+           * The relative path to the file that necessitates a comment.
+           */
+          path: string;
+          /**
+           * **Required without `comfort-fade` preview**. The position in the diff where you want to add a review comment. Note this value is not the same as the line number in the file. For help finding the position value, read the note above.
+           */
+          position?: number;
+          /**
+           * **Required with `comfort-fade` preview**. In a split diff view, the side of the diff that the pull request's changes appear on. Can be `LEFT` or `RIGHT`. Use `LEFT` for deletions that appear in red. Use `RIGHT` for additions that appear in green or unchanged lines that appear in white and are shown for context. For a multi-line comment, side represents whether the last line of the comment range is a deletion or addition. For more information, see "[Diff view options](https://help.github.com/en/articles/about-comparing-branches-in-pull-requests#diff-view-options)" in the GitHub Help documentation.
+           */
+          side?: "LEFT" | "RIGHT";
+          /**
+           * **Required with `comfort-fade` preview**. The line of the blob in the pull request diff that the comment applies to. For a multi-line comment, the last line of the range that your comment applies to.
+           */
+          line?: number;
+          /**
+           * **Required when using multi-line comments**. To create multi-line comments, you must use the `comfort-fade` preview header. The `start_line` is the first line in the pull request diff that your multi-line comment applies to. To learn more about multi-line comments, see "[Commenting on a pull request](https://help.github.com/en/articles/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)" in the GitHub Help documentation.
+           */
+          start_line?: number;
+          /**
+           * **Required when using multi-line comments**. To create multi-line comments, you must use the `comfort-fade` preview header. The `start_side` is the starting side of the diff that the comment applies to. Can be `LEFT` or `RIGHT`. To learn more about multi-line comments, see "[Commenting on a pull request](https://help.github.com/en/articles/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)" in the GitHub Help documentation. See `side` in this table for additional context.
+           */
+          start_side?: "LEFT" | "RIGHT" | "side";
+          in_reply_to?: number;
+        };
+      };
       responses: {
         /**
          * response
@@ -12231,6 +14799,14 @@ export interface paths {
           repo: components["parameters"]["repo"];
           pull_number: components["parameters"]["pull-number"];
           comment_id: components["parameters"]["comment_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The text of the review comment.
+           */
+          body: string;
         };
       };
       responses: {
@@ -12329,6 +14905,26 @@ export interface paths {
           pull_number: components["parameters"]["pull-number"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * Title for the automatic commit message.
+           */
+          commit_title?: string;
+          /**
+           * Extra detail to append to automatic commit message.
+           */
+          commit_message?: string;
+          /**
+           * SHA that pull request head must match to allow merge.
+           */
+          sha?: string;
+          /**
+           * Merge method to use. Possible values are `merge`, `squash` or `rebase`. Default is `merge`.
+           */
+          merge_method?: "merge" | "squash" | "rebase";
+        };
+      };
       responses: {
         /**
          * Response if merge was successful
@@ -12387,6 +14983,18 @@ export interface paths {
           pull_number: components["parameters"]["pull-number"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * An array of user `login`s that will be requested.
+           */
+          reviewers?: string[];
+          /**
+           * An array of team `slug`s that will be requested.
+           */
+          team_reviewers?: string[];
+        };
+      };
       responses: {
         /**
          * response
@@ -12407,6 +15015,18 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           pull_number: components["parameters"]["pull-number"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * An array of user `login`s that will be removed.
+           */
+          reviewers?: string[];
+          /**
+           * An array of team `slug`s that will be removed.
+           */
+          team_reviewers?: string[];
         };
       };
       responses: {
@@ -12460,6 +15080,43 @@ export interface paths {
           pull_number: components["parameters"]["pull-number"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The SHA of the commit that needs a review. Not using the latest commit SHA may render your review comment outdated if a subsequent commit modifies the line you specify as the `position`. Defaults to the most recent commit in the pull request when you do not specify a value.
+           */
+          commit_id?: string;
+          /**
+           * **Required** when using `REQUEST_CHANGES` or `COMMENT` for the `event` parameter. The body text of the pull request review.
+           */
+          body?: string;
+          /**
+           * The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. By leaving this blank, you set the review action state to `PENDING`, which means you will need to [submit the pull request review](https://developer.github.com/v3/pulls/reviews/#submit-a-review-for-a-pull-request) when you are ready.
+           */
+          event?: "APPROVE" | "REQUEST_CHANGES" | "COMMENT";
+          /**
+           * Use the following table to specify the location, destination, and contents of the draft review comment.
+           */
+          comments?: {
+            /**
+             * The relative path to the file that necessitates a review comment.
+             */
+            path: string;
+            /**
+             * The position in the diff where you want to add a review comment. Note this value is not the same as the line number in the file. For help finding the position value, read the note below.
+             */
+            position?: number;
+            /**
+             * Text of the review comment.
+             */
+            body: string;
+            line?: number;
+            side?: string;
+            start_line?: number;
+            start_side?: string;
+          }[];
+        };
+      };
       responses: {
         /**
          * response
@@ -12502,6 +15159,14 @@ export interface paths {
           repo: components["parameters"]["repo"];
           pull_number: components["parameters"]["pull-number"];
           review_id: components["parameters"]["review_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The body text of the pull request review.
+           */
+          body: string;
         };
       };
       responses: {
@@ -12576,6 +15241,15 @@ export interface paths {
           review_id: components["parameters"]["review_id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The message for the pull request review dismissal
+           */
+          message: string;
+          event?: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -12596,6 +15270,18 @@ export interface paths {
           repo: components["parameters"]["repo"];
           pull_number: components["parameters"]["pull-number"];
           review_id: components["parameters"]["review_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The body text of the pull request review
+           */
+          body?: string;
+          /**
+           * The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. When you leave this blank, the API returns _HTTP 422 (Unrecognizable entity)_ and sets the review action state to `PENDING`, which means you will need to re-submit the pull request review using a review action.
+           */
+          event: "APPROVE" | "REQUEST_CHANGES" | "COMMENT";
         };
       };
       responses: {
@@ -12621,6 +15307,14 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           pull_number: components["parameters"]["pull-number"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The expected SHA of the pull request's HEAD ref. This is the most recent commit on the pull request's branch. If the expected SHA does not match the pull request's HEAD, you will receive a `422 Unprocessable Entity` status. You can use the "[List commits](https://developer.github.com/v3/repos/commits/#list-commits)" endpoint to find the most recent commit SHA. Default: SHA of the pull request's current HEAD ref.
+           */
+          expected_head_sha?: string;
         };
       };
       responses: {
@@ -12706,6 +15400,34 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The name of the tag.
+           */
+          tag_name: string;
+          /**
+           * Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually `master`).
+           */
+          target_commitish?: string;
+          /**
+           * The name of the release.
+           */
+          name?: string;
+          /**
+           * Text describing the contents of the tag.
+           */
+          body?: string;
+          /**
+           * `true` to create a draft (unpublished) release, `false` to create a published one.
+           */
+          draft?: boolean;
+          /**
+           * `true` to identify the release as a prerelease. `false` to identify the release as a full release.
+           */
+          prerelease?: boolean;
+        };
+      };
       responses: {
         /**
          * response
@@ -12750,6 +15472,19 @@ export interface paths {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
           asset_id: components["parameters"]["asset_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The file name of the asset.
+           */
+          name?: string;
+          /**
+           * An alternate short description of the asset. Used in place of the filename.
+           */
+          label?: string;
+          state?: string;
         };
       };
       responses: {
@@ -12859,6 +15594,34 @@ export interface paths {
           release_id: components["parameters"]["release_id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The name of the tag.
+           */
+          tag_name?: string;
+          /**
+           * Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually `master`).
+           */
+          target_commitish?: string;
+          /**
+           * The name of the release.
+           */
+          name?: string;
+          /**
+           * Text describing the contents of the tag.
+           */
+          body?: string;
+          /**
+           * `true` makes the release a draft, and `false` publishes the release.
+           */
+          draft?: boolean;
+          /**
+           * `true` to identify the release as a prerelease, `false` to identify the release as a full release.
+           */
+          prerelease?: boolean;
+        };
+      };
       responses: {
         /**
          * response
@@ -12940,6 +15703,9 @@ export interface paths {
           name?: string;
           label?: string;
         };
+      };
+      requestBody: {
+        "*/*": string;
       };
       responses: {
         /**
@@ -13116,6 +15882,28 @@ export interface paths {
           sha: string;
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The state of the status. Can be one of `error`, `failure`, `pending`, or `success`.
+           */
+          state: "error" | "failure" | "pending" | "success";
+          /**
+           * The target URL to associate with this status. This URL will be linked from the GitHub UI to allow users to easily see the source of the status.
+           * For example, if your continuous integration system is posting build status, you would want to provide the deep link for the build output for this specific SHA:
+           * `http://ci.example.com/user/repo/build/sha`
+           */
+          target_url?: string;
+          /**
+           * A short description of the status.
+           */
+          description?: string;
+          /**
+           * A string label to differentiate this status from the status of other systems.
+           */
+          context?: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -13181,6 +15969,18 @@ export interface paths {
         path: {
           owner: components["parameters"]["owner"];
           repo: components["parameters"]["repo"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * Determines if notifications should be received from this repository.
+           */
+          subscribed?: boolean;
+          /**
+           * Determines if all notifications should be blocked from this repository.
+           */
+          ignored?: boolean;
         };
       };
       responses: {
@@ -13303,6 +16103,14 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * An array of topics to add to the repository. Pass one or more topics to _replace_ the set of existing topics. Send an empty array (`[]`) to clear all topics from the repository. **Note:** Topic `names` cannot contain uppercase letters.
+           */
+          names: string[];
+        };
+      };
       responses: {
         /**
          * response
@@ -13421,6 +16229,18 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * **Required:** The username or organization name the repository will be transferred to.
+           */
+          new_owner?: string;
+          /**
+           * ID of the team or teams to add to the repository. Teams can only be added to organization-owned repositories.
+           */
+          team_ids?: number[];
+        };
+      };
       responses: {
         /**
          * response
@@ -13529,6 +16349,26 @@ export interface paths {
           template_repo: string;
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The organization or person who will own the new repository. To create a new repository in an organization, the authenticated user must be a member of the specified organization.
+           */
+          owner?: string;
+          /**
+           * The name of the new repository.
+           */
+          name: string;
+          /**
+           * A short description of the new repository.
+           */
+          description?: string;
+          /**
+           * Either `true` to create a new private repository or `false` to create a new public one.
+           */
+          private?: boolean;
+        };
+      };
       responses: {
         /**
          * response
@@ -13599,6 +16439,24 @@ export interface paths {
           enterprise: components["parameters"]["enterprise"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The SCIM schema URIs.
+           */
+          schemas: string[];
+          /**
+           * The name of the SCIM group. This must match the GitHub organization that the group maps to.
+           */
+          displayName: string;
+          members?: {
+            /**
+             * The SCIM user ID for a user.
+             */
+            value: string;
+          }[];
+        };
+      };
       responses: {
         /**
          * response
@@ -13641,6 +16499,24 @@ export interface paths {
           scim_group_id: components["parameters"]["scim_group_id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The SCIM schema URIs.
+           */
+          schemas: string[];
+          /**
+           * The name of the SCIM group. This must match the GitHub organization that the group maps to.
+           */
+          displayName: string;
+          members?: {
+            /**
+             * The SCIM user ID for a user.
+             */
+            value: string;
+          }[];
+        };
+      };
       responses: {
         /**
          * response
@@ -13660,6 +16536,18 @@ export interface paths {
         path: {
           enterprise: components["parameters"]["enterprise"];
           scim_group_id: components["parameters"]["scim_group_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The SCIM schema URIs.
+           */
+          schemas: string[];
+          /**
+           * Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2).
+           */
+          Operations: { [key: string]: any }[];
         };
       };
       responses: {
@@ -13742,6 +16630,49 @@ export interface paths {
           enterprise: components["parameters"]["enterprise"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The SCIM schema URIs.
+           */
+          schemas: string[];
+          /**
+           * The username for the user.
+           */
+          userName: string;
+          name: {
+            /**
+             * The first name of the user.
+             */
+            givenName: string;
+            /**
+             * The last name of the user.
+             */
+            familyName: string;
+          };
+          /**
+           * List of user emails.
+           */
+          emails: {
+            /**
+             * The email address.
+             */
+            value: string;
+            /**
+             * The type of email address.
+             */
+            type: string;
+            /**
+             * Whether this email address is the primary address.
+             */
+            primary: boolean;
+          }[];
+          /**
+           * List of SCIM group IDs the user is a member of.
+           */
+          groups?: { value?: string }[];
+        };
+      };
       responses: {
         /**
          * response
@@ -13788,6 +16719,49 @@ export interface paths {
           scim_user_id: components["parameters"]["scim_user_id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The SCIM schema URIs.
+           */
+          schemas: string[];
+          /**
+           * The username for the user.
+           */
+          userName: string;
+          name: {
+            /**
+             * The first name of the user.
+             */
+            givenName: string;
+            /**
+             * The last name of the user.
+             */
+            familyName: string;
+          };
+          /**
+           * List of user emails.
+           */
+          emails: {
+            /**
+             * The email address.
+             */
+            value: string;
+            /**
+             * The type of email address.
+             */
+            type: string;
+            /**
+             * Whether this email address is the primary address.
+             */
+            primary: boolean;
+          }[];
+          /**
+           * List of SCIM group IDs the user is a member of.
+           */
+          groups?: { value?: string }[];
+        };
+      };
       responses: {
         /**
          * response
@@ -13822,6 +16796,18 @@ export interface paths {
         path: {
           enterprise: components["parameters"]["enterprise"];
           scim_user_id: components["parameters"]["scim_user_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The SCIM schema URIs.
+           */
+          schemas: string[];
+          /**
+           * Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2).
+           */
+          Operations: { [key: string]: any }[];
         };
       };
       responses: {
@@ -13918,6 +16904,27 @@ export interface paths {
           org: components["parameters"]["org"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * Configured by the admin. Could be an email, login, or username
+           */
+          userName: string;
+          /**
+           * The name of the user, suitable for display to end-users
+           */
+          displayName?: string;
+          name: { givenName: string; familyName: string; formatted?: string };
+          /**
+           * user emails
+           */
+          emails: { value: string; primary?: boolean; type?: string }[];
+          schemas?: string[];
+          externalId?: string;
+          groups?: string[];
+          active?: boolean;
+        };
+      };
       responses: {
         /**
          * response
@@ -13968,6 +16975,27 @@ export interface paths {
           scim_user_id: components["parameters"]["scim_user_id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          schemas?: string[];
+          /**
+           * The name of the user, suitable for display to end-users
+           */
+          displayName?: string;
+          externalId?: string;
+          groups?: string[];
+          active?: boolean;
+          /**
+           * Configured by the admin. Could be an email, login, or username
+           */
+          userName: string;
+          name: { givenName: string; familyName: string; formatted?: string };
+          /**
+           * user emails
+           */
+          emails: { type?: string; value: string; primary?: boolean }[];
+        };
+      };
       responses: {
         /**
          * response
@@ -14003,6 +17031,28 @@ export interface paths {
         path: {
           org: components["parameters"]["org"];
           scim_user_id: components["parameters"]["scim_user_id"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          schemas?: string[];
+          /**
+           * Set of operations to be performed
+           */
+          Operations: {
+            op: "add" | "remove" | "replace";
+            path?: string;
+            value?:
+              | {
+                  active?: boolean | null;
+                  userName?: string | null;
+                  externalId?: string | null;
+                  givenName?: string | null;
+                  familyName?: string | null;
+                }
+              | { value?: string; primary?: boolean }[]
+              | string;
+          }[];
         };
       };
       responses: {
@@ -14410,6 +17460,38 @@ export interface paths {
           team_id: components["parameters"]["team-id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The name of the team.
+           */
+          name: string;
+          /**
+           * The description of the team.
+           */
+          description?: string;
+          /**
+           * The level of privacy this team should have. Editing teams without specifying this parameter leaves `privacy` intact. The options are:
+           * **For a non-nested team:**
+           * \* `secret` - only visible to organization owners and members of this team.
+           * \* `closed` - visible to all members of this organization.
+           * **For a parent or child team:**
+           * \* `closed` - visible to all members of this organization.
+           */
+          privacy?: "secret" | "closed";
+          /**
+           * **Deprecated**. The permission that new repositories will be added to the team with when none is specified. Can be one of:
+           * \* `pull` - team members can pull, but not push to or administer newly-added repositories.
+           * \* `push` - team members can pull and push, but not administer newly-added repositories.
+           * \* `admin` - team members can pull, push and administer newly-added repositories.
+           */
+          permission?: "pull" | "push" | "admin";
+          /**
+           * The ID of a team to set as the parent team.
+           */
+          parent_team_id?: number | null;
+        };
+      };
       responses: {
         /**
          * response
@@ -14484,6 +17566,22 @@ export interface paths {
           team_id: components["parameters"]["team-id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The discussion post's title.
+           */
+          title: string;
+          /**
+           * The discussion post's body text.
+           */
+          body: string;
+          /**
+           * Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post.
+           */
+          private?: boolean;
+        };
+      };
       responses: {
         /**
          * response
@@ -14526,6 +17624,18 @@ export interface paths {
         path: {
           team_id: components["parameters"]["team-id"];
           discussion_number: components["parameters"]["discussion-number"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The discussion post's title.
+           */
+          title?: string;
+          /**
+           * The discussion post's body text.
+           */
+          body?: string;
         };
       };
       responses: {
@@ -14598,6 +17708,14 @@ export interface paths {
           discussion_number: components["parameters"]["discussion-number"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The discussion comment's body text.
+           */
+          body: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -14642,6 +17760,14 @@ export interface paths {
           team_id: components["parameters"]["team-id"];
           discussion_number: components["parameters"]["discussion-number"];
           comment_number: components["parameters"]["comment-number"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The discussion comment's body text.
+           */
+          body: string;
         };
       };
       responses: {
@@ -14726,6 +17852,22 @@ export interface paths {
           comment_number: components["parameters"]["comment-number"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The [reaction type](https://developer.github.com/v3/reactions/#reaction-types) to add to the team discussion comment.
+           */
+          content:
+            | "+1"
+            | "-1"
+            | "laugh"
+            | "confused"
+            | "heart"
+            | "hooray"
+            | "rocket"
+            | "eyes";
+        };
+      };
       responses: {
         /**
          * response
@@ -14784,6 +17926,22 @@ export interface paths {
         path: {
           team_id: components["parameters"]["team-id"];
           discussion_number: components["parameters"]["discussion-number"];
+        };
+      };
+      requestBody: {
+        "application/json": {
+          /**
+           * The [reaction type](https://developer.github.com/v3/reactions/#reaction-types) to add to the team discussion.
+           */
+          content:
+            | "+1"
+            | "-1"
+            | "laugh"
+            | "confused"
+            | "heart"
+            | "hooray"
+            | "rocket"
+            | "eyes";
         };
       };
       responses: {
@@ -15001,6 +18159,16 @@ export interface paths {
           username: components["parameters"]["username"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The role that this user should have in the team. Can be one of:
+           * \* `member` - a normal member of the team.
+           * \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
+           */
+          role?: "member" | "maintainer";
+        };
+      };
       responses: {
         /**
          * response
@@ -15120,6 +18288,18 @@ export interface paths {
           project_id: components["parameters"]["project-id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The permission to grant to the team for this project. Can be one of:
+           * \* `read` - team members can read, but not write to or administer this project.
+           * \* `write` - team members can read and write, but not administer this project.
+           * \* `admin` - team members can read, write and administer this project.
+           * Default: the team's `permission` attribute will be used to determine what permission to grant the team on this project. Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://developer.github.com/v3/#http-verbs)."
+           */
+          permission?: "read" | "write" | "admin";
+        };
+      };
       responses: {
         /**
          * Empty response
@@ -15232,6 +18412,19 @@ export interface paths {
           repo: components["parameters"]["repo"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The permission to grant the team on this repository. Can be one of:
+           * \* `pull` - team members can pull, but not push to or administer this repository.
+           * \* `push` - team members can pull and push, but not administer this repository.
+           * \* `admin` - team members can pull, push and administer this repository.
+           *
+           * If no permission is specified, the team's `permission` attribute will be used to determine what permission to grant the team on this repository.
+           */
+          permission?: "pull" | "push" | "admin";
+        };
+      };
       responses: {
         /**
          * Empty response
@@ -15300,6 +18493,31 @@ export interface paths {
           team_id: components["parameters"]["team-id"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The IdP groups you want to connect to a GitHub team. When updating, the new `groups` object will replace the original one. You must include any existing groups that you don't want to remove.
+           */
+          groups: {
+            /**
+             * ID of the IdP group.
+             */
+            group_id: string;
+            /**
+             * Name of the IdP group.
+             */
+            group_name: string;
+            /**
+             * Description of the IdP group.
+             */
+            group_description: string;
+            id?: string;
+            name?: string;
+            description?: string;
+          }[];
+          synced_at?: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -15366,6 +18584,42 @@ export interface paths {
      */
     patch: {
       parameters: {};
+      requestBody: {
+        "application/json": {
+          /**
+           * The new name of the user.
+           */
+          name?: string;
+          /**
+           * The publicly visible email address of the user.
+           */
+          email?: string;
+          /**
+           * The new blog URL of the user.
+           */
+          blog?: string;
+          /**
+           * The new Twitter username of the user.
+           */
+          twitter_username?: string | null;
+          /**
+           * The new company of the user.
+           */
+          company?: string;
+          /**
+           * The new location of the user.
+           */
+          location?: string;
+          /**
+           * The new hiring availability of the user.
+           */
+          hireable?: boolean;
+          /**
+           * The new short biography of the user.
+           */
+          bio?: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -15472,6 +18726,18 @@ export interface paths {
      */
     patch: {
       parameters: {};
+      requestBody: {
+        "application/json": {
+          /**
+           * An email address associated with the GitHub user account to manage.
+           */
+          email: string;
+          /**
+           * Denotes whether an email is publically visible.
+           */
+          visibility: "public" | "private";
+        };
+      };
       responses: {
         /**
          * response
@@ -15516,6 +18782,17 @@ export interface paths {
      */
     post: {
       parameters: {};
+      requestBody: {
+        "application/json":
+          | {
+              /**
+               * Adds one or more email addresses to your GitHub account. Must contain at least one email address. **Note:** Alternatively, you can pass a single email address or an `array` of emails addresses directly, but we recommend that you pass an object using the `emails` key.
+               */
+              emails: string[];
+            }
+          | string[]
+          | string;
+      };
       responses: {
         /**
          * response
@@ -15535,6 +18812,17 @@ export interface paths {
      */
     delete: {
       parameters: {};
+      requestBody: {
+        "application/json":
+          | {
+              /**
+               * Email addresses associated with the GitHub user account.
+               */
+              emails: string[];
+            }
+          | string[]
+          | string;
+      };
       responses: {
         /**
          * Empty response
@@ -15691,6 +18979,14 @@ export interface paths {
      */
     post: {
       parameters: {};
+      requestBody: {
+        "application/json": {
+          /**
+           * A GPG key in ASCII-armored format.
+           */
+          armored_public_key: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -15945,6 +19241,18 @@ export interface paths {
      */
     post: {
       parameters: {};
+      requestBody: {
+        "application/json": {
+          /**
+           * A descriptive name for the new key.
+           */
+          title?: string;
+          /**
+           * The public SSH key to add to your GitHub account.
+           */
+          key: string;
+        };
+      };
       responses: {
         /**
          * response
@@ -16101,6 +19409,14 @@ export interface paths {
           org: components["parameters"]["org"];
         };
       };
+      requestBody: {
+        "application/json": {
+          /**
+           * The state that the membership should be in. Only `"active"` will be accepted.
+           */
+          state: "active";
+        };
+      };
       responses: {
         /**
          * response
@@ -16142,6 +19458,23 @@ export interface paths {
      */
     post: {
       parameters: {};
+      requestBody: {
+        "application/json": {
+          /**
+           * Lock the repositories being migrated at the start of the migration
+           */
+          lock_repositories?: boolean;
+          /**
+           * Do not include attachments in the migration
+           */
+          exclude_attachments?: boolean;
+          /**
+           * Exclude attributes from the API response to improve performance
+           */
+          exclude?: "repositories"[];
+          repositories: string[];
+        };
+      };
       responses: {
         /**
          * response
@@ -16330,6 +19663,18 @@ export interface paths {
   "/user/projects": {
     post: {
       parameters: {};
+      requestBody: {
+        "application/json": {
+          /**
+           * Name of the project
+           */
+          name: string;
+          /**
+           * Body of the project
+           */
+          body?: string | null;
+        };
+      };
       responses: {
         /**
          * response
@@ -16439,6 +19784,78 @@ export interface paths {
      */
     post: {
       parameters: {};
+      requestBody: {
+        "application/json": {
+          /**
+           * The name of the repository.
+           */
+          name: string;
+          /**
+           * A short description of the repository.
+           */
+          description?: string;
+          /**
+           * A URL with more information about the repository.
+           */
+          homepage?: string;
+          /**
+           * Whether the repository is private or public.
+           */
+          private?: boolean;
+          /**
+           * Whether issues are enabled.
+           */
+          has_issues?: boolean;
+          /**
+           * Whether projects are enabled.
+           */
+          has_projects?: boolean;
+          /**
+           * Whether the wiki is enabled.
+           */
+          has_wiki?: boolean;
+          /**
+           * The id of the team that will be granted access to this repository. This is only valid when creating a repository in an organization.
+           */
+          team_id?: number;
+          /**
+           * Whether the repository is initialized with a minimal README.
+           */
+          auto_init?: boolean;
+          /**
+           * The desired language or platform to apply to the .gitignore.
+           */
+          gitignore_template?: string;
+          /**
+           * The license keyword of the open source license for this repository.
+           */
+          license_template?: string;
+          /**
+           * Whether to allow squash merges for pull requests.
+           */
+          allow_squash_merge?: boolean;
+          /**
+           * Whether to allow merge commits for pull requests.
+           */
+          allow_merge_commit?: boolean;
+          /**
+           * Whether to allow rebase merges for pull requests.
+           */
+          allow_rebase_merge?: boolean;
+          /**
+           * Whether to delete head branches when pull requests are merged
+           */
+          delete_branch_on_merge?: boolean;
+          /**
+           * Whether downloads are enabled.
+           */
+          has_downloads?: boolean;
+          /**
+           * Whether this repository acts as a template that can be used to generate new repositories.
+           */
+          is_template?: boolean;
+        };
+      };
       responses: {
         /**
          * response
