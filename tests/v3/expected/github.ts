@@ -94,8 +94,8 @@ export interface paths {
             [key: string]: any;
           };
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -139,8 +139,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["installation"];
         };
-        "404": any;
-        "415": any;
+        "404": unknown;
+        "415": unknown;
       };
     };
     /**
@@ -156,8 +156,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "404": any;
+        "204": never;
+        "404": unknown;
       };
     };
   };
@@ -178,11 +178,11 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["installation-token"];
         };
-        "401": any;
-        "403": any;
-        "404": any;
-        "415": any;
-        "422": any;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "415": unknown;
+        "422": unknown;
       };
     };
   };
@@ -204,8 +204,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "404": any;
+        "204": never;
+        "404": unknown;
       };
     };
     /**
@@ -225,8 +225,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "404": any;
+        "204": never;
+        "404": unknown;
       };
     };
   };
@@ -247,10 +247,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["application-grant"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -269,9 +269,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["application-grant"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
     /**
@@ -287,10 +287,10 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
   };
@@ -307,8 +307,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "422": any;
+        "204": never;
+        "422": unknown;
       };
     };
   };
@@ -328,7 +328,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -347,8 +347,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["authorization"];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -365,7 +365,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["authorization"];
         };
-        "422": any;
+        "422": unknown;
       };
     };
     /**
@@ -379,8 +379,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "422": any;
+        "204": never;
+        "422": unknown;
       };
     };
   };
@@ -401,7 +401,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["authorization"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -435,7 +435,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -456,9 +456,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["integration"];
         };
-        "403": any;
-        "404": any;
-        "415": any;
+        "403": unknown;
+        "404": unknown;
+        "415": unknown;
       };
     };
   };
@@ -477,10 +477,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["authorization"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
     /**
@@ -505,11 +505,11 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["authorization"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "410": any;
-        "422": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "410": unknown;
+        "422": unknown;
       };
     };
   };
@@ -542,10 +542,10 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["authorization"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "422": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "422": unknown;
       };
     };
   };
@@ -579,7 +579,7 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["authorization"];
         };
-        "422": any;
+        "422": unknown;
       };
     };
   };
@@ -598,9 +598,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["authorization"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
     /**
@@ -621,7 +621,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["authorization"];
         };
-        "422": any;
+        "422": unknown;
       };
     };
     /**
@@ -635,10 +635,10 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
   };
@@ -652,8 +652,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["code-of-conduct"][];
         };
-        "304": any;
-        "415": any;
+        "304": never;
+        "415": unknown;
       };
     };
   };
@@ -671,9 +671,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["code-of-conduct"];
         };
-        "304": any;
-        "404": any;
-        "415": any;
+        "304": never;
+        "404": unknown;
+        "415": unknown;
       };
     };
   };
@@ -698,12 +698,12 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["content-reference-attachment"];
         };
-        "304": any;
-        "403": any;
-        "404": any;
-        "410": any;
-        "415": any;
-        "422": any;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
+        "410": unknown;
+        "415": unknown;
+        "422": unknown;
       };
     };
   };
@@ -720,7 +720,7 @@ export interface paths {
         "200": {
           "application/json": { [key: string]: string };
         };
-        "304": any;
+        "304": never;
       };
     };
   };
@@ -815,7 +815,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -854,7 +854,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -872,7 +872,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
     /**
@@ -888,7 +888,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -927,7 +927,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -946,7 +946,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
     /**
@@ -962,7 +962,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -1098,7 +1098,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -1183,9 +1183,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["event"][];
         };
-        "304": any;
-        "403": any;
-        "503": any;
+        "304": never;
+        "403": unknown;
+        "503": unknown;
       };
     };
   };
@@ -1230,8 +1230,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["base-gist"][];
         };
-        "304": any;
-        "403": any;
+        "304": never;
+        "403": unknown;
       };
     };
     /**
@@ -1248,10 +1248,10 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["gist-full"];
         };
-        "304": any;
-        "403": any;
-        "404": any;
-        "422": any;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -1272,9 +1272,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["base-gist"][];
         };
-        "304": any;
-        "403": any;
-        "422": any;
+        "304": never;
+        "403": unknown;
+        "422": unknown;
       };
     };
   };
@@ -1293,9 +1293,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["base-gist"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
   };
@@ -1311,9 +1311,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["gist-full"];
         };
-        "304": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
     /**
@@ -1330,8 +1330,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["gist-full"];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
     delete: {
@@ -1342,10 +1342,10 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "403": any;
-        "404": any;
+        "204": never;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -1361,9 +1361,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["gist-comment"][];
         };
-        "304": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
     post: {
@@ -1377,9 +1377,9 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["gist-comment"];
         };
-        "304": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -1395,9 +1395,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["gist-comment"];
         };
-        "304": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
     patch: {
@@ -1411,7 +1411,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["gist-comment"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     delete: {
@@ -1422,10 +1422,10 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "403": any;
-        "404": any;
+        "204": never;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -1441,9 +1441,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["gist-commit"][];
         };
-        "304": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -1459,9 +1459,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["gist-full"][];
         };
-        "304": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
     /**
@@ -1478,10 +1478,10 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["base-gist"];
         };
-        "304": any;
-        "403": any;
-        "404": any;
-        "422": any;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -1494,9 +1494,9 @@ export interface paths {
         /**
          * Response if gist is starred
          */
-        "204": any;
-        "304": any;
-        "403": any;
+        "204": never;
+        "304": never;
+        "403": unknown;
         /**
          * Response if gist is not starred
          */
@@ -1516,10 +1516,10 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "403": any;
-        "404": any;
+        "204": never;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
     delete: {
@@ -1530,10 +1530,10 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "403": any;
-        "404": any;
+        "204": never;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -1552,9 +1552,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["gist-full"];
         };
-        "403": any;
-        "404": any;
-        "422": any;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -1571,7 +1571,7 @@ export interface paths {
         "200": {
           "application/json": string[];
         };
-        "304": any;
+        "304": never;
       };
     };
   };
@@ -1593,7 +1593,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["gitignore-template"];
         };
-        "304": any;
+        "304": never;
       };
     };
   };
@@ -1618,9 +1618,9 @@ export interface paths {
             repository_selection?: string;
           };
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
   };
@@ -1638,7 +1638,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -1689,9 +1689,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["issue"][];
         };
-        "304": any;
-        "404": any;
-        "422": any;
+        "304": never;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -1710,7 +1710,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["license-simple"][];
         };
-        "304": any;
+        "304": never;
       };
     };
   };
@@ -1728,9 +1728,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["license"];
         };
-        "304": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -1741,8 +1741,8 @@ export interface paths {
         /**
          * response
          */
-        "200": any;
-        "304": any;
+        "200": unknown;
+        "304": never;
       };
     };
   };
@@ -1759,7 +1759,7 @@ export interface paths {
         "200": {
           "text/html": string;
         };
-        "304": any;
+        "304": never;
       };
     };
   };
@@ -1780,7 +1780,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["marketplace-purchase"];
         };
-        "401": any;
+        "401": unknown;
         /**
          * Response when the account has not purchased the listing
          */
@@ -1807,8 +1807,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["marketplace-listing-plan"][];
         };
-        "401": any;
-        "404": any;
+        "401": unknown;
+        "404": unknown;
       };
     };
   };
@@ -1835,9 +1835,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["marketplace-purchase"][];
         };
-        "401": any;
-        "404": any;
-        "422": any;
+        "401": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -1858,11 +1858,11 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["marketplace-purchase"];
         };
-        "401": any;
+        "401": unknown;
         /**
          * Response when the account has not purchased the listing
          */
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -1883,7 +1883,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["marketplace-listing-plan"][];
         };
-        "401": any;
+        "401": unknown;
       };
     };
   };
@@ -1910,7 +1910,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["marketplace-purchase"][];
         };
-        "401": any;
+        "401": unknown;
       };
     };
   };
@@ -1927,7 +1927,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["api-overview"];
         };
-        "304": any;
+        "304": never;
       };
     };
   };
@@ -1943,10 +1943,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["event"][];
         };
-        "301": any;
-        "304": any;
-        "403": any;
-        "404": any;
+        "301": never;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -1965,10 +1965,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["thread"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "422": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -1986,10 +1986,10 @@ export interface paths {
         /**
          * response
          */
-        "205": any;
-        "304": any;
-        "401": any;
-        "403": any;
+        "205": unknown;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
   };
@@ -2005,9 +2005,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["thread"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
     patch: {
@@ -2018,9 +2018,9 @@ export interface paths {
         /**
          * response
          */
-        "205": any;
-        "304": any;
-        "403": any;
+        "205": unknown;
+        "304": never;
+        "403": unknown;
       };
     };
   };
@@ -2041,9 +2041,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["thread-subscription"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
     /**
@@ -2064,9 +2064,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["thread-subscription"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
     /**
@@ -2080,10 +2080,10 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
   };
@@ -2127,7 +2127,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["organization-simple"][];
         };
-        "304": any;
+        "304": never;
       };
     };
   };
@@ -2148,7 +2148,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["organization-full"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -2167,8 +2167,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["organization-full"];
         };
-        "409": any;
-        "415": any;
+        "409": unknown;
+        "415": unknown;
         /**
          * Validation Failed
          */
@@ -2281,7 +2281,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -2324,7 +2324,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -2346,7 +2346,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
     /**
@@ -2365,7 +2365,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -2408,7 +2408,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -2430,7 +2430,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
     /**
@@ -2449,7 +2449,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -2585,7 +2585,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -2730,11 +2730,11 @@ export interface paths {
         /**
          * Response when creating a secret
          */
-        "201": any;
+        "201": unknown;
         /**
          * Response when updating a secret
          */
-        "204": any;
+        "204": never;
       };
     };
     /**
@@ -2748,7 +2748,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -2783,7 +2783,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -2802,11 +2802,11 @@ export interface paths {
         /**
          * Response when repository was added to the selected list
          */
-        "204": any;
+        "204": never;
         /**
          * Response when visibility type is not set to selected
          */
-        "409": any;
+        "409": unknown;
       };
     };
     /**
@@ -2823,11 +2823,11 @@ export interface paths {
         /**
          * Response when repository was removed from the selected list
          */
-        "204": any;
+        "204": never;
         /**
          * Response when visibility type not set to selected
          */
-        "409": any;
+        "409": unknown;
       };
     };
   };
@@ -2846,7 +2846,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["simple-user"][];
         };
-        "415": any;
+        "415": unknown;
       };
     };
   };
@@ -2859,7 +2859,7 @@ export interface paths {
         /**
          * If the user is blocked:
          */
-        "204": any;
+        "204": never;
         /**
          * If the user is not blocked:
          */
@@ -2876,8 +2876,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "422": any;
+        "204": never;
+        "422": unknown;
       };
     };
     delete: {
@@ -2888,7 +2888,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -2929,8 +2929,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "404": any;
+        "204": never;
+        "404": unknown;
       };
     };
   };
@@ -2961,7 +2961,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["org-hook"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -2978,8 +2978,8 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["org-hook"];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -2995,7 +2995,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["org-hook"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     patch: {
@@ -3009,8 +3009,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["org-hook"];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
     delete: {
@@ -3021,8 +3021,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "404": any;
+        "204": never;
+        "404": unknown;
       };
     };
   };
@@ -3038,8 +3038,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "404": any;
+        "204": never;
+        "404": unknown;
       };
     };
   };
@@ -3115,7 +3115,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["interaction-limit"];
         };
-        "422": any;
+        "422": unknown;
       };
     };
     /**
@@ -3129,7 +3129,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -3148,7 +3148,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["organization-invitation"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -3167,8 +3167,8 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["organization-invitation"];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -3187,7 +3187,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["team"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -3230,7 +3230,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["issue"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -3267,8 +3267,8 @@ export interface paths {
         /**
          * Response if requester is not an organization member
          */
-        "302": any;
-        "422": any;
+        "302": never;
+        "422": unknown;
       };
     };
   };
@@ -3284,15 +3284,15 @@ export interface paths {
         /**
          * Response if requester is an organization member and user is a member
          */
-        "204": any;
+        "204": never;
         /**
          * Response if requester is not an organization member
          */
-        "302": any;
+        "302": never;
         /**
          * Response if requester is an organization member and user is not a member
          */
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -3306,8 +3306,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "403": any;
+        "204": never;
+        "403": unknown;
       };
     };
   };
@@ -3326,8 +3326,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["org-membership"];
         };
-        "403": any;
-        "404": any;
+        "403": unknown;
+        "404": unknown;
       };
     };
     /**
@@ -3352,8 +3352,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["org-membership"];
         };
-        "403": any;
-        "422": any;
+        "403": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -3369,9 +3369,9 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "403": any;
-        "404": any;
+        "204": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -3406,8 +3406,8 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["migration"];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -3436,7 +3436,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["migration"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -3452,8 +3452,8 @@ export interface paths {
         /**
          * response
          */
-        "302": any;
-        "404": any;
+        "302": never;
+        "404": unknown;
       };
     };
     /**
@@ -3467,8 +3467,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "404": any;
+        "204": never;
+        "404": unknown;
       };
     };
   };
@@ -3484,8 +3484,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "404": any;
+        "204": never;
+        "404": unknown;
       };
     };
   };
@@ -3504,7 +3504,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["minimal-repository"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -3546,18 +3546,18 @@ export interface paths {
         /**
          * User is getting converted asynchronously
          */
-        "202": any;
+        "202": unknown;
         /**
          * User was converted
          */
-        "204": any;
+        "204": never;
         /**
          * response
          */
         "403": {
           "application/json": { message?: string; documentation_url?: string };
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -3571,7 +3571,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
         /**
          * Response if user is a member of the organization
          */
@@ -3602,7 +3602,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["project"][];
         };
-        "422": any;
+        "422": unknown;
       };
     };
     /**
@@ -3619,11 +3619,11 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["project"];
         };
-        "401": any;
-        "403": any;
-        "404": any;
-        "410": any;
-        "422": any;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "410": unknown;
+        "422": unknown;
       };
     };
   };
@@ -3654,11 +3654,11 @@ export interface paths {
         /**
          * Response if user is a public member
          */
-        "204": any;
+        "204": never;
         /**
          * Response if user is not a public member
          */
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -3674,8 +3674,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "403": any;
+        "204": never;
+        "403": unknown;
       };
     };
     delete: {
@@ -3686,7 +3686,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -3749,8 +3749,8 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["repository"];
         };
-        "403": any;
-        "422": any;
+        "403": unknown;
+        "422": unknown;
       };
     };
   };
@@ -3857,7 +3857,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["team"][];
         };
-        "403": any;
+        "403": unknown;
       };
     };
     /**
@@ -3876,8 +3876,8 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["team-full"];
         };
-        "403": any;
-        "422": any;
+        "403": unknown;
+        "422": unknown;
       };
     };
   };
@@ -3898,7 +3898,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["team-full"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -3934,7 +3934,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -4028,7 +4028,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -4122,7 +4122,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -4192,7 +4192,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -4262,7 +4262,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -4339,7 +4339,7 @@ export interface paths {
         /**
          * Response if user has no team membership
          */
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -4369,7 +4369,7 @@ export interface paths {
         /**
          * Response if team synchronization is set up
          */
-        "403": any;
+        "403": unknown;
         /**
          * Response if you attempt to add an organization to a team
          */
@@ -4398,11 +4398,11 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
         /**
          * Response if team synchronization is set up
          */
-        "403": any;
+        "403": unknown;
       };
     };
   };
@@ -4446,7 +4446,7 @@ export interface paths {
         /**
          * Response if project is not managed by this team
          */
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -4462,7 +4462,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
         /**
          * Response if the project is not owned by the organization
          */
@@ -4484,7 +4484,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -4532,11 +4532,11 @@ export interface paths {
         /**
          * Response if team has permission for the repository
          */
-        "204": any;
+        "204": never;
         /**
          * Response if team does not have permission for the repository
          */
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -4554,7 +4554,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
     /**
@@ -4570,7 +4570,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -4648,10 +4648,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["project-card"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
     patch: {
@@ -4665,11 +4665,11 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["project-card"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
-        "422": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
     delete: {
@@ -4680,9 +4680,9 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
         /**
          * Forbidden
          */
@@ -4693,7 +4693,7 @@ export interface paths {
             errors?: string[];
           };
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -4709,8 +4709,8 @@ export interface paths {
         "201": {
           "application/json": { [key: string]: any };
         };
-        "304": any;
-        "401": any;
+        "304": never;
+        "401": unknown;
         /**
          * Forbidden
          */
@@ -4726,7 +4726,7 @@ export interface paths {
             }[];
           };
         };
-        "422": any;
+        "422": unknown;
         /**
          * Service Unavailable
          */
@@ -4753,10 +4753,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["project-column"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
     patch: {
@@ -4770,9 +4770,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["project-column"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
     delete: {
@@ -4783,10 +4783,10 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
   };
@@ -4808,9 +4808,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["project-card"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
     /**
@@ -4829,9 +4829,9 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["project-card"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
         /**
          * Validation Failed
          */
@@ -4866,10 +4866,10 @@ export interface paths {
         "201": {
           "application/json": { [key: string]: any };
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "422": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "422": unknown;
       };
     };
   };
@@ -4888,9 +4888,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["project"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
     /**
@@ -4907,8 +4907,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["project"];
         };
-        "304": any;
-        "401": any;
+        "304": never;
+        "401": unknown;
         /**
          * Forbidden
          */
@@ -4922,9 +4922,9 @@ export interface paths {
         /**
          * Response if the authenticated user does not have access to the project
          */
-        "404": any;
-        "410": any;
-        "422": any;
+        "404": unknown;
+        "410": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -4938,9 +4938,9 @@ export interface paths {
         /**
          * Delete Success
          */
-        "204": any;
-        "304": any;
-        "401": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
         /**
          * Forbidden
          */
@@ -4951,8 +4951,8 @@ export interface paths {
             errors?: string[];
           };
         };
-        "404": any;
-        "410": any;
+        "404": unknown;
+        "410": unknown;
       };
     };
   };
@@ -4980,12 +4980,12 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["simple-user"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
-        "415": any;
-        "422": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "415": unknown;
+        "422": unknown;
       };
     };
   };
@@ -5001,13 +5001,13 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
-        "415": any;
-        "422": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "415": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -5021,13 +5021,13 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
-        "415": any;
-        "422": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "415": unknown;
+        "422": unknown;
       };
     };
   };
@@ -5046,12 +5046,12 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["repository-collaborator-permission"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
-        "415": any;
-        "422": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "415": unknown;
+        "422": unknown;
       };
     };
   };
@@ -5067,9 +5067,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["project-column"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
     post: {
@@ -5083,10 +5083,10 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["project-column"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "422": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "422": unknown;
       };
     };
   };
@@ -5105,8 +5105,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["rate-limit-overview"];
         };
-        "304": any;
-        "404": any;
+        "304": never;
+        "404": unknown;
       };
     };
   };
@@ -5124,12 +5124,12 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
-        "410": any;
-        "415": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "410": unknown;
+        "415": unknown;
       };
     };
   };
@@ -5150,9 +5150,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["full-repository"];
         };
-        "301": any;
-        "403": any;
-        "404": any;
+        "301": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
     /**
@@ -5169,9 +5169,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["full-repository"];
         };
-        "403": any;
-        "404": any;
-        "422": any;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -5188,14 +5188,14 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
         /**
          * If an organization owner has configured the organization to prevent members from deleting organization-owned repositories, a member will get this response:
          */
         "403": {
           "application/json": { message?: string; documentation_url?: string };
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -5248,7 +5248,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -5270,7 +5270,7 @@ export interface paths {
         /**
          * response
          */
-        "302": any;
+        "302": never;
       };
     };
   };
@@ -5307,7 +5307,7 @@ export interface paths {
         /**
          * response
          */
-        "302": any;
+        "302": never;
       };
     };
   };
@@ -5440,7 +5440,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -5497,7 +5497,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -5534,7 +5534,7 @@ export interface paths {
         /**
          * response
          */
-        "202": any;
+        "202": unknown;
       };
     };
   };
@@ -5582,7 +5582,7 @@ export interface paths {
         /**
          * response
          */
-        "302": any;
+        "302": never;
       };
     };
     /**
@@ -5596,7 +5596,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -5612,7 +5612,7 @@ export interface paths {
         /**
          * response
          */
-        "201": any;
+        "201": unknown;
       };
     };
   };
@@ -5779,11 +5779,11 @@ export interface paths {
         /**
          * Response when creating a secret
          */
-        "201": any;
+        "201": unknown;
         /**
          * Response when updating a secret
          */
-        "204": any;
+        "204": never;
       };
     };
     /**
@@ -5797,7 +5797,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -5854,7 +5854,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -5874,7 +5874,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -5892,7 +5892,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -5956,7 +5956,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["simple-user"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -5979,7 +5979,7 @@ export interface paths {
         /**
          * If the `assignee` can be assigned to issues in the repository, a `204` header with no content is returned.
          */
-        "204": any;
+        "204": never;
         /**
          * Otherwise a `404` status code is returned.
          */
@@ -6001,7 +6001,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
     /**
@@ -6015,7 +6015,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -6037,7 +6037,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["short-branch"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -6053,8 +6053,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["branch-with-protection"];
         };
-        "404": any;
-        "415": any;
+        "404": unknown;
+        "415": unknown;
       };
     };
   };
@@ -6073,7 +6073,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["branch-protection"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -6096,10 +6096,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["protected-branch"];
         };
-        "403": any;
-        "404": any;
-        "415": any;
-        "422": any;
+        "403": unknown;
+        "404": unknown;
+        "415": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -6113,8 +6113,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "403": any;
+        "204": never;
+        "403": unknown;
       };
     };
   };
@@ -6166,8 +6166,8 @@ export interface paths {
         /**
          * No Content
          */
-        "204": any;
-        "404": any;
+        "204": never;
+        "404": unknown;
       };
     };
   };
@@ -6206,7 +6206,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["protected-branch-pull-request-review"];
         };
-        "422": any;
+        "422": unknown;
       };
     };
     /**
@@ -6220,8 +6220,8 @@ export interface paths {
         /**
          * No Content
          */
-        "204": any;
-        "404": any;
+        "204": never;
+        "404": unknown;
       };
     };
   };
@@ -6244,7 +6244,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["protected-branch-admin-enforced"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -6263,7 +6263,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["protected-branch-admin-enforced"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -6279,8 +6279,8 @@ export interface paths {
         /**
          * No Content
          */
-        "204": any;
-        "404": any;
+        "204": never;
+        "404": unknown;
       };
     };
   };
@@ -6299,7 +6299,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["status-check-policy"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -6318,8 +6318,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["status-check-policy"];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -6333,7 +6333,7 @@ export interface paths {
         /**
          * No Content
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -6352,7 +6352,7 @@ export interface paths {
         "200": {
           "application/json": string[];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -6369,9 +6369,9 @@ export interface paths {
         "200": {
           "application/json": string[];
         };
-        "403": any;
-        "404": any;
-        "422": any;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -6388,8 +6388,8 @@ export interface paths {
         "200": {
           "application/json": string[];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -6406,8 +6406,8 @@ export interface paths {
         "200": {
           "application/json": string[];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -6430,7 +6430,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["branch-restriction-policy"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -6446,7 +6446,7 @@ export interface paths {
         /**
          * No Content
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -6467,7 +6467,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["integration"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -6490,7 +6490,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["integration"][];
         };
-        "422": any;
+        "422": unknown;
       };
     };
     /**
@@ -6513,7 +6513,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["integration"][];
         };
-        "422": any;
+        "422": unknown;
       };
     };
     /**
@@ -6536,7 +6536,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["integration"][];
         };
-        "422": any;
+        "422": unknown;
       };
     };
   };
@@ -6557,7 +6557,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["team"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -6580,7 +6580,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["team"][];
         };
-        "422": any;
+        "422": unknown;
       };
     };
     /**
@@ -6603,7 +6603,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["team"][];
         };
-        "422": any;
+        "422": unknown;
       };
     };
     /**
@@ -6626,7 +6626,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["team"][];
         };
-        "422": any;
+        "422": unknown;
       };
     };
   };
@@ -6647,7 +6647,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["simple-user"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -6670,7 +6670,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["simple-user"][];
         };
-        "422": any;
+        "422": unknown;
       };
     };
     /**
@@ -6693,7 +6693,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["simple-user"][];
         };
-        "422": any;
+        "422": unknown;
       };
     };
     /**
@@ -6716,7 +6716,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["simple-user"][];
         };
-        "422": any;
+        "422": unknown;
       };
     };
   };
@@ -6897,7 +6897,7 @@ export interface paths {
         /**
          * response
          */
-        "201": any;
+        "201": unknown;
       };
     };
   };
@@ -6929,8 +6929,8 @@ export interface paths {
         /**
          * Response if the ref doesn't match an existing ref
          */
-        "404": any;
-        "503": any;
+        "404": unknown;
+        "503": unknown;
       };
     };
   };
@@ -6954,8 +6954,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["code-scanning-alert-code-scanning-alert"];
         };
-        "404": any;
-        "503": any;
+        "404": unknown;
+        "503": unknown;
       };
     };
     /**
@@ -6976,7 +6976,7 @@ export interface paths {
         /**
          * When code scanning isn't available you can try again at a later time
          */
-        "503": any;
+        "503": unknown;
       };
     };
   };
@@ -7021,11 +7021,11 @@ export interface paths {
         /**
          * response
          */
-        "202": any;
+        "202": unknown;
         /**
          * Response if `commit_sha` or `ref` cannot be found
          */
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -7055,7 +7055,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["collaborator"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -7073,11 +7073,11 @@ export interface paths {
         /**
          * Response if user is a collaborator
          */
-        "204": any;
+        "204": never;
         /**
          * Response if user is not a collaborator
          */
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -7107,9 +7107,9 @@ export interface paths {
         /**
          * Response when person is already a collaborator
          */
-        "204": any;
-        "403": any;
-        "422": any;
+        "204": never;
+        "403": unknown;
+        "422": unknown;
       };
     };
     delete: {
@@ -7120,7 +7120,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -7139,7 +7139,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["repository-collaborator-permission"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -7175,7 +7175,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["commit-comment"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     patch: {
@@ -7189,7 +7189,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["commit-comment"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     delete: {
@@ -7200,8 +7200,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "404": any;
+        "204": never;
+        "404": unknown;
       };
     };
   };
@@ -7234,8 +7234,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["reaction"][];
         };
-        "404": any;
-        "415": any;
+        "404": unknown;
+        "415": unknown;
       };
     };
     /**
@@ -7258,8 +7258,8 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["reaction"];
         };
-        "415": any;
-        "422": any;
+        "415": unknown;
+        "422": unknown;
       };
     };
   };
@@ -7277,7 +7277,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -7337,10 +7337,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["simple-commit"][];
         };
-        "400": any;
-        "404": any;
-        "409": any;
-        "500": any;
+        "400": unknown;
+        "404": unknown;
+        "409": unknown;
+        "500": unknown;
       };
     };
   };
@@ -7361,8 +7361,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["branch-short"][];
         };
-        "415": any;
-        "422": any;
+        "415": unknown;
+        "422": unknown;
       };
     };
   };
@@ -7399,8 +7399,8 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["commit-comment"];
         };
-        "403": any;
-        "422": any;
+        "403": unknown;
+        "422": unknown;
       };
     };
   };
@@ -7419,7 +7419,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["pull-request-simple"][];
         };
-        "415": any;
+        "415": unknown;
       };
     };
   };
@@ -7471,9 +7471,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["commit"];
         };
-        "404": any;
-        "422": any;
-        "500": any;
+        "404": unknown;
+        "422": unknown;
+        "500": unknown;
       };
     };
   };
@@ -7576,7 +7576,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["combined-commit-status"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -7603,7 +7603,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["status"][];
         };
-        "301": any;
+        "301": never;
       };
     };
   };
@@ -7692,8 +7692,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["commit-comparison"];
         };
-        "404": any;
-        "500": any;
+        "404": unknown;
+        "500": unknown;
       };
     };
   };
@@ -7760,9 +7760,9 @@ export interface paths {
             | components["schemas"]["content-symlink"]
             | components["schemas"]["content-submodule"];
         };
-        "302": any;
-        "403": any;
-        "404": any;
+        "302": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
     /**
@@ -7791,9 +7791,9 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["file-commit"];
         };
-        "404": any;
-        "409": any;
-        "422": any;
+        "404": unknown;
+        "409": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -7822,10 +7822,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["file-commit"];
         };
-        "404": any;
-        "409": any;
-        "422": any;
-        "503": any;
+        "404": unknown;
+        "409": unknown;
+        "422": unknown;
+        "503": unknown;
       };
     };
   };
@@ -7855,9 +7855,9 @@ export interface paths {
         /**
          * Response if repository is empty
          */
-        "204": any;
-        "403": any;
-        "404": any;
+        "204": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -7966,7 +7966,7 @@ export interface paths {
         "409": {
           "application/json": { message?: string; documentation_url?: string };
         };
-        "422": any;
+        "422": unknown;
       };
     };
   };
@@ -7982,7 +7982,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["deployment"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -8003,9 +8003,9 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "404": any;
-        "422": any;
+        "204": never;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -8024,7 +8024,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["deployment-status"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -8043,7 +8043,7 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["deployment-status"];
         };
-        "422": any;
+        "422": unknown;
       };
     };
   };
@@ -8065,8 +8065,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["deployment-status"];
         };
-        "404": any;
-        "415": any;
+        "404": unknown;
+        "415": unknown;
       };
     };
   };
@@ -8088,8 +8088,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "422": any;
+        "204": never;
+        "422": unknown;
       };
     };
   };
@@ -8126,7 +8126,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["minimal-repository"][];
         };
-        "400": any;
+        "400": unknown;
       };
     };
     /**
@@ -8145,10 +8145,10 @@ export interface paths {
         "202": {
           "application/json": components["schemas"]["repository"];
         };
-        "400": any;
-        "403": any;
-        "404": any;
-        "422": any;
+        "400": unknown;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -8164,10 +8164,10 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["short-blob"];
         };
-        "403": any;
-        "404": any;
-        "409": any;
-        "422": any;
+        "403": unknown;
+        "404": unknown;
+        "409": unknown;
+        "422": unknown;
       };
     };
   };
@@ -8191,9 +8191,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["blob"];
         };
-        "403": any;
-        "404": any;
-        "422": any;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -8236,8 +8236,8 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["git-commit"];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -8280,7 +8280,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["git-commit"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -8337,7 +8337,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["git-ref"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -8356,7 +8356,7 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["git-ref"];
         };
-        "422": any;
+        "422": unknown;
       };
     };
   };
@@ -8378,7 +8378,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["git-ref"];
         };
-        "422": any;
+        "422": unknown;
       };
     };
     delete: {
@@ -8395,8 +8395,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "422": any;
+        "204": never;
+        "422": unknown;
       };
     };
   };
@@ -8439,7 +8439,7 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["git-tag"];
         };
-        "422": any;
+        "422": unknown;
       };
     };
   };
@@ -8484,7 +8484,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["git-tag"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -8505,9 +8505,9 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["git-tree"];
         };
-        "403": any;
-        "404": any;
-        "422": any;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -8537,8 +8537,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["git-tree"];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -8554,7 +8554,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["hook"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -8572,9 +8572,9 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["hook"];
         };
-        "403": any;
-        "404": any;
-        "422": any;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -8590,7 +8590,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["hook"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     patch: {
@@ -8604,8 +8604,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["hook"];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
     delete: {
@@ -8616,8 +8616,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "404": any;
+        "204": never;
+        "404": unknown;
       };
     };
   };
@@ -8633,8 +8633,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "404": any;
+        "204": never;
+        "404": unknown;
       };
     };
   };
@@ -8652,8 +8652,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "404": any;
+        "204": never;
+        "404": unknown;
       };
     };
   };
@@ -8705,7 +8705,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["import"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -8722,8 +8722,8 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["import"];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -8754,7 +8754,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -8775,7 +8775,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["porter-author"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -8797,8 +8797,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["porter-author"];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -8835,7 +8835,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["import"];
         };
-        "422": any;
+        "422": unknown;
       };
     };
   };
@@ -8856,8 +8856,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["installation"];
         };
-        "301": any;
-        "404": any;
+        "301": never;
+        "404": unknown;
       };
     };
   };
@@ -8905,7 +8905,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -8949,7 +8949,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -8999,9 +8999,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["issue-simple"][];
         };
-        "301": any;
-        "404": any;
-        "422": any;
+        "301": never;
+        "404": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -9020,11 +9020,11 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["issue"];
         };
-        "403": any;
-        "404": any;
-        "410": any;
-        "422": any;
-        "503": any;
+        "403": unknown;
+        "404": unknown;
+        "410": unknown;
+        "422": unknown;
+        "503": unknown;
       };
     };
   };
@@ -9049,8 +9049,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["issue-comment"][];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -9066,7 +9066,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["issue-comment"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     patch: {
@@ -9080,7 +9080,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["issue-comment"];
         };
-        "422": any;
+        "422": unknown;
       };
     };
     delete: {
@@ -9091,7 +9091,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -9124,8 +9124,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["reaction"][];
         };
-        "404": any;
-        "415": any;
+        "404": unknown;
+        "415": unknown;
       };
     };
     /**
@@ -9148,8 +9148,8 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["reaction"];
         };
-        "415": any;
-        "422": any;
+        "415": unknown;
+        "422": unknown;
       };
     };
   };
@@ -9167,7 +9167,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -9183,7 +9183,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["issue-event"][];
         };
-        "422": any;
+        "422": unknown;
       };
     };
   };
@@ -9202,9 +9202,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["issue-event"];
         };
-        "403": any;
-        "404": any;
-        "410": any;
+        "403": unknown;
+        "404": unknown;
+        "410": unknown;
       };
     };
   };
@@ -9233,10 +9233,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["issue"];
         };
-        "301": any;
-        "304": any;
-        "404": any;
-        "410": any;
+        "301": never;
+        "304": never;
+        "404": unknown;
+        "410": unknown;
       };
     };
     /**
@@ -9253,12 +9253,12 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["issue"];
         };
-        "301": any;
-        "403": any;
-        "404": any;
-        "410": any;
-        "422": any;
-        "503": any;
+        "301": never;
+        "403": unknown;
+        "404": unknown;
+        "410": unknown;
+        "422": unknown;
+        "503": unknown;
       };
     };
   };
@@ -9311,8 +9311,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["issue-comment"][];
         };
-        "404": any;
-        "410": any;
+        "404": unknown;
+        "410": unknown;
       };
     };
     /**
@@ -9329,10 +9329,10 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["issue-comment"];
         };
-        "403": any;
-        "404": any;
-        "410": any;
-        "422": any;
+        "403": unknown;
+        "404": unknown;
+        "410": unknown;
+        "422": unknown;
       };
     };
   };
@@ -9348,7 +9348,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["issue-event-for-issue"][];
         };
-        "410": any;
+        "410": unknown;
       };
     };
   };
@@ -9364,7 +9364,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["label"][];
         };
-        "410": any;
+        "410": unknown;
       };
     };
     post: {
@@ -9378,8 +9378,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["label"][];
         };
-        "410": any;
-        "422": any;
+        "410": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -9396,8 +9396,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["label"][];
         };
-        "410": any;
-        "422": any;
+        "410": unknown;
+        "422": unknown;
       };
     };
     delete: {
@@ -9408,8 +9408,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "410": any;
+        "204": never;
+        "410": unknown;
       };
     };
   };
@@ -9431,8 +9431,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["label"][];
         };
-        "404": any;
-        "410": any;
+        "404": unknown;
+        "410": unknown;
       };
     };
   };
@@ -9450,11 +9450,11 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "403": any;
-        "404": any;
-        "410": any;
-        "422": any;
+        "204": never;
+        "403": unknown;
+        "404": unknown;
+        "410": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -9468,9 +9468,9 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "403": any;
-        "404": any;
+        "204": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -9503,9 +9503,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["reaction"][];
         };
-        "404": any;
-        "410": any;
-        "415": any;
+        "404": unknown;
+        "410": unknown;
+        "415": unknown;
       };
     };
     /**
@@ -9522,8 +9522,8 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["reaction"];
         };
-        "415": any;
-        "422": any;
+        "415": unknown;
+        "422": unknown;
       };
     };
   };
@@ -9541,7 +9541,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -9557,9 +9557,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["issue-event-for-issue"][];
         };
-        "404": any;
-        "410": any;
-        "415": any;
+        "404": unknown;
+        "410": unknown;
+        "415": unknown;
       };
     };
   };
@@ -9591,7 +9591,7 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["deploy-key"];
         };
-        "422": any;
+        "422": unknown;
       };
     };
   };
@@ -9607,7 +9607,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["deploy-key"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -9621,7 +9621,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -9637,7 +9637,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["label"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     post: {
@@ -9651,8 +9651,8 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["label"];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -9671,7 +9671,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["label"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     patch: {
@@ -9701,7 +9701,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -9755,7 +9755,7 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["commit"];
         };
-        "403": any;
+        "403": unknown;
         /**
          * response
          */
@@ -9768,7 +9768,7 @@ export interface paths {
         "409": {
           "application/json": { message?: string; documentation_url?: string };
         };
-        "422": any;
+        "422": unknown;
       };
     };
   };
@@ -9798,7 +9798,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["milestone"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     post: {
@@ -9812,8 +9812,8 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["milestone"];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -9829,7 +9829,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["milestone"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     patch: {
@@ -9853,8 +9853,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "404": any;
+        "204": never;
+        "404": unknown;
       };
     };
   };
@@ -9901,7 +9901,7 @@ export interface paths {
         /**
          * response
          */
-        "202": any;
+        "202": unknown;
       };
     };
   };
@@ -9917,7 +9917,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["page"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -9934,9 +9934,9 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["page"];
         };
-        "409": any;
-        "415": any;
-        "422": any;
+        "409": unknown;
+        "415": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -9950,9 +9950,9 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "400": any;
-        "422": any;
+        "204": never;
+        "400": unknown;
+        "422": unknown;
       };
     };
     delete: {
@@ -9963,10 +9963,10 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "404": any;
-        "415": any;
-        "422": any;
+        "204": never;
+        "404": unknown;
+        "415": unknown;
+        "422": unknown;
       };
     };
   };
@@ -10057,11 +10057,11 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["project"][];
         };
-        "401": any;
-        "403": any;
-        "404": any;
-        "410": any;
-        "422": any;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "410": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -10078,11 +10078,11 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["project"];
         };
-        "401": any;
-        "403": any;
-        "404": any;
-        "410": any;
-        "422": any;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "410": unknown;
+        "422": unknown;
       };
     };
   };
@@ -10123,8 +10123,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["pull-request-simple"][];
         };
-        "304": any;
-        "422": any;
+        "304": never;
+        "422": unknown;
       };
     };
     /**
@@ -10147,8 +10147,8 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["pull-request"];
         };
-        "403": any;
-        "422": any;
+        "403": unknown;
+        "422": unknown;
       };
     };
   };
@@ -10231,7 +10231,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["pull-request-review-comment"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -10279,8 +10279,8 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "404": any;
+        "204": never;
+        "404": unknown;
       };
     };
   };
@@ -10313,8 +10313,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["reaction"][];
         };
-        "404": any;
-        "415": any;
+        "404": unknown;
+        "415": unknown;
       };
     };
     /**
@@ -10337,8 +10337,8 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["reaction"];
         };
-        "415": any;
-        "422": any;
+        "415": unknown;
+        "422": unknown;
       };
     };
   };
@@ -10356,7 +10356,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -10389,9 +10389,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["pull-request"];
         };
-        "304": any;
-        "404": any;
-        "500": any;
+        "304": never;
+        "404": unknown;
+        "500": unknown;
       };
     };
     /**
@@ -10410,8 +10410,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["pull-request"];
         };
-        "403": any;
-        "422": any;
+        "403": unknown;
+        "422": unknown;
       };
     };
   };
@@ -10496,8 +10496,8 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["pull-request-review-comment"];
         };
-        "403": any;
-        "422": any;
+        "403": unknown;
+        "422": unknown;
       };
     };
   };
@@ -10518,7 +10518,7 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["pull-request-review-comment"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -10555,8 +10555,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["diff-entry"][];
         };
-        "422": any;
-        "500": any;
+        "422": unknown;
+        "500": unknown;
       };
     };
   };
@@ -10569,11 +10569,11 @@ export interface paths {
         /**
          * Response if pull request has been merged
          */
-        "204": any;
+        "204": never;
         /**
          * Response if pull request has not been merged
          */
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -10590,8 +10590,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["pull-request-merge-result"];
         };
-        "403": any;
-        "404": any;
+        "403": unknown;
+        "404": unknown;
         /**
          * Response if merge cannot be performed
          */
@@ -10604,7 +10604,7 @@ export interface paths {
         "409": {
           "application/json": { message?: string; documentation_url?: string };
         };
-        "422": any;
+        "422": unknown;
       };
     };
   };
@@ -10636,11 +10636,11 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["pull-request-simple"];
         };
-        "403": any;
+        "403": unknown;
         /**
          * Response if user is not a collaborator
          */
-        "422": any;
+        "422": unknown;
       };
     };
     delete: {
@@ -10651,8 +10651,8 @@ export interface paths {
         /**
          * response
          */
-        "200": any;
-        "422": any;
+        "200": unknown;
+        "422": unknown;
       };
     };
   };
@@ -10693,8 +10693,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["pull-request-review"];
         };
-        "403": any;
-        "422": any;
+        "403": unknown;
+        "422": unknown;
       };
     };
   };
@@ -10710,7 +10710,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["pull-request-review"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -10727,7 +10727,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["pull-request-review"];
         };
-        "422": any;
+        "422": unknown;
       };
     };
     delete: {
@@ -10741,8 +10741,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["pull-request-review"];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -10761,7 +10761,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["review-comment"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -10780,8 +10780,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["pull-request-review"];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -10797,9 +10797,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["pull-request-review"];
         };
-        "403": any;
-        "404": any;
-        "422": any;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -10818,9 +10818,9 @@ export interface paths {
         "202": {
           "application/json": { message?: string; url?: string };
         };
-        "403": any;
-        "415": any;
-        "422": any;
+        "403": unknown;
+        "415": unknown;
+        "422": unknown;
       };
     };
   };
@@ -10847,8 +10847,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["content-file"];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -10869,7 +10869,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["release"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -10888,7 +10888,7 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["release"];
         };
-        "422": any;
+        "422": unknown;
       };
     };
   };
@@ -10907,9 +10907,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["release-asset"];
         };
-        "302": any;
-        "404": any;
-        "415": any;
+        "302": never;
+        "404": unknown;
+        "415": unknown;
       };
     };
     /**
@@ -10936,7 +10936,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -10981,7 +10981,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["release"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -11000,7 +11000,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["release"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -11030,7 +11030,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -11104,7 +11104,7 @@ export interface paths {
           "application/json": components["schemas"]["simple-user"][];
           "application/vnd.github.v3.star+json": components["schemas"]["stargazer"][];
         };
-        "422": any;
+        "422": unknown;
       };
     };
   };
@@ -11187,7 +11187,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["participation-stats"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -11268,11 +11268,11 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["repository-subscription"];
         };
-        "403": any;
+        "403": unknown;
         /**
          * Response if you don't subscribe to the repository
          */
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -11302,7 +11302,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -11339,7 +11339,7 @@ export interface paths {
         /**
          * response
          */
-        "302": any;
+        "302": never;
       };
     };
   };
@@ -11370,8 +11370,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["topic"];
         };
-        "404": any;
-        "415": any;
+        "404": unknown;
+        "415": unknown;
       };
     };
     put: {
@@ -11385,9 +11385,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["topic"];
         };
-        "404": any;
-        "415": any;
-        "422": any;
+        "404": unknown;
+        "415": unknown;
+        "422": unknown;
       };
     };
   };
@@ -11406,7 +11406,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["clone-traffic"];
         };
-        "403": any;
+        "403": unknown;
       };
     };
   };
@@ -11425,7 +11425,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["content-traffic"][];
         };
-        "403": any;
+        "403": unknown;
       };
     };
   };
@@ -11444,7 +11444,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["referrer-traffic"][];
         };
-        "403": any;
+        "403": unknown;
       };
     };
   };
@@ -11463,7 +11463,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["view-traffic"];
         };
-        "403": any;
+        "403": unknown;
       };
     };
   };
@@ -11497,11 +11497,11 @@ export interface paths {
         /**
          * Response if repository is enabled with vulnerability alerts
          */
-        "204": any;
+        "204": never;
         /**
          * Response if repository is not enabled with vulnerability alerts
          */
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -11515,7 +11515,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
     /**
@@ -11529,7 +11529,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -11551,7 +11551,7 @@ export interface paths {
         /**
          * response
          */
-        "302": any;
+        "302": never;
       };
     };
   };
@@ -11603,8 +11603,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["minimal-repository"][];
         };
-        "304": any;
-        "422": any;
+        "304": never;
+        "422": unknown;
       };
     };
   };
@@ -11708,7 +11708,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -11850,7 +11850,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -11904,10 +11904,10 @@ export interface paths {
         "200": {
           "application/scim+json": components["schemas"]["scim-user-list"];
         };
-        "304": any;
-        "400": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "400": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
     /**
@@ -11924,12 +11924,12 @@ export interface paths {
         "201": {
           "application/scim+json": components["schemas"]["scim-user"];
         };
-        "304": any;
-        "400": any;
-        "403": any;
-        "404": any;
-        "409": any;
-        "500": any;
+        "304": never;
+        "400": unknown;
+        "403": unknown;
+        "404": unknown;
+        "409": unknown;
+        "500": unknown;
       };
     };
   };
@@ -11945,9 +11945,9 @@ export interface paths {
         "200": {
           "application/scim+json": components["schemas"]["scim-user"];
         };
-        "304": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
     /**
@@ -11968,9 +11968,9 @@ export interface paths {
         "200": {
           "application/scim+json": components["schemas"]["scim-user"];
         };
-        "304": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
     /**
@@ -12002,10 +12002,10 @@ export interface paths {
         "200": {
           "application/scim+json": components["schemas"]["scim-user"];
         };
-        "304": any;
-        "400": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "400": unknown;
+        "403": unknown;
+        "404": unknown;
         /**
          * Too many requests
          */
@@ -12022,10 +12022,10 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "403": any;
-        "404": any;
+        "204": never;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -12075,10 +12075,10 @@ export interface paths {
             items?: components["schemas"]["code-search-result-item"][];
           };
         };
-        "304": any;
-        "403": any;
-        "422": any;
-        "503": any;
+        "304": never;
+        "403": unknown;
+        "422": unknown;
+        "503": unknown;
       };
     };
   };
@@ -12118,8 +12118,8 @@ export interface paths {
             items?: components["schemas"]["commit-search-result-item"][];
           };
         };
-        "304": any;
-        "415": any;
+        "304": never;
+        "415": unknown;
       };
     };
   };
@@ -12172,10 +12172,10 @@ export interface paths {
             items?: components["schemas"]["issue-search-result-item"][];
           };
         };
-        "304": any;
-        "403": any;
-        "422": any;
-        "503": any;
+        "304": never;
+        "403": unknown;
+        "422": unknown;
+        "503": unknown;
       };
     };
   };
@@ -12220,10 +12220,10 @@ export interface paths {
             items?: components["schemas"]["label-search-result-item"][];
           };
         };
-        "304": any;
-        "403": any;
-        "404": any;
-        "422": any;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -12268,9 +12268,9 @@ export interface paths {
             items?: components["schemas"]["repo-search-result-item"][];
           };
         };
-        "304": any;
-        "422": any;
-        "503": any;
+        "304": never;
+        "422": unknown;
+        "503": unknown;
       };
     };
   };
@@ -12306,8 +12306,8 @@ export interface paths {
             items?: components["schemas"]["topic-search-result-item"][];
           };
         };
-        "304": any;
-        "415": any;
+        "304": never;
+        "415": unknown;
       };
     };
   };
@@ -12348,9 +12348,9 @@ export interface paths {
             items?: components["schemas"]["user-search-result-item"][];
           };
         };
-        "304": any;
-        "422": any;
-        "503": any;
+        "304": never;
+        "422": unknown;
+        "503": unknown;
       };
     };
   };
@@ -12369,7 +12369,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["team-full"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -12390,9 +12390,9 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["team-full"];
         };
-        "403": any;
-        "404": any;
-        "422": any;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -12410,9 +12410,9 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "404": any;
-        "422": any;
+        "204": never;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -12506,7 +12506,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -12600,7 +12600,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -12754,7 +12754,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["simple-user"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -12774,11 +12774,11 @@ export interface paths {
         /**
          * Response if user is a member
          */
-        "204": any;
+        "204": never;
         /**
          * Response if user is not a member
          */
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -12802,12 +12802,12 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "403": any;
+        "204": never;
+        "403": unknown;
         /**
          * Response if team synchronization is set up
          */
-        "404": any;
+        "404": unknown;
         /**
          * response
          */
@@ -12839,11 +12839,11 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
         /**
          * Response if team synchronization is setup
          */
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -12868,7 +12868,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["team-membership"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -12898,8 +12898,8 @@ export interface paths {
         /**
          * Response if team synchronization is set up
          */
-        "403": any;
-        "404": any;
+        "403": unknown;
+        "404": unknown;
         /**
          * Response if you attempt to add an organization to a team
          */
@@ -12929,11 +12929,11 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
         /**
          * Response if team synchronization is set up
          */
-        "403": any;
+        "403": unknown;
       };
     };
   };
@@ -12954,8 +12954,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["team-project"][];
         };
-        "404": any;
-        "415": any;
+        "404": unknown;
+        "415": unknown;
       };
     };
   };
@@ -12979,8 +12979,8 @@ export interface paths {
         /**
          * Response if project is not managed by this team
          */
-        "404": any;
-        "415": any;
+        "404": unknown;
+        "415": unknown;
       };
     };
     /**
@@ -12996,16 +12996,16 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
         /**
          * Response if the project is not owned by the organization
          */
         "403": {
           "application/json": { message?: string; documentation_url?: string };
         };
-        "404": any;
-        "415": any;
-        "422": any;
+        "404": unknown;
+        "415": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -13021,10 +13021,10 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "404": any;
-        "415": any;
-        "422": any;
+        "204": never;
+        "404": unknown;
+        "415": unknown;
+        "422": unknown;
       };
     };
   };
@@ -13043,7 +13043,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["minimal-repository"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -13069,11 +13069,11 @@ export interface paths {
         /**
          * Response if repository is managed by this team
          */
-        "204": any;
+        "204": never;
         /**
          * Response if repository is not managed by this team
          */
-        "404": any;
+        "404": unknown;
       };
     };
     /**
@@ -13091,9 +13091,9 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "403": any;
-        "422": any;
+        "204": never;
+        "403": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -13109,7 +13109,7 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
+        "204": never;
       };
     };
   };
@@ -13132,8 +13132,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["group-mapping"];
         };
-        "403": any;
-        "404": any;
+        "403": unknown;
+        "404": unknown;
       };
     };
     /**
@@ -13154,8 +13154,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["group-mapping"];
         };
-        "403": any;
-        "422": any;
+        "403": unknown;
+        "422": unknown;
       };
     };
   };
@@ -13174,9 +13174,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["team"][];
         };
-        "403": any;
-        "404": any;
-        "422": any;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -13197,9 +13197,9 @@ export interface paths {
             | components["schemas"]["private-user"]
             | components["schemas"]["public-user"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
     /**
@@ -13214,11 +13214,11 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["private-user"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
-        "422": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -13235,11 +13235,11 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["simple-user"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
-        "415": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "415": unknown;
       };
     };
   };
@@ -13257,10 +13257,10 @@ export interface paths {
         /**
          * If the user is blocked:
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
         /**
          * If the user is not blocked:
          */
@@ -13277,12 +13277,12 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
-        "422": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
     delete: {
@@ -13293,11 +13293,11 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -13314,11 +13314,11 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["email"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
-        "422": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -13337,10 +13337,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["email"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
     /**
@@ -13355,11 +13355,11 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["email"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
-        "422": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -13371,12 +13371,12 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
-        "422": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -13395,9 +13395,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["simple-user"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
   };
@@ -13416,9 +13416,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["simple-user"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
   };
@@ -13431,10 +13431,10 @@ export interface paths {
         /**
          * Response if the person is followed by the authenticated user
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
         /**
          * Response if the person is not followed by the authenticated user
          */
@@ -13456,11 +13456,11 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
     /**
@@ -13474,11 +13474,11 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -13497,10 +13497,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["gpg-key"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
     /**
@@ -13515,11 +13515,11 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["gpg-key"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
-        "422": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -13538,10 +13538,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["gpg-key"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
     /**
@@ -13555,12 +13555,12 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
-        "422": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -13588,10 +13588,10 @@ export interface paths {
             installations?: components["schemas"]["installation"][];
           };
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "415": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "415": unknown;
       };
     };
   };
@@ -13620,9 +13620,9 @@ export interface paths {
             repositories?: components["schemas"]["repository"][];
           };
         };
-        "304": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -13640,10 +13640,10 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "403": any;
-        "404": any;
+        "204": never;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
     /**
@@ -13659,10 +13659,10 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "403": any;
-        "404": any;
+        "204": never;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -13705,8 +13705,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["issue"][];
         };
-        "304": any;
-        "404": any;
+        "304": never;
+        "404": unknown;
       };
     };
   };
@@ -13725,10 +13725,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["key"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
     /**
@@ -13743,11 +13743,11 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["key"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
-        "422": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -13766,10 +13766,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["key"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
     /**
@@ -13783,11 +13783,11 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -13806,9 +13806,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["user-marketplace-purchase"][];
         };
-        "304": any;
-        "401": any;
-        "404": any;
+        "304": never;
+        "401": unknown;
+        "404": unknown;
       };
     };
   };
@@ -13827,8 +13827,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["user-marketplace-purchase"][];
         };
-        "304": any;
-        "401": any;
+        "304": never;
+        "401": unknown;
       };
     };
   };
@@ -13850,10 +13850,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["org-membership"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "422": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "422": unknown;
       };
     };
   };
@@ -13869,8 +13869,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["org-membership"];
         };
-        "403": any;
-        "404": any;
+        "403": unknown;
+        "404": unknown;
       };
     };
     patch: {
@@ -13884,9 +13884,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["org-membership"];
         };
-        "403": any;
-        "404": any;
-        "422": any;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -13905,9 +13905,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["migration"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
     /**
@@ -13922,10 +13922,10 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["migration"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "422": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "422": unknown;
       };
     };
   };
@@ -13954,10 +13954,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["migration"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -13993,10 +13993,10 @@ export interface paths {
         /**
          * response
          */
-        "302": any;
-        "304": any;
-        "401": any;
-        "403": any;
+        "302": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
     /**
@@ -14010,11 +14010,11 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -14030,11 +14030,11 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -14053,7 +14053,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["minimal-repository"][];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -14076,9 +14076,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["organization-simple"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
   };
@@ -14092,11 +14092,11 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["project"];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "415": any;
-        "422": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "415": unknown;
+        "422": unknown;
       };
     };
   };
@@ -14115,10 +14115,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["email"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -14166,14 +14166,14 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["repository"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
         /**
          * Response definition missing
          */
-        "418": any;
-        "422": any;
+        "418": unknown;
+        "422": unknown;
       };
     };
     /**
@@ -14195,12 +14195,12 @@ export interface paths {
         "201": {
           "application/json": components["schemas"]["repository"];
         };
-        "304": any;
-        "400": any;
-        "401": any;
-        "403": any;
-        "404": any;
-        "422": any;
+        "304": never;
+        "400": unknown;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -14219,10 +14219,10 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["repository-invitation"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -14235,11 +14235,11 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "403": any;
-        "404": any;
-        "409": any;
+        "204": never;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
+        "409": unknown;
       };
     };
     delete: {
@@ -14250,11 +14250,11 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "403": any;
-        "404": any;
-        "409": any;
+        "204": never;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
+        "409": unknown;
       };
     };
   };
@@ -14276,9 +14276,9 @@ export interface paths {
           "application/json": components["schemas"]["repository"][];
           "application/vnd.github.v3.star+json": components["schemas"]["starred-repository"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
   };
@@ -14291,10 +14291,10 @@ export interface paths {
         /**
          * Response if this repository is starred by you
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
         /**
          * Response if this repository is not starred by you
          */
@@ -14314,11 +14314,11 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
     delete: {
@@ -14329,11 +14329,11 @@ export interface paths {
         /**
          * Empty response
          */
-        "204": any;
-        "304": any;
-        "401": any;
-        "403": any;
-        "404": any;
+        "204": never;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -14352,9 +14352,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["minimal-repository"][];
         };
-        "304": any;
-        "401": any;
-        "403": any;
+        "304": never;
+        "401": unknown;
+        "403": unknown;
       };
     };
   };
@@ -14373,9 +14373,9 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["team-full"][];
         };
-        "304": any;
-        "403": any;
-        "404": any;
+        "304": never;
+        "403": unknown;
+        "404": unknown;
       };
     };
   };
@@ -14396,7 +14396,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["simple-user"][];
         };
-        "304": any;
+        "304": never;
       };
     };
   };
@@ -14423,7 +14423,7 @@ export interface paths {
             | components["schemas"]["private-user"]
             | components["schemas"]["public-user"];
         };
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -14526,11 +14526,11 @@ export interface paths {
         /**
          * Response if the user follows the target user
          */
-        "204": any;
+        "204": never;
         /**
          * Response if the user does not follow the target user
          */
-        "404": any;
+        "404": unknown;
       };
     };
   };
@@ -14549,7 +14549,7 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["base-gist"][];
         };
-        "422": any;
+        "422": unknown;
       };
     };
   };
@@ -14607,8 +14607,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["hovercard"];
         };
-        "404": any;
-        "422": any;
+        "404": unknown;
+        "422": unknown;
       };
     };
   };
@@ -14688,8 +14688,8 @@ export interface paths {
         "200": {
           "application/json": components["schemas"]["project"][];
         };
-        "415": any;
-        "422": any;
+        "415": unknown;
+        "422": unknown;
       };
     };
   };

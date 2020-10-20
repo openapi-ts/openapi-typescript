@@ -32,7 +32,7 @@ export interface OpenAPI3Parameter {
 
 export interface OpenAPI3ResponseObject {
   description?: string;
-  content: {
+  content?: {
     [contentType: string]: { schema: OpenAPI3SchemaObject | OpenAPI3Reference };
   };
 }

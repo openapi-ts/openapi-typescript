@@ -10,15 +10,15 @@ export interface paths {
         /**
          * Invalid ID supplied
          */
-        '400': any
+        '400': unknown
         /**
          * Pet not found
          */
-        '404': any
+        '404': unknown
         /**
          * Validation exception
          */
-        '405': any
+        '405': unknown
       }
     }
     post: {
@@ -26,7 +26,7 @@ export interface paths {
         /**
          * Invalid input
          */
-        '405': any
+        '405': unknown
       }
     }
   }
@@ -54,7 +54,7 @@ export interface paths {
         /**
          * Invalid status value
          */
-        '400': any
+        '400': unknown
       }
     }
   }
@@ -82,7 +82,7 @@ export interface paths {
         /**
          * Invalid tag value
          */
-        '400': any
+        '400': unknown
       }
     }
   }
@@ -110,11 +110,11 @@ export interface paths {
         /**
          * Invalid ID supplied
          */
-        '400': any
+        '400': unknown
         /**
          * Pet not found
          */
-        '404': any
+        '404': unknown
       }
     }
     post: {
@@ -130,7 +130,7 @@ export interface paths {
         /**
          * Invalid input
          */
-        '405': any
+        '405': unknown
       }
     }
     delete: {
@@ -149,11 +149,11 @@ export interface paths {
         /**
          * Invalid ID supplied
          */
-        '400': any
+        '400': unknown
         /**
          * Pet not found
          */
-        '404': any
+        '404': unknown
       }
     }
   }
@@ -205,7 +205,7 @@ export interface paths {
         /**
          * Invalid Order
          */
-        '400': any
+        '400': unknown
       }
     }
   }
@@ -233,11 +233,11 @@ export interface paths {
         /**
          * Invalid ID supplied
          */
-        '400': any
+        '400': unknown
         /**
          * Order not found
          */
-        '404': any
+        '404': unknown
       }
     }
     /**
@@ -256,11 +256,11 @@ export interface paths {
         /**
          * Invalid ID supplied
          */
-        '400': any
+        '400': unknown
         /**
          * Order not found
          */
-        '404': any
+        '404': unknown
       }
     }
   }
@@ -273,7 +273,7 @@ export interface paths {
         /**
          * successful operation
          */
-        default: any
+        default: unknown
       }
     }
   }
@@ -283,7 +283,7 @@ export interface paths {
         /**
          * successful operation
          */
-        default: any
+        default: unknown
       }
     }
   }
@@ -293,7 +293,7 @@ export interface paths {
         /**
          * successful operation
          */
-        default: any
+        default: unknown
       }
     }
   }
@@ -322,7 +322,7 @@ export interface paths {
         /**
          * Invalid username/password supplied
          */
-        '400': any
+        '400': unknown
       }
     }
   }
@@ -332,7 +332,7 @@ export interface paths {
         /**
          * successful operation
          */
-        default: any
+        default: unknown
       }
     }
   }
@@ -357,11 +357,11 @@ export interface paths {
         /**
          * Invalid username supplied
          */
-        '400': any
+        '400': unknown
         /**
          * User not found
          */
-        '404': any
+        '404': unknown
       }
     }
     /**
@@ -380,11 +380,11 @@ export interface paths {
         /**
          * Invalid user supplied
          */
-        '400': any
+        '400': unknown
         /**
          * User not found
          */
-        '404': any
+        '404': unknown
       }
     }
     /**
@@ -403,11 +403,11 @@ export interface paths {
         /**
          * Invalid username supplied
          */
-        '400': any
+        '400': unknown
         /**
          * User not found
          */
-        '404': any
+        '404': unknown
       }
     }
   }
