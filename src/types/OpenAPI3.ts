@@ -10,11 +10,11 @@ export interface OpenAPI3Schemas {
 
 export interface OpenAPI3Paths {
   [path: string]: {
-    [method: string]: OpenAPI3Response;
+    [method: string]: OpenAPI3Operation;
   };
 }
 
-export interface OpenAPI3Response {
+export interface OpenAPI3Operation {
   description?: string;
   parameters?: OpenAPI3Parameter[];
   responses: {
