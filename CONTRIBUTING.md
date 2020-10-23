@@ -30,9 +30,37 @@ series [How to Contribute to an Open Source Project on GitHub][egghead]
 
 Please make sure to run the tests (`npm test`) before you commit your changes.
 
+### Local schemas
+
+This repo supports OpenAPI 2.0 and 3.0. There are some real-world examples
+located in `tests/v2/specs/*.yaml` and `tests/v3/specs/*.yaml`, respectively.
+Testing large, real schemas was a major goal of this project. Many libraries
+only test the “Petstore” example from Swagger, which is contrived and is
+missing much complexity from companies’ production schemas.
+
+_Note: don’t update the `yaml` schemas with your own custom additions (but if
+the official versions have updated, then it’s fine to upadte them here). If
+you’d like to add your schema for testing, then please add them as a new
+schema, and add them to `./expected/*.ts`._
+
+#### Regenerating schemas
+
+If you’ve added a feature or fixed a bug and need to update the generated schemas, run the following:
+
+```
+# 1. re-build the package
+npm run build
+# 2. run the local CLI (not the npm one!)
+pkg/bin/cli.js tests/v3/specs/github.yaml -o tests/v3/expected/github.ts
+```
+
+This should update the expected TypeScript definiton.
+
+_Also if this appears in `examples/` feel free to update that, too!_
+
 ## Help needed
 
-Please checkout the [the open issues][issues]. Issues labelled [**Help
+Please check out the [the open issues][issues]. Issues labelled [**Help
 Wanted**][help-wanted] and [**Good First Issue**][good-first-issue] are
 especially good to help with.
 
