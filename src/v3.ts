@@ -170,7 +170,6 @@ export default function generateTypesV3(
           > = {};
           operation.parameters.forEach((p) => {
             if ("$ref" in p) {
-              // return;
               const referencedValue = (p.$ref
                 .substr(2)
                 .split("/")
