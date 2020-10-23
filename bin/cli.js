@@ -37,7 +37,7 @@ Options
   }
 );
 
-console.info(chalk.bold(`✨ openapi-typescript 2.2`));
+console.info(chalk.bold(`✨ openapi-typescript 2.3`));
 
 const pathToSpec = cli.input[0];
 const timeStart = process.hrtime();
