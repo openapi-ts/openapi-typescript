@@ -139,7 +139,7 @@ export default function generateTypesV3(
       }
 
       // 4. transform
-      output += transform(value);
+      output += transform(value.schema ? value.schema : value);
 
       // 5. close nullable
       if (value.nullable) {
@@ -166,19 +166,38 @@ export default function generateTypesV3(
           output += `parameters: {\n`;
           const allParameters: Record<
             string,
-            Record<string, OpenAPI3Parameter>
+            Record<string, OpenAPI3Parameter | string>
           > = {};
           operation.parameters.forEach((p) => {
-            if (!allParameters[p.in]) allParameters[p.in] = {};
-            // TODO: handle $ref parameters
-            if (p.name) {
-              allParameters[p.in][p.name] = p;
+            if ("$ref" in p) {
+              const referencedValue = (p.$ref
+                .substr(2)
+                .split("/")
+                .reduce(
+                  (value, property) => value[property],
+                  input
+                ) as unknown) as OpenAPI3Parameter;
+
+              if (!allParameters[referencedValue.in])
+                allParameters[referencedValue.in] = {};
+
+              allParameters[referencedValue.in][
+                referencedValue.name
+              ] = transformRef(p.$ref);
+              return;
             }
+
+            if (!allParameters[p.in]) allParameters[p.in] = {};
+            allParameters[p.in][p.name] = p;
           });
 
           Object.entries(allParameters).forEach(([loc, locParams]) => {
             output += `"${loc}": {\n`;
             Object.entries(locParams).forEach(([paramName, paramProps]) => {
+              if (typeof paramProps === "string") {
+                output += `"${paramName}": ${paramProps}\n`;
+                return;
+              }
               if (paramProps.description)
                 output += comment(paramProps.description);
               output += `"${paramName}"${
@@ -187,6 +206,17 @@ export default function generateTypesV3(
             });
             output += `}\n`;
           });
+          output += `}\n`;
+        }
+
+        // handle requestBody
+        if (operation.requestBody) {
+          output += `requestBody: {\n`;
+          Object.entries(operation.requestBody.content).forEach(
+            ([contentType, { schema }]) => {
+              output += `"${contentType}": ${transform(schema)};\n`;
+            }
+          );
           output += `}\n`;
         }
 
@@ -242,7 +272,12 @@ export default function generateTypesV3(
 
   finalOutput += "export interface components {\n";
 
-  // TODO: handle components.parameters
+  if (components.parameters && Object.keys(components.parameters).length) {
+    finalOutput += `
+parameters: {
+  ${createKeys(components.parameters, Object.keys(components.parameters))}
+}\n`;
+  }
 
   if (Object.keys(propertyMapped).length) {
     finalOutput += `schemas: {

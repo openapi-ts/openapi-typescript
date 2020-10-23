@@ -704,4 +704,124 @@ describe("OpenAPI3 features", () => {
     `)
     );
   });
+
+  it("requestBody (#338)", () => {
+    const schema: OpenAPI3 = {
+      openapi: "3.0.1",
+      paths: {
+        "/tests": {
+          post: {
+            requestBody: {
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    properties: {
+                      title: { type: "string" },
+                    },
+                    required: ["title"],
+                  },
+                },
+              },
+            },
+            responses: {
+              "201": {
+                content: {
+                  "application/json": {
+                    schema: {
+                      type: "object",
+                      properties: {
+                        id: { type: "string" },
+                        title: { type: "string" },
+                      },
+                      required: ["title", "id"],
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    };
+
+    expect(swaggerToTS(schema)).toEqual(
+      format(`
+      export interface paths {
+        "/tests": {
+          post: {
+            requestBody: {
+              'application/json': { title: string }
+            }
+            responses: {
+              "201": {
+                'application/json': { id: string; title: string}
+              };
+            };
+          };
+        };
+      }
+
+      export interface components {}
+    `)
+    );
+  });
+
+  it("$ref-type parameters (#329)", () => {
+    const schema: OpenAPI3 = {
+      openapi: "3.0.1",
+      paths: {
+        "/some/path": {
+          get: {
+            parameters: [
+              {
+                $ref: "#/components/parameters/param",
+              },
+            ],
+            responses: {},
+          },
+        },
+      },
+      components: {
+        schemas: {},
+        parameters: {
+          param: {
+            name: "param",
+            description: "some description",
+            in: "query",
+            schema: {
+              type: "string",
+            },
+          },
+        },
+      },
+    };
+
+    expect(swaggerToTS(schema)).toEqual(
+      format(`
+      export interface paths {
+
+        "/some/path": {
+          get: {
+            parameters: {
+              query: {
+                param: components["parameters"]["param"];
+              }
+            };
+            responses: {};
+          };
+        };
+      }
+
+      export interface components {
+        parameters: {
+          /**
+           * some description
+           */
+          param: string
+        }
+      }
+    `)
+    );
+  });
 });

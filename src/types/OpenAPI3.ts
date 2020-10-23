@@ -16,11 +16,14 @@ export interface OpenAPI3Paths {
 
 export interface OpenAPI3Operation {
   description?: string;
-  parameters?: OpenAPI3Parameter[];
+  parameters?: Parameter[];
+  requestBody?: OpenAPI3RequestBody;
   responses: {
     [statusCode: string]: OpenAPI3ResponseObject;
   };
 }
+
+export type Parameter = { $ref: string } | OpenAPI3Parameter;
 
 export interface OpenAPI3Parameter {
   name: string;
@@ -37,9 +40,17 @@ export interface OpenAPI3ResponseObject {
   };
 }
 
+export interface OpenAPI3RequestBody {
+  description?: string;
+  content: {
+    [contentType: string]: { schema: OpenAPI3SchemaObject | { $ref: string } };
+  };
+}
+
 export interface OpenAPI3Components {
   schemas: OpenAPI3Schemas;
   responses?: { [key: string]: OpenAPI3ResponseObject };
+  parameters?: { [key: string]: OpenAPI3Parameter };
 }
 
 export interface OpenAPI3 {
