@@ -10,7 +10,7 @@ export interface OpenAPI3Schemas {
 
 export interface OpenAPI3Paths {
   [path: string]: {
-    [method: string]: OpenAPI3Operation;
+    [method: string]: OpenAPI3Operation | Parameter[];
   };
 }
 
