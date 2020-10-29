@@ -176,9 +176,9 @@ export default function generateTypesV3(
         if (!allParameters[referencedValue.in])
           allParameters[referencedValue.in] = {};
 
-        allParameters[referencedValue.in][
-          referencedValue.name
-        ] = transformRef(p.$ref);
+        allParameters[referencedValue.in][referencedValue.name] = transformRef(
+          p.$ref
+        );
         return;
       }
 
@@ -193,8 +193,7 @@ export default function generateTypesV3(
           output += `"${paramName}": ${paramProps}\n`;
           return;
         }
-        if (paramProps.description)
-          output += comment(paramProps.description);
+        if (paramProps.description) output += comment(paramProps.description);
         output += `"${paramName}"${
           paramProps.required === true ? "" : "?"
         }: ${transform(paramProps.schema)};\n`;
@@ -265,7 +264,7 @@ export default function generateTypesV3(
 
       if (methods.parameters) {
         // Handle shared parameters
-        output += transformParameters(methods.parameters as Parameter[])
+        output += transformParameters(methods.parameters as Parameter[]);
       }
       output += `}\n`;
     });
