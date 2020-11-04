@@ -291,8 +291,8 @@ describe("OpenAPI3 features", () => {
       format(`
       export interface components {
         schemas: {
-          additional_properties: { number?: number; [key: string]: any };
-          additional_properties_string: { string?: string; [key: string]: string };
+          additional_properties: { number?: number; } & { [key: string]: any };
+          additional_properties_string: { string?: string } & { [key: string]: string };
         }
       }`)
     );
