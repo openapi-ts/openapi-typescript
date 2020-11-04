@@ -37,7 +37,9 @@ Options
   }
 );
 
-console.info(chalk.bold(`✨ openapi-typescript 2.3`));
+console.info(
+  chalk.bold(`✨ openapi-typescript ${require("../package.json").version}`)
+);
 
 const pathToSpec = cli.input[0];
 const timeStart = process.hrtime();
