@@ -86,13 +86,13 @@ export interface paths {
          * response
          */
         "201": {
-          "application/json": components["schemas"]["integration"] & {
-            client_id: string;
-            client_secret: string;
-            webhook_secret: string;
-            pem: string;
-            [key: string]: any;
-          };
+          "application/json": components["schemas"]["integration"] &
+            ({
+              client_id: string;
+              client_secret: string;
+              webhook_secret: string;
+              pem: string;
+            } & { [key: string]: any });
         };
         "404": unknown;
         "422": unknown;
@@ -20980,8 +20980,7 @@ export interface components {
         metadata?: string;
         contents?: string;
         deployments?: string;
-        [key: string]: string;
-      };
+      } & { [key: string]: string };
       /**
        * The list of events for the GitHub app
        */
@@ -20994,8 +20993,7 @@ export interface components {
       client_secret?: string;
       webhook_secret?: string;
       pem?: string;
-      [key: string]: any;
-    };
+    } & { [key: string]: any };
     /**
      * Basic Error
      */
