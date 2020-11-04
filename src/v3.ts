@@ -92,18 +92,21 @@ export default function generateTypesV3(
 
         let properties = createKeys(node.properties || {}, node.required);
 
-        // if additional properties, add to end of properties
-        if (node.additionalProperties) {
-          properties += `[key: string]: ${
-            node.additionalProperties === true
-              ? "any"
-              : transform(node.additionalProperties) || "any"
-          };\n`;
-        }
+        // if additional properties, add an intersection with a generic map type
+        const additionalProperties = node.additionalProperties
+          ? [
+              `{ [key: string]: ${
+                node.additionalProperties === true
+                  ? "any"
+                  : transform(node.additionalProperties) || "any"
+              };}\n`,
+            ]
+          : [];
 
         return tsIntersectionOf([
           ...(node.allOf ? (node.allOf as any[]).map(transform) : []), // append allOf first
-          ...(properties ? [`{ ${properties} }`] : []), // then properties + additionalProperties
+          ...(properties ? [`{ ${properties} }`] : []), // then properties
+          ...additionalProperties, // then additional properties
         ]);
       }
       case "array": {
