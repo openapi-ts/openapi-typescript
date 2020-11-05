@@ -2,7 +2,7 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/master/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-20-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-21-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -281,6 +281,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://mause.me"><img src="https://avatars2.githubusercontent.com/u/1405026?v=4" width="100px;" alt=""/><br /><sub><b>Elliana May</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=Mause" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=Mause" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://github.com/henhal"><img src="https://avatars3.githubusercontent.com/u/9608258?v=4" width="100px;" alt=""/><br /><sub><b>Henrik Hall</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=henhal" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=henhal" title="Documentation">📖</a></td>
     <td align="center"><a href="https://dev.to/gr2m"><img src="https://avatars3.githubusercontent.com/u/39992?v=4" width="100px;" alt=""/><br /><sub><b>Gregor Martynus</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=gr2m" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=gr2m" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://samn.co.uk"><img src="https://avatars2.githubusercontent.com/u/408983?v=4" width="100px;" alt=""/><br /><sub><b>Sam Mesterton-Gibbons</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=samdbmg" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Asamdbmg" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=samdbmg" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
