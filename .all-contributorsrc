@@ -216,6 +216,17 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "samdbmg",
+      "name": "Sam Mesterton-Gibbons",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/408983?v=4",
+      "profile": "http://samn.co.uk",
+      "contributions": [
+        "code",
+        "bug",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
