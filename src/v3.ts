@@ -5,6 +5,8 @@ import {
   OpenAPI3Paths,
   OpenAPI3SchemaObject,
   OpenAPI3Schemas,
+  OpenAPI3Operation,
+  Parameter,
   SwaggerToTSOptions,
 } from "./types";
 import {
@@ -156,100 +158,117 @@ export default function generateTypesV3(
     return output;
   }
 
+  function transformParameters(parameters: Parameter[]): string {
+    const allParameters: Record<
+      string,
+      Record<string, OpenAPI3Parameter | string>
+    > = {};
+
+    let output = `parameters: {\n`;
+
+    parameters.forEach((p) => {
+      if ("$ref" in p) {
+        const referencedValue = (p.$ref
+          .substr(2)
+          .split("/")
+          .reduce(
+            (value, property) => value[property],
+            input
+          ) as unknown) as OpenAPI3Parameter;
+
+        if (!allParameters[referencedValue.in])
+          allParameters[referencedValue.in] = {};
+
+        allParameters[referencedValue.in][referencedValue.name] = transformRef(
+          p.$ref
+        );
+        return;
+      }
+
+      if (!allParameters[p.in]) allParameters[p.in] = {};
+      allParameters[p.in][p.name] = p;
+    });
+
+    Object.entries(allParameters).forEach(([loc, locParams]) => {
+      output += `"${loc}": {\n`;
+      Object.entries(locParams).forEach(([paramName, paramProps]) => {
+        if (typeof paramProps === "string") {
+          output += `"${paramName}": ${paramProps}\n`;
+          return;
+        }
+        if (paramProps.description) output += comment(paramProps.description);
+        output += `"${paramName}"${
+          paramProps.required === true ? "" : "?"
+        }: ${transform(paramProps.schema)};\n`;
+      });
+      output += `}\n`;
+    });
+    output += `}\n`;
+
+    return output;
+  }
+
   function transformPaths(paths: OpenAPI3Paths): string {
     let output = "";
     Object.entries(paths).forEach(([path, methods]) => {
       output += `"${path}": {\n`;
+
       Object.entries(methods).forEach(([method, operation]) => {
-        if (operation.description) output += comment(operation.description);
-        output += `"${method}": {\n`;
+        // skip the parameters "method" for shared parameters - we'll handle it later
+        if (method !== "parameters") {
+          operation = operation as OpenAPI3Operation;
+          if (operation.description) output += comment(operation.description);
+          output += `"${method}": {\n`;
 
-        // handle parameters
-        if (operation.parameters) {
-          output += `parameters: {\n`;
-          const allParameters: Record<
-            string,
-            Record<string, OpenAPI3Parameter | string>
-          > = {};
-          operation.parameters.forEach((p) => {
-            if ("$ref" in p) {
-              const referencedValue = (p.$ref
-                .substr(2)
-                .split("/")
-                .reduce(
-                  (value, property) => value[property],
-                  input
-                ) as unknown) as OpenAPI3Parameter;
+          // handle operation parameters
+          if (operation.parameters) {
+            output += transformParameters(operation.parameters);
+          }
 
-              if (!allParameters[referencedValue.in])
-                allParameters[referencedValue.in] = {};
-
-              allParameters[referencedValue.in][
-                referencedValue.name
-              ] = transformRef(p.$ref);
-              return;
-            }
-
-            if (!allParameters[p.in]) allParameters[p.in] = {};
-            allParameters[p.in][p.name] = p;
-          });
-
-          Object.entries(allParameters).forEach(([loc, locParams]) => {
-            output += `"${loc}": {\n`;
-            Object.entries(locParams).forEach(([paramName, paramProps]) => {
-              if (typeof paramProps === "string") {
-                output += `"${paramName}": ${paramProps}\n`;
-                return;
-              }
-              if (paramProps.description)
-                output += comment(paramProps.description);
-              output += `"${paramName}"${
-                paramProps.required === true ? "" : "?"
-              }: ${transform(paramProps.schema)};\n`;
-            });
-            output += `}\n`;
-          });
-          output += `}\n`;
-        }
-
-        // handle requestBody
-        if (operation.requestBody) {
-          output += `requestBody: {\n`;
-          Object.entries(operation.requestBody.content).forEach(
-            ([contentType, { schema }]) => {
-              output += `"${contentType}": ${transform(schema)};\n`;
-            }
-          );
-          output += `}\n`;
-        }
-
-        // handle responses
-        output += `responses: {\n`;
-        Object.entries(operation.responses).forEach(
-          ([statusCode, response]) => {
-            if (response.description) output += comment(response.description);
-            if (!response.content || !Object.keys(response.content).length) {
-              const type =
-                statusCode === "204" || Math.floor(+statusCode / 100) === 3
-                  ? "never"
-                  : "unknown";
-              output += `"${statusCode}": ${type};\n`;
-              return;
-            }
-            output += `"${statusCode}": {\n`;
-            Object.entries(response.content).forEach(
-              ([contentType, encodedResponse]) => {
-                output += `"${contentType}": ${transform(
-                  encodedResponse.schema
-                )};\n`;
+          // handle requestBody
+          if (operation.requestBody) {
+            output += `requestBody: {\n`;
+            Object.entries(operation.requestBody.content).forEach(
+              ([contentType, { schema }]) => {
+                output += `"${contentType}": ${transform(schema)};\n`;
               }
             );
             output += `}\n`;
           }
-        );
-        output += `}\n`;
-        output += `}\n`;
+
+          // handle responses
+          output += `responses: {\n`;
+          Object.entries(operation.responses).forEach(
+            ([statusCode, response]) => {
+              if (response.description) output += comment(response.description);
+              if (!response.content || !Object.keys(response.content).length) {
+                const type =
+                  statusCode === "204" || Math.floor(+statusCode / 100) === 3
+                    ? "never"
+                    : "unknown";
+                output += `"${statusCode}": ${type};\n`;
+                return;
+              }
+              output += `"${statusCode}": {\n`;
+              Object.entries(response.content).forEach(
+                ([contentType, encodedResponse]) => {
+                  output += `"${contentType}": ${transform(
+                    encodedResponse.schema
+                  )};\n`;
+                }
+              );
+              output += `}\n`;
+            }
+          );
+          output += `}\n`;
+          output += `}\n`;
+        }
       });
+
+      if (methods.parameters) {
+        // Handle shared parameters
+        output += transformParameters(methods.parameters as Parameter[]);
+      }
       output += `}\n`;
     });
     return output;

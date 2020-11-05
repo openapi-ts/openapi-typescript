@@ -824,4 +824,46 @@ describe("OpenAPI3 features", () => {
     `)
     );
   });
+  it("parameters on entire path (#346)", () => {
+    const schema: OpenAPI3 = {
+      openapi: "3.0.1",
+      paths: {
+        "/{example}": {
+          get: {
+            responses: {},
+          },
+          parameters: [
+            {
+              name: "example",
+              in: "path",
+              required: true,
+              schema: {
+                type: "string"
+              }
+            },
+          ],
+        },
+      },
+    };
+
+    expect(swaggerToTS(schema)).toEqual(
+      format(`
+      export interface paths {
+
+        "/{example}": {
+          get: {
+            responses: {};
+          };
+          parameters: {
+            path: {
+              example: string;
+            };
+          };
+        };
+      }
+
+      export interface components {}
+    `)
+    );
+  });
 });
