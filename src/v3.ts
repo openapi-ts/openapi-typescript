@@ -211,6 +211,56 @@ export default function generateTypesV3(
     return output;
   }
 
+  function transformOperation(
+    method: string,
+    operation: OpenAPI3Operation
+  ): string {
+    let output = "";
+    if (operation.description) output += comment(operation.description);
+    output += `"${method}": {\n`;
+
+    // handle operation parameters
+    if (operation.parameters) {
+      output += transformParameters(operation.parameters);
+    }
+
+    // handle requestBody
+    if (operation.requestBody) {
+      output += `requestBody: {\n`;
+      Object.entries(operation.requestBody.content).forEach(
+        ([contentType, { schema }]) => {
+          output += `"${contentType}": ${transform(schema)};\n`;
+        }
+      );
+      output += `}\n`;
+    }
+
+    // handle responses
+    output += `responses: {\n`;
+    Object.entries(operation.responses).forEach(([statusCode, response]) => {
+      if (response.description) output += comment(response.description);
+      if (!response.content || !Object.keys(response.content).length) {
+        const type =
+          statusCode === "204" || Math.floor(+statusCode / 100) === 3
+            ? "never"
+            : "unknown";
+        output += `"${statusCode}": ${type};\n`;
+        return;
+      }
+      output += `"${statusCode}": {\n`;
+      Object.entries(response.content).forEach(
+        ([contentType, encodedResponse]) => {
+          output += `"${contentType}": ${transform(encodedResponse.schema)};\n`;
+        }
+      );
+      output += `}\n`;
+    });
+    output += `}\n`;
+    output += `}\n`;
+
+    return output;
+  }
+
   function transformPaths(paths: OpenAPI3Paths): string {
     let output = "";
     Object.entries(paths).forEach(([path, methods]) => {
@@ -219,52 +269,7 @@ export default function generateTypesV3(
       Object.entries(methods).forEach(([method, operation]) => {
         // skip the parameters "method" for shared parameters - we'll handle it later
         if (method !== "parameters") {
-          operation = operation as OpenAPI3Operation;
-          if (operation.description) output += comment(operation.description);
-          output += `"${method}": {\n`;
-
-          // handle operation parameters
-          if (operation.parameters) {
-            output += transformParameters(operation.parameters);
-          }
-
-          // handle requestBody
-          if (operation.requestBody) {
-            output += `requestBody: {\n`;
-            Object.entries(operation.requestBody.content).forEach(
-              ([contentType, { schema }]) => {
-                output += `"${contentType}": ${transform(schema)};\n`;
-              }
-            );
-            output += `}\n`;
-          }
-
-          // handle responses
-          output += `responses: {\n`;
-          Object.entries(operation.responses).forEach(
-            ([statusCode, response]) => {
-              if (response.description) output += comment(response.description);
-              if (!response.content || !Object.keys(response.content).length) {
-                const type =
-                  statusCode === "204" || Math.floor(+statusCode / 100) === 3
-                    ? "never"
-                    : "unknown";
-                output += `"${statusCode}": ${type};\n`;
-                return;
-              }
-              output += `"${statusCode}": {\n`;
-              Object.entries(response.content).forEach(
-                ([contentType, encodedResponse]) => {
-                  output += `"${contentType}": ${transform(
-                    encodedResponse.schema
-                  )};\n`;
-                }
-              );
-              output += `}\n`;
-            }
-          );
-          output += `}\n`;
-          output += `}\n`;
+          output += transformOperation(method, operation as OpenAPI3Operation);
         }
       });
 
