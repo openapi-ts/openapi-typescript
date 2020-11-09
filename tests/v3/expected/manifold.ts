@@ -645,6 +645,8 @@ export interface paths {
   };
 }
 
+export interface operations {}
+
 export interface components {
   parameters: {
     /**
