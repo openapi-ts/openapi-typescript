@@ -767,7 +767,7 @@ describe("OpenAPI3 features", () => {
     );
   });
 
-  it("$ref-type parameters (#329)", () => {
+  it("$ref-type parameters (#329, #351)", () => {
     const schema: OpenAPI3 = {
       openapi: "3.0.1",
       paths: {
@@ -775,7 +775,10 @@ describe("OpenAPI3 features", () => {
           get: {
             parameters: [
               {
-                $ref: "#/components/parameters/param",
+                $ref: "#/components/parameters/param1",
+              },
+              {
+                $ref: "#/components/parameters/param2",
               },
             ],
             responses: {},
@@ -785,10 +788,19 @@ describe("OpenAPI3 features", () => {
       components: {
         schemas: {},
         parameters: {
-          param: {
-            name: "param",
+          param1: {
+            name: "param1",
             description: "some description",
             in: "query",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+          param2: {
+            name: "param2",
+            in: "query",
+            required: false,
             schema: {
               type: "string",
             },
@@ -805,7 +817,8 @@ describe("OpenAPI3 features", () => {
           get: {
             parameters: {
               query: {
-                param: components["parameters"]["param"];
+                param1: components["parameters"]["param1"];
+                param2?: components["parameters"]["param2"];
               }
             };
             responses: {};
@@ -818,7 +831,8 @@ describe("OpenAPI3 features", () => {
           /**
            * some description
            */
-          param: string
+          param1: string
+          param2: string
         }
       }
     `)
@@ -838,8 +852,8 @@ describe("OpenAPI3 features", () => {
               in: "path",
               required: true,
               schema: {
-                type: "string"
-              }
+                type: "string",
+              },
             },
           ],
         },
