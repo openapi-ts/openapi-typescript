@@ -124,3 +124,9 @@ export function tsPartial(type: string): string {
 export function tsUnionOf(types: string[]): string {
   return `(${types.join(") | (")})`;
 }
+
+/** Convert the components object and a 'components["parameters"]["param"]' string into the `param` object **/
+export function unrefComponent(components: any, ref: string) {
+  const [type, object] = ref.match(/(?<=\[")([^"]+)/g) as string[];
+  return components[type][object];
+}

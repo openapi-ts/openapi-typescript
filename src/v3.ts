@@ -18,6 +18,7 @@ import {
   tsPartial,
   tsUnionOf,
   tsTupleOf,
+  unrefComponent,
 } from "./utils";
 
 export const PRIMITIVES: { [key: string]: "boolean" | "string" | "number" } = {
@@ -193,7 +194,9 @@ export default function generateTypesV3(
       output += `"${loc}": {\n`;
       Object.entries(locParams).forEach(([paramName, paramProps]) => {
         if (typeof paramProps === "string") {
-          output += `"${paramName}": ${paramProps}\n`;
+          const { required } = unrefComponent(components, paramProps);
+          const key = required ? `"${paramName}"` : `"${paramName}"?`;
+          output += `${key}: ${paramProps}\n`;
           return;
         }
         if (paramProps.description) output += comment(paramProps.description);
