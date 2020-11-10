@@ -50,6 +50,8 @@ export default function generateTypesV3(
     }
   }
 
+  const operations: Record<string, OpenAPI3Operation> = {};
+
   // propertyMapper
   const propertyMapped = options
     ? propertyMapper(components.schemas, options.propertyMapper)
@@ -211,13 +213,9 @@ export default function generateTypesV3(
     return output;
   }
 
-  function transformOperation(
-    method: string,
-    operation: OpenAPI3Operation
-  ): string {
+  function transformOperation(operation: OpenAPI3Operation): string {
     let output = "";
-    if (operation.description) output += comment(operation.description);
-    output += `"${method}": {\n`;
+    output += `{\n`;
 
     // handle operation parameters
     if (operation.parameters) {
@@ -269,7 +267,17 @@ export default function generateTypesV3(
       Object.entries(methods).forEach(([method, operation]) => {
         // skip the parameters "method" for shared parameters - we'll handle it later
         if (method !== "parameters") {
-          output += transformOperation(method, operation as OpenAPI3Operation);
+          operation = operation as OpenAPI3Operation;
+
+          if (operation.operationId) {
+            output += `"${method}": operations["${operation.operationId}"];\n`;
+            operations[operation.operationId] = operation;
+          } else {
+            if (operation.description) output += comment(operation.description);
+            output += `"${method}": ${transformOperation(
+              operation as OpenAPI3Operation
+            )}`;
+          }
         }
       });
 
@@ -299,6 +307,16 @@ export default function generateTypesV3(
 
 `;
   }
+
+  finalOutput += "export interface operations {\n";
+  for (const [operationId, operation] of Object.entries(operations)) {
+    if (operation.description) finalOutput += comment(operation.description);
+    finalOutput += `"${operationId}": ${transformOperation(
+      operation as OpenAPI3Operation
+    )}`;
+  }
+  // close operations wrapper
+  finalOutput += "\n}\n\n";
 
   finalOutput += "export interface components {\n";
 
