@@ -15,6 +15,7 @@ export interface OpenAPI3Paths {
 }
 
 export interface OpenAPI3Operation {
+  operationId?: string;
   description?: string;
   parameters?: Parameter[];
   requestBody?: OpenAPI3RequestBody;
@@ -57,6 +58,9 @@ export interface OpenAPI3 {
   openapi: string;
   paths?: OpenAPI3Paths; // technically required by spec, but this library tries to be lenient
   components?: OpenAPI3Components;
+  operations?: {
+    [key: string]: OpenAPI3Operation;
+  };
   [key: string]: any; // handle other properties beyond this library’s concern
 }
 

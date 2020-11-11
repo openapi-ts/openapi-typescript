@@ -52,6 +52,8 @@ describe("types", () => {
     };
     expect(swaggerToTS(schema)).toBe(
       format(`
+      export interface operations {}
+
       export interface components {
         schemas: {
           object: { string?: string };
@@ -86,6 +88,8 @@ describe("types", () => {
     };
     expect(swaggerToTS(schema)).toBe(
       format(`
+      export interface operations {}
+        
       export interface components {
         schemas: {
           object: { integer?: number; number?: number }
@@ -114,6 +118,8 @@ describe("types", () => {
     };
     expect(swaggerToTS(schema)).toBe(
       format(`
+      export interface operations {}
+        
       export interface components {
         schemas: {
           object: { boolean?: boolean };
@@ -165,6 +171,8 @@ describe("types", () => {
     };
     expect(swaggerToTS(schema)).toBe(
       format(`
+      export interface operations {}
+        
       export interface components {
         schemas: {
           object: {
@@ -225,6 +233,8 @@ describe("types", () => {
 
     expect(swaggerToTS(schema)).toBe(
       format(`
+      export interface operations {}
+        
       export interface components {
         schemas: {
           array: {
@@ -259,6 +269,8 @@ describe("types", () => {
     };
     expect(swaggerToTS(schema)).toBe(
       format(`
+      export interface operations {}
+        
       export interface components {
         schemas: {
           union: { string?: 'Totoro' | 'Satsuki' | 'Mei' }
@@ -281,6 +293,8 @@ describe("types", () => {
     };
     expect(swaggerToTS(schema)).toBe(
       format(`
+      export interface operations {}
+
       export interface components {
         schemas: {
           externalRef: any;
@@ -311,6 +325,8 @@ describe("OpenAPI3 features", () => {
     };
     expect(swaggerToTS(schema)).toBe(
       format(`
+      export interface operations {}
+        
       export interface components {
         schemas: {
           additional_properties: { number?: number; } & { [key: string]: any };
@@ -345,6 +361,8 @@ describe("OpenAPI3 features", () => {
     };
     expect(swaggerToTS(schema)).toBe(
       format(`
+      export interface operations {}
+        
       export interface components {
         schemas: {
           base: { boolean?: boolean; number?: number };
@@ -389,6 +407,8 @@ describe("OpenAPI3 features", () => {
     };
     expect(swaggerToTS(schema)).toBe(
       format(`
+      export interface operations {}
+        
       export interface components {
         schemas: {
           any_of: Partial<components['schemas']['string']> & Partial<components['schemas']['number']> & Partial<components['schemas']['boolean']>;
@@ -418,6 +438,8 @@ describe("OpenAPI3 features", () => {
     };
     expect(swaggerToTS(schema)).toBe(
       format(`
+      export interface operations {}
+        
       export interface components {
         schemas: {
           required: { required: string; optional?: boolean  }
@@ -475,15 +497,18 @@ describe("OpenAPI3 features", () => {
 
     expect(swaggerToTS(schema)).toBe(
       format(`
-    export interface components {
-      schemas: {
-        one_of: { options?: string | number | components['schemas']['one_of_ref'] };
-        one_of_ref: { boolean?: boolean };
-        one_of_inferred:
-          | { kibana?: { versions?: string } }
-          | { elasticsearch?: { versions?: string } }
-      }
-    }`)
+        export interface operations {}
+            
+        export interface components {
+          schemas: {
+            one_of: { options?: string | number | components['schemas']['one_of_ref'] };
+            one_of_ref: { boolean?: boolean };
+            one_of_inferred:
+              | { kibana?: { versions?: string } }
+              | { elasticsearch?: { versions?: string } }
+          }
+        }
+      `)
     );
   });
 
@@ -641,6 +666,8 @@ describe("OpenAPI3 features", () => {
         }
       }
 
+      export interface operations {}
+        
       export interface components {
         schemas: {
           ErrorResponse: { error: string; message: string };
@@ -722,6 +749,8 @@ describe("OpenAPI3 features", () => {
         };
       }
 
+      export interface operations {}
+        
       export interface components {}
     `)
     );
@@ -784,6 +813,8 @@ describe("OpenAPI3 features", () => {
         };
       }
 
+      export interface operations {}
+        
       export interface components {}
     `)
     );
@@ -848,6 +879,8 @@ describe("OpenAPI3 features", () => {
         };
       }
 
+      export interface operations {}
+        
       export interface components {
         parameters: {
           /**
@@ -896,6 +929,59 @@ describe("OpenAPI3 features", () => {
             };
           };
         };
+      }
+
+      export interface operations {}
+        
+      export interface components {}
+    `)
+    );
+  });
+
+  it("operations interface (#341)", () => {
+    const schema: OpenAPI3 = {
+      openapi: "3.0.1",
+      paths: {
+        "/test/{test_id}": {
+          get: {
+            operationId: "get-test",
+            description: "some description",
+            parameters: [
+              {
+                name: "test_id",
+                in: "path",
+                required: true,
+                schema: {
+                  type: "string",
+                },
+              },
+            ],
+            responses: {},
+          },
+        },
+      },
+    };
+
+    expect(swaggerToTS(schema)).toEqual(
+      format(`
+      export interface paths {
+        "/test/{test_id}": {
+          get: operations["get-test"];
+        };
+      }
+
+      export interface operations {
+        /**
+         * some description
+         */
+        "get-test": {
+          parameters: {
+            path: {
+              test_id: string
+            }
+          },
+          responses: {}
+        }
       }
 
       export interface components {}
