@@ -15,7 +15,7 @@ function format(types: string): string {
 
 describe("cli", () => {
   ["github", "stripe", "manifold", "petstore"].forEach((file) => {
-    it.only(`reads ${file} spec (v3) from file`, () => {
+    it(`reads ${file} spec (v3) from file`, () => {
       execSync(
         `../../pkg/bin/cli.js specs/${file}.yaml -o generated/${file}.ts`,
         {
