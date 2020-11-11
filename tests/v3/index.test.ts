@@ -293,6 +293,8 @@ describe("types", () => {
     };
     expect(swaggerToTS(schema)).toBe(
       format(`
+      export interface operations {}
+
       export interface components {
         schemas: {
           externalRef: any;
