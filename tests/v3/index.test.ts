@@ -266,6 +266,28 @@ describe("types", () => {
       }`)
     );
   });
+
+  // TODO: allow import later
+  it("external $ref", () => {
+    const schema: OpenAPI3 = {
+      openapi: "3.0",
+      components: {
+        schemas: {
+          externalRef: {
+            $ref: "./external.yaml",
+          },
+        },
+      },
+    };
+    expect(swaggerToTS(schema)).toBe(
+      format(`
+      export interface components {
+        schemas: {
+          externalRef: any;
+        }
+      }`)
+    );
+  });
 });
 
 describe("OpenAPI3 features", () => {
