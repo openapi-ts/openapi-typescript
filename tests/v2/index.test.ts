@@ -316,6 +316,24 @@ describe("transformation", () => {
         }`)
       );
     });
+
+    // TODO: allow import later
+    it("external $ref", () => {
+      const schema: OpenAPI2 = {
+        swagger: "2.0",
+        definitions: {
+          externalRef: {
+            $ref: "./external.yaml",
+          },
+        },
+      };
+      expect(swaggerToTS(schema)).toBe(
+        format(`
+        export interface definitions {
+          externalRef: any;
+        }`)
+      );
+    });
   });
 
   describe("propertyMapper", () => {
