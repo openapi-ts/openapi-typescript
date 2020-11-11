@@ -62,7 +62,7 @@
   "dependencies": {
     "chalk": "^4.1.0",
     "js-yaml": "^3.14.0",
-    "meow": "^7.1.1",
+    "meow": "^8.0.0",
     "prettier": "^2.1.2"
   },
   "devDependencies": {
