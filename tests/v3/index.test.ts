@@ -988,4 +988,154 @@ describe("OpenAPI3 features", () => {
     `)
     );
   });
+
+  it("paths include 'summary' and 'description'", () => {
+    const schema: OpenAPI3 = {
+      openapi: "3.0.1",
+      paths: {
+        "/": {
+          summary: "Root",
+          description: "Lorem ipsum sic dolor amet",
+          get: {
+            responses: {
+              "200": {
+                content: {
+                  "application/json": {
+                    schema: {
+                      type: "object",
+                      properties: {
+                        title: { type: "string" },
+                        body: { type: "string" },
+                      },
+                      required: ["title", "body"],
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        "/search": {
+          post: {
+            parameters: [
+              {
+                name: "q",
+                in: "query",
+                required: true,
+                schema: { type: "string" },
+              },
+              {
+                name: "p",
+                in: "query",
+                schema: { type: "integer" },
+              },
+            ],
+            responses: {
+              "200": {
+                content: {
+                  "application/json": {
+                    schema: {
+                      type: "object",
+                      properties: {
+                        results: {
+                          type: "array",
+                          items: { $ref: "#/components/schemas/SearchResult" },
+                        },
+                        total: { type: "integer" },
+                      },
+                      required: ["total"],
+                    },
+                  },
+                },
+              },
+              "404": {
+                content: {
+                  "application/json": {
+                    schema: { $ref: "#/components/schemas/ErrorResponse" },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      components: {
+        schemas: {
+          ErrorResponse: {
+            type: "object",
+            properties: {
+              error: { type: "string" },
+              message: { type: "string" },
+            },
+            required: ["error", "message"],
+          },
+          SearchResponse: {
+            type: "object",
+            properties: {
+              title: { type: "string" },
+              date: { type: "string" },
+            },
+            required: ["title", "date"],
+          },
+        },
+        responses: {
+          NotFound: {
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" },
+              },
+            },
+          },
+        },
+      },
+    };
+
+    expect(swaggerToTS(schema)).toBe(
+      format(`
+      export interface paths {
+        '/': {
+          get: {
+            responses: {
+              '200': {
+                'application/json': { title: string; body: string }
+              }
+            }
+          }
+        };
+        '/search': {
+          post: {
+            parameters: {
+              query: {
+                q: string;
+                p?: number;
+              }
+            };
+            responses: {
+              '200': {
+                'application/json': {
+                  results?: components['schemas']['SearchResult'][];
+                  total: number;
+                }
+              }
+              '404': {
+                'application/json': components['schemas']['ErrorResponse']
+              }
+            }
+          }
+        }
+      }
+
+      export interface operations {}
+        
+      export interface components {
+        schemas: {
+          ErrorResponse: { error: string; message: string };
+          SearchResponse: { title: string; date: string }
+        }
+        responses: {
+          NotFound: { [key: string]: any }
+        }
+      }`)
+    );
+  });
 });
