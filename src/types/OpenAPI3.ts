@@ -12,20 +12,20 @@ export interface OpenAPI3Paths {
   [path: string]: Partial<OpenAPI3PathItem>;
 }
 
-export type OpenAPI3PathItem= {
-  $ref: string
-  summary: string
-  description: string
-  get: OpenAPI3Operation
-  put: OpenAPI3Operation
-  post: OpenAPI3Operation
-  delete: OpenAPI3Operation
-  options: OpenAPI3Operation
-  head: OpenAPI3Operation
-  patch: OpenAPI3Operation
-  trace: OpenAPI3Operation
-  parameters: Parameter[]
-}
+export type OpenAPI3PathItem = {
+  $ref: string;
+  summary: string;
+  description: string;
+  get: OpenAPI3Operation;
+  put: OpenAPI3Operation;
+  post: OpenAPI3Operation;
+  delete: OpenAPI3Operation;
+  options: OpenAPI3Operation;
+  head: OpenAPI3Operation;
+  patch: OpenAPI3Operation;
+  trace: OpenAPI3Operation;
+  parameters: Parameter[];
+};
 
 export interface OpenAPI3Operation {
   operationId?: string;
