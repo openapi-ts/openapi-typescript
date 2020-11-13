@@ -9,13 +9,28 @@ export interface OpenAPI3Schemas {
 }
 
 export interface OpenAPI3Paths {
-  [path: string]: {
-    [method: string]: OpenAPI3Operation | Parameter[];
-  };
+  [path: string]: Partial<OpenAPI3PathItem>;
+}
+
+export type OpenAPI3PathItem= {
+  $ref: string
+  summary: string
+  description: string
+  get: OpenAPI3Operation
+  put: OpenAPI3Operation
+  post: OpenAPI3Operation
+  delete: OpenAPI3Operation
+  options: OpenAPI3Operation
+  head: OpenAPI3Operation
+  patch: OpenAPI3Operation
+  trace: OpenAPI3Operation
+  servers: any
+  parameters: Parameter[]
 }
 
 export interface OpenAPI3Operation {
   operationId?: string;
+  summary?: string;
   description?: string;
   parameters?: Parameter[];
   requestBody?: OpenAPI3RequestBody;
