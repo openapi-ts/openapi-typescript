@@ -24,7 +24,6 @@ export type OpenAPI3PathItem= {
   head: OpenAPI3Operation
   patch: OpenAPI3Operation
   trace: OpenAPI3Operation
-  servers: any
   parameters: Parameter[]
 }
 

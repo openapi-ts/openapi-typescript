@@ -261,29 +261,40 @@ export default function generateTypesV3(
 
   function transformPaths(paths: OpenAPI3Paths): string {
     let output = "";
-    Object.entries(paths).forEach(([path, methods]) => {
+    Object.entries(paths).forEach(([path, pathItem]) => {
       output += `"${path}": {\n`;
 
-      Object.entries(methods).forEach(([method, operation]) => {
+      Object.entries(pathItem).forEach(([field, operation]) => {
         // skip the parameters "method" for shared parameters - we'll handle it later
-        if (method !== "parameters") {
+        const isMethod = [
+          "get",
+          "put",
+          "post",
+          "delete",
+          "options",
+          "head",
+          "patch",
+          "trace",
+        ].includes(field);
+
+        if (isMethod) {
           operation = operation as OpenAPI3Operation;
 
           if (operation.operationId) {
-            output += `"${method}": operations["${operation.operationId}"];\n`;
+            output += `"${field}": operations["${operation.operationId}"];\n`;
             operations[operation.operationId] = operation;
           } else {
             if (operation.description) output += comment(operation.description);
-            output += `"${method}": ${transformOperation(
+            output += `"${field}": ${transformOperation(
               operation as OpenAPI3Operation
             )}`;
           }
         }
       });
 
-      if (methods.parameters) {
+      if (pathItem.parameters) {
         // Handle shared parameters
-        output += transformParameters(methods.parameters as Parameter[]);
+        output += transformParameters(pathItem.parameters as Parameter[]);
       }
       output += `}\n`;
     });
