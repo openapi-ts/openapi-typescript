@@ -998,6 +998,7 @@ describe("OpenAPI3 features", () => {
           description: "root description",
           get: {
             summary: "get summary",
+            description: "get description",
             responses: {
               "200": {
                 content: {
@@ -1052,6 +1053,9 @@ describe("OpenAPI3 features", () => {
       format(`
       export interface paths {
         '/': {
+         /**
+          * get description
+          */
          get: {
             responses: {
               '200': {
