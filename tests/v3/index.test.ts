@@ -999,54 +999,10 @@ describe("OpenAPI3 features", () => {
           get: {
             summary: "get summary",
             description: "get description",
-            responses: {
-              "200": {
-                content: {
-                  "application/json": {
-                    schema: {
-                      type: "object",
-                      properties: {
-                        title: { type: "string" },
-                        body: { type: "string" },
-                      },
-                      required: ["title", "body"],
-                    },
-                  },
-                },
-              },
-            },
+            responses: { },
           },
         },
-      },
-      components: {
-        schemas: {
-          ErrorResponse: {
-            type: "object",
-            properties: {
-              error: { type: "string" },
-              message: { type: "string" },
-            },
-            required: ["error", "message"],
-          },
-          SearchResponse: {
-            type: "object",
-            properties: {
-              title: { type: "string" },
-              date: { type: "string" },
-            },
-            required: ["title", "date"],
-          },
-        },
-        responses: {
-          NotFound: {
-            content: {
-              "application/json": {
-                schema: { $ref: "#/components/schemas/ErrorResponse" },
-              },
-            },
-          },
-        },
-      },
+      }
     };
 
     expect(swaggerToTS(schema)).toBe(
@@ -1057,26 +1013,14 @@ describe("OpenAPI3 features", () => {
           * get description
           */
          get: {
-            responses: {
-              '200': {
-                'application/json': { title: string; body: string }
-              }
-            }
+            responses: { }
           }
         };
       }
 
       export interface operations {}
         
-      export interface components {
-        schemas: {
-          ErrorResponse: { error: string; message: string };
-          SearchResponse: { title: string; date: string }
-        }
-        responses: {
-          NotFound: { [key: string]: any }
-        }
-      }`)
+      export interface components {}`)
     );
   });
 });
