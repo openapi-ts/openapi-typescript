@@ -225,7 +225,7 @@ export default function generateTypesV3(
     // handle requestBody
     if (operation.requestBody) {
       output += `requestBody: {\n`;
-      Object.entries(operation.requestBody.content).forEach(
+      Object.entries(operation.requestBody.content || {}).forEach(
         ([contentType, { schema }]) => {
           output += `"${contentType}": ${transform(schema)};\n`;
         }

@@ -43,7 +43,7 @@ export interface OpenAPI3ResponseObject {
 
 export interface OpenAPI3RequestBody {
   description?: string;
-  content: {
+  content?: {
     [contentType: string]: { schema: OpenAPI3SchemaObject | { $ref: string } };
   };
 }
