@@ -988,4 +988,39 @@ describe("OpenAPI3 features", () => {
     `)
     );
   });
+
+  it("paths include 'summary' and 'description'", () => {
+    const schema: OpenAPI3 = {
+      openapi: "3.0.1",
+      paths: {
+        "/": {
+          summary: "root summary",
+          description: "root description",
+          get: {
+            summary: "get summary",
+            description: "get description",
+            responses: { },
+          },
+        },
+      }
+    };
+
+    expect(swaggerToTS(schema)).toBe(
+      format(`
+      export interface paths {
+        '/': {
+         /**
+          * get description
+          */
+         get: {
+            responses: { }
+          }
+        };
+      }
+
+      export interface operations {}
+        
+      export interface components {}`)
+    );
+  });
 });
