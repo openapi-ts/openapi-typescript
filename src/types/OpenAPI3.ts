@@ -78,13 +78,7 @@ export interface OpenAPI3 {
   [key: string]: any; // handle other properties beyond this library’s concern
 }
 
-export type OpenAPI3Type =
-  | "array"
-  | "boolean"
-  | "integer"
-  | "number"
-  | "object"
-  | "string";
+export type OpenAPI3Type = "array" | "boolean" | "integer" | "number" | "object" | "string";
 
 export type OpenAPI3Reference =
   | { $ref: string }

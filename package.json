@@ -48,7 +48,6 @@
       ]
     ]
   },
-  "prettier": {},
   "scripts": {
     "build": "pika build",
     "deploy": "npm run build && pika publish",

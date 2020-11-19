@@ -16,30 +16,20 @@ function format(types: string): string {
 describe("cli", () => {
   ["stripe", "manifold", "petstore"].forEach((file) => {
     it(`reads ${file} spec (v2) from file`, () => {
-      execSync(
-        `../../pkg/bin/cli.js specs/${file}.yaml -o generated/${file}.ts`,
-        {
-          cwd: path.resolve(__dirname),
-        }
-      );
-      expect(
-        fs.readFileSync(path.resolve(__dirname, `expected/${file}.ts`), "utf8")
-      ).toBe(
+      execSync(`../../pkg/bin/cli.js specs/${file}.yaml -o generated/${file}.ts`, {
+        cwd: path.resolve(__dirname),
+      });
+      expect(fs.readFileSync(path.resolve(__dirname, `expected/${file}.ts`), "utf8")).toBe(
         fs.readFileSync(path.resolve(__dirname, `generated/${file}.ts`), "utf8")
       );
     });
   });
 
   it("reads swagger.json spec (v2) from remote resource", () => {
-    execSync(
-      "../../pkg/bin/cli.js https://api.catalog.stage.manifold.co/swagger.json -o generated/http.ts",
-      {
-        cwd: path.resolve(__dirname),
-      }
-    );
-    expect(
-      fs.readFileSync(path.resolve(__dirname, "expected/http.ts"), "utf8")
-    ).toBe(
+    execSync("../../pkg/bin/cli.js https://api.catalog.stage.manifold.co/swagger.json -o generated/http.ts", {
+      cwd: path.resolve(__dirname),
+    });
+    expect(fs.readFileSync(path.resolve(__dirname, "expected/http.ts"), "utf8")).toBe(
       fs.readFileSync(path.resolve(__dirname, "generated/http.ts"), "utf8")
     );
   });
@@ -277,10 +267,7 @@ describe("transformation", () => {
             type: "object",
           },
           all_of: {
-            allOf: [
-              { $ref: "#/definitions/base" },
-              { properties: { string: { type: "string" } }, type: "object" },
-            ],
+            allOf: [{ $ref: "#/definitions/base" }, { properties: { string: { type: "string" } }, type: "object" }],
             properties: { password: { type: "string" } },
             type: "object",
           },
@@ -351,10 +338,7 @@ describe("transformation", () => {
     };
 
     it("accepts a mapper in options", () => {
-      const propertyMapper = (
-        swaggerDefinition: OpenAPI2SchemaObject,
-        property: Property
-      ): Property => property;
+      const propertyMapper = (swaggerDefinition: OpenAPI2SchemaObject, property: Property): Property => property;
       swaggerToTS(schema, { propertyMapper });
     });
 
@@ -364,10 +348,7 @@ describe("transformation", () => {
       if (!schema.definitions || !schema.definitions.Name.properties) {
         throw new Error("properties missing");
       }
-      expect(propertyMapper).toBeCalledWith(
-        schema.definitions.Name.properties.first,
-        expect.any(Object)
-      );
+      expect(propertyMapper).toBeCalledWith(schema.definitions.Name.properties.first, expect.any(Object));
     });
 
     it("uses result of mapper", () => {
@@ -379,10 +360,7 @@ describe("transformation", () => {
         return true;
       };
 
-      const propertyMapper = (
-        swaggerDefinition: OpenAPI2SchemaObject,
-        property: Property
-      ): Property => ({
+      const propertyMapper = (swaggerDefinition: OpenAPI2SchemaObject, property: Property): Property => ({
         ...property,
         optional: getNullable(swaggerDefinition),
       });

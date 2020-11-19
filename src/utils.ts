@@ -13,16 +13,7 @@ export function fromEntries(entries: [string, any][]): Record<string, unknown> {
 }
 
 /** Return type of node (works for v2 or v3, as there are no conflicting types) */
-type SchemaObjectType =
-  | "anyOf"
-  | "array"
-  | "boolean"
-  | "enum"
-  | "number"
-  | "object"
-  | "oneOf"
-  | "ref"
-  | "string";
+type SchemaObjectType = "anyOf" | "array" | "boolean" | "enum" | "number" | "object" | "oneOf" | "ref" | "string";
 export function nodeType(obj: any): SchemaObjectType | undefined {
   if (!obj || typeof obj !== "object") {
     return undefined;
@@ -43,11 +34,7 @@ export function nodeType(obj: any): SchemaObjectType | undefined {
   }
 
   // string
-  if (
-    ["binary", "byte", "date", "dateTime", "password", "string"].includes(
-      obj.type
-    )
-  ) {
+  if (["binary", "byte", "date", "dateTime", "password", "string"].includes(obj.type)) {
     return "string";
   }
 
