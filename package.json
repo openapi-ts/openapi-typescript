@@ -49,7 +49,7 @@
     ]
   },
   "scripts": {
-    "build": "pika build",
+    "build": "pika-pack build",
     "deploy": "npm run build && pika publish",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts src",
     "pregenerate": "npm run build",
