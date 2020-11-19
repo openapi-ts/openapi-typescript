@@ -2,7 +2,7 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/master/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-22-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-23-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -285,6 +285,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://rendall.dev"><img src="https://avatars2.githubusercontent.com/u/293263?v=4" width="100px;" alt=""/><br /><sub><b>Rendall</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=rendall" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Arendall" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=rendall" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://massaioli.wordpress.com"><img src="https://avatars3.githubusercontent.com/u/149178?v=4" width="100px;" alt=""/><br /><sub><b>Robert Massaioli</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=robertmassaioli" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Arobertmassaioli" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
