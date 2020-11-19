@@ -239,6 +239,16 @@
         "bug",
         "test"
       ]
+    },
+    {
+      "login": "robertmassaioli",
+      "name": "Robert Massaioli",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/149178?v=4",
+      "profile": "https://massaioli.wordpress.com",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
