@@ -228,6 +228,17 @@
         "bug",
         "test"
       ]
+    },
+    {
+      "login": "rendall",
+      "name": "Rendall",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/293263?v=4",
+      "profile": "https://rendall.dev",
+      "contributions": [
+        "code",
+        "bug",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
