@@ -117,7 +117,7 @@ export function tsUnionOf(types: string[]): string {
 }
 
 /** Convert the components object and a 'components["parameters"]["param"]' string into the `param` object **/
-export function unrefComponent(components: any, ref: string) {
+export function unrefComponent(components: any, ref: string): any {
   const [type, object] = ref.match(/(?<=\[")([^"]+)/g) as string[];
   return components[type][object];
 }
