@@ -33,10 +33,7 @@ export const PRIMITIVES: { [key: string]: "boolean" | "string" | "number" } = {
   number: "number",
 };
 
-export default function generateTypesV3(
-  input: OpenAPI3 | OpenAPI3Schemas,
-  options?: SwaggerToTSOptions
-): string {
+export default function generateTypesV3(input: OpenAPI3 | OpenAPI3Schemas, options?: SwaggerToTSOptions): string {
   const { rawSchema = false } = options || {};
   let { paths = {}, components = { schemas: {} } } = input as OpenAPI3;
 
@@ -44,18 +41,14 @@ export default function generateTypesV3(
     components = { schemas: input };
   } else {
     if (!input.components && !input.paths) {
-      throw new Error(
-        `No components or paths found. Specify --raw-schema to load a raw schema.`
-      );
+      throw new Error(`No components or paths found. Specify --raw-schema to load a raw schema.`);
     }
   }
 
   const operations: Record<string, OpenAPI3Operation> = {};
 
   // propertyMapper
-  const propertyMapped = options
-    ? propertyMapper(components.schemas, options.propertyMapper)
-    : components.schemas;
+  const propertyMapped = options ? propertyMapper(components.schemas, options.propertyMapper) : components.schemas;
 
   // type converter
   function transform(node: OpenAPI3SchemaObject): string {
@@ -71,9 +64,7 @@ export default function generateTypesV3(
       case "enum": {
         return tsUnionOf(
           (node.enum as string[]).map((item) =>
-            typeof item === "number" || typeof item === "boolean"
-              ? item
-              : `'${item.replace(/'/g, "\\'")}'`
+            typeof item === "number" || typeof item === "boolean" ? item : `'${item.replace(/'/g, "\\'")}'`
           )
         );
       }
@@ -81,17 +72,11 @@ export default function generateTypesV3(
         return tsUnionOf((node.oneOf as any[]).map(transform));
       }
       case "anyOf": {
-        return tsIntersectionOf(
-          (node.anyOf as any[]).map((anyOf) => tsPartial(transform(anyOf)))
-        );
+        return tsIntersectionOf((node.anyOf as any[]).map((anyOf) => tsPartial(transform(anyOf))));
       }
       case "object": {
         // if empty object, then return generic map type
-        if (
-          (!node.properties || !Object.keys(node.properties).length) &&
-          !node.allOf &&
-          !node.additionalProperties
-        ) {
+        if ((!node.properties || !Object.keys(node.properties).length) && !node.allOf && !node.additionalProperties) {
           return `{ [key: string]: any }`;
         }
 
@@ -101,9 +86,7 @@ export default function generateTypesV3(
         const additionalProperties = node.additionalProperties
           ? [
               `{ [key: string]: ${
-                node.additionalProperties === true
-                  ? "any"
-                  : transform(node.additionalProperties) || "any"
+                node.additionalProperties === true ? "any" : transform(node.additionalProperties) || "any"
               };}\n`,
             ]
           : [];
@@ -126,10 +109,7 @@ export default function generateTypesV3(
     return "";
   }
 
-  function createKeys(
-    obj: { [key: string]: any },
-    required?: string[]
-  ): string {
+  function createKeys(obj: { [key: string]: any }, required?: string[]): string {
     let output = "";
 
     Object.entries(obj).forEach(([key, value]) => {
@@ -162,10 +142,7 @@ export default function generateTypesV3(
   }
 
   function transformParameters(parameters: Parameter[]): string {
-    const allParameters: Record<
-      string,
-      Record<string, OpenAPI3Parameter | string>
-    > = {};
+    const allParameters: Record<string, Record<string, OpenAPI3Parameter | string>> = {};
 
     let output = `parameters: {\n`;
 
@@ -174,17 +151,11 @@ export default function generateTypesV3(
         const referencedValue = (p.$ref
           .substr(2)
           .split("/")
-          .reduce(
-            (value, property) => value[property],
-            input
-          ) as unknown) as OpenAPI3Parameter;
+          .reduce((value, property) => value[property], input) as unknown) as OpenAPI3Parameter;
 
-        if (!allParameters[referencedValue.in])
-          allParameters[referencedValue.in] = {};
+        if (!allParameters[referencedValue.in]) allParameters[referencedValue.in] = {};
 
-        allParameters[referencedValue.in][referencedValue.name] = transformRef(
-          p.$ref
-        );
+        allParameters[referencedValue.in][referencedValue.name] = transformRef(p.$ref);
         return;
       }
 
@@ -202,9 +173,7 @@ export default function generateTypesV3(
           return;
         }
         if (paramProps.description) output += comment(paramProps.description);
-        output += `"${paramName}"${
-          paramProps.required === true ? "" : "?"
-        }: ${transform(paramProps.schema)};\n`;
+        output += `"${paramName}"${paramProps.required === true ? "" : "?"}: ${transform(paramProps.schema)};\n`;
       });
       output += `}\n`;
     });
@@ -225,11 +194,9 @@ export default function generateTypesV3(
     // handle requestBody
     if (operation.requestBody) {
       output += `requestBody: {\n`;
-      Object.entries(operation.requestBody.content || {}).forEach(
-        ([contentType, { schema }]) => {
-          output += `"${contentType}": ${transform(schema)};\n`;
-        }
-      );
+      Object.entries(operation.requestBody.content || {}).forEach(([contentType, { schema }]) => {
+        output += `"${contentType}": ${transform(schema)};\n`;
+      });
       output += `}\n`;
     }
 
@@ -238,19 +205,14 @@ export default function generateTypesV3(
     Object.entries(operation.responses).forEach(([statusCode, response]) => {
       if (response.description) output += comment(response.description);
       if (!response.content || !Object.keys(response.content).length) {
-        const type =
-          statusCode === "204" || Math.floor(+statusCode / 100) === 3
-            ? "never"
-            : "unknown";
+        const type = statusCode === "204" || Math.floor(+statusCode / 100) === 3 ? "never" : "unknown";
         output += `"${statusCode}": ${type};\n`;
         return;
       }
       output += `"${statusCode}": {\n`;
-      Object.entries(response.content).forEach(
-        ([contentType, encodedResponse]) => {
-          output += `"${contentType}": ${transform(encodedResponse.schema)};\n`;
-        }
-      );
+      Object.entries(response.content).forEach(([contentType, encodedResponse]) => {
+        output += `"${contentType}": ${transform(encodedResponse.schema)};\n`;
+      });
       output += `}\n`;
     });
     output += `}\n`;
@@ -266,16 +228,7 @@ export default function generateTypesV3(
 
       Object.entries(pathItem).forEach(([field, operation]) => {
         // skip the parameters "method" for shared parameters - we'll handle it later
-        const isMethod = [
-          "get",
-          "put",
-          "post",
-          "delete",
-          "options",
-          "head",
-          "patch",
-          "trace",
-        ].includes(field);
+        const isMethod = ["get", "put", "post", "delete", "options", "head", "patch", "trace"].includes(field);
 
         if (isMethod) {
           operation = operation as OpenAPI3Operation;
@@ -285,9 +238,7 @@ export default function generateTypesV3(
             operations[operation.operationId] = operation;
           } else {
             if (operation.description) output += comment(operation.description);
-            output += `"${field}": ${transformOperation(
-              operation as OpenAPI3Operation
-            )}`;
+            output += `"${field}": ${transformOperation(operation as OpenAPI3Operation)}`;
           }
         }
       });
@@ -322,9 +273,7 @@ export default function generateTypesV3(
   finalOutput += "export interface operations {\n";
   for (const [operationId, operation] of Object.entries(operations)) {
     if (operation.description) finalOutput += comment(operation.description);
-    finalOutput += `"${operationId}": ${transformOperation(
-      operation as OpenAPI3Operation
-    )}`;
+    finalOutput += `"${operationId}": ${transformOperation(operation as OpenAPI3Operation)}`;
   }
   // close operations wrapper
   finalOutput += "\n}\n\n";

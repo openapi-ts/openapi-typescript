@@ -10,8 +10,10 @@ async function load(pathToSpec) {
     try {
       rawSpec = await loadFromHttp(pathToSpec);
     } catch (e) {
-      if (e.code === 'ENOTFOUND') {
-        throw new Error(`The URL ${pathToSpec} could not be reached. Ensure the URL is correct, that you're connected to the internet and that the URL is reachable via a browser.`)
+      if (e.code === "ENOTFOUND") {
+        throw new Error(
+          `The URL ${pathToSpec} could not be reached. Ensure the URL is correct, that you're connected to the internet and that the URL is reachable via a browser.`
+        );
       }
       throw e;
     }
@@ -46,8 +48,6 @@ module.exports.loadSpec = async (pathToSpec) => {
   try {
     return JSON.parse(rawSpec);
   } catch {
-    throw new Error(
-      `The spec under ${pathToSpec} couldn’t be parsed neither as YAML nor JSON.`
-    );
+    throw new Error(`The spec under ${pathToSpec} couldn’t be parsed neither as YAML nor JSON.`);
   }
 };

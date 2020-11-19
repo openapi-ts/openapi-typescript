@@ -1,18 +1,6 @@
 import propertyMapper from "./property-mapper";
-import {
-  OpenAPI2,
-  OpenAPI2SchemaObject,
-  OpenAPI2Schemas,
-  SwaggerToTSOptions,
-} from "./types";
-import {
-  comment,
-  nodeType,
-  transformRef,
-  tsArrayOf,
-  tsIntersectionOf,
-  tsUnionOf,
-} from "./utils";
+import { OpenAPI2, OpenAPI2SchemaObject, OpenAPI2Schemas, SwaggerToTSOptions } from "./types";
+import { comment, nodeType, transformRef, tsArrayOf, tsIntersectionOf, tsUnionOf } from "./utils";
 
 export const PRIMITIVES: { [key: string]: "boolean" | "string" | "number" } = {
   // boolean types
@@ -33,10 +21,7 @@ export const PRIMITIVES: { [key: string]: "boolean" | "string" | "number" } = {
   number: "number",
 };
 
-export default function generateTypesV2(
-  input: OpenAPI2 | OpenAPI2Schemas,
-  options?: SwaggerToTSOptions
-): string {
+export default function generateTypesV2(input: OpenAPI2 | OpenAPI2Schemas, options?: SwaggerToTSOptions): string {
   const rawSchema = options && options.rawSchema;
 
   let definitions: OpenAPI2Schemas;
@@ -47,17 +32,13 @@ export default function generateTypesV2(
     const document = input as OpenAPI2;
 
     if (!document.definitions) {
-      throw new Error(
-        `⛔️ 'definitions' missing from schema https://swagger.io/specification/v2/#definitions-object`
-      );
+      throw new Error(`⛔️ 'definitions' missing from schema https://swagger.io/specification/v2/#definitions-object`);
     }
     definitions = document.definitions;
   }
 
   // propertyMapper
-  const propertyMapped = options
-    ? propertyMapper(definitions, options.propertyMapper)
-    : definitions;
+  const propertyMapped = options ? propertyMapper(definitions, options.propertyMapper) : definitions;
 
   // type conversions
   function transform(node: OpenAPI2SchemaObject): string {
@@ -73,18 +54,12 @@ export default function generateTypesV2(
       case "enum": {
         return tsUnionOf(
           (node.enum as string[]).map((item) =>
-            typeof item === "number" || typeof item === "boolean"
-              ? item
-              : `'${item}'`
+            typeof item === "number" || typeof item === "boolean" ? item : `'${item}'`
           )
         );
       }
       case "object": {
-        if (
-          (!node.properties || !Object.keys(node.properties).length) &&
-          !node.allOf &&
-          !node.additionalProperties
-        ) {
+        if ((!node.properties || !Object.keys(node.properties).length) && !node.allOf && !node.additionalProperties) {
           return `{ [key: string]: any }`;
         }
 
@@ -92,9 +67,7 @@ export default function generateTypesV2(
 
         // if additional properties, add to end of properties
         if (node.additionalProperties) {
-          properties += `[key: string]: ${
-            nodeType(node.additionalProperties) || "any"
-          };\n`;
+          properties += `[key: string]: ${nodeType(node.additionalProperties) || "any"};\n`;
         }
 
         return tsIntersectionOf([
@@ -111,10 +84,7 @@ export default function generateTypesV2(
     return "";
   }
 
-  function createKeys(
-    obj: { [key: string]: any },
-    required: string[] = []
-  ): string {
+  function createKeys(obj: { [key: string]: any }, required: string[] = []): string {
     let output = "";
 
     Object.entries(obj).forEach(([key, value]) => {
