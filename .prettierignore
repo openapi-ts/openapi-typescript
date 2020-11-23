@@ -1,0 +1,6 @@
+examples/**/*.ts
+tests/*/expected/**/*.ts
+tests/*/generated/**/*.ts
+*.md
+*.yaml
+*.yml
