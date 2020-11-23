@@ -530,7 +530,7 @@ describe("OpenAPI3 features", () => {
         "/": {
           get: {
             responses: {
-              "200": {
+              200: {
                 content: {
                   "application/json": {
                     schema: {
@@ -563,7 +563,7 @@ describe("OpenAPI3 features", () => {
               },
             ],
             responses: {
-              "200": {
+              200: {
                 content: {
                   "application/json": {
                     schema: {
@@ -580,7 +580,7 @@ describe("OpenAPI3 features", () => {
                   },
                 },
               },
-              "404": {
+              404: {
                 content: {
                   "application/json": {
                     schema: { $ref: "#/components/schemas/ErrorResponse" },
@@ -628,7 +628,7 @@ describe("OpenAPI3 features", () => {
         '/': {
           get: {
             responses: {
-              '200': {
+              200: {
                 'application/json': { title: string; body: string }
               }
             }
@@ -643,13 +643,13 @@ describe("OpenAPI3 features", () => {
               }
             };
             responses: {
-              '200': {
+              200: {
                 'application/json': {
                   results?: components['schemas']['SearchResult'][];
                   total: number;
                 }
               }
-              '404': {
+              404: {
                 'application/json': components['schemas']['ErrorResponse']
               }
             }
@@ -678,7 +678,7 @@ describe("OpenAPI3 features", () => {
         "/no-content": {
           get: {
             responses: {
-              "204": {
+              204: {
                 description: "Empty response",
               },
             },
@@ -687,7 +687,7 @@ describe("OpenAPI3 features", () => {
         "/not-modified": {
           get: {
             responses: {
-              "304": {
+              304: {
                 description: "Empty response",
               },
             },
@@ -696,7 +696,7 @@ describe("OpenAPI3 features", () => {
         "/not-found": {
           get: {
             responses: {
-              "404": {
+              404: {
                 description: "Empty response",
               },
             },
@@ -714,7 +714,7 @@ describe("OpenAPI3 features", () => {
               /**
                * Empty response
                */
-              "204": never;
+              204: never;
             };
           };
         };
@@ -724,7 +724,7 @@ describe("OpenAPI3 features", () => {
               /**
                * Empty response
                */
-              "304": never;
+              304: never;
             };
           };
         };
@@ -734,7 +734,7 @@ describe("OpenAPI3 features", () => {
               /**
                * Empty response
                */
-              "404": unknown;
+              404: unknown;
             };
           };
         };
@@ -767,7 +767,7 @@ describe("OpenAPI3 features", () => {
               },
             },
             responses: {
-              "201": {
+              201: {
                 content: {
                   "application/json": {
                     schema: {
@@ -796,7 +796,7 @@ describe("OpenAPI3 features", () => {
               'application/json': { title: string }
             }
             responses: {
-              "201": {
+              201: {
                 'application/json': { id: string; title: string}
               };
             };

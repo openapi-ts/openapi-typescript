@@ -813,7 +813,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["three_d_secure"];
       };
       /**
@@ -846,7 +846,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["three_d_secure"];
       };
       /**
@@ -872,7 +872,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_account"];
       };
       /**
@@ -902,7 +902,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["account"];
       };
       /**
@@ -1146,7 +1146,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["account"];
       };
       /**
@@ -1198,7 +1198,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["external_account"];
       };
       /**
@@ -1225,7 +1225,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_external_account"];
       };
       /**
@@ -1258,7 +1258,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["external_account"];
       };
       /**
@@ -1343,7 +1343,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["external_account"];
       };
       /**
@@ -1373,7 +1373,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["capability"][];
           /**
@@ -1420,7 +1420,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["capability"];
       };
       /**
@@ -1456,7 +1456,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["capability"];
       };
       /**
@@ -1498,7 +1498,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           /**
            * The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards.
@@ -1568,7 +1568,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["external_account"];
       };
       /**
@@ -1595,7 +1595,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_external_account"];
       };
       /**
@@ -1628,7 +1628,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["external_account"];
       };
       /**
@@ -1713,7 +1713,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["external_account"];
       };
       /**
@@ -1747,7 +1747,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["login_link"];
       };
       /**
@@ -1777,7 +1777,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["light_account_logout"];
       };
       /**
@@ -1828,7 +1828,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["person"][];
           /**
@@ -1984,7 +1984,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["person"];
       };
       /**
@@ -2011,7 +2011,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_person"];
       };
       /**
@@ -2044,7 +2044,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["person"];
       };
       /**
@@ -2191,7 +2191,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["person"];
       };
       /**
@@ -2242,7 +2242,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["person"][];
           /**
@@ -2398,7 +2398,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["person"];
       };
       /**
@@ -2425,7 +2425,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_person"];
       };
       /**
@@ -2458,7 +2458,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["person"];
       };
       /**
@@ -2605,7 +2605,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["person"];
       };
       /**
@@ -2652,7 +2652,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["account_link"];
       };
       /**
@@ -2701,7 +2701,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["account"][];
           /**
@@ -2969,7 +2969,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["account"];
       };
       /**
@@ -3000,7 +3000,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_account"];
       };
       /**
@@ -3033,7 +3033,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["account"];
       };
       /**
@@ -3282,7 +3282,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["account"];
       };
       /**
@@ -3339,7 +3339,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["external_account"];
       };
       /**
@@ -3367,7 +3367,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_external_account"];
       };
       /**
@@ -3401,7 +3401,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["external_account"];
       };
       /**
@@ -3487,7 +3487,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["external_account"];
       };
       /**
@@ -3520,7 +3520,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["capability"][];
           /**
@@ -3568,7 +3568,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["capability"];
       };
       /**
@@ -3605,7 +3605,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["capability"];
       };
       /**
@@ -3650,7 +3650,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           /**
            * The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards.
@@ -3725,7 +3725,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["external_account"];
       };
       /**
@@ -3753,7 +3753,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_external_account"];
       };
       /**
@@ -3787,7 +3787,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["external_account"];
       };
       /**
@@ -3873,7 +3873,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["external_account"];
       };
       /**
@@ -3911,7 +3911,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["login_link"];
       };
       /**
@@ -3945,7 +3945,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["light_account_logout"];
       };
       /**
@@ -3999,7 +3999,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["person"][];
           /**
@@ -4159,7 +4159,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["person"];
       };
       /**
@@ -4187,7 +4187,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_person"];
       };
       /**
@@ -4221,7 +4221,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["person"];
       };
       /**
@@ -4368,7 +4368,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["person"];
       };
       /**
@@ -4422,7 +4422,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["person"][];
           /**
@@ -4582,7 +4582,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["person"];
       };
       /**
@@ -4610,7 +4610,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_person"];
       };
       /**
@@ -4644,7 +4644,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["person"];
       };
       /**
@@ -4791,7 +4791,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["person"];
       };
       /**
@@ -4829,7 +4829,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["account"];
       };
       /**
@@ -4872,7 +4872,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["apple_pay_domain"][];
           /**
@@ -4914,7 +4914,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["apple_pay_domain"];
       };
       /**
@@ -4941,7 +4941,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_apple_pay_domain"];
       };
       /**
@@ -4974,7 +4974,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["apple_pay_domain"];
       };
       /**
@@ -5027,7 +5027,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["application_fee"][];
           /**
@@ -5075,7 +5075,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["fee_refund"];
       };
       /**
@@ -5114,7 +5114,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["fee_refund"];
       };
       /**
@@ -5147,7 +5147,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["application_fee"];
       };
       /**
@@ -5178,7 +5178,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["application_fee"];
       };
       /**
@@ -5223,7 +5223,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           /**
            * Details about each object.
@@ -5288,7 +5288,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["fee_refund"];
       };
       /**
@@ -5319,7 +5319,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["balance"];
       };
       /**
@@ -5393,7 +5393,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["balance_transaction"][];
           /**
@@ -5442,7 +5442,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["balance_transaction"];
       };
       /**
@@ -5516,7 +5516,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["balance_transaction"][];
           /**
@@ -5565,7 +5565,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["balance_transaction"];
       };
       /**
@@ -5600,7 +5600,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["billing_portal.session"];
       };
       /**
@@ -5654,7 +5654,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["bitcoin_receiver"][];
           /**
@@ -5701,7 +5701,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["bitcoin_receiver"];
       };
       /**
@@ -5750,7 +5750,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           /**
            * Details about each object.
@@ -5814,7 +5814,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           /**
            * Details about each object.
@@ -5892,7 +5892,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["charge"][];
           /**
@@ -6028,7 +6028,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["charge"];
       };
       /**
@@ -6061,7 +6061,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["charge"];
       };
       /**
@@ -6134,7 +6134,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["charge"];
       };
       /**
@@ -6200,7 +6200,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["charge"];
       };
       /**
@@ -6233,7 +6233,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["dispute"];
       };
       /**
@@ -6302,7 +6302,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["dispute"];
       };
       /**
@@ -6331,7 +6331,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["dispute"];
       };
       /**
@@ -6382,7 +6382,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["charge"];
       };
       /**
@@ -6427,7 +6427,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           /**
            * Details about each object.
@@ -6485,7 +6485,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["refund"];
       };
       /**
@@ -6519,7 +6519,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["refund"];
       };
       /**
@@ -6553,7 +6553,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["refund"];
       };
       /**
@@ -6603,7 +6603,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["checkout.session"][];
           /**
@@ -7031,7 +7031,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["checkout.session"];
       };
       /**
@@ -7064,7 +7064,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["checkout.session"];
       };
       /**
@@ -7106,7 +7106,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["country_spec"][];
           /**
@@ -7153,7 +7153,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["country_spec"];
       };
       /**
@@ -7205,7 +7205,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["coupon"][];
           /**
@@ -7288,7 +7288,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["coupon"];
       };
       /**
@@ -7315,7 +7315,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_coupon"];
       };
       /**
@@ -7348,7 +7348,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["coupon"];
       };
       /**
@@ -7388,7 +7388,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["coupon"];
       };
       /**
@@ -7438,7 +7438,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["credit_note"][];
           /**
@@ -7545,7 +7545,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["credit_note"];
       };
       /**
@@ -7628,7 +7628,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["credit_note"];
       };
       /**
@@ -7723,7 +7723,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           /**
            * Details about each object.
@@ -7785,7 +7785,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           /**
            * Details about each object.
@@ -7835,7 +7835,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["credit_note"];
       };
       /**
@@ -7875,7 +7875,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["credit_note"];
       };
       /**
@@ -7907,7 +7907,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["credit_note"];
       };
       /**
@@ -7960,7 +7960,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["customer"][];
           /**
@@ -8111,7 +8111,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["customer"];
       };
       /**
@@ -8138,7 +8138,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_customer"];
       };
       /**
@@ -8171,7 +8171,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": Partial<components["schemas"]["customer"]> &
           Partial<components["schemas"]["deleted_customer"]>;
       };
@@ -8341,7 +8341,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["customer"];
       };
       /**
@@ -8386,7 +8386,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           /**
            * Details about each object.
@@ -8451,7 +8451,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["customer_balance_transaction"];
       };
       /**
@@ -8485,7 +8485,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["customer_balance_transaction"];
       };
       /**
@@ -8526,7 +8526,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["customer_balance_transaction"];
       };
       /**
@@ -8571,7 +8571,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           /**
            * Details about each object.
@@ -8668,7 +8668,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payment_source"];
       };
       /**
@@ -8701,7 +8701,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": Partial<components["schemas"]["payment_source"]> &
           Partial<components["schemas"]["deleted_payment_source"]>;
       };
@@ -8736,7 +8736,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["bank_account"];
       };
       /**
@@ -8830,7 +8830,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": Partial<components["schemas"]["card"]> &
           Partial<components["schemas"]["bank_account"]> &
           Partial<components["schemas"]["source"]>;
@@ -8869,7 +8869,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["bank_account"];
       };
       /**
@@ -8916,7 +8916,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["card"][];
           /**
@@ -9010,7 +9010,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payment_source"];
       };
       /**
@@ -9043,7 +9043,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": Partial<components["schemas"]["payment_source"]> &
           Partial<components["schemas"]["deleted_payment_source"]>;
       };
@@ -9078,7 +9078,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["card"];
       };
       /**
@@ -9172,7 +9172,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": Partial<components["schemas"]["card"]> &
           Partial<components["schemas"]["bank_account"]> &
           Partial<components["schemas"]["source"]>;
@@ -9201,7 +9201,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_discount"];
       };
       /**
@@ -9231,7 +9231,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["discount"];
       };
       /**
@@ -9280,7 +9280,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           /**
            * Details about each object.
@@ -9381,7 +9381,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payment_source"];
       };
       /**
@@ -9414,7 +9414,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": Partial<components["schemas"]["payment_source"]> &
           Partial<components["schemas"]["deleted_payment_source"]>;
       };
@@ -9449,7 +9449,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payment_source"];
       };
       /**
@@ -9543,7 +9543,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": Partial<components["schemas"]["card"]> &
           Partial<components["schemas"]["bank_account"]> &
           Partial<components["schemas"]["source"]>;
@@ -9582,7 +9582,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["bank_account"];
       };
       /**
@@ -9627,7 +9627,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           /**
            * Details about each object.
@@ -9791,7 +9791,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["subscription"];
       };
       /**
@@ -9836,7 +9836,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["subscription"];
       };
       /**
@@ -9870,7 +9870,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["subscription"];
       };
       /**
@@ -10027,7 +10027,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["subscription"];
       };
       /**
@@ -10055,7 +10055,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_discount"];
       };
       /**
@@ -10086,7 +10086,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["discount"];
       };
       /**
@@ -10131,7 +10131,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           /**
            * Details about each object.
@@ -10211,7 +10211,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["tax_id"];
       };
       /**
@@ -10239,7 +10239,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_tax_id"];
       };
       /**
@@ -10273,7 +10273,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["tax_id"];
       };
       /**
@@ -10330,7 +10330,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["dispute"][];
           /**
@@ -10377,7 +10377,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["dispute"];
       };
       /**
@@ -10451,7 +10451,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["dispute"];
       };
       /**
@@ -10485,7 +10485,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["dispute"];
       };
       /**
@@ -10520,7 +10520,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["ephemeral_key"];
       };
       /**
@@ -10552,7 +10552,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["ephemeral_key"];
       };
       /**
@@ -10613,7 +10613,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["event"][];
           /**
@@ -10660,7 +10660,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["event"];
       };
       /**
@@ -10702,7 +10702,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["exchange_rate"][];
           /**
@@ -10749,7 +10749,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["exchange_rate"];
       };
       /**
@@ -10806,7 +10806,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["file_link"][];
           /**
@@ -10859,7 +10859,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["file_link"];
       };
       /**
@@ -10892,7 +10892,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["file_link"];
       };
       /**
@@ -10932,7 +10932,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["file_link"];
       };
       /**
@@ -10995,7 +10995,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["file"][];
           /**
@@ -11062,7 +11062,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["file"];
       };
       /**
@@ -11095,7 +11095,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["file"];
       };
       /**
@@ -11156,7 +11156,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["invoiceitem"][];
           /**
@@ -11249,7 +11249,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["invoiceitem"];
       };
       /**
@@ -11276,7 +11276,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_invoiceitem"];
       };
       /**
@@ -11309,7 +11309,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["invoiceitem"];
       };
       /**
@@ -11377,7 +11377,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["invoiceitem"];
       };
       /**
@@ -11449,7 +11449,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["invoice"][];
           /**
@@ -11555,7 +11555,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["invoice"];
       };
       /**
@@ -11690,7 +11690,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["invoice"];
       };
       /**
@@ -11833,7 +11833,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           /**
            * Details about each object.
@@ -11877,7 +11877,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_invoice"];
       };
       /**
@@ -11910,7 +11910,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["invoice"];
       };
       /**
@@ -12004,7 +12004,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["invoice"];
       };
       /**
@@ -12040,7 +12040,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["invoice"];
       };
       /**
@@ -12085,7 +12085,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           /**
            * Details about each object.
@@ -12134,7 +12134,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["invoice"];
       };
       /**
@@ -12188,7 +12188,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["invoice"];
       };
       /**
@@ -12222,7 +12222,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["invoice"];
       };
       /**
@@ -12254,7 +12254,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["invoice"];
       };
       /**
@@ -12300,7 +12300,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["issuer_fraud_record"][];
           /**
@@ -12349,7 +12349,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issuer_fraud_record"];
       };
       /**
@@ -12413,7 +12413,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["issuing.authorization"][];
           /**
@@ -12460,7 +12460,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issuing.authorization"];
       };
       /**
@@ -12496,7 +12496,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issuing.authorization"];
       };
       /**
@@ -12536,7 +12536,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issuing.authorization"];
       };
       /**
@@ -12572,7 +12572,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issuing.authorization"];
       };
       /**
@@ -12640,7 +12640,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["issuing.cardholder"][];
           /**
@@ -13617,7 +13617,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issuing.cardholder"];
       };
       /**
@@ -13650,7 +13650,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issuing.cardholder"];
       };
       /**
@@ -14610,7 +14610,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issuing.cardholder"];
       };
       /**
@@ -14686,7 +14686,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["issuing.card"][];
           /**
@@ -15656,7 +15656,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issuing.card"];
       };
       /**
@@ -15689,7 +15689,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issuing.card"];
       };
       /**
@@ -16618,7 +16618,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issuing.card"];
       };
       /**
@@ -16660,7 +16660,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["issuing.dispute"][];
           /**
@@ -16705,7 +16705,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issuing.dispute"];
       };
       /**
@@ -16738,7 +16738,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issuing.dispute"];
       };
       /**
@@ -16774,7 +16774,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issuing.dispute"];
       };
       /**
@@ -16826,7 +16826,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["issuing.settlement"][];
           /**
@@ -16873,7 +16873,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issuing.settlement"];
       };
       /**
@@ -16909,7 +16909,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issuing.settlement"];
       };
       /**
@@ -16969,7 +16969,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["issuing.transaction"][];
           /**
@@ -17016,7 +17016,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issuing.transaction"];
       };
       /**
@@ -17052,7 +17052,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issuing.transaction"];
       };
       /**
@@ -17085,7 +17085,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["mandate"];
       };
       /**
@@ -17141,7 +17141,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["order_return"][];
           /**
@@ -17188,7 +17188,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["order_return"];
       };
       /**
@@ -17289,7 +17289,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["order"][];
           /**
@@ -17376,7 +17376,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["order"];
       };
       /**
@@ -17409,7 +17409,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["order"];
       };
       /**
@@ -17461,7 +17461,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["order"];
       };
       /**
@@ -17513,7 +17513,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["order"];
       };
       /**
@@ -17558,7 +17558,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["order_return"];
       };
       /**
@@ -17614,7 +17614,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["payment_intent"][];
           /**
@@ -17812,7 +17812,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payment_intent"];
       };
       /**
@@ -17853,7 +17853,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payment_intent"];
       };
       /**
@@ -17993,7 +17993,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payment_intent"];
       };
       /**
@@ -18035,7 +18035,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payment_intent"];
       };
       /**
@@ -18094,7 +18094,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payment_intent"];
       };
       /**
@@ -18251,7 +18251,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payment_intent"];
       };
       /**
@@ -18307,7 +18307,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["payment_method"][];
           /**
@@ -18442,7 +18442,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payment_method"];
       };
       /**
@@ -18475,7 +18475,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payment_method"];
       };
       /**
@@ -18535,7 +18535,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payment_method"];
       };
       /**
@@ -18581,7 +18581,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payment_method"];
       };
       /**
@@ -18613,7 +18613,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payment_method"];
       };
       /**
@@ -18677,7 +18677,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["payout"][];
           /**
@@ -18754,7 +18754,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payout"];
       };
       /**
@@ -18787,7 +18787,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payout"];
       };
       /**
@@ -18823,7 +18823,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payout"];
       };
       /**
@@ -18855,7 +18855,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["payout"];
       };
       /**
@@ -18915,7 +18915,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["plan"][];
           /**
@@ -19035,7 +19035,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["plan"];
       };
       /**
@@ -19062,7 +19062,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_plan"];
       };
       /**
@@ -19095,7 +19095,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["plan"];
       };
       /**
@@ -19147,7 +19147,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["plan"];
       };
       /**
@@ -19219,7 +19219,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["product"][];
           /**
@@ -19328,7 +19328,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["product"];
       };
       /**
@@ -19355,7 +19355,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_product"];
       };
       /**
@@ -19388,7 +19388,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["product"];
       };
       /**
@@ -19481,7 +19481,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["product"];
       };
       /**
@@ -19527,7 +19527,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["radar.early_fraud_warning"][];
           /**
@@ -19576,7 +19576,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["radar.early_fraud_warning"];
       };
       /**
@@ -19633,7 +19633,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["radar.value_list_item"][];
           /**
@@ -19682,7 +19682,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["radar.value_list_item"];
       };
       /**
@@ -19709,7 +19709,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_radar.value_list_item"];
       };
       /**
@@ -19742,7 +19742,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["radar.value_list_item"];
       };
       /**
@@ -19799,7 +19799,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["radar.value_list"][];
           /**
@@ -19863,7 +19863,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["radar.value_list"];
       };
       /**
@@ -19890,7 +19890,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_radar.value_list"];
       };
       /**
@@ -19923,7 +19923,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["radar.value_list"];
       };
       /**
@@ -19967,7 +19967,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["radar.value_list"];
       };
       /**
@@ -20021,7 +20021,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["recipient"][];
           /**
@@ -20095,7 +20095,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["recipient"];
       };
       /**
@@ -20122,7 +20122,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_recipient"];
       };
       /**
@@ -20155,7 +20155,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": Partial<components["schemas"]["recipient"]> &
           Partial<components["schemas"]["deleted_recipient"]>;
       };
@@ -20224,7 +20224,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["recipient"];
       };
       /**
@@ -20281,7 +20281,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["refund"][];
           /**
@@ -20332,7 +20332,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["refund"];
       };
       /**
@@ -20365,7 +20365,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["refund"];
       };
       /**
@@ -20403,7 +20403,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["refund"];
       };
       /**
@@ -20452,7 +20452,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["reporting.report_run"][];
           /**
@@ -21135,7 +21135,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["reporting.report_run"];
       };
       /**
@@ -21168,7 +21168,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["reporting.report_run"];
       };
       /**
@@ -21198,7 +21198,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["reporting.report_type"][];
           /**
@@ -21245,7 +21245,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["reporting.report_type"];
       };
       /**
@@ -21294,7 +21294,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["review"][];
           /**
@@ -21341,7 +21341,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["review"];
       };
       /**
@@ -21373,7 +21373,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["review"];
       };
       /**
@@ -21433,7 +21433,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["setup_intent"][];
           /**
@@ -21536,7 +21536,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["setup_intent"];
       };
       /**
@@ -21577,7 +21577,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["setup_intent"];
       };
       /**
@@ -21637,7 +21637,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["setup_intent"];
       };
       /**
@@ -21678,7 +21678,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["setup_intent"];
       };
       /**
@@ -21759,7 +21759,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["setup_intent"];
       };
       /**
@@ -21801,7 +21801,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["scheduled_query_run"][];
           /**
@@ -21848,7 +21848,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["scheduled_query_run"];
       };
       /**
@@ -21910,7 +21910,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["sku"][];
           /**
@@ -22000,7 +22000,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["sku"];
       };
       /**
@@ -22027,7 +22027,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_sku"];
       };
       /**
@@ -22060,7 +22060,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": Partial<components["schemas"]["sku"]> &
           Partial<components["schemas"]["deleted_sku"]>;
       };
@@ -22141,7 +22141,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["sku"];
       };
       /**
@@ -22276,7 +22276,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["source"];
       };
       /**
@@ -22313,7 +22313,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["source"];
       };
       /**
@@ -22421,7 +22421,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["source"];
       };
       /**
@@ -22455,7 +22455,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["source_mandate_notification"];
       };
       /**
@@ -22500,7 +22500,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["source_transaction"][];
           /**
@@ -22548,7 +22548,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["source_transaction"];
       };
       /**
@@ -22584,7 +22584,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["source"];
       };
       /**
@@ -22630,7 +22630,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["subscription_item"][];
           /**
@@ -22722,7 +22722,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["subscription_item"];
       };
       /**
@@ -22770,7 +22770,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_subscription_item"];
       };
       /**
@@ -22803,7 +22803,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["subscription_item"];
       };
       /**
@@ -22886,7 +22886,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["subscription_item"];
       };
       /**
@@ -22933,7 +22933,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["usage_record_summary"][];
           /**
@@ -22997,7 +22997,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["usage_record"];
       };
       /**
@@ -23087,7 +23087,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["subscription_schedule"][];
           /**
@@ -23189,7 +23189,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["subscription_schedule"];
       };
       /**
@@ -23222,7 +23222,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["subscription_schedule"];
       };
       /**
@@ -23312,7 +23312,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["subscription_schedule"];
       };
       /**
@@ -23352,7 +23352,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["subscription_schedule"];
       };
       /**
@@ -23388,7 +23388,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["subscription_schedule"];
       };
       /**
@@ -23476,7 +23476,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["subscription"][];
           /**
@@ -23636,7 +23636,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["subscription"];
       };
       /**
@@ -23680,7 +23680,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["subscription"];
       };
       /**
@@ -23713,7 +23713,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["subscription"];
       };
       /**
@@ -23869,7 +23869,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["subscription"];
       };
       /**
@@ -23896,7 +23896,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_discount"];
       };
       /**
@@ -23956,7 +23956,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["tax_rate"][];
           /**
@@ -24025,7 +24025,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["tax_rate"];
       };
       /**
@@ -24058,7 +24058,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["tax_rate"];
       };
       /**
@@ -24110,7 +24110,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["tax_rate"];
       };
       /**
@@ -24141,7 +24141,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["terminal.connection_token"];
       };
       /**
@@ -24183,7 +24183,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["terminal.location"][];
           /**
@@ -24243,7 +24243,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["terminal.location"];
       };
       /**
@@ -24270,7 +24270,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_terminal.location"];
       };
       /**
@@ -24303,7 +24303,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["terminal.location"];
       };
       /**
@@ -24354,7 +24354,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["terminal.location"];
       };
       /**
@@ -24408,7 +24408,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           /**
            * A list of readers
@@ -24468,7 +24468,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["terminal.reader"];
       };
       /**
@@ -24495,7 +24495,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_terminal.reader"];
       };
       /**
@@ -24528,7 +24528,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["terminal.reader"];
       };
       /**
@@ -24568,7 +24568,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["terminal.reader"];
       };
       /**
@@ -24802,7 +24802,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["token"];
       };
       /**
@@ -24835,7 +24835,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["token"];
       };
       /**
@@ -24901,7 +24901,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["topup"][];
           /**
@@ -24970,7 +24970,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["topup"];
       };
       /**
@@ -25003,7 +25003,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["topup"];
       };
       /**
@@ -25043,7 +25043,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["topup"];
       };
       /**
@@ -25075,7 +25075,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["topup"];
       };
       /**
@@ -25132,7 +25132,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           /**
            * Details about each object.
@@ -25208,7 +25208,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["transfer"];
       };
       /**
@@ -25253,7 +25253,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           /**
            * Details about each object.
@@ -25322,7 +25322,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["transfer_reversal"];
       };
       /**
@@ -25355,7 +25355,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["transfer"];
       };
       /**
@@ -25397,7 +25397,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["transfer"];
       };
       /**
@@ -25431,7 +25431,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["transfer_reversal"];
       };
       /**
@@ -25470,7 +25470,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["transfer_reversal"];
       };
       /**
@@ -25512,7 +25512,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": {
           data: components["schemas"]["webhook_endpoint"][];
           /**
@@ -25822,7 +25822,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["webhook_endpoint"];
       };
       /**
@@ -25849,7 +25849,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deleted_webhook_endpoint"];
       };
       /**
@@ -25882,7 +25882,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["webhook_endpoint"];
       };
       /**
@@ -26084,7 +26084,7 @@ export interface operations {
       /**
        * Successful response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["webhook_endpoint"];
       };
       /**

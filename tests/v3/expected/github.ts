@@ -1595,7 +1595,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           current_user_url: string;
           current_user_authorizations_html_url: string;
@@ -1645,7 +1645,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["integration"];
       };
     };
@@ -1663,7 +1663,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["integration"] &
           ({
             client_id: string;
@@ -1672,8 +1672,8 @@ export interface operations {
             pem: string;
           } & { [key: string]: any });
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -1686,7 +1686,7 @@ export interface operations {
       /**
        * Default response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["webhook-config"];
       };
     };
@@ -1709,7 +1709,7 @@ export interface operations {
       /**
        * Default response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["webhook-config"];
       };
     };
@@ -1732,7 +1732,7 @@ export interface operations {
       /**
        * The permissions the installation has are included under the `permissions` key.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["installation"][];
       };
     };
@@ -1752,11 +1752,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["installation"];
       };
-      "404": unknown;
-      "415": unknown;
+      404: unknown;
+      415: unknown;
     };
   };
   /**
@@ -1774,8 +1774,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "404": unknown;
+      204: never;
+      404: unknown;
     };
   };
   /**
@@ -1812,14 +1812,14 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["installation-token"];
       };
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "415": unknown;
-      "422": unknown;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   /**
@@ -1841,8 +1841,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "404": unknown;
+      204: never;
+      404: unknown;
     };
   };
   /**
@@ -1864,8 +1864,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "404": unknown;
+      204: never;
+      404: unknown;
     };
   };
   /**
@@ -1884,13 +1884,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["application-grant"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -1906,12 +1906,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["application-grant"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   /**
@@ -1929,10 +1929,10 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   /**
@@ -1957,8 +1957,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "422": unknown;
+      204: never;
+      422: unknown;
     };
   };
   /**
@@ -1979,7 +1979,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -2003,11 +2003,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["authorization"];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -2031,10 +2031,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["authorization"];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -2058,8 +2058,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "422": unknown;
+      204: never;
+      422: unknown;
     };
   };
   /**
@@ -2078,10 +2078,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["authorization"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -2100,7 +2100,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["authorization"];
       };
     };
@@ -2121,7 +2121,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -2139,12 +2139,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["integration"];
       };
-      "403": unknown;
-      "404": unknown;
-      "415": unknown;
+      403: unknown;
+      404: unknown;
+      415: unknown;
     };
   };
   /**
@@ -2161,13 +2161,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["authorization"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -2217,14 +2217,14 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["authorization"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "410": unknown;
-      "422": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      410: unknown;
+      422: unknown;
     };
   };
   /**
@@ -2272,19 +2272,19 @@ export interface operations {
       /**
        * Response if returning an existing token
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["authorization"];
       };
       /**
        * **Deprecation Notice:** GitHub will discontinue the [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["authorization"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "422": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      422: unknown;
     };
   };
   /**
@@ -2327,16 +2327,16 @@ export interface operations {
       /**
        * Response if returning an existing token
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["authorization"];
       };
       /**
        * Response if returning a new token
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["authorization"];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -2352,12 +2352,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["authorization"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   /**
@@ -2405,10 +2405,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["authorization"];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -2424,10 +2424,10 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   "codes-of-conduct/get-all-codes-of-conduct": {
@@ -2436,11 +2436,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["code-of-conduct"][];
       };
-      "304": never;
-      "415": unknown;
+      304: never;
+      415: unknown;
     };
   };
   "codes-of-conduct/get-conduct-code": {
@@ -2453,12 +2453,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["code-of-conduct"];
       };
-      "304": never;
-      "404": unknown;
-      "415": unknown;
+      304: never;
+      404: unknown;
+      415: unknown;
     };
   };
   /**
@@ -2490,15 +2490,15 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["content-reference-attachment"];
       };
-      "304": never;
-      "403": unknown;
-      "404": unknown;
-      "410": unknown;
-      "415": unknown;
-      "422": unknown;
+      304: never;
+      403: unknown;
+      404: unknown;
+      410: unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   /**
@@ -2510,10 +2510,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": { [key: string]: string };
       };
-      "304": never;
+      304: never;
     };
   };
   /**
@@ -2531,7 +2531,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["actions-enterprise-permissions"];
       };
     };
@@ -2557,7 +2557,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -2579,7 +2579,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           organizations?: components["schemas"]["organization-simple"][];
@@ -2610,7 +2610,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -2629,7 +2629,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -2648,7 +2648,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -2666,7 +2666,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["selected-actions"];
       };
     };
@@ -2689,7 +2689,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -2711,7 +2711,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           runner_groups?: components["schemas"]["runner-groups-enterprise"][];
@@ -2754,7 +2754,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["runner-groups-enterprise"];
       };
     };
@@ -2775,7 +2775,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["runner-groups-enterprise"];
       };
     };
@@ -2808,7 +2808,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["runner-groups-enterprise"];
       };
     };
@@ -2829,7 +2829,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -2852,7 +2852,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           organizations?: components["schemas"]["organization-simple"][];
@@ -2884,7 +2884,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -2904,7 +2904,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -2924,7 +2924,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -2947,7 +2947,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           runners?: components["schemas"]["runner"][];
@@ -2979,7 +2979,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -3000,7 +3000,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -3020,7 +3020,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -3042,7 +3042,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           runners?: components["schemas"]["runner"][];
@@ -3065,7 +3065,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["runner-application"][];
       };
     };
@@ -3093,7 +3093,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["authentication-token"];
       };
     };
@@ -3122,7 +3122,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["authentication-token"];
       };
     };
@@ -3143,7 +3143,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["runner"];
       };
     };
@@ -3164,7 +3164,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -3184,7 +3184,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["actions-billing-usage"];
       };
     };
@@ -3206,7 +3206,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["packages-billing-usage"];
       };
     };
@@ -3228,7 +3228,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["combined-billing-usage"];
       };
     };
@@ -3247,12 +3247,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["event"][];
       };
-      "304": never;
-      "403": unknown;
-      "503": unknown;
+      304: never;
+      403: unknown;
+      503: unknown;
     };
   };
   /**
@@ -3274,7 +3274,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["feed"];
       };
     };
@@ -3294,11 +3294,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["base-gist"][];
       };
-      "304": never;
-      "403": unknown;
+      304: never;
+      403: unknown;
     };
   };
   /**
@@ -3332,13 +3332,13 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["gist-full"];
       };
-      "304": never;
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      304: never;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -3358,12 +3358,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["base-gist"][];
       };
-      "304": never;
-      "403": unknown;
-      "422": unknown;
+      304: never;
+      403: unknown;
+      422: unknown;
     };
   };
   /**
@@ -3381,12 +3381,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["base-gist"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   "gists/get": {
@@ -3399,12 +3399,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["gist-full"];
       };
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -3424,11 +3424,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["gist-full"];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   "gists/delete": {
@@ -3441,10 +3441,10 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      204: never;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   "gists/list-comments": {
@@ -3461,12 +3461,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["gist-comment"][];
       };
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   "gists/create-comment": {
@@ -3487,12 +3487,12 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["gist-comment"];
       };
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   "gists/get-comment": {
@@ -3506,12 +3506,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["gist-comment"];
       };
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   "gists/update-comment": {
@@ -3533,10 +3533,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["gist-comment"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   "gists/delete-comment": {
@@ -3550,10 +3550,10 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      204: never;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   "gists/list-commits": {
@@ -3570,12 +3570,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["gist-commit"][];
       };
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   "gists/list-forks": {
@@ -3592,12 +3592,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["gist-full"][];
       };
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -3613,13 +3613,13 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["base-gist"];
       };
-      "304": never;
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      304: never;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   "gists/check-is-starred": {
@@ -3632,13 +3632,13 @@ export interface operations {
       /**
        * Response if gist is starred
        */
-      "204": never;
-      "304": never;
-      "403": unknown;
+      204: never;
+      304: never;
+      403: unknown;
       /**
        * Response if gist is not starred
        */
-      "404": {
+      404: {
         "application/json": { [key: string]: any };
       };
     };
@@ -3656,10 +3656,10 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      204: never;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   "gists/unstar": {
@@ -3672,10 +3672,10 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      204: never;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   "gists/get-revision": {
@@ -3689,12 +3689,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["gist-full"];
       };
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -3706,10 +3706,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": string[];
       };
-      "304": never;
+      304: never;
     };
   };
   /**
@@ -3726,10 +3726,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["gitignore-template"];
       };
-      "304": never;
+      304: never;
     };
   };
   /**
@@ -3748,16 +3748,16 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           repositories?: components["schemas"]["repository"][];
           repository_selection?: string;
         };
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   /**
@@ -3773,7 +3773,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -3822,12 +3822,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issue"][];
       };
-      "304": never;
-      "404": unknown;
-      "422": unknown;
+      304: never;
+      404: unknown;
+      422: unknown;
     };
   };
   "licenses/get-all-commonly-used": {
@@ -3841,10 +3841,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["license-simple"][];
       };
-      "304": never;
+      304: never;
     };
   };
   "licenses/get": {
@@ -3857,12 +3857,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["license"];
       };
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   "markdown/render": {
@@ -3887,8 +3887,8 @@ export interface operations {
       /**
        * response
        */
-      "200": unknown;
-      "304": never;
+      200: unknown;
+      304: never;
     };
   };
   /**
@@ -3904,10 +3904,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "text/html": string;
       };
-      "304": never;
+      304: never;
     };
   };
   /**
@@ -3925,14 +3925,14 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["marketplace-purchase"];
       };
-      "401": unknown;
+      401: unknown;
       /**
        * Response when the account has not purchased the listing
        */
-      "404": {
+      404: {
         "application/json": components["schemas"]["basic-error"];
       };
     };
@@ -3953,11 +3953,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["marketplace-listing-plan"][];
       };
-      "401": unknown;
-      "404": unknown;
+      401: unknown;
+      404: unknown;
     };
   };
   /**
@@ -3984,12 +3984,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["marketplace-purchase"][];
       };
-      "401": unknown;
-      "404": unknown;
-      "422": unknown;
+      401: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -4007,14 +4007,14 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["marketplace-purchase"];
       };
-      "401": unknown;
+      401: unknown;
       /**
        * Response when the account has not purchased the listing
        */
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -4033,10 +4033,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["marketplace-listing-plan"][];
       };
-      "401": unknown;
+      401: unknown;
     };
   };
   /**
@@ -4063,10 +4063,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["marketplace-purchase"][];
       };
-      "401": unknown;
+      401: unknown;
     };
   };
   /**
@@ -4078,10 +4078,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["api-overview"];
       };
-      "304": never;
+      304: never;
     };
   };
   "activity/list-public-events-for-repo-network": {
@@ -4099,13 +4099,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["event"][];
       };
-      "301": never;
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      301: never;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -4126,13 +4126,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["thread"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "422": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      422: unknown;
     };
   };
   /**
@@ -4156,16 +4156,16 @@ export interface operations {
       /**
        * response
        */
-      "202": {
+      202: {
         "application/json": { message?: string };
       };
       /**
        * response
        */
-      "205": unknown;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      205: unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   "activity/get-thread": {
@@ -4178,12 +4178,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["thread"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   "activity/mark-thread-as-read": {
@@ -4196,9 +4196,9 @@ export interface operations {
       /**
        * response
        */
-      "205": unknown;
-      "304": never;
-      "403": unknown;
+      205: unknown;
+      304: never;
+      403: unknown;
     };
   };
   /**
@@ -4216,12 +4216,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["thread-subscription"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   /**
@@ -4249,12 +4249,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["thread-subscription"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   /**
@@ -4270,10 +4270,10 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   /**
@@ -4292,7 +4292,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/octocat-stream": string;
       };
     };
@@ -4313,10 +4313,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["organization-simple"][];
       };
-      "304": never;
+      304: never;
     };
   };
   /**
@@ -4334,10 +4334,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["organization-full"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -4448,15 +4448,15 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["organization-full"];
       };
-      "409": unknown;
-      "415": unknown;
+      409: unknown;
+      415: unknown;
       /**
        * Validation Failed
        */
-      "422": {
+      422: {
         "application/json":
           | components["schemas"]["validation-error"]
           | components["schemas"]["validation-error-simple"];
@@ -4478,7 +4478,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["actions-organization-permissions"];
       };
     };
@@ -4506,7 +4506,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -4528,7 +4528,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           repositories?: components["schemas"]["repository"][];
@@ -4559,7 +4559,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -4578,7 +4578,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -4597,7 +4597,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -4615,7 +4615,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["selected-actions"];
       };
     };
@@ -4642,7 +4642,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -4666,7 +4666,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           runner_groups?: components["schemas"]["runner-groups-org"][];
@@ -4711,7 +4711,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["runner-groups-org"];
       };
     };
@@ -4734,7 +4734,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["runner-groups-org"];
       };
     };
@@ -4769,7 +4769,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["runner-groups-org"];
       };
     };
@@ -4792,7 +4792,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -4813,7 +4813,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           repositories?: components["schemas"]["repository"][];
@@ -4847,7 +4847,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -4871,7 +4871,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -4894,7 +4894,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -4919,7 +4919,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           runners?: components["schemas"]["runner"][];
@@ -4953,7 +4953,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -4977,7 +4977,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -5000,7 +5000,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -5022,7 +5022,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           runners?: components["schemas"]["runner"][];
@@ -5045,7 +5045,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["runner-application"][];
       };
     };
@@ -5073,7 +5073,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["authentication-token"];
       };
     };
@@ -5102,7 +5102,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["authentication-token"];
       };
     };
@@ -5123,7 +5123,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["runner"];
       };
     };
@@ -5144,7 +5144,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -5164,7 +5164,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           secrets?: components["schemas"]["organization-actions-secret"][];
@@ -5185,7 +5185,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["actions-public-key"];
       };
     };
@@ -5204,7 +5204,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["organization-actions-secret"];
       };
     };
@@ -5320,11 +5320,11 @@ export interface operations {
       /**
        * Response when creating a secret
        */
-      "201": unknown;
+      201: unknown;
       /**
        * Response when updating a secret
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -5341,7 +5341,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -5358,7 +5358,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           repositories?: components["schemas"]["minimal-repository"][];
@@ -5388,7 +5388,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -5406,11 +5406,11 @@ export interface operations {
       /**
        * Response when repository was added to the selected list
        */
-      "204": never;
+      204: never;
       /**
        * Response when visibility type is not set to selected
        */
-      "409": unknown;
+      409: unknown;
     };
   };
   /**
@@ -5428,11 +5428,11 @@ export interface operations {
       /**
        * Response when repository was removed from the selected list
        */
-      "204": never;
+      204: never;
       /**
        * Response when visibility type not set to selected
        */
-      "409": unknown;
+      409: unknown;
     };
   };
   /**
@@ -5448,10 +5448,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      "415": unknown;
+      415: unknown;
     };
   };
   "orgs/check-blocked-user": {
@@ -5465,11 +5465,11 @@ export interface operations {
       /**
        * If the user is blocked:
        */
-      "204": never;
+      204: never;
       /**
        * If the user is not blocked:
        */
-      "404": {
+      404: {
         "application/json": components["schemas"]["basic-error"];
       };
     };
@@ -5485,8 +5485,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "422": unknown;
+      204: never;
+      422: unknown;
     };
   };
   "orgs/unblock-user": {
@@ -5500,7 +5500,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -5518,7 +5518,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["credential-authorization"][];
       };
     };
@@ -5539,8 +5539,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "404": unknown;
+      204: never;
+      404: unknown;
     };
   };
   "activity/list-public-org-events": {
@@ -5557,7 +5557,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["event"][];
       };
     };
@@ -5576,10 +5576,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["org-hook"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -5622,11 +5622,11 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["org-hook"];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -5643,10 +5643,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["org-hook"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -5685,11 +5685,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["org-hook"];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   "orgs/delete-webhook": {
@@ -5703,8 +5703,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "404": unknown;
+      204: never;
+      404: unknown;
     };
   };
   /**
@@ -5723,7 +5723,7 @@ export interface operations {
       /**
        * Default response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["webhook-config"];
       };
     };
@@ -5752,7 +5752,7 @@ export interface operations {
       /**
        * Default response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["webhook-config"];
       };
     };
@@ -5771,8 +5771,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "404": unknown;
+      204: never;
+      404: unknown;
     };
   };
   /**
@@ -5790,7 +5790,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["installation"];
       };
     };
@@ -5812,7 +5812,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           installations?: components["schemas"]["installation"][];
@@ -5833,7 +5833,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["interaction-limit"];
       };
     };
@@ -5859,10 +5859,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["interaction-limit"];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -5878,7 +5878,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -5898,10 +5898,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["organization-invitation"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -5942,11 +5942,11 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["organization-invitation"];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -5967,10 +5967,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -6015,10 +6015,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issue"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -6051,14 +6051,14 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
       /**
        * Response if requester is not an organization member
        */
-      "302": never;
-      "422": unknown;
+      302: never;
+      422: unknown;
     };
   };
   /**
@@ -6075,15 +6075,15 @@ export interface operations {
       /**
        * Response if requester is an organization member and user is a member
        */
-      "204": never;
+      204: never;
       /**
        * Response if requester is not an organization member
        */
-      "302": never;
+      302: never;
       /**
        * Response if requester is an organization member and user is not a member
        */
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -6100,8 +6100,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "403": unknown;
+      204: never;
+      403: unknown;
     };
   };
   /**
@@ -6118,11 +6118,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["org-membership"];
       };
-      "403": unknown;
-      "404": unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -6157,11 +6157,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["org-membership"];
       };
-      "403": unknown;
-      "422": unknown;
+      403: unknown;
+      422: unknown;
     };
   };
   /**
@@ -6180,9 +6180,9 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "403": unknown;
-      "404": unknown;
+      204: never;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -6202,7 +6202,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["migration"][];
       };
     };
@@ -6237,11 +6237,11 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["migration"];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -6268,10 +6268,10 @@ export interface operations {
        * *   `exported`, which means the migration finished successfully.
        * *   `failed`, which means the migration failed.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["migration"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -6288,8 +6288,8 @@ export interface operations {
       /**
        * response
        */
-      "302": never;
-      "404": unknown;
+      302: never;
+      404: unknown;
     };
   };
   /**
@@ -6306,8 +6306,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "404": unknown;
+      204: never;
+      404: unknown;
     };
   };
   /**
@@ -6325,8 +6325,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "404": unknown;
+      204: never;
+      404: unknown;
     };
   };
   /**
@@ -6347,10 +6347,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["minimal-repository"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -6376,7 +6376,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
     };
@@ -6395,18 +6395,18 @@ export interface operations {
       /**
        * User is getting converted asynchronously
        */
-      "202": unknown;
+      202: unknown;
       /**
        * User was converted
        */
-      "204": never;
+      204: never;
       /**
        * response
        */
-      "403": {
+      403: {
         "application/json": { message?: string; documentation_url?: string };
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -6423,11 +6423,11 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
       /**
        * Response if user is a member of the organization
        */
-      "422": {
+      422: {
         "application/json": { message?: string; documentation_url?: string };
       };
     };
@@ -6453,10 +6453,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["project"][];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -6484,14 +6484,14 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["project"];
       };
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "410": unknown;
-      "422": unknown;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      410: unknown;
+      422: unknown;
     };
   };
   /**
@@ -6511,7 +6511,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
     };
@@ -6527,11 +6527,11 @@ export interface operations {
       /**
        * Response if user is a public member
        */
-      "204": never;
+      204: never;
       /**
        * Response if user is not a public member
        */
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -6550,8 +6550,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "403": unknown;
+      204: never;
+      403: unknown;
     };
   };
   "orgs/remove-public-membership-for-authenticated-user": {
@@ -6565,7 +6565,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -6604,7 +6604,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["minimal-repository"][];
       };
     };
@@ -6702,11 +6702,11 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["repository"];
       };
-      "403": unknown;
-      "422": unknown;
+      403: unknown;
+      422: unknown;
     };
   };
   /**
@@ -6726,7 +6726,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["actions-billing-usage"];
       };
     };
@@ -6748,7 +6748,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["packages-billing-usage"];
       };
     };
@@ -6770,7 +6770,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["combined-billing-usage"];
       };
     };
@@ -6796,7 +6796,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["group-mapping"];
       };
     };
@@ -6818,10 +6818,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team"][];
       };
-      "403": unknown;
+      403: unknown;
     };
   };
   /**
@@ -6881,11 +6881,11 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["team-full"];
       };
-      "403": unknown;
-      "422": unknown;
+      403: unknown;
+      422: unknown;
     };
   };
   /**
@@ -6904,10 +6904,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-full"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -6958,7 +6958,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["team-full"];
       };
     };
@@ -6981,7 +6981,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -7005,7 +7005,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-discussion"][];
       };
     };
@@ -7044,7 +7044,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["team-discussion"];
       };
     };
@@ -7066,7 +7066,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-discussion"];
       };
     };
@@ -7100,7 +7100,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-discussion"];
       };
     };
@@ -7122,7 +7122,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -7147,7 +7147,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-discussion-comment"][];
       };
     };
@@ -7179,7 +7179,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["team-discussion-comment"];
       };
     };
@@ -7202,7 +7202,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-discussion-comment"];
       };
     };
@@ -7233,7 +7233,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-discussion-comment"];
       };
     };
@@ -7256,7 +7256,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -7293,7 +7293,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["reaction"][];
       };
     };
@@ -7332,7 +7332,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["reaction"];
       };
     };
@@ -7356,7 +7356,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -7392,7 +7392,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["reaction"][];
       };
     };
@@ -7430,7 +7430,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["reaction"];
       };
     };
@@ -7453,7 +7453,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -7476,7 +7476,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["organization-invitation"][];
       };
     };
@@ -7508,7 +7508,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
     };
@@ -7534,13 +7534,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-membership"];
       };
       /**
        * Response if user has no team membership
        */
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -7578,17 +7578,17 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-membership"];
       };
       /**
        * Response if team synchronization is set up
        */
-      "403": unknown;
+      403: unknown;
       /**
        * Response if you attempt to add an organization to a team
        */
-      "422": {
+      422: {
         "application/json": {
           message?: string;
           errors?: { code?: string; field?: string; resource?: string }[];
@@ -7617,11 +7617,11 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
       /**
        * Response if team synchronization is set up
        */
-      "403": unknown;
+      403: unknown;
     };
   };
   /**
@@ -7644,7 +7644,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-project"][];
       };
     };
@@ -7666,13 +7666,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-project"];
       };
       /**
        * Response if project is not managed by this team
        */
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -7704,11 +7704,11 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
       /**
        * Response if the project is not owned by the organization
        */
-      "403": {
+      403: {
         "application/json": { message?: string; documentation_url?: string };
       };
     };
@@ -7730,7 +7730,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -7753,7 +7753,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["minimal-repository"][];
       };
     };
@@ -7780,17 +7780,17 @@ export interface operations {
       /**
        * Alternative response with repository permissions
        */
-      "200": {
+      200: {
         "application/vnd.github.v3.repository+json": components["schemas"]["team-repository"];
       };
       /**
        * Response if team has permission for the repository
        */
-      "204": never;
+      204: never;
       /**
        * Response if team does not have permission for the repository
        */
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -7828,7 +7828,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -7849,7 +7849,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -7870,7 +7870,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["group-mapping"];
       };
     };
@@ -7914,7 +7914,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["group-mapping"];
       };
     };
@@ -7939,7 +7939,7 @@ export interface operations {
       /**
        * Response if child teams exist
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team"][];
       };
     };
@@ -7954,13 +7954,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["project-card"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   "projects/update-card": {
@@ -7985,14 +7985,14 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["project-card"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   "projects/delete-card": {
@@ -8005,20 +8005,20 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
+      204: never;
+      304: never;
+      401: unknown;
       /**
        * Forbidden
        */
-      "403": {
+      403: {
         "application/json": {
           message?: string;
           documentation_url?: string;
           errors?: string[];
         };
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   "projects/move-card": {
@@ -8043,15 +8043,15 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": { [key: string]: any };
       };
-      "304": never;
-      "401": unknown;
+      304: never;
+      401: unknown;
       /**
        * Forbidden
        */
-      "403": {
+      403: {
         "application/json": {
           message?: string;
           documentation_url?: string;
@@ -8063,11 +8063,11 @@ export interface operations {
           }[];
         };
       };
-      "422": unknown;
+      422: unknown;
       /**
        * Service Unavailable
        */
-      "503": {
+      503: {
         "application/json": {
           code?: string;
           message?: string;
@@ -8087,13 +8087,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["project-column"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   "projects/update-column": {
@@ -8114,12 +8114,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["project-column"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   "projects/delete-column": {
@@ -8132,10 +8132,10 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   "projects/list-cards": {
@@ -8156,12 +8156,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["project-card"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   /**
@@ -8198,16 +8198,16 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["project-card"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
       /**
        * Validation Failed
        */
-      "422": {
+      422: {
         "application/json":
           | components["schemas"]["validation-error"]
           | components["schemas"]["validation-error-simple"];
@@ -8215,7 +8215,7 @@ export interface operations {
       /**
        * Service Unavailable
        */
-      "503": {
+      503: {
         "application/json": {
           code?: string;
           message?: string;
@@ -8243,13 +8243,13 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": { [key: string]: any };
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "422": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      422: unknown;
     };
   };
   /**
@@ -8265,12 +8265,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["project"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   /**
@@ -8310,15 +8310,15 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["project"];
       };
-      "304": never;
-      "401": unknown;
+      304: never;
+      401: unknown;
       /**
        * Forbidden
        */
-      "403": {
+      403: {
         "application/json": {
           message?: string;
           documentation_url?: string;
@@ -8328,9 +8328,9 @@ export interface operations {
       /**
        * Response if the authenticated user does not have access to the project
        */
-      "404": unknown;
-      "410": unknown;
-      "422": unknown;
+      404: unknown;
+      410: unknown;
+      422: unknown;
     };
   };
   /**
@@ -8346,21 +8346,21 @@ export interface operations {
       /**
        * Delete Success
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
+      204: never;
+      304: never;
+      401: unknown;
       /**
        * Forbidden
        */
-      "403": {
+      403: {
         "application/json": {
           message?: string;
           documentation_url?: string;
           errors?: string[];
         };
       };
-      "404": unknown;
-      "410": unknown;
+      404: unknown;
+      410: unknown;
     };
   };
   /**
@@ -8387,15 +8387,15 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "415": unknown;
-      "422": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   /**
@@ -8420,13 +8420,13 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "415": unknown;
-      "422": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   /**
@@ -8443,13 +8443,13 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "415": unknown;
-      "422": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   /**
@@ -8466,15 +8466,15 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["repository-collaborator-permission"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "415": unknown;
-      "422": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   "projects/list-columns": {
@@ -8491,12 +8491,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["project-column"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   "projects/create-column": {
@@ -8517,13 +8517,13 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["project-column"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "422": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      422: unknown;
     };
   };
   /**
@@ -8537,11 +8537,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["rate-limit-overview"];
       };
-      "304": never;
-      "404": unknown;
+      304: never;
+      404: unknown;
     };
   };
   /**
@@ -8559,12 +8559,12 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "410": unknown;
-      "415": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
+      410: unknown;
+      415: unknown;
     };
   };
   /**
@@ -8583,12 +8583,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["full-repository"];
       };
-      "301": never;
-      "403": unknown;
-      "404": unknown;
+      301: never;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -8670,12 +8670,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["full-repository"];
       };
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -8695,14 +8695,14 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
       /**
        * If an organization owner has configured the organization to prevent members from deleting organization-owned repositories, a member will get this response:
        */
-      "403": {
+      403: {
         "application/json": { message?: string; documentation_url?: string };
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -8723,7 +8723,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           artifacts?: components["schemas"]["artifact"][];
@@ -8746,7 +8746,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["artifact"];
       };
     };
@@ -8766,7 +8766,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -8788,7 +8788,7 @@ export interface operations {
       /**
        * response
        */
-      "302": never;
+      302: never;
     };
   };
   /**
@@ -8806,7 +8806,7 @@ export interface operations {
       /**
        * response
        */
-      "202": {
+      202: {
         "application/json": components["schemas"]["job"];
       };
     };
@@ -8829,7 +8829,7 @@ export interface operations {
       /**
        * response
        */
-      "302": never;
+      302: never;
     };
   };
   /**
@@ -8849,7 +8849,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["actions-repository-permissions"];
       };
     };
@@ -8878,7 +8878,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -8897,7 +8897,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["selected-actions"];
       };
     };
@@ -8925,7 +8925,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -8946,7 +8946,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           runners?: components["schemas"]["runner"][];
@@ -8970,7 +8970,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["runner-application"][];
       };
     };
@@ -8998,7 +8998,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["authentication-token"];
       };
     };
@@ -9026,7 +9026,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["authentication-token"];
       };
     };
@@ -9049,7 +9049,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["runner"];
       };
     };
@@ -9072,7 +9072,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -9099,7 +9099,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           workflow_runs?: components["schemas"]["workflow-run"][];
@@ -9122,7 +9122,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["workflow-run"];
       };
     };
@@ -9144,7 +9144,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -9166,7 +9166,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           artifacts?: components["schemas"]["artifact"][];
@@ -9189,7 +9189,7 @@ export interface operations {
       /**
        * response
        */
-      "202": unknown;
+      202: unknown;
     };
   };
   /**
@@ -9217,7 +9217,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           jobs?: components["schemas"]["job"][];
@@ -9243,7 +9243,7 @@ export interface operations {
       /**
        * response
        */
-      "302": never;
+      302: never;
     };
   };
   /**
@@ -9261,7 +9261,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -9279,7 +9279,7 @@ export interface operations {
       /**
        * response
        */
-      "201": unknown;
+      201: unknown;
     };
   };
   /**
@@ -9301,7 +9301,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["workflow-run-usage"];
       };
     };
@@ -9324,7 +9324,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           secrets?: components["schemas"]["actions-secret"][];
@@ -9346,7 +9346,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["actions-public-key"];
       };
     };
@@ -9366,7 +9366,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["actions-secret"];
       };
     };
@@ -9472,11 +9472,11 @@ export interface operations {
       /**
        * Response when creating a secret
        */
-      "201": unknown;
+      201: unknown;
       /**
        * Response when updating a secret
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -9494,7 +9494,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -9515,7 +9515,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           workflows?: components["schemas"]["workflow"][];
@@ -9538,7 +9538,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["workflow"];
       };
     };
@@ -9560,7 +9560,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -9594,7 +9594,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -9614,7 +9614,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -9642,7 +9642,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           workflow_runs?: components["schemas"]["workflow-run"][];
@@ -9669,7 +9669,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["workflow-usage"];
       };
     };
@@ -9692,10 +9692,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -9717,11 +9717,11 @@ export interface operations {
       /**
        * If the `assignee` can be assigned to issues in the repository, a `204` header with no content is returned.
        */
-      "204": never;
+      204: never;
       /**
        * Otherwise a `404` status code is returned.
        */
-      "404": {
+      404: {
         "application/json": components["schemas"]["basic-error"];
       };
     };
@@ -9740,7 +9740,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -9757,7 +9757,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   "repos/list-branches": {
@@ -9779,10 +9779,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["short-branch"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   "repos/get-branch": {
@@ -9797,11 +9797,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["branch-with-protection"];
       };
-      "404": unknown;
-      "415": unknown;
+      404: unknown;
+      415: unknown;
     };
   };
   /**
@@ -9819,10 +9819,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["branch-protection"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -9926,13 +9926,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["protected-branch"];
       };
-      "403": unknown;
-      "404": unknown;
-      "415": unknown;
-      "422": unknown;
+      403: unknown;
+      404: unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   /**
@@ -9950,8 +9950,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "403": unknown;
+      204: never;
+      403: unknown;
     };
   };
   /**
@@ -9969,7 +9969,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["protected-branch-admin-enforced"];
       };
     };
@@ -9991,7 +9991,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["protected-branch-admin-enforced"];
       };
     };
@@ -10013,8 +10013,8 @@ export interface operations {
       /**
        * No Content
        */
-      "204": never;
-      "404": unknown;
+      204: never;
+      404: unknown;
     };
   };
   /**
@@ -10032,7 +10032,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/vnd.github.luke-cage-preview+json": components["schemas"]["protected-branch-pull-request-review"];
       };
     };
@@ -10085,10 +10085,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["protected-branch-pull-request-review"];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -10106,8 +10106,8 @@ export interface operations {
       /**
        * No Content
        */
-      "204": never;
-      "404": unknown;
+      204: never;
+      404: unknown;
     };
   };
   /**
@@ -10129,10 +10129,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["protected-branch-admin-enforced"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -10152,10 +10152,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["protected-branch-admin-enforced"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -10175,8 +10175,8 @@ export interface operations {
       /**
        * No Content
        */
-      "204": never;
-      "404": unknown;
+      204: never;
+      404: unknown;
     };
   };
   /**
@@ -10194,10 +10194,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["status-check-policy"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -10229,11 +10229,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["status-check-policy"];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -10251,7 +10251,7 @@ export interface operations {
       /**
        * No Content
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -10269,10 +10269,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": string[];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -10293,12 +10293,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": string[];
       };
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -10319,11 +10319,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": string[];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -10344,11 +10344,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": string[];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -10370,10 +10370,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["branch-restriction-policy"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -10393,7 +10393,7 @@ export interface operations {
       /**
        * No Content
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -10413,10 +10413,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["integration"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -10443,10 +10443,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["integration"][];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -10473,10 +10473,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["integration"][];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -10503,10 +10503,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["integration"][];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -10526,10 +10526,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -10556,10 +10556,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team"][];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -10586,10 +10586,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team"][];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -10616,10 +10616,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team"][];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -10639,10 +10639,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -10669,10 +10669,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -10699,10 +10699,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -10729,10 +10729,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -10889,7 +10889,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["check-run"];
       };
     };
@@ -10911,7 +10911,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["check-run"];
       };
     };
@@ -11065,7 +11065,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["check-run"];
       };
     };
@@ -11089,7 +11089,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["check-annotation"][];
       };
     };
@@ -11118,7 +11118,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["check-suite"];
       };
     };
@@ -11154,7 +11154,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["check-suite-preference"];
       };
     };
@@ -11176,7 +11176,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["check-suite"];
       };
     };
@@ -11208,7 +11208,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           check_runs?: components["schemas"]["check-run"][];
@@ -11233,7 +11233,7 @@ export interface operations {
       /**
        * response
        */
-      "201": unknown;
+      201: unknown;
     };
   };
   /**
@@ -11260,14 +11260,14 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["code-scanning-alert-code-scanning-alert-items"][];
       };
       /**
        * Response if the ref does not match an existing ref
        */
-      "404": unknown;
-      "503": unknown;
+      404: unknown;
+      503: unknown;
     };
   };
   /**
@@ -11287,11 +11287,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["code-scanning-alert-code-scanning-alert"];
       };
-      "404": unknown;
-      "503": unknown;
+      404: unknown;
+      503: unknown;
     };
   };
   /**
@@ -11316,17 +11316,17 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["code-scanning-alert-code-scanning-alert"];
       };
       /**
        * Response if the repository is archived
        */
-      "403": unknown;
+      403: unknown;
       /**
        * Response when code scanning is not available and you should try again at a later time
        */
-      "503": unknown;
+      503: unknown;
     };
   };
   /**
@@ -11353,7 +11353,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["code-scanning-analysis-code-scanning-analysis"][];
       };
     };
@@ -11390,15 +11390,15 @@ export interface operations {
       /**
        * response
        */
-      "202": unknown;
+      202: unknown;
       /**
        * Response if the repository is archived
        */
-      "403": unknown;
+      403: unknown;
       /**
        * Response if `commit_sha` or `ref` cannot be found
        */
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -11428,10 +11428,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["collaborator"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -11451,11 +11451,11 @@ export interface operations {
       /**
        * Response if user is a collaborator
        */
-      "204": never;
+      204: never;
       /**
        * Response if user is not a collaborator
        */
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -11497,15 +11497,15 @@ export interface operations {
       /**
        * Response when a new invitation is created
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["repository-invitation"];
       };
       /**
        * Response when person is already a collaborator
        */
-      "204": never;
-      "403": unknown;
-      "422": unknown;
+      204: never;
+      403: unknown;
+      422: unknown;
     };
   };
   "repos/remove-collaborator": {
@@ -11520,7 +11520,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -11538,10 +11538,10 @@ export interface operations {
       /**
        * Response if user has admin permissions
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["repository-collaborator-permission"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -11564,7 +11564,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["commit-comment"][];
       };
     };
@@ -11581,10 +11581,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["commit-comment"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   "repos/update-commit-comment": {
@@ -11607,10 +11607,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["commit-comment"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   "repos/delete-commit-comment": {
@@ -11625,8 +11625,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "404": unknown;
+      204: never;
+      404: unknown;
     };
   };
   /**
@@ -11660,11 +11660,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["reaction"][];
       };
-      "404": unknown;
-      "415": unknown;
+      404: unknown;
+      415: unknown;
     };
   };
   /**
@@ -11698,17 +11698,17 @@ export interface operations {
       /**
        * Reaction exists
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["reaction"];
       };
       /**
        * Reaction created
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["reaction"];
       };
-      "415": unknown;
-      "422": unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   /**
@@ -11729,7 +11729,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -11794,13 +11794,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-commit"][];
       };
-      "400": unknown;
-      "404": unknown;
-      "409": unknown;
-      "500": unknown;
+      400: unknown;
+      404: unknown;
+      409: unknown;
+      500: unknown;
     };
   };
   /**
@@ -11820,11 +11820,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["branch-short"][];
       };
-      "415": unknown;
-      "422": unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   /**
@@ -11846,7 +11846,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["commit-comment"][];
       };
     };
@@ -11888,11 +11888,11 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["commit-comment"];
       };
-      "403": unknown;
-      "422": unknown;
+      403: unknown;
+      422: unknown;
     };
   };
   /**
@@ -11914,10 +11914,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["pull-request-simple"][];
       };
-      "415": unknown;
+      415: unknown;
     };
   };
   /**
@@ -11973,12 +11973,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["commit"];
       };
-      "404": unknown;
-      "422": unknown;
-      "500": unknown;
+      404: unknown;
+      422: unknown;
+      500: unknown;
     };
   };
   /**
@@ -12011,7 +12011,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           check_runs?: components["schemas"]["check-run"][];
@@ -12048,7 +12048,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           check_suites?: components["schemas"]["check-suite"][];
@@ -12082,10 +12082,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["combined-commit-status"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -12112,10 +12112,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["status"][];
       };
-      "301": never;
+      301: never;
     };
   };
   /**
@@ -12132,7 +12132,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["code-of-conduct"];
       };
     };
@@ -12151,7 +12151,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["community-profile"];
       };
     };
@@ -12212,11 +12212,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["commit-comparison"];
       };
-      "404": unknown;
-      "500": unknown;
+      404: unknown;
+      500: unknown;
     };
   };
   /**
@@ -12274,7 +12274,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/vnd.github.v3.object": components["schemas"]["content-tree"];
         "application/json":
           | components["schemas"]["content-directory"]
@@ -12282,9 +12282,9 @@ export interface operations {
           | components["schemas"]["content-symlink"]
           | components["schemas"]["content-submodule"];
       };
-      "302": never;
-      "403": unknown;
-      "404": unknown;
+      302: never;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -12353,18 +12353,18 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["file-commit"];
       };
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["file-commit"];
       };
-      "404": unknown;
-      "409": unknown;
-      "422": unknown;
+      404: unknown;
+      409: unknown;
+      422: unknown;
     };
   };
   /**
@@ -12433,13 +12433,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["file-commit"];
       };
-      "404": unknown;
-      "409": unknown;
-      "422": unknown;
-      "503": unknown;
+      404: unknown;
+      409: unknown;
+      422: unknown;
+      503: unknown;
     };
   };
   /**
@@ -12466,15 +12466,15 @@ export interface operations {
       /**
        * Response if repository contains content
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["contributor"][];
       };
       /**
        * Response if repository is empty
        */
-      "204": never;
-      "403": unknown;
-      "404": unknown;
+      204: never;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -12511,7 +12511,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deployment"][];
       };
     };
@@ -12617,22 +12617,22 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["deployment"];
       };
       /**
        * Merged branch response
        */
-      "202": {
+      202: {
         "application/json": { message?: string };
       };
       /**
        * response
        */
-      "409": {
+      409: {
         "application/json": { message?: string; documentation_url?: string };
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   "repos/get-deployment": {
@@ -12647,10 +12647,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deployment"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -12675,9 +12675,9 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "404": unknown;
-      "422": unknown;
+      204: never;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -12699,10 +12699,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deployment-status"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -12765,10 +12765,10 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["deployment-status"];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -12787,11 +12787,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deployment-status"];
       };
-      "404": unknown;
-      "415": unknown;
+      404: unknown;
+      415: unknown;
     };
   };
   /**
@@ -12826,8 +12826,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "422": unknown;
+      204: never;
+      422: unknown;
     };
   };
   "activity/list-repo-events": {
@@ -12845,7 +12845,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["event"][];
       };
     };
@@ -12869,10 +12869,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["minimal-repository"][];
       };
-      "400": unknown;
+      400: unknown;
     };
   };
   /**
@@ -12899,13 +12899,13 @@ export interface operations {
       /**
        * response
        */
-      "202": {
+      202: {
         "application/json": components["schemas"]["repository"];
       };
-      "400": unknown;
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      400: unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   "git/create-blob": {
@@ -12931,13 +12931,13 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["short-blob"];
       };
-      "403": unknown;
-      "404": unknown;
-      "409": unknown;
-      "422": unknown;
+      403: unknown;
+      404: unknown;
+      409: unknown;
+      422: unknown;
     };
   };
   /**
@@ -12957,12 +12957,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["blob"];
       };
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -13062,11 +13062,11 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["git-commit"];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -13113,10 +13113,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["git-commit"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -13147,7 +13147,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["git-ref"][];
       };
     };
@@ -13172,10 +13172,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["git-ref"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -13205,10 +13205,10 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["git-ref"];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   "git/update-ref": {
@@ -13238,10 +13238,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["git-ref"];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   "git/delete-ref": {
@@ -13259,8 +13259,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "422": unknown;
+      204: never;
+      422: unknown;
     };
   };
   /**
@@ -13343,10 +13343,10 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["git-tag"];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -13391,10 +13391,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["git-tag"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -13450,12 +13450,12 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["git-tree"];
       };
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -13481,11 +13481,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["git-tree"];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   "repos/list-webhooks": {
@@ -13503,10 +13503,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["hook"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -13551,12 +13551,12 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["hook"];
       };
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -13574,10 +13574,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["hook"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -13626,11 +13626,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["hook"];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   "repos/delete-webhook": {
@@ -13645,8 +13645,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "404": unknown;
+      204: never;
+      404: unknown;
     };
   };
   /**
@@ -13666,7 +13666,7 @@ export interface operations {
       /**
        * Default response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["webhook-config"];
       };
     };
@@ -13696,7 +13696,7 @@ export interface operations {
       /**
        * Default response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["webhook-config"];
       };
     };
@@ -13716,8 +13716,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "404": unknown;
+      204: never;
+      404: unknown;
     };
   };
   /**
@@ -13737,8 +13737,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "404": unknown;
+      204: never;
+      404: unknown;
     };
   };
   /**
@@ -13788,10 +13788,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["import"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -13832,11 +13832,11 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["import"];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -13868,7 +13868,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["import"];
       };
     };
@@ -13887,7 +13887,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -13909,10 +13909,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["porter-author"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -13943,11 +13943,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["porter-author"];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -13964,7 +13964,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["porter-large-file"][];
       };
     };
@@ -13991,10 +13991,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["import"];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -14013,11 +14013,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["installation"];
       };
-      "301": never;
-      "404": unknown;
+      301: never;
+      404: unknown;
     };
   };
   /**
@@ -14034,7 +14034,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["interaction-limit"];
       };
     };
@@ -14061,7 +14061,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["interaction-limit"];
       };
     };
@@ -14080,7 +14080,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -14101,7 +14101,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["repository-invitation"][];
       };
     };
@@ -14126,7 +14126,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["repository-invitation"];
       };
     };
@@ -14143,7 +14143,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -14196,12 +14196,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issue-simple"][];
       };
-      "301": never;
-      "404": unknown;
-      "422": unknown;
+      301: never;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -14251,14 +14251,14 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["issue"];
       };
-      "403": unknown;
-      "404": unknown;
-      "410": unknown;
-      "422": unknown;
-      "503": unknown;
+      403: unknown;
+      404: unknown;
+      410: unknown;
+      422: unknown;
+      503: unknown;
     };
   };
   /**
@@ -14285,11 +14285,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issue-comment"][];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   "issues/get-comment": {
@@ -14304,10 +14304,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issue-comment"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   "issues/update-comment": {
@@ -14330,10 +14330,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issue-comment"];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   "issues/delete-comment": {
@@ -14348,7 +14348,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -14382,11 +14382,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["reaction"][];
       };
-      "404": unknown;
-      "415": unknown;
+      404: unknown;
+      415: unknown;
     };
   };
   /**
@@ -14420,17 +14420,17 @@ export interface operations {
       /**
        * Reaction exists
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["reaction"];
       };
       /**
        * Reaction created
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["reaction"];
       };
-      "415": unknown;
-      "422": unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   /**
@@ -14451,7 +14451,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   "issues/list-events-for-repo": {
@@ -14469,10 +14469,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issue-event"][];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   "issues/get-event": {
@@ -14487,12 +14487,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issue-event"];
       };
-      "403": unknown;
-      "404": unknown;
-      "410": unknown;
+      403: unknown;
+      404: unknown;
+      410: unknown;
     };
   };
   /**
@@ -14520,13 +14520,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issue"];
       };
-      "301": never;
-      "304": never;
-      "404": unknown;
-      "410": unknown;
+      301: never;
+      304: never;
+      404: unknown;
+      410: unknown;
     };
   };
   /**
@@ -14579,15 +14579,15 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issue"];
       };
-      "301": never;
-      "403": unknown;
-      "404": unknown;
-      "410": unknown;
-      "422": unknown;
-      "503": unknown;
+      301: never;
+      403: unknown;
+      404: unknown;
+      410: unknown;
+      422: unknown;
+      503: unknown;
     };
   };
   /**
@@ -14613,7 +14613,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["issue-simple"];
       };
     };
@@ -14641,7 +14641,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issue-simple"];
       };
     };
@@ -14666,11 +14666,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issue-comment"][];
       };
-      "404": unknown;
-      "410": unknown;
+      404: unknown;
+      410: unknown;
     };
   };
   /**
@@ -14696,13 +14696,13 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["issue-comment"];
       };
-      "403": unknown;
-      "404": unknown;
-      "410": unknown;
-      "422": unknown;
+      403: unknown;
+      404: unknown;
+      410: unknown;
+      422: unknown;
     };
   };
   "issues/list-events": {
@@ -14721,10 +14721,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issue-event-for-issue"][];
       };
-      "410": unknown;
+      410: unknown;
     };
   };
   "issues/list-labels-on-issue": {
@@ -14743,10 +14743,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["label"][];
       };
-      "410": unknown;
+      410: unknown;
     };
   };
   "issues/add-labels": {
@@ -14769,11 +14769,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["label"][];
       };
-      "410": unknown;
-      "422": unknown;
+      410: unknown;
+      422: unknown;
     };
   };
   /**
@@ -14799,11 +14799,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["label"][];
       };
-      "410": unknown;
-      "422": unknown;
+      410: unknown;
+      422: unknown;
     };
   };
   "issues/remove-all-labels": {
@@ -14818,8 +14818,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "410": unknown;
+      204: never;
+      410: unknown;
     };
   };
   /**
@@ -14838,11 +14838,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["label"][];
       };
-      "404": unknown;
-      "410": unknown;
+      404: unknown;
+      410: unknown;
     };
   };
   /**
@@ -14874,11 +14874,11 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "403": unknown;
-      "404": unknown;
-      "410": unknown;
-      "422": unknown;
+      204: never;
+      403: unknown;
+      404: unknown;
+      410: unknown;
+      422: unknown;
     };
   };
   /**
@@ -14896,9 +14896,9 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "403": unknown;
-      "404": unknown;
+      204: never;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -14932,12 +14932,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["reaction"][];
       };
-      "404": unknown;
-      "410": unknown;
-      "415": unknown;
+      404: unknown;
+      410: unknown;
+      415: unknown;
     };
   };
   /**
@@ -14971,11 +14971,11 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["reaction"];
       };
-      "415": unknown;
-      "422": unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   /**
@@ -14996,7 +14996,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   "issues/list-events-for-timeline": {
@@ -15015,12 +15015,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issue-event-for-issue"][];
       };
-      "404": unknown;
-      "410": unknown;
-      "415": unknown;
+      404: unknown;
+      410: unknown;
+      415: unknown;
     };
   };
   "repos/list-deploy-keys": {
@@ -15038,7 +15038,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deploy-key"][];
       };
     };
@@ -15075,10 +15075,10 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["deploy-key"];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   "repos/get-deploy-key": {
@@ -15093,10 +15093,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["deploy-key"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -15114,7 +15114,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   "issues/list-labels-for-repo": {
@@ -15132,10 +15132,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["label"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   "issues/create-label": {
@@ -15165,11 +15165,11 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["label"];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   "issues/get-label": {
@@ -15184,10 +15184,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["label"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   "issues/update-label": {
@@ -15218,7 +15218,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["label"];
       };
     };
@@ -15235,7 +15235,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -15252,7 +15252,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["language"];
       };
     };
@@ -15273,7 +15273,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["license-content"];
       };
     };
@@ -15305,23 +15305,23 @@ export interface operations {
       /**
        * Successful Response (The resulting merge commit)
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["commit"];
       };
-      "403": unknown;
+      403: unknown;
       /**
        * response
        */
-      "404": {
+      404: {
         "application/json": { message?: string; documentation_url?: string };
       };
       /**
        * Merge conflict response
        */
-      "409": {
+      409: {
         "application/json": { message?: string; documentation_url?: string };
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   "issues/list-milestones": {
@@ -15351,10 +15351,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["milestone"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   "issues/create-milestone": {
@@ -15388,11 +15388,11 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["milestone"];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   "issues/get-milestone": {
@@ -15407,10 +15407,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["milestone"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   "issues/update-milestone": {
@@ -15445,7 +15445,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["milestone"];
       };
     };
@@ -15462,8 +15462,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "404": unknown;
+      204: never;
+      404: unknown;
     };
   };
   "issues/list-labels-for-milestone": {
@@ -15482,7 +15482,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["label"][];
       };
     };
@@ -15509,7 +15509,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["thread"][];
       };
     };
@@ -15536,7 +15536,7 @@ export interface operations {
       /**
        * response
        */
-      "202": unknown;
+      202: unknown;
     };
   };
   "repos/get-pages": {
@@ -15550,10 +15550,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["page"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -15587,12 +15587,12 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["page"];
       };
-      "409": unknown;
-      "415": unknown;
-      "422": unknown;
+      409: unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   /**
@@ -15628,9 +15628,9 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "400": unknown;
-      "422": unknown;
+      204: never;
+      400: unknown;
+      422: unknown;
     };
   };
   "repos/delete-pages-site": {
@@ -15644,10 +15644,10 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "404": unknown;
-      "415": unknown;
-      "422": unknown;
+      204: never;
+      404: unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   "repos/list-pages-builds": {
@@ -15665,7 +15665,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["page-build"][];
       };
     };
@@ -15686,7 +15686,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["page-build-status"];
       };
     };
@@ -15702,7 +15702,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["page-build"];
       };
     };
@@ -15719,7 +15719,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["page-build"];
       };
     };
@@ -15746,14 +15746,14 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["project"][];
       };
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "410": unknown;
-      "422": unknown;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      410: unknown;
+      422: unknown;
     };
   };
   /**
@@ -15782,14 +15782,14 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["project"];
       };
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "410": unknown;
-      "422": unknown;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      410: unknown;
+      422: unknown;
     };
   };
   /**
@@ -15830,11 +15830,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["pull-request-simple"][];
       };
-      "304": never;
-      "422": unknown;
+      304: never;
+      422: unknown;
     };
   };
   /**
@@ -15886,11 +15886,11 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["pull-request"];
       };
-      "403": unknown;
-      "422": unknown;
+      403: unknown;
+      422: unknown;
     };
   };
   /**
@@ -15937,7 +15937,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["pull-request-review-comment"][];
       };
     };
@@ -15977,10 +15977,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["pull-request-review-comment"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -16024,7 +16024,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["pull-request-review-comment"];
       };
     };
@@ -16044,8 +16044,8 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "404": unknown;
+      204: never;
+      404: unknown;
     };
   };
   /**
@@ -16079,11 +16079,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["reaction"][];
       };
-      "404": unknown;
-      "415": unknown;
+      404: unknown;
+      415: unknown;
     };
   };
   /**
@@ -16117,17 +16117,17 @@ export interface operations {
       /**
        * Reaction exists
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["reaction"];
       };
       /**
        * Reaction created
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["reaction"];
       };
-      "415": unknown;
-      "422": unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   /**
@@ -16148,7 +16148,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -16180,12 +16180,12 @@ export interface operations {
       /**
        * Pass the appropriate [media type](https://docs.github.com/rest/overview/media-types/#commits-commit-comparison-and-pull-requests) to fetch diff and patch formats.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["pull-request"];
       };
-      "304": never;
-      "404": unknown;
-      "500": unknown;
+      304: never;
+      404: unknown;
+      500: unknown;
     };
   };
   /**
@@ -16229,11 +16229,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["pull-request"];
       };
-      "403": unknown;
-      "422": unknown;
+      403: unknown;
+      422: unknown;
     };
   };
   /**
@@ -16281,7 +16281,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["pull-request-review-comment"][];
       };
     };
@@ -16362,11 +16362,11 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["pull-request-review-comment"];
       };
-      "403": unknown;
-      "422": unknown;
+      403: unknown;
+      422: unknown;
     };
   };
   /**
@@ -16395,10 +16395,10 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["pull-request-review-comment"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -16420,7 +16420,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-commit"][];
       };
     };
@@ -16444,11 +16444,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["diff-entry"][];
       };
-      "422": unknown;
-      "500": unknown;
+      422: unknown;
+      500: unknown;
     };
   };
   "pulls/check-if-merged": {
@@ -16463,11 +16463,11 @@ export interface operations {
       /**
        * Response if pull request has been merged
        */
-      "204": never;
+      204: never;
       /**
        * Response if pull request has not been merged
        */
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -16505,24 +16505,24 @@ export interface operations {
       /**
        * Response if merge was successful
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["pull-request-merge-result"];
       };
-      "403": unknown;
-      "404": unknown;
+      403: unknown;
+      404: unknown;
       /**
        * Response if merge cannot be performed
        */
-      "405": {
+      405: {
         "application/json": { message?: string; documentation_url?: string };
       };
       /**
        * Response if sha was provided and pull request head did not match
        */
-      "409": {
+      409: {
         "application/json": { message?: string; documentation_url?: string };
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   "pulls/list-requested-reviewers": {
@@ -16541,7 +16541,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["pull-request-review-request"];
       };
     };
@@ -16573,14 +16573,14 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["pull-request-simple"];
       };
-      "403": unknown;
+      403: unknown;
       /**
        * Response if user is not a collaborator
        */
-      "422": unknown;
+      422: unknown;
     };
   };
   "pulls/remove-requested-reviewers": {
@@ -16607,8 +16607,8 @@ export interface operations {
       /**
        * response
        */
-      "200": unknown;
-      "422": unknown;
+      200: unknown;
+      422: unknown;
     };
   };
   /**
@@ -16630,7 +16630,7 @@ export interface operations {
       /**
        * The list of reviews returns in chronological order.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["pull-request-review"][];
       };
     };
@@ -16693,11 +16693,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["pull-request-review"];
       };
-      "403": unknown;
-      "422": unknown;
+      403: unknown;
+      422: unknown;
     };
   };
   "pulls/get-review": {
@@ -16713,10 +16713,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["pull-request-review"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -16743,10 +16743,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["pull-request-review"];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   "pulls/delete-pending-review": {
@@ -16762,11 +16762,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["pull-request-review"];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -16789,10 +16789,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["review-comment"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -16820,11 +16820,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["pull-request-review"];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   "pulls/submit-review": {
@@ -16852,12 +16852,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["pull-request-review"];
       };
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -16883,12 +16883,12 @@ export interface operations {
       /**
        * response
        */
-      "202": {
+      202: {
         "application/json": { message?: string; url?: string };
       };
-      "403": unknown;
-      "415": unknown;
-      "422": unknown;
+      403: unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   /**
@@ -16913,11 +16913,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["content-file"];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -16940,10 +16940,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["release"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -16990,10 +16990,10 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["release"];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -17011,12 +17011,12 @@ export interface operations {
       /**
        * To download the asset's binary content, set the `Accept` header of the request to [`application/octet-stream`](https://docs.github.com/rest/overview/media-types). The API will either redirect the client to the location, or stream it directly if possible. API clients should handle both a `200` or `302` response.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["release-asset"];
       };
-      "302": never;
-      "404": unknown;
-      "415": unknown;
+      302: never;
+      404: unknown;
+      415: unknown;
     };
   };
   /**
@@ -17047,7 +17047,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["release-asset"];
       };
     };
@@ -17064,7 +17064,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -17083,7 +17083,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["release"];
       };
     };
@@ -17106,10 +17106,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["release"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -17127,10 +17127,10 @@ export interface operations {
       /**
        * **Note:** This returns an `upload_url` key corresponding to the endpoint for uploading release assets. This key is a [hypermedia resource](https://docs.github.com/rest/overview/resources-in-the-rest-api#hypermedia).
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["release"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -17176,7 +17176,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["release"];
       };
     };
@@ -17196,7 +17196,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   "repos/list-release-assets": {
@@ -17215,7 +17215,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["release-asset"][];
       };
     };
@@ -17259,7 +17259,7 @@ export interface operations {
       /**
        * Response for successful upload
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["release-asset"];
       };
     };
@@ -17284,11 +17284,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
         "application/vnd.github.v3.star+json": components["schemas"]["stargazer"][];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -17305,7 +17305,7 @@ export interface operations {
       /**
        * Returns a weekly aggregate of the number of additions and deletions pushed to a repository.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["code-frequency-stat"][];
       };
     };
@@ -17324,7 +17324,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["commit-activity"][];
       };
     };
@@ -17351,7 +17351,7 @@ export interface operations {
        * *   `d` - Number of deletions
        * *   `c` - Number of commits
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["contributor-activity"][];
       };
     };
@@ -17372,10 +17372,10 @@ export interface operations {
       /**
        * The array order is oldest week (index 0) to most recent week.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["participation-stats"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -17398,7 +17398,7 @@ export interface operations {
       /**
        * For example, `[2, 14, 25]` indicates that there were 25 total commits, during the 2:00pm hour on Tuesdays. All times are based on the time zone of individual commits.
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["code-frequency-stat"][];
       };
     };
@@ -17442,7 +17442,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["status"];
       };
     };
@@ -17465,7 +17465,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
     };
@@ -17481,14 +17481,14 @@ export interface operations {
       /**
        * Response if you subscribe to the repository
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["repository-subscription"];
       };
-      "403": unknown;
+      403: unknown;
       /**
        * Response if you don't subscribe to the repository
        */
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -17517,7 +17517,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["repository-subscription"];
       };
     };
@@ -17536,7 +17536,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   "repos/list-tags": {
@@ -17554,7 +17554,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["tag"][];
       };
     };
@@ -17577,7 +17577,7 @@ export interface operations {
       /**
        * response
        */
-      "302": never;
+      302: never;
     };
   };
   "repos/list-teams": {
@@ -17595,7 +17595,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team"][];
       };
     };
@@ -17611,11 +17611,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["topic"];
       };
-      "404": unknown;
-      "415": unknown;
+      404: unknown;
+      415: unknown;
     };
   };
   "repos/replace-all-topics": {
@@ -17637,12 +17637,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["topic"];
       };
-      "404": unknown;
-      "415": unknown;
-      "422": unknown;
+      404: unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   /**
@@ -17662,10 +17662,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["clone-traffic"];
       };
-      "403": unknown;
+      403: unknown;
     };
   };
   /**
@@ -17682,10 +17682,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["content-traffic"][];
       };
-      "403": unknown;
+      403: unknown;
     };
   };
   /**
@@ -17702,10 +17702,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["referrer-traffic"][];
       };
-      "403": unknown;
+      403: unknown;
     };
   };
   /**
@@ -17725,10 +17725,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["view-traffic"];
       };
-      "403": unknown;
+      403: unknown;
     };
   };
   /**
@@ -17757,7 +17757,7 @@ export interface operations {
       /**
        * response
        */
-      "202": {
+      202: {
         "application/json": components["schemas"]["repository"];
       };
     };
@@ -17776,11 +17776,11 @@ export interface operations {
       /**
        * Response if repository is enabled with vulnerability alerts
        */
-      "204": never;
+      204: never;
       /**
        * Response if repository is not enabled with vulnerability alerts
        */
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -17797,7 +17797,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -17814,7 +17814,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -17835,7 +17835,7 @@ export interface operations {
       /**
        * response
        */
-      "302": never;
+      302: never;
     };
   };
   /**
@@ -17883,7 +17883,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["repository"];
       };
     };
@@ -17903,11 +17903,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["minimal-repository"][];
       };
-      "304": never;
-      "422": unknown;
+      304: never;
+      422: unknown;
     };
   };
   /**
@@ -17927,7 +17927,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["scim-group-list-enterprise"];
       };
     };
@@ -17965,7 +17965,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["scim-enterprise-group"];
       };
     };
@@ -17984,7 +17984,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["scim-enterprise-group"];
       };
     };
@@ -18023,7 +18023,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["scim-enterprise-group"];
       };
     };
@@ -18056,7 +18056,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["scim-enterprise-group"];
       };
     };
@@ -18075,7 +18075,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -18112,7 +18112,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["scim-user-list-enterprise"];
       };
     };
@@ -18177,7 +18177,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["scim-enterprise-user"];
       };
     };
@@ -18196,7 +18196,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["scim-enterprise-user"];
       };
     };
@@ -18264,7 +18264,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["scim-enterprise-user"];
       };
     };
@@ -18312,7 +18312,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["scim-enterprise-user"];
       };
     };
@@ -18331,7 +18331,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -18382,13 +18382,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/scim+json": components["schemas"]["scim-user-list"];
       };
-      "304": never;
-      "400": unknown;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      400: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -18425,15 +18425,15 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/scim+json": components["schemas"]["scim-user"];
       };
-      "304": never;
-      "400": unknown;
-      "403": unknown;
-      "404": unknown;
-      "409": unknown;
-      "500": unknown;
+      304: never;
+      400: unknown;
+      403: unknown;
+      404: unknown;
+      409: unknown;
+      500: unknown;
     };
   };
   "scim/get-provisioning-information-for-user": {
@@ -18447,12 +18447,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/scim+json": components["schemas"]["scim-user"];
       };
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -18494,12 +18494,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/scim+json": components["schemas"]["scim-user"];
       };
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -18553,17 +18553,17 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/scim+json": components["schemas"]["scim-user"];
       };
-      "304": never;
-      "400": unknown;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      400: unknown;
+      403: unknown;
+      404: unknown;
       /**
        * Too many requests
        */
-      "429": {
+      429: {
         "application/json": components["schemas"]["basic-error"];
       };
     };
@@ -18579,10 +18579,10 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      204: never;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -18625,17 +18625,17 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           incomplete_results?: boolean;
           items?: components["schemas"]["code-search-result-item"][];
         };
       };
-      "304": never;
-      "403": unknown;
-      "422": unknown;
-      "503": unknown;
+      304: never;
+      403: unknown;
+      422: unknown;
+      503: unknown;
     };
   };
   /**
@@ -18668,15 +18668,15 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           incomplete_results?: boolean;
           items?: components["schemas"]["commit-search-result-item"][];
         };
       };
-      "304": never;
-      "415": unknown;
+      304: never;
+      415: unknown;
     };
   };
   /**
@@ -18724,17 +18724,17 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           incomplete_results?: boolean;
           items?: components["schemas"]["issue-search-result-item"][];
         };
       };
-      "304": never;
-      "403": unknown;
-      "422": unknown;
-      "503": unknown;
+      304: never;
+      403: unknown;
+      422: unknown;
+      503: unknown;
     };
   };
   /**
@@ -18770,17 +18770,17 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           incomplete_results?: boolean;
           items?: components["schemas"]["label-search-result-item"][];
         };
       };
-      "304": never;
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      304: never;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -18818,16 +18818,16 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           incomplete_results?: boolean;
           items?: components["schemas"]["repo-search-result-item"][];
         };
       };
-      "304": never;
-      "422": unknown;
-      "503": unknown;
+      304: never;
+      422: unknown;
+      503: unknown;
     };
   };
   /**
@@ -18854,15 +18854,15 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           incomplete_results?: boolean;
           items?: components["schemas"]["topic-search-result-item"][];
         };
       };
-      "304": never;
-      "415": unknown;
+      304: never;
+      415: unknown;
     };
   };
   /**
@@ -18896,16 +18896,16 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           incomplete_results?: boolean;
           items?: components["schemas"]["user-search-result-item"][];
         };
       };
-      "304": never;
-      "422": unknown;
-      "503": unknown;
+      304: never;
+      422: unknown;
+      503: unknown;
     };
   };
   /**
@@ -18921,10 +18921,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-full"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -18976,12 +18976,12 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["team-full"];
       };
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -19001,9 +19001,9 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "404": unknown;
-      "422": unknown;
+      204: never;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -19026,7 +19026,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-discussion"][];
       };
     };
@@ -19064,7 +19064,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["team-discussion"];
       };
     };
@@ -19085,7 +19085,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-discussion"];
       };
     };
@@ -19118,7 +19118,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-discussion"];
       };
     };
@@ -19139,7 +19139,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -19163,7 +19163,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-discussion-comment"][];
       };
     };
@@ -19194,7 +19194,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["team-discussion-comment"];
       };
     };
@@ -19216,7 +19216,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-discussion-comment"];
       };
     };
@@ -19246,7 +19246,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-discussion-comment"];
       };
     };
@@ -19268,7 +19268,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -19304,7 +19304,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["reaction"][];
       };
     };
@@ -19342,7 +19342,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["reaction"];
       };
     };
@@ -19379,7 +19379,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["reaction"][];
       };
     };
@@ -19416,7 +19416,7 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["reaction"];
       };
     };
@@ -19440,7 +19440,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["organization-invitation"][];
       };
     };
@@ -19471,10 +19471,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -19495,11 +19495,11 @@ export interface operations {
       /**
        * Response if user is a member
        */
-      "204": never;
+      204: never;
       /**
        * Response if user is not a member
        */
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -19526,16 +19526,16 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "403": unknown;
+      204: never;
+      403: unknown;
       /**
        * Response if team synchronization is set up
        */
-      "404": unknown;
+      404: unknown;
       /**
        * response
        */
-      "422": {
+      422: {
         "application/json": {
           message?: string;
           errors?: { code?: string; field?: string; resource?: string }[];
@@ -19566,11 +19566,11 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
       /**
        * Response if team synchronization is setup
        */
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -19593,10 +19593,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-membership"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -19633,18 +19633,18 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-membership"];
       };
       /**
        * Response if team synchronization is set up
        */
-      "403": unknown;
-      "404": unknown;
+      403: unknown;
+      404: unknown;
       /**
        * Response if you attempt to add an organization to a team
        */
-      "422": {
+      422: {
         "application/json": {
           message?: string;
           errors?: { code?: string; field?: string; resource?: string }[];
@@ -19673,11 +19673,11 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
       /**
        * Response if team synchronization is set up
        */
-      "403": unknown;
+      403: unknown;
     };
   };
   /**
@@ -19699,11 +19699,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-project"][];
       };
-      "404": unknown;
-      "415": unknown;
+      404: unknown;
+      415: unknown;
     };
   };
   /**
@@ -19722,14 +19722,14 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-project"];
       };
       /**
        * Response if project is not managed by this team
        */
-      "404": unknown;
-      "415": unknown;
+      404: unknown;
+      415: unknown;
     };
   };
   /**
@@ -19760,16 +19760,16 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
       /**
        * Response if the project is not owned by the organization
        */
-      "403": {
+      403: {
         "application/json": { message?: string; documentation_url?: string };
       };
-      "404": unknown;
-      "415": unknown;
-      "422": unknown;
+      404: unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   /**
@@ -19788,10 +19788,10 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "404": unknown;
-      "415": unknown;
-      "422": unknown;
+      204: never;
+      404: unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   /**
@@ -19811,10 +19811,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["minimal-repository"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -19836,17 +19836,17 @@ export interface operations {
       /**
        * Alternative response with extra repository information
        */
-      "200": {
+      200: {
         "application/vnd.github.v3.repository+json": components["schemas"]["team-repository"];
       };
       /**
        * Response if repository is managed by this team
        */
-      "204": never;
+      204: never;
       /**
        * Response if repository is not managed by this team
        */
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -19881,9 +19881,9 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "403": unknown;
-      "422": unknown;
+      204: never;
+      403: unknown;
+      422: unknown;
     };
   };
   /**
@@ -19903,7 +19903,7 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
+      204: never;
     };
   };
   /**
@@ -19923,11 +19923,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["group-mapping"];
       };
-      "403": unknown;
-      "404": unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -19972,11 +19972,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["group-mapping"];
       };
-      "403": unknown;
-      "422": unknown;
+      403: unknown;
+      422: unknown;
     };
   };
   /**
@@ -19996,12 +19996,12 @@ export interface operations {
       /**
        * Response if child teams exist
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team"][];
       };
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -20015,14 +20015,14 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json":
           | components["schemas"]["private-user"]
           | components["schemas"]["public-user"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   /**
@@ -20070,14 +20070,14 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["private-user"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -20089,14 +20089,14 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "415": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      415: unknown;
     };
   };
   /**
@@ -20114,14 +20114,14 @@ export interface operations {
       /**
        * If the user is blocked:
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
       /**
        * If the user is not blocked:
        */
-      "404": {
+      404: {
         "application/json": components["schemas"]["basic-error"];
       };
     };
@@ -20136,12 +20136,12 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   "users/unblock": {
@@ -20154,11 +20154,11 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -20182,14 +20182,14 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["email"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -20206,13 +20206,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["email"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -20235,14 +20235,14 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["email"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -20265,12 +20265,12 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -20287,12 +20287,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   /**
@@ -20309,12 +20309,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   "users/check-person-is-followed-by-authenticated": {
@@ -20327,14 +20327,14 @@ export interface operations {
       /**
        * Response if the person is followed by the authenticated user
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
       /**
        * Response if the person is not followed by the authenticated user
        */
-      "404": {
+      404: {
         "application/json": components["schemas"]["basic-error"];
       };
     };
@@ -20354,11 +20354,11 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -20374,11 +20374,11 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -20395,13 +20395,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["gpg-key"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -20421,14 +20421,14 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["gpg-key"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -20444,13 +20444,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["gpg-key"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -20466,12 +20466,12 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -20494,16 +20494,16 @@ export interface operations {
       /**
        * You can find the permissions for the installation under the `permissions` key.
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           installations?: components["schemas"]["installation"][];
         };
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "415": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      415: unknown;
     };
   };
   /**
@@ -20529,16 +20529,16 @@ export interface operations {
       /**
        * The access the user has to each repository is included in the hash under the `permissions` key.
        */
-      "200": {
+      200: {
         "application/json": {
           total_count?: number;
           repository_selection?: string;
           repositories?: components["schemas"]["repository"][];
         };
       };
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -20557,10 +20557,10 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      204: never;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -20579,10 +20579,10 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      204: never;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -20624,11 +20624,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["issue"][];
       };
-      "304": never;
-      "404": unknown;
+      304: never;
+      404: unknown;
     };
   };
   /**
@@ -20645,13 +20645,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["key"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -20675,14 +20675,14 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["key"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -20698,13 +20698,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["key"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -20720,11 +20720,11 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -20741,12 +20741,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["user-marketplace-purchase"][];
       };
-      "304": never;
-      "401": unknown;
-      "404": unknown;
+      304: never;
+      401: unknown;
+      404: unknown;
     };
   };
   /**
@@ -20763,11 +20763,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["user-marketplace-purchase"][];
       };
-      "304": never;
-      "401": unknown;
+      304: never;
+      401: unknown;
     };
   };
   "orgs/list-memberships-for-authenticated-user": {
@@ -20785,13 +20785,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["org-membership"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "422": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      422: unknown;
     };
   };
   "orgs/get-membership-for-authenticated-user": {
@@ -20804,11 +20804,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["org-membership"];
       };
-      "403": unknown;
-      "404": unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   "orgs/update-membership-for-authenticated-user": {
@@ -20829,12 +20829,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["org-membership"];
       };
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -20851,12 +20851,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["migration"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   /**
@@ -20885,13 +20885,13 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["migration"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "422": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      422: unknown;
     };
   };
   /**
@@ -20917,13 +20917,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["migration"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -20959,10 +20959,10 @@ export interface operations {
       /**
        * response
        */
-      "302": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      302: never;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   /**
@@ -20978,11 +20978,11 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -20999,11 +20999,11 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -21023,10 +21023,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["minimal-repository"][];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -21047,12 +21047,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["organization-simple"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   "projects/create-for-authenticated-user": {
@@ -21073,14 +21073,14 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["project"];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "415": unknown;
-      "422": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   /**
@@ -21097,13 +21097,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["email"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -21149,17 +21149,17 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["repository"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
       /**
        * Response definition missing
        */
-      "418": unknown;
-      "422": unknown;
+      418: unknown;
+      422: unknown;
     };
   };
   /**
@@ -21250,15 +21250,15 @@ export interface operations {
       /**
        * response
        */
-      "201": {
+      201: {
         "application/json": components["schemas"]["repository"];
       };
-      "304": never;
-      "400": unknown;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
-      "422": unknown;
+      304: never;
+      400: unknown;
+      401: unknown;
+      403: unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -21275,13 +21275,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["repository-invitation"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   "repos/accept-invitation": {
@@ -21294,11 +21294,11 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "403": unknown;
-      "404": unknown;
-      "409": unknown;
+      204: never;
+      304: never;
+      403: unknown;
+      404: unknown;
+      409: unknown;
     };
   };
   "repos/decline-invitation": {
@@ -21311,11 +21311,11 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "403": unknown;
-      "404": unknown;
-      "409": unknown;
+      204: never;
+      304: never;
+      403: unknown;
+      404: unknown;
+      409: unknown;
     };
   };
   /**
@@ -21336,13 +21336,13 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["repository"][];
         "application/vnd.github.v3.star+json": components["schemas"]["starred-repository"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   "activity/check-repo-is-starred-by-authenticated-user": {
@@ -21356,14 +21356,14 @@ export interface operations {
       /**
        * Response if this repository is starred by you
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
       /**
        * Response if this repository is not starred by you
        */
-      "404": {
+      404: {
         "application/json": components["schemas"]["basic-error"];
       };
     };
@@ -21382,11 +21382,11 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   "activity/unstar-repo-for-authenticated-user": {
@@ -21400,11 +21400,11 @@ export interface operations {
       /**
        * Empty response
        */
-      "204": never;
-      "304": never;
-      "401": unknown;
-      "403": unknown;
-      "404": unknown;
+      204: never;
+      304: never;
+      401: unknown;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -21421,12 +21421,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["minimal-repository"][];
       };
-      "304": never;
-      "401": unknown;
-      "403": unknown;
+      304: never;
+      401: unknown;
+      403: unknown;
     };
   };
   /**
@@ -21443,12 +21443,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["team-full"][];
       };
-      "304": never;
-      "403": unknown;
-      "404": unknown;
+      304: never;
+      403: unknown;
+      404: unknown;
     };
   };
   /**
@@ -21467,10 +21467,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      "304": never;
+      304: never;
     };
   };
   /**
@@ -21492,12 +21492,12 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json":
           | components["schemas"]["private-user"]
           | components["schemas"]["public-user"];
       };
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -21517,7 +21517,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["event"][];
       };
     };
@@ -21540,7 +21540,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["event"][];
       };
     };
@@ -21559,7 +21559,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["event"][];
       };
     };
@@ -21581,7 +21581,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
     };
@@ -21603,7 +21603,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["simple-user"][];
       };
     };
@@ -21619,11 +21619,11 @@ export interface operations {
       /**
        * Response if the user follows the target user
        */
-      "204": never;
+      204: never;
       /**
        * Response if the user does not follow the target user
        */
-      "404": unknown;
+      404: unknown;
     };
   };
   /**
@@ -21644,10 +21644,10 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["base-gist"][];
       };
-      "422": unknown;
+      422: unknown;
     };
   };
   /**
@@ -21667,7 +21667,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["gpg-key"][];
       };
     };
@@ -21702,11 +21702,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["hovercard"];
       };
-      "404": unknown;
-      "422": unknown;
+      404: unknown;
+      422: unknown;
     };
   };
   /**
@@ -21724,7 +21724,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["installation"];
       };
     };
@@ -21746,7 +21746,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["key-simple"][];
       };
     };
@@ -21770,7 +21770,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["organization-simple"][];
       };
     };
@@ -21793,11 +21793,11 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["project"][];
       };
-      "415": unknown;
-      "422": unknown;
+      415: unknown;
+      422: unknown;
     };
   };
   /**
@@ -21817,7 +21817,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["event"][];
       };
     };
@@ -21836,7 +21836,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["event"][];
       };
     };
@@ -21870,7 +21870,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["minimal-repository"][];
       };
     };
@@ -21892,7 +21892,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["actions-billing-usage"];
       };
     };
@@ -21914,7 +21914,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["packages-billing-usage"];
       };
     };
@@ -21936,7 +21936,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["combined-billing-usage"];
       };
     };
@@ -21962,7 +21962,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["repository"][];
         "application/vnd.github.v3.star+json": components["schemas"]["starred-repository"][];
       };
@@ -21985,7 +21985,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "application/json": components["schemas"]["minimal-repository"][];
       };
     };
@@ -21998,7 +21998,7 @@ export interface operations {
       /**
        * response
        */
-      "200": {
+      200: {
         "text/plain": string;
       };
     };

@@ -15249,7 +15249,7 @@ paths:
           - return_url
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/three_d_secure"
@@ -15272,7 +15272,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/three_d_secure"
@@ -15300,7 +15300,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_account"
@@ -15318,7 +15318,7 @@ paths:
         required: false
         type: array
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/account"
@@ -15724,7 +15724,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/account"
@@ -15769,7 +15769,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/external_account"
@@ -15787,7 +15787,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_external_account"
@@ -15809,7 +15809,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/external_account"
@@ -15888,7 +15888,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/external_account"
@@ -15909,7 +15909,7 @@ paths:
         required: false
         type: array
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -15959,7 +15959,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/capability"
@@ -15994,7 +15994,7 @@ paths:
               type: boolean
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/capability"
@@ -16037,7 +16037,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -16110,7 +16110,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/external_account"
@@ -16128,7 +16128,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_external_account"
@@ -16150,7 +16150,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/external_account"
@@ -16229,7 +16229,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/external_account"
@@ -16266,7 +16266,7 @@ paths:
           - account
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/login_link"
@@ -16299,7 +16299,7 @@ paths:
           - account
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/light_account_logout"
@@ -16350,7 +16350,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -16548,7 +16548,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/person"
@@ -16570,7 +16570,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_person"
@@ -16592,7 +16592,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/person"
@@ -16768,7 +16768,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/person"
@@ -16819,7 +16819,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -17017,7 +17017,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/person"
@@ -17039,7 +17039,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_person"
@@ -17061,7 +17061,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/person"
@@ -17237,7 +17237,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/person"
@@ -17296,7 +17296,7 @@ paths:
           - type
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/account_link"
@@ -17344,7 +17344,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -17794,7 +17794,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/account"
@@ -17817,7 +17817,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_account"
@@ -17839,7 +17839,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/account"
@@ -18249,7 +18249,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/account"
@@ -18298,7 +18298,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/external_account"
@@ -18320,7 +18320,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_external_account"
@@ -18346,7 +18346,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/external_account"
@@ -18429,7 +18429,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/external_account"
@@ -18454,7 +18454,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -18508,7 +18508,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/capability"
@@ -18547,7 +18547,7 @@ paths:
               type: boolean
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/capability"
@@ -18594,7 +18594,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -18671,7 +18671,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/external_account"
@@ -18693,7 +18693,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_external_account"
@@ -18719,7 +18719,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/external_account"
@@ -18802,7 +18802,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/external_account"
@@ -18839,7 +18839,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/login_link"
@@ -18872,7 +18872,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/light_account_logout"
@@ -18927,7 +18927,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -19127,7 +19127,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/person"
@@ -19153,7 +19153,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_person"
@@ -19179,7 +19179,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/person"
@@ -19357,7 +19357,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/person"
@@ -19412,7 +19412,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -19612,7 +19612,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/person"
@@ -19638,7 +19638,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_person"
@@ -19664,7 +19664,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/person"
@@ -19842,7 +19842,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/person"
@@ -19881,7 +19881,7 @@ paths:
           - reason
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/account"
@@ -19928,7 +19928,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -19984,7 +19984,7 @@ paths:
           - domain_name
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/apple_pay_domain"
@@ -20002,7 +20002,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_apple_pay_domain"
@@ -20024,7 +20024,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/apple_pay_domain"
@@ -20079,7 +20079,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -20134,7 +20134,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/fee_refund"
@@ -20176,7 +20176,7 @@ paths:
                 to `metadata`.
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/fee_refund"
@@ -20201,7 +20201,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/application_fee"
@@ -20235,7 +20235,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/application_fee"
@@ -20286,7 +20286,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -20364,7 +20364,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/fee_refund"
@@ -20385,7 +20385,7 @@ paths:
         required: false
         type: array
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/balance"
@@ -20464,7 +20464,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -20517,7 +20517,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/balance_transaction"
@@ -20596,7 +20596,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -20649,7 +20649,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/balance_transaction"
@@ -20685,7 +20685,7 @@ paths:
           - customer
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/billing_portal.session"
@@ -20745,7 +20745,7 @@ paths:
         required: false
         type: boolean
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -20795,7 +20795,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/bitcoin_receiver"
@@ -20849,7 +20849,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -20931,7 +20931,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -21024,7 +21024,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -21226,7 +21226,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/charge"
@@ -21252,7 +21252,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/charge"
@@ -21364,7 +21364,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/charge"
@@ -21441,7 +21441,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/charge"
@@ -21464,7 +21464,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/dispute"
@@ -21566,7 +21566,7 @@ paths:
               type: boolean
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/dispute"
@@ -21596,7 +21596,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/dispute"
@@ -21652,7 +21652,7 @@ paths:
               type: boolean
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/charge"
@@ -21703,7 +21703,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -21781,7 +21781,7 @@ paths:
               type: boolean
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/refund"
@@ -21808,7 +21808,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/refund"
@@ -21842,7 +21842,7 @@ paths:
             metadata: {}
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/refund"
@@ -21895,7 +21895,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -22454,7 +22454,7 @@ paths:
           - success_url
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/checkout.session"
@@ -22477,7 +22477,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/checkout.session"
@@ -22520,7 +22520,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -22569,7 +22569,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/country_spec"
@@ -22619,7 +22619,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -22729,7 +22729,7 @@ paths:
           - duration
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/coupon"
@@ -22751,7 +22751,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_coupon"
@@ -22773,7 +22773,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/coupon"
@@ -22814,7 +22814,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/coupon"
@@ -22869,7 +22869,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -23009,7 +23009,7 @@ paths:
           - invoice
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/credit_note"
@@ -23087,7 +23087,7 @@ paths:
         required: false
         type: integer
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/credit_note"
@@ -23191,7 +23191,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -23268,7 +23268,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -23319,7 +23319,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/credit_note"
@@ -23358,7 +23358,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/credit_note"
@@ -23389,7 +23389,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/credit_note"
@@ -23443,7 +23443,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -23623,7 +23623,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/customer"
@@ -23642,7 +23642,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_customer"
@@ -23665,7 +23665,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/customer"
@@ -23818,7 +23818,7 @@ paths:
                 most two years from `billing_cycle_anchor`.
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/customer"
@@ -23866,7 +23866,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -23949,7 +23949,7 @@ paths:
           - currency
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/customer_balance_transaction"
@@ -23977,7 +23977,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/customer_balance_transaction"
@@ -24021,7 +24021,7 @@ paths:
                 to `metadata`.
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/customer_balance_transaction"
@@ -24073,7 +24073,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -24155,7 +24155,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payment_source"
@@ -24189,7 +24189,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_payment_source"
@@ -24218,7 +24218,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/bank_account"
@@ -24320,7 +24320,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/bank_account"
@@ -24360,7 +24360,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/bank_account"
@@ -24411,7 +24411,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -24492,7 +24492,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payment_source"
@@ -24526,7 +24526,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_payment_source"
@@ -24555,7 +24555,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/card"
@@ -24657,7 +24657,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/bank_account"
@@ -24675,7 +24675,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_discount"
@@ -24697,7 +24697,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/discount"
@@ -24749,7 +24749,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -24831,7 +24831,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payment_source"
@@ -24865,7 +24865,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_payment_source"
@@ -24891,7 +24891,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payment_source"
@@ -24993,7 +24993,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/bank_account"
@@ -25033,7 +25033,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/bank_account"
@@ -25083,7 +25083,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -25302,7 +25302,7 @@ paths:
               type: integer
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/subscription"
@@ -25351,7 +25351,7 @@ paths:
               type: boolean
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/subscription"
@@ -25377,7 +25377,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/subscription"
@@ -25583,7 +25583,7 @@ paths:
               type: boolean
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/subscription"
@@ -25605,7 +25605,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_discount"
@@ -25631,7 +25631,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/discount"
@@ -25678,7 +25678,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -25771,7 +25771,7 @@ paths:
           - value
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/tax_id"
@@ -25793,7 +25793,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_tax_id"
@@ -25819,7 +25819,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/tax_id"
@@ -25878,7 +25878,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -25927,7 +25927,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/dispute"
@@ -26032,7 +26032,7 @@ paths:
               type: boolean
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/dispute"
@@ -26065,7 +26065,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/dispute"
@@ -26099,7 +26099,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/ephemeral_key"
@@ -26129,7 +26129,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/ephemeral_key"
@@ -26200,7 +26200,7 @@ paths:
         required: false
         type: array
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -26250,7 +26250,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/event"
@@ -26296,7 +26296,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -26346,7 +26346,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/exchange_rate"
@@ -26404,7 +26404,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -26473,7 +26473,7 @@ paths:
           - file
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/file_link"
@@ -26496,7 +26496,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/file_link"
@@ -26535,7 +26535,7 @@ paths:
                 to `metadata`.
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/file_link"
@@ -26590,7 +26590,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -26679,7 +26679,7 @@ paths:
           - purpose
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/file"
@@ -26705,7 +26705,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/file"
@@ -26774,7 +26774,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -26906,7 +26906,7 @@ paths:
           - customer
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/invoiceitem"
@@ -26926,7 +26926,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_invoiceitem"
@@ -26948,7 +26948,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/invoiceitem"
@@ -27032,7 +27032,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/invoiceitem"
@@ -27109,7 +27109,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -27261,7 +27261,7 @@ paths:
           - customer
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/invoice"
@@ -27420,7 +27420,7 @@ paths:
         required: false
         type: boolean
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/invoice"
@@ -27601,7 +27601,7 @@ paths:
         required: false
         type: boolean
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -27649,7 +27649,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_invoice"
@@ -27671,7 +27671,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/invoice"
@@ -27794,7 +27794,7 @@ paths:
                 for `tax_rates`.
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/invoice"
@@ -27831,7 +27831,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/invoice"
@@ -27881,7 +27881,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -27940,7 +27940,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/invoice"
@@ -28003,7 +28003,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/invoice"
@@ -28036,7 +28036,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/invoice"
@@ -28069,7 +28069,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/invoice"
@@ -28119,7 +28119,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -28173,7 +28173,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/issuer_fraud_record"
@@ -28240,7 +28240,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -28289,7 +28289,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/issuing.authorization"
@@ -28326,7 +28326,7 @@ paths:
                 to `metadata`.
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/issuing.authorization"
@@ -28370,7 +28370,7 @@ paths:
                 to `metadata`.
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/issuing.authorization"
@@ -28408,7 +28408,7 @@ paths:
                 to `metadata`.
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/issuing.authorization"
@@ -28481,7 +28481,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -29550,7 +29550,7 @@ paths:
           - type
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/issuing.cardholder"
@@ -29573,7 +29573,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/issuing.cardholder"
@@ -30605,7 +30605,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/issuing.cardholder"
@@ -30688,7 +30688,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -31730,7 +31730,7 @@ paths:
           - type
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/issuing.card"
@@ -31753,7 +31753,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/issuing.card"
@@ -32711,7 +32711,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/issuing.card"
@@ -32756,7 +32756,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -32815,7 +32815,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/issuing.dispute"
@@ -32838,7 +32838,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/issuing.dispute"
@@ -32876,7 +32876,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/issuing.dispute"
@@ -32927,7 +32927,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -32976,7 +32976,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/issuing.settlement"
@@ -33014,7 +33014,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/issuing.settlement"
@@ -33075,7 +33075,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -33124,7 +33124,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/issuing.transaction"
@@ -33161,7 +33161,7 @@ paths:
                 to `metadata`.
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/issuing.transaction"
@@ -33184,7 +33184,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/mandate"
@@ -33238,7 +33238,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -33289,7 +33289,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/order_return"
@@ -33365,7 +33365,7 @@ paths:
         required: false
         type: array
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -33500,7 +33500,7 @@ paths:
           - currency
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/order"
@@ -33525,7 +33525,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/order"
@@ -33594,7 +33594,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/order"
@@ -33656,7 +33656,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/order"
@@ -33710,7 +33710,7 @@ paths:
                 type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/order_return"
@@ -33766,7 +33766,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -34053,7 +34053,7 @@ paths:
           - currency
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payment_intent"
@@ -34087,7 +34087,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payment_intent"
@@ -34221,7 +34221,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payment_intent"
@@ -34263,7 +34263,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payment_intent"
@@ -34330,7 +34330,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payment_intent"
@@ -34484,7 +34484,7 @@ paths:
               type: boolean
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payment_intent"
@@ -34537,7 +34537,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -34729,7 +34729,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payment_method"
@@ -34752,7 +34752,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payment_method"
@@ -34832,7 +34832,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payment_method"
@@ -34878,7 +34878,7 @@ paths:
           - customer
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payment_method"
@@ -34908,7 +34908,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payment_method"
@@ -34973,7 +34973,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -35081,7 +35081,7 @@ paths:
           - currency
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payout"
@@ -35106,7 +35106,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payout"
@@ -35143,7 +35143,7 @@ paths:
                 to `metadata`.
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payout"
@@ -35175,7 +35175,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/payout"
@@ -35236,7 +35236,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -35442,7 +35442,7 @@ paths:
           - interval
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/plan"
@@ -35461,7 +35461,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_plan"
@@ -35483,7 +35483,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/plan"
@@ -35535,7 +35535,7 @@ paths:
               type: integer
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/plan"
@@ -35613,7 +35613,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -35765,7 +35765,7 @@ paths:
           - name
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/product"
@@ -35786,7 +35786,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_product"
@@ -35810,7 +35810,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/product"
@@ -35907,7 +35907,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/product"
@@ -35956,7 +35956,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -36009,7 +36009,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/radar.early_fraud_warning"
@@ -36069,7 +36069,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -36132,7 +36132,7 @@ paths:
           - value_list
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/radar.value_list_item"
@@ -36151,7 +36151,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_radar.value_list_item"
@@ -36173,7 +36173,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/radar.value_list_item"
@@ -36233,7 +36233,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -36314,7 +36314,7 @@ paths:
           - name
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/radar.value_list"
@@ -36334,7 +36334,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_radar.value_list"
@@ -36356,7 +36356,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/radar.value_list"
@@ -36400,7 +36400,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/radar.value_list"
@@ -36459,7 +36459,7 @@ paths:
         required: false
         type: boolean
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -36559,7 +36559,7 @@ paths:
           - type
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/recipient"
@@ -36578,7 +36578,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_recipient"
@@ -36602,7 +36602,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_recipient"
@@ -36684,7 +36684,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/recipient"
@@ -36744,7 +36744,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -36818,7 +36818,7 @@ paths:
               type: boolean
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/refund"
@@ -36841,7 +36841,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/refund"
@@ -36879,7 +36879,7 @@ paths:
                 to `metadata`.
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/refund"
@@ -36928,7 +36928,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -37639,7 +37639,7 @@ paths:
           - report_type
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/reporting.report_run"
@@ -37663,7 +37663,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/reporting.report_run"
@@ -37683,7 +37683,7 @@ paths:
         required: false
         type: array
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -37734,7 +37734,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/reporting.report_type"
@@ -37783,7 +37783,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -37832,7 +37832,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/review"
@@ -37863,7 +37863,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/review"
@@ -37925,7 +37925,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -38095,7 +38095,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/setup_intent"
@@ -38129,7 +38129,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/setup_intent"
@@ -38199,7 +38199,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/setup_intent"
@@ -38240,7 +38240,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/setup_intent"
@@ -38345,7 +38345,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/setup_intent"
@@ -38388,7 +38388,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -38437,7 +38437,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/scheduled_query_run"
@@ -38514,7 +38514,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -38645,7 +38645,7 @@ paths:
           - product
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/sku"
@@ -38664,7 +38664,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_sku"
@@ -38688,7 +38688,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_sku"
@@ -38776,7 +38776,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/sku"
@@ -39040,7 +39040,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/source"
@@ -39071,7 +39071,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/source"
@@ -39267,7 +39267,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/source"
@@ -39294,7 +39294,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/source_mandate_notification"
@@ -39341,7 +39341,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -39397,7 +39397,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/source_transaction"
@@ -39434,7 +39434,7 @@ paths:
           - values
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/source"
@@ -39482,7 +39482,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -39599,7 +39599,7 @@ paths:
           - subscription
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/subscription_item"
@@ -39652,7 +39652,7 @@ paths:
               type: integer
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_subscription_item"
@@ -39674,7 +39674,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/subscription_item"
@@ -39766,7 +39766,7 @@ paths:
                 type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/subscription_item"
@@ -39816,7 +39816,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -39900,7 +39900,7 @@ paths:
           - timestamp
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/usage_record"
@@ -39977,7 +39977,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -40148,7 +40148,7 @@ paths:
                 on.
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/subscription_schedule"
@@ -40173,7 +40173,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/subscription_schedule"
@@ -40317,7 +40317,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/subscription_schedule"
@@ -40359,7 +40359,7 @@ paths:
               type: boolean
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/subscription_schedule"
@@ -40399,7 +40399,7 @@ paths:
               type: boolean
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/subscription_schedule"
@@ -40480,7 +40480,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -40699,7 +40699,7 @@ paths:
           - customer
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/subscription"
@@ -40742,7 +40742,7 @@ paths:
               type: boolean
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/subscription"
@@ -40764,7 +40764,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/subscription"
@@ -40966,7 +40966,7 @@ paths:
               type: boolean
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/subscription"
@@ -40984,7 +40984,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_discount"
@@ -41045,7 +41045,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -41129,7 +41129,7 @@ paths:
           - percentage
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/tax_rate"
@@ -41152,7 +41152,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/tax_rate"
@@ -41203,7 +41203,7 @@ paths:
                 to `metadata`.
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/tax_rate"
@@ -41237,7 +41237,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/terminal.connection_token"
@@ -41280,7 +41280,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -41363,7 +41363,7 @@ paths:
           - display_name
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/terminal.location"
@@ -41381,7 +41381,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_terminal.location"
@@ -41403,7 +41403,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/terminal.location"
@@ -41461,7 +41461,7 @@ paths:
                 to `metadata`.
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/terminal.location"
@@ -41520,7 +41520,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -41593,7 +41593,7 @@ paths:
           - registration_code
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/terminal.reader"
@@ -41611,7 +41611,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_terminal.reader"
@@ -41633,7 +41633,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/terminal.reader"
@@ -41672,7 +41672,7 @@ paths:
                 to `metadata`.
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/terminal.reader"
@@ -42078,7 +42078,7 @@ paths:
               type: object
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/token"
@@ -42101,7 +42101,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/token"
@@ -42162,7 +42162,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -42247,7 +42247,7 @@ paths:
           - currency
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/topup"
@@ -42272,7 +42272,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/topup"
@@ -42312,7 +42312,7 @@ paths:
                 to `metadata`.
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/topup"
@@ -42342,7 +42342,7 @@ paths:
               type: array
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/topup"
@@ -42402,7 +42402,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -42502,7 +42502,7 @@ paths:
           - destination
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/transfer"
@@ -42553,7 +42553,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -42640,7 +42640,7 @@ paths:
               type: boolean
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/transfer_reversal"
@@ -42665,7 +42665,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/transfer"
@@ -42707,7 +42707,7 @@ paths:
                 to `metadata`.
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/transfer"
@@ -42736,7 +42736,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/transfer_reversal"
@@ -42778,7 +42778,7 @@ paths:
                 to `metadata`.
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/transfer_reversal"
@@ -42821,7 +42821,7 @@ paths:
         required: false
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             description: ''
@@ -43155,7 +43155,7 @@ paths:
           - url
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/webhook_endpoint"
@@ -43174,7 +43174,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/deleted_webhook_endpoint"
@@ -43196,7 +43196,7 @@ paths:
         required: true
         type: string
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/webhook_endpoint"
@@ -43398,7 +43398,7 @@ paths:
               type: string
           type: object
       responses:
-        '200':
+        200:
           description: Successful response.
           schema:
             "$ref": "#/definitions/webhook_endpoint"

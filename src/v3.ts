@@ -202,14 +202,17 @@ export default function generateTypesV3(input: OpenAPI3 | OpenAPI3Schemas, optio
 
     // handle responses
     output += `responses: {\n`;
-    Object.entries(operation.responses).forEach(([statusCode, response]) => {
+    Object.entries(operation.responses).forEach(([statusCodeString, response]) => {
+      // NOTE: Numeric status codes and the "default" response.
+      const statusCode = Number(statusCodeString) || statusCodeString;
+      if (!response) return;
       if (response.description) output += comment(response.description);
       if (!response.content || !Object.keys(response.content).length) {
-        const type = statusCode === "204" || Math.floor(+statusCode / 100) === 3 ? "never" : "unknown";
-        output += `"${statusCode}": ${type};\n`;
+        const type = statusCode === 204 || Math.floor(+statusCode / 100) === 3 ? "never" : "unknown";
+        output += `${statusCode}: ${type};\n`;
         return;
       }
-      output += `"${statusCode}": {\n`;
+      output += `${statusCode}: {\n`;
       Object.entries(response.content).forEach(([contentType, encodedResponse]) => {
         output += `"${contentType}": ${transform(encodedResponse.schema)};\n`;
       });
