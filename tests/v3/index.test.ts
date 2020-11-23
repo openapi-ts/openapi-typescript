@@ -1014,4 +1014,52 @@ describe("OpenAPI3 features", () => {
       export interface components {}`)
     );
   });
+  it("missing schema in parameteres (#377)", () => {
+    const schema: OpenAPI3 = {
+      openapi: "3.0.1",
+      paths: {
+        "/test/{test_id}": {
+          get: {
+            summary: "some summary",
+            description: "some description",
+            parameters: [
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              {
+                name: "id",
+                in: "path",
+                required: true,
+              },
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              {
+                name: "page",
+                in: "query",
+                required: false,
+              },
+            ],
+            responses: {},
+          },
+        },
+      },
+    };
+
+    expect(swaggerToTS(schema)).toBe(
+      format(`
+      export interface paths {
+        '/test/{test_id}': {
+         /**
+          * some description
+          */
+         get: {
+            responses: { }
+          }
+        };
+      }
+
+      export interface operations {}
+
+      export interface components {}`)
+    );
+  });
 });
