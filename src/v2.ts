@@ -1,13 +1,6 @@
 import propertyMapper from "./property-mapper";
-import {
-  OpenAPI2,
-  OpenAPI2Reference,
-  OpenAPI2SchemaObject,
-  OpenAPI2Schemas,
-  SwaggerToTSOptions,
-  isOpenAPI2Reference,
-} from "./types";
-import { comment, nodeType, transformRef, tsArrayOf, tsIntersectionOf, tsUnionOf } from "./utils";
+import { OpenAPI2, OpenAPI2Reference, OpenAPI2SchemaObject, OpenAPI2Schemas, SwaggerToTSOptions } from "./types";
+import { comment, nodeType, transformRef, tsArrayOf, tsIntersectionOf, tsUnionOf, isOpenAPI2Reference } from "./utils";
 
 export const PRIMITIVES: { [key: string]: "boolean" | "string" | "number" } = {
   // boolean types

@@ -1,4 +1,4 @@
-import { OpenAPI2, OpenAPI3 } from "./types";
+import { OpenAPI2, OpenAPI2Reference, OpenAPI2SchemaObject, OpenAPI3 } from "./types";
 
 export function comment(text: string): string {
   return `/**
@@ -120,4 +120,10 @@ export function tsUnionOf(types: string[]): string {
 export function unrefComponent(components: any, ref: string): any {
   const [type, object] = ref.match(/(?<=\[")([^"]+)/g) as string[];
   return components[type][object];
+}
+
+export function isOpenAPI2Reference(
+  additionalProperties: OpenAPI2SchemaObject | OpenAPI2Reference | boolean
+): additionalProperties is OpenAPI2Reference {
+  return (additionalProperties as OpenAPI2Reference).$ref !== undefined;
 }
