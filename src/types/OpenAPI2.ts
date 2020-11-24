@@ -32,6 +32,12 @@ export type OpenAPI2Type =
 
 export type OpenAPI2Reference = { $ref: string };
 
+export function isOpenAPI2Reference(
+  additionalProperties: OpenAPI2SchemaObject | OpenAPI2Reference | boolean
+): additionalProperties is OpenAPI2Reference {
+  return (additionalProperties as OpenAPI2Reference).$ref !== undefined;
+}
+
 export interface OpenAPI2SchemaObject {
   additionalProperties?: OpenAPI2SchemaObject | OpenAPI2Reference | boolean;
   allOf?: OpenAPI2SchemaObject[];

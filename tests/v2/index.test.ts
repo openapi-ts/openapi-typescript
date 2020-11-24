@@ -255,6 +255,38 @@ describe("transformation", () => {
       );
     });
 
+    it("additionalProperties 2 (issue #345)", () => {
+      const schema: OpenAPI2 = {
+        swagger: "2.0",
+        definitions: {
+          Messages: {
+            type: "object",
+            additionalProperties: {
+              $ref: "#/definitions/Message",
+            },
+          },
+          Message: {
+            type: "object",
+            properties: {
+              code: {
+                type: "integer",
+              },
+              text: {
+                type: "string",
+              },
+            },
+          },
+        },
+      };
+      expect(swaggerToTS(schema)).toBe(
+        format(`
+        export interface definitions {
+          Messages: { [key: string]: definitions["Message"] }
+          Message: { code?: number; text?: string }
+        }`)
+      );
+    });
+
     it("allOf", () => {
       const schema: OpenAPI2 = {
         swagger: "2.0",
