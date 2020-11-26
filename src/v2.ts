@@ -1,6 +1,6 @@
 import propertyMapper from "./property-mapper";
-import { OpenAPI2, OpenAPI2SchemaObject, OpenAPI2Schemas, SwaggerToTSOptions } from "./types";
-import { comment, nodeType, transformRef, tsArrayOf, tsIntersectionOf, tsUnionOf } from "./utils";
+import { OpenAPI2, OpenAPI2Reference, OpenAPI2SchemaObject, OpenAPI2Schemas, SwaggerToTSOptions } from "./types";
+import { comment, nodeType, transformRef, tsArrayOf, tsIntersectionOf, tsUnionOf, isOpenAPI2Reference } from "./utils";
 
 export const PRIMITIVES: { [key: string]: "boolean" | "string" | "number" } = {
   // boolean types
@@ -40,6 +40,14 @@ export default function generateTypesV2(input: OpenAPI2 | OpenAPI2Schemas, optio
   // propertyMapper
   const propertyMapped = options ? propertyMapper(definitions, options.propertyMapper) : definitions;
 
+  //this functionality could perhaps be added to the nodeType function, but I don't want to mess with that code
+  function getAdditionalPropertiesType(additionalProperties: OpenAPI2SchemaObject | OpenAPI2Reference | boolean) {
+    if (isOpenAPI2Reference(additionalProperties)) {
+      return transformRef(additionalProperties.$ref, rawSchema ? "definitions/" : "");
+    }
+    return nodeType(additionalProperties);
+  }
+
   // type conversions
   function transform(node: OpenAPI2SchemaObject): string {
     switch (nodeType(node)) {
@@ -67,7 +75,7 @@ export default function generateTypesV2(input: OpenAPI2 | OpenAPI2Schemas, optio
 
         // if additional properties, add to end of properties
         if (node.additionalProperties) {
-          properties += `[key: string]: ${nodeType(node.additionalProperties) || "any"};\n`;
+          properties += `[key: string]: ${getAdditionalPropertiesType(node.additionalProperties) || "any"};\n`;
         }
 
         return tsIntersectionOf([
