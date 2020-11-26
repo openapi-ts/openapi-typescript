@@ -39,38 +39,24 @@ Options
 
 const timeStart = process.hrtime();
 
-(async () => {
-  let spec = undefined;
-  let input = "FILE"; // FILE or STDIN
+async function main() {
   let output = "FILE"; // FILE or STDOUT
   const pathToSpec = cli.input[0];
 
   // 0. setup
-  if (!pathToSpec) {
-    input = "STDIN"; // if no input specified, fall back to stdin
-  }
   if (!cli.flags.output) {
-    output = "STDOUT"; // if -o not specified, fall back to stdout
+    output = "STDOUT"; // if --output not specified, fall back to stdout
   }
-  if (output !== "STDIO") {
+  if (output === "FILE") {
     console.info(chalk.bold(`✨ openapi-typescript ${require("../package.json").version}`)); // only log if we’re NOT writing to stdout
   }
 
   // 1. input
-  if (input === "FILE") {
-    // input option 1: file
-    try {
-      spec = await loadSpec(pathToSpec);
-    } catch (err) {
-      throw new Error(chalk.red(`❌ ${err}`));
-    }
-  } else {
-    // input option 2: stdin
-    try {
-      spec = fs.readFileSync(process.stdin.fd, "UTF-8");
-    } catch (err) {
-      throw new Error(chalk.red(`❌ ${err}`));
-    }
+  let spec = undefined;
+  try {
+    spec = await loadSpec(pathToSpec, { log: output !== "STDOUT" });
+  } catch (err) {
+    throw new Error(chalk.red(`❌ ${err}`));
   }
 
   // 2. generate schema (the main part!)
@@ -105,4 +91,6 @@ const timeStart = process.hrtime();
   }
 
   return result;
-})();
+}
+
+main();

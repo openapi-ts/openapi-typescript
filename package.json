@@ -53,8 +53,8 @@
     "deploy": "npm run build && pika publish",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts src",
     "pregenerate": "npm run build",
-    "test": "npm run build && jest",
-    "test:coverage": "npm run build && jest --coverage",
+    "test": "npm run build && jest --no-cache",
+    "test:coverage": "npm run build && jest --no-cache --coverage",
     "typecheck": "tsc --noEmit",
     "version": "npm run build"
   },
