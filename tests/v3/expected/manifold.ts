@@ -23,13 +23,13 @@ export interface paths {
         /**
          * A list of regions.
          */
-        "200": {
+        200: {
           "application/json": components["schemas"]["Region"][];
         };
         /**
          * Unexpected Error
          */
-        "500": {
+        500: {
           "application/json": components["schemas"]["Error"];
         };
       };
@@ -42,25 +42,25 @@ export interface paths {
         /**
          * Complete region object
          */
-        "201": {
+        201: {
           "application/json": components["schemas"]["Region"];
         };
         /**
          * Invalid request provided
          */
-        "400": {
+        400: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Region already exists for that platform and location
          */
-        "409": {
+        409: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Unexpected Error
          */
-        "500": {
+        500: {
           "application/json": components["schemas"]["Error"];
         };
       };
@@ -80,25 +80,25 @@ export interface paths {
         /**
          * A region.
          */
-        "200": {
+        200: {
           "application/json": components["schemas"]["Region"];
         };
         /**
          * Provided Region ID is Invalid
          */
-        "400": {
+        400: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Region could not be found
          */
-        "404": {
+        404: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Unexpected Error
          */
-        "500": {
+        500: {
           "application/json": components["schemas"]["Error"];
         };
       };
@@ -119,19 +119,19 @@ export interface paths {
         /**
          * Complete region object
          */
-        "200": {
+        200: {
           "application/json": components["schemas"]["Region"];
         };
         /**
          * Invalid request provided
          */
-        "400": {
+        400: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Unexpected Error
          */
-        "500": {
+        500: {
           "application/json": components["schemas"]["Error"];
         };
       };
@@ -151,13 +151,13 @@ export interface paths {
         /**
          * A list of providers.
          */
-        "200": {
+        200: {
           "application/json": components["schemas"]["Provider"][];
         };
         /**
          * Unexpected Error
          */
-        "500": {
+        500: {
           "application/json": components["schemas"]["Error"];
         };
       };
@@ -170,31 +170,31 @@ export interface paths {
         /**
          * Complete provider object
          */
-        "201": {
+        201: {
           "application/json": components["schemas"]["Provider"];
         };
         /**
          * Invalid request provided
          */
-        "400": {
+        400: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Forbidden
          */
-        "403": {
+        403: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Provider already exists with that label
          */
-        "409": {
+        409: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Unexpected Error
          */
-        "500": {
+        500: {
           "application/json": components["schemas"]["Error"];
         };
       };
@@ -214,19 +214,19 @@ export interface paths {
         /**
          * A provider.
          */
-        "200": {
+        200: {
           "application/json": components["schemas"]["Provider"];
         };
         /**
          * Unknown provider error
          */
-        "404": {
+        404: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Unexpected Error
          */
-        "500": {
+        500: {
           "application/json": components["schemas"]["Error"];
         };
       };
@@ -247,37 +247,37 @@ export interface paths {
         /**
          * Complete provider object
          */
-        "200": {
+        200: {
           "application/json": components["schemas"]["Provider"];
         };
         /**
          * Invalid request provided
          */
-        "400": {
+        400: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Forbidden
          */
-        "403": {
+        403: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Provider not found
          */
-        "404": {
+        404: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Provider already exists with that label
          */
-        "409": {
+        409: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Unexpected Error
          */
-        "500": {
+        500: {
           "application/json": components["schemas"]["Error"];
         };
       };
@@ -306,19 +306,19 @@ export interface paths {
         /**
          * A product.
          */
-        "200": {
+        200: {
           "application/json": components["schemas"]["Product"][];
         };
         /**
          * Invalid provider_id supplied
          */
-        "400": {
+        400: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Unexpected Error
          */
-        "500": {
+        500: {
           "application/json": components["schemas"]["Error"];
         };
       };
@@ -331,31 +331,31 @@ export interface paths {
         /**
          * Complete product object
          */
-        "201": {
+        201: {
           "application/json": components["schemas"]["Product"];
         };
         /**
          * Invalid request provided
          */
-        "400": {
+        400: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Forbidden
          */
-        "403": {
+        403: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Product already exists with that label
          */
-        "409": {
+        409: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Unexpected Error
          */
-        "500": {
+        500: {
           "application/json": components["schemas"]["Error"];
         };
       };
@@ -388,19 +388,19 @@ export interface paths {
         /**
          * A product.
          */
-        "200": {
+        200: {
           "application/json": components["schemas"]["ExpandedProduct"][];
         };
         /**
          * Invalid provider_id supplied
          */
-        "400": {
+        400: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Unexpected Error
          */
-        "500": {
+        500: {
           "application/json": components["schemas"]["Error"];
         };
       };
@@ -421,25 +421,25 @@ export interface paths {
         /**
          * A product.
          */
-        "200": {
+        200: {
           "application/json": components["schemas"]["Product"];
         };
         /**
          * Invalid Product ID
          */
-        "400": {
+        400: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Product not found error
          */
-        "404": {
+        404: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Unexpected error
          */
-        "500": {
+        500: {
           "application/json": components["schemas"]["Error"];
         };
       };
@@ -461,25 +461,25 @@ export interface paths {
         /**
          * Complete product object
          */
-        "200": {
+        200: {
           "application/json": components["schemas"]["Product"];
         };
         /**
          * Invalid Product ID
          */
-        "400": {
+        400: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Product not found error
          */
-        "404": {
+        404: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Unexpected error
          */
-        "500": {
+        500: {
           "application/json": components["schemas"]["Error"];
         };
       };
@@ -500,19 +500,19 @@ export interface paths {
         /**
          * A plan.
          */
-        "200": {
+        200: {
           "application/json": components["schemas"]["ExpandedPlan"];
         };
         /**
          * Invalid Plan ID Provided
          */
-        "400": {
+        400: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Unknown plan error
          */
-        "404": {
+        404: {
           "application/json": components["schemas"]["Error"];
         };
         /**
@@ -540,25 +540,25 @@ export interface paths {
         /**
          * Complete product plan
          */
-        "200": {
+        200: {
           "application/json": components["schemas"]["Plan"];
         };
         /**
          * Invalid Plan ID
          */
-        "400": {
+        400: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Plan not found error
          */
-        "404": {
+        404: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Unexpected error
          */
-        "500": {
+        500: {
           "application/json": components["schemas"]["Error"];
         };
       };
@@ -582,25 +582,25 @@ export interface paths {
         /**
          * A list of plans for the given product.
          */
-        "200": {
+        200: {
           "application/json": components["schemas"]["ExpandedPlan"][];
         };
         /**
          * Invalid Parameters Provided
          */
-        "400": {
+        400: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Could not find product
          */
-        "404": {
+        404: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Unexpected error
          */
-        "500": {
+        500: {
           "application/json": components["schemas"]["Error"];
         };
       };
@@ -613,31 +613,31 @@ export interface paths {
         /**
          * Complete plan object
          */
-        "201": {
+        201: {
           "application/json": components["schemas"]["Plan"];
         };
         /**
          * Invalid request provided
          */
-        "400": {
+        400: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Forbidden
          */
-        "403": {
+        403: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Plan already exists with that label
          */
-        "409": {
+        409: {
           "application/json": components["schemas"]["Error"];
         };
         /**
          * Unexpected Error
          */
-        "500": {
+        500: {
           "application/json": components["schemas"]["Error"];
         };
       };

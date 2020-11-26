@@ -64,15 +64,15 @@ export interface operations {
       /**
        * Invalid ID supplied
        */
-      '400': unknown
+      400: unknown
       /**
        * Pet not found
        */
-      '404': unknown
+      404: unknown
       /**
        * Validation exception
        */
-      '405': unknown
+      405: unknown
     }
   }
   addPet: {
@@ -84,7 +84,7 @@ export interface operations {
       /**
        * Invalid input
        */
-      '405': unknown
+      405: unknown
     }
   }
   /**
@@ -103,14 +103,14 @@ export interface operations {
       /**
        * successful operation
        */
-      '200': {
+      200: {
         'application/xml': components['schemas']['Pet'][]
         'application/json': components['schemas']['Pet'][]
       }
       /**
        * Invalid status value
        */
-      '400': unknown
+      400: unknown
     }
   }
   /**
@@ -129,14 +129,14 @@ export interface operations {
       /**
        * successful operation
        */
-      '200': {
+      200: {
         'application/xml': components['schemas']['Pet'][]
         'application/json': components['schemas']['Pet'][]
       }
       /**
        * Invalid tag value
        */
-      '400': unknown
+      400: unknown
     }
   }
   /**
@@ -155,18 +155,18 @@ export interface operations {
       /**
        * successful operation
        */
-      '200': {
+      200: {
         'application/xml': components['schemas']['Pet']
         'application/json': components['schemas']['Pet']
       }
       /**
        * Invalid ID supplied
        */
-      '400': unknown
+      400: unknown
       /**
        * Pet not found
        */
-      '404': unknown
+      404: unknown
     }
   }
   updatePetWithForm: {
@@ -194,7 +194,7 @@ export interface operations {
       /**
        * Invalid input
        */
-      '405': unknown
+      405: unknown
     }
   }
   deletePet: {
@@ -213,11 +213,11 @@ export interface operations {
       /**
        * Invalid ID supplied
        */
-      '400': unknown
+      400: unknown
       /**
        * Pet not found
        */
-      '404': unknown
+      404: unknown
     }
   }
   uploadFile: {
@@ -245,7 +245,7 @@ export interface operations {
       /**
        * successful operation
        */
-      '200': {
+      200: {
         'application/json': components['schemas']['ApiResponse']
       }
     }
@@ -258,7 +258,7 @@ export interface operations {
       /**
        * successful operation
        */
-      '200': {
+      200: {
         'application/json': { [key: string]: number }
       }
     }
@@ -271,14 +271,14 @@ export interface operations {
       /**
        * successful operation
        */
-      '200': {
+      200: {
         'application/xml': components['schemas']['Order']
         'application/json': components['schemas']['Order']
       }
       /**
        * Invalid Order
        */
-      '400': unknown
+      400: unknown
     }
   }
   /**
@@ -297,18 +297,18 @@ export interface operations {
       /**
        * successful operation
        */
-      '200': {
+      200: {
         'application/xml': components['schemas']['Order']
         'application/json': components['schemas']['Order']
       }
       /**
        * Invalid ID supplied
        */
-      '400': unknown
+      400: unknown
       /**
        * Order not found
        */
-      '404': unknown
+      404: unknown
     }
   }
   /**
@@ -327,11 +327,11 @@ export interface operations {
       /**
        * Invalid ID supplied
        */
-      '400': unknown
+      400: unknown
       /**
        * Order not found
        */
-      '404': unknown
+      404: unknown
     }
   }
   /**
@@ -387,14 +387,14 @@ export interface operations {
       /**
        * successful operation
        */
-      '200': {
+      200: {
         'application/xml': string
         'application/json': string
       }
       /**
        * Invalid username/password supplied
        */
-      '400': unknown
+      400: unknown
     }
   }
   logoutUser: {
@@ -418,18 +418,18 @@ export interface operations {
       /**
        * successful operation
        */
-      '200': {
+      200: {
         'application/xml': components['schemas']['User']
         'application/json': components['schemas']['User']
       }
       /**
        * Invalid username supplied
        */
-      '400': unknown
+      400: unknown
       /**
        * User not found
        */
-      '404': unknown
+      404: unknown
     }
   }
   /**
@@ -451,11 +451,11 @@ export interface operations {
       /**
        * Invalid user supplied
        */
-      '400': unknown
+      400: unknown
       /**
        * User not found
        */
-      '404': unknown
+      404: unknown
     }
   }
   /**
@@ -474,11 +474,11 @@ export interface operations {
       /**
        * Invalid username supplied
        */
-      '400': unknown
+      400: unknown
       /**
        * User not found
        */
-      '404': unknown
+      404: unknown
     }
   }
 }

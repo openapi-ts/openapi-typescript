@@ -34,7 +34,8 @@ export interface OpenAPI3Operation {
   parameters?: Parameter[];
   requestBody?: OpenAPI3RequestBody;
   responses: {
-    [statusCode: string]: OpenAPI3ResponseObject;
+    [statusCode: number]: OpenAPI3ResponseObject;
+    default?: OpenAPI3ResponseObject;
   };
 }
 
