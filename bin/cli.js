@@ -13,7 +13,7 @@ const cli = meow(
 
 Options
   --help                display this
-  --output, -o          specify output file
+  --output, -o          (optional) specify output file (default: stdout)
   --prettier-config     (optional) specify path to Prettier config file
   --raw-schema          (optional) Read from raw schema instead of document
   --version             (optional) Schema version (must be present for raw schemas)
@@ -37,28 +37,38 @@ Options
   }
 );
 
-console.info(chalk.bold(`✨ openapi-typescript ${require("../package.json").version}`));
-
-const pathToSpec = cli.input[0];
 const timeStart = process.hrtime();
 
-(async () => {
-  let spec = "";
-  try {
-    spec = await loadSpec(pathToSpec);
-  } catch (e) {
-    console.error(chalk.red(`❌ "${e}"`));
-    return;
+async function main() {
+  let output = "FILE"; // FILE or STDOUT
+  const pathToSpec = cli.input[0];
+
+  // 0. setup
+  if (!cli.flags.output) {
+    output = "STDOUT"; // if --output not specified, fall back to stdout
+  }
+  if (output === "FILE") {
+    console.info(chalk.bold(`✨ openapi-typescript ${require("../package.json").version}`)); // only log if we’re NOT writing to stdout
   }
 
+  // 1. input
+  let spec = undefined;
+  try {
+    spec = await loadSpec(pathToSpec, { log: output !== "STDOUT" });
+  } catch (err) {
+    throw new Error(chalk.red(`❌ ${err}`));
+  }
+
+  // 2. generate schema (the main part!)
   const result = swaggerToTS(spec, {
     prettierConfig: cli.flags.prettierConfig,
     rawSchema: cli.flags.rawSchema,
     version: cli.flags.version,
   });
 
-  // Write to file if specifying output
-  if (cli.flags.output) {
+  // 3. output
+  if (output === "FILE") {
+    // output option 1: file
     const outputFile = path.resolve(process.cwd(), cli.flags.output);
 
     // recursively create parent directories if they don’t exist
@@ -74,10 +84,13 @@ const timeStart = process.hrtime();
 
     const timeEnd = process.hrtime(timeStart);
     const time = timeEnd[0] + Math.round(timeEnd[1] / 1e6);
-    console.log(chalk.green(`🚀 ${cli.input[0]} -> ${chalk.bold(cli.flags.output)} [${time}ms]`));
-    return;
+    console.log(chalk.green(`🚀 ${pathToSpec} -> ${chalk.bold(cli.flags.output)} [${time}ms]`));
+  } else {
+    // output option 2: stdout
+    process.stdout.write(result);
   }
 
-  // Otherwise, return result
   return result;
-})();
+}
+
+main();

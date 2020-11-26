@@ -5,10 +5,11 @@ const loadFromFs = require("./loadFromFs");
 const loadFromHttp = require("./loadFromHttp");
 
 async function load(pathToSpec) {
-  let rawSpec;
+  // option 1: remote URL
   if (/^https?:\/\//.test(pathToSpec)) {
     try {
-      rawSpec = await loadFromHttp(pathToSpec);
+      const rawSpec = await loadFromHttp(pathToSpec);
+      return rawSpec;
     } catch (e) {
       if (e.code === "ENOTFOUND") {
         throw new Error(
@@ -17,18 +18,20 @@ async function load(pathToSpec) {
       }
       throw e;
     }
-  } else {
-    rawSpec = await loadFromFs(pathToSpec);
   }
-  return rawSpec;
+
+  // option 2: local file
+  return loadFromFs(pathToSpec);
 }
 
 function isYamlSpec(rawSpec, pathToSpec) {
   return /\.ya?ml$/i.test(pathToSpec) || rawSpec[0] !== "{";
 }
 
-module.exports.loadSpec = async (pathToSpec) => {
-  console.log(chalk.yellow(`🤞 Loading spec from ${chalk.bold(pathToSpec)}…`));
+module.exports.loadSpec = async (pathToSpec, { log = true }) => {
+  if (log === true) {
+    console.log(chalk.yellow(`🤞 Loading spec from ${chalk.bold(pathToSpec)}…`)); // only log if not writing to stdout
+  }
   const rawSpec = await load(pathToSpec);
 
   try {

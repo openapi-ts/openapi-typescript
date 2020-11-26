@@ -2,7 +2,9 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/master/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-24-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -41,6 +43,12 @@ npx openapi-typescript https://petstore.swagger.io/v2/swagger.json --output pets
 ```
 
 _Thanks to @psmyrdek for this feature!_
+
+#### Outputting to `stdout`
+
+```bash
+npx openapi-typescript schema.yaml
+```
 
 #### Generating multiple schemas
 
@@ -199,6 +207,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification.
