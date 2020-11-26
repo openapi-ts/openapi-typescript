@@ -1,5 +1,5 @@
 const yaml = require("js-yaml");
-const chalk = require("chalk");
+const { bold, yellow } = require("kleur");
 
 const loadFromFs = require("./loadFromFs");
 const loadFromHttp = require("./loadFromHttp");
@@ -30,7 +30,7 @@ function isYamlSpec(rawSpec, pathToSpec) {
 
 module.exports.loadSpec = async (pathToSpec, { log = true }) => {
   if (log === true) {
-    console.log(chalk.yellow(`🤞 Loading spec from ${chalk.bold(pathToSpec)}…`)); // only log if not writing to stdout
+    console.log(yellow(`🤞 Loading spec from ${bold(pathToSpec)}…`)); // only log if not writing to stdout
   }
   const rawSpec = await load(pathToSpec);
 
