@@ -51,6 +51,7 @@
   "scripts": {
     "build": "pika-pack build",
     "deploy": "npm run build && pika publish",
+    "format": "yarn prettier -w .",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts src",
     "pregenerate": "npm run build",
     "test": "npm run build && jest --no-cache",
