@@ -249,6 +249,16 @@
         "code",
         "bug"
       ]
+    },
+    {
+      "login": "jankuca",
+      "name": "Jan Kuča",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/367262?v=4",
+      "profile": "http://jankuca.com",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
