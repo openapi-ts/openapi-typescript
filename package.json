@@ -55,7 +55,7 @@
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts src",
     "pregenerate": "npm run build",
     "test": "npm run build && jest --no-cache",
-    "test:coverage": "npm run build && jest --no-cache --coverage",
+    "test:coverage": "npm run build && jest --no-cache --coverage && codecov",
     "typecheck": "tsc --noEmit",
     "version": "npm run build"
   },
@@ -75,6 +75,7 @@
     "@types/prettier": "^2.1.5",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.1",
+    "codecov": "^3.8.1",
     "eslint": "^7.11.0",
     "eslint-config-prettier": "^6.13.0",
     "eslint-plugin-prettier": "^3.1.4",

@@ -23,11 +23,10 @@ jobs:
       matrix:
         node-version: [10.x, 12.x, 14.x]
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
       - run: npm install
       - run: npm run test:coverage
-      - run: npx codecov
   typecheck:
     runs-on: ubuntu-latest
     steps:
