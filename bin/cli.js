@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require("fs");
-const chalk = require("chalk");
+const { bold, green, red } = require("kleur");
 const path = require("path");
 const meow = require("meow");
 const { default: swaggerToTS } = require("../dist-node");
@@ -48,7 +48,7 @@ async function main() {
     output = "STDOUT"; // if --output not specified, fall back to stdout
   }
   if (output === "FILE") {
-    console.info(chalk.bold(`✨ openapi-typescript ${require("../package.json").version}`)); // only log if we’re NOT writing to stdout
+    console.info(bold(`✨ openapi-typescript ${require("../package.json").version}`)); // only log if we’re NOT writing to stdout
   }
 
   // 1. input
@@ -56,7 +56,7 @@ async function main() {
   try {
     spec = await loadSpec(pathToSpec, { log: output !== "STDOUT" });
   } catch (err) {
-    throw new Error(chalk.red(`❌ ${err}`));
+    throw new Error(red(`❌ ${err}`));
   }
 
   // 2. generate schema (the main part!)
@@ -84,7 +84,7 @@ async function main() {
 
     const timeEnd = process.hrtime(timeStart);
     const time = timeEnd[0] + Math.round(timeEnd[1] / 1e6);
-    console.log(chalk.green(`🚀 ${pathToSpec} -> ${chalk.bold(cli.flags.output)} [${time}ms]`));
+    console.log(green(`🚀 ${pathToSpec} -> ${bold(cli.flags.output)} [${time}ms]`));
   } else {
     // output option 2: stdout
     process.stdout.write(result);

@@ -60,8 +60,8 @@
     "version": "npm run build"
   },
   "dependencies": {
-    "chalk": "^4.1.0",
     "js-yaml": "^3.14.0",
+    "kleur": "^3.0.3",
     "meow": "^8.0.0",
     "prettier": "^2.2.0"
   },
