@@ -96,7 +96,7 @@ npm i --save-dev openapi-typescript
 
 ```js
 const { readFileSync } = require("fs");
-const swaggerToTS = require("openapi-typescript");
+const swaggerToTS = require("openapi-typescript").default;
 
 const input = JSON.parse(readFileSync("spec.json", "utf8")); // Input can be any JS object (OpenAPI format)
 const output = swaggerToTS(input); // Outputs TypeScript defs as a string (to be parsed, or written to a file)
