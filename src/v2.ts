@@ -62,7 +62,7 @@ export default function generateTypesV2(input: OpenAPI2 | OpenAPI2Schemas, optio
       case "enum": {
         return tsUnionOf(
           (node.enum as string[]).map((item) =>
-            typeof item === "number" || typeof item === "boolean" ? item : `'${item}'`
+            typeof item === "number" || typeof item === "boolean" ? item : `'${item.replace(/'/g, "\\'")}'`
           )
         );
       }

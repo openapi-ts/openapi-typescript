@@ -217,7 +217,7 @@ describe("transformation", () => {
         definitions: {
           union: {
             properties: {
-              string: { type: "string", enum: ["Totoro", "Satsuki", "Mei"] },
+              string: { type: "string", enum: ["Totoro", "Sats'uki", "Mei"] },
             },
             type: "object",
           },
@@ -226,7 +226,7 @@ describe("transformation", () => {
       expect(swaggerToTS(schema)).toBe(
         format(`
         export interface definitions {
-          union: { string?: 'Totoro' | 'Satsuki' | 'Mei' }
+          union: { string?: 'Totoro' | 'Sats\\'uki' | 'Mei' }
         }`)
       );
     });
