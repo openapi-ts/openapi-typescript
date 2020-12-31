@@ -56,6 +56,7 @@ async function main() {
   try {
     spec = await loadSpec(pathToSpec, { log: output !== "STDOUT" });
   } catch (err) {
+    process.exitCode = 1; // needed for async functions
     throw new Error(red(`❌ ${err}`));
   }
 
