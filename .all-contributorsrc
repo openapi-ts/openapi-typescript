@@ -259,6 +259,15 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "th-m",
+      "name": "Thomas Valadez",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/13792029?v=4",
+      "profile": "https://github.com/th-m",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
