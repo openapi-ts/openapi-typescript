@@ -1672,8 +1672,8 @@ export interface operations {
             pem: string;
           } & { [key: string]: any });
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed_simple"];
     };
   };
   /**
@@ -1755,8 +1755,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["installation"];
       };
-      404: unknown;
-      415: unknown;
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   /**
@@ -1775,7 +1775,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -1815,11 +1815,11 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["installation-token"];
       };
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      415: unknown;
-      422: unknown;
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -1842,7 +1842,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -1865,7 +1865,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -1887,10 +1887,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["application-grant"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -1909,9 +1909,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["application-grant"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -1930,9 +1930,9 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -1958,7 +1958,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -2006,8 +2006,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["authorization"];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -2034,7 +2034,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["authorization"];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -2059,7 +2059,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -2081,7 +2081,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["authorization"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -2142,9 +2142,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["integration"];
       };
-      403: unknown;
-      404: unknown;
-      415: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   /**
@@ -2164,10 +2164,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["authorization"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -2220,11 +2220,11 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["authorization"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      410: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      410: components["responses"]["gone"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -2281,10 +2281,10 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["authorization"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -2336,7 +2336,7 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["authorization"];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -2355,9 +2355,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["authorization"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -2408,7 +2408,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["authorization"];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -2425,9 +2425,9 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   "codes-of-conduct/get-all-codes-of-conduct": {
@@ -2439,8 +2439,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["code-of-conduct"][];
       };
-      304: never;
-      415: unknown;
+      304: components["responses"]["not_modified"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   "codes-of-conduct/get-conduct-code": {
@@ -2456,9 +2456,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["code-of-conduct"];
       };
-      304: never;
-      404: unknown;
-      415: unknown;
+      304: components["responses"]["not_modified"];
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   /**
@@ -2493,12 +2493,12 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["content-reference-attachment"];
       };
-      304: never;
-      403: unknown;
-      404: unknown;
-      410: unknown;
-      415: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      410: components["responses"]["gone"];
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -2513,7 +2513,7 @@ export interface operations {
       200: {
         "application/json": { [key: string]: string };
       };
-      304: never;
+      304: components["responses"]["not_modified"];
     };
   };
   /**
@@ -3250,9 +3250,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["event"][];
       };
-      304: never;
-      403: unknown;
-      503: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      503: components["responses"]["service_unavailable"];
     };
   };
   /**
@@ -3297,8 +3297,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["base-gist"][];
       };
-      304: never;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -3335,10 +3335,10 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["gist-full"];
       };
-      304: never;
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -3361,9 +3361,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["base-gist"][];
       };
-      304: never;
-      403: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -3384,9 +3384,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["base-gist"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   "gists/get": {
@@ -3402,9 +3402,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["gist-full"];
       };
-      304: never;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden_gist"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -3427,8 +3427,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["gist-full"];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   "gists/delete": {
@@ -3442,9 +3442,9 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   "gists/list-comments": {
@@ -3464,9 +3464,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["gist-comment"][];
       };
-      304: never;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   "gists/create-comment": {
@@ -3490,9 +3490,9 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["gist-comment"];
       };
-      304: never;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   "gists/get-comment": {
@@ -3509,9 +3509,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["gist-comment"];
       };
-      304: never;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden_gist"];
+      404: components["responses"]["not_found"];
     };
   };
   "gists/update-comment": {
@@ -3536,7 +3536,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["gist-comment"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   "gists/delete-comment": {
@@ -3551,9 +3551,9 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   "gists/list-commits": {
@@ -3573,9 +3573,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["gist-commit"][];
       };
-      304: never;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   "gists/list-forks": {
@@ -3595,9 +3595,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["gist-full"][];
       };
-      304: never;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -3616,10 +3616,10 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["base-gist"];
       };
-      304: never;
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   "gists/check-is-starred": {
@@ -3633,8 +3633,8 @@ export interface operations {
        * Response if gist is starred
        */
       204: never;
-      304: never;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
       /**
        * Response if gist is not starred
        */
@@ -3657,9 +3657,9 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   "gists/unstar": {
@@ -3673,9 +3673,9 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   "gists/get-revision": {
@@ -3692,9 +3692,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["gist-full"];
       };
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -3709,7 +3709,7 @@ export interface operations {
       200: {
         "application/json": string[];
       };
-      304: never;
+      304: components["responses"]["not_modified"];
     };
   };
   /**
@@ -3729,7 +3729,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["gitignore-template"];
       };
-      304: never;
+      304: components["responses"]["not_modified"];
     };
   };
   /**
@@ -3755,9 +3755,9 @@ export interface operations {
           repository_selection?: string;
         };
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -3825,9 +3825,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["issue"][];
       };
-      304: never;
-      404: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   "licenses/get-all-commonly-used": {
@@ -3844,7 +3844,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["license-simple"][];
       };
-      304: never;
+      304: components["responses"]["not_modified"];
     };
   };
   "licenses/get": {
@@ -3860,9 +3860,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["license"];
       };
-      304: never;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   "markdown/render": {
@@ -3888,7 +3888,7 @@ export interface operations {
        * response
        */
       200: unknown;
-      304: never;
+      304: components["responses"]["not_modified"];
     };
   };
   /**
@@ -3907,7 +3907,7 @@ export interface operations {
       200: {
         "text/html": string;
       };
-      304: never;
+      304: components["responses"]["not_modified"];
     };
   };
   /**
@@ -3928,7 +3928,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["marketplace-purchase"];
       };
-      401: unknown;
+      401: components["responses"]["requires_authentication"];
       /**
        * Response when the account has not purchased the listing
        */
@@ -3956,8 +3956,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["marketplace-listing-plan"][];
       };
-      401: unknown;
-      404: unknown;
+      401: components["responses"]["requires_authentication"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -3987,9 +3987,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["marketplace-purchase"][];
       };
-      401: unknown;
-      404: unknown;
-      422: unknown;
+      401: components["responses"]["requires_authentication"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -4010,7 +4010,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["marketplace-purchase"];
       };
-      401: unknown;
+      401: components["responses"]["requires_authentication"];
       /**
        * Response when the account has not purchased the listing
        */
@@ -4036,7 +4036,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["marketplace-listing-plan"][];
       };
-      401: unknown;
+      401: components["responses"]["requires_authentication"];
     };
   };
   /**
@@ -4066,7 +4066,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["marketplace-purchase"][];
       };
-      401: unknown;
+      401: components["responses"]["requires_authentication"];
     };
   };
   /**
@@ -4081,7 +4081,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["api-overview"];
       };
-      304: never;
+      304: components["responses"]["not_modified"];
     };
   };
   "activity/list-public-events-for-repo-network": {
@@ -4102,10 +4102,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["event"][];
       };
-      301: never;
-      304: never;
-      403: unknown;
-      404: unknown;
+      301: components["responses"]["moved_permanently"];
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -4129,10 +4129,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["thread"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -4163,9 +4163,9 @@ export interface operations {
        * response
        */
       205: unknown;
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   "activity/get-thread": {
@@ -4181,9 +4181,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["thread"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   "activity/mark-thread-as-read": {
@@ -4197,8 +4197,8 @@ export interface operations {
        * response
        */
       205: unknown;
-      304: never;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -4219,9 +4219,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["thread-subscription"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -4252,9 +4252,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["thread-subscription"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -4271,9 +4271,9 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -4316,7 +4316,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["organization-simple"][];
       };
-      304: never;
+      304: components["responses"]["not_modified"];
     };
   };
   /**
@@ -4337,7 +4337,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["organization-full"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -4451,8 +4451,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["organization-full"];
       };
-      409: unknown;
-      415: unknown;
+      409: components["responses"]["conflict"];
+      415: components["responses"]["preview_header_missing"];
       /**
        * Validation Failed
        */
@@ -5451,7 +5451,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      415: unknown;
+      415: components["responses"]["preview_header_missing"];
     };
   };
   "orgs/check-blocked-user": {
@@ -5486,7 +5486,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   "orgs/unblock-user": {
@@ -5540,7 +5540,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   "activity/list-public-org-events": {
@@ -5579,7 +5579,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["org-hook"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -5625,8 +5625,8 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["org-hook"];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -5646,7 +5646,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["org-hook"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -5688,8 +5688,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["org-hook"];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   "orgs/delete-webhook": {
@@ -5704,7 +5704,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -5772,7 +5772,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -5862,7 +5862,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["interaction-limit"];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -5901,7 +5901,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["organization-invitation"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -5945,8 +5945,8 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["organization-invitation"];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -5970,7 +5970,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["team"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -6018,7 +6018,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["issue"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -6058,7 +6058,7 @@ export interface operations {
        * Response if requester is not an organization member
        */
       302: never;
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -6101,7 +6101,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      403: unknown;
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -6121,8 +6121,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["org-membership"];
       };
-      403: unknown;
-      404: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -6160,8 +6160,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["org-membership"];
       };
-      403: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -6181,8 +6181,8 @@ export interface operations {
        * Empty response
        */
       204: never;
-      403: unknown;
-      404: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -6240,8 +6240,8 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["migration"];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -6271,7 +6271,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["migration"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -6289,7 +6289,7 @@ export interface operations {
        * response
        */
       302: never;
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -6307,7 +6307,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -6326,7 +6326,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -6350,7 +6350,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["minimal-repository"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -6406,7 +6406,7 @@ export interface operations {
       403: {
         "application/json": { message?: string; documentation_url?: string };
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -6456,7 +6456,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["project"][];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed_simple"];
     };
   };
   /**
@@ -6487,11 +6487,11 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["project"];
       };
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      410: unknown;
-      422: unknown;
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      410: components["responses"]["gone"];
+      422: components["responses"]["validation_failed_simple"];
     };
   };
   /**
@@ -6551,7 +6551,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      403: unknown;
+      403: components["responses"]["forbidden"];
     };
   };
   "orgs/remove-public-membership-for-authenticated-user": {
@@ -6705,8 +6705,8 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["repository"];
       };
-      403: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -6821,7 +6821,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["team"][];
       };
-      403: unknown;
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -6884,8 +6884,8 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["team-full"];
       };
-      403: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -6907,7 +6907,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["team-full"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -7957,10 +7957,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["project-card"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   "projects/update-card": {
@@ -7988,11 +7988,11 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["project-card"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed_simple"];
     };
   };
   "projects/delete-card": {
@@ -8006,8 +8006,8 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
       /**
        * Forbidden
        */
@@ -8018,7 +8018,7 @@ export interface operations {
           errors?: string[];
         };
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   "projects/move-card": {
@@ -8046,8 +8046,8 @@ export interface operations {
       201: {
         "application/json": { [key: string]: any };
       };
-      304: never;
-      401: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
       /**
        * Forbidden
        */
@@ -8063,7 +8063,7 @@ export interface operations {
           }[];
         };
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
       /**
        * Service Unavailable
        */
@@ -8090,10 +8090,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["project-column"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   "projects/update-column": {
@@ -8117,9 +8117,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["project-column"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   "projects/delete-column": {
@@ -8133,9 +8133,9 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   "projects/list-cards": {
@@ -8159,9 +8159,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["project-card"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -8201,9 +8201,9 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["project-card"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
       /**
        * Validation Failed
        */
@@ -8246,10 +8246,10 @@ export interface operations {
       201: {
         "application/json": { [key: string]: any };
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed_simple"];
     };
   };
   /**
@@ -8268,9 +8268,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["project"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -8313,8 +8313,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["project"];
       };
-      304: never;
-      401: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
       /**
        * Forbidden
        */
@@ -8329,8 +8329,8 @@ export interface operations {
        * Response if the authenticated user does not have access to the project
        */
       404: unknown;
-      410: unknown;
-      422: unknown;
+      410: components["responses"]["gone"];
+      422: components["responses"]["validation_failed_simple"];
     };
   };
   /**
@@ -8347,8 +8347,8 @@ export interface operations {
        * Delete Success
        */
       204: never;
-      304: never;
-      401: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
       /**
        * Forbidden
        */
@@ -8359,8 +8359,8 @@ export interface operations {
           errors?: string[];
         };
       };
-      404: unknown;
-      410: unknown;
+      404: components["responses"]["not_found"];
+      410: components["responses"]["gone"];
     };
   };
   /**
@@ -8390,12 +8390,12 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      415: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -8421,12 +8421,12 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      415: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -8444,12 +8444,12 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      415: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -8469,12 +8469,12 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["repository-collaborator-permission"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      415: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed"];
     };
   };
   "projects/list-columns": {
@@ -8494,9 +8494,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["project-column"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   "projects/create-column": {
@@ -8520,10 +8520,10 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["project-column"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed_simple"];
     };
   };
   /**
@@ -8540,8 +8540,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["rate-limit-overview"];
       };
-      304: never;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -8560,11 +8560,11 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
-      410: unknown;
-      415: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      410: components["responses"]["gone"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   /**
@@ -8586,9 +8586,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["full-repository"];
       };
-      301: never;
-      403: unknown;
-      404: unknown;
+      301: components["responses"]["moved_permanently"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -8673,9 +8673,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["full-repository"];
       };
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -8702,7 +8702,7 @@ export interface operations {
       403: {
         "application/json": { message?: string; documentation_url?: string };
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -9695,7 +9695,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -9782,7 +9782,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["short-branch"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   "repos/get-branch": {
@@ -9800,8 +9800,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["branch-with-protection"];
       };
-      404: unknown;
-      415: unknown;
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   /**
@@ -9822,7 +9822,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["branch-protection"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -9929,10 +9929,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["protected-branch"];
       };
-      403: unknown;
-      404: unknown;
-      415: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed_simple"];
     };
   };
   /**
@@ -9951,7 +9951,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      403: unknown;
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -10014,7 +10014,7 @@ export interface operations {
        * No Content
        */
       204: never;
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -10088,7 +10088,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["protected-branch-pull-request-review"];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -10107,7 +10107,7 @@ export interface operations {
        * No Content
        */
       204: never;
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -10132,7 +10132,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["protected-branch-admin-enforced"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -10155,7 +10155,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["protected-branch-admin-enforced"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -10176,7 +10176,7 @@ export interface operations {
        * No Content
        */
       204: never;
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -10197,7 +10197,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["status-check-policy"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -10232,8 +10232,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["status-check-policy"];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -10272,7 +10272,7 @@ export interface operations {
       200: {
         "application/json": string[];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -10296,9 +10296,9 @@ export interface operations {
       200: {
         "application/json": string[];
       };
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -10322,8 +10322,8 @@ export interface operations {
       200: {
         "application/json": string[];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -10347,8 +10347,8 @@ export interface operations {
       200: {
         "application/json": string[];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -10373,7 +10373,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["branch-restriction-policy"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -10416,7 +10416,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["integration"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -10446,7 +10446,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["integration"][];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -10476,7 +10476,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["integration"][];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -10506,7 +10506,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["integration"][];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -10529,7 +10529,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["team"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -10559,7 +10559,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["team"][];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -10589,7 +10589,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["team"][];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -10619,7 +10619,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["team"][];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -10642,7 +10642,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -10672,7 +10672,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -10702,7 +10702,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -10732,7 +10732,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -11267,7 +11267,7 @@ export interface operations {
        * Response if the ref does not match an existing ref
        */
       404: unknown;
-      503: unknown;
+      503: components["responses"]["service_unavailable"];
     };
   };
   /**
@@ -11290,8 +11290,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["code-scanning-alert-code-scanning-alert"];
       };
-      404: unknown;
-      503: unknown;
+      404: components["responses"]["not_found"];
+      503: components["responses"]["service_unavailable"];
     };
   };
   /**
@@ -11431,7 +11431,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["collaborator"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -11504,8 +11504,8 @@ export interface operations {
        * Response when person is already a collaborator
        */
       204: never;
-      403: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
     };
   };
   "repos/remove-collaborator": {
@@ -11541,7 +11541,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["repository-collaborator-permission"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -11584,7 +11584,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["commit-comment"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   "repos/update-commit-comment": {
@@ -11610,7 +11610,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["commit-comment"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   "repos/delete-commit-comment": {
@@ -11626,7 +11626,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -11663,8 +11663,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["reaction"][];
       };
-      404: unknown;
-      415: unknown;
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   /**
@@ -11707,8 +11707,8 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["reaction"];
       };
-      415: unknown;
-      422: unknown;
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -11797,10 +11797,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["simple-commit"][];
       };
-      400: unknown;
-      404: unknown;
-      409: unknown;
-      500: unknown;
+      400: components["responses"]["bad_request"];
+      404: components["responses"]["not_found"];
+      409: components["responses"]["conflict"];
+      500: components["responses"]["internal_error"];
     };
   };
   /**
@@ -11823,8 +11823,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["branch-short"][];
       };
-      415: unknown;
-      422: unknown;
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -11891,8 +11891,8 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["commit-comment"];
       };
-      403: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -11917,7 +11917,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["pull-request-simple"][];
       };
-      415: unknown;
+      415: components["responses"]["preview_header_missing"];
     };
   };
   /**
@@ -11976,9 +11976,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["commit"];
       };
-      404: unknown;
-      422: unknown;
-      500: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
+      500: components["responses"]["internal_error"];
     };
   };
   /**
@@ -12085,7 +12085,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["combined-commit-status"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -12115,7 +12115,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["status"][];
       };
-      301: never;
+      301: components["responses"]["moved_permanently"];
     };
   };
   /**
@@ -12215,8 +12215,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["commit-comparison"];
       };
-      404: unknown;
-      500: unknown;
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
     };
   };
   /**
@@ -12282,9 +12282,9 @@ export interface operations {
           | components["schemas"]["content-symlink"]
           | components["schemas"]["content-submodule"];
       };
-      302: never;
-      403: unknown;
-      404: unknown;
+      302: components["responses"]["found"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -12362,9 +12362,9 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["file-commit"];
       };
-      404: unknown;
-      409: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      409: components["responses"]["conflict"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -12436,10 +12436,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["file-commit"];
       };
-      404: unknown;
-      409: unknown;
-      422: unknown;
-      503: unknown;
+      404: components["responses"]["not_found"];
+      409: components["responses"]["conflict"];
+      422: components["responses"]["validation_failed"];
+      503: components["responses"]["service_unavailable"];
     };
   };
   /**
@@ -12473,8 +12473,8 @@ export interface operations {
        * Response if repository is empty
        */
       204: never;
-      403: unknown;
-      404: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -12632,7 +12632,7 @@ export interface operations {
       409: {
         "application/json": { message?: string; documentation_url?: string };
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   "repos/get-deployment": {
@@ -12650,7 +12650,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["deployment"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -12676,8 +12676,8 @@ export interface operations {
        * Empty response
        */
       204: never;
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed_simple"];
     };
   };
   /**
@@ -12702,7 +12702,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["deployment-status"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -12768,7 +12768,7 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["deployment-status"];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -12790,8 +12790,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["deployment-status"];
       };
-      404: unknown;
-      415: unknown;
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   /**
@@ -12827,7 +12827,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   "activity/list-repo-events": {
@@ -12872,7 +12872,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["minimal-repository"][];
       };
-      400: unknown;
+      400: components["responses"]["bad_request"];
     };
   };
   /**
@@ -12902,10 +12902,10 @@ export interface operations {
       202: {
         "application/json": components["schemas"]["repository"];
       };
-      400: unknown;
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      400: components["responses"]["bad_request"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   "git/create-blob": {
@@ -12934,10 +12934,10 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["short-blob"];
       };
-      403: unknown;
-      404: unknown;
-      409: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      409: components["responses"]["conflict"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -12960,9 +12960,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["blob"];
       };
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -13065,8 +13065,8 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["git-commit"];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -13116,7 +13116,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["git-commit"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -13175,7 +13175,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["git-ref"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -13208,7 +13208,7 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["git-ref"];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   "git/update-ref": {
@@ -13241,7 +13241,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["git-ref"];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   "git/delete-ref": {
@@ -13260,7 +13260,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -13346,7 +13346,7 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["git-tag"];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -13394,7 +13394,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["git-tag"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -13453,9 +13453,9 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["git-tree"];
       };
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -13484,8 +13484,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["git-tree"];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   "repos/list-webhooks": {
@@ -13506,7 +13506,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["hook"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -13554,9 +13554,9 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["hook"];
       };
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -13577,7 +13577,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["hook"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -13629,8 +13629,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["hook"];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   "repos/delete-webhook": {
@@ -13646,7 +13646,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -13717,7 +13717,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -13738,7 +13738,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -13791,7 +13791,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["import"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -13835,8 +13835,8 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["import"];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -13912,7 +13912,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["porter-author"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -13946,8 +13946,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["porter-author"];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -13994,7 +13994,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["import"];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -14016,8 +14016,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["installation"];
       };
-      301: never;
-      404: unknown;
+      301: components["responses"]["moved_permanently"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -14199,9 +14199,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["issue-simple"][];
       };
-      301: never;
-      404: unknown;
-      422: unknown;
+      301: components["responses"]["moved_permanently"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -14254,11 +14254,11 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["issue"];
       };
-      403: unknown;
-      404: unknown;
-      410: unknown;
-      422: unknown;
-      503: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      410: components["responses"]["gone"];
+      422: components["responses"]["validation_failed"];
+      503: components["responses"]["service_unavailable"];
     };
   };
   /**
@@ -14288,8 +14288,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["issue-comment"][];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   "issues/get-comment": {
@@ -14307,7 +14307,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["issue-comment"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   "issues/update-comment": {
@@ -14333,7 +14333,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["issue-comment"];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   "issues/delete-comment": {
@@ -14385,8 +14385,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["reaction"][];
       };
-      404: unknown;
-      415: unknown;
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   /**
@@ -14429,8 +14429,8 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["reaction"];
       };
-      415: unknown;
-      422: unknown;
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -14472,7 +14472,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["issue-event"][];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   "issues/get-event": {
@@ -14490,9 +14490,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["issue-event"];
       };
-      403: unknown;
-      404: unknown;
-      410: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      410: components["responses"]["gone"];
     };
   };
   /**
@@ -14523,10 +14523,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["issue"];
       };
-      301: never;
-      304: never;
-      404: unknown;
-      410: unknown;
+      301: components["responses"]["moved_permanently"];
+      304: components["responses"]["not_modified"];
+      404: components["responses"]["not_found"];
+      410: components["responses"]["gone"];
     };
   };
   /**
@@ -14582,12 +14582,12 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["issue"];
       };
-      301: never;
-      403: unknown;
-      404: unknown;
-      410: unknown;
-      422: unknown;
-      503: unknown;
+      301: components["responses"]["moved_permanently"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      410: components["responses"]["gone"];
+      422: components["responses"]["validation_failed"];
+      503: components["responses"]["service_unavailable"];
     };
   };
   /**
@@ -14669,8 +14669,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["issue-comment"][];
       };
-      404: unknown;
-      410: unknown;
+      404: components["responses"]["not_found"];
+      410: components["responses"]["gone"];
     };
   };
   /**
@@ -14699,10 +14699,10 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["issue-comment"];
       };
-      403: unknown;
-      404: unknown;
-      410: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      410: components["responses"]["gone"];
+      422: components["responses"]["validation_failed"];
     };
   };
   "issues/list-events": {
@@ -14724,7 +14724,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["issue-event-for-issue"][];
       };
-      410: unknown;
+      410: components["responses"]["gone"];
     };
   };
   "issues/list-labels-on-issue": {
@@ -14746,7 +14746,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["label"][];
       };
-      410: unknown;
+      410: components["responses"]["gone"];
     };
   };
   "issues/add-labels": {
@@ -14772,8 +14772,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["label"][];
       };
-      410: unknown;
-      422: unknown;
+      410: components["responses"]["gone"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -14802,8 +14802,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["label"][];
       };
-      410: unknown;
-      422: unknown;
+      410: components["responses"]["gone"];
+      422: components["responses"]["validation_failed"];
     };
   };
   "issues/remove-all-labels": {
@@ -14819,7 +14819,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      410: unknown;
+      410: components["responses"]["gone"];
     };
   };
   /**
@@ -14841,8 +14841,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["label"][];
       };
-      404: unknown;
-      410: unknown;
+      404: components["responses"]["not_found"];
+      410: components["responses"]["gone"];
     };
   };
   /**
@@ -14875,10 +14875,10 @@ export interface operations {
        * Empty response
        */
       204: never;
-      403: unknown;
-      404: unknown;
-      410: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      410: components["responses"]["gone"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -14897,8 +14897,8 @@ export interface operations {
        * Empty response
        */
       204: never;
-      403: unknown;
-      404: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -14935,9 +14935,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["reaction"][];
       };
-      404: unknown;
-      410: unknown;
-      415: unknown;
+      404: components["responses"]["not_found"];
+      410: components["responses"]["gone"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   /**
@@ -14974,8 +14974,8 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["reaction"];
       };
-      415: unknown;
-      422: unknown;
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -15018,9 +15018,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["issue-event-for-issue"][];
       };
-      404: unknown;
-      410: unknown;
-      415: unknown;
+      404: components["responses"]["not_found"];
+      410: components["responses"]["gone"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   "repos/list-deploy-keys": {
@@ -15078,7 +15078,7 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["deploy-key"];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   "repos/get-deploy-key": {
@@ -15096,7 +15096,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["deploy-key"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -15135,7 +15135,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["label"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   "issues/create-label": {
@@ -15168,8 +15168,8 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["label"];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   "issues/get-label": {
@@ -15187,7 +15187,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["label"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   "issues/update-label": {
@@ -15308,7 +15308,7 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["commit"];
       };
-      403: unknown;
+      403: components["responses"]["forbidden"];
       /**
        * response
        */
@@ -15321,7 +15321,7 @@ export interface operations {
       409: {
         "application/json": { message?: string; documentation_url?: string };
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   "issues/list-milestones": {
@@ -15354,7 +15354,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["milestone"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   "issues/create-milestone": {
@@ -15391,8 +15391,8 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["milestone"];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   "issues/get-milestone": {
@@ -15410,7 +15410,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["milestone"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   "issues/update-milestone": {
@@ -15463,7 +15463,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   "issues/list-labels-for-milestone": {
@@ -15553,7 +15553,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["page"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -15590,9 +15590,9 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["page"];
       };
-      409: unknown;
-      415: unknown;
-      422: unknown;
+      409: components["responses"]["conflict"];
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -15629,8 +15629,8 @@ export interface operations {
        * Empty response
        */
       204: never;
-      400: unknown;
-      422: unknown;
+      400: components["responses"]["bad_request"];
+      422: components["responses"]["validation_failed"];
     };
   };
   "repos/delete-pages-site": {
@@ -15645,9 +15645,9 @@ export interface operations {
        * Empty response
        */
       204: never;
-      404: unknown;
-      415: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed"];
     };
   };
   "repos/list-pages-builds": {
@@ -15749,11 +15749,11 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["project"][];
       };
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      410: unknown;
-      422: unknown;
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      410: components["responses"]["gone"];
+      422: components["responses"]["validation_failed_simple"];
     };
   };
   /**
@@ -15785,11 +15785,11 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["project"];
       };
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      410: unknown;
-      422: unknown;
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      410: components["responses"]["gone"];
+      422: components["responses"]["validation_failed_simple"];
     };
   };
   /**
@@ -15833,8 +15833,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["pull-request-simple"][];
       };
-      304: never;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -15889,8 +15889,8 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["pull-request"];
       };
-      403: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -15980,7 +15980,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["pull-request-review-comment"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -16045,7 +16045,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -16082,8 +16082,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["reaction"][];
       };
-      404: unknown;
-      415: unknown;
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   /**
@@ -16126,8 +16126,8 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["reaction"];
       };
-      415: unknown;
-      422: unknown;
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -16183,9 +16183,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["pull-request"];
       };
-      304: never;
-      404: unknown;
-      500: unknown;
+      304: components["responses"]["not_modified"];
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
     };
   };
   /**
@@ -16232,8 +16232,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["pull-request"];
       };
-      403: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -16365,8 +16365,8 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["pull-request-review-comment"];
       };
-      403: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -16398,7 +16398,7 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["pull-request-review-comment"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -16447,8 +16447,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["diff-entry"][];
       };
-      422: unknown;
-      500: unknown;
+      422: components["responses"]["validation_failed"];
+      500: components["responses"]["internal_error"];
     };
   };
   "pulls/check-if-merged": {
@@ -16508,8 +16508,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["pull-request-merge-result"];
       };
-      403: unknown;
-      404: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
       /**
        * Response if merge cannot be performed
        */
@@ -16522,7 +16522,7 @@ export interface operations {
       409: {
         "application/json": { message?: string; documentation_url?: string };
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   "pulls/list-requested-reviewers": {
@@ -16576,7 +16576,7 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["pull-request-simple"];
       };
-      403: unknown;
+      403: components["responses"]["forbidden"];
       /**
        * Response if user is not a collaborator
        */
@@ -16608,7 +16608,7 @@ export interface operations {
        * response
        */
       200: unknown;
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -16696,8 +16696,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["pull-request-review"];
       };
-      403: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed_simple"];
     };
   };
   "pulls/get-review": {
@@ -16716,7 +16716,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["pull-request-review"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -16746,7 +16746,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["pull-request-review"];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed_simple"];
     };
   };
   "pulls/delete-pending-review": {
@@ -16765,8 +16765,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["pull-request-review"];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed_simple"];
     };
   };
   /**
@@ -16792,7 +16792,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["review-comment"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -16823,8 +16823,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["pull-request-review"];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed_simple"];
     };
   };
   "pulls/submit-review": {
@@ -16855,9 +16855,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["pull-request-review"];
       };
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed_simple"];
     };
   };
   /**
@@ -16886,9 +16886,9 @@ export interface operations {
       202: {
         "application/json": { message?: string; url?: string };
       };
-      403: unknown;
-      415: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -16916,8 +16916,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["content-file"];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -16943,7 +16943,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["release"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -16993,7 +16993,7 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["release"];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -17014,9 +17014,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["release-asset"];
       };
-      302: never;
-      404: unknown;
-      415: unknown;
+      302: components["responses"]["found"];
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   /**
@@ -17109,7 +17109,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["release"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -17130,7 +17130,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["release"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -17288,7 +17288,7 @@ export interface operations {
         "application/json": components["schemas"]["simple-user"][];
         "application/vnd.github.v3.star+json": components["schemas"]["stargazer"][];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -17375,7 +17375,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["participation-stats"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -17484,7 +17484,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["repository-subscription"];
       };
-      403: unknown;
+      403: components["responses"]["forbidden"];
       /**
        * Response if you don't subscribe to the repository
        */
@@ -17614,8 +17614,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["topic"];
       };
-      404: unknown;
-      415: unknown;
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   "repos/replace-all-topics": {
@@ -17640,9 +17640,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["topic"];
       };
-      404: unknown;
-      415: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed_simple"];
     };
   };
   /**
@@ -17665,7 +17665,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["clone-traffic"];
       };
-      403: unknown;
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -17685,7 +17685,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["content-traffic"][];
       };
-      403: unknown;
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -17705,7 +17705,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["referrer-traffic"][];
       };
-      403: unknown;
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -17728,7 +17728,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["view-traffic"];
       };
-      403: unknown;
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -17906,8 +17906,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["minimal-repository"][];
       };
-      304: never;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -18385,10 +18385,10 @@ export interface operations {
       200: {
         "application/scim+json": components["schemas"]["scim-user-list"];
       };
-      304: never;
-      400: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      400: components["responses"]["scim_bad_request"];
+      403: components["responses"]["scim_forbidden"];
+      404: components["responses"]["scim_not_found"];
     };
   };
   /**
@@ -18428,12 +18428,12 @@ export interface operations {
       201: {
         "application/scim+json": components["schemas"]["scim-user"];
       };
-      304: never;
-      400: unknown;
-      403: unknown;
-      404: unknown;
-      409: unknown;
-      500: unknown;
+      304: components["responses"]["not_modified"];
+      400: components["responses"]["scim_bad_request"];
+      403: components["responses"]["scim_forbidden"];
+      404: components["responses"]["scim_not_found"];
+      409: components["responses"]["scim_conflict"];
+      500: components["responses"]["scim_internal_error"];
     };
   };
   "scim/get-provisioning-information-for-user": {
@@ -18450,9 +18450,9 @@ export interface operations {
       200: {
         "application/scim+json": components["schemas"]["scim-user"];
       };
-      304: never;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["scim_forbidden"];
+      404: components["responses"]["scim_not_found"];
     };
   };
   /**
@@ -18497,9 +18497,9 @@ export interface operations {
       200: {
         "application/scim+json": components["schemas"]["scim-user"];
       };
-      304: never;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["scim_forbidden"];
+      404: components["responses"]["scim_not_found"];
     };
   };
   /**
@@ -18556,10 +18556,10 @@ export interface operations {
       200: {
         "application/scim+json": components["schemas"]["scim-user"];
       };
-      304: never;
-      400: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      400: components["responses"]["scim_bad_request"];
+      403: components["responses"]["scim_forbidden"];
+      404: components["responses"]["scim_not_found"];
       /**
        * Too many requests
        */
@@ -18580,9 +18580,9 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["scim_forbidden"];
+      404: components["responses"]["scim_not_found"];
     };
   };
   /**
@@ -18632,10 +18632,10 @@ export interface operations {
           items?: components["schemas"]["code-search-result-item"][];
         };
       };
-      304: never;
-      403: unknown;
-      422: unknown;
-      503: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
+      503: components["responses"]["service_unavailable"];
     };
   };
   /**
@@ -18675,8 +18675,8 @@ export interface operations {
           items?: components["schemas"]["commit-search-result-item"][];
         };
       };
-      304: never;
-      415: unknown;
+      304: components["responses"]["not_modified"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   /**
@@ -18731,10 +18731,10 @@ export interface operations {
           items?: components["schemas"]["issue-search-result-item"][];
         };
       };
-      304: never;
-      403: unknown;
-      422: unknown;
-      503: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
+      503: components["responses"]["service_unavailable"];
     };
   };
   /**
@@ -18777,10 +18777,10 @@ export interface operations {
           items?: components["schemas"]["label-search-result-item"][];
         };
       };
-      304: never;
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -18825,9 +18825,9 @@ export interface operations {
           items?: components["schemas"]["repo-search-result-item"][];
         };
       };
-      304: never;
-      422: unknown;
-      503: unknown;
+      304: components["responses"]["not_modified"];
+      422: components["responses"]["validation_failed"];
+      503: components["responses"]["service_unavailable"];
     };
   };
   /**
@@ -18861,8 +18861,8 @@ export interface operations {
           items?: components["schemas"]["topic-search-result-item"][];
         };
       };
-      304: never;
-      415: unknown;
+      304: components["responses"]["not_modified"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   /**
@@ -18903,9 +18903,9 @@ export interface operations {
           items?: components["schemas"]["user-search-result-item"][];
         };
       };
-      304: never;
-      422: unknown;
-      503: unknown;
+      304: components["responses"]["not_modified"];
+      422: components["responses"]["validation_failed"];
+      503: components["responses"]["service_unavailable"];
     };
   };
   /**
@@ -18924,7 +18924,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["team-full"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -18979,9 +18979,9 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["team-full"];
       };
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -19002,8 +19002,8 @@ export interface operations {
        * Empty response
        */
       204: never;
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -19474,7 +19474,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -19527,7 +19527,7 @@ export interface operations {
        * Empty response
        */
       204: never;
-      403: unknown;
+      403: components["responses"]["forbidden"];
       /**
        * Response if team synchronization is set up
        */
@@ -19596,7 +19596,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["team-membership"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -19640,7 +19640,7 @@ export interface operations {
        * Response if team synchronization is set up
        */
       403: unknown;
-      404: unknown;
+      404: components["responses"]["not_found"];
       /**
        * Response if you attempt to add an organization to a team
        */
@@ -19702,8 +19702,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["team-project"][];
       };
-      404: unknown;
-      415: unknown;
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   /**
@@ -19729,7 +19729,7 @@ export interface operations {
        * Response if project is not managed by this team
        */
       404: unknown;
-      415: unknown;
+      415: components["responses"]["preview_header_missing"];
     };
   };
   /**
@@ -19767,9 +19767,9 @@ export interface operations {
       403: {
         "application/json": { message?: string; documentation_url?: string };
       };
-      404: unknown;
-      415: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -19789,9 +19789,9 @@ export interface operations {
        * Empty response
        */
       204: never;
-      404: unknown;
-      415: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -19814,7 +19814,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["minimal-repository"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -19882,8 +19882,8 @@ export interface operations {
        * Empty response
        */
       204: never;
-      403: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -19926,8 +19926,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["group-mapping"];
       };
-      403: unknown;
-      404: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -19975,8 +19975,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["group-mapping"];
       };
-      403: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -19999,9 +19999,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["team"][];
       };
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -20020,9 +20020,9 @@ export interface operations {
           | components["schemas"]["private-user"]
           | components["schemas"]["public-user"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -20073,11 +20073,11 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["private-user"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -20092,11 +20092,11 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      415: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   /**
@@ -20115,9 +20115,9 @@ export interface operations {
        * If the user is blocked:
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
       /**
        * If the user is not blocked:
        */
@@ -20137,11 +20137,11 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   "users/unblock": {
@@ -20155,10 +20155,10 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -20185,11 +20185,11 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["email"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -20209,10 +20209,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["email"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -20238,11 +20238,11 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["email"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -20266,11 +20266,11 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -20290,9 +20290,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -20312,9 +20312,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   "users/check-person-is-followed-by-authenticated": {
@@ -20328,9 +20328,9 @@ export interface operations {
        * Response if the person is followed by the authenticated user
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
       /**
        * Response if the person is not followed by the authenticated user
        */
@@ -20355,10 +20355,10 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -20375,10 +20375,10 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -20398,10 +20398,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["gpg-key"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -20424,11 +20424,11 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["gpg-key"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -20447,10 +20447,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["gpg-key"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -20467,11 +20467,11 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -20500,10 +20500,10 @@ export interface operations {
           installations?: components["schemas"]["installation"][];
         };
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      415: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      415: components["responses"]["preview_header_missing"];
     };
   };
   /**
@@ -20536,9 +20536,9 @@ export interface operations {
           repositories?: components["schemas"]["repository"][];
         };
       };
-      304: never;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -20558,9 +20558,9 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -20580,9 +20580,9 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -20627,8 +20627,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["issue"][];
       };
-      304: never;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -20648,10 +20648,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["key"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -20678,11 +20678,11 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["key"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -20701,10 +20701,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["key"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -20721,10 +20721,10 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -20744,9 +20744,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["user-marketplace-purchase"][];
       };
-      304: never;
-      401: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -20766,8 +20766,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["user-marketplace-purchase"][];
       };
-      304: never;
-      401: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
     };
   };
   "orgs/list-memberships-for-authenticated-user": {
@@ -20788,10 +20788,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["org-membership"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
     };
   };
   "orgs/get-membership-for-authenticated-user": {
@@ -20807,8 +20807,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["org-membership"];
       };
-      403: unknown;
-      404: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   "orgs/update-membership-for-authenticated-user": {
@@ -20832,9 +20832,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["org-membership"];
       };
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -20854,9 +20854,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["migration"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -20888,10 +20888,10 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["migration"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -20920,10 +20920,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["migration"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -20960,9 +20960,9 @@ export interface operations {
        * response
        */
       302: never;
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -20979,10 +20979,10 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -21000,10 +21000,10 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -21026,7 +21026,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["minimal-repository"][];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -21050,9 +21050,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["organization-simple"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   "projects/create-for-authenticated-user": {
@@ -21076,11 +21076,11 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["project"];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      415: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed_simple"];
     };
   };
   /**
@@ -21100,10 +21100,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["email"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -21152,14 +21152,14 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["repository"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
       /**
        * Response definition missing
        */
       418: unknown;
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -21253,12 +21253,12 @@ export interface operations {
       201: {
         "application/json": components["schemas"]["repository"];
       };
-      304: never;
-      400: unknown;
-      401: unknown;
-      403: unknown;
-      404: unknown;
-      422: unknown;
+      304: components["responses"]["not_modified"];
+      400: components["responses"]["bad_request"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -21278,10 +21278,10 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["repository-invitation"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   "repos/accept-invitation": {
@@ -21295,10 +21295,10 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      403: unknown;
-      404: unknown;
-      409: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      409: components["responses"]["conflict"];
     };
   };
   "repos/decline-invitation": {
@@ -21312,10 +21312,10 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      403: unknown;
-      404: unknown;
-      409: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      409: components["responses"]["conflict"];
     };
   };
   /**
@@ -21340,9 +21340,9 @@ export interface operations {
         "application/json": components["schemas"]["repository"][];
         "application/vnd.github.v3.star+json": components["schemas"]["starred-repository"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   "activity/check-repo-is-starred-by-authenticated-user": {
@@ -21357,9 +21357,9 @@ export interface operations {
        * Response if this repository is starred by you
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
       /**
        * Response if this repository is not starred by you
        */
@@ -21383,10 +21383,10 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   "activity/unstar-repo-for-authenticated-user": {
@@ -21401,10 +21401,10 @@ export interface operations {
        * Empty response
        */
       204: never;
-      304: never;
-      401: unknown;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -21424,9 +21424,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["minimal-repository"][];
       };
-      304: never;
-      401: unknown;
-      403: unknown;
+      304: components["responses"]["not_modified"];
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
     };
   };
   /**
@@ -21446,9 +21446,9 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["team-full"][];
       };
-      304: never;
-      403: unknown;
-      404: unknown;
+      304: components["responses"]["not_modified"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -21470,7 +21470,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["simple-user"][];
       };
-      304: never;
+      304: components["responses"]["not_modified"];
     };
   };
   /**
@@ -21497,7 +21497,7 @@ export interface operations {
           | components["schemas"]["private-user"]
           | components["schemas"]["public-user"];
       };
-      404: unknown;
+      404: components["responses"]["not_found"];
     };
   };
   /**
@@ -21647,7 +21647,7 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["base-gist"][];
       };
-      422: unknown;
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -21705,8 +21705,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["hovercard"];
       };
-      404: unknown;
-      422: unknown;
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -21796,8 +21796,8 @@ export interface operations {
       200: {
         "application/json": components["schemas"]["project"][];
       };
-      415: unknown;
-      422: unknown;
+      415: components["responses"]["preview_header_missing"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -27559,82 +27559,168 @@ export interface components {
     /**
      * Resource Not Found
      */
-    not_found: { [key: string]: any };
+    not_found: {
+      content: {
+        "application/json": components["schemas"]["basic-error"];
+      };
+    };
     /**
      * Validation Failed
      */
-    validation_failed_simple: { [key: string]: any };
+    validation_failed_simple: {
+      content: {
+        "application/json": components["schemas"]["validation-error-simple"];
+      };
+    };
     /**
      * Preview Header Missing
      */
-    preview_header_missing: { [key: string]: any };
+    preview_header_missing: {
+      content: {
+        "application/json": { message: string; documentation_url: string };
+      };
+    };
     /**
      * Forbidden
      */
-    forbidden: { [key: string]: any };
+    forbidden: {
+      content: {
+        "application/json": components["schemas"]["basic-error"];
+      };
+    };
     /**
      * Requires Authentication
      */
-    requires_authentication: { [key: string]: any };
+    requires_authentication: {
+      content: {
+        "application/json": components["schemas"]["basic-error"];
+      };
+    };
     /**
      * Validation Failed
      */
-    validation_failed: { [key: string]: any };
+    validation_failed: {
+      content: {
+        "application/json": components["schemas"]["validation-error"];
+      };
+    };
     /**
      * Not Modified
      */
-    not_modified: { [key: string]: any };
+    not_modified: {};
     /**
      * Gone
      */
-    gone: { [key: string]: any };
+    gone: {
+      content: {
+        "application/json": components["schemas"]["basic-error"];
+      };
+    };
     /**
      * Service Unavailable
      */
-    service_unavailable: { [key: string]: any };
+    service_unavailable: {
+      content: {
+        "application/json": {
+          code?: string;
+          message?: string;
+          documentation_url?: string;
+        };
+      };
+    };
     /**
      * Forbidden Gist
      */
-    forbidden_gist: { [key: string]: any };
+    forbidden_gist: {
+      content: {
+        "application/json": {
+          block?: {
+            reason?: string;
+            created_at?: string;
+            html_url?: string | null;
+          };
+          message?: string;
+          documentation_url?: string;
+        };
+      };
+    };
     /**
      * Moved Permanently
      */
-    moved_permanently: { [key: string]: any };
+    moved_permanently: {};
     /**
      * Conflict
      */
-    conflict: { [key: string]: any };
+    conflict: {
+      content: {
+        "application/json": components["schemas"]["basic-error"];
+      };
+    };
     /**
      * Internal Error
      */
-    internal_error: { [key: string]: any };
+    internal_error: {
+      content: {
+        "application/json": components["schemas"]["basic-error"];
+      };
+    };
     /**
      * Bad Request
      */
-    bad_request: { [key: string]: any };
+    bad_request: {
+      content: {
+        "application/json": components["schemas"]["basic-error"];
+        "application/scim+json": components["schemas"]["scim-error"];
+      };
+    };
     /**
      * Found
      */
-    found: { [key: string]: any };
+    found: {};
     /**
      * Resource Not Found
      */
-    scim_not_found: { [key: string]: any };
+    scim_not_found: {
+      content: {
+        "application/json": components["schemas"]["scim-error"];
+        "application/scim+json": components["schemas"]["scim-error"];
+      };
+    };
     /**
      * Forbidden
      */
-    scim_forbidden: { [key: string]: any };
+    scim_forbidden: {
+      content: {
+        "application/json": components["schemas"]["scim-error"];
+        "application/scim+json": components["schemas"]["scim-error"];
+      };
+    };
     /**
      * Bad Request
      */
-    scim_bad_request: { [key: string]: any };
+    scim_bad_request: {
+      content: {
+        "application/json": components["schemas"]["scim-error"];
+        "application/scim+json": components["schemas"]["scim-error"];
+      };
+    };
     /**
      * Internal Error
      */
-    scim_internal_error: { [key: string]: any };
+    scim_internal_error: {
+      content: {
+        "application/json": components["schemas"]["scim-error"];
+        "application/scim+json": components["schemas"]["scim-error"];
+      };
+    };
     /**
      * Conflict
      */
-    scim_conflict: { [key: string]: any };
+    scim_conflict: {
+      content: {
+        "application/json": components["schemas"]["scim-error"];
+        "application/scim+json": components["schemas"]["scim-error"];
+      };
+    };
   };
 }

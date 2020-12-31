@@ -127,7 +127,7 @@ export default function generateTypesV3(input: OpenAPI3 | OpenAPI3Schemas, optio
       }
 
       // 4. transform
-      output += transform(value.schema ? value.schema : value);
+      output += transform(value.schema || value);
 
       // 5. close nullable
       if (value.nullable) {
@@ -205,7 +205,15 @@ export default function generateTypesV3(input: OpenAPI3 | OpenAPI3Schemas, optio
     Object.entries(operation.responses).forEach(([statusCodeString, response]) => {
       // NOTE: Numeric status codes and the "default" response.
       const statusCode = Number(statusCodeString) || statusCodeString;
-      if (!response) return;
+      if (!response || typeof response !== "object") return;
+
+      // option 1: $ref
+      if (response.$ref) {
+        output += `${statusCode}: ${transformRef(response.$ref)};\n`;
+        return;
+      }
+
+      // option 2: inline schema
       if (response.description) output += comment(response.description);
       if (!response.content || !Object.keys(response.content).length) {
         const type = statusCode === 204 || Math.floor(+statusCode / 100) === 3 ? "never" : "unknown";
@@ -295,11 +303,22 @@ parameters: {
   ${createKeys(propertyMapped, Object.keys(propertyMapped))}
 }`;
   }
+
+  // add responses
   if (components.responses && Object.keys(components.responses).length) {
-    finalOutput += `
-responses: {
-  ${createKeys(components.responses, Object.keys(components.responses))}
-}`;
+    finalOutput += "\nresponses: {\n"; // open response
+    for (const [contentType, responseComplete] of Object.entries(components.responses)) {
+      const { description, ...response } = responseComplete;
+      if (description) finalOutput += comment(description);
+      finalOutput += `  "${contentType}": {\n`; // open content type
+      Object.entries(response).forEach(([property, value]) => {
+        finalOutput += `    "${property}": {\n`; // open property
+        finalOutput += `      ${createKeys(value, Object.keys(value))}\n`;
+        finalOutput += `    }\n`; // close property
+      });
+      finalOutput += "  }\n"; // close content type
+    }
+    finalOutput += "}\n"; // close response
   }
 
   // close components wrapper
