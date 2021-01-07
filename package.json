@@ -60,7 +60,7 @@
     "version": "npm run build"
   },
   "dependencies": {
-    "js-yaml": "^3.14.0",
+    "js-yaml": "^4.0.0",
     "kleur": "^4.1.3",
     "meow": "^9.0.0",
     "prettier": "^2.2.1"
