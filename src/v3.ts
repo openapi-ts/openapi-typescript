@@ -173,7 +173,9 @@ export default function generateTypesV3(input: OpenAPI3 | OpenAPI3Schemas, optio
           return;
         }
         if (paramProps.description) output += comment(paramProps.description);
-        output += `"${paramName}"${paramProps.required === true ? "" : "?"}: ${transform(paramProps.schema)};\n`;
+        output += `"${paramName}"${paramProps.required === true ? "" : "?"}: ${
+          paramProps.schema ? transform(paramProps.schema) : "unknown"
+        };\n`;
       });
       output += `}\n`;
     });
