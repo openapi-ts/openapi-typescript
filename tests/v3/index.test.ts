@@ -988,6 +988,52 @@ describe("responses", () => {
     );
   });
 
+  it("parameters missing schema (#377)", () => {
+    const schema: OpenAPI3 = {
+      openapi: "3.0.1",
+      paths: {
+        "/c/{id}.json": {
+          get: {
+            description: "Get a list of topics in the specified category\n",
+            tags: ["Categories"],
+            parameters: [
+              {
+                name: "id",
+                in: "path",
+                required: true,
+              },
+            ],
+            responses: {},
+          },
+        },
+      },
+    };
+
+    expect(swaggerToTS(schema)).toEqual(
+      format(`
+      export interface paths {
+        "/c/{id}.json": {
+          /**
+           * Get a list of topics in the specified category
+           */
+          get: {
+            parameters: {
+              path: {
+                id: unknown;
+              }
+            }
+            responses: {}
+          }
+        }
+      }
+
+      export interface operations {}
+
+      export interface components {}
+      `)
+    );
+  });
+
   it("operations interface (#341)", () => {
     const schema: OpenAPI3 = {
       openapi: "3.0.1",

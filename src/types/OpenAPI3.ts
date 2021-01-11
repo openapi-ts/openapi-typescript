@@ -37,6 +37,7 @@ export interface OpenAPI3Operation {
     [statusCode: number]: OpenAPI3ResponseObject;
     default?: OpenAPI3ResponseObject;
   };
+  tags?: string[];
 }
 
 export type Parameter = { $ref: string } | OpenAPI3Parameter;
@@ -46,7 +47,7 @@ export interface OpenAPI3Parameter {
   description?: string;
   required?: boolean;
   in: "query" | "header" | "path" | "cookie";
-  schema: OpenAPI3SchemaObject | OpenAPI3Reference;
+  schema?: OpenAPI3SchemaObject | OpenAPI3Reference;
 }
 
 export interface OpenAPI3ResponseObject {
