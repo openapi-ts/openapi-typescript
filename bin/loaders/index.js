@@ -36,7 +36,7 @@ module.exports.loadSpec = async (pathToSpec, { log = true }) => {
 
   try {
     if (isYamlSpec(rawSpec, pathToSpec)) {
-      return yaml.safeLoad(rawSpec);
+      return yaml.load(rawSpec);
     }
   } catch (err) {
     let message = `The spec under ${pathToSpec} seems to be YAML, but it couldn’t be parsed.`;
