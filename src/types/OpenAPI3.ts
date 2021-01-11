@@ -50,22 +50,21 @@ export interface OpenAPI3Parameter {
 }
 
 export interface OpenAPI3ResponseObject {
+  $ref?: string; // this is technically a lie; this should be a discriminated union type apart from OpenAPI3ResponseObject. However, in that scenario TS causes more trouble than it’s worth, so it’s here for convenience
   description?: string;
-  content?: {
-    [contentType: string]: { schema: OpenAPI3SchemaObject | OpenAPI3Reference };
-  };
+  content?: { [contentType: string]: { schema: OpenAPI3SchemaObject } };
 }
 
 export interface OpenAPI3RequestBody {
   description?: string;
   content?: {
-    [contentType: string]: { schema: OpenAPI3SchemaObject | { $ref: string } };
+    [contentType: string]: { schema: OpenAPI3SchemaObject };
   };
 }
 
 export interface OpenAPI3Components {
   schemas: OpenAPI3Schemas;
-  responses?: { [key: string]: OpenAPI3ResponseObject };
+  responses?: { [statusCode: string]: OpenAPI3ResponseObject };
   parameters?: { [key: string]: OpenAPI3Parameter };
 }
 

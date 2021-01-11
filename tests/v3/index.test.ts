@@ -534,7 +534,9 @@ describe("OpenAPI3 features", () => {
       }`)
     );
   });
+});
 
+describe("responses", () => {
   it("paths", () => {
     const schema: OpenAPI3 = {
       openapi: "3.0.1",
@@ -677,7 +679,11 @@ describe("OpenAPI3 features", () => {
           SearchResponse: { title: string; date: string }
         }
         responses: {
-          NotFound: { [key: string]: any }
+          NotFound: {
+            content: {
+              "application/json": components["schemas"]["ErrorResponse"];
+            }
+          }
         }
       }`)
     );
@@ -823,42 +829,62 @@ describe("OpenAPI3 features", () => {
     );
   });
 
-  it("$ref-type parameters (#329, #351)", () => {
+  it("$refs in paths (#329, #351, #408)", () => {
     const schema: OpenAPI3 = {
       openapi: "3.0.1",
       paths: {
         "/some/path": {
           get: {
-            parameters: [
-              {
-                $ref: "#/components/parameters/param1",
-              },
-              {
-                $ref: "#/components/parameters/param2",
-              },
-            ],
-            responses: {},
+            parameters: [{ $ref: "#/components/parameters/param1" }, { $ref: "#/components/parameters/param2" }],
+            responses: {
+              400: { $ref: "#/components/responses/400BadRequest" },
+            },
           },
         },
       },
       components: {
-        schemas: {},
+        schemas: {
+          BadRequestError: {
+            type: "object",
+            properties: {
+              message: { type: "string" },
+              code: {
+                type: "string",
+                enum: ["capacity_check_failed", "limit_check_failed"],
+              },
+              activityId: { type: "string" },
+            },
+            required: ["message"],
+          },
+        },
         parameters: {
           param1: {
             name: "param1",
             description: "some description",
             in: "query",
             required: true,
-            schema: {
-              type: "string",
-            },
+            schema: { type: "string" },
           },
           param2: {
             name: "param2",
             in: "query",
             required: false,
-            schema: {
-              type: "string",
+            schema: { type: "string" },
+          },
+        },
+        responses: {
+          "400BadRequest": {
+            description: "There were issues with the request",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    errors: { type: "array", items: { $ref: "#/components/schemas/BadRequestError" } },
+                  },
+                  required: ["errors"],
+                },
+              },
             },
           },
         },
@@ -868,7 +894,6 @@ describe("OpenAPI3 features", () => {
     expect(swaggerToTS(schema)).toEqual(
       format(`
       export interface paths {
-
         "/some/path": {
           get: {
             parameters: {
@@ -877,7 +902,9 @@ describe("OpenAPI3 features", () => {
                 param2?: components["parameters"]["param2"];
               }
             };
-            responses: {};
+            responses: {
+              400: components["responses"]["400BadRequest"];
+            };
           };
         };
       }
@@ -889,13 +916,33 @@ describe("OpenAPI3 features", () => {
           /**
            * some description
            */
-          param1: string
-          param2: string
+          param1: string;
+          param2: string;
+        }
+        schemas: {
+          BadRequestError: {
+            message: string;
+            code?: 'capacity_check_failed' | 'limit_check_failed';
+            activityId?: string;
+          }
+        }
+        responses: {
+          /**
+           * There were issues with the request
+           */
+          "400BadRequest": {
+            content: {
+              "application/json": {
+                errors: components["schemas"]["BadRequestError"][];
+              }
+            }
+          }
         }
       }
     `)
     );
   });
+
   it("parameters on entire path (#346)", () => {
     const schema: OpenAPI3 = {
       openapi: "3.0.1",
