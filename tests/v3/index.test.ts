@@ -494,6 +494,12 @@ describe("OpenAPI3 features", () => {
               },
             ],
           },
+          one_of_addl_props: {
+            type: "object",
+            additionalProperties: {
+              oneOf: [{ type: "string" }, { type: "number" }, { type: "boolean" }],
+            },
+          },
         },
       },
     };
@@ -509,6 +515,7 @@ describe("OpenAPI3 features", () => {
             one_of_inferred:
               | { kibana?: { versions?: string } }
               | { elasticsearch?: { versions?: string } }
+            one_of_addl_props: { [key: string]: string | number | boolean }
           }
         }
       `)
