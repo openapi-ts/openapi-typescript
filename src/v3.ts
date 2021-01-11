@@ -83,18 +83,29 @@ export default function generateTypesV3(input: OpenAPI3 | OpenAPI3Schemas, optio
         let properties = createKeys(node.properties || {}, node.required);
 
         // if additional properties, add an intersection with a generic map type
-        const additionalProperties = node.additionalProperties
-          ? [
-              `{ [key: string]: ${
-                node.additionalProperties === true ? "any" : transform(node.additionalProperties) || "any"
-              };}\n`,
-            ]
-          : [];
+        let additionalProperties: string | undefined;
+        if (node.additionalProperties) {
+          if (node.additionalProperties === true) {
+            additionalProperties = `{ [key: string]: any }\n`;
+          } else if (typeof node.additionalProperties === "object") {
+            const oneOf: any[] | undefined = (node.additionalProperties as any).oneOf || undefined; // TypeScript does a really bad job at inference here, so we enforce a type
+            const anyOf: any[] | undefined = (node.additionalProperties as any).anyOf || undefined; // "
+            if (oneOf) {
+              additionalProperties = `{ [key: string]: ${tsUnionOf(oneOf.map(transform))}; }\n`;
+            } else if (anyOf) {
+              additionalProperties = `{ [key: string]: ${tsIntersectionOf(
+                anyOf.map((s) => tsPartial(transform(s)))
+              )}; }\n`;
+            } else {
+              additionalProperties = `{ [key: string]: ${transform(node.additionalProperties) || "any"}; }\n`;
+            }
+          }
+        }
 
         return tsIntersectionOf([
           ...(node.allOf ? (node.allOf as any[]).map(transform) : []), // append allOf first
           ...(properties ? [`{ ${properties} }`] : []), // then properties
-          ...additionalProperties, // then additional properties
+          ...(additionalProperties ? [additionalProperties] : []), // then additional properties
         ]);
       }
       case "array": {
