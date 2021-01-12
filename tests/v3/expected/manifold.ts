@@ -29,9 +29,6 @@ export interface paths {
       };
     };
     post: {
-      requestBody: {
-        "application/json": components["schemas"]["CreateRegion"];
-      };
       responses: {
         /** Complete region object */
         201: {
@@ -49,6 +46,10 @@ export interface paths {
         500: {
           "application/json": components["schemas"]["Error"];
         };
+      };
+      /** Region create request */
+      requestBody: {
+        "application/json": components["schemas"]["CreateRegion"];
       };
     };
   };
@@ -86,9 +87,6 @@ export interface paths {
           id: string;
         };
       };
-      requestBody: {
-        "application/json": components["schemas"]["UpdateRegion"];
-      };
       responses: {
         /** Complete region object */
         200: {
@@ -102,6 +100,10 @@ export interface paths {
         500: {
           "application/json": components["schemas"]["Error"];
         };
+      };
+      /** Region update request */
+      requestBody: {
+        "application/json": components["schemas"]["UpdateRegion"];
       };
     };
   };
@@ -125,9 +127,6 @@ export interface paths {
       };
     };
     post: {
-      requestBody: {
-        "application/json": components["schemas"]["CreateProvider"];
-      };
       responses: {
         /** Complete provider object */
         201: {
@@ -149,6 +148,10 @@ export interface paths {
         500: {
           "application/json": components["schemas"]["Error"];
         };
+      };
+      /** Provider create request */
+      requestBody: {
+        "application/json": components["schemas"]["CreateProvider"];
       };
     };
   };
@@ -182,9 +185,6 @@ export interface paths {
           id: string;
         };
       };
-      requestBody: {
-        "application/json": components["schemas"]["UpdateProvider"];
-      };
       responses: {
         /** Complete provider object */
         200: {
@@ -210,6 +210,10 @@ export interface paths {
         500: {
           "application/json": components["schemas"]["Error"];
         };
+      };
+      /** Provider update request */
+      requestBody: {
+        "application/json": components["schemas"]["UpdateProvider"];
       };
     };
   };
@@ -244,9 +248,6 @@ export interface paths {
       };
     };
     post: {
-      requestBody: {
-        "application/json": components["schemas"]["CreateProduct"];
-      };
       responses: {
         /** Complete product object */
         201: {
@@ -268,6 +269,10 @@ export interface paths {
         500: {
           "application/json": components["schemas"]["Error"];
         };
+      };
+      /** Product create request */
+      requestBody: {
+        "application/json": components["schemas"]["CreateProduct"];
       };
     };
   };
@@ -344,9 +349,6 @@ export interface paths {
           id: string;
         };
       };
-      requestBody: {
-        "application/json": components["schemas"]["UpdateProduct"];
-      };
       responses: {
         /** Complete product object */
         200: {
@@ -364,6 +366,10 @@ export interface paths {
         500: {
           "application/json": components["schemas"]["Error"];
         };
+      };
+      /** Product update request */
+      requestBody: {
+        "application/json": components["schemas"]["UpdateProduct"];
       };
     };
   };
@@ -407,9 +413,6 @@ export interface paths {
           id: string;
         };
       };
-      requestBody: {
-        "application/json": components["schemas"]["UpdatePlan"];
-      };
       responses: {
         /** Complete product plan */
         200: {
@@ -427,6 +430,10 @@ export interface paths {
         500: {
           "application/json": components["schemas"]["Error"];
         };
+      };
+      /** Plan update request */
+      requestBody: {
+        "application/json": components["schemas"]["UpdatePlan"];
       };
     };
   };
@@ -460,9 +467,6 @@ export interface paths {
       };
     };
     post: {
-      requestBody: {
-        "application/json": components["schemas"]["CreatePlan"];
-      };
       responses: {
         /** Complete plan object */
         201: {
@@ -485,17 +489,15 @@ export interface paths {
           "application/json": components["schemas"]["Error"];
         };
       };
+      /** Plan create request */
+      requestBody: {
+        "application/json": components["schemas"]["CreatePlan"];
+      };
     };
   };
 }
 
-export interface operations {}
-
 export interface components {
-  parameters: {
-    /** Filter results to only include those that have this label. */
-    LabelFilter: string;
-  };
   schemas: {
     /** A base32 encoded 18 byte identifier. */
     ID: string;
