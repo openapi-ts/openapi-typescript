@@ -1,8 +1,16 @@
 import { OpenAPI2, OpenAPI2Reference, OpenAPI2SchemaObject, OpenAPI3 } from "./types";
 
 export function comment(text: string): string {
+  const commentText = text.trim();
+
+  // if single-line comment
+  if (commentText.indexOf("\n") === -1) {
+    return `/** ${commentText} */\n`;
+  }
+
+  // if multi-line comment
   return `/**
-  * ${text.trim().replace("\n+$", "").replace(/\n/g, "\n  * ")}
+  * ${commentText.replace(/\n/g, "\n  * ")}
   */
 `;
 }

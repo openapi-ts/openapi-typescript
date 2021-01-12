@@ -4,49 +4,27 @@
  */
 
 export interface definitions {
-  /**
-   * A base32 encoded 18 byte identifier.
-   */
+  /** A base32 encoded 18 byte identifier. */
   ID: string;
-  /**
-   * A base32 encoded 18 byte identifier.
-   */
+  /** A base32 encoded 18 byte identifier. */
   OptionalID: string;
-  /**
-   * A flexible identifier for internal or external entities.
-   */
+  /** A flexible identifier for internal or external entities. */
   FlexID: string;
-  /**
-   * A flexible identifier for internal or external entities.
-   */
+  /** A flexible identifier for internal or external entities. */
   OptionalFlexID: string;
-  /**
-   * A machine readable unique label, which is url safe.
-   */
+  /** A machine readable unique label, which is url safe. */
   Label: string;
-  /**
-   * A machine readable unique label, which is url safe.
-   */
+  /** A machine readable unique label, which is url safe. */
   OptionalLabel: string;
-  /**
-   * A machine readable unique label, which is url safe.
-   */
+  /** A machine readable unique label, which is url safe. */
   FeatureValueLabel: string;
-  /**
-   * A location of where a potential resource can be provisioned.
-   */
+  /** A location of where a potential resource can be provisioned. */
   Location: string;
-  /**
-   * A name of a platform which is used to provision resources.
-   */
+  /** A name of a platform which is used to provision resources. */
   Platform: string;
-  /**
-   * A name of an entity which is displayed to a human.
-   */
+  /** A name of an entity which is displayed to a human. */
   Name: string;
-  /**
-   * A name of an entity which is displayed to a human.
-   */
+  /** A name of an entity which is displayed to a human. */
   OptionalName: string;
   /**
    * Logo used for Provider and Product listings.
@@ -112,17 +90,11 @@ export interface definitions {
     label?: definitions["Label"];
     logo_url?: definitions["LogoURL"];
     listing?: definitions["ProductListing"];
-    /**
-     * 140 character sentence positioning the product.
-     */
+    /** 140 character sentence positioning the product. */
     tagline?: string;
-    /**
-     * A list of value propositions of the product.
-     */
+    /** A list of value propositions of the product. */
     value_props?: definitions["ValueProp"][];
-    /**
-     * A list of getting started steps for the product
-     */
+    /** A list of getting started steps for the product */
     setup_steps?: string[];
     images?: definitions["ProductImageURL"][];
     support_email?: string;
@@ -145,9 +117,7 @@ export interface definitions {
         credential?: "none" | "single" | "multiple" | "unknown";
       };
     };
-    /**
-     * An array of platform ids to restrict this product for.
-     */
+    /** An array of platform ids to restrict this product for. */
     platform_ids?: definitions["ID"][];
     tags?: definitions["ProductTags"];
   };
@@ -156,18 +126,12 @@ export interface definitions {
     name?: definitions["Name"];
     label?: definitions["Label"];
     state?: definitions["PlanState"];
-    /**
-     * Used in conjuction with resizable_to to set or unset the list
-     */
+    /** Used in conjuction with resizable_to to set or unset the list */
     has_resize_constraints?: boolean;
     resizable_to?: definitions["PlanResizeList"];
-    /**
-     * Array of Region IDs
-     */
+    /** Array of Region IDs */
     regions?: definitions["ID"][];
-    /**
-     * Array of Feature Values
-     */
+    /** Array of Feature Values */
     features?: definitions["FeatureValue"][];
     /**
      * The number of days a user gets as a free trial when subscribing to
@@ -175,9 +139,7 @@ export interface definitions {
      * or adding an additional subscription will not start a new trial.
      */
     trial_days?: number;
-    /**
-     * Dollar value in cents
-     */
+    /** Dollar value in cents */
     cost?: number;
   };
   /**
@@ -188,9 +150,7 @@ export interface definitions {
     label: definitions["Label"];
     name: definitions["Name"];
     type: "boolean" | "string" | "number";
-    /**
-     * This sets whether or not the feature can be customized by a consumer.
-     */
+    /** This sets whether or not the feature can be customized by a consumer. */
     customizable?: boolean;
     /**
      * This sets whether or not the feature can be upgraded by the consumer after the
@@ -246,13 +206,9 @@ export interface definitions {
        * A feature cannot have both a cost and a multiply factor.
        */
       multiply_factor?: number;
-      /**
-       * Price describes how the feature cost should be calculated.
-       */
+      /** Price describes how the feature cost should be calculated. */
       formula?: definitions["PriceFormula"];
-      /**
-       * Description explains how a feature is calculated to the user.
-       */
+      /** Description explains how a feature is calculated to the user. */
       description?: string;
     };
     numeric_details?: definitions["FeatureNumericDetails"];
@@ -271,17 +227,11 @@ export interface definitions {
      * Some plans may not have a measureable or customizable feature.
      */
     increment?: number;
-    /**
-     * Minimum value that can be set by a user if customizable
-     */
+    /** Minimum value that can be set by a user if customizable */
     min?: number;
-    /**
-     * Maximum value that can be set by a user if customizable
-     */
+    /** Maximum value that can be set by a user if customizable */
     max?: number;
-    /**
-     * Applied to the end of the number for display, for example the ‘GB’ in ‘20 GB’.
-     */
+    /** Applied to the end of the number for display, for example the ‘GB’ in ‘20 GB’. */
     suffix?: string;
     cost_ranges?: definitions["FeatureNumericRange"][];
   };
@@ -304,13 +254,8 @@ export interface definitions {
     value: definitions["FeatureValueLabel"];
   };
   ValueProp: {
-    /**
-     * Heading of a value proposition.
-     */
-    header: string;
-    /**
-     * Body of a value proposition.
-     */
+    /** Heading of a value proposition. */ header: string;
+    /** Body of a value proposition. */
     body: string;
   };
   /**
@@ -319,9 +264,7 @@ export interface definitions {
    * Minimum 660px wide, 400px high.
    */
   ProductImageURL: string;
-  /**
-   * List of tags for product categorization and search
-   */
+  /** List of tags for product categorization and search */
   ProductTags: definitions["Label"][];
   ProductState: "available" | "hidden" | "grandfathered" | "new" | "upcoming";
   ProductListing: {
@@ -407,25 +350,17 @@ export interface definitions {
   };
   ProductBody: {
     provider_id: definitions["ID"];
-    /**
-     * Product labels are globally unique and contain the provider name.
-     */
+    /** Product labels are globally unique and contain the provider name. */
     label: definitions["Label"];
     name: definitions["Name"];
     state: definitions["ProductState"];
     listing: definitions["ProductListing"];
     logo_url: definitions["LogoURL"];
-    /**
-     * 140 character sentence positioning the product.
-     */
+    /** 140 character sentence positioning the product. */
     tagline: string;
-    /**
-     * A list of value propositions of the product.
-     */
+    /** A list of value propositions of the product. */
     value_props: definitions["ValueProp"][];
-    /**
-     * A list of getting started steps for the product
-     */
+    /** A list of getting started steps for the product */
     setup_steps?: string[];
     images: definitions["ProductImageURL"][];
     support_email: string;
@@ -456,9 +391,7 @@ export interface definitions {
     body: definitions["ProductBody"];
   };
   CreateProduct: { body: definitions["ProductBody"] };
-  /**
-   * Array of Plan IDs that this Plan can be resized to, if null all will be assumed
-   */
+  /** Array of Plan IDs that this Plan can be resized to, if null all will be assumed */
   PlanResizeList: definitions["ID"][];
   PlanBody: {
     provider_id: definitions["ID"];
@@ -467,13 +400,9 @@ export interface definitions {
     label: definitions["Label"];
     state: definitions["PlanState"];
     resizable_to?: definitions["PlanResizeList"];
-    /**
-     * Array of Region IDs
-     */
+    /** Array of Region IDs */
     regions: definitions["ID"][];
-    /**
-     * Array of Feature Values
-     */
+    /** Array of Feature Values */
     features: definitions["FeatureValue"][];
     /**
      * The number of days a user gets as a free trial when subscribing to
@@ -481,34 +410,22 @@ export interface definitions {
      * or adding an additional subscription will not start a new trial.
      */
     trial_days?: number;
-    /**
-     * Dollar value in cents.
-     */
+    /** Dollar value in cents. */
     cost: number;
   };
   PlanState: "hidden" | "available" | "grandfathered" | "unlisted";
   ExpandedPlanBody: definitions["PlanBody"] & {
-    /**
-     * An array of feature definitions for the plan, as defined on the Product.
-     */
+    /** An array of feature definitions for the plan, as defined on the Product. */
     expanded_features: definitions["ExpandedFeature"][];
-    /**
-     * A boolean flag that indicates if a plan is free or not based on it's cost and features.
-     */
+    /** A boolean flag that indicates if a plan is free or not based on it's cost and features. */
     free: boolean;
-    /**
-     * Plan cost using its default features plus base cost.
-     */
+    /** Plan cost using its default features plus base cost. */
     defaultCost?: number;
-    /**
-     * A boolean flag that indicates if a plan has customizable features.
-     */
+    /** A boolean flag that indicates if a plan has customizable features. */
     customizable?: boolean;
   };
   ExpandedFeature: definitions["FeatureType"] & {
-    /**
-     * The string value set for the feature on the plan, this should only be used if the value property is null.
-     */
+    /** The string value set for the feature on the plan, this should only be used if the value property is null. */
     value_string: string;
     value: definitions["FeatureValueDetails"];
   };
@@ -525,17 +442,10 @@ export interface definitions {
     body: definitions["ExpandedPlanBody"];
   };
   CreatePlan: { body: definitions["PlanBody"] };
-  /**
-   * Unexpected error
-   */
+  /** Unexpected error */
   Error: {
-    /**
-     * The error type
-     */
-    type: string;
-    /**
-     * Explanation of the errors
-     */
+    /** The error type */ type: string;
+    /** Explanation of the errors */
     message: string[];
   };
   /**

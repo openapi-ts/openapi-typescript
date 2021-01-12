@@ -736,9 +736,7 @@ describe("responses", () => {
         "/no-content": {
           get: {
             responses: {
-              /**
-               * Empty response
-               */
+              /** Empty response */
               204: never;
             };
           };
@@ -746,9 +744,7 @@ describe("responses", () => {
         "/not-modified": {
           get: {
             responses: {
-              /**
-               * Empty response
-               */
+              /** Empty response */
               304: never;
             };
           };
@@ -756,9 +752,7 @@ describe("responses", () => {
         "/not-found": {
           get: {
             responses: {
-              /**
-               * Empty response
-               */
+              /** Empty response */
               404: unknown;
             };
           };
@@ -920,9 +914,7 @@ describe("responses", () => {
 
       export interface components {
         parameters: {
-          /**
-           * some description
-           */
+          /** some description */
           param1: string;
           param2: string;
         }
@@ -934,9 +926,7 @@ describe("responses", () => {
           }
         }
         responses: {
-          /**
-           * There were issues with the request
-           */
+          /** There were issues with the request */
           "400BadRequest": {
             content: {
               "application/json": {
@@ -1020,9 +1010,7 @@ describe("responses", () => {
       format(`
       export interface paths {
         "/c/{id}.json": {
-          /**
-           * Get a list of topics in the specified category
-           */
+          /** Get a list of topics in the specified category */
           get: {
             parameters: {
               path: {
@@ -1074,9 +1062,7 @@ describe("responses", () => {
       }
 
       export interface operations {
-        /**
-         * some description
-         */
+        /** some description */
         "get-test": {
           parameters: {
             path: {
@@ -1112,11 +1098,9 @@ describe("responses", () => {
       format(`
       export interface paths {
         '/': {
-         /**
-          * get description
-          */
-         get: {
-            responses: { }
+          /** get description */
+          get: {
+            responses: {}
           }
         };
       }
