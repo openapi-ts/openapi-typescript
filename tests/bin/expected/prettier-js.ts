@@ -61,17 +61,11 @@ export interface operations {
       'application/xml': components['schemas']['Pet']
     }
     responses: {
-      /**
-       * Invalid ID supplied
-       */
+      /** Invalid ID supplied */
       400: unknown
-      /**
-       * Pet not found
-       */
+      /** Pet not found */
       404: unknown
-      /**
-       * Validation exception
-       */
+      /** Validation exception */
       405: unknown
     }
   }
@@ -81,119 +75,82 @@ export interface operations {
       'application/xml': components['schemas']['Pet']
     }
     responses: {
-      /**
-       * Invalid input
-       */
+      /** Invalid input */
       405: unknown
     }
   }
-  /**
-   * Multiple status values can be provided with comma separated strings
-   */
+  /** Multiple status values can be provided with comma separated strings */
   findPetsByStatus: {
     parameters: {
       query: {
-        /**
-         * Status values that need to be considered for filter
-         */
+        /** Status values that need to be considered for filter */
         status: ('available' | 'pending' | 'sold')[]
       }
     }
     responses: {
-      /**
-       * successful operation
-       */
+      /** successful operation */
       200: {
         'application/xml': components['schemas']['Pet'][]
         'application/json': components['schemas']['Pet'][]
       }
-      /**
-       * Invalid status value
-       */
+      /** Invalid status value */
       400: unknown
     }
   }
-  /**
-   * Muliple tags can be provided with comma separated strings. Use         tag1, tag2, tag3 for testing.
-   */
+  /** Muliple tags can be provided with comma separated strings. Use         tag1, tag2, tag3 for testing. */
   findPetsByTags: {
     parameters: {
       query: {
-        /**
-         * Tags to filter by
-         */
+        /** Tags to filter by */
         tags: string[]
       }
     }
     responses: {
-      /**
-       * successful operation
-       */
+      /** successful operation */
       200: {
         'application/xml': components['schemas']['Pet'][]
         'application/json': components['schemas']['Pet'][]
       }
-      /**
-       * Invalid tag value
-       */
+      /** Invalid tag value */
       400: unknown
     }
   }
-  /**
-   * Returns a single pet
-   */
+  /** Returns a single pet */
   getPetById: {
     parameters: {
       path: {
-        /**
-         * ID of pet to return
-         */
+        /** ID of pet to return */
         petId: number
       }
     }
     responses: {
-      /**
-       * successful operation
-       */
+      /** successful operation */
       200: {
         'application/xml': components['schemas']['Pet']
         'application/json': components['schemas']['Pet']
       }
-      /**
-       * Invalid ID supplied
-       */
+      /** Invalid ID supplied */
       400: unknown
-      /**
-       * Pet not found
-       */
+      /** Pet not found */
       404: unknown
     }
   }
   updatePetWithForm: {
     parameters: {
       path: {
-        /**
-         * ID of pet that needs to be updated
-         */
+        /** ID of pet that needs to be updated */
         petId: number
       }
     }
     requestBody: {
       'application/x-www-form-urlencoded': {
-        /**
-         * Updated name of the pet
-         */
-        name?: string
-        /**
-         * Updated status of the pet
-         */
+        /** Updated name of the pet */ name?: string
+        /** Updated status of the pet */
         status?: string
       }
     }
     responses: {
-      /**
-       * Invalid input
-       */
+      /** Invalid input */
       405: unknown
     }
   }
@@ -203,61 +160,42 @@ export interface operations {
         api_key?: string
       }
       path: {
-        /**
-         * Pet id to delete
-         */
+        /** Pet id to delete */
         petId: number
       }
     }
     responses: {
-      /**
-       * Invalid ID supplied
-       */
+      /** Invalid ID supplied */
       400: unknown
-      /**
-       * Pet not found
-       */
+      /** Pet not found */
       404: unknown
     }
   }
   uploadFile: {
     parameters: {
       path: {
-        /**
-         * ID of pet to update
-         */
+        /** ID of pet to update */
         petId: number
       }
     }
     requestBody: {
       'multipart/form-data': {
-        /**
-         * Additional data to pass to server
-         */
-        additionalMetadata?: string
-        /**
-         * file to upload
-         */
+        /** Additional data to pass to server */ additionalMetadata?: string
+        /** file to upload */
         file?: string
       }
     }
     responses: {
-      /**
-       * successful operation
-       */
+      /** successful operation */
       200: {
         'application/json': components['schemas']['ApiResponse']
       }
     }
   }
-  /**
-   * Returns a map of status codes to quantities
-   */
+  /** Returns a map of status codes to quantities */
   getInventory: {
     responses: {
-      /**
-       * successful operation
-       */
+      /** successful operation */
       200: {
         'application/json': { [key: string]: number }
       }
@@ -268,83 +206,57 @@ export interface operations {
       '*/*': components['schemas']['Order']
     }
     responses: {
-      /**
-       * successful operation
-       */
+      /** successful operation */
       200: {
         'application/xml': components['schemas']['Order']
         'application/json': components['schemas']['Order']
       }
-      /**
-       * Invalid Order
-       */
+      /** Invalid Order */
       400: unknown
     }
   }
-  /**
-   * For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions
-   */
+  /** For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions */
   getOrderById: {
     parameters: {
       path: {
-        /**
-         * ID of pet that needs to be fetched
-         */
+        /** ID of pet that needs to be fetched */
         orderId: number
       }
     }
     responses: {
-      /**
-       * successful operation
-       */
+      /** successful operation */
       200: {
         'application/xml': components['schemas']['Order']
         'application/json': components['schemas']['Order']
       }
-      /**
-       * Invalid ID supplied
-       */
+      /** Invalid ID supplied */
       400: unknown
-      /**
-       * Order not found
-       */
+      /** Order not found */
       404: unknown
     }
   }
-  /**
-   * For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors
-   */
+  /** For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors */
   deleteOrder: {
     parameters: {
       path: {
-        /**
-         * ID of the order that needs to be deleted
-         */
+        /** ID of the order that needs to be deleted */
         orderId: number
       }
     }
     responses: {
-      /**
-       * Invalid ID supplied
-       */
+      /** Invalid ID supplied */
       400: unknown
-      /**
-       * Order not found
-       */
+      /** Order not found */
       404: unknown
     }
   }
-  /**
-   * This can only be done by the logged in user.
-   */
+  /** This can only be done by the logged in user. */
   createUser: {
     requestBody: {
       '*/*': components['schemas']['User']
     }
     responses: {
-      /**
-       * successful operation
-       */
+      /** successful operation */
       default: unknown
     }
   }
@@ -353,9 +265,7 @@ export interface operations {
       '*/*': components['schemas']['User'][]
     }
     responses: {
-      /**
-       * successful operation
-       */
+      /** successful operation */
       default: unknown
     }
   }
@@ -364,83 +274,59 @@ export interface operations {
       '*/*': components['schemas']['User'][]
     }
     responses: {
-      /**
-       * successful operation
-       */
+      /** successful operation */
       default: unknown
     }
   }
   loginUser: {
     parameters: {
       query: {
-        /**
-         * The user name for login
-         */
+        /** The user name for login */
         username: string
-        /**
-         * The password for login in clear text
-         */
+        /** The password for login in clear text */
         password: string
       }
     }
     responses: {
-      /**
-       * successful operation
-       */
+      /** successful operation */
       200: {
         'application/xml': string
         'application/json': string
       }
-      /**
-       * Invalid username/password supplied
-       */
+      /** Invalid username/password supplied */
       400: unknown
     }
   }
   logoutUser: {
     responses: {
-      /**
-       * successful operation
-       */
+      /** successful operation */
       default: unknown
     }
   }
   getUserByName: {
     parameters: {
       path: {
-        /**
-         * The name that needs to be fetched. Use user1 for testing.
-         */
+        /** The name that needs to be fetched. Use user1 for testing. */
         username: string
       }
     }
     responses: {
-      /**
-       * successful operation
-       */
+      /** successful operation */
       200: {
         'application/xml': components['schemas']['User']
         'application/json': components['schemas']['User']
       }
-      /**
-       * Invalid username supplied
-       */
+      /** Invalid username supplied */
       400: unknown
-      /**
-       * User not found
-       */
+      /** User not found */
       404: unknown
     }
   }
-  /**
-   * This can only be done by the logged in user.
-   */
+  /** This can only be done by the logged in user. */
   updateUser: {
     parameters: {
       path: {
-        /**
-         * name that need to be updated
-         */
+        /** name that need to be updated */
         username: string
       }
     }
@@ -448,36 +334,24 @@ export interface operations {
       '*/*': components['schemas']['User']
     }
     responses: {
-      /**
-       * Invalid user supplied
-       */
+      /** Invalid user supplied */
       400: unknown
-      /**
-       * User not found
-       */
+      /** User not found */
       404: unknown
     }
   }
-  /**
-   * This can only be done by the logged in user.
-   */
+  /** This can only be done by the logged in user. */
   deleteUser: {
     parameters: {
       path: {
-        /**
-         * The name that needs to be deleted
-         */
+        /** The name that needs to be deleted */
         username: string
       }
     }
     responses: {
-      /**
-       * Invalid username supplied
-       */
+      /** Invalid username supplied */
       400: unknown
-      /**
-       * User not found
-       */
+      /** User not found */
       404: unknown
     }
   }
@@ -490,9 +364,7 @@ export interface components {
       petId?: number
       quantity?: number
       shipDate?: string
-      /**
-       * Order Status
-       */
+      /** Order Status */
       status?: 'placed' | 'approved' | 'delivered'
       complete?: boolean
     }
@@ -505,9 +377,7 @@ export interface components {
       email?: string
       password?: string
       phone?: string
-      /**
-       * User Status
-       */
+      /** User Status */
       userStatus?: number
     }
     Tag: { id?: number; name?: string }
@@ -517,9 +387,7 @@ export interface components {
       name: string
       photoUrls: string[]
       tags?: components['schemas']['Tag'][]
-      /**
-       * pet status in the store
-       */
+      /** pet status in the store */
       status?: 'available' | 'pending' | 'sold'
     }
     ApiResponse: { code?: number; type?: string; message?: string }

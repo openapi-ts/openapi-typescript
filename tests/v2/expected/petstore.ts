@@ -9,9 +9,7 @@ export interface definitions {
     petId?: number;
     quantity?: number;
     shipDate?: string;
-    /**
-     * Order Status
-     */
+    /** Order Status */
     status?: "placed" | "approved" | "delivered";
     complete?: boolean;
   };
@@ -24,9 +22,7 @@ export interface definitions {
     email?: string;
     password?: string;
     phone?: string;
-    /**
-     * User Status
-     */
+    /** User Status */
     userStatus?: number;
   };
   Tag: { id?: number; name?: string };
@@ -36,9 +32,7 @@ export interface definitions {
     name: string;
     photoUrls: string[];
     tags?: definitions["Tag"][];
-    /**
-     * pet status in the store
-     */
+    /** pet status in the store */
     status?: "available" | "pending" | "sold";
   };
   ApiResponse: { code?: number; type?: string; message?: string };

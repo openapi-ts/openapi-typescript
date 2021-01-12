@@ -8,9 +8,7 @@ export interface paths {
     get: {
       parameters: {
         query: {
-          /**
-           * Filter results to only include the regions that have this location.
-           */
+          /** Filter results to only include the regions that have this location. */
           location?: string;
           /**
            * Filter results to only include the regions that are on this
@@ -20,15 +18,11 @@ export interface paths {
         };
       };
       responses: {
-        /**
-         * A list of regions.
-         */
+        /** A list of regions. */
         200: {
           "application/json": components["schemas"]["Region"][];
         };
-        /**
-         * Unexpected Error
-         */
+        /** Unexpected Error */
         500: {
           "application/json": components["schemas"]["Error"];
         };
@@ -39,27 +33,19 @@ export interface paths {
         "application/json": components["schemas"]["CreateRegion"];
       };
       responses: {
-        /**
-         * Complete region object
-         */
+        /** Complete region object */
         201: {
           "application/json": components["schemas"]["Region"];
         };
-        /**
-         * Invalid request provided
-         */
+        /** Invalid request provided */
         400: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Region already exists for that platform and location
-         */
+        /** Region already exists for that platform and location */
         409: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Unexpected Error
-         */
+        /** Unexpected Error */
         500: {
           "application/json": components["schemas"]["Error"];
         };
@@ -70,34 +56,24 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /**
-           * ID of the region to lookup, stored as a base32 encoded 18 byte identifier.
-           */
+          /** ID of the region to lookup, stored as a base32 encoded 18 byte identifier. */
           id: string;
         };
       };
       responses: {
-        /**
-         * A region.
-         */
+        /** A region. */
         200: {
           "application/json": components["schemas"]["Region"];
         };
-        /**
-         * Provided Region ID is Invalid
-         */
+        /** Provided Region ID is Invalid */
         400: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Region could not be found
-         */
+        /** Region could not be found */
         404: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Unexpected Error
-         */
+        /** Unexpected Error */
         500: {
           "application/json": components["schemas"]["Error"];
         };
@@ -106,9 +82,7 @@ export interface paths {
     patch: {
       parameters: {
         path: {
-          /**
-           * ID of the region to lookup, stored as a base32 encoded 18 byte identifier.
-           */
+          /** ID of the region to lookup, stored as a base32 encoded 18 byte identifier. */
           id: string;
         };
       };
@@ -116,21 +90,15 @@ export interface paths {
         "application/json": components["schemas"]["UpdateRegion"];
       };
       responses: {
-        /**
-         * Complete region object
-         */
+        /** Complete region object */
         200: {
           "application/json": components["schemas"]["Region"];
         };
-        /**
-         * Invalid request provided
-         */
+        /** Invalid request provided */
         400: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Unexpected Error
-         */
+        /** Unexpected Error */
         500: {
           "application/json": components["schemas"]["Error"];
         };
@@ -141,22 +109,16 @@ export interface paths {
     get: {
       parameters: {
         query: {
-          /**
-           * Filter results to only include those that have this label.
-           */
+          /** Filter results to only include those that have this label. */
           label?: string;
         };
       };
       responses: {
-        /**
-         * A list of providers.
-         */
+        /** A list of providers. */
         200: {
           "application/json": components["schemas"]["Provider"][];
         };
-        /**
-         * Unexpected Error
-         */
+        /** Unexpected Error */
         500: {
           "application/json": components["schemas"]["Error"];
         };
@@ -167,33 +129,23 @@ export interface paths {
         "application/json": components["schemas"]["CreateProvider"];
       };
       responses: {
-        /**
-         * Complete provider object
-         */
+        /** Complete provider object */
         201: {
           "application/json": components["schemas"]["Provider"];
         };
-        /**
-         * Invalid request provided
-         */
+        /** Invalid request provided */
         400: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Forbidden
-         */
+        /** Forbidden */
         403: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Provider already exists with that label
-         */
+        /** Provider already exists with that label */
         409: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Unexpected Error
-         */
+        /** Unexpected Error */
         500: {
           "application/json": components["schemas"]["Error"];
         };
@@ -204,28 +156,20 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /**
-           * ID of the provider to lookup, stored as a base32 encoded 18 byte identifier.
-           */
+          /** ID of the provider to lookup, stored as a base32 encoded 18 byte identifier. */
           id: string;
         };
       };
       responses: {
-        /**
-         * A provider.
-         */
+        /** A provider. */
         200: {
           "application/json": components["schemas"]["Provider"];
         };
-        /**
-         * Unknown provider error
-         */
+        /** Unknown provider error */
         404: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Unexpected Error
-         */
+        /** Unexpected Error */
         500: {
           "application/json": components["schemas"]["Error"];
         };
@@ -234,9 +178,7 @@ export interface paths {
     patch: {
       parameters: {
         path: {
-          /**
-           * ID of the provider to update, stored as a base32 encoded 18 byte identifier.
-           */
+          /** ID of the provider to update, stored as a base32 encoded 18 byte identifier. */
           id: string;
         };
       };
@@ -244,39 +186,27 @@ export interface paths {
         "application/json": components["schemas"]["UpdateProvider"];
       };
       responses: {
-        /**
-         * Complete provider object
-         */
+        /** Complete provider object */
         200: {
           "application/json": components["schemas"]["Provider"];
         };
-        /**
-         * Invalid request provided
-         */
+        /** Invalid request provided */
         400: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Forbidden
-         */
+        /** Forbidden */
         403: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Provider not found
-         */
+        /** Provider not found */
         404: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Provider already exists with that label
-         */
+        /** Provider already exists with that label */
         409: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Unexpected Error
-         */
+        /** Unexpected Error */
         500: {
           "application/json": components["schemas"]["Error"];
         };
@@ -292,32 +222,22 @@ export interface paths {
            * products must belong to.
            */
           provider_id?: string;
-          /**
-           * Filter results to only include those that have this label.
-           */
+          /** Filter results to only include those that have this label. */
           label?: string;
-          /**
-           * Return only products matching at least one of the tags.
-           */
+          /** Return only products matching at least one of the tags. */
           tags?: string[];
         };
       };
       responses: {
-        /**
-         * A product.
-         */
+        /** A product. */
         200: {
           "application/json": components["schemas"]["Product"][];
         };
-        /**
-         * Invalid provider_id supplied
-         */
+        /** Invalid provider_id supplied */
         400: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Unexpected Error
-         */
+        /** Unexpected Error */
         500: {
           "application/json": components["schemas"]["Error"];
         };
@@ -328,33 +248,23 @@ export interface paths {
         "application/json": components["schemas"]["CreateProduct"];
       };
       responses: {
-        /**
-         * Complete product object
-         */
+        /** Complete product object */
         201: {
           "application/json": components["schemas"]["Product"];
         };
-        /**
-         * Invalid request provided
-         */
+        /** Invalid request provided */
         400: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Forbidden
-         */
+        /** Forbidden */
         403: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Product already exists with that label
-         */
+        /** Product already exists with that label */
         409: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Unexpected Error
-         */
+        /** Unexpected Error */
         500: {
           "application/json": components["schemas"]["Error"];
         };
@@ -370,36 +280,24 @@ export interface paths {
            * products must belong to.
            */
           provider_id?: string;
-          /**
-           * Filter results to only include those that have this label.
-           */
+          /** Filter results to only include those that have this label. */
           label?: string;
-          /**
-           * Return only products matching at least one of the tags.
-           */
+          /** Return only products matching at least one of the tags. */
           tags?: string[];
-          /**
-           * Return product listings without plan information
-           */
+          /** Return product listings without plan information */
           include_plans?: boolean;
         };
       };
       responses: {
-        /**
-         * A product.
-         */
+        /** A product. */
         200: {
           "application/json": components["schemas"]["ExpandedProduct"][];
         };
-        /**
-         * Invalid provider_id supplied
-         */
+        /** Invalid provider_id supplied */
         400: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Unexpected Error
-         */
+        /** Unexpected Error */
         500: {
           "application/json": components["schemas"]["Error"];
         };
@@ -418,27 +316,19 @@ export interface paths {
         };
       };
       responses: {
-        /**
-         * A product.
-         */
+        /** A product. */
         200: {
           "application/json": components["schemas"]["Product"];
         };
-        /**
-         * Invalid Product ID
-         */
+        /** Invalid Product ID */
         400: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Product not found error
-         */
+        /** Product not found error */
         404: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Unexpected error
-         */
+        /** Unexpected error */
         500: {
           "application/json": components["schemas"]["Error"];
         };
@@ -458,27 +348,19 @@ export interface paths {
         "application/json": components["schemas"]["UpdateProduct"];
       };
       responses: {
-        /**
-         * Complete product object
-         */
+        /** Complete product object */
         200: {
           "application/json": components["schemas"]["Product"];
         };
-        /**
-         * Invalid Product ID
-         */
+        /** Invalid Product ID */
         400: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Product not found error
-         */
+        /** Product not found error */
         404: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Unexpected error
-         */
+        /** Unexpected error */
         500: {
           "application/json": components["schemas"]["Error"];
         };
@@ -497,27 +379,19 @@ export interface paths {
         };
       };
       responses: {
-        /**
-         * A plan.
-         */
+        /** A plan. */
         200: {
           "application/json": components["schemas"]["ExpandedPlan"];
         };
-        /**
-         * Invalid Plan ID Provided
-         */
+        /** Invalid Plan ID Provided */
         400: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Unknown plan error
-         */
+        /** Unknown plan error */
         404: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Unexpected error
-         */
+        /** Unexpected error */
         default: {
           "application/json": components["schemas"]["Error"];
         };
@@ -537,27 +411,19 @@ export interface paths {
         "application/json": components["schemas"]["UpdatePlan"];
       };
       responses: {
-        /**
-         * Complete product plan
-         */
+        /** Complete product plan */
         200: {
           "application/json": components["schemas"]["Plan"];
         };
-        /**
-         * Invalid Plan ID
-         */
+        /** Invalid Plan ID */
         400: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Plan not found error
-         */
+        /** Plan not found error */
         404: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Unexpected error
-         */
+        /** Unexpected error */
         500: {
           "application/json": components["schemas"]["Error"];
         };
@@ -568,38 +434,26 @@ export interface paths {
     get: {
       parameters: {
         query: {
-          /**
-           * Return the plans that are associated with this product.
-           */
+          /** Return the plans that are associated with this product. */
           product_id: string[];
-          /**
-           * Filter results to only include those that have this label.
-           */
+          /** Filter results to only include those that have this label. */
           label?: string;
         };
       };
       responses: {
-        /**
-         * A list of plans for the given product.
-         */
+        /** A list of plans for the given product. */
         200: {
           "application/json": components["schemas"]["ExpandedPlan"][];
         };
-        /**
-         * Invalid Parameters Provided
-         */
+        /** Invalid Parameters Provided */
         400: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Could not find product
-         */
+        /** Could not find product */
         404: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Unexpected error
-         */
+        /** Unexpected error */
         500: {
           "application/json": components["schemas"]["Error"];
         };
@@ -610,33 +464,23 @@ export interface paths {
         "application/json": components["schemas"]["CreatePlan"];
       };
       responses: {
-        /**
-         * Complete plan object
-         */
+        /** Complete plan object */
         201: {
           "application/json": components["schemas"]["Plan"];
         };
-        /**
-         * Invalid request provided
-         */
+        /** Invalid request provided */
         400: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Forbidden
-         */
+        /** Forbidden */
         403: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Plan already exists with that label
-         */
+        /** Plan already exists with that label */
         409: {
           "application/json": components["schemas"]["Error"];
         };
-        /**
-         * Unexpected Error
-         */
+        /** Unexpected Error */
         500: {
           "application/json": components["schemas"]["Error"];
         };
@@ -649,55 +493,31 @@ export interface operations {}
 
 export interface components {
   parameters: {
-    /**
-     * Filter results to only include those that have this label.
-     */
+    /** Filter results to only include those that have this label. */
     LabelFilter: string;
   };
   schemas: {
-    /**
-     * A base32 encoded 18 byte identifier.
-     */
+    /** A base32 encoded 18 byte identifier. */
     ID: string;
-    /**
-     * A base32 encoded 18 byte identifier.
-     */
+    /** A base32 encoded 18 byte identifier. */
     OptionalID: string | null;
-    /**
-     * A flexible identifier for internal or external entities.
-     */
+    /** A flexible identifier for internal or external entities. */
     FlexID: string;
-    /**
-     * A flexible identifier for internal or external entities.
-     */
+    /** A flexible identifier for internal or external entities. */
     OptionalFlexID: string | null;
-    /**
-     * A machine readable unique label, which is url safe.
-     */
+    /** A machine readable unique label, which is url safe. */
     Label: string;
-    /**
-     * A machine readable unique label, which is url safe.
-     */
+    /** A machine readable unique label, which is url safe. */
     OptionalLabel: string | null;
-    /**
-     * A machine readable unique label, which is url safe.
-     */
+    /** A machine readable unique label, which is url safe. */
     FeatureValueLabel: string;
-    /**
-     * A location of where a potential resource can be provisioned.
-     */
+    /** A location of where a potential resource can be provisioned. */
     Location: string;
-    /**
-     * A name of a platform which is used to provision resources.
-     */
+    /** A name of a platform which is used to provision resources. */
     Platform: string;
-    /**
-     * A name of an entity which is displayed to a human.
-     */
+    /** A name of an entity which is displayed to a human. */
     Name: string;
-    /**
-     * A name of an entity which is displayed to a human.
-     */
+    /** A name of an entity which is displayed to a human. */
     OptionalName: string | null;
     /**
      * Logo used for Provider and Product listings.
@@ -763,17 +583,11 @@ export interface components {
       label?: components["schemas"]["Label"];
       logo_url?: components["schemas"]["LogoURL"];
       listing?: components["schemas"]["ProductListing"];
-      /**
-       * 140 character sentence positioning the product.
-       */
+      /** 140 character sentence positioning the product. */
       tagline?: string | null;
-      /**
-       * A list of value propositions of the product.
-       */
+      /** A list of value propositions of the product. */
       value_props?: components["schemas"]["ValueProp"][] | null;
-      /**
-       * A list of getting started steps for the product
-       */
+      /** A list of getting started steps for the product */
       setup_steps?: string[] | null;
       images?: components["schemas"]["ProductImageURL"][] | null;
       support_email?: string | null;
@@ -796,9 +610,7 @@ export interface components {
           credential?: ("none" | "single" | "multiple" | "unknown") | null;
         };
       } | null;
-      /**
-       * An array of platform ids to restrict this product for.
-       */
+      /** An array of platform ids to restrict this product for. */
       platform_ids?: components["schemas"]["ID"][] | null;
       tags?: components["schemas"]["ProductTags"];
     };
@@ -810,18 +622,12 @@ export interface components {
       name?: components["schemas"]["Name"];
       label?: components["schemas"]["Label"];
       state?: components["schemas"]["PlanState"];
-      /**
-       * Used in conjuction with resizable_to to set or unset the list
-       */
+      /** Used in conjuction with resizable_to to set or unset the list */
       has_resize_constraints?: boolean | null;
       resizable_to?: components["schemas"]["PlanResizeList"];
-      /**
-       * Array of Region IDs
-       */
+      /** Array of Region IDs */
       regions?: components["schemas"]["ID"][] | null;
-      /**
-       * Array of Feature Values
-       */
+      /** Array of Feature Values */
       features?: components["schemas"]["FeatureValue"][] | null;
       /**
        * The number of days a user gets as a free trial when subscribing to
@@ -829,9 +635,7 @@ export interface components {
        * or adding an additional subscription will not start a new trial.
        */
       trial_days?: number | null;
-      /**
-       * Dollar value in cents
-       */
+      /** Dollar value in cents */
       cost?: number | null;
     };
     /**
@@ -842,9 +646,7 @@ export interface components {
       label: components["schemas"]["Label"];
       name: components["schemas"]["Name"];
       type: "boolean" | "string" | "number";
-      /**
-       * This sets whether or not the feature can be customized by a consumer.
-       */
+      /** This sets whether or not the feature can be customized by a consumer. */
       customizable?: boolean;
       /**
        * This sets whether or not the feature can be upgraded by the consumer after the
@@ -901,9 +703,7 @@ export interface components {
          */
         multiply_factor?: number;
         formula?: components["schemas"]["PriceFormula"];
-        /**
-         * Description explains how a feature is calculated to the user.
-         */
+        /** Description explains how a feature is calculated to the user. */
         description?: string;
       };
       numeric_details?: components["schemas"]["FeatureNumericDetails"];
@@ -922,17 +722,11 @@ export interface components {
        * Some plans may not have a measureable or customizable feature.
        */
       increment?: number;
-      /**
-       * Minimum value that can be set by a user if customizable
-       */
+      /** Minimum value that can be set by a user if customizable */
       min?: number;
-      /**
-       * Maximum value that can be set by a user if customizable
-       */
+      /** Maximum value that can be set by a user if customizable */
       max?: number | null;
-      /**
-       * Applied to the end of the number for display, for example the ‘GB’ in ‘20 GB’.
-       */
+      /** Applied to the end of the number for display, for example the ‘GB’ in ‘20 GB’. */
       suffix?: string | null;
       cost_ranges?: components["schemas"]["FeatureNumericRange"][] | null;
     } | null;
@@ -955,13 +749,8 @@ export interface components {
       value: components["schemas"]["FeatureValueLabel"];
     };
     ValueProp: {
-      /**
-       * Heading of a value proposition.
-       */
-      header: string;
-      /**
-       * Body of a value proposition.
-       */
+      /** Heading of a value proposition. */ header: string;
+      /** Body of a value proposition. */
       body: string;
     };
     /**
@@ -970,9 +759,7 @@ export interface components {
      * Minimum 660px wide, 400px high.
      */
     ProductImageURL: string;
-    /**
-     * List of tags for product categorization and search
-     */
+    /** List of tags for product categorization and search */
     ProductTags: components["schemas"]["Label"][];
     ProductState: "available" | "hidden" | "grandfathered" | "new" | "upcoming";
     ProductListing: {
@@ -1063,17 +850,11 @@ export interface components {
       state: components["schemas"]["ProductState"];
       listing: components["schemas"]["ProductListing"];
       logo_url: components["schemas"]["LogoURL"];
-      /**
-       * 140 character sentence positioning the product.
-       */
+      /** 140 character sentence positioning the product. */
       tagline: string;
-      /**
-       * A list of value propositions of the product.
-       */
+      /** A list of value propositions of the product. */
       value_props: components["schemas"]["ValueProp"][];
-      /**
-       * A list of getting started steps for the product
-       */
+      /** A list of getting started steps for the product */
       setup_steps?: string[] | null;
       images: components["schemas"]["ProductImageURL"][];
       support_email: string;
@@ -1104,9 +885,7 @@ export interface components {
       body: components["schemas"]["ProductBody"];
     };
     CreateProduct: { body: components["schemas"]["ProductBody"] };
-    /**
-     * Array of Plan IDs that this Plan can be resized to, if null all will be assumed
-     */
+    /** Array of Plan IDs that this Plan can be resized to, if null all will be assumed */
     PlanResizeList: components["schemas"]["ID"][] | null;
     PlanBody: {
       provider_id: components["schemas"]["ID"];
@@ -1115,13 +894,9 @@ export interface components {
       label: components["schemas"]["Label"];
       state: components["schemas"]["PlanState"];
       resizable_to?: components["schemas"]["PlanResizeList"];
-      /**
-       * Array of Region IDs
-       */
+      /** Array of Region IDs */
       regions: components["schemas"]["ID"][];
-      /**
-       * Array of Feature Values
-       */
+      /** Array of Feature Values */
       features: components["schemas"]["FeatureValue"][];
       /**
        * The number of days a user gets as a free trial when subscribing to
@@ -1129,34 +904,22 @@ export interface components {
        * or adding an additional subscription will not start a new trial.
        */
       trial_days?: number;
-      /**
-       * Dollar value in cents.
-       */
+      /** Dollar value in cents. */
       cost: number;
     };
     PlanState: "hidden" | "available" | "grandfathered" | "unlisted";
     ExpandedPlanBody: components["schemas"]["PlanBody"] & {
-      /**
-       * An array of feature definitions for the plan, as defined on the Product.
-       */
+      /** An array of feature definitions for the plan, as defined on the Product. */
       expanded_features: components["schemas"]["ExpandedFeature"][];
-      /**
-       * A boolean flag that indicates if a plan is free or not based on it's cost and features.
-       */
+      /** A boolean flag that indicates if a plan is free or not based on it's cost and features. */
       free: boolean;
-      /**
-       * Plan cost using its default features plus base cost.
-       */
+      /** Plan cost using its default features plus base cost. */
       defaultCost?: number;
-      /**
-       * A boolean flag that indicates if a plan has customizable features.
-       */
+      /** A boolean flag that indicates if a plan has customizable features. */
       customizable?: boolean;
     };
     ExpandedFeature: components["schemas"]["FeatureType"] & {
-      /**
-       * The string value set for the feature on the plan, this should only be used if the value property is null.
-       */
+      /** The string value set for the feature on the plan, this should only be used if the value property is null. */
       value_string: string;
       value: components["schemas"]["FeatureValueDetails"];
     };
@@ -1173,17 +936,10 @@ export interface components {
       body: components["schemas"]["ExpandedPlanBody"];
     };
     CreatePlan: { body: components["schemas"]["PlanBody"] };
-    /**
-     * Unexpected error
-     */
+    /** Unexpected error */
     Error: {
-      /**
-       * The error type
-       */
-      type: string;
-      /**
-       * Explanation of the errors
-       */
+      /** The error type */ type: string;
+      /** Explanation of the errors */
       message: string[];
     };
     /**
