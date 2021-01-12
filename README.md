@@ -1,4 +1,5 @@
 [![version(scoped)](https://img.shields.io/npm/v/openapi-typescript.svg)](https://www.npmjs.com/package/openapi-typescript)
+[![npm downloads (weekly)](https://img.shields.io/npm/dw/openapi-typescript)](https://www.npmjs.com/package/openapi-typescript)
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/master/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
