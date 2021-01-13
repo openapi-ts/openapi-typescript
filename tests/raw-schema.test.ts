@@ -8,8 +8,8 @@ describe("rawSchema", () => {
           User: {
             type: "object",
             properties: {
-              name: { type: "string" },
-              email: { type: "string" },
+              name: { type: "string", description: "user name" },
+              email: { type: "string", description: "user email" },
             },
             required: ["name", "email"],
           },
@@ -22,7 +22,12 @@ describe("rawSchema", () => {
  */
 
 export interface definitions {
-  User: { name: string; email: string };
+  User: {
+    /** user name */
+    name: string;
+    /** user email */
+    email: string;
+  };
 }\n`);
   });
 
@@ -33,8 +38,8 @@ export interface definitions {
           User: {
             type: "object",
             properties: {
-              name: { type: "string" },
-              email: { type: "string" },
+              name: { type: "string", description: "user name" },
+              email: { type: "string", description: "user email" },
             },
             required: ["name", "email"],
           },
@@ -47,7 +52,12 @@ export interface definitions {
  */
 
 export interface schemas {
-  User: { name: string; email: string };
+  User: {
+    /** user name */
+    name: string;
+    /** user email */
+    email: string;
+  };
 }\n`);
   });
 });

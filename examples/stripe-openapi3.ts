@@ -1601,26 +1601,10 @@ export interface components {
       /** Fields that may become required depending on the results of verification or review. An empty array unless an asynchronous verification is pending. If verification fails, the fields in this array become required and move to `currently_due` or `past_due`. */
       pending_verification: string[];
     };
-<<<<<<< HEAD
-  };
-  /**
-   * <p>With <a href="/docs/connect">Connect</a>, you can delete Custom or Express accounts you manage.</p>
-   *
-   * <p>Accounts created using test-mode keys can be deleted at any time. Accounts created using live-mode keys can only be deleted once all balances are zero.</p>
-   *
-   * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/account">account information tab in your account settings</a> instead.</p>
-   */
-  DeleteAccount: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        account?: string;
-      };
-=======
     account_card_payments_settings: {
       decline_on?: components["schemas"]["account_decline_charge_on"];
       /** The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge. `statement_descriptor_prefix` is useful for maximizing descriptor space for the dynamic portion. */
       statement_descriptor_prefix?: string | null;
->>>>>>> f6ee87b (Add more items to components object)
     };
     account_dashboard_settings: {
       /** The display name for this account. This is used on the Stripe Dashboard to differentiate between accounts. */
@@ -1658,248 +1642,12 @@ export interface components {
       /** The Kanji variation of the default text that appears on credit card statements when a charge is made (Japan only) */
       statement_descriptor_kanji?: string | null;
     };
-<<<<<<< HEAD
-  };
-  /**
-   * <p>Updates a connected <a href="/docs/connect/accounts">Express or Custom account</a> by setting the values of the parameters passed. Any parameters not provided are left unchanged. Most parameters can be changed only for Custom accounts. (These are marked <strong>Custom Only</strong> below.) Parameters marked <strong>Custom and Express</strong> are supported by both account types.</p>
-   *
-   * <p>To update your own account, use the <a href="https://dashboard.stripe.com/account">Dashboard</a>. Refer to our <a href="/docs/connect/updating-accounts">Connect</a> documentation to learn more about updating accounts.</p>
-   */
-  PostAccount: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
-        account_token?: string;
-        /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-        bank_account?: Partial<{
-          account_holder_name?: string;
-          account_holder_type?: "company" | "individual";
-          account_number: string;
-          country: string;
-          currency?: string;
-          object?: "bank_account";
-          routing_number?: string;
-        }> &
-          Partial<string>;
-        /** Business information about the account. */
-        business_profile?: {
-          mcc?: string;
-          name?: string;
-          product_description?: string;
-          support_email?: string;
-          support_phone?: string;
-          support_url?: string;
-          url?: string;
-        };
-        /** The business type. */
-        business_type?:
-          | "company"
-          | "government_entity"
-          | "individual"
-          | "non_profit";
-        /** Information about the company or business. This field is null unless `business_type` is set to `company`, `government_entity`, or `non_profit`. */
-        company?: {
-          address?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          address_kana?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-            town?: string;
-          };
-          address_kanji?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-            town?: string;
-          };
-          directors_provided?: boolean;
-          executives_provided?: boolean;
-          name?: string;
-          name_kana?: string;
-          name_kanji?: string;
-          owners_provided?: boolean;
-          phone?: string;
-          structure?:
-            | ""
-            | "government_instrumentality"
-            | "governmental_unit"
-            | "incorporated_non_profit"
-            | "limited_liability_partnership"
-            | "multi_member_llc"
-            | "private_company"
-            | "private_corporation"
-            | "private_partnership"
-            | "public_company"
-            | "public_corporation"
-            | "public_partnership"
-            | "sole_proprietorship"
-            | "tax_exempt_government_instrumentality"
-            | "unincorporated_association"
-            | "unincorporated_non_profit";
-          tax_id?: string;
-          tax_id_registrar?: string;
-          vat_id?: string;
-          verification?: {
-            document?: {
-              back?: string;
-              front?: string;
-            };
-          };
-        };
-        /** Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts). */
-        default_currency?: string;
-        /** Email address of the account representative. For Standard accounts, this is used to ask them to claim their Stripe account. For Custom accounts, this only makes the account easier to identify to platforms; Stripe does not email the account representative. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A card or bank account to attach to the account. You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation. <br><br>By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the bank account or card creation API. */
-        external_account?: string;
-        /** Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. */
-        individual?: {
-          address?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          address_kana?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-            town?: string;
-          };
-          address_kanji?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-            town?: string;
-          };
-          dob?: Partial<{
-            day: number;
-            month: number;
-            year: number;
-          }> &
-            Partial<"">;
-          email?: string;
-          first_name?: string;
-          first_name_kana?: string;
-          first_name_kanji?: string;
-          gender?: string;
-          id_number?: string;
-          last_name?: string;
-          last_name_kana?: string;
-          last_name_kanji?: string;
-          maiden_name?: string;
-          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-          phone?: string;
-          ssn_last_4?: string;
-          verification?: {
-            additional_document?: {
-              back?: string;
-              front?: string;
-            };
-            document?: {
-              back?: string;
-              front?: string;
-            };
-          };
-        };
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** The set of capabilities you want to unlock for this account. Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive. */
-        requested_capabilities?: (
-          | "au_becs_debit_payments"
-          | "card_issuing"
-          | "card_payments"
-          | "legacy_payments"
-          | "tax_reporting_us_1099_k"
-          | "tax_reporting_us_1099_misc"
-          | "transfers"
-        )[];
-        /** Options for customizing how the account functions within Stripe. */
-        settings?: {
-          branding?: {
-            icon?: string;
-            logo?: string;
-            primary_color?: string;
-            secondary_color?: string;
-          };
-          card_payments?: {
-            decline_on?: {
-              avs_failure?: boolean;
-              cvc_failure?: boolean;
-            };
-            statement_descriptor_prefix?: string;
-          };
-          payments?: {
-            statement_descriptor?: string;
-            statement_descriptor_kana?: string;
-            statement_descriptor_kanji?: string;
-          };
-          payouts?: {
-            debit_negative_balances?: boolean;
-            schedule?: {
-              delay_days?: Partial<"minimum"> & Partial<number>;
-              interval?: "daily" | "manual" | "monthly" | "weekly";
-              monthly_anchor?: number;
-              weekly_anchor?:
-                | "friday"
-                | "monday"
-                | "saturday"
-                | "sunday"
-                | "thursday"
-                | "tuesday"
-                | "wednesday";
-            };
-            statement_descriptor?: string;
-          };
-        };
-        /** Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance). */
-        tos_acceptance?: {
-          date?: number;
-          ip?: string;
-          user_agent?: string;
-        };
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["account"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-=======
     account_payout_settings: {
       /** A Boolean indicating if Stripe should try to reclaim negative balances from an attached bank account. See our [Understanding Connect Account Balances](https://stripe.com/docs/connect/account-balances) documentation for details. Default value is `true` for Express accounts and `false` for Custom accounts. */
       debit_negative_balances: boolean;
       schedule: components["schemas"]["transfer_schedule"];
       /** The text that appears on the bank account statement for payouts. If not set, this defaults to the platform's bank descriptor as set in the Dashboard. */
       statement_descriptor?: string | null;
->>>>>>> f6ee87b (Add more items to components object)
     };
     account_requirements: {
       /** The date the fields in `currently_due` must be collected by to keep payouts enabled for the account. These fields might block payouts sooner if the next threshold is reached before these fields are collected. */
@@ -1979,7 +1727,8 @@ export interface components {
       user_agent?: string | null;
     };
     address: {
-      /** City, district, suburb, town, or village. */ city?: string | null;
+      /** City, district, suburb, town, or village. */
+      city?: string | null;
       /** Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)). */
       country?: string | null;
       /** Address line 1 (e.g., street, PO Box, or company name). */
@@ -2022,7 +1771,8 @@ export interface components {
       username: string;
     };
     api_errors: {
-      /** For card errors, the ID of the failed charge. */ charge?: string;
+      /** For card errors, the ID of the failed charge. */
+      charge?: string;
       /** For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported. */
       code?: string;
       /** For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one. */
@@ -2062,7 +1812,8 @@ export interface components {
       object: "apple_pay_domain";
     };
     application: {
-      /** Unique identifier for the object. */ id: string;
+      /** Unique identifier for the object. */
+      id: string;
       /** The name of the application. */
       name?: string | null;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -2139,13 +1890,15 @@ export interface components {
       pending: components["schemas"]["balance_amount"][];
     };
     balance_amount: {
-      /** Balance amount. */ amount: number;
+      /** Balance amount. */
+      amount: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       source_types?: components["schemas"]["balance_amount_by_source_type"];
     };
     balance_amount_by_source_type: {
-      /** Amount for bank account. */ bank_account?: number;
+      /** Amount for bank account. */
+      bank_account?: number;
       /** Amount for card. */
       card?: number;
       /** Amount for FPX. */
@@ -2158,7 +1911,8 @@ export interface components {
      * Related guide: [Balance Transaction Types](https://stripe.com/docs/reports/balance-transaction-types).
      */
     balance_transaction: {
-      /** Gross amount of the transaction, in %s. */ amount: number;
+      /** Gross amount of the transaction, in %s. */
+      amount: number;
       /** The date the transaction's net funds will become available in the Stripe balance. */
       available_on: number;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -2767,14 +2521,16 @@ export interface components {
       success_url: string;
     };
     checkout_session_custom_display_item_description: {
-      /** The description of the line item. */ description?: string | null;
+      /** The description of the line item. */
+      description?: string | null;
       /** The images of the line item. */
       images?: string[] | null;
       /** The name of the line item. */
       name: string;
     };
     checkout_session_display_item: {
-      /** Amount for the display item. */ amount?: number;
+      /** Amount for the display item. */
+      amount?: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency?: string;
       custom?: components["schemas"]["checkout_session_custom_display_item_description"];
@@ -2786,7 +2542,8 @@ export interface components {
       type?: string;
     };
     connect_collection_transfer: {
-      /** Amount transferred, in %s. */ amount: number;
+      /** Amount transferred, in %s. */
+      amount: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /** ID of the account that funds are being collected for. */
@@ -2946,101 +2703,6 @@ export interface components {
       /** The time that the credit note was voided. */
       voided_at?: number | null;
     };
-<<<<<<< HEAD
-  };
-  /** <p>Creates a new person.</p> */
-  PostAccountPeople: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        account?: string;
-        /** The person's address. */
-        address?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-        };
-        /** The Kana variation of the person's address (Japan only). */
-        address_kana?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-          town?: string;
-        };
-        /** The Kanji variation of the person's address (Japan only). */
-        address_kanji?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-          town?: string;
-        };
-        /** The person's date of birth. */
-        dob?: Partial<{
-          day: number;
-          month: number;
-          year: number;
-        }> &
-          Partial<"">;
-        /** The person's email address. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** The person's first name. */
-        first_name?: string;
-        /** The Kana variation of the person's first name (Japan only). */
-        first_name_kana?: string;
-        /** The Kanji variation of the person's first name (Japan only). */
-        first_name_kanji?: string;
-        /** The person's gender (International regulations require either "male" or "female"). */
-        gender?: string;
-        /** The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/stripe.js#collecting-pii-data). */
-        id_number?: string;
-        /** The person's last name. */
-        last_name?: string;
-        /** The Kana variation of the person's last name (Japan only). */
-        last_name_kana?: string;
-        /** The Kanji variation of the person's last name (Japan only). */
-        last_name_kanji?: string;
-        /** The person's maiden name. */
-        maiden_name?: string;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
-        person_token?: string;
-        /** The person's phone number. */
-        phone?: string;
-        /** The relationship that this person has with the account's legal entity. */
-        relationship?: {
-          director?: boolean;
-          executive?: boolean;
-          owner?: boolean;
-          percent_ownership?: Partial<number> & Partial<"">;
-          representative?: boolean;
-          title?: string;
-        };
-        /** The last 4 digits of the person's social security number. */
-        ssn_last_4?: string;
-        /** The person's verification status. */
-        verification?: {
-          additional_document?: {
-            back?: string;
-            front?: string;
-          };
-          document?: {
-            back?: string;
-            front?: string;
-          };
-        };
-      };
-=======
     credit_note_line_item: {
       /** The integer amount in **%s** representing the gross amount being credited for this line item, excluding (exclusive) tax and discounts. */
       amount: number;
@@ -3068,10 +2730,10 @@ export interface components {
       unit_amount?: number | null;
       /** Same as `unit_amount`, but contains a decimal value with at most 12 decimal places. */
       unit_amount_decimal?: string | null;
->>>>>>> f6ee87b (Add more items to components object)
     };
     credit_note_tax_amount: {
-      /** The amount, in %s, of the tax. */ amount: number;
+      /** The amount, in %s, of the tax. */
+      amount: number;
       /** Whether this tax amount is inclusive or exclusive. */
       inclusive: boolean;
       /** The tax rate that was applied to get this tax amount. */
@@ -3234,128 +2896,28 @@ export interface components {
         | "unspent_receiver_credit";
     };
     deleted_account: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "account";
     };
     deleted_alipay_account: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "alipay_account";
     };
-<<<<<<< HEAD
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        account?: string;
-        /** The person's address. */
-        address?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-        };
-        /** The Kana variation of the person's address (Japan only). */
-        address_kana?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-          town?: string;
-        };
-        /** The Kanji variation of the person's address (Japan only). */
-        address_kanji?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-          town?: string;
-        };
-        /** The person's date of birth. */
-        dob?: Partial<{
-          day: number;
-          month: number;
-          year: number;
-        }> &
-          Partial<"">;
-        /** The person's email address. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** The person's first name. */
-        first_name?: string;
-        /** The Kana variation of the person's first name (Japan only). */
-        first_name_kana?: string;
-        /** The Kanji variation of the person's first name (Japan only). */
-        first_name_kanji?: string;
-        /** The person's gender (International regulations require either "male" or "female"). */
-        gender?: string;
-        /** The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/stripe.js#collecting-pii-data). */
-        id_number?: string;
-        /** The person's last name. */
-        last_name?: string;
-        /** The Kana variation of the person's last name (Japan only). */
-        last_name_kana?: string;
-        /** The Kanji variation of the person's last name (Japan only). */
-        last_name_kanji?: string;
-        /** The person's maiden name. */
-        maiden_name?: string;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
-        person_token?: string;
-        /** The person's phone number. */
-        phone?: string;
-        /** The relationship that this person has with the account's legal entity. */
-        relationship?: {
-          director?: boolean;
-          executive?: boolean;
-          owner?: boolean;
-          percent_ownership?: Partial<number> & Partial<"">;
-          representative?: boolean;
-          title?: string;
-        };
-        /** The last 4 digits of the person's social security number. */
-        ssn_last_4?: string;
-        /** The person's verification status. */
-        verification?: {
-          additional_document?: {
-            back?: string;
-            front?: string;
-          };
-          document?: {
-            back?: string;
-            front?: string;
-          };
-        };
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["person"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-=======
     deleted_apple_pay_domain: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "apple_pay_domain";
->>>>>>> f6ee87b (Add more items to components object)
     };
     deleted_bank_account: {
       /** Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account. */
@@ -3368,7 +2930,8 @@ export interface components {
       object: "bank_account";
     };
     deleted_bitcoin_receiver: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -3384,118 +2947,25 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "card";
     };
-<<<<<<< HEAD
-  };
-  /** <p>Creates a new person.</p> */
-  PostAccountPersons: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        account?: string;
-        /** The person's address. */
-        address?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-        };
-        /** The Kana variation of the person's address (Japan only). */
-        address_kana?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-          town?: string;
-        };
-        /** The Kanji variation of the person's address (Japan only). */
-        address_kanji?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-          town?: string;
-        };
-        /** The person's date of birth. */
-        dob?: Partial<{
-          day: number;
-          month: number;
-          year: number;
-        }> &
-          Partial<"">;
-        /** The person's email address. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** The person's first name. */
-        first_name?: string;
-        /** The Kana variation of the person's first name (Japan only). */
-        first_name_kana?: string;
-        /** The Kanji variation of the person's first name (Japan only). */
-        first_name_kanji?: string;
-        /** The person's gender (International regulations require either "male" or "female"). */
-        gender?: string;
-        /** The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/stripe.js#collecting-pii-data). */
-        id_number?: string;
-        /** The person's last name. */
-        last_name?: string;
-        /** The Kana variation of the person's last name (Japan only). */
-        last_name_kana?: string;
-        /** The Kanji variation of the person's last name (Japan only). */
-        last_name_kanji?: string;
-        /** The person's maiden name. */
-        maiden_name?: string;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
-        person_token?: string;
-        /** The person's phone number. */
-        phone?: string;
-        /** The relationship that this person has with the account's legal entity. */
-        relationship?: {
-          director?: boolean;
-          executive?: boolean;
-          owner?: boolean;
-          percent_ownership?: Partial<number> & Partial<"">;
-          representative?: boolean;
-          title?: string;
-        };
-        /** The last 4 digits of the person's social security number. */
-        ssn_last_4?: string;
-        /** The person's verification status. */
-        verification?: {
-          additional_document?: {
-            back?: string;
-            front?: string;
-          };
-          document?: {
-            back?: string;
-            front?: string;
-          };
-        };
-      };
-=======
     deleted_coupon: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "coupon";
->>>>>>> f6ee87b (Add more items to components object)
     };
     deleted_customer: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "customer";
     };
     deleted_discount: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "discount";
     };
@@ -3504,14 +2974,16 @@ export interface components {
     > &
       Partial<components["schemas"]["deleted_card"]>;
     deleted_invoice: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "invoice";
     };
     deleted_invoiceitem: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -3524,437 +2996,100 @@ export interface components {
       Partial<components["schemas"]["deleted_bitcoin_receiver"]> &
       Partial<components["schemas"]["deleted_card"]>;
     deleted_person: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "person";
     };
     deleted_plan: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "plan";
     };
     deleted_product: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "product";
     };
     "deleted_radar.value_list": {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "radar.value_list";
     };
-<<<<<<< HEAD
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        account?: string;
-        /** The person's address. */
-        address?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-        };
-        /** The Kana variation of the person's address (Japan only). */
-        address_kana?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-          town?: string;
-        };
-        /** The Kanji variation of the person's address (Japan only). */
-        address_kanji?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-          town?: string;
-        };
-        /** The person's date of birth. */
-        dob?: Partial<{
-          day: number;
-          month: number;
-          year: number;
-        }> &
-          Partial<"">;
-        /** The person's email address. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** The person's first name. */
-        first_name?: string;
-        /** The Kana variation of the person's first name (Japan only). */
-        first_name_kana?: string;
-        /** The Kanji variation of the person's first name (Japan only). */
-        first_name_kanji?: string;
-        /** The person's gender (International regulations require either "male" or "female"). */
-        gender?: string;
-        /** The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/stripe.js#collecting-pii-data). */
-        id_number?: string;
-        /** The person's last name. */
-        last_name?: string;
-        /** The Kana variation of the person's last name (Japan only). */
-        last_name_kana?: string;
-        /** The Kanji variation of the person's last name (Japan only). */
-        last_name_kanji?: string;
-        /** The person's maiden name. */
-        maiden_name?: string;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
-        person_token?: string;
-        /** The person's phone number. */
-        phone?: string;
-        /** The relationship that this person has with the account's legal entity. */
-        relationship?: {
-          director?: boolean;
-          executive?: boolean;
-          owner?: boolean;
-          percent_ownership?: Partial<number> & Partial<"">;
-          representative?: boolean;
-          title?: string;
-        };
-        /** The last 4 digits of the person's social security number. */
-        ssn_last_4?: string;
-        /** The person's verification status. */
-        verification?: {
-          additional_document?: {
-            back?: string;
-            front?: string;
-          };
-          document?: {
-            back?: string;
-            front?: string;
-          };
-        };
-      };
-=======
     "deleted_radar.value_list_item": {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "radar.value_list_item";
->>>>>>> f6ee87b (Add more items to components object)
     };
     deleted_recipient: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "recipient";
     };
     deleted_sku: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "sku";
     };
     deleted_subscription_item: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "subscription_item";
     };
     deleted_tax_id: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "tax_id";
     };
     "deleted_terminal.location": {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "terminal.location";
     };
     "deleted_terminal.reader": {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "terminal.reader";
     };
-<<<<<<< HEAD
-  };
-  /**
-   * <p>With <a href="/docs/connect">Connect</a>, you can create Stripe accounts for your users.
-   * To do this, you’ll first need to <a href="https://dashboard.stripe.com/account/applications/settings">register your platform</a>.</p>
-   *
-   * <p>For Standard accounts, parameters other than <code>country</code>, <code>email</code>, and <code>type</code>
-   * are used to prefill the account application that we ask the account holder to complete.</p>
-   */
-  PostAccounts: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
-        account_token?: string;
-        /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-        bank_account?: Partial<{
-          account_holder_name?: string;
-          account_holder_type?: "company" | "individual";
-          account_number: string;
-          country: string;
-          currency?: string;
-          object?: "bank_account";
-          routing_number?: string;
-        }> &
-          Partial<string>;
-        /** Business information about the account. */
-        business_profile?: {
-          mcc?: string;
-          name?: string;
-          product_description?: string;
-          support_email?: string;
-          support_phone?: string;
-          support_url?: string;
-          url?: string;
-        };
-        /** The business type. */
-        business_type?:
-          | "company"
-          | "government_entity"
-          | "individual"
-          | "non_profit";
-        /** Information about the company or business. This field is null unless `business_type` is set to `company`, `government_entity`, or `non_profit`. */
-        company?: {
-          address?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          address_kana?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-            town?: string;
-          };
-          address_kanji?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-            town?: string;
-          };
-          directors_provided?: boolean;
-          executives_provided?: boolean;
-          name?: string;
-          name_kana?: string;
-          name_kanji?: string;
-          owners_provided?: boolean;
-          phone?: string;
-          structure?:
-            | ""
-            | "government_instrumentality"
-            | "governmental_unit"
-            | "incorporated_non_profit"
-            | "limited_liability_partnership"
-            | "multi_member_llc"
-            | "private_company"
-            | "private_corporation"
-            | "private_partnership"
-            | "public_company"
-            | "public_corporation"
-            | "public_partnership"
-            | "sole_proprietorship"
-            | "tax_exempt_government_instrumentality"
-            | "unincorporated_association"
-            | "unincorporated_non_profit";
-          tax_id?: string;
-          tax_id_registrar?: string;
-          vat_id?: string;
-          verification?: {
-            document?: {
-              back?: string;
-              front?: string;
-            };
-          };
-        };
-        /** The country in which the account holder resides, or in which the business is legally established. This should be an ISO 3166-1 alpha-2 country code. For example, if you are in the United States and the business for which you're creating an account is legally represented in Canada, you would use `CA` as the country for the account being created. */
-        country?: string;
-        /** Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts). */
-        default_currency?: string;
-        /** The email address of the account holder. For Custom accounts, this is only to make the account easier to identify to you: Stripe will never directly email your users. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A card or bank account to attach to the account. You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation. <br><br>By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the bank account or card creation API. */
-        external_account?: string;
-        /** Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. */
-        individual?: {
-          address?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          address_kana?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-            town?: string;
-          };
-          address_kanji?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-            town?: string;
-          };
-          dob?: Partial<{
-            day: number;
-            month: number;
-            year: number;
-          }> &
-            Partial<"">;
-          email?: string;
-          first_name?: string;
-          first_name_kana?: string;
-          first_name_kanji?: string;
-          gender?: string;
-          id_number?: string;
-          last_name?: string;
-          last_name_kana?: string;
-          last_name_kanji?: string;
-          maiden_name?: string;
-          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-          phone?: string;
-          ssn_last_4?: string;
-          verification?: {
-            additional_document?: {
-              back?: string;
-              front?: string;
-            };
-            document?: {
-              back?: string;
-              front?: string;
-            };
-          };
-        };
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** The set of capabilities you want to unlock for this account. Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive. */
-        requested_capabilities?: (
-          | "au_becs_debit_payments"
-          | "card_issuing"
-          | "card_payments"
-          | "legacy_payments"
-          | "tax_reporting_us_1099_k"
-          | "tax_reporting_us_1099_misc"
-          | "transfers"
-        )[];
-        /** Options for customizing how the account functions within Stripe. */
-        settings?: {
-          branding?: {
-            icon?: string;
-            logo?: string;
-            primary_color?: string;
-            secondary_color?: string;
-          };
-          card_payments?: {
-            decline_on?: {
-              avs_failure?: boolean;
-              cvc_failure?: boolean;
-            };
-            statement_descriptor_prefix?: string;
-          };
-          payments?: {
-            statement_descriptor?: string;
-            statement_descriptor_kana?: string;
-            statement_descriptor_kanji?: string;
-          };
-          payouts?: {
-            debit_negative_balances?: boolean;
-            schedule?: {
-              delay_days?: Partial<"minimum"> & Partial<number>;
-              interval?: "daily" | "manual" | "monthly" | "weekly";
-              monthly_anchor?: number;
-              weekly_anchor?:
-                | "friday"
-                | "monday"
-                | "saturday"
-                | "sunday"
-                | "thursday"
-                | "tuesday"
-                | "wednesday";
-            };
-            statement_descriptor?: string;
-          };
-        };
-        /** Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance). */
-        tos_acceptance?: {
-          date?: number;
-          ip?: string;
-          user_agent?: string;
-        };
-        /** The type of Stripe account to create. Currently must be `custom`, as only [Custom accounts](https://stripe.com/docs/connect/custom-accounts) may be created via the API. */
-        type?: "custom" | "express" | "standard";
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["account"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>With <a href="/docs/connect">Connect</a>, you can delete Custom or Express accounts you manage.</p>
-   *
-   * <p>Accounts created using test-mode keys can be deleted at any time. Accounts created using live-mode keys can only be deleted once all balances are zero.</p>
-   *
-   * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/account">account information tab in your account settings</a> instead.</p>
-   */
-  DeleteAccountsAccount: {
-    parameters: {
-      path: {
-        account: string;
-      };
-=======
     deleted_webhook_endpoint: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "webhook_endpoint";
->>>>>>> f6ee87b (Add more items to components object)
     };
     delivery_estimate: {
       /** If `type` is `"exact"`, `date` will be the expected delivery date in the format YYYY-MM-DD. */
@@ -4137,226 +3272,10 @@ export interface components {
       /** The key's secret. You can use this value to make authorized requests to the Stripe API. */
       secret?: string;
     };
-<<<<<<< HEAD
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
-        account_token?: string;
-        /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-        bank_account?: Partial<{
-          account_holder_name?: string;
-          account_holder_type?: "company" | "individual";
-          account_number: string;
-          country: string;
-          currency?: string;
-          object?: "bank_account";
-          routing_number?: string;
-        }> &
-          Partial<string>;
-        /** Business information about the account. */
-        business_profile?: {
-          mcc?: string;
-          name?: string;
-          product_description?: string;
-          support_email?: string;
-          support_phone?: string;
-          support_url?: string;
-          url?: string;
-        };
-        /** The business type. */
-        business_type?:
-          | "company"
-          | "government_entity"
-          | "individual"
-          | "non_profit";
-        /** Information about the company or business. This field is null unless `business_type` is set to `company`, `government_entity`, or `non_profit`. */
-        company?: {
-          address?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          address_kana?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-            town?: string;
-          };
-          address_kanji?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-            town?: string;
-          };
-          directors_provided?: boolean;
-          executives_provided?: boolean;
-          name?: string;
-          name_kana?: string;
-          name_kanji?: string;
-          owners_provided?: boolean;
-          phone?: string;
-          structure?:
-            | ""
-            | "government_instrumentality"
-            | "governmental_unit"
-            | "incorporated_non_profit"
-            | "limited_liability_partnership"
-            | "multi_member_llc"
-            | "private_company"
-            | "private_corporation"
-            | "private_partnership"
-            | "public_company"
-            | "public_corporation"
-            | "public_partnership"
-            | "sole_proprietorship"
-            | "tax_exempt_government_instrumentality"
-            | "unincorporated_association"
-            | "unincorporated_non_profit";
-          tax_id?: string;
-          tax_id_registrar?: string;
-          vat_id?: string;
-          verification?: {
-            document?: {
-              back?: string;
-              front?: string;
-            };
-          };
-        };
-        /** Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts). */
-        default_currency?: string;
-        /** Email address of the account representative. For Standard accounts, this is used to ask them to claim their Stripe account. For Custom accounts, this only makes the account easier to identify to platforms; Stripe does not email the account representative. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A card or bank account to attach to the account. You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation. <br><br>By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the bank account or card creation API. */
-        external_account?: string;
-        /** Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. */
-        individual?: {
-          address?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          address_kana?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-            town?: string;
-          };
-          address_kanji?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-            town?: string;
-          };
-          dob?: Partial<{
-            day: number;
-            month: number;
-            year: number;
-          }> &
-            Partial<"">;
-          email?: string;
-          first_name?: string;
-          first_name_kana?: string;
-          first_name_kanji?: string;
-          gender?: string;
-          id_number?: string;
-          last_name?: string;
-          last_name_kana?: string;
-          last_name_kanji?: string;
-          maiden_name?: string;
-          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-          phone?: string;
-          ssn_last_4?: string;
-          verification?: {
-            additional_document?: {
-              back?: string;
-              front?: string;
-            };
-            document?: {
-              back?: string;
-              front?: string;
-            };
-          };
-        };
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** The set of capabilities you want to unlock for this account. Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive. */
-        requested_capabilities?: (
-          | "au_becs_debit_payments"
-          | "card_issuing"
-          | "card_payments"
-          | "legacy_payments"
-          | "tax_reporting_us_1099_k"
-          | "tax_reporting_us_1099_misc"
-          | "transfers"
-        )[];
-        /** Options for customizing how the account functions within Stripe. */
-        settings?: {
-          branding?: {
-            icon?: string;
-            logo?: string;
-            primary_color?: string;
-            secondary_color?: string;
-          };
-          card_payments?: {
-            decline_on?: {
-              avs_failure?: boolean;
-              cvc_failure?: boolean;
-            };
-            statement_descriptor_prefix?: string;
-          };
-          payments?: {
-            statement_descriptor?: string;
-            statement_descriptor_kana?: string;
-            statement_descriptor_kanji?: string;
-          };
-          payouts?: {
-            debit_negative_balances?: boolean;
-            schedule?: {
-              delay_days?: Partial<"minimum"> & Partial<number>;
-              interval?: "daily" | "manual" | "monthly" | "weekly";
-              monthly_anchor?: number;
-              weekly_anchor?:
-                | "friday"
-                | "monday"
-                | "saturday"
-                | "sunday"
-                | "thursday"
-                | "tuesday"
-                | "wednesday";
-            };
-            statement_descriptor?: string;
-          };
-        };
-        /** Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance). */
-        tos_acceptance?: {
-          date?: number;
-          ip?: string;
-          user_agent?: string;
-        };
-      };
-=======
     /** An error response from the Stripe API */
-    error: { error: components["schemas"]["api_errors"] };
+    error: {
+      error: components["schemas"]["api_errors"];
+    };
     /**
      * Events are our way of letting you know when something interesting happens in
      * your account. When an interesting event occurs, we create a new `Event`
@@ -4389,7 +3308,8 @@ export interface components {
      * guaranteed only for 30 days.
      */
     event: {
-      /** The connected account that originated the event. */ account?: string;
+      /** The connected account that originated the event. */
+      account?: string;
       /** The Stripe API version used to render `data`. *Note: This property is populated only for events on or after October 31, 2014*. */
       api_version?: string | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -4409,7 +3329,6 @@ export interface components {
       > | null;
       /** Description of the event (e.g., `invoice.created` or `charge.refunded`). */
       type: string;
->>>>>>> f6ee87b (Add more items to components object)
     };
     /**
      * `Exchange Rate` objects allow you to determine the rates that Stripe is
@@ -4435,7 +3354,8 @@ export interface components {
     external_account: Partial<components["schemas"]["bank_account"]> &
       Partial<components["schemas"]["card"]>;
     fee: {
-      /** Amount of the fee, in cents. */ amount: number;
+      /** Amount of the fee, in cents. */
+      amount: number;
       /** ID of the Connect application that earned the fee. */
       application?: string | null;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -4453,7 +3373,8 @@ export interface components {
      * Related guide: [Refunding Application Fees](https://stripe.com/docs/connect/destination-charges#refunding-app-fee).
      */
     fee_refund: {
-      /** Amount, in %s. */ amount: number;
+      /** Amount, in %s. */
+      amount: number;
       /** Balance transaction that describes the impact on your account balance. */
       balance_transaction?:
         | (Partial<string> &
@@ -4767,12 +3688,14 @@ export interface components {
       usage_gte: number;
     };
     invoice_line_item_period: {
-      /** End of the line item's billing period */ end: number;
+      /** End of the line item's billing period */
+      end: number;
       /** Start of the line item's billing period */
       start: number;
     };
     invoice_setting_custom_field: {
-      /** The name of the custom field. */ name: string;
+      /** The name of the custom field. */
+      name: string;
       /** The value of the custom field. */
       value: string;
     };
@@ -4793,7 +3716,8 @@ export interface components {
       days_until_due?: number | null;
     };
     invoice_tax_amount: {
-      /** The amount, in %s, of the tax. */ amount: number;
+      /** The amount, in %s, of the tax. */
+      amount: number;
       /** Whether this tax amount is inclusive or exclusive. */
       inclusive: boolean;
       /** The tax rate that was applied to get this tax amount. */
@@ -4986,7 +3910,8 @@ export interface components {
     };
     /** You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders. */
     "issuing.card": {
-      /** The brand of the card. */ brand: string;
+      /** The brand of the card. */
+      brand: string;
       /** The reason why the card was canceled. */
       cancellation_reason?: ("lost" | "stolen") | null;
       cardholder: components["schemas"]["issuing.cardholder"];
@@ -5077,7 +4002,8 @@ export interface components {
      * Related guide: [Disputing Transactions](https://stripe.com/docs/issuing/purchases/disputes)
      */
     "issuing.dispute": {
-      /** Unique identifier for the object. */ id: string;
+      /** Unique identifier for the object. */
+      id: string;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -5232,11929 +4158,6 @@ export interface components {
       /** Whether the cardholder provided an expiry date and if it matched Stripe’s record. */
       expiry_check: "match" | "mismatch" | "not_provided";
     };
-<<<<<<< HEAD
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The person's address. */
-        address?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-        };
-        /** The Kana variation of the person's address (Japan only). */
-        address_kana?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-          town?: string;
-        };
-        /** The Kanji variation of the person's address (Japan only). */
-        address_kanji?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-          town?: string;
-        };
-        /** The person's date of birth. */
-        dob?: Partial<{
-          day: number;
-          month: number;
-          year: number;
-        }> &
-          Partial<"">;
-        /** The person's email address. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** The person's first name. */
-        first_name?: string;
-        /** The Kana variation of the person's first name (Japan only). */
-        first_name_kana?: string;
-        /** The Kanji variation of the person's first name (Japan only). */
-        first_name_kanji?: string;
-        /** The person's gender (International regulations require either "male" or "female"). */
-        gender?: string;
-        /** The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/stripe.js#collecting-pii-data). */
-        id_number?: string;
-        /** The person's last name. */
-        last_name?: string;
-        /** The Kana variation of the person's last name (Japan only). */
-        last_name_kana?: string;
-        /** The Kanji variation of the person's last name (Japan only). */
-        last_name_kanji?: string;
-        /** The person's maiden name. */
-        maiden_name?: string;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
-        person_token?: string;
-        /** The person's phone number. */
-        phone?: string;
-        /** The relationship that this person has with the account's legal entity. */
-        relationship?: {
-          director?: boolean;
-          executive?: boolean;
-          owner?: boolean;
-          percent_ownership?: Partial<number> & Partial<"">;
-          representative?: boolean;
-          title?: string;
-        };
-        /** The last 4 digits of the person's social security number. */
-        ssn_last_4?: string;
-        /** The person's verification status. */
-        verification?: {
-          additional_document?: {
-            back?: string;
-            front?: string;
-          };
-          document?: {
-            back?: string;
-            front?: string;
-          };
-        };
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["person"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
-  DeleteAccountsAccountPeoplePerson: {
-    parameters: {
-      path: {
-        account: string;
-        person: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_person"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves an existing person.</p> */
-  GetAccountsAccountPeoplePerson: {
-    parameters: {
-      path: {
-        account: string;
-        person: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["person"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Updates an existing person.</p> */
-  PostAccountsAccountPeoplePerson: {
-    parameters: {
-      path: {
-        account: string;
-        person: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The person's address. */
-        address?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-        };
-        /** The Kana variation of the person's address (Japan only). */
-        address_kana?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-          town?: string;
-        };
-        /** The Kanji variation of the person's address (Japan only). */
-        address_kanji?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-          town?: string;
-        };
-        /** The person's date of birth. */
-        dob?: Partial<{
-          day: number;
-          month: number;
-          year: number;
-        }> &
-          Partial<"">;
-        /** The person's email address. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** The person's first name. */
-        first_name?: string;
-        /** The Kana variation of the person's first name (Japan only). */
-        first_name_kana?: string;
-        /** The Kanji variation of the person's first name (Japan only). */
-        first_name_kanji?: string;
-        /** The person's gender (International regulations require either "male" or "female"). */
-        gender?: string;
-        /** The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/stripe.js#collecting-pii-data). */
-        id_number?: string;
-        /** The person's last name. */
-        last_name?: string;
-        /** The Kana variation of the person's last name (Japan only). */
-        last_name_kana?: string;
-        /** The Kanji variation of the person's last name (Japan only). */
-        last_name_kanji?: string;
-        /** The person's maiden name. */
-        maiden_name?: string;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
-        person_token?: string;
-        /** The person's phone number. */
-        phone?: string;
-        /** The relationship that this person has with the account's legal entity. */
-        relationship?: {
-          director?: boolean;
-          executive?: boolean;
-          owner?: boolean;
-          percent_ownership?: Partial<number> & Partial<"">;
-          representative?: boolean;
-          title?: string;
-        };
-        /** The last 4 digits of the person's social security number. */
-        ssn_last_4?: string;
-        /** The person's verification status. */
-        verification?: {
-          additional_document?: {
-            back?: string;
-            front?: string;
-          };
-          document?: {
-            back?: string;
-            front?: string;
-          };
-        };
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["person"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first.</p> */
-  GetAccountsAccountPersons: {
-    parameters: {
-      path: {
-        account: string;
-      };
-      query: {
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** Filters on the list of people returned based on the person's relationship to the account's company. */
-        relationship?: {
-          director?: boolean;
-          executive?: boolean;
-          owner?: boolean;
-          representative?: boolean;
-        };
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["person"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Creates a new person.</p> */
-  PostAccountsAccountPersons: {
-    parameters: {
-      path: {
-        account: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The person's address. */
-        address?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-        };
-        /** The Kana variation of the person's address (Japan only). */
-        address_kana?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-          town?: string;
-        };
-        /** The Kanji variation of the person's address (Japan only). */
-        address_kanji?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-          town?: string;
-        };
-        /** The person's date of birth. */
-        dob?: Partial<{
-          day: number;
-          month: number;
-          year: number;
-        }> &
-          Partial<"">;
-        /** The person's email address. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** The person's first name. */
-        first_name?: string;
-        /** The Kana variation of the person's first name (Japan only). */
-        first_name_kana?: string;
-        /** The Kanji variation of the person's first name (Japan only). */
-        first_name_kanji?: string;
-        /** The person's gender (International regulations require either "male" or "female"). */
-        gender?: string;
-        /** The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/stripe.js#collecting-pii-data). */
-        id_number?: string;
-        /** The person's last name. */
-        last_name?: string;
-        /** The Kana variation of the person's last name (Japan only). */
-        last_name_kana?: string;
-        /** The Kanji variation of the person's last name (Japan only). */
-        last_name_kanji?: string;
-        /** The person's maiden name. */
-        maiden_name?: string;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
-        person_token?: string;
-        /** The person's phone number. */
-        phone?: string;
-        /** The relationship that this person has with the account's legal entity. */
-        relationship?: {
-          director?: boolean;
-          executive?: boolean;
-          owner?: boolean;
-          percent_ownership?: Partial<number> & Partial<"">;
-          representative?: boolean;
-          title?: string;
-        };
-        /** The last 4 digits of the person's social security number. */
-        ssn_last_4?: string;
-        /** The person's verification status. */
-        verification?: {
-          additional_document?: {
-            back?: string;
-            front?: string;
-          };
-          document?: {
-            back?: string;
-            front?: string;
-          };
-        };
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["person"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
-  DeleteAccountsAccountPersonsPerson: {
-    parameters: {
-      path: {
-        account: string;
-        person: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_person"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves an existing person.</p> */
-  GetAccountsAccountPersonsPerson: {
-    parameters: {
-      path: {
-        account: string;
-        person: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["person"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Updates an existing person.</p> */
-  PostAccountsAccountPersonsPerson: {
-    parameters: {
-      path: {
-        account: string;
-        person: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The person's address. */
-        address?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-        };
-        /** The Kana variation of the person's address (Japan only). */
-        address_kana?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-          town?: string;
-        };
-        /** The Kanji variation of the person's address (Japan only). */
-        address_kanji?: {
-          city?: string;
-          country?: string;
-          line1?: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-          town?: string;
-        };
-        /** The person's date of birth. */
-        dob?: Partial<{
-          day: number;
-          month: number;
-          year: number;
-        }> &
-          Partial<"">;
-        /** The person's email address. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** The person's first name. */
-        first_name?: string;
-        /** The Kana variation of the person's first name (Japan only). */
-        first_name_kana?: string;
-        /** The Kanji variation of the person's first name (Japan only). */
-        first_name_kanji?: string;
-        /** The person's gender (International regulations require either "male" or "female"). */
-        gender?: string;
-        /** The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/stripe.js#collecting-pii-data). */
-        id_number?: string;
-        /** The person's last name. */
-        last_name?: string;
-        /** The Kana variation of the person's last name (Japan only). */
-        last_name_kana?: string;
-        /** The Kanji variation of the person's last name (Japan only). */
-        last_name_kanji?: string;
-        /** The person's maiden name. */
-        maiden_name?: string;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
-        person_token?: string;
-        /** The person's phone number. */
-        phone?: string;
-        /** The relationship that this person has with the account's legal entity. */
-        relationship?: {
-          director?: boolean;
-          executive?: boolean;
-          owner?: boolean;
-          percent_ownership?: Partial<number> & Partial<"">;
-          representative?: boolean;
-          title?: string;
-        };
-        /** The last 4 digits of the person's social security number. */
-        ssn_last_4?: string;
-        /** The person's verification status. */
-        verification?: {
-          additional_document?: {
-            back?: string;
-            front?: string;
-          };
-          document?: {
-            back?: string;
-            front?: string;
-          };
-        };
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["person"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>With <a href="/docs/connect">Connect</a>, you may flag accounts as suspicious.</p>
-   *
-   * <p>Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.</p>
-   */
-  PostAccountsAccountReject: {
-    parameters: {
-      path: {
-        account: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** The reason for rejecting the account. Can be `fraud`, `terms_of_service`, or `other`. */
-        reason: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["account"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>List apple pay domains.</p> */
-  GetApplePayDomains: {
-    parameters: {
-      query: {
-        domain_name?: string;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["apple_pay_domain"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Create an apple pay domain.</p> */
-  PostApplePayDomains: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        domain_name: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["apple_pay_domain"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Delete an apple pay domain.</p> */
-  DeleteApplePayDomainsDomain: {
-    parameters: {
-      path: {
-        domain: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_apple_pay_domain"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieve an apple pay domain.</p> */
-  GetApplePayDomainsDomain: {
-    parameters: {
-      path: {
-        domain: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["apple_pay_domain"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of application fees you’ve previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.</p> */
-  GetApplicationFees: {
-    parameters: {
-      query: {
-        /** Only return application fees for the charge specified by this charge ID. */
-        charge?: string;
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["application_fee"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee.</p> */
-  GetApplicationFeesFeeRefundsId: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        fee: string;
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["fee_refund"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
-   *
-   * <p>This request only accepts metadata as an argument.</p>
-   */
-  PostApplicationFeesFeeRefundsId: {
-    parameters: {
-      path: {
-        fee: string;
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["fee_refund"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the details of an application fee that your account has collected. The same information is returned when refunding the application fee.</p> */
-  GetApplicationFeesId: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["application_fee"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  PostApplicationFeesIdRefund: {
-    parameters: {
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        amount?: number;
-        directive?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["application_fee"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available by default on the application fee object. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional refunds.</p> */
-  GetApplicationFeesIdRefunds: {
-    parameters: {
-      query: {
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          /** Details about each object. */
-          data: components["schemas"]["fee_refund"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Refunds an application fee that has previously been collected but not yet refunded.
-   * Funds will be refunded to the Stripe account from which the fee was originally collected.</p>
-   *
-   * <p>You can optionally refund only part of an application fee.
-   * You can do so multiple times, until the entire fee has been refunded.</p>
-   *
-   * <p>Once entirely refunded, an application fee can’t be refunded again.
-   * This method will raise an error when called on an already-refunded application fee,
-   * or when trying to refund more money than is left on an application fee.</p>
-   */
-  PostApplicationFeesIdRefunds: {
-    parameters: {
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** A positive integer, in _%s_, representing how much of this fee to refund. Can refund only up to the remaining unrefunded amount of the fee. */
-        amount?: number;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["fee_refund"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Retrieves the current account balance, based on the authentication that was used to make the request.
-   *  For a sample request, see <a href="/docs/connect/account-balances#accounting-for-negative-balances">Accounting for negative balances</a>.</p>
-   */
-  GetBalance: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["balance"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.</p>
-   *
-   * <p>Note that this endpoint was previously called “Balance history” and used the path <code>/v1/balance/history</code>.</p>
-   */
-  GetBalanceHistory: {
-    parameters: {
-      query: {
-        available_on?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** Only return transactions in a certain currency. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-        currency?: string;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** For automatic Stripe payouts only, only returns transactions that were paid out on the specified payout ID. */
-        payout?: string;
-        /** Only returns the original transaction. */
-        source?: string;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-        /** Only returns transactions of the given type. One of: `charge`, `refund`, `adjustment`, `application_fee`, `application_fee_refund`, `transfer`, `payment`, `payout`, `payout_failure`, `stripe_fee`, or `network_cost`. */
-        type?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["balance_transaction"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Retrieves the balance transaction with the given ID.</p>
-   *
-   * <p>Note that this endpoint previously used the path <code>/v1/balance/history/:id</code>.</p>
-   */
-  GetBalanceHistoryId: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["balance_transaction"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.</p>
-   *
-   * <p>Note that this endpoint was previously called “Balance history” and used the path <code>/v1/balance/history</code>.</p>
-   */
-  GetBalanceTransactions: {
-    parameters: {
-      query: {
-        available_on?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** Only return transactions in a certain currency. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-        currency?: string;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** For automatic Stripe payouts only, only returns transactions that were paid out on the specified payout ID. */
-        payout?: string;
-        /** Only returns the original transaction. */
-        source?: string;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-        /** Only returns transactions of the given type. One of: `charge`, `refund`, `adjustment`, `application_fee`, `application_fee_refund`, `transfer`, `payment`, `payout`, `payout_failure`, `stripe_fee`, or `network_cost`. */
-        type?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["balance_transaction"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Retrieves the balance transaction with the given ID.</p>
-   *
-   * <p>Note that this endpoint previously used the path <code>/v1/balance/history/:id</code>.</p>
-   */
-  GetBalanceTransactionsId: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["balance_transaction"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Creates a session of the Self-service Portal.</p> */
-  PostBillingPortalSessions: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The ID of an existing customer. */
-        customer: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** The URL to which Stripe should send customers when they click on the link to return to your website. This field is required if a default return URL has not been configured for the portal. */
-        return_url?: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["billing_portal.session"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of your receivers. Receivers are returned sorted by creation date, with the most recently created receivers appearing first.</p> */
-  GetBitcoinReceivers: {
-    parameters: {
-      query: {
-        /** Filter for active receivers. */
-        active?: boolean;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Filter for filled receivers. */
-        filled?: boolean;
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-        /** Filter for receivers with uncaptured funds. */
-        uncaptured_funds?: boolean;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["bitcoin_receiver"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the Bitcoin receiver with the given ID.</p> */
-  GetBitcoinReceiversId: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["bitcoin_receiver"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>List bitcoin transacitons for a given receiver.</p> */
-  GetBitcoinReceiversReceiverTransactions: {
-    parameters: {
-      query: {
-        /** Only return transactions for the customer specified by this customer ID. */
-        customer?: string;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-      path: {
-        receiver: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          /** Details about each object. */
-          data: components["schemas"]["bitcoin_transaction"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>List bitcoin transacitons for a given receiver.</p> */
-  GetBitcoinTransactions: {
-    parameters: {
-      query: {
-        /** Only return transactions for the customer specified by this customer ID. */
-        customer?: string;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        receiver?: string;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          /** Details about each object. */
-          data: components["schemas"]["bitcoin_transaction"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of charges you’ve previously created. The charges are returned in sorted order, with the most recent charges appearing first.</p> */
-  GetCharges: {
-    parameters: {
-      query: {
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** Only return charges for the customer specified by this customer ID. */
-        customer?: string;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** Only return charges that were created by the PaymentIntent specified by this PaymentIntent ID. */
-        payment_intent?: string;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-        /** Only return charges for this transfer group. */
-        transfer_group?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["charge"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>To charge a credit card or other payment source, you create a <code>Charge</code> object. If your API key is in test mode, the supplied payment source (e.g., card) won’t actually be charged, although everything else will occur as if in live mode. (Stripe assumes that the charge would have completed successfully).</p> */
-  PostCharges: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Amount intended to be collected by this payment. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99). */
-        amount?: number;
-        application_fee?: number;
-        /** A fee in %s that will be applied to the charge and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the `Stripe-Account` header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees). */
-        application_fee_amount?: number;
-        /** Whether to immediately capture the charge. Defaults to `true`. When `false`, the charge issues an authorization (or pre-authorization), and will need to be [captured](https://stripe.com/docs/api#capture_charge) later. Uncaptured charges expire in _seven days_. For more information, see the [authorizing charges and settling later](https://stripe.com/docs/charges/placing-a-hold) documentation. */
-        capture?: boolean;
-        /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
-        card?: Partial<{
-          address_city?: string;
-          address_country?: string;
-          address_line1?: string;
-          address_line2?: string;
-          address_state?: string;
-          address_zip?: string;
-          cvc?: string;
-          exp_month: number;
-          exp_year: number;
-          metadata?: { [key: string]: string };
-          name?: string;
-          number: string;
-          object?: "card";
-        }> &
-          Partial<string>;
-        /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-        currency?: string;
-        /** The ID of an existing customer that will be charged in this request. */
-        customer?: string;
-        /** An arbitrary string which you can attach to a `Charge` object. It is displayed when in the web interface alongside the charge. Note that if you use Stripe to send automatic email receipts to your customers, your receipt emails will include the `description` of the charge(s) that they are describing. */
-        description?: string;
-        destination?: Partial<{
-          account: string;
-          amount?: number;
-        }> &
-          Partial<string>;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/charges-transfers#on-behalf-of). */
-        on_behalf_of?: string;
-        /** The email address to which this charge's [receipt](https://stripe.com/docs/dashboard/receipts) will be sent. The receipt will not be sent until the charge is paid, and no receipts will be sent for test mode charges. If this charge is for a [Customer](https://stripe.com/docs/api/customers/object), the email address specified here will override the customer's email address. If `receipt_email` is specified for a charge in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). */
-        receipt_email?: string;
-        /** Shipping information for the charge. Helps prevent fraud on charges for physical goods. */
-        shipping?: {
-          address: {
-            city?: string;
-            country?: string;
-            line1: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          carrier?: string;
-          name: string;
-          phone?: string;
-          tracking_number?: string;
-        };
-        /** A payment source to be charged. This can be the ID of a [card](https://stripe.com/docs/api#cards) (i.e., credit or debit card), a [bank account](https://stripe.com/docs/api#bank_accounts), a [source](https://stripe.com/docs/api#sources), a [token](https://stripe.com/docs/api#tokens), or a [connected account](https://stripe.com/docs/connect/account-debits#charging-a-connected-account). For certain sources---namely, [cards](https://stripe.com/docs/api#cards), [bank accounts](https://stripe.com/docs/api#bank_accounts), and attached [sources](https://stripe.com/docs/api#sources)---you must also pass the ID of the associated customer. */
-        source?: string;
-        /** For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
-        statement_descriptor?: string;
-        /** Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
-        statement_descriptor_suffix?: string;
-        /** An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details. */
-        transfer_data?: {
-          amount?: number;
-          destination: string;
-        };
-        /** A string that identifies this transaction as part of a group. For details, see [Grouping transactions](https://stripe.com/docs/connect/charges-transfers#transfer-options). */
-        transfer_group?: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["charge"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.</p> */
-  GetChargesCharge: {
-    parameters: {
-      path: {
-        charge: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["charge"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
-  PostChargesCharge: {
-    parameters: {
-      path: {
-        charge: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The ID of an existing customer that will be associated with this request. This field may only be updated if there is no existing associated customer with this charge. */
-        customer?: string;
-        /** An arbitrary string which you can attach to a charge object. It is displayed when in the web interface alongside the charge. Note that if you use Stripe to send automatic email receipts to your customers, your receipt emails will include the `description` of the charge(s) that they are describing. */
-        description?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A set of key-value pairs you can attach to a charge giving information about its riskiness. If you believe a charge is fraudulent, include a `user_report` key with a value of `fraudulent`. If you believe a charge is safe, include a `user_report` key with a value of `safe`. Stripe will use the information you send to improve our fraud detection algorithms. */
-        fraud_details?: {
-          user_report: "" | "fraudulent" | "safe";
-        };
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** This is the email address that the receipt for this charge will be sent to. If this field is updated, then a new email receipt will be sent to the updated address. */
-        receipt_email?: string;
-        /** Shipping information for the charge. Helps prevent fraud on charges for physical goods. */
-        shipping?: {
-          address: {
-            city?: string;
-            country?: string;
-            line1: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          carrier?: string;
-          name: string;
-          phone?: string;
-          tracking_number?: string;
-        };
-        /** A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
-        transfer_group?: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["charge"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Capture the payment of an existing, uncaptured, charge. This is the second half of the two-step payment flow, where first you <a href="#create_charge">created a charge</a> with the capture option set to false.</p>
-   *
-   * <p>Uncaptured payments expire exactly seven days after they are created. If they are not captured by that point in time, they will be marked as refunded and will no longer be capturable.</p>
-   */
-  PostChargesChargeCapture: {
-    parameters: {
-      path: {
-        charge: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The amount to capture, which must be less than or equal to the original amount. Any additional amount will be automatically refunded. */
-        amount?: number;
-        /** An application fee to add on to this charge. */
-        application_fee?: number;
-        /** An application fee amount to add on to this charge, which must be less than or equal to the original amount. */
-        application_fee_amount?: number;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** The email address to send this charge's receipt to. This will override the previously-specified email address for this charge, if one was set. Receipts will not be sent in test mode. */
-        receipt_email?: string;
-        /** For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
-        statement_descriptor?: string;
-        /** Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
-        statement_descriptor_suffix?: string;
-        /** An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details. */
-        transfer_data?: {
-          amount?: number;
-        };
-        /** A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
-        transfer_group?: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["charge"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieve a dispute for a specified charge.</p> */
-  GetChargesChargeDispute: {
-    parameters: {
-      path: {
-        charge: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["dispute"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  PostChargesChargeDispute: {
-    parameters: {
-      path: {
-        charge: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Evidence to upload, to respond to a dispute. Updating any field in the hash will submit all fields in the hash for review. The combined character count of all fields is limited to 150,000. */
-        evidence?: {
-          access_activity_log?: string;
-          billing_address?: string;
-          cancellation_policy?: string;
-          cancellation_policy_disclosure?: string;
-          cancellation_rebuttal?: string;
-          customer_communication?: string;
-          customer_email_address?: string;
-          customer_name?: string;
-          customer_purchase_ip?: string;
-          customer_signature?: string;
-          duplicate_charge_documentation?: string;
-          duplicate_charge_explanation?: string;
-          duplicate_charge_id?: string;
-          product_description?: string;
-          receipt?: string;
-          refund_policy?: string;
-          refund_policy_disclosure?: string;
-          refund_refusal_explanation?: string;
-          service_date?: string;
-          service_documentation?: string;
-          shipping_address?: string;
-          shipping_carrier?: string;
-          shipping_date?: string;
-          shipping_documentation?: string;
-          shipping_tracking_number?: string;
-          uncategorized_file?: string;
-          uncategorized_text?: string;
-        };
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
-        submit?: boolean;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["dispute"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  PostChargesChargeDisputeClose: {
-    parameters: {
-      path: {
-        charge: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["dispute"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.</p>
-   *
-   * <p>Creating a new refund will refund a charge that has previously been created but not yet refunded.
-   * Funds will be refunded to the credit or debit card that was originally charged.</p>
-   *
-   * <p>You can optionally refund only part of a charge.
-   * You can do so multiple times, until the entire charge has been refunded.</p>
-   *
-   * <p>Once entirely refunded, a charge can’t be refunded again.
-   * This method will raise an error when called on an already-refunded charge,
-   * or when trying to refund more money than is left on a charge.</p>
-   */
-  PostChargesChargeRefund: {
-    parameters: {
-      path: {
-        charge: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        amount?: number;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        payment_intent?: string;
-        reason?: "duplicate" | "fraudulent" | "requested_by_customer";
-        refund_application_fee?: boolean;
-        reverse_transfer?: boolean;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["charge"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional refunds.</p> */
-  GetChargesChargeRefunds: {
-    parameters: {
-      path: {
-        charge: string;
-      };
-      query: {
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          /** Details about each object. */
-          data: components["schemas"]["refund"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Create a refund.</p> */
-  PostChargesChargeRefunds: {
-    parameters: {
-      path: {
-        charge: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        amount?: number;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        payment_intent?: string;
-        reason?: "duplicate" | "fraudulent" | "requested_by_customer";
-        refund_application_fee?: boolean;
-        reverse_transfer?: boolean;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["refund"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the details of an existing refund.</p> */
-  GetChargesChargeRefundsRefund: {
-    parameters: {
-      path: {
-        charge: string;
-        refund: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["refund"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Update a specified refund.</p> */
-  PostChargesChargeRefundsRefund: {
-    parameters: {
-      path: {
-        charge: string;
-        refund: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["refund"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of Checkout Sessions.</p> */
-  GetCheckoutSessions: {
-    parameters: {
-      query: {
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** Only return the Checkout Session for the PaymentIntent specified. */
-        payment_intent?: string;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-        /** Only return the Checkout Session for the subscription specified. */
-        subscription?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["checkout.session"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Creates a Session object.</p> */
-  PostCheckoutSessions: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specify whether Checkout should collect the customer's billing address. */
-        billing_address_collection?: "auto" | "required";
-        /** The URL the customer will be directed to if they decide to cancel payment and return to your website. */
-        cancel_url: string;
-        /**
-         * A unique string to reference the Checkout Session. This can be a
-         * customer ID, a cart ID, or similar, and can be used to reconcile the
-         * session with your internal systems.
-         */
-        client_reference_id?: string;
-        /**
-         * ID of an existing customer, if one exists. The email stored on the
-         * customer will be used to prefill the email field on the Checkout page.
-         * If the customer changes their email on the Checkout page, the Customer
-         * object will be updated with the new email.
-         * If blank for Checkout Sessions in `payment` or `subscription` mode,
-         * Checkout will create a new customer object based on information
-         * provided during the session.
-         */
-        customer?: string;
-        /**
-         * If provided, this value will be used when the Customer object is created.
-         * If not provided, customers will be asked to enter their email address.
-         * Use this parameter to prefill customer data if you already have an email
-         * on file. To access information about the customer once a session is
-         * complete, use the `customer` field.
-         */
-        customer_email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /**
-         * A list of items the customer is purchasing. Use this parameter for
-         * one-time payments or adding invoice line items to a subscription (used
-         * in conjunction with `subscription_data`).
-         */
-        line_items?: {
-          amount?: number;
-          currency?: string;
-          description?: string;
-          images?: string[];
-          name?: string;
-          quantity: number;
-          tax_rates?: string[];
-        }[];
-        /** The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used. */
-        locale?:
-          | "auto"
-          | "da"
-          | "de"
-          | "en"
-          | "es"
-          | "fi"
-          | "fr"
-          | "it"
-          | "ja"
-          | "ms"
-          | "nb"
-          | "nl"
-          | "pl"
-          | "pt"
-          | "pt-BR"
-          | "sv"
-          | "zh";
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** The mode of the Checkout Session, one of `payment`, `setup`, or `subscription`. */
-        mode?: "payment" | "setup" | "subscription";
-        /** A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode. */
-        payment_intent_data?: {
-          application_fee_amount?: number;
-          capture_method?: "automatic" | "manual";
-          description?: string;
-          metadata?: { [key: string]: string };
-          on_behalf_of?: string;
-          receipt_email?: string;
-          setup_future_usage?: "off_session" | "on_session";
-          shipping?: {
-            address: {
-              city?: string;
-              country?: string;
-              line1: string;
-              line2?: string;
-              postal_code?: string;
-              state?: string;
-            };
-            carrier?: string;
-            name: string;
-            phone?: string;
-            tracking_number?: string;
-          };
-          statement_descriptor?: string;
-          statement_descriptor_suffix?: string;
-          transfer_data?: {
-            amount?: number;
-            destination: string;
-          };
-        };
-        /** A list of the types of payment methods (e.g., card) this Checkout session can accept. */
-        payment_method_types: ("card" | "fpx" | "ideal")[];
-        /** A subset of parameters to be passed to SetupIntent creation for Checkout Sessions in `setup` mode. */
-        setup_intent_data?: {
-          description?: string;
-          metadata?: { [key: string]: string };
-          on_behalf_of?: string;
-        };
-        /** When set, provides configuration for Checkout to collect a shipping address from a customer. */
-        shipping_address_collection?: {
-          allowed_countries: (
-            | "AC"
-            | "AD"
-            | "AE"
-            | "AF"
-            | "AG"
-            | "AI"
-            | "AL"
-            | "AM"
-            | "AO"
-            | "AQ"
-            | "AR"
-            | "AT"
-            | "AU"
-            | "AW"
-            | "AX"
-            | "AZ"
-            | "BA"
-            | "BB"
-            | "BD"
-            | "BE"
-            | "BF"
-            | "BG"
-            | "BH"
-            | "BI"
-            | "BJ"
-            | "BL"
-            | "BM"
-            | "BN"
-            | "BO"
-            | "BQ"
-            | "BR"
-            | "BS"
-            | "BT"
-            | "BV"
-            | "BW"
-            | "BY"
-            | "BZ"
-            | "CA"
-            | "CD"
-            | "CF"
-            | "CG"
-            | "CH"
-            | "CI"
-            | "CK"
-            | "CL"
-            | "CM"
-            | "CN"
-            | "CO"
-            | "CR"
-            | "CV"
-            | "CW"
-            | "CY"
-            | "CZ"
-            | "DE"
-            | "DJ"
-            | "DK"
-            | "DM"
-            | "DO"
-            | "DZ"
-            | "EC"
-            | "EE"
-            | "EG"
-            | "EH"
-            | "ER"
-            | "ES"
-            | "ET"
-            | "FI"
-            | "FJ"
-            | "FK"
-            | "FO"
-            | "FR"
-            | "GA"
-            | "GB"
-            | "GD"
-            | "GE"
-            | "GF"
-            | "GG"
-            | "GH"
-            | "GI"
-            | "GL"
-            | "GM"
-            | "GN"
-            | "GP"
-            | "GQ"
-            | "GR"
-            | "GS"
-            | "GT"
-            | "GU"
-            | "GW"
-            | "GY"
-            | "HK"
-            | "HN"
-            | "HR"
-            | "HT"
-            | "HU"
-            | "ID"
-            | "IE"
-            | "IL"
-            | "IM"
-            | "IN"
-            | "IO"
-            | "IQ"
-            | "IS"
-            | "IT"
-            | "JE"
-            | "JM"
-            | "JO"
-            | "JP"
-            | "KE"
-            | "KG"
-            | "KH"
-            | "KI"
-            | "KM"
-            | "KN"
-            | "KR"
-            | "KW"
-            | "KY"
-            | "KZ"
-            | "LA"
-            | "LB"
-            | "LC"
-            | "LI"
-            | "LK"
-            | "LR"
-            | "LS"
-            | "LT"
-            | "LU"
-            | "LV"
-            | "LY"
-            | "MA"
-            | "MC"
-            | "MD"
-            | "ME"
-            | "MF"
-            | "MG"
-            | "MK"
-            | "ML"
-            | "MM"
-            | "MN"
-            | "MO"
-            | "MQ"
-            | "MR"
-            | "MS"
-            | "MT"
-            | "MU"
-            | "MV"
-            | "MW"
-            | "MX"
-            | "MY"
-            | "MZ"
-            | "NA"
-            | "NC"
-            | "NE"
-            | "NG"
-            | "NI"
-            | "NL"
-            | "NO"
-            | "NP"
-            | "NR"
-            | "NU"
-            | "NZ"
-            | "OM"
-            | "PA"
-            | "PE"
-            | "PF"
-            | "PG"
-            | "PH"
-            | "PK"
-            | "PL"
-            | "PM"
-            | "PN"
-            | "PR"
-            | "PS"
-            | "PT"
-            | "PY"
-            | "QA"
-            | "RE"
-            | "RO"
-            | "RS"
-            | "RU"
-            | "RW"
-            | "SA"
-            | "SB"
-            | "SC"
-            | "SE"
-            | "SG"
-            | "SH"
-            | "SI"
-            | "SJ"
-            | "SK"
-            | "SL"
-            | "SM"
-            | "SN"
-            | "SO"
-            | "SR"
-            | "SS"
-            | "ST"
-            | "SV"
-            | "SX"
-            | "SZ"
-            | "TA"
-            | "TC"
-            | "TD"
-            | "TF"
-            | "TG"
-            | "TH"
-            | "TJ"
-            | "TK"
-            | "TL"
-            | "TM"
-            | "TN"
-            | "TO"
-            | "TR"
-            | "TT"
-            | "TV"
-            | "TW"
-            | "TZ"
-            | "UA"
-            | "UG"
-            | "US"
-            | "UY"
-            | "UZ"
-            | "VA"
-            | "VC"
-            | "VE"
-            | "VG"
-            | "VN"
-            | "VU"
-            | "WF"
-            | "WS"
-            | "XK"
-            | "YE"
-            | "YT"
-            | "ZA"
-            | "ZM"
-            | "ZW"
-            | "ZZ"
-          )[];
-        };
-        /**
-         * Describes the type of transaction being performed by Checkout in order to customize
-         * relevant text on the page, such as the submit button. `submit_type` can only be
-         * specified on Checkout Sessions in `payment` mode, but not Checkout Sessions
-         * in `subscription` or `setup` mode.
-         */
-        submit_type?: "auto" | "book" | "donate" | "pay";
-        /** A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode. */
-        subscription_data?: {
-          application_fee_percent?: number;
-          default_tax_rates?: string[];
-          items?: {
-            plan: string;
-            quantity?: number;
-            tax_rates?: string[];
-          }[];
-          metadata?: { [key: string]: string };
-          trial_end?: number;
-          trial_from_plan?: boolean;
-          trial_period_days?: number;
-        };
-        /**
-         * The URL to which Stripe should send customers when payment or setup
-         * is complete.
-         * If you’d like access to the Checkout Session for the successful
-         * payment, read more about it in our guide on [fulfilling your payments
-         * with webhooks](/docs/payments/checkout/fulfillment#webhooks).
-         */
-        success_url: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["checkout.session"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves a Session object.</p> */
-  GetCheckoutSessionsSession: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        session: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["checkout.session"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Lists all Country Spec objects available in the API.</p> */
-  GetCountrySpecs: {
-    parameters: {
-      query: {
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["country_spec"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a Country Spec for a given Country code.</p> */
-  GetCountrySpecsCountry: {
-    parameters: {
-      path: {
-        country: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["country_spec"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of your coupons.</p> */
-  GetCoupons: {
-    parameters: {
-      query: {
-        /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["coupon"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>You can create coupons easily via the <a href="https://dashboard.stripe.com/coupons">coupon management</a> page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.</p>
-   *
-   * <p>A coupon has either a <code>percent_off</code> or an <code>amount_off</code> and <code>currency</code>. If you set an <code>amount_off</code>, that amount will be subtracted from any invoice’s subtotal. For example, an invoice with a subtotal of <currency>100</currency> will have a final total of <currency>0</currency> if a coupon with an <code>amount_off</code> of <amount>200</amount> is applied to it and an invoice with a subtotal of <currency>300</currency> will have a final total of <currency>100</currency> if a coupon with an <code>amount_off</code> of <amount>200</amount> is applied to it.</p>
-   */
-  PostCoupons: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed). */
-        amount_off?: number;
-        /** Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed). */
-        currency?: string;
-        /** Specifies how long the discount will be in effect. Can be `forever`, `once`, or `repeating`. */
-        duration: "forever" | "once" | "repeating";
-        /** Required only if `duration` is `repeating`, in which case it must be a positive integer that specifies the number of months the discount will be in effect. */
-        duration_in_months?: number;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Unique string of your choice that will be used to identify this coupon when applying it to a customer. This is often a specific code you'll give to your customer to use when signing up (e.g., `FALL25OFF`). If you don't want to specify a particular code, you can leave the ID blank and we'll generate a random code for you. */
-        id?: string;
-        /** A positive integer specifying the number of times the coupon can be redeemed before it's no longer valid. For example, you might have a 50% off coupon that the first 20 readers of your blog can use. */
-        max_redemptions?: number;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
-        name?: string;
-        /** A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed). */
-        percent_off?: number;
-        /** Unix timestamp specifying the last time at which the coupon can be redeemed. After the redeem_by date, the coupon can no longer be applied to new customers. */
-        redeem_by?: number;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["coupon"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>You can delete coupons via the <a href="https://dashboard.stripe.com/coupons">coupon management</a> page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can’t redeem the coupon. You can also delete coupons via the API.</p> */
-  DeleteCouponsCoupon: {
-    parameters: {
-      path: {
-        coupon: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_coupon"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the coupon with the given ID.</p> */
-  GetCouponsCoupon: {
-    parameters: {
-      path: {
-        coupon: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["coupon"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.</p> */
-  PostCouponsCoupon: {
-    parameters: {
-      path: {
-        coupon: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
-        name?: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["coupon"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of credit notes.</p> */
-  GetCreditNotes: {
-    parameters: {
-      query: {
-        /** Only return credit notes for the customer specified by this customer ID. */
-        customer?: string;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Only return credit notes for the invoice specified by this invoice ID. */
-        invoice?: string;
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["credit_note"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Issue a credit note to adjust the amount of a finalized invoice. For a <code>status=open</code> invoice, a credit note reduces
-   * its <code>amount_due</code>. For a <code>status=paid</code> invoice, a credit note does not affect its <code>amount_due</code>. Instead, it can result
-   * in any combination of the following:</p>
-   *
-   * <ul>
-   *  <li>Refund: create a new refund (using <code>refund_amount</code>) or link an existing refund (using <code>refund</code>).</li>
-   *  <li>Customer balance credit: credit the customer’s balance (using <code>credit_amount</code>) which will be automatically applied to their next invoice when it’s finalized.</li>
-   *  <li>Outside of Stripe credit: record the amount that is or will be credited outside of Stripe (using <code>out_of_band_amount</code>).</li>
-   * </ul>
-   *
-   * <p>For post-payment credit notes the sum of the refund, credit and outside of Stripe amounts must equal the credit note total.</p>
-   *
-   * <p>You may issue multiple credit notes for an invoice. Each credit note will increment the invoice’s <code>pre_payment_credit_notes_amount</code>
-   * or <code>post_payment_credit_notes_amount</code> depending on its <code>status</code> at the time of credit note creation.</p>
-   */
-  PostCreditNotes: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The integer amount in **%s** representing the total amount of the credit note. */
-        amount?: number;
-        /** The integer amount in **%s** representing the amount to credit the customer's balance, which will be automatically applied to their next invoice. */
-        credit_amount?: number;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** ID of the invoice. */
-        invoice: string;
-        /** Line items that make up the credit note. */
-        lines?: {
-          amount?: number;
-          description?: string;
-          invoice_line_item?: string;
-          quantity?: number;
-          tax_rates?: Partial<string[]> & Partial<"">;
-          type: "custom_line_item" | "invoice_line_item";
-          unit_amount?: number;
-          unit_amount_decimal?: string;
-        }[];
-        /** The credit note's memo appears on the credit note PDF. */
-        memo?: string;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** The integer amount in **%s** representing the amount that is credited outside of Stripe. */
-        out_of_band_amount?: number;
-        /** Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` */
-        reason?:
-          | "duplicate"
-          | "fraudulent"
-          | "order_change"
-          | "product_unsatisfactory";
-        /** ID of an existing refund to link this credit note to. */
-        refund?: string;
-        /** The integer amount in **%s** representing the amount to refund. If set, a refund will be created for the charge associated with the invoice. */
-        refund_amount?: number;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["credit_note"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Get a preview of a credit note without creating it.</p> */
-  GetCreditNotesPreview: {
-    parameters: {
-      query: {
-        /** The integer amount in **%s** representing the total amount of the credit note. */
-        amount?: number;
-        /** The integer amount in **%s** representing the amount to credit the customer's balance, which will be automatically applied to their next invoice. */
-        credit_amount?: number;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** ID of the invoice. */
-        invoice: string;
-        /** Line items that make up the credit note. */
-        lines?: {
-          amount?: number;
-          description?: string;
-          invoice_line_item?: string;
-          quantity?: number;
-          tax_rates?: Partial<string[]> & Partial<"">;
-          type: "custom_line_item" | "invoice_line_item";
-          unit_amount?: number;
-          unit_amount_decimal?: string;
-        }[];
-        /** The credit note's memo appears on the credit note PDF. */
-        memo?: string;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** The integer amount in **%s** representing the amount that is credited outside of Stripe. */
-        out_of_band_amount?: number;
-        /** Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` */
-        reason?:
-          | "duplicate"
-          | "fraudulent"
-          | "order_change"
-          | "product_unsatisfactory";
-        /** ID of an existing refund to link this credit note to. */
-        refund?: string;
-        /** The integer amount in **%s** representing the amount to refund. If set, a refund will be created for the charge associated with the invoice. */
-        refund_amount?: number;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["credit_note"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>When retrieving a credit note preview, you’ll get a <strong>lines</strong> property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items.</p> */
-  GetCreditNotesPreviewLines: {
-    parameters: {
-      query: {
-        /** The integer amount in **%s** representing the total amount of the credit note. */
-        amount?: number;
-        /** The integer amount in **%s** representing the amount to credit the customer's balance, which will be automatically applied to their next invoice. */
-        credit_amount?: number;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** ID of the invoice. */
-        invoice: string;
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** Line items that make up the credit note. */
-        lines?: {
-          amount?: number;
-          description?: string;
-          invoice_line_item?: string;
-          quantity?: number;
-          tax_rates?: Partial<string[]> & Partial<"">;
-          type: "custom_line_item" | "invoice_line_item";
-          unit_amount?: number;
-          unit_amount_decimal?: string;
-        }[];
-        /** The credit note's memo appears on the credit note PDF. */
-        memo?: string;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** The integer amount in **%s** representing the amount that is credited outside of Stripe. */
-        out_of_band_amount?: number;
-        /** Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` */
-        reason?:
-          | "duplicate"
-          | "fraudulent"
-          | "order_change"
-          | "product_unsatisfactory";
-        /** ID of an existing refund to link this credit note to. */
-        refund?: string;
-        /** The integer amount in **%s** representing the amount to refund. If set, a refund will be created for the charge associated with the invoice. */
-        refund_amount?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          /** Details about each object. */
-          data: components["schemas"]["credit_note_line_item"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>When retrieving a credit note, you’ll get a <strong>lines</strong> property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
-  GetCreditNotesCreditNoteLines: {
-    parameters: {
-      path: {
-        credit_note: string;
-      };
-      query: {
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          /** Details about each object. */
-          data: components["schemas"]["credit_note_line_item"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the credit note object with the given identifier.</p> */
-  GetCreditNotesId: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["credit_note"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Updates an existing credit note.</p> */
-  PostCreditNotesId: {
-    parameters: {
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Credit note memo. */
-        memo?: string;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["credit_note"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Marks a credit note as void. Learn more about <a href="/docs/billing/invoices/credit-notes#voiding">voiding credit notes</a>.</p> */
-  PostCreditNotesIdVoid: {
-    parameters: {
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["credit_note"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.</p> */
-  GetCustomers: {
-    parameters: {
-      query: {
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** A filter on the list based on the customer's `email` field. The value must be a string. */
-        email?: string;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["customer"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Creates a new customer object.</p> */
-  PostCustomers: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The customer's address. */
-        address?: Partial<{
-          city?: string;
-          country?: string;
-          line1: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-        }> &
-          Partial<"">;
-        /** An integer amount in %s that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice. */
-        balance?: number;
-        coupon?: string;
-        /** An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard. */
-        description?: string;
-        /** Customer's email address. It's displayed alongside the customer in your dashboard and can be useful for searching and tracking. This may be up to *512 characters*. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers. */
-        invoice_prefix?: string;
-        /** Default invoice settings for this customer. */
-        invoice_settings?: {
-          custom_fields?: Partial<
-            {
-              name: string;
-              value: string;
-            }[]
-          > &
-            Partial<"">;
-          default_payment_method?: string;
-          footer?: string;
-        };
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** The customer's full name or business name. */
-        name?: string;
-        /** The sequence to be used on the customer's next invoice. Defaults to 1. */
-        next_invoice_sequence?: number;
-        payment_method?: string;
-        /** The customer's phone number. */
-        phone?: string;
-        /** Customer's preferred languages, ordered by preference. */
-        preferred_locales?: string[];
-        /** The customer's shipping information. Appears on invoices emailed to this customer. */
-        shipping?: Partial<{
-          address: {
-            city?: string;
-            country?: string;
-            line1: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          name: string;
-          phone?: string;
-        }> &
-          Partial<"">;
-        source?: string;
-        /** The customer's tax exemption. One of `none`, `exempt`, or `reverse`. */
-        tax_exempt?: "" | "exempt" | "none" | "reverse";
-        /** The customer's tax IDs. */
-        tax_id_data?: {
-          type:
-            | "au_abn"
-            | "ca_bn"
-            | "ca_qst"
-            | "ch_vat"
-            | "es_cif"
-            | "eu_vat"
-            | "hk_br"
-            | "in_gst"
-            | "jp_cn"
-            | "kr_brn"
-            | "li_uid"
-            | "mx_rfc"
-            | "my_itn"
-            | "my_sst"
-            | "no_vat"
-            | "nz_gst"
-            | "ru_inn"
-            | "sg_gst"
-            | "sg_uen"
-            | "th_vat"
-            | "tw_vat"
-            | "us_ein"
-            | "za_vat";
-          value: string;
-        }[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["customer"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.</p> */
-  DeleteCustomersCustomer: {
-    parameters: {
-      path: {
-        customer: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_customer"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the details of an existing customer. You need only supply the unique customer identifier that was returned upon customer creation.</p> */
-  GetCustomersCustomer: {
-    parameters: {
-      path: {
-        customer: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": Partial<components["schemas"]["customer"]> &
-          Partial<components["schemas"]["deleted_customer"]>;
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the <strong>source</strong> parameter, that becomes the customer’s active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the <strong>source</strong> parameter: for each of the customer’s current subscriptions, if the subscription bills automatically and is in the <code>past_due</code> state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the <strong>default_source</strong> for a customer will not trigger this behavior.</p>
-   *
-   * <p>This request accepts mostly the same arguments as the customer creation call.</p>
-   */
-  PostCustomersCustomer: {
-    parameters: {
-      path: {
-        customer: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The customer's address. */
-        address?: Partial<{
-          city?: string;
-          country?: string;
-          line1: string;
-          line2?: string;
-          postal_code?: string;
-          state?: string;
-        }> &
-          Partial<"">;
-        /** An integer amount in %s that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice. */
-        balance?: number;
-        /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-        bank_account?: Partial<{
-          account_holder_name?: string;
-          account_holder_type?: "company" | "individual";
-          account_number: string;
-          country: string;
-          currency?: string;
-          object?: "bank_account";
-          routing_number?: string;
-        }> &
-          Partial<string>;
-        /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
-        card?: Partial<{
-          address_city?: string;
-          address_country?: string;
-          address_line1?: string;
-          address_line2?: string;
-          address_state?: string;
-          address_zip?: string;
-          cvc?: string;
-          exp_month: number;
-          exp_year: number;
-          metadata?: { [key: string]: string };
-          name?: string;
-          number: string;
-          object?: "card";
-        }> &
-          Partial<string>;
-        coupon?: string;
-        /** ID of Alipay account to make the customer's new default for invoice payments. */
-        default_alipay_account?: string;
-        /** ID of bank account to make the customer's new default for invoice payments. */
-        default_bank_account?: string;
-        /** ID of card to make the customer's new default for invoice payments. */
-        default_card?: string;
-        /**
-         * If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
-         *
-         * Provide the ID of a payment source already attached to this customer to make it this customer's default payment source.
-         *
-         * If you want to add a new payment source and make it the default, see the [source](https://stripe.com/docs/api/customers/update#update_customer-source) property.
-         */
-        default_source?: string;
-        /** An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard. */
-        description?: string;
-        /** Customer's email address. It's displayed alongside the customer in your dashboard and can be useful for searching and tracking. This may be up to *512 characters*. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers. */
-        invoice_prefix?: string;
-        /** Default invoice settings for this customer. */
-        invoice_settings?: {
-          custom_fields?: Partial<
-            {
-              name: string;
-              value: string;
-            }[]
-          > &
-            Partial<"">;
-          default_payment_method?: string;
-          footer?: string;
-        };
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** The customer's full name or business name. */
-        name?: string;
-        /** The sequence to be used on the customer's next invoice. Defaults to 1. */
-        next_invoice_sequence?: number;
-        /** The customer's phone number. */
-        phone?: string;
-        /** Customer's preferred languages, ordered by preference. */
-        preferred_locales?: string[];
-        /** The customer's shipping information. Appears on invoices emailed to this customer. */
-        shipping?: Partial<{
-          address: {
-            city?: string;
-            country?: string;
-            line1: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          name: string;
-          phone?: string;
-        }> &
-          Partial<"">;
-        source?: string;
-        /** The customer's tax exemption. One of `none`, `exempt`, or `reverse`. */
-        tax_exempt?: "" | "exempt" | "none" | "reverse";
-        /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-        trial_end?: Partial<"now"> & Partial<number>;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["customer"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of transactions that updated the customer’s <a href="/docs/api/customers/object#customer_object-balance"><code>balance</code></a>.</p> */
-  GetCustomersCustomerBalanceTransactions: {
-    parameters: {
-      path: {
-        customer: string;
-      };
-      query: {
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          /** Details about each object. */
-          data: components["schemas"]["customer_balance_transaction"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Creates an immutable transaction that updates the customer’s <a href="/docs/api/customers/object#customer_object-balance"><code>balance</code></a>.</p> */
-  PostCustomersCustomerBalanceTransactions: {
-    parameters: {
-      path: {
-        customer: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The integer amount in **%s** to apply to the customer's balance. Pass a negative amount to credit the customer's balance, and pass in a positive amount to debit the customer's balance. */
-        amount: number;
-        /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). If the customer's [`currency`](https://stripe.com/docs/api/customers/object#customer_object-currency) is set, this value must match it. If the customer's `currency` is not set, it will be updated to this value. */
-        currency: string;
-        /** An arbitrary string attached to the object. Often useful for displaying to users. */
-        description?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["customer_balance_transaction"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves a specific transaction that updated the customer’s <a href="/docs/api/customers/object#customer_object-balance"><code>balance</code></a>.</p> */
-  GetCustomersCustomerBalanceTransactionsTransaction: {
-    parameters: {
-      path: {
-        customer: string;
-        transaction: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["customer_balance_transaction"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Most customer balance transaction fields are immutable, but you may update its <code>description</code> and <code>metadata</code>.</p> */
-  PostCustomersCustomerBalanceTransactionsTransaction: {
-    parameters: {
-      path: {
-        customer: string;
-        transaction: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** An arbitrary string attached to the object. Often useful for displaying to users. */
-        description?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["customer_balance_transaction"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>You can see a list of the bank accounts belonging to a Customer. Note that the 10 most recent sources are always available by default on the Customer. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional bank accounts.</p> */
-  GetCustomersCustomerBankAccounts: {
-    parameters: {
-      path: {
-        customer: string;
-      };
-      query: {
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          /** Details about each object. */
-          data: components["schemas"]["bank_account"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
-   *
-   * <p>If the card’s owner has no default card, then the new card will become the default.
-   * However, if the owner already has a default, then it will not change.
-   * To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p>
-   */
-  PostCustomersCustomerBankAccounts: {
-    parameters: {
-      path: {
-        customer: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** A token returned by [Stripe.js](https://stripe.com/docs/stripe.js) representing the user’s Alipay account details. */
-        alipay_account?: string;
-        /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-        bank_account?: Partial<{
-          account_holder_name?: string;
-          account_holder_type?: "company" | "individual";
-          account_number: string;
-          country: string;
-          currency?: string;
-          object?: "bank_account";
-          routing_number?: string;
-        }> &
-          Partial<string>;
-        /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
-        card?: Partial<{
-          address_city?: string;
-          address_country?: string;
-          address_line1?: string;
-          address_line2?: string;
-          address_state?: string;
-          address_zip?: string;
-          cvc?: string;
-          exp_month: number;
-          exp_year: number;
-          metadata?: { [key: string]: string };
-          name?: string;
-          number: string;
-          object?: "card";
-        }> &
-          Partial<string>;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** Please refer to full [documentation](https://stripe.com/docs/api) instead. */
-        source?: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payment_source"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Delete a specified source for a given customer.</p> */
-  DeleteCustomersCustomerBankAccountsId: {
-    parameters: {
-      path: {
-        customer: string;
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": Partial<components["schemas"]["payment_source"]> &
-          Partial<components["schemas"]["deleted_payment_source"]>;
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>By default, you can see the 10 most recent sources stored on a Customer directly on the object, but you can also retrieve details about a specific bank account stored on the Stripe account.</p> */
-  GetCustomersCustomerBankAccountsId: {
-    parameters: {
-      path: {
-        customer: string;
-        id: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["bank_account"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Update a specified source for a given customer.</p> */
-  PostCustomersCustomerBankAccountsId: {
-    parameters: {
-      path: {
-        customer: string;
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The name of the person or business that owns the bank account. */
-        account_holder_name?: string;
-        /** The type of entity that holds the account. This can be either `individual` or `company`. */
-        account_holder_type?: "company" | "individual";
-        /** City/District/Suburb/Town/Village. */
-        address_city?: string;
-        /** Billing address country, if provided when creating card. */
-        address_country?: string;
-        /** Address line 1 (Street address/PO Box/Company name). */
-        address_line1?: string;
-        /** Address line 2 (Apartment/Suite/Unit/Building). */
-        address_line2?: string;
-        /** State/County/Province/Region. */
-        address_state?: string;
-        /** ZIP or postal code. */
-        address_zip?: string;
-        /** Two digit number representing the card’s expiration month. */
-        exp_month?: string;
-        /** Four digit number representing the card’s expiration year. */
-        exp_year?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** Cardholder name. */
-        name?: string;
-        owner?: {
-          address?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          email?: string;
-          name?: string;
-          phone?: string;
-        };
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": Partial<components["schemas"]["card"]> &
-          Partial<components["schemas"]["bank_account"]> &
-          Partial<components["schemas"]["source"]>;
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Verify a specified bank account for a given customer.</p> */
-  PostCustomersCustomerBankAccountsIdVerify: {
-    parameters: {
-      path: {
-        customer: string;
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account. */
-        amounts?: number[];
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["bank_account"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>You can see a list of the cards belonging to a customer.
-   * Note that the 10 most recent sources are always available on the <code>Customer</code> object.
-   * If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional cards.</p>
-   */
-  GetCustomersCustomerCards: {
-    parameters: {
-      path: {
-        customer: string;
-      };
-      query: {
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["card"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
-   *
-   * <p>If the card’s owner has no default card, then the new card will become the default.
-   * However, if the owner already has a default, then it will not change.
-   * To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p>
-   */
-  PostCustomersCustomerCards: {
-    parameters: {
-      path: {
-        customer: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** A token returned by [Stripe.js](https://stripe.com/docs/stripe.js) representing the user’s Alipay account details. */
-        alipay_account?: string;
-        /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-        bank_account?: Partial<{
-          account_holder_name?: string;
-          account_holder_type?: "company" | "individual";
-          account_number: string;
-          country: string;
-          currency?: string;
-          object?: "bank_account";
-          routing_number?: string;
-        }> &
-          Partial<string>;
-        /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
-        card?: Partial<{
-          address_city?: string;
-          address_country?: string;
-          address_line1?: string;
-          address_line2?: string;
-          address_state?: string;
-          address_zip?: string;
-          cvc?: string;
-          exp_month: number;
-          exp_year: number;
-          metadata?: { [key: string]: string };
-          name?: string;
-          number: string;
-          object?: "card";
-        }> &
-          Partial<string>;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** Please refer to full [documentation](https://stripe.com/docs/api) instead. */
-        source?: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payment_source"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Delete a specified source for a given customer.</p> */
-  DeleteCustomersCustomerCardsId: {
-    parameters: {
-      path: {
-        customer: string;
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": Partial<components["schemas"]["payment_source"]> &
-          Partial<components["schemas"]["deleted_payment_source"]>;
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>You can always see the 10 most recent cards directly on a customer; this method lets you retrieve details about a specific card stored on the customer.</p> */
-  GetCustomersCustomerCardsId: {
-    parameters: {
-      path: {
-        customer: string;
-        id: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["card"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Update a specified source for a given customer.</p> */
-  PostCustomersCustomerCardsId: {
-    parameters: {
-      path: {
-        customer: string;
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The name of the person or business that owns the bank account. */
-        account_holder_name?: string;
-        /** The type of entity that holds the account. This can be either `individual` or `company`. */
-        account_holder_type?: "company" | "individual";
-        /** City/District/Suburb/Town/Village. */
-        address_city?: string;
-        /** Billing address country, if provided when creating card. */
-        address_country?: string;
-        /** Address line 1 (Street address/PO Box/Company name). */
-        address_line1?: string;
-        /** Address line 2 (Apartment/Suite/Unit/Building). */
-        address_line2?: string;
-        /** State/County/Province/Region. */
-        address_state?: string;
-        /** ZIP or postal code. */
-        address_zip?: string;
-        /** Two digit number representing the card’s expiration month. */
-        exp_month?: string;
-        /** Four digit number representing the card’s expiration year. */
-        exp_year?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** Cardholder name. */
-        name?: string;
-        owner?: {
-          address?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          email?: string;
-          name?: string;
-          phone?: string;
-        };
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": Partial<components["schemas"]["card"]> &
-          Partial<components["schemas"]["bank_account"]> &
-          Partial<components["schemas"]["source"]>;
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Removes the currently applied discount on a customer.</p> */
-  DeleteCustomersCustomerDiscount: {
-    parameters: {
-      path: {
-        customer: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_discount"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  GetCustomersCustomerDiscount: {
-    parameters: {
-      path: {
-        customer: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["discount"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>List sources for a specified customer.</p> */
-  GetCustomersCustomerSources: {
-    parameters: {
-      path: {
-        customer: string;
-      };
-      query: {
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** Filter sources according to a particular object type. */
-        object?: string;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          /** Details about each object. */
-          data: (Partial<components["schemas"]["alipay_account"]> &
-            Partial<components["schemas"]["bank_account"]> &
-            Partial<components["schemas"]["bitcoin_receiver"]> &
-            Partial<components["schemas"]["card"]> &
-            Partial<components["schemas"]["source"]>)[];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
-   *
-   * <p>If the card’s owner has no default card, then the new card will become the default.
-   * However, if the owner already has a default, then it will not change.
-   * To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p>
-   */
-  PostCustomersCustomerSources: {
-    parameters: {
-      path: {
-        customer: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** A token returned by [Stripe.js](https://stripe.com/docs/stripe.js) representing the user’s Alipay account details. */
-        alipay_account?: string;
-        /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-        bank_account?: Partial<{
-          account_holder_name?: string;
-          account_holder_type?: "company" | "individual";
-          account_number: string;
-          country: string;
-          currency?: string;
-          object?: "bank_account";
-          routing_number?: string;
-        }> &
-          Partial<string>;
-        /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
-        card?: Partial<{
-          address_city?: string;
-          address_country?: string;
-          address_line1?: string;
-          address_line2?: string;
-          address_state?: string;
-          address_zip?: string;
-          cvc?: string;
-          exp_month: number;
-          exp_year: number;
-          metadata?: { [key: string]: string };
-          name?: string;
-          number: string;
-          object?: "card";
-        }> &
-          Partial<string>;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** Please refer to full [documentation](https://stripe.com/docs/api) instead. */
-        source?: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payment_source"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Delete a specified source for a given customer.</p> */
-  DeleteCustomersCustomerSourcesId: {
-    parameters: {
-      path: {
-        customer: string;
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": Partial<components["schemas"]["payment_source"]> &
-          Partial<components["schemas"]["deleted_payment_source"]>;
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieve a specified source for a given customer.</p> */
-  GetCustomersCustomerSourcesId: {
-    parameters: {
-      path: {
-        customer: string;
-        id: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payment_source"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Update a specified source for a given customer.</p> */
-  PostCustomersCustomerSourcesId: {
-    parameters: {
-      path: {
-        customer: string;
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The name of the person or business that owns the bank account. */
-        account_holder_name?: string;
-        /** The type of entity that holds the account. This can be either `individual` or `company`. */
-        account_holder_type?: "company" | "individual";
-        /** City/District/Suburb/Town/Village. */
-        address_city?: string;
-        /** Billing address country, if provided when creating card. */
-        address_country?: string;
-        /** Address line 1 (Street address/PO Box/Company name). */
-        address_line1?: string;
-        /** Address line 2 (Apartment/Suite/Unit/Building). */
-        address_line2?: string;
-        /** State/County/Province/Region. */
-        address_state?: string;
-        /** ZIP or postal code. */
-        address_zip?: string;
-        /** Two digit number representing the card’s expiration month. */
-        exp_month?: string;
-        /** Four digit number representing the card’s expiration year. */
-        exp_year?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** Cardholder name. */
-        name?: string;
-        owner?: {
-          address?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          email?: string;
-          name?: string;
-          phone?: string;
-        };
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": Partial<components["schemas"]["card"]> &
-          Partial<components["schemas"]["bank_account"]> &
-          Partial<components["schemas"]["source"]>;
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Verify a specified bank account for a given customer.</p> */
-  PostCustomersCustomerSourcesIdVerify: {
-    parameters: {
-      path: {
-        customer: string;
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account. */
-        amounts?: number[];
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["bank_account"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>You can see a list of the customer’s active subscriptions. Note that the 10 most recent active subscriptions are always available by default on the customer object. If you need more than those 10, you can use the limit and starting_after parameters to page through additional subscriptions.</p> */
-  GetCustomersCustomerSubscriptions: {
-    parameters: {
-      path: {
-        customer: string;
-      };
-      query: {
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          /** Details about each object. */
-          data: components["schemas"]["subscription"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Creates a new subscription on an existing customer.</p> */
-  PostCustomersCustomerSubscriptions: {
-    parameters: {
-      path: {
-        customer: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
-        application_fee_percent?: number;
-        /** For new subscriptions, a past timestamp to backdate the subscription's start date to. If set, the first invoice will contain a proration for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor. */
-        backdate_start_date?: number;
-        /** A future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. */
-        billing_cycle_anchor?: number;
-        /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
-        billing_thresholds?: Partial<{
-          amount_gte?: number;
-          reset_billing_cycle_anchor?: boolean;
-        }> &
-          Partial<"">;
-        /** A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
-        cancel_at?: number;
-        /** Boolean indicating whether this subscription should cancel at the end of the current period. */
-        cancel_at_period_end?: boolean;
-        /** Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`. */
-        collection_method?: "charge_automatically" | "send_invoice";
-        /** The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. */
-        coupon?: string;
-        /** Number of days a customer has to pay invoices generated by this subscription. Valid only for subscriptions where `collection_method` is set to `send_invoice`. */
-        days_until_due?: number;
-        /** ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. If not set, invoices will use the default payment method in the customer's invoice settings. */
-        default_payment_method?: string;
-        /** ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If not set, defaults to the customer's default source. */
-        default_source?: string;
-        /** The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. */
-        default_tax_rates?: Partial<string[]> & Partial<"">;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A list of up to 20 subscription items, each with an attached plan. */
-        items?: {
-          billing_thresholds?: Partial<{
-            usage_gte: number;
-          }> &
-            Partial<"">;
-          metadata?: { [key: string]: string };
-          plan?: string;
-          quantity?: number;
-          tax_rates?: Partial<string[]> & Partial<"">;
-        }[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
-        off_session?: boolean;
-        /**
-         * Use `allow_incomplete` to create subscriptions with `status=incomplete` if the first invoice cannot be paid. Creating subscriptions with this status allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
-         *
-         * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
-         *
-         * `pending_if_incomplete` is only used with updates and cannot be passed when creating a subscription.
-         */
-        payment_behavior?:
-          | "allow_incomplete"
-          | "error_if_incomplete"
-          | "pending_if_incomplete";
-        /** Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-        pending_invoice_item_interval?: Partial<{
-          interval: "day" | "month" | "week" | "year";
-          interval_count?: number;
-        }> &
-          Partial<"">;
-        /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
-        prorate?: boolean;
-        /**
-         * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) resulting from the `billing_cycle_anchor`. Valid values are `create_prorations` or `none`.
-         *
-         * Passing `create_prorations` will cause proration invoice items to be created when applicable. Prorations can be disabled by passing `none`. If no value is passed, the default is `create_prorations`.
-         */
-        proration_behavior?: "always_invoice" | "create_prorations" | "none";
-        /** A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-        tax_percent?: Partial<number> & Partial<"">;
-        /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-        trial_end?: Partial<"now"> & Partial<number>;
-        /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
-        trial_from_plan?: boolean;
-        /** Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. */
-        trial_period_days?: number;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["subscription"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Cancels a customer’s subscription. If you set the <code>at_period_end</code> parameter to <code>true</code>, the subscription will remain active until the end of the period, at which point it will be canceled and not renewed. Otherwise, with the default <code>false</code> value, the subscription is terminated immediately. In either case, the customer will not be charged again for the subscription.</p>
-   *
-   * <p>Note, however, that any pending invoice items that you’ve created will still be charged for at the end of the period, unless manually <a href="#delete_invoiceitem">deleted</a>. If you’ve set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.</p>
-   *
-   * <p>By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p>
-   */
-  DeleteCustomersCustomerSubscriptionsSubscriptionExposedId: {
-    parameters: {
-      path: {
-        customer: string;
-        subscription_exposed_id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Can be set to `true` if `at_period_end` is not set to `true`. Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items. */
-        invoice_now?: boolean;
-        /** Can be set to `true` if `at_period_end` is not set to `true`. Will generate a proration invoice item that credits remaining unused time until the subscription period end. */
-        prorate?: boolean;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["subscription"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the subscription with the given ID.</p> */
-  GetCustomersCustomerSubscriptionsSubscriptionExposedId: {
-    parameters: {
-      path: {
-        customer: string;
-        subscription_exposed_id: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["subscription"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Updates an existing subscription on a customer to match the specified parameters. When changing plans or quantities, we will optionally prorate the price we charge next month to make up for any price changes. To preview how the proration will be calculated, use the <a href="#upcoming_invoice">upcoming invoice</a> endpoint.</p> */
-  PostCustomersCustomerSubscriptionsSubscriptionExposedId: {
-    parameters: {
-      path: {
-        customer: string;
-        subscription_exposed_id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
-        application_fee_percent?: number;
-        /** Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle). */
-        billing_cycle_anchor?: "now" | "unchanged";
-        /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
-        billing_thresholds?: Partial<{
-          amount_gte?: number;
-          reset_billing_cycle_anchor?: boolean;
-        }> &
-          Partial<"">;
-        /** A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
-        cancel_at?: Partial<number> & Partial<"">;
-        /** Boolean indicating whether this subscription should cancel at the end of the current period. */
-        cancel_at_period_end?: boolean;
-        /** Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`. */
-        collection_method?: "charge_automatically" | "send_invoice";
-        /** The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. */
-        coupon?: string;
-        /** Number of days a customer has to pay invoices generated by this subscription. Valid only for subscriptions where `collection_method` is set to `send_invoice`. */
-        days_until_due?: number;
-        /** ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. If not set, invoices will use the default payment method in the customer's invoice settings. */
-        default_payment_method?: string;
-        /** ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If not set, defaults to the customer's default source. */
-        default_source?: string;
-        /** The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. Pass an empty string to remove previously-defined tax rates. */
-        default_tax_rates?: Partial<string[]> & Partial<"">;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** List of subscription items, each with an attached plan. */
-        items?: {
-          billing_thresholds?: Partial<{
-            usage_gte: number;
-          }> &
-            Partial<"">;
-          clear_usage?: boolean;
-          deleted?: boolean;
-          id?: string;
-          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-          plan?: string;
-          quantity?: number;
-          tax_rates?: Partial<string[]> & Partial<"">;
-        }[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
-        off_session?: boolean;
-        /** If specified, payment collection for this subscription will be paused. */
-        pause_collection?: Partial<{
-          behavior: "keep_as_draft" | "mark_uncollectible" | "void";
-          resumes_at?: number;
-        }> &
-          Partial<"">;
-        /**
-         * Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
-         *
-         * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
-         *
-         * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
-         */
-        payment_behavior?:
-          | "allow_incomplete"
-          | "error_if_incomplete"
-          | "pending_if_incomplete";
-        /** Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-        pending_invoice_item_interval?: Partial<{
-          interval: "day" | "month" | "week" | "year";
-          interval_count?: number;
-        }> &
-          Partial<"">;
-        /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
-        prorate?: boolean;
-        /**
-         * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
-         *
-         * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
-         *
-         * Prorations can be disabled by passing `none`.
-         */
-        proration_behavior?: "always_invoice" | "create_prorations" | "none";
-        /** If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations. */
-        proration_date?: number;
-        /** A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-        tax_percent?: Partial<number> & Partial<"">;
-        /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-        trial_end?: Partial<"now"> & Partial<number>;
-        /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
-        trial_from_plan?: boolean;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["subscription"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Removes the currently applied discount on a customer.</p> */
-  DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount: {
-    parameters: {
-      path: {
-        customer: string;
-        subscription_exposed_id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_discount"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount: {
-    parameters: {
-      path: {
-        customer: string;
-        subscription_exposed_id: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["discount"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of tax IDs for a customer.</p> */
-  GetCustomersCustomerTaxIds: {
-    parameters: {
-      path: {
-        customer: string;
-      };
-      query: {
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          /** Details about each object. */
-          data: components["schemas"]["tax_id"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Creates a new <code>TaxID</code> object for a customer.</p> */
-  PostCustomersCustomerTaxIds: {
-    parameters: {
-      path: {
-        customer: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Type of the tax ID, one of `eu_vat`, `nz_gst`, `au_abn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `my_sst`, or `sg_gst` */
-        type:
-          | "au_abn"
-          | "ca_bn"
-          | "ca_qst"
-          | "ch_vat"
-          | "es_cif"
-          | "eu_vat"
-          | "hk_br"
-          | "in_gst"
-          | "jp_cn"
-          | "kr_brn"
-          | "li_uid"
-          | "mx_rfc"
-          | "my_itn"
-          | "my_sst"
-          | "no_vat"
-          | "nz_gst"
-          | "ru_inn"
-          | "sg_gst"
-          | "sg_uen"
-          | "th_vat"
-          | "tw_vat"
-          | "us_ein"
-          | "za_vat";
-        /** Value of the tax ID. */
-        value: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["tax_id"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Deletes an existing <code>TaxID</code> object.</p> */
-  DeleteCustomersCustomerTaxIdsId: {
-    parameters: {
-      path: {
-        customer: string;
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_tax_id"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the <code>TaxID</code> object with the given identifier.</p> */
-  GetCustomersCustomerTaxIdsId: {
-    parameters: {
-      path: {
-        customer: string;
-        id: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["tax_id"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of your disputes.</p> */
-  GetDisputes: {
-    parameters: {
-      query: {
-        /** Only return disputes associated to the charge specified by this charge ID. */
-        charge?: string;
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** Only return disputes associated to the PaymentIntent specified by this PaymentIntent ID. */
-        payment_intent?: string;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["dispute"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the dispute with the given ID.</p> */
-  GetDisputesDispute: {
-    parameters: {
-      path: {
-        dispute: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["dispute"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>When you get a dispute, contacting your customer is always the best first step. If that doesn’t work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your <a href="https://dashboard.stripe.com/disputes">dashboard</a>, but if you prefer, you can use the API to submit evidence programmatically.</p>
-   *
-   * <p>Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our <a href="/docs/disputes/categories">guide to dispute types</a>.</p>
-   */
-  PostDisputesDispute: {
-    parameters: {
-      path: {
-        dispute: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Evidence to upload, to respond to a dispute. Updating any field in the hash will submit all fields in the hash for review. The combined character count of all fields is limited to 150,000. */
-        evidence?: {
-          access_activity_log?: string;
-          billing_address?: string;
-          cancellation_policy?: string;
-          cancellation_policy_disclosure?: string;
-          cancellation_rebuttal?: string;
-          customer_communication?: string;
-          customer_email_address?: string;
-          customer_name?: string;
-          customer_purchase_ip?: string;
-          customer_signature?: string;
-          duplicate_charge_documentation?: string;
-          duplicate_charge_explanation?: string;
-          duplicate_charge_id?: string;
-          product_description?: string;
-          receipt?: string;
-          refund_policy?: string;
-          refund_policy_disclosure?: string;
-          refund_refusal_explanation?: string;
-          service_date?: string;
-          service_documentation?: string;
-          shipping_address?: string;
-          shipping_carrier?: string;
-          shipping_date?: string;
-          shipping_documentation?: string;
-          shipping_tracking_number?: string;
-          uncategorized_file?: string;
-          uncategorized_text?: string;
-        };
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
-        submit?: boolean;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["dispute"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.</p>
-   *
-   * <p>The status of the dispute will change from <code>needs_response</code> to <code>lost</code>. <em>Closing a dispute is irreversible</em>.</p>
-   */
-  PostDisputesDisputeClose: {
-    parameters: {
-      path: {
-        dispute: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["dispute"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Creates a short-lived API key for a given resource.</p> */
-  PostEphemeralKeys: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The ID of the Customer you'd like to modify using the resulting ephemeral key. */
-        customer?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** The ID of the Issuing Card you'd like to access using the resulting ephemeral key. */
-        issuing_card?: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["ephemeral_key"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Invalidates a short-lived API key for a given resource.</p> */
-  DeleteEphemeralKeysKey: {
-    parameters: {
-      path: {
-        key: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["ephemeral_key"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in <a href="/docs/api/events/object">event object</a> <code>api_version</code> attribute (not according to your current Stripe API version or <code>Stripe-Version</code> header).</p> */
-  GetEvents: {
-    parameters: {
-      query: {
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** Filter events by whether all webhooks were successfully delivered. If false, events which are still pending or have failed all delivery attempts to a webhook endpoint will be returned. */
-        delivery_success?: boolean;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-        /** A string containing a specific event name, or group of events using * as a wildcard. The list will be filtered to include only events with a matching event property. */
-        type?: string;
-        /** An array of up to 20 strings containing specific event names. The list will be filtered to include only events with a matching event property. You may pass either `type` or `types`, but not both. */
-        types?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["event"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the details of an event. Supply the unique identifier of the event, which you might have received in a webhook.</p> */
-  GetEventsId: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["event"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.</p> */
-  GetExchangeRates: {
-    parameters: {
-      query: {
-        /** A cursor for use in pagination. `ending_before` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with the exchange rate for currency X your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and total number of supported payout currencies, and the default is the max. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with the exchange rate for currency X, your subsequent call can include `starting_after=X` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["exchange_rate"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the exchange rates from the given currency to every supported currency.</p> */
-  GetExchangeRatesCurrency: {
-    parameters: {
-      path: {
-        currency: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["exchange_rate"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of file links.</p> */
-  GetFileLinks: {
-    parameters: {
-      query: {
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Filter links by their expiration status. By default, all links are returned. */
-        expired?: boolean;
-        /** Only return links for the given file. */
-        file?: string;
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["file_link"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Creates a new file link object.</p> */
-  PostFileLinks: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A future timestamp after which the link will no longer be usable. */
-        expires_at?: number;
-        /** The ID of the file. The file's `purpose` must be one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `pci_document`, `sigma_scheduled_query`, or `tax_document_user_upload`. */
-        file: string;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["file_link"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the file link with the given ID.</p> */
-  GetFileLinksLink: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        link: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["file_link"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Updates an existing file link object. Expired links can no longer be updated.</p> */
-  PostFileLinksLink: {
-    parameters: {
-      path: {
-        link: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A future timestamp after which the link will no longer be usable, or `now` to expire the link immediately. */
-        expires_at?: Partial<"now"> & Partial<number> & Partial<"">;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["file_link"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of the files that your account has access to. The files are returned sorted by creation date, with the most recently created files appearing first.</p> */
-  GetFiles: {
-    parameters: {
-      query: {
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** The file purpose to filter queries by. If none is provided, files will not be filtered by purpose. */
-        purpose?:
-          | "additional_verification"
-          | "business_icon"
-          | "business_logo"
-          | "customer_signature"
-          | "dispute_evidence"
-          | "finance_report_run"
-          | "identity_document"
-          | "pci_document"
-          | "sigma_scheduled_query"
-          | "tax_document_user_upload";
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["file"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>To upload a file to Stripe, you’ll need to send a request of type <code>multipart/form-data</code>. The request should contain the file you would like to upload, as well as the parameters for creating a file.</p>
-   *
-   * <p>All of Stripe’s officially supported Client libraries should have support for sending <code>multipart/form-data</code>.</p>
-   */
-  PostFiles: {
-    requestBody: {
-      "multipart/form-data": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A file to upload. The file should follow the specifications of RFC 2388 (which defines file transfers for the `multipart/form-data` protocol). */
-        file: string;
-        /** Optional parameters to automatically create a [file link](https://stripe.com/docs/api#file_links) for the newly created file. */
-        file_link_data?: {
-          create: boolean;
-          expires_at?: number;
-          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        };
-        /** The purpose of the uploaded file. Possible values are `additional_verification`, `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `identity_document`, `pci_document`, or `tax_document_user_upload`. */
-        purpose:
-          | "additional_verification"
-          | "business_icon"
-          | "business_logo"
-          | "customer_signature"
-          | "dispute_evidence"
-          | "identity_document"
-          | "pci_document"
-          | "tax_document_user_upload";
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["file"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the details of an existing file object. Supply the unique file ID from a file, and Stripe will return the corresponding file object. To access file contents, see the <a href="/docs/file-upload#download-file-contents">File Upload Guide</a>.</p> */
-  GetFilesFile: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        file: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["file"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.</p> */
-  GetInvoiceitems: {
-    parameters: {
-      query: {
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned. */
-        customer?: string;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Only return invoice items belonging to this invoice. If none is provided, all invoice items will be returned. If specifying an invoice, no customer identifier is needed. */
-        invoice?: string;
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** Set to `true` to only show pending invoice items, which are not yet attached to any invoices. Set to `false` to only show invoice items already attached to invoices. If unspecified, no filter is applied. */
-        pending?: boolean;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["invoiceitem"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Creates an item to be added to a draft invoice. If no invoice is specified, the item will be on the next invoice created for the customer specified.</p> */
-  PostInvoiceitems: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The integer amount in **%s** of the charge to be applied to the upcoming invoice. Passing in a negative `amount` will reduce the `amount_due` on the invoice. */
-        amount?: number;
-        /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-        currency?: string;
-        /** The ID of the customer who will be billed when this invoice item is billed. */
-        customer: string;
-        /** An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking. */
-        description?: string;
-        /** Controls whether discounts apply to this invoice item. Defaults to false for prorations or negative invoice items, and true for all other invoice items. */
-        discountable?: boolean;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** The ID of an existing invoice to add this invoice item to. When left blank, the invoice item will be added to the next upcoming scheduled invoice. This is useful when adding invoice items in response to an invoice.created webhook. You can only add invoice items to draft invoices. */
-        invoice?: string;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** The period associated with this invoice item. */
-        period?: {
-          end: number;
-          start: number;
-        };
-        /** Non-negative integer. The quantity of units for the invoice item. */
-        quantity?: number;
-        /** The ID of a subscription to add this invoice item to. When left blank, the invoice item will be be added to the next upcoming scheduled invoice. When set, scheduled invoices for subscriptions other than the specified subscription will ignore the invoice item. Use this when you want to express that an invoice item has been accrued within the context of a particular subscription. */
-        subscription?: string;
-        /** The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. */
-        tax_rates?: string[];
-        /** The integer unit amount in **%s** of the charge to be applied to the upcoming invoice. This `unit_amount` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount` will reduce the `amount_due` on the invoice. */
-        unit_amount?: number;
-        /** Same as `unit_amount`, but accepts a decimal value with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set. */
-        unit_amount_decimal?: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["invoiceitem"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they’re not attached to invoices, or if it’s attached to a draft invoice.</p> */
-  DeleteInvoiceitemsInvoiceitem: {
-    parameters: {
-      path: {
-        invoiceitem: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_invoiceitem"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the invoice item with the given ID.</p> */
-  GetInvoiceitemsInvoiceitem: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        invoiceitem: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["invoiceitem"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it’s attached to is closed.</p> */
-  PostInvoiceitemsInvoiceitem: {
-    parameters: {
-      path: {
-        invoiceitem: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The integer amount in **%s** of the charge to be applied to the upcoming invoice. If you want to apply a credit to the customer's account, pass a negative amount. */
-        amount?: number;
-        /** An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking. */
-        description?: string;
-        /** Controls whether discounts apply to this invoice item. Defaults to false for prorations or negative invoice items, and true for all other invoice items. Cannot be set to true for prorations. */
-        discountable?: boolean;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** The period associated with this invoice item. */
-        period?: {
-          end: number;
-          start: number;
-        };
-        /** Non-negative integer. The quantity of units for the invoice item. */
-        quantity?: number;
-        /** The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. Pass an empty string to remove previously-defined tax rates. */
-        tax_rates?: Partial<string[]> & Partial<"">;
-        /** The integer unit amount in **%s** of the charge to be applied to the upcoming invoice. This unit_amount will be multiplied by the quantity to get the full amount. If you want to apply a credit to the customer's account, pass a negative unit_amount. */
-        unit_amount?: number;
-        /** Same as `unit_amount`, but accepts a decimal value with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set. */
-        unit_amount_decimal?: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["invoiceitem"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.</p> */
-  GetInvoices: {
-    parameters: {
-      query: {
-        /** The collection method of the invoice to retrieve. Either `charge_automatically` or `send_invoice`. */
-        collection_method?: "charge_automatically" | "send_invoice";
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** Only return invoices for the customer specified by this customer ID. */
-        customer?: string;
-        due_date?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-        /** The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview) */
-        status?: "draft" | "open" | "paid" | "uncollectible" | "void";
-        /** Only return invoices for the subscription specified by this subscription ID. */
-        subscription?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["invoice"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>This endpoint creates a draft invoice for a given customer. The draft invoice created pulls in all pending invoice items on that customer, including prorations.</p> */
-  PostInvoices: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** A fee in %s that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#invoices). */
-        application_fee_amount?: number;
-        /** Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. When `false`, the invoice's state will not automatically advance without an explicit action. */
-        auto_advance?: boolean;
-        /** Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. Defaults to `charge_automatically`. */
-        collection_method?: "charge_automatically" | "send_invoice";
-        /** A list of up to 4 custom fields to be displayed on the invoice. */
-        custom_fields?: Partial<
-          {
-            name: string;
-            value: string;
-          }[]
-        > &
-          Partial<"">;
-        /** The ID of the customer who will be billed. */
-        customer: string;
-        /** The number of days from when the invoice is created until it is due. Valid only for invoices where `collection_method=send_invoice`. */
-        days_until_due?: number;
-        /** ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings. */
-        default_payment_method?: string;
-        /** ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source. */
-        default_source?: string;
-        /** The tax rates that will apply to any line item that does not have `tax_rates` set. */
-        default_tax_rates?: string[];
-        /** An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard. */
-        description?: string;
-        /** The date on which payment for this invoice is due. Valid only for invoices where `collection_method=send_invoice`. */
-        due_date?: number;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Footer to be displayed on the invoice. */
-        footer?: string;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`. */
-        statement_descriptor?: string;
-        /** The ID of the subscription to invoice, if any. If not set, the created invoice will include all pending invoice items for the customer. If set, the created invoice will only include pending invoice items for that subscription and pending invoice items not associated with any subscription. The subscription's billing cycle and regular subscription events won't be affected. */
-        subscription?: string;
-        /** The percent tax rate applied to the invoice, represented as a decimal number. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-        tax_percent?: number;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["invoice"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discount that is applicable to the customer.</p>
-   *
-   * <p>Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer’s discount.</p>
-   *
-   * <p>You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass a <code>proration_date</code> parameter when doing the actual subscription update. The value passed in should be the same as the <code>subscription_proration_date</code> returned on the upcoming invoice resource. The recommended way to get only the prorations being previewed is to consider only proration line items where <code>period[start]</code> is equal to the <code>subscription_proration_date</code> on the upcoming invoice resource.</p>
-   */
-  GetInvoicesUpcoming: {
-    parameters: {
-      query: {
-        /** The code of the coupon to apply. If `subscription` or `subscription_items` is provided, the invoice returned will preview updating or creating a subscription with that coupon. Otherwise, it will preview applying that coupon to the customer for the next upcoming invoice from among the customer's subscriptions. The invoice can be previewed without a coupon by passing this value as an empty string. */
-        coupon?: string;
-        /** The identifier of the customer whose upcoming invoice you'd like to retrieve. */
-        customer?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** List of invoice items to add or update in the upcoming invoice preview. */
-        invoice_items?: {
-          amount?: number;
-          currency?: string;
-          description?: string;
-          discountable?: boolean;
-          invoiceitem?: string;
-          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-          period?: {
-            end: number;
-            start: number;
-          };
-          quantity?: number;
-          tax_rates?: Partial<string[]> & Partial<"">;
-          unit_amount?: number;
-          unit_amount_decimal?: string;
-        }[];
-        /** The identifier of the unstarted schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields. */
-        schedule?: string;
-        /** The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions. */
-        subscription?: string;
-        /** For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`. */
-        subscription_billing_cycle_anchor?: Partial<"now" | "unchanged"> &
-          Partial<number>;
-        /** Timestamp indicating when the subscription should be scheduled to cancel. Will prorate if within the current period and prorations have been enabled using `proration_behavior`.` */
-        subscription_cancel_at?: Partial<number> & Partial<"">;
-        /** Boolean indicating whether this subscription should cancel at the end of the current period. */
-        subscription_cancel_at_period_end?: boolean;
-        /** This simulates the subscription being canceled or expired immediately. */
-        subscription_cancel_now?: boolean;
-        /** If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. */
-        subscription_default_tax_rates?: Partial<string[]> & Partial<"">;
-        /** List of subscription items, each with an attached plan. */
-        subscription_items?: {
-          billing_thresholds?: Partial<{
-            usage_gte: number;
-          }> &
-            Partial<"">;
-          clear_usage?: boolean;
-          deleted?: boolean;
-          id?: string;
-          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-          plan?: string;
-          quantity?: number;
-          tax_rates?: Partial<string[]> & Partial<"">;
-        }[];
-        /** If previewing an update to a subscription, this decides whether the preview will show the result of applying prorations or not. If set, one of `subscription_items` or `subscription`, and one of `subscription_items` or `subscription_trial_end` are required. */
-        subscription_prorate?: boolean;
-        /**
-         * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
-         *
-         * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
-         *
-         * Prorations can be disabled by passing `none`.
-         */
-        subscription_proration_behavior?:
-          | "always_invoice"
-          | "create_prorations"
-          | "none";
-        /** If previewing an update to a subscription, and doing proration, `subscription_proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period, and cannot be before the subscription was on its current plan. If set, `subscription`, and one of `subscription_items`, or `subscription_trial_end` are required. Also, `subscription_proration` cannot be set to false. */
-        subscription_proration_date?: number;
-        /** Date a subscription is intended to start (can be future or past) */
-        subscription_start_date?: number;
-        /** If provided, the invoice returned will preview updating or creating a subscription with that tax percent. If set, one of `subscription_items` or `subscription` is required. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-        subscription_tax_percent?: number;
-        /** If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. */
-        subscription_trial_end?: Partial<"now"> & Partial<number>;
-        /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed. */
-        subscription_trial_from_plan?: boolean;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["invoice"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>When retrieving an upcoming invoice, you’ll get a <strong>lines</strong> property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
-  GetInvoicesUpcomingLines: {
-    parameters: {
-      query: {
-        /** The code of the coupon to apply. If `subscription` or `subscription_items` is provided, the invoice returned will preview updating or creating a subscription with that coupon. Otherwise, it will preview applying that coupon to the customer for the next upcoming invoice from among the customer's subscriptions. The invoice can be previewed without a coupon by passing this value as an empty string. */
-        coupon?: string;
-        /** The identifier of the customer whose upcoming invoice you'd like to retrieve. */
-        customer?: string;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** List of invoice items to add or update in the upcoming invoice preview. */
-        invoice_items?: {
-          amount?: number;
-          currency?: string;
-          description?: string;
-          discountable?: boolean;
-          invoiceitem?: string;
-          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-          period?: {
-            end: number;
-            start: number;
-          };
-          quantity?: number;
-          tax_rates?: Partial<string[]> & Partial<"">;
-          unit_amount?: number;
-          unit_amount_decimal?: string;
-        }[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** The identifier of the unstarted schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields. */
-        schedule?: string;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-        /** The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions. */
-        subscription?: string;
-        /** For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`. */
-        subscription_billing_cycle_anchor?: Partial<"now" | "unchanged"> &
-          Partial<number>;
-        /** Timestamp indicating when the subscription should be scheduled to cancel. Will prorate if within the current period and prorations have been enabled using `proration_behavior`.` */
-        subscription_cancel_at?: Partial<number> & Partial<"">;
-        /** Boolean indicating whether this subscription should cancel at the end of the current period. */
-        subscription_cancel_at_period_end?: boolean;
-        /** This simulates the subscription being canceled or expired immediately. */
-        subscription_cancel_now?: boolean;
-        /** If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. */
-        subscription_default_tax_rates?: Partial<string[]> & Partial<"">;
-        /** List of subscription items, each with an attached plan. */
-        subscription_items?: {
-          billing_thresholds?: Partial<{
-            usage_gte: number;
-          }> &
-            Partial<"">;
-          clear_usage?: boolean;
-          deleted?: boolean;
-          id?: string;
-          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-          plan?: string;
-          quantity?: number;
-          tax_rates?: Partial<string[]> & Partial<"">;
-        }[];
-        /** If previewing an update to a subscription, this decides whether the preview will show the result of applying prorations or not. If set, one of `subscription_items` or `subscription`, and one of `subscription_items` or `subscription_trial_end` are required. */
-        subscription_prorate?: boolean;
-        /**
-         * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
-         *
-         * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
-         *
-         * Prorations can be disabled by passing `none`.
-         */
-        subscription_proration_behavior?:
-          | "always_invoice"
-          | "create_prorations"
-          | "none";
-        /** If previewing an update to a subscription, and doing proration, `subscription_proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period, and cannot be before the subscription was on its current plan. If set, `subscription`, and one of `subscription_items`, or `subscription_trial_end` are required. Also, `subscription_proration` cannot be set to false. */
-        subscription_proration_date?: number;
-        /** Date a subscription is intended to start (can be future or past) */
-        subscription_start_date?: number;
-        /** If provided, the invoice returned will preview updating or creating a subscription with that tax percent. If set, one of `subscription_items` or `subscription` is required. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-        subscription_tax_percent?: number;
-        /** If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. */
-        subscription_trial_end?: Partial<"now"> & Partial<number>;
-        /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed. */
-        subscription_trial_from_plan?: boolean;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          /** Details about each object. */
-          data: components["schemas"]["line_item"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Permanently deletes a draft invoice. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized, it must be <a href="#void_invoice">voided</a>.</p> */
-  DeleteInvoicesInvoice: {
-    parameters: {
-      path: {
-        invoice: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_invoice"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the invoice with the given ID.</p> */
-  GetInvoicesInvoice: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        invoice: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["invoice"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Draft invoices are fully editable. Once an invoice is <a href="/docs/billing/invoices/workflow#finalized">finalized</a>,
-   * monetary values, as well as <code>collection_method</code>, become uneditable.</p>
-   *
-   * <p>If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
-   * sending reminders for, or <a href="/docs/billing/invoices/reconciliation">automatically reconciling</a> invoices, pass
-   * <code>auto_advance=false</code>.</p>
-   */
-  PostInvoicesInvoice: {
-    parameters: {
-      path: {
-        invoice: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** A fee in %s that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#invoices). */
-        application_fee_amount?: number;
-        /** Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. */
-        auto_advance?: boolean;
-        /** Either `charge_automatically` or `send_invoice`. This field can be updated only on `draft` invoices. */
-        collection_method?: "charge_automatically" | "send_invoice";
-        /** A list of up to 4 custom fields to be displayed on the invoice. If a value for `custom_fields` is specified, the list specified will replace the existing custom field list on this invoice. Pass an empty string to remove previously-defined fields. */
-        custom_fields?: Partial<
-          {
-            name: string;
-            value: string;
-          }[]
-        > &
-          Partial<"">;
-        /** The number of days from which the invoice is created until it is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices. */
-        days_until_due?: number;
-        /** ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings. */
-        default_payment_method?: string;
-        /** ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source. */
-        default_source?: string;
-        /** The tax rates that will apply to any line item that does not have `tax_rates` set. Pass an empty string to remove previously-defined tax rates. */
-        default_tax_rates?: Partial<string[]> & Partial<"">;
-        /** An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard. */
-        description?: string;
-        /** The date on which payment for this invoice is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices. */
-        due_date?: number;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Footer to be displayed on the invoice. */
-        footer?: string;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`. */
-        statement_descriptor?: string;
-        /** The percent tax rate applied to the invoice, represented as a non-negative decimal number (with at most four decimal places) between 0 and 100. To unset a previously-set value, pass an empty string. This field can be updated only on `draft` invoices. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-        tax_percent?: Partial<number> & Partial<"">;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["invoice"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you’d like to finalize a draft invoice manually, you can do so using this method.</p> */
-  PostInvoicesInvoiceFinalize: {
-    parameters: {
-      path: {
-        invoice: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. When `false`, the invoice's state will not automatically advance without an explicit action. */
-        auto_advance?: boolean;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["invoice"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>When retrieving an invoice, you’ll get a <strong>lines</strong> property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
-  GetInvoicesInvoiceLines: {
-    parameters: {
-      query: {
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-      path: {
-        invoice: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          /** Details about each object. */
-          data: components["schemas"]["line_item"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.</p> */
-  PostInvoicesInvoiceMarkUncollectible: {
-    parameters: {
-      path: {
-        invoice: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["invoice"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your <a href="https://dashboard.stripe.com/account/billing/automatic">subscriptions settings</a>. However, if you’d like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.</p> */
-  PostInvoicesInvoicePay: {
-    parameters: {
-      path: {
-        invoice: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /**
-         * In cases where the source used to pay the invoice has insufficient funds, passing `forgive=true` controls whether a charge should be attempted for the full amount available on the source, up to the amount to fully pay the invoice. This effectively forgives the difference between the amount available on the source and the amount due.
-         *
-         * Passing `forgive=false` will fail the charge if the source hasn't been pre-funded with the right amount. An example for this case is with ACH Credit Transfers and wires: if the amount wired is less than the amount due by a small amount, you might want to forgive the difference.
-         */
-        forgive?: boolean;
-        /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
-        off_session?: boolean;
-        /** Boolean representing whether an invoice is paid outside of Stripe. This will result in no charge being made. */
-        paid_out_of_band?: boolean;
-        /** A PaymentMethod to be charged. The PaymentMethod must be the ID of a PaymentMethod belonging to the customer associated with the invoice being paid. */
-        payment_method?: string;
-        /** A payment source to be charged. The source must be the ID of a source belonging to the customer associated with the invoice being paid. */
-        source?: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["invoice"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Stripe will automatically send invoices to customers according to your <a href="https://dashboard.stripe.com/account/billing/automatic">subscriptions settings</a>. However, if you’d like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.</p>
-   *
-   * <p>Requests made in test-mode result in no emails being sent, despite sending an <code>invoice.sent</code> event.</p>
-   */
-  PostInvoicesInvoiceSend: {
-    parameters: {
-      path: {
-        invoice: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["invoice"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to <a href="#delete_invoice">deletion</a>, however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.</p> */
-  PostInvoicesInvoiceVoid: {
-    parameters: {
-      path: {
-        invoice: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["invoice"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of issuer fraud records.</p> */
-  GetIssuerFraudRecords: {
-    parameters: {
-      query: {
-        /** Only return issuer fraud records for the charge specified by this charge ID. */
-        charge?: string;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["issuer_fraud_record"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Retrieves the details of an issuer fraud record that has previously been created. </p>
-   *
-   * <p>Please refer to the <a href="#issuer_fraud_record_object">issuer fraud record</a> object reference for more details.</p>
-   */
-  GetIssuerFraudRecordsIssuerFraudRecord: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        issuer_fraud_record: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["issuer_fraud_record"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of Issuing <code>Authorization</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
-  GetIssuingAuthorizations: {
-    parameters: {
-      query: {
-        /** Only return issuing transactions that belong to the given card. */
-        card?: string;
-        /** Only return authorizations belonging to the given cardholder. */
-        cardholder?: string;
-        /** Only return authorizations that were created during the given date interval. */
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-        /** Only return authorizations with the given status. One of `pending`, `closed`, or `reversed`. */
-        status?: "closed" | "pending" | "reversed";
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["issuing.authorization"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves an Issuing <code>Authorization</code> object.</p> */
-  GetIssuingAuthorizationsAuthorization: {
-    parameters: {
-      path: {
-        authorization: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["issuing.authorization"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Updates the specified Issuing <code>Authorization</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
-  PostIssuingAuthorizationsAuthorization: {
-    parameters: {
-      path: {
-        authorization: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["issuing.authorization"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Approves a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real-time authorization</a> flow.</p> */
-  PostIssuingAuthorizationsAuthorizationApprove: {
-    parameters: {
-      path: {
-        authorization: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** If the authorization's `pending_request.is_amount_controllable` property is `true`, you may provide this value to control how much to hold for the authorization. Must be positive (use [`decline`](https://stripe.com/docs/api/issuing/authorizations/decline) to decline an authorization request). */
-        amount?: number;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["issuing.authorization"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Declines a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real time authorization</a> flow.</p> */
-  PostIssuingAuthorizationsAuthorizationDecline: {
-    parameters: {
-      path: {
-        authorization: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["issuing.authorization"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of Issuing <code>Cardholder</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
-  GetIssuingCardholders: {
-    parameters: {
-      query: {
-        /** Only return cardholders that were created during the given date interval. */
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** Only return cardholders that have the given email address. */
-        email?: string;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** Only return cardholders that have the given phone number. */
-        phone_number?: string;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-        /** Only return cardholders that have the given status. One of `active`, `inactive`, or `blocked`. */
-        status?: "active" | "blocked" | "inactive";
-        /** Only return cardholders that have the given type. One of `individual` or `company`. */
-        type?: "company" | "individual";
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["issuing.cardholder"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Creates a new Issuing <code>Cardholder</code> object that can be issued cards.</p> */
-  PostIssuingCardholders: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The cardholder's billing address. */
-        billing: {
-          address: {
-            city: string;
-            country: string;
-            line1: string;
-            line2?: string;
-            postal_code: string;
-            state?: string;
-          };
-        };
-        /** Additional information about a `company` cardholder. */
-        company?: {
-          tax_id?: string;
-        };
-        /** The cardholder's email address. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Additional information about an `individual` cardholder. */
-        individual?: {
-          dob?: {
-            day: number;
-            month: number;
-            year: number;
-          };
-          first_name: string;
-          last_name: string;
-          verification?: {
-            document?: {
-              back?: string;
-              front?: string;
-            };
-          };
-        };
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** The cardholder's name. This will be printed on cards issued to them. */
-        name: string;
-        /** The cardholder's phone number. This will be transformed to [E.164](https://en.wikipedia.org/wiki/E.164) if it is not provided in that format already. */
-        phone_number?: string;
-        /** Spending rules that give you control over how your cardholders can make charges. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details. */
-        spending_controls?: {
-          allowed_categories?: (
-            | "ac_refrigeration_repair"
-            | "accounting_bookkeeping_services"
-            | "advertising_services"
-            | "agricultural_cooperative"
-            | "airlines_air_carriers"
-            | "airports_flying_fields"
-            | "ambulance_services"
-            | "amusement_parks_carnivals"
-            | "antique_reproductions"
-            | "antique_shops"
-            | "aquariums"
-            | "architectural_surveying_services"
-            | "art_dealers_and_galleries"
-            | "artists_supply_and_craft_shops"
-            | "auto_and_home_supply_stores"
-            | "auto_body_repair_shops"
-            | "auto_paint_shops"
-            | "auto_service_shops"
-            | "automated_cash_disburse"
-            | "automated_fuel_dispensers"
-            | "automobile_associations"
-            | "automotive_parts_and_accessories_stores"
-            | "automotive_tire_stores"
-            | "bail_and_bond_payments"
-            | "bakeries"
-            | "bands_orchestras"
-            | "barber_and_beauty_shops"
-            | "betting_casino_gambling"
-            | "bicycle_shops"
-            | "billiard_pool_establishments"
-            | "boat_dealers"
-            | "boat_rentals_and_leases"
-            | "book_stores"
-            | "books_periodicals_and_newspapers"
-            | "bowling_alleys"
-            | "bus_lines"
-            | "business_secretarial_schools"
-            | "buying_shopping_services"
-            | "cable_satellite_and_other_pay_television_and_radio"
-            | "camera_and_photographic_supply_stores"
-            | "candy_nut_and_confectionery_stores"
-            | "car_and_truck_dealers_new_used"
-            | "car_and_truck_dealers_used_only"
-            | "car_rental_agencies"
-            | "car_washes"
-            | "carpentry_services"
-            | "carpet_upholstery_cleaning"
-            | "caterers"
-            | "charitable_and_social_service_organizations_fundraising"
-            | "chemicals_and_allied_products"
-            | "child_care_services"
-            | "childrens_and_infants_wear_stores"
-            | "chiropodists_podiatrists"
-            | "chiropractors"
-            | "cigar_stores_and_stands"
-            | "civic_social_fraternal_associations"
-            | "cleaning_and_maintenance"
-            | "clothing_rental"
-            | "colleges_universities"
-            | "commercial_equipment"
-            | "commercial_footwear"
-            | "commercial_photography_art_and_graphics"
-            | "commuter_transport_and_ferries"
-            | "computer_network_services"
-            | "computer_programming"
-            | "computer_repair"
-            | "computer_software_stores"
-            | "computers_peripherals_and_software"
-            | "concrete_work_services"
-            | "construction_materials"
-            | "consulting_public_relations"
-            | "correspondence_schools"
-            | "cosmetic_stores"
-            | "counseling_services"
-            | "country_clubs"
-            | "courier_services"
-            | "court_costs"
-            | "credit_reporting_agencies"
-            | "cruise_lines"
-            | "dairy_products_stores"
-            | "dance_hall_studios_schools"
-            | "dating_escort_services"
-            | "dentists_orthodontists"
-            | "department_stores"
-            | "detective_agencies"
-            | "digital_goods_applications"
-            | "digital_goods_games"
-            | "digital_goods_large_volume"
-            | "digital_goods_media"
-            | "direct_marketing_catalog_merchant"
-            | "direct_marketing_combination_catalog_and_retail_merchant"
-            | "direct_marketing_inbound_telemarketing"
-            | "direct_marketing_insurance_services"
-            | "direct_marketing_other"
-            | "direct_marketing_outbound_telemarketing"
-            | "direct_marketing_subscription"
-            | "direct_marketing_travel"
-            | "discount_stores"
-            | "doctors"
-            | "door_to_door_sales"
-            | "drapery_window_covering_and_upholstery_stores"
-            | "drinking_places"
-            | "drug_stores_and_pharmacies"
-            | "drugs_drug_proprietaries_and_druggist_sundries"
-            | "dry_cleaners"
-            | "durable_goods"
-            | "duty_free_stores"
-            | "eating_places_restaurants"
-            | "educational_services"
-            | "electric_razor_stores"
-            | "electrical_parts_and_equipment"
-            | "electrical_services"
-            | "electronics_repair_shops"
-            | "electronics_stores"
-            | "elementary_secondary_schools"
-            | "employment_temp_agencies"
-            | "equipment_rental"
-            | "exterminating_services"
-            | "family_clothing_stores"
-            | "fast_food_restaurants"
-            | "financial_institutions"
-            | "fines_government_administrative_entities"
-            | "fireplace_fireplace_screens_and_accessories_stores"
-            | "floor_covering_stores"
-            | "florists"
-            | "florists_supplies_nursery_stock_and_flowers"
-            | "freezer_and_locker_meat_provisioners"
-            | "fuel_dealers_non_automotive"
-            | "funeral_services_crematories"
-            | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-            | "furniture_repair_refinishing"
-            | "furriers_and_fur_shops"
-            | "general_services"
-            | "gift_card_novelty_and_souvenir_shops"
-            | "glass_paint_and_wallpaper_stores"
-            | "glassware_crystal_stores"
-            | "golf_courses_public"
-            | "government_services"
-            | "grocery_stores_supermarkets"
-            | "hardware_equipment_and_supplies"
-            | "hardware_stores"
-            | "health_and_beauty_spas"
-            | "hearing_aids_sales_and_supplies"
-            | "heating_plumbing_a_c"
-            | "hobby_toy_and_game_shops"
-            | "home_supply_warehouse_stores"
-            | "hospitals"
-            | "hotels_motels_and_resorts"
-            | "household_appliance_stores"
-            | "industrial_supplies"
-            | "information_retrieval_services"
-            | "insurance_default"
-            | "insurance_underwriting_premiums"
-            | "intra_company_purchases"
-            | "jewelry_stores_watches_clocks_and_silverware_stores"
-            | "landscaping_services"
-            | "laundries"
-            | "laundry_cleaning_services"
-            | "legal_services_attorneys"
-            | "luggage_and_leather_goods_stores"
-            | "lumber_building_materials_stores"
-            | "manual_cash_disburse"
-            | "marinas_service_and_supplies"
-            | "masonry_stonework_and_plaster"
-            | "massage_parlors"
-            | "medical_and_dental_labs"
-            | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-            | "medical_services"
-            | "membership_organizations"
-            | "mens_and_boys_clothing_and_accessories_stores"
-            | "mens_womens_clothing_stores"
-            | "metal_service_centers"
-            | "miscellaneous"
-            | "miscellaneous_apparel_and_accessory_shops"
-            | "miscellaneous_auto_dealers"
-            | "miscellaneous_business_services"
-            | "miscellaneous_food_stores"
-            | "miscellaneous_general_merchandise"
-            | "miscellaneous_general_services"
-            | "miscellaneous_home_furnishing_specialty_stores"
-            | "miscellaneous_publishing_and_printing"
-            | "miscellaneous_recreation_services"
-            | "miscellaneous_repair_shops"
-            | "miscellaneous_specialty_retail"
-            | "mobile_home_dealers"
-            | "motion_picture_theaters"
-            | "motor_freight_carriers_and_trucking"
-            | "motor_homes_dealers"
-            | "motor_vehicle_supplies_and_new_parts"
-            | "motorcycle_shops_and_dealers"
-            | "motorcycle_shops_dealers"
-            | "music_stores_musical_instruments_pianos_and_sheet_music"
-            | "news_dealers_and_newsstands"
-            | "non_fi_money_orders"
-            | "non_fi_stored_value_card_purchase_load"
-            | "nondurable_goods"
-            | "nurseries_lawn_and_garden_supply_stores"
-            | "nursing_personal_care"
-            | "office_and_commercial_furniture"
-            | "opticians_eyeglasses"
-            | "optometrists_ophthalmologist"
-            | "orthopedic_goods_prosthetic_devices"
-            | "osteopaths"
-            | "package_stores_beer_wine_and_liquor"
-            | "paints_varnishes_and_supplies"
-            | "parking_lots_garages"
-            | "passenger_railways"
-            | "pawn_shops"
-            | "pet_shops_pet_food_and_supplies"
-            | "petroleum_and_petroleum_products"
-            | "photo_developing"
-            | "photographic_photocopy_microfilm_equipment_and_supplies"
-            | "photographic_studios"
-            | "picture_video_production"
-            | "piece_goods_notions_and_other_dry_goods"
-            | "plumbing_heating_equipment_and_supplies"
-            | "political_organizations"
-            | "postal_services_government_only"
-            | "precious_stones_and_metals_watches_and_jewelry"
-            | "professional_services"
-            | "public_warehousing_and_storage"
-            | "quick_copy_repro_and_blueprint"
-            | "railroads"
-            | "real_estate_agents_and_managers_rentals"
-            | "record_stores"
-            | "recreational_vehicle_rentals"
-            | "religious_goods_stores"
-            | "religious_organizations"
-            | "roofing_siding_sheet_metal"
-            | "secretarial_support_services"
-            | "security_brokers_dealers"
-            | "service_stations"
-            | "sewing_needlework_fabric_and_piece_goods_stores"
-            | "shoe_repair_hat_cleaning"
-            | "shoe_stores"
-            | "small_appliance_repair"
-            | "snowmobile_dealers"
-            | "special_trade_services"
-            | "specialty_cleaning"
-            | "sporting_goods_stores"
-            | "sporting_recreation_camps"
-            | "sports_and_riding_apparel_stores"
-            | "sports_clubs_fields"
-            | "stamp_and_coin_stores"
-            | "stationary_office_supplies_printing_and_writing_paper"
-            | "stationery_stores_office_and_school_supply_stores"
-            | "swimming_pools_sales"
-            | "t_ui_travel_germany"
-            | "tailors_alterations"
-            | "tax_payments_government_agencies"
-            | "tax_preparation_services"
-            | "taxicabs_limousines"
-            | "telecommunication_equipment_and_telephone_sales"
-            | "telecommunication_services"
-            | "telegraph_services"
-            | "tent_and_awning_shops"
-            | "testing_laboratories"
-            | "theatrical_ticket_agencies"
-            | "timeshares"
-            | "tire_retreading_and_repair"
-            | "tolls_bridge_fees"
-            | "tourist_attractions_and_exhibits"
-            | "towing_services"
-            | "trailer_parks_campgrounds"
-            | "transportation_services"
-            | "travel_agencies_tour_operators"
-            | "truck_stop_iteration"
-            | "truck_utility_trailer_rentals"
-            | "typesetting_plate_making_and_related_services"
-            | "typewriter_stores"
-            | "u_s_federal_government_agencies_or_departments"
-            | "uniforms_commercial_clothing"
-            | "used_merchandise_and_secondhand_stores"
-            | "utilities"
-            | "variety_stores"
-            | "veterinary_services"
-            | "video_amusement_game_supplies"
-            | "video_game_arcades"
-            | "video_tape_rental_stores"
-            | "vocational_trade_schools"
-            | "watch_jewelry_repair"
-            | "welding_repair"
-            | "wholesale_clubs"
-            | "wig_and_toupee_stores"
-            | "wires_money_orders"
-            | "womens_accessory_and_specialty_shops"
-            | "womens_ready_to_wear_stores"
-            | "wrecking_and_salvage_yards"
-          )[];
-          blocked_categories?: (
-            | "ac_refrigeration_repair"
-            | "accounting_bookkeeping_services"
-            | "advertising_services"
-            | "agricultural_cooperative"
-            | "airlines_air_carriers"
-            | "airports_flying_fields"
-            | "ambulance_services"
-            | "amusement_parks_carnivals"
-            | "antique_reproductions"
-            | "antique_shops"
-            | "aquariums"
-            | "architectural_surveying_services"
-            | "art_dealers_and_galleries"
-            | "artists_supply_and_craft_shops"
-            | "auto_and_home_supply_stores"
-            | "auto_body_repair_shops"
-            | "auto_paint_shops"
-            | "auto_service_shops"
-            | "automated_cash_disburse"
-            | "automated_fuel_dispensers"
-            | "automobile_associations"
-            | "automotive_parts_and_accessories_stores"
-            | "automotive_tire_stores"
-            | "bail_and_bond_payments"
-            | "bakeries"
-            | "bands_orchestras"
-            | "barber_and_beauty_shops"
-            | "betting_casino_gambling"
-            | "bicycle_shops"
-            | "billiard_pool_establishments"
-            | "boat_dealers"
-            | "boat_rentals_and_leases"
-            | "book_stores"
-            | "books_periodicals_and_newspapers"
-            | "bowling_alleys"
-            | "bus_lines"
-            | "business_secretarial_schools"
-            | "buying_shopping_services"
-            | "cable_satellite_and_other_pay_television_and_radio"
-            | "camera_and_photographic_supply_stores"
-            | "candy_nut_and_confectionery_stores"
-            | "car_and_truck_dealers_new_used"
-            | "car_and_truck_dealers_used_only"
-            | "car_rental_agencies"
-            | "car_washes"
-            | "carpentry_services"
-            | "carpet_upholstery_cleaning"
-            | "caterers"
-            | "charitable_and_social_service_organizations_fundraising"
-            | "chemicals_and_allied_products"
-            | "child_care_services"
-            | "childrens_and_infants_wear_stores"
-            | "chiropodists_podiatrists"
-            | "chiropractors"
-            | "cigar_stores_and_stands"
-            | "civic_social_fraternal_associations"
-            | "cleaning_and_maintenance"
-            | "clothing_rental"
-            | "colleges_universities"
-            | "commercial_equipment"
-            | "commercial_footwear"
-            | "commercial_photography_art_and_graphics"
-            | "commuter_transport_and_ferries"
-            | "computer_network_services"
-            | "computer_programming"
-            | "computer_repair"
-            | "computer_software_stores"
-            | "computers_peripherals_and_software"
-            | "concrete_work_services"
-            | "construction_materials"
-            | "consulting_public_relations"
-            | "correspondence_schools"
-            | "cosmetic_stores"
-            | "counseling_services"
-            | "country_clubs"
-            | "courier_services"
-            | "court_costs"
-            | "credit_reporting_agencies"
-            | "cruise_lines"
-            | "dairy_products_stores"
-            | "dance_hall_studios_schools"
-            | "dating_escort_services"
-            | "dentists_orthodontists"
-            | "department_stores"
-            | "detective_agencies"
-            | "digital_goods_applications"
-            | "digital_goods_games"
-            | "digital_goods_large_volume"
-            | "digital_goods_media"
-            | "direct_marketing_catalog_merchant"
-            | "direct_marketing_combination_catalog_and_retail_merchant"
-            | "direct_marketing_inbound_telemarketing"
-            | "direct_marketing_insurance_services"
-            | "direct_marketing_other"
-            | "direct_marketing_outbound_telemarketing"
-            | "direct_marketing_subscription"
-            | "direct_marketing_travel"
-            | "discount_stores"
-            | "doctors"
-            | "door_to_door_sales"
-            | "drapery_window_covering_and_upholstery_stores"
-            | "drinking_places"
-            | "drug_stores_and_pharmacies"
-            | "drugs_drug_proprietaries_and_druggist_sundries"
-            | "dry_cleaners"
-            | "durable_goods"
-            | "duty_free_stores"
-            | "eating_places_restaurants"
-            | "educational_services"
-            | "electric_razor_stores"
-            | "electrical_parts_and_equipment"
-            | "electrical_services"
-            | "electronics_repair_shops"
-            | "electronics_stores"
-            | "elementary_secondary_schools"
-            | "employment_temp_agencies"
-            | "equipment_rental"
-            | "exterminating_services"
-            | "family_clothing_stores"
-            | "fast_food_restaurants"
-            | "financial_institutions"
-            | "fines_government_administrative_entities"
-            | "fireplace_fireplace_screens_and_accessories_stores"
-            | "floor_covering_stores"
-            | "florists"
-            | "florists_supplies_nursery_stock_and_flowers"
-            | "freezer_and_locker_meat_provisioners"
-            | "fuel_dealers_non_automotive"
-            | "funeral_services_crematories"
-            | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-            | "furniture_repair_refinishing"
-            | "furriers_and_fur_shops"
-            | "general_services"
-            | "gift_card_novelty_and_souvenir_shops"
-            | "glass_paint_and_wallpaper_stores"
-            | "glassware_crystal_stores"
-            | "golf_courses_public"
-            | "government_services"
-            | "grocery_stores_supermarkets"
-            | "hardware_equipment_and_supplies"
-            | "hardware_stores"
-            | "health_and_beauty_spas"
-            | "hearing_aids_sales_and_supplies"
-            | "heating_plumbing_a_c"
-            | "hobby_toy_and_game_shops"
-            | "home_supply_warehouse_stores"
-            | "hospitals"
-            | "hotels_motels_and_resorts"
-            | "household_appliance_stores"
-            | "industrial_supplies"
-            | "information_retrieval_services"
-            | "insurance_default"
-            | "insurance_underwriting_premiums"
-            | "intra_company_purchases"
-            | "jewelry_stores_watches_clocks_and_silverware_stores"
-            | "landscaping_services"
-            | "laundries"
-            | "laundry_cleaning_services"
-            | "legal_services_attorneys"
-            | "luggage_and_leather_goods_stores"
-            | "lumber_building_materials_stores"
-            | "manual_cash_disburse"
-            | "marinas_service_and_supplies"
-            | "masonry_stonework_and_plaster"
-            | "massage_parlors"
-            | "medical_and_dental_labs"
-            | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-            | "medical_services"
-            | "membership_organizations"
-            | "mens_and_boys_clothing_and_accessories_stores"
-            | "mens_womens_clothing_stores"
-            | "metal_service_centers"
-            | "miscellaneous"
-            | "miscellaneous_apparel_and_accessory_shops"
-            | "miscellaneous_auto_dealers"
-            | "miscellaneous_business_services"
-            | "miscellaneous_food_stores"
-            | "miscellaneous_general_merchandise"
-            | "miscellaneous_general_services"
-            | "miscellaneous_home_furnishing_specialty_stores"
-            | "miscellaneous_publishing_and_printing"
-            | "miscellaneous_recreation_services"
-            | "miscellaneous_repair_shops"
-            | "miscellaneous_specialty_retail"
-            | "mobile_home_dealers"
-            | "motion_picture_theaters"
-            | "motor_freight_carriers_and_trucking"
-            | "motor_homes_dealers"
-            | "motor_vehicle_supplies_and_new_parts"
-            | "motorcycle_shops_and_dealers"
-            | "motorcycle_shops_dealers"
-            | "music_stores_musical_instruments_pianos_and_sheet_music"
-            | "news_dealers_and_newsstands"
-            | "non_fi_money_orders"
-            | "non_fi_stored_value_card_purchase_load"
-            | "nondurable_goods"
-            | "nurseries_lawn_and_garden_supply_stores"
-            | "nursing_personal_care"
-            | "office_and_commercial_furniture"
-            | "opticians_eyeglasses"
-            | "optometrists_ophthalmologist"
-            | "orthopedic_goods_prosthetic_devices"
-            | "osteopaths"
-            | "package_stores_beer_wine_and_liquor"
-            | "paints_varnishes_and_supplies"
-            | "parking_lots_garages"
-            | "passenger_railways"
-            | "pawn_shops"
-            | "pet_shops_pet_food_and_supplies"
-            | "petroleum_and_petroleum_products"
-            | "photo_developing"
-            | "photographic_photocopy_microfilm_equipment_and_supplies"
-            | "photographic_studios"
-            | "picture_video_production"
-            | "piece_goods_notions_and_other_dry_goods"
-            | "plumbing_heating_equipment_and_supplies"
-            | "political_organizations"
-            | "postal_services_government_only"
-            | "precious_stones_and_metals_watches_and_jewelry"
-            | "professional_services"
-            | "public_warehousing_and_storage"
-            | "quick_copy_repro_and_blueprint"
-            | "railroads"
-            | "real_estate_agents_and_managers_rentals"
-            | "record_stores"
-            | "recreational_vehicle_rentals"
-            | "religious_goods_stores"
-            | "religious_organizations"
-            | "roofing_siding_sheet_metal"
-            | "secretarial_support_services"
-            | "security_brokers_dealers"
-            | "service_stations"
-            | "sewing_needlework_fabric_and_piece_goods_stores"
-            | "shoe_repair_hat_cleaning"
-            | "shoe_stores"
-            | "small_appliance_repair"
-            | "snowmobile_dealers"
-            | "special_trade_services"
-            | "specialty_cleaning"
-            | "sporting_goods_stores"
-            | "sporting_recreation_camps"
-            | "sports_and_riding_apparel_stores"
-            | "sports_clubs_fields"
-            | "stamp_and_coin_stores"
-            | "stationary_office_supplies_printing_and_writing_paper"
-            | "stationery_stores_office_and_school_supply_stores"
-            | "swimming_pools_sales"
-            | "t_ui_travel_germany"
-            | "tailors_alterations"
-            | "tax_payments_government_agencies"
-            | "tax_preparation_services"
-            | "taxicabs_limousines"
-            | "telecommunication_equipment_and_telephone_sales"
-            | "telecommunication_services"
-            | "telegraph_services"
-            | "tent_and_awning_shops"
-            | "testing_laboratories"
-            | "theatrical_ticket_agencies"
-            | "timeshares"
-            | "tire_retreading_and_repair"
-            | "tolls_bridge_fees"
-            | "tourist_attractions_and_exhibits"
-            | "towing_services"
-            | "trailer_parks_campgrounds"
-            | "transportation_services"
-            | "travel_agencies_tour_operators"
-            | "truck_stop_iteration"
-            | "truck_utility_trailer_rentals"
-            | "typesetting_plate_making_and_related_services"
-            | "typewriter_stores"
-            | "u_s_federal_government_agencies_or_departments"
-            | "uniforms_commercial_clothing"
-            | "used_merchandise_and_secondhand_stores"
-            | "utilities"
-            | "variety_stores"
-            | "veterinary_services"
-            | "video_amusement_game_supplies"
-            | "video_game_arcades"
-            | "video_tape_rental_stores"
-            | "vocational_trade_schools"
-            | "watch_jewelry_repair"
-            | "welding_repair"
-            | "wholesale_clubs"
-            | "wig_and_toupee_stores"
-            | "wires_money_orders"
-            | "womens_accessory_and_specialty_shops"
-            | "womens_ready_to_wear_stores"
-            | "wrecking_and_salvage_yards"
-          )[];
-          spending_limits?: {
-            amount: number;
-            categories?: (
-              | "ac_refrigeration_repair"
-              | "accounting_bookkeeping_services"
-              | "advertising_services"
-              | "agricultural_cooperative"
-              | "airlines_air_carriers"
-              | "airports_flying_fields"
-              | "ambulance_services"
-              | "amusement_parks_carnivals"
-              | "antique_reproductions"
-              | "antique_shops"
-              | "aquariums"
-              | "architectural_surveying_services"
-              | "art_dealers_and_galleries"
-              | "artists_supply_and_craft_shops"
-              | "auto_and_home_supply_stores"
-              | "auto_body_repair_shops"
-              | "auto_paint_shops"
-              | "auto_service_shops"
-              | "automated_cash_disburse"
-              | "automated_fuel_dispensers"
-              | "automobile_associations"
-              | "automotive_parts_and_accessories_stores"
-              | "automotive_tire_stores"
-              | "bail_and_bond_payments"
-              | "bakeries"
-              | "bands_orchestras"
-              | "barber_and_beauty_shops"
-              | "betting_casino_gambling"
-              | "bicycle_shops"
-              | "billiard_pool_establishments"
-              | "boat_dealers"
-              | "boat_rentals_and_leases"
-              | "book_stores"
-              | "books_periodicals_and_newspapers"
-              | "bowling_alleys"
-              | "bus_lines"
-              | "business_secretarial_schools"
-              | "buying_shopping_services"
-              | "cable_satellite_and_other_pay_television_and_radio"
-              | "camera_and_photographic_supply_stores"
-              | "candy_nut_and_confectionery_stores"
-              | "car_and_truck_dealers_new_used"
-              | "car_and_truck_dealers_used_only"
-              | "car_rental_agencies"
-              | "car_washes"
-              | "carpentry_services"
-              | "carpet_upholstery_cleaning"
-              | "caterers"
-              | "charitable_and_social_service_organizations_fundraising"
-              | "chemicals_and_allied_products"
-              | "child_care_services"
-              | "childrens_and_infants_wear_stores"
-              | "chiropodists_podiatrists"
-              | "chiropractors"
-              | "cigar_stores_and_stands"
-              | "civic_social_fraternal_associations"
-              | "cleaning_and_maintenance"
-              | "clothing_rental"
-              | "colleges_universities"
-              | "commercial_equipment"
-              | "commercial_footwear"
-              | "commercial_photography_art_and_graphics"
-              | "commuter_transport_and_ferries"
-              | "computer_network_services"
-              | "computer_programming"
-              | "computer_repair"
-              | "computer_software_stores"
-              | "computers_peripherals_and_software"
-              | "concrete_work_services"
-              | "construction_materials"
-              | "consulting_public_relations"
-              | "correspondence_schools"
-              | "cosmetic_stores"
-              | "counseling_services"
-              | "country_clubs"
-              | "courier_services"
-              | "court_costs"
-              | "credit_reporting_agencies"
-              | "cruise_lines"
-              | "dairy_products_stores"
-              | "dance_hall_studios_schools"
-              | "dating_escort_services"
-              | "dentists_orthodontists"
-              | "department_stores"
-              | "detective_agencies"
-              | "digital_goods_applications"
-              | "digital_goods_games"
-              | "digital_goods_large_volume"
-              | "digital_goods_media"
-              | "direct_marketing_catalog_merchant"
-              | "direct_marketing_combination_catalog_and_retail_merchant"
-              | "direct_marketing_inbound_telemarketing"
-              | "direct_marketing_insurance_services"
-              | "direct_marketing_other"
-              | "direct_marketing_outbound_telemarketing"
-              | "direct_marketing_subscription"
-              | "direct_marketing_travel"
-              | "discount_stores"
-              | "doctors"
-              | "door_to_door_sales"
-              | "drapery_window_covering_and_upholstery_stores"
-              | "drinking_places"
-              | "drug_stores_and_pharmacies"
-              | "drugs_drug_proprietaries_and_druggist_sundries"
-              | "dry_cleaners"
-              | "durable_goods"
-              | "duty_free_stores"
-              | "eating_places_restaurants"
-              | "educational_services"
-              | "electric_razor_stores"
-              | "electrical_parts_and_equipment"
-              | "electrical_services"
-              | "electronics_repair_shops"
-              | "electronics_stores"
-              | "elementary_secondary_schools"
-              | "employment_temp_agencies"
-              | "equipment_rental"
-              | "exterminating_services"
-              | "family_clothing_stores"
-              | "fast_food_restaurants"
-              | "financial_institutions"
-              | "fines_government_administrative_entities"
-              | "fireplace_fireplace_screens_and_accessories_stores"
-              | "floor_covering_stores"
-              | "florists"
-              | "florists_supplies_nursery_stock_and_flowers"
-              | "freezer_and_locker_meat_provisioners"
-              | "fuel_dealers_non_automotive"
-              | "funeral_services_crematories"
-              | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-              | "furniture_repair_refinishing"
-              | "furriers_and_fur_shops"
-              | "general_services"
-              | "gift_card_novelty_and_souvenir_shops"
-              | "glass_paint_and_wallpaper_stores"
-              | "glassware_crystal_stores"
-              | "golf_courses_public"
-              | "government_services"
-              | "grocery_stores_supermarkets"
-              | "hardware_equipment_and_supplies"
-              | "hardware_stores"
-              | "health_and_beauty_spas"
-              | "hearing_aids_sales_and_supplies"
-              | "heating_plumbing_a_c"
-              | "hobby_toy_and_game_shops"
-              | "home_supply_warehouse_stores"
-              | "hospitals"
-              | "hotels_motels_and_resorts"
-              | "household_appliance_stores"
-              | "industrial_supplies"
-              | "information_retrieval_services"
-              | "insurance_default"
-              | "insurance_underwriting_premiums"
-              | "intra_company_purchases"
-              | "jewelry_stores_watches_clocks_and_silverware_stores"
-              | "landscaping_services"
-              | "laundries"
-              | "laundry_cleaning_services"
-              | "legal_services_attorneys"
-              | "luggage_and_leather_goods_stores"
-              | "lumber_building_materials_stores"
-              | "manual_cash_disburse"
-              | "marinas_service_and_supplies"
-              | "masonry_stonework_and_plaster"
-              | "massage_parlors"
-              | "medical_and_dental_labs"
-              | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-              | "medical_services"
-              | "membership_organizations"
-              | "mens_and_boys_clothing_and_accessories_stores"
-              | "mens_womens_clothing_stores"
-              | "metal_service_centers"
-              | "miscellaneous"
-              | "miscellaneous_apparel_and_accessory_shops"
-              | "miscellaneous_auto_dealers"
-              | "miscellaneous_business_services"
-              | "miscellaneous_food_stores"
-              | "miscellaneous_general_merchandise"
-              | "miscellaneous_general_services"
-              | "miscellaneous_home_furnishing_specialty_stores"
-              | "miscellaneous_publishing_and_printing"
-              | "miscellaneous_recreation_services"
-              | "miscellaneous_repair_shops"
-              | "miscellaneous_specialty_retail"
-              | "mobile_home_dealers"
-              | "motion_picture_theaters"
-              | "motor_freight_carriers_and_trucking"
-              | "motor_homes_dealers"
-              | "motor_vehicle_supplies_and_new_parts"
-              | "motorcycle_shops_and_dealers"
-              | "motorcycle_shops_dealers"
-              | "music_stores_musical_instruments_pianos_and_sheet_music"
-              | "news_dealers_and_newsstands"
-              | "non_fi_money_orders"
-              | "non_fi_stored_value_card_purchase_load"
-              | "nondurable_goods"
-              | "nurseries_lawn_and_garden_supply_stores"
-              | "nursing_personal_care"
-              | "office_and_commercial_furniture"
-              | "opticians_eyeglasses"
-              | "optometrists_ophthalmologist"
-              | "orthopedic_goods_prosthetic_devices"
-              | "osteopaths"
-              | "package_stores_beer_wine_and_liquor"
-              | "paints_varnishes_and_supplies"
-              | "parking_lots_garages"
-              | "passenger_railways"
-              | "pawn_shops"
-              | "pet_shops_pet_food_and_supplies"
-              | "petroleum_and_petroleum_products"
-              | "photo_developing"
-              | "photographic_photocopy_microfilm_equipment_and_supplies"
-              | "photographic_studios"
-              | "picture_video_production"
-              | "piece_goods_notions_and_other_dry_goods"
-              | "plumbing_heating_equipment_and_supplies"
-              | "political_organizations"
-              | "postal_services_government_only"
-              | "precious_stones_and_metals_watches_and_jewelry"
-              | "professional_services"
-              | "public_warehousing_and_storage"
-              | "quick_copy_repro_and_blueprint"
-              | "railroads"
-              | "real_estate_agents_and_managers_rentals"
-              | "record_stores"
-              | "recreational_vehicle_rentals"
-              | "religious_goods_stores"
-              | "religious_organizations"
-              | "roofing_siding_sheet_metal"
-              | "secretarial_support_services"
-              | "security_brokers_dealers"
-              | "service_stations"
-              | "sewing_needlework_fabric_and_piece_goods_stores"
-              | "shoe_repair_hat_cleaning"
-              | "shoe_stores"
-              | "small_appliance_repair"
-              | "snowmobile_dealers"
-              | "special_trade_services"
-              | "specialty_cleaning"
-              | "sporting_goods_stores"
-              | "sporting_recreation_camps"
-              | "sports_and_riding_apparel_stores"
-              | "sports_clubs_fields"
-              | "stamp_and_coin_stores"
-              | "stationary_office_supplies_printing_and_writing_paper"
-              | "stationery_stores_office_and_school_supply_stores"
-              | "swimming_pools_sales"
-              | "t_ui_travel_germany"
-              | "tailors_alterations"
-              | "tax_payments_government_agencies"
-              | "tax_preparation_services"
-              | "taxicabs_limousines"
-              | "telecommunication_equipment_and_telephone_sales"
-              | "telecommunication_services"
-              | "telegraph_services"
-              | "tent_and_awning_shops"
-              | "testing_laboratories"
-              | "theatrical_ticket_agencies"
-              | "timeshares"
-              | "tire_retreading_and_repair"
-              | "tolls_bridge_fees"
-              | "tourist_attractions_and_exhibits"
-              | "towing_services"
-              | "trailer_parks_campgrounds"
-              | "transportation_services"
-              | "travel_agencies_tour_operators"
-              | "truck_stop_iteration"
-              | "truck_utility_trailer_rentals"
-              | "typesetting_plate_making_and_related_services"
-              | "typewriter_stores"
-              | "u_s_federal_government_agencies_or_departments"
-              | "uniforms_commercial_clothing"
-              | "used_merchandise_and_secondhand_stores"
-              | "utilities"
-              | "variety_stores"
-              | "veterinary_services"
-              | "video_amusement_game_supplies"
-              | "video_game_arcades"
-              | "video_tape_rental_stores"
-              | "vocational_trade_schools"
-              | "watch_jewelry_repair"
-              | "welding_repair"
-              | "wholesale_clubs"
-              | "wig_and_toupee_stores"
-              | "wires_money_orders"
-              | "womens_accessory_and_specialty_shops"
-              | "womens_ready_to_wear_stores"
-              | "wrecking_and_salvage_yards"
-            )[];
-            interval:
-              | "all_time"
-              | "daily"
-              | "monthly"
-              | "per_authorization"
-              | "weekly"
-              | "yearly";
-          }[];
-          spending_limits_currency?: string;
-        };
-        /** Specifies whether to permit authorizations on this cardholder's cards. Defaults to `active`. */
-        status?: "active" | "inactive";
-        /** One of `individual` or `company`. */
-        type: "company" | "individual";
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["issuing.cardholder"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves an Issuing <code>Cardholder</code> object.</p> */
-  GetIssuingCardholdersCardholder: {
-    parameters: {
-      path: {
-        cardholder: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["issuing.cardholder"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Updates the specified Issuing <code>Cardholder</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
-  PostIssuingCardholdersCardholder: {
-    parameters: {
-      path: {
-        cardholder: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The cardholder's billing address. */
-        billing?: {
-          address: {
-            city: string;
-            country: string;
-            line1: string;
-            line2?: string;
-            postal_code: string;
-            state?: string;
-          };
-        };
-        /** Additional information about a `company` cardholder. */
-        company?: {
-          tax_id?: string;
-        };
-        /** The cardholder's email address. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Additional information about an `individual` cardholder. */
-        individual?: {
-          dob?: {
-            day: number;
-            month: number;
-            year: number;
-          };
-          first_name: string;
-          last_name: string;
-          verification?: {
-            document?: {
-              back?: string;
-              front?: string;
-            };
-          };
-        };
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** The cardholder's phone number. */
-        phone_number?: string;
-        /** Spending rules that give you some control over how your cards can be used. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details. */
-        spending_controls?: {
-          allowed_categories?: (
-            | "ac_refrigeration_repair"
-            | "accounting_bookkeeping_services"
-            | "advertising_services"
-            | "agricultural_cooperative"
-            | "airlines_air_carriers"
-            | "airports_flying_fields"
-            | "ambulance_services"
-            | "amusement_parks_carnivals"
-            | "antique_reproductions"
-            | "antique_shops"
-            | "aquariums"
-            | "architectural_surveying_services"
-            | "art_dealers_and_galleries"
-            | "artists_supply_and_craft_shops"
-            | "auto_and_home_supply_stores"
-            | "auto_body_repair_shops"
-            | "auto_paint_shops"
-            | "auto_service_shops"
-            | "automated_cash_disburse"
-            | "automated_fuel_dispensers"
-            | "automobile_associations"
-            | "automotive_parts_and_accessories_stores"
-            | "automotive_tire_stores"
-            | "bail_and_bond_payments"
-            | "bakeries"
-            | "bands_orchestras"
-            | "barber_and_beauty_shops"
-            | "betting_casino_gambling"
-            | "bicycle_shops"
-            | "billiard_pool_establishments"
-            | "boat_dealers"
-            | "boat_rentals_and_leases"
-            | "book_stores"
-            | "books_periodicals_and_newspapers"
-            | "bowling_alleys"
-            | "bus_lines"
-            | "business_secretarial_schools"
-            | "buying_shopping_services"
-            | "cable_satellite_and_other_pay_television_and_radio"
-            | "camera_and_photographic_supply_stores"
-            | "candy_nut_and_confectionery_stores"
-            | "car_and_truck_dealers_new_used"
-            | "car_and_truck_dealers_used_only"
-            | "car_rental_agencies"
-            | "car_washes"
-            | "carpentry_services"
-            | "carpet_upholstery_cleaning"
-            | "caterers"
-            | "charitable_and_social_service_organizations_fundraising"
-            | "chemicals_and_allied_products"
-            | "child_care_services"
-            | "childrens_and_infants_wear_stores"
-            | "chiropodists_podiatrists"
-            | "chiropractors"
-            | "cigar_stores_and_stands"
-            | "civic_social_fraternal_associations"
-            | "cleaning_and_maintenance"
-            | "clothing_rental"
-            | "colleges_universities"
-            | "commercial_equipment"
-            | "commercial_footwear"
-            | "commercial_photography_art_and_graphics"
-            | "commuter_transport_and_ferries"
-            | "computer_network_services"
-            | "computer_programming"
-            | "computer_repair"
-            | "computer_software_stores"
-            | "computers_peripherals_and_software"
-            | "concrete_work_services"
-            | "construction_materials"
-            | "consulting_public_relations"
-            | "correspondence_schools"
-            | "cosmetic_stores"
-            | "counseling_services"
-            | "country_clubs"
-            | "courier_services"
-            | "court_costs"
-            | "credit_reporting_agencies"
-            | "cruise_lines"
-            | "dairy_products_stores"
-            | "dance_hall_studios_schools"
-            | "dating_escort_services"
-            | "dentists_orthodontists"
-            | "department_stores"
-            | "detective_agencies"
-            | "digital_goods_applications"
-            | "digital_goods_games"
-            | "digital_goods_large_volume"
-            | "digital_goods_media"
-            | "direct_marketing_catalog_merchant"
-            | "direct_marketing_combination_catalog_and_retail_merchant"
-            | "direct_marketing_inbound_telemarketing"
-            | "direct_marketing_insurance_services"
-            | "direct_marketing_other"
-            | "direct_marketing_outbound_telemarketing"
-            | "direct_marketing_subscription"
-            | "direct_marketing_travel"
-            | "discount_stores"
-            | "doctors"
-            | "door_to_door_sales"
-            | "drapery_window_covering_and_upholstery_stores"
-            | "drinking_places"
-            | "drug_stores_and_pharmacies"
-            | "drugs_drug_proprietaries_and_druggist_sundries"
-            | "dry_cleaners"
-            | "durable_goods"
-            | "duty_free_stores"
-            | "eating_places_restaurants"
-            | "educational_services"
-            | "electric_razor_stores"
-            | "electrical_parts_and_equipment"
-            | "electrical_services"
-            | "electronics_repair_shops"
-            | "electronics_stores"
-            | "elementary_secondary_schools"
-            | "employment_temp_agencies"
-            | "equipment_rental"
-            | "exterminating_services"
-            | "family_clothing_stores"
-            | "fast_food_restaurants"
-            | "financial_institutions"
-            | "fines_government_administrative_entities"
-            | "fireplace_fireplace_screens_and_accessories_stores"
-            | "floor_covering_stores"
-            | "florists"
-            | "florists_supplies_nursery_stock_and_flowers"
-            | "freezer_and_locker_meat_provisioners"
-            | "fuel_dealers_non_automotive"
-            | "funeral_services_crematories"
-            | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-            | "furniture_repair_refinishing"
-            | "furriers_and_fur_shops"
-            | "general_services"
-            | "gift_card_novelty_and_souvenir_shops"
-            | "glass_paint_and_wallpaper_stores"
-            | "glassware_crystal_stores"
-            | "golf_courses_public"
-            | "government_services"
-            | "grocery_stores_supermarkets"
-            | "hardware_equipment_and_supplies"
-            | "hardware_stores"
-            | "health_and_beauty_spas"
-            | "hearing_aids_sales_and_supplies"
-            | "heating_plumbing_a_c"
-            | "hobby_toy_and_game_shops"
-            | "home_supply_warehouse_stores"
-            | "hospitals"
-            | "hotels_motels_and_resorts"
-            | "household_appliance_stores"
-            | "industrial_supplies"
-            | "information_retrieval_services"
-            | "insurance_default"
-            | "insurance_underwriting_premiums"
-            | "intra_company_purchases"
-            | "jewelry_stores_watches_clocks_and_silverware_stores"
-            | "landscaping_services"
-            | "laundries"
-            | "laundry_cleaning_services"
-            | "legal_services_attorneys"
-            | "luggage_and_leather_goods_stores"
-            | "lumber_building_materials_stores"
-            | "manual_cash_disburse"
-            | "marinas_service_and_supplies"
-            | "masonry_stonework_and_plaster"
-            | "massage_parlors"
-            | "medical_and_dental_labs"
-            | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-            | "medical_services"
-            | "membership_organizations"
-            | "mens_and_boys_clothing_and_accessories_stores"
-            | "mens_womens_clothing_stores"
-            | "metal_service_centers"
-            | "miscellaneous"
-            | "miscellaneous_apparel_and_accessory_shops"
-            | "miscellaneous_auto_dealers"
-            | "miscellaneous_business_services"
-            | "miscellaneous_food_stores"
-            | "miscellaneous_general_merchandise"
-            | "miscellaneous_general_services"
-            | "miscellaneous_home_furnishing_specialty_stores"
-            | "miscellaneous_publishing_and_printing"
-            | "miscellaneous_recreation_services"
-            | "miscellaneous_repair_shops"
-            | "miscellaneous_specialty_retail"
-            | "mobile_home_dealers"
-            | "motion_picture_theaters"
-            | "motor_freight_carriers_and_trucking"
-            | "motor_homes_dealers"
-            | "motor_vehicle_supplies_and_new_parts"
-            | "motorcycle_shops_and_dealers"
-            | "motorcycle_shops_dealers"
-            | "music_stores_musical_instruments_pianos_and_sheet_music"
-            | "news_dealers_and_newsstands"
-            | "non_fi_money_orders"
-            | "non_fi_stored_value_card_purchase_load"
-            | "nondurable_goods"
-            | "nurseries_lawn_and_garden_supply_stores"
-            | "nursing_personal_care"
-            | "office_and_commercial_furniture"
-            | "opticians_eyeglasses"
-            | "optometrists_ophthalmologist"
-            | "orthopedic_goods_prosthetic_devices"
-            | "osteopaths"
-            | "package_stores_beer_wine_and_liquor"
-            | "paints_varnishes_and_supplies"
-            | "parking_lots_garages"
-            | "passenger_railways"
-            | "pawn_shops"
-            | "pet_shops_pet_food_and_supplies"
-            | "petroleum_and_petroleum_products"
-            | "photo_developing"
-            | "photographic_photocopy_microfilm_equipment_and_supplies"
-            | "photographic_studios"
-            | "picture_video_production"
-            | "piece_goods_notions_and_other_dry_goods"
-            | "plumbing_heating_equipment_and_supplies"
-            | "political_organizations"
-            | "postal_services_government_only"
-            | "precious_stones_and_metals_watches_and_jewelry"
-            | "professional_services"
-            | "public_warehousing_and_storage"
-            | "quick_copy_repro_and_blueprint"
-            | "railroads"
-            | "real_estate_agents_and_managers_rentals"
-            | "record_stores"
-            | "recreational_vehicle_rentals"
-            | "religious_goods_stores"
-            | "religious_organizations"
-            | "roofing_siding_sheet_metal"
-            | "secretarial_support_services"
-            | "security_brokers_dealers"
-            | "service_stations"
-            | "sewing_needlework_fabric_and_piece_goods_stores"
-            | "shoe_repair_hat_cleaning"
-            | "shoe_stores"
-            | "small_appliance_repair"
-            | "snowmobile_dealers"
-            | "special_trade_services"
-            | "specialty_cleaning"
-            | "sporting_goods_stores"
-            | "sporting_recreation_camps"
-            | "sports_and_riding_apparel_stores"
-            | "sports_clubs_fields"
-            | "stamp_and_coin_stores"
-            | "stationary_office_supplies_printing_and_writing_paper"
-            | "stationery_stores_office_and_school_supply_stores"
-            | "swimming_pools_sales"
-            | "t_ui_travel_germany"
-            | "tailors_alterations"
-            | "tax_payments_government_agencies"
-            | "tax_preparation_services"
-            | "taxicabs_limousines"
-            | "telecommunication_equipment_and_telephone_sales"
-            | "telecommunication_services"
-            | "telegraph_services"
-            | "tent_and_awning_shops"
-            | "testing_laboratories"
-            | "theatrical_ticket_agencies"
-            | "timeshares"
-            | "tire_retreading_and_repair"
-            | "tolls_bridge_fees"
-            | "tourist_attractions_and_exhibits"
-            | "towing_services"
-            | "trailer_parks_campgrounds"
-            | "transportation_services"
-            | "travel_agencies_tour_operators"
-            | "truck_stop_iteration"
-            | "truck_utility_trailer_rentals"
-            | "typesetting_plate_making_and_related_services"
-            | "typewriter_stores"
-            | "u_s_federal_government_agencies_or_departments"
-            | "uniforms_commercial_clothing"
-            | "used_merchandise_and_secondhand_stores"
-            | "utilities"
-            | "variety_stores"
-            | "veterinary_services"
-            | "video_amusement_game_supplies"
-            | "video_game_arcades"
-            | "video_tape_rental_stores"
-            | "vocational_trade_schools"
-            | "watch_jewelry_repair"
-            | "welding_repair"
-            | "wholesale_clubs"
-            | "wig_and_toupee_stores"
-            | "wires_money_orders"
-            | "womens_accessory_and_specialty_shops"
-            | "womens_ready_to_wear_stores"
-            | "wrecking_and_salvage_yards"
-          )[];
-          blocked_categories?: (
-            | "ac_refrigeration_repair"
-            | "accounting_bookkeeping_services"
-            | "advertising_services"
-            | "agricultural_cooperative"
-            | "airlines_air_carriers"
-            | "airports_flying_fields"
-            | "ambulance_services"
-            | "amusement_parks_carnivals"
-            | "antique_reproductions"
-            | "antique_shops"
-            | "aquariums"
-            | "architectural_surveying_services"
-            | "art_dealers_and_galleries"
-            | "artists_supply_and_craft_shops"
-            | "auto_and_home_supply_stores"
-            | "auto_body_repair_shops"
-            | "auto_paint_shops"
-            | "auto_service_shops"
-            | "automated_cash_disburse"
-            | "automated_fuel_dispensers"
-            | "automobile_associations"
-            | "automotive_parts_and_accessories_stores"
-            | "automotive_tire_stores"
-            | "bail_and_bond_payments"
-            | "bakeries"
-            | "bands_orchestras"
-            | "barber_and_beauty_shops"
-            | "betting_casino_gambling"
-            | "bicycle_shops"
-            | "billiard_pool_establishments"
-            | "boat_dealers"
-            | "boat_rentals_and_leases"
-            | "book_stores"
-            | "books_periodicals_and_newspapers"
-            | "bowling_alleys"
-            | "bus_lines"
-            | "business_secretarial_schools"
-            | "buying_shopping_services"
-            | "cable_satellite_and_other_pay_television_and_radio"
-            | "camera_and_photographic_supply_stores"
-            | "candy_nut_and_confectionery_stores"
-            | "car_and_truck_dealers_new_used"
-            | "car_and_truck_dealers_used_only"
-            | "car_rental_agencies"
-            | "car_washes"
-            | "carpentry_services"
-            | "carpet_upholstery_cleaning"
-            | "caterers"
-            | "charitable_and_social_service_organizations_fundraising"
-            | "chemicals_and_allied_products"
-            | "child_care_services"
-            | "childrens_and_infants_wear_stores"
-            | "chiropodists_podiatrists"
-            | "chiropractors"
-            | "cigar_stores_and_stands"
-            | "civic_social_fraternal_associations"
-            | "cleaning_and_maintenance"
-            | "clothing_rental"
-            | "colleges_universities"
-            | "commercial_equipment"
-            | "commercial_footwear"
-            | "commercial_photography_art_and_graphics"
-            | "commuter_transport_and_ferries"
-            | "computer_network_services"
-            | "computer_programming"
-            | "computer_repair"
-            | "computer_software_stores"
-            | "computers_peripherals_and_software"
-            | "concrete_work_services"
-            | "construction_materials"
-            | "consulting_public_relations"
-            | "correspondence_schools"
-            | "cosmetic_stores"
-            | "counseling_services"
-            | "country_clubs"
-            | "courier_services"
-            | "court_costs"
-            | "credit_reporting_agencies"
-            | "cruise_lines"
-            | "dairy_products_stores"
-            | "dance_hall_studios_schools"
-            | "dating_escort_services"
-            | "dentists_orthodontists"
-            | "department_stores"
-            | "detective_agencies"
-            | "digital_goods_applications"
-            | "digital_goods_games"
-            | "digital_goods_large_volume"
-            | "digital_goods_media"
-            | "direct_marketing_catalog_merchant"
-            | "direct_marketing_combination_catalog_and_retail_merchant"
-            | "direct_marketing_inbound_telemarketing"
-            | "direct_marketing_insurance_services"
-            | "direct_marketing_other"
-            | "direct_marketing_outbound_telemarketing"
-            | "direct_marketing_subscription"
-            | "direct_marketing_travel"
-            | "discount_stores"
-            | "doctors"
-            | "door_to_door_sales"
-            | "drapery_window_covering_and_upholstery_stores"
-            | "drinking_places"
-            | "drug_stores_and_pharmacies"
-            | "drugs_drug_proprietaries_and_druggist_sundries"
-            | "dry_cleaners"
-            | "durable_goods"
-            | "duty_free_stores"
-            | "eating_places_restaurants"
-            | "educational_services"
-            | "electric_razor_stores"
-            | "electrical_parts_and_equipment"
-            | "electrical_services"
-            | "electronics_repair_shops"
-            | "electronics_stores"
-            | "elementary_secondary_schools"
-            | "employment_temp_agencies"
-            | "equipment_rental"
-            | "exterminating_services"
-            | "family_clothing_stores"
-            | "fast_food_restaurants"
-            | "financial_institutions"
-            | "fines_government_administrative_entities"
-            | "fireplace_fireplace_screens_and_accessories_stores"
-            | "floor_covering_stores"
-            | "florists"
-            | "florists_supplies_nursery_stock_and_flowers"
-            | "freezer_and_locker_meat_provisioners"
-            | "fuel_dealers_non_automotive"
-            | "funeral_services_crematories"
-            | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-            | "furniture_repair_refinishing"
-            | "furriers_and_fur_shops"
-            | "general_services"
-            | "gift_card_novelty_and_souvenir_shops"
-            | "glass_paint_and_wallpaper_stores"
-            | "glassware_crystal_stores"
-            | "golf_courses_public"
-            | "government_services"
-            | "grocery_stores_supermarkets"
-            | "hardware_equipment_and_supplies"
-            | "hardware_stores"
-            | "health_and_beauty_spas"
-            | "hearing_aids_sales_and_supplies"
-            | "heating_plumbing_a_c"
-            | "hobby_toy_and_game_shops"
-            | "home_supply_warehouse_stores"
-            | "hospitals"
-            | "hotels_motels_and_resorts"
-            | "household_appliance_stores"
-            | "industrial_supplies"
-            | "information_retrieval_services"
-            | "insurance_default"
-            | "insurance_underwriting_premiums"
-            | "intra_company_purchases"
-            | "jewelry_stores_watches_clocks_and_silverware_stores"
-            | "landscaping_services"
-            | "laundries"
-            | "laundry_cleaning_services"
-            | "legal_services_attorneys"
-            | "luggage_and_leather_goods_stores"
-            | "lumber_building_materials_stores"
-            | "manual_cash_disburse"
-            | "marinas_service_and_supplies"
-            | "masonry_stonework_and_plaster"
-            | "massage_parlors"
-            | "medical_and_dental_labs"
-            | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-            | "medical_services"
-            | "membership_organizations"
-            | "mens_and_boys_clothing_and_accessories_stores"
-            | "mens_womens_clothing_stores"
-            | "metal_service_centers"
-            | "miscellaneous"
-            | "miscellaneous_apparel_and_accessory_shops"
-            | "miscellaneous_auto_dealers"
-            | "miscellaneous_business_services"
-            | "miscellaneous_food_stores"
-            | "miscellaneous_general_merchandise"
-            | "miscellaneous_general_services"
-            | "miscellaneous_home_furnishing_specialty_stores"
-            | "miscellaneous_publishing_and_printing"
-            | "miscellaneous_recreation_services"
-            | "miscellaneous_repair_shops"
-            | "miscellaneous_specialty_retail"
-            | "mobile_home_dealers"
-            | "motion_picture_theaters"
-            | "motor_freight_carriers_and_trucking"
-            | "motor_homes_dealers"
-            | "motor_vehicle_supplies_and_new_parts"
-            | "motorcycle_shops_and_dealers"
-            | "motorcycle_shops_dealers"
-            | "music_stores_musical_instruments_pianos_and_sheet_music"
-            | "news_dealers_and_newsstands"
-            | "non_fi_money_orders"
-            | "non_fi_stored_value_card_purchase_load"
-            | "nondurable_goods"
-            | "nurseries_lawn_and_garden_supply_stores"
-            | "nursing_personal_care"
-            | "office_and_commercial_furniture"
-            | "opticians_eyeglasses"
-            | "optometrists_ophthalmologist"
-            | "orthopedic_goods_prosthetic_devices"
-            | "osteopaths"
-            | "package_stores_beer_wine_and_liquor"
-            | "paints_varnishes_and_supplies"
-            | "parking_lots_garages"
-            | "passenger_railways"
-            | "pawn_shops"
-            | "pet_shops_pet_food_and_supplies"
-            | "petroleum_and_petroleum_products"
-            | "photo_developing"
-            | "photographic_photocopy_microfilm_equipment_and_supplies"
-            | "photographic_studios"
-            | "picture_video_production"
-            | "piece_goods_notions_and_other_dry_goods"
-            | "plumbing_heating_equipment_and_supplies"
-            | "political_organizations"
-            | "postal_services_government_only"
-            | "precious_stones_and_metals_watches_and_jewelry"
-            | "professional_services"
-            | "public_warehousing_and_storage"
-            | "quick_copy_repro_and_blueprint"
-            | "railroads"
-            | "real_estate_agents_and_managers_rentals"
-            | "record_stores"
-            | "recreational_vehicle_rentals"
-            | "religious_goods_stores"
-            | "religious_organizations"
-            | "roofing_siding_sheet_metal"
-            | "secretarial_support_services"
-            | "security_brokers_dealers"
-            | "service_stations"
-            | "sewing_needlework_fabric_and_piece_goods_stores"
-            | "shoe_repair_hat_cleaning"
-            | "shoe_stores"
-            | "small_appliance_repair"
-            | "snowmobile_dealers"
-            | "special_trade_services"
-            | "specialty_cleaning"
-            | "sporting_goods_stores"
-            | "sporting_recreation_camps"
-            | "sports_and_riding_apparel_stores"
-            | "sports_clubs_fields"
-            | "stamp_and_coin_stores"
-            | "stationary_office_supplies_printing_and_writing_paper"
-            | "stationery_stores_office_and_school_supply_stores"
-            | "swimming_pools_sales"
-            | "t_ui_travel_germany"
-            | "tailors_alterations"
-            | "tax_payments_government_agencies"
-            | "tax_preparation_services"
-            | "taxicabs_limousines"
-            | "telecommunication_equipment_and_telephone_sales"
-            | "telecommunication_services"
-            | "telegraph_services"
-            | "tent_and_awning_shops"
-            | "testing_laboratories"
-            | "theatrical_ticket_agencies"
-            | "timeshares"
-            | "tire_retreading_and_repair"
-            | "tolls_bridge_fees"
-            | "tourist_attractions_and_exhibits"
-            | "towing_services"
-            | "trailer_parks_campgrounds"
-            | "transportation_services"
-            | "travel_agencies_tour_operators"
-            | "truck_stop_iteration"
-            | "truck_utility_trailer_rentals"
-            | "typesetting_plate_making_and_related_services"
-            | "typewriter_stores"
-            | "u_s_federal_government_agencies_or_departments"
-            | "uniforms_commercial_clothing"
-            | "used_merchandise_and_secondhand_stores"
-            | "utilities"
-            | "variety_stores"
-            | "veterinary_services"
-            | "video_amusement_game_supplies"
-            | "video_game_arcades"
-            | "video_tape_rental_stores"
-            | "vocational_trade_schools"
-            | "watch_jewelry_repair"
-            | "welding_repair"
-            | "wholesale_clubs"
-            | "wig_and_toupee_stores"
-            | "wires_money_orders"
-            | "womens_accessory_and_specialty_shops"
-            | "womens_ready_to_wear_stores"
-            | "wrecking_and_salvage_yards"
-          )[];
-          spending_limits?: {
-            amount: number;
-            categories?: (
-              | "ac_refrigeration_repair"
-              | "accounting_bookkeeping_services"
-              | "advertising_services"
-              | "agricultural_cooperative"
-              | "airlines_air_carriers"
-              | "airports_flying_fields"
-              | "ambulance_services"
-              | "amusement_parks_carnivals"
-              | "antique_reproductions"
-              | "antique_shops"
-              | "aquariums"
-              | "architectural_surveying_services"
-              | "art_dealers_and_galleries"
-              | "artists_supply_and_craft_shops"
-              | "auto_and_home_supply_stores"
-              | "auto_body_repair_shops"
-              | "auto_paint_shops"
-              | "auto_service_shops"
-              | "automated_cash_disburse"
-              | "automated_fuel_dispensers"
-              | "automobile_associations"
-              | "automotive_parts_and_accessories_stores"
-              | "automotive_tire_stores"
-              | "bail_and_bond_payments"
-              | "bakeries"
-              | "bands_orchestras"
-              | "barber_and_beauty_shops"
-              | "betting_casino_gambling"
-              | "bicycle_shops"
-              | "billiard_pool_establishments"
-              | "boat_dealers"
-              | "boat_rentals_and_leases"
-              | "book_stores"
-              | "books_periodicals_and_newspapers"
-              | "bowling_alleys"
-              | "bus_lines"
-              | "business_secretarial_schools"
-              | "buying_shopping_services"
-              | "cable_satellite_and_other_pay_television_and_radio"
-              | "camera_and_photographic_supply_stores"
-              | "candy_nut_and_confectionery_stores"
-              | "car_and_truck_dealers_new_used"
-              | "car_and_truck_dealers_used_only"
-              | "car_rental_agencies"
-              | "car_washes"
-              | "carpentry_services"
-              | "carpet_upholstery_cleaning"
-              | "caterers"
-              | "charitable_and_social_service_organizations_fundraising"
-              | "chemicals_and_allied_products"
-              | "child_care_services"
-              | "childrens_and_infants_wear_stores"
-              | "chiropodists_podiatrists"
-              | "chiropractors"
-              | "cigar_stores_and_stands"
-              | "civic_social_fraternal_associations"
-              | "cleaning_and_maintenance"
-              | "clothing_rental"
-              | "colleges_universities"
-              | "commercial_equipment"
-              | "commercial_footwear"
-              | "commercial_photography_art_and_graphics"
-              | "commuter_transport_and_ferries"
-              | "computer_network_services"
-              | "computer_programming"
-              | "computer_repair"
-              | "computer_software_stores"
-              | "computers_peripherals_and_software"
-              | "concrete_work_services"
-              | "construction_materials"
-              | "consulting_public_relations"
-              | "correspondence_schools"
-              | "cosmetic_stores"
-              | "counseling_services"
-              | "country_clubs"
-              | "courier_services"
-              | "court_costs"
-              | "credit_reporting_agencies"
-              | "cruise_lines"
-              | "dairy_products_stores"
-              | "dance_hall_studios_schools"
-              | "dating_escort_services"
-              | "dentists_orthodontists"
-              | "department_stores"
-              | "detective_agencies"
-              | "digital_goods_applications"
-              | "digital_goods_games"
-              | "digital_goods_large_volume"
-              | "digital_goods_media"
-              | "direct_marketing_catalog_merchant"
-              | "direct_marketing_combination_catalog_and_retail_merchant"
-              | "direct_marketing_inbound_telemarketing"
-              | "direct_marketing_insurance_services"
-              | "direct_marketing_other"
-              | "direct_marketing_outbound_telemarketing"
-              | "direct_marketing_subscription"
-              | "direct_marketing_travel"
-              | "discount_stores"
-              | "doctors"
-              | "door_to_door_sales"
-              | "drapery_window_covering_and_upholstery_stores"
-              | "drinking_places"
-              | "drug_stores_and_pharmacies"
-              | "drugs_drug_proprietaries_and_druggist_sundries"
-              | "dry_cleaners"
-              | "durable_goods"
-              | "duty_free_stores"
-              | "eating_places_restaurants"
-              | "educational_services"
-              | "electric_razor_stores"
-              | "electrical_parts_and_equipment"
-              | "electrical_services"
-              | "electronics_repair_shops"
-              | "electronics_stores"
-              | "elementary_secondary_schools"
-              | "employment_temp_agencies"
-              | "equipment_rental"
-              | "exterminating_services"
-              | "family_clothing_stores"
-              | "fast_food_restaurants"
-              | "financial_institutions"
-              | "fines_government_administrative_entities"
-              | "fireplace_fireplace_screens_and_accessories_stores"
-              | "floor_covering_stores"
-              | "florists"
-              | "florists_supplies_nursery_stock_and_flowers"
-              | "freezer_and_locker_meat_provisioners"
-              | "fuel_dealers_non_automotive"
-              | "funeral_services_crematories"
-              | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-              | "furniture_repair_refinishing"
-              | "furriers_and_fur_shops"
-              | "general_services"
-              | "gift_card_novelty_and_souvenir_shops"
-              | "glass_paint_and_wallpaper_stores"
-              | "glassware_crystal_stores"
-              | "golf_courses_public"
-              | "government_services"
-              | "grocery_stores_supermarkets"
-              | "hardware_equipment_and_supplies"
-              | "hardware_stores"
-              | "health_and_beauty_spas"
-              | "hearing_aids_sales_and_supplies"
-              | "heating_plumbing_a_c"
-              | "hobby_toy_and_game_shops"
-              | "home_supply_warehouse_stores"
-              | "hospitals"
-              | "hotels_motels_and_resorts"
-              | "household_appliance_stores"
-              | "industrial_supplies"
-              | "information_retrieval_services"
-              | "insurance_default"
-              | "insurance_underwriting_premiums"
-              | "intra_company_purchases"
-              | "jewelry_stores_watches_clocks_and_silverware_stores"
-              | "landscaping_services"
-              | "laundries"
-              | "laundry_cleaning_services"
-              | "legal_services_attorneys"
-              | "luggage_and_leather_goods_stores"
-              | "lumber_building_materials_stores"
-              | "manual_cash_disburse"
-              | "marinas_service_and_supplies"
-              | "masonry_stonework_and_plaster"
-              | "massage_parlors"
-              | "medical_and_dental_labs"
-              | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-              | "medical_services"
-              | "membership_organizations"
-              | "mens_and_boys_clothing_and_accessories_stores"
-              | "mens_womens_clothing_stores"
-              | "metal_service_centers"
-              | "miscellaneous"
-              | "miscellaneous_apparel_and_accessory_shops"
-              | "miscellaneous_auto_dealers"
-              | "miscellaneous_business_services"
-              | "miscellaneous_food_stores"
-              | "miscellaneous_general_merchandise"
-              | "miscellaneous_general_services"
-              | "miscellaneous_home_furnishing_specialty_stores"
-              | "miscellaneous_publishing_and_printing"
-              | "miscellaneous_recreation_services"
-              | "miscellaneous_repair_shops"
-              | "miscellaneous_specialty_retail"
-              | "mobile_home_dealers"
-              | "motion_picture_theaters"
-              | "motor_freight_carriers_and_trucking"
-              | "motor_homes_dealers"
-              | "motor_vehicle_supplies_and_new_parts"
-              | "motorcycle_shops_and_dealers"
-              | "motorcycle_shops_dealers"
-              | "music_stores_musical_instruments_pianos_and_sheet_music"
-              | "news_dealers_and_newsstands"
-              | "non_fi_money_orders"
-              | "non_fi_stored_value_card_purchase_load"
-              | "nondurable_goods"
-              | "nurseries_lawn_and_garden_supply_stores"
-              | "nursing_personal_care"
-              | "office_and_commercial_furniture"
-              | "opticians_eyeglasses"
-              | "optometrists_ophthalmologist"
-              | "orthopedic_goods_prosthetic_devices"
-              | "osteopaths"
-              | "package_stores_beer_wine_and_liquor"
-              | "paints_varnishes_and_supplies"
-              | "parking_lots_garages"
-              | "passenger_railways"
-              | "pawn_shops"
-              | "pet_shops_pet_food_and_supplies"
-              | "petroleum_and_petroleum_products"
-              | "photo_developing"
-              | "photographic_photocopy_microfilm_equipment_and_supplies"
-              | "photographic_studios"
-              | "picture_video_production"
-              | "piece_goods_notions_and_other_dry_goods"
-              | "plumbing_heating_equipment_and_supplies"
-              | "political_organizations"
-              | "postal_services_government_only"
-              | "precious_stones_and_metals_watches_and_jewelry"
-              | "professional_services"
-              | "public_warehousing_and_storage"
-              | "quick_copy_repro_and_blueprint"
-              | "railroads"
-              | "real_estate_agents_and_managers_rentals"
-              | "record_stores"
-              | "recreational_vehicle_rentals"
-              | "religious_goods_stores"
-              | "religious_organizations"
-              | "roofing_siding_sheet_metal"
-              | "secretarial_support_services"
-              | "security_brokers_dealers"
-              | "service_stations"
-              | "sewing_needlework_fabric_and_piece_goods_stores"
-              | "shoe_repair_hat_cleaning"
-              | "shoe_stores"
-              | "small_appliance_repair"
-              | "snowmobile_dealers"
-              | "special_trade_services"
-              | "specialty_cleaning"
-              | "sporting_goods_stores"
-              | "sporting_recreation_camps"
-              | "sports_and_riding_apparel_stores"
-              | "sports_clubs_fields"
-              | "stamp_and_coin_stores"
-              | "stationary_office_supplies_printing_and_writing_paper"
-              | "stationery_stores_office_and_school_supply_stores"
-              | "swimming_pools_sales"
-              | "t_ui_travel_germany"
-              | "tailors_alterations"
-              | "tax_payments_government_agencies"
-              | "tax_preparation_services"
-              | "taxicabs_limousines"
-              | "telecommunication_equipment_and_telephone_sales"
-              | "telecommunication_services"
-              | "telegraph_services"
-              | "tent_and_awning_shops"
-              | "testing_laboratories"
-              | "theatrical_ticket_agencies"
-              | "timeshares"
-              | "tire_retreading_and_repair"
-              | "tolls_bridge_fees"
-              | "tourist_attractions_and_exhibits"
-              | "towing_services"
-              | "trailer_parks_campgrounds"
-              | "transportation_services"
-              | "travel_agencies_tour_operators"
-              | "truck_stop_iteration"
-              | "truck_utility_trailer_rentals"
-              | "typesetting_plate_making_and_related_services"
-              | "typewriter_stores"
-              | "u_s_federal_government_agencies_or_departments"
-              | "uniforms_commercial_clothing"
-              | "used_merchandise_and_secondhand_stores"
-              | "utilities"
-              | "variety_stores"
-              | "veterinary_services"
-              | "video_amusement_game_supplies"
-              | "video_game_arcades"
-              | "video_tape_rental_stores"
-              | "vocational_trade_schools"
-              | "watch_jewelry_repair"
-              | "welding_repair"
-              | "wholesale_clubs"
-              | "wig_and_toupee_stores"
-              | "wires_money_orders"
-              | "womens_accessory_and_specialty_shops"
-              | "womens_ready_to_wear_stores"
-              | "wrecking_and_salvage_yards"
-            )[];
-            interval:
-              | "all_time"
-              | "daily"
-              | "monthly"
-              | "per_authorization"
-              | "weekly"
-              | "yearly";
-          }[];
-          spending_limits_currency?: string;
-        };
-        /** Specifies whether to permit authorizations on this cardholder's cards. */
-        status?: "active" | "inactive";
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["issuing.cardholder"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of Issuing <code>Card</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
-  GetIssuingCards: {
-    parameters: {
-      query: {
-        /** Only return cards belonging to the Cardholder with the provided ID. */
-        cardholder?: string;
-        /** Only return cards that were issued during the given date interval. */
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Only return cards that have the given expiration month. */
-        exp_month?: number;
-        /** Only return cards that have the given expiration year. */
-        exp_year?: number;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Only return cards that have the given last four digits. */
-        last4?: string;
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-        /** Only return cards that have the given status. One of `active`, `inactive`, or `canceled`. */
-        status?: "active" | "canceled" | "inactive";
-        /** Only return cards that have the given type. One of `virtual` or `physical`. */
-        type?: "physical" | "virtual";
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["issuing.card"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Creates an Issuing <code>Card</code> object.</p> */
-  PostIssuingCards: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The [Cardholder](https://stripe.com/docs/api#issuing_cardholder_object) object with which the card will be associated. */
-        cardholder?: string;
-        /** The currency for the card. This currently must be `usd`. */
-        currency: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** The card this is meant to be a replacement for (if any). */
-        replacement_for?: string;
-        /** If `replacement_for` is specified, this should indicate why that card is being replaced. */
-        replacement_reason?: "damaged" | "expired" | "lost" | "stolen";
-        /** The address where the card will be shipped. */
-        shipping?: {
-          address: {
-            city: string;
-            country: string;
-            line1: string;
-            line2?: string;
-            postal_code: string;
-            state?: string;
-          };
-          name: string;
-          service?: "express" | "priority" | "standard";
-          type?: "bulk" | "individual";
-        };
-        /** Spending rules that give you some control over how your cards can be used. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details. */
-        spending_controls?: {
-          allowed_categories?: (
-            | "ac_refrigeration_repair"
-            | "accounting_bookkeeping_services"
-            | "advertising_services"
-            | "agricultural_cooperative"
-            | "airlines_air_carriers"
-            | "airports_flying_fields"
-            | "ambulance_services"
-            | "amusement_parks_carnivals"
-            | "antique_reproductions"
-            | "antique_shops"
-            | "aquariums"
-            | "architectural_surveying_services"
-            | "art_dealers_and_galleries"
-            | "artists_supply_and_craft_shops"
-            | "auto_and_home_supply_stores"
-            | "auto_body_repair_shops"
-            | "auto_paint_shops"
-            | "auto_service_shops"
-            | "automated_cash_disburse"
-            | "automated_fuel_dispensers"
-            | "automobile_associations"
-            | "automotive_parts_and_accessories_stores"
-            | "automotive_tire_stores"
-            | "bail_and_bond_payments"
-            | "bakeries"
-            | "bands_orchestras"
-            | "barber_and_beauty_shops"
-            | "betting_casino_gambling"
-            | "bicycle_shops"
-            | "billiard_pool_establishments"
-            | "boat_dealers"
-            | "boat_rentals_and_leases"
-            | "book_stores"
-            | "books_periodicals_and_newspapers"
-            | "bowling_alleys"
-            | "bus_lines"
-            | "business_secretarial_schools"
-            | "buying_shopping_services"
-            | "cable_satellite_and_other_pay_television_and_radio"
-            | "camera_and_photographic_supply_stores"
-            | "candy_nut_and_confectionery_stores"
-            | "car_and_truck_dealers_new_used"
-            | "car_and_truck_dealers_used_only"
-            | "car_rental_agencies"
-            | "car_washes"
-            | "carpentry_services"
-            | "carpet_upholstery_cleaning"
-            | "caterers"
-            | "charitable_and_social_service_organizations_fundraising"
-            | "chemicals_and_allied_products"
-            | "child_care_services"
-            | "childrens_and_infants_wear_stores"
-            | "chiropodists_podiatrists"
-            | "chiropractors"
-            | "cigar_stores_and_stands"
-            | "civic_social_fraternal_associations"
-            | "cleaning_and_maintenance"
-            | "clothing_rental"
-            | "colleges_universities"
-            | "commercial_equipment"
-            | "commercial_footwear"
-            | "commercial_photography_art_and_graphics"
-            | "commuter_transport_and_ferries"
-            | "computer_network_services"
-            | "computer_programming"
-            | "computer_repair"
-            | "computer_software_stores"
-            | "computers_peripherals_and_software"
-            | "concrete_work_services"
-            | "construction_materials"
-            | "consulting_public_relations"
-            | "correspondence_schools"
-            | "cosmetic_stores"
-            | "counseling_services"
-            | "country_clubs"
-            | "courier_services"
-            | "court_costs"
-            | "credit_reporting_agencies"
-            | "cruise_lines"
-            | "dairy_products_stores"
-            | "dance_hall_studios_schools"
-            | "dating_escort_services"
-            | "dentists_orthodontists"
-            | "department_stores"
-            | "detective_agencies"
-            | "digital_goods_applications"
-            | "digital_goods_games"
-            | "digital_goods_large_volume"
-            | "digital_goods_media"
-            | "direct_marketing_catalog_merchant"
-            | "direct_marketing_combination_catalog_and_retail_merchant"
-            | "direct_marketing_inbound_telemarketing"
-            | "direct_marketing_insurance_services"
-            | "direct_marketing_other"
-            | "direct_marketing_outbound_telemarketing"
-            | "direct_marketing_subscription"
-            | "direct_marketing_travel"
-            | "discount_stores"
-            | "doctors"
-            | "door_to_door_sales"
-            | "drapery_window_covering_and_upholstery_stores"
-            | "drinking_places"
-            | "drug_stores_and_pharmacies"
-            | "drugs_drug_proprietaries_and_druggist_sundries"
-            | "dry_cleaners"
-            | "durable_goods"
-            | "duty_free_stores"
-            | "eating_places_restaurants"
-            | "educational_services"
-            | "electric_razor_stores"
-            | "electrical_parts_and_equipment"
-            | "electrical_services"
-            | "electronics_repair_shops"
-            | "electronics_stores"
-            | "elementary_secondary_schools"
-            | "employment_temp_agencies"
-            | "equipment_rental"
-            | "exterminating_services"
-            | "family_clothing_stores"
-            | "fast_food_restaurants"
-            | "financial_institutions"
-            | "fines_government_administrative_entities"
-            | "fireplace_fireplace_screens_and_accessories_stores"
-            | "floor_covering_stores"
-            | "florists"
-            | "florists_supplies_nursery_stock_and_flowers"
-            | "freezer_and_locker_meat_provisioners"
-            | "fuel_dealers_non_automotive"
-            | "funeral_services_crematories"
-            | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-            | "furniture_repair_refinishing"
-            | "furriers_and_fur_shops"
-            | "general_services"
-            | "gift_card_novelty_and_souvenir_shops"
-            | "glass_paint_and_wallpaper_stores"
-            | "glassware_crystal_stores"
-            | "golf_courses_public"
-            | "government_services"
-            | "grocery_stores_supermarkets"
-            | "hardware_equipment_and_supplies"
-            | "hardware_stores"
-            | "health_and_beauty_spas"
-            | "hearing_aids_sales_and_supplies"
-            | "heating_plumbing_a_c"
-            | "hobby_toy_and_game_shops"
-            | "home_supply_warehouse_stores"
-            | "hospitals"
-            | "hotels_motels_and_resorts"
-            | "household_appliance_stores"
-            | "industrial_supplies"
-            | "information_retrieval_services"
-            | "insurance_default"
-            | "insurance_underwriting_premiums"
-            | "intra_company_purchases"
-            | "jewelry_stores_watches_clocks_and_silverware_stores"
-            | "landscaping_services"
-            | "laundries"
-            | "laundry_cleaning_services"
-            | "legal_services_attorneys"
-            | "luggage_and_leather_goods_stores"
-            | "lumber_building_materials_stores"
-            | "manual_cash_disburse"
-            | "marinas_service_and_supplies"
-            | "masonry_stonework_and_plaster"
-            | "massage_parlors"
-            | "medical_and_dental_labs"
-            | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-            | "medical_services"
-            | "membership_organizations"
-            | "mens_and_boys_clothing_and_accessories_stores"
-            | "mens_womens_clothing_stores"
-            | "metal_service_centers"
-            | "miscellaneous"
-            | "miscellaneous_apparel_and_accessory_shops"
-            | "miscellaneous_auto_dealers"
-            | "miscellaneous_business_services"
-            | "miscellaneous_food_stores"
-            | "miscellaneous_general_merchandise"
-            | "miscellaneous_general_services"
-            | "miscellaneous_home_furnishing_specialty_stores"
-            | "miscellaneous_publishing_and_printing"
-            | "miscellaneous_recreation_services"
-            | "miscellaneous_repair_shops"
-            | "miscellaneous_specialty_retail"
-            | "mobile_home_dealers"
-            | "motion_picture_theaters"
-            | "motor_freight_carriers_and_trucking"
-            | "motor_homes_dealers"
-            | "motor_vehicle_supplies_and_new_parts"
-            | "motorcycle_shops_and_dealers"
-            | "motorcycle_shops_dealers"
-            | "music_stores_musical_instruments_pianos_and_sheet_music"
-            | "news_dealers_and_newsstands"
-            | "non_fi_money_orders"
-            | "non_fi_stored_value_card_purchase_load"
-            | "nondurable_goods"
-            | "nurseries_lawn_and_garden_supply_stores"
-            | "nursing_personal_care"
-            | "office_and_commercial_furniture"
-            | "opticians_eyeglasses"
-            | "optometrists_ophthalmologist"
-            | "orthopedic_goods_prosthetic_devices"
-            | "osteopaths"
-            | "package_stores_beer_wine_and_liquor"
-            | "paints_varnishes_and_supplies"
-            | "parking_lots_garages"
-            | "passenger_railways"
-            | "pawn_shops"
-            | "pet_shops_pet_food_and_supplies"
-            | "petroleum_and_petroleum_products"
-            | "photo_developing"
-            | "photographic_photocopy_microfilm_equipment_and_supplies"
-            | "photographic_studios"
-            | "picture_video_production"
-            | "piece_goods_notions_and_other_dry_goods"
-            | "plumbing_heating_equipment_and_supplies"
-            | "political_organizations"
-            | "postal_services_government_only"
-            | "precious_stones_and_metals_watches_and_jewelry"
-            | "professional_services"
-            | "public_warehousing_and_storage"
-            | "quick_copy_repro_and_blueprint"
-            | "railroads"
-            | "real_estate_agents_and_managers_rentals"
-            | "record_stores"
-            | "recreational_vehicle_rentals"
-            | "religious_goods_stores"
-            | "religious_organizations"
-            | "roofing_siding_sheet_metal"
-            | "secretarial_support_services"
-            | "security_brokers_dealers"
-            | "service_stations"
-            | "sewing_needlework_fabric_and_piece_goods_stores"
-            | "shoe_repair_hat_cleaning"
-            | "shoe_stores"
-            | "small_appliance_repair"
-            | "snowmobile_dealers"
-            | "special_trade_services"
-            | "specialty_cleaning"
-            | "sporting_goods_stores"
-            | "sporting_recreation_camps"
-            | "sports_and_riding_apparel_stores"
-            | "sports_clubs_fields"
-            | "stamp_and_coin_stores"
-            | "stationary_office_supplies_printing_and_writing_paper"
-            | "stationery_stores_office_and_school_supply_stores"
-            | "swimming_pools_sales"
-            | "t_ui_travel_germany"
-            | "tailors_alterations"
-            | "tax_payments_government_agencies"
-            | "tax_preparation_services"
-            | "taxicabs_limousines"
-            | "telecommunication_equipment_and_telephone_sales"
-            | "telecommunication_services"
-            | "telegraph_services"
-            | "tent_and_awning_shops"
-            | "testing_laboratories"
-            | "theatrical_ticket_agencies"
-            | "timeshares"
-            | "tire_retreading_and_repair"
-            | "tolls_bridge_fees"
-            | "tourist_attractions_and_exhibits"
-            | "towing_services"
-            | "trailer_parks_campgrounds"
-            | "transportation_services"
-            | "travel_agencies_tour_operators"
-            | "truck_stop_iteration"
-            | "truck_utility_trailer_rentals"
-            | "typesetting_plate_making_and_related_services"
-            | "typewriter_stores"
-            | "u_s_federal_government_agencies_or_departments"
-            | "uniforms_commercial_clothing"
-            | "used_merchandise_and_secondhand_stores"
-            | "utilities"
-            | "variety_stores"
-            | "veterinary_services"
-            | "video_amusement_game_supplies"
-            | "video_game_arcades"
-            | "video_tape_rental_stores"
-            | "vocational_trade_schools"
-            | "watch_jewelry_repair"
-            | "welding_repair"
-            | "wholesale_clubs"
-            | "wig_and_toupee_stores"
-            | "wires_money_orders"
-            | "womens_accessory_and_specialty_shops"
-            | "womens_ready_to_wear_stores"
-            | "wrecking_and_salvage_yards"
-          )[];
-          blocked_categories?: (
-            | "ac_refrigeration_repair"
-            | "accounting_bookkeeping_services"
-            | "advertising_services"
-            | "agricultural_cooperative"
-            | "airlines_air_carriers"
-            | "airports_flying_fields"
-            | "ambulance_services"
-            | "amusement_parks_carnivals"
-            | "antique_reproductions"
-            | "antique_shops"
-            | "aquariums"
-            | "architectural_surveying_services"
-            | "art_dealers_and_galleries"
-            | "artists_supply_and_craft_shops"
-            | "auto_and_home_supply_stores"
-            | "auto_body_repair_shops"
-            | "auto_paint_shops"
-            | "auto_service_shops"
-            | "automated_cash_disburse"
-            | "automated_fuel_dispensers"
-            | "automobile_associations"
-            | "automotive_parts_and_accessories_stores"
-            | "automotive_tire_stores"
-            | "bail_and_bond_payments"
-            | "bakeries"
-            | "bands_orchestras"
-            | "barber_and_beauty_shops"
-            | "betting_casino_gambling"
-            | "bicycle_shops"
-            | "billiard_pool_establishments"
-            | "boat_dealers"
-            | "boat_rentals_and_leases"
-            | "book_stores"
-            | "books_periodicals_and_newspapers"
-            | "bowling_alleys"
-            | "bus_lines"
-            | "business_secretarial_schools"
-            | "buying_shopping_services"
-            | "cable_satellite_and_other_pay_television_and_radio"
-            | "camera_and_photographic_supply_stores"
-            | "candy_nut_and_confectionery_stores"
-            | "car_and_truck_dealers_new_used"
-            | "car_and_truck_dealers_used_only"
-            | "car_rental_agencies"
-            | "car_washes"
-            | "carpentry_services"
-            | "carpet_upholstery_cleaning"
-            | "caterers"
-            | "charitable_and_social_service_organizations_fundraising"
-            | "chemicals_and_allied_products"
-            | "child_care_services"
-            | "childrens_and_infants_wear_stores"
-            | "chiropodists_podiatrists"
-            | "chiropractors"
-            | "cigar_stores_and_stands"
-            | "civic_social_fraternal_associations"
-            | "cleaning_and_maintenance"
-            | "clothing_rental"
-            | "colleges_universities"
-            | "commercial_equipment"
-            | "commercial_footwear"
-            | "commercial_photography_art_and_graphics"
-            | "commuter_transport_and_ferries"
-            | "computer_network_services"
-            | "computer_programming"
-            | "computer_repair"
-            | "computer_software_stores"
-            | "computers_peripherals_and_software"
-            | "concrete_work_services"
-            | "construction_materials"
-            | "consulting_public_relations"
-            | "correspondence_schools"
-            | "cosmetic_stores"
-            | "counseling_services"
-            | "country_clubs"
-            | "courier_services"
-            | "court_costs"
-            | "credit_reporting_agencies"
-            | "cruise_lines"
-            | "dairy_products_stores"
-            | "dance_hall_studios_schools"
-            | "dating_escort_services"
-            | "dentists_orthodontists"
-            | "department_stores"
-            | "detective_agencies"
-            | "digital_goods_applications"
-            | "digital_goods_games"
-            | "digital_goods_large_volume"
-            | "digital_goods_media"
-            | "direct_marketing_catalog_merchant"
-            | "direct_marketing_combination_catalog_and_retail_merchant"
-            | "direct_marketing_inbound_telemarketing"
-            | "direct_marketing_insurance_services"
-            | "direct_marketing_other"
-            | "direct_marketing_outbound_telemarketing"
-            | "direct_marketing_subscription"
-            | "direct_marketing_travel"
-            | "discount_stores"
-            | "doctors"
-            | "door_to_door_sales"
-            | "drapery_window_covering_and_upholstery_stores"
-            | "drinking_places"
-            | "drug_stores_and_pharmacies"
-            | "drugs_drug_proprietaries_and_druggist_sundries"
-            | "dry_cleaners"
-            | "durable_goods"
-            | "duty_free_stores"
-            | "eating_places_restaurants"
-            | "educational_services"
-            | "electric_razor_stores"
-            | "electrical_parts_and_equipment"
-            | "electrical_services"
-            | "electronics_repair_shops"
-            | "electronics_stores"
-            | "elementary_secondary_schools"
-            | "employment_temp_agencies"
-            | "equipment_rental"
-            | "exterminating_services"
-            | "family_clothing_stores"
-            | "fast_food_restaurants"
-            | "financial_institutions"
-            | "fines_government_administrative_entities"
-            | "fireplace_fireplace_screens_and_accessories_stores"
-            | "floor_covering_stores"
-            | "florists"
-            | "florists_supplies_nursery_stock_and_flowers"
-            | "freezer_and_locker_meat_provisioners"
-            | "fuel_dealers_non_automotive"
-            | "funeral_services_crematories"
-            | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-            | "furniture_repair_refinishing"
-            | "furriers_and_fur_shops"
-            | "general_services"
-            | "gift_card_novelty_and_souvenir_shops"
-            | "glass_paint_and_wallpaper_stores"
-            | "glassware_crystal_stores"
-            | "golf_courses_public"
-            | "government_services"
-            | "grocery_stores_supermarkets"
-            | "hardware_equipment_and_supplies"
-            | "hardware_stores"
-            | "health_and_beauty_spas"
-            | "hearing_aids_sales_and_supplies"
-            | "heating_plumbing_a_c"
-            | "hobby_toy_and_game_shops"
-            | "home_supply_warehouse_stores"
-            | "hospitals"
-            | "hotels_motels_and_resorts"
-            | "household_appliance_stores"
-            | "industrial_supplies"
-            | "information_retrieval_services"
-            | "insurance_default"
-            | "insurance_underwriting_premiums"
-            | "intra_company_purchases"
-            | "jewelry_stores_watches_clocks_and_silverware_stores"
-            | "landscaping_services"
-            | "laundries"
-            | "laundry_cleaning_services"
-            | "legal_services_attorneys"
-            | "luggage_and_leather_goods_stores"
-            | "lumber_building_materials_stores"
-            | "manual_cash_disburse"
-            | "marinas_service_and_supplies"
-            | "masonry_stonework_and_plaster"
-            | "massage_parlors"
-            | "medical_and_dental_labs"
-            | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-            | "medical_services"
-            | "membership_organizations"
-            | "mens_and_boys_clothing_and_accessories_stores"
-            | "mens_womens_clothing_stores"
-            | "metal_service_centers"
-            | "miscellaneous"
-            | "miscellaneous_apparel_and_accessory_shops"
-            | "miscellaneous_auto_dealers"
-            | "miscellaneous_business_services"
-            | "miscellaneous_food_stores"
-            | "miscellaneous_general_merchandise"
-            | "miscellaneous_general_services"
-            | "miscellaneous_home_furnishing_specialty_stores"
-            | "miscellaneous_publishing_and_printing"
-            | "miscellaneous_recreation_services"
-            | "miscellaneous_repair_shops"
-            | "miscellaneous_specialty_retail"
-            | "mobile_home_dealers"
-            | "motion_picture_theaters"
-            | "motor_freight_carriers_and_trucking"
-            | "motor_homes_dealers"
-            | "motor_vehicle_supplies_and_new_parts"
-            | "motorcycle_shops_and_dealers"
-            | "motorcycle_shops_dealers"
-            | "music_stores_musical_instruments_pianos_and_sheet_music"
-            | "news_dealers_and_newsstands"
-            | "non_fi_money_orders"
-            | "non_fi_stored_value_card_purchase_load"
-            | "nondurable_goods"
-            | "nurseries_lawn_and_garden_supply_stores"
-            | "nursing_personal_care"
-            | "office_and_commercial_furniture"
-            | "opticians_eyeglasses"
-            | "optometrists_ophthalmologist"
-            | "orthopedic_goods_prosthetic_devices"
-            | "osteopaths"
-            | "package_stores_beer_wine_and_liquor"
-            | "paints_varnishes_and_supplies"
-            | "parking_lots_garages"
-            | "passenger_railways"
-            | "pawn_shops"
-            | "pet_shops_pet_food_and_supplies"
-            | "petroleum_and_petroleum_products"
-            | "photo_developing"
-            | "photographic_photocopy_microfilm_equipment_and_supplies"
-            | "photographic_studios"
-            | "picture_video_production"
-            | "piece_goods_notions_and_other_dry_goods"
-            | "plumbing_heating_equipment_and_supplies"
-            | "political_organizations"
-            | "postal_services_government_only"
-            | "precious_stones_and_metals_watches_and_jewelry"
-            | "professional_services"
-            | "public_warehousing_and_storage"
-            | "quick_copy_repro_and_blueprint"
-            | "railroads"
-            | "real_estate_agents_and_managers_rentals"
-            | "record_stores"
-            | "recreational_vehicle_rentals"
-            | "religious_goods_stores"
-            | "religious_organizations"
-            | "roofing_siding_sheet_metal"
-            | "secretarial_support_services"
-            | "security_brokers_dealers"
-            | "service_stations"
-            | "sewing_needlework_fabric_and_piece_goods_stores"
-            | "shoe_repair_hat_cleaning"
-            | "shoe_stores"
-            | "small_appliance_repair"
-            | "snowmobile_dealers"
-            | "special_trade_services"
-            | "specialty_cleaning"
-            | "sporting_goods_stores"
-            | "sporting_recreation_camps"
-            | "sports_and_riding_apparel_stores"
-            | "sports_clubs_fields"
-            | "stamp_and_coin_stores"
-            | "stationary_office_supplies_printing_and_writing_paper"
-            | "stationery_stores_office_and_school_supply_stores"
-            | "swimming_pools_sales"
-            | "t_ui_travel_germany"
-            | "tailors_alterations"
-            | "tax_payments_government_agencies"
-            | "tax_preparation_services"
-            | "taxicabs_limousines"
-            | "telecommunication_equipment_and_telephone_sales"
-            | "telecommunication_services"
-            | "telegraph_services"
-            | "tent_and_awning_shops"
-            | "testing_laboratories"
-            | "theatrical_ticket_agencies"
-            | "timeshares"
-            | "tire_retreading_and_repair"
-            | "tolls_bridge_fees"
-            | "tourist_attractions_and_exhibits"
-            | "towing_services"
-            | "trailer_parks_campgrounds"
-            | "transportation_services"
-            | "travel_agencies_tour_operators"
-            | "truck_stop_iteration"
-            | "truck_utility_trailer_rentals"
-            | "typesetting_plate_making_and_related_services"
-            | "typewriter_stores"
-            | "u_s_federal_government_agencies_or_departments"
-            | "uniforms_commercial_clothing"
-            | "used_merchandise_and_secondhand_stores"
-            | "utilities"
-            | "variety_stores"
-            | "veterinary_services"
-            | "video_amusement_game_supplies"
-            | "video_game_arcades"
-            | "video_tape_rental_stores"
-            | "vocational_trade_schools"
-            | "watch_jewelry_repair"
-            | "welding_repair"
-            | "wholesale_clubs"
-            | "wig_and_toupee_stores"
-            | "wires_money_orders"
-            | "womens_accessory_and_specialty_shops"
-            | "womens_ready_to_wear_stores"
-            | "wrecking_and_salvage_yards"
-          )[];
-          spending_limits?: {
-            amount: number;
-            categories?: (
-              | "ac_refrigeration_repair"
-              | "accounting_bookkeeping_services"
-              | "advertising_services"
-              | "agricultural_cooperative"
-              | "airlines_air_carriers"
-              | "airports_flying_fields"
-              | "ambulance_services"
-              | "amusement_parks_carnivals"
-              | "antique_reproductions"
-              | "antique_shops"
-              | "aquariums"
-              | "architectural_surveying_services"
-              | "art_dealers_and_galleries"
-              | "artists_supply_and_craft_shops"
-              | "auto_and_home_supply_stores"
-              | "auto_body_repair_shops"
-              | "auto_paint_shops"
-              | "auto_service_shops"
-              | "automated_cash_disburse"
-              | "automated_fuel_dispensers"
-              | "automobile_associations"
-              | "automotive_parts_and_accessories_stores"
-              | "automotive_tire_stores"
-              | "bail_and_bond_payments"
-              | "bakeries"
-              | "bands_orchestras"
-              | "barber_and_beauty_shops"
-              | "betting_casino_gambling"
-              | "bicycle_shops"
-              | "billiard_pool_establishments"
-              | "boat_dealers"
-              | "boat_rentals_and_leases"
-              | "book_stores"
-              | "books_periodicals_and_newspapers"
-              | "bowling_alleys"
-              | "bus_lines"
-              | "business_secretarial_schools"
-              | "buying_shopping_services"
-              | "cable_satellite_and_other_pay_television_and_radio"
-              | "camera_and_photographic_supply_stores"
-              | "candy_nut_and_confectionery_stores"
-              | "car_and_truck_dealers_new_used"
-              | "car_and_truck_dealers_used_only"
-              | "car_rental_agencies"
-              | "car_washes"
-              | "carpentry_services"
-              | "carpet_upholstery_cleaning"
-              | "caterers"
-              | "charitable_and_social_service_organizations_fundraising"
-              | "chemicals_and_allied_products"
-              | "child_care_services"
-              | "childrens_and_infants_wear_stores"
-              | "chiropodists_podiatrists"
-              | "chiropractors"
-              | "cigar_stores_and_stands"
-              | "civic_social_fraternal_associations"
-              | "cleaning_and_maintenance"
-              | "clothing_rental"
-              | "colleges_universities"
-              | "commercial_equipment"
-              | "commercial_footwear"
-              | "commercial_photography_art_and_graphics"
-              | "commuter_transport_and_ferries"
-              | "computer_network_services"
-              | "computer_programming"
-              | "computer_repair"
-              | "computer_software_stores"
-              | "computers_peripherals_and_software"
-              | "concrete_work_services"
-              | "construction_materials"
-              | "consulting_public_relations"
-              | "correspondence_schools"
-              | "cosmetic_stores"
-              | "counseling_services"
-              | "country_clubs"
-              | "courier_services"
-              | "court_costs"
-              | "credit_reporting_agencies"
-              | "cruise_lines"
-              | "dairy_products_stores"
-              | "dance_hall_studios_schools"
-              | "dating_escort_services"
-              | "dentists_orthodontists"
-              | "department_stores"
-              | "detective_agencies"
-              | "digital_goods_applications"
-              | "digital_goods_games"
-              | "digital_goods_large_volume"
-              | "digital_goods_media"
-              | "direct_marketing_catalog_merchant"
-              | "direct_marketing_combination_catalog_and_retail_merchant"
-              | "direct_marketing_inbound_telemarketing"
-              | "direct_marketing_insurance_services"
-              | "direct_marketing_other"
-              | "direct_marketing_outbound_telemarketing"
-              | "direct_marketing_subscription"
-              | "direct_marketing_travel"
-              | "discount_stores"
-              | "doctors"
-              | "door_to_door_sales"
-              | "drapery_window_covering_and_upholstery_stores"
-              | "drinking_places"
-              | "drug_stores_and_pharmacies"
-              | "drugs_drug_proprietaries_and_druggist_sundries"
-              | "dry_cleaners"
-              | "durable_goods"
-              | "duty_free_stores"
-              | "eating_places_restaurants"
-              | "educational_services"
-              | "electric_razor_stores"
-              | "electrical_parts_and_equipment"
-              | "electrical_services"
-              | "electronics_repair_shops"
-              | "electronics_stores"
-              | "elementary_secondary_schools"
-              | "employment_temp_agencies"
-              | "equipment_rental"
-              | "exterminating_services"
-              | "family_clothing_stores"
-              | "fast_food_restaurants"
-              | "financial_institutions"
-              | "fines_government_administrative_entities"
-              | "fireplace_fireplace_screens_and_accessories_stores"
-              | "floor_covering_stores"
-              | "florists"
-              | "florists_supplies_nursery_stock_and_flowers"
-              | "freezer_and_locker_meat_provisioners"
-              | "fuel_dealers_non_automotive"
-              | "funeral_services_crematories"
-              | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-              | "furniture_repair_refinishing"
-              | "furriers_and_fur_shops"
-              | "general_services"
-              | "gift_card_novelty_and_souvenir_shops"
-              | "glass_paint_and_wallpaper_stores"
-              | "glassware_crystal_stores"
-              | "golf_courses_public"
-              | "government_services"
-              | "grocery_stores_supermarkets"
-              | "hardware_equipment_and_supplies"
-              | "hardware_stores"
-              | "health_and_beauty_spas"
-              | "hearing_aids_sales_and_supplies"
-              | "heating_plumbing_a_c"
-              | "hobby_toy_and_game_shops"
-              | "home_supply_warehouse_stores"
-              | "hospitals"
-              | "hotels_motels_and_resorts"
-              | "household_appliance_stores"
-              | "industrial_supplies"
-              | "information_retrieval_services"
-              | "insurance_default"
-              | "insurance_underwriting_premiums"
-              | "intra_company_purchases"
-              | "jewelry_stores_watches_clocks_and_silverware_stores"
-              | "landscaping_services"
-              | "laundries"
-              | "laundry_cleaning_services"
-              | "legal_services_attorneys"
-              | "luggage_and_leather_goods_stores"
-              | "lumber_building_materials_stores"
-              | "manual_cash_disburse"
-              | "marinas_service_and_supplies"
-              | "masonry_stonework_and_plaster"
-              | "massage_parlors"
-              | "medical_and_dental_labs"
-              | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-              | "medical_services"
-              | "membership_organizations"
-              | "mens_and_boys_clothing_and_accessories_stores"
-              | "mens_womens_clothing_stores"
-              | "metal_service_centers"
-              | "miscellaneous"
-              | "miscellaneous_apparel_and_accessory_shops"
-              | "miscellaneous_auto_dealers"
-              | "miscellaneous_business_services"
-              | "miscellaneous_food_stores"
-              | "miscellaneous_general_merchandise"
-              | "miscellaneous_general_services"
-              | "miscellaneous_home_furnishing_specialty_stores"
-              | "miscellaneous_publishing_and_printing"
-              | "miscellaneous_recreation_services"
-              | "miscellaneous_repair_shops"
-              | "miscellaneous_specialty_retail"
-              | "mobile_home_dealers"
-              | "motion_picture_theaters"
-              | "motor_freight_carriers_and_trucking"
-              | "motor_homes_dealers"
-              | "motor_vehicle_supplies_and_new_parts"
-              | "motorcycle_shops_and_dealers"
-              | "motorcycle_shops_dealers"
-              | "music_stores_musical_instruments_pianos_and_sheet_music"
-              | "news_dealers_and_newsstands"
-              | "non_fi_money_orders"
-              | "non_fi_stored_value_card_purchase_load"
-              | "nondurable_goods"
-              | "nurseries_lawn_and_garden_supply_stores"
-              | "nursing_personal_care"
-              | "office_and_commercial_furniture"
-              | "opticians_eyeglasses"
-              | "optometrists_ophthalmologist"
-              | "orthopedic_goods_prosthetic_devices"
-              | "osteopaths"
-              | "package_stores_beer_wine_and_liquor"
-              | "paints_varnishes_and_supplies"
-              | "parking_lots_garages"
-              | "passenger_railways"
-              | "pawn_shops"
-              | "pet_shops_pet_food_and_supplies"
-              | "petroleum_and_petroleum_products"
-              | "photo_developing"
-              | "photographic_photocopy_microfilm_equipment_and_supplies"
-              | "photographic_studios"
-              | "picture_video_production"
-              | "piece_goods_notions_and_other_dry_goods"
-              | "plumbing_heating_equipment_and_supplies"
-              | "political_organizations"
-              | "postal_services_government_only"
-              | "precious_stones_and_metals_watches_and_jewelry"
-              | "professional_services"
-              | "public_warehousing_and_storage"
-              | "quick_copy_repro_and_blueprint"
-              | "railroads"
-              | "real_estate_agents_and_managers_rentals"
-              | "record_stores"
-              | "recreational_vehicle_rentals"
-              | "religious_goods_stores"
-              | "religious_organizations"
-              | "roofing_siding_sheet_metal"
-              | "secretarial_support_services"
-              | "security_brokers_dealers"
-              | "service_stations"
-              | "sewing_needlework_fabric_and_piece_goods_stores"
-              | "shoe_repair_hat_cleaning"
-              | "shoe_stores"
-              | "small_appliance_repair"
-              | "snowmobile_dealers"
-              | "special_trade_services"
-              | "specialty_cleaning"
-              | "sporting_goods_stores"
-              | "sporting_recreation_camps"
-              | "sports_and_riding_apparel_stores"
-              | "sports_clubs_fields"
-              | "stamp_and_coin_stores"
-              | "stationary_office_supplies_printing_and_writing_paper"
-              | "stationery_stores_office_and_school_supply_stores"
-              | "swimming_pools_sales"
-              | "t_ui_travel_germany"
-              | "tailors_alterations"
-              | "tax_payments_government_agencies"
-              | "tax_preparation_services"
-              | "taxicabs_limousines"
-              | "telecommunication_equipment_and_telephone_sales"
-              | "telecommunication_services"
-              | "telegraph_services"
-              | "tent_and_awning_shops"
-              | "testing_laboratories"
-              | "theatrical_ticket_agencies"
-              | "timeshares"
-              | "tire_retreading_and_repair"
-              | "tolls_bridge_fees"
-              | "tourist_attractions_and_exhibits"
-              | "towing_services"
-              | "trailer_parks_campgrounds"
-              | "transportation_services"
-              | "travel_agencies_tour_operators"
-              | "truck_stop_iteration"
-              | "truck_utility_trailer_rentals"
-              | "typesetting_plate_making_and_related_services"
-              | "typewriter_stores"
-              | "u_s_federal_government_agencies_or_departments"
-              | "uniforms_commercial_clothing"
-              | "used_merchandise_and_secondhand_stores"
-              | "utilities"
-              | "variety_stores"
-              | "veterinary_services"
-              | "video_amusement_game_supplies"
-              | "video_game_arcades"
-              | "video_tape_rental_stores"
-              | "vocational_trade_schools"
-              | "watch_jewelry_repair"
-              | "welding_repair"
-              | "wholesale_clubs"
-              | "wig_and_toupee_stores"
-              | "wires_money_orders"
-              | "womens_accessory_and_specialty_shops"
-              | "womens_ready_to_wear_stores"
-              | "wrecking_and_salvage_yards"
-            )[];
-            interval:
-              | "all_time"
-              | "daily"
-              | "monthly"
-              | "per_authorization"
-              | "weekly"
-              | "yearly";
-          }[];
-        };
-        /** Whether authorizations can be approved on this card. Defaults to `inactive`. */
-        status?: "active" | "inactive";
-        /** The type of card to issue. Possible values are `physical` or `virtual`. */
-        type: "physical" | "virtual";
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["issuing.card"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves an Issuing <code>Card</code> object.</p> */
-  GetIssuingCardsCard: {
-    parameters: {
-      path: {
-        card: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["issuing.card"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Updates the specified Issuing <code>Card</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
-  PostIssuingCardsCard: {
-    parameters: {
-      path: {
-        card: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Reason why the `status` of this card is `canceled`. */
-        cancellation_reason?: "lost" | "stolen";
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** Spending rules that give you some control over how your cards can be used. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details. */
-        spending_controls?: {
-          allowed_categories?: (
-            | "ac_refrigeration_repair"
-            | "accounting_bookkeeping_services"
-            | "advertising_services"
-            | "agricultural_cooperative"
-            | "airlines_air_carriers"
-            | "airports_flying_fields"
-            | "ambulance_services"
-            | "amusement_parks_carnivals"
-            | "antique_reproductions"
-            | "antique_shops"
-            | "aquariums"
-            | "architectural_surveying_services"
-            | "art_dealers_and_galleries"
-            | "artists_supply_and_craft_shops"
-            | "auto_and_home_supply_stores"
-            | "auto_body_repair_shops"
-            | "auto_paint_shops"
-            | "auto_service_shops"
-            | "automated_cash_disburse"
-            | "automated_fuel_dispensers"
-            | "automobile_associations"
-            | "automotive_parts_and_accessories_stores"
-            | "automotive_tire_stores"
-            | "bail_and_bond_payments"
-            | "bakeries"
-            | "bands_orchestras"
-            | "barber_and_beauty_shops"
-            | "betting_casino_gambling"
-            | "bicycle_shops"
-            | "billiard_pool_establishments"
-            | "boat_dealers"
-            | "boat_rentals_and_leases"
-            | "book_stores"
-            | "books_periodicals_and_newspapers"
-            | "bowling_alleys"
-            | "bus_lines"
-            | "business_secretarial_schools"
-            | "buying_shopping_services"
-            | "cable_satellite_and_other_pay_television_and_radio"
-            | "camera_and_photographic_supply_stores"
-            | "candy_nut_and_confectionery_stores"
-            | "car_and_truck_dealers_new_used"
-            | "car_and_truck_dealers_used_only"
-            | "car_rental_agencies"
-            | "car_washes"
-            | "carpentry_services"
-            | "carpet_upholstery_cleaning"
-            | "caterers"
-            | "charitable_and_social_service_organizations_fundraising"
-            | "chemicals_and_allied_products"
-            | "child_care_services"
-            | "childrens_and_infants_wear_stores"
-            | "chiropodists_podiatrists"
-            | "chiropractors"
-            | "cigar_stores_and_stands"
-            | "civic_social_fraternal_associations"
-            | "cleaning_and_maintenance"
-            | "clothing_rental"
-            | "colleges_universities"
-            | "commercial_equipment"
-            | "commercial_footwear"
-            | "commercial_photography_art_and_graphics"
-            | "commuter_transport_and_ferries"
-            | "computer_network_services"
-            | "computer_programming"
-            | "computer_repair"
-            | "computer_software_stores"
-            | "computers_peripherals_and_software"
-            | "concrete_work_services"
-            | "construction_materials"
-            | "consulting_public_relations"
-            | "correspondence_schools"
-            | "cosmetic_stores"
-            | "counseling_services"
-            | "country_clubs"
-            | "courier_services"
-            | "court_costs"
-            | "credit_reporting_agencies"
-            | "cruise_lines"
-            | "dairy_products_stores"
-            | "dance_hall_studios_schools"
-            | "dating_escort_services"
-            | "dentists_orthodontists"
-            | "department_stores"
-            | "detective_agencies"
-            | "digital_goods_applications"
-            | "digital_goods_games"
-            | "digital_goods_large_volume"
-            | "digital_goods_media"
-            | "direct_marketing_catalog_merchant"
-            | "direct_marketing_combination_catalog_and_retail_merchant"
-            | "direct_marketing_inbound_telemarketing"
-            | "direct_marketing_insurance_services"
-            | "direct_marketing_other"
-            | "direct_marketing_outbound_telemarketing"
-            | "direct_marketing_subscription"
-            | "direct_marketing_travel"
-            | "discount_stores"
-            | "doctors"
-            | "door_to_door_sales"
-            | "drapery_window_covering_and_upholstery_stores"
-            | "drinking_places"
-            | "drug_stores_and_pharmacies"
-            | "drugs_drug_proprietaries_and_druggist_sundries"
-            | "dry_cleaners"
-            | "durable_goods"
-            | "duty_free_stores"
-            | "eating_places_restaurants"
-            | "educational_services"
-            | "electric_razor_stores"
-            | "electrical_parts_and_equipment"
-            | "electrical_services"
-            | "electronics_repair_shops"
-            | "electronics_stores"
-            | "elementary_secondary_schools"
-            | "employment_temp_agencies"
-            | "equipment_rental"
-            | "exterminating_services"
-            | "family_clothing_stores"
-            | "fast_food_restaurants"
-            | "financial_institutions"
-            | "fines_government_administrative_entities"
-            | "fireplace_fireplace_screens_and_accessories_stores"
-            | "floor_covering_stores"
-            | "florists"
-            | "florists_supplies_nursery_stock_and_flowers"
-            | "freezer_and_locker_meat_provisioners"
-            | "fuel_dealers_non_automotive"
-            | "funeral_services_crematories"
-            | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-            | "furniture_repair_refinishing"
-            | "furriers_and_fur_shops"
-            | "general_services"
-            | "gift_card_novelty_and_souvenir_shops"
-            | "glass_paint_and_wallpaper_stores"
-            | "glassware_crystal_stores"
-            | "golf_courses_public"
-            | "government_services"
-            | "grocery_stores_supermarkets"
-            | "hardware_equipment_and_supplies"
-            | "hardware_stores"
-            | "health_and_beauty_spas"
-            | "hearing_aids_sales_and_supplies"
-            | "heating_plumbing_a_c"
-            | "hobby_toy_and_game_shops"
-            | "home_supply_warehouse_stores"
-            | "hospitals"
-            | "hotels_motels_and_resorts"
-            | "household_appliance_stores"
-            | "industrial_supplies"
-            | "information_retrieval_services"
-            | "insurance_default"
-            | "insurance_underwriting_premiums"
-            | "intra_company_purchases"
-            | "jewelry_stores_watches_clocks_and_silverware_stores"
-            | "landscaping_services"
-            | "laundries"
-            | "laundry_cleaning_services"
-            | "legal_services_attorneys"
-            | "luggage_and_leather_goods_stores"
-            | "lumber_building_materials_stores"
-            | "manual_cash_disburse"
-            | "marinas_service_and_supplies"
-            | "masonry_stonework_and_plaster"
-            | "massage_parlors"
-            | "medical_and_dental_labs"
-            | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-            | "medical_services"
-            | "membership_organizations"
-            | "mens_and_boys_clothing_and_accessories_stores"
-            | "mens_womens_clothing_stores"
-            | "metal_service_centers"
-            | "miscellaneous"
-            | "miscellaneous_apparel_and_accessory_shops"
-            | "miscellaneous_auto_dealers"
-            | "miscellaneous_business_services"
-            | "miscellaneous_food_stores"
-            | "miscellaneous_general_merchandise"
-            | "miscellaneous_general_services"
-            | "miscellaneous_home_furnishing_specialty_stores"
-            | "miscellaneous_publishing_and_printing"
-            | "miscellaneous_recreation_services"
-            | "miscellaneous_repair_shops"
-            | "miscellaneous_specialty_retail"
-            | "mobile_home_dealers"
-            | "motion_picture_theaters"
-            | "motor_freight_carriers_and_trucking"
-            | "motor_homes_dealers"
-            | "motor_vehicle_supplies_and_new_parts"
-            | "motorcycle_shops_and_dealers"
-            | "motorcycle_shops_dealers"
-            | "music_stores_musical_instruments_pianos_and_sheet_music"
-            | "news_dealers_and_newsstands"
-            | "non_fi_money_orders"
-            | "non_fi_stored_value_card_purchase_load"
-            | "nondurable_goods"
-            | "nurseries_lawn_and_garden_supply_stores"
-            | "nursing_personal_care"
-            | "office_and_commercial_furniture"
-            | "opticians_eyeglasses"
-            | "optometrists_ophthalmologist"
-            | "orthopedic_goods_prosthetic_devices"
-            | "osteopaths"
-            | "package_stores_beer_wine_and_liquor"
-            | "paints_varnishes_and_supplies"
-            | "parking_lots_garages"
-            | "passenger_railways"
-            | "pawn_shops"
-            | "pet_shops_pet_food_and_supplies"
-            | "petroleum_and_petroleum_products"
-            | "photo_developing"
-            | "photographic_photocopy_microfilm_equipment_and_supplies"
-            | "photographic_studios"
-            | "picture_video_production"
-            | "piece_goods_notions_and_other_dry_goods"
-            | "plumbing_heating_equipment_and_supplies"
-            | "political_organizations"
-            | "postal_services_government_only"
-            | "precious_stones_and_metals_watches_and_jewelry"
-            | "professional_services"
-            | "public_warehousing_and_storage"
-            | "quick_copy_repro_and_blueprint"
-            | "railroads"
-            | "real_estate_agents_and_managers_rentals"
-            | "record_stores"
-            | "recreational_vehicle_rentals"
-            | "religious_goods_stores"
-            | "religious_organizations"
-            | "roofing_siding_sheet_metal"
-            | "secretarial_support_services"
-            | "security_brokers_dealers"
-            | "service_stations"
-            | "sewing_needlework_fabric_and_piece_goods_stores"
-            | "shoe_repair_hat_cleaning"
-            | "shoe_stores"
-            | "small_appliance_repair"
-            | "snowmobile_dealers"
-            | "special_trade_services"
-            | "specialty_cleaning"
-            | "sporting_goods_stores"
-            | "sporting_recreation_camps"
-            | "sports_and_riding_apparel_stores"
-            | "sports_clubs_fields"
-            | "stamp_and_coin_stores"
-            | "stationary_office_supplies_printing_and_writing_paper"
-            | "stationery_stores_office_and_school_supply_stores"
-            | "swimming_pools_sales"
-            | "t_ui_travel_germany"
-            | "tailors_alterations"
-            | "tax_payments_government_agencies"
-            | "tax_preparation_services"
-            | "taxicabs_limousines"
-            | "telecommunication_equipment_and_telephone_sales"
-            | "telecommunication_services"
-            | "telegraph_services"
-            | "tent_and_awning_shops"
-            | "testing_laboratories"
-            | "theatrical_ticket_agencies"
-            | "timeshares"
-            | "tire_retreading_and_repair"
-            | "tolls_bridge_fees"
-            | "tourist_attractions_and_exhibits"
-            | "towing_services"
-            | "trailer_parks_campgrounds"
-            | "transportation_services"
-            | "travel_agencies_tour_operators"
-            | "truck_stop_iteration"
-            | "truck_utility_trailer_rentals"
-            | "typesetting_plate_making_and_related_services"
-            | "typewriter_stores"
-            | "u_s_federal_government_agencies_or_departments"
-            | "uniforms_commercial_clothing"
-            | "used_merchandise_and_secondhand_stores"
-            | "utilities"
-            | "variety_stores"
-            | "veterinary_services"
-            | "video_amusement_game_supplies"
-            | "video_game_arcades"
-            | "video_tape_rental_stores"
-            | "vocational_trade_schools"
-            | "watch_jewelry_repair"
-            | "welding_repair"
-            | "wholesale_clubs"
-            | "wig_and_toupee_stores"
-            | "wires_money_orders"
-            | "womens_accessory_and_specialty_shops"
-            | "womens_ready_to_wear_stores"
-            | "wrecking_and_salvage_yards"
-          )[];
-          blocked_categories?: (
-            | "ac_refrigeration_repair"
-            | "accounting_bookkeeping_services"
-            | "advertising_services"
-            | "agricultural_cooperative"
-            | "airlines_air_carriers"
-            | "airports_flying_fields"
-            | "ambulance_services"
-            | "amusement_parks_carnivals"
-            | "antique_reproductions"
-            | "antique_shops"
-            | "aquariums"
-            | "architectural_surveying_services"
-            | "art_dealers_and_galleries"
-            | "artists_supply_and_craft_shops"
-            | "auto_and_home_supply_stores"
-            | "auto_body_repair_shops"
-            | "auto_paint_shops"
-            | "auto_service_shops"
-            | "automated_cash_disburse"
-            | "automated_fuel_dispensers"
-            | "automobile_associations"
-            | "automotive_parts_and_accessories_stores"
-            | "automotive_tire_stores"
-            | "bail_and_bond_payments"
-            | "bakeries"
-            | "bands_orchestras"
-            | "barber_and_beauty_shops"
-            | "betting_casino_gambling"
-            | "bicycle_shops"
-            | "billiard_pool_establishments"
-            | "boat_dealers"
-            | "boat_rentals_and_leases"
-            | "book_stores"
-            | "books_periodicals_and_newspapers"
-            | "bowling_alleys"
-            | "bus_lines"
-            | "business_secretarial_schools"
-            | "buying_shopping_services"
-            | "cable_satellite_and_other_pay_television_and_radio"
-            | "camera_and_photographic_supply_stores"
-            | "candy_nut_and_confectionery_stores"
-            | "car_and_truck_dealers_new_used"
-            | "car_and_truck_dealers_used_only"
-            | "car_rental_agencies"
-            | "car_washes"
-            | "carpentry_services"
-            | "carpet_upholstery_cleaning"
-            | "caterers"
-            | "charitable_and_social_service_organizations_fundraising"
-            | "chemicals_and_allied_products"
-            | "child_care_services"
-            | "childrens_and_infants_wear_stores"
-            | "chiropodists_podiatrists"
-            | "chiropractors"
-            | "cigar_stores_and_stands"
-            | "civic_social_fraternal_associations"
-            | "cleaning_and_maintenance"
-            | "clothing_rental"
-            | "colleges_universities"
-            | "commercial_equipment"
-            | "commercial_footwear"
-            | "commercial_photography_art_and_graphics"
-            | "commuter_transport_and_ferries"
-            | "computer_network_services"
-            | "computer_programming"
-            | "computer_repair"
-            | "computer_software_stores"
-            | "computers_peripherals_and_software"
-            | "concrete_work_services"
-            | "construction_materials"
-            | "consulting_public_relations"
-            | "correspondence_schools"
-            | "cosmetic_stores"
-            | "counseling_services"
-            | "country_clubs"
-            | "courier_services"
-            | "court_costs"
-            | "credit_reporting_agencies"
-            | "cruise_lines"
-            | "dairy_products_stores"
-            | "dance_hall_studios_schools"
-            | "dating_escort_services"
-            | "dentists_orthodontists"
-            | "department_stores"
-            | "detective_agencies"
-            | "digital_goods_applications"
-            | "digital_goods_games"
-            | "digital_goods_large_volume"
-            | "digital_goods_media"
-            | "direct_marketing_catalog_merchant"
-            | "direct_marketing_combination_catalog_and_retail_merchant"
-            | "direct_marketing_inbound_telemarketing"
-            | "direct_marketing_insurance_services"
-            | "direct_marketing_other"
-            | "direct_marketing_outbound_telemarketing"
-            | "direct_marketing_subscription"
-            | "direct_marketing_travel"
-            | "discount_stores"
-            | "doctors"
-            | "door_to_door_sales"
-            | "drapery_window_covering_and_upholstery_stores"
-            | "drinking_places"
-            | "drug_stores_and_pharmacies"
-            | "drugs_drug_proprietaries_and_druggist_sundries"
-            | "dry_cleaners"
-            | "durable_goods"
-            | "duty_free_stores"
-            | "eating_places_restaurants"
-            | "educational_services"
-            | "electric_razor_stores"
-            | "electrical_parts_and_equipment"
-            | "electrical_services"
-            | "electronics_repair_shops"
-            | "electronics_stores"
-            | "elementary_secondary_schools"
-            | "employment_temp_agencies"
-            | "equipment_rental"
-            | "exterminating_services"
-            | "family_clothing_stores"
-            | "fast_food_restaurants"
-            | "financial_institutions"
-            | "fines_government_administrative_entities"
-            | "fireplace_fireplace_screens_and_accessories_stores"
-            | "floor_covering_stores"
-            | "florists"
-            | "florists_supplies_nursery_stock_and_flowers"
-            | "freezer_and_locker_meat_provisioners"
-            | "fuel_dealers_non_automotive"
-            | "funeral_services_crematories"
-            | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-            | "furniture_repair_refinishing"
-            | "furriers_and_fur_shops"
-            | "general_services"
-            | "gift_card_novelty_and_souvenir_shops"
-            | "glass_paint_and_wallpaper_stores"
-            | "glassware_crystal_stores"
-            | "golf_courses_public"
-            | "government_services"
-            | "grocery_stores_supermarkets"
-            | "hardware_equipment_and_supplies"
-            | "hardware_stores"
-            | "health_and_beauty_spas"
-            | "hearing_aids_sales_and_supplies"
-            | "heating_plumbing_a_c"
-            | "hobby_toy_and_game_shops"
-            | "home_supply_warehouse_stores"
-            | "hospitals"
-            | "hotels_motels_and_resorts"
-            | "household_appliance_stores"
-            | "industrial_supplies"
-            | "information_retrieval_services"
-            | "insurance_default"
-            | "insurance_underwriting_premiums"
-            | "intra_company_purchases"
-            | "jewelry_stores_watches_clocks_and_silverware_stores"
-            | "landscaping_services"
-            | "laundries"
-            | "laundry_cleaning_services"
-            | "legal_services_attorneys"
-            | "luggage_and_leather_goods_stores"
-            | "lumber_building_materials_stores"
-            | "manual_cash_disburse"
-            | "marinas_service_and_supplies"
-            | "masonry_stonework_and_plaster"
-            | "massage_parlors"
-            | "medical_and_dental_labs"
-            | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-            | "medical_services"
-            | "membership_organizations"
-            | "mens_and_boys_clothing_and_accessories_stores"
-            | "mens_womens_clothing_stores"
-            | "metal_service_centers"
-            | "miscellaneous"
-            | "miscellaneous_apparel_and_accessory_shops"
-            | "miscellaneous_auto_dealers"
-            | "miscellaneous_business_services"
-            | "miscellaneous_food_stores"
-            | "miscellaneous_general_merchandise"
-            | "miscellaneous_general_services"
-            | "miscellaneous_home_furnishing_specialty_stores"
-            | "miscellaneous_publishing_and_printing"
-            | "miscellaneous_recreation_services"
-            | "miscellaneous_repair_shops"
-            | "miscellaneous_specialty_retail"
-            | "mobile_home_dealers"
-            | "motion_picture_theaters"
-            | "motor_freight_carriers_and_trucking"
-            | "motor_homes_dealers"
-            | "motor_vehicle_supplies_and_new_parts"
-            | "motorcycle_shops_and_dealers"
-            | "motorcycle_shops_dealers"
-            | "music_stores_musical_instruments_pianos_and_sheet_music"
-            | "news_dealers_and_newsstands"
-            | "non_fi_money_orders"
-            | "non_fi_stored_value_card_purchase_load"
-            | "nondurable_goods"
-            | "nurseries_lawn_and_garden_supply_stores"
-            | "nursing_personal_care"
-            | "office_and_commercial_furniture"
-            | "opticians_eyeglasses"
-            | "optometrists_ophthalmologist"
-            | "orthopedic_goods_prosthetic_devices"
-            | "osteopaths"
-            | "package_stores_beer_wine_and_liquor"
-            | "paints_varnishes_and_supplies"
-            | "parking_lots_garages"
-            | "passenger_railways"
-            | "pawn_shops"
-            | "pet_shops_pet_food_and_supplies"
-            | "petroleum_and_petroleum_products"
-            | "photo_developing"
-            | "photographic_photocopy_microfilm_equipment_and_supplies"
-            | "photographic_studios"
-            | "picture_video_production"
-            | "piece_goods_notions_and_other_dry_goods"
-            | "plumbing_heating_equipment_and_supplies"
-            | "political_organizations"
-            | "postal_services_government_only"
-            | "precious_stones_and_metals_watches_and_jewelry"
-            | "professional_services"
-            | "public_warehousing_and_storage"
-            | "quick_copy_repro_and_blueprint"
-            | "railroads"
-            | "real_estate_agents_and_managers_rentals"
-            | "record_stores"
-            | "recreational_vehicle_rentals"
-            | "religious_goods_stores"
-            | "religious_organizations"
-            | "roofing_siding_sheet_metal"
-            | "secretarial_support_services"
-            | "security_brokers_dealers"
-            | "service_stations"
-            | "sewing_needlework_fabric_and_piece_goods_stores"
-            | "shoe_repair_hat_cleaning"
-            | "shoe_stores"
-            | "small_appliance_repair"
-            | "snowmobile_dealers"
-            | "special_trade_services"
-            | "specialty_cleaning"
-            | "sporting_goods_stores"
-            | "sporting_recreation_camps"
-            | "sports_and_riding_apparel_stores"
-            | "sports_clubs_fields"
-            | "stamp_and_coin_stores"
-            | "stationary_office_supplies_printing_and_writing_paper"
-            | "stationery_stores_office_and_school_supply_stores"
-            | "swimming_pools_sales"
-            | "t_ui_travel_germany"
-            | "tailors_alterations"
-            | "tax_payments_government_agencies"
-            | "tax_preparation_services"
-            | "taxicabs_limousines"
-            | "telecommunication_equipment_and_telephone_sales"
-            | "telecommunication_services"
-            | "telegraph_services"
-            | "tent_and_awning_shops"
-            | "testing_laboratories"
-            | "theatrical_ticket_agencies"
-            | "timeshares"
-            | "tire_retreading_and_repair"
-            | "tolls_bridge_fees"
-            | "tourist_attractions_and_exhibits"
-            | "towing_services"
-            | "trailer_parks_campgrounds"
-            | "transportation_services"
-            | "travel_agencies_tour_operators"
-            | "truck_stop_iteration"
-            | "truck_utility_trailer_rentals"
-            | "typesetting_plate_making_and_related_services"
-            | "typewriter_stores"
-            | "u_s_federal_government_agencies_or_departments"
-            | "uniforms_commercial_clothing"
-            | "used_merchandise_and_secondhand_stores"
-            | "utilities"
-            | "variety_stores"
-            | "veterinary_services"
-            | "video_amusement_game_supplies"
-            | "video_game_arcades"
-            | "video_tape_rental_stores"
-            | "vocational_trade_schools"
-            | "watch_jewelry_repair"
-            | "welding_repair"
-            | "wholesale_clubs"
-            | "wig_and_toupee_stores"
-            | "wires_money_orders"
-            | "womens_accessory_and_specialty_shops"
-            | "womens_ready_to_wear_stores"
-            | "wrecking_and_salvage_yards"
-          )[];
-          spending_limits?: {
-            amount: number;
-            categories?: (
-              | "ac_refrigeration_repair"
-              | "accounting_bookkeeping_services"
-              | "advertising_services"
-              | "agricultural_cooperative"
-              | "airlines_air_carriers"
-              | "airports_flying_fields"
-              | "ambulance_services"
-              | "amusement_parks_carnivals"
-              | "antique_reproductions"
-              | "antique_shops"
-              | "aquariums"
-              | "architectural_surveying_services"
-              | "art_dealers_and_galleries"
-              | "artists_supply_and_craft_shops"
-              | "auto_and_home_supply_stores"
-              | "auto_body_repair_shops"
-              | "auto_paint_shops"
-              | "auto_service_shops"
-              | "automated_cash_disburse"
-              | "automated_fuel_dispensers"
-              | "automobile_associations"
-              | "automotive_parts_and_accessories_stores"
-              | "automotive_tire_stores"
-              | "bail_and_bond_payments"
-              | "bakeries"
-              | "bands_orchestras"
-              | "barber_and_beauty_shops"
-              | "betting_casino_gambling"
-              | "bicycle_shops"
-              | "billiard_pool_establishments"
-              | "boat_dealers"
-              | "boat_rentals_and_leases"
-              | "book_stores"
-              | "books_periodicals_and_newspapers"
-              | "bowling_alleys"
-              | "bus_lines"
-              | "business_secretarial_schools"
-              | "buying_shopping_services"
-              | "cable_satellite_and_other_pay_television_and_radio"
-              | "camera_and_photographic_supply_stores"
-              | "candy_nut_and_confectionery_stores"
-              | "car_and_truck_dealers_new_used"
-              | "car_and_truck_dealers_used_only"
-              | "car_rental_agencies"
-              | "car_washes"
-              | "carpentry_services"
-              | "carpet_upholstery_cleaning"
-              | "caterers"
-              | "charitable_and_social_service_organizations_fundraising"
-              | "chemicals_and_allied_products"
-              | "child_care_services"
-              | "childrens_and_infants_wear_stores"
-              | "chiropodists_podiatrists"
-              | "chiropractors"
-              | "cigar_stores_and_stands"
-              | "civic_social_fraternal_associations"
-              | "cleaning_and_maintenance"
-              | "clothing_rental"
-              | "colleges_universities"
-              | "commercial_equipment"
-              | "commercial_footwear"
-              | "commercial_photography_art_and_graphics"
-              | "commuter_transport_and_ferries"
-              | "computer_network_services"
-              | "computer_programming"
-              | "computer_repair"
-              | "computer_software_stores"
-              | "computers_peripherals_and_software"
-              | "concrete_work_services"
-              | "construction_materials"
-              | "consulting_public_relations"
-              | "correspondence_schools"
-              | "cosmetic_stores"
-              | "counseling_services"
-              | "country_clubs"
-              | "courier_services"
-              | "court_costs"
-              | "credit_reporting_agencies"
-              | "cruise_lines"
-              | "dairy_products_stores"
-              | "dance_hall_studios_schools"
-              | "dating_escort_services"
-              | "dentists_orthodontists"
-              | "department_stores"
-              | "detective_agencies"
-              | "digital_goods_applications"
-              | "digital_goods_games"
-              | "digital_goods_large_volume"
-              | "digital_goods_media"
-              | "direct_marketing_catalog_merchant"
-              | "direct_marketing_combination_catalog_and_retail_merchant"
-              | "direct_marketing_inbound_telemarketing"
-              | "direct_marketing_insurance_services"
-              | "direct_marketing_other"
-              | "direct_marketing_outbound_telemarketing"
-              | "direct_marketing_subscription"
-              | "direct_marketing_travel"
-              | "discount_stores"
-              | "doctors"
-              | "door_to_door_sales"
-              | "drapery_window_covering_and_upholstery_stores"
-              | "drinking_places"
-              | "drug_stores_and_pharmacies"
-              | "drugs_drug_proprietaries_and_druggist_sundries"
-              | "dry_cleaners"
-              | "durable_goods"
-              | "duty_free_stores"
-              | "eating_places_restaurants"
-              | "educational_services"
-              | "electric_razor_stores"
-              | "electrical_parts_and_equipment"
-              | "electrical_services"
-              | "electronics_repair_shops"
-              | "electronics_stores"
-              | "elementary_secondary_schools"
-              | "employment_temp_agencies"
-              | "equipment_rental"
-              | "exterminating_services"
-              | "family_clothing_stores"
-              | "fast_food_restaurants"
-              | "financial_institutions"
-              | "fines_government_administrative_entities"
-              | "fireplace_fireplace_screens_and_accessories_stores"
-              | "floor_covering_stores"
-              | "florists"
-              | "florists_supplies_nursery_stock_and_flowers"
-              | "freezer_and_locker_meat_provisioners"
-              | "fuel_dealers_non_automotive"
-              | "funeral_services_crematories"
-              | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-              | "furniture_repair_refinishing"
-              | "furriers_and_fur_shops"
-              | "general_services"
-              | "gift_card_novelty_and_souvenir_shops"
-              | "glass_paint_and_wallpaper_stores"
-              | "glassware_crystal_stores"
-              | "golf_courses_public"
-              | "government_services"
-              | "grocery_stores_supermarkets"
-              | "hardware_equipment_and_supplies"
-              | "hardware_stores"
-              | "health_and_beauty_spas"
-              | "hearing_aids_sales_and_supplies"
-              | "heating_plumbing_a_c"
-              | "hobby_toy_and_game_shops"
-              | "home_supply_warehouse_stores"
-              | "hospitals"
-              | "hotels_motels_and_resorts"
-              | "household_appliance_stores"
-              | "industrial_supplies"
-              | "information_retrieval_services"
-              | "insurance_default"
-              | "insurance_underwriting_premiums"
-              | "intra_company_purchases"
-              | "jewelry_stores_watches_clocks_and_silverware_stores"
-              | "landscaping_services"
-              | "laundries"
-              | "laundry_cleaning_services"
-              | "legal_services_attorneys"
-              | "luggage_and_leather_goods_stores"
-              | "lumber_building_materials_stores"
-              | "manual_cash_disburse"
-              | "marinas_service_and_supplies"
-              | "masonry_stonework_and_plaster"
-              | "massage_parlors"
-              | "medical_and_dental_labs"
-              | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-              | "medical_services"
-              | "membership_organizations"
-              | "mens_and_boys_clothing_and_accessories_stores"
-              | "mens_womens_clothing_stores"
-              | "metal_service_centers"
-              | "miscellaneous"
-              | "miscellaneous_apparel_and_accessory_shops"
-              | "miscellaneous_auto_dealers"
-              | "miscellaneous_business_services"
-              | "miscellaneous_food_stores"
-              | "miscellaneous_general_merchandise"
-              | "miscellaneous_general_services"
-              | "miscellaneous_home_furnishing_specialty_stores"
-              | "miscellaneous_publishing_and_printing"
-              | "miscellaneous_recreation_services"
-              | "miscellaneous_repair_shops"
-              | "miscellaneous_specialty_retail"
-              | "mobile_home_dealers"
-              | "motion_picture_theaters"
-              | "motor_freight_carriers_and_trucking"
-              | "motor_homes_dealers"
-              | "motor_vehicle_supplies_and_new_parts"
-              | "motorcycle_shops_and_dealers"
-              | "motorcycle_shops_dealers"
-              | "music_stores_musical_instruments_pianos_and_sheet_music"
-              | "news_dealers_and_newsstands"
-              | "non_fi_money_orders"
-              | "non_fi_stored_value_card_purchase_load"
-              | "nondurable_goods"
-              | "nurseries_lawn_and_garden_supply_stores"
-              | "nursing_personal_care"
-              | "office_and_commercial_furniture"
-              | "opticians_eyeglasses"
-              | "optometrists_ophthalmologist"
-              | "orthopedic_goods_prosthetic_devices"
-              | "osteopaths"
-              | "package_stores_beer_wine_and_liquor"
-              | "paints_varnishes_and_supplies"
-              | "parking_lots_garages"
-              | "passenger_railways"
-              | "pawn_shops"
-              | "pet_shops_pet_food_and_supplies"
-              | "petroleum_and_petroleum_products"
-              | "photo_developing"
-              | "photographic_photocopy_microfilm_equipment_and_supplies"
-              | "photographic_studios"
-              | "picture_video_production"
-              | "piece_goods_notions_and_other_dry_goods"
-              | "plumbing_heating_equipment_and_supplies"
-              | "political_organizations"
-              | "postal_services_government_only"
-              | "precious_stones_and_metals_watches_and_jewelry"
-              | "professional_services"
-              | "public_warehousing_and_storage"
-              | "quick_copy_repro_and_blueprint"
-              | "railroads"
-              | "real_estate_agents_and_managers_rentals"
-              | "record_stores"
-              | "recreational_vehicle_rentals"
-              | "religious_goods_stores"
-              | "religious_organizations"
-              | "roofing_siding_sheet_metal"
-              | "secretarial_support_services"
-              | "security_brokers_dealers"
-              | "service_stations"
-              | "sewing_needlework_fabric_and_piece_goods_stores"
-              | "shoe_repair_hat_cleaning"
-              | "shoe_stores"
-              | "small_appliance_repair"
-              | "snowmobile_dealers"
-              | "special_trade_services"
-              | "specialty_cleaning"
-              | "sporting_goods_stores"
-              | "sporting_recreation_camps"
-              | "sports_and_riding_apparel_stores"
-              | "sports_clubs_fields"
-              | "stamp_and_coin_stores"
-              | "stationary_office_supplies_printing_and_writing_paper"
-              | "stationery_stores_office_and_school_supply_stores"
-              | "swimming_pools_sales"
-              | "t_ui_travel_germany"
-              | "tailors_alterations"
-              | "tax_payments_government_agencies"
-              | "tax_preparation_services"
-              | "taxicabs_limousines"
-              | "telecommunication_equipment_and_telephone_sales"
-              | "telecommunication_services"
-              | "telegraph_services"
-              | "tent_and_awning_shops"
-              | "testing_laboratories"
-              | "theatrical_ticket_agencies"
-              | "timeshares"
-              | "tire_retreading_and_repair"
-              | "tolls_bridge_fees"
-              | "tourist_attractions_and_exhibits"
-              | "towing_services"
-              | "trailer_parks_campgrounds"
-              | "transportation_services"
-              | "travel_agencies_tour_operators"
-              | "truck_stop_iteration"
-              | "truck_utility_trailer_rentals"
-              | "typesetting_plate_making_and_related_services"
-              | "typewriter_stores"
-              | "u_s_federal_government_agencies_or_departments"
-              | "uniforms_commercial_clothing"
-              | "used_merchandise_and_secondhand_stores"
-              | "utilities"
-              | "variety_stores"
-              | "veterinary_services"
-              | "video_amusement_game_supplies"
-              | "video_game_arcades"
-              | "video_tape_rental_stores"
-              | "vocational_trade_schools"
-              | "watch_jewelry_repair"
-              | "welding_repair"
-              | "wholesale_clubs"
-              | "wig_and_toupee_stores"
-              | "wires_money_orders"
-              | "womens_accessory_and_specialty_shops"
-              | "womens_ready_to_wear_stores"
-              | "wrecking_and_salvage_yards"
-            )[];
-            interval:
-              | "all_time"
-              | "daily"
-              | "monthly"
-              | "per_authorization"
-              | "weekly"
-              | "yearly";
-          }[];
-        };
-        /** Dictates whether authorizations can be approved on this card. If this card is being canceled because it was lost or stolen, this information should be provided as `cancellation_reason`. */
-        status?: "active" | "canceled" | "inactive";
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["issuing.card"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of Issuing <code>Dispute</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
-  GetIssuingDisputes: {
-    parameters: {
-      query: {
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["issuing.dispute"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Creates an Issuing <code>Dispute</code> object.</p> */
-  PostIssuingDisputes: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["issuing.dispute"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves an Issuing <code>Dispute</code> object.</p> */
-  GetIssuingDisputesDispute: {
-    parameters: {
-      path: {
-        dispute: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["issuing.dispute"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Updates the specified Issuing <code>Dispute</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
-  PostIssuingDisputesDispute: {
-    parameters: {
-      path: {
-        dispute: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["issuing.dispute"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of Issuing <code>Settlement</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
-  GetIssuingSettlements: {
-    parameters: {
-      query: {
-        /** Only return issuing settlements that were created during the given date interval. */
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["issuing.settlement"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves an Issuing <code>Settlement</code> object.</p> */
-  GetIssuingSettlementsSettlement: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        settlement: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["issuing.settlement"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Updates the specified Issuing <code>Settlement</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
-  PostIssuingSettlementsSettlement: {
-    parameters: {
-      path: {
-        settlement: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["issuing.settlement"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of Issuing <code>Transaction</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
-  GetIssuingTransactions: {
-    parameters: {
-      query: {
-        /** Only return transactions that belong to the given card. */
-        card?: string;
-        /** Only return transactions that belong to the given cardholder. */
-        cardholder?: string;
-        /** Only return transactions that were created during the given date interval. */
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["issuing.transaction"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves an Issuing <code>Transaction</code> object.</p> */
-  GetIssuingTransactionsTransaction: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        transaction: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["issuing.transaction"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Updates the specified Issuing <code>Transaction</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
-  PostIssuingTransactionsTransaction: {
-    parameters: {
-      path: {
-        transaction: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["issuing.transaction"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves a Mandate object.</p> */
-  GetMandatesMandate: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        mandate: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["mandate"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of your order returns. The returns are returned sorted by creation date, with the most recently created return appearing first.</p> */
-  GetOrderReturns: {
-    parameters: {
-      query: {
-        /** Date this return was created. */
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** The order to retrieve returns for. */
-        order?: string;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["order_return"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the details of an existing order return. Supply the unique order ID from either an order return creation request or the order return list, and Stripe will return the corresponding order information.</p> */
-  GetOrderReturnsId: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["order_return"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of your orders. The orders are returned sorted by creation date, with the most recently created orders appearing first.</p> */
-  GetOrders: {
-    parameters: {
-      query: {
-        /** Date this order was created. */
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** Only return orders for the given customer. */
-        customer?: string;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Only return orders with the given IDs. */
-        ids?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-        /** Only return orders that have the given status. One of `created`, `paid`, `fulfilled`, or `refunded`. */
-        status?: string;
-        /** Filter orders based on when they were paid, fulfilled, canceled, or returned. */
-        status_transitions?: {
-          canceled?: Partial<{
-            gt?: number;
-            gte?: number;
-            lt?: number;
-            lte?: number;
-          }> &
-            Partial<number>;
-          fulfilled?: Partial<{
-            gt?: number;
-            gte?: number;
-            lt?: number;
-            lte?: number;
-          }> &
-            Partial<number>;
-          paid?: Partial<{
-            gt?: number;
-            gte?: number;
-            lt?: number;
-            lte?: number;
-          }> &
-            Partial<number>;
-          returned?: Partial<{
-            gt?: number;
-            gte?: number;
-            lt?: number;
-            lte?: number;
-          }> &
-            Partial<number>;
-        };
-        /** Only return orders with the given upstream order IDs. */
-        upstream_ids?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["order"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Creates a new order object.</p> */
-  PostOrders: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** A coupon code that represents a discount to be applied to this order. Must be one-time duration and in same currency as the order. An order can have multiple coupons. */
-        coupon?: string;
-        /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-        currency: string;
-        /** The ID of an existing customer to use for this order. If provided, the customer email and shipping address will be used to create the order. Subsequently, the customer will also be charged to pay the order. If `email` or `shipping` are also provided, they will override the values retrieved from the customer object. */
-        customer?: string;
-        /** The email address of the customer placing the order. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** List of items constituting the order. An order can have up to 25 items. */
-        items?: {
-          amount?: number;
-          currency?: string;
-          description?: string;
-          parent?: string;
-          quantity?: number;
-          type?: "discount" | "shipping" | "sku" | "tax";
-        }[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true. */
-        shipping?: {
-          address: {
-            city?: string;
-            country?: string;
-            line1: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          name: string;
-          phone?: string;
-        };
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["order"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the details of an existing order. Supply the unique order ID from either an order creation request or the order list, and Stripe will return the corresponding order information.</p> */
-  GetOrdersId: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["order"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Updates the specific order by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
-  PostOrdersId: {
-    parameters: {
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** A coupon code that represents a discount to be applied to this order. Must be one-time duration and in same currency as the order. An order can have multiple coupons. */
-        coupon?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** The shipping method to select for fulfilling this order. If specified, must be one of the `id`s of a shipping method in the `shipping_methods` array. If specified, will overwrite the existing selected shipping method, updating `items` as necessary. */
-        selected_shipping_method?: string;
-        /** Tracking information once the order has been fulfilled. */
-        shipping?: {
-          carrier: string;
-          tracking_number: string;
-        };
-        /** Current order status. One of `created`, `paid`, `canceled`, `fulfilled`, or `returned`. More detail in the [Orders Guide](https://stripe.com/docs/orders/guide#understanding-order-statuses). */
-        status?: "canceled" | "created" | "fulfilled" | "paid" | "returned";
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["order"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Pay an order by providing a <code>source</code> to create a payment.</p> */
-  PostOrdersIdPay: {
-    parameters: {
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** A fee in %s that will be applied to the order and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the `Stripe-Account` header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees). */
-        application_fee?: number;
-        /** The ID of an existing customer that will be charged for this order. If no customer was attached to the order at creation, either `source` or `customer` is required. Otherwise, the specified customer will be charged instead of the one attached to the order. */
-        customer?: string;
-        /** The email address of the customer placing the order. Required if not previously specified for the order. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** A [Token](https://stripe.com/docs/api#tokens)'s or a [Source](https://stripe.com/docs/api#sources)'s ID, as returned by [Elements](https://stripe.com/docs/elements). If no customer was attached to the order at creation, either `source` or `customer` is required. Otherwise, the specified source will be charged intead of the customer attached to the order. */
-        source?: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["order"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Return all or part of an order. The order must have a status of <code>paid</code> or <code>fulfilled</code> before it can be returned. Once all items have been returned, the order will become <code>canceled</code> or <code>returned</code> depending on which status the order started in.</p> */
-  PostOrdersIdReturns: {
-    parameters: {
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** List of items to return. */
-        items?: Partial<
-          {
-            amount?: number;
-            description?: string;
-            parent?: string;
-            quantity?: number;
-            type?: "discount" | "shipping" | "sku" | "tax";
-          }[]
-        > &
-          Partial<"">;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["order_return"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of PaymentIntents.</p> */
-  GetPaymentIntents: {
-    parameters: {
-      query: {
-        /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** Only return PaymentIntents for the customer specified by this customer ID. */
-        customer?: string;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["payment_intent"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Creates a PaymentIntent object.</p>
-   *
-   * <p>After the PaymentIntent is created, attach a payment method and <a href="/docs/api/payment_intents/confirm">confirm</a>
-   * to continue the payment. You can read more about the different payment flows
-   * available via the Payment Intents API <a href="/docs/payments/payment-intents">here</a>.</p>
-   *
-   * <p>When <code>confirm=true</code> is used during creation, it is equivalent to creating
-   * and confirming the PaymentIntent in the same call. You may use any parameters
-   * available in the <a href="/docs/api/payment_intents/confirm">confirm API</a> when <code>confirm=true</code>
-   * is supplied.</p>
-   */
-  PostPaymentIntents: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99). */
-        amount: number;
-        /**
-         * The amount of the application fee (if any) that will be applied to the
-         * payment and transferred to the application owner's Stripe account. For
-         * more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
-         */
-        application_fee_amount?: number;
-        /** Controls when the funds will be captured from the customer's account. */
-        capture_method?: "automatic" | "manual";
-        /** Set to `true` to attempt to [confirm](https://stripe.com/docs/api/payment_intents/confirm) this PaymentIntent immediately. This parameter defaults to `false`. When creating and confirming a PaymentIntent at the same time, parameters available in the [confirm](https://stripe.com/docs/api/payment_intents/confirm) API may also be provided. */
-        confirm?: boolean;
-        confirmation_method?: "automatic" | "manual";
-        /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-        currency: string;
-        /**
-         * ID of the Customer this PaymentIntent belongs to, if one exists.
-         *
-         * Payment methods attached to other Customers cannot be used with this PaymentIntent.
-         *
-         * If present in combination with [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage), this PaymentIntent's payment method will be attached to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete.
-         */
-        customer?: string;
-        /** An arbitrary string attached to the object. Often useful for displaying to users. */
-        description?: string;
-        /** Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
-        error_on_requires_action?: boolean;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** ID of the mandate to be used for this payment. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
-        mandate?: string;
-        /** This hash contains details about the Mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
-        mandate_data?: {
-          customer_acceptance: {
-            accepted_at?: number;
-            offline?: { [key: string]: any };
-            online?: {
-              ip_address: string;
-              user_agent: string;
-            };
-            type: "offline" | "online";
-          };
-        };
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** Set to `true` to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
-        off_session?: Partial<boolean> & Partial<"one_off" | "recurring">;
-        /** The Stripe account ID for which these funds are intended. For details, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
-        on_behalf_of?: string;
-        /**
-         * ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent.
-         *
-         * If this parameter is omitted with `confirm=true`, `customer.default_source` will be attached as this PaymentIntent's payment instrument to improve the migration experience for users of the Charges API. We recommend that you explicitly provide the `payment_method` going forward.
-         */
-        payment_method?: string;
-        /** Payment-method-specific configuration for this PaymentIntent. */
-        payment_method_options?: {
-          card?: Partial<{
-            installments?: {
-              enabled?: boolean;
-              plan?: Partial<{
-                count: number;
-                interval: "month";
-                type: "fixed_count";
-              }> &
-                Partial<"">;
-            };
-            request_three_d_secure?: "any" | "automatic";
-          }> &
-            Partial<"">;
-        };
-        /** The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. If this is not provided, defaults to ["card"]. */
-        payment_method_types?: string[];
-        /** Email address that the receipt for the resulting payment will be sent to. */
-        receipt_email?: string;
-        /** The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
-        return_url?: string;
-        /**
-         * Indicates that you intend to make future payments with this PaymentIntent's payment method.
-         *
-         * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-         *
-         * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-         */
-        setup_future_usage?: "off_session" | "on_session";
-        /** Shipping information for this PaymentIntent. */
-        shipping?: {
-          address: {
-            city?: string;
-            country?: string;
-            line1: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          carrier?: string;
-          name: string;
-          phone?: string;
-          tracking_number?: string;
-        };
-        /** For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
-        statement_descriptor?: string;
-        /** Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
-        statement_descriptor_suffix?: string;
-        /**
-         * The parameters used to automatically create a Transfer when the payment succeeds.
-         * For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
-         */
-        transfer_data?: {
-          amount?: number;
-          destination: string;
-        };
-        /** A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
-        transfer_group?: string;
-        /** Set to `true` only when using manual confirmation and the iOS or Android SDKs to handle additional authentication steps. */
-        use_stripe_sdk?: boolean;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payment_intent"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Retrieves the details of a PaymentIntent that has previously been created. </p>
-   *
-   * <p>Client-side retrieval using a publishable key is allowed when the <code>client_secret</code> is provided in the query string. </p>
-   *
-   * <p>When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the <a href="#payment_intent_object">payment intent</a> object reference for more details.</p>
-   */
-  GetPaymentIntentsIntent: {
-    parameters: {
-      query: {
-        /** The client secret of the PaymentIntent. Required if a publishable key is used to retrieve the source. */
-        client_secret?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        intent: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payment_intent"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Updates properties on a PaymentIntent object without confirming.</p>
-   *
-   * <p>Depending on which properties you update, you may need to confirm the
-   * PaymentIntent again. For example, updating the <code>payment_method</code> will
-   * always require you to confirm the PaymentIntent again. If you prefer to
-   * update and confirm at the same time, we recommend updating properties via
-   * the <a href="/docs/api/payment_intents/confirm">confirm API</a> instead.</p>
-   */
-  PostPaymentIntentsIntent: {
-    parameters: {
-      path: {
-        intent: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99). */
-        amount?: number;
-        /** The amount of the application fee (if any) for the resulting payment. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
-        application_fee_amount?: Partial<number> & Partial<"">;
-        /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-        currency?: string;
-        /**
-         * ID of the Customer this PaymentIntent belongs to, if one exists.
-         *
-         * Payment methods attached to other Customers cannot be used with this PaymentIntent.
-         *
-         * If present in combination with [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage), this PaymentIntent's payment method will be attached to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete.
-         */
-        customer?: string;
-        /** An arbitrary string attached to the object. Often useful for displaying to users. */
-        description?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent. */
-        payment_method?: string;
-        /** Payment-method-specific configuration for this PaymentIntent. */
-        payment_method_options?: {
-          card?: Partial<{
-            installments?: {
-              enabled?: boolean;
-              plan?: Partial<{
-                count: number;
-                interval: "month";
-                type: "fixed_count";
-              }> &
-                Partial<"">;
-            };
-            request_three_d_secure?: "any" | "automatic";
-          }> &
-            Partial<"">;
-        };
-        /** The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. */
-        payment_method_types?: string[];
-        /** Email address that the receipt for the resulting payment will be sent to. */
-        receipt_email?: Partial<string> & Partial<"">;
-        /**
-         * Indicates that you intend to make future payments with this PaymentIntent's payment method.
-         *
-         * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-         *
-         * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-         *
-         * If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-         */
-        setup_future_usage?: "" | "off_session" | "on_session";
-        /** Shipping information for this PaymentIntent. */
-        shipping?: Partial<{
-          address: {
-            city?: string;
-            country?: string;
-            line1: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          carrier?: string;
-          name: string;
-          phone?: string;
-          tracking_number?: string;
-        }> &
-          Partial<"">;
-        /** For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
-        statement_descriptor?: string;
-        /** Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
-        statement_descriptor_suffix?: string;
-        /** The parameters used to automatically create a Transfer when the payment succeeds. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
-        transfer_data?: {
-          amount?: number;
-        };
-        /** A string that identifies the resulting payment as part of a group. `transfer_group` may only be provided if it has not been set. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
-        transfer_group?: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payment_intent"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>A PaymentIntent object can be canceled when it is in one of these statuses: <code>requires_payment_method</code>, <code>requires_capture</code>, <code>requires_confirmation</code>, <code>requires_action</code>. </p>
-   *
-   * <p>Once canceled, no additional charges will be made by the PaymentIntent and any operations on the PaymentIntent will fail with an error. For PaymentIntents with <code>status='requires_capture'</code>, the remaining <code>amount_capturable</code> will automatically be refunded.</p>
-   */
-  PostPaymentIntentsIntentCancel: {
-    parameters: {
-      path: {
-        intent: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Reason for canceling this PaymentIntent. Possible values are `duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned` */
-        cancellation_reason?:
-          | "abandoned"
-          | "duplicate"
-          | "fraudulent"
-          | "requested_by_customer";
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payment_intent"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Capture the funds of an existing uncaptured PaymentIntent when its status is <code>requires_capture</code>.</p>
-   *
-   * <p>Uncaptured PaymentIntents will be canceled exactly seven days after they are created.</p>
-   *
-   * <p>Learn more about <a href="/docs/payments/capture-later">separate authorization and capture</a>.</p>
-   */
-  PostPaymentIntentsIntentCapture: {
-    parameters: {
-      path: {
-        intent: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The amount to capture from the PaymentIntent, which must be less than or equal to the original amount. Any additional amount will be automatically refunded. Defaults to the full `amount_capturable` if not provided. */
-        amount_to_capture?: number;
-        /**
-         * The amount of the application fee (if any) that will be applied to the
-         * payment and transferred to the application owner's Stripe account. For
-         * more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
-         */
-        application_fee_amount?: number;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
-        statement_descriptor?: string;
-        /** Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
-        statement_descriptor_suffix?: string;
-        /**
-         * The parameters used to automatically create a Transfer when the payment
-         * is captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
-         */
-        transfer_data?: {
-          amount?: number;
-        };
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payment_intent"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Confirm that your customer intends to pay with current or provided
-   * payment method. Upon confirmation, the PaymentIntent will attempt to initiate
-   * a payment.</p>
-   *
-   * <p>If the selected payment method requires additional authentication steps, the
-   * PaymentIntent will transition to the <code>requires_action</code> status and
-   * suggest additional actions via <code>next_action</code>. If payment fails,
-   * the PaymentIntent will transition to the <code>requires_payment_method</code> status. If
-   * payment succeeds, the PaymentIntent will transition to the <code>succeeded</code>
-   * status (or <code>requires_capture</code>, if <code>capture_method</code> is set to <code>manual</code>).</p>
-   *
-   * <p>If the <code>confirmation_method</code> is <code>automatic</code>, payment may be attempted
-   * using our <a href="/docs/stripe-js/reference#stripe-handle-card-payment">client SDKs</a>
-   * and the PaymentIntent’s <a href="#payment_intent_object-client_secret">client_secret</a>.
-   * After <code>next_action</code>s are handled by the client, no additional
-   * confirmation is required to complete the payment.</p>
-   *
-   * <p>If the <code>confirmation_method</code> is <code>manual</code>, all payment attempts must be
-   * initiated using a secret key.
-   * If any actions are required for the payment, the PaymentIntent will
-   * return to the <code>requires_confirmation</code> state
-   * after those actions are completed. Your server needs to then
-   * explicitly re-confirm the PaymentIntent to initiate the next payment
-   * attempt. Read the <a href="/docs/payments/payment-intents/web-manual">expanded documentation</a>
-   * to learn more about manual confirmation.</p>
-   */
-  PostPaymentIntentsIntentConfirm: {
-    parameters: {
-      path: {
-        intent: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The client secret of the PaymentIntent. */
-        client_secret?: string;
-        /** Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). */
-        error_on_requires_action?: boolean;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** ID of the mandate to be used for this payment. */
-        mandate?: string;
-        /** This hash contains details about the Mandate to create */
-        mandate_data?: Partial<{
-          customer_acceptance: {
-            accepted_at?: number;
-            offline?: { [key: string]: any };
-            online?: {
-              ip_address: string;
-              user_agent: string;
-            };
-            type: "offline" | "online";
-          };
-        }> &
-          Partial<{
-            customer_acceptance: {
-              online: {
-                ip_address?: string;
-                user_agent?: string;
-              };
-              type: "online";
-            };
-          }>;
-        /** Set to `true` to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). */
-        off_session?: Partial<boolean> & Partial<"one_off" | "recurring">;
-        /** ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent. */
-        payment_method?: string;
-        /** Payment-method-specific configuration for this PaymentIntent. */
-        payment_method_options?: {
-          card?: Partial<{
-            installments?: {
-              enabled?: boolean;
-              plan?: Partial<{
-                count: number;
-                interval: "month";
-                type: "fixed_count";
-              }> &
-                Partial<"">;
-            };
-            request_three_d_secure?: "any" | "automatic";
-          }> &
-            Partial<"">;
-        };
-        /** The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. */
-        payment_method_types?: string[];
-        /** Email address that the receipt for the resulting payment will be sent to. */
-        receipt_email?: Partial<string> & Partial<"">;
-        /**
-         * The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
-         * If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
-         * This parameter is only used for cards and other redirect-based payment methods.
-         */
-        return_url?: string;
-        /**
-         * Indicates that you intend to make future payments with this PaymentIntent's payment method.
-         *
-         * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-         *
-         * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-         *
-         * If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-         */
-        setup_future_usage?: "" | "off_session" | "on_session";
-        /** Shipping information for this PaymentIntent. */
-        shipping?: Partial<{
-          address: {
-            city?: string;
-            country?: string;
-            line1: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          carrier?: string;
-          name: string;
-          phone?: string;
-          tracking_number?: string;
-        }> &
-          Partial<"">;
-        /** Set to `true` only when using manual confirmation and the iOS or Android SDKs to handle additional authentication steps. */
-        use_stripe_sdk?: boolean;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payment_intent"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of PaymentMethods for a given Customer</p> */
-  GetPaymentMethods: {
-    parameters: {
-      query: {
-        /** The ID of the customer whose PaymentMethods will be retrieved. */
-        customer: string;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-        /** A required filter on the list, based on the object `type` field. */
-        type:
-          | "au_becs_debit"
-          | "card"
-          | "card_present"
-          | "fpx"
-          | "ideal"
-          | "sepa_debit";
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["payment_method"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Creates a PaymentMethod object. Read the <a href="/docs/stripe-js/reference#stripe-create-payment-method">Stripe.js reference</a> to learn how to create PaymentMethods via Stripe.js.</p> */
-  PostPaymentMethods: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account. */
-        au_becs_debit?: {
-          account_number: string;
-          bsb_number: string;
-        };
-        /** Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods. */
-        billing_details?: {
-          address?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          email?: string;
-          name?: string;
-          phone?: string;
-        };
-        /** If this is a `card` PaymentMethod, this hash contains the user's card details. For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format `card: {token: "tok_visa"}`. When creating with a card number, you must meet the requirements for [PCI compliance](https://stripe.com/docs/security#validating-pci-compliance). We strongly recommend using Stripe.js instead of interacting with this API directly. */
-        card?: Partial<{
-          cvc?: string;
-          exp_month: number;
-          exp_year: number;
-          number: string;
-        }> &
-          Partial<{
-            token: string;
-          }>;
-        /** The `Customer` to whom the original PaymentMethod is attached. */
-        customer?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method. */
-        fpx?: {
-          bank:
-            | "affin_bank"
-            | "alliance_bank"
-            | "ambank"
-            | "bank_islam"
-            | "bank_muamalat"
-            | "bank_rakyat"
-            | "bsn"
-            | "cimb"
-            | "deutsche_bank"
-            | "hong_leong_bank"
-            | "hsbc"
-            | "kfh"
-            | "maybank2e"
-            | "maybank2u"
-            | "ocbc"
-            | "pb_enterprise"
-            | "public_bank"
-            | "rhb"
-            | "standard_chartered"
-            | "uob";
-        };
-        /** If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method. */
-        ideal?: {
-          bank?:
-            | "abn_amro"
-            | "asn_bank"
-            | "bunq"
-            | "handelsbanken"
-            | "ing"
-            | "knab"
-            | "moneyou"
-            | "rabobank"
-            | "regiobank"
-            | "sns_bank"
-            | "triodos_bank"
-            | "van_lanschot";
-        };
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** The PaymentMethod to share. */
-        payment_method?: string;
-        /** If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account. */
-        sepa_debit?: {
-          iban: string;
-        };
-        /** The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type. Required unless `payment_method` is specified (see the [Cloning PaymentMethods](https://stripe.com/docs/payments/payment-methods/connect#cloning-payment-methods) guide) */
-        type?: "au_becs_debit" | "card" | "fpx" | "ideal" | "sepa_debit";
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payment_method"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves a PaymentMethod object.</p> */
-  GetPaymentMethodsPaymentMethod: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        payment_method: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payment_method"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.</p> */
-  PostPaymentMethodsPaymentMethod: {
-    parameters: {
-      path: {
-        payment_method: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods. */
-        billing_details?: {
-          address?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          email?: string;
-          name?: string;
-          phone?: string;
-        };
-        /** If this is a `card` PaymentMethod, this hash contains the user's card details. */
-        card?: {
-          exp_month?: number;
-          exp_year?: number;
-        };
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account. */
-        sepa_debit?: { [key: string]: any };
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payment_method"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Attaches a PaymentMethod object to a Customer.</p>
-   *
-   * <p>To attach a new PaymentMethod to a customer for future payments, we recommend you use a <a href="/docs/api/setup_intents">SetupIntent</a>
-   * or a PaymentIntent with <a href="/docs/api/payment_intents/create#create_payment_intent-setup_future_usage">setup_future_usage</a>.
-   * These approaches will perform any necessary steps to ensure that the PaymentMethod can be used in a future payment. Using the
-   * <code>/v1/payment_methods/:id/attach</code> endpoint does not ensure that future payments can be made with the attached PaymentMethod.
-   * See <a href="/docs/payments/payment-intents#future-usage">Optimizing cards for future payments</a> for more information about setting up future payments.</p>
-   *
-   * <p>To use this PaymentMethod as the default for invoice or subscription payments,
-   * set <a href="/docs/api/customers/update#update_customer-invoice_settings-default_payment_method"><code>invoice_settings.default_payment_method</code></a>,
-   * on the Customer to the PaymentMethod’s ID.</p>
-   */
-  PostPaymentMethodsPaymentMethodAttach: {
-    parameters: {
-      path: {
-        payment_method: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The ID of the customer to which to attach the PaymentMethod. */
-        customer: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payment_method"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Detaches a PaymentMethod object from a Customer.</p> */
-  PostPaymentMethodsPaymentMethodDetach: {
-    parameters: {
-      path: {
-        payment_method: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payment_method"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of existing payouts sent to third-party bank accounts or that Stripe has sent you. The payouts are returned in sorted order, with the most recently created payouts appearing first.</p> */
-  GetPayouts: {
-    parameters: {
-      query: {
-        arrival_date?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** The ID of an external account - only return payouts sent to this external account. */
-        destination?: string;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-        /** Only return payouts that have the given status: `pending`, `paid`, `failed`, or `canceled`. */
-        status?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["payout"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>To send funds to your own bank account, you create a new payout object. Your <a href="#balance">Stripe balance</a> must be able to cover the payout amount, or you’ll receive an “Insufficient Funds” error.</p>
-   *
-   * <p>If your API key is in test mode, money won’t actually be sent, though everything else will occur as if in live mode.</p>
-   *
-   * <p>If you are creating a manual payout on a Stripe account that uses multiple payment source types, you’ll need to specify the source type balance that the payout should draw from. The <a href="#balance_object">balance object</a> details available and pending amounts by source type.</p>
-   */
-  PostPayouts: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** A positive integer in cents representing how much to payout. */
-        amount: number;
-        /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-        currency: string;
-        /** An arbitrary string attached to the object. Often useful for displaying to users. */
-        description?: string;
-        /** The ID of a bank account or a card to send the payout to. If no destination is supplied, the default external account for the specified currency will be used. */
-        destination?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces for more information](https://stripe.com/blog/instant-payouts-for-marketplaces).) */
-        method?: "instant" | "standard";
-        /** The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the balances API. One of `bank_account`, `card`, or `fpx`. */
-        source_type?: "bank_account" | "card" | "fpx";
-        /** A string to be displayed on the recipient's bank or card statement. This may be at most 22 characters. Attempting to use a `statement_descriptor` longer than 22 characters will return an error. Note: Most banks will truncate this information and/or display it inconsistently. Some may not display it at all. */
-        statement_descriptor?: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payout"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list, and Stripe will return the corresponding payout information.</p> */
-  GetPayoutsPayout: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        payout: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payout"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Updates the specified payout by setting the values of the parameters passed. Any parameters not provided will be left unchanged. This request accepts only the metadata as arguments.</p> */
-  PostPayoutsPayout: {
-    parameters: {
-      path: {
-        payout: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payout"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>A previously created payout can be canceled if it has not yet been paid out. Funds will be refunded to your available balance. You may not cancel automatic Stripe payouts.</p> */
-  PostPayoutsPayoutCancel: {
-    parameters: {
-      path: {
-        payout: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["payout"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of your plans.</p> */
-  GetPlans: {
-    parameters: {
-      query: {
-        /** Only return plans that are active or inactive (e.g., pass `false` to list all inactive plans). */
-        active?: boolean;
-        /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** Only return plans for the given product. */
-        product?: string;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["plan"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>You can create plans using the API, or in the Stripe <a href="https://dashboard.stripe.com/subscriptions/products">Dashboard</a>.</p> */
-  PostPlans: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Whether the plan is currently available for new subscriptions. Defaults to `true`. */
-        active?: boolean;
-        /** Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`. */
-        aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum";
-        /** A positive integer in %s (or 0 for a free plan) representing how much to charge on a recurring basis. */
-        amount?: number;
-        /** Same as `amount`, but accepts a decimal value with at most 12 decimal places. Only one of `amount` and `amount_decimal` can be set. */
-        amount_decimal?: string;
-        /** Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes. */
-        billing_scheme?: "per_unit" | "tiered";
-        /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-        currency: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** An identifier randomly generated by Stripe. Used to identify this plan when subscribing a customer. You can optionally override this ID, but the ID must be unique across all plans in your Stripe account. You can, however, use the same plan ID in both live and test modes. */
-        id?: string;
-        /** Specifies billing frequency. Either `day`, `week`, `month` or `year`. */
-        interval: "day" | "month" | "week" | "year";
-        /** The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). */
-        interval_count?: number;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** A brief description of the plan, hidden from customers. */
-        nickname?: string;
-        product?: Partial<{
-          active?: boolean;
-          id?: string;
-          metadata?: { [key: string]: string };
-          name: string;
-          statement_descriptor?: string;
-          unit_label?: string;
-        }> &
-          Partial<string>;
-        /** Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
-        tiers?: {
-          flat_amount?: number;
-          flat_amount_decimal?: string;
-          unit_amount?: number;
-          unit_amount_decimal?: string;
-          up_to: Partial<"inf"> & Partial<number>;
-        }[];
-        /** Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows. */
-        tiers_mode?: "graduated" | "volume";
-        /** Apply a transformation to the reported usage or set quantity before computing the billed price. Cannot be combined with `tiers`. */
-        transform_usage?: {
-          divide_by: number;
-          round: "down" | "up";
-        };
-        /** Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan). */
-        trial_period_days?: number;
-        /** Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`. */
-        usage_type?: "licensed" | "metered";
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["plan"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Deleting plans means new subscribers can’t be added. Existing subscribers aren’t affected.</p> */
-  DeletePlansPlan: {
-    parameters: {
-      path: {
-        plan: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_plan"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves the plan with the given ID.</p> */
-  GetPlansPlan: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        plan: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["plan"];
-=======
     issuing_card_authorization_controls: {
       /** Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations permitted on this card. */
       allowed_categories?:
@@ -17778,7 +4781,8 @@ export interface components {
       type: "bulk" | "individual";
     };
     issuing_card_spending_limit: {
-      /** Maximum amount allowed to spend per time interval. */ amount: number;
+      /** Maximum amount allowed to spend per time interval. */
+      amount: number;
       /** Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) on which to apply the spending limit. Leave this blank to limit all charges. */
       categories?:
         | (
@@ -18081,7 +5085,9 @@ export interface components {
         | "weekly"
         | "yearly";
     };
-    issuing_cardholder_address: { address: components["schemas"]["address"] };
+    issuing_cardholder_address: {
+      address: components["schemas"]["address"];
+    };
     issuing_cardholder_authorization_controls: {
       /** Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations permitted on this cardholder's cards. */
       allowed_categories?:
@@ -18701,7 +5707,8 @@ export interface components {
       > | null;
     };
     issuing_cardholder_individual_dob: {
-      /** The day of birth, between 1 and 31. */ day?: number | null;
+      /** The day of birth, between 1 and 31. */
+      day?: number | null;
       /** The month of birth, between 1 and 12. */
       month?: number | null;
       /** The four-digit year of birth. */
@@ -18724,7 +5731,8 @@ export interface components {
         | null;
     };
     issuing_cardholder_spending_limit: {
-      /** Maximum amount allowed to spend per time interval. */ amount: number;
+      /** Maximum amount allowed to spend per time interval. */
+      amount: number;
       /** Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) on which to apply the spending limit. Leave this blank to limit all charges. */
       categories?:
         | (
@@ -19099,14 +6107,16 @@ export interface components {
       front?: (Partial<string> & Partial<components["schemas"]["file"]>) | null;
     };
     legal_entity_dob: {
-      /** The day of birth, between 1 and 31. */ day?: number | null;
+      /** The day of birth, between 1 and 31. */
+      day?: number | null;
       /** The month of birth, between 1 and 12. */
       month?: number | null;
       /** The four-digit year of birth. */
       year?: number | null;
     };
     legal_entity_japan_address: {
-      /** City/Ward. */ city?: string | null;
+      /** City/Ward. */
+      city?: string | null;
       /** Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)). */
       country?: string | null;
       /** Block/Building number. */
@@ -19145,7 +6155,8 @@ export interface components {
     };
     light_account_logout: { [key: string]: any };
     line_item: {
-      /** The amount, in %s. */ amount: number;
+      /** The amount, in %s. */
+      amount: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /** An arbitrary string attached to the object. Often useful for displaying to users. */
@@ -19221,12 +6232,14 @@ export interface components {
       type: string;
     };
     mandate_sepa_debit: {
-      /** The unique reference of the mandate. */ reference: string;
+      /** The unique reference of the mandate. */
+      reference: string;
       /** The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively. */
       url: string;
     };
     mandate_single_use: {
-      /** On a single use mandate, the amount of the payment. */ amount: number;
+      /** On a single use mandate, the amount of the payment. */
+      amount: number;
       /** On a single use mandate, the currency of the payment. */
       currency: string;
     };
@@ -19374,7 +6387,8 @@ export interface components {
         | null;
     };
     package_dimensions: {
-      /** Height, in inches. */ height: number;
+      /** Height, in inches. */
+      height: number;
       /** Length, in inches. */
       length: number;
       /** Weight, in ounces. */
@@ -19637,7 +6651,8 @@ export interface components {
       cvc_check?: string | null;
     };
     payment_method_card_generated_card: {
-      /** The charge that created this object. */ charge?: string | null;
+      /** The charge that created this object. */
+      charge?: string | null;
       /** Transaction-specific details of the payment method used in the payment. */
       payment_method_details?: Partial<
         components["schemas"]["payment_method_details"]
@@ -20541,7 +7556,8 @@ export interface components {
      * Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) and more about [products and plans](https://stripe.com/docs/billing/subscriptions/products-and-plans).
      */
     plan: {
-      /** Whether the plan can be used for new purchases. */ active: boolean;
+      /** Whether the plan can be used for new purchases. */
+      active: boolean;
       /** Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`. */
       aggregate_usage?:
         | ("last_during_period" | "last_ever" | "max" | "sum")
@@ -20590,7 +7606,8 @@ export interface components {
       usage_type: "licensed" | "metered";
     };
     plan_tier: {
-      /** Price for the entire tier. */ flat_amount?: number | null;
+      /** Price for the entire tier. */
+      flat_amount?: number | null;
       /** Same as `flat_amount`, but contains a decimal value with at most 12 decimal places. */
       flat_amount_decimal?: string | null;
       /** Per unit price for units relevant to the tier. */
@@ -20601,7 +7618,8 @@ export interface components {
       up_to?: number | null;
     };
     platform_tax_fee: {
-      /** The Connected account that incurred this charge. */ account: string;
+      /** The Connected account that incurred this charge. */
+      account: string;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -20691,7 +7709,8 @@ export interface components {
      * Related guide: [Default Stripe Lists](https://stripe.com/docs/radar/lists#managing-list-items).
      */
     "radar.value_list": {
-      /** The name of the value list for use in rules. */ alias: string;
+      /** The name of the value list for use in rules. */
+      alias: string;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** The name or email address of the user who created this value list. */
@@ -20749,7 +7768,8 @@ export interface components {
       value_list: string;
     };
     radar_review_resource_location: {
-      /** The city where the payment originated. */ city?: string | null;
+      /** The city where the payment originated. */
+      city?: string | null;
       /** Two-letter ISO code representing the country where the payment originated. */
       country?: string | null;
       /** The geographic latitude where the payment originated. */
@@ -20830,7 +7850,8 @@ export interface components {
      * Related guide: [Refunds](https://stripe.com/docs/refunds).
      */
     refund: {
-      /** Amount, in %s. */ amount: number;
+      /** Amount, in %s. */
+      amount: number;
       /** Balance transaction that describes the impact on your account balance. */
       balance_transaction?:
         | (Partial<string> &
@@ -21009,7 +8030,8 @@ export interface components {
       > | null;
     };
     rule: {
-      /** The action taken on the payment. */ action: string;
+      /** The action taken on the payment. */
+      action: string;
       /** Unique identifier for the object. */
       id: string;
       /** The predicate to evaluate the payment against. */
@@ -21194,7 +8216,8 @@ export interface components {
       id: string;
     };
     sigma_scheduled_query_run_error: {
-      /** Information about the run failure. */ message: string;
+      /** Information about the run failure. */
+      message: string;
     };
     /**
      * Stores representations of [stock keeping units](http://en.wikipedia.org/wiki/Stock_keeping_unit).
@@ -21207,7 +8230,8 @@ export interface components {
      * Related guide: [Tax, Shipping, and Inventory](https://stripe.com/docs/orders).
      */
     sku: {
-      /** Whether the SKU is available for purchase. */ active: boolean;
+      /** Whether the SKU is available for purchase. */
+      active: boolean;
       /** A dictionary of attributes and values for the attributes defined by the product. If, for example, a product's attributes are `["size", "gender"]`, a valid SKU has the following dictionary of attributes: `{"size": "Medium", "gender": "Unisex"}`. */
       attributes: { [key: string]: string };
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -21351,7 +8375,8 @@ export interface components {
       last4?: string;
     };
     source_mandate_notification_sepa_debit_data: {
-      /** SEPA creditor ID. */ creditor_identifier?: string;
+      /** SEPA creditor ID. */
+      creditor_identifier?: string;
       /** Last 4 digits of the account number associated with the debit. */
       last4?: string;
       /** Mandate reference associated with the debit. */
@@ -21369,7 +8394,8 @@ export interface components {
       shipping?: components["schemas"]["shipping"];
     };
     source_order_item: {
-      /** The amount (price) for this order item. */ amount?: number | null;
+      /** The amount (price) for this order item. */
+      amount?: number | null;
       /** This currency of this order item. Required when `amount` is present. */
       currency?: string | null;
       /** Human-readable description for this order item. */
@@ -21469,7 +8495,8 @@ export interface components {
         | "wechat";
     };
     source_transaction_ach_credit_transfer_data: {
-      /** Customer data associated with the transfer. */ customer_data?: string;
+      /** Customer data associated with the transfer. */
+      customer_data?: string;
       /** Bank account fingerprint associated with the transfer. */
       fingerprint?: string;
       /** Last 4 digits of the account number associated with the transfer. */
@@ -21478,7 +8505,8 @@ export interface components {
       routing_number?: string;
     };
     source_transaction_chf_credit_transfer_data: {
-      /** Reference associated with the transfer. */ reference?: string;
+      /** Reference associated with the transfer. */
+      reference?: string;
       /** Sender's country address. */
       sender_address_country?: string;
       /** Sender's line 1 address. */
@@ -21511,7 +8539,8 @@ export interface components {
       invoices?: string;
     };
     source_transaction_sepa_credit_transfer_data: {
-      /** Reference associated with the transfer. */ reference?: string;
+      /** Reference associated with the transfer. */
+      reference?: string;
       /** Sender's bank account IBAN. */
       sender_iban?: string;
       /** Sender's name. */
@@ -21649,7 +8678,9 @@ export interface components {
       refund_account_holder_name?: string | null;
       refund_iban?: string | null;
     };
-    source_type_p24: { reference?: string | null };
+    source_type_p24: {
+      reference?: string | null;
+    };
     source_type_sepa_debit: {
       bank_code?: string | null;
       branch_code?: string | null;
@@ -21693,7 +8724,8 @@ export interface components {
       statement_descriptor?: string;
     };
     status_transitions: {
-      /** The time that the order was canceled. */ canceled?: number | null;
+      /** The time that the order was canceled. */
+      canceled?: number | null;
       /** The time that the order was fulfilled. */
       fulfiled?: number | null;
       /** The time that the order was paid. */
@@ -22022,7 +9054,8 @@ export interface components {
       trial_from_plan?: boolean | null;
     };
     tax_deducted_at_source: {
-      /** Unique identifier for the object. */ id: string;
+      /** Unique identifier for the object. */
+      id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "tax_deducted_at_source";
       /** The end of the invoicing period. This TDS applies to Stripe fees collected during this invoicing period. */
@@ -22213,7 +9246,8 @@ export interface components {
       version: string;
     };
     three_d_secure_usage: {
-      /** Whether 3D Secure is supported on this card. */ supported: boolean;
+      /** Whether 3D Secure is supported on this card. */
+      supported: boolean;
     };
     /**
      * Tokenization is the process Stripe uses to collect sensitive card or bank
@@ -22265,7 +9299,8 @@ export interface components {
      * Related guide: [Topping Up your Platform Account](https://stripe.com/docs/connect/top-ups).
      */
     topup: {
-      /** Amount transferred. */ amount: number;
+      /** Amount transferred. */
+      amount: number;
       /** ID of the balance transaction that describes the impact of this top-up on your account balance. May not be specified depending on status of top-up. */
       balance_transaction?:
         | (Partial<string> &
@@ -22312,7 +9347,8 @@ export interface components {
      * Related guide: [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/charges-transfers).
      */
     transfer: {
-      /** Amount in %s to be transferred. */ amount: number;
+      /** Amount in %s to be transferred. */
+      amount: number;
       /** Amount in %s reversed (can be less than the amount attribute on the transfer if a partial reversal was issued). */
       amount_reversed: number;
       /** Balance transaction that describes the impact of this transfer on your account balance. */
@@ -22389,7 +9425,8 @@ export interface components {
      * Related guide: [Reversing Transfers](https://stripe.com/docs/connect/charges-transfers#reversing-transfers).
      */
     transfer_reversal: {
-      /** Amount, in %s. */ amount: number;
+      /** Amount, in %s. */
+      amount: number;
       /** Balance transaction that describes the impact on your account balance. */
       balance_transaction?:
         | (Partial<string> &
@@ -22427,7 +9464,8 @@ export interface components {
       weekly_anchor?: string;
     };
     transform_usage: {
-      /** Divide usage by this number. */ divide_by: number;
+      /** Divide usage by this number. */
+      divide_by: number;
       /** After division, either round the result `up` or `down`. */
       round: "down" | "up";
     };
@@ -22438,7 +9476,8 @@ export interface components {
      * Related guide: [Metered Billing](https://stripe.com/docs/billing/subscriptions/metered-billing).
      */
     usage_record: {
-      /** Unique identifier for the object. */ id: string;
+      /** Unique identifier for the object. */
+      id: string;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -22451,7 +9490,8 @@ export interface components {
       timestamp: number;
     };
     usage_record_summary: {
-      /** Unique identifier for the object. */ id: string;
+      /** Unique identifier for the object. */
+      id: string;
       /** The invoice in which this usage period has been billed for. */
       invoice?: string | null;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -22509,177 +9549,12 @@ export interface operations {
       /** Successful response. */
       200: {
         "application/json": components["schemas"]["three_d_secure"];
->>>>>>> f6ee87b (Add more items to components object)
       };
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /** <p>Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan’s ID, amount, currency, or billing cycle.</p> */
-  PostPlansPlan: {
-    parameters: {
-      path: {
-        plan: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Whether the plan is currently available for new subscriptions. */
-        active?: boolean;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** A brief description of the plan, hidden from customers. */
-        nickname?: string;
-        /** The product the plan belongs to. Note that after updating, statement descriptors and line items of the plan in active subscriptions will be affected. */
-        product?: string;
-        /** Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan). */
-        trial_period_days?: number;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["plan"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.</p> */
-  GetProducts: {
-    parameters: {
-      query: {
-        /** Only return products that are active or inactive (e.g., pass `false` to list all inactive products). */
-        active?: boolean;
-        /** Only return products that were created during the given date interval. */
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Only return products with the given IDs. */
-        ids?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** Only return products that can be shipped (i.e., physical, not digital products). */
-        shippable?: boolean;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-        /** Only return products of this type. */
-        type?: "good" | "service";
-        /** Only return products with the given url. */
-        url?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["product"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Creates a new product object. To create a product for use with orders, see <a href="#create_product">Products</a>.</p> */
-  PostProducts: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Whether the product is currently available for purchase. Defaults to `true`. */
-        active?: boolean;
-        /** A list of up to 5 alphanumeric attributes. */
-        attributes?: string[];
-        /** A short one-line description of the product, meant to be displayable to the customer. May only be set if type=`good`. */
-        caption?: string;
-        /** An array of Connect application names or identifiers that should not be able to order the SKUs for this product. May only be set if type=`good`. */
-        deactivate_on?: string[];
-        /** The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes. */
-        description?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** An identifier will be randomly generated by Stripe. You can optionally override this ID, but the ID must be unique across all products in your Stripe account. */
-        id?: string;
-        /** A list of up to 8 URLs of images for this product, meant to be displayable to the customer. */
-        images?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** The product's name, meant to be displayable to the customer. Whenever this product is sold via a subscription, name will show up on associated invoice line item descriptions. */
-        name: string;
-        /** The dimensions of this product for shipping purposes. A SKU associated with this product can override this value by having its own `package_dimensions`. May only be set if type=`good`. */
-        package_dimensions?: {
-          height: number;
-          length: number;
-          weight: number;
-          width: number;
-        };
-        /** Whether this product is shipped (i.e., physical goods). Defaults to `true`. May only be set if type=`good`. */
-        shippable?: boolean;
-        /**
-         * An arbitrary string to be displayed on your customer's credit card or bank statement. While most banks display this information consistently, some may display it incorrectly or not at all.
-         *
-         * This may be up to 22 characters. The statement description may not include `<`, `>`, `\`, `"`, `'` characters, and will appear on your customer's statement in capital letters. Non-ASCII characters are automatically stripped.
-         *  It must contain at least one letter.
-         */
-        statement_descriptor?: string;
-        /** The type of the product. Defaults to `service` if not explicitly specified, enabling use of this product with Subscriptions and Plans. Set this parameter to `good` to use this product with Orders and SKUs. On API versions before `2018-02-05`, this field defaults to `good` for compatibility reasons. */
-        type?: "good" | "service";
-        /** A label that represents units of this product in Stripe and on customers’ receipts and invoices. When set, this will be included in associated invoice line item descriptions. */
-        unit_label?: string;
-        /** A URL of a publicly-accessible webpage for this product. May only be set if type=`good`. */
-        url?: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["product"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Delete a product. Deleting a product with type=<code>good</code> is only possible if it has no SKUs associated with it. Deleting a product with type=<code>service</code> is only possible if it has no plans associated with it.</p> */
-  DeleteProductsId: {
-    parameters: {
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_product"];
-=======
     requestBody: {
       "application/x-www-form-urlencoded": {
         /** Amount of the charge that you will create when authentication completes. */
@@ -22712,89 +9587,12 @@ export interface operations {
       /** Successful response. */
       200: {
         "application/json": components["schemas"]["three_d_secure"];
->>>>>>> f6ee87b (Add more items to components object)
       };
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /** <p>Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information.</p> */
-  GetProductsId: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["product"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
-  PostProductsId: {
-    parameters: {
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Whether the product is available for purchase. */
-        active?: boolean;
-        /** A list of up to 5 alphanumeric attributes that each SKU can provide values for (e.g., `["color", "size"]`). If a value for `attributes` is specified, the list specified will replace the existing attributes list on this product. Any attributes not present after the update will be deleted from the SKUs for this product. */
-        attributes?: Partial<string[]> & Partial<"">;
-        /** A short one-line description of the product, meant to be displayable to the customer. May only be set if `type=good`. */
-        caption?: string;
-        /** An array of Connect application names or identifiers that should not be able to order the SKUs for this product. May only be set if `type=good`. */
-        deactivate_on?: string[];
-        /** The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes. */
-        description?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A list of up to 8 URLs of images for this product, meant to be displayable to the customer. */
-        images?: Partial<string[]> & Partial<"">;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** The product's name, meant to be displayable to the customer. Whenever this product is sold via a subscription, name will show up on associated invoice line item descriptions. */
-        name?: string;
-        /** The dimensions of this product for shipping purposes. A SKU associated with this product can override this value by having its own `package_dimensions`. May only be set if `type=good`. */
-        package_dimensions?: Partial<{
-          height: number;
-          length: number;
-          weight: number;
-          width: number;
-        }> &
-          Partial<"">;
-        /** Whether this product is shipped (i.e., physical goods). Defaults to `true`. May only be set if `type=good`. */
-        shippable?: boolean;
-        /**
-         * An arbitrary string to be displayed on your customer's credit card or bank statement. While most banks display this information consistently, some may display it incorrectly or not at all.
-         *
-         * This may be up to 22 characters. The statement description may not include `<`, `>`, `\`, `"`, `'` characters, and will appear on your customer's statement in capital letters. Non-ASCII characters are automatically stripped.
-         *  It must contain at least one letter. May only be set if `type=service`.
-         */
-        statement_descriptor?: string;
-        /** A label that represents units of this product in Stripe and on customers’ receipts and invoices. When set, this will be included in associated invoice line item descriptions. May only be set if `type=service`. */
-        unit_label?: string;
-        /** A URL of a publicly-accessible webpage for this product. May only be set if `type=good`. */
-        url?: string;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
@@ -22805,86 +9603,18 @@ export interface operations {
       query: {
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
->>>>>>> f6ee87b (Add more items to components object)
       };
     };
     responses: {
       /** Successful response. */
       200: {
-<<<<<<< HEAD
-        "application/json": components["schemas"]["product"];
-=======
         "application/json": components["schemas"]["account"];
->>>>>>> f6ee87b (Add more items to components object)
       };
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /** <p>Returns a list of early fraud warnings.</p> */
-  GetRadarEarlyFraudWarnings: {
-    parameters: {
-      query: {
-        /** Only return early fraud warnings for the charge specified by this charge ID. */
-        charge?: string;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["radar.early_fraud_warning"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /**
-   * <p>Retrieves the details of an early fraud warning that has previously been created. </p>
-   *
-   * <p>Please refer to the <a href="#early_fraud_warning_object">early fraud warning</a> object reference for more details.</p>
-   */
-  GetRadarEarlyFraudWarningsEarlyFraudWarning: {
-    parameters: {
-      path: {
-        early_fraud_warning: string;
-      };
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["radar.early_fraud_warning"];
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
@@ -22899,56 +9629,12 @@ export interface operations {
       /** Successful response. */
       200: {
         "application/json": components["schemas"]["account"];
->>>>>>> f6ee87b (Add more items to components object)
       };
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /** <p>Returns a list of <code>ValueListItem</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
-  GetRadarValueListItems: {
-    parameters: {
-      query: {
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-        /** Return items belonging to the parent list whose value matches the specified value (using an "is like" match). */
-        value?: string;
-        /** Identifier for the parent value list this item belongs to. */
-        value_list: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": {
-          data: components["schemas"]["radar.value_list_item"][];
-          /** True if this list has another page of items after this one that can be fetched. */
-          has_more: boolean;
-          /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-          object: "list";
-          /** The URL where this list can be accessed. */
-          url: string;
-        };
-=======
     requestBody: {
       "application/x-www-form-urlencoded": {
         /** An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
@@ -23035,7 +9721,12 @@ export interface operations {
           tax_id?: string;
           tax_id_registrar?: string;
           vat_id?: string;
-          verification?: { document?: { back?: string; front?: string } };
+          verification?: {
+            document?: {
+              back?: string;
+              front?: string;
+            };
+          };
         };
         /** Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts). */
         default_currency?: string;
@@ -23073,7 +9764,11 @@ export interface operations {
             state?: string;
             town?: string;
           };
-          dob?: Partial<{ day: number; month: number; year: number }> &
+          dob?: Partial<{
+            day: number;
+            month: number;
+            year: number;
+          }> &
             Partial<"">;
           email?: string;
           first_name?: string;
@@ -23089,8 +9784,14 @@ export interface operations {
           phone?: string;
           ssn_last_4?: string;
           verification?: {
-            additional_document?: { back?: string; front?: string };
-            document?: { back?: string; front?: string };
+            additional_document?: {
+              back?: string;
+              front?: string;
+            };
+            document?: {
+              back?: string;
+              front?: string;
+            };
           };
         };
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -23114,7 +9815,10 @@ export interface operations {
             secondary_color?: string;
           };
           card_payments?: {
-            decline_on?: { avs_failure?: boolean; cvc_failure?: boolean };
+            decline_on?: {
+              avs_failure?: boolean;
+              cvc_failure?: boolean;
+            };
             statement_descriptor_prefix?: string;
           };
           payments?: {
@@ -23141,7 +9845,11 @@ export interface operations {
           };
         };
         /** Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance). */
-        tos_acceptance?: { date?: number; ip?: string; user_agent?: string };
+        tos_acceptance?: {
+          date?: number;
+          ip?: string;
+          user_agent?: string;
+        };
       };
     };
   };
@@ -23164,7 +9872,9 @@ export interface operations {
       };
     };
     requestBody: {
-      "application/x-www-form-urlencoded": { account?: string };
+      "application/x-www-form-urlencoded": {
+        account?: string;
+      };
     };
   };
   /** <p>Create an external account for a given account.</p> */
@@ -23173,26 +9883,12 @@ export interface operations {
       /** Successful response. */
       200: {
         "application/json": components["schemas"]["external_account"];
->>>>>>> f6ee87b (Add more items to components object)
       };
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /** <p>Creates a new <code>ValueListItem</code> object, which is added to the specified parent value list.</p> */
-  PostRadarValueListItems: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** The value of the item (whose type must match the type of the parent value list). */
-        value: string;
-        /** The identifier of the value list which the created item will be added to. */
-        value_list: string;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": {
         /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
@@ -23226,40 +9922,18 @@ export interface operations {
       };
       path: {
         id: string;
->>>>>>> f6ee87b (Add more items to components object)
       };
     };
     responses: {
       /** Successful response. */
       200: {
-<<<<<<< HEAD
-        "application/json": components["schemas"]["radar.value_list_item"];
-=======
         "application/json": components["schemas"]["external_account"];
->>>>>>> f6ee87b (Add more items to components object)
       };
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /** <p>Deletes a <code>ValueListItem</code> object, removing it from its parent value list.</p> */
-  DeleteRadarValueListItemsItem: {
-    parameters: {
-      path: {
-        item: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_radar.value_list_item"];
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
@@ -23278,34 +9952,12 @@ export interface operations {
       /** Successful response. */
       200: {
         "application/json": components["schemas"]["external_account"];
->>>>>>> f6ee87b (Add more items to components object)
       };
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /** <p>Retrieves a <code>ValueListItem</code> object.</p> */
-  GetRadarValueListItemsItem: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        item: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["radar.value_list_item"];
-=======
     requestBody: {
       "application/x-www-form-urlencoded": {
         /** The name of the person or business that owns the bank account. */
@@ -23350,44 +10002,12 @@ export interface operations {
       /** Successful response. */
       200: {
         "application/json": components["schemas"]["deleted_external_account"];
->>>>>>> f6ee87b (Add more items to components object)
       };
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /** <p>Returns a list of <code>ValueList</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
-  GetRadarValueLists: {
-    parameters: {
-      query: {
-        /** The alias used to reference the value list when writing rules. */
-        alias?: string;
-        /** A value contained within a value list - returns all value lists containing this value. */
-        contains?: string;
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-        /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: number;
-        /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
@@ -23400,16 +10020,11 @@ export interface operations {
         expand?: string[];
       };
     };
->>>>>>> f6ee87b (Add more items to components object)
     responses: {
       /** Successful response. */
       200: {
         "application/json": {
-<<<<<<< HEAD
-          data: components["schemas"]["radar.value_list"][];
-=======
           data: components["schemas"]["capability"][];
->>>>>>> f6ee87b (Add more items to components object)
           /** True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
           /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
@@ -23423,30 +10038,6 @@ export interface operations {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /** <p>Creates a new <code>ValueList</code> object, which can then be referenced in rules.</p> */
-  PostRadarValueLists: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The name of the value list for use in rules. */
-        alias: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, or `case_sensitive_string`. Use `string` if the item type is unknown or mixed. */
-        item_type?:
-          | "card_bin"
-          | "card_fingerprint"
-          | "case_sensitive_string"
-          | "country"
-          | "email"
-          | "ip_address"
-          | "string";
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** The human-readable name of the value list. */
-        name: string;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
@@ -23460,65 +10051,18 @@ export interface operations {
       query: {
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
->>>>>>> f6ee87b (Add more items to components object)
       };
     };
     responses: {
       /** Successful response. */
       200: {
-<<<<<<< HEAD
-        "application/json": components["schemas"]["radar.value_list"];
-=======
         "application/json": components["schemas"]["capability"];
->>>>>>> f6ee87b (Add more items to components object)
       };
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /** <p>Deletes a <code>ValueList</code> object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.</p> */
-  DeleteRadarValueListsValueList: {
-    parameters: {
-      path: {
-        value_list: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_radar.value_list"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Retrieves a <code>ValueList</code> object.</p> */
-  GetRadarValueListsValueList: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-      path: {
-        value_list: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["radar.value_list"];
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
@@ -23534,57 +10078,12 @@ export interface operations {
       /** Successful response. */
       200: {
         "application/json": components["schemas"]["capability"];
->>>>>>> f6ee87b (Add more items to components object)
       };
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /** <p>Updates a <code>ValueList</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that <code>item_type</code> is immutable.</p> */
-  PostRadarValueListsValueList: {
-    parameters: {
-      path: {
-        value_list: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The name of the value list for use in rules. */
-        alias?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** The human-readable name of the value list. */
-        name?: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["radar.value_list"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-  };
-  /** <p>Returns a list of your recipients. The recipients are returned sorted by creation date, with the most recently created recipients appearing first.</p> */
-  GetRecipients: {
-    parameters: {
-      query: {
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": {
         /** Specifies which fields in the response should be expanded. */
@@ -23598,7 +10097,6 @@ export interface operations {
   GetAccountExternalAccounts: {
     parameters: {
       query: {
->>>>>>> f6ee87b (Add more items to components object)
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -23607,30 +10105,15 @@ export interface operations {
         limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
-<<<<<<< HEAD
-        type?: "corporation" | "individual";
-        /** Only return recipients that are verified or unverified. */
-        verified?: boolean;
       };
     };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-=======
-      };
-    };
->>>>>>> f6ee87b (Add more items to components object)
     responses: {
       /** Successful response. */
       200: {
         "application/json": {
-<<<<<<< HEAD
-          data: components["schemas"]["recipient"][];
-=======
           /** The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards. */
           data: (Partial<components["schemas"]["bank_account"]> &
             Partial<components["schemas"]["card"]>)[];
->>>>>>> f6ee87b (Add more items to components object)
           /** True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
           /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
@@ -23644,34 +10127,6 @@ export interface operations {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /**
-   * <p>Creates a new <code>Recipient</code> object and verifies the recipient’s identity.
-   * Also verifies the recipient’s bank account information or debit card, if either is provided.</p>
-   */
-  PostRecipients: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** A bank account to attach to the recipient. You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe-js), or a dictionary containing a user's bank account details, with the options described below. */
-        bank_account?: string;
-        /** A U.S. Visa or MasterCard debit card (_not_ prepaid) to attach to the recipient. If the debit card is not valid, recipient creation will fail. You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe-js), or a dictionary containing a user's debit card details, with the options described below. Although not all information is required, the extra info helps prevent fraud. */
-        card?: string;
-        /** An arbitrary string which you can attach to a `Recipient` object. It is displayed alongside the recipient in the web interface. */
-        description?: string;
-        /** The recipient's email address. It is displayed alongside the recipient in the web interface, and can be useful for searching and tracking. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** The recipient's full, legal name. For type `individual`, should be in the format `First Last`, `First Middle Last`, or `First M Last` (no prefixes or suffixes). For `corporation`, the full, incorporated name. */
-        name: string;
-        /** The recipient's tax ID, as a string. For type `individual`, the full SSN; for type `corporation`, the full EIN. */
-        tax_id?: string;
-        /** Type of the recipient: either `individual` or `corporation`. */
-        type: string;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
@@ -23721,28 +10176,18 @@ export interface operations {
       };
       path: {
         id: string;
->>>>>>> f6ee87b (Add more items to components object)
       };
     };
     responses: {
       /** Successful response. */
       200: {
-<<<<<<< HEAD
-        "application/json": components["schemas"]["recipient"];
-=======
         "application/json": components["schemas"]["external_account"];
->>>>>>> f6ee87b (Add more items to components object)
       };
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /** <p>Permanently deletes a recipient. It cannot be undone.</p> */
-  DeleteRecipientsId: {
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
@@ -23752,42 +10197,21 @@ export interface operations {
    * <p>You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.</p>
    */
   PostAccountExternalAccountsId: {
->>>>>>> f6ee87b (Add more items to components object)
     parameters: {
       path: {
         id: string;
       };
     };
-<<<<<<< HEAD
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_recipient"];
-=======
     responses: {
       /** Successful response. */
       200: {
         "application/json": components["schemas"]["external_account"];
->>>>>>> f6ee87b (Add more items to components object)
       };
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /** <p>Retrieves the details of an existing recipient. You need only supply the unique recipient identifier that was returned upon recipient creation.</p> */
-  GetRecipientsId: {
-    parameters: {
-      query: {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-=======
     requestBody: {
       "application/x-www-form-urlencoded": {
         /** The name of the person or business that owns the bank account. */
@@ -23824,46 +10248,20 @@ export interface operations {
   /** <p>Delete a specified external account for a given account.</p> */
   DeleteAccountExternalAccountsId: {
     parameters: {
->>>>>>> f6ee87b (Add more items to components object)
       path: {
         id: string;
       };
     };
-<<<<<<< HEAD
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": Partial<components["schemas"]["recipient"]> &
-          Partial<components["schemas"]["deleted_recipient"]>;
-=======
     responses: {
       /** Successful response. */
       200: {
         "application/json": components["schemas"]["deleted_external_account"];
->>>>>>> f6ee87b (Add more items to components object)
       };
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /**
-   * <p>Updates the specified recipient by setting the values of the parameters passed.
-   * Any parameters not provided will be left unchanged.</p>
-   *
-   * <p>If you update the name or tax ID, the identity verification will automatically be rerun.
-   * If you update the bank account, the bank account validation will automatically be rerun.</p>
-   */
-  PostRecipientsId: {
-    parameters: {
-      path: {
-        id: string;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
@@ -23882,37 +10280,10 @@ export interface operations {
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
->>>>>>> f6ee87b (Add more items to components object)
       };
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-<<<<<<< HEAD
-        /** A bank account to attach to the recipient. You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe-js), or a dictionary containing a user's bank account details, with the options described below. */
-        bank_account?: string;
-        /** A U.S. Visa or MasterCard debit card (not prepaid) to attach to the recipient. You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe-js), or a dictionary containing a user's debit card details, with the options described below. Passing `card` will create a new card, make it the new recipient default card, and delete the old recipient default (if one exists). If you want to add additional debit cards instead of replacing the existing default, use the [card creation API](https://stripe.com/docs/api#create_card). Whenever you attach a card to a recipient, Stripe will automatically validate the debit card. */
-        card?: string;
-        /** ID of the card to set as the recipient's new default for payouts. */
-        default_card?: string;
-        /** An arbitrary string which you can attach to a `Recipient` object. It is displayed alongside the recipient in the web interface. */
-        description?: string;
-        /** The recipient's email address. It is displayed alongside the recipient in the web interface, and can be useful for searching and tracking. */
-        email?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** The recipient's full, legal name. For type `individual`, should be in the format `First Last`, `First Middle Last`, or `First M Last` (no prefixes or suffixes). For `corporation`, the full, incorporated name. */
-        name?: string;
-        /** The recipient's tax ID, as a string. For type `individual`, the full SSN; for type `corporation`, the full EIN. */
-        tax_id?: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["recipient"];
-=======
         account: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
@@ -23931,29 +10302,12 @@ export interface operations {
       /** Successful response. */
       200: {
         "application/json": components["schemas"]["light_account_logout"];
->>>>>>> f6ee87b (Add more items to components object)
       };
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /** <p>Returns a list of all refunds you’ve previously created. The refunds are returned in sorted order, with the most recent refunds appearing first. For convenience, the 10 most recent refunds are always available by default on the charge object.</p> */
-  GetRefunds: {
-    parameters: {
-      query: {
-        /** Only return refunds for the charge specified by this charge ID. */
-        charge?: string;
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": {
         account: string;
@@ -23966,17 +10320,12 @@ export interface operations {
   GetAccountPeople: {
     parameters: {
       query: {
->>>>>>> f6ee87b (Add more items to components object)
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
-<<<<<<< HEAD
-        /** Only return refunds for the PaymentIntent specified by this ID. */
-        payment_intent?: string;
-=======
         /** Filters on the list of people returned based on the person's relationship to the account's company. */
         relationship?: {
           director?: boolean;
@@ -23984,26 +10333,15 @@ export interface operations {
           owner?: boolean;
           representative?: boolean;
         };
->>>>>>> f6ee87b (Add more items to components object)
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
       };
     };
-<<<<<<< HEAD
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-=======
->>>>>>> f6ee87b (Add more items to components object)
     responses: {
       /** Successful response. */
       200: {
         "application/json": {
-<<<<<<< HEAD
-          data: components["schemas"]["refund"][];
-=======
           data: components["schemas"]["person"][];
->>>>>>> f6ee87b (Add more items to components object)
           /** True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
           /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
@@ -24017,29 +10355,6 @@ export interface operations {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /** <p>Create a refund.</p> */
-  PostRefunds: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        amount?: number;
-        charge?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        payment_intent?: string;
-        reason?: "duplicate" | "fraudulent" | "requested_by_customer";
-        refund_application_fee?: boolean;
-        reverse_transfer?: boolean;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["refund"];
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
@@ -24050,18 +10365,12 @@ export interface operations {
       /** Successful response. */
       200: {
         "application/json": components["schemas"]["person"];
->>>>>>> f6ee87b (Add more items to components object)
       };
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /** <p>Retrieves the details of an existing refund.</p> */
-  GetRefundsRefund: {
-=======
     requestBody: {
       "application/x-www-form-urlencoded": {
         account?: string;
@@ -24095,7 +10404,11 @@ export interface operations {
           town?: string;
         };
         /** The person's date of birth. */
-        dob?: Partial<{ day: number; month: number; year: number }> &
+        dob?: Partial<{
+          day: number;
+          month: number;
+          year: number;
+        }> &
           Partial<"">;
         /** The person's email address. */
         email?: string;
@@ -24138,33 +10451,26 @@ export interface operations {
         ssn_last_4?: string;
         /** The person's verification status. */
         verification?: {
-          additional_document?: { back?: string; front?: string };
-          document?: { back?: string; front?: string };
+          additional_document?: {
+            back?: string;
+            front?: string;
+          };
+          document?: {
+            back?: string;
+            front?: string;
+          };
         };
       };
     };
   };
   /** <p>Retrieves an existing person.</p> */
   GetAccountPeoplePerson: {
->>>>>>> f6ee87b (Add more items to components object)
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
       };
       path: {
-<<<<<<< HEAD
-        refund: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["refund"];
-=======
         person: string;
       };
     };
@@ -24172,25 +10478,12 @@ export interface operations {
       /** Successful response. */
       200: {
         "application/json": components["schemas"]["person"];
->>>>>>> f6ee87b (Add more items to components object)
       };
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /**
-   * <p>Updates the specified refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
-   *
-   * <p>This request only accepts <code>metadata</code> as an argument.</p>
-   */
-  PostRefundsRefund: {
-    parameters: {
-      path: {
-        refund: string;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
@@ -24210,17 +10503,10 @@ export interface operations {
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
->>>>>>> f6ee87b (Add more items to components object)
       };
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-<<<<<<< HEAD
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-=======
         account?: string;
         /** The person's address. */
         address?: {
@@ -24252,7 +10538,11 @@ export interface operations {
           town?: string;
         };
         /** The person's date of birth. */
-        dob?: Partial<{ day: number; month: number; year: number }> &
+        dob?: Partial<{
+          day: number;
+          month: number;
+          year: number;
+        }> &
           Partial<"">;
         /** The person's email address. */
         email?: string;
@@ -24295,8 +10585,14 @@ export interface operations {
         ssn_last_4?: string;
         /** The person's verification status. */
         verification?: {
-          additional_document?: { back?: string; front?: string };
-          document?: { back?: string; front?: string };
+          additional_document?: {
+            back?: string;
+            front?: string;
+          };
+          document?: {
+            back?: string;
+            front?: string;
+          };
         };
       };
     };
@@ -24306,37 +10602,18 @@ export interface operations {
     parameters: {
       path: {
         person: string;
->>>>>>> f6ee87b (Add more items to components object)
       };
     };
     responses: {
       /** Successful response. */
       200: {
-<<<<<<< HEAD
-        "application/json": components["schemas"]["refund"];
-=======
         "application/json": components["schemas"]["deleted_person"];
->>>>>>> f6ee87b (Add more items to components object)
       };
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /** <p>Returns a list of Report Runs, with the most recent appearing first. (Requires a <a href="https://stripe.com/docs/keys#test-live-modes">live-mode API key</a>.)</p> */
-  GetReportingReportRuns: {
-    parameters: {
-      query: {
-        created?: Partial<{
-          gt?: number;
-          gte?: number;
-          lt?: number;
-          lte?: number;
-        }> &
-          Partial<number>;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
@@ -24345,15 +10622,12 @@ export interface operations {
   GetAccountPersons: {
     parameters: {
       query: {
->>>>>>> f6ee87b (Add more items to components object)
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
-<<<<<<< HEAD
-=======
         /** Filters on the list of people returned based on the person's relationship to the account's company. */
         relationship?: {
           director?: boolean;
@@ -24361,26 +10635,15 @@ export interface operations {
           owner?: boolean;
           representative?: boolean;
         };
->>>>>>> f6ee87b (Add more items to components object)
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
       };
     };
-<<<<<<< HEAD
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-=======
->>>>>>> f6ee87b (Add more items to components object)
     responses: {
       /** Successful response. */
       200: {
         "application/json": {
-<<<<<<< HEAD
-          data: components["schemas"]["reporting.report_run"][];
-=======
           data: components["schemas"]["person"][];
->>>>>>> f6ee87b (Add more items to components object)
           /** True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
           /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
@@ -24394,650 +10657,6 @@ export interface operations {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-  };
-  /** <p>Creates a new object and begin running the report. (Requires a <a href="https://stripe.com/docs/keys#test-live-modes">live-mode API key</a>.)</p> */
-  PostReportingReportRuns: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Parameters specifying how the report should be run. Different Report Types have different required and optional parameters, listed in the [API Access to Reports](https://stripe.com/docs/reporting/statements/api) documentation. */
-        parameters?: {
-          columns?: string[];
-          connected_account?: string;
-          currency?: string;
-          interval_end?: number;
-          interval_start?: number;
-          payout?: string;
-          reporting_category?:
-            | "advance"
-            | "advance_funding"
-            | "charge"
-            | "charge_failure"
-            | "connect_collection_transfer"
-            | "connect_reserved_funds"
-            | "dispute"
-            | "dispute_reversal"
-            | "fee"
-            | "financing_paydown"
-            | "financing_paydown_reversal"
-            | "financing_payout"
-            | "financing_payout_reversal"
-            | "issuing_authorization_hold"
-            | "issuing_authorization_release"
-            | "issuing_transaction"
-            | "network_cost"
-            | "other_adjustment"
-            | "partial_capture_reversal"
-            | "payout"
-            | "payout_reversal"
-            | "platform_earning"
-            | "platform_earning_refund"
-            | "refund"
-            | "refund_failure"
-            | "risk_reserved_funds"
-            | "tax"
-            | "topup"
-            | "topup_reversal"
-            | "transfer"
-            | "transfer_reversal";
-          timezone?:
-            | "Africa/Abidjan"
-            | "Africa/Accra"
-            | "Africa/Addis_Ababa"
-            | "Africa/Algiers"
-            | "Africa/Asmara"
-            | "Africa/Asmera"
-            | "Africa/Bamako"
-            | "Africa/Bangui"
-            | "Africa/Banjul"
-            | "Africa/Bissau"
-            | "Africa/Blantyre"
-            | "Africa/Brazzaville"
-            | "Africa/Bujumbura"
-            | "Africa/Cairo"
-            | "Africa/Casablanca"
-            | "Africa/Ceuta"
-            | "Africa/Conakry"
-            | "Africa/Dakar"
-            | "Africa/Dar_es_Salaam"
-            | "Africa/Djibouti"
-            | "Africa/Douala"
-            | "Africa/El_Aaiun"
-            | "Africa/Freetown"
-            | "Africa/Gaborone"
-            | "Africa/Harare"
-            | "Africa/Johannesburg"
-            | "Africa/Juba"
-            | "Africa/Kampala"
-            | "Africa/Khartoum"
-            | "Africa/Kigali"
-            | "Africa/Kinshasa"
-            | "Africa/Lagos"
-            | "Africa/Libreville"
-            | "Africa/Lome"
-            | "Africa/Luanda"
-            | "Africa/Lubumbashi"
-            | "Africa/Lusaka"
-            | "Africa/Malabo"
-            | "Africa/Maputo"
-            | "Africa/Maseru"
-            | "Africa/Mbabane"
-            | "Africa/Mogadishu"
-            | "Africa/Monrovia"
-            | "Africa/Nairobi"
-            | "Africa/Ndjamena"
-            | "Africa/Niamey"
-            | "Africa/Nouakchott"
-            | "Africa/Ouagadougou"
-            | "Africa/Porto-Novo"
-            | "Africa/Sao_Tome"
-            | "Africa/Timbuktu"
-            | "Africa/Tripoli"
-            | "Africa/Tunis"
-            | "Africa/Windhoek"
-            | "America/Adak"
-            | "America/Anchorage"
-            | "America/Anguilla"
-            | "America/Antigua"
-            | "America/Araguaina"
-            | "America/Argentina/Buenos_Aires"
-            | "America/Argentina/Catamarca"
-            | "America/Argentina/ComodRivadavia"
-            | "America/Argentina/Cordoba"
-            | "America/Argentina/Jujuy"
-            | "America/Argentina/La_Rioja"
-            | "America/Argentina/Mendoza"
-            | "America/Argentina/Rio_Gallegos"
-            | "America/Argentina/Salta"
-            | "America/Argentina/San_Juan"
-            | "America/Argentina/San_Luis"
-            | "America/Argentina/Tucuman"
-            | "America/Argentina/Ushuaia"
-            | "America/Aruba"
-            | "America/Asuncion"
-            | "America/Atikokan"
-            | "America/Atka"
-            | "America/Bahia"
-            | "America/Bahia_Banderas"
-            | "America/Barbados"
-            | "America/Belem"
-            | "America/Belize"
-            | "America/Blanc-Sablon"
-            | "America/Boa_Vista"
-            | "America/Bogota"
-            | "America/Boise"
-            | "America/Buenos_Aires"
-            | "America/Cambridge_Bay"
-            | "America/Campo_Grande"
-            | "America/Cancun"
-            | "America/Caracas"
-            | "America/Catamarca"
-            | "America/Cayenne"
-            | "America/Cayman"
-            | "America/Chicago"
-            | "America/Chihuahua"
-            | "America/Coral_Harbour"
-            | "America/Cordoba"
-            | "America/Costa_Rica"
-            | "America/Creston"
-            | "America/Cuiaba"
-            | "America/Curacao"
-            | "America/Danmarkshavn"
-            | "America/Dawson"
-            | "America/Dawson_Creek"
-            | "America/Denver"
-            | "America/Detroit"
-            | "America/Dominica"
-            | "America/Edmonton"
-            | "America/Eirunepe"
-            | "America/El_Salvador"
-            | "America/Ensenada"
-            | "America/Fort_Nelson"
-            | "America/Fort_Wayne"
-            | "America/Fortaleza"
-            | "America/Glace_Bay"
-            | "America/Godthab"
-            | "America/Goose_Bay"
-            | "America/Grand_Turk"
-            | "America/Grenada"
-            | "America/Guadeloupe"
-            | "America/Guatemala"
-            | "America/Guayaquil"
-            | "America/Guyana"
-            | "America/Halifax"
-            | "America/Havana"
-            | "America/Hermosillo"
-            | "America/Indiana/Indianapolis"
-            | "America/Indiana/Knox"
-            | "America/Indiana/Marengo"
-            | "America/Indiana/Petersburg"
-            | "America/Indiana/Tell_City"
-            | "America/Indiana/Vevay"
-            | "America/Indiana/Vincennes"
-            | "America/Indiana/Winamac"
-            | "America/Indianapolis"
-            | "America/Inuvik"
-            | "America/Iqaluit"
-            | "America/Jamaica"
-            | "America/Jujuy"
-            | "America/Juneau"
-            | "America/Kentucky/Louisville"
-            | "America/Kentucky/Monticello"
-            | "America/Knox_IN"
-            | "America/Kralendijk"
-            | "America/La_Paz"
-            | "America/Lima"
-            | "America/Los_Angeles"
-            | "America/Louisville"
-            | "America/Lower_Princes"
-            | "America/Maceio"
-            | "America/Managua"
-            | "America/Manaus"
-            | "America/Marigot"
-            | "America/Martinique"
-            | "America/Matamoros"
-            | "America/Mazatlan"
-            | "America/Mendoza"
-            | "America/Menominee"
-            | "America/Merida"
-            | "America/Metlakatla"
-            | "America/Mexico_City"
-            | "America/Miquelon"
-            | "America/Moncton"
-            | "America/Monterrey"
-            | "America/Montevideo"
-            | "America/Montreal"
-            | "America/Montserrat"
-            | "America/Nassau"
-            | "America/New_York"
-            | "America/Nipigon"
-            | "America/Nome"
-            | "America/Noronha"
-            | "America/North_Dakota/Beulah"
-            | "America/North_Dakota/Center"
-            | "America/North_Dakota/New_Salem"
-            | "America/Ojinaga"
-            | "America/Panama"
-            | "America/Pangnirtung"
-            | "America/Paramaribo"
-            | "America/Phoenix"
-            | "America/Port-au-Prince"
-            | "America/Port_of_Spain"
-            | "America/Porto_Acre"
-            | "America/Porto_Velho"
-            | "America/Puerto_Rico"
-            | "America/Punta_Arenas"
-            | "America/Rainy_River"
-            | "America/Rankin_Inlet"
-            | "America/Recife"
-            | "America/Regina"
-            | "America/Resolute"
-            | "America/Rio_Branco"
-            | "America/Rosario"
-            | "America/Santa_Isabel"
-            | "America/Santarem"
-            | "America/Santiago"
-            | "America/Santo_Domingo"
-            | "America/Sao_Paulo"
-            | "America/Scoresbysund"
-            | "America/Shiprock"
-            | "America/Sitka"
-            | "America/St_Barthelemy"
-            | "America/St_Johns"
-            | "America/St_Kitts"
-            | "America/St_Lucia"
-            | "America/St_Thomas"
-            | "America/St_Vincent"
-            | "America/Swift_Current"
-            | "America/Tegucigalpa"
-            | "America/Thule"
-            | "America/Thunder_Bay"
-            | "America/Tijuana"
-            | "America/Toronto"
-            | "America/Tortola"
-            | "America/Vancouver"
-            | "America/Virgin"
-            | "America/Whitehorse"
-            | "America/Winnipeg"
-            | "America/Yakutat"
-            | "America/Yellowknife"
-            | "Antarctica/Casey"
-            | "Antarctica/Davis"
-            | "Antarctica/DumontDUrville"
-            | "Antarctica/Macquarie"
-            | "Antarctica/Mawson"
-            | "Antarctica/McMurdo"
-            | "Antarctica/Palmer"
-            | "Antarctica/Rothera"
-            | "Antarctica/South_Pole"
-            | "Antarctica/Syowa"
-            | "Antarctica/Troll"
-            | "Antarctica/Vostok"
-            | "Arctic/Longyearbyen"
-            | "Asia/Aden"
-            | "Asia/Almaty"
-            | "Asia/Amman"
-            | "Asia/Anadyr"
-            | "Asia/Aqtau"
-            | "Asia/Aqtobe"
-            | "Asia/Ashgabat"
-            | "Asia/Ashkhabad"
-            | "Asia/Atyrau"
-            | "Asia/Baghdad"
-            | "Asia/Bahrain"
-            | "Asia/Baku"
-            | "Asia/Bangkok"
-            | "Asia/Barnaul"
-            | "Asia/Beirut"
-            | "Asia/Bishkek"
-            | "Asia/Brunei"
-            | "Asia/Calcutta"
-            | "Asia/Chita"
-            | "Asia/Choibalsan"
-            | "Asia/Chongqing"
-            | "Asia/Chungking"
-            | "Asia/Colombo"
-            | "Asia/Dacca"
-            | "Asia/Damascus"
-            | "Asia/Dhaka"
-            | "Asia/Dili"
-            | "Asia/Dubai"
-            | "Asia/Dushanbe"
-            | "Asia/Famagusta"
-            | "Asia/Gaza"
-            | "Asia/Harbin"
-            | "Asia/Hebron"
-            | "Asia/Ho_Chi_Minh"
-            | "Asia/Hong_Kong"
-            | "Asia/Hovd"
-            | "Asia/Irkutsk"
-            | "Asia/Istanbul"
-            | "Asia/Jakarta"
-            | "Asia/Jayapura"
-            | "Asia/Jerusalem"
-            | "Asia/Kabul"
-            | "Asia/Kamchatka"
-            | "Asia/Karachi"
-            | "Asia/Kashgar"
-            | "Asia/Kathmandu"
-            | "Asia/Katmandu"
-            | "Asia/Khandyga"
-            | "Asia/Kolkata"
-            | "Asia/Krasnoyarsk"
-            | "Asia/Kuala_Lumpur"
-            | "Asia/Kuching"
-            | "Asia/Kuwait"
-            | "Asia/Macao"
-            | "Asia/Macau"
-            | "Asia/Magadan"
-            | "Asia/Makassar"
-            | "Asia/Manila"
-            | "Asia/Muscat"
-            | "Asia/Nicosia"
-            | "Asia/Novokuznetsk"
-            | "Asia/Novosibirsk"
-            | "Asia/Omsk"
-            | "Asia/Oral"
-            | "Asia/Phnom_Penh"
-            | "Asia/Pontianak"
-            | "Asia/Pyongyang"
-            | "Asia/Qatar"
-            | "Asia/Qostanay"
-            | "Asia/Qyzylorda"
-            | "Asia/Rangoon"
-            | "Asia/Riyadh"
-            | "Asia/Saigon"
-            | "Asia/Sakhalin"
-            | "Asia/Samarkand"
-            | "Asia/Seoul"
-            | "Asia/Shanghai"
-            | "Asia/Singapore"
-            | "Asia/Srednekolymsk"
-            | "Asia/Taipei"
-            | "Asia/Tashkent"
-            | "Asia/Tbilisi"
-            | "Asia/Tehran"
-            | "Asia/Tel_Aviv"
-            | "Asia/Thimbu"
-            | "Asia/Thimphu"
-            | "Asia/Tokyo"
-            | "Asia/Tomsk"
-            | "Asia/Ujung_Pandang"
-            | "Asia/Ulaanbaatar"
-            | "Asia/Ulan_Bator"
-            | "Asia/Urumqi"
-            | "Asia/Ust-Nera"
-            | "Asia/Vientiane"
-            | "Asia/Vladivostok"
-            | "Asia/Yakutsk"
-            | "Asia/Yangon"
-            | "Asia/Yekaterinburg"
-            | "Asia/Yerevan"
-            | "Atlantic/Azores"
-            | "Atlantic/Bermuda"
-            | "Atlantic/Canary"
-            | "Atlantic/Cape_Verde"
-            | "Atlantic/Faeroe"
-            | "Atlantic/Faroe"
-            | "Atlantic/Jan_Mayen"
-            | "Atlantic/Madeira"
-            | "Atlantic/Reykjavik"
-            | "Atlantic/South_Georgia"
-            | "Atlantic/St_Helena"
-            | "Atlantic/Stanley"
-            | "Australia/ACT"
-            | "Australia/Adelaide"
-            | "Australia/Brisbane"
-            | "Australia/Broken_Hill"
-            | "Australia/Canberra"
-            | "Australia/Currie"
-            | "Australia/Darwin"
-            | "Australia/Eucla"
-            | "Australia/Hobart"
-            | "Australia/LHI"
-            | "Australia/Lindeman"
-            | "Australia/Lord_Howe"
-            | "Australia/Melbourne"
-            | "Australia/NSW"
-            | "Australia/North"
-            | "Australia/Perth"
-            | "Australia/Queensland"
-            | "Australia/South"
-            | "Australia/Sydney"
-            | "Australia/Tasmania"
-            | "Australia/Victoria"
-            | "Australia/West"
-            | "Australia/Yancowinna"
-            | "Brazil/Acre"
-            | "Brazil/DeNoronha"
-            | "Brazil/East"
-            | "Brazil/West"
-            | "CET"
-            | "CST6CDT"
-            | "Canada/Atlantic"
-            | "Canada/Central"
-            | "Canada/Eastern"
-            | "Canada/Mountain"
-            | "Canada/Newfoundland"
-            | "Canada/Pacific"
-            | "Canada/Saskatchewan"
-            | "Canada/Yukon"
-            | "Chile/Continental"
-            | "Chile/EasterIsland"
-            | "Cuba"
-            | "EET"
-            | "EST"
-            | "EST5EDT"
-            | "Egypt"
-            | "Eire"
-            | "Etc/GMT"
-            | "Etc/GMT+0"
-            | "Etc/GMT+1"
-            | "Etc/GMT+10"
-            | "Etc/GMT+11"
-            | "Etc/GMT+12"
-            | "Etc/GMT+2"
-            | "Etc/GMT+3"
-            | "Etc/GMT+4"
-            | "Etc/GMT+5"
-            | "Etc/GMT+6"
-            | "Etc/GMT+7"
-            | "Etc/GMT+8"
-            | "Etc/GMT+9"
-            | "Etc/GMT-0"
-            | "Etc/GMT-1"
-            | "Etc/GMT-10"
-            | "Etc/GMT-11"
-            | "Etc/GMT-12"
-            | "Etc/GMT-13"
-            | "Etc/GMT-14"
-            | "Etc/GMT-2"
-            | "Etc/GMT-3"
-            | "Etc/GMT-4"
-            | "Etc/GMT-5"
-            | "Etc/GMT-6"
-            | "Etc/GMT-7"
-            | "Etc/GMT-8"
-            | "Etc/GMT-9"
-            | "Etc/GMT0"
-            | "Etc/Greenwich"
-            | "Etc/UCT"
-            | "Etc/UTC"
-            | "Etc/Universal"
-            | "Etc/Zulu"
-            | "Europe/Amsterdam"
-            | "Europe/Andorra"
-            | "Europe/Astrakhan"
-            | "Europe/Athens"
-            | "Europe/Belfast"
-            | "Europe/Belgrade"
-            | "Europe/Berlin"
-            | "Europe/Bratislava"
-            | "Europe/Brussels"
-            | "Europe/Bucharest"
-            | "Europe/Budapest"
-            | "Europe/Busingen"
-            | "Europe/Chisinau"
-            | "Europe/Copenhagen"
-            | "Europe/Dublin"
-            | "Europe/Gibraltar"
-            | "Europe/Guernsey"
-            | "Europe/Helsinki"
-            | "Europe/Isle_of_Man"
-            | "Europe/Istanbul"
-            | "Europe/Jersey"
-            | "Europe/Kaliningrad"
-            | "Europe/Kiev"
-            | "Europe/Kirov"
-            | "Europe/Lisbon"
-            | "Europe/Ljubljana"
-            | "Europe/London"
-            | "Europe/Luxembourg"
-            | "Europe/Madrid"
-            | "Europe/Malta"
-            | "Europe/Mariehamn"
-            | "Europe/Minsk"
-            | "Europe/Monaco"
-            | "Europe/Moscow"
-            | "Europe/Nicosia"
-            | "Europe/Oslo"
-            | "Europe/Paris"
-            | "Europe/Podgorica"
-            | "Europe/Prague"
-            | "Europe/Riga"
-            | "Europe/Rome"
-            | "Europe/Samara"
-            | "Europe/San_Marino"
-            | "Europe/Sarajevo"
-            | "Europe/Saratov"
-            | "Europe/Simferopol"
-            | "Europe/Skopje"
-            | "Europe/Sofia"
-            | "Europe/Stockholm"
-            | "Europe/Tallinn"
-            | "Europe/Tirane"
-            | "Europe/Tiraspol"
-            | "Europe/Ulyanovsk"
-            | "Europe/Uzhgorod"
-            | "Europe/Vaduz"
-            | "Europe/Vatican"
-            | "Europe/Vienna"
-            | "Europe/Vilnius"
-            | "Europe/Volgograd"
-            | "Europe/Warsaw"
-            | "Europe/Zagreb"
-            | "Europe/Zaporozhye"
-            | "Europe/Zurich"
-            | "Factory"
-            | "GB"
-            | "GB-Eire"
-            | "GMT"
-            | "GMT+0"
-            | "GMT-0"
-            | "GMT0"
-            | "Greenwich"
-            | "HST"
-            | "Hongkong"
-            | "Iceland"
-            | "Indian/Antananarivo"
-            | "Indian/Chagos"
-            | "Indian/Christmas"
-            | "Indian/Cocos"
-            | "Indian/Comoro"
-            | "Indian/Kerguelen"
-            | "Indian/Mahe"
-            | "Indian/Maldives"
-            | "Indian/Mauritius"
-            | "Indian/Mayotte"
-            | "Indian/Reunion"
-            | "Iran"
-            | "Israel"
-            | "Jamaica"
-            | "Japan"
-            | "Kwajalein"
-            | "Libya"
-            | "MET"
-            | "MST"
-            | "MST7MDT"
-            | "Mexico/BajaNorte"
-            | "Mexico/BajaSur"
-            | "Mexico/General"
-            | "NZ"
-            | "NZ-CHAT"
-            | "Navajo"
-            | "PRC"
-            | "PST8PDT"
-            | "Pacific/Apia"
-            | "Pacific/Auckland"
-            | "Pacific/Bougainville"
-            | "Pacific/Chatham"
-            | "Pacific/Chuuk"
-            | "Pacific/Easter"
-            | "Pacific/Efate"
-            | "Pacific/Enderbury"
-            | "Pacific/Fakaofo"
-            | "Pacific/Fiji"
-            | "Pacific/Funafuti"
-            | "Pacific/Galapagos"
-            | "Pacific/Gambier"
-            | "Pacific/Guadalcanal"
-            | "Pacific/Guam"
-            | "Pacific/Honolulu"
-            | "Pacific/Johnston"
-            | "Pacific/Kiritimati"
-            | "Pacific/Kosrae"
-            | "Pacific/Kwajalein"
-            | "Pacific/Majuro"
-            | "Pacific/Marquesas"
-            | "Pacific/Midway"
-            | "Pacific/Nauru"
-            | "Pacific/Niue"
-            | "Pacific/Norfolk"
-            | "Pacific/Noumea"
-            | "Pacific/Pago_Pago"
-            | "Pacific/Palau"
-            | "Pacific/Pitcairn"
-            | "Pacific/Pohnpei"
-            | "Pacific/Ponape"
-            | "Pacific/Port_Moresby"
-            | "Pacific/Rarotonga"
-            | "Pacific/Saipan"
-            | "Pacific/Samoa"
-            | "Pacific/Tahiti"
-            | "Pacific/Tarawa"
-            | "Pacific/Tongatapu"
-            | "Pacific/Truk"
-            | "Pacific/Wake"
-            | "Pacific/Wallis"
-            | "Pacific/Yap"
-            | "Poland"
-            | "Portugal"
-            | "ROC"
-            | "ROK"
-            | "Singapore"
-            | "Turkey"
-            | "UCT"
-            | "US/Alaska"
-            | "US/Aleutian"
-            | "US/Arizona"
-            | "US/Central"
-            | "US/East-Indiana"
-            | "US/Eastern"
-            | "US/Hawaii"
-            | "US/Indiana-Starke"
-            | "US/Michigan"
-            | "US/Mountain"
-            | "US/Pacific"
-            | "US/Pacific-New"
-            | "US/Samoa"
-            | "UTC"
-            | "Universal"
-            | "W-SU"
-            | "WET"
-            | "Zulu";
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
@@ -25065,7 +10684,6 @@ export interface operations {
           line2?: string;
           postal_code?: string;
           state?: string;
->>>>>>> f6ee87b (Add more items to components object)
         };
         /** The Kana variation of the person's address (Japan only). */
         address_kana?: {
@@ -25088,7 +10706,11 @@ export interface operations {
           town?: string;
         };
         /** The person's date of birth. */
-        dob?: Partial<{ day: number; month: number; year: number }> &
+        dob?: Partial<{
+          day: number;
+          month: number;
+          year: number;
+        }> &
           Partial<"">;
         /** The person's email address. */
         email?: string;
@@ -25131,8 +10753,14 @@ export interface operations {
         ssn_last_4?: string;
         /** The person's verification status. */
         verification?: {
-          additional_document?: { back?: string; front?: string };
-          document?: { back?: string; front?: string };
+          additional_document?: {
+            back?: string;
+            front?: string;
+          };
+          document?: {
+            back?: string;
+            front?: string;
+          };
         };
       };
     };
@@ -25212,7 +10840,11 @@ export interface operations {
           town?: string;
         };
         /** The person's date of birth. */
-        dob?: Partial<{ day: number; month: number; year: number }> &
+        dob?: Partial<{
+          day: number;
+          month: number;
+          year: number;
+        }> &
           Partial<"">;
         /** The person's email address. */
         email?: string;
@@ -25255,8 +10887,14 @@ export interface operations {
         ssn_last_4?: string;
         /** The person's verification status. */
         verification?: {
-          additional_document?: { back?: string; front?: string };
-          document?: { back?: string; front?: string };
+          additional_document?: {
+            back?: string;
+            front?: string;
+          };
+          document?: {
+            back?: string;
+            front?: string;
+          };
         };
       };
     };
@@ -25458,7 +11096,12 @@ export interface operations {
           tax_id?: string;
           tax_id_registrar?: string;
           vat_id?: string;
-          verification?: { document?: { back?: string; front?: string } };
+          verification?: {
+            document?: {
+              back?: string;
+              front?: string;
+            };
+          };
         };
         /** The country in which the account holder resides, or in which the business is legally established. This should be an ISO 3166-1 alpha-2 country code. For example, if you are in the United States and the business for which you're creating an account is legally represented in Canada, you would use `CA` as the country for the account being created. */
         country?: string;
@@ -25498,7 +11141,11 @@ export interface operations {
             state?: string;
             town?: string;
           };
-          dob?: Partial<{ day: number; month: number; year: number }> &
+          dob?: Partial<{
+            day: number;
+            month: number;
+            year: number;
+          }> &
             Partial<"">;
           email?: string;
           first_name?: string;
@@ -25514,8 +11161,14 @@ export interface operations {
           phone?: string;
           ssn_last_4?: string;
           verification?: {
-            additional_document?: { back?: string; front?: string };
-            document?: { back?: string; front?: string };
+            additional_document?: {
+              back?: string;
+              front?: string;
+            };
+            document?: {
+              back?: string;
+              front?: string;
+            };
           };
         };
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -25539,7 +11192,10 @@ export interface operations {
             secondary_color?: string;
           };
           card_payments?: {
-            decline_on?: { avs_failure?: boolean; cvc_failure?: boolean };
+            decline_on?: {
+              avs_failure?: boolean;
+              cvc_failure?: boolean;
+            };
             statement_descriptor_prefix?: string;
           };
           payments?: {
@@ -25566,7 +11222,11 @@ export interface operations {
           };
         };
         /** Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance). */
-        tos_acceptance?: { date?: number; ip?: string; user_agent?: string };
+        tos_acceptance?: {
+          date?: number;
+          ip?: string;
+          user_agent?: string;
+        };
         /** The type of Stripe account to create. Currently must be `custom`, as only [Custom accounts](https://stripe.com/docs/connect/custom-accounts) may be created via the API. */
         type?: "custom" | "express" | "standard";
       };
@@ -25704,7 +11364,12 @@ export interface operations {
           tax_id?: string;
           tax_id_registrar?: string;
           vat_id?: string;
-          verification?: { document?: { back?: string; front?: string } };
+          verification?: {
+            document?: {
+              back?: string;
+              front?: string;
+            };
+          };
         };
         /** Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts). */
         default_currency?: string;
@@ -25742,7 +11407,11 @@ export interface operations {
             state?: string;
             town?: string;
           };
-          dob?: Partial<{ day: number; month: number; year: number }> &
+          dob?: Partial<{
+            day: number;
+            month: number;
+            year: number;
+          }> &
             Partial<"">;
           email?: string;
           first_name?: string;
@@ -25758,8 +11427,14 @@ export interface operations {
           phone?: string;
           ssn_last_4?: string;
           verification?: {
-            additional_document?: { back?: string; front?: string };
-            document?: { back?: string; front?: string };
+            additional_document?: {
+              back?: string;
+              front?: string;
+            };
+            document?: {
+              back?: string;
+              front?: string;
+            };
           };
         };
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -25783,7 +11458,10 @@ export interface operations {
             secondary_color?: string;
           };
           card_payments?: {
-            decline_on?: { avs_failure?: boolean; cvc_failure?: boolean };
+            decline_on?: {
+              avs_failure?: boolean;
+              cvc_failure?: boolean;
+            };
             statement_descriptor_prefix?: string;
           };
           payments?: {
@@ -25810,7 +11488,11 @@ export interface operations {
           };
         };
         /** Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance). */
-        tos_acceptance?: { date?: number; ip?: string; user_agent?: string };
+        tos_acceptance?: {
+          date?: number;
+          ip?: string;
+          user_agent?: string;
+        };
       };
     };
   };
@@ -25912,64 +11594,11 @@ export interface operations {
    * <p>Updates the metadata, account holder name, and account holder type of a bank account belonging to a <a href="/docs/connect/custom-accounts">Custom account</a>, and optionally sets it as the default for its currency. Other bank account details are not editable by design.</p>
    * <p>You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.</p>
    */
-<<<<<<< HEAD
-  PostSetupIntents: {
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Set to `true` to attempt to confirm this SetupIntent immediately. This parameter defaults to `false`. If the payment method attached is a card, a return_url may be provided in case additional authentication is required. */
-        confirm?: boolean;
-        /**
-         * ID of the Customer this SetupIntent belongs to, if one exists.
-         *
-         * If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
-         */
-        customer?: string;
-        /** An arbitrary string attached to the object. Often useful for displaying to users. */
-        description?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** This hash contains details about the Mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm). */
-        mandate_data?: {
-          customer_acceptance: {
-            accepted_at?: number;
-            offline?: { [key: string]: any };
-            online?: {
-              ip_address: string;
-              user_agent: string;
-            };
-            type: "offline" | "online";
-          };
-        };
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /** The Stripe account ID for which this SetupIntent is created. */
-        on_behalf_of?: string;
-        /** ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
-        payment_method?: string;
-        /** Payment-method-specific configuration for this SetupIntent. */
-        payment_method_options?: {
-          card?: {
-            request_three_d_secure?: "any" | "automatic";
-          };
-        };
-        /** The list of payment method types (e.g. card) that this SetupIntent is allowed to use. If this is not provided, defaults to ["card"]. */
-        payment_method_types?: string[];
-        /** The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm). */
-        return_url?: string;
-        /** If this hash is populated, this SetupIntent will generate a single_use Mandate on success. */
-        single_use?: {
-          amount: number;
-          currency: string;
-        };
-        /** Indicates how the payment method is intended to be used in the future. If not provided, this value defaults to `off_session`. */
-        usage?: "off_session" | "on_session";
-=======
   PostAccountsAccountBankAccountsId: {
     parameters: {
       path: {
         account: string;
         id: string;
->>>>>>> f6ee87b (Add more items to components object)
       };
     };
     responses: {
@@ -26046,17 +11675,6 @@ export interface operations {
       query: {
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
-<<<<<<< HEAD
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
-        payment_method?: string;
-        /** Payment-method-specific configuration for this SetupIntent. */
-        payment_method_options?: {
-          card?: {
-            request_three_d_secure?: "any" | "automatic";
-          };
-=======
       };
     };
     responses: {
@@ -26070,7 +11688,6 @@ export interface operations {
           object: "list";
           /** The URL where this list can be accessed. */
           url: string;
->>>>>>> f6ee87b (Add more items to components object)
         };
       };
       /** Error response. */
@@ -26112,55 +11729,8 @@ export interface operations {
   PostAccountsAccountCapabilitiesCapability: {
     parameters: {
       path: {
-<<<<<<< HEAD
-        intent: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** The client secret of the SetupIntent. */
-        client_secret?: string;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** This hash contains details about the Mandate to create */
-        mandate_data?: Partial<{
-          customer_acceptance: {
-            accepted_at?: number;
-            offline?: { [key: string]: any };
-            online?: {
-              ip_address: string;
-              user_agent: string;
-            };
-            type: "offline" | "online";
-          };
-        }> &
-          Partial<{
-            customer_acceptance: {
-              online: {
-                ip_address?: string;
-                user_agent?: string;
-              };
-              type: "online";
-            };
-          }>;
-        /** ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
-        payment_method?: string;
-        /** Payment-method-specific configuration for this SetupIntent. */
-        payment_method_options?: {
-          card?: {
-            request_three_d_secure?: "any" | "automatic";
-          };
-        };
-        /**
-         * The URL to redirect your customer back to after they authenticate on the payment method's app or site.
-         * If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
-         * This parameter is only used for cards and other redirect-based payment methods.
-         */
-        return_url?: string;
-=======
         account: string;
         capability: string;
->>>>>>> f6ee87b (Add more items to components object)
       };
     };
     responses: {
@@ -26430,21 +12000,9 @@ export interface operations {
       path: {
         account: string;
       };
-<<<<<<< HEAD
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Whether this SKU is available for purchase. */
-        active?: boolean;
-        /** A dictionary of attributes and values for the attributes defined by the product. When specified, `attributes` will partially update the existing attributes dictionary on the product, with the postcondition that a value must be present for each attribute key on the product. */
-        attributes?: { [key: string]: string };
-        /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-        currency?: string;
-=======
       query: {
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
->>>>>>> f6ee87b (Add more items to components object)
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -26531,92 +12089,16 @@ export interface operations {
           town?: string;
         };
         /** The person's date of birth. */
-        dob?: Partial<{ day: number; month: number; year: number }> &
+        dob?: Partial<{
+          day: number;
+          month: number;
+          year: number;
+        }> &
           Partial<"">;
         /** The person's email address. */
         email?: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
-<<<<<<< HEAD
-        /** The authentication `flow` of the source to create. `flow` is one of `redirect`, `receiver`, `code_verification`, `none`. It is generally inferred unless a type supports multiple flows. */
-        flow?: "code_verification" | "none" | "receiver" | "redirect";
-        /** Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status. */
-        mandate?: {
-          acceptance?: {
-            date?: number;
-            ip?: string;
-            offline?: {
-              contact_email: string;
-            };
-            online?: {
-              date?: number;
-              ip?: string;
-              user_agent?: string;
-            };
-            status: "accepted" | "pending" | "refused" | "revoked";
-            type?: "offline" | "online";
-            user_agent?: string;
-          };
-          amount?: Partial<number> & Partial<"">;
-          currency?: string;
-          interval?: "one_time" | "scheduled" | "variable";
-          notification_method?:
-            | "deprecated_none"
-            | "email"
-            | "manual"
-            | "none"
-            | "stripe_email";
-        };
-        metadata?: { [key: string]: string };
-        /** The source to share. */
-        original_source?: string;
-        /** Information about the owner of the payment instrument that may be used or required by particular source types. */
-        owner?: {
-          address?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          email?: string;
-          name?: string;
-          phone?: string;
-        };
-        /** Optional parameters for the receiver flow. Can be set only if the source is a receiver (`flow` is `receiver`). */
-        receiver?: {
-          refund_attributes_method?: "email" | "manual" | "none";
-        };
-        /** Parameters required for the redirect flow. Required if the source is authenticated by a redirect (`flow` is `redirect`). */
-        redirect?: {
-          return_url: string;
-        };
-        /** Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it. */
-        source_order?: {
-          items?: {
-            amount?: number;
-            currency?: string;
-            description?: string;
-            parent?: string;
-            quantity?: number;
-            type?: "discount" | "shipping" | "sku" | "tax";
-          }[];
-          shipping?: {
-            address: {
-              city?: string;
-              country?: string;
-              line1: string;
-              line2?: string;
-              postal_code?: string;
-              state?: string;
-            };
-            carrier?: string;
-            name?: string;
-            phone?: string;
-            tracking_number?: string;
-          };
-=======
         /** The person's first name. */
         first_name?: string;
         /** The Kana variation of the person's first name (Japan only). */
@@ -26654,9 +12136,14 @@ export interface operations {
         ssn_last_4?: string;
         /** The person's verification status. */
         verification?: {
-          additional_document?: { back?: string; front?: string };
-          document?: { back?: string; front?: string };
->>>>>>> f6ee87b (Add more items to components object)
+          additional_document?: {
+            back?: string;
+            front?: string;
+          };
+          document?: {
+            back?: string;
+            front?: string;
+          };
         };
       };
     };
@@ -26691,88 +12178,8 @@ export interface operations {
   PostAccountsAccountPeoplePerson: {
     parameters: {
       path: {
-<<<<<<< HEAD
-        source: string;
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Amount associated with the source. */
-        amount?: number;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status. */
-        mandate?: {
-          acceptance?: {
-            date?: number;
-            ip?: string;
-            offline?: {
-              contact_email: string;
-            };
-            online?: {
-              date?: number;
-              ip?: string;
-              user_agent?: string;
-            };
-            status: "accepted" | "pending" | "refused" | "revoked";
-            type?: "offline" | "online";
-            user_agent?: string;
-          };
-          amount?: Partial<number> & Partial<"">;
-          currency?: string;
-          interval?: "one_time" | "scheduled" | "variable";
-          notification_method?:
-            | "deprecated_none"
-            | "email"
-            | "manual"
-            | "none"
-            | "stripe_email";
-        };
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** Information about the owner of the payment instrument that may be used or required by particular source types. */
-        owner?: {
-          address?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          email?: string;
-          name?: string;
-          phone?: string;
-        };
-        /** Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it. */
-        source_order?: {
-          items?: {
-            amount?: number;
-            currency?: string;
-            description?: string;
-            parent?: string;
-            quantity?: number;
-            type?: "discount" | "shipping" | "sku" | "tax";
-          }[];
-          shipping?: {
-            address: {
-              city?: string;
-              country?: string;
-              line1: string;
-              line2?: string;
-              postal_code?: string;
-              state?: string;
-            };
-            carrier?: string;
-            name?: string;
-            phone?: string;
-            tracking_number?: string;
-          };
-        };
-=======
         account: string;
         person: string;
->>>>>>> f6ee87b (Add more items to components object)
       };
     };
     responses: {
@@ -26817,7 +12224,11 @@ export interface operations {
           town?: string;
         };
         /** The person's date of birth. */
-        dob?: Partial<{ day: number; month: number; year: number }> &
+        dob?: Partial<{
+          day: number;
+          month: number;
+          year: number;
+        }> &
           Partial<"">;
         /** The person's email address. */
         email?: string;
@@ -26860,8 +12271,14 @@ export interface operations {
         ssn_last_4?: string;
         /** The person's verification status. */
         verification?: {
-          additional_document?: { back?: string; front?: string };
-          document?: { back?: string; front?: string };
+          additional_document?: {
+            back?: string;
+            front?: string;
+          };
+          document?: {
+            back?: string;
+            front?: string;
+          };
         };
       };
     };
@@ -26983,7 +12400,11 @@ export interface operations {
           town?: string;
         };
         /** The person's date of birth. */
-        dob?: Partial<{ day: number; month: number; year: number }> &
+        dob?: Partial<{
+          day: number;
+          month: number;
+          year: number;
+        }> &
           Partial<"">;
         /** The person's email address. */
         email?: string;
@@ -27026,8 +12447,14 @@ export interface operations {
         ssn_last_4?: string;
         /** The person's verification status. */
         verification?: {
-          additional_document?: { back?: string; front?: string };
-          document?: { back?: string; front?: string };
+          additional_document?: {
+            back?: string;
+            front?: string;
+          };
+          document?: {
+            back?: string;
+            front?: string;
+          };
         };
       };
     };
@@ -27055,49 +12482,6 @@ export interface operations {
       };
     };
     requestBody: {
-<<<<<<< HEAD
-      "application/x-www-form-urlencoded": {
-        /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds. */
-        billing_thresholds?: Partial<{
-          usage_gte: number;
-        }> &
-          Partial<"">;
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: { [key: string]: string };
-        /**
-         * Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
-         *
-         * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
-         *
-         * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
-         */
-        payment_behavior?:
-          | "allow_incomplete"
-          | "error_if_incomplete"
-          | "pending_if_incomplete";
-        /** The identifier of the plan to add to the subscription. */
-        plan?: string;
-        /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
-        prorate?: boolean;
-        /**
-         * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
-         *
-         * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
-         *
-         * Prorations can be disabled by passing `none`.
-         */
-        proration_behavior?: "always_invoice" | "create_prorations" | "none";
-        /** If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. */
-        proration_date?: number;
-        /** The quantity you'd like to apply to the subscription item you're creating. */
-        quantity?: number;
-        /** The identifier of the subscription to modify. */
-        subscription: string;
-        /** A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates. */
-        tax_rates?: Partial<string[]> & Partial<"">;
-=======
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
@@ -27107,7 +12491,6 @@ export interface operations {
       path: {
         account: string;
         person: string;
->>>>>>> f6ee87b (Add more items to components object)
       };
     };
     responses: {
@@ -27152,7 +12535,11 @@ export interface operations {
           town?: string;
         };
         /** The person's date of birth. */
-        dob?: Partial<{ day: number; month: number; year: number }> &
+        dob?: Partial<{
+          day: number;
+          month: number;
+          year: number;
+        }> &
           Partial<"">;
         /** The person's email address. */
         email?: string;
@@ -27195,8 +12582,14 @@ export interface operations {
         ssn_last_4?: string;
         /** The person's verification status. */
         verification?: {
-          additional_document?: { back?: string; front?: string };
-          document?: { back?: string; front?: string };
+          additional_document?: {
+            back?: string;
+            front?: string;
+          };
+          document?: {
+            back?: string;
+            front?: string;
+          };
         };
       };
     };
@@ -27246,14 +12639,6 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-<<<<<<< HEAD
-        /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds. */
-        billing_thresholds?: Partial<{
-          usage_gte: number;
-        }> &
-          Partial<"">;
-=======
->>>>>>> f6ee87b (Add more items to components object)
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** The reason for rejecting the account. Can be `fraud`, `terms_of_service`, or `other`. */
@@ -27406,65 +12791,6 @@ export interface operations {
       };
     };
     requestBody: {
-<<<<<<< HEAD
-      "application/x-www-form-urlencoded": {
-        /** The identifier of the customer to create the subscription schedule for. */
-        customer?: string;
-        /** Object representing the subscription schedule's default settings. */
-        default_settings?: {
-          billing_thresholds?: Partial<{
-            amount_gte?: number;
-            reset_billing_cycle_anchor?: boolean;
-          }> &
-            Partial<"">;
-          collection_method?: "charge_automatically" | "send_invoice";
-          default_payment_method?: string;
-          invoice_settings?: {
-            days_until_due?: number;
-          };
-        };
-        /** Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription. */
-        end_behavior?: "cancel" | "none" | "release" | "renew";
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Migrate an existing subscription to be managed by a subscription schedule. If this parameter is set, a subscription schedule will be created using the subscription's plan(s), set to auto-renew using the subscription's interval. When using this parameter, other parameters (such as phase values) cannot be set. To create a subscription schedule with other modifications, we recommend making two separate API calls. */
-        from_subscription?: string;
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. */
-        phases?: {
-          application_fee_percent?: number;
-          billing_thresholds?: Partial<{
-            amount_gte?: number;
-            reset_billing_cycle_anchor?: boolean;
-          }> &
-            Partial<"">;
-          collection_method?: "charge_automatically" | "send_invoice";
-          coupon?: string;
-          default_payment_method?: string;
-          default_tax_rates?: Partial<string[]> & Partial<"">;
-          end_date?: number;
-          invoice_settings?: {
-            days_until_due?: number;
-          };
-          iterations?: number;
-          plans: {
-            billing_thresholds?: Partial<{
-              usage_gte: number;
-            }> &
-              Partial<"">;
-            plan?: string;
-            quantity?: number;
-            tax_rates?: Partial<string[]> & Partial<"">;
-          }[];
-          proration_behavior?: "always_invoice" | "create_prorations" | "none";
-          tax_percent?: number;
-          trial?: boolean;
-          trial_end?: number;
-        }[];
-        /** When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on. */
-        start_date?: Partial<number> & Partial<"now">;
-=======
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
@@ -27478,7 +12804,6 @@ export interface operations {
       path: {
         fee: string;
         id: string;
->>>>>>> f6ee87b (Add more items to components object)
       };
     };
     responses: {
@@ -27569,63 +12894,6 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-<<<<<<< HEAD
-        /** Object representing the subscription schedule's default settings. */
-        default_settings?: {
-          billing_thresholds?: Partial<{
-            amount_gte?: number;
-            reset_billing_cycle_anchor?: boolean;
-          }> &
-            Partial<"">;
-          collection_method?: "charge_automatically" | "send_invoice";
-          default_payment_method?: string;
-          invoice_settings?: {
-            days_until_due?: number;
-          };
-        };
-        /** Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription. */
-        end_behavior?: "cancel" | "none" | "release" | "renew";
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. Note that past phases can be omitted. */
-        phases?: {
-          application_fee_percent?: number;
-          billing_thresholds?: Partial<{
-            amount_gte?: number;
-            reset_billing_cycle_anchor?: boolean;
-          }> &
-            Partial<"">;
-          collection_method?: "charge_automatically" | "send_invoice";
-          coupon?: string;
-          default_payment_method?: string;
-          default_tax_rates?: Partial<string[]> & Partial<"">;
-          end_date?: Partial<number> & Partial<"now">;
-          invoice_settings?: {
-            days_until_due?: number;
-          };
-          iterations?: number;
-          plans: {
-            billing_thresholds?: Partial<{
-              usage_gte: number;
-            }> &
-              Partial<"">;
-            plan?: string;
-            quantity?: number;
-            tax_rates?: Partial<string[]> & Partial<"">;
-          }[];
-          proration_behavior?: "always_invoice" | "create_prorations" | "none";
-          start_date?: Partial<number> & Partial<"now">;
-          tax_percent?: number;
-          trial?: boolean;
-          trial_end?: Partial<number> & Partial<"now">;
-        }[];
-        /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
-        prorate?: boolean;
-        /** If the update changes the current phase, indicates if the changes should be prorated. Valid values are `create_prorations` or `none`, and the default value is `create_prorations`. */
-        proration_behavior?: "always_invoice" | "create_prorations" | "none";
-=======
         amount?: number;
         directive?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -27688,7 +12956,6 @@ export interface operations {
     parameters: {
       path: {
         id: string;
->>>>>>> f6ee87b (Add more items to components object)
       };
     };
     responses: {
@@ -27856,56 +13123,6 @@ export interface operations {
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
-<<<<<<< HEAD
-        /** A list of up to 20 subscription items, each with an attached plan. */
-        items?: {
-          billing_thresholds?: Partial<{
-            usage_gte: number;
-          }> &
-            Partial<"">;
-          metadata?: { [key: string]: string };
-          plan?: string;
-          quantity?: number;
-          tax_rates?: Partial<string[]> & Partial<"">;
-        }[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
-        off_session?: boolean;
-        /**
-         * Use `allow_incomplete` to create subscriptions with `status=incomplete` if the first invoice cannot be paid. Creating subscriptions with this status allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
-         *
-         * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
-         *
-         * `pending_if_incomplete` is only used with updates and cannot be passed when creating a subscription.
-         */
-        payment_behavior?:
-          | "allow_incomplete"
-          | "error_if_incomplete"
-          | "pending_if_incomplete";
-        /** Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-        pending_invoice_item_interval?: Partial<{
-          interval: "day" | "month" | "week" | "year";
-          interval_count?: number;
-        }> &
-          Partial<"">;
-        /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
-        prorate?: boolean;
-        /**
-         * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) resulting from the `billing_cycle_anchor`. Valid values are `create_prorations` or `none`.
-         *
-         * Passing `create_prorations` will cause proration invoice items to be created when applicable. Prorations can be disabled by passing `none`. If no value is passed, the default is `create_prorations`.
-         */
-        proration_behavior?: "always_invoice" | "create_prorations" | "none";
-        /** A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-        tax_percent?: Partial<number> & Partial<"">;
-        /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-        trial_end?: Partial<"now"> & Partial<number>;
-        /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
-        trial_from_plan?: boolean;
-        /** Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. */
-        trial_period_days?: number;
-=======
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** For automatic Stripe payouts only, only returns transactions that were paid out on the specified payout ID. */
@@ -27916,7 +13133,6 @@ export interface operations {
         starting_after?: string;
         /** Only returns transactions of the given type. One of: `charge`, `refund`, `adjustment`, `application_fee`, `application_fee_refund`, `transfer`, `payment`, `payout`, `payout_failure`, `stripe_fee`, or `network_cost`. */
         type?: string;
->>>>>>> f6ee87b (Add more items to components object)
       };
     };
     responses: {
@@ -27984,7 +13200,8 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-        /** The ID of an existing customer. */ customer: string;
+        /** The ID of an existing customer. */
+        customer: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** The URL to which Stripe should send customers when they click on the link to return to your website. This field is required if a default return URL has not been configured for the portal. */
@@ -28069,67 +13286,6 @@ export interface operations {
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
-<<<<<<< HEAD
-        /** List of subscription items, each with an attached plan. */
-        items?: {
-          billing_thresholds?: Partial<{
-            usage_gte: number;
-          }> &
-            Partial<"">;
-          clear_usage?: boolean;
-          deleted?: boolean;
-          id?: string;
-          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-          plan?: string;
-          quantity?: number;
-          tax_rates?: Partial<string[]> & Partial<"">;
-        }[];
-        /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-        /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
-        off_session?: boolean;
-        /** If specified, payment collection for this subscription will be paused. */
-        pause_collection?: Partial<{
-          behavior: "keep_as_draft" | "mark_uncollectible" | "void";
-          resumes_at?: number;
-        }> &
-          Partial<"">;
-        /**
-         * Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
-         *
-         * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
-         *
-         * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
-         */
-        payment_behavior?:
-          | "allow_incomplete"
-          | "error_if_incomplete"
-          | "pending_if_incomplete";
-        /** Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-        pending_invoice_item_interval?: Partial<{
-          interval: "day" | "month" | "week" | "year";
-          interval_count?: number;
-        }> &
-          Partial<"">;
-        /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
-        prorate?: boolean;
-        /**
-         * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
-         *
-         * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
-         *
-         * Prorations can be disabled by passing `none`.
-         */
-        proration_behavior?: "always_invoice" | "create_prorations" | "none";
-        /** If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations. */
-        proration_date?: number;
-        /** A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-        tax_percent?: Partial<number> & Partial<"">;
-        /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-        trial_end?: Partial<"now"> & Partial<number>;
-        /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
-        trial_from_plan?: boolean;
-=======
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -28137,7 +13293,6 @@ export interface operations {
       };
       path: {
         receiver: string;
->>>>>>> f6ee87b (Add more items to components object)
       };
     };
     responses: {
@@ -28296,7 +13451,10 @@ export interface operations {
         customer?: string;
         /** An arbitrary string which you can attach to a `Charge` object. It is displayed when in the web interface alongside the charge. Note that if you use Stripe to send automatic email receipts to your customers, your receipt emails will include the `description` of the charge(s) that they are describing. */
         description?: string;
-        destination?: Partial<{ account: string; amount?: number }> &
+        destination?: Partial<{
+          account: string;
+          amount?: number;
+        }> &
           Partial<string>;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
@@ -28328,7 +13486,10 @@ export interface operations {
         /** Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
         statement_descriptor_suffix?: string;
         /** An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details. */
-        transfer_data?: { amount?: number; destination: string };
+        transfer_data?: {
+          amount?: number;
+          destination: string;
+        };
         /** A string that identifies this transaction as part of a group. For details, see [Grouping transactions](https://stripe.com/docs/connect/charges-transfers#transfer-options). */
         transfer_group?: string;
       };
@@ -28385,7 +13546,9 @@ export interface operations {
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** A set of key-value pairs you can attach to a charge giving information about its riskiness. If you believe a charge is fraudulent, include a `user_report` key with a value of `fraudulent`. If you believe a charge is safe, include a `user_report` key with a value of `safe`. Stripe will use the information you send to improve our fraud detection algorithms. */
-        fraud_details?: { user_report: "" | "fraudulent" | "safe" };
+        fraud_details?: {
+          user_report: "" | "fraudulent" | "safe";
+        };
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
         metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         /** This is the email address that the receipt for this charge will be sent to. If this field is updated, then a new email receipt will be sent to the updated address. */
@@ -28448,7 +13611,9 @@ export interface operations {
         /** Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
         statement_descriptor_suffix?: string;
         /** An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details. */
-        transfer_data?: { amount?: number };
+        transfer_data?: {
+          amount?: number;
+        };
         /** A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
         transfer_group?: string;
       };
@@ -28779,160 +13944,6 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-<<<<<<< HEAD
-        /** Information for the account this token will represent. */
-        account?: {
-          business_type?:
-            | "company"
-            | "government_entity"
-            | "individual"
-            | "non_profit";
-          company?: {
-            address?: {
-              city?: string;
-              country?: string;
-              line1?: string;
-              line2?: string;
-              postal_code?: string;
-              state?: string;
-            };
-            address_kana?: {
-              city?: string;
-              country?: string;
-              line1?: string;
-              line2?: string;
-              postal_code?: string;
-              state?: string;
-              town?: string;
-            };
-            address_kanji?: {
-              city?: string;
-              country?: string;
-              line1?: string;
-              line2?: string;
-              postal_code?: string;
-              state?: string;
-              town?: string;
-            };
-            directors_provided?: boolean;
-            executives_provided?: boolean;
-            name?: string;
-            name_kana?: string;
-            name_kanji?: string;
-            owners_provided?: boolean;
-            phone?: string;
-            structure?:
-              | ""
-              | "government_instrumentality"
-              | "governmental_unit"
-              | "incorporated_non_profit"
-              | "limited_liability_partnership"
-              | "multi_member_llc"
-              | "private_company"
-              | "private_corporation"
-              | "private_partnership"
-              | "public_company"
-              | "public_corporation"
-              | "public_partnership"
-              | "sole_proprietorship"
-              | "tax_exempt_government_instrumentality"
-              | "unincorporated_association"
-              | "unincorporated_non_profit";
-            tax_id?: string;
-            tax_id_registrar?: string;
-            vat_id?: string;
-            verification?: {
-              document?: {
-                back?: string;
-                front?: string;
-              };
-            };
-          };
-          individual?: {
-            address?: {
-              city?: string;
-              country?: string;
-              line1?: string;
-              line2?: string;
-              postal_code?: string;
-              state?: string;
-            };
-            address_kana?: {
-              city?: string;
-              country?: string;
-              line1?: string;
-              line2?: string;
-              postal_code?: string;
-              state?: string;
-              town?: string;
-            };
-            address_kanji?: {
-              city?: string;
-              country?: string;
-              line1?: string;
-              line2?: string;
-              postal_code?: string;
-              state?: string;
-              town?: string;
-            };
-            dob?: Partial<{
-              day: number;
-              month: number;
-              year: number;
-            }> &
-              Partial<"">;
-            email?: string;
-            first_name?: string;
-            first_name_kana?: string;
-            first_name_kanji?: string;
-            gender?: string;
-            id_number?: string;
-            last_name?: string;
-            last_name_kana?: string;
-            last_name_kanji?: string;
-            maiden_name?: string;
-            metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-            phone?: string;
-            ssn_last_4?: string;
-            verification?: {
-              additional_document?: {
-                back?: string;
-                front?: string;
-              };
-              document?: {
-                back?: string;
-                front?: string;
-              };
-            };
-          };
-          tos_shown_and_accepted?: boolean;
-        };
-        /** The bank account this token will represent. */
-        bank_account?: {
-          account_holder_name?: string;
-          account_holder_type?: "company" | "individual";
-          account_number: string;
-          country: string;
-          currency?: string;
-          routing_number?: string;
-        };
-        card?: Partial<{
-          address_city?: string;
-          address_country?: string;
-          address_line1?: string;
-          address_line2?: string;
-          address_state?: string;
-          address_zip?: string;
-          currency?: string;
-          cvc?: string;
-          exp_month: string;
-          exp_year: string;
-          name?: string;
-          number: string;
-        }> &
-          Partial<string>;
-        /** The customer (owned by the application's account) for which to create a token. This can be used only with an [OAuth access token](https://stripe.com/docs/connect/standard-accounts) or [Stripe-Account header](https://stripe.com/docs/connect/authentication). For more details, see [Cloning Saved Payment Methods](https://stripe.com/docs/connect/cloning-saved-payment-methods). */
-=======
         /** Specify whether Checkout should collect the customer's billing address. */
         billing_address_collection?: "auto" | "required";
         /** The URL the customer will be directed to if they decide to cancel payment and return to your website. */
@@ -28952,7 +13963,6 @@ export interface operations {
          * Checkout will create a new customer object based on information
          * provided during the session.
          */
->>>>>>> f6ee87b (Add more items to components object)
         customer?: string;
         /**
          * If provided, this value will be used when the Customer object is created.
@@ -28964,72 +13974,6 @@ export interface operations {
         customer_email?: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
-<<<<<<< HEAD
-        /** Information for the person this token will represent. */
-        person?: {
-          address?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-          };
-          address_kana?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-            town?: string;
-          };
-          address_kanji?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-            town?: string;
-          };
-          dob?: Partial<{
-            day: number;
-            month: number;
-            year: number;
-          }> &
-            Partial<"">;
-          email?: string;
-          first_name?: string;
-          first_name_kana?: string;
-          first_name_kanji?: string;
-          gender?: string;
-          id_number?: string;
-          last_name?: string;
-          last_name_kana?: string;
-          last_name_kanji?: string;
-          maiden_name?: string;
-          metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-          phone?: string;
-          relationship?: {
-            director?: boolean;
-            executive?: boolean;
-            owner?: boolean;
-            percent_ownership?: Partial<number> & Partial<"">;
-            representative?: boolean;
-            title?: string;
-          };
-          ssn_last_4?: string;
-          verification?: {
-            additional_document?: {
-              back?: string;
-              front?: string;
-            };
-            document?: {
-              back?: string;
-              front?: string;
-            };
-=======
         /**
          * A list of items the customer is purchasing. Use this parameter for
          * one-time payments or adding invoice line items to a subscription (used
@@ -29089,11 +14033,13 @@ export interface operations {
             name: string;
             phone?: string;
             tracking_number?: string;
->>>>>>> f6ee87b (Add more items to components object)
           };
           statement_descriptor?: string;
           statement_descriptor_suffix?: string;
-          transfer_data?: { amount?: number; destination: string };
+          transfer_data?: {
+            amount?: number;
+            destination: string;
+          };
         };
         /** A list of the types of payment methods (e.g., card) this Checkout session can accept. */
         payment_method_types: ("card" | "fpx" | "ideal")[];
@@ -29345,22 +14291,6 @@ export interface operations {
             | "ZZ"
           )[];
         };
-<<<<<<< HEAD
-        /** The PII this token will represent. */
-        pii?: {
-          id_number?: string;
-        };
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["token"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-=======
         /**
          * Describes the type of transaction being performed by Checkout in order to customize
          * relevant text on the page, such as the submit button. `submit_type` can only be
@@ -29372,7 +14302,11 @@ export interface operations {
         subscription_data?: {
           application_fee_percent?: number;
           default_tax_rates?: string[];
-          items?: { plan: string; quantity?: number; tax_rates?: string[] }[];
+          items?: {
+            plan: string;
+            quantity?: number;
+            tax_rates?: string[];
+          }[];
           metadata?: { [key: string]: string };
           trial_end?: number;
           trial_from_plan?: boolean;
@@ -29386,7 +14320,6 @@ export interface operations {
          * with webhooks](/docs/payments/checkout/fulfillment#webhooks).
          */
         success_url: string;
->>>>>>> f6ee87b (Add more items to components object)
       };
     };
   };
@@ -30068,7 +15001,12 @@ export interface operations {
         invoice_prefix?: string;
         /** Default invoice settings for this customer. */
         invoice_settings?: {
-          custom_fields?: Partial<{ name: string; value: string }[]> &
+          custom_fields?: Partial<
+            {
+              name: string;
+              value: string;
+            }[]
+          > &
             Partial<"">;
           default_payment_method?: string;
           footer?: string;
@@ -30246,7 +15184,12 @@ export interface operations {
         invoice_prefix?: string;
         /** Default invoice settings for this customer. */
         invoice_settings?: {
-          custom_fields?: Partial<{ name: string; value: string }[]> &
+          custom_fields?: Partial<
+            {
+              name: string;
+              value: string;
+            }[]
+          > &
             Partial<"">;
           default_payment_method?: string;
           footer?: string;
@@ -31290,7 +16233,10 @@ export interface operations {
         expand?: string[];
         /** A list of up to 20 subscription items, each with an attached plan. */
         items?: {
-          billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+          billing_thresholds?: Partial<{
+            usage_gte: number;
+          }> &
+            Partial<"">;
           metadata?: { [key: string]: string };
           plan?: string;
           quantity?: number;
@@ -31412,7 +16358,10 @@ export interface operations {
         expand?: string[];
         /** List of subscription items, each with an attached plan. */
         items?: {
-          billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+          billing_thresholds?: Partial<{
+            usage_gte: number;
+          }> &
+            Partial<"">;
           clear_usage?: boolean;
           deleted?: boolean;
           id?: string;
@@ -31987,21 +16936,6 @@ export interface operations {
         starting_after?: string;
       };
     };
-<<<<<<< HEAD
-    address: {
-      /** City, district, suburb, town, or village. */
-      city?: string | null;
-      /** Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)). */
-      country?: string | null;
-      /** Address line 1 (e.g., street, PO Box, or company name). */
-      line1?: string | null;
-      /** Address line 2 (e.g., apartment, suite, unit, or building). */
-      line2?: string | null;
-      /** ZIP or postal code. */
-      postal_code?: string | null;
-      /** State, county, province, or region. */
-      state?: string | null;
-=======
     responses: {
       /** Successful response. */
       200: {
@@ -32019,42 +16953,10 @@ export interface operations {
       default: {
         "application/json": components["schemas"]["error"];
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
-<<<<<<< HEAD
-    api_errors: {
-      /** For card errors, the ID of the failed charge. */
-      charge?: string;
-      /** For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported. */
-      code?: string;
-      /** For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one. */
-      decline_code?: string;
-      /** A URL to more information about the [error code](https://stripe.com/docs/error-codes) reported. */
-      doc_url?: string;
-      /** A human-readable message providing more details about the error. For card errors, these messages can be shown to your users. */
-      message?: string;
-      /** If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field. */
-      param?: string;
-      payment_intent?: components["schemas"]["payment_intent"];
-      payment_method?: components["schemas"]["payment_method"];
-      setup_intent?: components["schemas"]["setup_intent"];
-      /** The source object for errors returned on a request involving a source. */
-      source?: Partial<components["schemas"]["bank_account"]> &
-        Partial<components["schemas"]["card"]> &
-        Partial<components["schemas"]["source"]>;
-      /** The type of error returned. One of `api_connection_error`, `api_error`, `authentication_error`, `card_error`, `idempotency_error`, `invalid_request_error`, or `rate_limit_error` */
-      type:
-        | "api_connection_error"
-        | "api_error"
-        | "authentication_error"
-        | "card_error"
-        | "idempotency_error"
-        | "invalid_request_error"
-        | "rate_limit_error";
-=======
   };
   /** <p>Retrieves the exchange rates from the given currency to every supported currency.</p> */
   GetExchangeRatesCurrency: {
@@ -32066,7 +16968,6 @@ export interface operations {
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     responses: {
       /** Successful response. */
@@ -32078,18 +16979,8 @@ export interface operations {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-    application: {
-      /** Unique identifier for the object. */
-      id: string;
-      /** The name of the application. */
-      name?: string | null;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "application";
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
->>>>>>> f6ee87b (Add more items to components object)
     };
   };
   /** <p>Returns a list of file links.</p> */
@@ -32135,106 +17026,6 @@ export interface operations {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-    balance_amount: {
-      /** Balance amount. */
-      amount: number;
-      /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-      currency: string;
-      source_types?: components["schemas"]["balance_amount_by_source_type"];
-    };
-    balance_amount_by_source_type: {
-      /** Amount for bank account. */
-      bank_account?: number;
-      /** Amount for card. */
-      card?: number;
-      /** Amount for FPX. */
-      fpx?: number;
-    };
-    /**
-     * Balance transactions represent funds moving through your Stripe account.
-     * They're created for every type of transaction that comes into or flows out of your Stripe account balance.
-     *
-     * Related guide: [Balance Transaction Types](https://stripe.com/docs/reports/balance-transaction-types).
-     */
-    balance_transaction: {
-      /** Gross amount of the transaction, in %s. */
-      amount: number;
-      /** The date the transaction's net funds will become available in the Stripe balance. */
-      available_on: number;
-      /** Time at which the object was created. Measured in seconds since the Unix epoch. */
-      created: number;
-      /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-      currency: string;
-      /** An arbitrary string attached to the object. Often useful for displaying to users. */
-      description?: string | null;
-      /** The exchange rate used, if applicable, for this transaction. Specifically, if money was converted from currency A to currency B, then the `amount` in currency A, times `exchange_rate`, would be the `amount` in currency B. For example, suppose you charged a customer 10.00 EUR. Then the PaymentIntent's `amount` would be `1000` and `currency` would be `eur`. Suppose this was converted into 12.34 USD in your Stripe account. Then the BalanceTransaction's `amount` would be `1234`, `currency` would be `usd`, and `exchange_rate` would be `1.234`. */
-      exchange_rate?: number | null;
-      /** Fees (in %s) paid for this transaction. */
-      fee: number;
-      /** Detailed breakdown of fees (in %s) paid for this transaction. */
-      fee_details: components["schemas"]["fee"][];
-      /** Unique identifier for the object. */
-      id: string;
-      /** Net amount of the transaction, in %s. */
-      net: number;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "balance_transaction";
-      /** [Learn more](https://stripe.com/docs/reports/reporting-categories) about how reporting categories can help you understand balance transactions from an accounting perspective. */
-      reporting_category: string;
-      /** The Stripe object to which this transaction is related. */
-      source?:
-        | (Partial<string> &
-            Partial<components["schemas"]["application_fee"]> &
-            Partial<components["schemas"]["charge"]> &
-            Partial<components["schemas"]["connect_collection_transfer"]> &
-            Partial<components["schemas"]["dispute"]> &
-            Partial<components["schemas"]["fee_refund"]> &
-            Partial<components["schemas"]["issuing.authorization"]> &
-            Partial<components["schemas"]["issuing.transaction"]> &
-            Partial<components["schemas"]["payout"]> &
-            Partial<components["schemas"]["platform_tax_fee"]> &
-            Partial<components["schemas"]["refund"]> &
-            Partial<components["schemas"]["reserve_transaction"]> &
-            Partial<components["schemas"]["tax_deducted_at_source"]> &
-            Partial<components["schemas"]["topup"]> &
-            Partial<components["schemas"]["transfer"]> &
-            Partial<components["schemas"]["transfer_reversal"]>)
-        | null;
-      /** If the transaction's net funds are available in the Stripe balance yet. Either `available` or `pending`. */
-      status: string;
-      /** Transaction type: `adjustment`, `advance`, `advance_funding`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_transaction`, `payment`, `payment_failure_refund`, `payment_refund`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. [Learn more](https://stripe.com/docs/reports/balance-transaction-types) about balance transaction types and what they represent. If you are looking to classify transactions for accounting purposes, you might want to consider `reporting_category` instead. */
-      type:
-        | "adjustment"
-        | "advance"
-        | "advance_funding"
-        | "application_fee"
-        | "application_fee_refund"
-        | "charge"
-        | "connect_collection_transfer"
-        | "issuing_authorization_hold"
-        | "issuing_authorization_release"
-        | "issuing_transaction"
-        | "payment"
-        | "payment_failure_refund"
-        | "payment_refund"
-        | "payout"
-        | "payout_cancel"
-        | "payout_failure"
-        | "refund"
-        | "refund_failure"
-        | "reserve_transaction"
-        | "reserved_funds"
-        | "stripe_fee"
-        | "stripe_fx_fee"
-        | "tax_fee"
-        | "topup"
-        | "topup_reversal"
-        | "transfer"
-        | "transfer_cancel"
-        | "transfer_failure"
-        | "transfer_refund";
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
@@ -32262,7 +17053,6 @@ export interface operations {
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
         metadata?: Partial<{ [key: string]: string }> & Partial<"">;
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
   };
   /** <p>Retrieves the file link with the given ID.</p> */
@@ -32519,7 +17309,10 @@ export interface operations {
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
         metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         /** The period associated with this invoice item. */
-        period?: { end: number; start: number };
+        period?: {
+          end: number;
+          start: number;
+        };
         /** Non-negative integer. The quantity of units for the invoice item. */
         quantity?: number;
         /** The ID of a subscription to add this invoice item to. When left blank, the invoice item will be be added to the next upcoming scheduled invoice. When set, scheduled invoices for subscriptions other than the specified subscription will ignore the invoice item. Use this when you want to express that an invoice item has been accrued within the context of a particular subscription. */
@@ -32532,42 +17325,6 @@ export interface operations {
         unit_amount_decimal?: string;
       };
     };
-<<<<<<< HEAD
-    checkout_session_custom_display_item_description: {
-      /** The description of the line item. */
-      description?: string | null;
-      /** The images of the line item. */
-      images?: string[] | null;
-      /** The name of the line item. */
-      name: string;
-    };
-    checkout_session_display_item: {
-      /** Amount for the display item. */
-      amount?: number;
-      /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-      currency?: string;
-      custom?: components["schemas"]["checkout_session_custom_display_item_description"];
-      plan?: components["schemas"]["plan"];
-      /** Quantity of the display item being purchased. */
-      quantity?: number;
-      sku?: components["schemas"]["sku"];
-      /** The type of display item. One of `custom`, `plan` or `sku` */
-      type?: string;
-    };
-    connect_collection_transfer: {
-      /** Amount transferred, in %s. */
-      amount: number;
-      /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-      currency: string;
-      /** ID of the account that funds are being collected for. */
-      destination: Partial<string> & Partial<components["schemas"]["account"]>;
-      /** Unique identifier for the object. */
-      id: string;
-      /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
-      livemode: boolean;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "connect_collection_transfer";
-=======
   };
   /** <p>Retrieves the invoice item with the given ID.</p> */
   GetInvoiceitemsInvoiceitem: {
@@ -32592,7 +17349,6 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
->>>>>>> f6ee87b (Add more items to components object)
     };
   };
   /** <p>Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it’s attached to is closed.</p> */
@@ -32625,7 +17381,10 @@ export interface operations {
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
         metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         /** The period associated with this invoice item. */
-        period?: { end: number; start: number };
+        period?: {
+          end: number;
+          start: number;
+        };
         /** Non-negative integer. The quantity of units for the invoice item. */
         quantity?: number;
         /** The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. Pass an empty string to remove previously-defined tax rates. */
@@ -32715,15 +17474,6 @@ export interface operations {
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
-<<<<<<< HEAD
-    credit_note_tax_amount: {
-      /** The amount, in %s, of the tax. */
-      amount: number;
-      /** Whether this tax amount is inclusive or exclusive. */
-      inclusive: boolean;
-      /** The tax rate that was applied to get this tax amount. */
-      tax_rate: Partial<string> & Partial<components["schemas"]["tax_rate"]>;
-=======
   };
   /** <p>This endpoint creates a draft invoice for a given customer. The draft invoice created pulls in all pending invoice items on that customer, including prorations.</p> */
   PostInvoices: {
@@ -32736,7 +17486,6 @@ export interface operations {
       default: {
         "application/json": components["schemas"]["error"];
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
@@ -32747,7 +17496,12 @@ export interface operations {
         /** Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. Defaults to `charge_automatically`. */
         collection_method?: "charge_automatically" | "send_invoice";
         /** A list of up to 4 custom fields to be displayed on the invoice. */
-        custom_fields?: Partial<{ name: string; value: string }[]> &
+        custom_fields?: Partial<
+          {
+            name: string;
+            value: string;
+          }[]
+        > &
           Partial<"">;
         /** The ID of the customer who will be billed. */
         customer: string;
@@ -32802,7 +17556,10 @@ export interface operations {
           discountable?: boolean;
           invoiceitem?: string;
           metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-          period?: { end: number; start: number };
+          period?: {
+            end: number;
+            start: number;
+          };
           quantity?: number;
           tax_rates?: Partial<string[]> & Partial<"">;
           unit_amount?: number;
@@ -32825,7 +17582,10 @@ export interface operations {
         subscription_default_tax_rates?: Partial<string[]> & Partial<"">;
         /** List of subscription items, each with an attached plan. */
         subscription_items?: {
-          billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+          billing_thresholds?: Partial<{
+            usage_gte: number;
+          }> &
+            Partial<"">;
           clear_usage?: boolean;
           deleted?: boolean;
           id?: string;
@@ -32869,91 +17629,8 @@ export interface operations {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-    customer_acceptance: {
-      /** The time at which the customer accepted the Mandate. */
-      accepted_at?: number | null;
-      offline?: components["schemas"]["offline_acceptance"];
-      online?: components["schemas"]["online_acceptance"];
-      /** The type of customer acceptance information included with the Mandate. One of `online` or `offline`. */
-      type: "offline" | "online";
-    };
-    /**
-     * Each customer has a [`balance`](https://stripe.com/docs/api/customers/object#customer_object-balance) value,
-     * which denotes a debit or credit that's automatically applied to their next invoice upon finalization.
-     * You may modify the value directly by using the [update customer API](https://stripe.com/docs/api/customers/update),
-     * or by creating a Customer Balance Transaction, which increments or decrements the customer's `balance` by the specified `amount`.
-     *
-     * Related guide: [Customer Balance](https://stripe.com/docs/billing/customer/balance) to learn more.
-     */
-    customer_balance_transaction: {
-      /** The amount of the transaction. A negative value is a credit for the customer's balance, and a positive value is a debit to the customer's `balance`. */
-      amount: number;
-      /** Time at which the object was created. Measured in seconds since the Unix epoch. */
-      created: number;
-      /** The ID of the credit note (if any) related to the transaction. */
-      credit_note?:
-        | (Partial<string> & Partial<components["schemas"]["credit_note"]>)
-        | null;
-      /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-      currency: string;
-      /** The ID of the customer the transaction belongs to. */
-      customer: Partial<string> & Partial<components["schemas"]["customer"]>;
-      /** An arbitrary string attached to the object. Often useful for displaying to users. */
-      description?: string | null;
-      /** The customer's `balance` after the transaction was applied. A negative value decreases the amount due on the customer's next invoice. A positive value increases the amount due on the customer's next invoice. */
-      ending_balance: number;
-      /** Unique identifier for the object. */
-      id: string;
-      /** The ID of the invoice (if any) related to the transaction. */
-      invoice?:
-        | (Partial<string> & Partial<components["schemas"]["invoice"]>)
-        | null;
-      /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
-      livemode: boolean;
-      /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: { [key: string]: string } | null;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "customer_balance_transaction";
-      /** Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, or `unapplied_from_invoice`. See the [Customer Balance page](https://stripe.com/docs/billing/customer/balance#types) to learn more about transaction types. */
-      type:
-        | "adjustment"
-        | "applied_to_invoice"
-        | "credit_note"
-        | "initial"
-        | "invoice_too_large"
-        | "invoice_too_small"
-        | "migration"
-        | "unapplied_from_invoice"
-        | "unspent_receiver_credit";
-    };
-    deleted_account: {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "account";
-    };
-    deleted_alipay_account: {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "alipay_account";
-    };
-    deleted_apple_pay_domain: {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "apple_pay_domain";
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
->>>>>>> f6ee87b (Add more items to components object)
     };
   };
   /** <p>When retrieving an upcoming invoice, you’ll get a <strong>lines</strong> property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
@@ -32976,7 +17653,10 @@ export interface operations {
           discountable?: boolean;
           invoiceitem?: string;
           metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-          period?: { end: number; start: number };
+          period?: {
+            end: number;
+            start: number;
+          };
           quantity?: number;
           tax_rates?: Partial<string[]> & Partial<"">;
           unit_amount?: number;
@@ -33003,7 +17683,10 @@ export interface operations {
         subscription_default_tax_rates?: Partial<string[]> & Partial<"">;
         /** List of subscription items, each with an attached plan. */
         subscription_items?: {
-          billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+          billing_thresholds?: Partial<{
+            usage_gte: number;
+          }> &
+            Partial<"">;
           clear_usage?: boolean;
           deleted?: boolean;
           id?: string;
@@ -33037,15 +17720,6 @@ export interface operations {
         subscription_trial_from_plan?: boolean;
       };
     };
-<<<<<<< HEAD
-    deleted_bitcoin_receiver: {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "bitcoin_receiver";
-=======
     responses: {
       /** Successful response. */
       200: {
@@ -33064,156 +17738,10 @@ export interface operations {
       default: {
         "application/json": components["schemas"]["error"];
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
-<<<<<<< HEAD
-    deleted_coupon: {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "coupon";
-    };
-    deleted_customer: {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "customer";
-    };
-    deleted_discount: {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "discount";
-    };
-    deleted_external_account: Partial<
-      components["schemas"]["deleted_bank_account"]
-    > &
-      Partial<components["schemas"]["deleted_card"]>;
-    deleted_invoice: {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "invoice";
-    };
-    deleted_invoiceitem: {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "invoiceitem";
-    };
-    deleted_payment_source: Partial<
-      components["schemas"]["deleted_alipay_account"]
-    > &
-      Partial<components["schemas"]["deleted_bank_account"]> &
-      Partial<components["schemas"]["deleted_bitcoin_receiver"]> &
-      Partial<components["schemas"]["deleted_card"]>;
-    deleted_person: {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "person";
-    };
-    deleted_plan: {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "plan";
-    };
-    deleted_product: {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "product";
-    };
-    "deleted_radar.value_list": {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "radar.value_list";
-    };
-    "deleted_radar.value_list_item": {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "radar.value_list_item";
-    };
-    deleted_recipient: {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "recipient";
-    };
-    deleted_sku: {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "sku";
-    };
-    deleted_subscription_item: {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "subscription_item";
-    };
-    deleted_tax_id: {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "tax_id";
-    };
-    "deleted_terminal.location": {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "terminal.location";
-    };
-    "deleted_terminal.reader": {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "terminal.reader";
-    };
-    deleted_webhook_endpoint: {
-      /** Always true for a deleted object */
-      deleted: true;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "webhook_endpoint";
-=======
   };
   /** <p>Retrieves the invoice with the given ID.</p> */
   GetInvoicesInvoice: {
@@ -33273,7 +17801,12 @@ export interface operations {
         /** Either `charge_automatically` or `send_invoice`. This field can be updated only on `draft` invoices. */
         collection_method?: "charge_automatically" | "send_invoice";
         /** A list of up to 4 custom fields to be displayed on the invoice. If a value for `custom_fields` is specified, the list specified will replace the existing custom field list on this invoice. Pass an empty string to remove previously-defined fields. */
-        custom_fields?: Partial<{ name: string; value: string }[]> &
+        custom_fields?: Partial<
+          {
+            name: string;
+            value: string;
+          }[]
+        > &
           Partial<"">;
         /** The number of days from which the invoice is created until it is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices. */
         days_until_due?: number;
@@ -33403,7 +17936,6 @@ export interface operations {
       default: {
         "application/json": components["schemas"]["error"];
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
@@ -33471,71 +18003,11 @@ export interface operations {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-    /** An error response from the Stripe API */
-    error: {
-      error: components["schemas"]["api_errors"];
-    };
-    /**
-     * Events are our way of letting you know when something interesting happens in
-     * your account. When an interesting event occurs, we create a new `Event`
-     * object. For example, when a charge succeeds, we create a `charge.succeeded`
-     * event; and when an invoice payment attempt fails, we create an
-     * `invoice.payment_failed` event. Note that many API requests may cause multiple
-     * events to be created. For example, if you create a new subscription for a
-     * customer, you will receive both a `customer.subscription.created` event and a
-     * `charge.succeeded` event.
-     *
-     * Events occur when the state of another API resource changes. The state of that
-     * resource at the time of the change is embedded in the event's data field. For
-     * example, a `charge.succeeded` event will contain a charge, and an
-     * `invoice.payment_failed` event will contain an invoice.
-     *
-     * As with other API resources, you can use endpoints to retrieve an
-     * [individual event](https://stripe.com/docs/api#retrieve_event) or a [list of events](https://stripe.com/docs/api#list_events)
-     * from the API. We also have a separate
-     * [webhooks](http://en.wikipedia.org/wiki/Webhook) system for sending the
-     * `Event` objects directly to an endpoint on your server. Webhooks are managed
-     * in your
-     * [account settings](https://dashboard.stripe.com/account/webhooks'),
-     * and our [Using Webhooks](https://stripe.com/docs/webhooks) guide will help you get set up.
-     *
-     * When using [Connect](https://stripe.com/docs/connect), you can also receive notifications of
-     * events that occur in connected accounts. For these events, there will be an
-     * additional `account` attribute in the received `Event` object.
-     *
-     * **NOTE:** Right now, access to events through the [Retrieve Event API](https://stripe.com/docs/api#retrieve_event) is
-     * guaranteed only for 30 days.
-     */
-    event: {
-      /** The connected account that originated the event. */
-      account?: string;
-      /** The Stripe API version used to render `data`. *Note: This property is populated only for events on or after October 31, 2014*. */
-      api_version?: string | null;
-      /** Time at which the object was created. Measured in seconds since the Unix epoch. */
-      created: number;
-      data: components["schemas"]["notification_event_data"];
-      /** Unique identifier for the object. */
-      id: string;
-      /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
-      livemode: boolean;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "event";
-      /** Number of webhooks that have yet to be successfully delivered (i.e., to return a 20x response) to the URLs you've specified. */
-      pending_webhooks: number;
-      /** Information on the API request that instigated the event. */
-      request?: Partial<
-        components["schemas"]["notification_event_request"]
-      > | null;
-      /** Description of the event (e.g., `invoice.created` or `charge.refunded`). */
-      type: string;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": {
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
   };
   /** <p>Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to <a href="#delete_invoice">deletion</a>, however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.</p> */
@@ -33545,49 +18017,6 @@ export interface operations {
         invoice: string;
       };
     };
-<<<<<<< HEAD
-    external_account: Partial<components["schemas"]["bank_account"]> &
-      Partial<components["schemas"]["card"]>;
-    fee: {
-      /** Amount of the fee, in cents. */
-      amount: number;
-      /** ID of the Connect application that earned the fee. */
-      application?: string | null;
-      /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-      currency: string;
-      /** An arbitrary string attached to the object. Often useful for displaying to users. */
-      description?: string | null;
-      /** Type of the fee, one of: `application_fee`, `stripe_fee` or `tax`. */
-      type: string;
-    };
-    /**
-     * `Application Fee Refund` objects allow you to refund an application fee that
-     * has previously been created but not yet refunded. Funds will be refunded to
-     * the Stripe account from which the fee was originally collected.
-     *
-     * Related guide: [Refunding Application Fees](https://stripe.com/docs/connect/destination-charges#refunding-app-fee).
-     */
-    fee_refund: {
-      /** Amount, in %s. */
-      amount: number;
-      /** Balance transaction that describes the impact on your account balance. */
-      balance_transaction?:
-        | (Partial<string> &
-            Partial<components["schemas"]["balance_transaction"]>)
-        | null;
-      /** Time at which the object was created. Measured in seconds since the Unix epoch. */
-      created: number;
-      /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-      currency: string;
-      /** ID of the application fee that was refunded. */
-      fee: Partial<string> & Partial<components["schemas"]["application_fee"]>;
-      /** Unique identifier for the object. */
-      id: string;
-      /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata: { [key: string]: string };
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "fee_refund";
-=======
     responses: {
       /** Successful response. */
       200: {
@@ -33603,7 +18032,6 @@ export interface operations {
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
   };
   /** <p>Returns a list of issuer fraud records.</p> */
@@ -33719,19 +18147,6 @@ export interface operations {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-    invoice_line_item_period: {
-      /** End of the line item's billing period */
-      end: number;
-      /** Start of the line item's billing period */
-      start: number;
-    };
-    invoice_setting_custom_field: {
-      /** The name of the custom field. */
-      name: string;
-      /** The value of the custom field. */
-      value: string;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
@@ -33746,7 +18161,6 @@ export interface operations {
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     responses: {
       /** Successful response. */
@@ -33761,15 +18175,6 @@ export interface operations {
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
-<<<<<<< HEAD
-    invoice_tax_amount: {
-      /** The amount, in %s, of the tax. */
-      amount: number;
-      /** Whether this tax amount is inclusive or exclusive. */
-      inclusive: boolean;
-      /** The tax rate that was applied to get this tax amount. */
-      tax_rate: Partial<string> & Partial<components["schemas"]["tax_rate"]>;
-=======
   };
   /** <p>Updates the specified Issuing <code>Authorization</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
   PostIssuingAuthorizationsAuthorization: {
@@ -33777,7 +18182,6 @@ export interface operations {
       path: {
         authorization: string;
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     responses: {
       /** Successful response. */
@@ -33833,54 +18237,6 @@ export interface operations {
         authorization: string;
       };
     };
-<<<<<<< HEAD
-    /** You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders. */
-    "issuing.card": {
-      /** The brand of the card. */
-      brand: string;
-      /** The reason why the card was canceled. */
-      cancellation_reason?: ("lost" | "stolen") | null;
-      cardholder: components["schemas"]["issuing.cardholder"];
-      /** Time at which the object was created. Measured in seconds since the Unix epoch. */
-      created: number;
-      /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-      currency: string;
-      /** The card's CVC. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint. */
-      cvc?: string;
-      /** The expiration month of the card. */
-      exp_month: number;
-      /** The expiration year of the card. */
-      exp_year: number;
-      /** Unique identifier for the object. */
-      id: string;
-      /** The last 4 digits of the card number. */
-      last4: string;
-      /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
-      livemode: boolean;
-      /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata: { [key: string]: string };
-      /** The full unredacted card number. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint. */
-      number?: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "issuing.card";
-      /** The latest card that replaces this card, if any. */
-      replaced_by?:
-        | (Partial<string> & Partial<components["schemas"]["issuing.card"]>)
-        | null;
-      /** The card this card replaces, if any. */
-      replacement_for?:
-        | (Partial<string> & Partial<components["schemas"]["issuing.card"]>)
-        | null;
-      /** The reason why the previous card needed to be replaced. */
-      replacement_reason?: ("damaged" | "expired" | "lost" | "stolen") | null;
-      /** Where and how the card will be shipped. */
-      shipping?: Partial<components["schemas"]["issuing_card_shipping"]> | null;
-      spending_controls: components["schemas"]["issuing_card_authorization_controls"];
-      /** Whether authorizations can be approved on this card. */
-      status: "active" | "canceled" | "inactive";
-      /** The type of the card. */
-      type: "physical" | "virtual";
-=======
     responses: {
       /** Successful response. */
       200: {
@@ -33890,7 +18246,6 @@ export interface operations {
       default: {
         "application/json": components["schemas"]["error"];
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
@@ -33900,20 +18255,6 @@ export interface operations {
         metadata?: Partial<{ [key: string]: string }> & Partial<"">;
       };
     };
-<<<<<<< HEAD
-    /**
-     * As a [card issuer](https://stripe.com/docs/issuing), you can [dispute](https://stripe.com/docs/issuing/purchases/disputes) transactions that you do not recognize, suspect to be fraudulent, or have some other issue.
-     *
-     * Related guide: [Disputing Transactions](https://stripe.com/docs/issuing/purchases/disputes)
-     */
-    "issuing.dispute": {
-      /** Unique identifier for the object. */
-      id: string;
-      /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
-      livemode: boolean;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "issuing.dispute";
-=======
   };
   /** <p>Returns a list of Issuing <code>Cardholder</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingCardholders: {
@@ -33944,7 +18285,6 @@ export interface operations {
         /** Only return cardholders that have the given type. One of `individual` or `company`. */
         type?: "company" | "individual";
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     responses: {
       /** Successful response. */
@@ -33994,17 +18334,28 @@ export interface operations {
           };
         };
         /** Additional information about a `company` cardholder. */
-        company?: { tax_id?: string };
+        company?: {
+          tax_id?: string;
+        };
         /** The cardholder's email address. */
         email?: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** Additional information about an `individual` cardholder. */
         individual?: {
-          dob?: { day: number; month: number; year: number };
+          dob?: {
+            day: number;
+            month: number;
+            year: number;
+          };
           first_name: string;
           last_name: string;
-          verification?: { document?: { back?: string; front?: string } };
+          verification?: {
+            document?: {
+              back?: string;
+              front?: string;
+            };
+          };
         };
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
         metadata?: { [key: string]: string };
@@ -34959,17 +19310,28 @@ export interface operations {
           };
         };
         /** Additional information about a `company` cardholder. */
-        company?: { tax_id?: string };
+        company?: {
+          tax_id?: string;
+        };
         /** The cardholder's email address. */
         email?: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** Additional information about an `individual` cardholder. */
         individual?: {
-          dob?: { day: number; month: number; year: number };
+          dob?: {
+            day: number;
+            month: number;
+            year: number;
+          };
           first_name: string;
           last_name: string;
-          verification?: { document?: { back?: string; front?: string } };
+          verification?: {
+            document?: {
+              back?: string;
+              front?: string;
+            };
+          };
         };
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
         metadata?: { [key: string]: string };
@@ -35932,14 +20294,6 @@ export interface operations {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-    issuing_card_spending_limit: {
-      /** Maximum amount allowed to spend per time interval. */
-      amount: number;
-      /** Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) on which to apply the spending limit. Leave this blank to limit all charges. */
-      categories?:
-        | (
-=======
     requestBody: {
       "application/x-www-form-urlencoded": {
         /** The [Cardholder](https://stripe.com/docs/api#issuing_cardholder_object) object with which the card will be associated. */
@@ -35971,7 +20325,6 @@ export interface operations {
         /** Spending rules that give you some control over how your cards can be used. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details. */
         spending_controls?: {
           allowed_categories?: (
->>>>>>> f6ee87b (Add more items to components object)
             | "ac_refrigeration_repair"
             | "accounting_bookkeeping_services"
             | "advertising_services"
@@ -36260,29 +20613,8 @@ export interface operations {
             | "womens_accessory_and_specialty_shops"
             | "womens_ready_to_wear_stores"
             | "wrecking_and_salvage_yards"
-<<<<<<< HEAD
-          )[]
-        | null;
-      /** The time interval or event with which to apply this spending limit towards. */
-      interval:
-        | "all_time"
-        | "daily"
-        | "monthly"
-        | "per_authorization"
-        | "weekly"
-        | "yearly";
-    };
-    issuing_cardholder_address: {
-      address: components["schemas"]["address"];
-    };
-    issuing_cardholder_authorization_controls: {
-      /** Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations permitted on this cardholder's cards. */
-      allowed_categories?:
-        | (
-=======
           )[];
           blocked_categories?: (
->>>>>>> f6ee87b (Add more items to components object)
             | "ac_refrigeration_repair"
             | "accounting_bookkeeping_services"
             | "advertising_services"
@@ -37221,74 +21553,8 @@ export interface operations {
             | "womens_accessory_and_specialty_shops"
             | "womens_ready_to_wear_stores"
             | "wrecking_and_salvage_yards"
-<<<<<<< HEAD
-          )[]
-        | null;
-      /** Limit the spending with rules based on time intervals and categories. */
-      spending_limits?:
-        | components["schemas"]["issuing_cardholder_spending_limit"][]
-        | null;
-      /** Currency for the amounts within spending_limits. */
-      spending_limits_currency?: string | null;
-    };
-    issuing_cardholder_company: {
-      /** Whether the company's business ID number was provided. */
-      tax_id_provided: boolean;
-    };
-    issuing_cardholder_id_document: {
-      /** The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. */
-      back?: (Partial<string> & Partial<components["schemas"]["file"]>) | null;
-      /** The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. */
-      front?: (Partial<string> & Partial<components["schemas"]["file"]>) | null;
-    };
-    issuing_cardholder_individual: {
-      /** The date of birth of this cardholder. */
-      dob?: Partial<
-        components["schemas"]["issuing_cardholder_individual_dob"]
-      > | null;
-      /** The first name of this cardholder. */
-      first_name: string;
-      /** The last name of this cardholder. */
-      last_name: string;
-      /** Government-issued ID document for this cardholder. */
-      verification?: Partial<
-        components["schemas"]["issuing_cardholder_verification"]
-      > | null;
-    };
-    issuing_cardholder_individual_dob: {
-      /** The day of birth, between 1 and 31. */
-      day?: number | null;
-      /** The month of birth, between 1 and 12. */
-      month?: number | null;
-      /** The four-digit year of birth. */
-      year?: number | null;
-    };
-    issuing_cardholder_requirements: {
-      /** If `disabled_reason` is present, all cards will decline authorizations with `cardholder_verification_required` reason. */
-      disabled_reason?: ("listed" | "rejected.listed" | "under_review") | null;
-      /** Array of fields that need to be collected in order to verify and re-enable the cardholder. */
-      past_due?:
-        | (
-            | "company.tax_id"
-            | "individual.dob.day"
-            | "individual.dob.month"
-            | "individual.dob.year"
-            | "individual.first_name"
-            | "individual.last_name"
-            | "individual.verification.document"
-          )[]
-        | null;
-    };
-    issuing_cardholder_spending_limit: {
-      /** Maximum amount allowed to spend per time interval. */
-      amount: number;
-      /** Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) on which to apply the spending limit. Leave this blank to limit all charges. */
-      categories?:
-        | (
-=======
           )[];
           blocked_categories?: (
->>>>>>> f6ee87b (Add more items to components object)
             | "ac_refrigeration_repair"
             | "accounting_bookkeeping_services"
             | "advertising_services"
@@ -38469,7 +22735,10 @@ export interface operations {
         /** The shipping method to select for fulfilling this order. If specified, must be one of the `id`s of a shipping method in the `shipping_methods` array. If specified, will overwrite the existing selected shipping method, updating `items` as necessary. */
         selected_shipping_method?: string;
         /** Tracking information once the order has been fulfilled. */
-        shipping?: { carrier: string; tracking_number: string };
+        shipping?: {
+          carrier: string;
+          tracking_number: string;
+        };
         /** Current order status. One of `created`, `paid`, `canceled`, `fulfilled`, or `returned`. More detail in the [Orders Guide](https://stripe.com/docs/orders/guide#understanding-order-statuses). */
         status?: "canceled" | "created" | "fulfilled" | "paid" | "returned";
       };
@@ -38651,7 +22920,10 @@ export interface operations {
           customer_acceptance: {
             accepted_at?: number;
             offline?: { [key: string]: any };
-            online?: { ip_address: string; user_agent: string };
+            online?: {
+              ip_address: string;
+              user_agent: string;
+            };
             type: "offline" | "online";
           };
         };
@@ -38720,7 +22992,10 @@ export interface operations {
          * The parameters used to automatically create a Transfer when the payment succeeds.
          * For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
          */
-        transfer_data?: { amount?: number; destination: string };
+        transfer_data?: {
+          amount?: number;
+          destination: string;
+        };
         /** A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
         transfer_group?: string;
         /** Set to `true` only when using manual confirmation and the iOS or Android SDKs to handle additional authentication steps. */
@@ -38861,7 +23136,9 @@ export interface operations {
         /** Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
         statement_descriptor_suffix?: string;
         /** The parameters used to automatically create a Transfer when the payment succeeds. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
-        transfer_data?: { amount?: number };
+        transfer_data?: {
+          amount?: number;
+        };
         /** A string that identifies the resulting payment as part of a group. `transfer_group` may only be provided if it has not been set. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
         transfer_group?: string;
       };
@@ -38944,7 +23221,9 @@ export interface operations {
          * The parameters used to automatically create a Transfer when the payment
          * is captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
          */
-        transfer_data?: { amount?: number };
+        transfer_data?: {
+          amount?: number;
+        };
       };
     };
   };
@@ -38993,7 +23272,8 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-        /** The client secret of the PaymentIntent. */ client_secret?: string;
+        /** The client secret of the PaymentIntent. */
+        client_secret?: string;
         /** Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). */
         error_on_requires_action?: boolean;
         /** Specifies which fields in the response should be expanded. */
@@ -39005,13 +23285,19 @@ export interface operations {
           customer_acceptance: {
             accepted_at?: number;
             offline?: { [key: string]: any };
-            online?: { ip_address: string; user_agent: string };
+            online?: {
+              ip_address: string;
+              user_agent: string;
+            };
             type: "offline" | "online";
           };
         }> &
           Partial<{
             customer_acceptance: {
-              online: { ip_address?: string; user_agent?: string };
+              online: {
+                ip_address?: string;
+                user_agent?: string;
+              };
               type: "online";
             };
           }>;
@@ -39137,7 +23423,10 @@ export interface operations {
     requestBody: {
       "application/x-www-form-urlencoded": {
         /** If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account. */
-        au_becs_debit?: { account_number: string; bsb_number: string };
+        au_becs_debit?: {
+          account_number: string;
+          bsb_number: string;
+        };
         /** Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods. */
         billing_details?: {
           address?: {
@@ -39159,7 +23448,9 @@ export interface operations {
           exp_year: number;
           number: string;
         }> &
-          Partial<{ token: string }>;
+          Partial<{
+            token: string;
+          }>;
         /** The `Customer` to whom the original PaymentMethod is attached. */
         customer?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -39209,7 +23500,9 @@ export interface operations {
         /** The PaymentMethod to share. */
         payment_method?: string;
         /** If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account. */
-        sepa_debit?: { iban: string };
+        sepa_debit?: {
+          iban: string;
+        };
         /** The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type. Required unless `payment_method` is specified (see the [Cloning PaymentMethods](https://stripe.com/docs/payments/payment-methods/connect#cloning-payment-methods) guide) */
         type?: "au_becs_debit" | "card" | "fpx" | "ideal" | "sepa_debit";
       };
@@ -39274,7 +23567,10 @@ export interface operations {
           phone?: string;
         };
         /** If this is a `card` PaymentMethod, this hash contains the user's card details. */
-        card?: { exp_month?: number; exp_year?: number };
+        card?: {
+          exp_month?: number;
+          exp_year?: number;
+        };
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -39622,7 +23918,10 @@ export interface operations {
         /** Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows. */
         tiers_mode?: "graduated" | "volume";
         /** Apply a transformation to the reported usage or set quantity before computing the billed price. Cannot be combined with `tiers`. */
-        transform_usage?: { divide_by: number; round: "down" | "up" };
+        transform_usage?: {
+          divide_by: number;
+          round: "down" | "up";
+        };
         /** Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan). */
         trial_period_days?: number;
         /** Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`. */
@@ -39867,7 +24166,8 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-        /** Whether the product is available for purchase. */ active?: boolean;
+        /** Whether the product is available for purchase. */
+        active?: boolean;
         /** A list of up to 5 alphanumeric attributes that each SKU can provide values for (e.g., `["color", "size"]`). If a value for `attributes` is specified, the list specified will replace the existing attributes list on this product. Any attributes not present after the update will be deleted from the SKUs for this product. */
         attributes?: Partial<string[]> & Partial<"">;
         /** A short one-line description of the product, meant to be displayable to the customer. May only be set if `type=good`. */
@@ -40173,7 +24473,8 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-        /** The name of the value list for use in rules. */ alias: string;
+        /** The name of the value list for use in rules. */
+        alias: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, or `case_sensitive_string`. Use `string` if the item type is unknown or mixed. */
@@ -40236,7 +24537,8 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-        /** The name of the value list for use in rules. */ alias?: string;
+        /** The name of the value list for use in rules. */
+        alias?: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -40594,31 +24896,6 @@ export interface operations {
         starting_after?: string;
       };
     };
-<<<<<<< HEAD
-    legal_entity_dob: {
-      /** The day of birth, between 1 and 31. */
-      day?: number | null;
-      /** The month of birth, between 1 and 12. */
-      month?: number | null;
-      /** The four-digit year of birth. */
-      year?: number | null;
-    };
-    legal_entity_japan_address: {
-      /** City/Ward. */
-      city?: string | null;
-      /** Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)). */
-      country?: string | null;
-      /** Block/Building number. */
-      line1?: string | null;
-      /** Building details. */
-      line2?: string | null;
-      /** ZIP or postal code. */
-      postal_code?: string | null;
-      /** Prefecture. */
-      state?: string | null;
-      /** Town/cho-me. */
-      town?: string | null;
-=======
     responses: {
       /** Successful response. */
       200: {
@@ -40639,7 +24916,6 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
->>>>>>> f6ee87b (Add more items to components object)
     };
   };
   /** <p>Creates a new object and begin running the report. (Requires a <a href="https://stripe.com/docs/keys#test-live-modes">live-mode API key</a>.)</p> */
@@ -41310,45 +25586,6 @@ export interface operations {
         report_run: string;
       };
     };
-<<<<<<< HEAD
-    light_account_logout: { [key: string]: any };
-    line_item: {
-      /** The amount, in %s. */
-      amount: number;
-      /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-      currency: string;
-      /** An arbitrary string attached to the object. Often useful for displaying to users. */
-      description?: string | null;
-      /** If true, discounts will apply to this line item. Always false for prorations. */
-      discountable: boolean;
-      /** Unique identifier for the object. */
-      id: string;
-      /** The ID of the [invoice item](https://stripe.com/docs/api/invoiceitems) associated with this line item if any. */
-      invoice_item?: string;
-      /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
-      livemode: boolean;
-      /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Note that for line items with `type=subscription` this will reflect the metadata of the subscription that caused the line item to be created. */
-      metadata: { [key: string]: string };
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "line_item";
-      period: components["schemas"]["invoice_line_item_period"];
-      /** The plan of the subscription, if the line item is a subscription or a proration. */
-      plan?: Partial<components["schemas"]["plan"]> | null;
-      /** Whether this is a proration. */
-      proration: boolean;
-      /** The quantity of the subscription, if the line item is a subscription or a proration. */
-      quantity?: number | null;
-      /** The subscription that the invoice item pertains to, if any. */
-      subscription?: string | null;
-      /** The subscription item that generated this invoice item. Left empty if the line item is not an explicit result of a subscription. */
-      subscription_item?: string;
-      /** The amount of tax calculated per tax rate for this line item */
-      tax_amounts?: components["schemas"]["invoice_tax_amount"][] | null;
-      /** The tax rates which apply to the line item. */
-      tax_rates?: components["schemas"]["tax_rate"][] | null;
-      /** A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`. */
-      type: "invoiceitem" | "subscription";
-=======
     responses: {
       /** Successful response. */
       200: {
@@ -41358,7 +25595,6 @@ export interface operations {
       default: {
         "application/json": components["schemas"]["error"];
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
@@ -41393,19 +25629,6 @@ export interface operations {
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
-<<<<<<< HEAD
-    mandate_sepa_debit: {
-      /** The unique reference of the mandate. */
-      reference: string;
-      /** The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively. */
-      url: string;
-    };
-    mandate_single_use: {
-      /** On a single use mandate, the amount of the payment. */
-      amount: number;
-      /** On a single use mandate, the currency of the payment. */
-      currency: string;
-=======
   };
   /** <p>Retrieves the details of a Report Type. (Requires a <a href="https://stripe.com/docs/keys#test-live-modes">live-mode API key</a>.)</p> */
   GetReportingReportTypesReportType: {
@@ -41427,7 +25650,6 @@ export interface operations {
       default: {
         "application/json": components["schemas"]["error"];
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
@@ -41497,20 +25719,8 @@ export interface operations {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-    package_dimensions: {
-      /** Height, in inches. */
-      height: number;
-      /** Length, in inches. */
-      length: number;
-      /** Weight, in ounces. */
-      weight: number;
-      /** Width, in inches. */
-      width: number;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
->>>>>>> f6ee87b (Add more items to components object)
     };
   };
   /** <p>Approves a <code>Review</code> object, closing it and removing it from the list of reviews.</p> */
@@ -41621,7 +25831,10 @@ export interface operations {
           customer_acceptance: {
             accepted_at?: number;
             offline?: { [key: string]: any };
-            online?: { ip_address: string; user_agent: string };
+            online?: {
+              ip_address: string;
+              user_agent: string;
+            };
             type: "offline" | "online";
           };
         };
@@ -41633,14 +25846,19 @@ export interface operations {
         payment_method?: string;
         /** Payment-method-specific configuration for this SetupIntent. */
         payment_method_options?: {
-          card?: { request_three_d_secure?: "any" | "automatic" };
+          card?: {
+            request_three_d_secure?: "any" | "automatic";
+          };
         };
         /** The list of payment method types (e.g. card) that this SetupIntent is allowed to use. If this is not provided, defaults to ["card"]. */
         payment_method_types?: string[];
         /** The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm). */
         return_url?: string;
         /** If this hash is populated, this SetupIntent will generate a single_use Mandate on success. */
-        single_use?: { amount: number; currency: string };
+        single_use?: {
+          amount: number;
+          currency: string;
+        };
         /** Indicates how the payment method is intended to be used in the future. If not provided, this value defaults to `off_session`. */
         usage?: "off_session" | "on_session";
       };
@@ -41686,15 +25904,6 @@ export interface operations {
         intent: string;
       };
     };
-<<<<<<< HEAD
-    payment_method_card_generated_card: {
-      /** The charge that created this object. */
-      charge?: string | null;
-      /** Transaction-specific details of the payment method used in the payment. */
-      payment_method_details?: Partial<
-        components["schemas"]["payment_method_details"]
-      > | null;
-=======
     responses: {
       /** Successful response. */
       200: {
@@ -41704,7 +25913,6 @@ export interface operations {
       default: {
         "application/json": components["schemas"]["error"];
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
@@ -41724,7 +25932,9 @@ export interface operations {
         payment_method?: string;
         /** Payment-method-specific configuration for this SetupIntent. */
         payment_method_options?: {
-          card?: { request_three_d_secure?: "any" | "automatic" };
+          card?: {
+            request_three_d_secure?: "any" | "automatic";
+          };
         };
         /** The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. If this is not provided, defaults to ["card"]. */
         payment_method_types?: string[];
@@ -41797,7 +26007,8 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-        /** The client secret of the SetupIntent. */ client_secret?: string;
+        /** The client secret of the SetupIntent. */
+        client_secret?: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** This hash contains details about the Mandate to create */
@@ -41805,13 +26016,19 @@ export interface operations {
           customer_acceptance: {
             accepted_at?: number;
             offline?: { [key: string]: any };
-            online?: { ip_address: string; user_agent: string };
+            online?: {
+              ip_address: string;
+              user_agent: string;
+            };
             type: "offline" | "online";
           };
         }> &
           Partial<{
             customer_acceptance: {
-              online: { ip_address?: string; user_agent?: string };
+              online: {
+                ip_address?: string;
+                user_agent?: string;
+              };
               type: "online";
             };
           }>;
@@ -41819,7 +26036,9 @@ export interface operations {
         payment_method?: string;
         /** Payment-method-specific configuration for this SetupIntent. */
         payment_method_options?: {
-          card?: { request_three_d_secure?: "any" | "automatic" };
+          card?: {
+            request_three_d_secure?: "any" | "automatic";
+          };
         };
         /**
          * The URL to redirect your customer back to after they authenticate on the payment method's app or site.
@@ -42034,7 +26253,8 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-        /** Whether this SKU is available for purchase. */ active?: boolean;
+        /** Whether this SKU is available for purchase. */
+        active?: boolean;
         /** A dictionary of attributes and values for the attributes defined by the product. When specified, `attributes` will partially update the existing attributes dictionary on the product, with the postcondition that a value must be present for each attribute key on the product. */
         attributes?: { [key: string]: string };
         /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -42116,8 +26336,14 @@ export interface operations {
           acceptance?: {
             date?: number;
             ip?: string;
-            offline?: { contact_email: string };
-            online?: { date?: number; ip?: string; user_agent?: string };
+            offline?: {
+              contact_email: string;
+            };
+            online?: {
+              date?: number;
+              ip?: string;
+              user_agent?: string;
+            };
             status: "accepted" | "pending" | "refused" | "revoked";
             type?: "offline" | "online";
             user_agent?: string;
@@ -42150,9 +26376,13 @@ export interface operations {
           phone?: string;
         };
         /** Optional parameters for the receiver flow. Can be set only if the source is a receiver (`flow` is `receiver`). */
-        receiver?: { refund_attributes_method?: "email" | "manual" | "none" };
+        receiver?: {
+          refund_attributes_method?: "email" | "manual" | "none";
+        };
         /** Parameters required for the redirect flow. Required if the source is authenticated by a redirect (`flow` is `redirect`). */
-        redirect?: { return_url: string };
+        redirect?: {
+          return_url: string;
+        };
         /** Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it. */
         source_order?: {
           items?: {
@@ -42238,7 +26468,8 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-        /** Amount associated with the source. */ amount?: number;
+        /** Amount associated with the source. */
+        amount?: number;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status. */
@@ -42246,8 +26477,14 @@ export interface operations {
           acceptance?: {
             date?: number;
             ip?: string;
-            offline?: { contact_email: string };
-            online?: { date?: number; ip?: string; user_agent?: string };
+            offline?: {
+              contact_email: string;
+            };
+            online?: {
+              date?: number;
+              ip?: string;
+              user_agent?: string;
+            };
             status: "accepted" | "pending" | "refused" | "revoked";
             type?: "offline" | "online";
             user_agent?: string;
@@ -42476,7 +26713,10 @@ export interface operations {
     requestBody: {
       "application/x-www-form-urlencoded": {
         /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds. */
-        billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+        billing_thresholds?: Partial<{
+          usage_gte: number;
+        }> &
+          Partial<"">;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -42560,7 +26800,10 @@ export interface operations {
     requestBody: {
       "application/x-www-form-urlencoded": {
         /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds. */
-        billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+        billing_thresholds?: Partial<{
+          usage_gte: number;
+        }> &
+          Partial<"">;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -42813,7 +27056,9 @@ export interface operations {
             Partial<"">;
           collection_method?: "charge_automatically" | "send_invoice";
           default_payment_method?: string;
-          invoice_settings?: { days_until_due?: number };
+          invoice_settings?: {
+            days_until_due?: number;
+          };
         };
         /** Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription. */
         end_behavior?: "cancel" | "none" | "release" | "renew";
@@ -42836,10 +27081,15 @@ export interface operations {
           default_payment_method?: string;
           default_tax_rates?: Partial<string[]> & Partial<"">;
           end_date?: number;
-          invoice_settings?: { days_until_due?: number };
+          invoice_settings?: {
+            days_until_due?: number;
+          };
           iterations?: number;
           plans: {
-            billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+            billing_thresholds?: Partial<{
+              usage_gte: number;
+            }> &
+              Partial<"">;
             plan?: string;
             quantity?: number;
             tax_rates?: Partial<string[]> & Partial<"">;
@@ -42907,7 +27157,9 @@ export interface operations {
             Partial<"">;
           collection_method?: "charge_automatically" | "send_invoice";
           default_payment_method?: string;
-          invoice_settings?: { days_until_due?: number };
+          invoice_settings?: {
+            days_until_due?: number;
+          };
         };
         /** Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription. */
         end_behavior?: "cancel" | "none" | "release" | "renew";
@@ -42928,10 +27180,15 @@ export interface operations {
           default_payment_method?: string;
           default_tax_rates?: Partial<string[]> & Partial<"">;
           end_date?: Partial<number> & Partial<"now">;
-          invoice_settings?: { days_until_due?: number };
+          invoice_settings?: {
+            days_until_due?: number;
+          };
           iterations?: number;
           plans: {
-            billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+            billing_thresholds?: Partial<{
+              usage_gte: number;
+            }> &
+              Partial<"">;
             plan?: string;
             quantity?: number;
             tax_rates?: Partial<string[]> & Partial<"">;
@@ -43073,89 +27330,6 @@ export interface operations {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-    /**
-     * Plans define the base price, currency, and billing cycle for subscriptions.
-     * For example, you might have a $5/month plan
-     * that provides limited access to your products, and a
-     * $15/month plan that allows full access.
-     *
-     * Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) and more about [products and plans](https://stripe.com/docs/billing/subscriptions/products-and-plans).
-     */
-    plan: {
-      /** Whether the plan can be used for new purchases. */
-      active: boolean;
-      /** Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`. */
-      aggregate_usage?:
-        | ("last_during_period" | "last_ever" | "max" | "sum")
-        | null;
-      /** The amount in %s to be charged on the interval specified. */
-      amount?: number | null;
-      /** Same as `amount`, but contains a decimal value with at most 12 decimal places. */
-      amount_decimal?: string | null;
-      /** Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes. */
-      billing_scheme: "per_unit" | "tiered";
-      /** Time at which the object was created. Measured in seconds since the Unix epoch. */
-      created: number;
-      /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-      currency: string;
-      /** Unique identifier for the object. */
-      id: string;
-      /** The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`. */
-      interval: "day" | "month" | "week" | "year";
-      /** The number of intervals (specified in the `interval` attribute) between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. */
-      interval_count: number;
-      /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
-      livemode: boolean;
-      /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata: { [key: string]: string };
-      /** A brief description of the plan, hidden from customers. */
-      nickname?: string | null;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "plan";
-      /** The product whose pricing this plan determines. */
-      product?:
-        | (Partial<string> &
-            Partial<components["schemas"]["product"]> &
-            Partial<components["schemas"]["deleted_product"]>)
-        | null;
-      /** Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
-      tiers?: components["schemas"]["plan_tier"][] | null;
-      /** Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows. */
-      tiers_mode?: ("graduated" | "volume") | null;
-      /** Apply a transformation to the reported usage or set quantity before computing the amount billed. Cannot be combined with `tiers`. */
-      transform_usage?: Partial<
-        components["schemas"]["transform_usage"]
-      > | null;
-      /** Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan). */
-      trial_period_days?: number | null;
-      /** Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`. */
-      usage_type: "licensed" | "metered";
-    };
-    plan_tier: {
-      /** Price for the entire tier. */
-      flat_amount?: number | null;
-      /** Same as `flat_amount`, but contains a decimal value with at most 12 decimal places. */
-      flat_amount_decimal?: string | null;
-      /** Per unit price for units relevant to the tier. */
-      unit_amount?: number | null;
-      /** Same as `unit_amount`, but contains a decimal value with at most 12 decimal places. */
-      unit_amount_decimal?: string | null;
-      /** Up to and including to this quantity will be contained in the tier. */
-      up_to?: number | null;
-    };
-    platform_tax_fee: {
-      /** The Connected account that incurred this charge. */
-      account: string;
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "platform_tax_fee";
-      /** The payment object that caused this tax to be inflicted. */
-      source_transaction: string;
-      /** The type of tax (VAT). */
-      type: string;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
@@ -43208,7 +27382,10 @@ export interface operations {
         expand?: string[];
         /** A list of up to 20 subscription items, each with an attached plan. */
         items?: {
-          billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+          billing_thresholds?: Partial<{
+            usage_gte: number;
+          }> &
+            Partial<"">;
           metadata?: { [key: string]: string };
           plan?: string;
           quantity?: number;
@@ -43264,7 +27441,6 @@ export interface operations {
       path: {
         subscription_exposed_id: string;
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     responses: {
       /** Successful response. */
@@ -43279,48 +27455,12 @@ export interface operations {
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
-<<<<<<< HEAD
-    /**
-     * Value lists allow you to group values together which can then be referenced in rules.
-     *
-     * Related guide: [Default Stripe Lists](https://stripe.com/docs/radar/lists#managing-list-items).
-     */
-    "radar.value_list": {
-      /** The name of the value list for use in rules. */
-      alias: string;
-      /** Time at which the object was created. Measured in seconds since the Unix epoch. */
-      created: number;
-      /** The name or email address of the user who created this value list. */
-      created_by: string;
-      /** Unique identifier for the object. */
-      id: string;
-      /** The type of items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, or `case_sensitive_string`. */
-      item_type:
-        | "card_bin"
-        | "card_fingerprint"
-        | "case_sensitive_string"
-        | "country"
-        | "email"
-        | "ip_address"
-        | "string";
-      /** List of items contained within this value list. */
-      list_items: {
-        /** Details about each object. */
-        data: components["schemas"]["radar.value_list_item"][];
-        /** True if this list has another page of items after this one that can be fetched. */
-        has_more: boolean;
-        /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-        object: "list";
-        /** The URL where this list can be accessed. */
-        url: string;
-=======
   };
   /** <p>Updates an existing subscription on a customer to match the specified parameters. When changing plans or quantities, we will optionally prorate the price we charge next month to make up for any price changes. To preview how the proration will be calculated, use the <a href="#upcoming_invoice">upcoming invoice</a> endpoint.</p> */
   PostSubscriptionsSubscriptionExposedId: {
     parameters: {
       path: {
         subscription_exposed_id: string;
->>>>>>> f6ee87b (Add more items to components object)
       };
     };
     responses: {
@@ -43333,19 +27473,6 @@ export interface operations {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-    radar_review_resource_location: {
-      /** The city where the payment originated. */
-      city?: string | null;
-      /** Two-letter ISO code representing the country where the payment originated. */
-      country?: string | null;
-      /** The geographic latitude where the payment originated. */
-      latitude?: number | null;
-      /** The geographic longitude where the payment originated. */
-      longitude?: number | null;
-      /** The state/county/province/region where the payment originated. */
-      region?: string | null;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": {
         /** A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
@@ -43378,7 +27505,10 @@ export interface operations {
         expand?: string[];
         /** List of subscription items, each with an attached plan. */
         items?: {
-          billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+          billing_thresholds?: Partial<{
+            usage_gte: number;
+          }> &
+            Partial<"">;
           clear_usage?: boolean;
           deleted?: boolean;
           id?: string;
@@ -43433,7 +27563,6 @@ export interface operations {
         /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
         trial_from_plan?: boolean;
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
   };
   /**
@@ -43459,64 +27588,6 @@ export interface operations {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-    /**
-     * `Refund` objects allow you to refund a charge that has previously been created
-     * but not yet refunded. Funds will be refunded to the credit or debit card that
-     * was originally charged.
-     *
-     * Related guide: [Refunds](https://stripe.com/docs/refunds).
-     */
-    refund: {
-      /** Amount, in %s. */
-      amount: number;
-      /** Balance transaction that describes the impact on your account balance. */
-      balance_transaction?:
-        | (Partial<string> &
-            Partial<components["schemas"]["balance_transaction"]>)
-        | null;
-      /** ID of the charge that was refunded. */
-      charge?:
-        | (Partial<string> & Partial<components["schemas"]["charge"]>)
-        | null;
-      /** Time at which the object was created. Measured in seconds since the Unix epoch. */
-      created: number;
-      /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-      currency: string;
-      /** An arbitrary string attached to the object. Often useful for displaying to users. (Available on non-card refunds only) */
-      description?: string;
-      /** If the refund failed, this balance transaction describes the adjustment made on your account balance that reverses the initial balance transaction. */
-      failure_balance_transaction?: Partial<string> &
-        Partial<components["schemas"]["balance_transaction"]>;
-      /** If the refund failed, the reason for refund failure if known. Possible values are `lost_or_stolen_card`, `expired_or_canceled_card`, or `unknown`. */
-      failure_reason?: string;
-      /** Unique identifier for the object. */
-      id: string;
-      /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata: { [key: string]: string };
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "refund";
-      /** ID of the PaymentIntent that was refunded. */
-      payment_intent?:
-        | (Partial<string> & Partial<components["schemas"]["payment_intent"]>)
-        | null;
-      /** Reason for the refund, either user-provided (`duplicate`, `fraudulent`, or `requested_by_customer`) or generated by Stripe internally (`expired_uncaptured_charge`). */
-      reason?: string | null;
-      /** This is the transaction number that appears on email receipts sent for this refund. */
-      receipt_number?: string | null;
-      /** The transfer reversal that is associated with the refund. Only present if the charge came from another Stripe account. See the Connect documentation for details. */
-      source_transfer_reversal?:
-        | (Partial<string> &
-            Partial<components["schemas"]["transfer_reversal"]>)
-        | null;
-      /** Status of the refund. For credit card refunds, this can be `pending`, `succeeded`, or `failed`. For other types of refunds, it can be `pending`, `succeeded`, `failed`, or `canceled`. Refer to our [refunds](https://stripe.com/docs/refunds#failed-refunds) documentation for more details. */
-      status?: string | null;
-      /** If the accompanying transfer was reversed, the transfer reversal object. Only applicable if the charge was created using the destination parameter. */
-      transfer_reversal?:
-        | (Partial<string> &
-            Partial<components["schemas"]["transfer_reversal"]>)
-        | null;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": {
         /** Specifies which fields in the response should be expanded. */
@@ -43526,7 +27597,6 @@ export interface operations {
         /** Will generate a proration invoice item that credits remaining unused time until the subscription period end. */
         prorate?: boolean;
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
   };
   /** <p>Removes the currently applied discount on a subscription.</p> */
@@ -43576,15 +27646,6 @@ export interface operations {
         starting_after?: string;
       };
     };
-<<<<<<< HEAD
-    rule: {
-      /** The action taken on the payment. */
-      action: string;
-      /** Unique identifier for the object. */
-      id: string;
-      /** The predicate to evaluate the payment against. */
-      predicate: string;
-=======
     responses: {
       /** Successful response. */
       200: {
@@ -43602,7 +27663,6 @@ export interface operations {
       default: {
         "application/json": components["schemas"]["error"];
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
@@ -43699,52 +27759,6 @@ export interface operations {
         metadata?: Partial<{ [key: string]: string }> & Partial<"">;
       };
     };
-<<<<<<< HEAD
-    sigma_scheduled_query_run_error: {
-      /** Information about the run failure. */
-      message: string;
-    };
-    /**
-     * Stores representations of [stock keeping units](http://en.wikipedia.org/wiki/Stock_keeping_unit).
-     * SKUs describe specific product variations, taking into account any combination of: attributes,
-     * currency, and cost. For example, a product may be a T-shirt, whereas a specific SKU represents
-     * the `size: large`, `color: red` version of that shirt.
-     *
-     * Can also be used to manage inventory.
-     *
-     * Related guide: [Tax, Shipping, and Inventory](https://stripe.com/docs/orders).
-     */
-    sku: {
-      /** Whether the SKU is available for purchase. */
-      active: boolean;
-      /** A dictionary of attributes and values for the attributes defined by the product. If, for example, a product's attributes are `["size", "gender"]`, a valid SKU has the following dictionary of attributes: `{"size": "Medium", "gender": "Unisex"}`. */
-      attributes: { [key: string]: string };
-      /** Time at which the object was created. Measured in seconds since the Unix epoch. */
-      created: number;
-      /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-      currency: string;
-      /** Unique identifier for the object. */
-      id: string;
-      /** The URL of an image for this SKU, meant to be displayable to the customer. */
-      image?: string | null;
-      inventory: components["schemas"]["inventory"];
-      /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
-      livemode: boolean;
-      /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata: { [key: string]: string };
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "sku";
-      /** The dimensions of this SKU for shipping purposes. */
-      package_dimensions?: Partial<
-        components["schemas"]["package_dimensions"]
-      > | null;
-      /** The cost of the item as a positive integer in the smallest currency unit (that is, 100 cents to charge $1.00, or 100 to charge ¥100, Japanese Yen being a zero-decimal currency). */
-      price: number;
-      /** The ID of the product this SKU is associated with. The product must be currently active. */
-      product: Partial<string> & Partial<components["schemas"]["product"]>;
-      /** Time at which the object was last updated. Measured in seconds since the Unix epoch. */
-      updated: number;
-=======
   };
   /** <p>To connect to a reader the Stripe Terminal SDK needs to retrieve a short-lived connection token from Stripe, proxied through your server. On your backend, add an endpoint that creates and returns a connection token.</p> */
   PostTerminalConnectionTokens: {
@@ -43765,7 +27779,6 @@ export interface operations {
         /** The id of the location that this connection token is scoped to. If specified the connection token will only be usable with readers assigned to that location, otherwise the connection token will be usable with all readers. */
         location?: string;
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
   };
   /** <p>Returns a list of <code>Location</code> objects.</p> */
@@ -43816,15 +27829,6 @@ export interface operations {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-    source_mandate_notification_sepa_debit_data: {
-      /** SEPA creditor ID. */
-      creditor_identifier?: string;
-      /** Last 4 digits of the account number associated with the debit. */
-      last4?: string;
-      /** Mandate reference associated with the debit. */
-      mandate_reference?: string;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": {
         /** The full address of the location. */
@@ -43843,7 +27847,6 @@ export interface operations {
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
         metadata?: Partial<{ [key: string]: string }> & Partial<"">;
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
   };
   /** <p>Retrieves a <code>Location</code> object.</p> */
@@ -43857,19 +27860,6 @@ export interface operations {
         location: string;
       };
     };
-<<<<<<< HEAD
-    source_order_item: {
-      /** The amount (price) for this order item. */
-      amount?: number | null;
-      /** This currency of this order item. Required when `amount` is present. */
-      currency?: string | null;
-      /** Human-readable description for this order item. */
-      description?: string | null;
-      /** The quantity of this order item. When type is `sku`, this is the number of instances of the SKU to be ordered. */
-      quantity?: number;
-      /** The type of this order item. Must be `sku`, `tax`, or `shipping`. */
-      type?: string | null;
-=======
     responses: {
       /** Successful response. */
       200: {
@@ -43879,7 +27869,6 @@ export interface operations {
       default: {
         "application/json": components["schemas"]["error"];
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
@@ -43929,29 +27918,6 @@ export interface operations {
         location: string;
       };
     };
-<<<<<<< HEAD
-    source_transaction_ach_credit_transfer_data: {
-      /** Customer data associated with the transfer. */
-      customer_data?: string;
-      /** Bank account fingerprint associated with the transfer. */
-      fingerprint?: string;
-      /** Last 4 digits of the account number associated with the transfer. */
-      last4?: string;
-      /** Routing number associated with the transfer. */
-      routing_number?: string;
-    };
-    source_transaction_chf_credit_transfer_data: {
-      /** Reference associated with the transfer. */
-      reference?: string;
-      /** Sender's country address. */
-      sender_address_country?: string;
-      /** Sender's line 1 address. */
-      sender_address_line1?: string;
-      /** Sender's bank account IBAN. */
-      sender_iban?: string;
-      /** Sender's name. */
-      sender_name?: string;
-=======
     responses: {
       /** Successful response. */
       200: {
@@ -43964,7 +27930,6 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
->>>>>>> f6ee87b (Add more items to components object)
     };
   };
   /** <p>Returns a list of <code>Reader</code> objects.</p> */
@@ -44006,18 +27971,8 @@ export interface operations {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-    source_transaction_sepa_credit_transfer_data: {
-      /** Reference associated with the transfer. */
-      reference?: string;
-      /** Sender's bank account IBAN. */
-      sender_iban?: string;
-      /** Sender's name. */
-      sender_name?: string;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
->>>>>>> f6ee87b (Add more items to components object)
     };
   };
   /** <p>Creates a new <code>Reader</code> object.</p> */
@@ -44199,7 +28154,12 @@ export interface operations {
             tax_id?: string;
             tax_id_registrar?: string;
             vat_id?: string;
-            verification?: { document?: { back?: string; front?: string } };
+            verification?: {
+              document?: {
+                back?: string;
+                front?: string;
+              };
+            };
           };
           individual?: {
             address?: {
@@ -44228,7 +28188,11 @@ export interface operations {
               state?: string;
               town?: string;
             };
-            dob?: Partial<{ day: number; month: number; year: number }> &
+            dob?: Partial<{
+              day: number;
+              month: number;
+              year: number;
+            }> &
               Partial<"">;
             email?: string;
             first_name?: string;
@@ -44244,8 +28208,14 @@ export interface operations {
             phone?: string;
             ssn_last_4?: string;
             verification?: {
-              additional_document?: { back?: string; front?: string };
-              document?: { back?: string; front?: string };
+              additional_document?: {
+                back?: string;
+                front?: string;
+              };
+              document?: {
+                back?: string;
+                front?: string;
+              };
             };
           };
           tos_shown_and_accepted?: boolean;
@@ -44306,7 +28276,11 @@ export interface operations {
             state?: string;
             town?: string;
           };
-          dob?: Partial<{ day: number; month: number; year: number }> &
+          dob?: Partial<{
+            day: number;
+            month: number;
+            year: number;
+          }> &
             Partial<"">;
           email?: string;
           first_name?: string;
@@ -44330,12 +28304,20 @@ export interface operations {
           };
           ssn_last_4?: string;
           verification?: {
-            additional_document?: { back?: string; front?: string };
-            document?: { back?: string; front?: string };
+            additional_document?: {
+              back?: string;
+              front?: string;
+            };
+            document?: {
+              back?: string;
+              front?: string;
+            };
           };
         };
         /** The PII this token will represent. */
-        pii?: { id_number?: string };
+        pii?: {
+          id_number?: string;
+        };
       };
     };
   };
@@ -44396,19 +28378,6 @@ export interface operations {
         status?: "canceled" | "failed" | "pending" | "succeeded";
       };
     };
-<<<<<<< HEAD
-    source_type_p24: {
-      reference?: string | null;
-    };
-    source_type_sepa_debit: {
-      bank_code?: string | null;
-      branch_code?: string | null;
-      country?: string | null;
-      fingerprint?: string | null;
-      last4?: string | null;
-      mandate_reference?: string | null;
-      mandate_url?: string | null;
-=======
     responses: {
       /** Successful response. */
       200: {
@@ -44426,7 +28395,6 @@ export interface operations {
       default: {
         "application/json": components["schemas"]["error"];
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
@@ -44464,17 +28432,6 @@ export interface operations {
         transfer_group?: string;
       };
     };
-<<<<<<< HEAD
-    status_transitions: {
-      /** The time that the order was canceled. */
-      canceled?: number | null;
-      /** The time that the order was fulfilled. */
-      fulfiled?: number | null;
-      /** The time that the order was paid. */
-      paid?: number | null;
-      /** The time that the order was returned. */
-      returned?: number | null;
-=======
   };
   /** <p>Retrieves the details of a top-up that has previously been created. Supply the unique top-up ID that was returned from your previous request, and Stripe will return the corresponding top-up information.</p> */
   GetTopupsTopup: {
@@ -44486,7 +28443,6 @@ export interface operations {
       path: {
         topup: string;
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     responses: {
       /** Successful response. */
@@ -44690,19 +28646,6 @@ export interface operations {
         id: string;
       };
     };
-<<<<<<< HEAD
-    tax_deducted_at_source: {
-      /** Unique identifier for the object. */
-      id: string;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "tax_deducted_at_source";
-      /** The end of the invoicing period. This TDS applies to Stripe fees collected during this invoicing period. */
-      period_end: number;
-      /** The start of the invoicing period. This TDS applies to Stripe fees collected during this invoicing period. */
-      period_start: number;
-      /** The TAN that was supplied to Stripe when TDS was assessed */
-      tax_deduction_account_number: string;
-=======
     responses: {
       /** Successful response. */
       200: {
@@ -44712,7 +28655,6 @@ export interface operations {
       default: {
         "application/json": components["schemas"]["error"];
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
@@ -44808,11 +28750,6 @@ export interface operations {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-    three_d_secure_usage: {
-      /** Whether 3D Secure is supported on this card. */
-      supported: boolean;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
@@ -44882,7 +28819,6 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
->>>>>>> f6ee87b (Add more items to components object)
     };
   };
   /** <p>A webhook endpoint must have a <code>url</code> and a list of <code>enabled_events</code>. You may optionally specify the Boolean <code>connect</code> parameter. If set to true, then a Connect webhook endpoint that notifies the specified <code>url</code> about events from all connected accounts is created; otherwise an account webhook endpoint that notifies the specified <code>url</code> only about events from your account is created. You can also create webhook endpoints in the <a href="https://dashboard.stripe.com/account/webhooks">webhooks settings</a> section of the Dashboard.</p> */
@@ -45160,104 +29096,6 @@ export interface operations {
         url: string;
       };
     };
-<<<<<<< HEAD
-    /**
-     * To top up your Stripe balance, you create a top-up object. You can retrieve
-     * individual top-ups, as well as list all top-ups. Top-ups are identified by a
-     * unique, random ID.
-     *
-     * Related guide: [Topping Up your Platform Account](https://stripe.com/docs/connect/top-ups).
-     */
-    topup: {
-      /** Amount transferred. */
-      amount: number;
-      /** ID of the balance transaction that describes the impact of this top-up on your account balance. May not be specified depending on status of top-up. */
-      balance_transaction?:
-        | (Partial<string> &
-            Partial<components["schemas"]["balance_transaction"]>)
-        | null;
-      /** Time at which the object was created. Measured in seconds since the Unix epoch. */
-      created: number;
-      /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-      currency: string;
-      /** An arbitrary string attached to the object. Often useful for displaying to users. */
-      description?: string | null;
-      /** Date the funds are expected to arrive in your Stripe account for payouts. This factors in delays like weekends or bank holidays. May not be specified depending on status of top-up. */
-      expected_availability_date?: number | null;
-      /** Error code explaining reason for top-up failure if available (see [the errors section](https://stripe.com/docs/api#errors) for a list of codes). */
-      failure_code?: string | null;
-      /** Message to user further explaining reason for top-up failure if available. */
-      failure_message?: string | null;
-      /** Unique identifier for the object. */
-      id: string;
-      /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
-      livemode: boolean;
-      /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata: { [key: string]: string };
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "topup";
-      source: components["schemas"]["source"];
-      /** Extra information about a top-up. This will appear on your source's bank statement. It must contain at least one letter. */
-      statement_descriptor?: string | null;
-      /** The status of the top-up is either `canceled`, `failed`, `pending`, `reversed`, or `succeeded`. */
-      status: "canceled" | "failed" | "pending" | "reversed" | "succeeded";
-      /** A string that identifies this top-up as part of a group. */
-      transfer_group?: string | null;
-    };
-    /**
-     * A `Transfer` object is created when you move funds between Stripe accounts as
-     * part of Connect.
-     *
-     * Before April 6, 2017, transfers also represented movement of funds from a
-     * Stripe account to a card or bank account. This behavior has since been split
-     * out into a [Payout](https://stripe.com/docs/api#payout_object) object, with corresponding payout endpoints. For more
-     * information, read about the
-     * [transfer/payout split](https://stripe.com/docs/transfer-payout-split).
-     *
-     * Related guide: [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/charges-transfers).
-     */
-    transfer: {
-      /** Amount in %s to be transferred. */
-      amount: number;
-      /** Amount in %s reversed (can be less than the amount attribute on the transfer if a partial reversal was issued). */
-      amount_reversed: number;
-      /** Balance transaction that describes the impact of this transfer on your account balance. */
-      balance_transaction?:
-        | (Partial<string> &
-            Partial<components["schemas"]["balance_transaction"]>)
-        | null;
-      /** Time that this record of the transfer was first created. */
-      created: number;
-      /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-      currency: string;
-      /** An arbitrary string attached to the object. Often useful for displaying to users. */
-      description?: string | null;
-      /** ID of the Stripe account the transfer was sent to. */
-      destination?:
-        | (Partial<string> & Partial<components["schemas"]["account"]>)
-        | null;
-      /** If the destination is a Stripe account, this will be the ID of the payment that the destination account received for the transfer. */
-      destination_payment?: Partial<string> &
-        Partial<components["schemas"]["charge"]>;
-      /** Unique identifier for the object. */
-      id: string;
-      /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
-      livemode: boolean;
-      /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata: { [key: string]: string };
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "transfer";
-      /** A list of reversals that have been applied to the transfer. */
-      reversals: {
-        /** Details about each object. */
-        data: components["schemas"]["transfer_reversal"][];
-        /** True if this list has another page of items after this one that can be fetched. */
-        has_more: boolean;
-        /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
-        object: "list";
-        /** The URL where this list can be accessed. */
-        url: string;
-=======
   };
   /** <p>Retrieves the webhook endpoint with the given ID.</p> */
   GetWebhookEndpointsWebhookEndpoint: {
@@ -45278,57 +29116,11 @@ export interface operations {
       /** Error response. */
       default: {
         "application/json": components["schemas"]["error"];
->>>>>>> f6ee87b (Add more items to components object)
       };
     };
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
-<<<<<<< HEAD
-    /**
-     * [Stripe Connect](https://stripe.com/docs/connect) platforms can reverse transfers made to a
-     * connected account, either entirely or partially, and can also specify whether
-     * to refund any related application fees. Transfer reversals add to the
-     * platform's balance and subtract from the destination account's balance.
-     *
-     * Reversing a transfer that was made for a [destination
-     * charge](/docs/connect/destination-charges) is allowed only up to the amount of
-     * the charge. It is possible to reverse a
-     * [transfer_group](https://stripe.com/docs/connect/charges-transfers#transfer-options)
-     * transfer only if the destination account has enough balance to cover the
-     * reversal.
-     *
-     * Related guide: [Reversing Transfers](https://stripe.com/docs/connect/charges-transfers#reversing-transfers).
-     */
-    transfer_reversal: {
-      /** Amount, in %s. */
-      amount: number;
-      /** Balance transaction that describes the impact on your account balance. */
-      balance_transaction?:
-        | (Partial<string> &
-            Partial<components["schemas"]["balance_transaction"]>)
-        | null;
-      /** Time at which the object was created. Measured in seconds since the Unix epoch. */
-      created: number;
-      /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-      currency: string;
-      /** Linked payment refund for the transfer reversal. */
-      destination_payment_refund?:
-        | (Partial<string> & Partial<components["schemas"]["refund"]>)
-        | null;
-      /** Unique identifier for the object. */
-      id: string;
-      /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata: { [key: string]: string };
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "transfer_reversal";
-      /** ID of the refund responsible for the transfer reversal. */
-      source_refund?:
-        | (Partial<string> & Partial<components["schemas"]["refund"]>)
-        | null;
-      /** ID of the transfer that was reversed. */
-      transfer: Partial<string> & Partial<components["schemas"]["transfer"]>;
-=======
   };
   /** <p>Updates the webhook endpoint. You may edit the <code>url</code>, the list of <code>enabled_events</code>, and the status of your endpoint.</p> */
   PostWebhookEndpointsWebhookEndpoint: {
@@ -45336,7 +29128,6 @@ export interface operations {
       path: {
         webhook_endpoint: string;
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     responses: {
       /** Successful response. */
@@ -45348,48 +29139,6 @@ export interface operations {
         "application/json": components["schemas"]["error"];
       };
     };
-<<<<<<< HEAD
-    transform_usage: {
-      /** Divide usage by this number. */
-      divide_by: number;
-      /** After division, either round the result `up` or `down`. */
-      round: "down" | "up";
-    };
-    /**
-     * Usage records allow you to report customer usage and metrics to Stripe for
-     * metered billing of subscription plans.
-     *
-     * Related guide: [Metered Billing](https://stripe.com/docs/billing/subscriptions/metered-billing).
-     */
-    usage_record: {
-      /** Unique identifier for the object. */
-      id: string;
-      /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
-      livemode: boolean;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "usage_record";
-      /** The usage quantity for the specified date. */
-      quantity: number;
-      /** The ID of the subscription item this usage record contains data for. */
-      subscription_item: string;
-      /** The timestamp when this usage occurred. */
-      timestamp: number;
-    };
-    usage_record_summary: {
-      /** Unique identifier for the object. */
-      id: string;
-      /** The invoice in which this usage period has been billed for. */
-      invoice?: string | null;
-      /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
-      livemode: boolean;
-      /** String representing the object's type. Objects of the same type share the same value. */
-      object: "usage_record_summary";
-      period: components["schemas"]["period"];
-      /** The ID of the subscription item this summary is describing. */
-      subscription_item: string;
-      /** The total usage within this usage period. */
-      total_usage: number;
-=======
     requestBody: {
       "application/x-www-form-urlencoded": {
         /** An optional description of what the wehbook is used for. */
@@ -45573,7 +29322,6 @@ export interface operations {
       default: {
         "application/json": components["schemas"]["error"];
       };
->>>>>>> f6ee87b (Add more items to components object)
     };
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };

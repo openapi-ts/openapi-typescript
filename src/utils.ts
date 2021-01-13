@@ -10,7 +10,7 @@ export function comment(text: string): string {
 
   // if multi-line comment
   return `/**
-  * ${commentText.replace(/\n/g, "\n  * ")}
+  * ${commentText.replace(/\r?\n/g, "\n  * ")}
   */\n`;
 }
 

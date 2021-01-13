@@ -38,7 +38,7 @@ describe("SchemaObject", () => {
             },
           },
         })
-      ).toBe(`({ "object"?: ({ "string"?: string;\n"number"?: components["schemas"]["object_ref"];\n });\n })`);
+      ).toBe(`{\n"object"?: {\n"string"?: string;\n"number"?: components["schemas"]["object_ref"];\n\n};\n\n}`);
 
       // unknown
       expect(transform({ type: "object" })).toBe(`{ [key: string]: any }`);
@@ -48,7 +48,7 @@ describe("SchemaObject", () => {
 
       // nullable
       expect(transform({ type: "object", properties: { string: { type: "string" } }, nullable: true })).toBe(
-        `(({ "string"?: string;\n })) | null`
+        `({\n"string"?: string;\n\n}) | null`
       );
 
       // required
@@ -58,7 +58,7 @@ describe("SchemaObject", () => {
           required: ["required"],
           type: "object",
         })
-      ).toBe(`({ "required": string;\n"optional"?: boolean;\n })`);
+      ).toBe(`{\n"required": string;\n"optional"?: boolean;\n\n}`);
     });
 
     it("array", () => {
@@ -100,7 +100,10 @@ describe("SchemaObject", () => {
           properties: { string: { type: "string", enum: ["Totoro", "Sats'uki", "Mei"] } }, // note: also tests quotes in enum
           type: "object",
         })
-      ).toBe(`({ "string"?: ('Totoro') | ('Sats\\'uki') | ('Mei');\n })`);
+      ).toBe(`{
+"string"?: ('Totoro') | ('Sats\\'uki') | ('Mei');
+
+}`);
     });
 
     it("$ref", () => {
@@ -118,14 +121,14 @@ describe("SchemaObject", () => {
   describe("advanced", () => {
     it("additionalProperties", () => {
       // boolean
-      expect(transform({ additionalProperties: true })).toBe(`({ [key: string]: any }\n)`);
+      expect(transform({ additionalProperties: true })).toBe(`{ [key: string]: any }`);
 
       // type
-      expect(transform({ additionalProperties: { type: "string" } })).toBe(`({ [key: string]: string; }\n)`);
+      expect(transform({ additionalProperties: { type: "string" } })).toBe(`{ [key: string]: string; }`);
 
       // $ref
       expect(transform({ additionalProperties: { $ref: "#/definitions/Message" } })).toBe(
-        `({ [key: string]: definitions["Message"]; }\n)`
+        `{ [key: string]: definitions["Message"]; }`
       );
     });
 
@@ -139,7 +142,7 @@ describe("SchemaObject", () => {
           properties: { password: { type: "string" } },
           type: "object",
         })
-      ).toBe(`(components[\"schemas\"][\"base\"]) & (({ \"string\"?: string;\n })) & ({ \"password\"?: string;\n })`);
+      ).toBe(`(components["schemas"]["base"]) & ({\n"string"?: string;\n\n}) & ({\n"password"?: string;\n\n})`);
     });
 
     it("anyOf", () => {
@@ -168,7 +171,30 @@ describe("SchemaObject", () => {
           type: "object",
           additionalProperties: { oneOf: [{ type: "string" }, { type: "number" }, { type: "boolean" }] },
         })
-      ).toBe(`({ [key: string]: (string) | (number) | (boolean); }\n)`);
+      ).toBe(`{ [key: string]: (string) | (number) | (boolean); }`);
+    });
+  });
+
+  describe("comments", () => {
+    it("basic", () => {
+      expect(
+        transform({
+          type: "object",
+          properties: {
+            email: { type: "string", description: "user email" },
+            loc: { type: "string", description: "user location" },
+            avatar: { type: "string", description: "user photo" },
+          },
+        })
+      ).toBe(`{
+/** user email */
+"email"?: string;
+/** user location */
+"loc"?: string;
+/** user photo */
+"avatar"?: string;
+
+}`);
     });
   });
 });

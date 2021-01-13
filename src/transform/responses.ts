@@ -24,7 +24,7 @@ export function transformResponsesObj(responsesObj: Record<string, any>): string
     output += `  ${statusCode}: {\n`; // open response
 
     // headers
-    if (response.headers) {
+    if (response.headers && Object.keys(response.headers).length) {
       if (response.headers.$ref) {
         output += `    headers: ${transformRef(response.headers.$ref)};\n`;
       } else {

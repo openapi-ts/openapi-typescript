@@ -32,7 +32,7 @@ export function transformSchemaObjMap(obj: Record<string, any>, options?: Transf
     output += `;\n`;
   });
 
-  return output;
+  return output.replace(/\n+$/, "\n"); // replace repeat line endings with only one
 }
 
 /** transform anyOf */
@@ -85,23 +85,23 @@ export function transformSchemaObj(node: any): string {
       let additionalProperties: string | undefined;
       if (node.additionalProperties) {
         if (node.additionalProperties === true) {
-          additionalProperties = `{ [key: string]: any }\n`;
+          additionalProperties = `{ [key: string]: any }`;
         } else if (typeof node.additionalProperties === "object") {
           const oneOf: any[] | undefined = (node.additionalProperties as any).oneOf || undefined; // TypeScript does a really bad job at inference here, so we enforce a type
           const anyOf: any[] | undefined = (node.additionalProperties as any).anyOf || undefined; // "
           if (oneOf) {
-            additionalProperties = `{ [key: string]: ${transformOneOf(oneOf)}; }\n`;
+            additionalProperties = `{ [key: string]: ${transformOneOf(oneOf)}; }`;
           } else if (anyOf) {
-            additionalProperties = `{ [key: string]: ${transformAnyOf(anyOf)}; }\n`;
+            additionalProperties = `{ [key: string]: ${transformAnyOf(anyOf)}; }`;
           } else {
-            additionalProperties = `{ [key: string]: ${transformSchemaObj(node.additionalProperties) || "any"}; }\n`;
+            additionalProperties = `{ [key: string]: ${transformSchemaObj(node.additionalProperties) || "any"}; }`;
           }
         }
       }
 
       output += tsIntersectionOf([
         ...(node.allOf ? (node.allOf as any[]).map(transformSchemaObj) : []), // append allOf first
-        ...(properties ? [`{ ${properties} }`] : []), // then properties
+        ...(properties ? [`{\n${properties}\n}`] : []), // then properties (line breaks are important!)
         ...(additionalProperties ? [additionalProperties] : []), // then additional properties
       ]);
       break;

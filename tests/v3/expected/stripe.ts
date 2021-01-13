@@ -1727,7 +1727,8 @@ export interface components {
       user_agent?: string | null;
     };
     address: {
-      /** City, district, suburb, town, or village. */ city?: string | null;
+      /** City, district, suburb, town, or village. */
+      city?: string | null;
       /** Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)). */
       country?: string | null;
       /** Address line 1 (e.g., street, PO Box, or company name). */
@@ -1770,7 +1771,8 @@ export interface components {
       username: string;
     };
     api_errors: {
-      /** For card errors, the ID of the failed charge. */ charge?: string;
+      /** For card errors, the ID of the failed charge. */
+      charge?: string;
       /** For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported. */
       code?: string;
       /** For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one. */
@@ -1810,7 +1812,8 @@ export interface components {
       object: "apple_pay_domain";
     };
     application: {
-      /** Unique identifier for the object. */ id: string;
+      /** Unique identifier for the object. */
+      id: string;
       /** The name of the application. */
       name?: string | null;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -1887,13 +1890,15 @@ export interface components {
       pending: components["schemas"]["balance_amount"][];
     };
     balance_amount: {
-      /** Balance amount. */ amount: number;
+      /** Balance amount. */
+      amount: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       source_types?: components["schemas"]["balance_amount_by_source_type"];
     };
     balance_amount_by_source_type: {
-      /** Amount for bank account. */ bank_account?: number;
+      /** Amount for bank account. */
+      bank_account?: number;
       /** Amount for card. */
       card?: number;
       /** Amount for FPX. */
@@ -1906,7 +1911,8 @@ export interface components {
      * Related guide: [Balance Transaction Types](https://stripe.com/docs/reports/balance-transaction-types).
      */
     balance_transaction: {
-      /** Gross amount of the transaction, in %s. */ amount: number;
+      /** Gross amount of the transaction, in %s. */
+      amount: number;
       /** The date the transaction's net funds will become available in the Stripe balance. */
       available_on: number;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -2515,14 +2521,16 @@ export interface components {
       success_url: string;
     };
     checkout_session_custom_display_item_description: {
-      /** The description of the line item. */ description?: string | null;
+      /** The description of the line item. */
+      description?: string | null;
       /** The images of the line item. */
       images?: string[] | null;
       /** The name of the line item. */
       name: string;
     };
     checkout_session_display_item: {
-      /** Amount for the display item. */ amount?: number;
+      /** Amount for the display item. */
+      amount?: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency?: string;
       custom?: components["schemas"]["checkout_session_custom_display_item_description"];
@@ -2534,7 +2542,8 @@ export interface components {
       type?: string;
     };
     connect_collection_transfer: {
-      /** Amount transferred, in %s. */ amount: number;
+      /** Amount transferred, in %s. */
+      amount: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /** ID of the account that funds are being collected for. */
@@ -2723,7 +2732,8 @@ export interface components {
       unit_amount_decimal?: string | null;
     };
     credit_note_tax_amount: {
-      /** The amount, in %s, of the tax. */ amount: number;
+      /** The amount, in %s, of the tax. */
+      amount: number;
       /** Whether this tax amount is inclusive or exclusive. */
       inclusive: boolean;
       /** The tax rate that was applied to get this tax amount. */
@@ -2886,21 +2896,24 @@ export interface components {
         | "unspent_receiver_credit";
     };
     deleted_account: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "account";
     };
     deleted_alipay_account: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "alipay_account";
     };
     deleted_apple_pay_domain: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -2917,7 +2930,8 @@ export interface components {
       object: "bank_account";
     };
     deleted_bitcoin_receiver: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -2934,21 +2948,24 @@ export interface components {
       object: "card";
     };
     deleted_coupon: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "coupon";
     };
     deleted_customer: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "customer";
     };
     deleted_discount: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "discount";
     };
@@ -2957,14 +2974,16 @@ export interface components {
     > &
       Partial<components["schemas"]["deleted_card"]>;
     deleted_invoice: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "invoice";
     };
     deleted_invoiceitem: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -2977,84 +2996,96 @@ export interface components {
       Partial<components["schemas"]["deleted_bitcoin_receiver"]> &
       Partial<components["schemas"]["deleted_card"]>;
     deleted_person: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "person";
     };
     deleted_plan: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "plan";
     };
     deleted_product: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "product";
     };
     "deleted_radar.value_list": {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "radar.value_list";
     };
     "deleted_radar.value_list_item": {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "radar.value_list_item";
     };
     deleted_recipient: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "recipient";
     };
     deleted_sku: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "sku";
     };
     deleted_subscription_item: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "subscription_item";
     };
     deleted_tax_id: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "tax_id";
     };
     "deleted_terminal.location": {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "terminal.location";
     };
     "deleted_terminal.reader": {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "terminal.reader";
     };
     deleted_webhook_endpoint: {
-      /** Always true for a deleted object */ deleted: true;
+      /** Always true for a deleted object */
+      deleted: true;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -3242,7 +3273,9 @@ export interface components {
       secret?: string;
     };
     /** An error response from the Stripe API */
-    error: { error: components["schemas"]["api_errors"] };
+    error: {
+      error: components["schemas"]["api_errors"];
+    };
     /**
      * Events are our way of letting you know when something interesting happens in
      * your account. When an interesting event occurs, we create a new `Event`
@@ -3275,7 +3308,8 @@ export interface components {
      * guaranteed only for 30 days.
      */
     event: {
-      /** The connected account that originated the event. */ account?: string;
+      /** The connected account that originated the event. */
+      account?: string;
       /** The Stripe API version used to render `data`. *Note: This property is populated only for events on or after October 31, 2014*. */
       api_version?: string | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -3320,7 +3354,8 @@ export interface components {
     external_account: Partial<components["schemas"]["bank_account"]> &
       Partial<components["schemas"]["card"]>;
     fee: {
-      /** Amount of the fee, in cents. */ amount: number;
+      /** Amount of the fee, in cents. */
+      amount: number;
       /** ID of the Connect application that earned the fee. */
       application?: string | null;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -3338,7 +3373,8 @@ export interface components {
      * Related guide: [Refunding Application Fees](https://stripe.com/docs/connect/destination-charges#refunding-app-fee).
      */
     fee_refund: {
-      /** Amount, in %s. */ amount: number;
+      /** Amount, in %s. */
+      amount: number;
       /** Balance transaction that describes the impact on your account balance. */
       balance_transaction?:
         | (Partial<string> &
@@ -3652,12 +3688,14 @@ export interface components {
       usage_gte: number;
     };
     invoice_line_item_period: {
-      /** End of the line item's billing period */ end: number;
+      /** End of the line item's billing period */
+      end: number;
       /** Start of the line item's billing period */
       start: number;
     };
     invoice_setting_custom_field: {
-      /** The name of the custom field. */ name: string;
+      /** The name of the custom field. */
+      name: string;
       /** The value of the custom field. */
       value: string;
     };
@@ -3678,7 +3716,8 @@ export interface components {
       days_until_due?: number | null;
     };
     invoice_tax_amount: {
-      /** The amount, in %s, of the tax. */ amount: number;
+      /** The amount, in %s, of the tax. */
+      amount: number;
       /** Whether this tax amount is inclusive or exclusive. */
       inclusive: boolean;
       /** The tax rate that was applied to get this tax amount. */
@@ -3871,7 +3910,8 @@ export interface components {
     };
     /** You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders. */
     "issuing.card": {
-      /** The brand of the card. */ brand: string;
+      /** The brand of the card. */
+      brand: string;
       /** The reason why the card was canceled. */
       cancellation_reason?: ("lost" | "stolen") | null;
       cardholder: components["schemas"]["issuing.cardholder"];
@@ -3962,7 +4002,8 @@ export interface components {
      * Related guide: [Disputing Transactions](https://stripe.com/docs/issuing/purchases/disputes)
      */
     "issuing.dispute": {
-      /** Unique identifier for the object. */ id: string;
+      /** Unique identifier for the object. */
+      id: string;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -4740,7 +4781,8 @@ export interface components {
       type: "bulk" | "individual";
     };
     issuing_card_spending_limit: {
-      /** Maximum amount allowed to spend per time interval. */ amount: number;
+      /** Maximum amount allowed to spend per time interval. */
+      amount: number;
       /** Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) on which to apply the spending limit. Leave this blank to limit all charges. */
       categories?:
         | (
@@ -5043,7 +5085,9 @@ export interface components {
         | "weekly"
         | "yearly";
     };
-    issuing_cardholder_address: { address: components["schemas"]["address"] };
+    issuing_cardholder_address: {
+      address: components["schemas"]["address"];
+    };
     issuing_cardholder_authorization_controls: {
       /** Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations permitted on this cardholder's cards. */
       allowed_categories?:
@@ -5663,7 +5707,8 @@ export interface components {
       > | null;
     };
     issuing_cardholder_individual_dob: {
-      /** The day of birth, between 1 and 31. */ day?: number | null;
+      /** The day of birth, between 1 and 31. */
+      day?: number | null;
       /** The month of birth, between 1 and 12. */
       month?: number | null;
       /** The four-digit year of birth. */
@@ -5686,7 +5731,8 @@ export interface components {
         | null;
     };
     issuing_cardholder_spending_limit: {
-      /** Maximum amount allowed to spend per time interval. */ amount: number;
+      /** Maximum amount allowed to spend per time interval. */
+      amount: number;
       /** Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) on which to apply the spending limit. Leave this blank to limit all charges. */
       categories?:
         | (
@@ -6061,14 +6107,16 @@ export interface components {
       front?: (Partial<string> & Partial<components["schemas"]["file"]>) | null;
     };
     legal_entity_dob: {
-      /** The day of birth, between 1 and 31. */ day?: number | null;
+      /** The day of birth, between 1 and 31. */
+      day?: number | null;
       /** The month of birth, between 1 and 12. */
       month?: number | null;
       /** The four-digit year of birth. */
       year?: number | null;
     };
     legal_entity_japan_address: {
-      /** City/Ward. */ city?: string | null;
+      /** City/Ward. */
+      city?: string | null;
       /** Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)). */
       country?: string | null;
       /** Block/Building number. */
@@ -6107,7 +6155,8 @@ export interface components {
     };
     light_account_logout: { [key: string]: any };
     line_item: {
-      /** The amount, in %s. */ amount: number;
+      /** The amount, in %s. */
+      amount: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /** An arbitrary string attached to the object. Often useful for displaying to users. */
@@ -6183,12 +6232,14 @@ export interface components {
       type: string;
     };
     mandate_sepa_debit: {
-      /** The unique reference of the mandate. */ reference: string;
+      /** The unique reference of the mandate. */
+      reference: string;
       /** The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively. */
       url: string;
     };
     mandate_single_use: {
-      /** On a single use mandate, the amount of the payment. */ amount: number;
+      /** On a single use mandate, the amount of the payment. */
+      amount: number;
       /** On a single use mandate, the currency of the payment. */
       currency: string;
     };
@@ -6336,7 +6387,8 @@ export interface components {
         | null;
     };
     package_dimensions: {
-      /** Height, in inches. */ height: number;
+      /** Height, in inches. */
+      height: number;
       /** Length, in inches. */
       length: number;
       /** Weight, in ounces. */
@@ -6599,7 +6651,8 @@ export interface components {
       cvc_check?: string | null;
     };
     payment_method_card_generated_card: {
-      /** The charge that created this object. */ charge?: string | null;
+      /** The charge that created this object. */
+      charge?: string | null;
       /** Transaction-specific details of the payment method used in the payment. */
       payment_method_details?: Partial<
         components["schemas"]["payment_method_details"]
@@ -7503,7 +7556,8 @@ export interface components {
      * Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) and more about [products and plans](https://stripe.com/docs/billing/subscriptions/products-and-plans).
      */
     plan: {
-      /** Whether the plan can be used for new purchases. */ active: boolean;
+      /** Whether the plan can be used for new purchases. */
+      active: boolean;
       /** Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`. */
       aggregate_usage?:
         | ("last_during_period" | "last_ever" | "max" | "sum")
@@ -7552,7 +7606,8 @@ export interface components {
       usage_type: "licensed" | "metered";
     };
     plan_tier: {
-      /** Price for the entire tier. */ flat_amount?: number | null;
+      /** Price for the entire tier. */
+      flat_amount?: number | null;
       /** Same as `flat_amount`, but contains a decimal value with at most 12 decimal places. */
       flat_amount_decimal?: string | null;
       /** Per unit price for units relevant to the tier. */
@@ -7563,7 +7618,8 @@ export interface components {
       up_to?: number | null;
     };
     platform_tax_fee: {
-      /** The Connected account that incurred this charge. */ account: string;
+      /** The Connected account that incurred this charge. */
+      account: string;
       /** Unique identifier for the object. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -7653,7 +7709,8 @@ export interface components {
      * Related guide: [Default Stripe Lists](https://stripe.com/docs/radar/lists#managing-list-items).
      */
     "radar.value_list": {
-      /** The name of the value list for use in rules. */ alias: string;
+      /** The name of the value list for use in rules. */
+      alias: string;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** The name or email address of the user who created this value list. */
@@ -7711,7 +7768,8 @@ export interface components {
       value_list: string;
     };
     radar_review_resource_location: {
-      /** The city where the payment originated. */ city?: string | null;
+      /** The city where the payment originated. */
+      city?: string | null;
       /** Two-letter ISO code representing the country where the payment originated. */
       country?: string | null;
       /** The geographic latitude where the payment originated. */
@@ -7792,7 +7850,8 @@ export interface components {
      * Related guide: [Refunds](https://stripe.com/docs/refunds).
      */
     refund: {
-      /** Amount, in %s. */ amount: number;
+      /** Amount, in %s. */
+      amount: number;
       /** Balance transaction that describes the impact on your account balance. */
       balance_transaction?:
         | (Partial<string> &
@@ -7971,7 +8030,8 @@ export interface components {
       > | null;
     };
     rule: {
-      /** The action taken on the payment. */ action: string;
+      /** The action taken on the payment. */
+      action: string;
       /** Unique identifier for the object. */
       id: string;
       /** The predicate to evaluate the payment against. */
@@ -8156,7 +8216,8 @@ export interface components {
       id: string;
     };
     sigma_scheduled_query_run_error: {
-      /** Information about the run failure. */ message: string;
+      /** Information about the run failure. */
+      message: string;
     };
     /**
      * Stores representations of [stock keeping units](http://en.wikipedia.org/wiki/Stock_keeping_unit).
@@ -8169,7 +8230,8 @@ export interface components {
      * Related guide: [Tax, Shipping, and Inventory](https://stripe.com/docs/orders).
      */
     sku: {
-      /** Whether the SKU is available for purchase. */ active: boolean;
+      /** Whether the SKU is available for purchase. */
+      active: boolean;
       /** A dictionary of attributes and values for the attributes defined by the product. If, for example, a product's attributes are `["size", "gender"]`, a valid SKU has the following dictionary of attributes: `{"size": "Medium", "gender": "Unisex"}`. */
       attributes: { [key: string]: string };
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -8313,7 +8375,8 @@ export interface components {
       last4?: string;
     };
     source_mandate_notification_sepa_debit_data: {
-      /** SEPA creditor ID. */ creditor_identifier?: string;
+      /** SEPA creditor ID. */
+      creditor_identifier?: string;
       /** Last 4 digits of the account number associated with the debit. */
       last4?: string;
       /** Mandate reference associated with the debit. */
@@ -8331,7 +8394,8 @@ export interface components {
       shipping?: components["schemas"]["shipping"];
     };
     source_order_item: {
-      /** The amount (price) for this order item. */ amount?: number | null;
+      /** The amount (price) for this order item. */
+      amount?: number | null;
       /** This currency of this order item. Required when `amount` is present. */
       currency?: string | null;
       /** Human-readable description for this order item. */
@@ -8431,7 +8495,8 @@ export interface components {
         | "wechat";
     };
     source_transaction_ach_credit_transfer_data: {
-      /** Customer data associated with the transfer. */ customer_data?: string;
+      /** Customer data associated with the transfer. */
+      customer_data?: string;
       /** Bank account fingerprint associated with the transfer. */
       fingerprint?: string;
       /** Last 4 digits of the account number associated with the transfer. */
@@ -8440,7 +8505,8 @@ export interface components {
       routing_number?: string;
     };
     source_transaction_chf_credit_transfer_data: {
-      /** Reference associated with the transfer. */ reference?: string;
+      /** Reference associated with the transfer. */
+      reference?: string;
       /** Sender's country address. */
       sender_address_country?: string;
       /** Sender's line 1 address. */
@@ -8473,7 +8539,8 @@ export interface components {
       invoices?: string;
     };
     source_transaction_sepa_credit_transfer_data: {
-      /** Reference associated with the transfer. */ reference?: string;
+      /** Reference associated with the transfer. */
+      reference?: string;
       /** Sender's bank account IBAN. */
       sender_iban?: string;
       /** Sender's name. */
@@ -8611,7 +8678,9 @@ export interface components {
       refund_account_holder_name?: string | null;
       refund_iban?: string | null;
     };
-    source_type_p24: { reference?: string | null };
+    source_type_p24: {
+      reference?: string | null;
+    };
     source_type_sepa_debit: {
       bank_code?: string | null;
       branch_code?: string | null;
@@ -8655,7 +8724,8 @@ export interface components {
       statement_descriptor?: string;
     };
     status_transitions: {
-      /** The time that the order was canceled. */ canceled?: number | null;
+      /** The time that the order was canceled. */
+      canceled?: number | null;
       /** The time that the order was fulfilled. */
       fulfiled?: number | null;
       /** The time that the order was paid. */
@@ -8984,7 +9054,8 @@ export interface components {
       trial_from_plan?: boolean | null;
     };
     tax_deducted_at_source: {
-      /** Unique identifier for the object. */ id: string;
+      /** Unique identifier for the object. */
+      id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "tax_deducted_at_source";
       /** The end of the invoicing period. This TDS applies to Stripe fees collected during this invoicing period. */
@@ -9175,7 +9246,8 @@ export interface components {
       version: string;
     };
     three_d_secure_usage: {
-      /** Whether 3D Secure is supported on this card. */ supported: boolean;
+      /** Whether 3D Secure is supported on this card. */
+      supported: boolean;
     };
     /**
      * Tokenization is the process Stripe uses to collect sensitive card or bank
@@ -9227,7 +9299,8 @@ export interface components {
      * Related guide: [Topping Up your Platform Account](https://stripe.com/docs/connect/top-ups).
      */
     topup: {
-      /** Amount transferred. */ amount: number;
+      /** Amount transferred. */
+      amount: number;
       /** ID of the balance transaction that describes the impact of this top-up on your account balance. May not be specified depending on status of top-up. */
       balance_transaction?:
         | (Partial<string> &
@@ -9274,7 +9347,8 @@ export interface components {
      * Related guide: [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/charges-transfers).
      */
     transfer: {
-      /** Amount in %s to be transferred. */ amount: number;
+      /** Amount in %s to be transferred. */
+      amount: number;
       /** Amount in %s reversed (can be less than the amount attribute on the transfer if a partial reversal was issued). */
       amount_reversed: number;
       /** Balance transaction that describes the impact of this transfer on your account balance. */
@@ -9351,7 +9425,8 @@ export interface components {
      * Related guide: [Reversing Transfers](https://stripe.com/docs/connect/charges-transfers#reversing-transfers).
      */
     transfer_reversal: {
-      /** Amount, in %s. */ amount: number;
+      /** Amount, in %s. */
+      amount: number;
       /** Balance transaction that describes the impact on your account balance. */
       balance_transaction?:
         | (Partial<string> &
@@ -9389,7 +9464,8 @@ export interface components {
       weekly_anchor?: string;
     };
     transform_usage: {
-      /** Divide usage by this number. */ divide_by: number;
+      /** Divide usage by this number. */
+      divide_by: number;
       /** After division, either round the result `up` or `down`. */
       round: "down" | "up";
     };
@@ -9400,7 +9476,8 @@ export interface components {
      * Related guide: [Metered Billing](https://stripe.com/docs/billing/subscriptions/metered-billing).
      */
     usage_record: {
-      /** Unique identifier for the object. */ id: string;
+      /** Unique identifier for the object. */
+      id: string;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -9413,7 +9490,8 @@ export interface components {
       timestamp: number;
     };
     usage_record_summary: {
-      /** Unique identifier for the object. */ id: string;
+      /** Unique identifier for the object. */
+      id: string;
       /** The invoice in which this usage period has been billed for. */
       invoice?: string | null;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -9643,7 +9721,12 @@ export interface operations {
           tax_id?: string;
           tax_id_registrar?: string;
           vat_id?: string;
-          verification?: { document?: { back?: string; front?: string } };
+          verification?: {
+            document?: {
+              back?: string;
+              front?: string;
+            };
+          };
         };
         /** Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts). */
         default_currency?: string;
@@ -9681,7 +9764,11 @@ export interface operations {
             state?: string;
             town?: string;
           };
-          dob?: Partial<{ day: number; month: number; year: number }> &
+          dob?: Partial<{
+            day: number;
+            month: number;
+            year: number;
+          }> &
             Partial<"">;
           email?: string;
           first_name?: string;
@@ -9697,8 +9784,14 @@ export interface operations {
           phone?: string;
           ssn_last_4?: string;
           verification?: {
-            additional_document?: { back?: string; front?: string };
-            document?: { back?: string; front?: string };
+            additional_document?: {
+              back?: string;
+              front?: string;
+            };
+            document?: {
+              back?: string;
+              front?: string;
+            };
           };
         };
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -9722,7 +9815,10 @@ export interface operations {
             secondary_color?: string;
           };
           card_payments?: {
-            decline_on?: { avs_failure?: boolean; cvc_failure?: boolean };
+            decline_on?: {
+              avs_failure?: boolean;
+              cvc_failure?: boolean;
+            };
             statement_descriptor_prefix?: string;
           };
           payments?: {
@@ -9749,7 +9845,11 @@ export interface operations {
           };
         };
         /** Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance). */
-        tos_acceptance?: { date?: number; ip?: string; user_agent?: string };
+        tos_acceptance?: {
+          date?: number;
+          ip?: string;
+          user_agent?: string;
+        };
       };
     };
   };
@@ -9772,7 +9872,9 @@ export interface operations {
       };
     };
     requestBody: {
-      "application/x-www-form-urlencoded": { account?: string };
+      "application/x-www-form-urlencoded": {
+        account?: string;
+      };
     };
   };
   /** <p>Create an external account for a given account.</p> */
@@ -10302,7 +10404,11 @@ export interface operations {
           town?: string;
         };
         /** The person's date of birth. */
-        dob?: Partial<{ day: number; month: number; year: number }> &
+        dob?: Partial<{
+          day: number;
+          month: number;
+          year: number;
+        }> &
           Partial<"">;
         /** The person's email address. */
         email?: string;
@@ -10345,8 +10451,14 @@ export interface operations {
         ssn_last_4?: string;
         /** The person's verification status. */
         verification?: {
-          additional_document?: { back?: string; front?: string };
-          document?: { back?: string; front?: string };
+          additional_document?: {
+            back?: string;
+            front?: string;
+          };
+          document?: {
+            back?: string;
+            front?: string;
+          };
         };
       };
     };
@@ -10426,7 +10538,11 @@ export interface operations {
           town?: string;
         };
         /** The person's date of birth. */
-        dob?: Partial<{ day: number; month: number; year: number }> &
+        dob?: Partial<{
+          day: number;
+          month: number;
+          year: number;
+        }> &
           Partial<"">;
         /** The person's email address. */
         email?: string;
@@ -10469,8 +10585,14 @@ export interface operations {
         ssn_last_4?: string;
         /** The person's verification status. */
         verification?: {
-          additional_document?: { back?: string; front?: string };
-          document?: { back?: string; front?: string };
+          additional_document?: {
+            back?: string;
+            front?: string;
+          };
+          document?: {
+            back?: string;
+            front?: string;
+          };
         };
       };
     };
@@ -10584,7 +10706,11 @@ export interface operations {
           town?: string;
         };
         /** The person's date of birth. */
-        dob?: Partial<{ day: number; month: number; year: number }> &
+        dob?: Partial<{
+          day: number;
+          month: number;
+          year: number;
+        }> &
           Partial<"">;
         /** The person's email address. */
         email?: string;
@@ -10627,8 +10753,14 @@ export interface operations {
         ssn_last_4?: string;
         /** The person's verification status. */
         verification?: {
-          additional_document?: { back?: string; front?: string };
-          document?: { back?: string; front?: string };
+          additional_document?: {
+            back?: string;
+            front?: string;
+          };
+          document?: {
+            back?: string;
+            front?: string;
+          };
         };
       };
     };
@@ -10708,7 +10840,11 @@ export interface operations {
           town?: string;
         };
         /** The person's date of birth. */
-        dob?: Partial<{ day: number; month: number; year: number }> &
+        dob?: Partial<{
+          day: number;
+          month: number;
+          year: number;
+        }> &
           Partial<"">;
         /** The person's email address. */
         email?: string;
@@ -10751,8 +10887,14 @@ export interface operations {
         ssn_last_4?: string;
         /** The person's verification status. */
         verification?: {
-          additional_document?: { back?: string; front?: string };
-          document?: { back?: string; front?: string };
+          additional_document?: {
+            back?: string;
+            front?: string;
+          };
+          document?: {
+            back?: string;
+            front?: string;
+          };
         };
       };
     };
@@ -10954,7 +11096,12 @@ export interface operations {
           tax_id?: string;
           tax_id_registrar?: string;
           vat_id?: string;
-          verification?: { document?: { back?: string; front?: string } };
+          verification?: {
+            document?: {
+              back?: string;
+              front?: string;
+            };
+          };
         };
         /** The country in which the account holder resides, or in which the business is legally established. This should be an ISO 3166-1 alpha-2 country code. For example, if you are in the United States and the business for which you're creating an account is legally represented in Canada, you would use `CA` as the country for the account being created. */
         country?: string;
@@ -10994,7 +11141,11 @@ export interface operations {
             state?: string;
             town?: string;
           };
-          dob?: Partial<{ day: number; month: number; year: number }> &
+          dob?: Partial<{
+            day: number;
+            month: number;
+            year: number;
+          }> &
             Partial<"">;
           email?: string;
           first_name?: string;
@@ -11010,8 +11161,14 @@ export interface operations {
           phone?: string;
           ssn_last_4?: string;
           verification?: {
-            additional_document?: { back?: string; front?: string };
-            document?: { back?: string; front?: string };
+            additional_document?: {
+              back?: string;
+              front?: string;
+            };
+            document?: {
+              back?: string;
+              front?: string;
+            };
           };
         };
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -11035,7 +11192,10 @@ export interface operations {
             secondary_color?: string;
           };
           card_payments?: {
-            decline_on?: { avs_failure?: boolean; cvc_failure?: boolean };
+            decline_on?: {
+              avs_failure?: boolean;
+              cvc_failure?: boolean;
+            };
             statement_descriptor_prefix?: string;
           };
           payments?: {
@@ -11062,7 +11222,11 @@ export interface operations {
           };
         };
         /** Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance). */
-        tos_acceptance?: { date?: number; ip?: string; user_agent?: string };
+        tos_acceptance?: {
+          date?: number;
+          ip?: string;
+          user_agent?: string;
+        };
         /** The type of Stripe account to create. Currently must be `custom`, as only [Custom accounts](https://stripe.com/docs/connect/custom-accounts) may be created via the API. */
         type?: "custom" | "express" | "standard";
       };
@@ -11200,7 +11364,12 @@ export interface operations {
           tax_id?: string;
           tax_id_registrar?: string;
           vat_id?: string;
-          verification?: { document?: { back?: string; front?: string } };
+          verification?: {
+            document?: {
+              back?: string;
+              front?: string;
+            };
+          };
         };
         /** Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts). */
         default_currency?: string;
@@ -11238,7 +11407,11 @@ export interface operations {
             state?: string;
             town?: string;
           };
-          dob?: Partial<{ day: number; month: number; year: number }> &
+          dob?: Partial<{
+            day: number;
+            month: number;
+            year: number;
+          }> &
             Partial<"">;
           email?: string;
           first_name?: string;
@@ -11254,8 +11427,14 @@ export interface operations {
           phone?: string;
           ssn_last_4?: string;
           verification?: {
-            additional_document?: { back?: string; front?: string };
-            document?: { back?: string; front?: string };
+            additional_document?: {
+              back?: string;
+              front?: string;
+            };
+            document?: {
+              back?: string;
+              front?: string;
+            };
           };
         };
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -11279,7 +11458,10 @@ export interface operations {
             secondary_color?: string;
           };
           card_payments?: {
-            decline_on?: { avs_failure?: boolean; cvc_failure?: boolean };
+            decline_on?: {
+              avs_failure?: boolean;
+              cvc_failure?: boolean;
+            };
             statement_descriptor_prefix?: string;
           };
           payments?: {
@@ -11306,7 +11488,11 @@ export interface operations {
           };
         };
         /** Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance). */
-        tos_acceptance?: { date?: number; ip?: string; user_agent?: string };
+        tos_acceptance?: {
+          date?: number;
+          ip?: string;
+          user_agent?: string;
+        };
       };
     };
   };
@@ -11903,7 +12089,11 @@ export interface operations {
           town?: string;
         };
         /** The person's date of birth. */
-        dob?: Partial<{ day: number; month: number; year: number }> &
+        dob?: Partial<{
+          day: number;
+          month: number;
+          year: number;
+        }> &
           Partial<"">;
         /** The person's email address. */
         email?: string;
@@ -11946,8 +12136,14 @@ export interface operations {
         ssn_last_4?: string;
         /** The person's verification status. */
         verification?: {
-          additional_document?: { back?: string; front?: string };
-          document?: { back?: string; front?: string };
+          additional_document?: {
+            back?: string;
+            front?: string;
+          };
+          document?: {
+            back?: string;
+            front?: string;
+          };
         };
       };
     };
@@ -12028,7 +12224,11 @@ export interface operations {
           town?: string;
         };
         /** The person's date of birth. */
-        dob?: Partial<{ day: number; month: number; year: number }> &
+        dob?: Partial<{
+          day: number;
+          month: number;
+          year: number;
+        }> &
           Partial<"">;
         /** The person's email address. */
         email?: string;
@@ -12071,8 +12271,14 @@ export interface operations {
         ssn_last_4?: string;
         /** The person's verification status. */
         verification?: {
-          additional_document?: { back?: string; front?: string };
-          document?: { back?: string; front?: string };
+          additional_document?: {
+            back?: string;
+            front?: string;
+          };
+          document?: {
+            back?: string;
+            front?: string;
+          };
         };
       };
     };
@@ -12194,7 +12400,11 @@ export interface operations {
           town?: string;
         };
         /** The person's date of birth. */
-        dob?: Partial<{ day: number; month: number; year: number }> &
+        dob?: Partial<{
+          day: number;
+          month: number;
+          year: number;
+        }> &
           Partial<"">;
         /** The person's email address. */
         email?: string;
@@ -12237,8 +12447,14 @@ export interface operations {
         ssn_last_4?: string;
         /** The person's verification status. */
         verification?: {
-          additional_document?: { back?: string; front?: string };
-          document?: { back?: string; front?: string };
+          additional_document?: {
+            back?: string;
+            front?: string;
+          };
+          document?: {
+            back?: string;
+            front?: string;
+          };
         };
       };
     };
@@ -12319,7 +12535,11 @@ export interface operations {
           town?: string;
         };
         /** The person's date of birth. */
-        dob?: Partial<{ day: number; month: number; year: number }> &
+        dob?: Partial<{
+          day: number;
+          month: number;
+          year: number;
+        }> &
           Partial<"">;
         /** The person's email address. */
         email?: string;
@@ -12362,8 +12582,14 @@ export interface operations {
         ssn_last_4?: string;
         /** The person's verification status. */
         verification?: {
-          additional_document?: { back?: string; front?: string };
-          document?: { back?: string; front?: string };
+          additional_document?: {
+            back?: string;
+            front?: string;
+          };
+          document?: {
+            back?: string;
+            front?: string;
+          };
         };
       };
     };
@@ -12974,7 +13200,8 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-        /** The ID of an existing customer. */ customer: string;
+        /** The ID of an existing customer. */
+        customer: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** The URL to which Stripe should send customers when they click on the link to return to your website. This field is required if a default return URL has not been configured for the portal. */
@@ -13224,7 +13451,10 @@ export interface operations {
         customer?: string;
         /** An arbitrary string which you can attach to a `Charge` object. It is displayed when in the web interface alongside the charge. Note that if you use Stripe to send automatic email receipts to your customers, your receipt emails will include the `description` of the charge(s) that they are describing. */
         description?: string;
-        destination?: Partial<{ account: string; amount?: number }> &
+        destination?: Partial<{
+          account: string;
+          amount?: number;
+        }> &
           Partial<string>;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
@@ -13256,7 +13486,10 @@ export interface operations {
         /** Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
         statement_descriptor_suffix?: string;
         /** An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details. */
-        transfer_data?: { amount?: number; destination: string };
+        transfer_data?: {
+          amount?: number;
+          destination: string;
+        };
         /** A string that identifies this transaction as part of a group. For details, see [Grouping transactions](https://stripe.com/docs/connect/charges-transfers#transfer-options). */
         transfer_group?: string;
       };
@@ -13313,7 +13546,9 @@ export interface operations {
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** A set of key-value pairs you can attach to a charge giving information about its riskiness. If you believe a charge is fraudulent, include a `user_report` key with a value of `fraudulent`. If you believe a charge is safe, include a `user_report` key with a value of `safe`. Stripe will use the information you send to improve our fraud detection algorithms. */
-        fraud_details?: { user_report: "" | "fraudulent" | "safe" };
+        fraud_details?: {
+          user_report: "" | "fraudulent" | "safe";
+        };
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
         metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         /** This is the email address that the receipt for this charge will be sent to. If this field is updated, then a new email receipt will be sent to the updated address. */
@@ -13376,7 +13611,9 @@ export interface operations {
         /** Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
         statement_descriptor_suffix?: string;
         /** An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details. */
-        transfer_data?: { amount?: number };
+        transfer_data?: {
+          amount?: number;
+        };
         /** A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
         transfer_group?: string;
       };
@@ -13799,7 +14036,10 @@ export interface operations {
           };
           statement_descriptor?: string;
           statement_descriptor_suffix?: string;
-          transfer_data?: { amount?: number; destination: string };
+          transfer_data?: {
+            amount?: number;
+            destination: string;
+          };
         };
         /** A list of the types of payment methods (e.g., card) this Checkout session can accept. */
         payment_method_types: ("card" | "fpx" | "ideal")[];
@@ -14062,7 +14302,11 @@ export interface operations {
         subscription_data?: {
           application_fee_percent?: number;
           default_tax_rates?: string[];
-          items?: { plan: string; quantity?: number; tax_rates?: string[] }[];
+          items?: {
+            plan: string;
+            quantity?: number;
+            tax_rates?: string[];
+          }[];
           metadata?: { [key: string]: string };
           trial_end?: number;
           trial_from_plan?: boolean;
@@ -14757,7 +15001,12 @@ export interface operations {
         invoice_prefix?: string;
         /** Default invoice settings for this customer. */
         invoice_settings?: {
-          custom_fields?: Partial<{ name: string; value: string }[]> &
+          custom_fields?: Partial<
+            {
+              name: string;
+              value: string;
+            }[]
+          > &
             Partial<"">;
           default_payment_method?: string;
           footer?: string;
@@ -14935,7 +15184,12 @@ export interface operations {
         invoice_prefix?: string;
         /** Default invoice settings for this customer. */
         invoice_settings?: {
-          custom_fields?: Partial<{ name: string; value: string }[]> &
+          custom_fields?: Partial<
+            {
+              name: string;
+              value: string;
+            }[]
+          > &
             Partial<"">;
           default_payment_method?: string;
           footer?: string;
@@ -15979,7 +16233,10 @@ export interface operations {
         expand?: string[];
         /** A list of up to 20 subscription items, each with an attached plan. */
         items?: {
-          billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+          billing_thresholds?: Partial<{
+            usage_gte: number;
+          }> &
+            Partial<"">;
           metadata?: { [key: string]: string };
           plan?: string;
           quantity?: number;
@@ -16101,7 +16358,10 @@ export interface operations {
         expand?: string[];
         /** List of subscription items, each with an attached plan. */
         items?: {
-          billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+          billing_thresholds?: Partial<{
+            usage_gte: number;
+          }> &
+            Partial<"">;
           clear_usage?: boolean;
           deleted?: boolean;
           id?: string;
@@ -17049,7 +17309,10 @@ export interface operations {
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
         metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         /** The period associated with this invoice item. */
-        period?: { end: number; start: number };
+        period?: {
+          end: number;
+          start: number;
+        };
         /** Non-negative integer. The quantity of units for the invoice item. */
         quantity?: number;
         /** The ID of a subscription to add this invoice item to. When left blank, the invoice item will be be added to the next upcoming scheduled invoice. When set, scheduled invoices for subscriptions other than the specified subscription will ignore the invoice item. Use this when you want to express that an invoice item has been accrued within the context of a particular subscription. */
@@ -17118,7 +17381,10 @@ export interface operations {
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
         metadata?: Partial<{ [key: string]: string }> & Partial<"">;
         /** The period associated with this invoice item. */
-        period?: { end: number; start: number };
+        period?: {
+          end: number;
+          start: number;
+        };
         /** Non-negative integer. The quantity of units for the invoice item. */
         quantity?: number;
         /** The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. Pass an empty string to remove previously-defined tax rates. */
@@ -17230,7 +17496,12 @@ export interface operations {
         /** Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. Defaults to `charge_automatically`. */
         collection_method?: "charge_automatically" | "send_invoice";
         /** A list of up to 4 custom fields to be displayed on the invoice. */
-        custom_fields?: Partial<{ name: string; value: string }[]> &
+        custom_fields?: Partial<
+          {
+            name: string;
+            value: string;
+          }[]
+        > &
           Partial<"">;
         /** The ID of the customer who will be billed. */
         customer: string;
@@ -17285,7 +17556,10 @@ export interface operations {
           discountable?: boolean;
           invoiceitem?: string;
           metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-          period?: { end: number; start: number };
+          period?: {
+            end: number;
+            start: number;
+          };
           quantity?: number;
           tax_rates?: Partial<string[]> & Partial<"">;
           unit_amount?: number;
@@ -17308,7 +17582,10 @@ export interface operations {
         subscription_default_tax_rates?: Partial<string[]> & Partial<"">;
         /** List of subscription items, each with an attached plan. */
         subscription_items?: {
-          billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+          billing_thresholds?: Partial<{
+            usage_gte: number;
+          }> &
+            Partial<"">;
           clear_usage?: boolean;
           deleted?: boolean;
           id?: string;
@@ -17376,7 +17653,10 @@ export interface operations {
           discountable?: boolean;
           invoiceitem?: string;
           metadata?: Partial<{ [key: string]: string }> & Partial<"">;
-          period?: { end: number; start: number };
+          period?: {
+            end: number;
+            start: number;
+          };
           quantity?: number;
           tax_rates?: Partial<string[]> & Partial<"">;
           unit_amount?: number;
@@ -17403,7 +17683,10 @@ export interface operations {
         subscription_default_tax_rates?: Partial<string[]> & Partial<"">;
         /** List of subscription items, each with an attached plan. */
         subscription_items?: {
-          billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+          billing_thresholds?: Partial<{
+            usage_gte: number;
+          }> &
+            Partial<"">;
           clear_usage?: boolean;
           deleted?: boolean;
           id?: string;
@@ -17518,7 +17801,12 @@ export interface operations {
         /** Either `charge_automatically` or `send_invoice`. This field can be updated only on `draft` invoices. */
         collection_method?: "charge_automatically" | "send_invoice";
         /** A list of up to 4 custom fields to be displayed on the invoice. If a value for `custom_fields` is specified, the list specified will replace the existing custom field list on this invoice. Pass an empty string to remove previously-defined fields. */
-        custom_fields?: Partial<{ name: string; value: string }[]> &
+        custom_fields?: Partial<
+          {
+            name: string;
+            value: string;
+          }[]
+        > &
           Partial<"">;
         /** The number of days from which the invoice is created until it is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices. */
         days_until_due?: number;
@@ -18046,17 +18334,28 @@ export interface operations {
           };
         };
         /** Additional information about a `company` cardholder. */
-        company?: { tax_id?: string };
+        company?: {
+          tax_id?: string;
+        };
         /** The cardholder's email address. */
         email?: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** Additional information about an `individual` cardholder. */
         individual?: {
-          dob?: { day: number; month: number; year: number };
+          dob?: {
+            day: number;
+            month: number;
+            year: number;
+          };
           first_name: string;
           last_name: string;
-          verification?: { document?: { back?: string; front?: string } };
+          verification?: {
+            document?: {
+              back?: string;
+              front?: string;
+            };
+          };
         };
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
         metadata?: { [key: string]: string };
@@ -19011,17 +19310,28 @@ export interface operations {
           };
         };
         /** Additional information about a `company` cardholder. */
-        company?: { tax_id?: string };
+        company?: {
+          tax_id?: string;
+        };
         /** The cardholder's email address. */
         email?: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** Additional information about an `individual` cardholder. */
         individual?: {
-          dob?: { day: number; month: number; year: number };
+          dob?: {
+            day: number;
+            month: number;
+            year: number;
+          };
           first_name: string;
           last_name: string;
-          verification?: { document?: { back?: string; front?: string } };
+          verification?: {
+            document?: {
+              back?: string;
+              front?: string;
+            };
+          };
         };
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
         metadata?: { [key: string]: string };
@@ -22425,7 +22735,10 @@ export interface operations {
         /** The shipping method to select for fulfilling this order. If specified, must be one of the `id`s of a shipping method in the `shipping_methods` array. If specified, will overwrite the existing selected shipping method, updating `items` as necessary. */
         selected_shipping_method?: string;
         /** Tracking information once the order has been fulfilled. */
-        shipping?: { carrier: string; tracking_number: string };
+        shipping?: {
+          carrier: string;
+          tracking_number: string;
+        };
         /** Current order status. One of `created`, `paid`, `canceled`, `fulfilled`, or `returned`. More detail in the [Orders Guide](https://stripe.com/docs/orders/guide#understanding-order-statuses). */
         status?: "canceled" | "created" | "fulfilled" | "paid" | "returned";
       };
@@ -22607,7 +22920,10 @@ export interface operations {
           customer_acceptance: {
             accepted_at?: number;
             offline?: { [key: string]: any };
-            online?: { ip_address: string; user_agent: string };
+            online?: {
+              ip_address: string;
+              user_agent: string;
+            };
             type: "offline" | "online";
           };
         };
@@ -22676,7 +22992,10 @@ export interface operations {
          * The parameters used to automatically create a Transfer when the payment succeeds.
          * For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
          */
-        transfer_data?: { amount?: number; destination: string };
+        transfer_data?: {
+          amount?: number;
+          destination: string;
+        };
         /** A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
         transfer_group?: string;
         /** Set to `true` only when using manual confirmation and the iOS or Android SDKs to handle additional authentication steps. */
@@ -22817,7 +23136,9 @@ export interface operations {
         /** Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
         statement_descriptor_suffix?: string;
         /** The parameters used to automatically create a Transfer when the payment succeeds. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
-        transfer_data?: { amount?: number };
+        transfer_data?: {
+          amount?: number;
+        };
         /** A string that identifies the resulting payment as part of a group. `transfer_group` may only be provided if it has not been set. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
         transfer_group?: string;
       };
@@ -22900,7 +23221,9 @@ export interface operations {
          * The parameters used to automatically create a Transfer when the payment
          * is captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
          */
-        transfer_data?: { amount?: number };
+        transfer_data?: {
+          amount?: number;
+        };
       };
     };
   };
@@ -22949,7 +23272,8 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-        /** The client secret of the PaymentIntent. */ client_secret?: string;
+        /** The client secret of the PaymentIntent. */
+        client_secret?: string;
         /** Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). */
         error_on_requires_action?: boolean;
         /** Specifies which fields in the response should be expanded. */
@@ -22961,13 +23285,19 @@ export interface operations {
           customer_acceptance: {
             accepted_at?: number;
             offline?: { [key: string]: any };
-            online?: { ip_address: string; user_agent: string };
+            online?: {
+              ip_address: string;
+              user_agent: string;
+            };
             type: "offline" | "online";
           };
         }> &
           Partial<{
             customer_acceptance: {
-              online: { ip_address?: string; user_agent?: string };
+              online: {
+                ip_address?: string;
+                user_agent?: string;
+              };
               type: "online";
             };
           }>;
@@ -23093,7 +23423,10 @@ export interface operations {
     requestBody: {
       "application/x-www-form-urlencoded": {
         /** If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account. */
-        au_becs_debit?: { account_number: string; bsb_number: string };
+        au_becs_debit?: {
+          account_number: string;
+          bsb_number: string;
+        };
         /** Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods. */
         billing_details?: {
           address?: {
@@ -23115,7 +23448,9 @@ export interface operations {
           exp_year: number;
           number: string;
         }> &
-          Partial<{ token: string }>;
+          Partial<{
+            token: string;
+          }>;
         /** The `Customer` to whom the original PaymentMethod is attached. */
         customer?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -23165,7 +23500,9 @@ export interface operations {
         /** The PaymentMethod to share. */
         payment_method?: string;
         /** If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account. */
-        sepa_debit?: { iban: string };
+        sepa_debit?: {
+          iban: string;
+        };
         /** The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type. Required unless `payment_method` is specified (see the [Cloning PaymentMethods](https://stripe.com/docs/payments/payment-methods/connect#cloning-payment-methods) guide) */
         type?: "au_becs_debit" | "card" | "fpx" | "ideal" | "sepa_debit";
       };
@@ -23230,7 +23567,10 @@ export interface operations {
           phone?: string;
         };
         /** If this is a `card` PaymentMethod, this hash contains the user's card details. */
-        card?: { exp_month?: number; exp_year?: number };
+        card?: {
+          exp_month?: number;
+          exp_year?: number;
+        };
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -23578,7 +23918,10 @@ export interface operations {
         /** Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows. */
         tiers_mode?: "graduated" | "volume";
         /** Apply a transformation to the reported usage or set quantity before computing the billed price. Cannot be combined with `tiers`. */
-        transform_usage?: { divide_by: number; round: "down" | "up" };
+        transform_usage?: {
+          divide_by: number;
+          round: "down" | "up";
+        };
         /** Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan). */
         trial_period_days?: number;
         /** Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`. */
@@ -23823,7 +24166,8 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-        /** Whether the product is available for purchase. */ active?: boolean;
+        /** Whether the product is available for purchase. */
+        active?: boolean;
         /** A list of up to 5 alphanumeric attributes that each SKU can provide values for (e.g., `["color", "size"]`). If a value for `attributes` is specified, the list specified will replace the existing attributes list on this product. Any attributes not present after the update will be deleted from the SKUs for this product. */
         attributes?: Partial<string[]> & Partial<"">;
         /** A short one-line description of the product, meant to be displayable to the customer. May only be set if `type=good`. */
@@ -24129,7 +24473,8 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-        /** The name of the value list for use in rules. */ alias: string;
+        /** The name of the value list for use in rules. */
+        alias: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, or `case_sensitive_string`. Use `string` if the item type is unknown or mixed. */
@@ -24192,7 +24537,8 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-        /** The name of the value list for use in rules. */ alias?: string;
+        /** The name of the value list for use in rules. */
+        alias?: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -25485,7 +25831,10 @@ export interface operations {
           customer_acceptance: {
             accepted_at?: number;
             offline?: { [key: string]: any };
-            online?: { ip_address: string; user_agent: string };
+            online?: {
+              ip_address: string;
+              user_agent: string;
+            };
             type: "offline" | "online";
           };
         };
@@ -25497,14 +25846,19 @@ export interface operations {
         payment_method?: string;
         /** Payment-method-specific configuration for this SetupIntent. */
         payment_method_options?: {
-          card?: { request_three_d_secure?: "any" | "automatic" };
+          card?: {
+            request_three_d_secure?: "any" | "automatic";
+          };
         };
         /** The list of payment method types (e.g. card) that this SetupIntent is allowed to use. If this is not provided, defaults to ["card"]. */
         payment_method_types?: string[];
         /** The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm). */
         return_url?: string;
         /** If this hash is populated, this SetupIntent will generate a single_use Mandate on success. */
-        single_use?: { amount: number; currency: string };
+        single_use?: {
+          amount: number;
+          currency: string;
+        };
         /** Indicates how the payment method is intended to be used in the future. If not provided, this value defaults to `off_session`. */
         usage?: "off_session" | "on_session";
       };
@@ -25578,7 +25932,9 @@ export interface operations {
         payment_method?: string;
         /** Payment-method-specific configuration for this SetupIntent. */
         payment_method_options?: {
-          card?: { request_three_d_secure?: "any" | "automatic" };
+          card?: {
+            request_three_d_secure?: "any" | "automatic";
+          };
         };
         /** The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. If this is not provided, defaults to ["card"]. */
         payment_method_types?: string[];
@@ -25651,7 +26007,8 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-        /** The client secret of the SetupIntent. */ client_secret?: string;
+        /** The client secret of the SetupIntent. */
+        client_secret?: string;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** This hash contains details about the Mandate to create */
@@ -25659,13 +26016,19 @@ export interface operations {
           customer_acceptance: {
             accepted_at?: number;
             offline?: { [key: string]: any };
-            online?: { ip_address: string; user_agent: string };
+            online?: {
+              ip_address: string;
+              user_agent: string;
+            };
             type: "offline" | "online";
           };
         }> &
           Partial<{
             customer_acceptance: {
-              online: { ip_address?: string; user_agent?: string };
+              online: {
+                ip_address?: string;
+                user_agent?: string;
+              };
               type: "online";
             };
           }>;
@@ -25673,7 +26036,9 @@ export interface operations {
         payment_method?: string;
         /** Payment-method-specific configuration for this SetupIntent. */
         payment_method_options?: {
-          card?: { request_three_d_secure?: "any" | "automatic" };
+          card?: {
+            request_three_d_secure?: "any" | "automatic";
+          };
         };
         /**
          * The URL to redirect your customer back to after they authenticate on the payment method's app or site.
@@ -25888,7 +26253,8 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-        /** Whether this SKU is available for purchase. */ active?: boolean;
+        /** Whether this SKU is available for purchase. */
+        active?: boolean;
         /** A dictionary of attributes and values for the attributes defined by the product. When specified, `attributes` will partially update the existing attributes dictionary on the product, with the postcondition that a value must be present for each attribute key on the product. */
         attributes?: { [key: string]: string };
         /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -25970,8 +26336,14 @@ export interface operations {
           acceptance?: {
             date?: number;
             ip?: string;
-            offline?: { contact_email: string };
-            online?: { date?: number; ip?: string; user_agent?: string };
+            offline?: {
+              contact_email: string;
+            };
+            online?: {
+              date?: number;
+              ip?: string;
+              user_agent?: string;
+            };
             status: "accepted" | "pending" | "refused" | "revoked";
             type?: "offline" | "online";
             user_agent?: string;
@@ -26004,9 +26376,13 @@ export interface operations {
           phone?: string;
         };
         /** Optional parameters for the receiver flow. Can be set only if the source is a receiver (`flow` is `receiver`). */
-        receiver?: { refund_attributes_method?: "email" | "manual" | "none" };
+        receiver?: {
+          refund_attributes_method?: "email" | "manual" | "none";
+        };
         /** Parameters required for the redirect flow. Required if the source is authenticated by a redirect (`flow` is `redirect`). */
-        redirect?: { return_url: string };
+        redirect?: {
+          return_url: string;
+        };
         /** Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it. */
         source_order?: {
           items?: {
@@ -26092,7 +26468,8 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": {
-        /** Amount associated with the source. */ amount?: number;
+        /** Amount associated with the source. */
+        amount?: number;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status. */
@@ -26100,8 +26477,14 @@ export interface operations {
           acceptance?: {
             date?: number;
             ip?: string;
-            offline?: { contact_email: string };
-            online?: { date?: number; ip?: string; user_agent?: string };
+            offline?: {
+              contact_email: string;
+            };
+            online?: {
+              date?: number;
+              ip?: string;
+              user_agent?: string;
+            };
             status: "accepted" | "pending" | "refused" | "revoked";
             type?: "offline" | "online";
             user_agent?: string;
@@ -26330,7 +26713,10 @@ export interface operations {
     requestBody: {
       "application/x-www-form-urlencoded": {
         /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds. */
-        billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+        billing_thresholds?: Partial<{
+          usage_gte: number;
+        }> &
+          Partial<"">;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -26414,7 +26800,10 @@ export interface operations {
     requestBody: {
       "application/x-www-form-urlencoded": {
         /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds. */
-        billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+        billing_thresholds?: Partial<{
+          usage_gte: number;
+        }> &
+          Partial<"">;
         /** Specifies which fields in the response should be expanded. */
         expand?: string[];
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -26667,7 +27056,9 @@ export interface operations {
             Partial<"">;
           collection_method?: "charge_automatically" | "send_invoice";
           default_payment_method?: string;
-          invoice_settings?: { days_until_due?: number };
+          invoice_settings?: {
+            days_until_due?: number;
+          };
         };
         /** Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription. */
         end_behavior?: "cancel" | "none" | "release" | "renew";
@@ -26690,10 +27081,15 @@ export interface operations {
           default_payment_method?: string;
           default_tax_rates?: Partial<string[]> & Partial<"">;
           end_date?: number;
-          invoice_settings?: { days_until_due?: number };
+          invoice_settings?: {
+            days_until_due?: number;
+          };
           iterations?: number;
           plans: {
-            billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+            billing_thresholds?: Partial<{
+              usage_gte: number;
+            }> &
+              Partial<"">;
             plan?: string;
             quantity?: number;
             tax_rates?: Partial<string[]> & Partial<"">;
@@ -26761,7 +27157,9 @@ export interface operations {
             Partial<"">;
           collection_method?: "charge_automatically" | "send_invoice";
           default_payment_method?: string;
-          invoice_settings?: { days_until_due?: number };
+          invoice_settings?: {
+            days_until_due?: number;
+          };
         };
         /** Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription. */
         end_behavior?: "cancel" | "none" | "release" | "renew";
@@ -26782,10 +27180,15 @@ export interface operations {
           default_payment_method?: string;
           default_tax_rates?: Partial<string[]> & Partial<"">;
           end_date?: Partial<number> & Partial<"now">;
-          invoice_settings?: { days_until_due?: number };
+          invoice_settings?: {
+            days_until_due?: number;
+          };
           iterations?: number;
           plans: {
-            billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+            billing_thresholds?: Partial<{
+              usage_gte: number;
+            }> &
+              Partial<"">;
             plan?: string;
             quantity?: number;
             tax_rates?: Partial<string[]> & Partial<"">;
@@ -26979,7 +27382,10 @@ export interface operations {
         expand?: string[];
         /** A list of up to 20 subscription items, each with an attached plan. */
         items?: {
-          billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+          billing_thresholds?: Partial<{
+            usage_gte: number;
+          }> &
+            Partial<"">;
           metadata?: { [key: string]: string };
           plan?: string;
           quantity?: number;
@@ -27099,7 +27505,10 @@ export interface operations {
         expand?: string[];
         /** List of subscription items, each with an attached plan. */
         items?: {
-          billing_thresholds?: Partial<{ usage_gte: number }> & Partial<"">;
+          billing_thresholds?: Partial<{
+            usage_gte: number;
+          }> &
+            Partial<"">;
           clear_usage?: boolean;
           deleted?: boolean;
           id?: string;
@@ -27745,7 +28154,12 @@ export interface operations {
             tax_id?: string;
             tax_id_registrar?: string;
             vat_id?: string;
-            verification?: { document?: { back?: string; front?: string } };
+            verification?: {
+              document?: {
+                back?: string;
+                front?: string;
+              };
+            };
           };
           individual?: {
             address?: {
@@ -27774,7 +28188,11 @@ export interface operations {
               state?: string;
               town?: string;
             };
-            dob?: Partial<{ day: number; month: number; year: number }> &
+            dob?: Partial<{
+              day: number;
+              month: number;
+              year: number;
+            }> &
               Partial<"">;
             email?: string;
             first_name?: string;
@@ -27790,8 +28208,14 @@ export interface operations {
             phone?: string;
             ssn_last_4?: string;
             verification?: {
-              additional_document?: { back?: string; front?: string };
-              document?: { back?: string; front?: string };
+              additional_document?: {
+                back?: string;
+                front?: string;
+              };
+              document?: {
+                back?: string;
+                front?: string;
+              };
             };
           };
           tos_shown_and_accepted?: boolean;
@@ -27852,7 +28276,11 @@ export interface operations {
             state?: string;
             town?: string;
           };
-          dob?: Partial<{ day: number; month: number; year: number }> &
+          dob?: Partial<{
+            day: number;
+            month: number;
+            year: number;
+          }> &
             Partial<"">;
           email?: string;
           first_name?: string;
@@ -27876,12 +28304,20 @@ export interface operations {
           };
           ssn_last_4?: string;
           verification?: {
-            additional_document?: { back?: string; front?: string };
-            document?: { back?: string; front?: string };
+            additional_document?: {
+              back?: string;
+              front?: string;
+            };
+            document?: {
+              back?: string;
+              front?: string;
+            };
           };
         };
         /** The PII this token will represent. */
-        pii?: { id_number?: string };
+        pii?: {
+          id_number?: string;
+        };
       };
     };
   };

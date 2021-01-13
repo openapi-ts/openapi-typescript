@@ -67,7 +67,10 @@ describe("transformPathsObj", () => {
     get: {
       responses: {
         200: {
-          "application/json": { title: string; body: string };
+          "application/json": {
+            title: string;
+            body: string;
+          };
         };
       };
     };
@@ -197,11 +200,16 @@ describe("transformPathsObj", () => {
     post: {
       responses: {
         201: {
-          "application/json": { id: string; title: string };
+          "application/json": {
+            id: string;
+            title: string;
+          };
         };
       };
       requestBody: {
-        "application/json": { title: string };
+        "application/json": {
+          title: string;
+        };
       };
     };
   };
