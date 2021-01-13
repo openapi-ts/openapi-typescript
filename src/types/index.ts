@@ -19,8 +19,10 @@ export interface OpenAPI3 {
 }
 
 export interface HeaderObject {
+  // note: this extends ParameterObject, minus "name" & "in"
   type?: string; // required
   description?: string;
+  required?: boolean;
   schema: ReferenceObject | SchemaObject;
 }
 

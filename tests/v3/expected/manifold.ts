@@ -992,4 +992,10 @@ export interface components {
       provider: components["schemas"]["Provider"];
     };
   };
+  parameters: {
+    /** Filter results to only include those that have this label. */
+    LabelFilter: string;
+  };
 }
+
+export interface operations {}

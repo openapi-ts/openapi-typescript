@@ -13,14 +13,6 @@ export interface paths {
     get: operations["Get3dSecureThreeDSecure"];
   };
   "/v1/account": {
-    /**
-     * <p>With <a href="/docs/connect">Connect</a>, you can delete Custom or Express accounts you manage.</p>
-     *
-     * <p>Accounts created using test-mode keys can be deleted at any time. Accounts created using live-mode keys can only be deleted once all balances are zero.</p>
-     *
-     * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/account">account information tab in your account settings</a> instead.</p>
-     */
-    delete: operations["DeleteAccount"];
     /** <p>Retrieves the details of an account.</p> */
     get: operations["GetAccount"];
     /**
@@ -29,14 +21,20 @@ export interface paths {
      * <p>To update your own account, use the <a href="https://dashboard.stripe.com/account">Dashboard</a>. Refer to our <a href="/docs/connect/updating-accounts">Connect</a> documentation to learn more about updating accounts.</p>
      */
     post: operations["PostAccount"];
+    /**
+     * <p>With <a href="/docs/connect">Connect</a>, you can delete Custom or Express accounts you manage.</p>
+     *
+     * <p>Accounts created using test-mode keys can be deleted at any time. Accounts created using live-mode keys can only be deleted once all balances are zero.</p>
+     *
+     * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/account">account information tab in your account settings</a> instead.</p>
+     */
+    delete: operations["DeleteAccount"];
   };
   "/v1/account/bank_accounts": {
     /** <p>Create an external account for a given account.</p> */
     post: operations["PostAccountBankAccounts"];
   };
   "/v1/account/bank_accounts/{id}": {
-    /** <p>Delete a specified external account for a given account.</p> */
-    delete: operations["DeleteAccountBankAccountsId"];
     /** <p>Retrieve a specified external account for a given account.</p> */
     get: operations["GetAccountBankAccountsId"];
     /**
@@ -44,6 +42,8 @@ export interface paths {
      * <p>You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.</p>
      */
     post: operations["PostAccountBankAccountsId"];
+    /** <p>Delete a specified external account for a given account.</p> */
+    delete: operations["DeleteAccountBankAccountsId"];
   };
   "/v1/account/capabilities": {
     /** <p>Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.</p> */
@@ -62,8 +62,6 @@ export interface paths {
     post: operations["PostAccountExternalAccounts"];
   };
   "/v1/account/external_accounts/{id}": {
-    /** <p>Delete a specified external account for a given account.</p> */
-    delete: operations["DeleteAccountExternalAccountsId"];
     /** <p>Retrieve a specified external account for a given account.</p> */
     get: operations["GetAccountExternalAccountsId"];
     /**
@@ -71,6 +69,8 @@ export interface paths {
      * <p>You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.</p>
      */
     post: operations["PostAccountExternalAccountsId"];
+    /** <p>Delete a specified external account for a given account.</p> */
+    delete: operations["DeleteAccountExternalAccountsId"];
   };
   "/v1/account/login_links": {
     /**
@@ -95,12 +95,12 @@ export interface paths {
     post: operations["PostAccountPeople"];
   };
   "/v1/account/people/{person}": {
-    /** <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
-    delete: operations["DeleteAccountPeoplePerson"];
     /** <p>Retrieves an existing person.</p> */
     get: operations["GetAccountPeoplePerson"];
     /** <p>Updates an existing person.</p> */
     post: operations["PostAccountPeoplePerson"];
+    /** <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
+    delete: operations["DeleteAccountPeoplePerson"];
   };
   "/v1/account/persons": {
     /** <p>Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first.</p> */
@@ -109,12 +109,12 @@ export interface paths {
     post: operations["PostAccountPersons"];
   };
   "/v1/account/persons/{person}": {
-    /** <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
-    delete: operations["DeleteAccountPersonsPerson"];
     /** <p>Retrieves an existing person.</p> */
     get: operations["GetAccountPersonsPerson"];
     /** <p>Updates an existing person.</p> */
     post: operations["PostAccountPersonsPerson"];
+    /** <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
+    delete: operations["DeleteAccountPersonsPerson"];
   };
   "/v1/account_links": {
     /** <p>Creates an AccountLink object that returns a single-use Stripe URL that the user can redirect their user to in order to take them through the Connect Onboarding flow.</p> */
@@ -133,14 +133,6 @@ export interface paths {
     post: operations["PostAccounts"];
   };
   "/v1/accounts/{account}": {
-    /**
-     * <p>With <a href="/docs/connect">Connect</a>, you can delete Custom or Express accounts you manage.</p>
-     *
-     * <p>Accounts created using test-mode keys can be deleted at any time. Accounts created using live-mode keys can only be deleted once all balances are zero.</p>
-     *
-     * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/account">account information tab in your account settings</a> instead.</p>
-     */
-    delete: operations["DeleteAccountsAccount"];
     /** <p>Retrieves the details of an account.</p> */
     get: operations["GetAccountsAccount"];
     /**
@@ -149,14 +141,20 @@ export interface paths {
      * <p>To update your own account, use the <a href="https://dashboard.stripe.com/account">Dashboard</a>. Refer to our <a href="/docs/connect/updating-accounts">Connect</a> documentation to learn more about updating accounts.</p>
      */
     post: operations["PostAccountsAccount"];
+    /**
+     * <p>With <a href="/docs/connect">Connect</a>, you can delete Custom or Express accounts you manage.</p>
+     *
+     * <p>Accounts created using test-mode keys can be deleted at any time. Accounts created using live-mode keys can only be deleted once all balances are zero.</p>
+     *
+     * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/account">account information tab in your account settings</a> instead.</p>
+     */
+    delete: operations["DeleteAccountsAccount"];
   };
   "/v1/accounts/{account}/bank_accounts": {
     /** <p>Create an external account for a given account.</p> */
     post: operations["PostAccountsAccountBankAccounts"];
   };
   "/v1/accounts/{account}/bank_accounts/{id}": {
-    /** <p>Delete a specified external account for a given account.</p> */
-    delete: operations["DeleteAccountsAccountBankAccountsId"];
     /** <p>Retrieve a specified external account for a given account.</p> */
     get: operations["GetAccountsAccountBankAccountsId"];
     /**
@@ -164,6 +162,8 @@ export interface paths {
      * <p>You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.</p>
      */
     post: operations["PostAccountsAccountBankAccountsId"];
+    /** <p>Delete a specified external account for a given account.</p> */
+    delete: operations["DeleteAccountsAccountBankAccountsId"];
   };
   "/v1/accounts/{account}/capabilities": {
     /** <p>Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.</p> */
@@ -182,8 +182,6 @@ export interface paths {
     post: operations["PostAccountsAccountExternalAccounts"];
   };
   "/v1/accounts/{account}/external_accounts/{id}": {
-    /** <p>Delete a specified external account for a given account.</p> */
-    delete: operations["DeleteAccountsAccountExternalAccountsId"];
     /** <p>Retrieve a specified external account for a given account.</p> */
     get: operations["GetAccountsAccountExternalAccountsId"];
     /**
@@ -191,6 +189,8 @@ export interface paths {
      * <p>You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.</p>
      */
     post: operations["PostAccountsAccountExternalAccountsId"];
+    /** <p>Delete a specified external account for a given account.</p> */
+    delete: operations["DeleteAccountsAccountExternalAccountsId"];
   };
   "/v1/accounts/{account}/login_links": {
     /**
@@ -215,12 +215,12 @@ export interface paths {
     post: operations["PostAccountsAccountPeople"];
   };
   "/v1/accounts/{account}/people/{person}": {
-    /** <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
-    delete: operations["DeleteAccountsAccountPeoplePerson"];
     /** <p>Retrieves an existing person.</p> */
     get: operations["GetAccountsAccountPeoplePerson"];
     /** <p>Updates an existing person.</p> */
     post: operations["PostAccountsAccountPeoplePerson"];
+    /** <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
+    delete: operations["DeleteAccountsAccountPeoplePerson"];
   };
   "/v1/accounts/{account}/persons": {
     /** <p>Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first.</p> */
@@ -229,12 +229,12 @@ export interface paths {
     post: operations["PostAccountsAccountPersons"];
   };
   "/v1/accounts/{account}/persons/{person}": {
-    /** <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
-    delete: operations["DeleteAccountsAccountPersonsPerson"];
     /** <p>Retrieves an existing person.</p> */
     get: operations["GetAccountsAccountPersonsPerson"];
     /** <p>Updates an existing person.</p> */
     post: operations["PostAccountsAccountPersonsPerson"];
+    /** <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
+    delete: operations["DeleteAccountsAccountPersonsPerson"];
   };
   "/v1/accounts/{account}/reject": {
     /**
@@ -251,10 +251,10 @@ export interface paths {
     post: operations["PostApplePayDomains"];
   };
   "/v1/apple_pay/domains/{domain}": {
-    /** <p>Delete an apple pay domain.</p> */
-    delete: operations["DeleteApplePayDomainsDomain"];
     /** <p>Retrieve an apple pay domain.</p> */
     get: operations["GetApplePayDomainsDomain"];
+    /** <p>Delete an apple pay domain.</p> */
+    delete: operations["DeleteApplePayDomainsDomain"];
   };
   "/v1/application_fees": {
     /** <p>Returns a list of application fees you’ve previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.</p> */
@@ -437,12 +437,12 @@ export interface paths {
     post: operations["PostCoupons"];
   };
   "/v1/coupons/{coupon}": {
-    /** <p>You can delete coupons via the <a href="https://dashboard.stripe.com/coupons">coupon management</a> page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can’t redeem the coupon. You can also delete coupons via the API.</p> */
-    delete: operations["DeleteCouponsCoupon"];
     /** <p>Retrieves the coupon with the given ID.</p> */
     get: operations["GetCouponsCoupon"];
     /** <p>Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.</p> */
     post: operations["PostCouponsCoupon"];
+    /** <p>You can delete coupons via the <a href="https://dashboard.stripe.com/coupons">coupon management</a> page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can’t redeem the coupon. You can also delete coupons via the API.</p> */
+    delete: operations["DeleteCouponsCoupon"];
   };
   "/v1/credit_notes": {
     /** <p>Returns a list of credit notes.</p> */
@@ -494,8 +494,6 @@ export interface paths {
     post: operations["PostCustomers"];
   };
   "/v1/customers/{customer}": {
-    /** <p>Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.</p> */
-    delete: operations["DeleteCustomersCustomer"];
     /** <p>Retrieves the details of an existing customer. You need only supply the unique customer identifier that was returned upon customer creation.</p> */
     get: operations["GetCustomersCustomer"];
     /**
@@ -504,6 +502,8 @@ export interface paths {
      * <p>This request accepts mostly the same arguments as the customer creation call.</p>
      */
     post: operations["PostCustomersCustomer"];
+    /** <p>Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.</p> */
+    delete: operations["DeleteCustomersCustomer"];
   };
   "/v1/customers/{customer}/balance_transactions": {
     /** <p>Returns a list of transactions that updated the customer’s <a href="/docs/api/customers/object#customer_object-balance"><code>balance</code></a>.</p> */
@@ -530,12 +530,12 @@ export interface paths {
     post: operations["PostCustomersCustomerBankAccounts"];
   };
   "/v1/customers/{customer}/bank_accounts/{id}": {
-    /** <p>Delete a specified source for a given customer.</p> */
-    delete: operations["DeleteCustomersCustomerBankAccountsId"];
     /** <p>By default, you can see the 10 most recent sources stored on a Customer directly on the object, but you can also retrieve details about a specific bank account stored on the Stripe account.</p> */
     get: operations["GetCustomersCustomerBankAccountsId"];
     /** <p>Update a specified source for a given customer.</p> */
     post: operations["PostCustomersCustomerBankAccountsId"];
+    /** <p>Delete a specified source for a given customer.</p> */
+    delete: operations["DeleteCustomersCustomerBankAccountsId"];
   };
   "/v1/customers/{customer}/bank_accounts/{id}/verify": {
     /** <p>Verify a specified bank account for a given customer.</p> */
@@ -558,17 +558,17 @@ export interface paths {
     post: operations["PostCustomersCustomerCards"];
   };
   "/v1/customers/{customer}/cards/{id}": {
-    /** <p>Delete a specified source for a given customer.</p> */
-    delete: operations["DeleteCustomersCustomerCardsId"];
     /** <p>You can always see the 10 most recent cards directly on a customer; this method lets you retrieve details about a specific card stored on the customer.</p> */
     get: operations["GetCustomersCustomerCardsId"];
     /** <p>Update a specified source for a given customer.</p> */
     post: operations["PostCustomersCustomerCardsId"];
+    /** <p>Delete a specified source for a given customer.</p> */
+    delete: operations["DeleteCustomersCustomerCardsId"];
   };
   "/v1/customers/{customer}/discount": {
+    get: operations["GetCustomersCustomerDiscount"];
     /** <p>Removes the currently applied discount on a customer.</p> */
     delete: operations["DeleteCustomersCustomerDiscount"];
-    get: operations["GetCustomersCustomerDiscount"];
   };
   "/v1/customers/{customer}/sources": {
     /** <p>List sources for a specified customer.</p> */
@@ -583,12 +583,12 @@ export interface paths {
     post: operations["PostCustomersCustomerSources"];
   };
   "/v1/customers/{customer}/sources/{id}": {
-    /** <p>Delete a specified source for a given customer.</p> */
-    delete: operations["DeleteCustomersCustomerSourcesId"];
     /** <p>Retrieve a specified source for a given customer.</p> */
     get: operations["GetCustomersCustomerSourcesId"];
     /** <p>Update a specified source for a given customer.</p> */
     post: operations["PostCustomersCustomerSourcesId"];
+    /** <p>Delete a specified source for a given customer.</p> */
+    delete: operations["DeleteCustomersCustomerSourcesId"];
   };
   "/v1/customers/{customer}/sources/{id}/verify": {
     /** <p>Verify a specified bank account for a given customer.</p> */
@@ -601,6 +601,10 @@ export interface paths {
     post: operations["PostCustomersCustomerSubscriptions"];
   };
   "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}": {
+    /** <p>Retrieves the subscription with the given ID.</p> */
+    get: operations["GetCustomersCustomerSubscriptionsSubscriptionExposedId"];
+    /** <p>Updates an existing subscription on a customer to match the specified parameters. When changing plans or quantities, we will optionally prorate the price we charge next month to make up for any price changes. To preview how the proration will be calculated, use the <a href="#upcoming_invoice">upcoming invoice</a> endpoint.</p> */
+    post: operations["PostCustomersCustomerSubscriptionsSubscriptionExposedId"];
     /**
      * <p>Cancels a customer’s subscription. If you set the <code>at_period_end</code> parameter to <code>true</code>, the subscription will remain active until the end of the period, at which point it will be canceled and not renewed. Otherwise, with the default <code>false</code> value, the subscription is terminated immediately. In either case, the customer will not be charged again for the subscription.</p>
      *
@@ -609,15 +613,11 @@ export interface paths {
      * <p>By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p>
      */
     delete: operations["DeleteCustomersCustomerSubscriptionsSubscriptionExposedId"];
-    /** <p>Retrieves the subscription with the given ID.</p> */
-    get: operations["GetCustomersCustomerSubscriptionsSubscriptionExposedId"];
-    /** <p>Updates an existing subscription on a customer to match the specified parameters. When changing plans or quantities, we will optionally prorate the price we charge next month to make up for any price changes. To preview how the proration will be calculated, use the <a href="#upcoming_invoice">upcoming invoice</a> endpoint.</p> */
-    post: operations["PostCustomersCustomerSubscriptionsSubscriptionExposedId"];
   };
   "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}/discount": {
+    get: operations["GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount"];
     /** <p>Removes the currently applied discount on a customer.</p> */
     delete: operations["DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount"];
-    get: operations["GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount"];
   };
   "/v1/customers/{customer}/tax_ids": {
     /** <p>Returns a list of tax IDs for a customer.</p> */
@@ -626,10 +626,10 @@ export interface paths {
     post: operations["PostCustomersCustomerTaxIds"];
   };
   "/v1/customers/{customer}/tax_ids/{id}": {
-    /** <p>Deletes an existing <code>TaxID</code> object.</p> */
-    delete: operations["DeleteCustomersCustomerTaxIdsId"];
     /** <p>Retrieves the <code>TaxID</code> object with the given identifier.</p> */
     get: operations["GetCustomersCustomerTaxIdsId"];
+    /** <p>Deletes an existing <code>TaxID</code> object.</p> */
+    delete: operations["DeleteCustomersCustomerTaxIdsId"];
   };
   "/v1/disputes": {
     /** <p>Returns a list of your disputes.</p> */
@@ -710,12 +710,12 @@ export interface paths {
     post: operations["PostInvoiceitems"];
   };
   "/v1/invoiceitems/{invoiceitem}": {
-    /** <p>Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they’re not attached to invoices, or if it’s attached to a draft invoice.</p> */
-    delete: operations["DeleteInvoiceitemsInvoiceitem"];
     /** <p>Retrieves the invoice item with the given ID.</p> */
     get: operations["GetInvoiceitemsInvoiceitem"];
     /** <p>Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it’s attached to is closed.</p> */
     post: operations["PostInvoiceitemsInvoiceitem"];
+    /** <p>Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they’re not attached to invoices, or if it’s attached to a draft invoice.</p> */
+    delete: operations["DeleteInvoiceitemsInvoiceitem"];
   };
   "/v1/invoices": {
     /** <p>You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.</p> */
@@ -738,8 +738,6 @@ export interface paths {
     get: operations["GetInvoicesUpcomingLines"];
   };
   "/v1/invoices/{invoice}": {
-    /** <p>Permanently deletes a draft invoice. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized, it must be <a href="#void_invoice">voided</a>.</p> */
-    delete: operations["DeleteInvoicesInvoice"];
     /** <p>Retrieves the invoice with the given ID.</p> */
     get: operations["GetInvoicesInvoice"];
     /**
@@ -751,6 +749,8 @@ export interface paths {
      * <code>auto_advance=false</code>.</p>
      */
     post: operations["PostInvoicesInvoice"];
+    /** <p>Permanently deletes a draft invoice. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized, it must be <a href="#void_invoice">voided</a>.</p> */
+    delete: operations["DeleteInvoicesInvoice"];
   };
   "/v1/invoices/{invoice}/finalize": {
     /** <p>Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you’d like to finalize a draft invoice manually, you can do so using this method.</p> */
@@ -1044,12 +1044,12 @@ export interface paths {
     post: operations["PostPlans"];
   };
   "/v1/plans/{plan}": {
-    /** <p>Deleting plans means new subscribers can’t be added. Existing subscribers aren’t affected.</p> */
-    delete: operations["DeletePlansPlan"];
     /** <p>Retrieves the plan with the given ID.</p> */
     get: operations["GetPlansPlan"];
     /** <p>Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan’s ID, amount, currency, or billing cycle.</p> */
     post: operations["PostPlansPlan"];
+    /** <p>Deleting plans means new subscribers can’t be added. Existing subscribers aren’t affected.</p> */
+    delete: operations["DeletePlansPlan"];
   };
   "/v1/products": {
     /** <p>Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.</p> */
@@ -1058,12 +1058,12 @@ export interface paths {
     post: operations["PostProducts"];
   };
   "/v1/products/{id}": {
-    /** <p>Delete a product. Deleting a product with type=<code>good</code> is only possible if it has no SKUs associated with it. Deleting a product with type=<code>service</code> is only possible if it has no plans associated with it.</p> */
-    delete: operations["DeleteProductsId"];
     /** <p>Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information.</p> */
     get: operations["GetProductsId"];
     /** <p>Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
     post: operations["PostProductsId"];
+    /** <p>Delete a product. Deleting a product with type=<code>good</code> is only possible if it has no SKUs associated with it. Deleting a product with type=<code>service</code> is only possible if it has no plans associated with it.</p> */
+    delete: operations["DeleteProductsId"];
   };
   "/v1/radar/early_fraud_warnings": {
     /** <p>Returns a list of early fraud warnings.</p> */
@@ -1084,10 +1084,10 @@ export interface paths {
     post: operations["PostRadarValueListItems"];
   };
   "/v1/radar/value_list_items/{item}": {
-    /** <p>Deletes a <code>ValueListItem</code> object, removing it from its parent value list.</p> */
-    delete: operations["DeleteRadarValueListItemsItem"];
     /** <p>Retrieves a <code>ValueListItem</code> object.</p> */
     get: operations["GetRadarValueListItemsItem"];
+    /** <p>Deletes a <code>ValueListItem</code> object, removing it from its parent value list.</p> */
+    delete: operations["DeleteRadarValueListItemsItem"];
   };
   "/v1/radar/value_lists": {
     /** <p>Returns a list of <code>ValueList</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
@@ -1096,12 +1096,12 @@ export interface paths {
     post: operations["PostRadarValueLists"];
   };
   "/v1/radar/value_lists/{value_list}": {
-    /** <p>Deletes a <code>ValueList</code> object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.</p> */
-    delete: operations["DeleteRadarValueListsValueList"];
     /** <p>Retrieves a <code>ValueList</code> object.</p> */
     get: operations["GetRadarValueListsValueList"];
     /** <p>Updates a <code>ValueList</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that <code>item_type</code> is immutable.</p> */
     post: operations["PostRadarValueListsValueList"];
+    /** <p>Deletes a <code>ValueList</code> object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.</p> */
+    delete: operations["DeleteRadarValueListsValueList"];
   };
   "/v1/recipients": {
     /** <p>Returns a list of your recipients. The recipients are returned sorted by creation date, with the most recently created recipients appearing first.</p> */
@@ -1113,8 +1113,6 @@ export interface paths {
     post: operations["PostRecipients"];
   };
   "/v1/recipients/{id}": {
-    /** <p>Permanently deletes a recipient. It cannot be undone.</p> */
-    delete: operations["DeleteRecipientsId"];
     /** <p>Retrieves the details of an existing recipient. You need only supply the unique recipient identifier that was returned upon recipient creation.</p> */
     get: operations["GetRecipientsId"];
     /**
@@ -1125,6 +1123,8 @@ export interface paths {
      * If you update the bank account, the bank account validation will automatically be rerun.</p>
      */
     post: operations["PostRecipientsId"];
+    /** <p>Permanently deletes a recipient. It cannot be undone.</p> */
+    delete: operations["DeleteRecipientsId"];
   };
   "/v1/refunds": {
     /** <p>Returns a list of all refunds you’ve previously created. The refunds are returned in sorted order, with the most recent refunds appearing first. For convenience, the 10 most recent refunds are always available by default on the charge object.</p> */
@@ -1236,8 +1236,6 @@ export interface paths {
     post: operations["PostSkus"];
   };
   "/v1/skus/{id}": {
-    /** <p>Delete a SKU. Deleting a SKU is only possible until it has been used in an order.</p> */
-    delete: operations["DeleteSkusId"];
     /** <p>Retrieves the details of an existing SKU. Supply the unique SKU identifier from either a SKU creation request or from the product, and Stripe will return the corresponding SKU information.</p> */
     get: operations["GetSkusId"];
     /**
@@ -1246,6 +1244,8 @@ export interface paths {
      * <p>Note that a SKU’s <code>attributes</code> are not editable. Instead, you would need to deactivate the existing SKU and create a new one with the new attribute values.</p>
      */
     post: operations["PostSkusId"];
+    /** <p>Delete a SKU. Deleting a SKU is only possible until it has been used in an order.</p> */
+    delete: operations["DeleteSkusId"];
   };
   "/v1/sources": {
     /** <p>Creates a new source object.</p> */
@@ -1284,12 +1284,12 @@ export interface paths {
     post: operations["PostSubscriptionItems"];
   };
   "/v1/subscription_items/{item}": {
-    /** <p>Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.</p> */
-    delete: operations["DeleteSubscriptionItemsItem"];
     /** <p>Retrieves the invoice item with the given ID.</p> */
     get: operations["GetSubscriptionItemsItem"];
     /** <p>Updates the plan or quantity of an item on a current subscription.</p> */
     post: operations["PostSubscriptionItemsItem"];
+    /** <p>Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.</p> */
+    delete: operations["DeleteSubscriptionItemsItem"];
   };
   "/v1/subscription_items/{subscription_item}/usage_record_summaries": {
     /**
@@ -1338,6 +1338,10 @@ export interface paths {
     post: operations["PostSubscriptions"];
   };
   "/v1/subscriptions/{subscription_exposed_id}": {
+    /** <p>Retrieves the subscription with the given ID.</p> */
+    get: operations["GetSubscriptionsSubscriptionExposedId"];
+    /** <p>Updates an existing subscription on a customer to match the specified parameters. When changing plans or quantities, we will optionally prorate the price we charge next month to make up for any price changes. To preview how the proration will be calculated, use the <a href="#upcoming_invoice">upcoming invoice</a> endpoint.</p> */
+    post: operations["PostSubscriptionsSubscriptionExposedId"];
     /**
      * <p>Cancels a customer’s subscription immediately. The customer will not be charged again for the subscription.</p>
      *
@@ -1346,10 +1350,6 @@ export interface paths {
      * <p>By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p>
      */
     delete: operations["DeleteSubscriptionsSubscriptionExposedId"];
-    /** <p>Retrieves the subscription with the given ID.</p> */
-    get: operations["GetSubscriptionsSubscriptionExposedId"];
-    /** <p>Updates an existing subscription on a customer to match the specified parameters. When changing plans or quantities, we will optionally prorate the price we charge next month to make up for any price changes. To preview how the proration will be calculated, use the <a href="#upcoming_invoice">upcoming invoice</a> endpoint.</p> */
-    post: operations["PostSubscriptionsSubscriptionExposedId"];
   };
   "/v1/subscriptions/{subscription_exposed_id}/discount": {
     /** <p>Removes the currently applied discount on a subscription.</p> */
@@ -1378,12 +1378,12 @@ export interface paths {
     post: operations["PostTerminalLocations"];
   };
   "/v1/terminal/locations/{location}": {
-    /** <p>Deletes a <code>Location</code> object.</p> */
-    delete: operations["DeleteTerminalLocationsLocation"];
     /** <p>Retrieves a <code>Location</code> object.</p> */
     get: operations["GetTerminalLocationsLocation"];
     /** <p>Updates a <code>Location</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
     post: operations["PostTerminalLocationsLocation"];
+    /** <p>Deletes a <code>Location</code> object.</p> */
+    delete: operations["DeleteTerminalLocationsLocation"];
   };
   "/v1/terminal/readers": {
     /** <p>Returns a list of <code>Reader</code> objects.</p> */
@@ -1392,12 +1392,12 @@ export interface paths {
     post: operations["PostTerminalReaders"];
   };
   "/v1/terminal/readers/{reader}": {
-    /** <p>Deletes a <code>Reader</code> object.</p> */
-    delete: operations["DeleteTerminalReadersReader"];
     /** <p>Retrieves a <code>Reader</code> object.</p> */
     get: operations["GetTerminalReadersReader"];
     /** <p>Updates a <code>Reader</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
     post: operations["PostTerminalReadersReader"];
+    /** <p>Deletes a <code>Reader</code> object.</p> */
+    delete: operations["DeleteTerminalReadersReader"];
   };
   "/v1/tokens": {
     /**
@@ -1471,12 +1471,12 @@ export interface paths {
     post: operations["PostWebhookEndpoints"];
   };
   "/v1/webhook_endpoints/{webhook_endpoint}": {
-    /** <p>You can also delete webhook endpoints via the <a href="https://dashboard.stripe.com/account/webhooks">webhook endpoint management</a> page of the Stripe dashboard.</p> */
-    delete: operations["DeleteWebhookEndpointsWebhookEndpoint"];
     /** <p>Retrieves the webhook endpoint with the given ID.</p> */
     get: operations["GetWebhookEndpointsWebhookEndpoint"];
     /** <p>Updates the webhook endpoint. You may edit the <code>url</code>, the list of <code>enabled_events</code>, and the status of your endpoint.</p> */
     post: operations["PostWebhookEndpointsWebhookEndpoint"];
+    /** <p>You can also delete webhook endpoints via the <a href="https://dashboard.stripe.com/account/webhooks">webhook endpoint management</a> page of the Stripe dashboard.</p> */
+    delete: operations["DeleteWebhookEndpointsWebhookEndpoint"];
   };
 }
 
@@ -9463,6 +9463,7 @@ export interface components {
     };
   };
 }
+
 export interface operations {
   /** <p>Initiate 3D Secure authentication.</p> */
   Post3dSecure: {
@@ -9516,28 +9517,6 @@ export interface operations {
     };
     requestBody: {
       "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
-  /**
-   * <p>With <a href="/docs/connect">Connect</a>, you can delete Custom or Express accounts you manage.</p>
-   *
-   * <p>Accounts created using test-mode keys can be deleted at any time. Accounts created using live-mode keys can only be deleted once all balances are zero.</p>
-   *
-   * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/account">account information tab in your account settings</a> instead.</p>
-   */
-  DeleteAccount: {
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_account"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { account?: string };
     };
   };
   /** <p>Retrieves the details of an account.</p> */
@@ -9774,6 +9753,28 @@ export interface operations {
       };
     };
   };
+  /**
+   * <p>With <a href="/docs/connect">Connect</a>, you can delete Custom or Express accounts you manage.</p>
+   *
+   * <p>Accounts created using test-mode keys can be deleted at any time. Accounts created using live-mode keys can only be deleted once all balances are zero.</p>
+   *
+   * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/account">account information tab in your account settings</a> instead.</p>
+   */
+  DeleteAccount: {
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_account"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { account?: string };
+    };
+  };
   /** <p>Create an external account for a given account.</p> */
   PostAccountBankAccounts: {
     responses: {
@@ -9808,27 +9809,6 @@ export interface operations {
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
         metadata?: { [key: string]: string };
       };
-    };
-  };
-  /** <p>Delete a specified external account for a given account.</p> */
-  DeleteAccountBankAccountsId: {
-    parameters: {
-      path: {
-        id: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_external_account"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /** <p>Retrieve a specified external account for a given account.</p> */
@@ -9907,6 +9887,27 @@ export interface operations {
         /** Cardholder name. */
         name?: string;
       };
+    };
+  };
+  /** <p>Delete a specified external account for a given account.</p> */
+  DeleteAccountBankAccountsId: {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_external_account"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /** <p>Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.</p> */
@@ -10064,27 +10065,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Delete a specified external account for a given account.</p> */
-  DeleteAccountExternalAccountsId: {
-    parameters: {
-      path: {
-        id: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_external_account"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieve a specified external account for a given account.</p> */
   GetAccountExternalAccountsId: {
     parameters: {
@@ -10161,6 +10141,27 @@ export interface operations {
         /** Cardholder name. */
         name?: string;
       };
+    };
+  };
+  /** <p>Delete a specified external account for a given account.</p> */
+  DeleteAccountExternalAccountsId: {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_external_account"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /**
@@ -10350,27 +10351,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
-  DeleteAccountPeoplePerson: {
-    parameters: {
-      path: {
-        person: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_person"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves an existing person.</p> */
   GetAccountPeoplePerson: {
     parameters: {
@@ -10493,6 +10473,27 @@ export interface operations {
           document?: { back?: string; front?: string };
         };
       };
+    };
+  };
+  /** <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
+  DeleteAccountPeoplePerson: {
+    parameters: {
+      path: {
+        person: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_person"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /** <p>Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first.</p> */
@@ -10632,27 +10633,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
-  DeleteAccountPersonsPerson: {
-    parameters: {
-      path: {
-        person: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_person"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves an existing person.</p> */
   GetAccountPersonsPerson: {
     parameters: {
@@ -10775,6 +10755,27 @@ export interface operations {
           document?: { back?: string; front?: string };
         };
       };
+    };
+  };
+  /** <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
+  DeleteAccountPersonsPerson: {
+    parameters: {
+      path: {
+        person: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_person"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /** <p>Creates an AccountLink object that returns a single-use Stripe URL that the user can redirect their user to in order to take them through the Connect Onboarding flow.</p> */
@@ -11067,33 +11068,6 @@ export interface operations {
       };
     };
   };
-  /**
-   * <p>With <a href="/docs/connect">Connect</a>, you can delete Custom or Express accounts you manage.</p>
-   *
-   * <p>Accounts created using test-mode keys can be deleted at any time. Accounts created using live-mode keys can only be deleted once all balances are zero.</p>
-   *
-   * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/account">account information tab in your account settings</a> instead.</p>
-   */
-  DeleteAccountsAccount: {
-    parameters: {
-      path: {
-        account: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_account"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves the details of an account.</p> */
   GetAccountsAccount: {
     parameters: {
@@ -11336,6 +11310,33 @@ export interface operations {
       };
     };
   };
+  /**
+   * <p>With <a href="/docs/connect">Connect</a>, you can delete Custom or Express accounts you manage.</p>
+   *
+   * <p>Accounts created using test-mode keys can be deleted at any time. Accounts created using live-mode keys can only be deleted once all balances are zero.</p>
+   *
+   * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/account">account information tab in your account settings</a> instead.</p>
+   */
+  DeleteAccountsAccount: {
+    parameters: {
+      path: {
+        account: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_account"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
+    };
+  };
   /** <p>Create an external account for a given account.</p> */
   PostAccountsAccountBankAccounts: {
     parameters: {
@@ -11375,28 +11376,6 @@ export interface operations {
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
         metadata?: { [key: string]: string };
       };
-    };
-  };
-  /** <p>Delete a specified external account for a given account.</p> */
-  DeleteAccountsAccountBankAccountsId: {
-    parameters: {
-      path: {
-        account: string;
-        id: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_external_account"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /** <p>Retrieve a specified external account for a given account.</p> */
@@ -11477,6 +11456,28 @@ export interface operations {
         /** Cardholder name. */
         name?: string;
       };
+    };
+  };
+  /** <p>Delete a specified external account for a given account.</p> */
+  DeleteAccountsAccountBankAccountsId: {
+    parameters: {
+      path: {
+        account: string;
+        id: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_external_account"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /** <p>Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.</p> */
@@ -11647,28 +11648,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Delete a specified external account for a given account.</p> */
-  DeleteAccountsAccountExternalAccountsId: {
-    parameters: {
-      path: {
-        account: string;
-        id: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_external_account"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieve a specified external account for a given account.</p> */
   GetAccountsAccountExternalAccountsId: {
     parameters: {
@@ -11747,6 +11726,28 @@ export interface operations {
         /** Cardholder name. */
         name?: string;
       };
+    };
+  };
+  /** <p>Delete a specified external account for a given account.</p> */
+  DeleteAccountsAccountExternalAccountsId: {
+    parameters: {
+      path: {
+        account: string;
+        id: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_external_account"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /**
@@ -11951,28 +11952,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
-  DeleteAccountsAccountPeoplePerson: {
-    parameters: {
-      path: {
-        account: string;
-        person: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_person"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves an existing person.</p> */
   GetAccountsAccountPeoplePerson: {
     parameters: {
@@ -12096,6 +12075,28 @@ export interface operations {
           document?: { back?: string; front?: string };
         };
       };
+    };
+  };
+  /** <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
+  DeleteAccountsAccountPeoplePerson: {
+    parameters: {
+      path: {
+        account: string;
+        person: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_person"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /** <p>Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first.</p> */
@@ -12242,28 +12243,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
-  DeleteAccountsAccountPersonsPerson: {
-    parameters: {
-      path: {
-        account: string;
-        person: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_person"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves an existing person.</p> */
   GetAccountsAccountPersonsPerson: {
     parameters: {
@@ -12389,6 +12368,28 @@ export interface operations {
       };
     };
   };
+  /** <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
+  DeleteAccountsAccountPersonsPerson: {
+    parameters: {
+      path: {
+        account: string;
+        person: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_person"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
+    };
+  };
   /**
    * <p>With <a href="/docs/connect">Connect</a>, you may flag accounts as suspicious.</p>
    *
@@ -12476,27 +12477,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Delete an apple pay domain.</p> */
-  DeleteApplePayDomainsDomain: {
-    parameters: {
-      path: {
-        domain: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_apple_pay_domain"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieve an apple pay domain.</p> */
   GetApplePayDomainsDomain: {
     parameters: {
@@ -12512,6 +12492,27 @@ export interface operations {
       /** Successful response. */
       200: {
         "application/json": components["schemas"]["apple_pay_domain"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
+    };
+  };
+  /** <p>Delete an apple pay domain.</p> */
+  DeleteApplePayDomainsDomain: {
+    parameters: {
+      path: {
+        domain: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_apple_pay_domain"];
       };
       /** Error response. */
       default: {
@@ -14251,27 +14252,6 @@ export interface operations {
       };
     };
   };
-  /** <p>You can delete coupons via the <a href="https://dashboard.stripe.com/coupons">coupon management</a> page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can’t redeem the coupon. You can also delete coupons via the API.</p> */
-  DeleteCouponsCoupon: {
-    parameters: {
-      path: {
-        coupon: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_coupon"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves the coupon with the given ID.</p> */
   GetCouponsCoupon: {
     parameters: {
@@ -14323,6 +14303,27 @@ export interface operations {
         /** Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
         name?: string;
       };
+    };
+  };
+  /** <p>You can delete coupons via the <a href="https://dashboard.stripe.com/coupons">coupon management</a> page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can’t redeem the coupon. You can also delete coupons via the API.</p> */
+  DeleteCouponsCoupon: {
+    parameters: {
+      path: {
+        coupon: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_coupon"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /** <p>Returns a list of credit notes.</p> */
@@ -14820,27 +14821,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.</p> */
-  DeleteCustomersCustomer: {
-    parameters: {
-      path: {
-        customer: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_customer"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves the details of an existing customer. You need only supply the unique customer identifier that was returned upon customer creation.</p> */
   GetCustomersCustomer: {
     parameters: {
@@ -14990,6 +14970,27 @@ export interface operations {
         /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
         trial_end?: Partial<"now"> & Partial<number>;
       };
+    };
+  };
+  /** <p>Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.</p> */
+  DeleteCustomersCustomer: {
+    parameters: {
+      path: {
+        customer: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_customer"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /** <p>Returns a list of transactions that updated the customer’s <a href="/docs/api/customers/object#customer_object-balance"><code>balance</code></a>.</p> */
@@ -15223,32 +15224,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Delete a specified source for a given customer.</p> */
-  DeleteCustomersCustomerBankAccountsId: {
-    parameters: {
-      path: {
-        customer: string;
-        id: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": Partial<components["schemas"]["payment_source"]> &
-          Partial<components["schemas"]["deleted_payment_source"]>;
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-  };
   /** <p>By default, you can see the 10 most recent sources stored on a Customer directly on the object, but you can also retrieve details about a specific bank account stored on the Stripe account.</p> */
   GetCustomersCustomerBankAccountsId: {
     parameters: {
@@ -15336,6 +15311,32 @@ export interface operations {
           name?: string;
           phone?: string;
         };
+      };
+    };
+  };
+  /** <p>Delete a specified source for a given customer.</p> */
+  DeleteCustomersCustomerBankAccountsId: {
+    parameters: {
+      path: {
+        customer: string;
+        id: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": Partial<components["schemas"]["payment_source"]> &
+          Partial<components["schemas"]["deleted_payment_source"]>;
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": {
+        /** Specifies which fields in the response should be expanded. */
+        expand?: string[];
       };
     };
   };
@@ -15473,32 +15474,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Delete a specified source for a given customer.</p> */
-  DeleteCustomersCustomerCardsId: {
-    parameters: {
-      path: {
-        customer: string;
-        id: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": Partial<components["schemas"]["payment_source"]> &
-          Partial<components["schemas"]["deleted_payment_source"]>;
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-  };
   /** <p>You can always see the 10 most recent cards directly on a customer; this method lets you retrieve details about a specific card stored on the customer.</p> */
   GetCustomersCustomerCardsId: {
     parameters: {
@@ -15589,17 +15564,19 @@ export interface operations {
       };
     };
   };
-  /** <p>Removes the currently applied discount on a customer.</p> */
-  DeleteCustomersCustomerDiscount: {
+  /** <p>Delete a specified source for a given customer.</p> */
+  DeleteCustomersCustomerCardsId: {
     parameters: {
       path: {
         customer: string;
+        id: string;
       };
     };
     responses: {
       /** Successful response. */
       200: {
-        "application/json": components["schemas"]["deleted_discount"];
+        "application/json": Partial<components["schemas"]["payment_source"]> &
+          Partial<components["schemas"]["deleted_payment_source"]>;
       };
       /** Error response. */
       default: {
@@ -15607,7 +15584,10 @@ export interface operations {
       };
     };
     requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
+      "application/x-www-form-urlencoded": {
+        /** Specifies which fields in the response should be expanded. */
+        expand?: string[];
+      };
     };
   };
   GetCustomersCustomerDiscount: {
@@ -15624,6 +15604,27 @@ export interface operations {
       /** Successful response. */
       200: {
         "application/json": components["schemas"]["discount"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
+    };
+  };
+  /** <p>Removes the currently applied discount on a customer.</p> */
+  DeleteCustomersCustomerDiscount: {
+    parameters: {
+      path: {
+        customer: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_discount"];
       };
       /** Error response. */
       default: {
@@ -15744,32 +15745,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Delete a specified source for a given customer.</p> */
-  DeleteCustomersCustomerSourcesId: {
-    parameters: {
-      path: {
-        customer: string;
-        id: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": Partial<components["schemas"]["payment_source"]> &
-          Partial<components["schemas"]["deleted_payment_source"]>;
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-      };
-    };
-  };
   /** <p>Retrieve a specified source for a given customer.</p> */
   GetCustomersCustomerSourcesId: {
     parameters: {
@@ -15857,6 +15832,32 @@ export interface operations {
           name?: string;
           phone?: string;
         };
+      };
+    };
+  };
+  /** <p>Delete a specified source for a given customer.</p> */
+  DeleteCustomersCustomerSourcesId: {
+    parameters: {
+      path: {
+        customer: string;
+        id: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": Partial<components["schemas"]["payment_source"]> &
+          Partial<components["schemas"]["deleted_payment_source"]>;
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": {
+        /** Specifies which fields in the response should be expanded. */
+        expand?: string[];
       };
     };
   };
@@ -16024,41 +16025,6 @@ export interface operations {
       };
     };
   };
-  /**
-   * <p>Cancels a customer’s subscription. If you set the <code>at_period_end</code> parameter to <code>true</code>, the subscription will remain active until the end of the period, at which point it will be canceled and not renewed. Otherwise, with the default <code>false</code> value, the subscription is terminated immediately. In either case, the customer will not be charged again for the subscription.</p>
-   *
-   * <p>Note, however, that any pending invoice items that you’ve created will still be charged for at the end of the period, unless manually <a href="#delete_invoiceitem">deleted</a>. If you’ve set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.</p>
-   *
-   * <p>By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p>
-   */
-  DeleteCustomersCustomerSubscriptionsSubscriptionExposedId: {
-    parameters: {
-      path: {
-        customer: string;
-        subscription_exposed_id: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["subscription"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Can be set to `true` if `at_period_end` is not set to `true`. Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items. */
-        invoice_now?: boolean;
-        /** Can be set to `true` if `at_period_end` is not set to `true`. Will generate a proration invoice item that credits remaining unused time until the subscription period end. */
-        prorate?: boolean;
-      };
-    };
-  };
   /** <p>Retrieves the subscription with the given ID.</p> */
   GetCustomersCustomerSubscriptionsSubscriptionExposedId: {
     parameters: {
@@ -16192,8 +16158,14 @@ export interface operations {
       };
     };
   };
-  /** <p>Removes the currently applied discount on a customer.</p> */
-  DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount: {
+  /**
+   * <p>Cancels a customer’s subscription. If you set the <code>at_period_end</code> parameter to <code>true</code>, the subscription will remain active until the end of the period, at which point it will be canceled and not renewed. Otherwise, with the default <code>false</code> value, the subscription is terminated immediately. In either case, the customer will not be charged again for the subscription.</p>
+   *
+   * <p>Note, however, that any pending invoice items that you’ve created will still be charged for at the end of the period, unless manually <a href="#delete_invoiceitem">deleted</a>. If you’ve set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.</p>
+   *
+   * <p>By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p>
+   */
+  DeleteCustomersCustomerSubscriptionsSubscriptionExposedId: {
     parameters: {
       path: {
         customer: string;
@@ -16203,7 +16175,7 @@ export interface operations {
     responses: {
       /** Successful response. */
       200: {
-        "application/json": components["schemas"]["deleted_discount"];
+        "application/json": components["schemas"]["subscription"];
       };
       /** Error response. */
       default: {
@@ -16211,7 +16183,14 @@ export interface operations {
       };
     };
     requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
+      "application/x-www-form-urlencoded": {
+        /** Specifies which fields in the response should be expanded. */
+        expand?: string[];
+        /** Can be set to `true` if `at_period_end` is not set to `true`. Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items. */
+        invoice_now?: boolean;
+        /** Can be set to `true` if `at_period_end` is not set to `true`. Will generate a proration invoice item that credits remaining unused time until the subscription period end. */
+        prorate?: boolean;
+      };
     };
   };
   GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount: {
@@ -16229,6 +16208,28 @@ export interface operations {
       /** Successful response. */
       200: {
         "application/json": components["schemas"]["discount"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
+    };
+  };
+  /** <p>Removes the currently applied discount on a customer.</p> */
+  DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount: {
+    parameters: {
+      path: {
+        customer: string;
+        subscription_exposed_id: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_discount"];
       };
       /** Error response. */
       default: {
@@ -16330,28 +16331,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Deletes an existing <code>TaxID</code> object.</p> */
-  DeleteCustomersCustomerTaxIdsId: {
-    parameters: {
-      path: {
-        customer: string;
-        id: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_tax_id"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves the <code>TaxID</code> object with the given identifier.</p> */
   GetCustomersCustomerTaxIdsId: {
     parameters: {
@@ -16368,6 +16347,28 @@ export interface operations {
       /** Successful response. */
       200: {
         "application/json": components["schemas"]["tax_id"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
+    };
+  };
+  /** <p>Deletes an existing <code>TaxID</code> object.</p> */
+  DeleteCustomersCustomerTaxIdsId: {
+    parameters: {
+      path: {
+        customer: string;
+        id: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_tax_id"];
       };
       /** Error response. */
       default: {
@@ -17062,27 +17063,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they’re not attached to invoices, or if it’s attached to a draft invoice.</p> */
-  DeleteInvoiceitemsInvoiceitem: {
-    parameters: {
-      path: {
-        invoiceitem: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_invoiceitem"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves the invoice item with the given ID.</p> */
   GetInvoiceitemsInvoiceitem: {
     parameters: {
@@ -17148,6 +17128,27 @@ export interface operations {
         /** Same as `unit_amount`, but accepts a decimal value with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set. */
         unit_amount_decimal?: string;
       };
+    };
+  };
+  /** <p>Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they’re not attached to invoices, or if it’s attached to a draft invoice.</p> */
+  DeleteInvoiceitemsInvoiceitem: {
+    parameters: {
+      path: {
+        invoiceitem: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_invoiceitem"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /** <p>You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.</p> */
@@ -17459,27 +17460,6 @@ export interface operations {
       "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
-  /** <p>Permanently deletes a draft invoice. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized, it must be <a href="#void_invoice">voided</a>.</p> */
-  DeleteInvoicesInvoice: {
-    parameters: {
-      path: {
-        invoice: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_invoice"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves the invoice with the given ID.</p> */
   GetInvoicesInvoice: {
     parameters: {
@@ -17563,6 +17543,27 @@ export interface operations {
         /** The percent tax rate applied to the invoice, represented as a non-negative decimal number (with at most four decimal places) between 0 and 100. To unset a previously-set value, pass an empty string. This field can be updated only on `draft` invoices. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
         tax_percent?: Partial<number> & Partial<"">;
       };
+    };
+  };
+  /** <p>Permanently deletes a draft invoice. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized, it must be <a href="#void_invoice">voided</a>.</p> */
+  DeleteInvoicesInvoice: {
+    parameters: {
+      path: {
+        invoice: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_invoice"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /** <p>Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you’d like to finalize a draft invoice manually, you can do so using this method.</p> */
@@ -23585,27 +23586,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Deleting plans means new subscribers can’t be added. Existing subscribers aren’t affected.</p> */
-  DeletePlansPlan: {
-    parameters: {
-      path: {
-        plan: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_plan"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves the plan with the given ID.</p> */
   GetPlansPlan: {
     parameters: {
@@ -23663,6 +23643,27 @@ export interface operations {
         /** Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan). */
         trial_period_days?: number;
       };
+    };
+  };
+  /** <p>Deleting plans means new subscribers can’t be added. Existing subscribers aren’t affected.</p> */
+  DeletePlansPlan: {
+    parameters: {
+      path: {
+        plan: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_plan"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /** <p>Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.</p> */
@@ -23778,27 +23779,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Delete a product. Deleting a product with type=<code>good</code> is only possible if it has no SKUs associated with it. Deleting a product with type=<code>service</code> is only possible if it has no plans associated with it.</p> */
-  DeleteProductsId: {
-    parameters: {
-      path: {
-        id: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_product"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information.</p> */
   GetProductsId: {
     parameters: {
@@ -23882,6 +23862,27 @@ export interface operations {
         /** A URL of a publicly-accessible webpage for this product. May only be set if `type=good`. */
         url?: string;
       };
+    };
+  };
+  /** <p>Delete a product. Deleting a product with type=<code>good</code> is only possible if it has no SKUs associated with it. Deleting a product with type=<code>service</code> is only possible if it has no plans associated with it.</p> */
+  DeleteProductsId: {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_product"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /** <p>Returns a list of early fraud warnings.</p> */
@@ -24021,27 +24022,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Deletes a <code>ValueListItem</code> object, removing it from its parent value list.</p> */
-  DeleteRadarValueListItemsItem: {
-    parameters: {
-      path: {
-        item: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_radar.value_list_item"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves a <code>ValueListItem</code> object.</p> */
   GetRadarValueListItemsItem: {
     parameters: {
@@ -24057,6 +24037,27 @@ export interface operations {
       /** Successful response. */
       200: {
         "application/json": components["schemas"]["radar.value_list_item"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
+    };
+  };
+  /** <p>Deletes a <code>ValueListItem</code> object, removing it from its parent value list.</p> */
+  DeleteRadarValueListItemsItem: {
+    parameters: {
+      path: {
+        item: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_radar.value_list_item"];
       };
       /** Error response. */
       default: {
@@ -24147,27 +24148,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Deletes a <code>ValueList</code> object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.</p> */
-  DeleteRadarValueListsValueList: {
-    parameters: {
-      path: {
-        value_list: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_radar.value_list"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves a <code>ValueList</code> object.</p> */
   GetRadarValueListsValueList: {
     parameters: {
@@ -24220,6 +24200,27 @@ export interface operations {
         /** The human-readable name of the value list. */
         name?: string;
       };
+    };
+  };
+  /** <p>Deletes a <code>ValueList</code> object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.</p> */
+  DeleteRadarValueListsValueList: {
+    parameters: {
+      path: {
+        value_list: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_radar.value_list"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /** <p>Returns a list of your recipients. The recipients are returned sorted by creation date, with the most recently created recipients appearing first.</p> */
@@ -24306,27 +24307,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Permanently deletes a recipient. It cannot be undone.</p> */
-  DeleteRecipientsId: {
-    parameters: {
-      path: {
-        id: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_recipient"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves the details of an existing recipient. You need only supply the unique recipient identifier that was returned upon recipient creation.</p> */
   GetRecipientsId: {
     parameters: {
@@ -24397,6 +24377,27 @@ export interface operations {
         /** The recipient's tax ID, as a string. For type `individual`, the full SSN; for type `corporation`, the full EIN. */
         tax_id?: string;
       };
+    };
+  };
+  /** <p>Permanently deletes a recipient. It cannot be undone.</p> */
+  DeleteRecipientsId: {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_recipient"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /** <p>Returns a list of all refunds you’ve previously created. The refunds are returned in sorted order, with the most recent refunds appearing first. For convenience, the 10 most recent refunds are always available by default on the charge object.</p> */
@@ -25838,27 +25839,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Delete a SKU. Deleting a SKU is only possible until it has been used in an order.</p> */
-  DeleteSkusId: {
-    parameters: {
-      path: {
-        id: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_sku"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves the details of an existing SKU. Supply the unique SKU identifier from either a SKU creation request or from the product, and Stripe will return the corresponding SKU information.</p> */
   GetSkusId: {
     parameters: {
@@ -25938,6 +25918,27 @@ export interface operations {
         /** The ID of the product that this SKU should belong to. The product must exist, have the same set of attribute names as the SKU's current product, and be of type `good`. */
         product?: string;
       };
+    };
+  };
+  /** <p>Delete a SKU. Deleting a SKU is only possible until it has been used in an order.</p> */
+  DeleteSkusId: {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_sku"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /** <p>Creates a new source object.</p> */
@@ -26368,42 +26369,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.</p> */
-  DeleteSubscriptionItemsItem: {
-    parameters: {
-      path: {
-        item: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_subscription_item"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Delete all usage for the given subscription item. Allowed only when the current plan's `usage_type` is `metered`. */
-        clear_usage?: boolean;
-        /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
-        prorate?: boolean;
-        /**
-         * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
-         *
-         * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
-         *
-         * Prorations can be disabled by passing `none`.
-         */
-        proration_behavior?: "always_invoice" | "create_prorations" | "none";
-        /** If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. */
-        proration_date?: number;
-      };
-    };
-  };
   /** <p>Retrieves the invoice item with the given ID.</p> */
   GetSubscriptionItemsItem: {
     parameters: {
@@ -26485,6 +26450,42 @@ export interface operations {
         quantity?: number;
         /** A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates. */
         tax_rates?: Partial<string[]> & Partial<"">;
+      };
+    };
+  };
+  /** <p>Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.</p> */
+  DeleteSubscriptionItemsItem: {
+    parameters: {
+      path: {
+        item: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_subscription_item"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": {
+        /** Delete all usage for the given subscription item. Allowed only when the current plan's `usage_type` is `metered`. */
+        clear_usage?: boolean;
+        /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
+        prorate?: boolean;
+        /**
+         * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
+         *
+         * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
+         *
+         * Prorations can be disabled by passing `none`.
+         */
+        proration_behavior?: "always_invoice" | "create_prorations" | "none";
+        /** If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. */
+        proration_date?: number;
       };
     };
   };
@@ -27024,40 +27025,6 @@ export interface operations {
       };
     };
   };
-  /**
-   * <p>Cancels a customer’s subscription immediately. The customer will not be charged again for the subscription.</p>
-   *
-   * <p>Note, however, that any pending invoice items that you’ve created will still be charged for at the end of the period, unless manually <a href="#delete_invoiceitem">deleted</a>. If you’ve set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.</p>
-   *
-   * <p>By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p>
-   */
-  DeleteSubscriptionsSubscriptionExposedId: {
-    parameters: {
-      path: {
-        subscription_exposed_id: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["subscription"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": {
-        /** Specifies which fields in the response should be expanded. */
-        expand?: string[];
-        /** Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items. */
-        invoice_now?: boolean;
-        /** Will generate a proration invoice item that credits remaining unused time until the subscription period end. */
-        prorate?: boolean;
-      };
-    };
-  };
   /** <p>Retrieves the subscription with the given ID.</p> */
   GetSubscriptionsSubscriptionExposedId: {
     parameters: {
@@ -27186,6 +27153,40 @@ export interface operations {
         trial_end?: Partial<"now"> & Partial<number>;
         /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
         trial_from_plan?: boolean;
+      };
+    };
+  };
+  /**
+   * <p>Cancels a customer’s subscription immediately. The customer will not be charged again for the subscription.</p>
+   *
+   * <p>Note, however, that any pending invoice items that you’ve created will still be charged for at the end of the period, unless manually <a href="#delete_invoiceitem">deleted</a>. If you’ve set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.</p>
+   *
+   * <p>By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p>
+   */
+  DeleteSubscriptionsSubscriptionExposedId: {
+    parameters: {
+      path: {
+        subscription_exposed_id: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["subscription"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": {
+        /** Specifies which fields in the response should be expanded. */
+        expand?: string[];
+        /** Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items. */
+        invoice_now?: boolean;
+        /** Will generate a proration invoice item that credits remaining unused time until the subscription period end. */
+        prorate?: boolean;
       };
     };
   };
@@ -27439,27 +27440,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Deletes a <code>Location</code> object.</p> */
-  DeleteTerminalLocationsLocation: {
-    parameters: {
-      path: {
-        location: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_terminal.location"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves a <code>Location</code> object.</p> */
   GetTerminalLocationsLocation: {
     parameters: {
@@ -27520,6 +27500,27 @@ export interface operations {
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
         metadata?: Partial<{ [key: string]: string }> & Partial<"">;
       };
+    };
+  };
+  /** <p>Deletes a <code>Location</code> object.</p> */
+  DeleteTerminalLocationsLocation: {
+    parameters: {
+      path: {
+        location: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_terminal.location"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /** <p>Returns a list of <code>Reader</code> objects.</p> */
@@ -27592,27 +27593,6 @@ export interface operations {
       };
     };
   };
-  /** <p>Deletes a <code>Reader</code> object.</p> */
-  DeleteTerminalReadersReader: {
-    parameters: {
-      path: {
-        reader: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_terminal.reader"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves a <code>Reader</code> object.</p> */
   GetTerminalReadersReader: {
     parameters: {
@@ -27664,6 +27644,27 @@ export interface operations {
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
         metadata?: Partial<{ [key: string]: string }> & Partial<"">;
       };
+    };
+  };
+  /** <p>Deletes a <code>Reader</code> object.</p> */
+  DeleteTerminalReadersReader: {
+    parameters: {
+      path: {
+        reader: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_terminal.reader"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
   /**
@@ -28660,27 +28661,6 @@ export interface operations {
       };
     };
   };
-  /** <p>You can also delete webhook endpoints via the <a href="https://dashboard.stripe.com/account/webhooks">webhook endpoint management</a> page of the Stripe dashboard.</p> */
-  DeleteWebhookEndpointsWebhookEndpoint: {
-    parameters: {
-      path: {
-        webhook_endpoint: string;
-      };
-    };
-    responses: {
-      /** Successful response. */
-      200: {
-        "application/json": components["schemas"]["deleted_webhook_endpoint"];
-      };
-      /** Error response. */
-      default: {
-        "application/json": components["schemas"]["error"];
-      };
-    };
-    requestBody: {
-      "application/x-www-form-urlencoded": { [key: string]: any };
-    };
-  };
   /** <p>Retrieves the webhook endpoint with the given ID.</p> */
   GetWebhookEndpointsWebhookEndpoint: {
     parameters: {
@@ -28888,6 +28868,27 @@ export interface operations {
         /** The URL of the webhook endpoint. */
         url?: string;
       };
+    };
+  };
+  /** <p>You can also delete webhook endpoints via the <a href="https://dashboard.stripe.com/account/webhooks">webhook endpoint management</a> page of the Stripe dashboard.</p> */
+  DeleteWebhookEndpointsWebhookEndpoint: {
+    parameters: {
+      path: {
+        webhook_endpoint: string;
+      };
+    };
+    responses: {
+      /** Successful response. */
+      200: {
+        "application/json": components["schemas"]["deleted_webhook_endpoint"];
+      };
+      /** Error response. */
+      default: {
+        "application/json": components["schemas"]["error"];
+      };
+    };
+    requestBody: {
+      "application/x-www-form-urlencoded": { [key: string]: any };
     };
   };
 }

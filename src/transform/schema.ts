@@ -16,7 +16,7 @@ interface TransformSchemaObjMapOptions {
 /** Take object keys and convert to TypeScript interface */
 export function transformSchemaObjMap(obj: Record<string, any>, options?: TransformSchemaObjMapOptions): string {
   let output = "";
-  let required = options?.required || [];
+  let required = (options && options.required) || [];
 
   Object.entries(obj).forEach(([key, value]) => {
     // 1. JSDoc comment (goes above property)

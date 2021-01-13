@@ -2,10 +2,10 @@
  * Tests raw generation, pre-Prettier
  */
 
-import { transformSchemaObject } from "../src/transform/schema-object";
+import { transformSchemaObj } from "../src/transform/schema";
 
 function transform(schemaObject: any): string {
-  return transformSchemaObject(schemaObject).trim();
+  return transformSchemaObj(schemaObject).trim();
 }
 
 describe("SchemaObject", () => {
@@ -29,7 +29,7 @@ describe("SchemaObject", () => {
     it("object", () => {
       // standard object
       expect(
-        transformSchemaObject({
+        transform({
           type: "object",
           properties: {
             object: {

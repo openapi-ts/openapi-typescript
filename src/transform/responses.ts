@@ -1,43 +1,46 @@
 import { comment, transformRef } from "../utils";
-import { transformSchemaObj, transformSchemaObjMap } from "./schema";
+import { transformHeaderObjMap } from "./headers";
+import { transformSchemaObj } from "./schema";
+
+const resType = (res: string | number) => (res === 204 || (res >= 300 && res < 400) ? "never" : "unknown");
 
 export function transformResponsesObj(responsesObj: Record<string, any>): string {
   let output = "";
-  Object.entries(responsesObj).forEach(([k, v]) => {
-    if (v.description) output += comment(v.description);
+  Object.entries(responsesObj).forEach(([httpStatusCode, response]) => {
+    if (response.description) output += comment(response.description);
 
-    const resKey = parseInt(k, 10) ? k : `"${k}"`; // don’t surround w/ quotes if numeric status code
+    const statusCode = Number(httpStatusCode) || `"${httpStatusCode}"`; // don’t surround w/ quotes if numeric status code
 
-    if (v.$ref) {
-      output += `  ${resKey}: ${transformRef(v.$ref)};\n`; // reference
+    if (response.$ref) {
+      output += `  ${statusCode}: ${transformRef(response.$ref)};\n`; // reference
       return;
     }
 
-    if ((!v.content && !v.schema) || (v.content && !Object.keys(v.content).length)) {
-      output += `  ${resKey}: unknown;\n`; // unknown / missing response
+    if ((!response.content && !response.schema) || (response.content && !Object.keys(response.content).length)) {
+      output += `  ${statusCode}: ${resType(statusCode)};\n`; // unknown / missing response
       return;
     }
 
-    output += `  ${resKey}: {\n`; // open response
+    output += `  ${statusCode}: {\n`; // open response
 
     // headers
-    if (v.headers) {
-      if (v.headers.$ref) {
-        output += `    headers: ${transformRef(v.headers.$ref)};\n`;
+    if (response.headers) {
+      if (response.headers.$ref) {
+        output += `    headers: ${transformRef(response.headers.$ref)};\n`;
       } else {
-        output += `    headers: {\n      ${transformSchemaObjMap(v.headers)}\n    }\n`;
+        output += `    headers: {\n      ${transformHeaderObjMap(response.headers)}\n    }\n`;
       }
     }
 
     // response
-    if (v.content) {
+    if (response.content) {
       // V3
-      Object.entries(v.content).forEach(([contentType, contentResponse]) => {
-        output += `  "${contentType}": ${transformSchemaObj((contentResponse as any).schema)};\n`;
+      Object.entries(response.content).forEach(([contentType, contentResponse]) => {
+        output += `    "${contentType}": ${transformSchemaObj((contentResponse as any).schema)};\n`;
       });
-    } else if (v.schema) {
+    } else if (response.schema) {
       // V2 (note: because of the presence of "headers", we have to namespace this somehow; "schema" seemed natural)
-      output += `  schema: ${transformSchemaObj(v.schema)};\n`;
+      output += `  schema: ${transformSchemaObj(response.schema)};\n`;
     }
 
     output += `  }\n`; // close response

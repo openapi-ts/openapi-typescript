@@ -99,6 +99,7 @@ export interface components {
     ApiResponse: { code?: number; type?: string; message?: string };
   };
 }
+
 export interface operations {
   updatePet: {
     responses: {
