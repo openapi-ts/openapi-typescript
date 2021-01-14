@@ -245,7 +245,8 @@ export interface definitions {
     user_agent?: string;
   };
   address: {
-    /** City, district, suburb, town, or village. */ city?: string;
+    /** City, district, suburb, town, or village. */
+    city?: string;
     /** Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)). */
     country?: string;
     /** Address line 1 (e.g., street, PO Box, or company name). */
@@ -284,7 +285,8 @@ export interface definitions {
     username: string;
   };
   api_errors: {
-    /** For card errors, the ID of the failed charge. */ charge?: string;
+    /** For card errors, the ID of the failed charge. */
+    charge?: string;
     /** For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported. */
     code?: string;
     /** For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one. */
@@ -321,14 +323,16 @@ export interface definitions {
     object: "apple_pay_domain";
   };
   application: {
-    /** Unique identifier for the object. */ id: string;
+    /** Unique identifier for the object. */
+    id: string;
     /** The name of the application. */
     name?: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "application";
   };
   application_fee: {
-    /** ID of the Stripe account this fee was taken from. */ account: string;
+    /** ID of the Stripe account this fee was taken from. */
+    account: string;
     /** Amount earned, in %s. */
     amount: number;
     /** Amount in %s refunded (can be less than the amount attribute on the fee if a partial refund was issued) */
@@ -355,7 +359,8 @@ export interface definitions {
     refunded: boolean;
     /** A list of refunds that have been applied to the fee. */
     refunds: {
-      /** Details about each object. */ data: definitions["fee_refund"][];
+      /** Details about each object. */
+      data: definitions["fee_refund"][];
       /** True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
       /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
@@ -390,13 +395,15 @@ export interface definitions {
     pending: definitions["balance_amount"][];
   };
   balance_amount: {
-    /** Balance amount. */ amount: number;
+    /** Balance amount. */
+    amount: number;
     /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
     currency: string;
     source_types?: definitions["balance_amount_by_source_type"];
   };
   balance_amount_by_source_type: {
-    /** Amount for bank account. */ bank_account?: number;
+    /** Amount for bank account. */
+    bank_account?: number;
     /** Amount for card. */
     card?: number;
     /** Amount for FPX. */
@@ -409,7 +416,8 @@ export interface definitions {
    * Related guide: [Balance Transaction Types](https://stripe.com/docs/reports/balance-transaction-types).
    */
   balance_transaction: {
-    /** Gross amount of the transaction, in %s. */ amount: number;
+    /** Gross amount of the transaction, in %s. */
+    amount: number;
     /** The date the transaction's net funds will become available in the Stripe balance. */
     available_on: number;
     /** Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -775,7 +783,8 @@ export interface definitions {
     refunded: boolean;
     /** A list of refunds that have been applied to the charge. */
     refunds: {
-      /** Details about each object. */ data: definitions["refund"][];
+      /** Details about each object. */
+      data: definitions["refund"][];
       /** True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
       /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
@@ -934,14 +943,16 @@ export interface definitions {
     success_url: string;
   };
   checkout_session_custom_display_item_description: {
-    /** The description of the line item. */ description?: string;
+    /** The description of the line item. */
+    description?: string;
     /** The images of the line item. */
     images?: string[];
     /** The name of the line item. */
     name: string;
   };
   checkout_session_display_item: {
-    /** Amount for the display item. */ amount?: number;
+    /** Amount for the display item. */
+    amount?: number;
     /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
     currency?: string;
     custom?: definitions["checkout_session_custom_display_item_description"];
@@ -953,7 +964,8 @@ export interface definitions {
     type?: string;
   };
   connect_collection_transfer: {
-    /** Amount transferred, in %s. */ amount: number;
+    /** Amount transferred, in %s. */
+    amount: number;
     /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
     currency: string;
     /** ID of the account that funds are being collected for. */
@@ -1134,7 +1146,8 @@ export interface definitions {
     unit_amount_decimal?: string;
   };
   credit_note_tax_amount: {
-    /** The amount, in %s, of the tax. */ amount: number;
+    /** The amount, in %s, of the tax. */
+    amount: number;
     /** Whether this tax amount is inclusive or exclusive. */
     inclusive: boolean;
     /** The tax rate that was applied to get this tax amount. */
@@ -1191,7 +1204,8 @@ export interface definitions {
     shipping?: definitions["shipping"];
     /** The customer's payment sources, if any. */
     sources: {
-      /** Details about each object. */ data: definitions["alipay_account"][];
+      /** Details about each object. */
+      data: definitions["alipay_account"][];
       /** True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
       /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
@@ -1201,7 +1215,8 @@ export interface definitions {
     };
     /** The customer's current subscriptions, if any. */
     subscriptions?: {
-      /** Details about each object. */ data: definitions["subscription"][];
+      /** Details about each object. */
+      data: definitions["subscription"][];
       /** True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
       /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
@@ -1213,7 +1228,8 @@ export interface definitions {
     tax_exempt?: "exempt" | "none" | "reverse";
     /** The customer's tax IDs. */
     tax_ids?: {
-      /** Details about each object. */ data: definitions["tax_id"][];
+      /** Details about each object. */
+      data: definitions["tax_id"][];
       /** True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
       /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
@@ -1276,21 +1292,24 @@ export interface definitions {
       | "unspent_receiver_credit";
   };
   deleted_account: {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "account";
   };
   deleted_alipay_account: {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "alipay_account";
   };
   deleted_apple_pay_domain: {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
@@ -1307,7 +1326,8 @@ export interface definitions {
     object: "bank_account";
   };
   deleted_bitcoin_receiver: {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
@@ -1324,21 +1344,24 @@ export interface definitions {
     object: "card";
   };
   deleted_coupon: {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "coupon";
   };
   deleted_customer: {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "customer";
   };
   deleted_discount: {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "discount";
   };
@@ -1353,105 +1376,120 @@ export interface definitions {
     object: "bank_account";
   };
   deleted_invoice: {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "invoice";
   };
   deleted_invoiceitem: {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "invoiceitem";
   };
   deleted_payment_source: {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "alipay_account";
   };
   deleted_person: {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "person";
   };
   deleted_plan: {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "plan";
   };
   deleted_product: {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "product";
   };
   "deleted_radar.value_list": {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "radar.value_list";
   };
   "deleted_radar.value_list_item": {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "radar.value_list_item";
   };
   deleted_recipient: {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "recipient";
   };
   deleted_sku: {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "sku";
   };
   deleted_subscription_item: {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "subscription_item";
   };
   deleted_tax_id: {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "tax_id";
   };
   "deleted_terminal.location": {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "terminal.location";
   };
   "deleted_terminal.reader": {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "terminal.reader";
   };
   deleted_webhook_endpoint: {
-    /** Always true for a deleted object */ deleted: true;
+    /** Always true for a deleted object */
+    deleted: true;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
@@ -1615,7 +1653,9 @@ export interface definitions {
     secret?: string;
   };
   /** An error response from the Stripe API */
-  error: { error: definitions["api_errors"] };
+  error: {
+    error: definitions["api_errors"];
+  };
   /**
    * Events are our way of letting you know when something interesting happens in
    * your account. When an interesting event occurs, we create a new `Event`
@@ -1648,7 +1688,8 @@ export interface definitions {
    * guaranteed only for 30 days.
    */
   event: {
-    /** The connected account that originated the event. */ account?: string;
+    /** The connected account that originated the event. */
+    account?: string;
     /** The Stripe API version used to render `data`. *Note: This property is populated only for events on or after October 31, 2014*. */
     api_version?: string;
     /** Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -1710,7 +1751,8 @@ export interface definitions {
     object: "bank_account";
   };
   fee: {
-    /** Amount of the fee, in cents. */ amount: number;
+    /** Amount of the fee, in cents. */
+    amount: number;
     /** ID of the Connect application that earned the fee. */
     application?: string;
     /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -1728,7 +1770,8 @@ export interface definitions {
    * Related guide: [Refunding Application Fees](https://stripe.com/docs/connect/destination-charges#refunding-app-fee).
    */
   fee_refund: {
-    /** Amount, in %s. */ amount: number;
+    /** Amount, in %s. */
+    amount: number;
     /** Balance transaction that describes the impact on your account balance. */
     balance_transaction?: string;
     /** Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -1762,7 +1805,8 @@ export interface definitions {
     id: string;
     /** A list of [file links](https://stripe.com/docs/api#file_links) that point at this file. */
     links?: {
-      /** Details about each object. */ data: definitions["file_link"][];
+      /** Details about each object. */
+      data: definitions["file_link"][];
       /** True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
       /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
@@ -1944,7 +1988,8 @@ export interface definitions {
     invoice_pdf?: string;
     /** The individual line items that make up the invoice. `lines` is sorted as follows: invoice items in reverse chronological order, followed by the subscription, if any. */
     lines: {
-      /** Details about each object. */ data: definitions["line_item"][];
+      /** Details about each object. */
+      data: definitions["line_item"][];
       /** True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
       /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
@@ -2008,12 +2053,14 @@ export interface definitions {
     usage_gte: number;
   };
   invoice_line_item_period: {
-    /** End of the line item's billing period */ end: number;
+    /** End of the line item's billing period */
+    end: number;
     /** Start of the line item's billing period */
     start: number;
   };
   invoice_setting_custom_field: {
-    /** The name of the custom field. */ name: string;
+    /** The name of the custom field. */
+    name: string;
     /** The value of the custom field. */
     value: string;
   };
@@ -2030,7 +2077,8 @@ export interface definitions {
     days_until_due?: number;
   };
   invoice_tax_amount: {
-    /** The amount, in %s, of the tax. */ amount: number;
+    /** The amount, in %s, of the tax. */
+    amount: number;
     /** Whether this tax amount is inclusive or exclusive. */
     inclusive: boolean;
     /** The tax rate that was applied to get this tax amount. */
@@ -2122,7 +2170,8 @@ export interface definitions {
     value?: string;
   };
   invoices_status_transitions: {
-    /** The time that the invoice draft was finalized. */ finalized_at?: number;
+    /** The time that the invoice draft was finalized. */
+    finalized_at?: number;
     /** The time that the invoice was marked uncollectible. */
     marked_uncollectible_at?: number;
     /** The time that the invoice was paid. */
@@ -2209,7 +2258,8 @@ export interface definitions {
   };
   /** You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders. */
   "issuing.card": {
-    /** The brand of the card. */ brand: string;
+    /** The brand of the card. */
+    brand: string;
     /** The reason why the card was canceled. */
     cancellation_reason?: "lost" | "stolen";
     cardholder: definitions["issuing.cardholder"];
@@ -2286,7 +2336,8 @@ export interface definitions {
    * Related guide: [Disputing Transactions](https://stripe.com/docs/issuing/purchases/disputes)
    */
   "issuing.dispute": {
-    /** Unique identifier for the object. */ id: string;
+    /** Unique identifier for the object. */
+    id: string;
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** String representing the object's type. Objects of the same type share the same value. */
@@ -3046,7 +3097,8 @@ export interface definitions {
     type: "bulk" | "individual";
   };
   issuing_card_spending_limit: {
-    /** Maximum amount allowed to spend per time interval. */ amount: number;
+    /** Maximum amount allowed to spend per time interval. */
+    amount: number;
     /** Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) on which to apply the spending limit. Leave this blank to limit all charges. */
     categories?: (
       | "ac_refrigeration_repair"
@@ -3347,7 +3399,9 @@ export interface definitions {
       | "weekly"
       | "yearly";
   };
-  issuing_cardholder_address: { address: definitions["address"] };
+  issuing_cardholder_address: {
+    address: definitions["address"];
+  };
   issuing_cardholder_authorization_controls: {
     /** Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations permitted on this cardholder's cards. */
     allowed_categories?: (
@@ -3955,7 +4009,8 @@ export interface definitions {
     verification?: definitions["issuing_cardholder_verification"];
   };
   issuing_cardholder_individual_dob: {
-    /** The day of birth, between 1 and 31. */ day?: number;
+    /** The day of birth, between 1 and 31. */
+    day?: number;
     /** The month of birth, between 1 and 12. */
     month?: number;
     /** The four-digit year of birth. */
@@ -3976,7 +4031,8 @@ export interface definitions {
     )[];
   };
   issuing_cardholder_spending_limit: {
-    /** Maximum amount allowed to spend per time interval. */ amount: number;
+    /** Maximum amount allowed to spend per time interval. */
+    amount: number;
     /** Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) on which to apply the spending limit. Leave this blank to limit all charges. */
     categories?: (
       | "ac_refrigeration_repair"
@@ -4337,14 +4393,16 @@ export interface definitions {
     front?: string;
   };
   legal_entity_dob: {
-    /** The day of birth, between 1 and 31. */ day?: number;
+    /** The day of birth, between 1 and 31. */
+    day?: number;
     /** The month of birth, between 1 and 12. */
     month?: number;
     /** The four-digit year of birth. */
     year?: number;
   };
   legal_entity_japan_address: {
-    /** City/Ward. */ city?: string;
+    /** City/Ward. */
+    city?: string;
     /** Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)). */
     country?: string;
     /** Block/Building number. */
@@ -4380,7 +4438,8 @@ export interface definitions {
   };
   light_account_logout: { [key: string]: any };
   line_item: {
-    /** The amount, in %s. */ amount: number;
+    /** The amount, in %s. */
+    amount: number;
     /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
     currency: string;
     /** An arbitrary string attached to the object. Often useful for displaying to users. */
@@ -4454,12 +4513,14 @@ export interface definitions {
     type: string;
   };
   mandate_sepa_debit: {
-    /** The unique reference of the mandate. */ reference: string;
+    /** The unique reference of the mandate. */
+    reference: string;
     /** The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively. */
     url: string;
   };
   mandate_single_use: {
-    /** On a single use mandate, the amount of the payment. */ amount: number;
+    /** On a single use mandate, the amount of the payment. */
+    amount: number;
     /** On a single use mandate, the currency of the payment. */
     currency: string;
   };
@@ -4522,7 +4583,8 @@ export interface definitions {
     object: "order";
     /** A list of returns that have taken place for this order. */
     returns?: {
-      /** Details about each object. */ data: definitions["order_return"][];
+      /** Details about each object. */
+      data: definitions["order_return"][];
       /** True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
       /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
@@ -4592,7 +4654,8 @@ export interface definitions {
     refund?: string;
   };
   package_dimensions: {
-    /** Height, in inches. */ height: number;
+    /** Height, in inches. */
+    height: number;
     /** Length, in inches. */
     length: number;
     /** Weight, in ounces. */
@@ -4808,7 +4871,8 @@ export interface definitions {
     cvc_check?: string;
   };
   payment_method_card_generated_card: {
-    /** The charge that created this object. */ charge?: string;
+    /** The charge that created this object. */
+    charge?: string;
     payment_method_details?: definitions["payment_method_details"];
   };
   payment_method_card_present: { [key: string]: any };
@@ -4877,7 +4941,8 @@ export interface definitions {
     wechat?: definitions["payment_method_details_wechat"];
   };
   payment_method_details_ach_credit_transfer: {
-    /** Account number to transfer funds to. */ account_number?: string;
+    /** Account number to transfer funds to. */
+    account_number?: string;
     /** Name of the bank associated with the routing number. */
     bank_name?: string;
     /** Routing transit number for the bank account to transfer funds to. */
@@ -4901,7 +4966,8 @@ export interface definitions {
   };
   payment_method_details_alipay: { [key: string]: any };
   payment_method_details_au_becs_debit: {
-    /** Bank-State-Branch number of the bank account. */ bsb_number?: string;
+    /** Bank-State-Branch number of the bank account. */
+    bsb_number?: string;
     /** Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same. */
     fingerprint?: string;
     /** Last four digits of the bank account number. */
@@ -5149,7 +5215,8 @@ export interface definitions {
     reference?: string;
   };
   payment_method_details_p24: {
-    /** Unique reference for this Przelewy24 payment. */ reference?: string;
+    /** Unique reference for this Przelewy24 payment. */
+    reference?: string;
     /**
      * Owner's verified full name. Values are verified or provided by Przelewy24 directly
      * (if supported) at the time of authorization or settlement. They cannot be set or mutated.
@@ -5508,7 +5575,8 @@ export interface definitions {
     )[];
   };
   payment_source: {
-    /** Unique identifier for the object. */ id: string;
+    /** Unique identifier for the object. */
+    id: string;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata?: { [key: string]: any };
     /** String representing the object's type. Objects of the same type share the same value. */
@@ -5642,7 +5710,8 @@ export interface definitions {
    * Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) and more about [products and plans](https://stripe.com/docs/billing/subscriptions/products-and-plans).
    */
   plan: {
-    /** Whether the plan can be used for new purchases. */ active: boolean;
+    /** Whether the plan can be used for new purchases. */
+    active: boolean;
     /** Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`. */
     aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum";
     /** The amount in %s to be charged on the interval specified. */
@@ -5682,7 +5751,8 @@ export interface definitions {
     usage_type: "licensed" | "metered";
   };
   plan_tier: {
-    /** Price for the entire tier. */ flat_amount?: number;
+    /** Price for the entire tier. */
+    flat_amount?: number;
     /** Same as `flat_amount`, but contains a decimal value with at most 12 decimal places. */
     flat_amount_decimal?: string;
     /** Per unit price for units relevant to the tier. */
@@ -5693,7 +5763,8 @@ export interface definitions {
     up_to?: number;
   };
   platform_tax_fee: {
-    /** The Connected account that incurred this charge. */ account: string;
+    /** The Connected account that incurred this charge. */
+    account: string;
     /** Unique identifier for the object. */
     id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
@@ -5780,7 +5851,8 @@ export interface definitions {
    * Related guide: [Default Stripe Lists](https://stripe.com/docs/radar/lists#managing-list-items).
    */
   "radar.value_list": {
-    /** The name of the value list for use in rules. */ alias: string;
+    /** The name of the value list for use in rules. */
+    alias: string;
     /** Time at which the object was created. Measured in seconds since the Unix epoch. */
     created: number;
     /** The name or email address of the user who created this value list. */
@@ -5838,7 +5910,8 @@ export interface definitions {
     value_list: string;
   };
   radar_review_resource_location: {
-    /** The city where the payment originated. */ city?: string;
+    /** The city where the payment originated. */
+    city?: string;
     /** Two-letter ISO code representing the country where the payment originated. */
     country?: string;
     /** The geographic latitude where the payment originated. */
@@ -5913,7 +5986,8 @@ export interface definitions {
    * Related guide: [Refunds](https://stripe.com/docs/refunds).
    */
   refund: {
-    /** Amount, in %s. */ amount: number;
+    /** Amount, in %s. */
+    amount: number;
     /** Balance transaction that describes the impact on your account balance. */
     balance_transaction?: string;
     /** ID of the charge that was refunded. */
@@ -6063,7 +6137,8 @@ export interface definitions {
     session?: definitions["radar_review_resource_session"];
   };
   rule: {
-    /** The action taken on the payment. */ action: string;
+    /** The action taken on the payment. */
+    action: string;
     /** Unique identifier for the object. */
     id: string;
     /** The predicate to evaluate the payment against. */
@@ -6221,7 +6296,8 @@ export interface definitions {
     id: string;
   };
   sigma_scheduled_query_run_error: {
-    /** Information about the run failure. */ message: string;
+    /** Information about the run failure. */
+    message: string;
   };
   /**
    * Stores representations of [stock keeping units](http://en.wikipedia.org/wiki/Stock_keeping_unit).
@@ -6234,7 +6310,8 @@ export interface definitions {
    * Related guide: [Tax, Shipping, and Inventory](https://stripe.com/docs/orders).
    */
   sku: {
-    /** Whether the SKU is available for purchase. */ active: boolean;
+    /** Whether the SKU is available for purchase. */
+    active: boolean;
     /** A dictionary of attributes and values for the attributes defined by the product. If, for example, a product's attributes are `["size", "gender"]`, a valid SKU has the following dictionary of attributes: `{"size": "Medium", "gender": "Unisex"}`. */
     attributes: { [key: string]: any };
     /** Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -6374,7 +6451,8 @@ export interface definitions {
     last4?: string;
   };
   source_mandate_notification_sepa_debit_data: {
-    /** SEPA creditor ID. */ creditor_identifier?: string;
+    /** SEPA creditor ID. */
+    creditor_identifier?: string;
     /** Last 4 digits of the account number associated with the debit. */
     last4?: string;
     /** Mandate reference associated with the debit. */
@@ -6392,7 +6470,8 @@ export interface definitions {
     shipping?: definitions["shipping"];
   };
   source_order_item: {
-    /** The amount (price) for this order item. */ amount?: number;
+    /** The amount (price) for this order item. */
+    amount?: number;
     /** This currency of this order item. Required when `amount` is present. */
     currency?: string;
     /** Human-readable description for this order item. */
@@ -6490,7 +6569,8 @@ export interface definitions {
       | "wechat";
   };
   source_transaction_ach_credit_transfer_data: {
-    /** Customer data associated with the transfer. */ customer_data?: string;
+    /** Customer data associated with the transfer. */
+    customer_data?: string;
     /** Bank account fingerprint associated with the transfer. */
     fingerprint?: string;
     /** Last 4 digits of the account number associated with the transfer. */
@@ -6499,7 +6579,8 @@ export interface definitions {
     routing_number?: string;
   };
   source_transaction_chf_credit_transfer_data: {
-    /** Reference associated with the transfer. */ reference?: string;
+    /** Reference associated with the transfer. */
+    reference?: string;
     /** Sender's country address. */
     sender_address_country?: string;
     /** Sender's line 1 address. */
@@ -6532,7 +6613,8 @@ export interface definitions {
     invoices?: string;
   };
   source_transaction_sepa_credit_transfer_data: {
-    /** Reference associated with the transfer. */ reference?: string;
+    /** Reference associated with the transfer. */
+    reference?: string;
     /** Sender's bank account IBAN. */
     sender_iban?: string;
     /** Sender's name. */
@@ -6615,7 +6697,10 @@ export interface definitions {
     terminal_verification_results?: string;
     transaction_status_information?: string;
   };
-  source_type_eps: { reference?: string; statement_descriptor?: string };
+  source_type_eps: {
+    reference?: string;
+    statement_descriptor?: string;
+  };
   source_type_giropay: {
     bank_code?: string;
     bank_name?: string;
@@ -6667,7 +6752,9 @@ export interface definitions {
     refund_account_holder_name?: string;
     refund_iban?: string;
   };
-  source_type_p24: { reference?: string };
+  source_type_p24: {
+    reference?: string;
+  };
   source_type_sepa_debit: {
     bank_code?: string;
     branch_code?: string;
@@ -6711,7 +6798,8 @@ export interface definitions {
     statement_descriptor?: string;
   };
   status_transitions: {
-    /** The time that the order was canceled. */ canceled?: number;
+    /** The time that the order was canceled. */
+    canceled?: number;
     /** The time that the order was fulfilled. */
     fulfiled?: number;
     /** The time that the order was paid. */
@@ -6904,7 +6992,8 @@ export interface definitions {
     tax_rates?: definitions["tax_rate"][];
   };
   subscription_schedule_current_phase: {
-    /** The end of this phase of the subscription schedule. */ end_date: number;
+    /** The end of this phase of the subscription schedule. */
+    end_date: number;
     /** The start of this phase of the subscription schedule. */
     start_date: number;
   };
@@ -6970,7 +7059,8 @@ export interface definitions {
     trial_from_plan?: boolean;
   };
   tax_deducted_at_source: {
-    /** Unique identifier for the object. */ id: string;
+    /** Unique identifier for the object. */
+    id: string;
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "tax_deducted_at_source";
     /** The end of the invoicing period. This TDS applies to Stripe fees collected during this invoicing period. */
@@ -7161,7 +7251,8 @@ export interface definitions {
     version: string;
   };
   three_d_secure_usage: {
-    /** Whether 3D Secure is supported on this card. */ supported: boolean;
+    /** Whether 3D Secure is supported on this card. */
+    supported: boolean;
   };
   /**
    * Tokenization is the process Stripe uses to collect sensitive card or bank
@@ -7213,7 +7304,8 @@ export interface definitions {
    * Related guide: [Topping Up your Platform Account](https://stripe.com/docs/connect/top-ups).
    */
   topup: {
-    /** Amount transferred. */ amount: number;
+    /** Amount transferred. */
+    amount: number;
     /** ID of the balance transaction that describes the impact of this top-up on your account balance. May not be specified depending on status of top-up. */
     balance_transaction?: string;
     /** Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -7257,7 +7349,8 @@ export interface definitions {
    * Related guide: [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/charges-transfers).
    */
   transfer: {
-    /** Amount in %s to be transferred. */ amount: number;
+    /** Amount in %s to be transferred. */
+    amount: number;
     /** Amount in %s reversed (can be less than the amount attribute on the transfer if a partial reversal was issued). */
     amount_reversed: number;
     /** Balance transaction that describes the impact of this transfer on your account balance. */
@@ -7326,7 +7419,8 @@ export interface definitions {
    * Related guide: [Reversing Transfers](https://stripe.com/docs/connect/charges-transfers#reversing-transfers).
    */
   transfer_reversal: {
-    /** Amount, in %s. */ amount: number;
+    /** Amount, in %s. */
+    amount: number;
     /** Balance transaction that describes the impact on your account balance. */
     balance_transaction?: string;
     /** Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -7357,7 +7451,8 @@ export interface definitions {
     weekly_anchor?: string;
   };
   transform_usage: {
-    /** Divide usage by this number. */ divide_by: number;
+    /** Divide usage by this number. */
+    divide_by: number;
     /** After division, either round the result `up` or `down`. */
     round: "down" | "up";
   };
@@ -7368,7 +7463,8 @@ export interface definitions {
    * Related guide: [Metered Billing](https://stripe.com/docs/billing/subscriptions/metered-billing).
    */
   usage_record: {
-    /** Unique identifier for the object. */ id: string;
+    /** Unique identifier for the object. */
+    id: string;
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** String representing the object's type. Objects of the same type share the same value. */
@@ -7381,7 +7477,8 @@ export interface definitions {
     timestamp: number;
   };
   usage_record_summary: {
-    /** Unique identifier for the object. */ id: string;
+    /** Unique identifier for the object. */
+    id: string;
     /** The invoice in which this usage period has been billed for. */
     invoice?: string;
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */

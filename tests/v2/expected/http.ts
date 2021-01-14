@@ -50,8 +50,12 @@ export interface definitions {
     version: 1;
     body: definitions["RegionBody"];
   };
-  CreateRegion: { body: definitions["RegionBody"] };
-  UpdateRegion: { name: string };
+  CreateRegion: {
+    body: definitions["RegionBody"];
+  };
+  UpdateRegion: {
+    name: string;
+  };
   ProviderBody: {
     owner_id?: definitions["OptionalFlexID"];
     team_id?: definitions["OptionalID"];
@@ -76,7 +80,9 @@ export interface definitions {
     type: "provider";
     body: definitions["ProviderBody"];
   };
-  CreateProvider: { body: definitions["ProviderBody"] };
+  CreateProvider: {
+    body: definitions["ProviderBody"];
+  };
   UpdateProvider: {
     id: definitions["ID"];
     body: definitions["UpdateProviderBody"];
@@ -121,7 +127,10 @@ export interface definitions {
     platform_ids?: definitions["ID"][];
     tags?: definitions["ProductTags"];
   };
-  UpdatePlan: { id: definitions["ID"]; body: definitions["UpdatePlanBody"] };
+  UpdatePlan: {
+    id: definitions["ID"];
+    body: definitions["UpdatePlanBody"];
+  };
   UpdatePlanBody: {
     name?: definitions["Name"];
     label?: definitions["Label"];
@@ -254,7 +263,8 @@ export interface definitions {
     value: definitions["FeatureValueLabel"];
   };
   ValueProp: {
-    /** Heading of a value proposition. */ header: string;
+    /** Heading of a value proposition. */
+    header: string;
     /** Body of a value proposition. */
     body: string;
   };
@@ -369,7 +379,10 @@ export interface definitions {
      * URL to this Product's Terms of Service. If provided is true, then
      * a url must be set. Otherwise, provided is false.
      */
-    terms: { url?: string; provided: boolean };
+    terms: {
+      url?: string;
+      provided: boolean;
+    };
     feature_types: definitions["FeatureType"][];
     billing: {
       type: "monthly-prorated" | "monthly-anniversary" | "annual-anniversary";
@@ -390,7 +403,9 @@ export interface definitions {
     type: "product";
     body: definitions["ProductBody"];
   };
-  CreateProduct: { body: definitions["ProductBody"] };
+  CreateProduct: {
+    body: definitions["ProductBody"];
+  };
   /** Array of Plan IDs that this Plan can be resized to, if null all will be assumed */
   PlanResizeList: definitions["ID"][];
   PlanBody: {
@@ -441,10 +456,13 @@ export interface definitions {
     type: "plan";
     body: definitions["ExpandedPlanBody"];
   };
-  CreatePlan: { body: definitions["PlanBody"] };
+  CreatePlan: {
+    body: definitions["PlanBody"];
+  };
   /** Unexpected error */
   Error: {
-    /** The error type */ type: string;
+    /** The error type */
+    type: string;
     /** Explanation of the errors */
     message: string[];
   };

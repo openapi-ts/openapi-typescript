@@ -104,7 +104,7 @@ export default function generateTypesV3(input: OpenAPI3 | OpenAPI3Schemas, optio
 
         return tsIntersectionOf([
           ...(node.allOf ? (node.allOf as any[]).map(transform) : []), // append allOf first
-          ...(properties ? [`{ ${properties} }`] : []), // then properties
+          ...(properties ? [`{\n${properties}\n}`] : []), // then properties
           ...(additionalProperties ? [additionalProperties] : []), // then additional properties
         ]);
       }

@@ -63,7 +63,9 @@ describe("types", () => {
 
       export interface components {
         schemas: {
-          object: { string?: string };
+          object: {
+            string?: string;
+          };
           string: string;
           string_ref: components['schemas']['string'];
           nullable: string | null;
@@ -99,7 +101,10 @@ describe("types", () => {
 
       export interface components {
         schemas: {
-          object: { integer?: number; number?: number }
+          object: {
+            integer?: number;
+            number?: number;
+          }
           number: number;
           number_ref: components['schemas']['number'];
           nullable: number | null;
@@ -129,7 +134,9 @@ describe("types", () => {
 
       export interface components {
         schemas: {
-          object: { boolean?: boolean };
+          object: {
+            boolean?: boolean;
+          };
           boolean: boolean;
           boolean_ref: components['schemas']['boolean'];
           nullable: boolean | null;
@@ -184,13 +191,20 @@ describe("types", () => {
         schemas: {
           object: {
             object?: {
-              object?: { string?: string; number?: components['schemas']['object_ref'] };
+              object?: {
+                string?: string;
+                number?: components['schemas']['object_ref'];
+              };
             };
           };
-          object_ref: { number?: number };
+          object_ref: {
+            number?: number
+          };
           object_unknown: { [key: string]: any };
           object_empty: { [key: string]: any };
-          nullable: { string?: string } | null;
+          nullable: {
+            string?: string
+          } | null;
         }
       }`)
     );
@@ -280,7 +294,9 @@ describe("types", () => {
 
       export interface components {
         schemas: {
-          union: { string?: 'Totoro' | 'Sats\\'uki' | 'Mei' }
+          union: {
+            string?: 'Totoro' | 'Sats\\'uki' | 'Mei';
+          }
         }
       }`)
     );
@@ -336,8 +352,12 @@ describe("OpenAPI3 features", () => {
 
       export interface components {
         schemas: {
-          additional_properties: { number?: number; } & { [key: string]: any };
-          additional_properties_string: { string?: string } & { [key: string]: string };
+          additional_properties: {
+            number?: number;
+          } & { [key: string]: any };
+          additional_properties_string: {
+            string?: string;
+          } & { [key: string]: string };
         }
       }`)
     );
@@ -372,8 +392,15 @@ describe("OpenAPI3 features", () => {
 
       export interface components {
         schemas: {
-          base: { boolean?: boolean; number?: number };
-          all_of: components['schemas']['base'] & { string?: string } & { password?: string };
+          base: {
+            boolean?: boolean;
+            number?: number;
+          };
+          all_of: components['schemas']['base'] & {
+            string?: string;
+          } & {
+            password?: string;
+          };
         }
       }`)
     );
@@ -419,9 +446,15 @@ describe("OpenAPI3 features", () => {
       export interface components {
         schemas: {
           any_of: Partial<components['schemas']['string']> & Partial<components['schemas']['number']> & Partial<components['schemas']['boolean']>;
-          string: {string?: string };
-          number: {number?: number };
-          boolean: {boolean?: boolean };
+          string: {
+            string?: string;
+          };
+          number: {
+            number?: number;
+          };
+          boolean: {
+            boolean?: boolean;
+          };
         }
       }`)
     );
@@ -449,7 +482,10 @@ describe("OpenAPI3 features", () => {
 
       export interface components {
         schemas: {
-          required: { required: string; optional?: boolean  }
+          required: {
+            required: string;
+            optional?: boolean;
+          }
         }
       }`)
     );
@@ -510,11 +546,23 @@ describe("OpenAPI3 features", () => {
 
         export interface components {
           schemas: {
-            one_of: { options?: string | number | components['schemas']['one_of_ref'] };
-            one_of_ref: { boolean?: boolean };
+            one_of: {
+              options?: string | number | components['schemas']['one_of_ref'];
+            };
+            one_of_ref: {
+              boolean?: boolean;
+            };
             one_of_inferred:
-              | { kibana?: { versions?: string } }
-              | { elasticsearch?: { versions?: string } }
+              | {
+                kibana?: {
+                  versions?: string;
+                }
+              }
+              | {
+                elasticsearch?: {
+                  versions?: string;
+                }
+              }
             one_of_addl_props: { [key: string]: string | number | boolean }
           }
         }
@@ -537,7 +585,10 @@ describe("OpenAPI3 features", () => {
     expect(swaggerToTS(schema, { version: 3, rawSchema: true })).toBe(
       format(`
       export interface schemas {
-        User: { name: string; email: string }
+        User: {
+          name: string;
+          email: string;
+        }
       }`)
     );
   });
@@ -646,16 +697,19 @@ describe("responses", () => {
     expect(swaggerToTS(schema)).toBe(
       format(`
       export interface paths {
-        '/': {
+        "/": {
           get: {
             responses: {
               200: {
-                'application/json': { title: string; body: string }
+                "application/json": {
+                  title: string;
+                  body: string;
+                }
               }
             }
           }
         };
-        '/search': {
+        "/search": {
           post: {
             parameters: {
               query: {
@@ -665,13 +719,13 @@ describe("responses", () => {
             };
             responses: {
               200: {
-                'application/json': {
-                  results?: components['schemas']['SearchResult'][];
+                "application/json": {
+                  results?: components["schemas"]["SearchResult"][];
                   total: number;
                 }
               }
               404: {
-                'application/json': components['schemas']['ErrorResponse']
+                "application/json": components["schemas"]["ErrorResponse"]
               }
             }
           }
@@ -682,8 +736,14 @@ describe("responses", () => {
 
       export interface components {
         schemas: {
-          ErrorResponse: { error: string; message: string };
-          SearchResponse: { title: string; date: string }
+          ErrorResponse: {
+            error: string;
+            message: string;
+          };
+          SearchResponse: {
+            title: string;
+            date: string;
+          }
         }
         responses: {
           NotFound: {
@@ -812,11 +872,16 @@ describe("responses", () => {
         "/tests": {
           post: {
             requestBody: {
-              'application/json': { title: string }
+              'application/json': {
+                title: string;
+              }
             }
             responses: {
               201: {
-                'application/json': { id: string; title: string}
+                'application/json': {
+                  id: string;
+                  title: string;
+                }
               };
             };
           };

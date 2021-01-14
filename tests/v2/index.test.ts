@@ -120,7 +120,9 @@ describe("transformation", () => {
       expect(swaggerToTS(schema)).toBe(
         format(`
         export interface definitions {
-          object: { boolean?: boolean };
+          object: {
+            boolean?: boolean;
+          };
           boolean: boolean;
           boolean_ref: definitions['boolean'];
         }`)
@@ -161,10 +163,15 @@ describe("transformation", () => {
         export interface definitions {
           object: {
             object?: {
-              object?: { string?: string; number?: definitions['object_ref'] };
+              object?: {
+                string?: string;
+                number?: definitions['object_ref'];
+              };
             };
           };
-          object_ref: { number?: number };
+          object_ref: {
+            number?: number;
+          };
           object_unknown: { [key: string]: any };
           object_empty: { [key: string]: any };
         }`)
@@ -226,7 +233,9 @@ describe("transformation", () => {
       expect(swaggerToTS(schema)).toBe(
         format(`
         export interface definitions {
-          union: { string?: 'Totoro' | 'Sats\\'uki' | 'Mei' }
+          union: {
+            string?: 'Totoro' | 'Sats\\'uki' | 'Mei';
+          }
         }`)
       );
     });
@@ -252,8 +261,14 @@ describe("transformation", () => {
       expect(swaggerToTS(schema)).toBe(
         format(`
         export interface definitions {
-          additional_properties: { number?: number; [key: string]: any };
-          additional_properties_string: { string?: string; [key: string]: string };
+          additional_properties: {
+            number?: number;
+            [key: string]: any;
+          };
+          additional_properties_string: {
+            string?: string;
+            [key: string]: string;
+          };
         }`)
       );
     });
@@ -284,8 +299,13 @@ describe("transformation", () => {
       expect(swaggerToTS(schema)).toBe(
         format(`
         export interface definitions {
-          Messages: { [key: string]: definitions["Message"] }
-          Message: { code?: number; text?: string }
+          Messages: {
+            [key: string]:definitions["Message"];
+          }
+          Message: {
+            code?: number;
+            text?: string;
+          }
         }`)
       );
     });
@@ -311,8 +331,15 @@ describe("transformation", () => {
       expect(swaggerToTS(schema)).toBe(
         format(`
         export interface definitions {
-          base: { boolean?: boolean; number?: number };
-          all_of: definitions['base'] & { string?: string } & { password?: string };
+          base: {
+            boolean?: boolean;
+            number?: number;
+          };
+          all_of: definitions['base'] & {
+            string?: string;
+          } & {
+            password?: string;
+          };
         }`)
       );
     });
@@ -334,7 +361,10 @@ describe("transformation", () => {
       expect(swaggerToTS(schema)).toBe(
         format(`
         export interface definitions {
-          required: { required: string; optional?: boolean  }
+          required: {
+            required: string;
+            optional?: boolean;
+          }
         }`)
       );
     });
@@ -405,7 +435,10 @@ describe("transformation", () => {
       expect(swaggerToTS(schema, { propertyMapper })).toBe(
         format(`
         export interface definitions {
-          Name: { first?: string; last: string }
+          Name: {
+            first?: string;
+            last: string;
+          }
         }`)
       );
     });

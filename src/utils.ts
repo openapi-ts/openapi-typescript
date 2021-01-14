@@ -11,8 +11,7 @@ export function comment(text: string): string {
   // if multi-line comment
   return `/**
   * ${commentText.replace(/\n/g, "\n  * ")}
-  */
-`;
+  */\n`;
 }
 
 /** shim for Object.fromEntries() for Node < 13 */
@@ -27,7 +26,7 @@ export function nodeType(obj: any): SchemaObjectType | undefined {
     return undefined;
   }
 
-  if (obj["$ref"]) {
+  if (obj.$ref) {
     return "ref";
   }
 
@@ -111,6 +110,7 @@ export function tsTupleOf(types: string[]): string {
 
 /** Convert T, U into T & U; */
 export function tsIntersectionOf(types: string[]): string {
+  if (types.length === 1) return types[0]; // don’t add parentheses around one thing
   return `(${types.join(") & (")})`;
 }
 
@@ -121,6 +121,7 @@ export function tsPartial(type: string): string {
 
 /** Convert [X, Y, Z] into X | Y | Z */
 export function tsUnionOf(types: string[]): string {
+  if (types.length === 1) return types[0]; // don’t add parentheses around one thing
   return `(${types.join(") | (")})`;
 }
 

@@ -144,7 +144,8 @@ export interface operations {
     }
     requestBody: {
       'application/x-www-form-urlencoded': {
-        /** Updated name of the pet */ name?: string
+        /** Updated name of the pet */
+        name?: string
         /** Updated status of the pet */
         status?: string
       }
@@ -180,7 +181,8 @@ export interface operations {
     }
     requestBody: {
       'multipart/form-data': {
-        /** Additional data to pass to server */ additionalMetadata?: string
+        /** Additional data to pass to server */
+        additionalMetadata?: string
         /** file to upload */
         file?: string
       }
@@ -368,7 +370,10 @@ export interface components {
       status?: 'placed' | 'approved' | 'delivered'
       complete?: boolean
     }
-    Category: { id?: number; name?: string }
+    Category: {
+      id?: number
+      name?: string
+    }
     User: {
       id?: number
       username?: string
@@ -380,7 +385,10 @@ export interface components {
       /** User Status */
       userStatus?: number
     }
-    Tag: { id?: number; name?: string }
+    Tag: {
+      id?: number
+      name?: string
+    }
     Pet: {
       id?: number
       category?: components['schemas']['Category']
@@ -390,6 +398,10 @@ export interface components {
       /** pet status in the store */
       status?: 'available' | 'pending' | 'sold'
     }
-    ApiResponse: { code?: number; type?: string; message?: string }
+    ApiResponse: {
+      code?: number
+      type?: string
+      message?: string
+    }
   }
 }
