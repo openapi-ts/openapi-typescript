@@ -543,8 +543,12 @@ export interface components {
       version: number;
       body: components["schemas"]["RegionBody"];
     };
-    CreateRegion: { body: components["schemas"]["RegionBody"] };
-    UpdateRegion: { name: string };
+    CreateRegion: {
+      body: components["schemas"]["RegionBody"];
+    };
+    UpdateRegion: {
+      name: string;
+    };
     ProviderBody: {
       owner_id?: components["schemas"]["OptionalFlexID"];
       team_id?: components["schemas"]["OptionalID"];
@@ -569,7 +573,9 @@ export interface components {
       type: "provider";
       body: components["schemas"]["ProviderBody"];
     };
-    CreateProvider: { body: components["schemas"]["ProviderBody"] };
+    CreateProvider: {
+      body: components["schemas"]["ProviderBody"];
+    };
     UpdateProvider: {
       id: components["schemas"]["ID"];
       body: components["schemas"]["UpdateProviderBody"];
@@ -749,7 +755,8 @@ export interface components {
       value: components["schemas"]["FeatureValueLabel"];
     };
     ValueProp: {
-      /** Heading of a value proposition. */ header: string;
+      /** Heading of a value proposition. */
+      header: string;
       /** Body of a value proposition. */
       body: string;
     };
@@ -863,7 +870,10 @@ export interface components {
        * URL to this Product's Terms of Service. If provided is true, then
        * a url must be set. Otherwise, provided is false.
        */
-      terms: { url?: string | null; provided: boolean };
+      terms: {
+        url?: string | null;
+        provided: boolean;
+      };
       feature_types: components["schemas"]["FeatureType"][];
       billing: {
         type: "monthly-prorated" | "monthly-anniversary" | "annual-anniversary";
@@ -884,7 +894,9 @@ export interface components {
       type: "product";
       body: components["schemas"]["ProductBody"];
     };
-    CreateProduct: { body: components["schemas"]["ProductBody"] };
+    CreateProduct: {
+      body: components["schemas"]["ProductBody"];
+    };
     /** Array of Plan IDs that this Plan can be resized to, if null all will be assumed */
     PlanResizeList: components["schemas"]["ID"][] | null;
     PlanBody: {
@@ -935,10 +947,13 @@ export interface components {
       type: "plan";
       body: components["schemas"]["ExpandedPlanBody"];
     };
-    CreatePlan: { body: components["schemas"]["PlanBody"] };
+    CreatePlan: {
+      body: components["schemas"]["PlanBody"];
+    };
     /** Unexpected error */
     Error: {
-      /** The error type */ type: string;
+      /** The error type */
+      type: string;
       /** Explanation of the errors */
       message: string[];
     };

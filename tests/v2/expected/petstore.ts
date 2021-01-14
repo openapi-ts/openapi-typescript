@@ -13,7 +13,10 @@ export interface definitions {
     status?: "placed" | "approved" | "delivered";
     complete?: boolean;
   };
-  Category: { id?: number; name?: string };
+  Category: {
+    id?: number;
+    name?: string;
+  };
   User: {
     id?: number;
     username?: string;
@@ -25,7 +28,10 @@ export interface definitions {
     /** User Status */
     userStatus?: number;
   };
-  Tag: { id?: number; name?: string };
+  Tag: {
+    id?: number;
+    name?: string;
+  };
   Pet: {
     id?: number;
     category?: definitions["Category"];
@@ -35,5 +41,9 @@ export interface definitions {
     /** pet status in the store */
     status?: "available" | "pending" | "sold";
   };
-  ApiResponse: { code?: number; type?: string; message?: string };
+  ApiResponse: {
+    code?: number;
+    type?: string;
+    message?: string;
+  };
 }

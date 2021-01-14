@@ -80,7 +80,7 @@ export default function generateTypesV2(input: OpenAPI2 | OpenAPI2Schemas, optio
 
         return tsIntersectionOf([
           ...(node.allOf ? (node.allOf as any[]).map(transform) : []), // append allOf first
-          ...(properties ? [`{ ${properties} }`] : []), // then properties + additionalProperties
+          ...(properties ? [`{\n${properties}\n}`] : []), // then properties + additionalProperties
         ]);
         break;
       }

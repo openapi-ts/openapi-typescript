@@ -1947,7 +1947,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The access_token of the OAuth application. */ access_token: string;
+        /** The access_token of the OAuth application. */
+        access_token: string;
       };
     };
     responses: {
@@ -1968,7 +1969,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The access_token of the OAuth application. */ access_token: string;
+        /** The access_token of the OAuth application. */
+        access_token: string;
       };
     };
     responses: {
@@ -2334,7 +2336,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The title of the attachment */ title: string;
+        /** The title of the attachment */
+        title: string;
         /** The body of the attachment */
         body: string;
       };
@@ -2559,7 +2562,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** Name of the runner group. */ name: string;
+        /** Name of the runner group. */
+        name: string;
         /** Visibility of a runner group. You can select all organizations or select individual organization. Can be one of: `all` or `selected` */
         visibility?: "selected" | "all";
         /** List of organization IDs that can access the runner group. */
@@ -2608,7 +2612,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** Name of the runner group. */ name?: string;
+        /** Name of the runner group. */
+        name?: string;
         /** Visibility of a runner group. You can select all organizations or select individual organizations. Can be one of: `all` or `selected` */
         visibility?: "selected" | "all";
       };
@@ -2762,7 +2767,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** List of runner IDs to add to the runner group. */ runners: number[];
+        /** List of runner IDs to add to the runner group. */
+        runners: number[];
       };
     };
     responses: {
@@ -3066,11 +3072,13 @@ export interface operations {
     parameters: {};
     requestBody: {
       "application/json": {
-        /** Description of the gist */ description?: string;
+        /** Description of the gist */
+        description?: string;
         /** Names and content for the files that make up the gist */
         files: {
           [key: string]: {
-            /** Content of the file */ content: string;
+            /** Content of the file */
+            content: string;
           };
         };
         public?: boolean | ("true" | "false");
@@ -3207,7 +3215,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The comment text. */ body: string;
+        /** The comment text. */
+        body: string;
       };
     };
     responses: {
@@ -3246,7 +3255,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The comment text. */ body: string;
+        /** The comment text. */
+        body: string;
       };
     };
     responses: {
@@ -3545,7 +3555,8 @@ export interface operations {
     parameters: {};
     requestBody: {
       "application/json": {
-        /** The Markdown text to render in HTML. */ text: string;
+        /** The Markdown text to render in HTML. */
+        text: string;
         /** The rendering mode. */
         mode?: "markdown" | "gfm";
         /** The repository context to use when creating references in `gfm` mode. */
@@ -3782,7 +3793,9 @@ export interface operations {
     responses: {
       /** response */
       202: {
-        "application/json": { message?: string };
+        "application/json": {
+          message?: string;
+        };
       };
       /** response */
       205: unknown;
@@ -4246,7 +4259,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** Name of the runner group. */ name: string;
+        /** Name of the runner group. */
+        name: string;
         /** Visibility of a runner group. You can select all repositories, select individual repositories, or limit access to private repositories. Can be one of: `all`, `selected`, or `private`. */
         visibility?: "selected" | "all" | "private";
         /** List of repository IDs that can access the runner group. */
@@ -4299,7 +4313,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** Name of the runner group. */ name?: string;
+        /** Name of the runner group. */
+        name?: string;
         /** Visibility of a runner group. You can select all repositories, select individual repositories, or all private repositories. Can be one of: `all`, `selected`, or `private`. */
         visibility?: "selected" | "all" | "private";
       };
@@ -4466,7 +4481,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** List of runner IDs to add to the runner group. */ runners: number[];
+        /** List of runner IDs to add to the runner group. */
+        runners: number[];
       };
     };
     responses: {
@@ -5025,7 +5041,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** Must be passed as "web". */ name: string;
+        /** Must be passed as "web". */
+        name: string;
         /** Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/orgs#create-hook-config-params). */
         config: {
           url: components["schemas"]["webhook-config-url"];
@@ -5691,7 +5708,10 @@ export interface operations {
       204: never;
       /** response */
       403: {
-        "application/json": { message?: string; documentation_url?: string };
+        "application/json": {
+          message?: string;
+          documentation_url?: string;
+        };
       };
       404: components["responses"]["not_found"];
     };
@@ -5709,7 +5729,10 @@ export interface operations {
       204: never;
       /** Response if user is a member of the organization */
       422: {
-        "application/json": { message?: string; documentation_url?: string };
+        "application/json": {
+          message?: string;
+          documentation_url?: string;
+        };
       };
     };
   };
@@ -5743,7 +5766,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The name of the project. */ name: string;
+        /** The name of the project. */
+        name: string;
         /** The description of the project. */
         body?: string;
       };
@@ -5871,7 +5895,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The name of the repository. */ name: string;
+        /** The name of the repository. */
+        name: string;
         /** A short description of the repository. */
         description?: string;
         /** A URL with more information about the repository. */
@@ -6034,7 +6059,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The name of the team. */ name: string;
+        /** The name of the team. */
+        name: string;
         /** The description of the team. */
         description?: string;
         /** List GitHub IDs for organization members who will become team maintainers. */
@@ -6106,7 +6132,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The name of the team. */ name: string;
+        /** The name of the team. */
+        name: string;
         /** The description of the team. */
         description?: string;
         /**
@@ -6195,7 +6222,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The discussion post's title. */ title: string;
+        /** The discussion post's title. */
+        title: string;
         /** The discussion post's body text. */
         body: string;
         /** Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post. */
@@ -6244,7 +6272,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The discussion post's title. */ title?: string;
+        /** The discussion post's title. */
+        title?: string;
         /** The discussion post's body text. */
         body?: string;
       };
@@ -6316,7 +6345,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The discussion comment's body text. */ body: string;
+        /** The discussion comment's body text. */
+        body: string;
       };
     };
     responses: {
@@ -6363,7 +6393,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The discussion comment's body text. */ body: string;
+        /** The discussion comment's body text. */
+        body: string;
       };
     };
     responses: {
@@ -6690,7 +6721,11 @@ export interface operations {
       422: {
         "application/json": {
           message?: string;
-          errors?: { code?: string; field?: string; resource?: string }[];
+          errors?: {
+            code?: string;
+            field?: string;
+            resource?: string;
+          }[];
         };
       };
     };
@@ -6794,7 +6829,10 @@ export interface operations {
       204: never;
       /** Response if the project is not owned by the organization */
       403: {
-        "application/json": { message?: string; documentation_url?: string };
+        "application/json": {
+          message?: string;
+          documentation_url?: string;
+        };
       };
     };
   };
@@ -6962,7 +7000,8 @@ export interface operations {
       "application/json": {
         /** The IdP groups you want to connect to a GitHub team. When updating, the new `groups` object will replace the original one. You must include any existing groups that you don't want to remove. */
         groups: {
-          /** ID of the IdP group. */ group_id: string;
+          /** ID of the IdP group. */
+          group_id: string;
           /** Name of the IdP group. */
           group_name: string;
           /** Description of the IdP group. */
@@ -7025,7 +7064,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The project card's note */ note?: string | null;
+        /** The project card's note */
+        note?: string | null;
         /** Whether or not the card is archived */
         archived?: boolean;
       };
@@ -7072,7 +7112,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The position of the card in a column */ position: string;
+        /** The position of the card in a column */
+        position: string;
         /** The unique identifier of the column the card should be moved to */
         column_id?: number;
       };
@@ -7104,7 +7145,10 @@ export interface operations {
           code?: string;
           message?: string;
           documentation_url?: string;
-          errors?: { code?: string; message?: string }[];
+          errors?: {
+            code?: string;
+            message?: string;
+          }[];
         };
       };
     };
@@ -7134,7 +7178,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** Name of the project column */ name: string;
+        /** Name of the project column */
+        name: string;
       };
     };
     responses: {
@@ -7197,7 +7242,8 @@ export interface operations {
     requestBody: {
       "application/json":
         | {
-            /** The project card's note */ note: string | null;
+            /** The project card's note */
+            note: string | null;
           }
         | {
             /** The unique identifier of the content associated with the card */
@@ -7226,7 +7272,10 @@ export interface operations {
           code?: string;
           message?: string;
           documentation_url?: string;
-          errors?: { code?: string; message?: string }[];
+          errors?: {
+            code?: string;
+            message?: string;
+          }[];
         };
       };
     };
@@ -7239,7 +7288,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The position of the column in a project */ position: string;
+        /** The position of the column in a project */
+        position: string;
       };
     };
     responses: {
@@ -7279,7 +7329,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** Name of the project */ name?: string;
+        /** Name of the project */
+        name?: string;
         /** Body of the project */
         body?: string | null;
         /** State of the project; either 'open' or 'closed' */
@@ -7459,7 +7510,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** Name of the project column */ name: string;
+        /** Name of the project column */
+        name: string;
       };
     };
     responses: {
@@ -7542,7 +7594,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The name of the repository. */ name?: string;
+        /** The name of the repository. */
+        name?: string;
         /** A short description of the repository. */
         description?: string;
         /** A URL with more information about the repository. */
@@ -7604,7 +7657,10 @@ export interface operations {
       204: never;
       /** If an organization owner has configured the organization to prevent members from deleting organization-owned repositories, a member will get this response: */
       403: {
-        "application/json": { message?: string; documentation_url?: string };
+        "application/json": {
+          message?: string;
+          documentation_url?: string;
+        };
       };
       404: components["responses"]["not_found"];
     };
@@ -8629,7 +8685,8 @@ export interface operations {
         } | null;
         /** Restrict who can push to the protected branch. User, app, and team `restrictions` are only available for organization-owned repositories. Set to `null` to disable. */
         restrictions: {
-          /** The list of user `login`s with push access */ users: string[];
+          /** The list of user `login`s with push access */
+          users: string[];
           /** The list of team `slug`s with push access */
           teams: string[];
           /** The list of app `slug`s with push access */
@@ -9400,7 +9457,8 @@ export interface operations {
         completed_at?: string;
         /** Check runs can accept a variety of data in the `output` object, including a `title` and `summary` and can optionally provide descriptive details about the run. See the [`output` object](https://docs.github.com/rest/reference/checks#output-object) description. */
         output?: {
-          /** The title of the check run. */ title: string;
+          /** The title of the check run. */
+          title: string;
           /** The summary of the check run. This parameter supports Markdown. */
           summary: string;
           /** The details of the check run. This parameter supports Markdown. */
@@ -9428,7 +9486,8 @@ export interface operations {
           }[];
           /** Adds images to the output displayed in the GitHub pull request UI. See the [`images` object](https://docs.github.com/rest/reference/checks#images-object) description for details. */
           images?: {
-            /** The alternative text for the image. */ alt: string;
+            /** The alternative text for the image. */
+            alt: string;
             /** The full URL of the image. */
             image_url: string;
             /** A short image description. */
@@ -9514,7 +9573,8 @@ export interface operations {
         completed_at?: string;
         /** Check runs can accept a variety of data in the `output` object, including a `title` and `summary` and can optionally provide descriptive details about the run. See the [`output` object](https://docs.github.com/rest/reference/checks#output-object-1) description. */
         output?: {
-          /** **Required**. */ title?: string;
+          /** **Required**. */
+          title?: string;
           /** Can contain Markdown. */
           summary: string;
           /** Can contain Markdown. */
@@ -9542,7 +9602,8 @@ export interface operations {
           }[];
           /** Adds images to the output displayed in the GitHub pull request UI. See the [`images` object](https://docs.github.com/rest/reference/checks#annotations-object-1) description for details. */
           images?: {
-            /** The alternative text for the image. */ alt: string;
+            /** The alternative text for the image. */
+            alt: string;
             /** The full URL of the image. */
             image_url: string;
             /** A short image description. */
@@ -9601,7 +9662,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The sha of the head commit. */ head_sha: string;
+        /** The sha of the head commit. */
+        head_sha: string;
       };
     };
     responses: {
@@ -9623,7 +9685,8 @@ export interface operations {
       "application/json": {
         /** Enables or disables automatic creation of CheckSuite events upon pushes to the repository. Enabled by default. See the [`auto_trigger_checks` object](https://docs.github.com/rest/reference/checks#auto_trigger_checks-object) description for details. */
         auto_trigger_checks?: {
-          /** The `id` of the GitHub App. */ app_id: number;
+          /** The `id` of the GitHub App. */
+          app_id: number;
           /** Set to `true` to enable automatic creation of CheckSuite events upon pushes to the repository, or `false` to disable them. */
           setting: boolean;
         }[];
@@ -10012,7 +10075,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The contents of the comment */ body: string;
+        /** The contents of the comment */
+        body: string;
       };
     };
     responses: {
@@ -10242,7 +10306,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The contents of the comment. */ body: string;
+        /** The contents of the comment. */
+        body: string;
         /** Relative path of the file to comment on. */
         path?: string;
         /** Line index in the diff to comment on. */
@@ -10620,7 +10685,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The commit message. */ message: string;
+        /** The commit message. */
+        message: string;
         /** The new file content, using Base64 encoding. */
         content: string;
         /** **Required if you are updating a file**. The blob SHA of the file being replaced. */
@@ -10679,7 +10745,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The commit message. */ message: string;
+        /** The commit message. */
+        message: string;
         /** The blob SHA of the file being replaced. */
         sha: string;
         /** The branch name. Default: the repository’s default branch (usually `master`) */
@@ -10857,11 +10924,16 @@ export interface operations {
       };
       /** Merged branch response */
       202: {
-        "application/json": { message?: string };
+        "application/json": {
+          message?: string;
+        };
       };
       /** response */
       409: {
-        "application/json": { message?: string; documentation_url?: string };
+        "application/json": {
+          message?: string;
+          documentation_url?: string;
+        };
       };
       422: components["responses"]["validation_failed"];
     };
@@ -11021,7 +11093,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** A custom webhook event name. */ event_type: string;
+        /** A custom webhook event name. */
+        event_type: string;
         /** JSON payload with extra information about the webhook event that your action or worklow may use. */
         client_payload?: { [key: string]: any };
       };
@@ -11109,7 +11182,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The new blob's content. */ content: string;
+        /** The new blob's content. */
+        content: string;
         /** The encoding used for `content`. Currently, `"utf-8"` and `"base64"` are supported. */
         encoding?: string;
       };
@@ -11189,7 +11263,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The commit message */ message: string;
+        /** The commit message */
+        message: string;
         /** The SHA of the tree object this commit points to */
         tree: string;
         /** The SHAs of the commits that were the parents of this commit. If omitted or empty, the commit will be written as a root commit. For a single parent, an array of one SHA should be provided; for a merge commit, an array of more than one should be provided. */
@@ -11360,7 +11435,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The SHA1 value to set this reference to */ sha: string;
+        /** The SHA1 value to set this reference to */
+        sha: string;
         /** Indicates whether to force the update or to make sure the update is a fast-forward update. Leaving this out or setting it to `false` will make sure you're not overwriting work. */
         force?: boolean;
       };
@@ -11439,7 +11515,8 @@ export interface operations {
         type: "commit" | "tree" | "blob";
         /** An object with information about the individual creating the tag. */
         tagger?: {
-          /** The name of the author of the tag */ name?: string;
+          /** The name of the author of the tag */
+          name?: string;
           /** The email of the author of the tag */
           email?: string;
           /** When this object was tagged. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
@@ -11517,7 +11594,8 @@ export interface operations {
       "application/json": {
         /** Objects (of `path`, `mode`, `type`, and `sha`) specifying a tree structure. */
         tree: {
-          /** The file referenced in the tree. */ path?: string;
+          /** The file referenced in the tree. */
+          path?: string;
           /** The file mode; one of `100644` for file (blob), `100755` for executable (blob), `040000` for subdirectory (tree), `160000` for submodule (commit), or `120000` for a blob that specifies the path of a symlink. */
           mode?: "100644" | "100755" | "040000" | "160000" | "120000";
           /** Either `blob`, `tree`, or `commit`. */
@@ -11847,7 +11925,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The URL of the originating repository. */ vcs_url: string;
+        /** The URL of the originating repository. */
+        vcs_url: string;
         /** The originating VCS type. Can be one of `subversion`, `git`, `mercurial`, or `tfvc`. Please be aware that without this parameter, the import job will take additional time to detect the VCS type before beginning the import. This detection step will be reflected in the response. */
         vcs?: "subversion" | "git" | "mercurial" | "tfvc";
         /** If authentication is required, the username to provide to `vcs_url`. */
@@ -11942,7 +12021,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The new Git author email. */ email?: string;
+        /** The new Git author email. */
+        email?: string;
         /** The new Git author name. */
         name?: string;
         remote_id?: string;
@@ -12175,7 +12255,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The title of the issue. */ title: string;
+        /** The title of the issue. */
+        title: string;
         /** The contents of the issue. */
         body?: string;
         /** Login for the user that this issue should be assigned to. _NOTE: Only users with push access can set the assignee for new issues. The assignee is silently dropped otherwise. **This field is deprecated.**_ */
@@ -12185,7 +12266,12 @@ export interface operations {
         /** Labels to associate with this issue. _NOTE: Only users with push access can set labels for new issues. Labels are silently dropped otherwise._ */
         labels?: (
           | string
-          | { id?: number; name?: string; description?: string; color?: string }
+          | {
+              id?: number;
+              name?: string;
+              description?: string;
+              color?: string;
+            }
         )[];
         /** Logins for Users to assign to this issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._ */
         assignees?: string[];
@@ -12254,7 +12340,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The contents of the comment. */ body: string;
+        /** The contents of the comment. */
+        body: string;
       };
     };
     responses: {
@@ -12445,7 +12532,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The title of the issue. */ title?: string;
+        /** The title of the issue. */
+        title?: string;
         /** The contents of the issue. */
         body?: string;
         /** Login for the user that this issue should be assigned to. **This field is deprecated.** */
@@ -12457,7 +12545,12 @@ export interface operations {
         /** Labels to associate with this issue. Pass one or more Labels to _replace_ the set of Labels on this Issue. Send an empty array (`[]`) to clear all Labels from the Issue. _NOTE: Only users with push access can set labels for issues. Labels are silently dropped otherwise._ */
         labels?: (
           | string
-          | { id?: number; name?: string; description?: string; color?: string }
+          | {
+              id?: number;
+              name?: string;
+              description?: string;
+              color?: string;
+            }
         )[];
         /** Logins for Users to assign to this issue. Pass one or more user logins to _replace_ the set of assignees on this Issue. Send an empty array (`[]`) to clear all assignees from the Issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._ */
         assignees?: string[];
@@ -12554,7 +12647,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The contents of the comment. */ body: string;
+        /** The contents of the comment. */
+        body: string;
       };
     };
     responses: {
@@ -12872,7 +12966,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** A name for the key. */ title?: string;
+        /** A name for the key. */
+        title?: string;
         /** The contents of the key. */
         key: string;
         /**
@@ -13079,11 +13174,17 @@ export interface operations {
       403: components["responses"]["forbidden"];
       /** response */
       404: {
-        "application/json": { message?: string; documentation_url?: string };
+        "application/json": {
+          message?: string;
+          documentation_url?: string;
+        };
       };
       /** Merge conflict response */
       409: {
-        "application/json": { message?: string; documentation_url?: string };
+        "application/json": {
+          message?: string;
+          documentation_url?: string;
+        };
       };
       422: components["responses"]["validation_failed"];
     };
@@ -13122,7 +13223,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The title of the milestone. */ title: string;
+        /** The title of the milestone. */
+        title: string;
         /** The state of the milestone. Either `open` or `closed`. */
         state?: "open" | "closed";
         /** A description of the milestone. */
@@ -13166,7 +13268,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The title of the milestone. */ title?: string;
+        /** The title of the milestone. */
+        title?: string;
         /** The state of the milestone. Either `open` or `closed`. */
         state?: "open" | "closed";
         /** A description of the milestone. */
@@ -13446,7 +13549,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The name of the project. */ name: string;
+        /** The name of the project. */
+        name: string;
         /** The description of the project. */
         body?: string;
       };
@@ -13512,7 +13616,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The title of the new pull request. */ title?: string;
+        /** The title of the new pull request. */
+        title?: string;
         /** The name of the branch where your changes are implemented. For cross-repository pull requests in the same network, namespace `head` with a user like this: `username:branch`. */
         head: string;
         /** The name of the branch you want the changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repository that requests a merge to a base of another repository. */
@@ -13650,7 +13755,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The text of the reply to the review comment. */ body: string;
+        /** The text of the reply to the review comment. */
+        body: string;
       };
     };
     responses: {
@@ -13812,7 +13918,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The title of the pull request. */ title?: string;
+        /** The title of the pull request. */
+        title?: string;
         /** The contents of the pull request. */
         body?: string;
         /** State of this Pull Request. Either `open` or `closed`. */
@@ -13915,7 +14022,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The text of the review comment. */ body: string;
+        /** The text of the review comment. */
+        body: string;
         /** The SHA of the commit needing a comment. Not using the latest commit SHA may render your comment outdated if a subsequent commit modifies the line you specify as the `position`. */
         commit_id?: string;
         /** The relative path to the file that necessitates a comment. */
@@ -13958,7 +14066,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The text of the review comment. */ body: string;
+        /** The text of the review comment. */
+        body: string;
       };
     };
     responses: {
@@ -14037,7 +14146,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** Title for the automatic commit message. */ commit_title?: string;
+        /** Title for the automatic commit message. */
+        commit_title?: string;
         /** Extra detail to append to automatic commit message. */
         commit_message?: string;
         /** SHA that pull request head must match to allow merge. */
@@ -14055,11 +14165,17 @@ export interface operations {
       404: components["responses"]["not_found"];
       /** Response if merge cannot be performed */
       405: {
-        "application/json": { message?: string; documentation_url?: string };
+        "application/json": {
+          message?: string;
+          documentation_url?: string;
+        };
       };
       /** Response if sha was provided and pull request head did not match */
       409: {
-        "application/json": { message?: string; documentation_url?: string };
+        "application/json": {
+          message?: string;
+          documentation_url?: string;
+        };
       };
       422: components["responses"]["validation_failed"];
     };
@@ -14230,7 +14346,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The body text of the pull request review. */ body: string;
+        /** The body text of the pull request review. */
+        body: string;
       };
     };
     responses: {
@@ -14318,7 +14435,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The body text of the pull request review */ body?: string;
+        /** The body text of the pull request review */
+        body?: string;
         /** The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. When you leave this blank, the API returns _HTTP 422 (Unrecognizable entity)_ and sets the review action state to `PENDING`, which means you will need to re-submit the pull request review using a review action. */
         event: "APPROVE" | "REQUEST_CHANGES" | "COMMENT";
       };
@@ -14351,7 +14469,10 @@ export interface operations {
     responses: {
       /** response */
       202: {
-        "application/json": { message?: string; url?: string };
+        "application/json": {
+          message?: string;
+          url?: string;
+        };
       };
       403: components["responses"]["forbidden"];
       415: components["responses"]["preview_header_missing"];
@@ -14421,7 +14542,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The name of the tag. */ tag_name: string;
+        /** The name of the tag. */
+        tag_name: string;
         /** Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually `master`). */
         target_commitish?: string;
         /** The name of the release. */
@@ -14472,7 +14594,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The file name of the asset. */ name?: string;
+        /** The file name of the asset. */
+        name?: string;
         /** An alternate short description of the asset. Used in place of the filename. */
         label?: string;
         state?: string;
@@ -14563,7 +14686,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The name of the tag. */ tag_name?: string;
+        /** The name of the tag. */
+        tag_name?: string;
         /** Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually `master`). */
         target_commitish?: string;
         /** The name of the release. */
@@ -15227,11 +15351,13 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The SCIM schema URIs. */ schemas: string[];
+        /** The SCIM schema URIs. */
+        schemas: string[];
         /** The name of the SCIM group. This must match the GitHub organization that the group maps to. */
         displayName: string;
         members?: {
-          /** The SCIM user ID for a user. */ value: string;
+          /** The SCIM user ID for a user. */
+          value: string;
         }[];
       };
     };
@@ -15271,11 +15397,13 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The SCIM schema URIs. */ schemas: string[];
+        /** The SCIM schema URIs. */
+        schemas: string[];
         /** The name of the SCIM group. This must match the GitHub organization that the group maps to. */
         displayName: string;
         members?: {
-          /** The SCIM user ID for a user. */ value: string;
+          /** The SCIM user ID for a user. */
+          value: string;
         }[];
       };
     };
@@ -15300,7 +15428,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The SCIM schema URIs. */ schemas: string[];
+        /** The SCIM schema URIs. */
+        schemas: string[];
         /** Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
         Operations: { [key: string]: any }[];
       };
@@ -15377,24 +15506,29 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The SCIM schema URIs. */ schemas: string[];
+        /** The SCIM schema URIs. */
+        schemas: string[];
         /** The username for the user. */
         userName: string;
         name: {
-          /** The first name of the user. */ givenName: string;
+          /** The first name of the user. */
+          givenName: string;
           /** The last name of the user. */
           familyName: string;
         };
         /** List of user emails. */
         emails: {
-          /** The email address. */ value: string;
+          /** The email address. */
+          value: string;
           /** The type of email address. */
           type: string;
           /** Whether this email address is the primary address. */
           primary: boolean;
         }[];
         /** List of SCIM group IDs the user is a member of. */
-        groups?: { value?: string }[];
+        groups?: {
+          value?: string;
+        }[];
       };
     };
     responses: {
@@ -15437,24 +15571,29 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The SCIM schema URIs. */ schemas: string[];
+        /** The SCIM schema URIs. */
+        schemas: string[];
         /** The username for the user. */
         userName: string;
         name: {
-          /** The first name of the user. */ givenName: string;
+          /** The first name of the user. */
+          givenName: string;
           /** The last name of the user. */
           familyName: string;
         };
         /** List of user emails. */
         emails: {
-          /** The email address. */ value: string;
+          /** The email address. */
+          value: string;
           /** The type of email address. */
           type: string;
           /** Whether this email address is the primary address. */
           primary: boolean;
         }[];
         /** List of SCIM group IDs the user is a member of. */
-        groups?: { value?: string }[];
+        groups?: {
+          value?: string;
+        }[];
       };
     };
     responses: {
@@ -15493,7 +15632,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The SCIM schema URIs. */ schemas: string[];
+        /** The SCIM schema URIs. */
+        schemas: string[];
         /** Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
         Operations: { [key: string]: any }[];
       };
@@ -15582,9 +15722,17 @@ export interface operations {
         userName: string;
         /** The name of the user, suitable for display to end-users */
         displayName?: string;
-        name: { givenName: string; familyName: string; formatted?: string };
+        name: {
+          givenName: string;
+          familyName: string;
+          formatted?: string;
+        };
         /** user emails */
-        emails: { value: string; primary?: boolean; type?: string }[];
+        emails: {
+          value: string;
+          primary?: boolean;
+          type?: string;
+        }[];
         schemas?: string[];
         externalId?: string;
         groups?: string[];
@@ -15645,9 +15793,17 @@ export interface operations {
         active?: boolean;
         /** Configured by the admin. Could be an email, login, or username */
         userName: string;
-        name: { givenName: string; familyName: string; formatted?: string };
+        name: {
+          givenName: string;
+          familyName: string;
+          formatted?: string;
+        };
         /** user emails */
-        emails: { type?: string; value: string; primary?: boolean }[];
+        emails: {
+          type?: string;
+          value: string;
+          primary?: boolean;
+        }[];
       };
     };
     responses: {
@@ -15700,7 +15856,10 @@ export interface operations {
                 givenName?: string | null;
                 familyName?: string | null;
               }
-            | { value?: string; primary?: boolean }[]
+            | {
+                value?: string;
+                primary?: boolean;
+              }[]
             | string;
         }[];
       };
@@ -16046,7 +16205,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The name of the team. */ name: string;
+        /** The name of the team. */
+        name: string;
         /** The description of the team. */
         description?: string;
         /**
@@ -16137,7 +16297,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The discussion post's title. */ title: string;
+        /** The discussion post's title. */
+        title: string;
         /** The discussion post's body text. */
         body: string;
         /** Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post. */
@@ -16184,7 +16345,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The discussion post's title. */ title?: string;
+        /** The discussion post's title. */
+        title?: string;
         /** The discussion post's body text. */
         body?: string;
       };
@@ -16253,7 +16415,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The discussion comment's body text. */ body: string;
+        /** The discussion comment's body text. */
+        body: string;
       };
     };
     responses: {
@@ -16298,7 +16461,8 @@ export interface operations {
     };
     requestBody: {
       "application/json": {
-        /** The discussion comment's body text. */ body: string;
+        /** The discussion comment's body text. */
+        body: string;
       };
     };
     responses: {
@@ -16563,7 +16727,11 @@ export interface operations {
       422: {
         "application/json": {
           message?: string;
-          errors?: { code?: string; field?: string; resource?: string }[];
+          errors?: {
+            code?: string;
+            field?: string;
+            resource?: string;
+          }[];
           documentation_url?: string;
         };
       };
@@ -16660,7 +16828,11 @@ export interface operations {
       422: {
         "application/json": {
           message?: string;
-          errors?: { code?: string; field?: string; resource?: string }[];
+          errors?: {
+            code?: string;
+            field?: string;
+            resource?: string;
+          }[];
           documentation_url?: string;
         };
       };
@@ -16764,7 +16936,10 @@ export interface operations {
       204: never;
       /** Response if the project is not owned by the organization */
       403: {
-        "application/json": { message?: string; documentation_url?: string };
+        "application/json": {
+          message?: string;
+          documentation_url?: string;
+        };
       };
       404: components["responses"]["not_found"];
       415: components["responses"]["preview_header_missing"];
@@ -16928,7 +17103,8 @@ export interface operations {
       "application/json": {
         /** The IdP groups you want to connect to a GitHub team. When updating, the new `groups` object will replace the original one. You must include any existing groups that you don't want to remove. */
         groups: {
-          /** ID of the IdP group. */ group_id: string;
+          /** ID of the IdP group. */
+          group_id: string;
           /** Name of the IdP group. */
           group_name: string;
           /** Description of the IdP group. */
@@ -16994,7 +17170,8 @@ export interface operations {
     parameters: {};
     requestBody: {
       "application/json": {
-        /** The new name of the user. */ name?: string;
+        /** The new name of the user. */
+        name?: string;
         /** The publicly visible email address of the user. */
         email?: string;
         /** The new blog URL of the user. */
@@ -17294,7 +17471,8 @@ export interface operations {
     parameters: {};
     requestBody: {
       "application/json": {
-        /** A GPG key in ASCII-armored format. */ armored_public_key: string;
+        /** A GPG key in ASCII-armored format. */
+        armored_public_key: string;
       };
     };
     responses: {
@@ -17511,7 +17689,8 @@ export interface operations {
     parameters: {};
     requestBody: {
       "application/json": {
-        /** A descriptive name for the new key. */ title?: string;
+        /** A descriptive name for the new key. */
+        title?: string;
         /** The public SSH key to add to your GitHub account. */
         key: string;
       };
@@ -17844,7 +18023,8 @@ export interface operations {
     parameters: {};
     requestBody: {
       "application/json": {
-        /** Name of the project */ name: string;
+        /** Name of the project */
+        name: string;
         /** Body of the project */
         body?: string | null;
       };
@@ -17940,7 +18120,8 @@ export interface operations {
     parameters: {};
     requestBody: {
       "application/json": {
-        /** The name of the repository. */ name: string;
+        /** The name of the repository. */
+        name: string;
         /** A short description of the repository. */
         description?: string;
         /** A URL with more information about the repository. */
@@ -18782,7 +18963,8 @@ export interface components {
     } | null;
     /** GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub. */
     integration: {
-      /** Unique identifier of the GitHub app */ id: number;
+      /** Unique identifier of the GitHub app */
+      id: number;
       /** The slug name of the GitHub app */
       slug?: string;
       node_id: string;
@@ -18812,7 +18994,10 @@ export interface components {
       pem?: string;
     } & { [key: string]: any };
     /** Basic Error */
-    "basic-error": { message?: string; documentation_url?: string };
+    "basic-error": {
+      message?: string;
+      documentation_url?: string;
+    };
     /** Validation Error Simple */
     "validation-error-simple": {
       message: string;
@@ -18836,7 +19021,8 @@ export interface components {
     };
     /** An enterprise account */
     enterprise: {
-      /** A short description of the enterprise. */ description?: string | null;
+      /** A short description of the enterprise. */
+      description?: string | null;
       html_url: string;
       /** The enterprise's website URL. */
       website_url?: string | null;
@@ -18853,7 +19039,8 @@ export interface components {
     };
     /** Installation */
     installation: {
-      /** The ID of the installation. */ id: number;
+      /** The ID of the installation. */
+      id: number;
       account:
         | (Partial<components["schemas"]["simple-user"]> &
             Partial<components["schemas"]["enterprise"]>)
@@ -18899,7 +19086,8 @@ export interface components {
     };
     /** A git repository */
     repository: {
-      /** Unique identifier of the repository */ id: number;
+      /** Unique identifier of the repository */
+      id: number;
       node_id: string;
       /** The name of the repository. */
       name: string;
@@ -19085,7 +19273,11 @@ export interface components {
         pushed_at?: string;
         created_at?: string;
         updated_at?: string;
-        permissions?: { admin?: boolean; push?: boolean; pull?: boolean };
+        permissions?: {
+          admin?: boolean;
+          push?: boolean;
+          pull?: boolean;
+        };
         allow_rebase_merge?: boolean;
         template_repository?: string;
         temp_clone_token?: string;
@@ -19142,7 +19334,11 @@ export interface components {
     "application-grant": {
       id: number;
       url: string;
-      app: { client_id: string; name: string; url: string };
+      app: {
+        client_id: string;
+        name: string;
+        url: string;
+      };
       created_at: string;
       updated_at: string;
       scopes: string[];
@@ -19167,7 +19363,11 @@ export interface components {
       token: string;
       token_last_eight: string | null;
       hashed_token: string | null;
-      app: { client_id: string; name: string; url: string };
+      app: {
+        client_id: string;
+        name: string;
+        url: string;
+      };
       note: string | null;
       note_url: string | null;
       updated_at: string;
@@ -19186,7 +19386,8 @@ export interface components {
     };
     /** Content Reference attachments allow you to provide context around URLs posted in comments */
     "content-reference-attachment": {
-      /** The ID of the attachment */ id: number;
+      /** The ID of the attachment */
+      id: number;
       /** The title of the attachment */
       title: string;
       /** The body of the attachment */
@@ -19240,7 +19441,8 @@ export interface components {
     };
     /** A self hosted runner */
     runner: {
-      /** The id of the runner. */ id: number;
+      /** The id of the runner. */
+      id: number;
       /** The name of the runner. */
       name: string;
       /** The Operating System of the runner. */
@@ -19249,7 +19451,8 @@ export interface components {
       status: string;
       busy: boolean;
       labels: {
-        /** Unique identifier of the label. */ id?: number;
+        /** Unique identifier of the label. */
+        id?: number;
         /** Name of the label. */
         name?: string;
         /** The type of label. Read-only labels are applied automatically when the runner is configured. */
@@ -19265,7 +19468,8 @@ export interface components {
     };
     /** Authentication Token */
     "authentication-token": {
-      /** The token used for authentication */ token: string;
+      /** The token used for authentication */
+      token: string;
       /** The time this token expires */
       expires_at: string;
       permissions?: { [key: string]: any };
@@ -19283,7 +19487,8 @@ export interface components {
       /** The amount of free GitHub Actions minutes available. */
       included_minutes?: number;
       minutes_used_breakdown?: {
-        /** Total minutes used on Ubuntu runner machines. */ UBUNTU?: number;
+        /** Total minutes used on Ubuntu runner machines. */
+        UBUNTU?: number;
         /** Total minutes used on macOS runner machines. */
         MACOS?: number;
         /** Total minutes used on Windows runner machines. */
@@ -19398,7 +19603,8 @@ export interface components {
     };
     /** Comments provide a way for people to collaborate on an issue. */
     "issue-comment": {
-      /** Unique identifier of the issue comment */ id: number;
+      /** Unique identifier of the issue comment */
+      id: number;
       node_id: string;
       /** URL for the issue comment */
       url: string;
@@ -19428,7 +19634,11 @@ export interface components {
       id: string;
       type: string | null;
       actor: components["schemas"]["actor"];
-      repo: { id: number; name: string; url: string };
+      repo: {
+        id: number;
+        name: string;
+        url: string;
+      };
       org?: components["schemas"]["actor"];
       payload: {
         action: string;
@@ -19447,7 +19657,10 @@ export interface components {
       created_at: string | null;
     };
     /** Hypermedia Link with Type */
-    "link-with-type": { href: string; type: string };
+    "link-with-type": {
+      href: string;
+      type: string;
+    };
     /** Feed */
     feed: {
       timeline_url: string;
@@ -19621,11 +19834,18 @@ export interface components {
       url: string;
       version: string;
       user: components["schemas"]["simple-user"] | null;
-      change_status: { total?: number; additions?: number; deletions?: number };
+      change_status: {
+        total?: number;
+        additions?: number;
+        deletions?: number;
+      };
       committed_at: string;
     };
     /** Gitignore Template */
-    "gitignore-template": { name: string; source: string };
+    "gitignore-template": {
+      name: string;
+      source: string;
+    };
     /** Issues are a great way to keep track of tasks, enhancements, and bugs for your projects. */
     issue: {
       id: number;
@@ -19833,7 +20053,11 @@ export interface components {
       pushed_at?: string | null;
       created_at?: string | null;
       updated_at?: string | null;
-      permissions?: { admin?: boolean; push?: boolean; pull?: boolean };
+      permissions?: {
+        admin?: boolean;
+        push?: boolean;
+        pull?: boolean;
+      };
       template_repository?: string;
       temp_clone_token?: string;
       delete_branch_on_merge?: boolean;
@@ -19950,7 +20174,8 @@ export interface components {
     };
     /** Secrets for GitHub Actions for an organization. */
     "organization-actions-secret": {
-      /** The name of the secret. */ name: string;
+      /** The name of the secret. */
+      name: string;
       created_at: string;
       updated_at: string;
       /** Visibility of a secret */
@@ -19959,7 +20184,8 @@ export interface components {
     };
     /** The public key used for setting Actions Secrets. */
     "actions-public-key": {
-      /** The identifier for the key. */ key_id: string;
+      /** The identifier for the key. */
+      key_id: string;
       /** The Base64 encoded public key. */
       key: string;
       id?: number;
@@ -19969,7 +20195,8 @@ export interface components {
     };
     /** Credential Authorization */
     "credential-authorization": {
-      /** User login that owns the underlying credential. */ login: string;
+      /** User login that owns the underlying credential. */
+      login: string;
       /** Unique identifier for the credential. */
       credential_id: number;
       /** Human-readable description of the credential type. */
@@ -20025,7 +20252,8 @@ export interface components {
     };
     /** Groups of organization members that gives permissions on specified repositories. */
     "team-simple": {
-      /** Unique identifier of the team */ id: number;
+      /** Unique identifier of the team */
+      id: number;
       node_id: string;
       /** URL for the team */
       url: string;
@@ -20067,7 +20295,9 @@ export interface components {
       organization_url: string;
       organization: components["schemas"]["organization-simple"];
       user: components["schemas"]["simple-user"] | null;
-      permissions?: { can_create_repository: boolean };
+      permissions?: {
+        can_create_repository: boolean;
+      };
     };
     /** A migration. */
     migration: {
@@ -20108,13 +20338,18 @@ export interface components {
       /** Whether or not this project can be seen by everyone. */
       private?: boolean;
       cards_url?: string;
-      permissions?: { read: boolean; write: boolean; admin: boolean };
+      permissions?: {
+        read: boolean;
+        write: boolean;
+        admin: boolean;
+      };
     };
     /** External Groups to be mapped to a team for membership */
     "group-mapping": {
       /** Array of groups to be mapped to this team */
       groups?: {
-        /** The ID of the group */ group_id: string;
+        /** The ID of the group */
+        group_id: string;
         /** The name of the group */
         group_name: string;
         /** a description of the group */
@@ -20133,7 +20368,8 @@ export interface components {
     };
     /** Groups of organization members that gives permissions on specified repositories. */
     "team-full": {
-      /** Unique identifier of the team */ id: number;
+      /** Unique identifier of the team */
+      id: number;
       node_id: string;
       /** URL for the team */
       url: string;
@@ -20244,11 +20480,16 @@ export interface components {
       updated_at?: string;
       organization_permission?: string;
       private?: boolean;
-      permissions?: { read?: boolean; write?: boolean; admin?: boolean };
+      permissions?: {
+        read?: boolean;
+        write?: boolean;
+        admin?: boolean;
+      };
     };
     /** A team's access to a repository. */
     "team-repository": {
-      /** Unique identifier of the repository */ id: number;
+      /** Unique identifier of the repository */
+      id: number;
       node_id: string;
       /** The name of the repository. */
       name: string;
@@ -20434,7 +20675,11 @@ export interface components {
         pushed_at?: string;
         created_at?: string;
         updated_at?: string;
-        permissions?: { admin?: boolean; push?: boolean; pull?: boolean };
+        permissions?: {
+          admin?: boolean;
+          push?: boolean;
+          pull?: boolean;
+        };
         allow_rebase_merge?: boolean;
         template_repository?: string;
         temp_clone_token?: string;
@@ -20491,7 +20736,11 @@ export interface components {
       permission: string;
       user: components["schemas"]["simple-user"] | null;
     };
-    "rate-limit": { limit: number; remaining: number; reset: number };
+    "rate-limit": {
+      limit: number;
+      remaining: number;
+      reset: number;
+    };
     /** Rate Limit Overview */
     "rate-limit-overview": {
       resources: {
@@ -20580,7 +20829,11 @@ export interface components {
       pushed_at: string;
       created_at: string;
       updated_at: string;
-      permissions?: { admin: boolean; pull: boolean; push: boolean };
+      permissions?: {
+        admin: boolean;
+        pull: boolean;
+        push: boolean;
+      };
       allow_rebase_merge?: boolean;
       template_repository?: components["schemas"]["repository"] | null;
       temp_clone_token?: string | null;
@@ -20618,7 +20871,8 @@ export interface components {
     };
     /** Information of a job execution in a workflow run */
     job: {
-      /** The id of the job. */ id: number;
+      /** The id of the job. */
+      id: number;
       /** The id of the associated workflow run. */
       run_id: number;
       run_url: string;
@@ -20667,12 +20921,20 @@ export interface components {
       head: {
         ref: string;
         sha: string;
-        repo: { id: number; url: string; name: string };
+        repo: {
+          id: number;
+          url: string;
+          name: string;
+        };
       };
       base: {
         ref: string;
         sha: string;
-        repo: { id: number; url: string; name: string };
+        repo: {
+          id: number;
+          url: string;
+          name: string;
+        };
       };
     };
     /** Simple Commit */
@@ -20681,12 +20943,19 @@ export interface components {
       tree_id: string;
       message: string;
       timestamp: string;
-      author: { name: string; email: string } | null;
-      committer: { name: string; email: string } | null;
+      author: {
+        name: string;
+        email: string;
+      } | null;
+      committer: {
+        name: string;
+        email: string;
+      } | null;
     };
     /** An invocation of a workflow */
     "workflow-run": {
-      /** The ID of the workflow run. */ id: number;
+      /** The ID of the workflow run. */
+      id: number;
       /** The name of the workflow run. */
       name?: string;
       node_id: string;
@@ -20728,15 +20997,25 @@ export interface components {
     /** Workflow Run Usage */
     "workflow-run-usage": {
       billable?: {
-        UBUNTU?: { total_ms?: number; jobs?: number };
-        MACOS?: { total_ms?: number; jobs?: number };
-        WINDOWS?: { total_ms?: number; jobs?: number };
+        UBUNTU?: {
+          total_ms?: number;
+          jobs?: number;
+        };
+        MACOS?: {
+          total_ms?: number;
+          jobs?: number;
+        };
+        WINDOWS?: {
+          total_ms?: number;
+          jobs?: number;
+        };
       };
       run_duration_ms?: number;
     };
     /** Set secrets for GitHub Actions. */
     "actions-secret": {
-      /** The name of the secret. */ name: string;
+      /** The name of the secret. */
+      name: string;
       created_at: string;
       updated_at: string;
     };
@@ -20757,13 +21036,22 @@ export interface components {
     /** Workflow Usage */
     "workflow-usage": {
       billable?: {
-        UBUNTU?: { total_ms?: number };
-        MACOS?: { total_ms?: number };
-        WINDOWS?: { total_ms?: number };
+        UBUNTU?: {
+          total_ms?: number;
+        };
+        MACOS?: {
+          total_ms?: number;
+        };
+        WINDOWS?: {
+          total_ms?: number;
+        };
       };
     };
     /** Protected Branch Admin Enforced */
-    "protected-branch-admin-enforced": { url: string; enabled: boolean };
+    "protected-branch-admin-enforced": {
+      url: string;
+      enabled: boolean;
+    };
     /** Protected Branch Pull Request Review */
     "protected-branch-pull-request-review": {
       url?: string;
@@ -20875,9 +21163,15 @@ export interface components {
       enforce_admins?: components["schemas"]["protected-branch-admin-enforced"];
       required_pull_request_reviews?: components["schemas"]["protected-branch-pull-request-review"];
       restrictions?: components["schemas"]["branch-restriction-policy"];
-      required_linear_history?: { enabled?: boolean };
-      allow_force_pushes?: { enabled?: boolean };
-      allow_deletions?: { enabled?: boolean };
+      required_linear_history?: {
+        enabled?: boolean;
+      };
+      allow_force_pushes?: {
+        enabled?: boolean;
+      };
+      allow_deletions?: {
+        enabled?: boolean;
+      };
       enabled: boolean;
       name?: string;
       protection_url?: string;
@@ -20885,13 +21179,20 @@ export interface components {
     /** Short Branch */
     "short-branch": {
       name: string;
-      commit: { sha: string; url: string };
+      commit: {
+        sha: string;
+        url: string;
+      };
       protected: boolean;
       protection?: components["schemas"]["branch-protection"];
       protection_url?: string;
     };
     /** Metaproperties for Git author/committer information. */
-    "git-user": { name?: string; email?: string; date?: string };
+    "git-user": {
+      name?: string;
+      email?: string;
+      date?: string;
+    };
     verification: {
       verified: boolean;
       reason: string;
@@ -20911,13 +21212,24 @@ export interface components {
         committer: components["schemas"]["git-user"] | null;
         message: string;
         comment_count: number;
-        tree: { sha: string; url: string };
+        tree: {
+          sha: string;
+          url: string;
+        };
         verification?: components["schemas"]["verification"];
       };
       author: components["schemas"]["simple-user"] | null;
       committer: components["schemas"]["simple-user"] | null;
-      parents: { sha: string; url: string; html_url?: string }[];
-      stats?: { additions?: number; deletions?: number; total?: number };
+      parents: {
+        sha: string;
+        url: string;
+        html_url?: string;
+      }[];
+      stats?: {
+        additions?: number;
+        deletions?: number;
+        total?: number;
+      };
       files?: {
         filename?: string;
         additions?: number;
@@ -20936,7 +21248,10 @@ export interface components {
     "branch-with-protection": {
       name: string;
       commit: components["schemas"]["commit"];
-      _links: { html: string; self: string };
+      _links: {
+        html: string;
+        self: string;
+      };
       protected: boolean;
       protection: components["schemas"]["branch-protection"];
       protection_url: string;
@@ -20967,16 +21282,29 @@ export interface components {
           teams: components["schemas"]["team"][];
         };
       };
-      required_signatures?: { url: string; enabled: boolean };
-      enforce_admins?: { url: string; enabled: boolean };
-      required_linear_history?: { enabled: boolean };
-      allow_force_pushes?: { enabled: boolean };
-      allow_deletions?: { enabled: boolean };
+      required_signatures?: {
+        url: string;
+        enabled: boolean;
+      };
+      enforce_admins?: {
+        url: string;
+        enabled: boolean;
+      };
+      required_linear_history?: {
+        enabled: boolean;
+      };
+      allow_force_pushes?: {
+        enabled: boolean;
+      };
+      allow_deletions?: {
+        enabled: boolean;
+      };
       restrictions?: components["schemas"]["branch-restriction-policy"];
     };
     /** A check performed on the code of a given code change */
     "check-run": {
-      /** The id of the check. */ id: number;
+      /** The id of the check. */
+      id: number;
       /** The SHA of the commit that is being checked. */
       head_sha: string;
       node_id: string;
@@ -20998,7 +21326,9 @@ export interface components {
       };
       /** The name of the check. */
       name: string;
-      check_suite: { id: number } | null;
+      check_suite: {
+        id: number;
+      } | null;
       app: components["schemas"]["integration"] | null;
       pull_requests: components["schemas"]["pull-request-minimal"][];
     };
@@ -21039,7 +21369,10 @@ export interface components {
     /** Check suite configuration preferences for a repository. */
     "check-suite-preference": {
       preferences?: {
-        auto_trigger_checks?: { app_id: number; setting: boolean }[];
+        auto_trigger_checks?: {
+          app_id: number;
+          setting: boolean;
+        }[];
       };
       repository?: components["schemas"]["repository"];
     };
@@ -21155,11 +21488,16 @@ export interface components {
       received_events_url: string;
       type: string;
       site_admin: boolean;
-      permissions?: { pull: boolean; push: boolean; admin: boolean };
+      permissions?: {
+        pull: boolean;
+        push: boolean;
+        admin: boolean;
+      };
     };
     /** Repository invitations let you manage who you collaborate with. */
     "repository-invitation": {
-      /** Unique identifier of the repository invitation. */ id: number;
+      /** Unique identifier of the repository invitation. */
+      id: number;
       repository: components["schemas"]["minimal-repository"];
       invitee: components["schemas"]["simple-user"] | null;
       inviter: components["schemas"]["simple-user"] | null;
@@ -21200,11 +21538,16 @@ export interface components {
     /** Branch Short */
     "branch-short": {
       name?: string;
-      commit?: { sha?: string; url?: string };
+      commit?: {
+        sha?: string;
+        url?: string;
+      };
       protected?: boolean;
     };
     /** Hypermedia Link */
-    link: { href: string };
+    link: {
+      href: string;
+    };
     /** Pull Request Simple */
     "pull-request-simple": {
       url: string;
@@ -21317,7 +21660,10 @@ export interface components {
       name: string;
       html_url: string | null;
     };
-    "community-health-file": { url: string; html_url: string };
+    "community-health-file": {
+      url: string;
+      html_url: string;
+    };
     /** Community Profile */
     "community-profile": {
       health_percentage: number;
@@ -21387,9 +21733,17 @@ export interface components {
         git_url: string | null;
         html_url: string | null;
         download_url: string | null;
-        _links: { git: string | null; html: string | null; self: string };
+        _links: {
+          git: string | null;
+          html: string | null;
+          self: string;
+        };
       }[];
-      _links: { git: string | null; html: string | null; self: string };
+      _links: {
+        git: string | null;
+        html: string | null;
+        self: string;
+      };
     };
     /** A list of directory items */
     "content-directory": {
@@ -21403,7 +21757,11 @@ export interface components {
       git_url: string | null;
       html_url: string | null;
       download_url: string | null;
-      _links: { git: string | null; html: string | null; self: string };
+      _links: {
+        git: string | null;
+        html: string | null;
+        self: string;
+      };
     }[];
     /** Content File */
     "content-file": {
@@ -21418,7 +21776,11 @@ export interface components {
       git_url: string | null;
       html_url: string | null;
       download_url: string | null;
-      _links: { git: string | null; html: string | null; self: string };
+      _links: {
+        git: string | null;
+        html: string | null;
+        self: string;
+      };
       target?: string;
       submodule_git_url?: string;
     };
@@ -21434,7 +21796,11 @@ export interface components {
       git_url: string | null;
       html_url: string | null;
       download_url: string | null;
-      _links: { git: string | null; html: string | null; self: string };
+      _links: {
+        git: string | null;
+        html: string | null;
+        self: string;
+      };
     };
     /** An object describing a symlink */
     "content-submodule": {
@@ -21448,7 +21814,11 @@ export interface components {
       git_url: string | null;
       html_url: string | null;
       download_url: string | null;
-      _links: { git: string | null; html: string | null; self: string };
+      _links: {
+        git: string | null;
+        html: string | null;
+        self: string;
+      };
     };
     /** File Commit */
     "file-commit": {
@@ -21462,18 +21832,37 @@ export interface components {
         git_url?: string;
         download_url?: string;
         type?: string;
-        _links?: { self?: string; git?: string; html?: string };
+        _links?: {
+          self?: string;
+          git?: string;
+          html?: string;
+        };
       } | null;
       commit?: {
         sha?: string;
         node_id?: string;
         url?: string;
         html_url?: string;
-        author?: { date?: string; name?: string; email?: string };
-        committer?: { date?: string; name?: string; email?: string };
+        author?: {
+          date?: string;
+          name?: string;
+          email?: string;
+        };
+        committer?: {
+          date?: string;
+          name?: string;
+          email?: string;
+        };
         message?: string;
-        tree?: { url?: string; sha?: string };
-        parents?: { url?: string; html_url?: string; sha?: string }[];
+        tree?: {
+          url?: string;
+          sha?: string;
+        };
+        parents?: {
+          url?: string;
+          html_url?: string;
+          sha?: string;
+        }[];
         verification?: {
           verified?: boolean;
           reason?: string;
@@ -21565,7 +21954,10 @@ export interface components {
       performed_via_github_app?: components["schemas"]["integration"] | null;
     };
     /** Short Blob */
-    "short-blob": { url?: string; sha?: string };
+    "short-blob": {
+      url?: string;
+      sha?: string;
+    };
     /** Blob */
     blob: {
       content: string;
@@ -21578,12 +21970,14 @@ export interface components {
     };
     /** Low-level Git commit operations within a repository */
     "git-commit": {
-      /** SHA for the commit */ sha?: string;
+      /** SHA for the commit */
+      sha?: string;
       node_id?: string;
       url?: string;
       /** Identifying information for the git-user */
       author?: {
-        /** Timestamp of the commit */ date?: string;
+        /** Timestamp of the commit */
+        date?: string;
         /** Git email address of the user */
         email: string;
         /** Name of the git user */
@@ -21591,7 +21985,8 @@ export interface components {
       };
       /** Identifying information for the git-user */
       committer?: {
-        /** Timestamp of the commit */ date?: string;
+        /** Timestamp of the commit */
+        date?: string;
         /** Git email address of the user */
         email: string;
         /** Name of the git user */
@@ -21600,11 +21995,13 @@ export interface components {
       /** Message describing the purpose of the commit */
       message?: string;
       tree?: {
-        /** SHA for the commit */ sha?: string;
+        /** SHA for the commit */
+        sha?: string;
         url?: string;
       };
       parents?: {
-        /** SHA for the commit */ sha?: string;
+        /** SHA for the commit */
+        sha?: string;
         url?: string;
         html_url?: string;
       }[];
@@ -21638,8 +22035,16 @@ export interface components {
       url: string;
       /** Message describing the purpose of the tag */
       message: string;
-      tagger: { date: string; email: string; name: string };
-      object: { sha: string; type: string; url: string };
+      tagger: {
+        date: string;
+        email: string;
+        name: string;
+      };
+      object: {
+        sha: string;
+        type: string;
+        url: string;
+      };
       verification?: components["schemas"]["verification"];
     };
     /** The hierarchy between files in a Git repository. */
@@ -21757,7 +22162,10 @@ export interface components {
       size: number;
     };
     /** Issue Event Label */
-    "issue-event-label": { name: string | null; color: string | null };
+    "issue-event-label": {
+      name: string | null;
+      color: string | null;
+    };
     "issue-event-dismissed-review": {
       state: string;
       review_id: number;
@@ -21765,7 +22173,9 @@ export interface components {
       dismissal_commit_id?: string | null;
     };
     /** Issue Event Milestone */
-    "issue-event-milestone": { title: string };
+    "issue-event-milestone": {
+      title: string;
+    };
     /** Issue Event Project Card */
     "issue-event-project-card": {
       url: string;
@@ -21776,7 +22186,10 @@ export interface components {
       previous_column_name?: string;
     };
     /** Issue Event Rename */
-    "issue-event-rename": { from: string; to: string };
+    "issue-event-rename": {
+      from: string;
+      to: string;
+    };
     /** Issue Event */
     "issue-event": {
       id: number;
@@ -21863,13 +22276,21 @@ export interface components {
       type: string;
       content: string;
       encoding: string;
-      _links: { git: string | null; html: string | null; self: string };
+      _links: {
+        git: string | null;
+        html: string | null;
+        self: string;
+      };
       license: components["schemas"]["license-simple"] | null;
     };
-    "pages-source-hash": { branch: string; path: string };
+    "pages-source-hash": {
+      branch: string;
+      path: string;
+    };
     /** The configuration for GitHub Pages for a repository. */
     page: {
-      /** The API address for accessing this Page resource. */ url: string;
+      /** The API address for accessing this Page resource. */
+      url: string;
       /** The status of the most recent build of the Page. */
       status: ("built" | "building" | "errored") | null;
       /** The Pages site's custom domain */
@@ -21884,7 +22305,9 @@ export interface components {
     "page-build": {
       url: string;
       status: string;
-      error: { message: string | null };
+      error: {
+        message: string | null;
+      };
       pusher: components["schemas"]["simple-user"] | null;
       commit: string;
       duration: number;
@@ -21892,7 +22315,10 @@ export interface components {
       updated_at: string;
     };
     /** Page Build Status */
-    "page-build-status": { url: string; status: string };
+    "page-build-status": {
+      url: string;
+      status: string;
+    };
     /** Pull requests let you tell others about changes you've pushed to a repository on GitHub. Once a pull request is sent, interested parties can review the set of changes, discuss potential modifications, and even push follow-up commits if necessary. */
     "pull-request": {
       url: string;
@@ -22023,7 +22449,11 @@ export interface components {
           mirror_url: string | null;
           open_issues: number;
           open_issues_count: number;
-          permissions?: { admin: boolean; pull: boolean; push: boolean };
+          permissions?: {
+            admin: boolean;
+            pull: boolean;
+            push: boolean;
+          };
           temp_clone_token?: string;
           allow_merge_commit?: boolean;
           allow_squash_merge?: boolean;
@@ -22155,7 +22585,11 @@ export interface components {
           mirror_url: string | null;
           open_issues: number;
           open_issues_count: number;
-          permissions?: { admin: boolean; pull: boolean; push: boolean };
+          permissions?: {
+            admin: boolean;
+            pull: boolean;
+            push: boolean;
+          };
           temp_clone_token?: string;
           allow_merge_commit?: boolean;
           allow_squash_merge?: boolean;
@@ -22223,7 +22657,8 @@ export interface components {
     };
     /** Pull Request Review Comments are comments on a portion of the Pull Request's diff. */
     "pull-request-review-comment": {
-      /** URL for the pull request review comment */ url: string;
+      /** URL for the pull request review comment */
+      url: string;
       /** The ID of the pull request review to which the comment belongs. */
       pull_request_review_id: number | null;
       /** The ID of the pull request review comment. */
@@ -22256,9 +22691,15 @@ export interface components {
       /** How the author of the comment is associated with the pull request. */
       author_association: string;
       _links: {
-        self: { href: string };
-        html: { href: string };
-        pull_request: { href: string };
+        self: {
+          href: string;
+        };
+        html: {
+          href: string;
+        };
+        pull_request: {
+          href: string;
+        };
       };
       /** The first line of the range for a multi-line comment. */
       start_line?: number | null;
@@ -22321,7 +22762,8 @@ export interface components {
     };
     /** Pull Request Reviews are reviews on pull requests. */
     "pull-request-review": {
-      /** Unique identifier of the review */ id: number;
+      /** Unique identifier of the review */
+      id: number;
       node_id: string;
       user: components["schemas"]["simple-user"] | null;
       /** The text of the review. */
@@ -22329,7 +22771,14 @@ export interface components {
       state: string;
       html_url: string;
       pull_request_url: string;
-      _links: { html: { href: string }; pull_request: { href: string } };
+      _links: {
+        html: {
+          href: string;
+        };
+        pull_request: {
+          href: string;
+        };
+      };
       submitted_at?: string;
       /** A commit SHA for the review. */
       commit_id: string;
@@ -22430,14 +22879,26 @@ export interface components {
     /** Code Frequency Stat */
     "code-frequency-stat": number[];
     /** Commit Activity */
-    "commit-activity": { days: number[]; total: number; week: number };
+    "commit-activity": {
+      days: number[];
+      total: number;
+      week: number;
+    };
     /** Contributor Activity */
     "contributor-activity": {
       author: components["schemas"]["simple-user"] | null;
       total: number;
-      weeks: { w?: string; a?: number; d?: number; c?: number }[];
+      weeks: {
+        w?: string;
+        a?: number;
+        d?: number;
+        c?: number;
+      }[];
     };
-    "participation-stats": { all?: number[]; owner?: number[] };
+    "participation-stats": {
+      all?: number[];
+      owner?: number[];
+    };
     /** Repository invitations let you manage who you collaborate with. */
     "repository-subscription": {
       /** Determines if notifications should be received from this repository. */
@@ -22452,14 +22913,23 @@ export interface components {
     /** Tag */
     tag: {
       name: string;
-      commit: { sha: string; url: string };
+      commit: {
+        sha: string;
+        url: string;
+      };
       zipball_url: string;
       tarball_url: string;
       node_id: string;
     };
     /** A topic aggregates entities that are related to a subject. */
-    topic: { names?: string[] };
-    traffic: { timestamp: string; uniques: number; count: number };
+    topic: {
+      names?: string[];
+    };
+    traffic: {
+      timestamp: string;
+      uniques: number;
+      count: number;
+    };
     /** Clone Traffic */
     "clone-traffic": {
       count: number;
@@ -22474,7 +22944,11 @@ export interface components {
       uniques: number;
     };
     /** Referrer Traffic */
-    "referrer-traffic": { referrer: string; count: number; uniques: number };
+    "referrer-traffic": {
+      referrer: string;
+      count: number;
+      uniques: number;
+    };
     /** View Traffic */
     "view-traffic": {
       count: number;
@@ -22491,7 +22965,11 @@ export interface components {
         id?: string;
         externalId?: string | null;
         displayName?: string;
-        members?: { value?: string; $ref?: string; display?: string }[];
+        members?: {
+          value?: string;
+          $ref?: string;
+          display?: string;
+        }[];
         meta?: {
           resourceType?: string;
           created?: string;
@@ -22505,7 +22983,11 @@ export interface components {
       id?: string;
       externalId?: string | null;
       displayName?: string;
-      members?: { value?: string; $ref?: string; display?: string }[];
+      members?: {
+        value?: string;
+        $ref?: string;
+        display?: string;
+      }[];
       meta?: {
         resourceType?: string;
         created?: string;
@@ -22523,9 +23005,18 @@ export interface components {
         id?: string;
         externalId?: string;
         userName?: string;
-        name?: { givenName?: string; familyName?: string };
-        emails?: { value?: string; primary?: boolean; type?: string }[];
-        groups?: { value?: string }[];
+        name?: {
+          givenName?: string;
+          familyName?: string;
+        };
+        emails?: {
+          value?: string;
+          primary?: boolean;
+          type?: string;
+        }[];
+        groups?: {
+          value?: string;
+        }[];
         active?: boolean;
         meta?: {
           resourceType?: string;
@@ -22540,9 +23031,18 @@ export interface components {
       id?: string;
       externalId?: string;
       userName?: string;
-      name?: { givenName?: string; familyName?: string };
-      emails?: { value?: string; type?: string; primary?: boolean }[];
-      groups?: { value?: string }[];
+      name?: {
+        givenName?: string;
+        familyName?: string;
+      };
+      emails?: {
+        value?: string;
+        type?: string;
+        primary?: boolean;
+      }[];
+      groups?: {
+        value?: string;
+      }[];
       active?: boolean;
       meta?: {
         resourceType?: string;
@@ -22553,7 +23053,8 @@ export interface components {
     };
     /** SCIM /Users provisioning endpoints */
     "scim-user": {
-      /** SCIM schema used. */ schemas: string[];
+      /** SCIM schema used. */
+      schemas: string[];
       /** Unique identifier of an external identity */
       id: string;
       /** The ID of the User. */
@@ -22568,7 +23069,10 @@ export interface components {
         formatted?: string | null;
       };
       /** user emails */
-      emails: { value: string; primary?: boolean }[];
+      emails: {
+        value: string;
+        primary?: boolean;
+      }[];
       /** The active status of the User. */
       active: boolean;
       meta: {
@@ -22586,11 +23090,15 @@ export interface components {
         value?: string | { [key: string]: any } | { [key: string]: any }[];
       }[];
       /** associated groups */
-      groups?: { value?: string; display?: string }[];
+      groups?: {
+        value?: string;
+        display?: string;
+      }[];
     };
     /** SCIM User List */
     "scim-user-list": {
-      /** SCIM schema used. */ schemas: string[];
+      /** SCIM schema used. */
+      schemas: string[];
       totalResults: number;
       itemsPerPage: number;
       startIndex: number;
@@ -22601,7 +23109,10 @@ export interface components {
       object_type?: string | null;
       property?: string;
       fragment?: string;
-      matches?: { text?: string; indices?: number[] }[];
+      matches?: {
+        text?: string;
+        indices?: number[];
+      }[];
     }[];
     /** Code Search Result Item */
     "code-search-result-item": {
@@ -22626,17 +23137,28 @@ export interface components {
       html_url: string;
       comments_url: string;
       commit: {
-        author: { name: string; email: string; date: string };
+        author: {
+          name: string;
+          email: string;
+          date: string;
+        };
         committer: components["schemas"]["git-user"] | null;
         comment_count: number;
         message: string;
-        tree: { sha: string; url: string };
+        tree: {
+          sha: string;
+          url: string;
+        };
         url: string;
         verification?: components["schemas"]["verification"];
       };
       author: components["schemas"]["simple-user"] | null;
       committer: components["schemas"]["git-user"] | null;
-      parents: { url?: string; html_url?: string; sha?: string }[];
+      parents: {
+        url?: string;
+        html_url?: string;
+        sha?: string;
+      }[];
       repository: components["schemas"]["minimal-repository"];
       score: number;
       node_id: string;
@@ -22783,7 +23305,11 @@ export interface components {
       /** Returns whether or not this repository disabled. */
       disabled: boolean;
       license: components["schemas"]["license-simple"] | null;
-      permissions?: { admin: boolean; pull: boolean; push: boolean };
+      permissions?: {
+        admin: boolean;
+        pull: boolean;
+        push: boolean;
+      };
       text_matches?: components["schemas"]["search-result-text-matches"];
       temp_clone_token?: string;
       allow_merge_commit?: boolean;
@@ -22977,7 +23503,10 @@ export interface components {
       primary_key_id: number | null;
       key_id: string;
       public_key: string;
-      emails: { email?: string; verified?: boolean }[];
+      emails: {
+        email?: string;
+        verified?: boolean;
+      }[];
       subkeys: {
         id?: number;
         primary_key_id?: number;
@@ -23038,9 +23567,17 @@ export interface components {
       repo: components["schemas"]["repository"];
     };
     /** Hovercard */
-    hovercard: { contexts: { message: string; octicon: string }[] };
+    hovercard: {
+      contexts: {
+        message: string;
+        octicon: string;
+      }[];
+    };
     /** Key Simple */
-    "key-simple": { id: number; key: string };
+    "key-simple": {
+      id: number;
+      key: string;
+    };
   };
   responses: {
     /** Resource Not Found */
@@ -23058,7 +23595,10 @@ export interface components {
     /** Preview Header Missing */
     preview_header_missing: {
       content: {
-        "application/json": { message: string; documentation_url: string };
+        "application/json": {
+          message: string;
+          documentation_url: string;
+        };
       };
     };
     /** Forbidden */
