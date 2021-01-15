@@ -3,6 +3,508 @@
  * Do not make direct changes to the file.
  */
 
+export interface paths {
+  "/regions/": {
+    get: {
+      parameters: {
+        query: {
+          /** Filter results to only include the regions that have this location. */
+          location?: unknown;
+          /**
+           * Filter results to only include the regions that are on this
+           * platform.
+           */
+          platform?: unknown;
+        };
+      };
+      responses: {
+        /** A list of regions. */
+        200: {
+          schema: definitions["Region"][];
+        };
+        /** Unexpected Error */
+        500: {
+          schema: definitions["Error"];
+        };
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** Region create request */
+          body: definitions["CreateRegion"];
+        };
+      };
+      responses: {
+        /** Complete region object */
+        201: {
+          schema: definitions["Region"];
+        };
+        /** Invalid request provided */
+        400: {
+          schema: definitions["Error"];
+        };
+        /** Region already exists for that platform and location */
+        409: {
+          schema: definitions["Error"];
+        };
+        /** Unexpected Error */
+        500: {
+          schema: definitions["Error"];
+        };
+      };
+    };
+  };
+  "/regions/{id}": {
+    get: {
+      parameters: {
+        path: {
+          /** ID of the region to lookup, stored as a base32 encoded 18 byte identifier. */
+          id: unknown;
+        };
+      };
+      responses: {
+        /** A region. */
+        200: {
+          schema: definitions["Region"];
+        };
+        /** Provided Region ID is Invalid */
+        400: {
+          schema: definitions["Error"];
+        };
+        /** Region could not be found */
+        404: {
+          schema: definitions["Error"];
+        };
+        /** Unexpected Error */
+        500: {
+          schema: definitions["Error"];
+        };
+      };
+    };
+    patch: {
+      parameters: {
+        path: {
+          /** ID of the region to lookup, stored as a base32 encoded 18 byte identifier. */
+          id: unknown;
+        };
+        body: {
+          /** Region update request */
+          body: definitions["UpdateRegion"];
+        };
+      };
+      responses: {
+        /** Complete region object */
+        200: {
+          schema: definitions["Region"];
+        };
+        /** Invalid request provided */
+        400: {
+          schema: definitions["Error"];
+        };
+        /** Unexpected Error */
+        500: {
+          schema: definitions["Error"];
+        };
+      };
+    };
+  };
+  "/providers/": {
+    get: {
+      parameters: {
+        query: {
+          /** Filter results to only include those that have this label. */
+          label?: parameters["LabelFilter"];
+        };
+      };
+      responses: {
+        /** A list of providers. */
+        200: {
+          schema: definitions["Provider"][];
+        };
+        /** Unexpected Error */
+        500: {
+          schema: definitions["Error"];
+        };
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** Provider create request */
+          body: definitions["CreateProvider"];
+        };
+      };
+      responses: {
+        /** Complete provider object */
+        201: {
+          schema: definitions["Provider"];
+        };
+        /** Invalid request provided */
+        400: {
+          schema: definitions["Error"];
+        };
+        /** Forbidden */
+        403: {
+          schema: definitions["Error"];
+        };
+        /** Provider already exists with that label */
+        409: {
+          schema: definitions["Error"];
+        };
+        /** Unexpected Error */
+        500: {
+          schema: definitions["Error"];
+        };
+      };
+    };
+  };
+  "/providers/{id}": {
+    get: {
+      parameters: {
+        path: {
+          /** ID of the provider to lookup, stored as a base32 encoded 18 byte identifier. */
+          id: unknown;
+        };
+      };
+      responses: {
+        /** A provider. */
+        200: {
+          schema: definitions["Provider"];
+        };
+        /** Unknown provider error */
+        404: {
+          schema: definitions["Error"];
+        };
+        /** Unexpected Error */
+        500: {
+          schema: definitions["Error"];
+        };
+      };
+    };
+    patch: {
+      parameters: {
+        path: {
+          /** ID of the provider to update, stored as a base32 encoded 18 byte identifier. */
+          id: unknown;
+        };
+        body: {
+          /** Provider update request */
+          body: definitions["UpdateProvider"];
+        };
+      };
+      responses: {
+        /** Complete provider object */
+        200: {
+          schema: definitions["Provider"];
+        };
+        /** Invalid request provided */
+        400: {
+          schema: definitions["Error"];
+        };
+        /** Forbidden */
+        403: {
+          schema: definitions["Error"];
+        };
+        /** Provider not found */
+        404: {
+          schema: definitions["Error"];
+        };
+        /** Provider already exists with that label */
+        409: {
+          schema: definitions["Error"];
+        };
+        /** Unexpected Error */
+        500: {
+          schema: definitions["Error"];
+        };
+      };
+    };
+  };
+  "/products/": {
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Base32 encoded 18 byte identifier of the provider that these
+           * products must belong to.
+           */
+          provider_id?: unknown;
+          /** Filter results to only include those that have this label. */
+          label?: parameters["LabelFilter"];
+          /** Return only products matching at least one of the tags. */
+          tags?: unknown;
+        };
+      };
+      responses: {
+        /** A product. */
+        200: {
+          schema: definitions["Product"][];
+        };
+        /** Invalid provider_id supplied */
+        400: {
+          schema: definitions["Error"];
+        };
+        /** Unexpected Error */
+        500: {
+          schema: definitions["Error"];
+        };
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** Product create request */
+          body: definitions["CreateProduct"];
+        };
+      };
+      responses: {
+        /** Complete product object */
+        201: {
+          schema: definitions["Product"];
+        };
+        /** Invalid request provided */
+        400: {
+          schema: definitions["Error"];
+        };
+        /** Forbidden */
+        403: {
+          schema: definitions["Error"];
+        };
+        /** Product already exists with that label */
+        409: {
+          schema: definitions["Error"];
+        };
+        /** Unexpected Error */
+        500: {
+          schema: definitions["Error"];
+        };
+      };
+    };
+  };
+  "/internal/products": {
+    get: {
+      parameters: {
+        query: {
+          /**
+           * Base32 encoded 18 byte identifier of the provider that these
+           * products must belong to.
+           */
+          provider_id?: unknown;
+          /** Filter results to only include those that have this label. */
+          label?: parameters["LabelFilter"];
+          /** Return only products matching at least one of the tags. */
+          tags?: unknown;
+          /** Return product listings without plan information */
+          include_plans?: unknown;
+        };
+      };
+      responses: {
+        /** A product. */
+        200: {
+          schema: definitions["ExpandedProduct"][];
+        };
+        /** Invalid provider_id supplied */
+        400: {
+          schema: definitions["Error"];
+        };
+        /** Unexpected Error */
+        500: {
+          schema: definitions["Error"];
+        };
+      };
+    };
+  };
+  "/products/{id}": {
+    get: {
+      parameters: {
+        path: {
+          /**
+           * ID of the product to lookup, stored as a base32 encoded 18 byte
+           * identifier.
+           */
+          id: unknown;
+        };
+      };
+      responses: {
+        /** A product. */
+        200: {
+          schema: definitions["Product"];
+        };
+        /** Invalid Product ID */
+        400: {
+          schema: definitions["Error"];
+        };
+        /** Product not found error */
+        404: {
+          schema: definitions["Error"];
+        };
+        /** Unexpected error */
+        500: {
+          schema: definitions["Error"];
+        };
+      };
+    };
+    patch: {
+      parameters: {
+        path: {
+          /**
+           * ID of the product to lookup, stored as a base32 encoded 18 byte
+           * identifier.
+           */
+          id: unknown;
+        };
+        body: {
+          /** Product update request */
+          body: definitions["UpdateProduct"];
+        };
+      };
+      responses: {
+        /** Complete product object */
+        200: {
+          schema: definitions["Product"];
+        };
+        /** Invalid Product ID */
+        400: {
+          schema: definitions["Error"];
+        };
+        /** Product not found error */
+        404: {
+          schema: definitions["Error"];
+        };
+        /** Unexpected error */
+        500: {
+          schema: definitions["Error"];
+        };
+      };
+    };
+  };
+  "/plans/{id}": {
+    get: {
+      parameters: {
+        path: {
+          /**
+           * ID of the plan to lookup, stored as a base32 encoded 18 byte
+           * identifier.
+           */
+          id: unknown;
+        };
+      };
+      responses: {
+        /** A plan. */
+        200: {
+          schema: definitions["ExpandedPlan"];
+        };
+        /** Invalid Plan ID Provided */
+        400: {
+          schema: definitions["Error"];
+        };
+        /** Unknown plan error */
+        404: {
+          schema: definitions["Error"];
+        };
+        /** Unexpected error */
+        default: {
+          schema: definitions["Error"];
+        };
+      };
+    };
+    patch: {
+      parameters: {
+        path: {
+          /**
+           * ID of the plan to lookup, stored as a base32 encoded 18 byte
+           * identifier.
+           */
+          id: unknown;
+        };
+        body: {
+          /** Plan update request */
+          body: definitions["UpdatePlan"];
+        };
+      };
+      responses: {
+        /** Complete product plan */
+        200: {
+          schema: definitions["Plan"];
+        };
+        /** Invalid Plan ID */
+        400: {
+          schema: definitions["Error"];
+        };
+        /** Plan not found error */
+        404: {
+          schema: definitions["Error"];
+        };
+        /** Unexpected error */
+        500: {
+          schema: definitions["Error"];
+        };
+      };
+    };
+  };
+  "/plans/": {
+    get: {
+      parameters: {
+        query: {
+          /** Return the plans that are associated with this product. */
+          product_id: unknown;
+          /** Filter results to only include those that have this label. */
+          label?: parameters["LabelFilter"];
+        };
+      };
+      responses: {
+        /** A list of plans for the given product. */
+        200: {
+          schema: definitions["ExpandedPlan"][];
+        };
+        /** Invalid Parameters Provided */
+        400: {
+          schema: definitions["Error"];
+        };
+        /** Could not find product */
+        404: {
+          schema: definitions["Error"];
+        };
+        /** Unexpected error */
+        500: {
+          schema: definitions["Error"];
+        };
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** Plan create request */
+          body: definitions["CreatePlan"];
+        };
+      };
+      responses: {
+        /** Complete plan object */
+        201: {
+          schema: definitions["Plan"];
+        };
+        /** Invalid request provided */
+        400: {
+          schema: definitions["Error"];
+        };
+        /** Forbidden */
+        403: {
+          schema: definitions["Error"];
+        };
+        /** Plan already exists with that label */
+        409: {
+          schema: definitions["Error"];
+        };
+        /** Unexpected Error */
+        500: {
+          schema: definitions["Error"];
+        };
+      };
+    };
+  };
+}
+
 export interface definitions {
   /** A base32 encoded 18 byte identifier. */
   ID: string;
@@ -499,3 +1001,10 @@ export interface definitions {
     provider: definitions["Provider"];
   };
 }
+
+export interface parameters {
+  /** Filter results to only include those that have this label. */
+  LabelFilter: string;
+}
+
+export interface operations {}

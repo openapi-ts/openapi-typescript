@@ -20,34 +20,49 @@ export interface paths {
       responses: {
         /** A list of regions. */
         200: {
-          "application/json": components["schemas"]["Region"][];
+          content: {
+            "application/json": components["schemas"]["Region"][];
+          };
         };
         /** Unexpected Error */
         500: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
       };
     };
     post: {
-      requestBody: {
-        "application/json": components["schemas"]["CreateRegion"];
-      };
       responses: {
         /** Complete region object */
         201: {
-          "application/json": components["schemas"]["Region"];
+          content: {
+            "application/json": components["schemas"]["Region"];
+          };
         };
         /** Invalid request provided */
         400: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Region already exists for that platform and location */
         409: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Unexpected Error */
         500: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
+        };
+      };
+      /** Region create request */
+      requestBody: {
+        content: {
+          "application/json": components["schemas"]["CreateRegion"];
         };
       };
     };
@@ -63,19 +78,27 @@ export interface paths {
       responses: {
         /** A region. */
         200: {
-          "application/json": components["schemas"]["Region"];
+          content: {
+            "application/json": components["schemas"]["Region"];
+          };
         };
         /** Provided Region ID is Invalid */
         400: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Region could not be found */
         404: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Unexpected Error */
         500: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
       };
     };
@@ -86,21 +109,30 @@ export interface paths {
           id: string;
         };
       };
-      requestBody: {
-        "application/json": components["schemas"]["UpdateRegion"];
-      };
       responses: {
         /** Complete region object */
         200: {
-          "application/json": components["schemas"]["Region"];
+          content: {
+            "application/json": components["schemas"]["Region"];
+          };
         };
         /** Invalid request provided */
         400: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Unexpected Error */
         500: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
+        };
+      };
+      /** Region update request */
+      requestBody: {
+        content: {
+          "application/json": components["schemas"]["UpdateRegion"];
         };
       };
     };
@@ -116,38 +148,55 @@ export interface paths {
       responses: {
         /** A list of providers. */
         200: {
-          "application/json": components["schemas"]["Provider"][];
+          content: {
+            "application/json": components["schemas"]["Provider"][];
+          };
         };
         /** Unexpected Error */
         500: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
       };
     };
     post: {
-      requestBody: {
-        "application/json": components["schemas"]["CreateProvider"];
-      };
       responses: {
         /** Complete provider object */
         201: {
-          "application/json": components["schemas"]["Provider"];
+          content: {
+            "application/json": components["schemas"]["Provider"];
+          };
         };
         /** Invalid request provided */
         400: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Forbidden */
         403: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Provider already exists with that label */
         409: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Unexpected Error */
         500: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
+        };
+      };
+      /** Provider create request */
+      requestBody: {
+        content: {
+          "application/json": components["schemas"]["CreateProvider"];
         };
       };
     };
@@ -163,15 +212,21 @@ export interface paths {
       responses: {
         /** A provider. */
         200: {
-          "application/json": components["schemas"]["Provider"];
+          content: {
+            "application/json": components["schemas"]["Provider"];
+          };
         };
         /** Unknown provider error */
         404: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Unexpected Error */
         500: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
       };
     };
@@ -182,33 +237,48 @@ export interface paths {
           id: string;
         };
       };
-      requestBody: {
-        "application/json": components["schemas"]["UpdateProvider"];
-      };
       responses: {
         /** Complete provider object */
         200: {
-          "application/json": components["schemas"]["Provider"];
+          content: {
+            "application/json": components["schemas"]["Provider"];
+          };
         };
         /** Invalid request provided */
         400: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Forbidden */
         403: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Provider not found */
         404: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Provider already exists with that label */
         409: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Unexpected Error */
         500: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
+        };
+      };
+      /** Provider update request */
+      requestBody: {
+        content: {
+          "application/json": components["schemas"]["UpdateProvider"];
         };
       };
     };
@@ -231,42 +301,61 @@ export interface paths {
       responses: {
         /** A product. */
         200: {
-          "application/json": components["schemas"]["Product"][];
+          content: {
+            "application/json": components["schemas"]["Product"][];
+          };
         };
         /** Invalid provider_id supplied */
         400: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Unexpected Error */
         500: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
       };
     };
     post: {
-      requestBody: {
-        "application/json": components["schemas"]["CreateProduct"];
-      };
       responses: {
         /** Complete product object */
         201: {
-          "application/json": components["schemas"]["Product"];
+          content: {
+            "application/json": components["schemas"]["Product"];
+          };
         };
         /** Invalid request provided */
         400: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Forbidden */
         403: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Product already exists with that label */
         409: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Unexpected Error */
         500: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
+        };
+      };
+      /** Product create request */
+      requestBody: {
+        content: {
+          "application/json": components["schemas"]["CreateProduct"];
         };
       };
     };
@@ -291,15 +380,21 @@ export interface paths {
       responses: {
         /** A product. */
         200: {
-          "application/json": components["schemas"]["ExpandedProduct"][];
+          content: {
+            "application/json": components["schemas"]["ExpandedProduct"][];
+          };
         };
         /** Invalid provider_id supplied */
         400: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Unexpected Error */
         500: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
       };
     };
@@ -318,19 +413,27 @@ export interface paths {
       responses: {
         /** A product. */
         200: {
-          "application/json": components["schemas"]["Product"];
+          content: {
+            "application/json": components["schemas"]["Product"];
+          };
         };
         /** Invalid Product ID */
         400: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Product not found error */
         404: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Unexpected error */
         500: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
       };
     };
@@ -344,25 +447,36 @@ export interface paths {
           id: string;
         };
       };
-      requestBody: {
-        "application/json": components["schemas"]["UpdateProduct"];
-      };
       responses: {
         /** Complete product object */
         200: {
-          "application/json": components["schemas"]["Product"];
+          content: {
+            "application/json": components["schemas"]["Product"];
+          };
         };
         /** Invalid Product ID */
         400: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Product not found error */
         404: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Unexpected error */
         500: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
+        };
+      };
+      /** Product update request */
+      requestBody: {
+        content: {
+          "application/json": components["schemas"]["UpdateProduct"];
         };
       };
     };
@@ -381,19 +495,27 @@ export interface paths {
       responses: {
         /** A plan. */
         200: {
-          "application/json": components["schemas"]["ExpandedPlan"];
+          content: {
+            "application/json": components["schemas"]["ExpandedPlan"];
+          };
         };
         /** Invalid Plan ID Provided */
         400: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Unknown plan error */
         404: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Unexpected error */
         default: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
       };
     };
@@ -407,25 +529,36 @@ export interface paths {
           id: string;
         };
       };
-      requestBody: {
-        "application/json": components["schemas"]["UpdatePlan"];
-      };
       responses: {
         /** Complete product plan */
         200: {
-          "application/json": components["schemas"]["Plan"];
+          content: {
+            "application/json": components["schemas"]["Plan"];
+          };
         };
         /** Invalid Plan ID */
         400: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Plan not found error */
         404: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Unexpected error */
         500: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
+        };
+      };
+      /** Plan update request */
+      requestBody: {
+        content: {
+          "application/json": components["schemas"]["UpdatePlan"];
         };
       };
     };
@@ -443,59 +576,74 @@ export interface paths {
       responses: {
         /** A list of plans for the given product. */
         200: {
-          "application/json": components["schemas"]["ExpandedPlan"][];
+          content: {
+            "application/json": components["schemas"]["ExpandedPlan"][];
+          };
         };
         /** Invalid Parameters Provided */
         400: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Could not find product */
         404: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Unexpected error */
         500: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
       };
     };
     post: {
-      requestBody: {
-        "application/json": components["schemas"]["CreatePlan"];
-      };
       responses: {
         /** Complete plan object */
         201: {
-          "application/json": components["schemas"]["Plan"];
+          content: {
+            "application/json": components["schemas"]["Plan"];
+          };
         };
         /** Invalid request provided */
         400: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Forbidden */
         403: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Plan already exists with that label */
         409: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
         };
         /** Unexpected Error */
         500: {
-          "application/json": components["schemas"]["Error"];
+          content: {
+            "application/json": components["schemas"]["Error"];
+          };
+        };
+      };
+      /** Plan create request */
+      requestBody: {
+        content: {
+          "application/json": components["schemas"]["CreatePlan"];
         };
       };
     };
   };
 }
 
-export interface operations {}
-
 export interface components {
-  parameters: {
-    /** Filter results to only include those that have this label. */
-    LabelFilter: string;
-  };
   schemas: {
     /** A base32 encoded 18 byte identifier. */
     ID: string;
@@ -990,4 +1138,10 @@ export interface components {
       provider: components["schemas"]["Provider"];
     };
   };
+  parameters: {
+    /** Filter results to only include those that have this label. */
+    LabelFilter: string;
+  };
 }
+
+export interface operations {}

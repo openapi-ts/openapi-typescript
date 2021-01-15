@@ -41,7 +41,31 @@ npx openapi-typescript https://petstore.swagger.io/v2/swagger.json --output pets
 # 🚀 https://petstore.swagger.io/v2/swagger.json -> petstore.ts [650ms]
 ```
 
-_Thanks to @psmyrdek for this feature!_
+_Thanks to @psmyrdek for the remote spec feature!_
+
+#### Using in TypeScript
+
+Import any top-level item from the generated spec to use it. It works best if you also alias types to save on typing:
+
+```ts
+import { components } from './generated-schema.ts';
+
+type APIResponse = components["schemas"]["APIResponse"];
+```
+
+The reason for all the `["…"]` everywhere is because OpenAPI lets you use more characters than are valid TypeScript identifiers. The goal of this project is to generate _all_ of your schema, not merely the parts that are “TypeScript-safe.”
+
+Also note that there’s a special `operations` interface that you can import `OperationObjects` by their [operationId][openapi-operationid]:
+
+```ts
+import { operations } from './generated-schema.ts';
+
+type getUsersById = operations["getUsersById"];
+```
+
+This is the only place where our generation differs from your schema as-written, but it’s done so as a convenience and shouldn’t cause any issues (you can still use deep references as-needed).
+
+_Thanks to @gr2m for the operations feature!_
 
 #### Outputting to `stdout`
 
@@ -86,6 +110,7 @@ For anything more complicated, or for generating specs dynamically, you can also
 | :----------------------------- | :---- | :------: | :--------------------------------------------------------------- |
 | `--output [location]`          | `-o`  | (stdout) | Where should the output file be saved?                           |
 | `--prettier-config [location]` |       |          | (optional) Path to your custom Prettier configuration for output |
+| `--raw-schema`                 |       | `false`  | Generate TS types from partial schema (e.g. having `components.schema` at the top level) |
 
 ### Node
 
@@ -108,35 +133,6 @@ post-process, and save the output anywhere.
 If your specs are in YAML, you’ll have to convert them to JS objects using a library such as [js-yaml][js-yaml]. If
 you’re batching large folders of specs, [glob][glob] may also come in handy.
 
-#### PropertyMapper
-
-In order to allow more control over how properties are parsed, and to specifically handle `x-something`-properties, the
-`propertyMapper` option may be specified as the optional 2nd parameter.
-
-This is a function that, if specified, is called for each property and allows you to change how openapi-typescript
-handles parsing of Swagger files.
-
-An example on how to use the `x-nullable` property to control if a property is optional:
-
-```js
-const getNullable = (d: { [key: string]: any }): boolean => {
-  const nullable = d["x-nullable"];
-  if (typeof nullable === "boolean") {
-    return nullable;
-  }
-  return true;
-};
-
-const output = swaggerToTS(swagger, {
-  propertyMapper: (swaggerDefinition, property): Property => ({
-    ...property,
-    optional: getNullable(swaggerDefinition),
-  }),
-});
-```
-
-_Thanks to @atlefren for this feature!_
-
 ## Migrating from v1 to v2
 
 [Migrating from v1 to v2](./docs/migrating-from-v1.md)
@@ -156,9 +152,10 @@ encouraged but not required.
 
 [glob]: https://www.npmjs.com/package/glob
 [js-yaml]: https://www.npmjs.com/package/js-yaml
-[openapi2]: https://swagger.io/specification/v2/
 [namespace]: https://www.typescriptlang.org/docs/handbook/namespaces.html
 [npm-run-all]: https://www.npmjs.com/package/npm-run-all
+[openapi-operationid]: https://swagger.io/specification/#operation-object
+[openapi2]: https://swagger.io/specification/v2/
 [openapi3]: https://swagger.io/specification
 [prettier]: https://npmjs.com/prettier
 
