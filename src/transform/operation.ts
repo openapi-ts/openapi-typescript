@@ -22,11 +22,12 @@ export function transformOperationObj(
     if (operation.requestBody.description) output += comment(operation.requestBody.description);
 
     if (Object.keys(operation.requestBody.content).length) {
-      output += `  requestBody: {\n`; // open requestBody
+      output += `  requestBody: {\n    content: {\n`; // open requestBody
+
       Object.entries(operation.requestBody.content).forEach(([k, v]) => {
-        output += `  "${k}": ${transformSchemaObj(v.schema)};\n`;
+        output += `      "${k}": ${transformSchemaObj(v.schema)};\n`;
       });
-      output += `  }\n`; // open requestBody
+      output += `    }\n  }\n`; // close requestBody
     } else {
       output += `  requestBody: unknown;\n`;
     }

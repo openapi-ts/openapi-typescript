@@ -33,11 +33,13 @@ export function transformResponsesObj(responsesObj: Record<string, any>): string
     }
 
     // response
-    if (response.content) {
+    if (response.content && Object.keys(response.content).length) {
       // V3
+      output += `    content: {\n`; // open content
       Object.entries(response.content).forEach(([contentType, contentResponse]) => {
-        output += `    "${contentType}": ${transformSchemaObj((contentResponse as any).schema)};\n`;
+        output += `      "${contentType}": ${transformSchemaObj((contentResponse as any).schema)};\n`;
       });
+      output += `    }\n`; //close content
     } else if (response.schema) {
       // V2 (note: because of the presence of "headers", we have to namespace this somehow; "schema" seemed natural)
       output += `  schema: ${transformSchemaObj(response.schema)};\n`;

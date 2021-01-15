@@ -122,8 +122,10 @@ export interface operations {
     }
     /** Pet object that needs to be added to the store */
     requestBody: {
-      'application/json': components['schemas']['Pet']
-      'application/xml': components['schemas']['Pet']
+      content: {
+        'application/json': components['schemas']['Pet']
+        'application/xml': components['schemas']['Pet']
+      }
     }
   }
   addPet: {
@@ -133,8 +135,10 @@ export interface operations {
     }
     /** Pet object that needs to be added to the store */
     requestBody: {
-      'application/json': components['schemas']['Pet']
-      'application/xml': components['schemas']['Pet']
+      content: {
+        'application/json': components['schemas']['Pet']
+        'application/xml': components['schemas']['Pet']
+      }
     }
   }
   /** Multiple status values can be provided with comma separated strings */
@@ -148,8 +152,10 @@ export interface operations {
     responses: {
       /** successful operation */
       200: {
-        'application/xml': components['schemas']['Pet'][]
-        'application/json': components['schemas']['Pet'][]
+        content: {
+          'application/xml': components['schemas']['Pet'][]
+          'application/json': components['schemas']['Pet'][]
+        }
       }
       /** Invalid status value */
       400: unknown
@@ -166,8 +172,10 @@ export interface operations {
     responses: {
       /** successful operation */
       200: {
-        'application/xml': components['schemas']['Pet'][]
-        'application/json': components['schemas']['Pet'][]
+        content: {
+          'application/xml': components['schemas']['Pet'][]
+          'application/json': components['schemas']['Pet'][]
+        }
       }
       /** Invalid tag value */
       400: unknown
@@ -184,8 +192,10 @@ export interface operations {
     responses: {
       /** successful operation */
       200: {
-        'application/xml': components['schemas']['Pet']
-        'application/json': components['schemas']['Pet']
+        content: {
+          'application/xml': components['schemas']['Pet']
+          'application/json': components['schemas']['Pet']
+        }
       }
       /** Invalid ID supplied */
       400: unknown
@@ -205,11 +215,13 @@ export interface operations {
       405: unknown
     }
     requestBody: {
-      'application/x-www-form-urlencoded': {
-        /** Updated name of the pet */
-        name?: string
-        /** Updated status of the pet */
-        status?: string
+      content: {
+        'application/x-www-form-urlencoded': {
+          /** Updated name of the pet */
+          name?: string
+          /** Updated status of the pet */
+          status?: string
+        }
       }
     }
   }
@@ -240,15 +252,19 @@ export interface operations {
     responses: {
       /** successful operation */
       200: {
-        'application/json': components['schemas']['ApiResponse']
+        content: {
+          'application/json': components['schemas']['ApiResponse']
+        }
       }
     }
     requestBody: {
-      'multipart/form-data': {
-        /** Additional data to pass to server */
-        additionalMetadata?: string
-        /** file to upload */
-        file?: string
+      content: {
+        'multipart/form-data': {
+          /** Additional data to pass to server */
+          additionalMetadata?: string
+          /** file to upload */
+          file?: string
+        }
       }
     }
   }
@@ -257,7 +273,9 @@ export interface operations {
     responses: {
       /** successful operation */
       200: {
-        'application/json': { [key: string]: number }
+        content: {
+          'application/json': { [key: string]: number }
+        }
       }
     }
   }
@@ -265,15 +283,19 @@ export interface operations {
     responses: {
       /** successful operation */
       200: {
-        'application/xml': components['schemas']['Order']
-        'application/json': components['schemas']['Order']
+        content: {
+          'application/xml': components['schemas']['Order']
+          'application/json': components['schemas']['Order']
+        }
       }
       /** Invalid Order */
       400: unknown
     }
     /** order placed for purchasing the pet */
     requestBody: {
-      '*/*': components['schemas']['Order']
+      content: {
+        '*/*': components['schemas']['Order']
+      }
     }
   }
   /** For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions */
@@ -287,8 +309,10 @@ export interface operations {
     responses: {
       /** successful operation */
       200: {
-        'application/xml': components['schemas']['Order']
-        'application/json': components['schemas']['Order']
+        content: {
+          'application/xml': components['schemas']['Order']
+          'application/json': components['schemas']['Order']
+        }
       }
       /** Invalid ID supplied */
       400: unknown
@@ -319,7 +343,9 @@ export interface operations {
     }
     /** Created user object */
     requestBody: {
-      '*/*': components['schemas']['User']
+      content: {
+        '*/*': components['schemas']['User']
+      }
     }
   }
   createUsersWithArrayInput: {
@@ -329,7 +355,9 @@ export interface operations {
     }
     /** List of user object */
     requestBody: {
-      '*/*': components['schemas']['User'][]
+      content: {
+        '*/*': components['schemas']['User'][]
+      }
     }
   }
   createUsersWithListInput: {
@@ -339,7 +367,9 @@ export interface operations {
     }
     /** List of user object */
     requestBody: {
-      '*/*': components['schemas']['User'][]
+      content: {
+        '*/*': components['schemas']['User'][]
+      }
     }
   }
   loginUser: {
@@ -360,8 +390,10 @@ export interface operations {
           /** date in UTC when token expires */
           'X-Expires-After'?: string
         }
-        'application/xml': string
-        'application/json': string
+        content: {
+          'application/xml': string
+          'application/json': string
+        }
       }
       /** Invalid username/password supplied */
       400: unknown
@@ -383,8 +415,10 @@ export interface operations {
     responses: {
       /** successful operation */
       200: {
-        'application/xml': components['schemas']['User']
-        'application/json': components['schemas']['User']
+        content: {
+          'application/xml': components['schemas']['User']
+          'application/json': components['schemas']['User']
+        }
       }
       /** Invalid username supplied */
       400: unknown
@@ -408,7 +442,9 @@ export interface operations {
     }
     /** Updated user object */
     requestBody: {
-      '*/*': components['schemas']['User']
+      content: {
+        '*/*': components['schemas']['User']
+      }
     }
   }
   /** This can only be done by the logged in user. */

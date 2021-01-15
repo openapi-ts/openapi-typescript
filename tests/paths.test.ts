@@ -67,9 +67,11 @@ describe("transformPathsObj", () => {
     get: {
       responses: {
         200: {
-          "application/json": {
-            title: string;
-            body: string;
+          content: {
+            "application/json": {
+              title: string;
+              body: string;
+            };
           };
         };
       };
@@ -85,13 +87,17 @@ describe("transformPathsObj", () => {
       };
       responses: {
         200: {
-          "application/json": {
-            results?: components["schemas"]["SearchResult"][];
-            total: number;
+          content: {
+            "application/json": {
+              results?: components["schemas"]["SearchResult"][];
+              total: number;
+            };
           };
         };
         404: {
-          "application/json": components["schemas"]["ErrorResponse"];
+          content: {
+            "application/json": components["schemas"]["ErrorResponse"];
+          };
         };
       };
     };
@@ -200,15 +206,19 @@ describe("transformPathsObj", () => {
     post: {
       responses: {
         201: {
-          "application/json": {
-            id: string;
-            title: string;
+          content: {
+            "application/json": {
+              id: string;
+              title: string;
+            };
           };
         };
       };
       requestBody: {
-        "application/json": {
-          title: string;
+        content: {
+          "application/json": {
+            title: string;
+          };
         };
       };
     };
