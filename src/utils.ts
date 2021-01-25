@@ -1,4 +1,4 @@
-import { OpenAPI2, OpenAPI3 } from "./types";
+import { OpenAPI2, OpenAPI3, ReferenceObject } from "./types";
 
 export function comment(text: string): string {
   const commentText = text.trim();
@@ -17,6 +17,11 @@ export function comment(text: string): string {
 /** shim for Object.fromEntries() for Node < 13 */
 export function fromEntries(entries: [string, any][]): Record<string, unknown> {
   return entries.reduce((obj, [key, val]) => ({ ...obj, [key]: val }), {});
+}
+
+/** Is this a ReferenceObject? (note: this is just a TypeScript helper for nodeType() below) */
+export function isRef(obj: any): obj is ReferenceObject {
+  return !!obj.$ref;
 }
 
 /** Return type of node (works for v2 or v3, as there are no conflicting types) */
