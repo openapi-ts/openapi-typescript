@@ -11,6 +11,7 @@ export interface OpenAPI3 {
   paths?: Record<string, PathItemObject>; // required
   components?: {
     schemas?: Record<string, ReferenceObject | SchemaObject>;
+    requestBodies?: Record<string, ReferenceObject | RequestBody>;
     responses?: Record<string, ReferenceObject | ResponseObject>;
     parameters?: Record<string, ReferenceObject | ParameterObject>;
     headers?: Record<string, ReferenceObject | HeaderObject>;
@@ -56,7 +57,7 @@ export interface OperationObject {
   operationId?: string;
   parameters?: (ReferenceObject | ParameterObject)[];
   responses?: Record<string, ReferenceObject | ResponseObject>; // required
-  requestBody?: RequestBody;
+  requestBody?: ReferenceObject | RequestBody;
 }
 
 export interface ParameterObject {
