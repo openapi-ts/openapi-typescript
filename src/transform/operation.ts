@@ -1,5 +1,5 @@
-import { OperationObject, ParameterObject, ReferenceObject } from "../types";
-import { comment, transformRef } from "../utils";
+import { OperationObject, ParameterObject } from "../types";
+import { comment, isRef, transformRef } from "../utils";
 import { transformParametersArray } from "./parameters";
 import { transformResponsesObj } from "./responses";
 import { transformSchemaObj } from "./schema";
@@ -22,7 +22,7 @@ export function transformOperationObj(
     if (isRef(operation.requestBody)) {
       output += `  requestBody: ${transformRef(operation.requestBody.$ref)};\n`;
     } else {
-      const {description, content} = operation.requestBody
+      const { description, content } = operation.requestBody;
 
       if (description) output += comment(description);
 
@@ -36,13 +36,8 @@ export function transformOperationObj(
       } else {
         output += `  requestBody: unknown;\n`;
       }
-
     }
   }
 
   return output;
-}
-
-export function isRef(obj: any): obj is ReferenceObject {
-  return !!obj.$ref
 }
