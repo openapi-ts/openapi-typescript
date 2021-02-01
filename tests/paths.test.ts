@@ -1,7 +1,7 @@
 import prettier from "prettier";
 import { transformPathsObj } from "../src/transform/paths";
 
-const transform = (schema: any, operations?: any, parameters?: any) =>
+const transform = (schema: any, operations: any = { operations: {}, parameters: {} }, parameters?: any) =>
   prettier.format(`export interface paths {\n${transformPathsObj(schema, { operations, parameters })}\n}`.trim(), {
     parser: "typescript",
   });
@@ -199,6 +199,10 @@ describe("transformPathsObj", () => {
               },
             },
           },
+          delete: {
+            operationId: "testsDelete",
+            requestBody: { $ref: "#/components/schemas/Pet" },
+          },
         },
       })
     ).toBe(`export interface paths {
@@ -222,6 +226,7 @@ describe("transformPathsObj", () => {
         };
       };
     };
+    delete: operations["testsDelete"];
   };
 }\n`);
   });

@@ -113,7 +113,7 @@ export function transformAll(schema: any, { version, rawSchema }: TransformOptio
       output += `  "${operationId}": {\n    ${transformOperationObj(
         operation,
         schema.components && schema.components.parameters
-      )};\n  }\n`;
+      )}\n  }\n`;
     });
   }
   output += `}\n`; // close operations
