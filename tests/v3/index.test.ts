@@ -2,14 +2,17 @@ import fs from "fs";
 import path from "path";
 import { execSync } from "child_process";
 
+const schemas = fs.readdirSync(path.join(__dirname, "specs"));
+
 describe("cli", () => {
-  ["github", "stripe", "manifold", "petstore"].forEach((file) => {
-    it(`reads ${file} spec (v3) from file`, () => {
-      execSync(`../../pkg/bin/cli.js specs/${file}.yaml -o generated/${file}.ts`, {
+  schemas.forEach((schema) => {
+    const output = schema.replace(/\ya?ml$/i, "ts");
+    it(`reads ${schema} spec (v3) from file`, () => {
+      execSync(`../../pkg/bin/cli.js specs/${schema} -o generated/${output}`, {
         cwd: __dirname,
       });
-      const expected = fs.readFileSync(path.join(__dirname, "expected", `${file}.ts`), "utf8");
-      const generated = fs.readFileSync(path.join(__dirname, "generated", `${file}.ts`), "utf8");
+      const expected = fs.readFileSync(path.join(__dirname, "expected", output), "utf8");
+      const generated = fs.readFileSync(path.join(__dirname, "generated", output), "utf8");
       expect(generated).toBe(expected);
     });
   });
