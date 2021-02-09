@@ -1,4 +1,6 @@
+import prettier from "prettier";
 import { transformOperationObj } from "../src/transform/operation";
+import { transformRequestBodies } from "../src/transform/responses";
 
 describe("requestBody", () => {
   it("basic", () => {
@@ -29,5 +31,40 @@ describe("requestBody", () => {
         requestBody: { $ref: "#/components/requestBodies/Request" },
       }).trim()
     ).toBe(`requestBody: components["requestBodies"]["Request"];`);
+  });
+});
+
+describe("requestBodies", () => {
+  const format = (source: string) => prettier.format(source, { parser: "typescript" });
+
+  it("basic", () => {
+    const output = transformRequestBodies({
+      Pet: {
+        description: "Pet request body",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                test: { type: "string" },
+              },
+            },
+          },
+        },
+      },
+    }).trim();
+
+    expect(format(`type requestBodies = {${output}}`)).toBe(
+      format(`type requestBodies = {
+          /** Pet request body */
+          Pet: {
+            content: {
+              "application/json": {
+                test?: string;
+              };
+            };
+          };
+        };`)
+    );
   });
 });
