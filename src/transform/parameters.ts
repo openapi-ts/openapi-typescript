@@ -1,4 +1,5 @@
 import { transformSchemaObj } from "./schema";
+import { transformType } from "./type";
 import { ParameterObject, ReferenceObject } from "../types";
 import { comment } from "../utils";
 
@@ -40,7 +41,7 @@ export function transformParametersArray(
 
       const required = paramObj.required ? `` : `?`;
       output += `    "${paramName}"${required}: ${
-        paramObj.schema ? transformSchemaObj(paramObj.schema) : "unknown"
+        paramObj.schema ? transformSchemaObj(paramObj.schema) : paramObj.type ? transformType(paramObj) : "unknown"
       };\n`;
     });
     output += `  }\n`; // close in

@@ -60,6 +60,12 @@ export interface OperationObject {
   responses?: Record<string, ReferenceObject | ResponseObject>; // required
 }
 
+export interface ItemsObject {
+  type: "string" | "number" | "integer" | "boolean" | "array";
+  items?: ItemsObject;
+  enum?: string[];
+}
+
 export interface ParameterObject {
   name?: string; // required
   in?: "query" | "header" | "path" | /* V3 */ "cookie" | /* V2 */ "formData" | /* V2 */ "body"; // required
@@ -67,6 +73,9 @@ export interface ParameterObject {
   required?: boolean;
   deprecated?: boolean;
   schema?: ReferenceObject | SchemaObject; // required
+  type?: "string" | "number" | "integer" | "boolean" | "array" | "file"; // V2 ONLY
+  items?: ItemsObject; // V2 ONLY
+  enum?: string[]; // V2 ONLY
 }
 
 export type ReferenceObject = { $ref: string };
