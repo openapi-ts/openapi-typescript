@@ -77,8 +77,14 @@ export function transformSchemaObj(node: any): string {
       break;
     }
     case "object": {
+      const isAnyOfOrOneOfOrAllOf = "anyOf" in node || "oneOf" in node || "allOf" in node;
+
       // if empty object, then return generic map type
-      if ((!node.properties || !Object.keys(node.properties).length) && !node.allOf && !node.additionalProperties) {
+      if (
+        !isAnyOfOrOneOfOrAllOf &&
+        (!node.properties || !Object.keys(node.properties).length) &&
+        !node.additionalProperties
+      ) {
         output += `{ [key: string]: any }`;
         break;
       }
@@ -104,10 +110,14 @@ export function transformSchemaObj(node: any): string {
       }
 
       output += tsIntersectionOf([
-        ...(node.allOf ? (node.allOf as any[]).map(transformSchemaObj) : []), // append allOf first
+        // append allOf/anyOf/oneOf first
+        ...(node.allOf ? (node.allOf as any[]).map(transformSchemaObj) : []),
+        ...(node.anyOf ? [transformAnyOf(node.anyOf)] : []),
+        ...(node.oneOf ? [transformOneOf(node.oneOf)] : []),
         ...(properties ? [`{\n${properties}\n}`] : []), // then properties (line breaks are important!)
         ...(additionalProperties ? [additionalProperties] : []), // then additional properties
       ]);
+
       break;
     }
 
@@ -117,16 +127,6 @@ export function transformSchemaObj(node: any): string {
       } else {
         output += tsArrayOf(node.items ? transformSchemaObj(node.items as any) : "any");
       }
-      break;
-    }
-
-    case "anyOf": {
-      output += transformAnyOf(node.anyOf);
-      break;
-    }
-
-    case "oneOf": {
-      output += transformOneOf(node.oneOf);
       break;
     }
   }
