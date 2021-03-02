@@ -1,0 +1,10 @@
+swagger: 2.0
+definitions:
+  MyType:
+    description: A buggy definition
+    type: object
+    properties:
+      myField:
+        type: string
+        enum: ["foo", "bar", null]
+        nullable: true
