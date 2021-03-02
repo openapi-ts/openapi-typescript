@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/master/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-28-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-29-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -202,6 +202,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://asithadesilva.com"><img src="https://avatars1.githubusercontent.com/u/3814354?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Asitha de Silva</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=asithade" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Aasithade" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/MikeYermolayev"><img src="https://avatars2.githubusercontent.com/u/8783498?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mikhail Yermolayev</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3AMikeYermolayev" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/radist2s"><img src="https://avatars.githubusercontent.com/u/725645?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Alex Batalov</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=radist2s" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=radist2s" title="Tests">⚠️</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/FedeBev"><img src="https://avatars.githubusercontent.com/u/22151395?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Federico Bevione</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3AFedeBev" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=FedeBev" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=FedeBev" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
