@@ -213,6 +213,57 @@ describe("SchemaObject", () => {
         })
       ).toBe(`{ [key: string]: (string) | (number) | (boolean); }`);
     });
+
+    // https://www.jsonschemavalidator.net/s/fOyR2UtQ
+    it("properties + oneOf", () => {
+      expect(
+        transform({
+          properties: {
+            a: {
+              type: "string",
+            },
+          },
+          oneOf: [
+            { properties: { b: { type: "string" } }, required: ["b"] },
+            { properties: { c: { type: "string" } }, required: ["c"] },
+          ],
+        })
+      ).toBe(`(({
+"b": string;
+
+}) | ({
+"c": string;
+
+})) & ({
+"a"?: string;
+
+})`);
+    });
+
+    it("properties + anyOf", () => {
+      expect(
+        transform({
+          properties: {
+            a: {
+              type: "string",
+            },
+          },
+          anyOf: [
+            { properties: { b: { type: "string" } }, required: ["b"] },
+            { properties: { c: { type: "string" } }, required: ["c"] },
+          ],
+        })
+      ).toBe(`((Partial<{
+"b": string;
+
+}>) & (Partial<{
+"c": string;
+
+}>)) & ({
+"a"?: string;
+
+})`);
+    });
   });
 
   describe("comments", () => {
