@@ -1,4 +1,4 @@
-import { OperationObject, ParameterObject } from "../types";
+import { OperationObject, ParameterObject, RequestBody } from "../types";
 import { comment, isRef, transformRef } from "../utils";
 import { transformParametersArray } from "./parameters";
 import { transformResponsesObj } from "./responses";
@@ -22,21 +22,31 @@ export function transformOperationObj(
     if (isRef(operation.requestBody)) {
       output += `  requestBody: ${transformRef(operation.requestBody.$ref)};\n`;
     } else {
-      const { description, content } = operation.requestBody;
+      if (operation.requestBody.description) output += comment(operation.requestBody.description);
 
-      if (description) output += comment(description);
-
-      if (content && Object.keys(content).length) {
-        output += `  requestBody: {\n    content: {\n`; // open requestBody
-
-        Object.entries(content).forEach(([k, v]) => {
-          output += `      "${k}": ${transformSchemaObj(v.schema)};\n`;
-        });
-        output += `    }\n  }\n`; // close requestBody
-      } else {
-        output += `  requestBody: unknown;\n`;
-      }
+      output += `  requestBody: {\n`; // open requestBody
+      output += `  ${transformRequestBodyObj(operation.requestBody)}`;
+      output += `  }\n`; // close requestBody
     }
+  }
+
+  return output;
+}
+
+export function transformRequestBodyObj(requestBody: RequestBody) {
+  let output = "";
+
+  const { content } = requestBody;
+
+  if (content && Object.keys(content).length) {
+    output += `  content: {\n`; // open content
+
+    Object.entries(content).forEach(([k, v]) => {
+      output += `      "${k}": ${transformSchemaObj(v.schema)};\n`;
+    });
+    output += `    }\n`; // close content
+  } else {
+    output += `  unknown;\n`;
   }
 
   return output;

@@ -116,9 +116,18 @@ export interface components {
   };
   requestBodies: {
     /** List of user object */
-    UserArray: { [key: string]: any };
+    UserArray: {
+      content: {
+        "application/json": components["schemas"]["User"][];
+      };
+    };
     /** Pet object that needs to be added to the store */
-    Pet: { [key: string]: any };
+    Pet: {
+      content: {
+        "application/json": components["schemas"]["Pet"];
+        "application/xml": components["schemas"]["Pet"];
+      };
+    };
   };
 }
 

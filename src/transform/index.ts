@@ -3,7 +3,7 @@ import { comment } from "../utils";
 import { transformHeaderObjMap } from "./headers";
 import { transformOperationObj } from "./operation";
 import { transformPathsObj } from "./paths";
-import { transformResponsesObj } from "./responses";
+import { transformResponsesObj, transformRequestBodies } from "./responses";
 import { transformSchemaObjMap } from "./schema";
 
 interface TransformOptions {
@@ -89,10 +89,7 @@ export function transformAll(schema: any, { version, rawSchema }: TransformOptio
 
         // #/components/requestBodies
         if (schema.components.requestBodies) {
-          const required = Object.keys(schema.components.requestBodies);
-          output += `  requestBodies: {\n    ${transformSchemaObjMap(schema.components.requestBodies, {
-            required,
-          })}\n  }\n`;
+          output += `  requestBodies: {\n    ${transformRequestBodies(schema.components.requestBodies)}\n  }\n`;
         }
 
         // #/components/headers
