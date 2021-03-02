@@ -68,11 +68,9 @@ export function transformSchemaObj(node: any): string {
     }
     case "enum": {
       output += tsUnionOf(
-        (node.enum as string[]).map((item) => {
-          if (typeof item === "string") return `'${item.replace(/'/g, "\\'")}'`;
-          if (typeof item === "object" && item === null) return "null";
-          return item;
-        })
+        (node.enum as string[]).map((item) =>
+          typeof item === "string" ? `'${item.replace(/'/g, "\\'")}'` : JSON.stringify(item)
+        )
       );
       break;
     }
