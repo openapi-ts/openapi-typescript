@@ -297,6 +297,17 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "FedeBev",
+      "name": "Federico Bevione",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22151395?v=4",
+      "profile": "https://github.com/FedeBev",
+      "contributions": [
+        "bug",
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
