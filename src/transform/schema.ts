@@ -110,9 +110,10 @@ export function transformSchemaObj(node: any): string {
       }
 
       output += tsIntersectionOf([
-        ...(node.allOf ? (node.allOf as any[]).map(transformSchemaObj) : []), // append allOf first
-        ...(node.anyOf ? [transformAnyOf(node.anyOf)] : []), // append anyOf first
-        ...(node.oneOf ? [transformOneOf(node.oneOf)] : []), // append oneOf first
+        // append allOf/anyOf/oneOf first
+        ...(node.allOf ? (node.allOf as any[]).map(transformSchemaObj) : []),
+        ...(node.anyOf ? [transformAnyOf(node.anyOf)] : []),
+        ...(node.oneOf ? [transformOneOf(node.oneOf)] : []),
         ...(properties ? [`{\n${properties}\n}`] : []), // then properties (line breaks are important!)
         ...(additionalProperties ? [additionalProperties] : []), // then additional properties
       ]);
