@@ -55,16 +55,6 @@ export function nodeType(obj: any): SchemaObjectType | undefined {
     return "number";
   }
 
-  // anyOf
-  if (Array.isArray(obj.anyOf)) {
-    return "anyOf";
-  }
-
-  // oneOf
-  if (Array.isArray(obj.oneOf)) {
-    return "oneOf";
-  }
-
   // array
   if (obj.type === "array" || obj.items) {
     return "array";
