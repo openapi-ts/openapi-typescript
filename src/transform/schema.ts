@@ -67,11 +67,13 @@ export function transformSchemaObj(node: any): string {
       break;
     }
     case "enum": {
-      output += tsUnionOf(
-        (node.enum as string[]).map((item) =>
-          typeof item === "string" ? `'${item.replace(/'/g, "\\'")}'` : JSON.stringify(item)
-        )
-      );
+      const items: Array<string | number | boolean> = [];
+      (node.enum as unknown[]).forEach((item) => {
+        if (typeof item === "string") items.push(`'${item.replace(/'/g, "\\'")}'`);
+        else if (typeof item === "number" || typeof item === "boolean") items.push(item);
+        else if (item === null && !node.nullable) items.push("null");
+      });
+      output += tsUnionOf(items);
       break;
     }
     case "object": {

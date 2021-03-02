@@ -16,9 +16,21 @@ export interface paths {
 
 export interface components {
   schemas: {
-    /** Enum with null */
+    /** Enum with null and nullable */
     MyType: {
-      myField?: ("foo" | "bar" | null) | null;
+      myField?: ("foo" | "bar") | null;
+    };
+    /** Enum with null */
+    MyTypeNotNullable: {
+      myField?: "foo" | "bar" | null;
+    };
+    /** Enum with null */
+    MyTypeNotNullableNotNull: {
+      myField?: "foo" | "bar";
+    };
+    /** Enum with null */
+    MyTypeMixed: {
+      myField?: "foo" | 2 | false | null;
     };
   };
 }

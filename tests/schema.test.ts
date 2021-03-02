@@ -104,6 +104,46 @@ describe("SchemaObject", () => {
 "string"?: ('Totoro') | ('Sats\\'uki') | ('Mei');
 
 }`);
+
+      expect(
+        transform({
+          properties: { string: { type: "string", enum: ["Totoro", "Sats'uki", "Mei", null] } }, // note: also tests quotes in enum
+          type: "object",
+        })
+      ).toBe(`{
+"string"?: ('Totoro') | ('Sats\\'uki') | ('Mei') | (null);
+
+}`);
+
+      expect(
+        transform({
+          properties: { string: { type: "string", enum: ["Totoro", 2, false, null] } }, // note: also tests quotes in enum
+          type: "object",
+        })
+      ).toBe(`{
+"string"?: ('Totoro') | (2) | (false) | (null);
+
+}`);
+
+      expect(
+        transform({
+          properties: { string: { type: "string", enum: ["Totoro", 2, false, null], nullable: true } }, // note: also tests quotes in enum
+          type: "object",
+        })
+      ).toBe(`{
+"string"?: (('Totoro') | (2) | (false)) | null;
+
+}`);
+
+      expect(
+        transform({
+          properties: { string: { type: "string", enum: ["Totoro", 2, false], nullable: true } }, // note: also tests quotes in enum
+          type: "object",
+        })
+      ).toBe(`{
+"string"?: (('Totoro') | (2) | (false)) | null;
+
+}`);
     });
 
     it("$ref", () => {
