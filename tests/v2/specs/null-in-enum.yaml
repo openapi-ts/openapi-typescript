@@ -1,0 +1,48 @@
+swagger: 2.0
+paths:
+  /test:
+    post:
+      tags:
+        - "test"
+      summary: "Just a test path"
+      description: ""
+      operationId: "addTest"
+      consumes:
+        - "application/json"
+        - "application/xml"
+      produces:
+        - "application/xml"
+        - "application/json"
+      responses:
+        200:
+          description: "OK"
+definitions:
+  MyType:
+    description: Enum with null and nullable
+    type: object
+    properties:
+      myField:
+        type: string
+        enum: ["foo", "bar", null]
+        nullable: true
+  MyTypeNotNullable:
+    description: Enum with null
+    type: object
+    properties:
+      myField:
+        type: string
+        enum: ["foo", "bar", null]
+  MyTypeNotNullableNotNull:
+    description: Enum with null
+    type: object
+    properties:
+      myField:
+        type: string
+        enum: ["foo", "bar"]
+  MyTypeMixed:
+    description: Enum with null
+    type: object
+    properties:
+      myField:
+        type: string
+        enum: ["foo", 2, false, null]
