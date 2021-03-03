@@ -1,10 +1,10 @@
 import { transformSchemaObj } from "./schema";
-import { transformType } from "./type";
 import { ParameterObject, ReferenceObject } from "../types";
 import { comment } from "../utils";
 
 export function transformParametersArray(
   parameters: (ReferenceObject | ParameterObject)[],
+  version: number,
   globalParams?: Record<string, ParameterObject>
 ): string {
   let output = "";
@@ -17,9 +17,10 @@ export function transformParametersArray(
       if (globalParams[paramName]) {
         const reference = globalParams[paramName] as any;
         if (!mappedParams[reference.in]) mappedParams[reference.in] = {};
+        const schema = { $ref: paramObj.$ref };
         mappedParams[reference.in][reference.name || paramName] = {
           ...reference,
-          schema: { $ref: paramObj.$ref },
+          ...(version === 2 ? schema : version === 3 ? { schema } : {}),
         } as any;
       }
       return;
@@ -40,9 +41,13 @@ export function transformParametersArray(
       if (paramComment) output += comment(paramComment);
 
       const required = paramObj.required ? `` : `?`;
-      output += `    "${paramName}"${required}: ${
-        paramObj.schema ? transformSchemaObj(paramObj.schema) : paramObj.type ? transformType(paramObj) : "unknown"
-      };\n`;
+      let type = ``;
+      if (version === 2) {
+        type = paramObj.type ? transformSchemaObj(paramObj) : "unknown";
+      } else if (version === 3) {
+        type = paramObj.schema ? transformSchemaObj(paramObj.schema) : "unknown";
+      }
+      output += `    "${paramName}"${required}: ${type};\n`;
     });
     output += `  }\n`; // close in
   });

@@ -6,12 +6,13 @@ import { transformSchemaObj } from "./schema";
 
 export function transformOperationObj(
   operation: OperationObject,
+  version: number,
   globalParams?: Record<string, ParameterObject>
 ): string {
   let output = "";
 
   if (operation.parameters) {
-    output += `  parameters: {\n    ${transformParametersArray(operation.parameters, globalParams)}\n  }\n`;
+    output += `  parameters: {\n    ${transformParametersArray(operation.parameters, version, globalParams)}\n  }\n`;
   }
 
   if (operation.responses) {

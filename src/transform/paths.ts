@@ -11,7 +11,8 @@ interface TransformPathsObjOption {
 /** Note: this needs to mutate objects passed in */
 export function transformPathsObj(
   paths: Record<string, PathItemObject>,
-  { operations, parameters }: TransformPathsObjOption
+  { operations, parameters }: TransformPathsObjOption,
+  version: number
 ): string {
   let output = "";
 
@@ -41,12 +42,16 @@ export function transformPathsObj(
       }
 
       // otherwise, inline operation
-      output += `    "${method}": {\n      ${transformOperationObj(operation, parameters)}\n    }\n`;
+      output += `    "${method}": {\n      ${transformOperationObj(operation, version, parameters)}\n    }\n`;
     });
 
     // parameters
     if (pathItem.parameters) {
-      output += `    parameters: {\n      ${transformParametersArray(pathItem.parameters, parameters)}\n    }\n`;
+      output += `    parameters: {\n      ${transformParametersArray(
+        pathItem.parameters,
+        version,
+        parameters
+      )}\n    }\n`;
     }
 
     output += `  }\n`; // close PathItem

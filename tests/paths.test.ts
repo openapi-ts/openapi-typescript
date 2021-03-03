@@ -2,7 +2,7 @@ import prettier from "prettier";
 import { transformPathsObj } from "../src/transform/paths";
 
 const transform = (schema: any, operations: any = { operations: {}, parameters: {} }, parameters?: any) =>
-  prettier.format(`export interface paths {\n${transformPathsObj(schema, { operations, parameters })}\n}`.trim(), {
+  prettier.format(`export interface paths {\n${transformPathsObj(schema, { operations, parameters }, 3)}\n}`.trim(), {
     parser: "typescript",
   });
 
