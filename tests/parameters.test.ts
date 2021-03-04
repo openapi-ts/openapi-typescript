@@ -17,6 +17,7 @@ describe.only("transformParametersArray()", () => {
               type: "array",
             },
             { in: "path", name: "three_d_secure", required: true, type: "string" },
+            { in: "body", name: "payload", schema: { type: "string" } },
           ],
           2
         ).trim()
@@ -27,6 +28,9 @@ describe.only("transformParametersArray()", () => {
   }
   path: {
     "three_d_secure": string;
+  }
+  body: {
+    "payload"?: string;
   }`
       );
     });

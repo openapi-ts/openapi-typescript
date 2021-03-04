@@ -49,7 +49,13 @@ export function transformParametersArray(
       const required = paramObj.required ? `` : `?`;
       let type = ``;
       if (version === 2) {
-        type = paramObj.type ? transformSchemaObj(paramObj) : "unknown";
+        if (paramObj.in === "body" && paramObj.schema) {
+          type = transformSchemaObj(paramObj.schema);
+        } else if (paramObj.type) {
+          type = transformSchemaObj(paramObj);
+        } else {
+          type = "unknown";
+        }
       } else if (version === 3) {
         type = paramObj.schema ? transformSchemaObj(paramObj.schema) : "unknown";
       }
