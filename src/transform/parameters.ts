@@ -47,19 +47,19 @@ export function transformParametersArray(
       if (paramComment) output += comment(paramComment);
 
       const required = paramObj.required ? `` : `?`;
-      let type = ``;
+      let paramType = ``;
       if (version === 2) {
         if (paramObj.in === "body" && paramObj.schema) {
-          type = transformSchemaObj(paramObj.schema);
+          paramType = transformSchemaObj(paramObj.schema);
         } else if (paramObj.type) {
-          type = transformSchemaObj(paramObj);
+          paramType = transformSchemaObj(paramObj);
         } else {
-          type = "unknown";
+          paramType = "unknown";
         }
       } else if (version === 3) {
-        type = paramObj.schema ? transformSchemaObj(paramObj.schema) : "unknown";
+        paramType = paramObj.schema ? transformSchemaObj(paramObj.schema) : "unknown";
       }
-      output += `    "${paramName}"${required}: ${type};\n`;
+      output += `    "${paramName}"${required}: ${paramType};\n`;
     });
     output += `  }\n`; // close in
   });
