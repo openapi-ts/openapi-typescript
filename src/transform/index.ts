@@ -116,6 +116,7 @@ export function transformAll(schema: any, { version, rawSchema }: TransformOptio
       if (operation.description) output += comment(operation.description); // handle comment
       output += `  "${operationId}": {\n    ${transformOperationObj(
         operation,
+        version,
         schema.components && schema.components.parameters
       )}\n  }\n`;
     });
