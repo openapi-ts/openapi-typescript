@@ -17,11 +17,17 @@ export function transformParametersArray(
       if (globalParams[paramName]) {
         const reference = globalParams[paramName] as any;
         if (!mappedParams[reference.in]) mappedParams[reference.in] = {};
-        const schema = { $ref: paramObj.$ref };
-        mappedParams[reference.in][reference.name || paramName] = {
-          ...reference,
-          ...(version === 2 ? schema : version === 3 ? { schema } : {}),
-        } as any;
+        if (version === 2) {
+          mappedParams[reference.in][reference.name || paramName] = {
+            ...reference,
+            $ref: paramObj.$ref,
+          };
+        } else if (version === 3) {
+          mappedParams[reference.in][reference.name || paramName] = {
+            ...reference,
+            schema: { $ref: paramObj.$ref },
+          };
+        }
       }
       return;
     }
