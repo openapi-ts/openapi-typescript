@@ -45,9 +45,11 @@ export function transformAll(schema: any, { version, rawSchema }: TransformOptio
   switch (version) {
     case 2: {
       // #/definitions
-      output += `export interface definitions {\n  ${transformSchemaObjMap(schema.definitions || {}, {
-        required: Object.keys(schema.definitions),
-      })}\n}\n\n`;
+      if (schema.definitions) {
+        output += `export interface definitions {\n  ${transformSchemaObjMap(schema.definitions, {
+          required: Object.keys(schema.definitions),
+        })}\n}\n\n`;
+      }
 
       // #/parameters
       if (schema.parameters) {
