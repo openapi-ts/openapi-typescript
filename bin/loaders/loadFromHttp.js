@@ -28,7 +28,11 @@ module.exports = (pathToSpec) => {
         rawData += chunk;
       });
       res.on("end", () => {
-        resolve(rawData);
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          resolve(rawData);
+        } else {
+          reject(rawData || `${res.statusCode} ${res.statusMessage}`);
+        }
       });
     });
     req.on("error", (err) => {
