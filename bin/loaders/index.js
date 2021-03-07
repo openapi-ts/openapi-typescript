@@ -27,12 +27,13 @@ async function load(pathToSpec, { auth }) {
 
 async function loadSpec(pathToSpec, { auth, log = true }) {
   if (log === true) {
-    console.log(yellow(`🤞 Loading spec from ${bold(pathToSpec)}…`)); // only log if not writing to stdout
+    console.log(yellow(`🔭 Loading spec from ${bold(pathToSpec)}…`)); // only log if not writing to stdout
   }
 
+  const contentType = mime.getType(pathToSpec);
   const rawSpec = await load(pathToSpec, { auth });
 
-  switch (mime.getType(pathToSpec)) {
+  switch (contentType) {
     case "text/yaml": {
       try {
         return yaml.load(rawSpec);
@@ -49,7 +50,7 @@ async function loadSpec(pathToSpec, { auth, log = true }) {
       }
     }
     default: {
-      throw new Error(`Unknown format: "${contentType}". Only YAML or JSON supported.`);
+      throw new Error(`Unknown format${contentType ? `: "${contentType}"` : ""}. Only YAML or JSON supported.`);
     }
   }
 }
