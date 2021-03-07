@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-module.exports = (pathToSpec) => {
+function loadFromFs(pathToSpec) {
   const pathname = path.resolve(process.cwd(), pathToSpec);
   const pathExists = fs.existsSync(pathname);
 
@@ -10,4 +10,5 @@ module.exports = (pathToSpec) => {
   }
 
   return fs.readFileSync(pathname, "utf8");
-};
+}
+module.exports = loadFromFs;

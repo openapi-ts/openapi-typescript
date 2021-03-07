@@ -1,43 +1,39 @@
 const url = require("url");
-const adapters = {
-  "http:": require("http"),
-  "https:": require("https"),
-};
 
-function fetchFrom(inputUrl) {
-  return adapters[url.parse(inputUrl).protocol];
-}
+function loadFromHttp(pathToSpec, { auth }) {
+  const { protocol } = url.parse(pathToSpec);
 
-function buildOptions(pathToSpec) {
-  const requestUrl = url.parse(pathToSpec);
-  return {
-    method: "GET",
-    hostname: requestUrl.hostname,
-    port: requestUrl.port,
-    path: requestUrl.path,
-  };
-}
+  if (protocol !== "http:" && protocol !== "https:") {
+    throw new Error(`Unsupported protocol: "${protocol}". URL must start with "http://" or "https://".`);
+  }
 
-module.exports = (pathToSpec) => {
+  const fetch = require(protocol === "https:" ? "https" : "http");
   return new Promise((resolve, reject) => {
-    const opts = buildOptions(pathToSpec);
-    const req = fetchFrom(pathToSpec).request(opts, (res) => {
-      let rawData = "";
-      res.setEncoding("utf8");
-      res.on("data", (chunk) => {
-        rawData += chunk;
-      });
-      res.on("end", () => {
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          resolve(rawData);
-        } else {
-          reject(rawData || `${res.statusCode} ${res.statusMessage}`);
-        }
-      });
-    });
+    const req = fetch.request(
+      pathToSpec,
+      {
+        method: "GET",
+        auth,
+      },
+      (res) => {
+        let rawData = "";
+        res.setEncoding("utf8");
+        res.on("data", (chunk) => {
+          rawData += chunk;
+        });
+        res.on("end", () => {
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            resolve(rawData);
+          } else {
+            reject(rawData || `${res.statusCode} ${res.statusMessage}`);
+          }
+        });
+      }
+    );
     req.on("error", (err) => {
       reject(err);
     });
     req.end();
   });
-};
+}
+module.exports = loadFromHttp;

@@ -5,11 +5,11 @@ const { bold, yellow } = require("kleur");
 const loadFromFs = require("./loadFromFs");
 const loadFromHttp = require("./loadFromHttp");
 
-async function load(pathToSpec) {
+async function load(pathToSpec, { auth }) {
   // option 1: remote URL
   if (/^https?:\/\//.test(pathToSpec)) {
     try {
-      const rawSpec = await loadFromHttp(pathToSpec);
+      const rawSpec = await loadFromHttp(pathToSpec, { auth });
       return rawSpec;
     } catch (e) {
       if (e.code === "ENOTFOUND") {
@@ -25,12 +25,12 @@ async function load(pathToSpec) {
   return loadFromFs(pathToSpec);
 }
 
-module.exports.loadSpec = async (pathToSpec, { log = true }) => {
+async function loadSpec(pathToSpec, { auth, log = true }) {
   if (log === true) {
     console.log(yellow(`🤞 Loading spec from ${bold(pathToSpec)}…`)); // only log if not writing to stdout
   }
 
-  const rawSpec = await load(pathToSpec);
+  const rawSpec = await load(pathToSpec, { auth });
 
   switch (mime.getType(pathToSpec)) {
     case "text/yaml": {
@@ -49,7 +49,8 @@ module.exports.loadSpec = async (pathToSpec, { log = true }) => {
       }
     }
     default: {
-      throw new Error(`Unknown format: ${contentType}. Only YAML or JSON supported.`);
+      throw new Error(`Unknown format: "${contentType}". Only YAML or JSON supported.`);
     }
   }
-};
+}
+exports.loadSpec = loadSpec;
