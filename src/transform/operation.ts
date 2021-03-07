@@ -1,4 +1,3 @@
-import { OperationObject, ParameterObject, RequestBody } from "../types";
 import { comment, isRef, transformRef } from "../utils";
 import { transformParametersArray } from "./parameters";
 import { transformResponsesObj } from "./responses";

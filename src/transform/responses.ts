@@ -2,7 +2,6 @@ import { comment, transformRef } from "../utils";
 import { transformHeaderObjMap } from "./headers";
 import { transformSchemaObj } from "./schema";
 import { transformRequestBodyObj } from "./operation";
-import { RequestBody } from "../types";
 
 const resType = (res: string | number) => (res === 204 || (res >= 300 && res < 400) ? "never" : "unknown");
 

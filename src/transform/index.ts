@@ -1,4 +1,3 @@
-import { OperationObject } from "../types";
 import { comment } from "../utils";
 import { transformHeaderObjMap } from "./headers";
 import { transformOperationObj } from "./operation";

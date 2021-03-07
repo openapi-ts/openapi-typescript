@@ -8,7 +8,7 @@ describe("cli", () => {
   schemas.forEach((schema) => {
     const output = schema.replace(/\ya?ml$/i, "ts");
     it(`reads ${schema} spec (v3) from file`, () => {
-      execSync(`../../pkg/bin/cli.js specs/${schema} -o generated/${output}`, {
+      execSync(`../../bin/cli.js specs/${schema} -o generated/${output}`, {
         cwd: __dirname,
       });
       const expected = fs.readFileSync(path.join(__dirname, "expected", output), "utf8");
@@ -19,7 +19,7 @@ describe("cli", () => {
 
   it("reads spec (v3) from remote resource", () => {
     execSync(
-      "../../pkg/bin/cli.js https://raw.githubusercontent.com/drwpow/openapi-typescript/main/tests/v3/specs/manifold.yaml -o generated/http.ts",
+      "../../bin/cli.js https://raw.githubusercontent.com/drwpow/openapi-typescript/main/tests/v3/specs/manifold.yaml -o generated/http.ts",
       {
         cwd: __dirname,
       }

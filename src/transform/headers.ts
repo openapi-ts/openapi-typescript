@@ -1,5 +1,4 @@
 import { comment } from "../utils";
-import { HeaderObject } from "../types";
 import { transformSchemaObj } from "./schema";
 
 export function transformHeaderObjMap(headerMap: Record<string, HeaderObject>): string {

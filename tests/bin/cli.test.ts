@@ -9,7 +9,7 @@ describe("cli", () => {
   it("--prettier-config (JSON)", () => {
     const expected = fs.readFileSync(path.join(__dirname, "expected", "prettier-json.ts"), "utf8");
     execSync(
-      `../../pkg/bin/cli.js specs/petstore.yaml -o generated/prettier-json.ts --prettier-config fixtures/.prettierrc`,
+      `../../bin/cli.js specs/petstore.yaml -o generated/prettier-json.ts --prettier-config fixtures/.prettierrc`,
       { cwd: __dirname }
     );
     const output = fs.readFileSync(path.join(__dirname, "generated", "prettier-json.ts"), "utf8");
@@ -19,7 +19,7 @@ describe("cli", () => {
   it("--prettier-config (.js)", () => {
     const expected = fs.readFileSync(path.join(__dirname, "expected", "prettier-js.ts"), "utf8");
     execSync(
-      `../../pkg/bin/cli.js specs/petstore.yaml -o generated/prettier-js.ts --prettier-config fixtures/prettier.config.js`,
+      `../../bin/cli.js specs/petstore.yaml -o generated/prettier-js.ts --prettier-config fixtures/prettier.config.js`,
       { cwd: __dirname }
     );
     const output = fs.readFileSync(path.join(__dirname, "generated", "prettier-js.ts"), "utf8");
@@ -28,7 +28,7 @@ describe("cli", () => {
 
   it("stdout", () => {
     const expected = fs.readFileSync(path.join(__dirname, "expected", "stdout.ts"), "utf8");
-    const result = execSync(`../../pkg/bin/cli.js specs/petstore.yaml`, { cwd: __dirname });
+    const result = execSync(`../../bin/cli.js specs/petstore.yaml`, { cwd: __dirname });
     expect(result.toString("utf8")).toBe(expected);
   });
 });

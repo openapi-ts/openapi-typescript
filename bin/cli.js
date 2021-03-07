@@ -4,7 +4,7 @@ const fs = require("fs");
 const { bold, green, red } = require("kleur");
 const path = require("path");
 const meow = require("meow");
-const { default: swaggerToTS } = require("../dist-node");
+const { default: swaggerToTS } = require("../dist/cjs/index.js");
 const { loadSpec } = require("./loaders");
 
 const cli = meow(
