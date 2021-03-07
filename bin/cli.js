@@ -13,7 +13,8 @@ const cli = meow(
 
 Options
   --help                display this
-  --output, -o          (optional) specify output file (default: stdout)
+  --output, -o          Specify output file (default: stdout)
+  --auth                (optional) Provide an authentication token for private URL
   --prettier-config     (optional) specify path to Prettier config file
   --raw-schema          (optional) Read from raw schema instead of document
   --version             (optional) Schema version (must be present for raw schemas)
@@ -23,6 +24,9 @@ Options
       output: {
         type: "string",
         alias: "o",
+      },
+      auth: {
+        type: "string",
       },
       prettierConfig: {
         type: "string",
@@ -54,7 +58,10 @@ async function main() {
   // 1. input
   let spec = undefined;
   try {
-    spec = await loadSpec(pathToSpec, { log: output !== "STDOUT" });
+    spec = await loadSpec(pathToSpec, {
+      auth: cli.flags.auth,
+      log: output !== "STDOUT",
+    });
   } catch (err) {
     process.exitCode = 1; // needed for async functions
     throw new Error(red(`❌ ${err}`));

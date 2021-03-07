@@ -1,14 +1,15 @@
+const mime = require("mime");
 const yaml = require("js-yaml");
 const { bold, yellow } = require("kleur");
 
 const loadFromFs = require("./loadFromFs");
 const loadFromHttp = require("./loadFromHttp");
 
-async function load(pathToSpec) {
+async function load(pathToSpec, { auth }) {
   // option 1: remote URL
   if (/^https?:\/\//.test(pathToSpec)) {
     try {
-      const rawSpec = await loadFromHttp(pathToSpec);
+      const rawSpec = await loadFromHttp(pathToSpec, { auth });
       return rawSpec;
     } catch (e) {
       if (e.code === "ENOTFOUND") {
@@ -24,33 +25,32 @@ async function load(pathToSpec) {
   return loadFromFs(pathToSpec);
 }
 
-function isYamlSpec(rawSpec, pathToSpec) {
-  return /\.ya?ml$/i.test(pathToSpec) || rawSpec[0] !== "{";
-}
-
-module.exports.loadSpec = async (pathToSpec, { log = true }) => {
+async function loadSpec(pathToSpec, { auth, log = true }) {
   if (log === true) {
     console.log(yellow(`🤞 Loading spec from ${bold(pathToSpec)}…`)); // only log if not writing to stdout
   }
-  const rawSpec = await load(pathToSpec);
 
-  try {
-    if (isYamlSpec(rawSpec, pathToSpec)) {
-      return yaml.load(rawSpec);
+  const rawSpec = await load(pathToSpec, { auth });
+
+  switch (mime.getType(pathToSpec)) {
+    case "text/yaml": {
+      try {
+        return yaml.load(rawSpec);
+      } catch (err) {
+        throw new Error(`YAML: ${err.toString()}`);
+      }
     }
-  } catch (err) {
-    let message = `The spec under ${pathToSpec} seems to be YAML, but it couldn’t be parsed.`;
-
-    if (err.message) {
-      message += `\n${err.message}`;
+    case "application/json":
+    case "application/json5": {
+      try {
+        return JSON.parse(rawSpec);
+      } catch (err) {
+        throw new Error(`JSON: ${err.toString()}`);
+      }
     }
-
-    throw new Error(message);
+    default: {
+      throw new Error(`Unknown format: "${contentType}". Only YAML or JSON supported.`);
+    }
   }
-
-  try {
-    return JSON.parse(rawSpec);
-  } catch {
-    throw new Error(`The spec under ${pathToSpec} couldn’t be parsed neither as YAML nor JSON.`);
-  }
-};
+}
+exports.loadSpec = loadSpec;
