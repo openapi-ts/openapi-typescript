@@ -308,6 +308,17 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "yamacent",
+      "name": "Daisuke Yamamoto",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8544439?v=4",
+      "profile": "https://github.com/yamacent",
+      "contributions": [
+        "code",
+        "bug",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
