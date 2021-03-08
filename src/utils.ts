@@ -1,5 +1,3 @@
-import { OpenAPI2, OpenAPI3, ReferenceObject } from "./types";
-
 export function comment(text: string): string {
   const commentText = text.trim();
 
@@ -53,16 +51,6 @@ export function nodeType(obj: any): SchemaObjectType | undefined {
   // number
   if (["double", "float", "integer", "number"].includes(obj.type)) {
     return "number";
-  }
-
-  // anyOf
-  if (Array.isArray(obj.anyOf)) {
-    return "anyOf";
-  }
-
-  // oneOf
-  if (Array.isArray(obj.oneOf)) {
-    return "oneOf";
   }
 
   // array
@@ -125,8 +113,8 @@ export function tsPartial(type: string): string {
 }
 
 /** Convert [X, Y, Z] into X | Y | Z */
-export function tsUnionOf(types: string[]): string {
-  if (types.length === 1) return types[0]; // don’t add parentheses around one thing
+export function tsUnionOf(types: Array<string | number | boolean>): string {
+  if (types.length === 1) return `${types[0]}`; // don’t add parentheses around one thing
   return `(${types.join(") | (")})`;
 }
 

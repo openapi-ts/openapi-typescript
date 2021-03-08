@@ -287,6 +287,27 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "radist2s",
+      "name": "Alex Batalov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/725645?v=4",
+      "profile": "https://github.com/radist2s",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "FedeBev",
+      "name": "Federico Bevione",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22151395?v=4",
+      "profile": "https://github.com/FedeBev",
+      "contributions": [
+        "bug",
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,

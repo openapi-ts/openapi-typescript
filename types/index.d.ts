@@ -1,4 +1,4 @@
-export interface OpenAPI2 {
+declare interface OpenAPI2 {
   swagger: string; // required
   paths?: Record<string, PathItemObject>;
   definitions?: Record<string, SchemaObject>;
@@ -6,7 +6,7 @@ export interface OpenAPI2 {
   responses?: Record<string, ResponseObject>; // required
 }
 
-export interface OpenAPI3 {
+declare interface OpenAPI3 {
   openapi: string; // required
   paths?: Record<string, PathItemObject>; // required
   components?: {
@@ -19,7 +19,7 @@ export interface OpenAPI3 {
   };
 }
 
-export interface HeaderObject {
+declare interface HeaderObject {
   // note: this extends ParameterObject, minus "name" & "in"
   type?: string; // required
   description?: string;
@@ -27,7 +27,7 @@ export interface HeaderObject {
   schema: ReferenceObject | SchemaObject;
 }
 
-export interface PathItemObject {
+declare interface PathItemObject {
   $ref?: string;
   summary?: string;
   description?: string;
@@ -42,7 +42,7 @@ export interface PathItemObject {
   parameters?: (ReferenceObject | ParameterObject)[];
 }
 
-export interface LinkObject {
+declare interface LinkObject {
   operationRef?: string;
   operationId?: string;
   parameters?: (ReferenceObject | ParameterObject)[];
@@ -50,7 +50,7 @@ export interface LinkObject {
   description?: string;
 }
 
-export interface OperationObject {
+declare interface OperationObject {
   description?: string;
   tags?: string[]; // unused
   summary?: string; // unused
@@ -60,7 +60,7 @@ export interface OperationObject {
   responses?: Record<string, ReferenceObject | ResponseObject>; // required
 }
 
-export interface ParameterObject {
+declare interface ParameterObject {
   name?: string; // required
   in?: "query" | "header" | "path" | /* V3 */ "cookie" | /* V2 */ "formData" | /* V2 */ "body"; // required
   description?: string;
@@ -72,9 +72,9 @@ export interface ParameterObject {
   enum?: string[]; // V2 ONLY
 }
 
-export type ReferenceObject = { $ref: string };
+declare type ReferenceObject = { $ref: string };
 
-export interface ResponseObject {
+declare interface ResponseObject {
   description?: string;
   headers?: Record<string, ReferenceObject | HeaderObject>;
   schema?: ReferenceObject | SchemaObject; // V2 ONLY
@@ -85,14 +85,14 @@ export interface ResponseObject {
   };
 }
 
-export interface RequestBody {
+declare interface RequestBody {
   description?: string;
   content?: {
     [contentType: string]: { schema: ReferenceObject | SchemaObject };
   };
 }
 
-export interface SchemaObject {
+declare interface SchemaObject {
   title?: string; // ignored
   description?: string;
   required?: string[];
@@ -107,7 +107,7 @@ export interface SchemaObject {
   anyOf?: (ReferenceObject | SchemaObject)[]; // V3 ONLY
 }
 
-export interface SwaggerToTSOptions {
+declare interface SwaggerToTSOptions {
   /** (optional) Path to Prettier config */
   prettierConfig?: string;
   /** (optional) Parsing input document as raw schema rather than OpenAPI document */

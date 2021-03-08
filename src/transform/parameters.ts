@@ -1,5 +1,4 @@
 import { transformSchemaObj } from "./schema";
-import { ParameterObject, ReferenceObject } from "../types";
 import { comment } from "../utils";
 
 export function transformParametersArray(

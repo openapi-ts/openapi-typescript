@@ -104,6 +104,46 @@ describe("SchemaObject", () => {
 "string"?: ('Totoro') | ('Sats\\'uki') | ('Mei');
 
 }`);
+
+      expect(
+        transform({
+          properties: { string: { type: "string", enum: ["Totoro", "Sats'uki", "Mei", null] } }, // note: also tests quotes in enum
+          type: "object",
+        })
+      ).toBe(`{
+"string"?: ('Totoro') | ('Sats\\'uki') | ('Mei') | (null);
+
+}`);
+
+      expect(
+        transform({
+          properties: { string: { type: "string", enum: ["Totoro", 2, false, null] } }, // note: also tests quotes in enum
+          type: "object",
+        })
+      ).toBe(`{
+"string"?: ('Totoro') | (2) | (false) | (null);
+
+}`);
+
+      expect(
+        transform({
+          properties: { string: { type: "string", enum: ["Totoro", 2, false, null], nullable: true } }, // note: also tests quotes in enum
+          type: "object",
+        })
+      ).toBe(`{
+"string"?: (('Totoro') | (2) | (false)) | null;
+
+}`);
+
+      expect(
+        transform({
+          properties: { string: { type: "string", enum: ["Totoro", 2, false], nullable: true } }, // note: also tests quotes in enum
+          type: "object",
+        })
+      ).toBe(`{
+"string"?: (('Totoro') | (2) | (false)) | null;
+
+}`);
     });
 
     it("$ref", () => {
@@ -172,6 +212,57 @@ describe("SchemaObject", () => {
           additionalProperties: { oneOf: [{ type: "string" }, { type: "number" }, { type: "boolean" }] },
         })
       ).toBe(`{ [key: string]: (string) | (number) | (boolean); }`);
+    });
+
+    // https://www.jsonschemavalidator.net/s/fOyR2UtQ
+    it("properties + oneOf", () => {
+      expect(
+        transform({
+          properties: {
+            a: {
+              type: "string",
+            },
+          },
+          oneOf: [
+            { properties: { b: { type: "string" } }, required: ["b"] },
+            { properties: { c: { type: "string" } }, required: ["c"] },
+          ],
+        })
+      ).toBe(`(({
+"b": string;
+
+}) | ({
+"c": string;
+
+})) & ({
+"a"?: string;
+
+})`);
+    });
+
+    it("properties + anyOf", () => {
+      expect(
+        transform({
+          properties: {
+            a: {
+              type: "string",
+            },
+          },
+          anyOf: [
+            { properties: { b: { type: "string" } }, required: ["b"] },
+            { properties: { c: { type: "string" } }, required: ["c"] },
+          ],
+        })
+      ).toBe(`((Partial<{
+"b": string;
+
+}>) & (Partial<{
+"c": string;
+
+}>)) & ({
+"a"?: string;
+
+})`);
     });
   });
 

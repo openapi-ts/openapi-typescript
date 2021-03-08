@@ -51,7 +51,7 @@ If you’ve added a feature or fixed a bug and need to update the generated sche
 # 1. re-build the package
 npm run build
 # 2. run the local CLI (not the npm one!)
-pkg/bin/cli.js tests/v3/specs/github.yaml -o tests/v3/expected/github.ts
+./bin/cli.js tests/v3/specs/github.yaml -o tests/v3/expected/github.ts
 ```
 
 This should update the expected TypeScript definiton.

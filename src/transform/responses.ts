@@ -1,6 +1,7 @@
 import { comment, transformRef } from "../utils";
 import { transformHeaderObjMap } from "./headers";
 import { transformSchemaObj } from "./schema";
+import { transformRequestBodyObj } from "./operation";
 
 const resType = (res: string | number) => (res === 204 || (res >= 300 && res < 400) ? "never" : "unknown");
 
@@ -47,5 +48,18 @@ export function transformResponsesObj(responsesObj: Record<string, any>): string
 
     output += `  }\n`; // close response
   });
+  return output;
+}
+
+export function transformRequestBodies(requestBodies: Record<string, RequestBody>) {
+  let output = "";
+
+  Object.entries(requestBodies).forEach(([bodyName, requestBody]) => {
+    if (requestBody && requestBody.description) output += `  ${comment(requestBody.description)}`;
+    output += `  ${bodyName}: {`;
+    output += `  ${transformRequestBodyObj(requestBody)}`;
+    output += `  }\n`;
+  });
+
   return output;
 }

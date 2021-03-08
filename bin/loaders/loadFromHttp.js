@@ -1,34 +1,44 @@
-const url = require("url");
-const adapters = {
-  "http:": require("http"),
-  "https:": require("https"),
-};
+const http = require("http");
+const https = require("https");
+const { parse } = require("url");
 
-function fetchFrom(inputUrl) {
-  return adapters[url.parse(inputUrl).protocol];
-}
+// config
+const MAX_REDIRECT_COUNT = 10;
 
-function buildOptions(pathToSpec) {
-  const requestUrl = url.parse(pathToSpec);
-  return {
-    method: "GET",
-    hostname: requestUrl.hostname,
-    port: requestUrl.port,
-    path: requestUrl.path,
-  };
-}
-
-module.exports = (pathToSpec) => {
+function fetch(url, opts, { redirectCount = 0 } = {}) {
   return new Promise((resolve, reject) => {
-    const opts = buildOptions(pathToSpec);
-    const req = fetchFrom(pathToSpec).request(opts, (res) => {
+    const { protocol } = parse(url);
+
+    if (protocol !== "http:" && protocol !== "https:") {
+      throw new Error(`Unsupported protocol: "${protocol}". URL must start with "http://" or "https://".`);
+    }
+
+    const fetchMethod = protocol === "https:" ? https : http;
+    const req = fetchMethod.request(url, opts, (res) => {
       let rawData = "";
       res.setEncoding("utf8");
       res.on("data", (chunk) => {
         rawData += chunk;
       });
       res.on("end", () => {
-        resolve(rawData);
+        // 2xx: OK
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          return resolve(rawData);
+        }
+
+        // 3xx: follow redirect (if given)
+        if (res.statusCode >= 300 && res.headers.location) {
+          redirectCount += 1;
+          if (redirectCount >= MAX_REDIRECT_COUNT) {
+            reject(`Max redirects exceeded`);
+            return;
+          }
+          console.log(`🚥 Redirecting to ${res.headers.location}…`);
+          return fetch(res.headers.location, opts).then(resolve);
+        }
+
+        // everything else: throw
+        return reject(rawData || `${res.statusCode} ${res.statusMessage}`);
       });
     });
     req.on("error", (err) => {
@@ -36,4 +46,9 @@ module.exports = (pathToSpec) => {
     });
     req.end();
   });
-};
+}
+
+function loadFromHttp(pathToSpec, { auth }) {
+  return fetch(pathToSpec, { method: "GET", auth });
+}
+module.exports = loadFromHttp;
