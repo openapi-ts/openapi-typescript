@@ -9,12 +9,12 @@ export interface paths {
       parameters: {
         query: {
           /** Filter results to only include the regions that have this location. */
-          location?: unknown;
+          location?: string;
           /**
            * Filter results to only include the regions that are on this
            * platform.
            */
-          platform?: unknown;
+          platform?: string;
         };
       };
       responses: {
@@ -60,7 +60,7 @@ export interface paths {
       parameters: {
         path: {
           /** ID of the region to lookup, stored as a base32 encoded 18 byte identifier. */
-          id: unknown;
+          id: string;
         };
       };
       responses: {
@@ -86,7 +86,7 @@ export interface paths {
       parameters: {
         path: {
           /** ID of the region to lookup, stored as a base32 encoded 18 byte identifier. */
-          id: unknown;
+          id: string;
         };
         body: {
           /** Region update request */
@@ -164,7 +164,7 @@ export interface paths {
       parameters: {
         path: {
           /** ID of the provider to lookup, stored as a base32 encoded 18 byte identifier. */
-          id: unknown;
+          id: string;
         };
       };
       responses: {
@@ -186,7 +186,7 @@ export interface paths {
       parameters: {
         path: {
           /** ID of the provider to update, stored as a base32 encoded 18 byte identifier. */
-          id: unknown;
+          id: string;
         };
         body: {
           /** Provider update request */
@@ -229,11 +229,11 @@ export interface paths {
            * Base32 encoded 18 byte identifier of the provider that these
            * products must belong to.
            */
-          provider_id?: unknown;
+          provider_id?: string;
           /** Filter results to only include those that have this label. */
           label?: parameters["LabelFilter"];
           /** Return only products matching at least one of the tags. */
-          tags?: unknown;
+          tags?: string[];
         };
       };
       responses: {
@@ -290,13 +290,13 @@ export interface paths {
            * Base32 encoded 18 byte identifier of the provider that these
            * products must belong to.
            */
-          provider_id?: unknown;
+          provider_id?: string;
           /** Filter results to only include those that have this label. */
           label?: parameters["LabelFilter"];
           /** Return only products matching at least one of the tags. */
-          tags?: unknown;
+          tags?: string[];
           /** Return product listings without plan information */
-          include_plans?: unknown;
+          include_plans?: boolean;
         };
       };
       responses: {
@@ -323,7 +323,7 @@ export interface paths {
            * ID of the product to lookup, stored as a base32 encoded 18 byte
            * identifier.
            */
-          id: unknown;
+          id: string;
         };
       };
       responses: {
@@ -352,7 +352,7 @@ export interface paths {
            * ID of the product to lookup, stored as a base32 encoded 18 byte
            * identifier.
            */
-          id: unknown;
+          id: string;
         };
         body: {
           /** Product update request */
@@ -387,7 +387,7 @@ export interface paths {
            * ID of the plan to lookup, stored as a base32 encoded 18 byte
            * identifier.
            */
-          id: unknown;
+          id: string;
         };
       };
       responses: {
@@ -416,7 +416,7 @@ export interface paths {
            * ID of the plan to lookup, stored as a base32 encoded 18 byte
            * identifier.
            */
-          id: unknown;
+          id: string;
         };
         body: {
           /** Plan update request */
@@ -448,7 +448,7 @@ export interface paths {
       parameters: {
         query: {
           /** Return the plans that are associated with this product. */
-          product_id: unknown;
+          product_id: string[];
           /** Filter results to only include those that have this label. */
           label?: parameters["LabelFilter"];
         };

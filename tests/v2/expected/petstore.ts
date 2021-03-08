@@ -142,7 +142,7 @@ export interface operations {
     parameters: {
       query: {
         /** Status values that need to be considered for filter */
-        status: unknown;
+        status: ("available" | "pending" | "sold")[];
       };
     };
     responses: {
@@ -159,7 +159,7 @@ export interface operations {
     parameters: {
       query: {
         /** Tags to filter by */
-        tags: unknown;
+        tags: string[];
       };
     };
     responses: {
@@ -176,7 +176,7 @@ export interface operations {
     parameters: {
       path: {
         /** ID of pet to return */
-        petId: unknown;
+        petId: number;
       };
     };
     responses: {
@@ -194,13 +194,13 @@ export interface operations {
     parameters: {
       path: {
         /** ID of pet that needs to be updated */
-        petId: unknown;
+        petId: number;
       };
       formData: {
         /** Updated name of the pet */
-        name?: unknown;
+        name?: string;
         /** Updated status of the pet */
-        status?: unknown;
+        status?: string;
       };
     };
     responses: {
@@ -211,11 +211,11 @@ export interface operations {
   deletePet: {
     parameters: {
       header: {
-        api_key?: unknown;
+        api_key?: string;
       };
       path: {
         /** Pet id to delete */
-        petId: unknown;
+        petId: number;
       };
     };
     responses: {
@@ -229,13 +229,13 @@ export interface operations {
     parameters: {
       path: {
         /** ID of pet to update */
-        petId: unknown;
+        petId: number;
       };
       formData: {
         /** Additional data to pass to server */
-        additionalMetadata?: unknown;
+        additionalMetadata?: string;
         /** file to upload */
-        file?: unknown;
+        file?: { [key: string]: any };
       };
     };
     responses: {
@@ -276,7 +276,7 @@ export interface operations {
     parameters: {
       path: {
         /** ID of pet that needs to be fetched */
-        orderId: unknown;
+        orderId: number;
       };
     };
     responses: {
@@ -295,7 +295,7 @@ export interface operations {
     parameters: {
       path: {
         /** ID of the order that needs to be deleted */
-        orderId: unknown;
+        orderId: number;
       };
     };
     responses: {
@@ -346,9 +346,9 @@ export interface operations {
     parameters: {
       query: {
         /** The user name for login */
-        username: unknown;
+        username: string;
         /** The password for login in clear text */
-        password: unknown;
+        password: string;
       };
     };
     responses: {
@@ -372,7 +372,7 @@ export interface operations {
     parameters: {
       path: {
         /** The name that needs to be fetched. Use user1 for testing. */
-        username: unknown;
+        username: string;
       };
     };
     responses: {
@@ -391,7 +391,7 @@ export interface operations {
     parameters: {
       path: {
         /** name that need to be updated */
-        username: unknown;
+        username: string;
       };
       body: {
         /** Updated user object */
@@ -410,7 +410,7 @@ export interface operations {
     parameters: {
       path: {
         /** The name that needs to be deleted */
-        username: unknown;
+        username: string;
       };
     };
     responses: {
