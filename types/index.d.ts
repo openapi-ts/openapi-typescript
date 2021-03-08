@@ -67,6 +67,9 @@ declare interface ParameterObject {
   required?: boolean;
   deprecated?: boolean;
   schema?: ReferenceObject | SchemaObject; // required
+  type?: "string" | "number" | "integer" | "boolean" | "array" | "file"; // V2 ONLY
+  items?: ReferenceObject | SchemaObject; // V2 ONLY
+  enum?: string[]; // V2 ONLY
 }
 
 declare type ReferenceObject = { $ref: string };

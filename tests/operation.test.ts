@@ -5,18 +5,21 @@ import { transformRequestBodies } from "../src/transform/responses";
 describe("requestBody", () => {
   it("basic", () => {
     expect(
-      transformOperationObj({
-        requestBody: {
-          content: {
-            "application/json": {
-              schema: { $ref: "#/components/schemas/Pet" },
-            },
-            "application/xml": {
-              schema: { $ref: "#/components/schemas/Pet" },
+      transformOperationObj(
+        {
+          requestBody: {
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Pet" },
+              },
+              "application/xml": {
+                schema: { $ref: "#/components/schemas/Pet" },
+              },
             },
           },
         },
-      }).trim()
+        3
+      ).trim()
     ).toBe(`requestBody: {
     content: {
       "application/json": components["schemas"]["Pet"];
@@ -27,9 +30,12 @@ describe("requestBody", () => {
 
   it("ref", () => {
     expect(
-      transformOperationObj({
-        requestBody: { $ref: "#/components/requestBodies/Request" },
-      }).trim()
+      transformOperationObj(
+        {
+          requestBody: { $ref: "#/components/requestBodies/Request" },
+        },
+        3
+      ).trim()
     ).toBe(`requestBody: components["requestBodies"]["Request"];`);
   });
 });

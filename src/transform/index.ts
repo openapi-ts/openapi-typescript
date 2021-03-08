@@ -34,10 +34,14 @@ export function transformAll(schema: any, { version, rawSchema }: TransformOptio
   // #/paths (V2 & V3)
   output += `export interface paths {\n`; // open paths
   if (schema.paths) {
-    output += transformPathsObj(schema.paths, {
-      operations,
-      parameters: (schema.components && schema.components.parameters) || schema.parameters,
-    });
+    output += transformPathsObj(
+      schema.paths,
+      {
+        operations,
+        parameters: (schema.components && schema.components.parameters) || schema.parameters,
+      },
+      version
+    );
   }
   output += `}\n\n`; // close paths
 
@@ -110,6 +114,7 @@ export function transformAll(schema: any, { version, rawSchema }: TransformOptio
       if (operation.description) output += comment(operation.description); // handle comment
       output += `  "${operationId}": {\n    ${transformOperationObj(
         operation,
+        version,
         schema.components && schema.components.parameters
       )}\n  }\n`;
     });
