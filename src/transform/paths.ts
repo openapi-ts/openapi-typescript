@@ -4,14 +4,14 @@ import { transformParametersArray } from "./parameters";
 
 interface TransformPathsObjOption {
   operations: Record<string, OperationObject>;
-  parameters: Record<string, ParameterObject>;
+  globalParameters: Record<string, ParameterObject>;
+  version: number;
 }
 
 /** Note: this needs to mutate objects passed in */
 export function transformPathsObj(
   paths: Record<string, PathItemObject>,
-  { operations, parameters }: TransformPathsObjOption,
-  version: number
+  { operations, globalParameters, version }: TransformPathsObjOption
 ): string {
   let output = "";
 
@@ -41,16 +41,15 @@ export function transformPathsObj(
       }
 
       // otherwise, inline operation
-      output += `    "${method}": {\n      ${transformOperationObj(operation, version, parameters)}\n    }\n`;
+      output += `    "${method}": {\n      ${transformOperationObj(operation, { version, globalParameters })}\n    }\n`;
     });
 
     // parameters
     if (pathItem.parameters) {
-      output += `    parameters: {\n      ${transformParametersArray(
-        pathItem.parameters,
+      output += `    parameters: {\n      ${transformParametersArray(pathItem.parameters, {
         version,
-        parameters
-      )}\n    }\n`;
+        globalParameters,
+      })}\n    }\n`;
     }
 
     output += `  }\n`; // close PathItem

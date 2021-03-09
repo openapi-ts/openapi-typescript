@@ -5,13 +5,21 @@ import { transformSchemaObj } from "./schema";
 
 export function transformOperationObj(
   operation: OperationObject,
-  version: number,
-  globalParams?: Record<string, ParameterObject>
+  {
+    version,
+    globalParameters,
+  }: {
+    version: number;
+    globalParameters?: Record<string, ParameterObject>;
+  }
 ): string {
   let output = "";
 
   if (operation.parameters) {
-    output += `  parameters: {\n    ${transformParametersArray(operation.parameters, version, globalParams)}\n  }\n`;
+    output += `  parameters: {\n    ${transformParametersArray(operation.parameters, {
+      version,
+      globalParameters,
+    })}\n  }\n`;
   }
 
   if (operation.responses) {
