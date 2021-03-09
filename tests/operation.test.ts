@@ -18,7 +18,7 @@ describe("requestBody", () => {
             },
           },
         },
-        3
+        { version: 3 }
       ).trim()
     ).toBe(`requestBody: {
     content: {
@@ -34,7 +34,7 @@ describe("requestBody", () => {
         {
           requestBody: { $ref: "#/components/requestBodies/Request" },
         },
-        3
+        { version: 3 }
       ).trim()
     ).toBe(`requestBody: components["requestBodies"]["Request"];`);
   });

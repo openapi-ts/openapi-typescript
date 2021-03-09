@@ -3,18 +3,23 @@ import { comment } from "../utils";
 
 export function transformParametersArray(
   parameters: (ReferenceObject | ParameterObject)[],
-  version: number,
-  globalParams?: Record<string, ParameterObject>
+  {
+    version,
+    globalParameters,
+  }: {
+    version: number;
+    globalParameters?: Record<string, ParameterObject>;
+  }
 ): string {
   let output = "";
 
   // sort into map
   let mappedParams: Record<string, Record<string, ParameterObject>> = {};
   parameters.forEach((paramObj: any) => {
-    if (paramObj.$ref && globalParams) {
+    if (paramObj.$ref && globalParameters) {
       const paramName = paramObj.$ref.split("/").pop(); // take last segment
-      if (globalParams[paramName]) {
-        const reference = globalParams[paramName] as any;
+      if (globalParameters[paramName]) {
+        const reference = globalParameters[paramName] as any;
         if (!mappedParams[reference.in]) mappedParams[reference.in] = {};
         if (version === 2) {
           mappedParams[reference.in][reference.name || paramName] = {

@@ -19,7 +19,7 @@ describe.only("transformParametersArray()", () => {
             { in: "path", name: "three_d_secure", required: true, type: "string" },
             { in: "body", name: "payload", schema: { type: "string" } },
           ],
-          2
+          { version: 2 }
         ).trim()
       ).toBe(
         `query: {
@@ -38,11 +38,13 @@ describe.only("transformParametersArray()", () => {
       expect(
         transformParametersArray(
           [{ $ref: "#/parameters/per_page" }, { $ref: "#/parameters/page" }, { $ref: "#/parameters/since" }],
-          2,
           {
-            per_page: { in: "query", name: "per_page", required: true, type: "number" },
-            page: { in: "query", name: "page", type: "number" },
-            since: { in: "query", name: "since", type: "string" },
+            version: 2,
+            globalParameters: {
+              per_page: { in: "query", name: "per_page", required: true, type: "number" },
+              page: { in: "query", name: "page", type: "number" },
+              since: { in: "query", name: "since", type: "string" },
+            },
           }
         ).trim()
       ).toBe(`query: {
@@ -78,7 +80,7 @@ describe.only("transformParametersArray()", () => {
               },
             },
           ],
-          3
+          { version: 3 }
         ).trim()
       ).toBe(
         `query: {
@@ -99,11 +101,13 @@ describe.only("transformParametersArray()", () => {
             { $ref: "#/components/parameters/page" },
             { $ref: "#/components/parameters/since" },
           ],
-          3,
           {
-            per_page: { in: "query", name: "per_page", required: true },
-            page: { in: "query", name: "page" },
-            since: { in: "query", name: "since" },
+            version: 3,
+            globalParameters: {
+              per_page: { in: "query", name: "per_page", required: true },
+              page: { in: "query", name: "page" },
+              since: { in: "query", name: "since" },
+            },
           }
         ).trim()
       ).toBe(`query: {
