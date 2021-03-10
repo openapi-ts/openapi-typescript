@@ -9,8 +9,7 @@ async function load(pathToSpec, { auth }) {
   // option 1: remote URL
   if (/^https?:\/\//.test(pathToSpec)) {
     try {
-      const rawSpec = await loadFromHttp(pathToSpec, { auth });
-      return rawSpec;
+      return loadFromHttp(pathToSpec, { auth });
     } catch (e) {
       if (e.code === "ENOTFOUND") {
         throw new Error(
@@ -22,7 +21,10 @@ async function load(pathToSpec, { auth }) {
   }
 
   // option 2: local file
-  return loadFromFs(pathToSpec);
+  return {
+    body: loadFromFs(pathToSpec),
+    contentType: mime.getType(pathToSpec),
+  };
 }
 
 async function loadSpec(pathToSpec, { auth, log = true }) {
@@ -30,27 +32,37 @@ async function loadSpec(pathToSpec, { auth, log = true }) {
     console.log(yellow(`🔭 Loading spec from ${bold(pathToSpec)}…`)); // only log if not writing to stdout
   }
 
-  const contentType = mime.getType(pathToSpec);
-  const rawSpec = await load(pathToSpec, { auth });
+  const { body, contentType } = await load(pathToSpec, { auth });
 
   switch (contentType) {
+    case "application/openapi+yaml":
     case "text/yaml": {
       try {
-        return yaml.load(rawSpec);
+        return yaml.load(body);
       } catch (err) {
         throw new Error(`YAML: ${err.toString()}`);
       }
     }
     case "application/json":
-    case "application/json5": {
+    case "application/json5":
+    case "application/openapi+json": {
       try {
-        return JSON.parse(rawSpec);
+        return JSON.parse(body);
       } catch (err) {
         throw new Error(`JSON: ${err.toString()}`);
       }
     }
     default: {
-      throw new Error(`Unknown format${contentType ? `: "${contentType}"` : ""}. Only YAML or JSON supported.`);
+      try {
+        return JSON.parse(body); // unknown attempt 1: JSON
+      } catch (err1) {
+        try {
+          return yaml.load(body); // unknown attempt 2: YAML
+        } catch (err2) {
+          // give up: unknown type
+          throw new Error(`Unknown format${contentType ? `: "${contentType}"` : ""}. Only YAML or JSON supported.`);
+        }
+      }
     }
   }
 }

@@ -23,7 +23,10 @@ function fetch(url, opts, { redirectCount = 0 } = {}) {
       res.on("end", () => {
         // 2xx: OK
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          return resolve(rawData);
+          return resolve({
+            body: rawData,
+            contentType: res.headers["content-type"].split(";")[0].trim(),
+          });
         }
 
         // 3xx: follow redirect (if given)
