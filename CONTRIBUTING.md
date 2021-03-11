@@ -40,7 +40,7 @@ test the “Petstore” example from Swagger, which is contrived and is missing 
 schemas.
 
 _Note: don’t update the `yaml` schemas with your own custom additions (but if the official versions have updated, then
-it’s fine to upadte them here). If you’d like to add your schema for testing, then please add them as a new schema, and
+it’s fine to update them here). If you’d like to add your schema for testing, then please add them as a new schema, and
 add them to `./expected/*.ts`._
 
 #### Regenerating schemas
