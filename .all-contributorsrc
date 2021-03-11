@@ -319,6 +319,15 @@
         "bug",
         "test"
       ]
+    },
+    {
+      "login": "dnalborczyk",
+      "name": "dnalborczyk",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2903325?v=4",
+      "profile": "https://github.com/dnalborczyk",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
