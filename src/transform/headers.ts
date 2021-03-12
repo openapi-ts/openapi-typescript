@@ -1,3 +1,4 @@
+import { HeaderObject } from "../types";
 import { comment } from "../utils";
 import { transformSchemaObj } from "./schema";
 

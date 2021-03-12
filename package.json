@@ -23,7 +23,6 @@
     "src",
     "types"
   ],
-  "types": "./types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/drwpow/openapi-typescript"

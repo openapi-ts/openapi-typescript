@@ -1,3 +1,4 @@
+import { RequestBody } from "../types";
 import { comment, transformRef } from "../utils";
 import { transformHeaderObjMap } from "./headers";
 import { transformSchemaObj } from "./schema";
