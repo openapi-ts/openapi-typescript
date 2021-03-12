@@ -1,3 +1,4 @@
+import { OperationObject, ParameterObject, PathItemObject } from "../types";
 import { comment, transformRef } from "../utils";
 import { transformOperationObj } from "./operation";
 import { transformParametersArray } from "./parameters";

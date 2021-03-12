@@ -16,6 +16,6 @@
     "strict": true,
     "target": "ES2020"
   },
-  "include": ["src", "types"],
+  "include": ["src"],
   "exclude": ["examples/*", "tests/**/*"]
 }
