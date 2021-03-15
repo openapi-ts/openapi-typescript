@@ -5,7 +5,7 @@
 import { transformSchemaObj } from "../src/transform/schema";
 
 function transform(schemaObject: any): string {
-  return transformSchemaObj(schemaObject).trim();
+  return transformSchemaObj(schemaObject, { immutableTypes: false }).trim();
 }
 
 describe("SchemaObject", () => {

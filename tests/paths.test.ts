@@ -3,7 +3,12 @@ import { transformPathsObj } from "../src/transform/paths";
 
 const transform = (schema: any, operations: any = { operations: {}, globalParameters: {} }, globalParameters?: any) =>
   prettier.format(
-    `export interface paths {\n${transformPathsObj(schema, { operations, globalParameters, version: 3 })}\n}`.trim(),
+    `export interface paths {\n${transformPathsObj(schema, {
+      globalParameters,
+      immutableTypes: false,
+      operations,
+      version: 3,
+    })}\n}`.trim(),
     {
       parser: "typescript",
     }

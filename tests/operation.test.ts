@@ -18,7 +18,10 @@ describe("requestBody", () => {
             },
           },
         },
-        { version: 3 }
+        {
+          immutableTypes: false,
+          version: 3,
+        }
       ).trim()
     ).toBe(`requestBody: {
     content: {
@@ -34,7 +37,10 @@ describe("requestBody", () => {
         {
           requestBody: { $ref: "#/components/requestBodies/Request" },
         },
-        { version: 3 }
+        {
+          immutableTypes: false,
+          version: 3,
+        }
       ).trim()
     ).toBe(`requestBody: components["requestBodies"]["Request"];`);
   });
@@ -44,21 +50,26 @@ describe("requestBodies", () => {
   const format = (source: string) => prettier.format(source, { parser: "typescript" });
 
   it("basic", () => {
-    const output = transformRequestBodies({
-      Pet: {
-        description: "Pet request body",
-        content: {
-          "application/json": {
-            schema: {
-              type: "object",
-              properties: {
-                test: { type: "string" },
+    const output = transformRequestBodies(
+      {
+        Pet: {
+          description: "Pet request body",
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                properties: {
+                  test: { type: "string" },
+                },
               },
             },
           },
         },
       },
-    }).trim();
+      {
+        immutableTypes: false,
+      }
+    ).trim();
 
     expect(format(`type requestBodies = {${output}}`)).toBe(
       format(`type requestBodies = {

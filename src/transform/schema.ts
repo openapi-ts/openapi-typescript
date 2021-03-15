@@ -10,23 +10,26 @@ import {
 } from "../utils";
 
 interface TransformSchemaObjMapOptions {
+  immutableTypes: boolean;
   required?: string[];
 }
 
 /** Take object keys and convert to TypeScript interface */
-export function transformSchemaObjMap(obj: Record<string, any>, options?: TransformSchemaObjMapOptions): string {
-  let output = "";
+export function transformSchemaObjMap(obj: Record<string, any>, options: TransformSchemaObjMapOptions): string {
+  const readonly = options.immutableTypes ? "readonly " : "";
   let required = (options && options.required) || [];
+
+  let output = "";
 
   Object.entries(obj).forEach(([key, value]) => {
     // 1. JSDoc comment (goes above property)
     if (value.description) output += comment(value.description);
 
     // 2. name (with “?” if optional property)
-    output += `"${key}"${required.includes(key) ? "" : "?"}: `;
+    output += `${readonly}"${key}"${required.includes(key) ? "" : "?"}: `;
 
     // 3. transform
-    output += transformSchemaObj(value.schema || value);
+    output += transformSchemaObj(value.schema || value, { immutableTypes: options.immutableTypes });
 
     // 4. close
     output += `;\n`;
@@ -35,18 +38,24 @@ export function transformSchemaObjMap(obj: Record<string, any>, options?: Transf
   return output.replace(/\n+$/, "\n"); // replace repeat line endings with only one
 }
 
+interface Options {
+  immutableTypes: boolean;
+}
+
 /** transform anyOf */
-export function transformAnyOf(anyOf: any): string {
-  return tsIntersectionOf(anyOf.map((s: any) => tsPartial(transformSchemaObj(s))));
+export function transformAnyOf(anyOf: any, options: Options): string {
+  return tsIntersectionOf(anyOf.map((s: any) => tsPartial(transformSchemaObj(s, options))));
 }
 
 /** transform oneOf */
-export function transformOneOf(oneOf: any): string {
-  return tsUnionOf(oneOf.map(transformSchemaObj));
+export function transformOneOf(oneOf: any, options: Options): string {
+  return tsUnionOf(oneOf.map((value: any) => transformSchemaObj(value, options)));
 }
 
 /** Convert schema object to TypeScript */
-export function transformSchemaObj(node: any): string {
+export function transformSchemaObj(node: any, options: Options): string {
+  const readonly = options.immutableTypes ? "readonly " : "";
+
   let output = "";
 
   // open nullable
@@ -89,7 +98,10 @@ export function transformSchemaObj(node: any): string {
         break;
       }
 
-      let properties = transformSchemaObjMap(node.properties || {}, { required: node.required });
+      let properties = transformSchemaObjMap(node.properties || {}, {
+        immutableTypes: options.immutableTypes,
+        required: node.required,
+      });
 
       // if additional properties, add an intersection with a generic map type
       let additionalProperties: string | undefined;
@@ -100,20 +112,22 @@ export function transformSchemaObj(node: any): string {
           const oneOf: any[] | undefined = (node.additionalProperties as any).oneOf || undefined; // TypeScript does a really bad job at inference here, so we enforce a type
           const anyOf: any[] | undefined = (node.additionalProperties as any).anyOf || undefined; // "
           if (oneOf) {
-            additionalProperties = `{ [key: string]: ${transformOneOf(oneOf)}; }`;
+            additionalProperties = `{ [key: string]: ${transformOneOf(oneOf, options)}; }`;
           } else if (anyOf) {
-            additionalProperties = `{ [key: string]: ${transformAnyOf(anyOf)}; }`;
+            additionalProperties = `{ [key: string]: ${transformAnyOf(anyOf, options)}; }`;
           } else {
-            additionalProperties = `{ [key: string]: ${transformSchemaObj(node.additionalProperties) || "any"}; }`;
+            additionalProperties = `{ [key: string]: ${
+              transformSchemaObj(node.additionalProperties, options) || "any"
+            }; }`;
           }
         }
       }
 
       output += tsIntersectionOf([
         // append allOf/anyOf/oneOf first
-        ...(node.allOf ? (node.allOf as any[]).map(transformSchemaObj) : []),
-        ...(node.anyOf ? [transformAnyOf(node.anyOf)] : []),
-        ...(node.oneOf ? [transformOneOf(node.oneOf)] : []),
+        ...(node.allOf ? (node.allOf as any[]).map((node) => transformSchemaObj(node, options)) : []),
+        ...(node.anyOf ? [transformAnyOf(node.anyOf, options)] : []),
+        ...(node.oneOf ? [transformOneOf(node.oneOf, options)] : []),
         ...(properties ? [`{\n${properties}\n}`] : []), // then properties (line breaks are important!)
         ...(additionalProperties ? [additionalProperties] : []), // then additional properties
       ]);
@@ -123,9 +137,9 @@ export function transformSchemaObj(node: any): string {
 
     case "array": {
       if (Array.isArray(node.items)) {
-        output += tsTupleOf(node.items.map(transformSchemaObj));
+        output += `${readonly}${tsTupleOf(node.items.map((node: any) => transformSchemaObj(node, options)))}`;
       } else {
-        output += tsArrayOf(node.items ? transformSchemaObj(node.items as any) : "any");
+        output += `${readonly}${tsArrayOf(node.items ? transformSchemaObj(node.items as any, options) : "any")}`;
       }
       break;
     }

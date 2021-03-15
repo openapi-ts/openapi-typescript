@@ -5,13 +5,17 @@ import { transformSchemaObj } from "./schema";
 export function transformParametersArray(
   parameters: (ReferenceObject | ParameterObject)[],
   {
-    version,
     globalParameters,
+    immutableTypes,
+    version,
   }: {
-    version: number;
     globalParameters?: Record<string, ParameterObject>;
+    immutableTypes: boolean;
+    version: number;
   }
 ): string {
+  const readonly = immutableTypes ? "readonly " : "";
+
   let output = "";
 
   // sort into map
@@ -44,7 +48,7 @@ export function transformParametersArray(
 
   // transform output
   Object.entries(mappedParams).forEach(([paramIn, paramGroup]) => {
-    output += `  ${paramIn}: {\n`; // open in
+    output += `  ${readonly}${paramIn}: {\n`; // open in
     Object.entries(paramGroup).forEach(([paramName, paramObj]) => {
       let paramComment = "";
       if (paramObj.deprecated) paramComment += `@deprecated `;
@@ -55,16 +59,16 @@ export function transformParametersArray(
       let paramType = ``;
       if (version === 2) {
         if (paramObj.in === "body" && paramObj.schema) {
-          paramType = transformSchemaObj(paramObj.schema);
+          paramType = transformSchemaObj(paramObj.schema, { immutableTypes });
         } else if (paramObj.type) {
-          paramType = transformSchemaObj(paramObj);
+          paramType = transformSchemaObj(paramObj, { immutableTypes });
         } else {
           paramType = "unknown";
         }
       } else if (version === 3) {
-        paramType = paramObj.schema ? transformSchemaObj(paramObj.schema) : "unknown";
+        paramType = paramObj.schema ? transformSchemaObj(paramObj.schema, { immutableTypes }) : "unknown";
       }
-      output += `    "${paramName}"${required}: ${paramType};\n`;
+      output += `    ${readonly}"${paramName}"${required}: ${paramType};\n`;
     });
     output += `  }\n`; // close in
   });

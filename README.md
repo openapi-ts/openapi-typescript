@@ -110,6 +110,7 @@ For anything more complicated, or for generating specs dynamically, you can also
 | :----------------------------- | :---- | :------: | :--------------------------------------------------------------- |
 | `--output [location]`          | `-o`  | (stdout) | Where should the output file be saved?                           |
 | `--auth [token]`               |       |          | (optional) Provide an auth token to be passed along in the request (only if accessing a private schema). |
+| `--immutableTypes`             |       | `false`  | (optional) Generates immutable types (readonly properties and readonly array). |
 | `--prettier-config [location]` |       |          | (optional) Path to your custom Prettier configuration for output |
 | `--raw-schema`                 |       | `false`  | Generate TS types from partial schema (e.g. having `components.schema` at the top level) |
 

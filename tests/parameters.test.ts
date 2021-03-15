@@ -19,7 +19,10 @@ describe.only("transformParametersArray()", () => {
             { in: "path", name: "three_d_secure", required: true, type: "string" },
             { in: "body", name: "payload", schema: { type: "string" } },
           ],
-          { version: 2 }
+          {
+            immutableTypes: false,
+            version: 2,
+          }
         ).trim()
       ).toBe(
         `query: {
@@ -39,12 +42,13 @@ describe.only("transformParametersArray()", () => {
         transformParametersArray(
           [{ $ref: "#/parameters/per_page" }, { $ref: "#/parameters/page" }, { $ref: "#/parameters/since" }],
           {
-            version: 2,
             globalParameters: {
               per_page: { in: "query", name: "per_page", required: true, type: "number" },
               page: { in: "query", name: "page", type: "number" },
               since: { in: "query", name: "since", type: "string" },
             },
+            immutableTypes: false,
+            version: 2,
           }
         ).trim()
       ).toBe(`query: {
@@ -80,7 +84,10 @@ describe.only("transformParametersArray()", () => {
               },
             },
           ],
-          { version: 3 }
+          {
+            immutableTypes: false,
+            version: 3,
+          }
         ).trim()
       ).toBe(
         `query: {
@@ -102,12 +109,13 @@ describe.only("transformParametersArray()", () => {
             { $ref: "#/components/parameters/since" },
           ],
           {
-            version: 3,
             globalParameters: {
               per_page: { in: "query", name: "per_page", required: true },
               page: { in: "query", name: "page" },
               since: { in: "query", name: "since" },
             },
+            immutableTypes: false,
+            version: 3,
           }
         ).trim()
       ).toBe(`query: {
