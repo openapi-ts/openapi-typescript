@@ -23,7 +23,7 @@ export default function swaggerToTS(
   // 2. generate output
   let output = `${WARNING_MESSAGE}
   ${transformAll(schema, {
-    immutableTypes: options?.immutableTypes || false,
+    immutableTypes: (options && options.immutableTypes) || false,
     rawSchema: options && options.rawSchema,
     version,
   })}
