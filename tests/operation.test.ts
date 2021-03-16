@@ -4,45 +4,62 @@ import { transformRequestBodies } from "../src/transform/responses";
 
 describe("requestBody", () => {
   it("basic", () => {
-    expect(
-      transformOperationObj(
-        {
-          requestBody: {
-            content: {
-              "application/json": {
-                schema: { $ref: "#/components/schemas/Pet" },
-              },
-              "application/xml": {
-                schema: { $ref: "#/components/schemas/Pet" },
-              },
-            },
+    const schema = {
+      requestBody: {
+        content: {
+          "application/json": {
+            schema: { $ref: "#/components/schemas/Pet" },
+          },
+          "application/xml": {
+            schema: { $ref: "#/components/schemas/Pet" },
           },
         },
-        {
-          immutableTypes: false,
-          version: 3,
-        }
-      ).trim()
+      },
+    };
+
+    expect(
+      transformOperationObj(schema, {
+        immutableTypes: false,
+        version: 3,
+      }).trim()
     ).toBe(`requestBody: {
     content: {
       "application/json": components["schemas"]["Pet"];
       "application/xml": components["schemas"]["Pet"];
     }
   }`);
+
+    expect(
+      transformOperationObj(schema, {
+        immutableTypes: true,
+        version: 3,
+      }).trim()
+    ).toBe(`readonly requestBody: {
+    readonly content: {
+      readonly "application/json": components["schemas"]["Pet"];
+      readonly "application/xml": components["schemas"]["Pet"];
+    }
+  }`);
   });
 
   it("ref", () => {
+    const schema = {
+      requestBody: { $ref: "#/components/requestBodies/Request" },
+    };
+
     expect(
-      transformOperationObj(
-        {
-          requestBody: { $ref: "#/components/requestBodies/Request" },
-        },
-        {
-          immutableTypes: false,
-          version: 3,
-        }
-      ).trim()
+      transformOperationObj(schema, {
+        immutableTypes: false,
+        version: 3,
+      }).trim()
     ).toBe(`requestBody: components["requestBodies"]["Request"];`);
+
+    expect(
+      transformOperationObj(schema, {
+        immutableTypes: true,
+        version: 3,
+      }).trim()
+    ).toBe(`readonly requestBody: components["requestBodies"]["Request"];`);
   });
 });
 
@@ -50,26 +67,25 @@ describe("requestBodies", () => {
   const format = (source: string) => prettier.format(source, { parser: "typescript" });
 
   it("basic", () => {
-    const output = transformRequestBodies(
-      {
-        Pet: {
-          description: "Pet request body",
-          content: {
-            "application/json": {
-              schema: {
-                type: "object",
-                properties: {
-                  test: { type: "string" },
-                },
+    const schema = {
+      Pet: {
+        description: "Pet request body",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                test: { type: "string" },
               },
             },
           },
         },
       },
-      {
-        immutableTypes: false,
-      }
-    ).trim();
+    };
+
+    const output = transformRequestBodies(schema, {
+      immutableTypes: false,
+    }).trim();
 
     expect(format(`type requestBodies = {${output}}`)).toBe(
       format(`type requestBodies = {
@@ -78,6 +94,23 @@ describe("requestBodies", () => {
             content: {
               "application/json": {
                 test?: string;
+              };
+            };
+          };
+        };`)
+    );
+
+    const outputImmutable = transformRequestBodies(schema, {
+      immutableTypes: true,
+    }).trim();
+
+    expect(format(`type requestBodies = {${outputImmutable}}`)).toBe(
+      format(`type requestBodies = {
+          /** Pet request body */
+          Pet: {
+            readonly content: {
+              readonly "application/json": {
+                readonly test?: string;
               };
             };
           };
