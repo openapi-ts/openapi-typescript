@@ -163,6 +163,9 @@ describe("SchemaObject", () => {
       // boolean
       expect(transform({ additionalProperties: true })).toBe(`{ [key: string]: any }`);
 
+      // empty object
+      expect(transform({ additionalProperties: {} })).toBe(`{ [key: string]: any }`);
+
       // type
       expect(transform({ additionalProperties: { type: "string" } })).toBe(`{ [key: string]: string; }`);
 

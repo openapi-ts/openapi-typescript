@@ -94,7 +94,7 @@ export function transformSchemaObj(node: any): string {
       // if additional properties, add an intersection with a generic map type
       let additionalProperties: string | undefined;
       if (node.additionalProperties) {
-        if (node.additionalProperties === true) {
+        if (node.additionalProperties === true || Object.keys(node.additionalProperties).length === 0) {
           additionalProperties = `{ [key: string]: any }`;
         } else if (typeof node.additionalProperties === "object") {
           const oneOf: any[] | undefined = (node.additionalProperties as any).oneOf || undefined; // TypeScript does a really bad job at inference here, so we enforce a type
