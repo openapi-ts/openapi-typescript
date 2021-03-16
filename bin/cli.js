@@ -15,7 +15,7 @@ Options
   --help                display this
   --output, -o          Specify output file (default: stdout)
   --auth                (optional) Provide an authentication token for private URL
-  --immutableTypes      (optional) Generates immutable types (readonly properties and readonly array)
+  --immutable-types     (optional) Generates immutable types (readonly properties and readonly array)
   --prettier-config     (optional) specify path to Prettier config file
   --raw-schema          (optional) Read from raw schema instead of document
   --version             (optional) Schema version (must be present for raw schemas)
