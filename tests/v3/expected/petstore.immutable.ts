@@ -274,7 +274,7 @@ export interface operations {
       /** successful operation */
       readonly 200: {
         readonly content: {
-          readonly "application/json": { [key: string]: number };
+          readonly "application/json": { readonly [key: string]: number };
         };
       };
     };

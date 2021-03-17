@@ -1525,7 +1525,7 @@ export interface components {
       readonly id: string;
       readonly individual?: components["schemas"]["person"];
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata?: { [key: string]: string };
+      readonly metadata?: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "account";
       /** Whether Stripe can send payouts to this account. */
@@ -1752,7 +1752,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata?: { [key: string]: string };
+      readonly metadata?: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "alipay_account";
       /** If the Alipay account object is not reusable, the exact amount that you can create a charge for. */
@@ -2015,7 +2015,7 @@ export interface components {
       /** The last four digits of the bank account number. */
       readonly last4: string;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata?: { [key: string]: string } | null;
+      readonly metadata?: { readonly [key: string]: string } | null;
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "bank_account";
       /** The routing transit number for the bank account. */
@@ -2094,7 +2094,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "bitcoin_receiver";
       /** The ID of the payment created from the receiver, if any. Hidden when viewing the receiver with a publishable key. */
@@ -2211,7 +2211,7 @@ export interface components {
       /** The last four digits of the card. */
       readonly last4: string;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** Cardholder name. */
       readonly name?: string | null;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -2221,7 +2221,7 @@ export interface components {
       /** If the card number is tokenized, this is the method that was used. Can be `amex_express_checkout`, `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null. */
       readonly tokenization_method?: string | null;
     };
-    readonly card_mandate_payment_method_details: { [key: string]: any };
+    readonly card_mandate_payment_method_details: { readonly [key: string]: any };
     /**
      * To charge a credit or a debit card, you create a `Charge` object. You can
      * retrieve and refund individual charges as well as list all charges. Charges
@@ -2274,7 +2274,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "charge";
       /** The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers) for details. */
@@ -2434,7 +2434,7 @@ export interface components {
           )
         | null;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata?: { [key: string]: string } | null;
+      readonly metadata?: { readonly [key: string]: string } | null;
       /** The mode of the Checkout Session, one of `payment`, `setup`, or `subscription`. */
       readonly mode?: ("payment" | "setup" | "subscription") | null;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -2520,7 +2520,7 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "country_spec";
       /** Currencies that can be accepted in the specific country (for transfers). */
-      readonly supported_bank_account_currencies: { [key: string]: readonly string[] };
+      readonly supported_bank_account_currencies: { readonly [key: string]: readonly string[] };
       /** Currencies that can be accepted in the specified country (for payments). */
       readonly supported_payment_currencies: readonly string[];
       /** Payment methods available in the specified country. You may need to enable some payment methods (e.g., [ACH](https://stripe.com/docs/ach)) on your account before they appear in this list. The `stripe` payment method refers to [charging through your platform](https://stripe.com/docs/connect/destination-charges). */
@@ -2562,7 +2562,7 @@ export interface components {
       /** Maximum number of times this coupon can be redeemed, in total, across all customers, before it is no longer valid. */
       readonly max_redemptions?: number | null;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** Name of the coupon displayed to customers on for instance invoices or receipts. */
       readonly name?: string | null;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -2616,7 +2616,7 @@ export interface components {
       /** Customer-facing text that appears on the credit note PDF. */
       readonly memo?: string | null;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** A unique number that identifies this particular credit note and appears on the PDF of the credit note and its associated invoice. */
       readonly number: string;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -2724,7 +2724,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata?: { [key: string]: string };
+      readonly metadata?: { readonly [key: string]: string };
       /** The customer's full name or business name. */
       readonly name?: string | null;
       /** The suffix of the customer's next invoice number, e.g., 0001. */
@@ -2815,7 +2815,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata?: { [key: string]: string } | null;
+      readonly metadata?: { readonly [key: string]: string } | null;
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "customer_balance_transaction";
       /** Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, or `unapplied_from_invoice`. See the [Customer Balance page](https://stripe.com/docs/billing/customer/balance#types) to learn more about transaction types. */
@@ -3085,7 +3085,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "dispute";
       /** ID of the PaymentIntent that was disputed. */
@@ -3258,7 +3258,7 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "exchange_rate";
       /** Hash where the keys are supported currencies and the values are the exchange rate at which the base id currency converts to the key currency. */
-      readonly rates: { [key: string]: number };
+      readonly rates: { readonly [key: string]: number };
     };
     readonly external_account: Partial<components["schemas"]["bank_account"]> & Partial<components["schemas"]["card"]>;
     readonly fee: {
@@ -3294,7 +3294,7 @@ export interface components {
       /** Unique identifier for the object. */
       readonly id: string;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "fee_refund";
     };
@@ -3357,7 +3357,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "file_link";
       /** The publicly accessible URL to download the file. */
@@ -3526,7 +3526,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata?: { [key: string]: string } | null;
+      readonly metadata?: { readonly [key: string]: string } | null;
       /** The time at which payment will next be attempted. This value will be `null` for invoices where `collection_method=send_invoice`. */
       readonly next_payment_attempt?: number | null;
       /** A unique, identifying string that appears on emails sent to the customer for this invoice. This starts with the customer's unique invoice_prefix if it is specified. */
@@ -3647,7 +3647,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "invoiceitem";
       readonly period: components["schemas"]["invoice_line_item_period"];
@@ -3766,7 +3766,7 @@ export interface components {
       readonly merchant_currency: string;
       readonly merchant_data: components["schemas"]["issuing_authorization_merchant_data"];
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "issuing.authorization";
       /** The pending authorization request. This field will only be non-null during an `issuing_authorization.request` webhook. */
@@ -3805,7 +3805,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** The full unredacted card number. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint. */
       readonly number?: string;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -3844,7 +3844,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** The cardholder's name. This will be printed on cards issued to them. */
       readonly name: string;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -3889,7 +3889,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** The total net amount required to settle with the network. */
       readonly net_total: number;
       /** The card network for this settlement report. One of ["visa"] */
@@ -3939,7 +3939,7 @@ export interface components {
       readonly merchant_currency: string;
       readonly merchant_data: components["schemas"]["issuing_authorization_merchant_data"];
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "issuing.transaction";
       /** The nature of the transaction. */
@@ -5968,7 +5968,7 @@ export interface components {
       /** The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. */
       readonly front?: (Partial<string> & Partial<components["schemas"]["file"]>) | null;
     };
-    readonly light_account_logout: { [key: string]: any };
+    readonly light_account_logout: { readonly [key: string]: any };
     readonly line_item: {
       /** The amount, in %s. */
       readonly amount: number;
@@ -5985,7 +5985,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Note that for line items with `type=subscription` this will reflect the metadata of the subscription that caused the line item to be created. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "line_item";
       readonly period: components["schemas"]["invoice_line_item_period"];
@@ -6037,7 +6037,7 @@ export interface components {
       /** The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively. */
       readonly url: string;
     };
-    readonly mandate_multi_use: { [key: string]: any };
+    readonly mandate_multi_use: { readonly [key: string]: any };
     readonly mandate_payment_method_details: {
       readonly au_becs_debit?: components["schemas"]["mandate_au_becs_debit"];
       readonly card?: components["schemas"]["card_mandate_payment_method_details"];
@@ -6059,9 +6059,9 @@ export interface components {
     };
     readonly notification_event_data: {
       /** Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://stripe.com/docs/api#invoice_object) as the value of the object key. */
-      readonly object: { [key: string]: any };
+      readonly object: { readonly [key: string]: any };
       /** Object containing the names of the attributes that have changed, and their previous values (sent along only with *.updated events). */
-      readonly previous_attributes?: { [key: string]: any };
+      readonly previous_attributes?: { readonly [key: string]: any };
     };
     readonly notification_event_request: {
       /** ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API. */
@@ -6069,7 +6069,7 @@ export interface components {
       /** The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*. */
       readonly idempotency_key?: string | null;
     };
-    readonly offline_acceptance: { [key: string]: any };
+    readonly offline_acceptance: { readonly [key: string]: any };
     readonly online_acceptance: {
       /** The IP address from which the Mandate was accepted by the customer. */
       readonly ip_address?: string | null;
@@ -6115,7 +6115,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "order";
       /** A list of returns that have taken place for this order. */
@@ -6289,7 +6289,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. For more information, see the [documentation](https://stripe.com/docs/payments/payment-intents/creating-payment-intents#storing-information-in-metadata). */
-      readonly metadata?: { [key: string]: string };
+      readonly metadata?: { readonly [key: string]: string };
       /** If present, this property tells you what actions you need to take in order for your customer to fulfill a payment using the provided source. */
       readonly next_action?: Partial<components["schemas"]["payment_intent_next_action"]> | null;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -6339,7 +6339,7 @@ export interface components {
       /** Type of the next action to perform, one of `redirect_to_url` or `use_stripe_sdk`. */
       readonly type: string;
       /** When confirming a PaymentIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js. */
-      readonly use_stripe_sdk?: { [key: string]: any };
+      readonly use_stripe_sdk?: { readonly [key: string]: any };
     };
     readonly payment_intent_next_action_redirect_to_url: {
       /** If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion. */
@@ -6383,7 +6383,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "payment_method";
       readonly sepa_debit?: components["schemas"]["payment_method_sepa_debit"];
@@ -6436,7 +6436,7 @@ export interface components {
       /** Transaction-specific details of the payment method used in the payment. */
       readonly payment_method_details?: Partial<components["schemas"]["payment_method_details"]> | null;
     };
-    readonly payment_method_card_present: { [key: string]: any };
+    readonly payment_method_card_present: { readonly [key: string]: any };
     readonly payment_method_card_wallet: {
       readonly amex_express_checkout?: components["schemas"]["payment_method_card_wallet_amex_express_checkout"];
       readonly apple_pay?: components["schemas"]["payment_method_card_wallet_apple_pay"];
@@ -6455,9 +6455,9 @@ export interface components {
         | "visa_checkout";
       readonly visa_checkout?: components["schemas"]["payment_method_card_wallet_visa_checkout"];
     };
-    readonly payment_method_card_wallet_amex_express_checkout: { [key: string]: any };
-    readonly payment_method_card_wallet_apple_pay: { [key: string]: any };
-    readonly payment_method_card_wallet_google_pay: { [key: string]: any };
+    readonly payment_method_card_wallet_amex_express_checkout: { readonly [key: string]: any };
+    readonly payment_method_card_wallet_apple_pay: { readonly [key: string]: any };
+    readonly payment_method_card_wallet_google_pay: { readonly [key: string]: any };
     readonly payment_method_card_wallet_masterpass: {
       /** Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly billing_address?: Partial<components["schemas"]["address"]> | null;
@@ -6468,7 +6468,7 @@ export interface components {
       /** Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly shipping_address?: Partial<components["schemas"]["address"]> | null;
     };
-    readonly payment_method_card_wallet_samsung_pay: { [key: string]: any };
+    readonly payment_method_card_wallet_samsung_pay: { readonly [key: string]: any };
     readonly payment_method_card_wallet_visa_checkout: {
       /** Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly billing_address?: Partial<components["schemas"]["address"]> | null;
@@ -6529,7 +6529,7 @@ export interface components {
       /** Routing transit number of the bank account. */
       readonly routing_number?: string | null;
     };
-    readonly payment_method_details_alipay: { [key: string]: any };
+    readonly payment_method_details_alipay: { readonly [key: string]: any };
     readonly payment_method_details_au_becs_debit: {
       /** Bank-State-Branch number of the bank account. */
       readonly bsb_number?: string | null;
@@ -6677,9 +6677,9 @@ export interface components {
         | "visa_checkout";
       readonly visa_checkout?: components["schemas"]["payment_method_details_card_wallet_visa_checkout"];
     };
-    readonly payment_method_details_card_wallet_amex_express_checkout: { [key: string]: any };
-    readonly payment_method_details_card_wallet_apple_pay: { [key: string]: any };
-    readonly payment_method_details_card_wallet_google_pay: { [key: string]: any };
+    readonly payment_method_details_card_wallet_amex_express_checkout: { readonly [key: string]: any };
+    readonly payment_method_details_card_wallet_apple_pay: { readonly [key: string]: any };
+    readonly payment_method_details_card_wallet_google_pay: { readonly [key: string]: any };
     readonly payment_method_details_card_wallet_masterpass: {
       /** Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly billing_address?: Partial<components["schemas"]["address"]> | null;
@@ -6690,7 +6690,7 @@ export interface components {
       /** Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly shipping_address?: Partial<components["schemas"]["address"]> | null;
     };
-    readonly payment_method_details_card_wallet_samsung_pay: { [key: string]: any };
+    readonly payment_method_details_card_wallet_samsung_pay: { readonly [key: string]: any };
     readonly payment_method_details_card_wallet_visa_checkout: {
       /** Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly billing_address?: Partial<components["schemas"]["address"]> | null;
@@ -6790,7 +6790,7 @@ export interface components {
        */
       readonly verified_name?: string | null;
     };
-    readonly payment_method_details_klarna: { [key: string]: any };
+    readonly payment_method_details_klarna: { readonly [key: string]: any };
     readonly payment_method_details_multibanco: {
       /** Entity number associated with this Multibanco payment. */
       readonly entity?: string | null;
@@ -6837,8 +6837,8 @@ export interface components {
        */
       readonly verified_name?: string | null;
     };
-    readonly payment_method_details_stripe_account: { [key: string]: any };
-    readonly payment_method_details_wechat: { [key: string]: any };
+    readonly payment_method_details_stripe_account: { readonly [key: string]: any };
+    readonly payment_method_details_wechat: { readonly [key: string]: any };
     readonly payment_method_fpx: {
       /** The customer's bank, if provided. Can be one of `affin_bank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, or `pb_enterprise`. */
       readonly bank:
@@ -7218,7 +7218,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces](https://stripe.com/blog/instant-payouts-for-marketplaces) for more information.) */
       readonly method: string;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -7264,7 +7264,7 @@ export interface components {
       readonly last_name_kanji?: string | null;
       readonly maiden_name?: string | null;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata?: { [key: string]: string };
+      readonly metadata?: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "person";
       readonly phone?: string | null;
@@ -7331,7 +7331,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** A brief description of the plan, hidden from customers. */
       readonly nickname?: string | null;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -7407,7 +7407,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** The product's name, meant to be displayable to the customer. Whenever this product is sold via a subscription, name will show up on associated invoice line item descriptions. */
       readonly name: string;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -7486,7 +7486,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** The name of the value list. */
       readonly name: string;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -7572,7 +7572,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** The ID of the [Custom account](https://stripe.com/docs/connect/custom-accounts) this recipient was migrated to. If set, the recipient can no longer be updated, nor can transfers be made to it: use the Custom account instead. */
       readonly migrated_to?: (Partial<string> & Partial<components["schemas"]["account"]>) | null;
       /** Full, legal name of the recipient. */
@@ -7610,7 +7610,7 @@ export interface components {
       /** Unique identifier for the object. */
       readonly id: string;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "refund";
       /** ID of the PaymentIntent that was refunded. */
@@ -7844,7 +7844,7 @@ export interface components {
       /** ID of the multi use Mandate generated by the SetupIntent. */
       readonly mandate?: (Partial<string> & Partial<components["schemas"]["mandate"]>) | null;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata?: { [key: string]: string };
+      readonly metadata?: { readonly [key: string]: string };
       /** If present, this property tells you what actions you need to take in order for your customer to continue payment setup. */
       readonly next_action?: Partial<components["schemas"]["setup_intent_next_action"]> | null;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -7879,7 +7879,7 @@ export interface components {
       /** Type of the next action to perform, one of `redirect_to_url` or `use_stripe_sdk`. */
       readonly type: string;
       /** When confirming a SetupIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js. */
-      readonly use_stripe_sdk?: { [key: string]: any };
+      readonly use_stripe_sdk?: { readonly [key: string]: any };
     };
     readonly setup_intent_next_action_redirect_to_url: {
       /** If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion. */
@@ -7935,7 +7935,7 @@ export interface components {
       /** Whether the SKU is available for purchase. */
       readonly active: boolean;
       /** A dictionary of attributes and values for the attributes defined by the product. If, for example, a product's attributes are `["size", "gender"]`, a valid SKU has the following dictionary of attributes: `{"size": "Medium", "gender": "Unisex"}`. */
-      readonly attributes: { [key: string]: string };
+      readonly attributes: { readonly [key: string]: string };
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       readonly created: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -7948,7 +7948,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "sku";
       /** The dimensions of this SKU for shipping purposes. */
@@ -7998,7 +7998,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata?: { [key: string]: string } | null;
+      readonly metadata?: { readonly [key: string]: string } | null;
       readonly multibanco?: components["schemas"]["source_type_multibanco"];
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "source";
@@ -8500,7 +8500,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** Specifies the approximate timestamp on which any pending invoice items will be billed according to the schedule provided at `pending_invoice_item_interval`. */
       readonly next_pending_invoice_item_invoice?: number | null;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -8560,7 +8560,7 @@ export interface components {
       /** Unique identifier for the object. */
       readonly id: string;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "subscription_item";
       readonly plan: components["schemas"]["plan"];
@@ -8607,7 +8607,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata?: { [key: string]: string } | null;
+      readonly metadata?: { readonly [key: string]: string } | null;
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "subscription_schedule";
       /** Configuration for the subscription schedule's phases. */
@@ -8805,7 +8805,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "tax_rate";
       /** This represents the tax rate percent out of 100. */
@@ -8838,7 +8838,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "terminal.location";
     };
@@ -8863,7 +8863,7 @@ export interface components {
       /** The location identifier of the reader. */
       readonly location?: string | null;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "terminal.reader";
       /** Serial number of the reader. */
@@ -8980,7 +8980,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "topup";
       readonly source: components["schemas"]["source"];
@@ -9025,7 +9025,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "transfer";
       /** A list of reversals that have been applied to the transfer. */
@@ -9087,7 +9087,7 @@ export interface components {
       /** Unique identifier for the object. */
       readonly id: string;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "transfer_reversal";
       /** ID of the refund responsible for the transfer reversal. */
@@ -9171,7 +9171,7 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      readonly metadata: { [key: string]: string };
+      readonly metadata: { readonly [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       readonly object: "webhook_endpoint";
       /** The endpoint's secret, used to generate [webhook signatures](https://stripe.com/docs/webhooks/signatures). Only returned at creation. */
@@ -9247,7 +9247,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -9275,7 +9275,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -9441,7 +9441,7 @@ export interface operations {
             readonly last_name_kana?: string;
             readonly last_name_kanji?: string;
             readonly maiden_name?: string;
-            readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+            readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
             readonly phone?: string;
             readonly ssn_last_4?: string;
             readonly verification?: {
@@ -9456,7 +9456,7 @@ export interface operations {
             };
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** The set of capabilities you want to unlock for this account. Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive. */
           readonly requested_capabilities?: readonly (
             | "au_becs_debit_payments"
@@ -9582,7 +9582,7 @@ export interface operations {
           /** Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           readonly external_account?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
         };
       };
     };
@@ -9614,7 +9614,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -9670,7 +9670,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Cardholder name. */
           readonly name?: string;
         };
@@ -9700,7 +9700,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -9736,7 +9736,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -9767,7 +9767,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -9843,7 +9843,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -9884,7 +9884,7 @@ export interface operations {
           /** Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           readonly external_account?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
         };
       };
     };
@@ -9916,7 +9916,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -9972,7 +9972,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Cardholder name. */
           readonly name?: string;
         };
@@ -10002,7 +10002,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -10113,7 +10113,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -10196,7 +10196,7 @@ export interface operations {
           /** The person's maiden name. */
           readonly maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           readonly person_token?: string;
           /** The person's phone number. */
@@ -10254,7 +10254,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -10342,7 +10342,7 @@ export interface operations {
           /** The person's maiden name. */
           readonly maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           readonly person_token?: string;
           /** The person's phone number. */
@@ -10396,7 +10396,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -10445,7 +10445,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -10528,7 +10528,7 @@ export interface operations {
           /** The person's maiden name. */
           readonly maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           readonly person_token?: string;
           /** The person's phone number. */
@@ -10586,7 +10586,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -10674,7 +10674,7 @@ export interface operations {
           /** The person's maiden name. */
           readonly maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           readonly person_token?: string;
           /** The person's phone number. */
@@ -10728,7 +10728,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -10812,7 +10812,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -10982,7 +10982,7 @@ export interface operations {
             readonly last_name_kana?: string;
             readonly last_name_kanji?: string;
             readonly maiden_name?: string;
-            readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+            readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
             readonly phone?: string;
             readonly ssn_last_4?: string;
             readonly verification?: {
@@ -10997,7 +10997,7 @@ export interface operations {
             };
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** The set of capabilities you want to unlock for this account. Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive. */
           readonly requested_capabilities?: readonly (
             | "au_becs_debit_payments"
@@ -11085,7 +11085,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -11256,7 +11256,7 @@ export interface operations {
             readonly last_name_kana?: string;
             readonly last_name_kanji?: string;
             readonly maiden_name?: string;
-            readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+            readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
             readonly phone?: string;
             readonly ssn_last_4?: string;
             readonly verification?: {
@@ -11271,7 +11271,7 @@ export interface operations {
             };
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** The set of capabilities you want to unlock for this account. Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive. */
           readonly requested_capabilities?: readonly (
             | "au_becs_debit_payments"
@@ -11359,7 +11359,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -11405,7 +11405,7 @@ export interface operations {
           /** Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           readonly external_account?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
         };
       };
     };
@@ -11438,7 +11438,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -11495,7 +11495,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Cardholder name. */
           readonly name?: string;
         };
@@ -11526,7 +11526,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -11565,7 +11565,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -11597,7 +11597,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -11677,7 +11677,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -11723,7 +11723,7 @@ export interface operations {
           /** Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           readonly external_account?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
         };
       };
     };
@@ -11756,7 +11756,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -11813,7 +11813,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Cardholder name. */
           readonly name?: string;
         };
@@ -11844,7 +11844,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -11966,7 +11966,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -12053,7 +12053,7 @@ export interface operations {
           /** The person's maiden name. */
           readonly maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           readonly person_token?: string;
           /** The person's phone number. */
@@ -12112,7 +12112,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -12200,7 +12200,7 @@ export interface operations {
           /** The person's maiden name. */
           readonly maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           readonly person_token?: string;
           /** The person's phone number. */
@@ -12255,7 +12255,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -12307,7 +12307,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -12394,7 +12394,7 @@ export interface operations {
           /** The person's maiden name. */
           readonly maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           readonly person_token?: string;
           /** The person's phone number. */
@@ -12453,7 +12453,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -12541,7 +12541,7 @@ export interface operations {
           /** The person's maiden name. */
           readonly maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           readonly person_token?: string;
           /** The person's phone number. */
@@ -12596,7 +12596,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -12675,7 +12675,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -12732,7 +12732,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -12759,7 +12759,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -12810,7 +12810,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -12842,7 +12842,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -12878,7 +12878,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -12910,7 +12910,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -12987,7 +12987,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -13030,7 +13030,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
         };
       };
     };
@@ -13062,7 +13062,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -13130,7 +13130,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -13165,7 +13165,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -13233,7 +13233,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -13268,7 +13268,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -13345,7 +13345,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -13376,7 +13376,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -13424,7 +13424,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -13470,7 +13470,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -13525,7 +13525,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -13566,7 +13566,7 @@ export interface operations {
             readonly cvc?: string;
             readonly exp_month: number;
             readonly exp_year: number;
-            readonly metadata?: { [key: string]: string };
+            readonly metadata?: { readonly [key: string]: string };
             readonly name?: string;
             readonly number: string;
             readonly object?: "card";
@@ -13586,7 +13586,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/charges-transfers#on-behalf-of). */
           readonly on_behalf_of?: string;
           /** The email address to which this charge's [receipt](https://stripe.com/docs/dashboard/receipts) will be sent. The receipt will not be sent until the charge is paid, and no receipts will be sent for test mode charges. If this charge is for a [Customer](https://stripe.com/docs/api/customers/object), the email address specified here will override the customer's email address. If `receipt_email` is specified for a charge in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). */
@@ -13650,7 +13650,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -13689,7 +13689,7 @@ export interface operations {
             readonly user_report: "" | "fraudulent" | "safe";
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** This is the email address that the receipt for this charge will be sent to. If this field is updated, then a new email receipt will be sent to the updated address. */
           readonly receipt_email?: string;
           /** Shipping information for the charge. Helps prevent fraud on charges for physical goods. */
@@ -13792,7 +13792,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -13852,7 +13852,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
           readonly submit?: boolean;
         };
@@ -13928,7 +13928,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           readonly payment_intent?: string;
           readonly reason?: "duplicate" | "fraudulent" | "requested_by_customer";
           readonly refund_application_fee?: boolean;
@@ -13979,7 +13979,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -14011,7 +14011,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           readonly payment_intent?: string;
           readonly reason?: "duplicate" | "fraudulent" | "requested_by_customer";
           readonly refund_application_fee?: boolean;
@@ -14048,7 +14048,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -14079,7 +14079,7 @@ export interface operations {
         readonly "application/x-www-form-urlencoded": {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -14126,7 +14126,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -14213,7 +14213,7 @@ export interface operations {
             | "sv"
             | "zh";
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** The mode of the Checkout Session, one of `payment`, `setup`, or `subscription`. */
           readonly mode?: "payment" | "setup" | "subscription";
           /** A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode. */
@@ -14221,7 +14221,7 @@ export interface operations {
             readonly application_fee_amount?: number;
             readonly capture_method?: "automatic" | "manual";
             readonly description?: string;
-            readonly metadata?: { [key: string]: string };
+            readonly metadata?: { readonly [key: string]: string };
             readonly on_behalf_of?: string;
             readonly receipt_email?: string;
             readonly setup_future_usage?: "off_session" | "on_session";
@@ -14251,7 +14251,7 @@ export interface operations {
           /** A subset of parameters to be passed to SetupIntent creation for Checkout Sessions in `setup` mode. */
           readonly setup_intent_data?: {
             readonly description?: string;
-            readonly metadata?: { [key: string]: string };
+            readonly metadata?: { readonly [key: string]: string };
             readonly on_behalf_of?: string;
           };
           /** When set, provides configuration for Checkout to collect a shipping address from a customer. */
@@ -14512,7 +14512,7 @@ export interface operations {
               readonly quantity?: number;
               readonly tax_rates?: readonly string[];
             }[];
-            readonly metadata?: { [key: string]: string };
+            readonly metadata?: { readonly [key: string]: string };
             readonly trial_end?: number;
             readonly trial_from_plan?: boolean;
             readonly trial_period_days?: number;
@@ -14556,7 +14556,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -14598,7 +14598,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -14629,7 +14629,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -14679,7 +14679,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -14721,7 +14721,7 @@ export interface operations {
           /** A positive integer specifying the number of times the coupon can be redeemed before it's no longer valid. For example, you might have a 50% off coupon that the first 20 readers of your blog can use. */
           readonly max_redemptions?: number;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
           readonly name?: string;
           /** A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed). */
@@ -14759,7 +14759,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -14790,7 +14790,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
           readonly name?: string;
         };
@@ -14820,7 +14820,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -14866,7 +14866,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -14926,7 +14926,7 @@ export interface operations {
           /** The credit note's memo appears on the credit note PDF. */
           readonly memo?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** The integer amount in **%s** representing the amount that is credited outside of Stripe. */
           readonly out_of_band_amount?: number;
           /** Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` */
@@ -14965,7 +14965,7 @@ export interface operations {
         /** The credit note's memo appears on the credit note PDF. */
         readonly memo?: string;
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        readonly metadata?: { [key: string]: string };
+        readonly metadata?: { readonly [key: string]: string };
         /** The integer amount in **%s** representing the amount that is credited outside of Stripe. */
         readonly out_of_band_amount?: number;
         /** Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` */
@@ -14992,7 +14992,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -15026,7 +15026,7 @@ export interface operations {
         /** The credit note's memo appears on the credit note PDF. */
         readonly memo?: string;
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        readonly metadata?: { [key: string]: string };
+        readonly metadata?: { readonly [key: string]: string };
         /** The integer amount in **%s** representing the amount that is credited outside of Stripe. */
         readonly out_of_band_amount?: number;
         /** Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` */
@@ -15064,7 +15064,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -15110,7 +15110,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -15141,7 +15141,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -15174,7 +15174,7 @@ export interface operations {
           /** Credit note memo. */
           readonly memo?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
         };
       };
     };
@@ -15256,7 +15256,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -15313,7 +15313,7 @@ export interface operations {
             readonly footer?: string;
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** The customer's full name or business name. */
           readonly name?: string;
           /** The sequence to be used on the customer's next invoice. Defaults to 1. */
@@ -15400,7 +15400,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -15466,7 +15466,7 @@ export interface operations {
             readonly cvc?: string;
             readonly exp_month: number;
             readonly exp_year: number;
-            readonly metadata?: { [key: string]: string };
+            readonly metadata?: { readonly [key: string]: string };
             readonly name?: string;
             readonly number: string;
             readonly object?: "card";
@@ -15508,7 +15508,7 @@ export interface operations {
             readonly footer?: string;
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** The customer's full name or business name. */
           readonly name?: string;
           /** The sequence to be used on the customer's next invoice. Defaults to 1. */
@@ -15563,7 +15563,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -15609,7 +15609,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -15646,7 +15646,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -15679,7 +15679,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -15713,7 +15713,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -15760,7 +15760,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -15818,7 +15818,7 @@ export interface operations {
             readonly cvc?: string;
             readonly exp_month: number;
             readonly exp_year: number;
-            readonly metadata?: { [key: string]: string };
+            readonly metadata?: { readonly [key: string]: string };
             readonly name?: string;
             readonly number: string;
             readonly object?: "card";
@@ -15827,7 +15827,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           readonly source?: string;
         };
@@ -15862,7 +15862,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -15916,7 +15916,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Cardholder name. */
           readonly name?: string;
           readonly owner?: {
@@ -16046,7 +16046,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -16104,7 +16104,7 @@ export interface operations {
             readonly cvc?: string;
             readonly exp_month: number;
             readonly exp_year: number;
-            readonly metadata?: { [key: string]: string };
+            readonly metadata?: { readonly [key: string]: string };
             readonly name?: string;
             readonly number: string;
             readonly object?: "card";
@@ -16113,7 +16113,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           readonly source?: string;
         };
@@ -16148,7 +16148,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -16202,7 +16202,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Cardholder name. */
           readonly name?: string;
           readonly owner?: {
@@ -16280,7 +16280,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -16307,7 +16307,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -16359,7 +16359,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -16417,7 +16417,7 @@ export interface operations {
             readonly cvc?: string;
             readonly exp_month: number;
             readonly exp_year: number;
-            readonly metadata?: { [key: string]: string };
+            readonly metadata?: { readonly [key: string]: string };
             readonly name?: string;
             readonly number: string;
             readonly object?: "card";
@@ -16426,7 +16426,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           readonly source?: string;
         };
@@ -16461,7 +16461,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -16515,7 +16515,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Cardholder name. */
           readonly name?: string;
           readonly owner?: {
@@ -16642,7 +16642,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -16706,13 +16706,13 @@ export interface operations {
               readonly usage_gte: number;
             }> &
               Partial<"">;
-            readonly metadata?: { [key: string]: string };
+            readonly metadata?: { readonly [key: string]: string };
             readonly plan?: string;
             readonly quantity?: number;
             readonly tax_rates?: Partial<readonly string[]> & Partial<"">;
           }[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           readonly off_session?: boolean;
           /**
@@ -16777,7 +16777,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -16843,13 +16843,13 @@ export interface operations {
             readonly clear_usage?: boolean;
             readonly deleted?: boolean;
             readonly id?: string;
-            readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+            readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
             readonly plan?: string;
             readonly quantity?: number;
             readonly tax_rates?: Partial<readonly string[]> & Partial<"">;
           }[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           readonly off_session?: boolean;
           /** If specified, payment collection for this subscription will be paused. */
@@ -16962,7 +16962,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -16990,7 +16990,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -17036,7 +17036,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -17125,7 +17125,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -17153,7 +17153,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -17206,7 +17206,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -17237,7 +17237,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -17302,7 +17302,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
           readonly submit?: boolean;
         };
@@ -17453,7 +17453,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -17484,7 +17484,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -17526,7 +17526,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -17557,7 +17557,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -17610,7 +17610,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -17640,7 +17640,7 @@ export interface operations {
           /** The ID of the file. The file's `purpose` must be one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `pci_document`, `sigma_scheduled_query`, or `tax_document_user_upload`. */
           readonly file: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -17672,7 +17672,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -17705,7 +17705,7 @@ export interface operations {
           /** A future timestamp after which the link will no longer be usable, or `now` to expire the link immediately. */
           readonly expires_at?: Partial<"now"> & Partial<number> & Partial<"">;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -17767,7 +17767,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -17802,7 +17802,7 @@ export interface operations {
           readonly file_link_data?: {
             readonly create: boolean;
             readonly expires_at?: number;
-            readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+            readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           };
           /** The purpose of the uploaded file. Possible values are `additional_verification`, `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `identity_document`, `pci_document`, or `tax_document_user_upload`. */
           readonly purpose:
@@ -17845,7 +17845,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -17900,7 +17900,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -17938,7 +17938,7 @@ export interface operations {
           /** The ID of an existing invoice to add this invoice item to. When left blank, the invoice item will be added to the next upcoming scheduled invoice. This is useful when adding invoice items in response to an invoice.created webhook. You can only add invoice items to draft invoices. */
           readonly invoice?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** The period associated with this invoice item. */
           readonly period?: {
             readonly end: number;
@@ -17985,7 +17985,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -18022,7 +18022,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** The period associated with this invoice item. */
           readonly period?: {
             readonly end: number;
@@ -18063,7 +18063,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -18127,7 +18127,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -18183,7 +18183,7 @@ export interface operations {
           /** Footer to be displayed on the invoice. */
           readonly footer?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`. */
           readonly statement_descriptor?: string;
           /** The ID of the subscription to invoice, if any. If not set, the created invoice will include all pending invoice items for the customer. If set, the created invoice will only include pending invoice items for that subscription and pending invoice items not associated with any subscription. The subscription's billing cycle and regular subscription events won't be affected. */
@@ -18217,7 +18217,7 @@ export interface operations {
           readonly description?: string;
           readonly discountable?: boolean;
           readonly invoiceitem?: string;
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           readonly period?: {
             readonly end: number;
             readonly start: number;
@@ -18250,7 +18250,7 @@ export interface operations {
           readonly clear_usage?: boolean;
           readonly deleted?: boolean;
           readonly id?: string;
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           readonly plan?: string;
           readonly quantity?: number;
           readonly tax_rates?: Partial<readonly string[]> & Partial<"">;
@@ -18293,7 +18293,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -18316,7 +18316,7 @@ export interface operations {
           readonly description?: string;
           readonly discountable?: boolean;
           readonly invoiceitem?: string;
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           readonly period?: {
             readonly end: number;
             readonly start: number;
@@ -18353,7 +18353,7 @@ export interface operations {
           readonly clear_usage?: boolean;
           readonly deleted?: boolean;
           readonly id?: string;
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           readonly plan?: string;
           readonly quantity?: number;
           readonly tax_rates?: Partial<readonly string[]> & Partial<"">;
@@ -18405,7 +18405,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -18436,7 +18436,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -18502,7 +18502,7 @@ export interface operations {
           /** Footer to be displayed on the invoice. */
           readonly footer?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`. */
           readonly statement_descriptor?: string;
           /** The percent tax rate applied to the invoice, represented as a non-negative decimal number (with at most four decimal places) between 0 and 100. To unset a previously-set value, pass an empty string. This field can be updated only on `draft` invoices. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
@@ -18534,7 +18534,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -18612,7 +18612,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -18794,7 +18794,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -18829,7 +18829,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -18885,7 +18885,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -18916,7 +18916,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -18947,7 +18947,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -18981,7 +18981,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -19013,7 +19013,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -19072,7 +19072,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -19131,7 +19131,7 @@ export interface operations {
             };
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** The cardholder's name. This will be printed on cards issued to them. */
           readonly name: string;
           /** The cardholder's phone number. This will be transformed to [E.164](https://en.wikipedia.org/wiki/E.164) if it is not provided in that format already. */
@@ -20049,7 +20049,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -20113,7 +20113,7 @@ export interface operations {
             };
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** The cardholder's phone number. */
           readonly phone_number?: string;
           /** Spending rules that give you some control over how your cards can be used. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details. */
@@ -21058,7 +21058,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -21088,7 +21088,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** The card this is meant to be a replacement for (if any). */
           readonly replacement_for?: string;
           /** If `replacement_for` is specified, this should indicate why that card is being replaced. */
@@ -22019,7 +22019,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -22052,7 +22052,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Spending rules that give you some control over how your cards can be used. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details. */
           readonly spending_controls?: {
             readonly allowed_categories?: readonly (
@@ -22974,7 +22974,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -23000,7 +23000,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
         };
       };
     };
@@ -23032,7 +23032,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -23063,7 +23063,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
         };
       };
     };
@@ -23114,7 +23114,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -23145,7 +23145,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -23176,7 +23176,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
         };
       };
     };
@@ -23231,7 +23231,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -23262,7 +23262,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -23293,7 +23293,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -23325,7 +23325,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -23377,7 +23377,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -23408,7 +23408,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -23497,7 +23497,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -23540,7 +23540,7 @@ export interface operations {
             readonly type?: "discount" | "shipping" | "sku" | "tax";
           }[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true. */
           readonly shipping?: {
             readonly address: {
@@ -23585,7 +23585,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -23618,7 +23618,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** The shipping method to select for fulfilling this order. If specified, must be one of the `id`s of a shipping method in the `shipping_methods` array. If specified, will overwrite the existing selected shipping method, updating `items` as necessary. */
           readonly selected_shipping_method?: string;
           /** Tracking information once the order has been fulfilled. */
@@ -23665,7 +23665,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** A [Token](https://stripe.com/docs/api#tokens)'s or a [Source](https://stripe.com/docs/api#sources)'s ID, as returned by [Elements](https://stripe.com/docs/elements). If no customer was attached to the order at creation, either `source` or `customer` is required. Otherwise, the specified source will be charged intead of the customer attached to the order. */
           readonly source?: string;
         };
@@ -23761,7 +23761,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -23830,7 +23830,7 @@ export interface operations {
           readonly mandate_data?: {
             readonly customer_acceptance: {
               readonly accepted_at?: number;
-              readonly offline?: { [key: string]: any };
+              readonly offline?: { readonly [key: string]: any };
               readonly online?: {
                 readonly ip_address: string;
                 readonly user_agent: string;
@@ -23839,7 +23839,7 @@ export interface operations {
             };
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** Set to `true` to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
           readonly off_session?: Partial<boolean> & Partial<"one_off" | "recurring">;
           /** The Stripe account ID for which these funds are intended. For details, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
@@ -23950,7 +23950,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -24005,7 +24005,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent. */
           readonly payment_method?: string;
           /** Payment-method-specific configuration for this PaymentIntent. */
@@ -24221,7 +24221,7 @@ export interface operations {
           readonly mandate_data?: Partial<{
             readonly customer_acceptance: {
               readonly accepted_at?: number;
-              readonly offline?: { [key: string]: any };
+              readonly offline?: { readonly [key: string]: any };
               readonly online?: {
                 readonly ip_address: string;
                 readonly user_agent: string;
@@ -24342,7 +24342,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -24439,7 +24439,7 @@ export interface operations {
               | "van_lanschot";
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** The PaymentMethod to share. */
           readonly payment_method?: string;
           /** If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account. */
@@ -24479,7 +24479,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -24529,9 +24529,9 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account. */
-          readonly sepa_debit?: { [key: string]: any };
+          readonly sepa_debit?: { readonly [key: string]: any };
         };
       };
     };
@@ -24666,7 +24666,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -24706,7 +24706,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces for more information](https://stripe.com/blog/instant-payouts-for-marketplaces).) */
           readonly method?: "instant" | "standard";
           /** The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the balances API. One of `bank_account`, `card`, or `fpx`. */
@@ -24744,7 +24744,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -24775,7 +24775,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -24860,7 +24860,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -24904,13 +24904,13 @@ export interface operations {
           /** The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). */
           readonly interval_count?: number;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** A brief description of the plan, hidden from customers. */
           readonly nickname?: string;
           readonly product?: Partial<{
             readonly active?: boolean;
             readonly id?: string;
-            readonly metadata?: { [key: string]: string };
+            readonly metadata?: { readonly [key: string]: string };
             readonly name: string;
             readonly statement_descriptor?: string;
             readonly unit_label?: string;
@@ -24966,7 +24966,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -24999,7 +24999,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** A brief description of the plan, hidden from customers. */
           readonly nickname?: string;
           /** The product the plan belongs to. Note that after updating, statement descriptors and line items of the plan in active subscriptions will be affected. */
@@ -25033,7 +25033,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -25093,7 +25093,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -25133,7 +25133,7 @@ export interface operations {
           /** A list of up to 8 URLs of images for this product, meant to be displayable to the customer. */
           readonly images?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** The product's name, meant to be displayable to the customer. Whenever this product is sold via a subscription, name will show up on associated invoice line item descriptions. */
           readonly name: string;
           /** The dimensions of this product for shipping purposes. A SKU associated with this product can override this value by having its own `package_dimensions`. May only be set if type=`good`. */
@@ -25189,7 +25189,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -25232,7 +25232,7 @@ export interface operations {
           /** A list of up to 8 URLs of images for this product, meant to be displayable to the customer. */
           readonly images?: Partial<readonly string[]> & Partial<"">;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** The product's name, meant to be displayable to the customer. Whenever this product is sold via a subscription, name will show up on associated invoice line item descriptions. */
           readonly name?: string;
           /** The dimensions of this product for shipping purposes. A SKU associated with this product can override this value by having its own `package_dimensions`. May only be set if `type=good`. */
@@ -25283,7 +25283,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -25327,7 +25327,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -25362,7 +25362,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -25415,7 +25415,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -25475,7 +25475,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -25502,7 +25502,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -25555,7 +25555,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -25592,7 +25592,7 @@ export interface operations {
             | "ip_address"
             | "string";
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** The human-readable name of the value list. */
           readonly name: string;
         };
@@ -25626,7 +25626,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -25659,7 +25659,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** The human-readable name of the value list. */
           readonly name?: string;
         };
@@ -25689,7 +25689,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -25741,7 +25741,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -25778,7 +25778,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** The recipient's full, legal name. For type `individual`, should be in the format `First Last`, `First Middle Last`, or `First M Last` (no prefixes or suffixes). For `corporation`, the full, incorporated name. */
           readonly name: string;
           /** The recipient's tax ID, as a string. For type `individual`, the full SSN; for type `corporation`, the full EIN. */
@@ -25817,7 +25817,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -25864,7 +25864,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** The recipient's full, legal name. For type `individual`, should be in the format `First Last`, `First Middle Last`, or `First M Last` (no prefixes or suffixes). For `corporation`, the full, incorporated name. */
           readonly name?: string;
           /** The recipient's tax ID, as a string. For type `individual`, the full SSN; for type `corporation`, the full EIN. */
@@ -25896,7 +25896,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -25949,7 +25949,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -25977,7 +25977,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           readonly payment_intent?: string;
           readonly reason?: "duplicate" | "fraudulent" | "requested_by_customer";
           readonly refund_application_fee?: boolean;
@@ -26013,7 +26013,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -26048,7 +26048,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -26098,7 +26098,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -26792,7 +26792,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -26828,7 +26828,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -26859,7 +26859,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -26908,7 +26908,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -26939,7 +26939,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -27023,7 +27023,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -27067,7 +27067,7 @@ export interface operations {
           readonly mandate_data?: {
             readonly customer_acceptance: {
               readonly accepted_at?: number;
-              readonly offline?: { [key: string]: any };
+              readonly offline?: { readonly [key: string]: any };
               readonly online?: {
                 readonly ip_address: string;
                 readonly user_agent: string;
@@ -27076,7 +27076,7 @@ export interface operations {
             };
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** The Stripe account ID for which this SetupIntent is created. */
           readonly on_behalf_of?: string;
           /** ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
@@ -27137,7 +27137,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -27176,7 +27176,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
           readonly payment_method?: string;
           /** Payment-method-specific configuration for this SetupIntent. */
@@ -27273,7 +27273,7 @@ export interface operations {
           readonly mandate_data?: Partial<{
             readonly customer_acceptance: {
               readonly accepted_at?: number;
-              readonly offline?: { [key: string]: any };
+              readonly offline?: { readonly [key: string]: any };
               readonly online?: {
                 readonly ip_address: string;
                 readonly user_agent: string;
@@ -27346,7 +27346,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -27377,7 +27377,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -27388,7 +27388,7 @@ export interface operations {
         /** Only return SKUs that are active or inactive (e.g., pass `false` to list all inactive products). */
         readonly active?: boolean;
         /** Only return SKUs that have the specified key-value pairs in this partially constructed dictionary. Can be specified only if `product` is also supplied. For instance, if the associated product has attributes `["color", "size"]`, passing in `attributes[color]=red` returns all the SKUs for this product that have `color` set to `red`. */
-        readonly attributes?: { [key: string]: string };
+        readonly attributes?: { readonly [key: string]: string };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -27429,7 +27429,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -27455,7 +27455,7 @@ export interface operations {
           /** Whether the SKU is available for purchase. Default to `true`. */
           readonly active?: boolean;
           /** A dictionary of attributes and values for the attributes defined by the product. If, for example, a product's attributes are `["size", "gender"]`, a valid SKU has the following dictionary of attributes: `{"size": "Medium", "gender": "Unisex"}`. */
-          readonly attributes?: { [key: string]: string };
+          readonly attributes?: { readonly [key: string]: string };
           /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           readonly currency: string;
           /** Specifies which fields in the response should be expanded. */
@@ -27471,7 +27471,7 @@ export interface operations {
             readonly value?: "" | "in_stock" | "limited" | "out_of_stock";
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** The dimensions of this SKU for shipping purposes. */
           readonly package_dimensions?: {
             readonly height: number;
@@ -27515,7 +27515,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -27550,7 +27550,7 @@ export interface operations {
           /** Whether this SKU is available for purchase. */
           readonly active?: boolean;
           /** A dictionary of attributes and values for the attributes defined by the product. When specified, `attributes` will partially update the existing attributes dictionary on the product, with the postcondition that a value must be present for each attribute key on the product. */
-          readonly attributes?: { [key: string]: string };
+          readonly attributes?: { readonly [key: string]: string };
           /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           readonly currency?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -27564,7 +27564,7 @@ export interface operations {
             readonly value?: "" | "in_stock" | "limited" | "out_of_stock";
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** The dimensions of this SKU for shipping purposes. */
           readonly package_dimensions?: Partial<{
             readonly height: number;
@@ -27604,7 +27604,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -27659,7 +27659,7 @@ export interface operations {
             readonly interval?: "one_time" | "scheduled" | "variable";
             readonly notification_method?: "deprecated_none" | "email" | "manual" | "none" | "stripe_email";
           };
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** The source to share. */
           readonly original_source?: string;
           /** Information about the owner of the payment instrument that may be used or required by particular source types. */
@@ -27749,7 +27749,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -27808,7 +27808,7 @@ export interface operations {
             readonly notification_method?: "deprecated_none" | "email" | "manual" | "none" | "stripe_email";
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Information about the owner of the payment instrument that may be used or required by particular source types. */
           readonly owner?: {
             readonly address?: {
@@ -27880,7 +27880,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -27925,7 +27925,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -27957,7 +27957,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -28033,7 +28033,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -28064,7 +28064,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /**
            * Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
            *
@@ -28124,7 +28124,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -28160,7 +28160,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           readonly off_session?: boolean;
           /**
@@ -28280,7 +28280,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -28402,7 +28402,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -28447,7 +28447,7 @@ export interface operations {
           /** Migrate an existing subscription to be managed by a subscription schedule. If this parameter is set, a subscription schedule will be created using the subscription's plan(s), set to auto-renew using the subscription's interval. When using this parameter, other parameters (such as phase values) cannot be set. To create a subscription schedule with other modifications, we recommend making two separate API calls. */
           readonly from_subscription?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. */
           readonly phases?: readonly {
             readonly application_fee_percent?: number;
@@ -28512,7 +28512,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -28558,7 +28558,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. Note that past phases can be omitted. */
           readonly phases?: readonly {
             readonly application_fee_percent?: number;
@@ -28741,7 +28741,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -28802,13 +28802,13 @@ export interface operations {
               readonly usage_gte: number;
             }> &
               Partial<"">;
-            readonly metadata?: { [key: string]: string };
+            readonly metadata?: { readonly [key: string]: string };
             readonly plan?: string;
             readonly quantity?: number;
             readonly tax_rates?: Partial<readonly string[]> & Partial<"">;
           }[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           readonly off_session?: boolean;
           /**
@@ -28872,7 +28872,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -28937,13 +28937,13 @@ export interface operations {
             readonly clear_usage?: boolean;
             readonly deleted?: boolean;
             readonly id?: string;
-            readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+            readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
             readonly plan?: string;
             readonly quantity?: number;
             readonly tax_rates?: Partial<readonly string[]> & Partial<"">;
           }[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           readonly off_session?: boolean;
           /** If specified, payment collection for this subscription will be paused. */
@@ -29051,7 +29051,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -29105,7 +29105,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -29141,7 +29141,7 @@ export interface operations {
           /** The jurisdiction for the tax rate. */
           readonly jurisdiction?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** This represents the tax rate percent out of 100. */
           readonly percentage: number;
         };
@@ -29175,7 +29175,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -29214,7 +29214,7 @@ export interface operations {
           /** The jurisdiction for the tax rate. */
           readonly jurisdiction?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -29284,7 +29284,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -29321,7 +29321,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -29353,7 +29353,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -29395,7 +29395,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -29423,7 +29423,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -29472,7 +29472,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -29502,7 +29502,7 @@ export interface operations {
           /** The location to assign the reader to. If no location is specified, the reader will be assigned to the account's default location. */
           readonly location?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** A code generated by the reader used for registering to an account. */
           readonly registration_code: string;
         };
@@ -29536,7 +29536,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -29569,7 +29569,7 @@ export interface operations {
           /** The new label of the reader. */
           readonly label?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -29597,7 +29597,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -29730,7 +29730,7 @@ export interface operations {
               readonly last_name_kana?: string;
               readonly last_name_kanji?: string;
               readonly maiden_name?: string;
-              readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+              readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
               readonly phone?: string;
               readonly ssn_last_4?: string;
               readonly verification?: {
@@ -29818,7 +29818,7 @@ export interface operations {
             readonly last_name_kana?: string;
             readonly last_name_kanji?: string;
             readonly maiden_name?: string;
-            readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+            readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
             readonly phone?: string;
             readonly relationship?: {
               readonly director?: boolean;
@@ -29875,7 +29875,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -29935,7 +29935,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -29967,7 +29967,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** The ID of a source to transfer funds from. For most users, this should be left unspecified which will use the bank account that was set up in the dashboard for the specified currency. In test mode, this can be a test bank token (see [Testing Top-ups](https://stripe.com/docs/connect/testing#testing-top-ups)). */
           readonly source?: string;
           /** Extra information about a top-up for the source's bank statement. Limited to 15 ASCII characters. */
@@ -30005,7 +30005,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -30038,7 +30038,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -30123,7 +30123,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -30157,7 +30157,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: { [key: string]: string };
+          readonly metadata?: { readonly [key: string]: string };
           /** You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-availability) for details. */
           readonly source_transaction?: string;
           /** The source balance to use for this transfer. One of `bank_account`, `card`, or `fpx`. For most users, this will default to `card`. */
@@ -30210,7 +30210,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -30251,7 +30251,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** Boolean indicating whether the application fee should be refunded when reversing this transfer. If a full transfer reversal is given, the full application fee will be refunded. Otherwise, the application fee will be refunded with an amount proportional to the amount of the transfer reversed. */
           readonly refund_application_fee?: boolean;
         };
@@ -30285,7 +30285,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -30322,7 +30322,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -30355,7 +30355,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -30391,7 +30391,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
         };
       };
     };
@@ -30434,7 +30434,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -30713,7 +30713,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** The URL of the webhook endpoint. */
           readonly url: string;
         };
@@ -30747,7 +30747,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };
@@ -30934,7 +30934,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ [key: string]: string }> & Partial<"">;
+          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** The URL of the webhook endpoint. */
           readonly url?: string;
         };
@@ -30964,7 +30964,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
       };
     };
   };

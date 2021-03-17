@@ -60,12 +60,20 @@ describe("SchemaObject", () => {
       // unknown
       expect(transform({ type: "object" })).toBe(`{ [key: string]: any }`);
 
+      expect(transform({ type: "object" }, true)).toBe(`{ readonly [key: string]: any }`);
+
       // empty
       expect(transform({})).toBe(`{ [key: string]: any }`);
+
+      expect(transform({}, true)).toBe(`{ readonly [key: string]: any }`);
 
       // nullable
       expect(transform({ type: "object", properties: { string: { type: "string" } }, nullable: true })).toBe(
         `({\n"string"?: string;\n\n}) | null`
+      );
+
+      expect(transform({ type: "object", properties: { string: { type: "string" } }, nullable: true }, true)).toBe(
+        `({\nreadonly "string"?: string;\n\n}) | null`
       );
 
       // required

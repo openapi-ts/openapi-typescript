@@ -94,7 +94,7 @@ export function transformSchemaObj(node: any, options: Options): string {
         (!node.properties || !Object.keys(node.properties).length) &&
         !node.additionalProperties
       ) {
-        output += `{ [key: string]: any }`;
+        output += `{ ${readonly}[key: string]: any }`;
         break;
       }
 
@@ -112,11 +112,11 @@ export function transformSchemaObj(node: any, options: Options): string {
           const oneOf: any[] | undefined = (node.additionalProperties as any).oneOf || undefined; // TypeScript does a really bad job at inference here, so we enforce a type
           const anyOf: any[] | undefined = (node.additionalProperties as any).anyOf || undefined; // "
           if (oneOf) {
-            additionalProperties = `{ [key: string]: ${transformOneOf(oneOf, options)}; }`;
+            additionalProperties = `{ ${readonly}[key: string]: ${transformOneOf(oneOf, options)}; }`;
           } else if (anyOf) {
-            additionalProperties = `{ [key: string]: ${transformAnyOf(anyOf, options)}; }`;
+            additionalProperties = `{ ${readonly}[key: string]: ${transformAnyOf(anyOf, options)}; }`;
           } else {
-            additionalProperties = `{ [key: string]: ${
+            additionalProperties = `{ ${readonly}[key: string]: ${
               transformSchemaObj(node.additionalProperties, options) || "any"
             }; }`;
           }

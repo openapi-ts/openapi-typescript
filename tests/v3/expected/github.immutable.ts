@@ -5175,7 +5175,7 @@ export interface components {
         readonly metadata?: string;
         readonly contents?: string;
         readonly deployments?: string;
-      } & { [key: string]: string };
+      } & { readonly [key: string]: string };
       /** The list of events for the GitHub app */
       readonly events: readonly string[];
       /** The number of installations associated with the GitHub app */
@@ -5726,7 +5726,7 @@ export interface components {
       readonly token: string;
       /** The time this token expires */
       readonly expires_at: string;
-      readonly permissions?: { [key: string]: any };
+      readonly permissions?: { readonly [key: string]: any };
       /** The repositories this token has access to */
       readonly repositories?: readonly components["schemas"]["repository"][];
       readonly single_file?: string | null;
@@ -6002,7 +6002,7 @@ export interface components {
       readonly git_push_url: string;
       readonly html_url: string;
       readonly files: {
-        [key: string]: {
+        readonly [key: string]: {
           readonly filename?: string;
           readonly type?: string;
           readonly language?: string;
@@ -6019,8 +6019,8 @@ export interface components {
       readonly comments_url: string;
       readonly owner?: components["schemas"]["simple-user"] | null;
       readonly truncated?: boolean;
-      readonly forks?: readonly { [key: string]: any }[];
-      readonly history?: readonly { [key: string]: any }[];
+      readonly forks?: readonly { readonly [key: string]: any }[];
+      readonly history?: readonly { readonly [key: string]: any }[];
     };
     /** Gist Simple */
     readonly "gist-simple": {
@@ -6033,7 +6033,7 @@ export interface components {
       readonly git_push_url?: string;
       readonly html_url?: string;
       readonly files?: {
-        [key: string]: {
+        readonly [key: string]: {
           readonly filename?: string;
           readonly type?: string;
           readonly language?: string;
@@ -6564,7 +6564,7 @@ export interface components {
       readonly updated_at: string;
       readonly node_id: string;
       readonly archive_url?: string;
-      readonly exclude?: readonly { [key: string]: any }[];
+      readonly exclude?: readonly { readonly [key: string]: any }[];
     };
     /** A software package */
     readonly package: {
@@ -7230,7 +7230,7 @@ export interface components {
       readonly ref: string;
       /** Parameter to specify a task to execute */
       readonly task: string;
-      readonly payload: { [key: string]: any };
+      readonly payload: { readonly [key: string]: any };
       readonly original_environment?: string;
       /** Name for the target deployment environment. */
       readonly environment: string;
@@ -8617,7 +8617,7 @@ export interface components {
       readonly read_only: boolean;
     };
     /** Language */
-    readonly language: { [key: string]: number };
+    readonly language: { readonly [key: string]: number };
     /** License Content */
     readonly "license-content": {
       readonly name: string;
@@ -9431,7 +9431,7 @@ export interface components {
       readonly operations?: readonly {
         readonly op: "add" | "remove" | "replace";
         readonly path?: string;
-        readonly value?: string | { [key: string]: any } | readonly { [key: string]: any }[];
+        readonly value?: string | { readonly [key: string]: any } | readonly { readonly [key: string]: any }[];
       }[];
       /** associated groups */
       readonly groups?: readonly {
@@ -9854,8 +9854,8 @@ export interface components {
         readonly primary_key_id?: number;
         readonly key_id?: string;
         readonly public_key?: string;
-        readonly emails?: readonly { [key: string]: any }[];
-        readonly subkeys?: readonly { [key: string]: any }[];
+        readonly emails?: readonly { readonly [key: string]: any }[];
+        readonly subkeys?: readonly { readonly [key: string]: any }[];
         readonly can_sign?: boolean;
         readonly can_encrypt_comms?: boolean;
         readonly can_encrypt_storage?: boolean;
@@ -11181,7 +11181,7 @@ export interface operations {
       /** response */
       readonly 200: {
         readonly content: {
-          readonly "application/json": { [key: string]: string };
+          readonly "application/json": { readonly [key: string]: string };
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -12081,7 +12081,7 @@ export interface operations {
           readonly description?: string;
           /** Names and content for the files that make up the gist */
           readonly files: {
-            [key: string]: {
+            readonly [key: string]: {
               /** Content of the file */
               readonly content: string;
             };
@@ -12200,14 +12200,14 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json":
-          | ((Partial<{ [key: string]: any }> & Partial<{ [key: string]: any }>) & {
+          | ((Partial<{ readonly [key: string]: any }> & Partial<{ readonly [key: string]: any }>) & {
               /** Description of the gist */
               readonly description?: string;
               /** Names of files to be updated */
               readonly files?: {
-                [key: string]: Partial<{ [key: string]: any }> &
-                  Partial<{ [key: string]: any }> &
-                  Partial<{ [key: string]: any }>;
+                readonly [key: string]: Partial<{ readonly [key: string]: any }> &
+                  Partial<{ readonly [key: string]: any }> &
+                  Partial<{ readonly [key: string]: any }>;
               };
             })
           | null;
@@ -12428,7 +12428,7 @@ export interface operations {
       /** Response if gist is not starred */
       readonly 404: {
         readonly content: {
-          readonly "application/json": { [key: string]: any };
+          readonly "application/json": { readonly [key: string]: any };
         };
       };
     };
@@ -16970,7 +16970,7 @@ export interface operations {
       /** response */
       readonly 201: {
         readonly content: {
-          readonly "application/json": { [key: string]: any };
+          readonly "application/json": { readonly [key: string]: any };
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -17179,7 +17179,7 @@ export interface operations {
       /** response */
       readonly 201: {
         readonly content: {
-          readonly "application/json": { [key: string]: any };
+          readonly "application/json": { readonly [key: string]: any };
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -18540,7 +18540,7 @@ export interface operations {
           /** The git reference for the workflow. The reference can be a branch or tag name. */
           readonly ref: string;
           /** Input keys and values configured in the workflow file. The maximum number of properties is 10. Any default properties configured in the workflow file will be used when `inputs` are omitted. */
-          readonly inputs?: { [key: string]: string };
+          readonly inputs?: { readonly [key: string]: string };
         };
       };
     };
@@ -25452,7 +25452,8 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/json": (Partial<{ [key: string]: any }> & Partial<{ [key: string]: any }>) & {
+        readonly "application/json": (Partial<{ readonly [key: string]: any }> &
+          Partial<{ readonly [key: string]: any }>) & {
           /** An array of user `login`s that will be requested. */
           readonly reviewers?: readonly string[];
           /** An array of team `slug`s that will be requested. */
@@ -27157,7 +27158,7 @@ export interface operations {
           /** The SCIM schema URIs. */
           readonly schemas: readonly string[];
           /** Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
-          readonly Operations: readonly { [key: string]: any }[];
+          readonly Operations: readonly { readonly [key: string]: any }[];
         };
       };
     };
@@ -27389,7 +27390,7 @@ export interface operations {
           /** The SCIM schema URIs. */
           readonly schemas: readonly string[];
           /** Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
-          readonly Operations: readonly { [key: string]: any }[];
+          readonly Operations: readonly { readonly [key: string]: any }[];
         };
       };
     };
