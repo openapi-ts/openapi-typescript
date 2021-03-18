@@ -442,6 +442,11 @@ describe("transformPathsObj", () => {
     expect(transform(parametersSchema)).toBe(`export interface paths {
   "/{example}": {
     get: {
+      parameters: {
+        path: {
+          example: string;
+        };
+      };
       responses: {};
     };
     parameters: {

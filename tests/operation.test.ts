@@ -118,3 +118,112 @@ describe("requestBodies", () => {
     );
   });
 });
+
+describe.only("parameters", () => {
+  it("operation parameters only", () => {
+    expect(
+      transformOperationObj(
+        {
+          parameters: [
+            {
+              in: "path",
+              name: "p1",
+              schema: {
+                type: "string",
+              },
+            },
+          ],
+        },
+        {
+          version: 3,
+          pathItem: {},
+        }
+      ).trim()
+    ).toBe(`parameters: {
+      path: {
+    "p1"?: string;
+  }
+
+  }`);
+  });
+
+  it("inherited path parameters only", () => {
+    expect(
+      transformOperationObj(
+        {},
+        {
+          version: 3,
+          pathItem: {
+            parameters: [
+              {
+                in: "path",
+                name: "p1",
+                schema: {
+                  type: "string",
+                },
+              },
+            ],
+          },
+        }
+      ).trim()
+    ).toBe(`parameters: {
+      path: {
+    "p1"?: string;
+  }
+
+  }`);
+  });
+
+  it("inherited path parameters and operation parameters", () => {
+    expect(
+      transformOperationObj(
+        {
+          parameters: [
+            {
+              in: "path",
+              name: "p1",
+              schema: {
+                type: "string",
+              },
+            },
+            {
+              in: "path",
+              name: "p2",
+              schema: {
+                type: "number",
+              },
+            },
+          ],
+        },
+        {
+          version: 3,
+          pathItem: {
+            parameters: [
+              {
+                in: "path",
+                name: "p2",
+                schema: {
+                  type: "string",
+                },
+              },
+              {
+                in: "path",
+                name: "p3",
+                schema: {
+                  type: "string",
+                },
+              },
+            ],
+          },
+        }
+      ).trim()
+    ).toBe(`parameters: {
+      path: {
+    "p2"?: number;
+    "p3"?: string;
+    "p1"?: string;
+  }
+
+  }`);
+  });
+});
