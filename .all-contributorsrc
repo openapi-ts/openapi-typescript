@@ -328,6 +328,17 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "FabioWanner",
+      "name": "FabioWanner",
+      "avatar_url": "https://avatars.githubusercontent.com/u/46821078?v=4",
+      "profile": "https://github.com/FabioWanner",
+      "contributions": [
+        "bug",
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
