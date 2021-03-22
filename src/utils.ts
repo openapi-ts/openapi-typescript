@@ -67,15 +67,17 @@ export function nodeType(obj: any): SchemaObjectType | undefined {
 /** Return OpenAPI version from definition */
 export function swaggerVersion(definition: OpenAPI2 | OpenAPI3): 2 | 3 {
   // OpenAPI 3
-  const { openapi } = definition as OpenAPI3;
-  if (openapi && parseInt(openapi, 10) === 3) {
-    return 3;
+  if ("openapi" in definition) {
+    if (parseInt(definition.openapi, 10) === 3) {
+      return 3;
+    }
   }
 
   // OpenAPI 2
-  const { swagger } = definition as OpenAPI2;
-  if (swagger && parseInt(swagger, 10) === 2) {
-    return 2;
+  if ("swagger" in definition) {
+    if (parseInt(definition.swagger, 10) === 2) {
+      return 2;
+    }
   }
 
   throw new Error(
