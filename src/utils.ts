@@ -14,11 +14,6 @@ export function comment(text: string): string {
   */\n`;
 }
 
-/** shim for Object.fromEntries() for Node < 13 */
-export function fromEntries(entries: [string, any][]): Record<string, unknown> {
-  return entries.reduce((obj, [key, val]) => ({ ...obj, [key]: val }), {});
-}
-
 /** Is this a ReferenceObject? (note: this is just a TypeScript helper for nodeType() below) */
 export function isRef(obj: any): obj is ReferenceObject {
   return !!obj.$ref;
