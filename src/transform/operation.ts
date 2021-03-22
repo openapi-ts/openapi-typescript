@@ -1,5 +1,5 @@
 import { OperationObject, ParameterObject, RequestBody } from "../types";
-import { comment, isRef, transformRef } from "../utils";
+import { comment, isRef, transformRef, tsReadonly } from "../utils";
 import { transformParametersArray } from "./parameters";
 import { transformResponsesObj } from "./responses";
 import { transformSchemaObj } from "./schema";
@@ -16,7 +16,7 @@ export function transformOperationObj(
     version: number;
   }
 ): string {
-  const readonly = immutableTypes ? "readonly " : "";
+  const readonly = tsReadonly(immutableTypes);
 
   let output = "";
 
@@ -53,7 +53,7 @@ export function transformRequestBodyObj(
   requestBody: RequestBody,
   { immutableTypes }: { immutableTypes: boolean }
 ): string {
-  const readonly = immutableTypes ? "readonly " : "";
+  const readonly = tsReadonly(immutableTypes);
 
   let output = "";
 

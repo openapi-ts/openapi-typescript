@@ -1,5 +1,5 @@
 import { ParameterObject, ReferenceObject } from "../types";
-import { comment } from "../utils";
+import { comment, tsReadonly } from "../utils";
 import { transformSchemaObj } from "./schema";
 
 export function transformParametersArray(
@@ -14,7 +14,7 @@ export function transformParametersArray(
     version: number;
   }
 ): string {
-  const readonly = immutableTypes ? "readonly " : "";
+  const readonly = tsReadonly(immutableTypes);
 
   let output = "";
 

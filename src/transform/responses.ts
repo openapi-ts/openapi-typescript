@@ -1,5 +1,5 @@
 import { RequestBody } from "../types";
-import { comment, transformRef } from "../utils";
+import { comment, transformRef, tsReadonly } from "../utils";
 import { transformHeaderObjMap } from "./headers";
 import { transformSchemaObj } from "./schema";
 import { transformRequestBodyObj } from "./operation";
@@ -12,7 +12,7 @@ interface Options {
 
 export function transformResponsesObj(responsesObj: Record<string, any>, options: Options): string {
   const { immutableTypes } = options;
-  const readonly = immutableTypes ? "readonly " : "";
+  const readonly = tsReadonly(immutableTypes);
 
   let output = "";
 

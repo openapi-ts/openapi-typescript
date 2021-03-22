@@ -1,5 +1,5 @@
 import { OperationObject } from "../types";
-import { comment } from "../utils";
+import { comment, tsReadonly } from "../utils";
 import { transformHeaderObjMap } from "./headers";
 import { transformOperationObj } from "./operation";
 import { transformPathsObj } from "./paths";
@@ -13,7 +13,7 @@ interface TransformOptions {
 }
 
 export function transformAll(schema: any, { immutableTypes, rawSchema, version }: TransformOptions): string {
-  const readonly = immutableTypes ? "readonly " : "";
+  const readonly = tsReadonly(immutableTypes);
 
   let output = "";
 

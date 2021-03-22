@@ -1,5 +1,5 @@
 import { OperationObject, ParameterObject, PathItemObject } from "../types";
-import { comment, transformRef } from "../utils";
+import { comment, transformRef, tsReadonly } from "../utils";
 import { transformOperationObj } from "./operation";
 import { transformParametersArray } from "./parameters";
 
@@ -15,7 +15,7 @@ export function transformPathsObj(
   paths: Record<string, PathItemObject>,
   { globalParameters, immutableTypes, operations, version }: TransformPathsObjOption
 ): string {
-  const readonly = immutableTypes ? "readonly " : "";
+  const readonly = tsReadonly(immutableTypes);
 
   let output = "";
 

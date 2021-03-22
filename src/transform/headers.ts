@@ -1,5 +1,5 @@
 import { HeaderObject } from "../types";
-import { comment } from "../utils";
+import { comment, tsReadonly } from "../utils";
 import { transformSchemaObj } from "./schema";
 
 export function transformHeaderObjMap(
@@ -13,7 +13,7 @@ export function transformHeaderObjMap(
 
     if (v.description) output += comment(v.description);
 
-    const readonly = immutableTypes ? "readonly " : "";
+    const readonly = tsReadonly(immutableTypes);
     const required = v.required ? "" : "?";
 
     output += `  ${readonly}"${k}"${required}: ${transformSchemaObj(v.schema, {
