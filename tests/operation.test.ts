@@ -119,7 +119,7 @@ describe("requestBodies", () => {
   });
 });
 
-describe.only("parameters", () => {
+describe("parameters", () => {
   it("operation parameters only", () => {
     expect(
       transformOperationObj(
