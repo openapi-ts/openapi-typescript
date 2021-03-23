@@ -9,7 +9,7 @@ export function transformOperationObj(
   {
     globalParameters,
     immutableTypes,
-    pathItem,
+    pathItem = {},
     version,
   }: {
     pathItem?: PathItemObject;
@@ -22,8 +22,8 @@ export function transformOperationObj(
 
   let output = "";
 
-  if (operation.parameters || pathItem?.parameters) {
-    const parameters = (pathItem?.parameters || []).concat(operation.parameters || []);
+  if (operation.parameters || pathItem.parameters) {
+    const parameters = (pathItem.parameters || []).concat(operation.parameters || []);
     output += `  ${readonly}parameters: {\n    ${transformParametersArray(parameters, {
       globalParameters,
       immutableTypes,
