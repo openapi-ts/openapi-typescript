@@ -39,9 +39,8 @@ export function transformPathsObj(
 
       // if operation has operationId, abstract into top-level operations object
       if (operation.operationId) {
-        output += `   ${readonly}"${method}": operations["${operation.operationId}"];\n`;
         operations[operation.operationId] = { operation, pathItem };
-        output += `    "${method}": operations["${operation.operationId}"];\n`;
+        output += `    ${readonly}"${method}": operations["${operation.operationId}"];\n`;
         return;
       }
       // otherwise, inline operation

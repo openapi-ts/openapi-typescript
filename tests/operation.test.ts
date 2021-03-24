@@ -136,6 +136,7 @@ describe("parameters", () => {
         },
         {
           version: 3,
+          immutableTypes: false,
           pathItem: {},
         }
       ).trim()
@@ -153,6 +154,7 @@ describe("parameters", () => {
         {},
         {
           version: 3,
+          immutableTypes: false,
           pathItem: {
             parameters: [
               {
@@ -197,6 +199,7 @@ describe("parameters", () => {
         },
         {
           version: 3,
+          immutableTypes: false,
           pathItem: {
             parameters: [
               {

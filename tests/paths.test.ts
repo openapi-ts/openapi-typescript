@@ -460,6 +460,11 @@ describe("transformPathsObj", () => {
     expect(transform(parametersSchema, { immutableTypes: true })).toBe(`export interface paths {
   readonly "/{example}": {
     readonly get: {
+      readonly parameters: {
+        readonly path: {
+          readonly example: string;
+        };
+      };
       readonly responses: {};
     };
     readonly parameters: {
