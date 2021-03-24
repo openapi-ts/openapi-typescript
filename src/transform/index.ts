@@ -1,4 +1,4 @@
-import { OperationObject } from "../types";
+import { OperationObject, PathItemObject } from "../types";
 import { comment, tsReadonly } from "../utils";
 import { transformHeaderObjMap } from "./headers";
 import { transformOperationObj } from "./operation";
@@ -17,7 +17,7 @@ export function transformAll(schema: any, { immutableTypes, rawSchema, version }
 
   let output = "";
 
-  let operations: Record<string, OperationObject> = {};
+  let operations: Record<string, { operation: OperationObject; pathItem: PathItemObject }> = {};
 
   // --raw-schema mode
   if (rawSchema) {
@@ -128,9 +128,10 @@ export function transformAll(schema: any, { immutableTypes, rawSchema, version }
 
   output += `export interface operations {\n`; // open operations
   if (Object.keys(operations).length) {
-    Object.entries(operations).forEach(([operationId, operation]) => {
+    Object.entries(operations).forEach(([operationId, { operation, pathItem }]) => {
       if (operation.description) output += comment(operation.description); // handle comment
       output += `  ${readonly}"${operationId}": {\n    ${transformOperationObj(operation, {
+        pathItem,
         globalParameters: (schema.components && schema.components.parameters) || schema.parameters,
         immutableTypes,
         version,

@@ -6,7 +6,7 @@ import { transformParametersArray } from "./parameters";
 interface TransformPathsObjOption {
   globalParameters: Record<string, ParameterObject>;
   immutableTypes: boolean;
-  operations: Record<string, OperationObject>;
+  operations: Record<string, { operation: OperationObject; pathItem: PathItemObject }>;
   version: number;
 }
 
@@ -39,15 +39,15 @@ export function transformPathsObj(
 
       // if operation has operationId, abstract into top-level operations object
       if (operation.operationId) {
-        output += `   ${readonly}"${method}": operations["${operation.operationId}"];\n`;
-        operations[operation.operationId] = operation;
+        operations[operation.operationId] = { operation, pathItem };
+        output += `    ${readonly}"${method}": operations["${operation.operationId}"];\n`;
         return;
       }
-
       // otherwise, inline operation
       output += `    ${readonly}"${method}": {\n      ${transformOperationObj(operation, {
         globalParameters,
         immutableTypes,
+        pathItem,
         version,
       })}\n    }\n`;
     });

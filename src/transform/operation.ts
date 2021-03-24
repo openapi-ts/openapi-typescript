@@ -1,4 +1,4 @@
-import { OperationObject, ParameterObject, RequestBody } from "../types";
+import { OperationObject, ParameterObject, PathItemObject, RequestBody } from "../types";
 import { comment, isRef, transformRef, tsReadonly } from "../utils";
 import { transformParametersArray } from "./parameters";
 import { transformResponsesObj } from "./responses";
@@ -9,8 +9,10 @@ export function transformOperationObj(
   {
     globalParameters,
     immutableTypes,
+    pathItem = {},
     version,
   }: {
+    pathItem?: PathItemObject;
     globalParameters?: Record<string, ParameterObject>;
     immutableTypes: boolean;
     version: number;
@@ -20,8 +22,9 @@ export function transformOperationObj(
 
   let output = "";
 
-  if (operation.parameters) {
-    output += `  ${readonly}parameters: {\n    ${transformParametersArray(operation.parameters, {
+  if (operation.parameters || pathItem.parameters) {
+    const parameters = (pathItem.parameters || []).concat(operation.parameters || []);
+    output += `  ${readonly}parameters: {\n    ${transformParametersArray(parameters, {
       globalParameters,
       immutableTypes,
       version,
