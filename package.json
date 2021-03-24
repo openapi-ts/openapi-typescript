@@ -46,6 +46,7 @@
     "build": "rm -rf dist && tsc --build tsconfig.json && tsc --build tsconfig.cjs.json",
     "format": "yarn prettier -w .",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts src",
+    "prepare": "npm run build",
     "pregenerate": "npm run build",
     "test": "npm run build && jest --no-cache",
     "test:coverage": "npm run build && jest --no-cache --coverage && codecov",

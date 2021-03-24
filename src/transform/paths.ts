@@ -1,30 +1,33 @@
 import { OperationObject, ParameterObject, PathItemObject } from "../types";
-import { comment, transformRef } from "../utils";
+import { comment, transformRef, tsReadonly } from "../utils";
 import { transformOperationObj } from "./operation";
 import { transformParametersArray } from "./parameters";
 
 interface TransformPathsObjOption {
-  operations: Record<string, OperationObject>;
   globalParameters: Record<string, ParameterObject>;
+  immutableTypes: boolean;
+  operations: Record<string, OperationObject>;
   version: number;
 }
 
 /** Note: this needs to mutate objects passed in */
 export function transformPathsObj(
   paths: Record<string, PathItemObject>,
-  { operations, globalParameters, version }: TransformPathsObjOption
+  { globalParameters, immutableTypes, operations, version }: TransformPathsObjOption
 ): string {
+  const readonly = tsReadonly(immutableTypes);
+
   let output = "";
 
-  Object.entries(paths as Record<string, PathItemObject>).forEach(([url, pathItem]) => {
+  Object.entries(paths).forEach(([url, pathItem]) => {
     if (pathItem.description) output += comment(pathItem.description); // add comment
 
     if (pathItem.$ref) {
-      output += `  "${url}": ${transformRef(pathItem.$ref)};\n`;
+      output += `  ${readonly}"${url}": ${transformRef(pathItem.$ref)};\n`;
       return;
     }
 
-    output += `  "${url}": {\n`; // open PathItem
+    output += ` ${readonly}"${url}": {\n`; // open PathItem
 
     // methods
     ["get", "put", "post", "delete", "options", "head", "patch", "trace"].forEach((method) => {
@@ -36,20 +39,25 @@ export function transformPathsObj(
 
       // if operation has operationId, abstract into top-level operations object
       if (operation.operationId) {
-        output += `    "${method}": operations["${operation.operationId}"];\n`;
+        output += `   ${readonly}"${method}": operations["${operation.operationId}"];\n`;
         operations[operation.operationId] = operation;
         return;
       }
 
       // otherwise, inline operation
-      output += `    "${method}": {\n      ${transformOperationObj(operation, { version, globalParameters })}\n    }\n`;
+      output += `    ${readonly}"${method}": {\n      ${transformOperationObj(operation, {
+        globalParameters,
+        immutableTypes,
+        version,
+      })}\n    }\n`;
     });
 
     // parameters
     if (pathItem.parameters) {
-      output += `    parameters: {\n      ${transformParametersArray(pathItem.parameters, {
-        version,
+      output += `   ${readonly}parameters: {\n      ${transformParametersArray(pathItem.parameters, {
         globalParameters,
+        immutableTypes,
+        version,
       })}\n    }\n`;
     }
 

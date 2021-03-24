@@ -114,6 +114,10 @@ export function tsPartial(type: string): string {
   return `Partial<${type}>`;
 }
 
+export function tsReadonly(immutable: boolean): string {
+  return immutable ? "readonly " : "";
+}
+
 /** Convert [X, Y, Z] into X | Y | Z */
 export function tsUnionOf(types: Array<string | number | boolean>): string {
   if (types.length === 1) return `${types[0]}`; // don’t add parentheses around one thing

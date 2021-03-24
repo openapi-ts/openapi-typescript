@@ -4,8 +4,8 @@
 
 import { transformSchemaObj } from "../src/transform/schema";
 
-function transform(schemaObject: any): string {
-  return transformSchemaObj(schemaObject).trim();
+function transform(schemaObject: any, immutableTypes = false): string {
+  return transformSchemaObj(schemaObject, { immutableTypes }).trim();
 }
 
 describe("SchemaObject", () => {
@@ -40,15 +40,40 @@ describe("SchemaObject", () => {
         })
       ).toBe(`{\n"object"?: {\n"string"?: string;\n"number"?: components["schemas"]["object_ref"];\n\n};\n\n}`);
 
+      expect(
+        transform(
+          {
+            type: "object",
+            properties: {
+              object: {
+                properties: { string: { type: "string" }, number: { $ref: "#/components/schemas/object_ref" } },
+                type: "object",
+              },
+            },
+          },
+          true
+        )
+      ).toBe(
+        `{\nreadonly "object"?: {\nreadonly "string"?: string;\nreadonly "number"?: components["schemas"]["object_ref"];\n\n};\n\n}`
+      );
+
       // unknown
       expect(transform({ type: "object" })).toBe(`{ [key: string]: any }`);
+
+      expect(transform({ type: "object" }, true)).toBe(`{ readonly [key: string]: any }`);
 
       // empty
       expect(transform({})).toBe(`{ [key: string]: any }`);
 
+      expect(transform({}, true)).toBe(`{ readonly [key: string]: any }`);
+
       // nullable
       expect(transform({ type: "object", properties: { string: { type: "string" } }, nullable: true })).toBe(
         `({\n"string"?: string;\n\n}) | null`
+      );
+
+      expect(transform({ type: "object", properties: { string: { type: "string" } }, nullable: true }, true)).toBe(
+        `({\nreadonly "string"?: string;\n\n}) | null`
       );
 
       // required
@@ -59,6 +84,17 @@ describe("SchemaObject", () => {
           type: "object",
         })
       ).toBe(`{\n"required": string;\n"optional"?: boolean;\n\n}`);
+
+      expect(
+        transform(
+          {
+            properties: { required: { type: "string" }, optional: { type: "boolean" } },
+            required: ["required"],
+            type: "object",
+          },
+          true
+        )
+      ).toBe(`{\nreadonly "required": string;\nreadonly "optional"?: boolean;\n\n}`);
     });
 
     it("array", () => {
@@ -67,14 +103,29 @@ describe("SchemaObject", () => {
       expect(transform({ type: "array", items: { type: "number" } })).toBe(`(number)[]`);
       expect(transform({ type: "array", items: { type: "boolean" } })).toBe(`(boolean)[]`);
 
+      expect(transform({ type: "array", items: { type: "string" } }, true)).toBe(`readonly (string)[]`);
+      expect(transform({ type: "array", items: { type: "number" } }, true)).toBe(`readonly (number)[]`);
+      expect(transform({ type: "array", items: { type: "boolean" } }, true)).toBe(`readonly (boolean)[]`);
+
       // nested
       expect(
         transform({ type: "array", items: { type: "array", items: { type: "array", items: { type: "number" } } } })
       ).toBe(`(((number)[])[])[]`);
 
+      expect(
+        transform(
+          { type: "array", items: { type: "array", items: { type: "array", items: { type: "number" } } } },
+          true
+        )
+      ).toBe(`readonly (readonly (readonly (number)[])[])[]`);
+
       // eum
       expect(transform({ type: "array", items: { enum: ["chocolate", "vanilla"] } })).toBe(
         `(('chocolate') | ('vanilla'))[]`
+      );
+
+      expect(transform({ type: "array", items: { enum: ["chocolate", "vanilla"] } }, true)).toBe(
+        `readonly (('chocolate') | ('vanilla'))[]`
       );
 
       // $ref
@@ -82,16 +133,32 @@ describe("SchemaObject", () => {
         `(components["schemas"]["ArrayItem"])[]`
       );
 
+      expect(transform({ type: "array", items: { $ref: "#/components/schemas/ArrayItem" } }, true)).toBe(
+        `readonly (components["schemas"]["ArrayItem"])[]`
+      );
+
       // inferred
       expect(transform({ items: { $ref: "#/components/schemas/ArrayItem" } })).toBe(
         `(components["schemas"]["ArrayItem"])[]`
       );
 
+      expect(transform({ items: { $ref: "#/components/schemas/ArrayItem" } }, true)).toBe(
+        `readonly (components["schemas"]["ArrayItem"])[]`
+      );
+
       // tuple
       expect(transform({ type: "array", items: [{ type: "string" }, { type: "number" }] })).toBe(`[string, number]`);
 
+      expect(transform({ type: "array", items: [{ type: "string" }, { type: "number" }] }, true)).toBe(
+        `readonly [string, number]`
+      );
+
       // nullable
       expect(transform({ type: "array", items: { type: "string" }, nullable: true })).toBe(`((string)[]) | null`);
+
+      expect(transform({ type: "array", items: { type: "string" }, nullable: true }, true)).toBe(
+        `(readonly (string)[]) | null`
+      );
     });
 
     it("enum", () => {
