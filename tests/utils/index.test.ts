@@ -1,4 +1,4 @@
-import { swaggerVersion } from "../../src/utils";
+import { swaggerVersion, comment } from "../../src/utils";
 
 describe("swaggerVersion", () => {
   it("v2", () => {
@@ -9,5 +9,20 @@ describe("swaggerVersion", () => {
   });
   it("errs", () => {
     expect(() => swaggerVersion({} as any)).toThrow();
+  });
+});
+
+describe("comment", () => {
+  it("escapes markdown in comments", () => {
+    const text = `Example markdown
+**/some/url/path**`;
+
+    expect(comment(text)).toBe(
+      `/**
+  * Example markdown
+  * **\\/some/url/path**
+  */
+`
+    );
   });
 });
