@@ -342,6 +342,17 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "ashsmith",
+      "name": "Ash Smith",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1086841?v=4",
+      "profile": "https://www.ashsmith.io",
+      "contributions": [
+        "code",
+        "bug",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
