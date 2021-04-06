@@ -68,7 +68,7 @@ export function transformRequestBodies(requestBodies: Record<string, RequestBody
 
   Object.entries(requestBodies).forEach(([bodyName, requestBody]) => {
     if (requestBody && requestBody.description) output += `  ${comment(requestBody.description)}`;
-    output += `  ${bodyName}: {`;
+    output += `  "${bodyName}": {`;
     output += `  ${transformRequestBodyObj(requestBody, options)}`;
     output += `  }\n`;
   });

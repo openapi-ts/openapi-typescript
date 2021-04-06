@@ -117,6 +117,58 @@ describe("requestBodies", () => {
         };`)
     );
   });
+
+  it("hypenated", () => {
+    const schema = {
+      "Pet-example": {
+        description: "Pet-example request body",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              properties: {
+                test: { type: "string" },
+              },
+            },
+          },
+        },
+      },
+    };
+
+    const output = transformRequestBodies(schema, {
+      immutableTypes: false,
+    }).trim();
+
+    expect(format(`type requestBodies = {${output}}`)).toBe(
+      format(`type requestBodies = {
+          /** Pet-example request body */
+          "Pet-example": {
+            content: {
+              "application/json": {
+                test?: string;
+              };
+            };
+          };
+        };`)
+    );
+
+    const outputImmutable = transformRequestBodies(schema, {
+      immutableTypes: true,
+    }).trim();
+
+    expect(format(`type requestBodies = {${outputImmutable}}`)).toBe(
+      format(`type requestBodies = {
+          /** Pet-example request body */
+          "Pet-example": {
+            readonly content: {
+              readonly "application/json": {
+                readonly test?: string;
+              };
+            };
+          };
+        };`)
+    );
+  });
 });
 
 describe("parameters", () => {
