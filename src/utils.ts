@@ -63,6 +63,7 @@ export function nodeType(obj: any): SchemaObjectType | undefined {
 export function swaggerVersion(definition: OpenAPI2 | OpenAPI3): 2 | 3 {
   // OpenAPI 3
   if ("openapi" in definition) {
+    // OpenAPI version requires semver, therefore will always be string
     if (parseInt(definition.openapi, 10) === 3) {
       return 3;
     }
@@ -70,6 +71,10 @@ export function swaggerVersion(definition: OpenAPI2 | OpenAPI3): 2 | 3 {
 
   // OpenAPI 2
   if ("swagger" in definition) {
+    // note: swagger 2.0 may be parsed as a number
+    if (typeof definition.swagger === "number" && Math.round(definition.swagger as number) === 2) {
+      return 2;
+    }
     if (parseInt(definition.swagger, 10) === 2) {
       return 2;
     }
