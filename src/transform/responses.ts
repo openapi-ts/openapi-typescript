@@ -47,10 +47,11 @@ export function transformResponsesObj(responsesObj: Record<string, any>, options
       // V3
       output += `    ${readonly}content: {\n`; // open content
       Object.entries(response.content).forEach(([contentType, contentResponse]) => {
-        output += `      ${readonly}"${contentType}": ${transformSchemaObj(
-          (contentResponse as any).schema,
-          options
-        )};\n`;
+        const responseType =
+          contentResponse && (contentResponse as any).schema
+            ? transformSchemaObj((contentResponse as any).schema, options)
+            : "unknown";
+        output += `      ${readonly}"${contentType}": ${responseType};\n`;
       });
       output += `    }\n`; //close content
     } else if (response.schema) {

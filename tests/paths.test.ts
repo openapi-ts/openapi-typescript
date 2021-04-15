@@ -155,11 +155,17 @@ describe("transformPathsObj", () => {
 }\n`);
   });
 
-  it("empty responses (#333)", () => {
+  it("empty responses (#333, #536)", () => {
     const emptyResponsesSchema = {
       "/no-content": {
         get: {
           responses: {
+            200: {
+              description: "OK",
+              content: {
+                "application/json": {},
+              },
+            },
             204: {
               description: "Empty response",
             },
@@ -190,6 +196,12 @@ describe("transformPathsObj", () => {
   "/no-content": {
     get: {
       responses: {
+        /** OK */
+        200: {
+          content: {
+            "application/json": unknown;
+          };
+        };
         /** Empty response */
         204: never;
       };
@@ -217,6 +229,12 @@ describe("transformPathsObj", () => {
   readonly "/no-content": {
     readonly get: {
       readonly responses: {
+        /** OK */
+        readonly 200: {
+          readonly content: {
+            readonly "application/json": unknown;
+          };
+        };
         /** Empty response */
         readonly 204: never;
       };
