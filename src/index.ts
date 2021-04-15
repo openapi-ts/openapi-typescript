@@ -1,5 +1,6 @@
 import path from "path";
 import prettier from "prettier";
+import parserTypescript from "prettier/parser-typescript";
 import { swaggerVersion } from "./utils";
 import { transformAll } from "./transform/index";
 import { OpenAPI2, OpenAPI3, SchemaObject, SwaggerToTSOptions } from "./types";
@@ -30,13 +31,17 @@ export default function swaggerToTS(
 `;
 
   // 3. Prettify output
-  let prettierOptions: prettier.Options = { parser: "typescript" };
+  let prettierOptions: prettier.Options = {
+    parser: "typescript",
+    plugins: [parserTypescript],
+  };
   if (options && options.prettierConfig) {
     try {
       const userOptions = prettier.resolveConfig.sync(path.resolve(process.cwd(), options.prettierConfig));
       prettierOptions = {
+        ...(userOptions || {}),
         ...prettierOptions,
-        ...userOptions,
+        plugins: [...(prettierOptions.plugins as prettier.Plugin[]), ...((userOptions && userOptions.plugins) || [])],
       };
     } catch (err) {
       console.error(`❌ ${err}`);
