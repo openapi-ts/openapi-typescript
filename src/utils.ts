@@ -31,7 +31,7 @@ export function nodeType(obj: any): SchemaObjectType | undefined {
   }
 
   // enum
-  if (Array.isArray(obj.enum)) {
+  if (Array.isArray(obj.enum) && obj.enum.length) {
     return "enum";
   }
 

@@ -211,6 +211,13 @@ describe("SchemaObject", () => {
 "string"?: (('Totoro') | (2) | (false)) | null;
 
 }`);
+
+      expect(transform({ properties: { string: { type: "string", enum: [] } }, type: "object" })).toBe(
+        `{
+"string"?: string;
+
+}`
+      );
     });
 
     it("$ref", () => {
