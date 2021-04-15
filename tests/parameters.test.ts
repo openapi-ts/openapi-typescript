@@ -191,5 +191,22 @@ describe("transformParametersArray()", () => {
     readonly "since"?: components["parameters"]["since"];
   }`);
     });
+
+    it("nullable", () => {
+      const schema = [
+        { in: "query", name: "nullableString", schema: { type: "string", nullable: true } },
+        { in: "query", name: "nullableNum", schema: { type: "number", nullable: true } },
+      ];
+
+      expect(
+        transformParametersArray(schema as any, {
+          immutableTypes: false,
+          version: 3,
+        }).trim()
+      ).toBe(`query: {
+    "nullableString"?: (string) | null;
+    "nullableNum"?: (number) | null;
+  }`);
+    });
   });
 });
