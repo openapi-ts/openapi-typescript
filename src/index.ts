@@ -14,7 +14,7 @@ export const WARNING_MESSAGE = `/**
 
 `;
 
-export default function swaggerToTS(
+export default function openapiTS(
   schema: OpenAPI2 | OpenAPI3 | Record<string, SchemaObject>,
   options?: SwaggerToTSOptions
 ): string {
@@ -24,6 +24,7 @@ export default function swaggerToTS(
   // 2. generate output
   let output = `${WARNING_MESSAGE}
   ${transformAll(schema, {
+    formatter: options && typeof options.formatter === "function" ? options.formatter : undefined,
     immutableTypes: (options && options.immutableTypes) || false,
     rawSchema: options && options.rawSchema,
     version,

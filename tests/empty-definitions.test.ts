@@ -1,4 +1,4 @@
-import swaggerToTS from "../src/index";
+import openapiTS from "../src/index";
 
 describe("allow empty definitions", () => {
   it("allow empty definitions", () => {
@@ -31,7 +31,7 @@ describe("allow empty definitions", () => {
     };
 
     expect(
-      swaggerToTS(schema as any, {
+      openapiTS(schema as any, {
         version: 2,
       })
     ).toBe(`/**
@@ -62,7 +62,7 @@ export interface operations {
 `);
 
     expect(
-      swaggerToTS(schema as any, {
+      openapiTS(schema as any, {
         immutableTypes: true,
         version: 2,
       })

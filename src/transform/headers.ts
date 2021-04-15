@@ -1,10 +1,10 @@
-import { HeaderObject } from "../types";
+import { HeaderObject, SchemaFormatter } from "../types";
 import { comment, tsReadonly } from "../utils";
 import { transformSchemaObj } from "./schema";
 
 export function transformHeaderObjMap(
   headerMap: Record<string, HeaderObject>,
-  { immutableTypes }: { immutableTypes: boolean }
+  options: { formatter?: SchemaFormatter; immutableTypes: boolean }
 ): string {
   let output = "";
 
@@ -13,12 +13,10 @@ export function transformHeaderObjMap(
 
     if (v.description) output += comment(v.description);
 
-    const readonly = tsReadonly(immutableTypes);
+    const readonly = tsReadonly(options.immutableTypes);
     const required = v.required ? "" : "?";
 
-    output += `  ${readonly}"${k}"${required}: ${transformSchemaObj(v.schema, {
-      immutableTypes,
-    })}\n`;
+    output += `  ${readonly}"${k}"${required}: ${transformSchemaObj(v.schema, options)}\n`;
   });
 
   return output;

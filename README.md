@@ -21,7 +21,7 @@ View examples:
 
 ## Usage
 
-### CLI
+### 🖥️ CLI
 
 #### 🗄️ Reading specs from file system
 
@@ -114,7 +114,7 @@ For anything more complicated, or for generating specs dynamically, you can also
 | `--prettier-config [location]` |       |          | (optional) Path to your custom Prettier configuration for output |
 | `--raw-schema`                 |       | `false`  | Generate TS types from partial schema (e.g. having `components.schema` at the top level) |
 
-### Node
+### 🐢 Node
 
 ```bash
 npm i --save-dev openapi-typescript
@@ -122,10 +122,10 @@ npm i --save-dev openapi-typescript
 
 ```js
 const { readFileSync } = require("fs");
-const swaggerToTS = require("openapi-typescript").default;
+const openapiTS = require("openapi-typescript").default;
 
 const input = JSON.parse(readFileSync("spec.json", "utf8")); // Input can be any JS object (OpenAPI format)
-const output = swaggerToTS(input); // Outputs TypeScript defs as a string (to be parsed, or written to a file)
+const output = openapiTS(input); // Outputs TypeScript defs as a string (to be parsed, or written to a file)
 ```
 
 The Node API is a bit more flexible: it will only take a JS object as input (OpenAPI format), and return a string of TS
@@ -135,11 +135,36 @@ post-process, and save the output anywhere.
 If your specs are in YAML, you’ll have to convert them to JS objects using a library such as [js-yaml][js-yaml]. If
 you’re batching large folders of specs, [glob][glob] may also come in handy.
 
-## Migrating from v1 to v2
+#### Custom Formatter
 
-[Migrating from v1 to v2](./docs/migrating-from-v1.md)
+If using the Node.js API, you can optionally pass a **formatter** to openapi-typescript. This is useful if you want to override the default types and substitute your own.
 
-## Project Goals
+For example, say your schema has the following property:
+
+```yaml
+properties:
+  updated_at:
+    type: string
+    format: date-time
+```
+
+By default, this will generate a type `updated_at?: string;`. But we can override this by passing a formatter to the Node API, like so:
+
+```js
+const types = openapiTS(mySchema, {
+  formatter(node: SchemaObject) {
+    if (node.format === 'date-time') {
+      return "Date"; // return the TypeScript “Date” type, as a string
+    }
+  // for all other schema objects, let openapi-typescript decide (return undefined)
+});
+```
+
+This will generate `updated_at?: Date` instead. Note that you will still have to do the parsing of your data yourself. But this will save you from having to also update all your types.
+
+_Note: you don’t have to use `.format`—this is just an example! You can use any property on a schema object to overwrite its generated type if desired._
+
+## 🏅 Project Goals
 
 1. Support converting any OpenAPI 3.0 or 2.0 (Swagger) schema to TypeScript types, no matter how complicated
 1. The generated TypeScript types **must** match your schema as closely as possible (i.e. don’t convert names to
@@ -147,7 +172,7 @@ you’re batching large folders of specs, [glob][glob] may also come in handy.
    and all)
 1. This library is a TypeScript generator, not a schema validator.
 
-## Contributing
+## 🤝 Contributing
 
 PRs are welcome! Please see our [CONTRIBUTING.md](./CONTRIBUTING.md) guide. Opening an issue beforehand to discuss is
 encouraged but not required.
@@ -156,6 +181,7 @@ encouraged but not required.
 [js-yaml]: https://www.npmjs.com/package/js-yaml
 [namespace]: https://www.typescriptlang.org/docs/handbook/namespaces.html
 [npm-run-all]: https://www.npmjs.com/package/npm-run-all
+[openapi-format]: https://swagger.io/specification/#data-types
 [openapi-operationid]: https://swagger.io/specification/#operation-object
 [openapi2]: https://swagger.io/specification/v2/
 [openapi3]: https://swagger.io/specification
