@@ -105,9 +105,14 @@ export interface SchemaObject {
   nullable?: boolean; // V3 ONLY
   oneOf?: (ReferenceObject | SchemaObject)[]; // V3 ONLY
   anyOf?: (ReferenceObject | SchemaObject)[]; // V3 ONLY
+  format?: string; // V3 ONLY
 }
 
+export type SchemaFormatter = (schemaObj: SchemaObject) => string | undefined;
+
 export interface SwaggerToTSOptions {
+  /** Specify a formatter */
+  formatter?: SchemaFormatter;
   /** Generates immutable types (readonly properties and readonly array) */
   immutableTypes?: boolean;
   /** (optional) Path to Prettier config */

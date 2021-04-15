@@ -1,4 +1,4 @@
-import swaggerToTS from "../src/index";
+import openapiTS from "../src/index";
 
 describe("rawSchema", () => {
   it("v2", () => {
@@ -14,7 +14,7 @@ describe("rawSchema", () => {
     };
 
     expect(
-      swaggerToTS(v2schema, {
+      openapiTS(v2schema, {
         rawSchema: true,
         version: 2,
       })
@@ -33,7 +33,7 @@ export interface definitions {
 }\n`);
 
     expect(
-      swaggerToTS(v2schema, {
+      openapiTS(v2schema, {
         immutableTypes: true,
         rawSchema: true,
         version: 2,
@@ -66,7 +66,7 @@ export interface definitions {
     };
 
     expect(
-      swaggerToTS(v3schema, {
+      openapiTS(v3schema, {
         rawSchema: true,
         version: 3,
       })
@@ -85,7 +85,7 @@ export interface schemas {
 }\n`);
 
     expect(
-      swaggerToTS(v3schema, {
+      openapiTS(v3schema, {
         immutableTypes: true,
         rawSchema: true,
         version: 3,

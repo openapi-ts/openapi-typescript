@@ -1,4 +1,4 @@
-import { RequestBody } from "../types";
+import { RequestBody, SchemaFormatter } from "../types";
 import { comment, transformRef, tsReadonly } from "../utils";
 import { transformHeaderObjMap } from "./headers";
 import { transformSchemaObj } from "./schema";
@@ -7,6 +7,7 @@ import { transformRequestBodyObj } from "./operation";
 const resType = (res: string | number) => (res === 204 || (res >= 300 && res < 400) ? "never" : "unknown");
 
 interface Options {
+  formatter?: SchemaFormatter;
   immutableTypes: boolean;
 }
 

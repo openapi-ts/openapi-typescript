@@ -1,4 +1,4 @@
-import { OperationObject, PathItemObject } from "../types";
+import { OperationObject, PathItemObject, SchemaFormatter } from "../types";
 import { comment, tsReadonly } from "../utils";
 import { transformHeaderObjMap } from "./headers";
 import { transformOperationObj } from "./operation";
@@ -7,12 +7,13 @@ import { transformResponsesObj, transformRequestBodies } from "./responses";
 import { transformSchemaObjMap } from "./schema";
 
 interface TransformOptions {
+  formatter?: SchemaFormatter;
   immutableTypes: boolean;
   rawSchema?: boolean;
   version: number;
 }
 
-export function transformAll(schema: any, { immutableTypes, rawSchema, version }: TransformOptions): string {
+export function transformAll(schema: any, { formatter, immutableTypes, rawSchema, version }: TransformOptions): string {
   const readonly = tsReadonly(immutableTypes);
 
   let output = "";
@@ -24,12 +25,14 @@ export function transformAll(schema: any, { immutableTypes, rawSchema, version }
     switch (version) {
       case 2: {
         return `export interface definitions {\n  ${transformSchemaObjMap(schema, {
+          formatter,
           immutableTypes,
           required: Object.keys(schema),
         })}\n}`;
       }
       case 3: {
         return `export interface schemas {\n    ${transformSchemaObjMap(schema, {
+          formatter,
           immutableTypes,
           required: Object.keys(schema),
         })}\n  }\n\n`;
@@ -54,6 +57,7 @@ export function transformAll(schema: any, { immutableTypes, rawSchema, version }
       // #/definitions
       if (schema.definitions) {
         output += `export interface definitions {\n  ${transformSchemaObjMap(schema.definitions, {
+          formatter,
           immutableTypes,
           required: Object.keys(schema.definitions),
         })}\n}\n\n`;
@@ -63,6 +67,7 @@ export function transformAll(schema: any, { immutableTypes, rawSchema, version }
       if (schema.parameters) {
         const required = Object.keys(schema.parameters);
         output += `export interface parameters {\n    ${transformSchemaObjMap(schema.parameters, {
+          formatter,
           immutableTypes,
           required,
         })}\n  }\n\n`;
@@ -71,6 +76,7 @@ export function transformAll(schema: any, { immutableTypes, rawSchema, version }
       // #/parameters
       if (schema.responses) {
         output += `export interface responses {\n    ${transformResponsesObj(schema.responses, {
+          formatter,
           immutableTypes,
         })}\n  }\n\n`;
       }
@@ -85,6 +91,7 @@ export function transformAll(schema: any, { immutableTypes, rawSchema, version }
         if (schema.components.schemas) {
           const required = Object.keys(schema.components.schemas);
           output += `  ${readonly}schemas: {\n    ${transformSchemaObjMap(schema.components.schemas, {
+            formatter,
             immutableTypes,
             required,
           })}\n  }\n`;
@@ -93,6 +100,7 @@ export function transformAll(schema: any, { immutableTypes, rawSchema, version }
         // #/components/responses
         if (schema.components.responses) {
           output += `  ${readonly}responses: {\n    ${transformResponsesObj(schema.components.responses, {
+            formatter,
             immutableTypes,
           })}\n  }\n`;
         }
@@ -101,6 +109,7 @@ export function transformAll(schema: any, { immutableTypes, rawSchema, version }
         if (schema.components.parameters) {
           const required = Object.keys(schema.components.parameters);
           output += `  ${readonly}parameters: {\n    ${transformSchemaObjMap(schema.components.parameters, {
+            formatter,
             immutableTypes,
             required,
           })}\n  }\n`;
@@ -109,6 +118,7 @@ export function transformAll(schema: any, { immutableTypes, rawSchema, version }
         // #/components/requestBodies
         if (schema.components.requestBodies) {
           output += `  ${readonly}requestBodies: {\n    ${transformRequestBodies(schema.components.requestBodies, {
+            formatter,
             immutableTypes,
           })}\n  }\n`;
         }
@@ -116,6 +126,7 @@ export function transformAll(schema: any, { immutableTypes, rawSchema, version }
         // #/components/headers
         if (schema.components.headers) {
           output += `  ${readonly}headers: {\n    ${transformHeaderObjMap(schema.components.headers, {
+            formatter,
             immutableTypes,
           })}  }\n`;
         }

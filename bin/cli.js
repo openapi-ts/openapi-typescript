@@ -4,7 +4,7 @@ const fs = require("fs");
 const { bold, green, red } = require("kleur");
 const path = require("path");
 const meow = require("meow");
-const { default: swaggerToTS } = require("../dist/cjs/index.js");
+const { default: openapiTS } = require("../dist/cjs/index.js");
 const { loadSpec } = require("./loaders");
 
 const cli = meow(
@@ -72,7 +72,7 @@ async function main() {
   }
 
   // 2. generate schema (the main part!)
-  const result = swaggerToTS(spec, {
+  const result = openapiTS(spec, {
     immutableTypes: cli.flags.immutableTypes,
     prettierConfig: cli.flags.prettierConfig,
     rawSchema: cli.flags.rawSchema,
