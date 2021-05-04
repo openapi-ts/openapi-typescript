@@ -25,7 +25,10 @@ export interface definitions {
     /** user email */
     email: string;
   };
-}\n`);
+}
+
+export interface external {}
+`);
   });
 
   it("v3", async () => {
@@ -53,6 +56,9 @@ export interface schemas {
     /** user email */
     email: string;
   };
-}\n`);
+}
+
+export interface external {}
+`);
   });
 });

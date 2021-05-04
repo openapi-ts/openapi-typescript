@@ -1,89 +1,18 @@
 import fs from "fs";
 import path from "path";
-import http from "http";
-import https from "https";
 import { URL } from "url";
+import fetch, { Headers } from "node-fetch";
 import mime from "mime";
 import yaml from "js-yaml";
+import { GlobalContext } from "./types";
+import { parseRef } from "./utils";
 
-// config
-const MAX_REDIRECT_COUNT = 10;
-
-/** Simple fetch utility with support for redirect */
-async function fetch(
-  url: string,
-  opts: https.RequestOptions,
-  { silent = false, redirectCount = 0 } = {}
-): Promise<{ body: string; contentType: string }> {
-  return new Promise((resolve, reject) => {
-    const { protocol } = new URL(url);
-    if (protocol !== "http:" && protocol !== "https:") {
-      throw new Error(`Unsupported protocol: "${protocol}". URL must start with "http://" or "https://".`);
-    }
-
-    const fetchMethod = protocol === "https:" ? https : http;
-    const req = fetchMethod.request(url, opts, (res) => {
-      let rawData = "";
-      res.setEncoding("utf8");
-      res.on("data", (chunk) => {
-        rawData += chunk;
-      });
-      res.on("end", () => {
-        if (!res.statusCode || !res.headers) return reject(rawData);
-
-        // 2xx: OK
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          let contentType = (res.headers["content-type"] || "").split(";")[0].trim();
-          if (!isJSON(contentType) || !isYAML(contentType)) contentType = mime.getType(url) || "";
-          return resolve({ body: rawData, contentType });
-        }
-
-        // 3xx: follow redirect (if given)
-        if (res.statusCode >= 300 && res.headers.location) {
-          if (redirectCount >= MAX_REDIRECT_COUNT) {
-            reject(`Max redirects exceeded`);
-            return;
-          }
-          if (silent !== true) console.log(`🚥 Redirecting to ${res.headers.location}…`);
-          return fetch(res.headers.location, opts, { silent, redirectCount: redirectCount + 1 }).then(resolve);
-        }
-
-        // 404: throw friendly message
-        if (res.statusCode === 404) {
-          return reject(
-            `The URL ${url} could not be reached. Ensure the URL is correct, that you're connected to the internet and that the URL is reachable via a browser.`
-          );
-        }
-
-        // everything else: throw
-        return reject(rawData || `${res.statusCode} ${res.statusMessage}`);
-      });
-    });
-    req.on("error", (err) => {
-      reject(err);
-    });
-    req.end();
-  });
-}
-
-function isYAML(contentType: string | null) {
-  return contentType === "application/openapi+yaml" || contentType === "text/yaml";
-}
-
-function isJSON(contentType: string | null) {
-  return (
-    contentType === "application/json" ||
-    contentType === "application/json5" ||
-    contentType === "application/openapi+json"
-  );
-}
+type PartialSchema = Record<string, any>; // not a very accurate type, but this is easier to deal with before we know we’re dealing with a valid spec
 
 function parseSchema(schema: any, type: "YAML" | "JSON") {
   if (type === "YAML") {
     try {
-      const s = yaml.load(schema);
-      console.log({ type: typeof s });
-      return s;
+      return yaml.load(schema);
     } catch (err) {
       throw new Error(`YAML: ${err.toString()}`);
     }
@@ -96,54 +25,146 @@ function parseSchema(schema: any, type: "YAML" | "JSON") {
   }
 }
 
+function isFile(url: URL): boolean {
+  return url.protocol === "file:";
+}
+
+export function resolveSchema(url: string): URL {
+  // option 1: remote
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return new URL(url);
+  }
+
+  // option 2: local
+  const localPath = path.isAbsolute(url) ? new URL("", `file://${url}`) : new URL(url, `file://${process.cwd()}/`); // if absolute path is provided use that; otherwise search cwd\
+  if (!fs.existsSync(localPath)) {
+    throw new Error(`Could not locate ${url}`);
+  } else if (fs.statSync(localPath).isDirectory()) {
+    throw new Error(`${localPath} is a directory not a file`);
+  }
+  return localPath;
+}
+
+interface LoadOptions extends GlobalContext {
+  rootURL: URL;
+  schemas: { [url: string]: PartialSchema };
+}
+
+// temporary cache for load()
+let urlCache = new Set<string>(); // URL cache (prevent URLs from being loaded over and over)
+
 /** Load a schema from local path or remote URL */
-export default async function load(
-  schema: string | Record<string, any>,
-  { auth, silent }: { auth?: string; silent: boolean }
-): Promise<Record<string, any>> {
-  // if this is an object already, assume JSON and return as-is
-  if (typeof schema !== "string") return schema;
+export default async function load(schemaURL: URL, options: LoadOptions): Promise<{ [url: string]: PartialSchema }> {
+  if (urlCache.has(schemaURL.href)) return options.schemas; // exit early if this has already been scanned
+  urlCache.add(schemaURL.href); // add URL to cache
 
-  // this a local path or remote URL?
-  let isRemote = false;
-  try {
-    new URL(schema); // if this isn’t a valid URL, assume local
-    isRemote = true;
-  } catch (err) {
-    // ignore
-  }
+  const schemas = options.schemas;
 
-  // option 1: remote URL
-  if (isRemote) {
-    const { body, contentType } = await fetch(schema, { auth }, { silent });
-    let contents: Record<string, any>; // Note: Record<string, any> is vague, but it at least guarantees `typeof object`
+  let contents = "";
+  let contentType = "";
 
-    if (isYAML(contentType)) {
-      contents = parseSchema(body, "YAML");
-    } else if (isJSON(contentType)) {
-      contents = parseSchema(body, "JSON");
-    } else {
-      throw new Error(`Unknown format${contentType ? `: "${contentType}"` : ""}. Only YAML or JSON supported.`); // give up: unknown type
-    }
-    return contents;
-  }
-
-  // option 2: local path
-  const srcPath = path.join(process.cwd(), schema);
-  if (!fs.existsSync(srcPath)) {
-    throw new Error(`Could not locate local schema ${schema}`);
-  }
-
-  let contents: any = await fs.promises.readFile(srcPath, "utf8");
-  const contentType = mime.getType(srcPath);
-
-  if (isYAML(contentType)) {
-    contents = parseSchema(contents, "YAML");
-  } else if (isJSON(contentType)) {
-    contents = parseSchema(contents, "JSON");
+  if (isFile(schemaURL)) {
+    // load local
+    contents = await fs.promises.readFile(schemaURL, "utf8");
+    contentType = mime.getType(schemaURL.href) || "";
   } else {
-    throw new Error(`Unknown format: "${path.extname(schema) || schema}". Only YAML or JSON supported.`);
+    // load remote
+    const headers = new Headers();
+    if (options.auth) headers.set("Authorization", options.auth);
+    const res = await fetch(schemaURL.href, { method: "GET", headers });
+    contentType = res.headers.get("Content-Type") || "";
+    contents = await res.text();
   }
 
-  return contents;
+  const isYAML = contentType === "application/openapi+yaml" || contentType === "text/yaml";
+  const isJSON =
+    contentType === "application/json" ||
+    contentType === "application/json5" ||
+    contentType === "application/openapi+json";
+  if (isYAML) {
+    schemas[schemaURL.href] = parseSchema(contents, "YAML");
+  } else if (isJSON) {
+    schemas[schemaURL.href] = parseSchema(contents, "JSON");
+  } else {
+    // if contentType is unknown, guess
+    try {
+      schemas[schemaURL.href] = parseSchema(contents, "JSON");
+    } catch (err1) {
+      try {
+        schemas[schemaURL.href] = parseSchema(contents, "YAML");
+      } catch (err2) {
+        throw new Error(`Unknown format${contentType ? `: "${contentType}"` : ""}. Only YAML or JSON supported.`); // give up: unknown type
+      }
+    }
+  }
+
+  // scan $refs, but don’t transform (load everything in parallel)
+  const refPromises: Promise<any>[] = [];
+  schemas[schemaURL.href] = JSON.parse(JSON.stringify(schemas[schemaURL.href]), (k, v) => {
+    if (k !== "$ref" || typeof v !== "string") return v;
+
+    const { url: refURL } = parseRef(v);
+    if (refURL) {
+      // load $refs (only if new) and merge subschemas with top-level schema
+      const nextURL =
+        refURL.startsWith("http://") || refURL.startsWith("https://") ? new URL(refURL) : new URL(refURL, schemaURL);
+      refPromises.push(
+        load(nextURL, options).then((subschemas) => {
+          for (const subschemaURL of Object.keys(subschemas)) {
+            schemas[subschemaURL] = subschemas[subschemaURL];
+          }
+        })
+      );
+      return v.replace(refURL, nextURL.href); // resolve relative URLs to absolute URLs so the schema can be flattened
+    }
+    return v;
+  });
+  await Promise.all(refPromises);
+
+  // transform $refs once, at the root schema, after all have been scanned & downloaded (much easier to do here when we have the context)
+  if (schemaURL.href === options.rootURL.href) {
+    for (const subschemaURL of Object.keys(schemas)) {
+      // transform $refs in schema
+      schemas[subschemaURL] = JSON.parse(JSON.stringify(schemas[subschemaURL]), (k, v) => {
+        if (k !== "$ref" || typeof v !== "string") return v;
+        if (!v.includes("#")) return v; // already transformed; skip
+
+        const { url, parts } = parseRef(v);
+        // scenario 1: resolve all external URLs so long as they don’t point back to root schema
+        if (url && new URL(url).href !== options.rootURL.href) {
+          const relativeURL =
+            isFile(new URL(url)) && isFile(options.rootURL)
+              ? path.posix.relative(path.posix.dirname(options.rootURL.href), url)
+              : url;
+          return `external["${relativeURL}"]["${parts.join('"]["')}"]`; // export external ref
+        }
+        // scenario 2: treat all $refs in external schemas as external
+        if (!url && subschemaURL !== options.rootURL.href) {
+          const relativeURL =
+            isFile(new URL(subschemaURL)) && isFile(options.rootURL)
+              ? path.posix.relative(path.posix.dirname(options.rootURL.href), subschemaURL)
+              : subschemaURL;
+          return `external["${relativeURL}"]["${parts.join('"]["')}"]`; // export external ref
+        }
+
+        // scenario 3: transform all $refs pointing back to root schema
+        const [base, ...rest] = parts;
+        return `${base}["${rest.join('"]["')}"]`; // transform other $refs to the root schema (including external refs that point back to the root schema)
+      });
+
+      // use relative keys for external schemas (schemas generated on different machines should have the same namespace)
+      if (subschemaURL !== options.rootURL.href) {
+        const relativeURL =
+          isFile(new URL(subschemaURL)) && isFile(options.rootURL)
+            ? path.posix.relative(path.posix.dirname(options.rootURL.href), subschemaURL)
+            : subschemaURL;
+        if (relativeURL !== subschemaURL) {
+          schemas[relativeURL] = schemas[subschemaURL];
+          delete schemas[subschemaURL];
+        }
+      }
+    }
+  }
+
+  return schemas;
 }

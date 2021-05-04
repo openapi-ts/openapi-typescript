@@ -1,5 +1,5 @@
 import { GlobalContext, OperationObject, ParameterObject, PathItemObject } from "../types";
-import { comment, transformRef, tsReadonly } from "../utils";
+import { comment, tsReadonly } from "../utils";
 import { transformOperationObj } from "./operation";
 import { transformParametersArray } from "./parameters";
 
@@ -19,7 +19,7 @@ export function transformPathsObj(paths: Record<string, PathItemObject>, options
     if (pathItem.description) output += comment(pathItem.description); // add comment
 
     if (pathItem.$ref) {
-      output += `  ${readonly}"${url}": ${transformRef(pathItem.$ref)};\n`;
+      output += `  ${readonly}"${url}": ${pathItem.$ref};\n`;
       continue;
     }
 
@@ -33,7 +33,8 @@ export function transformPathsObj(paths: Record<string, PathItemObject>, options
       if (operation.operationId) {
         // if operation has operationId, abstract into top-level operations object
         operations[operation.operationId] = { operation, pathItem };
-        output += `    ${readonly}"${method}": operations["${operation.operationId}"];\n`;
+        const namespace = ctx.namespace ? `external["${ctx.namespace}"]["operations"]` : `operations`;
+        output += `    ${readonly}"${method}": ${namespace}["${operation.operationId}"];\n`;
       } else {
         // otherwise, inline operation
         output += `    ${readonly}"${method}": {\n      ${transformOperationObj(operation, {

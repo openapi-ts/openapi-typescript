@@ -37,7 +37,7 @@ describe("cli", () => {
   });
 
   it("supports glob paths", async () => {
-    execSync(`../../bin/cli.js \"specs/*.yaml\" -o generated/`, { cwd: __dirname }); // Quotes are necessary because shells like zsh treats glob weirdly
+    execSync(`../../bin/cli.js "specs/*.yaml" -o generated/`, { cwd: __dirname }); // Quotes are necessary because shells like zsh treats glob weirdly
     const [generatedPetstore, expectedPetstore, generatedManifold, expectedManifold] = await Promise.all([
       fs.promises.readFile(path.join(__dirname, "generated", "specs", "petstore.ts"), "utf8"),
       fs.promises.readFile(path.join(__dirname, "expected", "petstore.ts"), "utf8"),

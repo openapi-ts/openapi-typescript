@@ -5,8 +5,7 @@ import { transformSchemaObj } from "./schema";
 export function transformRequestBodies(requestBodies: Record<string, RequestBody>, ctx: GlobalContext) {
   let output = "";
 
-  for (const name of Object.keys(requestBodies)) {
-    const requestBody = requestBodies[name];
+  for (const [name, requestBody] of Object.entries(requestBodies)) {
     if (requestBody && requestBody.description) output += `  ${comment(requestBody.description)}`;
     output += `  "${name}": {\n    ${transformRequestBodyObj(requestBody, ctx)}\n  }\n`;
   }
@@ -21,8 +20,7 @@ export function transformRequestBodyObj(requestBody: RequestBody, ctx: GlobalCon
 
   if (requestBody.content && Object.keys(requestBody.content).length) {
     output += `  ${readonly}content: {\n`; // open content
-    for (const k of Object.keys(requestBody.content)) {
-      const v = requestBody.content[k];
+    for (const [k, v] of Object.entries(requestBody.content)) {
       output += `      ${readonly}"${k}": ${transformSchemaObj(v.schema, { ...ctx, required: new Set<string>() })};\n`;
     }
     output += `    }\n`; // close content

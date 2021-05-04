@@ -37,10 +37,12 @@ export interface components {
 }
 
 export interface operations {}
+
+export interface external {}
 `);
   });
 
-  it("hasObject", () => {
+  it("hasObject", async () => {
     const schemaHasObject = {
       openapi: "3.0.1",
       components: {
@@ -64,7 +66,7 @@ export interface operations {}
     };
 
     expect(
-      openapiTS(schemaHasObject, {
+      await openapiTS(schemaHasObject, {
         formatter(schemaObj) {
           if (schemaObj.format === "date-time") {
             return "Date";
@@ -91,6 +93,8 @@ export interface components {
 }
 
 export interface operations {}
+
+export interface external {}
 `);
   });
 });

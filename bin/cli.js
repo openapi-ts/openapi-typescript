@@ -69,26 +69,15 @@ function errorAndExit(errorMessage) {
 async function generateSchema(pathToSpec) {
   const output = cli.flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
 
-  // load spec
-  if (!cli.flags.output) {
-    output = "STDOUT"; // if --output not specified, fall back to stdout
-  }
-  if (output === "FILE") {
-    console.info(bold(`✨ openapi-typescript ${require("../package.json").version}`)); // don’t log anything to console!
-  }
-  if (cli.flags.rawSchema && !cli.flags.version) {
-    throw new Error(`--raw-schema requires --version flag`);
-  }
-
   // generate schema
   const result = await openapiTS(pathToSpec, {
-    auth: cli.flags.auth,
     additionalProperties: cli.flags.additionalProperties,
-    silent: output === "STDOUT",
-    immutableTypes: cli.flags.immutableTypes,
+    auth: cli.flags.auth,
     defaultNonNullable: cli.flags.defaultNonNullable,
+    immutableTypes: cli.flags.immutableTypes,
     prettierConfig: cli.flags.prettierConfig,
     rawSchema: cli.flags.rawSchema,
+    silent: output === OUTPUT_STDOUT,
     version: cli.flags.version,
   });
 
@@ -108,14 +97,14 @@ async function generateSchema(pathToSpec) {
     console.log(green(`🚀 ${pathToSpec} -> ${bold(outputFile)} [${time}ms]`));
   } else {
     process.stdout.write(result);
-    // (still) don’t log anything to console!
+    // if stdout, (still) don’t log anything to console!
   }
 
   return result;
 }
 
 async function main() {
-  const output = cli.flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
+  let output = cli.flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
   const pathToSpec = cli.input[0];
 
   if (output === OUTPUT_FILE) {

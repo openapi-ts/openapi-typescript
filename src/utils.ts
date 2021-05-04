@@ -14,6 +14,18 @@ export function comment(text: string): string {
   */\n`;
 }
 
+export function parseRef(ref: string): { url?: string; parts: string[] } {
+  if (typeof ref !== "string" || !ref.includes("#")) return { parts: [] };
+  const [url, parts] = ref.split("#");
+  return {
+    url: url || undefined,
+    parts: parts
+      .split("/") // split by special character
+      .filter((p) => !!p) // remove empty parts
+      .map(decodeRef), // decode encoded chars
+  };
+}
+
 /** Is this a ReferenceObject? (note: this is just a TypeScript helper for nodeType() below) */
 export function isRef(obj: any): obj is ReferenceObject {
   return !!obj.$ref;
@@ -85,14 +97,14 @@ export function swaggerVersion(definition: OpenAPI2 | OpenAPI3): 2 | 3 {
   );
 }
 
-/** Convert $ref to TS ref */
-export function transformRef(ref: string, root = ""): string {
-  // TODO: load external file
-  const isExternalRef = !ref.startsWith("#"); // if # isn’t first character, we can assume this is a remote schema
-  if (isExternalRef) return "any";
+/** Decode $ref (https://swagger.io/docs/specification/using-ref/#escape) */
+export function decodeRef(ref: string): string {
+  return ref.replace(/\~0/g, "~").replace(/\~1/g, "/").replace(/"/g, '\\"');
+}
 
-  const parts = ref.replace(/^#\//, root).split("/");
-  return `${parts[0]}["${parts.slice(1).join('"]["')}"]`;
+/** Encode $ref (https://swagger.io/docs/specification/using-ref/#escape) */
+export function encodeRef(ref: string): string {
+  return ref.replace(/\~/g, "~0").replace(/\//g, "~1");
 }
 
 /** Convert T into T[]; */
@@ -124,10 +136,4 @@ export function tsReadonly(immutable: boolean): string {
 export function tsUnionOf(types: Array<string | number | boolean>): string {
   if (types.length === 1) return `${types[0]}`; // don’t add parentheses around one thing
   return `(${types.join(") | (")})`;
-}
-
-/** Convert the components object and a 'components["parameters"]["param"]' string into the `param` object **/
-export function unrefComponent(components: any, ref: string): any {
-  const [type, object] = ref.match(/(?<=\[")([^"]+)/g) as string[];
-  return components[type][object];
 }

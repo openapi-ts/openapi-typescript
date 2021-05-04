@@ -1,15 +1,5 @@
 import { GlobalContext } from "../types";
-import {
-  comment,
-  nodeType,
-  transformRef,
-  tsArrayOf,
-  tsIntersectionOf,
-  tsPartial,
-  tsReadonly,
-  tsTupleOf,
-  tsUnionOf,
-} from "../utils";
+import { comment, nodeType, tsArrayOf, tsIntersectionOf, tsPartial, tsReadonly, tsTupleOf, tsUnionOf } from "../utils";
 
 interface TransformSchemaObjOptions extends GlobalContext {
   required: Set<string>;
@@ -27,6 +17,7 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
 
   for (const k of Object.keys(obj)) {
     const v = obj[k];
+
     // 1. JSDoc comment (goes above property)
     if (v.description) output += comment(v.description);
 
@@ -75,7 +66,7 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
     // transform core type
     switch (nodeType(node)) {
       case "ref": {
-        output += transformRef(node.$ref);
+        output += node.$ref; // these were transformed at load time when remote schemas were resolved; return as-is
         break;
       }
       case "string":

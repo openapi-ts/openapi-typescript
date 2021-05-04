@@ -1,4 +1,4 @@
-import { URL } from "url";
+import type { URL } from "url";
 
 export interface OpenAPI2 {
   swagger: string; // required

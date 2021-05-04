@@ -16,7 +16,7 @@ describe("allow empty definitions", () => {
                 description: "Pet object that needs to be added to the store",
                 required: true,
                 schema: {
-                  $ref: "#/definitions/Pet",
+                  $ref: 'definitions["Pet"]',
                 },
               },
             ],
@@ -55,6 +55,8 @@ export interface operations {
     };
   };
 }
+
+export interface external {}
 `);
 
     expect(await openapiTS(schema as any, { immutableTypes: true, version: 2 })).toBe(`/**
@@ -82,6 +84,8 @@ export interface operations {
     };
   };
 }
+
+export interface external {}
 `);
   });
 });

@@ -12,10 +12,10 @@ describe("requestBody", () => {
     requestBody: {
       content: {
         "application/json": {
-          schema: { $ref: "#/components/schemas/Pet" },
+          schema: { $ref: 'components["schemas"]["Pet"]' },
         },
         "application/xml": {
-          schema: { $ref: "#/components/schemas/Pet" },
+          schema: { $ref: 'components["schemas"]["Pet"]' },
         },
       },
     },
@@ -40,6 +40,7 @@ describe("requestBody", () => {
       transformOperationObj(basicSchema, {
         ...defaults,
         immutableTypes: true,
+        rawSchema: false,
         version: 3,
       }).trim()
     ).toBe(`readonly requestBody: {
@@ -51,7 +52,7 @@ describe("requestBody", () => {
   });
 
   const refSchema = {
-    requestBody: { $ref: "#/components/requestBodies/Request" },
+    requestBody: { $ref: 'components["requestBodies"]["Request"]' },
   };
 
   it("$ref", () => {
@@ -68,6 +69,7 @@ describe("requestBody", () => {
       transformOperationObj(refSchema, {
         ...defaults,
         immutableTypes: true,
+        rawSchema: false,
         version: 3,
       }).trim()
     ).toBe(`readonly requestBody: components["requestBodies"]["Request"];`);
