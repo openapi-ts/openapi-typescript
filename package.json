@@ -63,12 +63,13 @@
     "tiny-glob": "^0.2.9"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.14",
-    "@types/js-yaml": "^4.0.0",
+    "@types/jest": "^26.0.23",
+    "@types/js-yaml": "^4.0.1",
+    "@types/mime": "^2.0.3",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
-    "codecov": "^3.8.1",
-    "eslint": "^7.26.0",
+    "codecov": "^3.8.2",
+    "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "jest": "^27.0.3",

@@ -6,7 +6,6 @@ const path = require("path");
 const meow = require("meow");
 const glob = require("tiny-glob");
 const { default: openapiTS } = require("../dist/cjs/index.js");
-const { loadSpec } = require("./loaders");
 
 const cli = meow(
   `Usage
@@ -71,20 +70,21 @@ async function generateSchema(pathToSpec) {
   const output = cli.flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
 
   // load spec
-  let spec = undefined;
-  try {
-    spec = await loadSpec(pathToSpec, {
-      auth: cli.flags.auth,
-      log: output !== OUTPUT_STDOUT,
-    });
-  } catch (err) {
-    errorAndExit(`❌ ${err}`);
+  if (!cli.flags.output) {
+    output = "STDOUT"; // if --output not specified, fall back to stdout
+  }
+  if (output === "FILE") {
+    console.info(bold(`✨ openapi-typescript ${require("../package.json").version}`)); // don’t log anything to console!
+  }
+  if (cli.flags.rawSchema && !cli.flags.version) {
+    throw new Error(`--raw-schema requires --version flag`);
   }
 
   // generate schema
-  const result = openapiTS(spec, {
+  const result = await openapiTS(pathToSpec, {
     auth: cli.flags.auth,
     additionalProperties: cli.flags.additionalProperties,
+    silent: output === "STDOUT",
     immutableTypes: cli.flags.immutableTypes,
     defaultNonNullable: cli.flags.defaultNonNullable,
     prettierConfig: cli.flags.prettierConfig,
@@ -108,6 +108,7 @@ async function generateSchema(pathToSpec) {
     console.log(green(`🚀 ${pathToSpec} -> ${bold(outputFile)} [${time}ms]`));
   } else {
     process.stdout.write(result);
+    // (still) don’t log anything to console!
   }
 
   return result;
@@ -148,7 +149,7 @@ async function main() {
     errorAndExit(`❌ Expected directory for --output if using glob patterns. Received "${cli.flags.output}".`);
   }
 
-  // generate schema(s)
+  // generate schema(s) in parallel
   await Promise.all(
     inputSpecPaths.map(async (specPath) => {
       if (cli.flags.output !== "." && output === OUTPUT_FILE) {

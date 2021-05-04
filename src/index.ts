@@ -1,6 +1,7 @@
 import path from "path";
 import prettier from "prettier";
 import parserTypescript from "prettier/parser-typescript";
+import load from "./load";
 import { swaggerVersion } from "./utils";
 import { transformAll } from "./transform/index";
 import { GlobalContext, OpenAPI2, OpenAPI3, SchemaObject, SwaggerToTSOptions } from "./types";
@@ -14,10 +15,10 @@ export const WARNING_MESSAGE = `/**
 
 `;
 
-export default function openapiTS(
+export default async function openapiTS(
   schema: OpenAPI2 | OpenAPI3 | Record<string, SchemaObject>,
   options: SwaggerToTSOptions = {}
-): string {
+): Promise<string> {
   // 1. set up context
   const ctx: GlobalContext = {
     additionalProperties: options.additionalProperties || false,
@@ -31,7 +32,8 @@ export default function openapiTS(
 
   // 2. generate output
   let output = WARNING_MESSAGE;
-  const rootTypes = transformAll(schema, { ...ctx });
+  const schemaObj = await load(schema, { auth: ctx.auth, silent: options?.silent || false });
+  const rootTypes = transformAll(schemaObj, { ...ctx });
   for (const k of Object.keys(rootTypes)) {
     if (typeof rootTypes[k] !== "string") continue;
     output += `export interface ${k} {\n  ${rootTypes[k]}\n}\n\n`;

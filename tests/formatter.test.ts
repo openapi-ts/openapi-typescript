@@ -1,7 +1,7 @@
 import { default as openapiTS } from "../src/index";
 
 describe("formatter", () => {
-  it("basic", () => {
+  it("basic", async () => {
     const schema = {
       openapi: "3.0.1",
       components: {
@@ -14,7 +14,7 @@ describe("formatter", () => {
       },
     };
     expect(
-      openapiTS(schema, {
+      await openapiTS(schema, {
         formatter(schemaObj) {
           if (schemaObj.format === "date-time") {
             return "Date";

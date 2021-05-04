@@ -106,19 +106,26 @@ npm i --save-dev openapi-typescript
 ```
 
 ```js
-const { readFileSync } = require("fs");
+const fs = require("fs");
 const openapiTS = require("openapi-typescript").default;
 
-const input = JSON.parse(readFileSync("spec.json", "utf8")); // Input can be any JS object (OpenAPI format)
-const output = openapiTS(input); // Outputs TypeScript defs as a string (to be parsed, or written to a file)
+// option 1: load JS object, write to local file
+const schema = await fs.promises.readFile("spec.json", "utf8") // must be OpenAPI JSON
+const output = await openapiTS(JSON.parse(schema));
+
+// option 2 (new in v3.3): load local path
+const localPath = path.join(__dirname, 'spec.yaml'); // may be YAML or JSON format
+const output = await openapiTS(localPath);
+
+// option 3 (new in v3.3): load remote URL
+const output = await openapiTS('https://myurl.com/v1/openapi.yaml');
 ```
 
-The Node API is a bit more flexible: it will only take a JS object as input (OpenAPI format), and return a string of TS
-definitions. This lets you pull from any source (a Swagger server, local files, etc.), and similarly lets you parse,
-post-process, and save the output anywhere.
+The Node API may be useful if dealing with dynamically-created schemas, or you’re using within context of a larger application. It
 
-If your specs are in YAML, you’ll have to convert them to JS objects using a library such as [js-yaml][js-yaml]. If
-you’re batching large folders of specs, [glob][glob] may also come in handy.
+⚠️ As of `v3.3`, this is an async function.
+
+It’s important to note that options 2 and 3 are triggered by passing in a `string` rather than an `object`.
 
 #### Custom Formatter
 
