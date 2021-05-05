@@ -5132,27 +5132,29 @@ export interface paths {
 export interface components {
   readonly schemas: {
     /** Simple User */
-    readonly "simple-user": {
-      readonly login: string;
-      readonly id: number;
-      readonly node_id: string;
-      readonly avatar_url: string;
-      readonly gravatar_id: string | null;
-      readonly url: string;
-      readonly html_url: string;
-      readonly followers_url: string;
-      readonly following_url: string;
-      readonly gists_url: string;
-      readonly starred_url: string;
-      readonly subscriptions_url: string;
-      readonly organizations_url: string;
-      readonly repos_url: string;
-      readonly events_url: string;
-      readonly received_events_url: string;
-      readonly type: string;
-      readonly site_admin: boolean;
-      readonly starred_at?: string;
-    } | null;
+    readonly "simple-user":
+      | ({
+          readonly login: string;
+          readonly id: number;
+          readonly node_id: string;
+          readonly avatar_url: string;
+          readonly gravatar_id: string | null;
+          readonly url: string;
+          readonly html_url: string;
+          readonly followers_url: string;
+          readonly following_url: string;
+          readonly gists_url: string;
+          readonly starred_url: string;
+          readonly subscriptions_url: string;
+          readonly organizations_url: string;
+          readonly repos_url: string;
+          readonly events_url: string;
+          readonly received_events_url: string;
+          readonly type: string;
+          readonly site_admin: boolean;
+          readonly starred_at?: string;
+        } & { readonly [key: string]: any })
+      | null;
     /** GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub. */
     readonly integration: {
       /** Unique identifier of the GitHub app */
@@ -5160,7 +5162,7 @@ export interface components {
       /** The slug name of the GitHub app */
       readonly slug?: string;
       readonly node_id: string;
-      readonly owner: components["schemas"]["simple-user"] | null;
+      readonly owner: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       /** The name of the GitHub app */
       readonly name: string;
       readonly description: string | null;
@@ -5184,18 +5186,18 @@ export interface components {
       readonly client_secret?: string;
       readonly webhook_secret?: string;
       readonly pem?: string;
-    } & { [key: string]: any };
+    } & { readonly [key: string]: any };
     /** Basic Error */
     readonly "basic-error": {
       readonly message?: string;
       readonly documentation_url?: string;
-    };
+    } & { readonly [key: string]: any };
     /** Validation Error Simple */
     readonly "validation-error-simple": {
       readonly message: string;
       readonly documentation_url: string;
       readonly errors?: readonly string[];
-    };
+    } & { readonly [key: string]: any };
     /** The URL to which the payloads will be delivered. */
     readonly "webhook-config-url": string;
     /** The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`. */
@@ -5210,7 +5212,7 @@ export interface components {
       readonly content_type?: components["schemas"]["webhook-config-content-type"];
       readonly secret?: components["schemas"]["webhook-config-secret"];
       readonly insecure_ssl?: components["schemas"]["webhook-config-insecure-ssl"];
-    };
+    } & { readonly [key: string]: any };
     /** An enterprise account */
     readonly enterprise: {
       /** A short description of the enterprise. */
@@ -5228,13 +5230,15 @@ export interface components {
       readonly created_at: string | null;
       readonly updated_at: string | null;
       readonly avatar_url: string;
-    };
+    } & { readonly [key: string]: any };
     /** Installation */
     readonly installation: {
       /** The ID of the installation. */
       readonly id: number;
       readonly account:
-        | (Partial<components["schemas"]["simple-user"]> & Partial<components["schemas"]["enterprise"]>)
+        | ((Partial<components["schemas"]["simple-user"]> & Partial<components["schemas"]["enterprise"]>) & {
+            readonly [key: string]: any;
+          })
         | null;
       /** Describe whether all repositories have been selected or there's a selection involved */
       readonly repository_selection: "all" | "selected";
@@ -5254,7 +5258,7 @@ export interface components {
         readonly statuses?: string;
         readonly issues?: string;
         readonly organization_administration?: string;
-      };
+      } & { readonly [key: string]: any };
       readonly events: readonly string[];
       readonly created_at: string;
       readonly updated_at: string;
@@ -5262,10 +5266,10 @@ export interface components {
       readonly has_multiple_single_files?: boolean;
       readonly single_file_paths?: readonly string[];
       readonly app_slug: string;
-      readonly suspended_by?: components["schemas"]["simple-user"] | null;
+      readonly suspended_by?: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly suspended_at?: string | null;
       readonly contact_email?: string | null;
-    };
+    } & { readonly [key: string]: any };
     /** The permissions granted to the user-to-server access token. */
     readonly "app-permissions": {
       /** The level of permission to grant the access token for GitHub Actions workflows, workflow runs, and artifacts. Can be one of: `read` or `write`. */
@@ -5328,7 +5332,7 @@ export interface components {
       readonly organization_user_blocking?: "read" | "write";
       /** The level of permission to grant the access token to manage team discussions and related comments. Can be one of: `read` or `write`. */
       readonly team_discussions?: "read" | "write";
-    };
+    } & { readonly [key: string]: any };
     /** License Simple */
     readonly "license-simple": {
       readonly key: string;
@@ -5337,7 +5341,7 @@ export interface components {
       readonly spdx_id: string | null;
       readonly node_id: string;
       readonly html_url?: string;
-    };
+    } & { readonly [key: string]: any };
     /** A git repository */
     readonly repository: {
       /** Unique identifier of the repository */
@@ -5346,7 +5350,7 @@ export interface components {
       /** The name of the repository. */
       readonly name: string;
       readonly full_name: string;
-      readonly license: components["schemas"]["license-simple"] | null;
+      readonly license: (components["schemas"]["license-simple"] & { readonly [key: string]: any }) | null;
       readonly forks: number;
       readonly permissions?: {
         readonly admin: boolean;
@@ -5354,8 +5358,8 @@ export interface components {
         readonly triage?: boolean;
         readonly push: boolean;
         readonly maintain?: boolean;
-      };
-      readonly owner: components["schemas"]["simple-user"] | null;
+      } & { readonly [key: string]: any };
+      readonly owner: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       /** Whether the repository is private or public. */
       readonly private: boolean;
       readonly html_url: string;
@@ -5435,111 +5439,113 @@ export interface components {
       readonly updated_at: string | null;
       /** Whether to allow rebase merges for pull requests. */
       readonly allow_rebase_merge?: boolean;
-      readonly template_repository?: {
-        readonly id?: number;
-        readonly node_id?: string;
-        readonly name?: string;
-        readonly full_name?: string;
-        readonly owner?: {
-          readonly login?: string;
-          readonly id?: number;
-          readonly node_id?: string;
-          readonly avatar_url?: string;
-          readonly gravatar_id?: string;
-          readonly url?: string;
-          readonly html_url?: string;
-          readonly followers_url?: string;
-          readonly following_url?: string;
-          readonly gists_url?: string;
-          readonly starred_url?: string;
-          readonly subscriptions_url?: string;
-          readonly organizations_url?: string;
-          readonly repos_url?: string;
-          readonly events_url?: string;
-          readonly received_events_url?: string;
-          readonly type?: string;
-          readonly site_admin?: boolean;
-        };
-        readonly private?: boolean;
-        readonly html_url?: string;
-        readonly description?: string;
-        readonly fork?: boolean;
-        readonly url?: string;
-        readonly archive_url?: string;
-        readonly assignees_url?: string;
-        readonly blobs_url?: string;
-        readonly branches_url?: string;
-        readonly collaborators_url?: string;
-        readonly comments_url?: string;
-        readonly commits_url?: string;
-        readonly compare_url?: string;
-        readonly contents_url?: string;
-        readonly contributors_url?: string;
-        readonly deployments_url?: string;
-        readonly downloads_url?: string;
-        readonly events_url?: string;
-        readonly forks_url?: string;
-        readonly git_commits_url?: string;
-        readonly git_refs_url?: string;
-        readonly git_tags_url?: string;
-        readonly git_url?: string;
-        readonly issue_comment_url?: string;
-        readonly issue_events_url?: string;
-        readonly issues_url?: string;
-        readonly keys_url?: string;
-        readonly labels_url?: string;
-        readonly languages_url?: string;
-        readonly merges_url?: string;
-        readonly milestones_url?: string;
-        readonly notifications_url?: string;
-        readonly pulls_url?: string;
-        readonly releases_url?: string;
-        readonly ssh_url?: string;
-        readonly stargazers_url?: string;
-        readonly statuses_url?: string;
-        readonly subscribers_url?: string;
-        readonly subscription_url?: string;
-        readonly tags_url?: string;
-        readonly teams_url?: string;
-        readonly trees_url?: string;
-        readonly clone_url?: string;
-        readonly mirror_url?: string;
-        readonly hooks_url?: string;
-        readonly svn_url?: string;
-        readonly homepage?: string;
-        readonly language?: string;
-        readonly forks_count?: number;
-        readonly stargazers_count?: number;
-        readonly watchers_count?: number;
-        readonly size?: number;
-        readonly default_branch?: string;
-        readonly open_issues_count?: number;
-        readonly is_template?: boolean;
-        readonly topics?: readonly string[];
-        readonly has_issues?: boolean;
-        readonly has_projects?: boolean;
-        readonly has_wiki?: boolean;
-        readonly has_pages?: boolean;
-        readonly has_downloads?: boolean;
-        readonly archived?: boolean;
-        readonly disabled?: boolean;
-        readonly visibility?: string;
-        readonly pushed_at?: string;
-        readonly created_at?: string;
-        readonly updated_at?: string;
-        readonly permissions?: {
-          readonly admin?: boolean;
-          readonly push?: boolean;
-          readonly pull?: boolean;
-        };
-        readonly allow_rebase_merge?: boolean;
-        readonly temp_clone_token?: string;
-        readonly allow_squash_merge?: boolean;
-        readonly delete_branch_on_merge?: boolean;
-        readonly allow_merge_commit?: boolean;
-        readonly subscribers_count?: number;
-        readonly network_count?: number;
-      } | null;
+      readonly template_repository?:
+        | ({
+            readonly id?: number;
+            readonly node_id?: string;
+            readonly name?: string;
+            readonly full_name?: string;
+            readonly owner?: {
+              readonly login?: string;
+              readonly id?: number;
+              readonly node_id?: string;
+              readonly avatar_url?: string;
+              readonly gravatar_id?: string;
+              readonly url?: string;
+              readonly html_url?: string;
+              readonly followers_url?: string;
+              readonly following_url?: string;
+              readonly gists_url?: string;
+              readonly starred_url?: string;
+              readonly subscriptions_url?: string;
+              readonly organizations_url?: string;
+              readonly repos_url?: string;
+              readonly events_url?: string;
+              readonly received_events_url?: string;
+              readonly type?: string;
+              readonly site_admin?: boolean;
+            } & { readonly [key: string]: any };
+            readonly private?: boolean;
+            readonly html_url?: string;
+            readonly description?: string;
+            readonly fork?: boolean;
+            readonly url?: string;
+            readonly archive_url?: string;
+            readonly assignees_url?: string;
+            readonly blobs_url?: string;
+            readonly branches_url?: string;
+            readonly collaborators_url?: string;
+            readonly comments_url?: string;
+            readonly commits_url?: string;
+            readonly compare_url?: string;
+            readonly contents_url?: string;
+            readonly contributors_url?: string;
+            readonly deployments_url?: string;
+            readonly downloads_url?: string;
+            readonly events_url?: string;
+            readonly forks_url?: string;
+            readonly git_commits_url?: string;
+            readonly git_refs_url?: string;
+            readonly git_tags_url?: string;
+            readonly git_url?: string;
+            readonly issue_comment_url?: string;
+            readonly issue_events_url?: string;
+            readonly issues_url?: string;
+            readonly keys_url?: string;
+            readonly labels_url?: string;
+            readonly languages_url?: string;
+            readonly merges_url?: string;
+            readonly milestones_url?: string;
+            readonly notifications_url?: string;
+            readonly pulls_url?: string;
+            readonly releases_url?: string;
+            readonly ssh_url?: string;
+            readonly stargazers_url?: string;
+            readonly statuses_url?: string;
+            readonly subscribers_url?: string;
+            readonly subscription_url?: string;
+            readonly tags_url?: string;
+            readonly teams_url?: string;
+            readonly trees_url?: string;
+            readonly clone_url?: string;
+            readonly mirror_url?: string;
+            readonly hooks_url?: string;
+            readonly svn_url?: string;
+            readonly homepage?: string;
+            readonly language?: string;
+            readonly forks_count?: number;
+            readonly stargazers_count?: number;
+            readonly watchers_count?: number;
+            readonly size?: number;
+            readonly default_branch?: string;
+            readonly open_issues_count?: number;
+            readonly is_template?: boolean;
+            readonly topics?: readonly string[];
+            readonly has_issues?: boolean;
+            readonly has_projects?: boolean;
+            readonly has_wiki?: boolean;
+            readonly has_pages?: boolean;
+            readonly has_downloads?: boolean;
+            readonly archived?: boolean;
+            readonly disabled?: boolean;
+            readonly visibility?: string;
+            readonly pushed_at?: string;
+            readonly created_at?: string;
+            readonly updated_at?: string;
+            readonly permissions?: {
+              readonly admin?: boolean;
+              readonly push?: boolean;
+              readonly pull?: boolean;
+            } & { readonly [key: string]: any };
+            readonly allow_rebase_merge?: boolean;
+            readonly temp_clone_token?: string;
+            readonly allow_squash_merge?: boolean;
+            readonly delete_branch_on_merge?: boolean;
+            readonly allow_merge_commit?: boolean;
+            readonly subscribers_count?: number;
+            readonly network_count?: number;
+          } & { readonly [key: string]: any })
+        | null;
       readonly temp_clone_token?: string;
       /** Whether to allow squash merges for pull requests. */
       readonly allow_squash_merge?: boolean;
@@ -5553,7 +5559,7 @@ export interface components {
       readonly watchers: number;
       readonly master_branch?: string;
       readonly starred_at?: string;
-    };
+    } & { readonly [key: string]: any };
     /** Authentication token for a GitHub App installed on a user or org. */
     readonly "installation-token": {
       readonly token: string;
@@ -5563,26 +5569,28 @@ export interface components {
         readonly contents?: string;
         readonly metadata?: string;
         readonly single_file?: string;
-      };
+      } & { readonly [key: string]: any };
       readonly repository_selection?: "all" | "selected";
       readonly repositories?: readonly components["schemas"]["repository"][];
       readonly single_file?: string;
       readonly has_multiple_single_files?: boolean;
       readonly single_file_paths?: readonly string[];
-    };
+    } & { readonly [key: string]: any };
     /** Validation Error */
     readonly "validation-error": {
       readonly message: string;
       readonly documentation_url: string;
-      readonly errors?: readonly {
+      readonly errors?: readonly ({
         readonly resource?: string;
         readonly field?: string;
         readonly message?: string;
         readonly code: string;
         readonly index?: number;
-        readonly value?: (string | null) | (number | null) | (readonly string[] | null);
-      }[];
-    };
+        readonly value?: ((string | null) | (number | null) | (readonly string[] | null)) & {
+          readonly [key: string]: any;
+        };
+      } & { readonly [key: string]: any })[];
+    } & { readonly [key: string]: any };
     /** The authorization associated with an OAuth Access. */
     readonly "application-grant": {
       readonly id: number;
@@ -5591,12 +5599,12 @@ export interface components {
         readonly client_id: string;
         readonly name: string;
         readonly url: string;
-      };
+      } & { readonly [key: string]: any };
       readonly created_at: string;
       readonly updated_at: string;
       readonly scopes: readonly string[];
-      readonly user?: components["schemas"]["simple-user"] | null;
-    };
+      readonly user?: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
+    } & { readonly [key: string]: any };
     readonly "scoped-installation": {
       readonly permissions: components["schemas"]["app-permissions"];
       /** Describe whether all repositories have been selected or there's a selection involved */
@@ -5606,7 +5614,7 @@ export interface components {
       readonly single_file_paths?: readonly string[];
       readonly repositories_url: string;
       readonly account: components["schemas"]["simple-user"];
-    };
+    } & { readonly [key: string]: any };
     /** The authorization for an OAuth app, GitHub App, or a Personal Access Token. */
     readonly authorization: {
       readonly id: number;
@@ -5620,15 +5628,15 @@ export interface components {
         readonly client_id: string;
         readonly name: string;
         readonly url: string;
-      };
+      } & { readonly [key: string]: any };
       readonly note: string | null;
       readonly note_url: string | null;
       readonly updated_at: string;
       readonly created_at: string;
       readonly fingerprint: string | null;
-      readonly user?: components["schemas"]["simple-user"] | null;
-      readonly installation?: components["schemas"]["scoped-installation"] | null;
-    };
+      readonly user?: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
+      readonly installation?: (components["schemas"]["scoped-installation"] & { readonly [key: string]: any }) | null;
+    } & { readonly [key: string]: any };
     /** Code Of Conduct */
     readonly "code-of-conduct": {
       readonly key: string;
@@ -5636,7 +5644,7 @@ export interface components {
       readonly url: string;
       readonly body?: string;
       readonly html_url: string | null;
-    };
+    } & { readonly [key: string]: any };
     /** Content Reference attachments allow you to provide context around URLs posted in comments */
     readonly "content-reference-attachment": {
       /** The ID of the attachment */
@@ -5647,7 +5655,7 @@ export interface components {
       readonly body: string;
       /** The node_id of the content attachment */
       readonly node_id?: string;
-    };
+    } & { readonly [key: string]: any };
     /** The policy that controls the organizations in the enterprise that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`. */
     readonly "enabled-organizations": "all" | "none" | "selected";
     /** The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`. */
@@ -5660,7 +5668,7 @@ export interface components {
       readonly selected_organizations_url?: string;
       readonly allowed_actions: components["schemas"]["allowed-actions"];
       readonly selected_actions_url?: components["schemas"]["selected-actions-url"];
-    };
+    } & { readonly [key: string]: any };
     /** Organization Simple */
     readonly "organization-simple": {
       readonly login: string;
@@ -5675,7 +5683,7 @@ export interface components {
       readonly public_members_url: string;
       readonly avatar_url: string;
       readonly description: string | null;
-    };
+    } & { readonly [key: string]: any };
     readonly "selected-actions": {
       /** Whether GitHub-owned actions are allowed. For example, this includes the actions in the `actions` organization. */
       readonly github_owned_allowed: boolean;
@@ -5683,7 +5691,7 @@ export interface components {
       readonly verified_allowed: boolean;
       /** Specifies a list of string-matching patterns to allow specific action(s). Wildcards, tags, and SHAs are allowed. For example, `monalisa/octocat@*`, `monalisa/octocat@v2`, `monalisa/*`." */
       readonly patterns_allowed: readonly string[];
-    };
+    } & { readonly [key: string]: any };
     readonly "runner-groups-enterprise": {
       readonly id: number;
       readonly name: string;
@@ -5692,7 +5700,7 @@ export interface components {
       readonly selected_organizations_url?: string;
       readonly runners_url: string;
       readonly allows_public_repositories: boolean;
-    };
+    } & { readonly [key: string]: any };
     /** A self hosted runner */
     readonly runner: {
       /** The id of the runner. */
@@ -5704,22 +5712,22 @@ export interface components {
       /** The status of the runner. */
       readonly status: string;
       readonly busy: boolean;
-      readonly labels: readonly {
+      readonly labels: readonly ({
         /** Unique identifier of the label. */
         readonly id?: number;
         /** Name of the label. */
         readonly name?: string;
         /** The type of label. Read-only labels are applied automatically when the runner is configured. */
         readonly type?: "read-only" | "custom";
-      }[];
-    };
+      } & { readonly [key: string]: any })[];
+    } & { readonly [key: string]: any };
     /** Runner Application */
     readonly "runner-application": {
       readonly os: string;
       readonly architecture: string;
       readonly download_url: string;
       readonly filename: string;
-    };
+    } & { readonly [key: string]: any };
     /** Authentication Token */
     readonly "authentication-token": {
       /** The token used for authentication */
@@ -5732,7 +5740,7 @@ export interface components {
       readonly single_file?: string | null;
       /** Describe whether all repositories have been selected or there's a selection involved */
       readonly repository_selection?: "all" | "selected";
-    };
+    } & { readonly [key: string]: any };
     readonly "audit-log-event": {
       /** The time the audit log event occurred, given as a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time). */
       readonly "@timestamp"?: number;
@@ -5780,7 +5788,7 @@ export interface components {
       readonly user?: string;
       /** The repository visibility, for example `public` or `private`. */
       readonly visibility?: string;
-    };
+    } & { readonly [key: string]: any };
     readonly "actions-billing-usage": {
       /** The sum of the free and paid GitHub Actions minutes used. */
       readonly total_minutes_used: number;
@@ -5795,8 +5803,8 @@ export interface components {
         readonly MACOS?: number;
         /** Total minutes used on Windows runner machines. */
         readonly WINDOWS?: number;
-      };
-    };
+      } & { readonly [key: string]: any };
+    } & { readonly [key: string]: any };
     readonly "packages-billing-usage": {
       /** Sum of the free and paid storage space (GB) for GitHuub Packages. */
       readonly total_gigabytes_bandwidth_used: number;
@@ -5804,7 +5812,7 @@ export interface components {
       readonly total_paid_gigabytes_bandwidth_used: number;
       /** Free storage space (GB) for GitHub Packages. */
       readonly included_gigabytes_bandwidth: number;
-    };
+    } & { readonly [key: string]: any };
     readonly "combined-billing-usage": {
       /** Numbers of days left in billing cycle. */
       readonly days_left_in_billing_cycle: number;
@@ -5812,7 +5820,7 @@ export interface components {
       readonly estimated_paid_storage_for_month: number;
       /** Estimated sum of free and paid storage space (GB) used in billing cycle. */
       readonly estimated_storage_for_month: number;
-    };
+    } & { readonly [key: string]: any };
     /** Actor */
     readonly actor: {
       readonly id: number;
@@ -5821,7 +5829,7 @@ export interface components {
       readonly gravatar_id: string | null;
       readonly url: string;
       readonly avatar_url: string;
-    };
+    } & { readonly [key: string]: any };
     /** Color-coded labels help you categorize and filter your issues (just like labels in Gmail). */
     readonly label: {
       readonly id: number;
@@ -5834,7 +5842,7 @@ export interface components {
       /** 6-character hex code, without the leading #, identifying the color */
       readonly color: string;
       readonly default: boolean;
-    };
+    } & { readonly [key: string]: any };
     /** A collection of related issues and pull requests. */
     readonly milestone: {
       readonly url: string;
@@ -5849,14 +5857,14 @@ export interface components {
       /** The title of the milestone. */
       readonly title: string;
       readonly description: string | null;
-      readonly creator: components["schemas"]["simple-user"] | null;
+      readonly creator: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly open_issues: number;
       readonly closed_issues: number;
       readonly created_at: string;
       readonly updated_at: string;
       readonly closed_at: string | null;
       readonly due_on: string | null;
-    };
+    } & { readonly [key: string]: any };
     /** How the author is associated with the repository. */
     readonly author_association:
       | "COLLABORATOR"
@@ -5881,11 +5889,11 @@ export interface components {
       readonly state: string;
       readonly title: string;
       readonly body?: string;
-      readonly user: components["schemas"]["simple-user"] | null;
+      readonly user: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly labels: readonly components["schemas"]["label"][];
-      readonly assignee: components["schemas"]["simple-user"] | null;
+      readonly assignee: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly assignees?: readonly components["schemas"]["simple-user"][] | null;
-      readonly milestone: components["schemas"]["milestone"] | null;
+      readonly milestone: (components["schemas"]["milestone"] & { readonly [key: string]: any }) | null;
       readonly locked: boolean;
       readonly active_lock_reason?: string | null;
       readonly comments: number;
@@ -5895,7 +5903,7 @@ export interface components {
         readonly html_url: string | null;
         readonly patch_url: string | null;
         readonly url: string | null;
-      };
+      } & { readonly [key: string]: any };
       readonly closed_at: string | null;
       readonly created_at: string;
       readonly updated_at: string;
@@ -5904,8 +5912,10 @@ export interface components {
       readonly body_text?: string;
       readonly timeline_url?: string;
       readonly repository?: components["schemas"]["repository"];
-      readonly performed_via_github_app?: components["schemas"]["integration"] | null;
-    };
+      readonly performed_via_github_app?:
+        | (components["schemas"]["integration"] & { readonly [key: string]: any })
+        | null;
+    } & { readonly [key: string]: any };
     readonly "reaction-rollup": {
       readonly url: string;
       readonly total_count: number;
@@ -5917,7 +5927,7 @@ export interface components {
       readonly hooray: number;
       readonly eyes: number;
       readonly rocket: number;
-    };
+    } & { readonly [key: string]: any };
     /** Comments provide a way for people to collaborate on an issue. */
     readonly "issue-comment": {
       /** Unique identifier of the issue comment */
@@ -5930,14 +5940,16 @@ export interface components {
       readonly body_text?: string;
       readonly body_html?: string;
       readonly html_url: string;
-      readonly user: components["schemas"]["simple-user"] | null;
+      readonly user: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly created_at: string;
       readonly updated_at: string;
       readonly issue_url: string;
       readonly author_association: components["schemas"]["author_association"];
-      readonly performed_via_github_app?: components["schemas"]["integration"] | null;
+      readonly performed_via_github_app?:
+        | (components["schemas"]["integration"] & { readonly [key: string]: any })
+        | null;
       readonly reactions?: components["schemas"]["reaction-rollup"];
-    };
+    } & { readonly [key: string]: any };
     /** Event */
     readonly event: {
       readonly id: string;
@@ -5947,29 +5959,29 @@ export interface components {
         readonly id: number;
         readonly name: string;
         readonly url: string;
-      };
+      } & { readonly [key: string]: any };
       readonly org?: components["schemas"]["actor"];
       readonly payload: {
         readonly action: string;
         readonly issue?: components["schemas"]["issue-simple"];
         readonly comment?: components["schemas"]["issue-comment"];
-        readonly pages?: readonly {
+        readonly pages?: readonly ({
           readonly page_name?: string;
           readonly title?: string;
           readonly summary?: string | null;
           readonly action?: string;
           readonly sha?: string;
           readonly html_url?: string;
-        }[];
-      };
+        } & { readonly [key: string]: any })[];
+      } & { readonly [key: string]: any };
       readonly public: boolean;
       readonly created_at: string | null;
-    };
+    } & { readonly [key: string]: any };
     /** Hypermedia Link with Type */
     readonly "link-with-type": {
       readonly href: string;
       readonly type: string;
-    };
+    } & { readonly [key: string]: any };
     /** Feed */
     readonly feed: {
       readonly timeline_url: string;
@@ -5989,8 +6001,8 @@ export interface components {
         readonly current_user_actor?: components["schemas"]["link-with-type"];
         readonly current_user_organization?: components["schemas"]["link-with-type"];
         readonly current_user_organizations?: readonly components["schemas"]["link-with-type"][];
-      };
-    };
+      } & { readonly [key: string]: any };
+    } & { readonly [key: string]: any };
     /** Base Gist */
     readonly "base-gist": {
       readonly url: string;
@@ -6008,20 +6020,20 @@ export interface components {
           readonly language?: string;
           readonly raw_url?: string;
           readonly size?: number;
-        };
+        } & { readonly [key: string]: any };
       };
       readonly public: boolean;
       readonly created_at: string;
       readonly updated_at: string;
       readonly description: string | null;
       readonly comments: number;
-      readonly user: components["schemas"]["simple-user"] | null;
+      readonly user: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly comments_url: string;
-      readonly owner?: components["schemas"]["simple-user"] | null;
+      readonly owner?: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly truncated?: boolean;
       readonly forks?: readonly { readonly [key: string]: any }[];
       readonly history?: readonly { readonly [key: string]: any }[];
-    };
+    } & { readonly [key: string]: any };
     /** Gist Simple */
     readonly "gist-simple": {
       readonly url?: string;
@@ -6033,15 +6045,17 @@ export interface components {
       readonly git_push_url?: string;
       readonly html_url?: string;
       readonly files?: {
-        readonly [key: string]: {
-          readonly filename?: string;
-          readonly type?: string;
-          readonly language?: string;
-          readonly raw_url?: string;
-          readonly size?: number;
-          readonly truncated?: boolean;
-          readonly content?: string;
-        } | null;
+        readonly [key: string]:
+          | ({
+              readonly filename?: string;
+              readonly type?: string;
+              readonly language?: string;
+              readonly raw_url?: string;
+              readonly size?: number;
+              readonly truncated?: boolean;
+              readonly content?: string;
+            } & { readonly [key: string]: any })
+          | null;
       };
       readonly public?: boolean;
       readonly created_at?: string;
@@ -6052,7 +6066,7 @@ export interface components {
       readonly comments_url?: string;
       readonly owner?: components["schemas"]["simple-user"];
       readonly truncated?: boolean;
-    };
+    } & { readonly [key: string]: any };
     /** A comment made to a gist. */
     readonly "gist-comment": {
       readonly id: number;
@@ -6060,28 +6074,28 @@ export interface components {
       readonly url: string;
       /** The comment text. */
       readonly body: string;
-      readonly user: components["schemas"]["simple-user"] | null;
+      readonly user: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly created_at: string;
       readonly updated_at: string;
       readonly author_association: components["schemas"]["author_association"];
-    };
+    } & { readonly [key: string]: any };
     /** Gist Commit */
     readonly "gist-commit": {
       readonly url: string;
       readonly version: string;
-      readonly user: components["schemas"]["simple-user"] | null;
+      readonly user: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly change_status: {
         readonly total?: number;
         readonly additions?: number;
         readonly deletions?: number;
-      };
+      } & { readonly [key: string]: any };
       readonly committed_at: string;
-    };
+    } & { readonly [key: string]: any };
     /** Gitignore Template */
     readonly "gitignore-template": {
       readonly name: string;
       readonly source: string;
-    };
+    } & { readonly [key: string]: any };
     /** Issues are a great way to keep track of tasks, enhancements, and bugs for your projects. */
     readonly issue: {
       readonly id: number;
@@ -6101,11 +6115,11 @@ export interface components {
       readonly title: string;
       /** Contents of the issue */
       readonly body?: string;
-      readonly user: components["schemas"]["simple-user"] | null;
+      readonly user: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       /** Labels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository */
-      readonly labels: readonly (
+      readonly labels: readonly ((
         | string
-        | {
+        | ({
             readonly id?: number;
             readonly node_id?: string;
             readonly url?: string;
@@ -6113,11 +6127,11 @@ export interface components {
             readonly description?: string | null;
             readonly color?: string | null;
             readonly default?: boolean;
-          }
-      )[];
-      readonly assignee: components["schemas"]["simple-user"] | null;
+          } & { readonly [key: string]: any })
+      ) & { readonly [key: string]: any })[];
+      readonly assignee: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly assignees?: readonly components["schemas"]["simple-user"][] | null;
-      readonly milestone: components["schemas"]["milestone"] | null;
+      readonly milestone: (components["schemas"]["milestone"] & { readonly [key: string]: any }) | null;
       readonly locked: boolean;
       readonly active_lock_reason?: string | null;
       readonly comments: number;
@@ -6127,19 +6141,21 @@ export interface components {
         readonly html_url: string | null;
         readonly patch_url: string | null;
         readonly url: string | null;
-      };
+      } & { readonly [key: string]: any };
       readonly closed_at: string | null;
       readonly created_at: string;
       readonly updated_at: string;
-      readonly closed_by?: components["schemas"]["simple-user"] | null;
+      readonly closed_by?: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly body_html?: string;
       readonly body_text?: string;
       readonly timeline_url?: string;
       readonly repository?: components["schemas"]["repository"];
-      readonly performed_via_github_app?: components["schemas"]["integration"] | null;
+      readonly performed_via_github_app?:
+        | (components["schemas"]["integration"] & { readonly [key: string]: any })
+        | null;
       readonly author_association: components["schemas"]["author_association"];
       readonly reactions?: components["schemas"]["reaction-rollup"];
-    };
+    } & { readonly [key: string]: any };
     /** License */
     readonly license: {
       readonly key: string;
@@ -6155,7 +6171,7 @@ export interface components {
       readonly limitations: readonly string[];
       readonly body: string;
       readonly featured: boolean;
-    };
+    } & { readonly [key: string]: any };
     /** Marketplace Listing Plan */
     readonly "marketplace-listing-plan": {
       readonly url: string;
@@ -6171,7 +6187,7 @@ export interface components {
       readonly unit_name: string | null;
       readonly state: string;
       readonly bullets: readonly string[];
-    };
+    } & { readonly [key: string]: any };
     /** Marketplace Purchase */
     readonly "marketplace-purchase": {
       readonly url: string;
@@ -6179,13 +6195,15 @@ export interface components {
       readonly id: number;
       readonly login: string;
       readonly organization_billing_email?: string;
-      readonly marketplace_pending_change?: {
-        readonly is_installed?: boolean;
-        readonly effective_date?: string;
-        readonly unit_count?: number | null;
-        readonly id?: number;
-        readonly plan?: components["schemas"]["marketplace-listing-plan"];
-      } | null;
+      readonly marketplace_pending_change?:
+        | ({
+            readonly is_installed?: boolean;
+            readonly effective_date?: string;
+            readonly unit_count?: number | null;
+            readonly id?: number;
+            readonly plan?: components["schemas"]["marketplace-listing-plan"];
+          } & { readonly [key: string]: any })
+        | null;
       readonly marketplace_purchase: {
         readonly billing_cycle?: string;
         readonly next_billing_date?: string | null;
@@ -6195,15 +6213,15 @@ export interface components {
         readonly free_trial_ends_on?: string | null;
         readonly updated_at?: string;
         readonly plan?: components["schemas"]["marketplace-listing-plan"];
-      };
-    };
+      } & { readonly [key: string]: any };
+    } & { readonly [key: string]: any };
     /** Api Overview */
     readonly "api-overview": {
       readonly verifiable_password_authentication: boolean;
       readonly ssh_key_fingerprints?: {
         readonly SHA256_RSA?: string;
         readonly SHA256_DSA?: string;
-      };
+      } & { readonly [key: string]: any };
       readonly hooks?: readonly string[];
       readonly web?: readonly string[];
       readonly api?: readonly string[];
@@ -6211,14 +6229,14 @@ export interface components {
       readonly pages?: readonly string[];
       readonly importer?: readonly string[];
       readonly actions?: readonly string[];
-    };
+    } & { readonly [key: string]: any };
     /** Minimal Repository */
     readonly "minimal-repository": {
       readonly id: number;
       readonly node_id: string;
       readonly name: string;
       readonly full_name: string;
-      readonly owner: components["schemas"]["simple-user"] | null;
+      readonly owner: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly private: boolean;
       readonly html_url: string;
       readonly description: string | null;
@@ -6290,23 +6308,25 @@ export interface components {
         readonly admin?: boolean;
         readonly push?: boolean;
         readonly pull?: boolean;
-      };
-      readonly template_repository?: components["schemas"]["repository"] | null;
+      } & { readonly [key: string]: any };
+      readonly template_repository?: (components["schemas"]["repository"] & { readonly [key: string]: any }) | null;
       readonly temp_clone_token?: string;
       readonly delete_branch_on_merge?: boolean;
       readonly subscribers_count?: number;
       readonly network_count?: number;
-      readonly license?: {
-        readonly key?: string;
-        readonly name?: string;
-        readonly spdx_id?: string;
-        readonly url?: string;
-        readonly node_id?: string;
-      } | null;
+      readonly license?:
+        | ({
+            readonly key?: string;
+            readonly name?: string;
+            readonly spdx_id?: string;
+            readonly url?: string;
+            readonly node_id?: string;
+          } & { readonly [key: string]: any })
+        | null;
       readonly forks?: number;
       readonly open_issues?: number;
       readonly watchers?: number;
-    };
+    } & { readonly [key: string]: any };
     /** Thread */
     readonly thread: {
       readonly id: string;
@@ -6316,14 +6336,14 @@ export interface components {
         readonly url: string;
         readonly latest_comment_url: string;
         readonly type: string;
-      };
+      } & { readonly [key: string]: any };
       readonly reason: string;
       readonly unread: boolean;
       readonly updated_at: string;
       readonly last_read_at: string | null;
       readonly url: string;
       readonly subscription_url: string;
-    };
+    } & { readonly [key: string]: any };
     /** Thread Subscription */
     readonly "thread-subscription": {
       readonly subscribed: boolean;
@@ -6333,7 +6353,7 @@ export interface components {
       readonly url: string;
       readonly thread_url?: string;
       readonly repository_url?: string;
-    };
+    } & { readonly [key: string]: any };
     /** Organization Full */
     readonly "organization-full": {
       readonly login: string;
@@ -6376,7 +6396,7 @@ export interface components {
         readonly private_repos: number;
         readonly filled_seats?: number;
         readonly seats?: number;
-      };
+      } & { readonly [key: string]: any };
       readonly default_repository_permission?: string | null;
       readonly members_can_create_repositories?: boolean | null;
       readonly two_factor_requirement_enabled?: boolean | null;
@@ -6386,7 +6406,7 @@ export interface components {
       readonly members_can_create_internal_repositories?: boolean;
       readonly members_can_create_pages?: boolean;
       readonly updated_at: string;
-    };
+    } & { readonly [key: string]: any };
     /** The policy that controls the repositories in the organization that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`. */
     readonly "enabled-repositories": "all" | "none" | "selected";
     readonly "actions-organization-permissions": {
@@ -6395,7 +6415,7 @@ export interface components {
       readonly selected_repositories_url?: string;
       readonly allowed_actions: components["schemas"]["allowed-actions"];
       readonly selected_actions_url?: components["schemas"]["selected-actions-url"];
-    };
+    } & { readonly [key: string]: any };
     readonly "runner-groups-org": {
       readonly id: number;
       readonly name: string;
@@ -6407,7 +6427,7 @@ export interface components {
       readonly inherited: boolean;
       readonly inherited_allows_public_repositories?: boolean;
       readonly allows_public_repositories: boolean;
-    };
+    } & { readonly [key: string]: any };
     /** Secrets for GitHub Actions for an organization. */
     readonly "organization-actions-secret": {
       /** The name of the secret. */
@@ -6417,7 +6437,7 @@ export interface components {
       /** Visibility of a secret */
       readonly visibility: "all" | "private" | "selected";
       readonly selected_repositories_url?: string;
-    };
+    } & { readonly [key: string]: any };
     /** The public key used for setting Actions Secrets. */
     readonly "actions-public-key": {
       /** The identifier for the key. */
@@ -6428,7 +6448,7 @@ export interface components {
       readonly url?: string;
       readonly title?: string;
       readonly created_at?: string;
-    };
+    } & { readonly [key: string]: any };
     /** Credential Authorization */
     readonly "credential-authorization": {
       /** User login that owns the underlying credential. */
@@ -6452,7 +6472,7 @@ export interface components {
       readonly authorized_credential_title?: string | null;
       /** The note given to the token. This will only be present when the credential is a token. */
       readonly authorized_credential_note?: string | null;
-    };
+    } & { readonly [key: string]: any };
     /** Organization Invitation */
     readonly "organization-invitation": {
       readonly id: number;
@@ -6467,7 +6487,7 @@ export interface components {
       readonly invitation_team_url: string;
       readonly node_id: string;
       readonly invitation_teams_url?: string;
-    };
+    } & { readonly [key: string]: any };
     /** Org Hook */
     readonly "org-hook": {
       readonly id: number;
@@ -6481,11 +6501,11 @@ export interface components {
         readonly insecure_ssl?: string;
         readonly content_type?: string;
         readonly secret?: string;
-      };
+      } & { readonly [key: string]: any };
       readonly updated_at: string;
       readonly created_at: string;
       readonly type: string;
-    };
+    } & { readonly [key: string]: any };
     /** The type of GitHub user that can comment, open issues, or create pull requests while the interaction limit is in effect. Can be one of: `existing_users`, `contributors_only`, `collaborators_only`. */
     readonly "interaction-group": "existing_users" | "contributors_only" | "collaborators_only";
     /** Interaction limit settings. */
@@ -6493,36 +6513,38 @@ export interface components {
       readonly limit: components["schemas"]["interaction-group"];
       readonly origin: string;
       readonly expires_at: string;
-    };
+    } & { readonly [key: string]: any };
     /** The duration of the interaction restriction. Can be one of: `one_day`, `three_days`, `one_week`, `one_month`, `six_months`. Default: `one_day`. */
     readonly "interaction-expiry": "one_day" | "three_days" | "one_week" | "one_month" | "six_months";
     /** Limit interactions to a specific type of user for a specified duration */
     readonly "interaction-limit": {
       readonly limit: components["schemas"]["interaction-group"];
       readonly expiry?: components["schemas"]["interaction-expiry"];
-    };
+    } & { readonly [key: string]: any };
     /** Groups of organization members that gives permissions on specified repositories. */
-    readonly "team-simple": {
-      /** Unique identifier of the team */
-      readonly id: number;
-      readonly node_id: string;
-      /** URL for the team */
-      readonly url: string;
-      readonly members_url: string;
-      /** Name of the team */
-      readonly name: string;
-      /** Description of the team */
-      readonly description: string | null;
-      /** Permission that the team will have for its repositories */
-      readonly permission: string;
-      /** The level of privacy this team should have */
-      readonly privacy?: string;
-      readonly html_url: string;
-      readonly repositories_url: string;
-      readonly slug: string;
-      /** Distinguished Name (DN) that team maps to within LDAP environment */
-      readonly ldap_dn?: string;
-    } | null;
+    readonly "team-simple":
+      | ({
+          /** Unique identifier of the team */
+          readonly id: number;
+          readonly node_id: string;
+          /** URL for the team */
+          readonly url: string;
+          readonly members_url: string;
+          /** Name of the team */
+          readonly name: string;
+          /** Description of the team */
+          readonly description: string | null;
+          /** Permission that the team will have for its repositories */
+          readonly permission: string;
+          /** The level of privacy this team should have */
+          readonly privacy?: string;
+          readonly html_url: string;
+          readonly repositories_url: string;
+          readonly slug: string;
+          /** Distinguished Name (DN) that team maps to within LDAP environment */
+          readonly ldap_dn?: string;
+        } & { readonly [key: string]: any })
+      | null;
     /** Groups of organization members that gives permissions on specified repositories. */
     readonly team: {
       readonly id: number;
@@ -6536,8 +6558,8 @@ export interface components {
       readonly html_url: string;
       readonly members_url: string;
       readonly repositories_url: string;
-      readonly parent?: components["schemas"]["team-simple"] | null;
-    };
+      readonly parent?: (components["schemas"]["team-simple"] & { readonly [key: string]: any }) | null;
+    } & { readonly [key: string]: any };
     /** Org Membership */
     readonly "org-membership": {
       readonly url: string;
@@ -6545,15 +6567,15 @@ export interface components {
       readonly role: string;
       readonly organization_url: string;
       readonly organization: components["schemas"]["organization-simple"];
-      readonly user: components["schemas"]["simple-user"] | null;
+      readonly user: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly permissions?: {
         readonly can_create_repository: boolean;
-      };
-    };
+      } & { readonly [key: string]: any };
+    } & { readonly [key: string]: any };
     /** A migration. */
     readonly migration: {
       readonly id: number;
-      readonly owner: components["schemas"]["simple-user"] | null;
+      readonly owner: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly guid: string;
       readonly state: string;
       readonly lock_repositories: boolean;
@@ -6565,7 +6587,7 @@ export interface components {
       readonly node_id: string;
       readonly archive_url?: string;
       readonly exclude?: readonly { readonly [key: string]: any }[];
-    };
+    } & { readonly [key: string]: any };
     /** A software package */
     readonly package: {
       /** Unique identifier of the package. */
@@ -6578,11 +6600,11 @@ export interface components {
       /** The number of versions of the package. */
       readonly version_count: number;
       readonly visibility: "private" | "public";
-      readonly owner?: components["schemas"]["simple-user"] | null;
-      readonly repository?: components["schemas"]["minimal-repository"] | null;
+      readonly owner?: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
+      readonly repository?: (components["schemas"]["minimal-repository"] & { readonly [key: string]: any }) | null;
       readonly created_at: string;
       readonly updated_at: string;
-    };
+    } & { readonly [key: string]: any };
     /** A version of a software package */
     readonly "package-version": {
       /** Unique identifier of the package version. */
@@ -6601,12 +6623,12 @@ export interface components {
         readonly package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
         readonly container?: {
           readonly tags: readonly any[];
-        };
+        } & { readonly [key: string]: any };
         readonly docker?: {
           readonly tag?: readonly any[];
-        };
-      };
-    };
+        } & { readonly [key: string]: any };
+      } & { readonly [key: string]: any };
+    } & { readonly [key: string]: any };
     /** Projects are a way to organize columns and cards of work. */
     readonly project: {
       readonly owner_url: string;
@@ -6622,18 +6644,18 @@ export interface components {
       readonly number: number;
       /** State of the project; either 'open' or 'closed' */
       readonly state: string;
-      readonly creator: components["schemas"]["simple-user"] | null;
+      readonly creator: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly created_at: string;
       readonly updated_at: string;
       /** The baseline permission that all organization members have on this project. Only present if owner is an organization. */
       readonly organization_permission?: "read" | "write" | "admin" | "none";
       /** Whether or not this project can be seen by everyone. Only present if owner is an organization. */
       readonly private?: boolean;
-    };
+    } & { readonly [key: string]: any };
     /** External Groups to be mapped to a team for membership */
     readonly "group-mapping": {
       /** Array of groups to be mapped to this team */
-      readonly groups?: readonly {
+      readonly groups?: readonly ({
         /** The ID of the group */
         readonly group_id: string;
         /** The name of the group */
@@ -6644,8 +6666,8 @@ export interface components {
         readonly status?: string;
         /** the time of the last sync for this group-mapping */
         readonly synced_at?: string;
-      }[];
-    };
+      } & { readonly [key: string]: any })[];
+    } & { readonly [key: string]: any };
     /** Groups of organization members that gives permissions on specified repositories. */
     readonly "team-full": {
       /** Unique identifier of the team */
@@ -6664,7 +6686,7 @@ export interface components {
       readonly permission: string;
       readonly members_url: string;
       readonly repositories_url: string;
-      readonly parent?: components["schemas"]["team-simple"] | null;
+      readonly parent?: (components["schemas"]["team-simple"] & { readonly [key: string]: any }) | null;
       readonly members_count: number;
       readonly repos_count: number;
       readonly created_at: string;
@@ -6672,10 +6694,10 @@ export interface components {
       readonly organization: components["schemas"]["organization-full"];
       /** Distinguished Name (DN) that team maps to within LDAP environment */
       readonly ldap_dn?: string;
-    };
+    } & { readonly [key: string]: any };
     /** A team discussion is a persistent record of a free-form conversation within a team. */
     readonly "team-discussion": {
-      readonly author: components["schemas"]["simple-user"] | null;
+      readonly author: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       /** The main text of the discussion. */
       readonly body: string;
       readonly body_html: string;
@@ -6699,10 +6721,10 @@ export interface components {
       readonly updated_at: string;
       readonly url: string;
       readonly reactions?: components["schemas"]["reaction-rollup"];
-    };
+    } & { readonly [key: string]: any };
     /** A reply to a discussion within a team. */
     readonly "team-discussion-comment": {
-      readonly author: components["schemas"]["simple-user"] | null;
+      readonly author: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       /** The main text of the comment. */
       readonly body: string;
       readonly body_html: string;
@@ -6718,23 +6740,23 @@ export interface components {
       readonly updated_at: string;
       readonly url: string;
       readonly reactions?: components["schemas"]["reaction-rollup"];
-    };
+    } & { readonly [key: string]: any };
     /** Reactions to conversations provide a way to help people express their feelings more simply and effectively. */
     readonly reaction: {
       readonly id: number;
       readonly node_id: string;
-      readonly user: components["schemas"]["simple-user"] | null;
+      readonly user: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       /** The reaction to use */
       readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
       readonly created_at: string;
-    };
+    } & { readonly [key: string]: any };
     /** Team Membership */
     readonly "team-membership": {
       readonly url: string;
       /** The role of the user in the team. */
       readonly role: "member" | "maintainer";
       readonly state: string;
-    };
+    } & { readonly [key: string]: any };
     /** A team's access to a project. */
     readonly "team-project": {
       readonly owner_url: string;
@@ -6758,8 +6780,8 @@ export interface components {
         readonly read: boolean;
         readonly write: boolean;
         readonly admin: boolean;
-      };
-    };
+      } & { readonly [key: string]: any };
+    } & { readonly [key: string]: any };
     /** A team's access to a repository. */
     readonly "team-repository": {
       /** Unique identifier of the repository */
@@ -6768,7 +6790,7 @@ export interface components {
       /** The name of the repository. */
       readonly name: string;
       readonly full_name: string;
-      readonly license: components["schemas"]["license-simple"] | null;
+      readonly license: (components["schemas"]["license-simple"] & { readonly [key: string]: any }) | null;
       readonly forks: number;
       readonly permissions?: {
         readonly admin: boolean;
@@ -6776,8 +6798,8 @@ export interface components {
         readonly triage?: boolean;
         readonly push: boolean;
         readonly maintain?: boolean;
-      };
-      readonly owner: components["schemas"]["simple-user"] | null;
+      } & { readonly [key: string]: any };
+      readonly owner: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       /** Whether the repository is private or public. */
       readonly private: boolean;
       readonly html_url: string;
@@ -6857,7 +6879,7 @@ export interface components {
       readonly updated_at: string | null;
       /** Whether to allow rebase merges for pull requests. */
       readonly allow_rebase_merge?: boolean;
-      readonly template_repository?: components["schemas"]["repository"] | null;
+      readonly template_repository?: (components["schemas"]["repository"] & { readonly [key: string]: any }) | null;
       readonly temp_clone_token?: string;
       /** Whether to allow squash merges for pull requests. */
       readonly allow_squash_merge?: boolean;
@@ -6870,7 +6892,7 @@ export interface components {
       readonly open_issues: number;
       readonly watchers: number;
       readonly master_branch?: string;
-    };
+    } & { readonly [key: string]: any };
     /** Project cards represent a scope of work. */
     readonly "project-card": {
       readonly url: string;
@@ -6878,7 +6900,7 @@ export interface components {
       readonly id: number;
       readonly node_id: string;
       readonly note: string | null;
-      readonly creator: components["schemas"]["simple-user"] | null;
+      readonly creator: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly created_at: string;
       readonly updated_at: string;
       /** Whether or not the card is archived */
@@ -6886,7 +6908,7 @@ export interface components {
       readonly column_url: string;
       readonly content_url?: string;
       readonly project_url: string;
-    };
+    } & { readonly [key: string]: any };
     /** Project columns contain cards of work. */
     readonly "project-column": {
       readonly url: string;
@@ -6899,17 +6921,17 @@ export interface components {
       readonly name: string;
       readonly created_at: string;
       readonly updated_at: string;
-    };
+    } & { readonly [key: string]: any };
     /** Repository Collaborator Permission */
     readonly "repository-collaborator-permission": {
       readonly permission: string;
-      readonly user: components["schemas"]["simple-user"] | null;
-    };
+      readonly user: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
+    } & { readonly [key: string]: any };
     readonly "rate-limit": {
       readonly limit: number;
       readonly remaining: number;
       readonly reset: number;
-    };
+    } & { readonly [key: string]: any };
     /** Rate Limit Overview */
     readonly "rate-limit-overview": {
       readonly resources: {
@@ -6919,23 +6941,23 @@ export interface components {
         readonly source_import?: components["schemas"]["rate-limit"];
         readonly integration_manifest?: components["schemas"]["rate-limit"];
         readonly code_scanning_upload?: components["schemas"]["rate-limit"];
-      };
+      } & { readonly [key: string]: any };
       readonly rate: components["schemas"]["rate-limit"];
-    };
+    } & { readonly [key: string]: any };
     /** Code of Conduct Simple */
     readonly "code-of-conduct-simple": {
       readonly url: string;
       readonly key: string;
       readonly name: string;
       readonly html_url: string | null;
-    };
+    } & { readonly [key: string]: any };
     /** Full Repository */
     readonly "full-repository": {
       readonly id: number;
       readonly node_id: string;
       readonly name: string;
       readonly full_name: string;
-      readonly owner: components["schemas"]["simple-user"] | null;
+      readonly owner: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly private: boolean;
       readonly html_url: string;
       readonly description: string | null;
@@ -7009,17 +7031,17 @@ export interface components {
         readonly admin: boolean;
         readonly pull: boolean;
         readonly push: boolean;
-      };
+      } & { readonly [key: string]: any };
       readonly allow_rebase_merge?: boolean;
-      readonly template_repository?: components["schemas"]["repository"] | null;
+      readonly template_repository?: (components["schemas"]["repository"] & { readonly [key: string]: any }) | null;
       readonly temp_clone_token?: string | null;
       readonly allow_squash_merge?: boolean;
       readonly delete_branch_on_merge?: boolean;
       readonly allow_merge_commit?: boolean;
       readonly subscribers_count: number;
       readonly network_count: number;
-      readonly license: components["schemas"]["license-simple"] | null;
-      readonly organization?: components["schemas"]["simple-user"] | null;
+      readonly license: (components["schemas"]["license-simple"] & { readonly [key: string]: any }) | null;
+      readonly organization?: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly parent?: components["schemas"]["repository"];
       readonly source?: components["schemas"]["repository"];
       readonly forks: number;
@@ -7029,7 +7051,7 @@ export interface components {
       /** Whether anonymous git access is allowed. */
       readonly anonymous_access_enabled?: boolean;
       readonly code_of_conduct?: components["schemas"]["code-of-conduct-simple"];
-    };
+    } & { readonly [key: string]: any };
     /** An artifact */
     readonly artifact: {
       readonly id: number;
@@ -7045,7 +7067,7 @@ export interface components {
       readonly created_at: string | null;
       readonly expires_at: string;
       readonly updated_at: string | null;
-    };
+    } & { readonly [key: string]: any };
     /** Information of a job execution in a workflow run */
     readonly job: {
       /** The id of the job. */
@@ -7069,7 +7091,7 @@ export interface components {
       /** The name of the job. */
       readonly name: string;
       /** Steps in this job. */
-      readonly steps?: readonly {
+      readonly steps?: readonly ({
         /** The phase of the lifecycle that the job is currently in. */
         readonly status: "queued" | "in_progress" | "completed";
         /** The outcome of the job. */
@@ -7081,16 +7103,16 @@ export interface components {
         readonly started_at?: string | null;
         /** The time that the job finished, in ISO 8601 format. */
         readonly completed_at?: string | null;
-      }[];
+      } & { readonly [key: string]: any })[];
       readonly check_run_url: string;
-    };
+    } & { readonly [key: string]: any };
     /** Whether GitHub Actions is enabled on the repository. */
     readonly "actions-enabled": boolean;
     readonly "actions-repository-permissions": {
       readonly enabled: components["schemas"]["actions-enabled"];
       readonly allowed_actions: components["schemas"]["allowed-actions"];
       readonly selected_actions_url?: components["schemas"]["selected-actions-url"];
-    };
+    } & { readonly [key: string]: any };
     readonly "pull-request-minimal": {
       readonly id: number;
       readonly number: number;
@@ -7102,8 +7124,8 @@ export interface components {
           readonly id: number;
           readonly url: string;
           readonly name: string;
-        };
-      };
+        } & { readonly [key: string]: any };
+      } & { readonly [key: string]: any };
       readonly base: {
         readonly ref: string;
         readonly sha: string;
@@ -7111,24 +7133,28 @@ export interface components {
           readonly id: number;
           readonly url: string;
           readonly name: string;
-        };
-      };
-    };
+        } & { readonly [key: string]: any };
+      } & { readonly [key: string]: any };
+    } & { readonly [key: string]: any };
     /** Simple Commit */
     readonly "simple-commit": {
       readonly id: string;
       readonly tree_id: string;
       readonly message: string;
       readonly timestamp: string;
-      readonly author: {
-        readonly name: string;
-        readonly email: string;
-      } | null;
-      readonly committer: {
-        readonly name: string;
-        readonly email: string;
-      } | null;
-    };
+      readonly author:
+        | ({
+            readonly name: string;
+            readonly email: string;
+          } & { readonly [key: string]: any })
+        | null;
+      readonly committer:
+        | ({
+            readonly name: string;
+            readonly email: string;
+          } & { readonly [key: string]: any })
+        | null;
+    } & { readonly [key: string]: any };
     /** An invocation of a workflow */
     readonly "workflow-run": {
       /** The ID of the workflow run. */
@@ -7170,11 +7196,11 @@ export interface components {
       readonly repository: components["schemas"]["minimal-repository"];
       readonly head_repository: components["schemas"]["minimal-repository"];
       readonly head_repository_id?: number;
-    };
+    } & { readonly [key: string]: any };
     /** An entry in the reviews log for environment deployments */
     readonly "environment-approvals": {
       /** The list of environments that were approved or rejected */
-      readonly environments: readonly {
+      readonly environments: readonly ({
         /** The id of the environment. */
         readonly id?: number;
         readonly node_id?: string;
@@ -7186,13 +7212,13 @@ export interface components {
         readonly created_at?: string;
         /** The time that the environment was last updated, in ISO 8601 format. */
         readonly updated_at?: string;
-      }[];
+      } & { readonly [key: string]: any })[];
       /** Whether deployment to the environment(s) was approved or rejected */
       readonly state: "approved" | "rejected";
       readonly user: components["schemas"]["simple-user"];
       /** The comment submitted with the deployment review */
       readonly comment: string;
-    };
+    } & { readonly [key: string]: any };
     /** The type of reviewer. Must be one of: `User` or `Team` */
     readonly "deployment-reviewer-type": "User" | "Team";
     /** Details of a deployment that is waiting for protection rules to pass */
@@ -7205,7 +7231,7 @@ export interface components {
         readonly name?: string;
         readonly url?: string;
         readonly html_url?: string;
-      };
+      } & { readonly [key: string]: any };
       /** The set duration of the wait timer */
       readonly wait_timer: number;
       /** The time that the wait timer began. */
@@ -7213,12 +7239,12 @@ export interface components {
       /** Whether the currently authenticated user can approve the deployment */
       readonly current_user_can_approve: boolean;
       /** The people or teams that may approve jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed. */
-      readonly reviewers: readonly {
+      readonly reviewers: readonly ({
         readonly type?: components["schemas"]["deployment-reviewer-type"];
-        readonly reviewer?: Partial<components["schemas"]["simple-user"]> &
-          Partial<components["schemas"]["team-simple"]>;
-      }[];
-    };
+        readonly reviewer?: (Partial<components["schemas"]["simple-user"]> &
+          Partial<components["schemas"]["team-simple"]>) & { readonly [key: string]: any };
+      } & { readonly [key: string]: any })[];
+    } & { readonly [key: string]: any };
     /** A request for a specific ref(branch,sha,tag) to be deployed */
     readonly deployment: {
       readonly url: string;
@@ -7235,7 +7261,7 @@ export interface components {
       /** Name for the target deployment environment. */
       readonly environment: string;
       readonly description: string | null;
-      readonly creator: components["schemas"]["simple-user"] | null;
+      readonly creator: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly created_at: string;
       readonly updated_at: string;
       readonly statuses_url: string;
@@ -7244,33 +7270,35 @@ export interface components {
       readonly transient_environment?: boolean;
       /** Specifies if the given environment is one that end-users directly interact with. Default: false. */
       readonly production_environment?: boolean;
-      readonly performed_via_github_app?: components["schemas"]["integration"] | null;
-    };
+      readonly performed_via_github_app?:
+        | (components["schemas"]["integration"] & { readonly [key: string]: any })
+        | null;
+    } & { readonly [key: string]: any };
     /** Workflow Run Usage */
     readonly "workflow-run-usage": {
       readonly billable: {
         readonly UBUNTU?: {
           readonly total_ms: number;
           readonly jobs: number;
-        };
+        } & { readonly [key: string]: any };
         readonly MACOS?: {
           readonly total_ms: number;
           readonly jobs: number;
-        };
+        } & { readonly [key: string]: any };
         readonly WINDOWS?: {
           readonly total_ms: number;
           readonly jobs: number;
-        };
-      };
+        } & { readonly [key: string]: any };
+      } & { readonly [key: string]: any };
       readonly run_duration_ms: number;
-    };
+    } & { readonly [key: string]: any };
     /** Set secrets for GitHub Actions. */
     readonly "actions-secret": {
       /** The name of the secret. */
       readonly name: string;
       readonly created_at: string;
       readonly updated_at: string;
-    };
+    } & { readonly [key: string]: any };
     /** A GitHub Actions workflow */
     readonly workflow: {
       readonly id: number;
@@ -7284,26 +7312,26 @@ export interface components {
       readonly html_url: string;
       readonly badge_url: string;
       readonly deleted_at?: string;
-    };
+    } & { readonly [key: string]: any };
     /** Workflow Usage */
     readonly "workflow-usage": {
       readonly billable: {
         readonly UBUNTU?: {
           readonly total_ms?: number;
-        };
+        } & { readonly [key: string]: any };
         readonly MACOS?: {
           readonly total_ms?: number;
-        };
+        } & { readonly [key: string]: any };
         readonly WINDOWS?: {
           readonly total_ms?: number;
-        };
-      };
-    };
+        } & { readonly [key: string]: any };
+      } & { readonly [key: string]: any };
+    } & { readonly [key: string]: any };
     /** Protected Branch Admin Enforced */
     readonly "protected-branch-admin-enforced": {
       readonly url: string;
       readonly enabled: boolean;
-    };
+    } & { readonly [key: string]: any };
     /** Protected Branch Pull Request Review */
     readonly "protected-branch-pull-request-review": {
       readonly url?: string;
@@ -7315,18 +7343,18 @@ export interface components {
         readonly url?: string;
         readonly users_url?: string;
         readonly teams_url?: string;
-      };
+      } & { readonly [key: string]: any };
       readonly dismiss_stale_reviews: boolean;
       readonly require_code_owner_reviews: boolean;
       readonly required_approving_review_count?: number;
-    };
+    } & { readonly [key: string]: any };
     /** Branch Restriction Policy */
     readonly "branch-restriction-policy": {
       readonly url: string;
       readonly users_url: string;
       readonly teams_url: string;
       readonly apps_url: string;
-      readonly users: readonly {
+      readonly users: readonly ({
         readonly login?: string;
         readonly id?: number;
         readonly node_id?: string;
@@ -7345,8 +7373,8 @@ export interface components {
         readonly received_events_url?: string;
         readonly type?: string;
         readonly site_admin?: boolean;
-      }[];
-      readonly teams: readonly {
+      } & { readonly [key: string]: any })[];
+      readonly teams: readonly ({
         readonly id?: number;
         readonly node_id?: string;
         readonly url?: string;
@@ -7359,8 +7387,8 @@ export interface components {
         readonly members_url?: string;
         readonly repositories_url?: string;
         readonly parent?: string | null;
-      }[];
-      readonly apps: readonly {
+      } & { readonly [key: string]: any })[];
+      readonly apps: readonly ({
         readonly id?: number;
         readonly slug?: string;
         readonly node_id?: string;
@@ -7387,7 +7415,7 @@ export interface components {
           readonly organizations_url?: string;
           readonly received_events_url?: string;
           readonly type?: string;
-        };
+        } & { readonly [key: string]: any };
         readonly name?: string;
         readonly description?: string;
         readonly external_url?: string;
@@ -7399,10 +7427,10 @@ export interface components {
           readonly contents?: string;
           readonly issues?: string;
           readonly single_file?: string;
-        };
+        } & { readonly [key: string]: any };
         readonly events?: readonly string[];
-      }[];
-    };
+      } & { readonly [key: string]: any })[];
+    } & { readonly [key: string]: any };
     /** Branch Protection */
     readonly "branch-protection": {
       readonly url?: string;
@@ -7411,46 +7439,46 @@ export interface components {
         readonly enforcement_level: string;
         readonly contexts: readonly string[];
         readonly contexts_url?: string;
-      };
+      } & { readonly [key: string]: any };
       readonly enforce_admins?: components["schemas"]["protected-branch-admin-enforced"];
       readonly required_pull_request_reviews?: components["schemas"]["protected-branch-pull-request-review"];
       readonly restrictions?: components["schemas"]["branch-restriction-policy"];
       readonly required_linear_history?: {
         readonly enabled?: boolean;
-      };
+      } & { readonly [key: string]: any };
       readonly allow_force_pushes?: {
         readonly enabled?: boolean;
-      };
+      } & { readonly [key: string]: any };
       readonly allow_deletions?: {
         readonly enabled?: boolean;
-      };
+      } & { readonly [key: string]: any };
       readonly enabled: boolean;
       readonly name?: string;
       readonly protection_url?: string;
-    };
+    } & { readonly [key: string]: any };
     /** Short Branch */
     readonly "short-branch": {
       readonly name: string;
       readonly commit: {
         readonly sha: string;
         readonly url: string;
-      };
+      } & { readonly [key: string]: any };
       readonly protected: boolean;
       readonly protection?: components["schemas"]["branch-protection"];
       readonly protection_url?: string;
-    };
+    } & { readonly [key: string]: any };
     /** Metaproperties for Git author/committer information. */
     readonly "git-user": {
       readonly name?: string;
       readonly email?: string;
       readonly date?: string;
-    };
+    } & { readonly [key: string]: any };
     readonly verification: {
       readonly verified: boolean;
       readonly reason: string;
       readonly payload: string | null;
       readonly signature: string | null;
-    };
+    } & { readonly [key: string]: any };
     /** Commit */
     readonly commit: {
       readonly url: string;
@@ -7460,29 +7488,29 @@ export interface components {
       readonly comments_url: string;
       readonly commit: {
         readonly url: string;
-        readonly author: components["schemas"]["git-user"] | null;
-        readonly committer: components["schemas"]["git-user"] | null;
+        readonly author: (components["schemas"]["git-user"] & { readonly [key: string]: any }) | null;
+        readonly committer: (components["schemas"]["git-user"] & { readonly [key: string]: any }) | null;
         readonly message: string;
         readonly comment_count: number;
         readonly tree: {
           readonly sha: string;
           readonly url: string;
-        };
+        } & { readonly [key: string]: any };
         readonly verification?: components["schemas"]["verification"];
-      };
-      readonly author: components["schemas"]["simple-user"] | null;
-      readonly committer: components["schemas"]["simple-user"] | null;
-      readonly parents: readonly {
+      } & { readonly [key: string]: any };
+      readonly author: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
+      readonly committer: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
+      readonly parents: readonly ({
         readonly sha: string;
         readonly url: string;
         readonly html_url?: string;
-      }[];
+      } & { readonly [key: string]: any })[];
       readonly stats?: {
         readonly additions?: number;
         readonly deletions?: number;
         readonly total?: number;
-      };
-      readonly files?: readonly {
+      } & { readonly [key: string]: any };
+      readonly files?: readonly ({
         readonly filename?: string;
         readonly additions?: number;
         readonly deletions?: number;
@@ -7494,8 +7522,8 @@ export interface components {
         readonly sha?: string;
         readonly contents_url?: string;
         readonly previous_filename?: string;
-      }[];
-    };
+      } & { readonly [key: string]: any })[];
+    } & { readonly [key: string]: any };
     /** Branch With Protection */
     readonly "branch-with-protection": {
       readonly name: string;
@@ -7503,20 +7531,20 @@ export interface components {
       readonly _links: {
         readonly html: string;
         readonly self: string;
-      };
+      } & { readonly [key: string]: any };
       readonly protected: boolean;
       readonly protection: components["schemas"]["branch-protection"];
       readonly protection_url: string;
       readonly pattern?: string;
       readonly required_approving_review_count?: number;
-    };
+    } & { readonly [key: string]: any };
     /** Status Check Policy */
     readonly "status-check-policy": {
       readonly url: string;
       readonly strict: boolean;
       readonly contexts: readonly string[];
       readonly contexts_url: string;
-    };
+    } & { readonly [key: string]: any };
     /** Branch protections protect branches */
     readonly "protected-branch": {
       readonly url: string;
@@ -7532,12 +7560,12 @@ export interface components {
           readonly teams_url: string;
           readonly users: readonly components["schemas"]["simple-user"][];
           readonly teams: readonly components["schemas"]["team"][];
-        };
-      };
+        } & { readonly [key: string]: any };
+      } & { readonly [key: string]: any };
       readonly required_signatures?: {
         readonly url: string;
         readonly enabled: boolean;
-      };
+      } & { readonly [key: string]: any };
       readonly enforce_admins?: {
         readonly url: string;
         readonly enabled: boolean;
@@ -7552,7 +7580,7 @@ export interface components {
         readonly enabled: boolean;
       };
       readonly restrictions?: components["schemas"]["branch-restriction-policy"];
-    };
+    } & { readonly [key: string]: any };
     /** A deployment created as the result of an Actions check run from a workflow that references an environment */
     readonly "deployment-simple": {
       readonly url: string;
@@ -7573,8 +7601,10 @@ export interface components {
       readonly transient_environment?: boolean;
       /** Specifies if the given environment is one that end-users directly interact with. Default: false. */
       readonly production_environment?: boolean;
-      readonly performed_via_github_app?: components["schemas"]["integration"] | null;
-    };
+      readonly performed_via_github_app?:
+        | (components["schemas"]["integration"] & { readonly [key: string]: any })
+        | null;
+    } & { readonly [key: string]: any };
     /** A check performed on the code of a given code change */
     readonly "check-run": {
       /** The id of the check. */
@@ -7599,16 +7629,18 @@ export interface components {
         readonly text: string | null;
         readonly annotations_count: number;
         readonly annotations_url: string;
-      };
+      } & { readonly [key: string]: any };
       /** The name of the check. */
       readonly name: string;
-      readonly check_suite: {
-        readonly id: number;
-      } | null;
-      readonly app: components["schemas"]["integration"] | null;
+      readonly check_suite:
+        | ({
+            readonly id: number;
+          } & { readonly [key: string]: any })
+        | null;
+      readonly app: (components["schemas"]["integration"] & { readonly [key: string]: any }) | null;
       readonly pull_requests: readonly components["schemas"]["pull-request-minimal"][];
       readonly deployment?: components["schemas"]["deployment-simple"];
-    };
+    } & { readonly [key: string]: any };
     /** Check Annotation */
     readonly "check-annotation": {
       readonly path: string;
@@ -7621,7 +7653,7 @@ export interface components {
       readonly message: string | null;
       readonly raw_details: string | null;
       readonly blob_href: string;
-    };
+    } & { readonly [key: string]: any };
     /** A suite of checks performed on the code of a given code change */
     readonly "check-suite": {
       readonly id: number;
@@ -7637,24 +7669,24 @@ export interface components {
       readonly before: string | null;
       readonly after: string | null;
       readonly pull_requests: readonly components["schemas"]["pull-request-minimal"][] | null;
-      readonly app: components["schemas"]["integration"] | null;
+      readonly app: (components["schemas"]["integration"] & { readonly [key: string]: any }) | null;
       readonly repository: components["schemas"]["minimal-repository"];
       readonly created_at: string | null;
       readonly updated_at: string | null;
       readonly head_commit: components["schemas"]["simple-commit"];
       readonly latest_check_runs_count: number;
       readonly check_runs_url: string;
-    };
+    } & { readonly [key: string]: any };
     /** Check suite configuration preferences for a repository. */
     readonly "check-suite-preference": {
       readonly preferences: {
-        readonly auto_trigger_checks?: readonly {
+        readonly auto_trigger_checks?: readonly ({
           readonly app_id: number;
           readonly setting: boolean;
-        }[];
-      };
+        } & { readonly [key: string]: any })[];
+      } & { readonly [key: string]: any };
       readonly repository: components["schemas"]["repository"];
-    };
+    } & { readonly [key: string]: any };
     /** The name of the tool used to generate the code scanning analysis. */
     readonly "code-scanning-analysis-tool-name": string;
     /** The GUID of the tool used to generate the code scanning analysis, if provided in the uploaded SARIF data. */
@@ -7686,14 +7718,14 @@ export interface components {
       readonly severity?: ("none" | "note" | "warning" | "error") | null;
       /** A short description of the rule used to detect the alert. */
       readonly description?: string;
-    };
+    } & { readonly [key: string]: any };
     /** The version of the tool used to generate the code scanning analysis. */
     readonly "code-scanning-analysis-tool-version": string | null;
     readonly "code-scanning-analysis-tool": {
       readonly name?: components["schemas"]["code-scanning-analysis-tool-name"];
       readonly version?: components["schemas"]["code-scanning-analysis-tool-version"];
       readonly guid?: components["schemas"]["code-scanning-analysis-tool-guid"];
-    };
+    } & { readonly [key: string]: any };
     /** Identifies the configuration under which the analysis was executed. For example, in GitHub Actions this includes the workflow filename and job name. */
     readonly "code-scanning-analysis-analysis-key": string;
     /** Identifies the variable values associated with the environment in which the analysis that generated this alert instance was performed, such as the language that was analyzed. */
@@ -7705,7 +7737,7 @@ export interface components {
       readonly end_line?: number;
       readonly start_column?: number;
       readonly end_column?: number;
-    };
+    } & { readonly [key: string]: any };
     /** A classification of the file. For example to identify it as generated. */
     readonly "code-scanning-alert-classification": ("source" | "generated" | "test" | "library") | null;
     readonly "code-scanning-alert-instance": {
@@ -7716,7 +7748,7 @@ export interface components {
       readonly commit_sha?: string;
       readonly message?: {
         readonly text?: string;
-      };
+      } & { readonly [key: string]: any };
       readonly location?: components["schemas"]["code-scanning-alert-location"];
       readonly html_url?: string;
       /**
@@ -7724,7 +7756,7 @@ export interface components {
        * For example identifying it as documentation, or a generated file.
        */
       readonly classifications?: readonly components["schemas"]["code-scanning-alert-classification"][];
-    };
+    } & { readonly [key: string]: any };
     readonly "code-scanning-alert-items": {
       readonly number: components["schemas"]["alert-number"];
       readonly created_at: components["schemas"]["alert-created-at"];
@@ -7738,7 +7770,7 @@ export interface components {
       readonly rule: components["schemas"]["code-scanning-alert-rule-summary"];
       readonly tool: components["schemas"]["code-scanning-analysis-tool"];
       readonly most_recent_instance: components["schemas"]["code-scanning-alert-instance"];
-    };
+    } & { readonly [key: string]: any };
     readonly "code-scanning-alert-rule": {
       /** A unique identifier for the rule used to detect the alert. */
       readonly id?: string | null;
@@ -7754,7 +7786,7 @@ export interface components {
       readonly tags?: readonly string[];
       /** Detailed documentation for the rule as GitHub Flavored Markdown. */
       readonly help?: string;
-    };
+    } & { readonly [key: string]: any };
     readonly "code-scanning-alert": {
       readonly number: components["schemas"]["alert-number"];
       readonly created_at: components["schemas"]["alert-created-at"];
@@ -7768,7 +7800,7 @@ export interface components {
       readonly rule: components["schemas"]["code-scanning-alert-rule"];
       readonly tool: components["schemas"]["code-scanning-analysis-tool"];
       readonly most_recent_instance: components["schemas"]["code-scanning-alert-instance"];
-    };
+    } & { readonly [key: string]: any };
     /** Sets the state of the code scanning alert. Can be one of `open` or `dismissed`. You must provide `dismissed_reason` when you set the state to `dismissed`. */
     readonly "code-scanning-alert-set-state": "open" | "dismissed";
     /** An identifier for the upload. */
@@ -7798,14 +7830,14 @@ export interface components {
       readonly sarif_id: components["schemas"]["code-scanning-analysis-sarif-id"];
       readonly tool: components["schemas"]["code-scanning-analysis-tool"];
       readonly deletable: boolean;
-    };
+    } & { readonly [key: string]: any };
     /** Successful deletion of a code scanning analysis */
     readonly "code-scanning-analysis-deletion": {
       /** Next deletable analysis in chain, without last analysis deletion confirmation */
       readonly next_analysis_url: string | null;
       /** Next deletable analysis in chain, with last analysis deletion confirmation */
       readonly confirm_delete_url: string | null;
-    };
+    } & { readonly [key: string]: any };
     /** Scim Error */
     readonly "scim-error": {
       readonly message?: string | null;
@@ -7814,20 +7846,20 @@ export interface components {
       readonly status?: number;
       readonly scimType?: string | null;
       readonly schemas?: readonly string[];
-    };
+    } & { readonly [key: string]: any };
     /** A Base64 string representing the SARIF file to upload. You must first compress your SARIF file using [`gzip`](http://www.gnu.org/software/gzip/manual/gzip.html) and then translate the contents of the file into a Base64 encoding string. For more information, see "[SARIF support for code scanning](https://docs.github.com/github/finding-security-vulnerabilities-and-errors-in-your-code/sarif-support-for-code-scanning)." */
     readonly "code-scanning-analysis-sarif-file": string;
     readonly "code-scanning-sarifs-receipt": {
       readonly id?: components["schemas"]["code-scanning-analysis-sarif-id"];
       /** The REST API URL for checking the status of the upload. */
       readonly url?: string;
-    };
+    } & { readonly [key: string]: any };
     readonly "code-scanning-sarifs-status": {
       /** `pending` files have not yet been processed, while `complete` means all results in the SARIF have been stored. */
       readonly processing_status?: "pending" | "complete";
       /** The REST API URL for getting the analyses associated with the upload. */
       readonly analyses_url?: string | null;
-    };
+    } & { readonly [key: string]: any };
     /** Collaborator */
     readonly collaborator: {
       readonly login: string;
@@ -7852,15 +7884,15 @@ export interface components {
         readonly pull: boolean;
         readonly push: boolean;
         readonly admin: boolean;
-      };
-    };
+      } & { readonly [key: string]: any };
+    } & { readonly [key: string]: any };
     /** Repository invitations let you manage who you collaborate with. */
     readonly "repository-invitation": {
       /** Unique identifier of the repository invitation. */
       readonly id: number;
       readonly repository: components["schemas"]["minimal-repository"];
-      readonly invitee: components["schemas"]["simple-user"] | null;
-      readonly inviter: components["schemas"]["simple-user"] | null;
+      readonly invitee: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
+      readonly inviter: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       /** The permission associated with the invitation. */
       readonly permissions: "read" | "write" | "admin";
       readonly created_at: string;
@@ -7870,7 +7902,7 @@ export interface components {
       readonly url: string;
       readonly html_url: string;
       readonly node_id: string;
-    };
+    } & { readonly [key: string]: any };
     /** Commit Comment */
     readonly "commit-comment": {
       readonly html_url: string;
@@ -7882,35 +7914,37 @@ export interface components {
       readonly position: number | null;
       readonly line: number | null;
       readonly commit_id: string;
-      readonly user: components["schemas"]["simple-user"] | null;
+      readonly user: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly created_at: string;
       readonly updated_at: string;
       readonly author_association: components["schemas"]["author_association"];
       readonly reactions?: components["schemas"]["reaction-rollup"];
-    };
+    } & { readonly [key: string]: any };
     /** Branch Short */
     readonly "branch-short": {
       readonly name: string;
       readonly commit: {
         readonly sha: string;
         readonly url: string;
-      };
+      } & { readonly [key: string]: any };
       readonly protected: boolean;
-    };
+    } & { readonly [key: string]: any };
     /** Hypermedia Link */
     readonly link: {
       readonly href: string;
-    };
+    } & { readonly [key: string]: any };
     /** The status of auto merging a pull request. */
-    readonly auto_merge: {
-      readonly enabled_by: components["schemas"]["simple-user"];
-      /** The merge method to use. */
-      readonly merge_method: "merge" | "squash" | "rebase";
-      /** Title for the merge commit message. */
-      readonly commit_title: string;
-      /** Commit message for the merge commit. */
-      readonly commit_message: string;
-    } | null;
+    readonly auto_merge:
+      | ({
+          readonly enabled_by: components["schemas"]["simple-user"];
+          /** The merge method to use. */
+          readonly merge_method: "merge" | "squash" | "rebase";
+          /** Title for the merge commit message. */
+          readonly commit_title: string;
+          /** Commit message for the merge commit. */
+          readonly commit_message: string;
+        } & { readonly [key: string]: any })
+      | null;
     /** Pull Request Simple */
     readonly "pull-request-simple": {
       readonly url: string;
@@ -7929,9 +7963,9 @@ export interface components {
       readonly state: string;
       readonly locked: boolean;
       readonly title: string;
-      readonly user: components["schemas"]["simple-user"] | null;
+      readonly user: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly body: string | null;
-      readonly labels: readonly {
+      readonly labels: readonly ({
         readonly id?: number;
         readonly node_id?: string;
         readonly url?: string;
@@ -7939,15 +7973,15 @@ export interface components {
         readonly description?: string;
         readonly color?: string;
         readonly default?: boolean;
-      }[];
-      readonly milestone: components["schemas"]["milestone"] | null;
+      } & { readonly [key: string]: any })[];
+      readonly milestone: (components["schemas"]["milestone"] & { readonly [key: string]: any }) | null;
       readonly active_lock_reason?: string | null;
       readonly created_at: string;
       readonly updated_at: string;
       readonly closed_at: string | null;
       readonly merged_at: string | null;
       readonly merge_commit_sha: string | null;
-      readonly assignee: components["schemas"]["simple-user"] | null;
+      readonly assignee: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly assignees?: readonly components["schemas"]["simple-user"][] | null;
       readonly requested_reviewers?: readonly components["schemas"]["simple-user"][] | null;
       readonly requested_teams?: readonly components["schemas"]["team-simple"][] | null;
@@ -7956,15 +7990,15 @@ export interface components {
         readonly ref: string;
         readonly repo: components["schemas"]["repository"];
         readonly sha: string;
-        readonly user: components["schemas"]["simple-user"] | null;
-      };
+        readonly user: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
+      } & { readonly [key: string]: any };
       readonly base: {
         readonly label: string;
         readonly ref: string;
         readonly repo: components["schemas"]["repository"];
         readonly sha: string;
-        readonly user: components["schemas"]["simple-user"] | null;
-      };
+        readonly user: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
+      } & { readonly [key: string]: any };
       readonly _links: {
         readonly comments: components["schemas"]["link"];
         readonly commits: components["schemas"]["link"];
@@ -7974,12 +8008,12 @@ export interface components {
         readonly review_comments: components["schemas"]["link"];
         readonly review_comment: components["schemas"]["link"];
         readonly self: components["schemas"]["link"];
-      };
+      } & { readonly [key: string]: any };
       readonly author_association: components["schemas"]["author_association"];
       readonly auto_merge: components["schemas"]["auto_merge"];
       /** Indicates whether or not the pull request is a draft. */
       readonly draft?: boolean;
-    };
+    } & { readonly [key: string]: any };
     readonly "simple-commit-status": {
       readonly description: string | null;
       readonly id: number;
@@ -7992,7 +8026,7 @@ export interface components {
       readonly url: string;
       readonly created_at: string;
       readonly updated_at: string;
-    };
+    } & { readonly [key: string]: any };
     /** Combined Commit Status */
     readonly "combined-commit-status": {
       readonly state: string;
@@ -8002,7 +8036,7 @@ export interface components {
       readonly repository: components["schemas"]["minimal-repository"];
       readonly commit_url: string;
       readonly url: string;
-    };
+    } & { readonly [key: string]: any };
     /** The status of a commit. */
     readonly status: {
       readonly url: string;
@@ -8016,27 +8050,35 @@ export interface components {
       readonly created_at: string;
       readonly updated_at: string;
       readonly creator: components["schemas"]["simple-user"];
-    };
+    } & { readonly [key: string]: any };
     readonly "community-health-file": {
       readonly url: string;
       readonly html_url: string;
-    };
+    } & { readonly [key: string]: any };
     /** Community Profile */
     readonly "community-profile": {
       readonly health_percentage: number;
       readonly description: string | null;
       readonly documentation: string | null;
       readonly files: {
-        readonly code_of_conduct: components["schemas"]["code-of-conduct-simple"] | null;
-        readonly license: components["schemas"]["license-simple"] | null;
-        readonly contributing: components["schemas"]["community-health-file"] | null;
-        readonly readme: components["schemas"]["community-health-file"] | null;
-        readonly issue_template: components["schemas"]["community-health-file"] | null;
-        readonly pull_request_template: components["schemas"]["community-health-file"] | null;
-      };
+        readonly code_of_conduct:
+          | (components["schemas"]["code-of-conduct-simple"] & { readonly [key: string]: any })
+          | null;
+        readonly license: (components["schemas"]["license-simple"] & { readonly [key: string]: any }) | null;
+        readonly contributing:
+          | (components["schemas"]["community-health-file"] & { readonly [key: string]: any })
+          | null;
+        readonly readme: (components["schemas"]["community-health-file"] & { readonly [key: string]: any }) | null;
+        readonly issue_template:
+          | (components["schemas"]["community-health-file"] & { readonly [key: string]: any })
+          | null;
+        readonly pull_request_template:
+          | (components["schemas"]["community-health-file"] & { readonly [key: string]: any })
+          | null;
+      } & { readonly [key: string]: any };
       readonly updated_at: string | null;
       readonly content_reports_enabled?: boolean;
-    };
+    } & { readonly [key: string]: any };
     /** Diff Entry */
     readonly "diff-entry": {
       readonly sha: string;
@@ -8050,7 +8092,7 @@ export interface components {
       readonly contents_url: string;
       readonly patch?: string;
       readonly previous_filename?: string;
-    };
+    } & { readonly [key: string]: any };
     /** Commit Comparison */
     readonly "commit-comparison": {
       readonly url: string;
@@ -8066,7 +8108,7 @@ export interface components {
       readonly total_commits: number;
       readonly commits: readonly components["schemas"]["commit"][];
       readonly files: readonly components["schemas"]["diff-entry"][];
-    };
+    } & { readonly [key: string]: any };
     /** Content Tree */
     readonly "content-tree": {
       readonly type: string;
@@ -8078,7 +8120,7 @@ export interface components {
       readonly git_url: string | null;
       readonly html_url: string | null;
       readonly download_url: string | null;
-      readonly entries?: readonly {
+      readonly entries?: readonly ({
         readonly type: string;
         readonly size: number;
         readonly name: string;
@@ -8093,16 +8135,16 @@ export interface components {
           readonly git: string | null;
           readonly html: string | null;
           readonly self: string;
-        };
-      }[];
+        } & { readonly [key: string]: any };
+      } & { readonly [key: string]: any })[];
       readonly _links: {
         readonly git: string | null;
         readonly html: string | null;
         readonly self: string;
-      };
-    };
+      } & { readonly [key: string]: any };
+    } & { readonly [key: string]: any };
     /** A list of directory items */
-    readonly "content-directory": readonly {
+    readonly "content-directory": readonly ({
       readonly type: string;
       readonly size: number;
       readonly name: string;
@@ -8117,8 +8159,8 @@ export interface components {
         readonly git: string | null;
         readonly html: string | null;
         readonly self: string;
-      };
-    }[];
+      } & { readonly [key: string]: any };
+    } & { readonly [key: string]: any })[];
     /** Content File */
     readonly "content-file": {
       readonly type: string;
@@ -8136,10 +8178,10 @@ export interface components {
         readonly git: string | null;
         readonly html: string | null;
         readonly self: string;
-      };
+      } & { readonly [key: string]: any };
       readonly target?: string;
       readonly submodule_git_url?: string;
-    };
+    } & { readonly [key: string]: any };
     /** An object describing a symlink */
     readonly "content-symlink": {
       readonly type: string;
@@ -8156,8 +8198,8 @@ export interface components {
         readonly git: string | null;
         readonly html: string | null;
         readonly self: string;
-      };
-    };
+      } & { readonly [key: string]: any };
+    } & { readonly [key: string]: any };
     /** An object describing a symlink */
     readonly "content-submodule": {
       readonly type: string;
@@ -8174,26 +8216,28 @@ export interface components {
         readonly git: string | null;
         readonly html: string | null;
         readonly self: string;
-      };
-    };
+      } & { readonly [key: string]: any };
+    } & { readonly [key: string]: any };
     /** File Commit */
     readonly "file-commit": {
-      readonly content: {
-        readonly name?: string;
-        readonly path?: string;
-        readonly sha?: string;
-        readonly size?: number;
-        readonly url?: string;
-        readonly html_url?: string;
-        readonly git_url?: string;
-        readonly download_url?: string;
-        readonly type?: string;
-        readonly _links?: {
-          readonly self?: string;
-          readonly git?: string;
-          readonly html?: string;
-        };
-      } | null;
+      readonly content:
+        | ({
+            readonly name?: string;
+            readonly path?: string;
+            readonly sha?: string;
+            readonly size?: number;
+            readonly url?: string;
+            readonly html_url?: string;
+            readonly git_url?: string;
+            readonly download_url?: string;
+            readonly type?: string;
+            readonly _links?: {
+              readonly self?: string;
+              readonly git?: string;
+              readonly html?: string;
+            } & { readonly [key: string]: any };
+          } & { readonly [key: string]: any })
+        | null;
       readonly commit: {
         readonly sha?: string;
         readonly node_id?: string;
@@ -8203,30 +8247,30 @@ export interface components {
           readonly date?: string;
           readonly name?: string;
           readonly email?: string;
-        };
+        } & { readonly [key: string]: any };
         readonly committer?: {
           readonly date?: string;
           readonly name?: string;
           readonly email?: string;
-        };
+        } & { readonly [key: string]: any };
         readonly message?: string;
         readonly tree?: {
           readonly url?: string;
           readonly sha?: string;
-        };
-        readonly parents?: readonly {
+        } & { readonly [key: string]: any };
+        readonly parents?: readonly ({
           readonly url?: string;
           readonly html_url?: string;
           readonly sha?: string;
-        }[];
+        } & { readonly [key: string]: any })[];
         readonly verification?: {
           readonly verified?: boolean;
           readonly reason?: string;
           readonly signature?: string | null;
           readonly payload?: string | null;
-        };
-      };
-    };
+        } & { readonly [key: string]: any };
+      } & { readonly [key: string]: any };
+    } & { readonly [key: string]: any };
     /** Contributor */
     readonly contributor: {
       readonly login?: string;
@@ -8250,7 +8294,7 @@ export interface components {
       readonly contributions: number;
       readonly email?: string;
       readonly name?: string;
-    };
+    } & { readonly [key: string]: any };
     /** The status of a deployment. */
     readonly "deployment-status": {
       readonly url: string;
@@ -8258,7 +8302,7 @@ export interface components {
       readonly node_id: string;
       /** The state of the status. */
       readonly state: "error" | "failure" | "inactive" | "pending" | "success" | "queued" | "in_progress";
-      readonly creator: components["schemas"]["simple-user"] | null;
+      readonly creator: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       /** A short description of the status. */
       readonly description: string;
       /** The environment of the deployment that the status is for. */
@@ -8273,17 +8317,21 @@ export interface components {
       readonly environment_url?: string;
       /** The URL to associate with this status. */
       readonly log_url?: string;
-      readonly performed_via_github_app?: components["schemas"]["integration"] | null;
-    };
+      readonly performed_via_github_app?:
+        | (components["schemas"]["integration"] & { readonly [key: string]: any })
+        | null;
+    } & { readonly [key: string]: any };
     /** The amount of time to delay a job after the job is initially triggered. The time (in minutes) must be an integer between 0 and 43,200 (30 days). */
     readonly "wait-timer": number;
     /** The type of deployment branch policy for this environment. To allow all branches to deploy, set to `null`. */
-    readonly deployment_branch_policy: {
-      /** Whether only branches with branch protection rules can deploy to this environment. If `protected_branches` is `true`, `custom_branch_policies` must be `false`; if `protected_branches` is `false`, `custom_branch_policies` must be `true`. */
-      readonly protected_branches: boolean;
-      /** Whether only branches that match the specified name patterns can deploy to this environment.  If `custom_branch_policies` is `true`, `protected_branches` must be `false`; if `custom_branch_policies` is `false`, `protected_branches` must be `true`. */
-      readonly custom_branch_policies: boolean;
-    } | null;
+    readonly deployment_branch_policy:
+      | ({
+          /** Whether only branches with branch protection rules can deploy to this environment. If `protected_branches` is `true`, `custom_branch_policies` must be `false`; if `protected_branches` is `false`, `custom_branch_policies` must be `true`. */
+          readonly protected_branches: boolean;
+          /** Whether only branches that match the specified name patterns can deploy to this environment.  If `custom_branch_policies` is `true`, `protected_branches` must be `false`; if `custom_branch_policies` is `false`, `protected_branches` must be `true`. */
+          readonly custom_branch_policies: boolean;
+        } & { readonly [key: string]: any })
+      | null;
     /** Details of a deployment environment */
     readonly environment: {
       /** The id of the environment. */
@@ -8297,35 +8345,41 @@ export interface components {
       readonly created_at: string;
       /** The time that the environment was last updated, in ISO 8601 format. */
       readonly updated_at: string;
-      readonly protection_rules?: readonly (Partial<{
-        readonly id: number;
-        readonly node_id: string;
-        readonly type: string;
-        readonly wait_timer?: components["schemas"]["wait-timer"];
-      }> &
-        Partial<{
+      readonly protection_rules?: readonly ((Partial<
+        {
           readonly id: number;
           readonly node_id: string;
           readonly type: string;
-          /** The people or teams that may approve jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed. */
-          readonly reviewers?: readonly {
-            readonly type?: components["schemas"]["deployment-reviewer-type"];
-            readonly reviewer?: Partial<components["schemas"]["simple-user"]> &
-              Partial<components["schemas"]["team-simple"]>;
-          }[];
-        }> &
-        Partial<{
-          readonly id: number;
-          readonly node_id: string;
-          readonly type: string;
-        }>)[];
+          readonly wait_timer?: components["schemas"]["wait-timer"];
+        } & { readonly [key: string]: any }
+      > &
+        Partial<
+          {
+            readonly id: number;
+            readonly node_id: string;
+            readonly type: string;
+            /** The people or teams that may approve jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed. */
+            readonly reviewers?: readonly ({
+              readonly type?: components["schemas"]["deployment-reviewer-type"];
+              readonly reviewer?: (Partial<components["schemas"]["simple-user"]> &
+                Partial<components["schemas"]["team-simple"]>) & { readonly [key: string]: any };
+            } & { readonly [key: string]: any })[];
+          } & { readonly [key: string]: any }
+        > &
+        Partial<
+          {
+            readonly id: number;
+            readonly node_id: string;
+            readonly type: string;
+          } & { readonly [key: string]: any }
+        >) & { readonly [key: string]: any })[];
       readonly deployment_branch_policy?: components["schemas"]["deployment_branch_policy"];
-    };
+    } & { readonly [key: string]: any };
     /** Short Blob */
     readonly "short-blob": {
       readonly url: string;
       readonly sha: string;
-    };
+    } & { readonly [key: string]: any };
     /** Blob */
     readonly blob: {
       readonly content: string;
@@ -8335,7 +8389,7 @@ export interface components {
       readonly size: number | null;
       readonly node_id: string;
       readonly highlighted_content?: string;
-    };
+    } & { readonly [key: string]: any };
     /** Low-level Git commit operations within a repository */
     readonly "git-commit": {
       /** SHA for the commit */
@@ -8350,7 +8404,7 @@ export interface components {
         readonly email: string;
         /** Name of the git user */
         readonly name: string;
-      };
+      } & { readonly [key: string]: any };
       /** Identifying information for the git-user */
       readonly committer: {
         /** Timestamp of the commit */
@@ -8359,28 +8413,28 @@ export interface components {
         readonly email: string;
         /** Name of the git user */
         readonly name: string;
-      };
+      } & { readonly [key: string]: any };
       /** Message describing the purpose of the commit */
       readonly message: string;
       readonly tree: {
         /** SHA for the commit */
         readonly sha: string;
         readonly url: string;
-      };
-      readonly parents: readonly {
+      } & { readonly [key: string]: any };
+      readonly parents: readonly ({
         /** SHA for the commit */
         readonly sha: string;
         readonly url: string;
         readonly html_url: string;
-      }[];
+      } & { readonly [key: string]: any })[];
       readonly verification: {
         readonly verified: boolean;
         readonly reason: string;
         readonly signature: string | null;
         readonly payload: string | null;
-      };
+      } & { readonly [key: string]: any };
       readonly html_url: string;
-    };
+    } & { readonly [key: string]: any };
     /** Git references within a repository */
     readonly "git-ref": {
       readonly ref: string;
@@ -8391,8 +8445,8 @@ export interface components {
         /** SHA for the reference */
         readonly sha: string;
         readonly url: string;
-      };
-    };
+      } & { readonly [key: string]: any };
+    } & { readonly [key: string]: any };
     /** Metadata for a Git tag */
     readonly "git-tag": {
       readonly node_id: string;
@@ -8407,34 +8461,34 @@ export interface components {
         readonly date: string;
         readonly email: string;
         readonly name: string;
-      };
+      } & { readonly [key: string]: any };
       readonly object: {
         readonly sha: string;
         readonly type: string;
         readonly url: string;
-      };
+      } & { readonly [key: string]: any };
       readonly verification?: components["schemas"]["verification"];
-    };
+    } & { readonly [key: string]: any };
     /** The hierarchy between files in a Git repository. */
     readonly "git-tree": {
       readonly sha: string;
       readonly url: string;
       readonly truncated: boolean;
       /** Objects specifying a tree structure */
-      readonly tree: readonly {
+      readonly tree: readonly ({
         readonly path?: string;
         readonly mode?: string;
         readonly type?: string;
         readonly sha?: string;
         readonly size?: number;
         readonly url?: string;
-      }[];
-    };
+      } & { readonly [key: string]: any })[];
+    } & { readonly [key: string]: any };
     readonly "hook-response": {
       readonly code: number | null;
       readonly status: string | null;
       readonly message: string | null;
-    };
+    } & { readonly [key: string]: any };
     /** Webhooks for repositories. */
     readonly hook: {
       readonly type: string;
@@ -8457,14 +8511,14 @@ export interface components {
         readonly digest?: string;
         readonly secret?: components["schemas"]["webhook-config-secret"];
         readonly token?: string;
-      };
+      } & { readonly [key: string]: any };
       readonly updated_at: string;
       readonly created_at: string;
       readonly url: string;
       readonly test_url: string;
       readonly ping_url: string;
       readonly last_response: components["schemas"]["hook-response"];
-    };
+    } & { readonly [key: string]: any };
     /** A repository import from an external source. */
     readonly import: {
       readonly vcs: string | null;
@@ -8499,11 +8553,11 @@ export interface components {
       readonly has_large_files?: boolean;
       readonly large_files_size?: number;
       readonly large_files_count?: number;
-      readonly project_choices?: readonly {
+      readonly project_choices?: readonly ({
         readonly vcs?: string;
         readonly tfvc_project?: string;
         readonly human_name?: string;
-      }[];
+      } & { readonly [key: string]: any })[];
       readonly message?: string;
       readonly authors_count?: number | null;
       readonly url: string;
@@ -8511,7 +8565,7 @@ export interface components {
       readonly authors_url: string;
       readonly repository_url: string;
       readonly svn_root?: string;
-    };
+    } & { readonly [key: string]: any };
     /** Porter Author */
     readonly "porter-author": {
       readonly id: number;
@@ -8521,29 +8575,29 @@ export interface components {
       readonly name: string;
       readonly url: string;
       readonly import_url: string;
-    };
+    } & { readonly [key: string]: any };
     /** Porter Large File */
     readonly "porter-large-file": {
       readonly ref_name: string;
       readonly path: string;
       readonly oid: string;
       readonly size: number;
-    };
+    } & { readonly [key: string]: any };
     /** Issue Event Label */
     readonly "issue-event-label": {
       readonly name: string | null;
       readonly color: string | null;
-    };
+    } & { readonly [key: string]: any };
     readonly "issue-event-dismissed-review": {
       readonly state: string;
       readonly review_id: number;
       readonly dismissal_message: string | null;
       readonly dismissal_commit_id?: string | null;
-    };
+    } & { readonly [key: string]: any };
     /** Issue Event Milestone */
     readonly "issue-event-milestone": {
       readonly title: string;
-    };
+    } & { readonly [key: string]: any };
     /** Issue Event Project Card */
     readonly "issue-event-project-card": {
       readonly url: string;
@@ -8552,28 +8606,28 @@ export interface components {
       readonly project_id: number;
       readonly column_name: string;
       readonly previous_column_name?: string;
-    };
+    } & { readonly [key: string]: any };
     /** Issue Event Rename */
     readonly "issue-event-rename": {
       readonly from: string;
       readonly to: string;
-    };
+    } & { readonly [key: string]: any };
     /** Issue Event */
     readonly "issue-event": {
       readonly id: number;
       readonly node_id: string;
       readonly url: string;
-      readonly actor: components["schemas"]["simple-user"] | null;
+      readonly actor: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly event: string;
       readonly commit_id: string | null;
       readonly commit_url: string | null;
       readonly created_at: string;
       readonly issue?: components["schemas"]["issue-simple"];
       readonly label?: components["schemas"]["issue-event-label"];
-      readonly assignee?: components["schemas"]["simple-user"] | null;
-      readonly assigner?: components["schemas"]["simple-user"] | null;
-      readonly review_requester?: components["schemas"]["simple-user"] | null;
-      readonly requested_reviewer?: components["schemas"]["simple-user"] | null;
+      readonly assignee?: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
+      readonly assigner?: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
+      readonly review_requester?: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
+      readonly requested_reviewer?: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly requested_team?: components["schemas"]["team"];
       readonly dismissed_review?: components["schemas"]["issue-event-dismissed-review"];
       readonly milestone?: components["schemas"]["issue-event-milestone"];
@@ -8581,7 +8635,7 @@ export interface components {
       readonly rename?: components["schemas"]["issue-event-rename"];
       readonly author_association?: components["schemas"]["author_association"];
       readonly lock_reason?: string | null;
-    };
+    } & { readonly [key: string]: any };
     /** Issue Event for Issue */
     readonly "issue-event-for-issue": {
       readonly id?: number;
@@ -8605,7 +8659,7 @@ export interface components {
       readonly pull_request_url?: string;
       readonly body_html?: string;
       readonly body_text?: string;
-    };
+    } & { readonly [key: string]: any };
     /** An SSH key granting access to a single repository. */
     readonly "deploy-key": {
       readonly id: number;
@@ -8615,7 +8669,7 @@ export interface components {
       readonly verified: boolean;
       readonly created_at: string;
       readonly read_only: boolean;
-    };
+    } & { readonly [key: string]: any };
     /** Language */
     readonly language: { readonly [key: string]: number };
     /** License Content */
@@ -8635,13 +8689,13 @@ export interface components {
         readonly git: string | null;
         readonly html: string | null;
         readonly self: string;
-      };
-      readonly license: components["schemas"]["license-simple"] | null;
-    };
+      } & { readonly [key: string]: any };
+      readonly license: (components["schemas"]["license-simple"] & { readonly [key: string]: any }) | null;
+    } & { readonly [key: string]: any };
     readonly "pages-source-hash": {
       readonly branch: string;
       readonly path: string;
-    };
+    } & { readonly [key: string]: any };
     /** The configuration for GitHub Pages for a repository. */
     readonly page: {
       /** The API address for accessing this Page resource. */
@@ -8657,25 +8711,25 @@ export interface components {
       readonly source?: components["schemas"]["pages-source-hash"];
       /** Whether the GitHub Pages site is publicly visible. If set to `true`, the site is accessible to anyone on the internet. If set to `false`, the site will only be accessible to users who have at least `read` access to the repository that published the site. */
       readonly public: boolean;
-    };
+    } & { readonly [key: string]: any };
     /** Page Build */
     readonly "page-build": {
       readonly url: string;
       readonly status: string;
       readonly error: {
         readonly message: string | null;
-      };
-      readonly pusher: components["schemas"]["simple-user"] | null;
+      } & { readonly [key: string]: any };
+      readonly pusher: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly commit: string;
       readonly duration: number;
       readonly created_at: string;
       readonly updated_at: string;
-    };
+    } & { readonly [key: string]: any };
     /** Page Build Status */
     readonly "page-build-status": {
       readonly url: string;
       readonly status: string;
-    };
+    } & { readonly [key: string]: any };
     /** Pull requests let you tell others about changes you've pushed to a repository on GitHub. Once a pull request is sent, interested parties can review the set of changes, discuss potential modifications, and even push follow-up commits if necessary. */
     readonly "pull-request": {
       readonly url: string;
@@ -8697,9 +8751,9 @@ export interface components {
       readonly locked: boolean;
       /** The title of the pull request. */
       readonly title: string;
-      readonly user: components["schemas"]["simple-user"] | null;
+      readonly user: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly body: string | null;
-      readonly labels: readonly {
+      readonly labels: readonly ({
         readonly id?: number;
         readonly node_id?: string;
         readonly url?: string;
@@ -8707,15 +8761,15 @@ export interface components {
         readonly description?: string | null;
         readonly color?: string;
         readonly default?: boolean;
-      }[];
-      readonly milestone: components["schemas"]["milestone"] | null;
+      } & { readonly [key: string]: any })[];
+      readonly milestone: (components["schemas"]["milestone"] & { readonly [key: string]: any }) | null;
       readonly active_lock_reason?: string | null;
       readonly created_at: string;
       readonly updated_at: string;
       readonly closed_at: string | null;
       readonly merged_at: string | null;
       readonly merge_commit_sha: string | null;
-      readonly assignee: components["schemas"]["simple-user"] | null;
+      readonly assignee: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly assignees?: readonly components["schemas"]["simple-user"][] | null;
       readonly requested_reviewers?: readonly components["schemas"]["simple-user"][] | null;
       readonly requested_teams?: readonly components["schemas"]["team-simple"][] | null;
@@ -8776,7 +8830,7 @@ export interface components {
             readonly subscriptions_url: string;
             readonly type: string;
             readonly url: string;
-          };
+          } & { readonly [key: string]: any };
           readonly private: boolean;
           readonly pulls_url: string;
           readonly releases_url: string;
@@ -8810,18 +8864,20 @@ export interface components {
             readonly admin: boolean;
             readonly pull: boolean;
             readonly push: boolean;
-          };
+          } & { readonly [key: string]: any };
           readonly temp_clone_token?: string;
           readonly allow_merge_commit?: boolean;
           readonly allow_squash_merge?: boolean;
           readonly allow_rebase_merge?: boolean;
-          readonly license: {
-            readonly key: string;
-            readonly name: string;
-            readonly url: string | null;
-            readonly spdx_id: string | null;
-            readonly node_id: string;
-          } | null;
+          readonly license:
+            | ({
+                readonly key: string;
+                readonly name: string;
+                readonly url: string | null;
+                readonly spdx_id: string | null;
+                readonly node_id: string;
+              } & { readonly [key: string]: any })
+            | null;
           readonly pushed_at: string;
           readonly size: number;
           readonly ssh_url: string;
@@ -8832,7 +8888,7 @@ export interface components {
           readonly watchers_count: number;
           readonly created_at: string;
           readonly updated_at: string;
-        };
+        } & { readonly [key: string]: any };
         readonly sha: string;
         readonly user: {
           readonly avatar_url: string;
@@ -8853,8 +8909,8 @@ export interface components {
           readonly subscriptions_url: string;
           readonly type: string;
           readonly url: string;
-        };
-      };
+        } & { readonly [key: string]: any };
+      } & { readonly [key: string]: any };
       readonly base: {
         readonly label: string;
         readonly ref: string;
@@ -8912,7 +8968,7 @@ export interface components {
             readonly subscriptions_url: string;
             readonly type: string;
             readonly url: string;
-          };
+          } & { readonly [key: string]: any };
           readonly private: boolean;
           readonly pulls_url: string;
           readonly releases_url: string;
@@ -8946,12 +9002,12 @@ export interface components {
             readonly admin: boolean;
             readonly pull: boolean;
             readonly push: boolean;
-          };
+          } & { readonly [key: string]: any };
           readonly temp_clone_token?: string;
           readonly allow_merge_commit?: boolean;
           readonly allow_squash_merge?: boolean;
           readonly allow_rebase_merge?: boolean;
-          readonly license: components["schemas"]["license-simple"] | null;
+          readonly license: (components["schemas"]["license-simple"] & { readonly [key: string]: any }) | null;
           readonly pushed_at: string;
           readonly size: number;
           readonly ssh_url: string;
@@ -8962,7 +9018,7 @@ export interface components {
           readonly watchers_count: number;
           readonly created_at: string;
           readonly updated_at: string;
-        };
+        } & { readonly [key: string]: any };
         readonly sha: string;
         readonly user: {
           readonly avatar_url: string;
@@ -8983,8 +9039,8 @@ export interface components {
           readonly subscriptions_url: string;
           readonly type: string;
           readonly url: string;
-        };
-      };
+        } & { readonly [key: string]: any };
+      } & { readonly [key: string]: any };
       readonly _links: {
         readonly comments: components["schemas"]["link"];
         readonly commits: components["schemas"]["link"];
@@ -8994,7 +9050,7 @@ export interface components {
         readonly review_comments: components["schemas"]["link"];
         readonly review_comment: components["schemas"]["link"];
         readonly self: components["schemas"]["link"];
-      };
+      } & { readonly [key: string]: any };
       readonly author_association: components["schemas"]["author_association"];
       readonly auto_merge: components["schemas"]["auto_merge"];
       /** Indicates whether or not the pull request is a draft. */
@@ -9003,7 +9059,7 @@ export interface components {
       readonly mergeable: boolean | null;
       readonly rebaseable?: boolean | null;
       readonly mergeable_state: string;
-      readonly merged_by: components["schemas"]["simple-user"] | null;
+      readonly merged_by: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly comments: number;
       readonly review_comments: number;
       /** Indicates whether maintainers can modify the pull request. */
@@ -9012,7 +9068,7 @@ export interface components {
       readonly additions: number;
       readonly deletions: number;
       readonly changed_files: number;
-    };
+    } & { readonly [key: string]: any };
     /** Pull Request Review Comments are comments on a portion of the Pull Request's diff. */
     readonly "pull-request-review-comment": {
       /** URL for the pull request review comment */
@@ -9050,14 +9106,14 @@ export interface components {
       readonly _links: {
         readonly self: {
           readonly href: string;
-        };
+        } & { readonly [key: string]: any };
         readonly html: {
           readonly href: string;
-        };
+        } & { readonly [key: string]: any };
         readonly pull_request: {
           readonly href: string;
-        };
-      };
+        } & { readonly [key: string]: any };
+      } & { readonly [key: string]: any };
       /** The first line of the range for a multi-line comment. */
       readonly start_line?: number | null;
       /** The first line of the range for a multi-line comment. */
@@ -9073,24 +9129,24 @@ export interface components {
       readonly reactions?: components["schemas"]["reaction-rollup"];
       readonly body_html?: string;
       readonly body_text?: string;
-    };
+    } & { readonly [key: string]: any };
     /** Pull Request Merge Result */
     readonly "pull-request-merge-result": {
       readonly sha: string;
       readonly merged: boolean;
       readonly message: string;
-    };
+    } & { readonly [key: string]: any };
     /** Pull Request Review Request */
     readonly "pull-request-review-request": {
       readonly users: readonly components["schemas"]["simple-user"][];
       readonly teams: readonly components["schemas"]["team-simple"][];
-    };
+    } & { readonly [key: string]: any };
     /** Pull Request Reviews are reviews on pull requests. */
     readonly "pull-request-review": {
       /** Unique identifier of the review */
       readonly id: number;
       readonly node_id: string;
-      readonly user: components["schemas"]["simple-user"] | null;
+      readonly user: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       /** The text of the review. */
       readonly body: string;
       readonly state: string;
@@ -9099,18 +9155,18 @@ export interface components {
       readonly _links: {
         readonly html: {
           readonly href: string;
-        };
+        } & { readonly [key: string]: any };
         readonly pull_request: {
           readonly href: string;
-        };
-      };
+        } & { readonly [key: string]: any };
+      } & { readonly [key: string]: any };
       readonly submitted_at?: string;
       /** A commit SHA for the review. */
       readonly commit_id: string;
       readonly body_html?: string;
       readonly body_text?: string;
       readonly author_association: components["schemas"]["author_association"];
-    };
+    } & { readonly [key: string]: any };
     /** Legacy Review Comment */
     readonly "review-comment": {
       readonly url: string;
@@ -9124,7 +9180,7 @@ export interface components {
       readonly commit_id: string;
       readonly original_commit_id: string;
       readonly in_reply_to_id?: number;
-      readonly user: components["schemas"]["simple-user"] | null;
+      readonly user: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly body: string;
       readonly created_at: string;
       readonly updated_at: string;
@@ -9135,7 +9191,7 @@ export interface components {
         readonly self: components["schemas"]["link"];
         readonly html: components["schemas"]["link"];
         readonly pull_request: components["schemas"]["link"];
-      };
+      } & { readonly [key: string]: any };
       readonly body_text?: string;
       readonly body_html?: string;
       /** The side of the first line of the range for a multi-line comment. */
@@ -9150,7 +9206,7 @@ export interface components {
       readonly start_line?: number | null;
       /** The original first line of the range for a multi-line comment. */
       readonly original_start_line?: number | null;
-    };
+    } & { readonly [key: string]: any };
     /** Data related to a release. */
     readonly "release-asset": {
       readonly url: string;
@@ -9167,8 +9223,8 @@ export interface components {
       readonly download_count: number;
       readonly created_at: string;
       readonly updated_at: string;
-      readonly uploader: components["schemas"]["simple-user"] | null;
-    };
+      readonly uploader: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
+    } & { readonly [key: string]: any };
     /** A release. */
     readonly release: {
       readonly url: string;
@@ -9195,7 +9251,7 @@ export interface components {
       readonly assets: readonly components["schemas"]["release-asset"][];
       readonly body_html?: string;
       readonly body_text?: string;
-    };
+    } & { readonly [key: string]: any };
     /** Sets the state of the secret scanning alert. Can be either `open` or `resolved`. You must provide `resolution` when you set the state to `resolved`. */
     readonly "secret-scanning-alert-state": "open" | "resolved";
     /** **Required when the `state` is `resolved`.** The reason for resolving the alert. Can be one of `false_positive`, `wont_fix`, `revoked`, or `used_in_tests`. */
@@ -9214,12 +9270,12 @@ export interface components {
       readonly secret_type?: string;
       /** The secret that was detected. */
       readonly secret?: string;
-    };
+    } & { readonly [key: string]: any };
     /** Stargazer */
     readonly stargazer: {
       readonly starred_at: string;
-      readonly user: components["schemas"]["simple-user"] | null;
-    };
+      readonly user: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
+    } & { readonly [key: string]: any };
     /** Code Frequency Stat */
     readonly "code-frequency-stat": readonly number[];
     /** Commit Activity */
@@ -9227,22 +9283,22 @@ export interface components {
       readonly days: readonly number[];
       readonly total: number;
       readonly week: number;
-    };
+    } & { readonly [key: string]: any };
     /** Contributor Activity */
     readonly "contributor-activity": {
-      readonly author: components["schemas"]["simple-user"] | null;
+      readonly author: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly total: number;
-      readonly weeks: readonly {
+      readonly weeks: readonly ({
         readonly w?: string;
         readonly a?: number;
         readonly d?: number;
         readonly c?: number;
-      }[];
-    };
+      } & { readonly [key: string]: any })[];
+    } & { readonly [key: string]: any };
     readonly "participation-stats": {
       readonly all: readonly number[];
       readonly owner: readonly number[];
-    };
+    } & { readonly [key: string]: any };
     /** Repository invitations let you manage who you collaborate with. */
     readonly "repository-subscription": {
       /** Determines if notifications should be received from this repository. */
@@ -9253,98 +9309,98 @@ export interface components {
       readonly created_at: string;
       readonly url: string;
       readonly repository_url: string;
-    };
+    } & { readonly [key: string]: any };
     /** Tag */
     readonly tag: {
       readonly name: string;
       readonly commit: {
         readonly sha: string;
         readonly url: string;
-      };
+      } & { readonly [key: string]: any };
       readonly zipball_url: string;
       readonly tarball_url: string;
       readonly node_id: string;
-    };
+    } & { readonly [key: string]: any };
     /** A topic aggregates entities that are related to a subject. */
     readonly topic: {
       readonly names: readonly string[];
-    };
+    } & { readonly [key: string]: any };
     readonly traffic: {
       readonly timestamp: string;
       readonly uniques: number;
       readonly count: number;
-    };
+    } & { readonly [key: string]: any };
     /** Clone Traffic */
     readonly "clone-traffic": {
       readonly count: number;
       readonly uniques: number;
       readonly clones: readonly components["schemas"]["traffic"][];
-    };
+    } & { readonly [key: string]: any };
     /** Content Traffic */
     readonly "content-traffic": {
       readonly path: string;
       readonly title: string;
       readonly count: number;
       readonly uniques: number;
-    };
+    } & { readonly [key: string]: any };
     /** Referrer Traffic */
     readonly "referrer-traffic": {
       readonly referrer: string;
       readonly count: number;
       readonly uniques: number;
-    };
+    } & { readonly [key: string]: any };
     /** View Traffic */
     readonly "view-traffic": {
       readonly count: number;
       readonly uniques: number;
       readonly views: readonly components["schemas"]["traffic"][];
-    };
+    } & { readonly [key: string]: any };
     readonly "scim-group-list-enterprise": {
       readonly schemas: readonly string[];
       readonly totalResults: number;
       readonly itemsPerPage: number;
       readonly startIndex: number;
-      readonly Resources: readonly {
+      readonly Resources: readonly ({
         readonly schemas: readonly string[];
         readonly id: string;
         readonly externalId?: string | null;
         readonly displayName?: string;
-        readonly members?: readonly {
+        readonly members?: readonly ({
           readonly value?: string;
           readonly $ref?: string;
           readonly display?: string;
-        }[];
+        } & { readonly [key: string]: any })[];
         readonly meta?: {
           readonly resourceType?: string;
           readonly created?: string;
           readonly lastModified?: string;
           readonly location?: string;
-        };
-      }[];
-    };
+        } & { readonly [key: string]: any };
+      } & { readonly [key: string]: any })[];
+    } & { readonly [key: string]: any };
     readonly "scim-enterprise-group": {
       readonly schemas: readonly string[];
       readonly id: string;
       readonly externalId?: string | null;
       readonly displayName?: string;
-      readonly members?: readonly {
+      readonly members?: readonly ({
         readonly value?: string;
         readonly $ref?: string;
         readonly display?: string;
-      }[];
+      } & { readonly [key: string]: any })[];
       readonly meta?: {
         readonly resourceType?: string;
         readonly created?: string;
         readonly lastModified?: string;
         readonly location?: string;
-      };
-    };
+      } & { readonly [key: string]: any };
+    } & { readonly [key: string]: any };
     readonly "scim-user-list-enterprise": {
       readonly schemas: readonly string[];
       readonly totalResults: number;
       readonly itemsPerPage: number;
       readonly startIndex: number;
-      readonly Resources: readonly {
+      readonly Resources: readonly ({
         readonly schemas: readonly string[];
         readonly id: string;
         readonly externalId?: string;
@@ -9352,24 +9408,24 @@ export interface components {
         readonly name?: {
           readonly givenName?: string;
           readonly familyName?: string;
-        };
-        readonly emails?: readonly {
+        } & { readonly [key: string]: any };
+        readonly emails?: readonly ({
           readonly value?: string;
           readonly primary?: boolean;
           readonly type?: string;
-        }[];
-        readonly groups?: readonly {
+        } & { readonly [key: string]: any })[];
+        readonly groups?: readonly ({
           readonly value?: string;
-        }[];
+        } & { readonly [key: string]: any })[];
         readonly active?: boolean;
         readonly meta?: {
           readonly resourceType?: string;
           readonly created?: string;
           readonly lastModified?: string;
           readonly location?: string;
-        };
-      }[];
-    };
+        } & { readonly [key: string]: any };
+      } & { readonly [key: string]: any })[];
+    } & { readonly [key: string]: any };
     readonly "scim-enterprise-user": {
       readonly schemas: readonly string[];
       readonly id: string;
@@ -9378,23 +9434,23 @@ export interface components {
       readonly name?: {
         readonly givenName?: string;
         readonly familyName?: string;
-      };
-      readonly emails?: readonly {
+      } & { readonly [key: string]: any };
+      readonly emails?: readonly ({
         readonly value?: string;
         readonly type?: string;
         readonly primary?: boolean;
-      }[];
-      readonly groups?: readonly {
+      } & { readonly [key: string]: any })[];
+      readonly groups?: readonly ({
         readonly value?: string;
-      }[];
+      } & { readonly [key: string]: any })[];
       readonly active?: boolean;
       readonly meta?: {
         readonly resourceType?: string;
         readonly created?: string;
         readonly lastModified?: string;
         readonly location?: string;
-      };
-    };
+      } & { readonly [key: string]: any };
+    } & { readonly [key: string]: any };
     /** SCIM /Users provisioning endpoints */
     readonly "scim-user": {
       /** SCIM schema used. */
@@ -9411,12 +9467,12 @@ export interface components {
         readonly givenName: string | null;
         readonly familyName: string | null;
         readonly formatted?: string | null;
-      };
+      } & { readonly [key: string]: any };
       /** user emails */
-      readonly emails: readonly {
+      readonly emails: readonly ({
         readonly value: string;
         readonly primary?: boolean;
-      }[];
+      } & { readonly [key: string]: any })[];
       /** The active status of the User. */
       readonly active: boolean;
       readonly meta: {
@@ -9424,21 +9480,23 @@ export interface components {
         readonly created?: string;
         readonly lastModified?: string;
         readonly location?: string;
-      };
+      } & { readonly [key: string]: any };
       /** The ID of the organization. */
       readonly organization_id?: number;
       /** Set of operations to be performed */
-      readonly operations?: readonly {
+      readonly operations?: readonly ({
         readonly op: "add" | "remove" | "replace";
         readonly path?: string;
-        readonly value?: string | { readonly [key: string]: any } | readonly { readonly [key: string]: any }[];
-      }[];
+        readonly value?: (string | { readonly [key: string]: any } | readonly { readonly [key: string]: any }[]) & {
+          readonly [key: string]: any;
+        };
+      } & { readonly [key: string]: any })[];
       /** associated groups */
-      readonly groups?: readonly {
+      readonly groups?: readonly ({
         readonly value?: string;
         readonly display?: string;
-      }[];
-    };
+      } & { readonly [key: string]: any })[];
+    } & { readonly [key: string]: any };
     /** SCIM User List */
     readonly "scim-user-list": {
       /** SCIM schema used. */
@@ -9447,17 +9505,17 @@ export interface components {
       readonly itemsPerPage: number;
       readonly startIndex: number;
       readonly Resources: readonly components["schemas"]["scim-user"][];
-    };
-    readonly "search-result-text-matches": readonly {
+    } & { readonly [key: string]: any };
+    readonly "search-result-text-matches": readonly ({
       readonly object_url?: string;
       readonly object_type?: string | null;
       readonly property?: string;
       readonly fragment?: string;
-      readonly matches?: readonly {
+      readonly matches?: readonly ({
         readonly text?: string;
         readonly indices?: readonly number[];
-      }[];
-    }[];
+      } & { readonly [key: string]: any })[];
+    } & { readonly [key: string]: any })[];
     /** Code Search Result Item */
     readonly "code-search-result-item": {
       readonly name: string;
@@ -9473,7 +9531,7 @@ export interface components {
       readonly last_modified_at?: string;
       readonly line_numbers?: readonly string[];
       readonly text_matches?: components["schemas"]["search-result-text-matches"];
-    };
+    } & { readonly [key: string]: any };
     /** Commit Search Result Item */
     readonly "commit-search-result-item": {
       readonly url: string;
@@ -9485,29 +9543,29 @@ export interface components {
           readonly name: string;
           readonly email: string;
           readonly date: string;
-        };
-        readonly committer: components["schemas"]["git-user"] | null;
+        } & { readonly [key: string]: any };
+        readonly committer: (components["schemas"]["git-user"] & { readonly [key: string]: any }) | null;
         readonly comment_count: number;
         readonly message: string;
         readonly tree: {
           readonly sha: string;
           readonly url: string;
-        };
+        } & { readonly [key: string]: any };
         readonly url: string;
         readonly verification?: components["schemas"]["verification"];
-      };
-      readonly author: components["schemas"]["simple-user"] | null;
-      readonly committer: components["schemas"]["git-user"] | null;
-      readonly parents: readonly {
+      } & { readonly [key: string]: any };
+      readonly author: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
+      readonly committer: (components["schemas"]["git-user"] & { readonly [key: string]: any }) | null;
+      readonly parents: readonly ({
         readonly url?: string;
         readonly html_url?: string;
         readonly sha?: string;
-      }[];
+      } & { readonly [key: string]: any })[];
       readonly repository: components["schemas"]["minimal-repository"];
       readonly score: number;
       readonly node_id: string;
       readonly text_matches?: components["schemas"]["search-result-text-matches"];
-    };
+    } & { readonly [key: string]: any };
     /** Issue Search Result Item */
     readonly "issue-search-result-item": {
       readonly url: string;
@@ -9523,8 +9581,8 @@ export interface components {
       readonly locked: boolean;
       readonly active_lock_reason?: string | null;
       readonly assignees?: readonly components["schemas"]["simple-user"][] | null;
-      readonly user: components["schemas"]["simple-user"] | null;
-      readonly labels: readonly {
+      readonly user: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
+      readonly labels: readonly ({
         readonly id?: number;
         readonly node_id?: string;
         readonly url?: string;
@@ -9532,10 +9590,10 @@ export interface components {
         readonly color?: string;
         readonly default?: boolean;
         readonly description?: string | null;
-      }[];
+      } & { readonly [key: string]: any })[];
       readonly state: string;
-      readonly assignee: components["schemas"]["simple-user"] | null;
-      readonly milestone: components["schemas"]["milestone"] | null;
+      readonly assignee: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
+      readonly milestone: (components["schemas"]["milestone"] & { readonly [key: string]: any }) | null;
       readonly comments: number;
       readonly created_at: string;
       readonly updated_at: string;
@@ -9547,7 +9605,7 @@ export interface components {
         readonly html_url: string | null;
         readonly patch_url: string | null;
         readonly url: string | null;
-      };
+      } & { readonly [key: string]: any };
       readonly body?: string;
       readonly score: number;
       readonly author_association: components["schemas"]["author_association"];
@@ -9556,8 +9614,10 @@ export interface components {
       readonly body_html?: string;
       readonly body_text?: string;
       readonly timeline_url?: string;
-      readonly performed_via_github_app?: components["schemas"]["integration"] | null;
-    };
+      readonly performed_via_github_app?:
+        | (components["schemas"]["integration"] & { readonly [key: string]: any })
+        | null;
+    } & { readonly [key: string]: any };
     /** Label Search Result Item */
     readonly "label-search-result-item": {
       readonly id: number;
@@ -9569,14 +9629,14 @@ export interface components {
       readonly description: string | null;
       readonly score: number;
       readonly text_matches?: components["schemas"]["search-result-text-matches"];
-    };
+    } & { readonly [key: string]: any };
     /** Repo Search Result Item */
     readonly "repo-search-result-item": {
       readonly id: number;
       readonly node_id: string;
       readonly name: string;
       readonly full_name: string;
-      readonly owner: components["schemas"]["simple-user"] | null;
+      readonly owner: (components["schemas"]["simple-user"] & { readonly [key: string]: any }) | null;
       readonly private: boolean;
       readonly html_url: string;
       readonly description: string | null;
@@ -9648,19 +9708,19 @@ export interface components {
       readonly archived: boolean;
       /** Returns whether or not this repository disabled. */
       readonly disabled: boolean;
-      readonly license: components["schemas"]["license-simple"] | null;
+      readonly license: (components["schemas"]["license-simple"] & { readonly [key: string]: any }) | null;
       readonly permissions?: {
         readonly admin: boolean;
         readonly pull: boolean;
         readonly push: boolean;
-      };
+      } & { readonly [key: string]: any };
       readonly text_matches?: components["schemas"]["search-result-text-matches"];
       readonly temp_clone_token?: string;
       readonly allow_merge_commit?: boolean;
       readonly allow_squash_merge?: boolean;
       readonly allow_rebase_merge?: boolean;
       readonly delete_branch_on_merge?: boolean;
-    };
+    } & { readonly [key: string]: any };
     /** Topic Search Result Item */
     readonly "topic-search-result-item": {
       readonly name: string;
@@ -9678,26 +9738,26 @@ export interface components {
       readonly logo_url?: string | null;
       readonly text_matches?: components["schemas"]["search-result-text-matches"];
       readonly related?:
-        | readonly {
+        | readonly ({
             readonly topic_relation?: {
               readonly id?: number;
               readonly name?: string;
               readonly topic_id?: number;
               readonly relation_type?: string;
-            };
-          }[]
+            } & { readonly [key: string]: any };
+          } & { readonly [key: string]: any })[]
         | null;
       readonly aliases?:
-        | readonly {
+        | readonly ({
             readonly topic_relation?: {
               readonly id?: number;
               readonly name?: string;
               readonly topic_id?: number;
               readonly relation_type?: string;
-            };
-          }[]
+            } & { readonly [key: string]: any };
+          } & { readonly [key: string]: any })[]
         | null;
-    };
+    } & { readonly [key: string]: any };
     /** User Search Result Item */
     readonly "user-search-result-item": {
       readonly login: string;
@@ -9734,7 +9794,7 @@ export interface components {
       readonly blog?: string | null;
       readonly company?: string | null;
       readonly suspended_at?: string | null;
-    };
+    } & { readonly [key: string]: any };
     /** Private User */
     readonly "private-user": {
       readonly login: string;
@@ -9780,11 +9840,11 @@ export interface components {
         readonly name: string;
         readonly space: number;
         readonly private_repos: number;
-      };
+      } & { readonly [key: string]: any };
       readonly suspended_at?: string | null;
       readonly business_plus?: boolean;
       readonly ldap_dn?: string;
-    };
+    } & { readonly [key: string]: any };
     /** Public User */
     readonly "public-user": {
       readonly login: string;
@@ -9824,7 +9884,7 @@ export interface components {
         readonly name: string;
         readonly space: number;
         readonly private_repos: number;
-      };
+      } & { readonly [key: string]: any };
       readonly suspended_at?: string | null;
       readonly private_gists?: number;
       readonly total_private_repos?: number;
@@ -9838,18 +9898,18 @@ export interface components {
       readonly primary: boolean;
       readonly verified: boolean;
       readonly visibility: string | null;
-    };
+    } & { readonly [key: string]: any };
     /** A unique encryption key */
     readonly "gpg-key": {
       readonly id: number;
       readonly primary_key_id: number | null;
       readonly key_id: string;
       readonly public_key: string;
-      readonly emails: readonly {
+      readonly emails: readonly ({
         readonly email?: string;
         readonly verified?: boolean;
-      }[];
-      readonly subkeys: readonly {
+      } & { readonly [key: string]: any })[];
+      readonly subkeys: readonly ({
         readonly id?: number;
         readonly primary_key_id?: number;
         readonly key_id?: string;
@@ -9863,7 +9923,7 @@ export interface components {
         readonly created_at?: string;
         readonly expires_at?: string | null;
         readonly raw_key?: string | null;
-      }[];
+      } & { readonly [key: string]: any })[];
       readonly can_sign: boolean;
       readonly can_encrypt_comms: boolean;
       readonly can_encrypt_storage: boolean;
@@ -9871,7 +9931,7 @@ export interface components {
       readonly created_at: string;
       readonly expires_at: string | null;
       readonly raw_key: string | null;
-    };
+    } & { readonly [key: string]: any };
     /** Key */
     readonly key: {
       readonly key_id: string;
@@ -9882,7 +9942,7 @@ export interface components {
       readonly created_at: string;
       readonly verified: boolean;
       readonly read_only: boolean;
-    };
+    } & { readonly [key: string]: any };
     readonly "marketplace-account": {
       readonly url: string;
       readonly id: number;
@@ -9891,7 +9951,7 @@ export interface components {
       readonly login: string;
       readonly email?: string | null;
       readonly organization_billing_email?: string | null;
-    };
+    } & { readonly [key: string]: any };
     /** User Marketplace Purchase */
     readonly "user-marketplace-purchase": {
       readonly billing_cycle: string;
@@ -9902,24 +9962,24 @@ export interface components {
       readonly updated_at: string | null;
       readonly account: components["schemas"]["marketplace-account"];
       readonly plan: components["schemas"]["marketplace-listing-plan"];
-    };
+    } & { readonly [key: string]: any };
     /** Starred Repository */
     readonly "starred-repository": {
       readonly starred_at: string;
       readonly repo: components["schemas"]["repository"];
-    };
+    } & { readonly [key: string]: any };
     /** Hovercard */
     readonly hovercard: {
-      readonly contexts: readonly {
+      readonly contexts: readonly ({
         readonly message: string;
         readonly octicon: string;
-      }[];
-    };
+      } & { readonly [key: string]: any })[];
+    } & { readonly [key: string]: any };
     /** Key Simple */
     readonly "key-simple": {
       readonly id: number;
       readonly key: string;
-    };
+    } & { readonly [key: string]: any };
   };
   readonly responses: {
     /** Resource Not Found */
@@ -9940,7 +10000,7 @@ export interface components {
         readonly "application/json": {
           readonly message: string;
           readonly documentation_url: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
     /** Forbidden */
@@ -9976,7 +10036,7 @@ export interface components {
           readonly code?: string;
           readonly message?: string;
           readonly documentation_url?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
     /** Forbidden Gist */
@@ -9987,10 +10047,10 @@ export interface components {
             readonly reason?: string;
             readonly created_at?: string;
             readonly html_url?: string | null;
-          };
+          } & { readonly [key: string]: any };
           readonly message?: string;
           readonly documentation_url?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
     /** Moved Permanently */
@@ -10193,7 +10253,7 @@ export interface components {
     /** The id of the workflow run */
     readonly "run-id": number;
     /** The ID of the workflow. You can also pass the workflow file name as a string. */
-    readonly "workflow-id": number | string;
+    readonly "workflow-id": (number | string) & { readonly [key: string]: any };
     /** The name of the branch. */
     readonly branch: string;
     /** check_run_id parameter */
@@ -10303,7 +10363,7 @@ export interface operations {
             readonly user_organizations_url: string;
             readonly user_repositories_url: string;
             readonly user_search_url: string;
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -10341,7 +10401,7 @@ export interface operations {
               readonly client_secret: string;
               readonly webhook_secret: string;
               readonly pem: string;
-            } & { [key: string]: any });
+            } & { readonly [key: string]: any }) & { readonly [key: string]: any };
         };
       };
       readonly 404: components["responses"]["not_found"];
@@ -10384,7 +10444,7 @@ export interface operations {
           readonly content_type?: components["schemas"]["webhook-config-content-type"];
           readonly secret?: components["schemas"]["webhook-config-secret"];
           readonly insecure_ssl?: components["schemas"]["webhook-config-insecure-ssl"];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -10489,7 +10549,7 @@ export interface operations {
           /** List of repository IDs that the token should have access to */
           readonly repository_ids?: readonly number[];
           readonly permissions?: components["schemas"]["app-permissions"];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -10618,7 +10678,7 @@ export interface operations {
         readonly "application/json": {
           /** The OAuth access token used to authenticate to the GitHub API. */
           readonly access_token?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -10665,7 +10725,7 @@ export interface operations {
         readonly "application/json": {
           /** The access_token of the OAuth application. */
           readonly access_token: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -10687,7 +10747,7 @@ export interface operations {
         readonly "application/json": {
           /** The OAuth access token used to authenticate to the GitHub API. */
           readonly access_token?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -10713,7 +10773,7 @@ export interface operations {
         readonly "application/json": {
           /** The access_token of the OAuth application. */
           readonly access_token: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -10751,7 +10811,7 @@ export interface operations {
           /** The list of repository names to scope the user-to-server access token to. `repository_ids` may not be specified if `repositories` is specified. */
           readonly repository_ids?: readonly number[];
           readonly permissions?: components["schemas"]["app-permissions"];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -10772,7 +10832,9 @@ export interface operations {
       /** response */
       readonly 200: {
         readonly content: {
-          readonly "application/json": components["schemas"]["authorization"] | null;
+          readonly "application/json":
+            | (components["schemas"]["authorization"] & { readonly [key: string]: any })
+            | null;
         };
       };
       readonly 404: components["responses"]["not_found"];
@@ -10911,7 +10973,7 @@ export interface operations {
           readonly client_secret?: string;
           /** A unique string to distinguish an authorization from others created for the same client ID and user. */
           readonly fingerprint?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -10970,7 +11032,7 @@ export interface operations {
           readonly note_url?: string;
           /** A unique string to distinguish an authorization from others created for the same client ID and user. */
           readonly fingerprint?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -11023,7 +11085,7 @@ export interface operations {
           readonly note?: string;
           /** A URL to remind you what app the OAuth token is for. */
           readonly note_url?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -11101,7 +11163,7 @@ export interface operations {
           readonly note_url?: string;
           /** A unique string to distinguish an authorization from others created for the same client ID and user. */
           readonly fingerprint?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -11170,7 +11232,7 @@ export interface operations {
           readonly title: string;
           /** The body of the attachment */
           readonly body: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -11229,7 +11291,7 @@ export interface operations {
         readonly "application/json": {
           readonly enabled_organizations: components["schemas"]["enabled-organizations"];
           readonly allowed_actions?: components["schemas"]["allowed-actions"];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -11258,7 +11320,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly organizations: readonly components["schemas"]["organization-simple"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -11284,7 +11346,7 @@ export interface operations {
         readonly "application/json": {
           /** List of organization IDs to enable for GitHub Actions. */
           readonly selected_organization_ids: readonly number[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -11394,7 +11456,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly runner_groups: readonly components["schemas"]["runner-groups-enterprise"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -11430,7 +11492,7 @@ export interface operations {
           readonly selected_organization_ids?: readonly number[];
           /** List of runner IDs to add to the runner group. */
           readonly runners?: readonly number[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -11505,7 +11567,7 @@ export interface operations {
           readonly name?: string;
           /** Visibility of a runner group. You can select all organizations or select individual organizations. Can be one of: `all` or `selected` */
           readonly visibility?: "selected" | "all";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -11536,7 +11598,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly organizations: readonly components["schemas"]["organization-simple"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -11564,7 +11626,7 @@ export interface operations {
         readonly "application/json": {
           /** List of organization IDs that can access the runner group. */
           readonly selected_organization_ids: readonly number[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -11638,7 +11700,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly runners: readonly components["schemas"]["runner"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -11666,7 +11728,7 @@ export interface operations {
         readonly "application/json": {
           /** List of runner IDs to add to the runner group. */
           readonly runners: readonly number[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -11739,7 +11801,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count?: number;
             readonly runners?: readonly components["schemas"]["runner"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -12084,10 +12146,10 @@ export interface operations {
             readonly [key: string]: {
               /** Content of the file */
               readonly content: string;
-            };
+            } & { readonly [key: string]: any };
           };
-          readonly public?: boolean | ("true" | "false");
-        };
+          readonly public?: (boolean | ("true" | "false")) & { readonly [key: string]: any };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -12209,7 +12271,7 @@ export interface operations {
                   Partial<{ readonly [key: string]: any }> &
                   Partial<{ readonly [key: string]: any }>;
               };
-            })
+            } & { readonly [key: string]: any })
           | null;
       };
     };
@@ -12266,7 +12328,7 @@ export interface operations {
         readonly "application/json": {
           /** The comment text. */
           readonly body: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -12331,7 +12393,7 @@ export interface operations {
         readonly "application/json": {
           /** The comment text. */
           readonly body: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -12540,7 +12602,7 @@ export interface operations {
             readonly total_count: number;
             readonly repositories: readonly components["schemas"]["repository"][];
             readonly repository_selection?: string;
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -12677,7 +12739,7 @@ export interface operations {
           readonly mode?: "markdown" | "gfm";
           /** The repository context to use when creating references in `gfm` mode. */
           readonly context?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -12956,7 +13018,7 @@ export interface operations {
         readonly content: {
           readonly "application/json": {
             readonly message?: string;
-          };
+          } & { readonly [key: string]: any };
         };
       };
       /** response */
@@ -12972,7 +13034,7 @@ export interface operations {
           readonly last_read_at?: string;
           /** Whether the notification has been read. */
           readonly read?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -13063,7 +13125,7 @@ export interface operations {
         readonly "application/json": {
           /** Whether to block all notifications from a thread. */
           readonly ignored?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -13171,9 +13233,10 @@ export interface operations {
       /** Validation Failed */
       readonly 422: {
         readonly content: {
-          readonly "application/json":
+          readonly "application/json": (
             | components["schemas"]["validation-error"]
-            | components["schemas"]["validation-error-simple"];
+            | components["schemas"]["validation-error-simple"]
+          ) & { readonly [key: string]: any };
         };
       };
     };
@@ -13262,7 +13325,7 @@ export interface operations {
            */
           readonly members_can_create_private_pages?: boolean;
           readonly blog?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -13308,7 +13371,7 @@ export interface operations {
         readonly "application/json": {
           readonly enabled_repositories: components["schemas"]["enabled-repositories"];
           readonly allowed_actions?: components["schemas"]["allowed-actions"];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -13336,7 +13399,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly repositories: readonly components["schemas"]["repository"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -13361,7 +13424,7 @@ export interface operations {
         readonly "application/json": {
           /** List of repository IDs to enable for GitHub Actions. */
           readonly selected_repository_ids: readonly number[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -13470,7 +13533,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly runner_groups: readonly components["schemas"]["runner-groups-org"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -13507,7 +13570,7 @@ export interface operations {
           readonly selected_repository_ids?: readonly number[];
           /** List of runner IDs to add to the runner group. */
           readonly runners?: readonly number[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -13585,7 +13648,7 @@ export interface operations {
           readonly name?: string;
           /** Visibility of a runner group. You can select all repositories, select individual repositories, or all private repositories. Can be one of: `all`, `selected`, or `private`. */
           readonly visibility?: "selected" | "all" | "private";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -13611,7 +13674,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly repositories: readonly components["schemas"]["repository"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -13640,7 +13703,7 @@ export interface operations {
         readonly "application/json": {
           /** List of repository IDs that can access the runner group. */
           readonly selected_repository_ids: readonly number[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -13718,7 +13781,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly runners: readonly components["schemas"]["runner"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -13747,7 +13810,7 @@ export interface operations {
         readonly "application/json": {
           /** List of runner IDs to add to the runner group. */
           readonly runners: readonly number[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -13823,7 +13886,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly runners: readonly components["schemas"]["runner"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -13966,7 +14029,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly secrets: readonly components["schemas"]["organization-actions-secret"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -14112,7 +14175,7 @@ export interface operations {
           readonly visibility?: "all" | "private" | "selected";
           /** An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can manage the list of selected repositories using the [List selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#list-selected-repositories-for-an-organization-secret), [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret), and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret) endpoints. */
           readonly selected_repository_ids?: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -14146,7 +14209,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly repositories: readonly components["schemas"]["minimal-repository"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -14169,7 +14232,7 @@ export interface operations {
         readonly "application/json": {
           /** An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret) and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret) endpoints. */
           readonly selected_repository_ids?: readonly number[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -14454,12 +14517,12 @@ export interface operations {
             readonly insecure_ssl?: components["schemas"]["webhook-config-insecure-ssl"];
             readonly username?: string;
             readonly password?: string;
-          };
+          } & { readonly [key: string]: any };
           /** Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. */
           readonly events?: readonly string[];
           /** Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications. */
           readonly active?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -14521,13 +14584,13 @@ export interface operations {
             readonly content_type?: components["schemas"]["webhook-config-content-type"];
             readonly secret?: components["schemas"]["webhook-config-secret"];
             readonly insecure_ssl?: components["schemas"]["webhook-config-insecure-ssl"];
-          };
+          } & { readonly [key: string]: any };
           /** Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. */
           readonly events?: readonly string[];
           /** Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications. */
           readonly active?: boolean;
           readonly name?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -14579,7 +14642,7 @@ export interface operations {
           readonly content_type?: components["schemas"]["webhook-config-content-type"];
           readonly secret?: components["schemas"]["webhook-config-secret"];
           readonly insecure_ssl?: components["schemas"]["webhook-config-insecure-ssl"];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -14638,7 +14701,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly installations: readonly components["schemas"]["installation"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -14754,7 +14817,7 @@ export interface operations {
           readonly role?: "admin" | "direct_member" | "billing_manager";
           /** Specify IDs for the teams you want to invite new members to. */
           readonly team_ids?: readonly number[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -14980,7 +15043,7 @@ export interface operations {
            * \* `member` - The user will become a non-owner member of the organization.
            */
           readonly role?: "admin" | "member";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -15053,7 +15116,7 @@ export interface operations {
           /** Indicates whether attachments should be excluded from the migration (to reduce migration archive file size). */
           readonly exclude_attachments?: boolean;
           readonly exclude?: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -15211,7 +15274,7 @@ export interface operations {
           readonly "application/json": {
             readonly message?: string;
             readonly documentation_url?: string;
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 404: components["responses"]["not_found"];
@@ -15234,7 +15297,7 @@ export interface operations {
           readonly "application/json": {
             readonly message?: string;
             readonly documentation_url?: string;
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -15484,7 +15547,7 @@ export interface operations {
           readonly name: string;
           /** The description of the project. */
           readonly body?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -15653,7 +15716,7 @@ export interface operations {
           readonly allow_rebase_merge?: boolean;
           /** Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion. */
           readonly delete_branch_on_merge?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -15830,7 +15893,7 @@ export interface operations {
           readonly permission?: "pull" | "push" | "admin";
           /** The ID of a team to set as the parent team. */
           readonly parent_team_id?: number;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -15923,7 +15986,7 @@ export interface operations {
           readonly permission?: "pull" | "push" | "admin";
           /** The ID of a team to set as the parent team. */
           readonly parent_team_id?: number | null;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -15990,7 +16053,7 @@ export interface operations {
           readonly body: string;
           /** Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post. */
           readonly private?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -16065,7 +16128,7 @@ export interface operations {
           readonly title?: string;
           /** The discussion post's body text. */
           readonly body?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -16130,7 +16193,7 @@ export interface operations {
         readonly "application/json": {
           /** The discussion comment's body text. */
           readonly body: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -16206,7 +16269,7 @@ export interface operations {
         readonly "application/json": {
           /** The discussion comment's body text. */
           readonly body: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -16271,7 +16334,7 @@ export interface operations {
         readonly "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment. */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -16355,7 +16418,7 @@ export interface operations {
         readonly "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion. */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -16509,12 +16572,12 @@ export interface operations {
         readonly content: {
           readonly "application/json": {
             readonly message?: string;
-            readonly errors?: readonly {
+            readonly errors?: readonly ({
               readonly code?: string;
               readonly field?: string;
               readonly resource?: string;
-            }[];
-          };
+            } & { readonly [key: string]: any })[];
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -16527,7 +16590,7 @@ export interface operations {
            * \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
            */
           readonly role?: "member" | "maintainer";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -16633,22 +16696,24 @@ export interface operations {
           readonly "application/json": {
             readonly message?: string;
             readonly documentation_url?: string;
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/json": {
-          /**
-           * The permission to grant to the team for this project. Can be one of:
-           * \* `read` - team members can read, but not write to or administer this project.
-           * \* `write` - team members can read and write, but not administer this project.
-           * \* `admin` - team members can read, write and administer this project.
-           * Default: the team's `permission` attribute will be used to determine what permission to grant the team on this project. Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
-           */
-          readonly permission?: "read" | "write" | "admin";
-        } | null;
+        readonly "application/json":
+          | ({
+              /**
+               * The permission to grant to the team for this project. Can be one of:
+               * \* `read` - team members can read, but not write to or administer this project.
+               * \* `write` - team members can read and write, but not administer this project.
+               * \* `admin` - team members can read, write and administer this project.
+               * Default: the team's `permission` attribute will be used to determine what permission to grant the team on this project. Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
+               */
+              readonly permission?: "read" | "write" | "admin";
+            } & { readonly [key: string]: any })
+          | null;
       };
     };
   };
@@ -16767,7 +16832,7 @@ export interface operations {
            * If no permission is specified, the team's `permission` attribute will be used to determine what permission to grant the team on this repository.
            */
           readonly permission?: "pull" | "push" | "admin" | "maintain" | "triage";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -16842,15 +16907,15 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** The IdP groups you want to connect to a GitHub team. When updating, the new `groups` object will replace the original one. You must include any existing groups that you don't want to remove. */
-          readonly groups: readonly {
+          readonly groups: readonly ({
             /** ID of the IdP group. */
             readonly group_id: string;
             /** Name of the IdP group. */
             readonly group_name: string;
             /** Description of the IdP group. */
             readonly group_description: string;
-          }[];
-        };
+          } & { readonly [key: string]: any })[];
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -16922,7 +16987,7 @@ export interface operations {
             readonly message?: string;
             readonly documentation_url?: string;
             readonly errors?: readonly string[];
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 404: components["responses"]["not_found"];
@@ -16955,7 +17020,7 @@ export interface operations {
           readonly note?: string | null;
           /** Whether or not the card is archived */
           readonly archived?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -16981,13 +17046,13 @@ export interface operations {
           readonly "application/json": {
             readonly message?: string;
             readonly documentation_url?: string;
-            readonly errors?: readonly {
+            readonly errors?: readonly ({
               readonly code?: string;
               readonly message?: string;
               readonly resource?: string;
               readonly field?: string;
-            }[];
-          };
+            } & { readonly [key: string]: any })[];
+          } & { readonly [key: string]: any };
         };
       };
       readonly 422: components["responses"]["validation_failed"];
@@ -16998,11 +17063,11 @@ export interface operations {
             readonly code?: string;
             readonly message?: string;
             readonly documentation_url?: string;
-            readonly errors?: readonly {
+            readonly errors?: readonly ({
               readonly code?: string;
               readonly message?: string;
-            }[];
-          };
+            } & { readonly [key: string]: any })[];
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -17013,7 +17078,7 @@ export interface operations {
           readonly position: string;
           /** The unique identifier of the column the card should be moved to */
           readonly column_id?: number;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -17075,7 +17140,7 @@ export interface operations {
         readonly "application/json": {
           /** Name of the project column */
           readonly name: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -17132,9 +17197,10 @@ export interface operations {
       /** Validation Failed */
       readonly 422: {
         readonly content: {
-          readonly "application/json":
+          readonly "application/json": (
             | components["schemas"]["validation-error"]
-            | components["schemas"]["validation-error-simple"];
+            | components["schemas"]["validation-error-simple"]
+          ) & { readonly [key: string]: any };
         };
       };
       /** Service Unavailable */
@@ -17144,27 +17210,28 @@ export interface operations {
             readonly code?: string;
             readonly message?: string;
             readonly documentation_url?: string;
-            readonly errors?: readonly {
+            readonly errors?: readonly ({
               readonly code?: string;
               readonly message?: string;
-            }[];
-          };
+            } & { readonly [key: string]: any })[];
+          } & { readonly [key: string]: any };
         };
       };
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/json":
-          | {
+        readonly "application/json": (
+          | ({
               /** The project card's note */
               readonly note: string | null;
-            }
-          | {
+            } & { readonly [key: string]: any })
+          | ({
               /** The unique identifier of the content associated with the card */
               readonly content_id: number;
               /** The piece of content associated with the card */
               readonly content_type: string;
-            };
+            } & { readonly [key: string]: any })
+        ) & { readonly [key: string]: any };
       };
     };
   };
@@ -17192,7 +17259,7 @@ export interface operations {
         readonly "application/json": {
           /** The position of the column in a project */
           readonly position: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -17234,7 +17301,7 @@ export interface operations {
             readonly message?: string;
             readonly documentation_url?: string;
             readonly errors?: readonly string[];
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 404: components["responses"]["not_found"];
@@ -17264,7 +17331,7 @@ export interface operations {
             readonly message?: string;
             readonly documentation_url?: string;
             readonly errors?: readonly string[];
-          };
+          } & { readonly [key: string]: any };
         };
       };
       /** Response if the authenticated user does not have access to the project */
@@ -17285,7 +17352,7 @@ export interface operations {
           readonly organization_permission?: "read" | "write" | "admin" | "none";
           /** Whether or not this project can be seen by everyone. */
           readonly private?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -17348,7 +17415,7 @@ export interface operations {
         readonly "application/json": {
           /** The permission to grant the collaborator. */
           readonly permission?: "read" | "write" | "admin";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -17442,7 +17509,7 @@ export interface operations {
         readonly "application/json": {
           /** Name of the project column */
           readonly name: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -17532,7 +17599,7 @@ export interface operations {
           readonly "application/json": {
             readonly message?: string;
             readonly documentation_url?: string;
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 404: components["responses"]["not_found"];
@@ -17593,7 +17660,7 @@ export interface operations {
           readonly delete_branch_on_merge?: boolean;
           /** `true` to archive this repository. **Note**: You cannot unarchive repositories through the API. */
           readonly archived?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -17619,7 +17686,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly artifacts: readonly components["schemas"]["artifact"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -17763,7 +17830,7 @@ export interface operations {
         readonly "application/json": {
           readonly enabled: components["schemas"]["actions-enabled"];
           readonly allowed_actions?: components["schemas"]["allowed-actions"];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -17836,7 +17903,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly runners: readonly components["schemas"]["runner"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -17996,7 +18063,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly workflow_runs: readonly components["schemas"]["workflow-run"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -18082,7 +18149,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly artifacts: readonly components["schemas"]["artifact"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -18132,7 +18199,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly jobs: readonly components["schemas"]["job"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -18226,7 +18293,7 @@ export interface operations {
           readonly state: "approved" | "rejected";
           /** A comment to accompany the deployment review */
           readonly comment: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -18290,7 +18357,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly secrets: readonly components["schemas"]["actions-secret"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -18430,7 +18497,7 @@ export interface operations {
           readonly encrypted_value?: string;
           /** ID of the key you used to encrypt the secret. */
           readonly key_id?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -18471,7 +18538,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly workflows: readonly components["schemas"]["workflow"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -18541,7 +18608,7 @@ export interface operations {
           readonly ref: string;
           /** Input keys and values configured in the workflow file. The maximum number of properties is 10. Any default properties configured in the workflow file will be used when `inputs` are omitted. */
           readonly inputs?: { readonly [key: string]: string };
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -18600,7 +18667,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly workflow_runs: readonly components["schemas"]["workflow-run"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -18805,46 +18872,52 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** Require status checks to pass before merging. Set to `null` to disable. */
-          readonly required_status_checks: {
-            /** Require branches to be up to date before merging. */
-            readonly strict: boolean;
-            /** The list of status checks to require in order to merge into this branch */
-            readonly contexts: readonly string[];
-          } | null;
+          readonly required_status_checks:
+            | ({
+                /** Require branches to be up to date before merging. */
+                readonly strict: boolean;
+                /** The list of status checks to require in order to merge into this branch */
+                readonly contexts: readonly string[];
+              } & { readonly [key: string]: any })
+            | null;
           /** Enforce all configured restrictions for administrators. Set to `true` to enforce required status checks for repository administrators. Set to `null` to disable. */
           readonly enforce_admins: boolean | null;
           /** Require at least one approving review on a pull request, before merging. Set to `null` to disable. */
-          readonly required_pull_request_reviews: {
-            /** Specify which users and teams can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories. */
-            readonly dismissal_restrictions?: {
-              /** The list of user `login`s with dismissal access */
-              readonly users?: readonly string[];
-              /** The list of team `slug`s with dismissal access */
-              readonly teams?: readonly string[];
-            };
-            /** Set to `true` if you want to automatically dismiss approving reviews when someone pushes a new commit. */
-            readonly dismiss_stale_reviews?: boolean;
-            /** Blocks merging pull requests until [code owners](https://help.github.com/articles/about-code-owners/) review them. */
-            readonly require_code_owner_reviews?: boolean;
-            /** Specify the number of reviewers required to approve pull requests. Use a number between 1 and 6. */
-            readonly required_approving_review_count?: number;
-          } | null;
+          readonly required_pull_request_reviews:
+            | ({
+                /** Specify which users and teams can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories. */
+                readonly dismissal_restrictions?: {
+                  /** The list of user `login`s with dismissal access */
+                  readonly users?: readonly string[];
+                  /** The list of team `slug`s with dismissal access */
+                  readonly teams?: readonly string[];
+                } & { readonly [key: string]: any };
+                /** Set to `true` if you want to automatically dismiss approving reviews when someone pushes a new commit. */
+                readonly dismiss_stale_reviews?: boolean;
+                /** Blocks merging pull requests until [code owners](https://help.github.com/articles/about-code-owners/) review them. */
+                readonly require_code_owner_reviews?: boolean;
+                /** Specify the number of reviewers required to approve pull requests. Use a number between 1 and 6. */
+                readonly required_approving_review_count?: number;
+              } & { readonly [key: string]: any })
+            | null;
           /** Restrict who can push to the protected branch. User, app, and team `restrictions` are only available for organization-owned repositories. Set to `null` to disable. */
-          readonly restrictions: {
-            /** The list of user `login`s with push access */
-            readonly users: readonly string[];
-            /** The list of team `slug`s with push access */
-            readonly teams: readonly string[];
-            /** The list of app `slug`s with push access */
-            readonly apps?: readonly string[];
-          } | null;
+          readonly restrictions:
+            | ({
+                /** The list of user `login`s with push access */
+                readonly users: readonly string[];
+                /** The list of team `slug`s with push access */
+                readonly teams: readonly string[];
+                /** The list of app `slug`s with push access */
+                readonly apps?: readonly string[];
+              } & { readonly [key: string]: any })
+            | null;
           /** Enforces a linear commit Git history, which prevents anyone from pushing merge commits to a branch. Set to `true` to enforce a linear commit history. Set to `false` to disable a linear commit Git history. Your repository must allow squash merging or rebase merging before you can enable a linear commit history. Default: `false`. For more information, see "[Requiring a linear commit history](https://help.github.com/github/administering-a-repository/requiring-a-linear-commit-history)" in the GitHub Help documentation. */
           readonly required_linear_history?: boolean;
           /** Permits force pushes to the protected branch by anyone with write access to the repository. Set to `true` to allow force pushes. Set to `false` or `null` to block force pushes. Default: `false`. For more information, see "[Enabling force pushes to a protected branch](https://help.github.com/en/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch)" in the GitHub Help documentation." */
           readonly allow_force_pushes?: boolean | null;
           /** Allows deletion of the protected branch by anyone with write access to the repository. Set to `false` to prevent deletion of the protected branch. Default: `false`. For more information, see "[Enabling force pushes to a protected branch](https://help.github.com/en/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch)" in the GitHub Help documentation. */
           readonly allow_deletions?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -18995,14 +19068,14 @@ export interface operations {
             readonly users?: readonly string[];
             /** The list of team `slug`s with dismissal access */
             readonly teams?: readonly string[];
-          };
+          } & { readonly [key: string]: any };
           /** Set to `true` if you want to automatically dismiss approving reviews when someone pushes a new commit. */
           readonly dismiss_stale_reviews?: boolean;
           /** Blocks merging pull requests until [code owners](https://help.github.com/articles/about-code-owners/) have reviewed. */
           readonly require_code_owner_reviews?: boolean;
           /** Specifies the number of reviewers required to approve pull requests. Use a number between 1 and 6. */
           readonly required_approving_review_count?: number;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -19142,7 +19215,7 @@ export interface operations {
           readonly strict?: boolean;
           /** The list of status checks to require in order to merge into this branch */
           readonly contexts?: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -19191,7 +19264,7 @@ export interface operations {
         readonly "application/json": {
           /** contexts parameter */
           readonly contexts: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -19221,7 +19294,7 @@ export interface operations {
         readonly "application/json": {
           /** contexts parameter */
           readonly contexts: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -19250,7 +19323,7 @@ export interface operations {
         readonly "application/json": {
           /** contexts parameter */
           readonly contexts: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -19355,7 +19428,7 @@ export interface operations {
         readonly "application/json": {
           /** apps parameter */
           readonly apps: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -19391,7 +19464,7 @@ export interface operations {
         readonly "application/json": {
           /** apps parameter */
           readonly apps: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -19427,7 +19500,7 @@ export interface operations {
         readonly "application/json": {
           /** apps parameter */
           readonly apps: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -19487,7 +19560,7 @@ export interface operations {
         readonly "application/json": {
           /** teams parameter */
           readonly teams: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -19523,7 +19596,7 @@ export interface operations {
         readonly "application/json": {
           /** teams parameter */
           readonly teams: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -19559,7 +19632,7 @@ export interface operations {
         readonly "application/json": {
           /** teams parameter */
           readonly teams: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -19619,7 +19692,7 @@ export interface operations {
         readonly "application/json": {
           /** users parameter */
           readonly users: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -19655,7 +19728,7 @@ export interface operations {
         readonly "application/json": {
           /** users parameter */
           readonly users: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -19691,7 +19764,7 @@ export interface operations {
         readonly "application/json": {
           /** users parameter */
           readonly users: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -19737,7 +19810,7 @@ export interface operations {
         readonly "application/json": {
           /** The new name of the branch. */
           readonly new_name: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -19768,12 +19841,12 @@ export interface operations {
         readonly "application/json": (Partial<
           {
             readonly status?: "completed";
-          } & { [key: string]: any }
+          } & { readonly [key: string]: any }
         > &
           Partial<
             {
               readonly status?: "queued" | "in_progress";
-            } & { [key: string]: any }
+            } & { readonly [key: string]: any }
           >) & {
           /** The name of the check. For example, "code-coverage". */
           readonly name: string;
@@ -19811,7 +19884,7 @@ export interface operations {
             /** The details of the check run. This parameter supports Markdown. */
             readonly text?: string;
             /** Adds information from your analysis to specific lines of code. Annotations are visible on GitHub in the **Checks** and **Files changed** tab of the pull request. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://docs.github.com/rest/reference/checks#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. For details about how you can view annotations on GitHub, see "[About status checks](https://help.github.com/articles/about-status-checks#checks)". See the [`annotations` object](https://docs.github.com/rest/reference/checks#annotations-object) description for details about how to use this parameter. */
-            readonly annotations?: readonly {
+            readonly annotations?: readonly ({
               /** The path of the file to add an annotation to. For example, `assets/css/main.css`. */
               readonly path: string;
               /** The start line of the annotation. */
@@ -19830,27 +19903,27 @@ export interface operations {
               readonly title?: string;
               /** Details about this annotation. The maximum size is 64 KB. */
               readonly raw_details?: string;
-            }[];
+            } & { readonly [key: string]: any })[];
             /** Adds images to the output displayed in the GitHub pull request UI. See the [`images` object](https://docs.github.com/rest/reference/checks#images-object) description for details. */
-            readonly images?: readonly {
+            readonly images?: readonly ({
               /** The alternative text for the image. */
               readonly alt: string;
               /** The full URL of the image. */
               readonly image_url: string;
               /** A short image description. */
               readonly caption?: string;
-            }[];
-          };
+            } & { readonly [key: string]: any })[];
+          } & { readonly [key: string]: any };
           /** Displays a button on GitHub that can be clicked to alert your app to do additional tasks. For example, a code linting app can display a button that automatically fixes detected errors. The button created in this object is displayed after the check run completes. When a user clicks the button, GitHub sends the [`check_run.requested_action` webhook](https://docs.github.com/webhooks/event-payloads/#check_run) to your app. Each action includes a `label`, `identifier` and `description`. A maximum of three actions are accepted. See the [`actions` object](https://docs.github.com/rest/reference/checks#actions-object) description. To learn more about check runs and requested actions, see "[Check runs and requested actions](https://docs.github.com/rest/reference/checks#check-runs-and-requested-actions)." To learn more about check runs and requested actions, see "[Check runs and requested actions](https://docs.github.com/rest/reference/checks#check-runs-and-requested-actions)." */
-          readonly actions?: readonly {
+          readonly actions?: readonly ({
             /** The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
             readonly label: string;
             /** A short explanation of what this action would do. The maximum size is 40 characters. */
             readonly description: string;
             /** A reference for the action on the integrator's system. The maximum size is 20 characters. */
             readonly identifier: string;
-          }[];
-        };
+          } & { readonly [key: string]: any })[];
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -19904,12 +19977,12 @@ export interface operations {
         readonly "application/json": (Partial<
           {
             readonly status?: "completed";
-          } & { [key: string]: any }
+          } & { readonly [key: string]: any }
         > &
           Partial<
             {
               readonly status?: "queued" | "in_progress";
-            } & { [key: string]: any }
+            } & { readonly [key: string]: any }
           >) & {
           /** The name of the check. For example, "code-coverage". */
           readonly name?: string;
@@ -19945,7 +20018,7 @@ export interface operations {
             /** Can contain Markdown. */
             readonly text?: string;
             /** Adds information from your analysis to specific lines of code. Annotations are visible in GitHub's pull request UI. Annotations are visible in GitHub's pull request UI. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://docs.github.com/rest/reference/checks#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. For details about annotations in the UI, see "[About status checks](https://help.github.com/articles/about-status-checks#checks)". See the [`annotations` object](https://docs.github.com/rest/reference/checks#annotations-object-1) description for details. */
-            readonly annotations?: readonly {
+            readonly annotations?: readonly ({
               /** The path of the file to add an annotation to. For example, `assets/css/main.css`. */
               readonly path: string;
               /** The start line of the annotation. */
@@ -19964,27 +20037,27 @@ export interface operations {
               readonly title?: string;
               /** Details about this annotation. The maximum size is 64 KB. */
               readonly raw_details?: string;
-            }[];
+            } & { readonly [key: string]: any })[];
             /** Adds images to the output displayed in the GitHub pull request UI. See the [`images` object](https://docs.github.com/rest/reference/checks#annotations-object-1) description for details. */
-            readonly images?: readonly {
+            readonly images?: readonly ({
               /** The alternative text for the image. */
               readonly alt: string;
               /** The full URL of the image. */
               readonly image_url: string;
               /** A short image description. */
               readonly caption?: string;
-            }[];
-          };
+            } & { readonly [key: string]: any })[];
+          } & { readonly [key: string]: any };
           /** Possible further actions the integrator can perform, which a user may trigger. Each action includes a `label`, `identifier` and `description`. A maximum of three actions are accepted. See the [`actions` object](https://docs.github.com/rest/reference/checks#actions-object) description. To learn more about check runs and requested actions, see "[Check runs and requested actions](https://docs.github.com/rest/reference/checks#check-runs-and-requested-actions)." */
-          readonly actions?: readonly {
+          readonly actions?: readonly ({
             /** The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
             readonly label: string;
             /** A short explanation of what this action would do. The maximum size is 40 characters. */
             readonly description: string;
             /** A reference for the action on the integrator's system. The maximum size is 20 characters. */
             readonly identifier: string;
-          }[];
-        };
+          } & { readonly [key: string]: any })[];
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -20039,7 +20112,7 @@ export interface operations {
         readonly "application/json": {
           /** The sha of the head commit. */
           readonly head_sha: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -20063,13 +20136,13 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** Enables or disables automatic creation of CheckSuite events upon pushes to the repository. Enabled by default. See the [`auto_trigger_checks` object](https://docs.github.com/rest/reference/checks#auto_trigger_checks-object) description for details. */
-          readonly auto_trigger_checks?: readonly {
+          readonly auto_trigger_checks?: readonly ({
             /** The `id` of the GitHub App. */
             readonly app_id: number;
             /** Set to `true` to enable automatic creation of CheckSuite events upon pushes to the repository, or `false` to disable them. */
             readonly setting: boolean;
-          }[];
-        };
+          } & { readonly [key: string]: any })[];
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -20130,7 +20203,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly check_runs: readonly components["schemas"]["check-run"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -20251,7 +20324,7 @@ export interface operations {
         readonly "application/json": {
           readonly state: components["schemas"]["code-scanning-alert-set-state"];
           readonly dismissed_reason?: components["schemas"]["code-scanning-alert-dismissed-reason"];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -20525,7 +20598,7 @@ export interface operations {
           readonly started_at?: string;
           /** The name of the tool used to generate the code scanning analysis. If this parameter is not used, the tool name defaults to "API". If the uploaded SARIF contains a tool GUID, this will be available for filtering using the `tool_guid` parameter of operations such as `GET /repos/{owner}/{repo}/code-scanning/alerts`. */
           readonly tool_name?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -20654,7 +20727,7 @@ export interface operations {
            */
           readonly permission?: "pull" | "push" | "admin" | "maintain" | "triage";
           readonly permissions?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -20775,7 +20848,7 @@ export interface operations {
         readonly "application/json": {
           /** The contents of the comment */
           readonly body: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -20840,7 +20913,7 @@ export interface operations {
         readonly "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the commit comment. */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -21020,7 +21093,7 @@ export interface operations {
           readonly position?: number;
           /** **Deprecated**. Use **position** parameter instead. Line number in the file to comment on. */
           readonly line?: number;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -21144,7 +21217,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly check_runs: readonly components["schemas"]["check-run"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -21181,7 +21254,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly check_suites: readonly components["schemas"]["check-suite"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -21413,11 +21486,12 @@ export interface operations {
       readonly 200: {
         readonly content: {
           readonly "application/vnd.github.v3.object": components["schemas"]["content-tree"];
-          readonly "application/json":
+          readonly "application/json": (
             | components["schemas"]["content-directory"]
             | components["schemas"]["content-file"]
             | components["schemas"]["content-symlink"]
-            | components["schemas"]["content-submodule"];
+            | components["schemas"]["content-submodule"]
+          ) & { readonly [key: string]: any };
         };
       };
       readonly 302: components["responses"]["found"];
@@ -21470,7 +21544,7 @@ export interface operations {
             /** The email of the author or committer of the commit. You'll receive a `422` status code if `email` is omitted. */
             readonly email: string;
             readonly date?: string;
-          };
+          } & { readonly [key: string]: any };
           /** The author of the file. Default: The `committer` or the authenticated user if you omit `committer`. */
           readonly author?: {
             /** The name of the author or committer of the commit. You'll receive a `422` status code if `name` is omitted. */
@@ -21478,8 +21552,8 @@ export interface operations {
             /** The email of the author or committer of the commit. You'll receive a `422` status code if `email` is omitted. */
             readonly email: string;
             readonly date?: string;
-          };
-        };
+          } & { readonly [key: string]: any };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -21528,15 +21602,15 @@ export interface operations {
             readonly name?: string;
             /** The email of the author (or committer) of the commit */
             readonly email?: string;
-          };
+          } & { readonly [key: string]: any };
           /** object containing information about the author. */
           readonly author?: {
             /** The name of the author (or committer) of the commit */
             readonly name?: string;
             /** The email of the author (or committer) of the commit */
             readonly email?: string;
-          };
-        };
+          } & { readonly [key: string]: any };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -21672,7 +21746,7 @@ export interface operations {
         readonly content: {
           readonly "application/json": {
             readonly message?: string;
-          };
+          } & { readonly [key: string]: any };
         };
       };
       /** response */
@@ -21681,7 +21755,7 @@ export interface operations {
           readonly "application/json": {
             readonly message?: string;
             readonly documentation_url?: string;
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 422: components["responses"]["validation_failed"];
@@ -21697,7 +21771,7 @@ export interface operations {
           readonly auto_merge?: boolean;
           /** The [status](https://docs.github.com/rest/reference/repos#statuses) contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts. */
           readonly required_contexts?: readonly string[];
-          readonly payload?: { [key: string]: any } | string;
+          readonly payload?: ({ readonly [key: string]: any } | string) & { readonly [key: string]: any };
           /** Name for the target deployment environment (e.g., `production`, `staging`, `qa`). */
           readonly environment?: string;
           /** Short description of the deployment. */
@@ -21713,7 +21787,7 @@ export interface operations {
            */
           readonly production_environment?: boolean;
           readonly created_at?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -21842,7 +21916,7 @@ export interface operations {
            * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type.
            */
           readonly auto_inactive?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -21898,8 +21972,8 @@ export interface operations {
           /** A custom webhook event name. */
           readonly event_type: string;
           /** JSON payload with extra information about the webhook event that your action or worklow may use. */
-          readonly client_payload?: { [key: string]: any };
-        };
+          readonly client_payload?: { readonly [key: string]: any };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -21923,7 +21997,7 @@ export interface operations {
             /** The number of environments in this repository */
             readonly total_count?: number;
             readonly environments?: readonly components["schemas"]["environment"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -21984,13 +22058,13 @@ export interface operations {
         readonly "application/json": {
           readonly wait_timer?: components["schemas"]["wait-timer"];
           /** The people or teams that may review jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed. */
-          readonly reviewers?: readonly {
+          readonly reviewers?: readonly ({
             readonly type?: components["schemas"]["deployment-reviewer-type"];
             /** The id of the user or team who can review the deployment */
             readonly id?: number;
-          }[];
+          } & { readonly [key: string]: any })[];
           readonly deployment_branch_policy?: components["schemas"]["deployment_branch_policy"];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -22086,7 +22160,7 @@ export interface operations {
         readonly "application/json": {
           /** Optional parameter to specify the organization name if forking into an organization. */
           readonly organization?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -22119,7 +22193,7 @@ export interface operations {
           readonly content: string;
           /** The encoding used for `content`. Currently, `"utf-8"` and `"base64"` are supported. */
           readonly encoding?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -22217,7 +22291,7 @@ export interface operations {
             readonly email?: string;
             /** Indicates when this commit was authored (or committed). This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
             readonly date?: string;
-          };
+          } & { readonly [key: string]: any };
           /** Information about the person who is making the commit. By default, `committer` will use the information set in `author`. See the `author` and `committer` object below for details. */
           readonly committer?: {
             /** The name of the author (or committer) of the commit */
@@ -22226,10 +22300,10 @@ export interface operations {
             readonly email?: string;
             /** Indicates when this commit was authored (or committed). This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
             readonly date?: string;
-          };
+          } & { readonly [key: string]: any };
           /** The [PGP signature](https://en.wikipedia.org/wiki/Pretty_Good_Privacy) of the commit. GitHub adds the signature to the `gpgsig` header of the created commit. For a commit signature to be verifiable by Git or GitHub, it must be an ASCII-armored detached PGP signature over the string commit as it would be written to the object database. To pass a `signature` parameter, you need to first manually create a valid PGP signature, which can be complicated. You may find it easier to [use the command line](https://git-scm.com/book/id/v2/Git-Tools-Signing-Your-Work) to create signed commits. */
           readonly signature?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -22370,7 +22444,7 @@ export interface operations {
           /** The SHA1 value for this reference. */
           readonly sha: string;
           readonly key?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -22414,7 +22488,7 @@ export interface operations {
           readonly sha: string;
           /** Indicates whether to force the update or to make sure the update is a fast-forward update. Leaving this out or setting it to `false` will make sure you're not overwriting work. */
           readonly force?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -22488,8 +22562,8 @@ export interface operations {
             readonly email?: string;
             /** When this object was tagged. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
             readonly date?: string;
-          };
-        };
+          } & { readonly [key: string]: any };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -22571,7 +22645,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** Objects (of `path`, `mode`, `type`, and `sha`) specifying a tree structure. */
-          readonly tree: readonly {
+          readonly tree: readonly ({
             /** The file referenced in the tree. */
             readonly path?: string;
             /** The file mode; one of `100644` for file (blob), `100755` for executable (blob), `040000` for subdirectory (tree), `160000` for submodule (commit), or `120000` for a blob that specifies the path of a symlink. */
@@ -22590,13 +22664,13 @@ export interface operations {
              * **Note:** Use either `tree.sha` or `content` to specify the contents of the entry. Using both `tree.sha` and `content` will return an error.
              */
             readonly content?: string;
-          }[];
+          } & { readonly [key: string]: any })[];
           /**
            * The SHA1 of an existing Git tree object which will be used as the base for the new tree. If provided, a new Git tree object will be created from entries in the Git tree object pointed to by `base_tree` and entries defined in the `tree` parameter. Entries defined in the `tree` parameter will overwrite items from `base_tree` with the same `path`. If you're creating new changes on a branch, then normally you'd set `base_tree` to the SHA1 of the Git tree object of the current latest commit on the branch you're working on.
            * If not provided, GitHub will create a new Git tree object from only the entries defined in the `tree` parameter. If you create a new commit pointing to such a tree, then all files which were a part of the parent commit's tree and were not defined in the `tree` parameter will be listed as deleted by the new commit.
            */
           readonly base_tree?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -22690,12 +22764,12 @@ export interface operations {
             readonly insecure_ssl?: components["schemas"]["webhook-config-insecure-ssl"];
             readonly token?: string;
             readonly digest?: string;
-          };
+          } & { readonly [key: string]: any };
           /** Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. */
           readonly events?: readonly string[];
           /** Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications. */
           readonly active?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -22762,7 +22836,7 @@ export interface operations {
             readonly insecure_ssl?: components["schemas"]["webhook-config-insecure-ssl"];
             readonly address?: string;
             readonly room?: string;
-          };
+          } & { readonly [key: string]: any };
           /** Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. This replaces the entire array of events. */
           readonly events?: readonly string[];
           /** Determines a list of events to be added to the list of events that the Hook triggers for. */
@@ -22771,7 +22845,7 @@ export interface operations {
           readonly remove_events?: readonly string[];
           /** Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications. */
           readonly active?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -22825,7 +22899,7 @@ export interface operations {
           readonly content_type?: components["schemas"]["webhook-config-content-type"];
           readonly secret?: components["schemas"]["webhook-config-secret"];
           readonly insecure_ssl?: components["schemas"]["webhook-config-insecure-ssl"];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -22950,7 +23024,7 @@ export interface operations {
           readonly vcs_password?: string;
           /** For a tfvc import, the name of the project that is being imported. */
           readonly tfvc_project?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -22995,7 +23069,7 @@ export interface operations {
           readonly vcs_password?: string;
           readonly vcs?: string;
           readonly tfvc_project?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -23052,7 +23126,7 @@ export interface operations {
           /** The new Git author name. */
           readonly name?: string;
           readonly remote_id?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -23095,7 +23169,7 @@ export interface operations {
         readonly "application/json": {
           /** Can be one of `opt_in` (large files will be stored using Git LFS) or `opt_out` (large files will be removed during the import). */
           readonly use_lfs: "opt_in" | "opt_out";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -23238,7 +23312,7 @@ export interface operations {
         readonly "application/json": {
           /** The permissions that the associated user will have on the repository. Valid values are `read`, `write`, `maintain`, `triage`, and `admin`. */
           readonly permissions?: "read" | "write" | "maintain" | "triage" | "admin";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -23326,25 +23400,25 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** The title of the issue. */
-          readonly title: string | number;
+          readonly title: (string | number) & { readonly [key: string]: any };
           /** The contents of the issue. */
           readonly body?: string;
           /** Login for the user that this issue should be assigned to. _NOTE: Only users with push access can set the assignee for new issues. The assignee is silently dropped otherwise. **This field is deprecated.**_ */
           readonly assignee?: string | null;
-          readonly milestone?: (string | number) | null;
+          readonly milestone?: ((string | number) & { readonly [key: string]: any }) | null;
           /** Labels to associate with this issue. _NOTE: Only users with push access can set labels for new issues. Labels are silently dropped otherwise._ */
-          readonly labels?: readonly (
+          readonly labels?: readonly ((
             | string
-            | {
+            | ({
                 readonly id?: number;
                 readonly name?: string;
                 readonly description?: string | null;
                 readonly color?: string | null;
-              }
-          )[];
+              } & { readonly [key: string]: any })
+          ) & { readonly [key: string]: any })[];
           /** Logins for Users to assign to this issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._ */
           readonly assignees?: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -23436,7 +23510,7 @@ export interface operations {
         readonly "application/json": {
           /** The contents of the comment. */
           readonly body: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -23501,7 +23575,7 @@ export interface operations {
         readonly "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue comment. */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -23632,27 +23706,27 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** The title of the issue. */
-          readonly title?: (string | number) | null;
+          readonly title?: ((string | number) & { readonly [key: string]: any }) | null;
           /** The contents of the issue. */
           readonly body?: string | null;
           /** Login for the user that this issue should be assigned to. **This field is deprecated.** */
           readonly assignee?: string | null;
           /** State of the issue. Either `open` or `closed`. */
           readonly state?: "open" | "closed";
-          readonly milestone?: (string | number) | null;
+          readonly milestone?: ((string | number) & { readonly [key: string]: any }) | null;
           /** Labels to associate with this issue. Pass one or more Labels to _replace_ the set of Labels on this Issue. Send an empty array (`[]`) to clear all Labels from the Issue. _NOTE: Only users with push access can set labels for issues. Labels are silently dropped otherwise._ */
-          readonly labels?: readonly (
+          readonly labels?: readonly ((
             | string
-            | {
+            | ({
                 readonly id?: number;
                 readonly name?: string;
                 readonly description?: string | null;
                 readonly color?: string | null;
-              }
-          )[];
+              } & { readonly [key: string]: any })
+          ) & { readonly [key: string]: any })[];
           /** Logins for Users to assign to this issue. Pass one or more user logins to _replace_ the set of assignees on this Issue. Send an empty array (`[]`) to clear all assignees from the Issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._ */
           readonly assignees?: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -23679,7 +23753,7 @@ export interface operations {
         readonly "application/json": {
           /** Usernames of people to assign this issue to. _NOTE: Only users with push access can add assignees to an issue. Assignees are silently ignored otherwise._ */
           readonly assignees?: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -23706,7 +23780,7 @@ export interface operations {
         readonly "application/json": {
           /** Usernames of assignees to remove from an issue. _NOTE: Only users with push access can remove assignees from an issue. Assignees are silently ignored otherwise._ */
           readonly assignees?: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -23770,7 +23844,7 @@ export interface operations {
         readonly "application/json": {
           /** The contents of the comment. */
           readonly body: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -23851,7 +23925,7 @@ export interface operations {
         readonly "application/json": {
           /** The names of the labels to add to the issue. You can pass an empty array to remove all labels. **Note:** Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key. */
           readonly labels?: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -23879,7 +23953,7 @@ export interface operations {
         readonly "application/json": {
           /** The name of the label to add to the issue. Must contain at least one label. **Note:** Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key. */
           readonly labels: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -23944,16 +24018,18 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/json": {
-          /**
-           * The reason for locking the issue or pull request conversation. Lock will fail if you don't use one of these reasons:
-           * \* `off-topic`
-           * \* `too heated`
-           * \* `resolved`
-           * \* `spam`
-           */
-          readonly lock_reason?: "off-topic" | "too heated" | "resolved" | "spam";
-        } | null;
+        readonly "application/json":
+          | ({
+              /**
+               * The reason for locking the issue or pull request conversation. Lock will fail if you don't use one of these reasons:
+               * \* `off-topic`
+               * \* `too heated`
+               * \* `resolved`
+               * \* `spam`
+               */
+              readonly lock_reason?: "off-topic" | "too heated" | "resolved" | "spam";
+            } & { readonly [key: string]: any })
+          | null;
       };
     };
   };
@@ -24030,7 +24106,7 @@ export interface operations {
         readonly "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue. */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -24138,7 +24214,7 @@ export interface operations {
            * Deploy keys with write access can perform the same actions as an organization member with admin access, or a collaborator on a personal repository. For more information, see "[Repository permission levels for an organization](https://help.github.com/articles/repository-permission-levels-for-an-organization/)" and "[Permission levels for a user account repository](https://help.github.com/articles/permission-levels-for-a-user-account-repository/)."
            */
           readonly read_only?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -24229,7 +24305,7 @@ export interface operations {
           readonly color?: string;
           /** A short description of the label. */
           readonly description?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -24289,7 +24365,7 @@ export interface operations {
           readonly color?: string;
           /** A short description of the label. */
           readonly description?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -24352,7 +24428,7 @@ export interface operations {
           readonly "application/json": {
             readonly message?: string;
             readonly documentation_url?: string;
-          };
+          } & { readonly [key: string]: any };
         };
       };
       /** Merge conflict response */
@@ -24361,7 +24437,7 @@ export interface operations {
           readonly "application/json": {
             readonly message?: string;
             readonly documentation_url?: string;
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 422: components["responses"]["validation_failed"];
@@ -24375,7 +24451,7 @@ export interface operations {
           readonly head: string;
           /** Commit message to use for the merge commit. If omitted, a default message will be used. */
           readonly commit_message?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -24440,7 +24516,7 @@ export interface operations {
           readonly description?: string;
           /** The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
           readonly due_on?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -24506,7 +24582,7 @@ export interface operations {
           readonly description?: string;
           /** The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
           readonly due_on?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -24584,7 +24660,7 @@ export interface operations {
         readonly "application/json": {
           /** Describes the last point that notifications were checked. Anything updated since this time will not be marked as read. If you omit this parameter, all notifications are marked as read. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. Default: The current timestamp. */
           readonly last_read_at?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -24626,14 +24702,16 @@ export interface operations {
           readonly cname?: string | null;
           /** Configures access controls for the GitHub Pages site. If public is set to `true`, the site is accessible to anyone on the internet. If set to `false`, the site will only be accessible to users who have at least `read` access to the repository that published the site. This includes anyone in your Enterprise if the repository is set to `internal` visibility. This feature is only available to repositories in an organization on an Enterprise plan. */
           readonly public?: boolean;
-          readonly source: Partial<"gh-pages" | "master" | "master /docs"> &
-            Partial<{
-              /** The repository branch used to publish your site's source files. */
-              readonly branch: string;
-              /** The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`. */
-              readonly path: "/" | "/docs";
-            }>;
-        };
+          readonly source: (Partial<"gh-pages" | "master" | "master /docs"> &
+            Partial<
+              {
+                /** The repository branch used to publish your site's source files. */
+                readonly branch: string;
+                /** The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`. */
+                readonly path: "/" | "/docs";
+              } & { readonly [key: string]: any }
+            >) & { readonly [key: string]: any };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -24665,8 +24743,8 @@ export interface operations {
             readonly branch: string;
             /** The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`. Default: `/` */
             readonly path?: "/" | "/docs";
-          };
-        };
+          } & { readonly [key: string]: any };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -24821,7 +24899,7 @@ export interface operations {
           readonly name: string;
           /** The description of the project. */
           readonly body?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -24906,7 +24984,7 @@ export interface operations {
           /** Indicates whether the pull request is a draft. See "[Draft Pull Requests](https://help.github.com/en/articles/about-pull-requests#draft-pull-requests)" in the GitHub Help documentation to learn more. */
           readonly draft?: boolean;
           readonly issue?: number;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -24999,7 +25077,7 @@ export interface operations {
         readonly "application/json": {
           /** The text of the reply to the review comment. */
           readonly body: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -25064,7 +25142,7 @@ export interface operations {
         readonly "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the pull request review comment. */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -25161,7 +25239,7 @@ export interface operations {
           readonly base?: string;
           /** Indicates whether [maintainers can modify](https://help.github.com/articles/allowing-changes-to-a-pull-request-branch-created-from-a-fork/) the pull request. */
           readonly maintainer_can_modify?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -25246,7 +25324,7 @@ export interface operations {
           /** **Required when using multi-line comments**. To create multi-line comments, you must use the `comfort-fade` preview header. The `start_side` is the starting side of the diff that the comment applies to. Can be `LEFT` or `RIGHT`. To learn more about multi-line comments, see "[Commenting on a pull request](https://help.github.com/en/articles/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)" in the GitHub Help documentation. See `side` in this table for additional context. */
           readonly start_side?: "LEFT" | "RIGHT" | "side";
           readonly in_reply_to?: number;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -25282,7 +25360,7 @@ export interface operations {
         readonly "application/json": {
           /** The text of the review comment. */
           readonly body: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -25377,7 +25455,7 @@ export interface operations {
           readonly "application/json": {
             readonly message?: string;
             readonly documentation_url?: string;
-          };
+          } & { readonly [key: string]: any };
         };
       };
       /** Response if sha was provided and pull request head did not match */
@@ -25386,23 +25464,25 @@ export interface operations {
           readonly "application/json": {
             readonly message?: string;
             readonly documentation_url?: string;
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 422: components["responses"]["validation_failed"];
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/json": {
-          /** Title for the automatic commit message. */
-          readonly commit_title?: string;
-          /** Extra detail to append to automatic commit message. */
-          readonly commit_message?: string;
-          /** SHA that pull request head must match to allow merge. */
-          readonly sha?: string;
-          /** Merge method to use. Possible values are `merge`, `squash` or `rebase`. Default is `merge`. */
-          readonly merge_method?: "merge" | "squash" | "rebase";
-        } | null;
+        readonly "application/json":
+          | ({
+              /** Title for the automatic commit message. */
+              readonly commit_title?: string;
+              /** Extra detail to append to automatic commit message. */
+              readonly commit_message?: string;
+              /** SHA that pull request head must match to allow merge. */
+              readonly sha?: string;
+              /** Merge method to use. Possible values are `merge`, `squash` or `rebase`. Default is `merge`. */
+              readonly merge_method?: "merge" | "squash" | "rebase";
+            } & { readonly [key: string]: any })
+          | null;
       };
     };
   };
@@ -25458,7 +25538,7 @@ export interface operations {
           readonly reviewers?: readonly string[];
           /** An array of team `slug`s that will be requested. */
           readonly team_reviewers?: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -25482,7 +25562,7 @@ export interface operations {
           readonly reviewers: readonly string[];
           /** An array of team `slug`s that will be removed. */
           readonly team_reviewers?: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -25548,7 +25628,7 @@ export interface operations {
           /** The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. By leaving this blank, you set the review action state to `PENDING`, which means you will need to [submit the pull request review](https://docs.github.com/rest/reference/pulls#submit-a-review-for-a-pull-request) when you are ready. */
           readonly event?: "APPROVE" | "REQUEST_CHANGES" | "COMMENT";
           /** Use the following table to specify the location, destination, and contents of the draft review comment. */
-          readonly comments?: readonly {
+          readonly comments?: readonly ({
             /** The relative path to the file that necessitates a review comment. */
             readonly path: string;
             /** The position in the diff where you want to add a review comment. Note this value is not the same as the line number in the file. For help finding the position value, read the note below. */
@@ -25559,8 +25639,8 @@ export interface operations {
             readonly side?: string;
             readonly start_line?: number;
             readonly start_side?: string;
-          }[];
-        };
+          } & { readonly [key: string]: any })[];
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -25609,7 +25689,7 @@ export interface operations {
         readonly "application/json": {
           /** The body text of the pull request review. */
           readonly body: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -25689,7 +25769,7 @@ export interface operations {
           /** The message for the pull request review dismissal */
           readonly message: string;
           readonly event?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -25721,7 +25801,7 @@ export interface operations {
           readonly body?: string;
           /** The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. When you leave this blank, the API returns _HTTP 422 (Unrecognizable entity)_ and sets the review action state to `PENDING`, which means you will need to re-submit the pull request review using a review action. */
           readonly event: "APPROVE" | "REQUEST_CHANGES" | "COMMENT";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -25741,7 +25821,7 @@ export interface operations {
           readonly "application/json": {
             readonly message?: string;
             readonly url?: string;
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 403: components["responses"]["forbidden"];
@@ -25750,10 +25830,12 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/json": {
-          /** The expected SHA of the pull request's HEAD ref. This is the most recent commit on the pull request's branch. If the expected SHA does not match the pull request's HEAD, you will receive a `422 Unprocessable Entity` status. You can use the "[List commits](https://docs.github.com/rest/reference/repos#list-commits)" endpoint to find the most recent commit SHA. Default: SHA of the pull request's current HEAD ref. */
-          readonly expected_head_sha?: string;
-        } | null;
+        readonly "application/json":
+          | ({
+              /** The expected SHA of the pull request's HEAD ref. This is the most recent commit on the pull request's branch. If the expected SHA does not match the pull request's HEAD, you will receive a `422 Unprocessable Entity` status. You can use the "[List commits](https://docs.github.com/rest/reference/repos#list-commits)" endpoint to find the most recent commit SHA. Default: SHA of the pull request's current HEAD ref. */
+              readonly expected_head_sha?: string;
+            } & { readonly [key: string]: any })
+          | null;
       };
     };
   };
@@ -25852,7 +25934,7 @@ export interface operations {
           readonly draft?: boolean;
           /** `true` to identify the release as a prerelease. `false` to identify the release as a full release. */
           readonly prerelease?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -25918,7 +26000,7 @@ export interface operations {
           /** An alternate short description of the asset. Used in place of the filename. */
           readonly label?: string;
           readonly state?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -26031,7 +26113,7 @@ export interface operations {
           readonly draft?: boolean;
           /** `true` to identify the release as a prerelease, `false` to identify the release as a full release. */
           readonly prerelease?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -26197,7 +26279,7 @@ export interface operations {
         readonly "application/json": {
           readonly state: components["schemas"]["secret-scanning-alert-state"];
           readonly resolution?: components["schemas"]["secret-scanning-alert-resolution"];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -26380,7 +26462,7 @@ export interface operations {
           readonly description?: string;
           /** A string label to differentiate this status from the status of other systems. This field is case-insensitive. */
           readonly context?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -26450,7 +26532,7 @@ export interface operations {
           readonly subscribed?: boolean;
           /** Determines if all notifications should be blocked from this repository. */
           readonly ignored?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -26573,7 +26655,7 @@ export interface operations {
         readonly "application/json": {
           /** An array of topics to add to the repository. Pass one or more topics to _replace_ the set of existing topics. Send an empty array (`[]`) to clear all topics from the repository. **Note:** Topic `names` cannot contain uppercase letters. */
           readonly names: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -26680,7 +26762,7 @@ export interface operations {
           readonly new_owner: string;
           /** ID of the team or teams to add to the repository. Teams can only be added to organization-owned repositories. */
           readonly team_ids?: readonly number[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -26785,7 +26867,7 @@ export interface operations {
           readonly include_all_branches?: boolean;
           /** Either `true` to create a new private repository or `false` to create a new public one. */
           readonly private?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -26838,7 +26920,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly secrets: readonly components["schemas"]["actions-secret"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -26981,7 +27063,7 @@ export interface operations {
           readonly encrypted_value?: string;
           /** ID of the key you used to encrypt the secret. */
           readonly key_id?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -27051,11 +27133,11 @@ export interface operations {
           readonly schemas: readonly string[];
           /** The name of the SCIM group. This must match the GitHub organization that the group maps to. */
           readonly displayName: string;
-          readonly members?: readonly {
+          readonly members?: readonly ({
             /** The SCIM user ID for a user. */
             readonly value: string;
-          }[];
-        };
+          } & { readonly [key: string]: any })[];
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -27107,11 +27189,11 @@ export interface operations {
           readonly schemas: readonly string[];
           /** The name of the SCIM group. This must match the GitHub organization that the group maps to. */
           readonly displayName: string;
-          readonly members?: readonly {
+          readonly members?: readonly ({
             /** The SCIM user ID for a user. */
             readonly value: string;
-          }[];
-        };
+          } & { readonly [key: string]: any })[];
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -27159,7 +27241,7 @@ export interface operations {
           readonly schemas: readonly string[];
           /** Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
           readonly Operations: readonly { readonly [key: string]: any }[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -27239,21 +27321,21 @@ export interface operations {
             readonly givenName: string;
             /** The last name of the user. */
             readonly familyName: string;
-          };
+          } & { readonly [key: string]: any };
           /** List of user emails. */
-          readonly emails: readonly {
+          readonly emails: readonly ({
             /** The email address. */
             readonly value: string;
             /** The type of email address. */
             readonly type: string;
             /** Whether this email address is the primary address. */
             readonly primary: boolean;
-          }[];
+          } & { readonly [key: string]: any })[];
           /** List of SCIM group IDs the user is a member of. */
-          readonly groups?: readonly {
+          readonly groups?: readonly ({
             readonly value?: string;
-          }[];
-        };
+          } & { readonly [key: string]: any })[];
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -27314,21 +27396,21 @@ export interface operations {
             readonly givenName: string;
             /** The last name of the user. */
             readonly familyName: string;
-          };
+          } & { readonly [key: string]: any };
           /** List of user emails. */
-          readonly emails: readonly {
+          readonly emails: readonly ({
             /** The email address. */
             readonly value: string;
             /** The type of email address. */
             readonly type: string;
             /** Whether this email address is the primary address. */
             readonly primary: boolean;
-          }[];
+          } & { readonly [key: string]: any })[];
           /** List of SCIM group IDs the user is a member of. */
-          readonly groups?: readonly {
+          readonly groups?: readonly ({
             readonly value?: string;
-          }[];
-        };
+          } & { readonly [key: string]: any })[];
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -27391,7 +27473,7 @@ export interface operations {
           readonly schemas: readonly string[];
           /** Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
           readonly Operations: readonly { readonly [key: string]: any }[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -27480,18 +27562,18 @@ export interface operations {
             readonly givenName: string;
             readonly familyName: string;
             readonly formatted?: string;
-          };
+          } & { readonly [key: string]: any };
           /** user emails */
-          readonly emails: readonly {
+          readonly emails: readonly ({
             readonly value: string;
             readonly primary?: boolean;
             readonly type?: string;
-          }[];
+          } & { readonly [key: string]: any })[];
           readonly schemas?: readonly string[];
           readonly externalId?: string;
           readonly groups?: readonly string[];
           readonly active?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -27556,14 +27638,14 @@ export interface operations {
             readonly givenName: string;
             readonly familyName: string;
             readonly formatted?: string;
-          };
+          } & { readonly [key: string]: any };
           /** user emails */
-          readonly emails: readonly {
+          readonly emails: readonly ({
             readonly type?: string;
             readonly value: string;
             readonly primary?: boolean;
-          }[];
-        };
+          } & { readonly [key: string]: any })[];
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -27632,24 +27714,25 @@ export interface operations {
         readonly "application/json": {
           readonly schemas?: readonly string[];
           /** Set of operations to be performed */
-          readonly Operations: readonly {
+          readonly Operations: readonly ({
             readonly op: "add" | "remove" | "replace";
             readonly path?: string;
-            readonly value?:
-              | {
+            readonly value?: (
+              | ({
                   readonly active?: boolean | null;
                   readonly userName?: string | null;
                   readonly externalId?: string | null;
                   readonly givenName?: string | null;
                   readonly familyName?: string | null;
-                }
-              | readonly {
+                } & { readonly [key: string]: any })
+              | readonly ({
                   readonly value?: string;
                   readonly primary?: boolean;
-                }[]
-              | string;
-          }[];
-        };
+                } & { readonly [key: string]: any })[]
+              | string
+            ) & { readonly [key: string]: any };
+          } & { readonly [key: string]: any })[];
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -27696,7 +27779,7 @@ export interface operations {
             readonly total_count: number;
             readonly incomplete_results: boolean;
             readonly items: readonly components["schemas"]["code-search-result-item"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -27738,7 +27821,7 @@ export interface operations {
             readonly total_count: number;
             readonly incomplete_results: boolean;
             readonly items: readonly components["schemas"]["commit-search-result-item"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -27793,7 +27876,7 @@ export interface operations {
             readonly total_count: number;
             readonly incomplete_results: boolean;
             readonly items: readonly components["schemas"]["issue-search-result-item"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -27834,7 +27917,7 @@ export interface operations {
             readonly total_count: number;
             readonly incomplete_results: boolean;
             readonly items: readonly components["schemas"]["label-search-result-item"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -27881,7 +27964,7 @@ export interface operations {
             readonly total_count: number;
             readonly incomplete_results: boolean;
             readonly items: readonly components["schemas"]["repo-search-result-item"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -27915,7 +27998,7 @@ export interface operations {
             readonly total_count: number;
             readonly incomplete_results: boolean;
             readonly items: readonly components["schemas"]["topic-search-result-item"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -27956,7 +28039,7 @@ export interface operations {
             readonly total_count: number;
             readonly incomplete_results: boolean;
             readonly items: readonly components["schemas"]["user-search-result-item"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -28050,7 +28133,7 @@ export interface operations {
           readonly permission?: "pull" | "push" | "admin";
           /** The ID of a team to set as the parent team. */
           readonly parent_team_id?: number | null;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -28113,7 +28196,7 @@ export interface operations {
           readonly body: string;
           /** Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post. */
           readonly private?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -28182,7 +28265,7 @@ export interface operations {
           readonly title?: string;
           /** The discussion post's body text. */
           readonly body?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -28243,7 +28326,7 @@ export interface operations {
         readonly "application/json": {
           /** The discussion comment's body text. */
           readonly body: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -28313,7 +28396,7 @@ export interface operations {
         readonly "application/json": {
           /** The discussion comment's body text. */
           readonly body: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -28374,7 +28457,7 @@ export interface operations {
         readonly "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment. */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -28433,7 +28516,7 @@ export interface operations {
         readonly "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion. */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -28551,13 +28634,13 @@ export interface operations {
         readonly content: {
           readonly "application/json": {
             readonly message?: string;
-            readonly errors?: readonly {
+            readonly errors?: readonly ({
               readonly code?: string;
               readonly field?: string;
               readonly resource?: string;
-            }[];
+            } & { readonly [key: string]: any })[];
             readonly documentation_url?: string;
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -28648,13 +28731,13 @@ export interface operations {
         readonly content: {
           readonly "application/json": {
             readonly message?: string;
-            readonly errors?: readonly {
+            readonly errors?: readonly ({
               readonly code?: string;
               readonly field?: string;
               readonly resource?: string;
-            }[];
+            } & { readonly [key: string]: any })[];
             readonly documentation_url?: string;
-          };
+          } & { readonly [key: string]: any };
         };
       };
     };
@@ -28667,7 +28750,7 @@ export interface operations {
            * \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
            */
           readonly role?: "member" | "maintainer";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -28768,7 +28851,7 @@ export interface operations {
           readonly "application/json": {
             readonly message?: string;
             readonly documentation_url?: string;
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 404: components["responses"]["not_found"];
@@ -28786,7 +28869,7 @@ export interface operations {
            * Default: the team's `permission` attribute will be used to determine what permission to grant the team on this project. Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
            */
           readonly permission?: "read" | "write" | "admin";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -28895,7 +28978,7 @@ export interface operations {
            * If no permission is specified, the team's `permission` attribute will be used to determine what permission to grant the team on this repository.
            */
           readonly permission?: "pull" | "push" | "admin";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -28968,7 +29051,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** The IdP groups you want to connect to a GitHub team. When updating, the new `groups` object will replace the original one. You must include any existing groups that you don't want to remove. */
-          readonly groups: readonly {
+          readonly groups: readonly ({
             /** ID of the IdP group. */
             readonly group_id: string;
             /** Name of the IdP group. */
@@ -28978,9 +29061,9 @@ export interface operations {
             readonly id?: string;
             readonly name?: string;
             readonly description?: string;
-          }[];
+          } & { readonly [key: string]: any })[];
           readonly synced_at?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -29021,7 +29104,10 @@ export interface operations {
       /** response */
       readonly 200: {
         readonly content: {
-          readonly "application/json": components["schemas"]["private-user"] | components["schemas"]["public-user"];
+          readonly "application/json": (
+            | components["schemas"]["private-user"]
+            | components["schemas"]["public-user"]
+          ) & { readonly [key: string]: any };
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -29064,7 +29150,7 @@ export interface operations {
           readonly hireable?: boolean;
           /** The new short biography of the user. */
           readonly bio?: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -29159,7 +29245,7 @@ export interface operations {
           readonly email: string;
           /** Denotes whether an email is publically visible. */
           readonly visibility: "public" | "private";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -29205,13 +29291,14 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/json":
-          | {
+        readonly "application/json": (
+          | ({
               /** Adds one or more email addresses to your GitHub account. Must contain at least one email address. **Note:** Alternatively, you can pass a single email address or an `array` of emails addresses directly, but we recommend that you pass an object using the `emails` key. */
               readonly emails: readonly string[];
-            }
+            } & { readonly [key: string]: any })
           | readonly string[]
-          | string;
+          | string
+        ) & { readonly [key: string]: any };
       };
     };
   };
@@ -29229,13 +29316,14 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/json":
-          | {
+        readonly "application/json": (
+          | ({
               /** Email addresses associated with the GitHub user account. */
               readonly emails: readonly string[];
-            }
+            } & { readonly [key: string]: any })
           | readonly string[]
-          | string;
+          | string
+        ) & { readonly [key: string]: any };
       };
     };
   };
@@ -29386,7 +29474,7 @@ export interface operations {
         readonly "application/json": {
           /** A GPG key in ASCII-armored format. */
           readonly armored_public_key: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -29455,7 +29543,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly installations: readonly components["schemas"]["installation"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -29495,7 +29583,7 @@ export interface operations {
             readonly total_count: number;
             readonly repository_selection?: string;
             readonly repositories: readonly components["schemas"]["repository"][];
-          };
+          } & { readonly [key: string]: any };
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -29675,7 +29763,7 @@ export interface operations {
           readonly title?: string;
           /** The public SSH key to add to your GitHub account. */
           readonly key: string;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -29826,7 +29914,7 @@ export interface operations {
         readonly "application/json": {
           /** The state that the membership should be in. Only `"active"` will be accepted. */
           readonly state: "active";
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -29878,7 +29966,7 @@ export interface operations {
           /** Exclude attributes from the API response to improve performance */
           readonly exclude?: readonly "repositories"[];
           readonly repositories: readonly string[];
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -30244,7 +30332,7 @@ export interface operations {
           readonly name: string;
           /** Body of the project */
           readonly body?: string | null;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -30388,7 +30476,7 @@ export interface operations {
           readonly has_downloads?: boolean;
           /** Whether this repository acts as a template that can be used to generate new repositories. */
           readonly is_template?: boolean;
-        };
+        } & { readonly [key: string]: any };
       };
     };
   };
@@ -30626,7 +30714,10 @@ export interface operations {
       /** response */
       readonly 200: {
         readonly content: {
-          readonly "application/json": components["schemas"]["private-user"] | components["schemas"]["public-user"];
+          readonly "application/json": (
+            | components["schemas"]["private-user"]
+            | components["schemas"]["public-user"]
+          ) & { readonly [key: string]: any };
         };
       };
       readonly 404: components["responses"]["not_found"];

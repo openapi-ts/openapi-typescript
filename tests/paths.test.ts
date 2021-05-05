@@ -26,6 +26,7 @@ describe("transformPathsObj", () => {
                   schema: {
                     type: "object",
                     properties: { title: { type: "string" }, body: { type: "string" } },
+                    additionalProperties: false,
                     required: ["title", "body"],
                   },
                 },
@@ -53,6 +54,7 @@ describe("transformPathsObj", () => {
                       },
                       total: { type: "integer" },
                     },
+                    additionalProperties: false,
                     required: ["total"],
                   },
                 },
@@ -271,6 +273,7 @@ describe("transformPathsObj", () => {
                   properties: {
                     title: { type: "string" },
                   },
+                  additionalProperties: false,
                   required: ["title"],
                 },
               },
@@ -286,6 +289,7 @@ describe("transformPathsObj", () => {
                       id: { type: "string" },
                       title: { type: "string" },
                     },
+                    additionalProperties: false,
                     required: ["title", "id"],
                   },
                 },

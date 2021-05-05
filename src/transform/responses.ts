@@ -9,6 +9,7 @@ const resType = (res: string | number) => (res === 204 || (res >= 300 && res < 4
 interface Options {
   formatter?: SchemaFormatter;
   immutableTypes: boolean;
+  version: number;
 }
 
 export function transformResponsesObj(responsesObj: Record<string, any>, options: Options): string {

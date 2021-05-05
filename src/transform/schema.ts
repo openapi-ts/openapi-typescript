@@ -14,6 +14,7 @@ interface TransformSchemaObjMapOptions {
   formatter?: SchemaFormatter;
   immutableTypes: boolean;
   required?: string[];
+  version: number;
 }
 
 /** Take object keys and convert to TypeScript interface */
@@ -34,6 +35,7 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
     output += transformSchemaObj(value.schema || value, {
       formatter: options.formatter,
       immutableTypes: options.immutableTypes,
+      version: options.version,
     });
 
     // 4. close
@@ -46,6 +48,7 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
 interface Options {
   formatter?: SchemaFormatter;
   immutableTypes: boolean;
+  version: number;
 }
 
 /** transform anyOf */
@@ -112,13 +115,14 @@ export function transformSchemaObj(node: any, options: Options): string {
         let properties = transformSchemaObjMap(node.properties || {}, {
           immutableTypes: options.immutableTypes,
           required: node.required,
+          version: options.version,
         });
 
         // if additional properties, add an intersection with a generic map type
         let additionalProperties: string | undefined;
-        if (node.additionalProperties) {
-          if (node.additionalProperties === true || Object.keys(node.additionalProperties).length === 0) {
-            additionalProperties = `{ [key: string]: any }`;
+        if (node.additionalProperties || (node.additionalProperties === undefined && options.version === 3)) {
+          if ((node.additionalProperties ?? true) === true || Object.keys(node.additionalProperties).length === 0) {
+            additionalProperties = `{ ${readonly}[key: string]: any }`;
           } else if (typeof node.additionalProperties === "object") {
             const oneOf: any[] | undefined = (node.additionalProperties as any).oneOf || undefined; // TypeScript does a really bad job at inference here, so we enforce a type
             const anyOf: any[] | undefined = (node.additionalProperties as any).anyOf || undefined; // "

@@ -59,14 +59,14 @@ export function transformParametersArray(
       let paramType = ``;
       if (version === 2) {
         if (paramObj.in === "body" && paramObj.schema) {
-          paramType = transformSchemaObj(paramObj.schema, { immutableTypes });
+          paramType = transformSchemaObj(paramObj.schema, { immutableTypes, version });
         } else if (paramObj.type) {
-          paramType = transformSchemaObj(paramObj, { immutableTypes });
+          paramType = transformSchemaObj(paramObj, { immutableTypes, version });
         } else {
           paramType = "unknown";
         }
       } else if (version === 3) {
-        paramType = paramObj.schema ? transformSchemaObj(paramObj.schema, { immutableTypes }) : "unknown";
+        paramType = paramObj.schema ? transformSchemaObj(paramObj.schema, { immutableTypes, version }) : "unknown";
       }
       output += `    ${readonly}"${paramName}"${required}: ${paramType};\n`;
     });

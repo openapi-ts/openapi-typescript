@@ -34,6 +34,7 @@ export function transformOperationObj(
   if (operation.responses) {
     output += `  ${readonly}responses: {\n  ${transformResponsesObj(operation.responses, {
       immutableTypes,
+      version,
     })}\n  }\n`;
   }
 
@@ -44,7 +45,7 @@ export function transformOperationObj(
       if (operation.requestBody.description) output += comment(operation.requestBody.description);
 
       output += `  ${readonly}requestBody: {\n`; // open requestBody
-      output += `  ${transformRequestBodyObj(operation.requestBody, { immutableTypes })}`;
+      output += `  ${transformRequestBodyObj(operation.requestBody, { immutableTypes, version })}`;
       output += `  }\n`; // close requestBody
     }
   }
@@ -54,7 +55,7 @@ export function transformOperationObj(
 
 export function transformRequestBodyObj(
   requestBody: RequestBody,
-  { immutableTypes }: { immutableTypes: boolean }
+  { immutableTypes, version }: { immutableTypes: boolean; version: number }
 ): string {
   const readonly = tsReadonly(immutableTypes);
 
@@ -66,7 +67,7 @@ export function transformRequestBodyObj(
     output += `  ${readonly}content: {\n`; // open content
 
     Object.entries(content).forEach(([k, v]) => {
-      output += `      ${readonly}"${k}": ${transformSchemaObj(v.schema, { immutableTypes })};\n`;
+      output += `      ${readonly}"${k}": ${transformSchemaObj(v.schema, { immutableTypes, version })};\n`;
     });
     output += `    }\n`; // close content
   } else {
