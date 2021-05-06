@@ -56,7 +56,7 @@
   "dependencies": {
     "js-yaml": "^4.0.0",
     "kleur": "^4.1.3",
-    "meow": "^9.0.0",
+    "meow": "^10.0.0",
     "mime": "^2.5.2",
     "prettier": "^2.2.1"
   },
