@@ -73,11 +73,11 @@ export interface components {
       /** Order Status */
       status?: "placed" | "approved" | "delivered";
       complete?: boolean;
-    };
+    } & { [key: string]: any };
     Category: {
       id?: number;
       name?: string;
-    };
+    } & { [key: string]: any };
     User: {
       id?: number;
       username?: string;
@@ -88,11 +88,11 @@ export interface components {
       phone?: string;
       /** User Status */
       userStatus?: number;
-    };
+    } & { [key: string]: any };
     Tag: {
       id?: number;
       name?: string;
-    };
+    } & { [key: string]: any };
     Pet: {
       id?: number;
       category?: components["schemas"]["Category"];
@@ -101,12 +101,12 @@ export interface components {
       tags?: components["schemas"]["Tag"][];
       /** pet status in the store */
       status?: "available" | "pending" | "sold";
-    };
+    } & { [key: string]: any };
     ApiResponse: {
       code?: number;
       type?: string;
       message?: string;
-    };
+    } & { [key: string]: any };
   };
 }
 
@@ -221,7 +221,7 @@ export interface operations {
           name?: string;
           /** Updated status of the pet */
           status?: string;
-        };
+        } & { [key: string]: any };
       };
     };
   };
@@ -264,7 +264,7 @@ export interface operations {
           additionalMetadata?: string;
           /** file to upload */
           file?: string;
-        };
+        } & { [key: string]: any };
       };
     };
   };

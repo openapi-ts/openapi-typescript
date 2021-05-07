@@ -61,6 +61,7 @@ export interface definitions {
           name: { type: "string", description: "user name" },
           email: { type: "string", description: "user email" },
         },
+        additionalProperties: false,
         required: ["name", "email"],
       },
     };

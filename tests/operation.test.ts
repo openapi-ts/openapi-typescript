@@ -85,6 +85,7 @@ describe("requestBodies", () => {
 
     const output = transformRequestBodies(schema, {
       immutableTypes: false,
+      version: 2,
     }).trim();
 
     expect(format(`type requestBodies = {${output}}`)).toBe(
@@ -102,6 +103,7 @@ describe("requestBodies", () => {
 
     const outputImmutable = transformRequestBodies(schema, {
       immutableTypes: true,
+      version: 2,
     }).trim();
 
     expect(format(`type requestBodies = {${outputImmutable}}`)).toBe(
@@ -137,6 +139,7 @@ describe("requestBodies", () => {
 
     const output = transformRequestBodies(schema, {
       immutableTypes: false,
+      version: 3,
     }).trim();
 
     expect(format(`type requestBodies = {${output}}`)).toBe(
@@ -146,7 +149,7 @@ describe("requestBodies", () => {
             content: {
               "application/json": {
                 test?: string;
-              };
+              } & { [key: string]: any };
             };
           };
         };`)
@@ -154,6 +157,7 @@ describe("requestBodies", () => {
 
     const outputImmutable = transformRequestBodies(schema, {
       immutableTypes: true,
+      version: 3,
     }).trim();
 
     expect(format(`type requestBodies = {${outputImmutable}}`)).toBe(
@@ -163,7 +167,7 @@ describe("requestBodies", () => {
             readonly content: {
               readonly "application/json": {
                 readonly test?: string;
-              };
+              } & { readonly [key: string]: any };
             };
           };
         };`)

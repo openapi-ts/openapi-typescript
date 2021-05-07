@@ -4,7 +4,7 @@ import { transformSchemaObj } from "./schema";
 
 export function transformHeaderObjMap(
   headerMap: Record<string, HeaderObject>,
-  options: { formatter?: SchemaFormatter; immutableTypes: boolean }
+  options: { formatter?: SchemaFormatter; immutableTypes: boolean; version: number }
 ): string {
   let output = "";
 

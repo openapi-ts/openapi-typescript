@@ -28,6 +28,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
           formatter,
           immutableTypes,
           required: Object.keys(schema),
+          version,
         })}\n}`;
       }
       case 3: {
@@ -35,6 +36,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
           formatter,
           immutableTypes,
           required: Object.keys(schema),
+          version,
         })}\n  }\n\n`;
       }
     }
@@ -60,6 +62,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
           formatter,
           immutableTypes,
           required: Object.keys(schema.definitions),
+          version,
         })}\n}\n\n`;
       }
 
@@ -70,6 +73,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
           formatter,
           immutableTypes,
           required,
+          version,
         })}\n  }\n\n`;
       }
 
@@ -78,6 +82,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
         output += `export interface responses {\n    ${transformResponsesObj(schema.responses, {
           formatter,
           immutableTypes,
+          version,
         })}\n  }\n\n`;
       }
       break;
@@ -94,6 +99,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
             formatter,
             immutableTypes,
             required,
+            version,
           })}\n  }\n`;
         }
 
@@ -102,6 +108,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
           output += `  ${readonly}responses: {\n    ${transformResponsesObj(schema.components.responses, {
             formatter,
             immutableTypes,
+            version,
           })}\n  }\n`;
         }
 
@@ -112,6 +119,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
             formatter,
             immutableTypes,
             required,
+            version,
           })}\n  }\n`;
         }
 
@@ -120,6 +128,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
           output += `  ${readonly}requestBodies: {\n    ${transformRequestBodies(schema.components.requestBodies, {
             formatter,
             immutableTypes,
+            version,
           })}\n  }\n`;
         }
 
@@ -128,6 +137,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
           output += `  ${readonly}headers: {\n    ${transformHeaderObjMap(schema.components.headers, {
             formatter,
             immutableTypes,
+            version,
           })}  }\n`;
         }
       }

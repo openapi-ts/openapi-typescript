@@ -684,19 +684,19 @@ export interface components {
       readonly location: components["schemas"]["Location"];
       readonly name: string;
       readonly priority: number;
-    };
+    } & { readonly [key: string]: any };
     readonly Region: {
       readonly id: components["schemas"]["ID"];
       readonly type: "region";
       readonly version: number;
       readonly body: components["schemas"]["RegionBody"];
-    };
+    } & { readonly [key: string]: any };
     readonly CreateRegion: {
       readonly body: components["schemas"]["RegionBody"];
-    };
+    } & { readonly [key: string]: any };
     readonly UpdateRegion: {
       readonly name: string;
-    };
+    } & { readonly [key: string]: any };
     readonly ProviderBody: {
       readonly owner_id?: components["schemas"]["OptionalFlexID"];
       readonly team_id?: components["schemas"]["OptionalID"];
@@ -705,7 +705,7 @@ export interface components {
       readonly logo_url?: components["schemas"]["LogoURL"];
       readonly support_email?: string;
       readonly documentation_url?: string;
-    };
+    } & { readonly [key: string]: any };
     readonly UpdateProviderBody: {
       readonly owner_id?: components["schemas"]["OptionalFlexID"];
       readonly team_id?: components["schemas"]["OptionalID"];
@@ -714,24 +714,24 @@ export interface components {
       readonly logo_url?: components["schemas"]["OptionalLogoURL"];
       readonly support_email?: string | null;
       readonly documentation_url?: string | null;
-    };
+    } & { readonly [key: string]: any };
     readonly Provider: {
       readonly id: components["schemas"]["ID"];
       readonly version: number;
       readonly type: "provider";
       readonly body: components["schemas"]["ProviderBody"];
-    };
+    } & { readonly [key: string]: any };
     readonly CreateProvider: {
       readonly body: components["schemas"]["ProviderBody"];
-    };
+    } & { readonly [key: string]: any };
     readonly UpdateProvider: {
       readonly id: components["schemas"]["ID"];
       readonly body: components["schemas"]["UpdateProviderBody"];
-    };
+    } & { readonly [key: string]: any };
     readonly UpdateProduct: {
       readonly id: components["schemas"]["ID"];
       readonly body: components["schemas"]["UpdateProductBody"];
-    };
+    } & { readonly [key: string]: any };
     readonly UpdateProductBody: {
       readonly name?: components["schemas"]["Name"];
       readonly label?: components["schemas"]["Label"];
@@ -752,26 +752,28 @@ export interface components {
        */
       readonly terms_url?: string | null;
       readonly feature_types?: readonly components["schemas"]["FeatureType"][] | null;
-      readonly integration?: {
-        readonly provisioning?: components["schemas"]["ProductProvisioning"];
-        readonly base_url?: string | null;
-        readonly sso_url?: string | null;
-        readonly version?: "v1" | null;
-        readonly features?: {
-          readonly access_code?: boolean | null;
-          readonly sso?: boolean | null;
-          readonly plan_change?: boolean | null;
-          readonly credential?: ("none" | "single" | "multiple" | "unknown") | null;
-        };
-      } | null;
+      readonly integration?:
+        | ({
+            readonly provisioning?: components["schemas"]["ProductProvisioning"];
+            readonly base_url?: string | null;
+            readonly sso_url?: string | null;
+            readonly version?: "v1" | null;
+            readonly features?: {
+              readonly access_code?: boolean | null;
+              readonly sso?: boolean | null;
+              readonly plan_change?: boolean | null;
+              readonly credential?: ("none" | "single" | "multiple" | "unknown") | null;
+            } & { readonly [key: string]: any };
+          } & { readonly [key: string]: any })
+        | null;
       /** An array of platform ids to restrict this product for. */
       readonly platform_ids?: readonly components["schemas"]["ID"][] | null;
       readonly tags?: components["schemas"]["ProductTags"];
-    };
+    } & { readonly [key: string]: any };
     readonly UpdatePlan: {
       readonly id: components["schemas"]["ID"];
       readonly body: components["schemas"]["UpdatePlanBody"];
-    };
+    } & { readonly [key: string]: any };
     readonly UpdatePlanBody: {
       readonly name?: components["schemas"]["Name"];
       readonly label?: components["schemas"]["Label"];
@@ -791,7 +793,7 @@ export interface components {
       readonly trial_days?: number | null;
       /** Dollar value in cents */
       readonly cost?: number | null;
-    };
+    } & { readonly [key: string]: any };
     /**
      * A feature type represents the different aspects of a product that are
      * offered, these features can manifest differently depending on the plan.
@@ -820,7 +822,7 @@ export interface components {
        */
       readonly measurable?: boolean;
       readonly values?: components["schemas"]["FeatureValuesList"];
-    };
+    } & { readonly [key: string]: any };
     /**
      * A list of allowable values for the feature.
      * To define values for a boolean feature type, only `true` is required,
@@ -859,31 +861,33 @@ export interface components {
         readonly formula?: components["schemas"]["PriceFormula"];
         /** Description explains how a feature is calculated to the user. */
         readonly description?: string;
-      };
+      } & { readonly [key: string]: any };
       readonly numeric_details?: components["schemas"]["FeatureNumericDetails"];
-    };
+    } & { readonly [key: string]: any };
     /**
      * Optional container for additional details relating to numeric features.
      * This is required if the feature is measurable and numeric.
      */
-    readonly FeatureNumericDetails: {
-      /**
-       * Sets the increment at which numbers can be selected if customizable, by
-       * default this is 1; for example, setting this to 8 would only allow integers
-       * in increments of 8 ( 0, 8, 16, ... ). This property is not used if the
-       * feature is measurable; except if it is set to 0, setting the increment to 0
-       * means this numeric details has no scale, and will not be or customizable.
-       * Some plans may not have a measureable or customizable feature.
-       */
-      readonly increment?: number;
-      /** Minimum value that can be set by a user if customizable */
-      readonly min?: number;
-      /** Maximum value that can be set by a user if customizable */
-      readonly max?: number | null;
-      /** Applied to the end of the number for display, for example the ‘GB’ in ‘20 GB’. */
-      readonly suffix?: string | null;
-      readonly cost_ranges?: readonly components["schemas"]["FeatureNumericRange"][] | null;
-    } | null;
+    readonly FeatureNumericDetails:
+      | ({
+          /**
+           * Sets the increment at which numbers can be selected if customizable, by
+           * default this is 1; for example, setting this to 8 would only allow integers
+           * in increments of 8 ( 0, 8, 16, ... ). This property is not used if the
+           * feature is measurable; except if it is set to 0, setting the increment to 0
+           * means this numeric details has no scale, and will not be or customizable.
+           * Some plans may not have a measureable or customizable feature.
+           */
+          readonly increment?: number;
+          /** Minimum value that can be set by a user if customizable */
+          readonly min?: number;
+          /** Maximum value that can be set by a user if customizable */
+          readonly max?: number | null;
+          /** Applied to the end of the number for display, for example the ‘GB’ in ‘20 GB’. */
+          readonly suffix?: string | null;
+          readonly cost_ranges?: readonly components["schemas"]["FeatureNumericRange"][] | null;
+        } & { readonly [key: string]: any })
+      | null;
     readonly FeatureNumericRange: {
       /**
        * Defines the end of the range ( inclusive ), from the previous, or 0;
@@ -897,17 +901,17 @@ export interface components {
        * numeric value set in the feature to determine the cost.
        */
       readonly cost_multiple?: number;
-    };
+    } & { readonly [key: string]: any };
     readonly FeatureValue: {
       readonly feature: components["schemas"]["Label"];
       readonly value: components["schemas"]["FeatureValueLabel"];
-    };
+    } & { readonly [key: string]: any };
     readonly ValueProp: {
       /** Heading of a value proposition. */
       readonly header: string;
       /** Body of a value proposition. */
       readonly body: string;
-    };
+    } & { readonly [key: string]: any };
     /**
      * Image URL used for Product listings.
      *
@@ -956,8 +960,8 @@ export interface components {
          * product, it is just used to inform consumers through our clients.
          */
         readonly featured?: boolean;
-      };
-    };
+      } & { readonly [key: string]: any };
+    } & { readonly [key: string]: any };
     /**
      * Provider Only, implies that the product should only be provisionable by the
      *   provider; so members of the provider team, no one else should be allowed.
@@ -997,7 +1001,7 @@ export interface components {
        * * `unknown`: The credential type is unknown.
        */
       readonly credential?: "none" | "single" | "multiple" | "unknown";
-    };
+    } & { readonly [key: string]: any };
     readonly ProductBody: {
       readonly provider_id: components["schemas"]["ID"];
       readonly label: components["schemas"]["Label"];
@@ -1021,30 +1025,30 @@ export interface components {
       readonly terms: {
         readonly url?: string | null;
         readonly provided: boolean;
-      };
+      } & { readonly [key: string]: any };
       readonly feature_types: readonly components["schemas"]["FeatureType"][];
       readonly billing: {
         readonly type: "monthly-prorated" | "monthly-anniversary" | "annual-anniversary";
         readonly currency: "usd";
-      };
+      } & { readonly [key: string]: any };
       readonly integration: {
         readonly provisioning: components["schemas"]["ProductProvisioning"];
         readonly base_url: string;
         readonly sso_url?: string | null;
         readonly version: "v1";
         readonly features: components["schemas"]["ProductIntegrationFeatures"];
-      };
+      } & { readonly [key: string]: any };
       readonly tags?: components["schemas"]["ProductTags"];
-    };
+    } & { readonly [key: string]: any };
     readonly Product: {
       readonly id: components["schemas"]["ID"];
       readonly version: number;
       readonly type: "product";
       readonly body: components["schemas"]["ProductBody"];
-    };
+    } & { readonly [key: string]: any };
     readonly CreateProduct: {
       readonly body: components["schemas"]["ProductBody"];
-    };
+    } & { readonly [key: string]: any };
     /** Array of Plan IDs that this Plan can be resized to, if null all will be assumed */
     readonly PlanResizeList: readonly components["schemas"]["ID"][] | null;
     readonly PlanBody: {
@@ -1066,45 +1070,47 @@ export interface components {
       readonly trial_days?: number;
       /** Dollar value in cents. */
       readonly cost: number;
-    };
+    } & { readonly [key: string]: any };
     readonly PlanState: "hidden" | "available" | "grandfathered" | "unlisted";
-    readonly ExpandedPlanBody: components["schemas"]["PlanBody"] & {
-      /** An array of feature definitions for the plan, as defined on the Product. */
-      readonly expanded_features: readonly components["schemas"]["ExpandedFeature"][];
-      /** A boolean flag that indicates if a plan is free or not based on it's cost and features. */
-      readonly free: boolean;
-      /** Plan cost using its default features plus base cost. */
-      readonly defaultCost?: number;
-      /** A boolean flag that indicates if a plan has customizable features. */
-      readonly customizable?: boolean;
-    };
-    readonly ExpandedFeature: components["schemas"]["FeatureType"] & {
-      /** The string value set for the feature on the plan, this should only be used if the value property is null. */
-      readonly value_string: string;
-      readonly value: components["schemas"]["FeatureValueDetails"];
-    };
+    readonly ExpandedPlanBody: components["schemas"]["PlanBody"] &
+      ({
+        /** An array of feature definitions for the plan, as defined on the Product. */
+        readonly expanded_features: readonly components["schemas"]["ExpandedFeature"][];
+        /** A boolean flag that indicates if a plan is free or not based on it's cost and features. */
+        readonly free: boolean;
+        /** Plan cost using its default features plus base cost. */
+        readonly defaultCost?: number;
+        /** A boolean flag that indicates if a plan has customizable features. */
+        readonly customizable?: boolean;
+      } & { readonly [key: string]: any }) & { readonly [key: string]: any };
+    readonly ExpandedFeature: components["schemas"]["FeatureType"] &
+      ({
+        /** The string value set for the feature on the plan, this should only be used if the value property is null. */
+        readonly value_string: string;
+        readonly value: components["schemas"]["FeatureValueDetails"];
+      } & { readonly [key: string]: any }) & { readonly [key: string]: any };
     readonly Plan: {
       readonly id: components["schemas"]["ID"];
       readonly version: number;
       readonly type: "plan";
       readonly body: components["schemas"]["PlanBody"];
-    };
+    } & { readonly [key: string]: any };
     readonly ExpandedPlan: {
       readonly id: components["schemas"]["ID"];
       readonly version: number;
       readonly type: "plan";
       readonly body: components["schemas"]["ExpandedPlanBody"];
-    };
+    } & { readonly [key: string]: any };
     readonly CreatePlan: {
       readonly body: components["schemas"]["PlanBody"];
-    };
+    } & { readonly [key: string]: any };
     /** Unexpected error */
     readonly Error: {
       /** The error type */
       readonly type: string;
       /** Explanation of the errors */
       readonly message: readonly string[];
-    };
+    } & { readonly [key: string]: any };
     /**
      * Describes how a feature cost should be calculated. An empty
      * string defaults to the normal price calculation using the value cost.
@@ -1136,7 +1142,7 @@ export interface components {
       readonly body: components["schemas"]["ProductBody"];
       readonly plans?: readonly components["schemas"]["ExpandedPlan"][];
       readonly provider: components["schemas"]["Provider"];
-    };
+    } & { readonly [key: string]: any };
   };
   readonly parameters: {
     /** Filter results to only include those that have this label. */
