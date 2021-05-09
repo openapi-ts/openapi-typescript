@@ -29,6 +29,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
           immutableTypes,
           required: Object.keys(schema),
           version,
+          document: schema,
         })}\n}`;
       }
       case 3: {
@@ -37,6 +38,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
           immutableTypes,
           required: Object.keys(schema),
           version,
+          document: schema,
         })}\n  }\n\n`;
       }
     }
@@ -49,6 +51,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
       globalParameters: (schema.components && schema.components.parameters) || schema.parameters,
       immutableTypes,
       operations,
+      document: schema,
       version,
     });
   }
@@ -63,6 +66,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
           immutableTypes,
           required: Object.keys(schema.definitions),
           version,
+          document: schema,
         })}\n}\n\n`;
       }
 
@@ -74,6 +78,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
           immutableTypes,
           required,
           version,
+          document: schema,
         })}\n  }\n\n`;
       }
 
@@ -83,6 +88,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
           formatter,
           immutableTypes,
           version,
+          document: schema,
         })}\n  }\n\n`;
       }
       break;
@@ -100,6 +106,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
             immutableTypes,
             required,
             version,
+            document: schema,
           })}\n  }\n`;
         }
 
@@ -109,6 +116,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
             formatter,
             immutableTypes,
             version,
+            document: schema,
           })}\n  }\n`;
         }
 
@@ -120,6 +128,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
             immutableTypes,
             required,
             version,
+            document: schema,
           })}\n  }\n`;
         }
 
@@ -129,6 +138,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
             formatter,
             immutableTypes,
             version,
+            document: schema,
           })}\n  }\n`;
         }
 
@@ -136,6 +146,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
         if (schema.components.headers) {
           output += `  ${readonly}headers: {\n    ${transformHeaderObjMap(schema.components.headers, {
             formatter,
+            document: schema,
             immutableTypes,
             version,
           })}  }\n`;
@@ -155,6 +166,7 @@ export function transformAll(schema: any, { formatter, immutableTypes, rawSchema
         pathItem,
         globalParameters: (schema.components && schema.components.parameters) || schema.parameters,
         immutableTypes,
+        document: schema,
         version,
       })}\n  }\n`;
     });

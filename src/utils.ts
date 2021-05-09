@@ -1,4 +1,5 @@
 import { OpenAPI2, OpenAPI3, ReferenceObject } from "./types";
+import * as _ from "lodash";
 
 export function comment(text: string): string {
   const commentText = text.trim().replace(/\*\//g, "*\\/");
@@ -130,4 +131,27 @@ export function tsUnionOf(types: Array<string | number | boolean>): string {
 export function unrefComponent(components: any, ref: string): any {
   const [type, object] = ref.match(/(?<=\[")([^"]+)/g) as string[];
   return components[type][object];
+}
+
+function resolveDocumentReference<T>(document: any, reference: string): T | undefined {
+  if (reference[0] === "#") {
+    const parts = reference.replace(/^#\//, "").split("/");
+    const result = _.get(document, parts.join("."));
+    if (result == null) {
+      //      throw new Error(`Failed to resolve reference: ${reference} parts: ${parts.join(",")}`);
+      return undefined;
+    }
+    return result as T;
+  } else {
+    //    throw new Error(`Do not know how to resolve reference: ${reference}`);
+    return undefined;
+  }
+}
+
+export function resolveRefIfNeeded<T>(document: any, value: ReferenceObject | T): T | undefined {
+  if ("$ref" in value) {
+    return resolveDocumentReference<T>(document, value.$ref);
+  } else {
+    return value;
+  }
 }

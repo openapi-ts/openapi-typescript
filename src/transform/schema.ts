@@ -1,7 +1,8 @@
-import { SchemaFormatter } from "types";
+import { SchemaFormatter, SchemaObject, SourceDocument } from "types";
 import {
   comment,
   nodeType,
+  resolveRefIfNeeded,
   transformRef,
   tsArrayOf,
   tsIntersectionOf,
@@ -13,6 +14,7 @@ import {
 interface TransformSchemaObjMapOptions {
   formatter?: SchemaFormatter;
   immutableTypes: boolean;
+  document: SourceDocument;
   required?: string[];
   version: number;
 }
@@ -20,6 +22,7 @@ interface TransformSchemaObjMapOptions {
 /** Take object keys and convert to TypeScript interface */
 export function transformSchemaObjMap(obj: Record<string, any>, options: TransformSchemaObjMapOptions): string {
   const readonly = options.immutableTypes ? "readonly " : "";
+
   let required = (options && options.required) || [];
 
   let output = "";
@@ -29,13 +32,23 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
     if (value.description) output += comment(value.description);
 
     // 2. name (with “?” if optional property)
-    output += `${readonly}"${key}"${required.includes(key) ? "" : "?"}: `;
+
+    let hasDefault = false;
+    if (value.schema != null) {
+      const schema = resolveRefIfNeeded<SchemaObject>(options.document, value.schema);
+      if (schema?.default != null) {
+        hasDefault = true;
+      }
+    }
+
+    output += `${readonly}"${key}"${required.includes(key) || hasDefault ? "" : "?"}: `;
 
     // 3. transform
     output += transformSchemaObj(value.schema || value, {
       formatter: options.formatter,
       immutableTypes: options.immutableTypes,
       version: options.version,
+      document: options.document,
     });
 
     // 4. close
@@ -49,6 +62,7 @@ interface Options {
   formatter?: SchemaFormatter;
   immutableTypes: boolean;
   version: number;
+  document: SourceDocument;
 }
 
 /** transform anyOf */
@@ -116,6 +130,7 @@ export function transformSchemaObj(node: any, options: Options): string {
           immutableTypes: options.immutableTypes,
           required: node.required,
           version: options.version,
+          document: options.document,
         });
 
         // if additional properties, add an intersection with a generic map type
@@ -131,9 +146,8 @@ export function transformSchemaObj(node: any, options: Options): string {
             } else if (anyOf) {
               additionalProperties = `{ ${readonly}[key: string]: ${transformAnyOf(anyOf, options)}; }`;
             } else {
-              additionalProperties = `{ ${readonly}[key: string]: ${
-                transformSchemaObj(node.additionalProperties, options) || "any"
-              }; }`;
+              additionalProperties = `{ ${readonly}[key: string]: ${transformSchemaObj(node.additionalProperties, options) || "any"
+                }; }`;
             }
           }
         }

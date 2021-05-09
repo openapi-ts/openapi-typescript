@@ -19,6 +19,8 @@ export interface OpenAPI3 {
   };
 }
 
+export type SourceDocument = OpenAPI2 | OpenAPI3 | Record<string, SchemaObject>;
+
 export interface HeaderObject {
   // note: this extends ParameterObject, minus "name" & "in"
   type?: string; // required
@@ -106,6 +108,7 @@ export interface SchemaObject {
   oneOf?: (ReferenceObject | SchemaObject)[]; // V3 ONLY
   anyOf?: (ReferenceObject | SchemaObject)[]; // V3 ONLY
   format?: string; // V3 ONLY
+  default?: any;
 }
 
 export type SchemaFormatter = (schemaObj: SchemaObject) => string | undefined;

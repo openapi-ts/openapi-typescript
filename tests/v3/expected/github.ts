@@ -10432,9 +10432,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
         /** Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         since?: components["parameters"]["since"];
         outdated?: string;
@@ -10573,9 +10573,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -10881,9 +10881,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -11281,9 +11281,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -11417,9 +11417,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -11559,9 +11559,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -11660,9 +11660,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -11761,9 +11761,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -11936,7 +11936,7 @@ export interface operations {
          */
         order?: components["parameters"]["audit-log-order"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
       };
     };
     responses: {
@@ -12022,9 +12022,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -12070,9 +12070,9 @@ export interface operations {
         /** Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         since?: components["parameters"]["since"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -12137,9 +12137,9 @@ export interface operations {
         /** Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         since?: components["parameters"]["since"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -12162,9 +12162,9 @@ export interface operations {
         /** Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         since?: components["parameters"]["since"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -12257,9 +12257,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -12378,9 +12378,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -12406,9 +12406,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -12561,9 +12561,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -12627,7 +12627,7 @@ export interface operations {
         /** What to sort results by. Can be either `created`, `updated`, `comments`. */
         sort?: "created" | "updated" | "comments";
         /** One of `asc` (ascending) or `desc` (descending). */
-        direction?: components["parameters"]["direction"];
+        direction: components["parameters"]["direction"];
         /** Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         since?: components["parameters"]["since"];
         collab?: boolean;
@@ -12635,9 +12635,9 @@ export interface operations {
         owned?: boolean;
         pulls?: boolean;
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -12658,7 +12658,7 @@ export interface operations {
       query: {
         featured?: boolean;
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
       };
     };
     responses: {
@@ -12773,9 +12773,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -12803,13 +12803,13 @@ export interface operations {
       };
       query: {
         /** One of `created` (when the repository was starred) or `updated` (when it was last pushed to). */
-        sort?: components["parameters"]["sort"];
+        sort: components["parameters"]["sort"];
         /** To return the oldest accounts first, set to `asc`. Can be one of `asc` or `desc`. Ignored without the `sort` parameter. */
         direction?: "asc" | "desc";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -12858,9 +12858,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -12887,13 +12887,13 @@ export interface operations {
       };
       query: {
         /** One of `created` (when the repository was starred) or `updated` (when it was last pushed to). */
-        sort?: components["parameters"]["sort"];
+        sort: components["parameters"]["sort"];
         /** To return the oldest accounts first, set to `asc`. Can be one of `asc` or `desc`. Ignored without the `sort` parameter. */
         direction?: "asc" | "desc";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -12932,9 +12932,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -12955,17 +12955,17 @@ export interface operations {
     parameters: {
       query: {
         /** If `true`, show notifications marked as read. */
-        all?: components["parameters"]["all"];
+        all: components["parameters"]["all"];
         /** If `true`, only shows notifications in which the user is directly participating or mentioned. */
-        participating?: components["parameters"]["participating"];
+        participating: components["parameters"]["participating"];
         /** Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         since?: components["parameters"]["since"];
         /** Only show notifications updated before the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         before?: components["parameters"]["before"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -13146,7 +13146,7 @@ export interface operations {
         /** An organization ID. Only return organizations with an ID greater than this ID. */
         since?: components["parameters"]["since-org"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
       };
     };
     responses: {
@@ -13360,9 +13360,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -13494,9 +13494,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -13741,9 +13741,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -13846,9 +13846,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -13989,9 +13989,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -14279,7 +14279,7 @@ export interface operations {
          */
         order?: components["parameters"]["audit-log-order"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
       };
     };
     responses: {
@@ -14396,9 +14396,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -14418,9 +14418,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -14441,9 +14441,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -14661,9 +14661,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -14737,9 +14737,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -14824,9 +14824,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -14870,13 +14870,13 @@ export interface operations {
         /** What to sort results by. Can be either `created`, `updated`, `comments`. */
         sort?: "created" | "updated" | "comments";
         /** One of `asc` (ascending) or `desc` (descending). */
-        direction?: components["parameters"]["direction"];
+        direction: components["parameters"]["direction"];
         /** Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         since?: components["parameters"]["since"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -14911,9 +14911,9 @@ export interface operations {
          */
         role?: "all" | "admin" | "member";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -15047,9 +15047,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -15183,9 +15183,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -15213,9 +15213,9 @@ export interface operations {
          */
         filter?: "2fa_disabled" | "all";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -15477,9 +15477,9 @@ export interface operations {
         /** Indicates the state of the projects to return. Can be either `open`, `closed`, or `all`. */
         state?: "open" | "closed" | "all";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -15532,9 +15532,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -15605,9 +15605,9 @@ export interface operations {
         /** Can be one of `asc` or `desc`. Default: when using `full_name`: `asc`, otherwise `desc` */
         direction?: "asc" | "desc";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -15773,9 +15773,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -15798,9 +15798,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -15977,11 +15977,11 @@ export interface operations {
       };
       query: {
         /** One of `asc` (ascending) or `desc` (descending). */
-        direction?: components["parameters"]["direction"];
+        direction: components["parameters"]["direction"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -16120,11 +16120,11 @@ export interface operations {
       };
       query: {
         /** One of `asc` (ascending) or `desc` (descending). */
-        direction?: components["parameters"]["direction"];
+        direction: components["parameters"]["direction"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -16264,9 +16264,9 @@ export interface operations {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion comment. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -16349,9 +16349,9 @@ export interface operations {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -16429,9 +16429,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -16465,9 +16465,9 @@ export interface operations {
          */
         role?: "member" | "maintainer" | "all";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -16606,9 +16606,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -16723,9 +16723,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -16906,9 +16906,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -17127,9 +17127,9 @@ export interface operations {
         /** Filters the project cards that are returned by the card's state. Can be one of `all`,`archived`, or `not_archived`. */
         archived_state?: "all" | "archived" | "not_archived";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -17344,9 +17344,9 @@ export interface operations {
          */
         affiliation?: "outside" | "direct" | "all";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -17441,9 +17441,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -17646,9 +17646,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -17863,9 +17863,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -18023,9 +18023,9 @@ export interface operations {
         /** Returns workflow runs with the check run `status` or `conclusion` that you specify. For example, a conclusion can be `success` or a status can be `in_progress`. Only GitHub can set a status of `waiting` or `requested`. For a list of the possible `status` and `conclusion` options, see "[Create a check run](https://docs.github.com/rest/reference/checks#create-a-check-run)." */
         status?: components["parameters"]["workflow-run-status"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -18109,9 +18109,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -18159,9 +18159,9 @@ export interface operations {
          */
         filter?: "latest" | "all";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -18317,9 +18317,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -18498,9 +18498,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -18627,9 +18627,9 @@ export interface operations {
         /** Returns workflow runs with the check run `status` or `conclusion` that you specify. For example, a conclusion can be `success` or a status can be `in_progress`. Only GitHub can set a status of `waiting` or `requested`. For a list of the possible `status` and `conclusion` options, see "[Create a check run](https://docs.github.com/rest/reference/checks#create-a-check-run)." */
         status?: components["parameters"]["workflow-run-status"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -18677,9 +18677,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -18755,9 +18755,9 @@ export interface operations {
         /** Setting to `true` returns only protected branches. When set to `false`, only unprotected branches are returned. Omitting this parameter returns all branches. */
         protected?: boolean;
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -20045,9 +20045,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -20163,9 +20163,9 @@ export interface operations {
         /** Filters check runs by their `completed_at` timestamp. Can be one of `latest` (returning the most recent check runs) or `all`. */
         filter?: "latest" | "all";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -20223,9 +20223,9 @@ export interface operations {
         /** The GUID of a code scanning tool. Only results by this tool will be listed. Note that some code scanning tools may not include a GUID in their analysis data. You can specify the tool by using either `tool_guid` or `tool_name`, but not both. */
         tool_guid?: components["parameters"]["tool_guid"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** The Git reference for the results you want to list. The `ref` for a branch can be formatted either as `refs/heads/<branch name>` or simply `<branch name>`. To reference a pull request use `refs/pull/<number>/merge`. */
         ref?: components["parameters"]["git_ref"];
         /** Set to `open`, `fixed`, or `dismissed` to list code scanning alerts in a specific state. */
@@ -20312,9 +20312,9 @@ export interface operations {
       };
       query: {
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** The Git reference for the results you want to list. The `ref` for a branch can be formatted either as `refs/heads/<branch name>` or simply `<branch name>`. To reference a pull request use `refs/pull/<number>/merge`. */
         ref?: components["parameters"]["git_ref"];
       };
@@ -20361,9 +20361,9 @@ export interface operations {
         /** The GUID of a code scanning tool. Only results by this tool will be listed. Note that some code scanning tools may not include a GUID in their analysis data. You can specify the tool by using either `tool_guid` or `tool_name`, but not both. */
         tool_guid?: components["parameters"]["tool_guid"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** The Git reference for the analyses you want to list. The `ref` for a branch can be formatted either as `refs/heads/<branch name>` or simply `<branch name>`. To reference a pull request use `refs/pull/<number>/merge`. */
         ref?: components["schemas"]["code-scanning-ref"];
         /** Filter analyses belonging to the same SARIF upload. */
@@ -20618,9 +20618,9 @@ export interface operations {
          */
         affiliation?: "outside" | "direct" | "all";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -20749,9 +20749,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -20838,9 +20838,9 @@ export interface operations {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a commit comment. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -20958,9 +20958,9 @@ export interface operations {
         /** Only commits before this date will be returned. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         until?: string;
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -21013,9 +21013,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -21081,9 +21081,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -21177,9 +21177,9 @@ export interface operations {
         /** Filters check runs by their `completed_at` timestamp. Can be one of `latest` (returning the most recent check runs) or `all`. */
         filter?: "latest" | "all";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -21214,9 +21214,9 @@ export interface operations {
         /** Returns check runs with the specified `name`. */
         check_name?: components["parameters"]["check_name"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -21277,9 +21277,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -21602,9 +21602,9 @@ export interface operations {
         /** Set to `1` or `true` to include anonymous contributors in results. */
         anon?: string;
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -21638,9 +21638,9 @@ export interface operations {
         /** The name of the environment that was deployed to (e.g., `staging` or `production`). */
         environment?: string;
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -21820,9 +21820,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -22064,9 +22064,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -22088,9 +22088,9 @@ export interface operations {
         /** The sort order. Can be either `newest`, `oldest`, or `stargazers`. */
         sort?: "newest" | "oldest" | "stargazers";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -22350,9 +22350,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -22683,9 +22683,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -23234,9 +23234,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -23319,13 +23319,13 @@ export interface operations {
         /** What to sort results by. Can be either `created`, `updated`, `comments`. */
         sort?: "created" | "updated" | "comments";
         /** One of `asc` (ascending) or `desc` (descending). */
-        direction?: components["parameters"]["direction"];
+        direction: components["parameters"]["direction"];
         /** Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         since?: components["parameters"]["since"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -23404,15 +23404,15 @@ export interface operations {
       };
       query: {
         /** One of `created` (when the repository was starred) or `updated` (when it was last pushed to). */
-        sort?: components["parameters"]["sort"];
+        sort: components["parameters"]["sort"];
         /** Either `asc` or `desc`. Ignored without the `sort` parameter. */
         direction?: "asc" | "desc";
         /** Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         since?: components["parameters"]["since"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -23500,9 +23500,9 @@ export interface operations {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to an issue comment. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -23580,9 +23580,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -23770,9 +23770,9 @@ export interface operations {
         /** Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         since?: components["parameters"]["since"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -23831,9 +23831,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -23857,9 +23857,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -24036,9 +24036,9 @@ export interface operations {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to an issue. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -24113,9 +24113,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -24139,9 +24139,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -24233,9 +24233,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -24442,9 +24442,9 @@ export interface operations {
         /** The direction of the sort. Either `asc` or `desc`. */
         direction?: "asc" | "desc";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -24569,9 +24569,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -24593,17 +24593,17 @@ export interface operations {
       };
       query: {
         /** If `true`, show notifications marked as read. */
-        all?: components["parameters"]["all"];
+        all: components["parameters"]["all"];
         /** If `true`, only shows notifications in which the user is directly participating or mentioned. */
-        participating?: components["parameters"]["participating"];
+        participating: components["parameters"]["participating"];
         /** Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         since?: components["parameters"]["since"];
         /** Only show notifications updated before the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         before?: components["parameters"]["before"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -24744,9 +24744,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -24824,9 +24824,9 @@ export interface operations {
         /** Indicates the state of the projects to return. Can be either `open`, `closed`, or `all`. */
         state?: "open" | "closed" | "all";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -24895,9 +24895,9 @@ export interface operations {
         /** The direction of the sort. Can be either `asc` or `desc`. Default: `desc` when sort is `created` or sort is not specified, otherwise `asc`. */
         direction?: "asc" | "desc";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -24970,15 +24970,15 @@ export interface operations {
       };
       query: {
         /** One of `created` (when the repository was starred) or `updated` (when it was last pushed to). */
-        sort?: components["parameters"]["sort"];
+        sort: components["parameters"]["sort"];
         /** Can be either `asc` or `desc`. Ignored without `sort` parameter. */
         direction?: "asc" | "desc";
         /** Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         since?: components["parameters"]["since"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -25067,9 +25067,9 @@ export interface operations {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a pull request review comment. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -25226,15 +25226,15 @@ export interface operations {
       };
       query: {
         /** One of `created` (when the repository was starred) or `updated` (when it was last pushed to). */
-        sort?: components["parameters"]["sort"];
+        sort: components["parameters"]["sort"];
         /** Can be either `asc` or `desc`. Ignored without `sort` parameter. */
         direction?: "asc" | "desc";
         /** Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         since?: components["parameters"]["since"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -25347,9 +25347,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -25372,9 +25372,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -25468,9 +25468,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -25548,9 +25548,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -25698,9 +25698,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -25851,9 +25851,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -26099,9 +26099,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -26176,9 +26176,9 @@ export interface operations {
         /** Set to `open` or `resolved` to only list secret scanning alerts in a specific state. */
         state?: "open" | "resolved";
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
       };
     };
     responses: {
@@ -26268,9 +26268,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -26447,9 +26447,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -26529,9 +26529,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -26571,9 +26571,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -26640,7 +26640,7 @@ export interface operations {
       };
       query: {
         /** Must be one of: `day`, `week`. */
-        per?: components["parameters"]["per"];
+        per: components["parameters"]["per"];
       };
     };
     responses: {
@@ -26698,7 +26698,7 @@ export interface operations {
       };
       query: {
         /** Must be one of: `day`, `week`. */
-        per?: components["parameters"]["per"];
+        per: components["parameters"]["per"];
       };
     };
     responses: {
@@ -26879,9 +26879,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -27736,11 +27736,11 @@ export interface operations {
         /** Sorts the results of your query. Can only be `indexed`, which indicates how recently a file has been indexed by the GitHub search infrastructure. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) */
         sort?: "indexed";
         /** Determines whether the first search result returned is the highest number of matches (`desc`) or lowest number of matches (`asc`). This parameter is ignored unless you provide `sort`. */
-        order?: components["parameters"]["order"];
+        order: components["parameters"]["order"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -27778,11 +27778,11 @@ export interface operations {
         /** Sorts the results of your query by `author-date` or `committer-date`. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) */
         sort?: "author-date" | "committer-date";
         /** Determines whether the first search result returned is the highest number of matches (`desc`) or lowest number of matches (`asc`). This parameter is ignored unless you provide `sort`. */
-        order?: components["parameters"]["order"];
+        order: components["parameters"]["order"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -27833,11 +27833,11 @@ export interface operations {
           | "created"
           | "updated";
         /** Determines whether the first search result returned is the highest number of matches (`desc`) or lowest number of matches (`asc`). This parameter is ignored unless you provide `sort`. */
-        order?: components["parameters"]["order"];
+        order: components["parameters"]["order"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -27878,7 +27878,7 @@ export interface operations {
         /** Sorts the results of your query by when the label was `created` or `updated`. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) */
         sort?: "created" | "updated";
         /** Determines whether the first search result returned is the highest number of matches (`desc`) or lowest number of matches (`asc`). This parameter is ignored unless you provide `sort`. */
-        order?: components["parameters"]["order"];
+        order: components["parameters"]["order"];
       };
     };
     responses: {
@@ -27921,11 +27921,11 @@ export interface operations {
         /** Sorts the results of your query by number of `stars`, `forks`, or `help-wanted-issues` or how recently the items were `updated`. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) */
         sort?: "stars" | "forks" | "help-wanted-issues" | "updated";
         /** Determines whether the first search result returned is the highest number of matches (`desc`) or lowest number of matches (`asc`). This parameter is ignored unless you provide `sort`. */
-        order?: components["parameters"]["order"];
+        order: components["parameters"]["order"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -27996,11 +27996,11 @@ export interface operations {
         /** Sorts the results of your query by number of `followers` or `repositories`, or when the person `joined` GitHub. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) */
         sort?: "followers" | "repositories" | "joined";
         /** Determines whether the first search result returned is the highest number of matches (`desc`) or lowest number of matches (`asc`). This parameter is ignored unless you provide `sort`. */
-        order?: components["parameters"]["order"];
+        order: components["parameters"]["order"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -28121,11 +28121,11 @@ export interface operations {
       };
       query: {
         /** One of `asc` (ascending) or `desc` (descending). */
-        direction?: components["parameters"]["direction"];
+        direction: components["parameters"]["direction"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -28254,11 +28254,11 @@ export interface operations {
       };
       query: {
         /** One of `asc` (ascending) or `desc` (descending). */
-        direction?: components["parameters"]["direction"];
+        direction: components["parameters"]["direction"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -28388,9 +28388,9 @@ export interface operations {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion comment. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -28448,9 +28448,9 @@ export interface operations {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -28504,9 +28504,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -28538,9 +28538,9 @@ export interface operations {
          */
         role?: "member" | "maintainer" | "all";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -28761,9 +28761,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -28873,9 +28873,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -29047,9 +29047,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -29225,9 +29225,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -29303,9 +29303,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -29326,9 +29326,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -29405,9 +29405,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -29501,9 +29501,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -29540,9 +29540,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -29666,13 +29666,13 @@ export interface operations {
         /** What to sort results by. Can be either `created`, `updated`, `comments`. */
         sort?: "created" | "updated" | "comments";
         /** One of `asc` (ascending) or `desc` (descending). */
-        direction?: components["parameters"]["direction"];
+        direction: components["parameters"]["direction"];
         /** Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         since?: components["parameters"]["since"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -29692,9 +29692,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -29781,9 +29781,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -29804,9 +29804,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -29827,9 +29827,9 @@ export interface operations {
         /** Indicates the state of the memberships to return. Can be either `active` or `pending`. If not specified, the API returns both active and pending memberships. */
         state?: "active" | "pending";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -29894,9 +29894,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -30057,9 +30057,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -30084,9 +30084,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -30312,9 +30312,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -30359,9 +30359,9 @@ export interface operations {
         /** Can be one of `asc` or `desc`. Default: `asc` when using `full_name`, otherwise `desc` */
         direction?: "asc" | "desc";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
         /** Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         since?: components["parameters"]["since"];
         /** Only show notifications updated before the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
@@ -30456,9 +30456,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -30516,13 +30516,13 @@ export interface operations {
     parameters: {
       query: {
         /** One of `created` (when the repository was starred) or `updated` (when it was last pushed to). */
-        sort?: components["parameters"]["sort"];
+        sort: components["parameters"]["sort"];
         /** One of `asc` (ascending) or `desc` (descending). */
-        direction?: components["parameters"]["direction"];
+        direction: components["parameters"]["direction"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -30598,9 +30598,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -30621,9 +30621,9 @@ export interface operations {
     parameters: {
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -30650,7 +30650,7 @@ export interface operations {
         /** A user ID. Only return users with an ID greater than this ID. */
         since?: components["parameters"]["since-user"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
       };
     };
     responses: {
@@ -30701,9 +30701,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -30724,9 +30724,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -30745,9 +30745,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -30767,9 +30767,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -30790,9 +30790,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -30829,9 +30829,9 @@ export interface operations {
         /** Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         since?: components["parameters"]["since"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -30853,9 +30853,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -30929,9 +30929,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -30956,9 +30956,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -31060,9 +31060,9 @@ export interface operations {
         /** Indicates the state of the projects to return. Can be either `open`, `closed`, or `all`. */
         state?: "open" | "closed" | "all";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -31085,9 +31085,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -31106,9 +31106,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -31134,9 +31134,9 @@ export interface operations {
         /** Can be one of `asc` or `desc`. Default: `asc` when using `full_name`, otherwise `desc` */
         direction?: "asc" | "desc";
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -31227,13 +31227,13 @@ export interface operations {
       };
       query: {
         /** One of `created` (when the repository was starred) or `updated` (when it was last pushed to). */
-        sort?: components["parameters"]["sort"];
+        sort: components["parameters"]["sort"];
         /** One of `asc` (ascending) or `desc` (descending). */
-        direction?: components["parameters"]["direction"];
+        direction: components["parameters"]["direction"];
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {
@@ -31255,9 +31255,9 @@ export interface operations {
       };
       query: {
         /** Results per page (max 100). */
-        per_page?: components["parameters"]["per_page"];
+        per_page: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
-        page?: components["parameters"]["page"];
+        page: components["parameters"]["page"];
       };
     };
     responses: {

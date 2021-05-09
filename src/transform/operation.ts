@@ -1,4 +1,4 @@
-import { OperationObject, ParameterObject, PathItemObject, RequestBody } from "../types";
+import { OperationObject, ParameterObject, PathItemObject, RequestBody, SourceDocument } from "../types";
 import { comment, isRef, transformRef, tsReadonly } from "../utils";
 import { transformParametersArray } from "./parameters";
 import { transformResponsesObj } from "./responses";
@@ -10,11 +10,13 @@ export function transformOperationObj(
     globalParameters,
     immutableTypes,
     pathItem = {},
+    document,
     version,
   }: {
     pathItem?: PathItemObject;
     globalParameters?: Record<string, ParameterObject>;
     immutableTypes: boolean;
+    document: SourceDocument;
     version: number;
   }
 ): string {
@@ -27,6 +29,7 @@ export function transformOperationObj(
     output += `  ${readonly}parameters: {\n    ${transformParametersArray(parameters, {
       globalParameters,
       immutableTypes,
+      document,
       version,
     })}\n  }\n`;
   }
@@ -35,6 +38,7 @@ export function transformOperationObj(
     output += `  ${readonly}responses: {\n  ${transformResponsesObj(operation.responses, {
       immutableTypes,
       version,
+      document,
     })}\n  }\n`;
   }
 
@@ -45,7 +49,7 @@ export function transformOperationObj(
       if (operation.requestBody.description) output += comment(operation.requestBody.description);
 
       output += `  ${readonly}requestBody: {\n`; // open requestBody
-      output += `  ${transformRequestBodyObj(operation.requestBody, { immutableTypes, version })}`;
+      output += `  ${transformRequestBodyObj(operation.requestBody, { immutableTypes, version, document })}`;
       output += `  }\n`; // close requestBody
     }
   }
@@ -55,7 +59,7 @@ export function transformOperationObj(
 
 export function transformRequestBodyObj(
   requestBody: RequestBody,
-  { immutableTypes, version }: { immutableTypes: boolean; version: number }
+  { immutableTypes, version, document }: { immutableTypes: boolean; version: number; document: SourceDocument }
 ): string {
   const readonly = tsReadonly(immutableTypes);
 
@@ -67,7 +71,7 @@ export function transformRequestBodyObj(
     output += `  ${readonly}content: {\n`; // open content
 
     Object.entries(content).forEach(([k, v]) => {
-      output += `      ${readonly}"${k}": ${transformSchemaObj(v.schema, { immutableTypes, version })};\n`;
+      output += `      ${readonly}"${k}": ${transformSchemaObj(v.schema, { immutableTypes, version, document })};\n`;
     });
     output += `    }\n`; // close content
   } else {

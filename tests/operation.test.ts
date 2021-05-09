@@ -20,6 +20,7 @@ describe("requestBody", () => {
     expect(
       transformOperationObj(schema, {
         immutableTypes: false,
+        document: {},
         version: 3,
       }).trim()
     ).toBe(`requestBody: {
@@ -32,6 +33,7 @@ describe("requestBody", () => {
     expect(
       transformOperationObj(schema, {
         immutableTypes: true,
+        document: {},
         version: 3,
       }).trim()
     ).toBe(`readonly requestBody: {
@@ -50,6 +52,7 @@ describe("requestBody", () => {
     expect(
       transformOperationObj(schema, {
         immutableTypes: false,
+        document: {},
         version: 3,
       }).trim()
     ).toBe(`requestBody: components["requestBodies"]["Request"];`);
@@ -57,6 +60,7 @@ describe("requestBody", () => {
     expect(
       transformOperationObj(schema, {
         immutableTypes: true,
+        document: {},
         version: 3,
       }).trim()
     ).toBe(`readonly requestBody: components["requestBodies"]["Request"];`);
@@ -86,6 +90,7 @@ describe("requestBodies", () => {
     const output = transformRequestBodies(schema, {
       immutableTypes: false,
       version: 2,
+      document: {}
     }).trim();
 
     expect(format(`type requestBodies = {${output}}`)).toBe(
@@ -104,6 +109,7 @@ describe("requestBodies", () => {
     const outputImmutable = transformRequestBodies(schema, {
       immutableTypes: true,
       version: 2,
+      document: {},
     }).trim();
 
     expect(format(`type requestBodies = {${outputImmutable}}`)).toBe(
@@ -140,6 +146,7 @@ describe("requestBodies", () => {
     const output = transformRequestBodies(schema, {
       immutableTypes: false,
       version: 3,
+      document: {},
     }).trim();
 
     expect(format(`type requestBodies = {${output}}`)).toBe(
@@ -158,6 +165,7 @@ describe("requestBodies", () => {
     const outputImmutable = transformRequestBodies(schema, {
       immutableTypes: true,
       version: 3,
+      document: {},
     }).trim();
 
     expect(format(`type requestBodies = {${outputImmutable}}`)).toBe(
@@ -193,6 +201,7 @@ describe("parameters", () => {
         {
           version: 3,
           immutableTypes: false,
+          document: {},
           pathItem: {},
         }
       ).trim()
@@ -211,6 +220,7 @@ describe("parameters", () => {
         {
           version: 3,
           immutableTypes: false,
+          document: {},
           pathItem: {
             parameters: [
               {
@@ -256,6 +266,7 @@ describe("parameters", () => {
         {
           version: 3,
           immutableTypes: false,
+          document: {},
           pathItem: {
             parameters: [
               {

@@ -6,6 +6,7 @@ const transform = (schema: any, operations: any = { operations: {}, globalParame
     `export interface paths {\n${transformPathsObj(schema, {
       globalParameters,
       immutableTypes: operations.immutableTypes,
+      document: schema,
       operations,
       version: 3,
     })}\n}`.trim(),

@@ -1,5 +1,5 @@
-import { ParameterObject, ReferenceObject } from "../types";
-import { comment, tsReadonly } from "../utils";
+import { ParameterObject, ReferenceObject, SourceDocument } from "../types";
+import { comment, resolveRefIfNeeded, tsReadonly } from "../utils";
 import { transformSchemaObj } from "./schema";
 
 export function transformParametersArray(
@@ -7,10 +7,12 @@ export function transformParametersArray(
   {
     globalParameters,
     immutableTypes,
+    document,
     version,
   }: {
     globalParameters?: Record<string, ParameterObject>;
     immutableTypes: boolean;
+    document: SourceDocument;
     version: number;
   }
 ): string {
@@ -34,6 +36,8 @@ export function transformParametersArray(
         } else if (version === 3) {
           mappedParams[reference.in][reference.name || paramName] = {
             ...reference,
+            // They want to keep this ref here so it references
+            // the components, but it does violate the standards.
             schema: { $ref: paramObj.$ref },
           };
         }
@@ -55,20 +59,36 @@ export function transformParametersArray(
       if (paramObj.description) paramComment += paramObj.description;
       if (paramComment) output += comment(paramComment);
 
-      const required = paramObj.required ? `` : `?`;
+      let hasDefault = false;
+      if (paramObj.schema) {
+        const actualParam = resolveRefIfNeeded<ParameterObject>(document, paramObj.schema as ReferenceObject);
+
+        // Because the schema refs have been re-written to reference the global parameters
+        // need to look a little deeper to get the real schema.
+        if (actualParam != null && actualParam.schema != null) {
+          const actualParamSchema = resolveRefIfNeeded(document, actualParam?.schema);
+
+          if (actualParamSchema != null && actualParamSchema.default != null) {
+            hasDefault = true;
+          }
+        }
+      }
+
+      const required = (paramObj.required || hasDefault) ? `` : `?`;
       let paramType = ``;
       if (version === 2) {
         if (paramObj.in === "body" && paramObj.schema) {
-          paramType = transformSchemaObj(paramObj.schema, { immutableTypes, version });
+          paramType = transformSchemaObj(paramObj.schema, { immutableTypes, version, document });
         } else if (paramObj.type) {
-          paramType = transformSchemaObj(paramObj, { immutableTypes, version });
+          paramType = transformSchemaObj(paramObj, { immutableTypes, version, document });
         } else {
           paramType = "unknown";
         }
       } else if (version === 3) {
-        paramType = paramObj.schema ? transformSchemaObj(paramObj.schema, { immutableTypes, version }) : "unknown";
+        paramType = paramObj.schema ? transformSchemaObj(paramObj.schema, { immutableTypes, version, document }) : "unknown";
       }
       output += `    ${readonly}"${paramName}"${required}: ${paramType};\n`;
+
     });
     output += `  }\n`; // close in
   });

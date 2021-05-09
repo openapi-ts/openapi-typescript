@@ -54,8 +54,10 @@
     "version": "npm run build"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.168",
     "js-yaml": "^4.0.0",
     "kleur": "^4.1.3",
+    "lodash": "^4.17.21",
     "meow": "^9.0.0",
     "mime": "^2.5.2",
     "prettier": "^2.2.1"

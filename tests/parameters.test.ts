@@ -21,6 +21,7 @@ describe("transformParametersArray()", () => {
       expect(
         transformParametersArray(basicSchema as any, {
           immutableTypes: false,
+          document: {},
           version: 2,
         }).trim()
       ).toBe(
@@ -39,6 +40,7 @@ describe("transformParametersArray()", () => {
       expect(
         transformParametersArray(basicSchema as any, {
           immutableTypes: true,
+          document: {},
           version: 2,
         }).trim()
       ).toBe(
@@ -70,6 +72,7 @@ describe("transformParametersArray()", () => {
             since: { in: "query", name: "since", type: "string" },
           },
           immutableTypes: false,
+          document: {},
           version: 2,
         }).trim()
       ).toBe(`query: {
@@ -86,6 +89,7 @@ describe("transformParametersArray()", () => {
             since: { in: "query", name: "since", type: "string" },
           },
           immutableTypes: true,
+          document: {},
           version: 2,
         }).trim()
       ).toBe(`readonly query: {
@@ -124,6 +128,7 @@ describe("transformParametersArray()", () => {
       expect(
         transformParametersArray(basicSchema as any, {
           immutableTypes: false,
+          document: {},
           version: 3,
         }).trim()
       ).toBe(
@@ -139,6 +144,7 @@ describe("transformParametersArray()", () => {
       expect(
         transformParametersArray(basicSchema as any, {
           immutableTypes: true,
+          document: {},
           version: 3,
         }).trim()
       ).toBe(
@@ -167,6 +173,7 @@ describe("transformParametersArray()", () => {
             since: { in: "query", name: "since" },
           },
           immutableTypes: false,
+          document: {},
           version: 3,
         }).trim()
       ).toBe(`query: {
@@ -183,6 +190,7 @@ describe("transformParametersArray()", () => {
             since: { in: "query", name: "since" },
           },
           immutableTypes: true,
+          document: {},
           version: 3,
         }).trim()
       ).toBe(`readonly query: {
@@ -201,6 +209,7 @@ describe("transformParametersArray()", () => {
       expect(
         transformParametersArray(schema as any, {
           immutableTypes: false,
+          document: {},
           version: 3,
         }).trim()
       ).toBe(`query: {

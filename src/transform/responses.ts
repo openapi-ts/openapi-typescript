@@ -1,4 +1,4 @@
-import { RequestBody, SchemaFormatter } from "../types";
+import { RequestBody, SchemaFormatter, SourceDocument } from "../types";
 import { comment, transformRef, tsReadonly } from "../utils";
 import { transformHeaderObjMap } from "./headers";
 import { transformSchemaObj } from "./schema";
@@ -8,6 +8,7 @@ const resType = (res: string | number) => (res === 204 || (res >= 300 && res < 4
 
 interface Options {
   formatter?: SchemaFormatter;
+  document: SourceDocument;
   immutableTypes: boolean;
   version: number;
 }
