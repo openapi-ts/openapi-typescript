@@ -1,5 +1,5 @@
 import { OpenAPI2, OpenAPI3, ReferenceObject } from "./types";
-import * as _ from "lodash";
+import get from 'lodash.get';
 
 export function comment(text: string): string {
   const commentText = text.trim().replace(/\*\//g, "*\\/");
@@ -136,7 +136,7 @@ export function unrefComponent(components: any, ref: string): any {
 function resolveDocumentReference<T>(document: any, reference: string): T | undefined {
   if (reference[0] === "#") {
     const parts = reference.replace(/^#\//, "").split("/");
-    const result = _.get(document, parts.join("."));
+    const result = get(document, parts.join("."));
     if (result == null) {
       //      throw new Error(`Failed to resolve reference: ${reference} parts: ${parts.join(",")}`);
       return undefined;
