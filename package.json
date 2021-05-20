@@ -54,23 +54,24 @@
     "version": "npm run build"
   },
   "dependencies": {
-    "js-yaml": "^4.0.0",
-    "kleur": "^4.1.3",
+    "hosted-git-info": "^3.0.8",
+    "js-yaml": "^4.1.0",
+    "kleur": "^4.1.4",
     "meow": "^9.0.0",
     "mime": "^2.5.2",
-    "prettier": "^2.2.1"
+    "prettier": "^2.3.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.14",
     "@types/js-yaml": "^4.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.4.1",
-    "@typescript-eslint/parser": "^4.4.1",
+    "@typescript-eslint/eslint-plugin": "^4.24.0",
+    "@typescript-eslint/parser": "^4.24.0",
     "codecov": "^3.8.1",
-    "eslint": "^7.11.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "jest": "^26.5.3",
-    "ts-jest": "^26.4.1",
-    "typescript": "^4.1.3"
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.6",
+    "typescript": "^4.2.4"
   }
 }
