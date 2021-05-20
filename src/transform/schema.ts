@@ -116,6 +116,7 @@ export function transformSchemaObj(node: any, options: Options): string {
           immutableTypes: options.immutableTypes,
           required: node.required,
           version: options.version,
+          formatter: options.formatter,
         });
 
         // if additional properties, add an intersection with a generic map type
