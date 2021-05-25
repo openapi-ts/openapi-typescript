@@ -73,11 +73,11 @@ export interface components {
       /** Order Status */
       readonly status?: "placed" | "approved" | "delivered";
       readonly complete?: boolean;
-    } & { readonly [key: string]: any };
+    };
     readonly Category: {
       readonly id?: number;
       readonly name?: string;
-    } & { readonly [key: string]: any };
+    };
     readonly User: {
       readonly id?: number;
       readonly username?: string;
@@ -88,11 +88,11 @@ export interface components {
       readonly phone?: string;
       /** User Status */
       readonly userStatus?: number;
-    } & { readonly [key: string]: any };
+    };
     readonly Tag: {
       readonly id?: number;
       readonly name?: string;
-    } & { readonly [key: string]: any };
+    };
     readonly Pet: {
       readonly id?: number;
       readonly category?: components["schemas"]["Category"];
@@ -101,12 +101,12 @@ export interface components {
       readonly tags?: readonly components["schemas"]["Tag"][];
       /** pet status in the store */
       readonly status?: "available" | "pending" | "sold";
-    } & { readonly [key: string]: any };
+    };
     readonly ApiResponse: {
       readonly code?: number;
       readonly type?: string;
       readonly message?: string;
-    } & { readonly [key: string]: any };
+    };
   };
 }
 
@@ -221,7 +221,7 @@ export interface operations {
           readonly name?: string;
           /** Updated status of the pet */
           readonly status?: string;
-        } & { readonly [key: string]: any };
+        };
       };
     };
   };
@@ -264,7 +264,7 @@ export interface operations {
           readonly additionalMetadata?: string;
           /** file to upload */
           readonly file?: string;
-        } & { readonly [key: string]: any };
+        };
       };
     };
   };

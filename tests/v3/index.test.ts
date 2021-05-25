@@ -17,6 +17,20 @@ describe("cli", () => {
       expect(generated).toBe(expected);
     });
 
+    it(`reads ${schema} spec (v3) from file (additional properties)`, () => {
+      const output = schema.replace(".yaml", ".additional.ts");
+
+      execSync(
+        `../../bin/cli.js specs/${schema} -o generated/${output} --prettier-config .prettierrc --additional-properties`,
+        {
+          cwd: __dirname,
+        }
+      );
+      const expected = readFileSync(join(__dirname, "expected", output), "utf8");
+      const generated = readFileSync(join(__dirname, "generated", output), "utf8");
+      expect(generated).toBe(expected);
+    });
+
     it(`reads ${schema} spec (v3) from file (immutable types)`, () => {
       const output = schema.replace(".yaml", ".immutable.ts");
 

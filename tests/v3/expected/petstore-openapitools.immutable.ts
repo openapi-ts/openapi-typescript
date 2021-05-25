@@ -74,12 +74,12 @@ export interface components {
       /** Order Status */
       readonly status?: "placed" | "approved" | "delivered";
       readonly complete?: boolean;
-    } & { readonly [key: string]: any };
+    };
     /** A category for a pet */
     readonly Category: {
       readonly id?: number;
       readonly name?: string;
-    } & { readonly [key: string]: any };
+    };
     /** A User who is purchasing from the pet store */
     readonly User: {
       readonly id?: number;
@@ -91,12 +91,12 @@ export interface components {
       readonly phone?: string;
       /** User Status */
       readonly userStatus?: number;
-    } & { readonly [key: string]: any };
+    };
     /** A tag for a pet */
     readonly Tag: {
       readonly id?: number;
       readonly name?: string;
-    } & { readonly [key: string]: any };
+    };
     /** A pet for sale in the pet store */
     readonly Pet: {
       readonly id?: number;
@@ -106,13 +106,13 @@ export interface components {
       readonly tags?: readonly components["schemas"]["Tag"][];
       /** pet status in the store */
       readonly status?: "available" | "pending" | "sold";
-    } & { readonly [key: string]: any };
+    };
     /** Describes the result of uploading an image resource */
     readonly ApiResponse: {
       readonly code?: number;
       readonly type?: string;
       readonly message?: string;
-    } & { readonly [key: string]: any };
+    };
   };
   readonly requestBodies: {
     /** List of user object */
@@ -244,7 +244,7 @@ export interface operations {
           readonly name?: string;
           /** Updated status of the pet */
           readonly status?: string;
-        } & { readonly [key: string]: any };
+        };
       };
     };
   };
@@ -285,7 +285,7 @@ export interface operations {
           readonly additionalMetadata?: string;
           /** file to upload */
           readonly file?: string;
-        } & { readonly [key: string]: any };
+        };
       };
     };
   };

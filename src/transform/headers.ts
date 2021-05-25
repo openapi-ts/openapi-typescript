@@ -1,15 +1,20 @@
-import { HeaderObject, SchemaFormatter } from "../types";
+import { GlobalContext, HeaderObject } from "../types";
 import { comment, tsReadonly } from "../utils";
 import { transformSchemaObj } from "./schema";
 
+interface TransformHeadersOptions extends GlobalContext {
+  required: Set<string>;
+}
+
 export function transformHeaderObjMap(
   headerMap: Record<string, HeaderObject>,
-  options: { formatter?: SchemaFormatter; immutableTypes: boolean; version: number }
+  options: TransformHeadersOptions
 ): string {
   let output = "";
 
-  Object.entries(headerMap).forEach(([k, v]) => {
-    if (!v.schema) return;
+  for (const k of Object.keys(headerMap)) {
+    const v = headerMap[k];
+    if (!v.schema) continue;
 
     if (v.description) output += comment(v.description);
 
@@ -17,7 +22,7 @@ export function transformHeaderObjMap(
     const required = v.required ? "" : "?";
 
     output += `  ${readonly}"${k}"${required}: ${transformSchemaObj(v.schema, options)}\n`;
-  });
+  }
 
   return output;
 }

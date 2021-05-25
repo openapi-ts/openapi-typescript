@@ -13,7 +13,7 @@ export interface paths {
     get: operations["findPetsByStatus"];
   };
   "/pet/findByTags": {
-    /** Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing. */
+    /** Muliple tags can be provided with comma separated strings. Use         tag1, tag2, tag3 for testing. */
     get: operations["findPetsByTags"];
   };
   "/pet/{petId}": {
@@ -33,9 +33,9 @@ export interface paths {
     post: operations["placeOrder"];
   };
   "/store/order/{orderId}": {
-    /** For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions */
+    /** For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions */
     get: operations["getOrderById"];
-    /** For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors */
+    /** For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors */
     delete: operations["deleteOrder"];
   };
   "/user": {
@@ -65,7 +65,6 @@ export interface paths {
 
 export interface components {
   schemas: {
-    /** An order for a pets from the pet store */
     Order: {
       id?: number;
       petId?: number;
@@ -74,13 +73,11 @@ export interface components {
       /** Order Status */
       status?: "placed" | "approved" | "delivered";
       complete?: boolean;
-    };
-    /** A category for a pet */
+    } & { [key: string]: any };
     Category: {
       id?: number;
       name?: string;
-    };
-    /** A User who is purchasing from the pet store */
+    } & { [key: string]: any };
     User: {
       id?: number;
       username?: string;
@@ -91,13 +88,11 @@ export interface components {
       phone?: string;
       /** User Status */
       userStatus?: number;
-    };
-    /** A tag for a pet */
+    } & { [key: string]: any };
     Tag: {
       id?: number;
       name?: string;
-    };
-    /** A pet for sale in the pet store */
+    } & { [key: string]: any };
     Pet: {
       id?: number;
       category?: components["schemas"]["Category"];
@@ -106,41 +101,18 @@ export interface components {
       tags?: components["schemas"]["Tag"][];
       /** pet status in the store */
       status?: "available" | "pending" | "sold";
-    };
-    /** Describes the result of uploading an image resource */
+    } & { [key: string]: any };
     ApiResponse: {
       code?: number;
       type?: string;
       message?: string;
-    };
-  };
-  requestBodies: {
-    /** List of user object */
-    UserArray: {
-      content: {
-        "application/json": components["schemas"]["User"][];
-      };
-    };
-    /** Pet object that needs to be added to the store */
-    Pet: {
-      content: {
-        "application/json": components["schemas"]["Pet"];
-        "application/xml": components["schemas"]["Pet"];
-      };
-    };
+    } & { [key: string]: any };
   };
 }
 
 export interface operations {
   updatePet: {
     responses: {
-      /** successful operation */
-      200: {
-        content: {
-          "application/xml": components["schemas"]["Pet"];
-          "application/json": components["schemas"]["Pet"];
-        };
-      };
       /** Invalid ID supplied */
       400: unknown;
       /** Pet not found */
@@ -148,21 +120,26 @@ export interface operations {
       /** Validation exception */
       405: unknown;
     };
-    requestBody: components["requestBodies"]["Pet"];
+    /** Pet object that needs to be added to the store */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Pet"];
+        "application/xml": components["schemas"]["Pet"];
+      };
+    };
   };
   addPet: {
     responses: {
-      /** successful operation */
-      200: {
-        content: {
-          "application/xml": components["schemas"]["Pet"];
-          "application/json": components["schemas"]["Pet"];
-        };
-      };
       /** Invalid input */
       405: unknown;
     };
-    requestBody: components["requestBodies"]["Pet"];
+    /** Pet object that needs to be added to the store */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Pet"];
+        "application/xml": components["schemas"]["Pet"];
+      };
+    };
   };
   /** Multiple status values can be provided with comma separated strings */
   findPetsByStatus: {
@@ -184,7 +161,7 @@ export interface operations {
       400: unknown;
     };
   };
-  /** Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing. */
+  /** Muliple tags can be provided with comma separated strings. Use         tag1, tag2, tag3 for testing. */
   findPetsByTags: {
     parameters: {
       query: {
@@ -244,7 +221,7 @@ export interface operations {
           name?: string;
           /** Updated status of the pet */
           status?: string;
-        };
+        } & { [key: string]: any };
       };
     };
   };
@@ -259,8 +236,10 @@ export interface operations {
       };
     };
     responses: {
-      /** Invalid pet value */
+      /** Invalid ID supplied */
       400: unknown;
+      /** Pet not found */
+      404: unknown;
     };
   };
   uploadFile: {
@@ -285,7 +264,7 @@ export interface operations {
           additionalMetadata?: string;
           /** file to upload */
           file?: string;
-        };
+        } & { [key: string]: any };
       };
     };
   };
@@ -315,11 +294,11 @@ export interface operations {
     /** order placed for purchasing the pet */
     requestBody: {
       content: {
-        "application/json": components["schemas"]["Order"];
+        "*/*": components["schemas"]["Order"];
       };
     };
   };
-  /** For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions */
+  /** For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions */
   getOrderById: {
     parameters: {
       path: {
@@ -341,12 +320,12 @@ export interface operations {
       404: unknown;
     };
   };
-  /** For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors */
+  /** For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors */
   deleteOrder: {
     parameters: {
       path: {
         /** ID of the order that needs to be deleted */
-        orderId: string;
+        orderId: number;
       };
     };
     responses: {
@@ -365,7 +344,7 @@ export interface operations {
     /** Created user object */
     requestBody: {
       content: {
-        "application/json": components["schemas"]["User"];
+        "*/*": components["schemas"]["User"];
       };
     };
   };
@@ -374,14 +353,24 @@ export interface operations {
       /** successful operation */
       default: unknown;
     };
-    requestBody: components["requestBodies"]["UserArray"];
+    /** List of user object */
+    requestBody: {
+      content: {
+        "*/*": components["schemas"]["User"][];
+      };
+    };
   };
   createUsersWithListInput: {
     responses: {
       /** successful operation */
       default: unknown;
     };
-    requestBody: components["requestBodies"]["UserArray"];
+    /** List of user object */
+    requestBody: {
+      content: {
+        "*/*": components["schemas"]["User"][];
+      };
+    };
   };
   loginUser: {
     parameters: {
@@ -396,11 +385,9 @@ export interface operations {
       /** successful operation */
       200: {
         headers: {
-          /** Cookie authentication key for use with the `api_key` apiKey authentication. */
-          "Set-Cookie"?: string;
           /** calls per hour allowed by the user */
           "X-Rate-Limit"?: number;
-          /** date in UTC when toekn expires */
+          /** date in UTC when token expires */
           "X-Expires-After"?: string;
         };
         content: {
@@ -443,7 +430,7 @@ export interface operations {
   updateUser: {
     parameters: {
       path: {
-        /** name that need to be deleted */
+        /** name that need to be updated */
         username: string;
       };
     };
@@ -456,7 +443,7 @@ export interface operations {
     /** Updated user object */
     requestBody: {
       content: {
-        "application/json": components["schemas"]["User"];
+        "*/*": components["schemas"]["User"];
       };
     };
   };

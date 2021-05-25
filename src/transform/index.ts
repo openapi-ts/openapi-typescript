@@ -1,165 +1,137 @@
-import { OperationObject, PathItemObject, SchemaFormatter } from "../types";
+import { GlobalContext, OperationObject, PathItemObject } from "../types";
 import { comment, tsReadonly } from "../utils";
 import { transformHeaderObjMap } from "./headers";
 import { transformOperationObj } from "./operation";
 import { transformPathsObj } from "./paths";
-import { transformResponsesObj, transformRequestBodies } from "./responses";
+import { transformRequestBodies } from "./request";
+import { transformResponsesObj } from "./responses";
 import { transformSchemaObjMap } from "./schema";
 
-interface TransformOptions {
-  formatter?: SchemaFormatter;
-  immutableTypes: boolean;
-  rawSchema?: boolean;
-  version: number;
-}
+export function transformAll(schema: any, ctx: GlobalContext): Record<string, string> {
+  const readonly = tsReadonly(ctx.immutableTypes);
 
-export function transformAll(schema: any, { formatter, immutableTypes, rawSchema, version }: TransformOptions): string {
-  const readonly = tsReadonly(immutableTypes);
-
-  let output = "";
+  let output: Record<string, string> = {};
 
   let operations: Record<string, { operation: OperationObject; pathItem: PathItemObject }> = {};
 
   // --raw-schema mode
-  if (rawSchema) {
-    switch (version) {
+  if (ctx.rawSchema) {
+    const required = new Set(Object.keys(schema));
+    switch (ctx.version) {
       case 2: {
-        return `export interface definitions {\n  ${transformSchemaObjMap(schema, {
-          formatter,
-          immutableTypes,
-          required: Object.keys(schema),
-          version,
-        })}\n}`;
+        output.definitions = transformSchemaObjMap(schema, { ...ctx, required });
+        return output;
       }
       case 3: {
-        return `export interface schemas {\n    ${transformSchemaObjMap(schema, {
-          formatter,
-          immutableTypes,
-          required: Object.keys(schema),
-          version,
-        })}\n  }\n\n`;
+        output.schemas = transformSchemaObjMap(schema, { ...ctx, required });
+        return output;
       }
     }
   }
 
   // #/paths (V2 & V3)
-  output += `export interface paths {\n`; // open paths
+  output.paths = ""; // open paths
   if (schema.paths) {
-    output += transformPathsObj(schema.paths, {
+    output.paths += transformPathsObj(schema.paths, {
+      ...ctx,
       globalParameters: (schema.components && schema.components.parameters) || schema.parameters,
-      immutableTypes,
       operations,
-      version,
     });
   }
-  output += `}\n\n`; // close paths
 
-  switch (version) {
+  switch (ctx.version) {
     case 2: {
       // #/definitions
       if (schema.definitions) {
-        output += `export interface definitions {\n  ${transformSchemaObjMap(schema.definitions, {
-          formatter,
-          immutableTypes,
-          required: Object.keys(schema.definitions),
-          version,
-        })}\n}\n\n`;
+        output.definitions = transformSchemaObjMap(schema.definitions, {
+          ...ctx,
+          required: new Set(Object.keys(schema.definitions)),
+        });
       }
 
       // #/parameters
       if (schema.parameters) {
-        const required = Object.keys(schema.parameters);
-        output += `export interface parameters {\n    ${transformSchemaObjMap(schema.parameters, {
-          formatter,
-          immutableTypes,
-          required,
-          version,
-        })}\n  }\n\n`;
+        output.parameters = transformSchemaObjMap(schema.parameters, {
+          ...ctx,
+          required: new Set(Object.keys(schema.parameters)),
+        });
       }
 
       // #/parameters
       if (schema.responses) {
-        output += `export interface responses {\n    ${transformResponsesObj(schema.responses, {
-          formatter,
-          immutableTypes,
-          version,
-        })}\n  }\n\n`;
+        output.responses = transformResponsesObj(schema.responses, ctx);
       }
       break;
     }
     case 3: {
       // #/components
-      output += `export interface components {\n`; // open components
+      output.components = "";
 
       if (schema.components) {
         // #/components/schemas
         if (schema.components.schemas) {
-          const required = Object.keys(schema.components.schemas);
-          output += `  ${readonly}schemas: {\n    ${transformSchemaObjMap(schema.components.schemas, {
-            formatter,
-            immutableTypes,
-            required,
-            version,
+          output.components += `  ${readonly}schemas: {\n    ${transformSchemaObjMap(schema.components.schemas, {
+            ...ctx,
+            required: new Set(Object.keys(schema.components.schemas)),
           })}\n  }\n`;
         }
 
         // #/components/responses
         if (schema.components.responses) {
-          output += `  ${readonly}responses: {\n    ${transformResponsesObj(schema.components.responses, {
-            formatter,
-            immutableTypes,
-            version,
-          })}\n  }\n`;
+          output.components += `  ${readonly}responses: {\n    ${transformResponsesObj(
+            schema.components.responses,
+            ctx
+          )}\n  }\n`;
         }
 
         // #/components/parameters
         if (schema.components.parameters) {
-          const required = Object.keys(schema.components.parameters);
-          output += `  ${readonly}parameters: {\n    ${transformSchemaObjMap(schema.components.parameters, {
-            formatter,
-            immutableTypes,
-            required,
-            version,
+          output.components += `  ${readonly}parameters: {\n    ${transformSchemaObjMap(schema.components.parameters, {
+            ...ctx,
+            required: new Set(Object.keys(schema.components.parameters)),
           })}\n  }\n`;
         }
 
         // #/components/requestBodies
         if (schema.components.requestBodies) {
-          output += `  ${readonly}requestBodies: {\n    ${transformRequestBodies(schema.components.requestBodies, {
-            formatter,
-            immutableTypes,
-            version,
-          })}\n  }\n`;
+          output.components += `  ${readonly}requestBodies: {\n    ${transformRequestBodies(
+            schema.components.requestBodies,
+            ctx
+          )}\n  }\n`;
         }
 
         // #/components/headers
         if (schema.components.headers) {
-          output += `  ${readonly}headers: {\n    ${transformHeaderObjMap(schema.components.headers, {
-            formatter,
-            immutableTypes,
-            version,
-          })}  }\n`;
+          output.components += `  ${readonly}headers: {\n    ${transformHeaderObjMap(schema.components.headers, {
+            ...ctx,
+            required: new Set<string>(),
+          })}\n  }\n`;
         }
       }
-
-      output += `}\n\n`; // close components
       break;
     }
   }
 
-  output += `export interface operations {\n`; // open operations
+  // #/operations
+  output.operations = "";
   if (Object.keys(operations).length) {
-    Object.entries(operations).forEach(([operationId, { operation, pathItem }]) => {
-      if (operation.description) output += comment(operation.description); // handle comment
-      output += `  ${readonly}"${operationId}": {\n    ${transformOperationObj(operation, {
+    for (const id of Object.keys(operations)) {
+      const { operation, pathItem } = operations[id];
+      if (operation.description) output.operations += comment(operation.description); // handle comment
+      output.operations += `  ${readonly}"${id}": {\n    ${transformOperationObj(operation, {
+        ...ctx,
         pathItem,
         globalParameters: (schema.components && schema.components.parameters) || schema.parameters,
-        immutableTypes,
-        version,
       })}\n  }\n`;
-    });
+    }
   }
-  output += `}\n`; // close operations
 
-  return output.trim();
+  // cleanup: trim whitespace
+  for (const k of Object.keys(output)) {
+    if (typeof output[k] === "string") {
+      output[k] = output[k].trim();
+    }
+  }
+
+  return output;
 }

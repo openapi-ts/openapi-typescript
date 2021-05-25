@@ -12,13 +12,14 @@ const cli = meow(
   $ openapi-typescript [input] [options]
 
 Options
-  --help                display this
-  --output, -o          Specify output file (default: stdout)
-  --auth                (optional) Provide an authentication token for private URL
-  --immutable-types     (optional) Generates immutable types (readonly properties and readonly array)
-  --prettier-config     (optional) specify path to Prettier config file
-  --raw-schema          (optional) Read from raw schema instead of document
-  --version             (optional) Schema version (must be present for raw schemas)
+  --help                       display this
+  --output, -o                 Specify output file (default: stdout)
+  --auth                       (optional) Provide an authentication token for private URL
+  --immutable-types, -it       (optional) Generates immutable types (readonly properties and readonly array)
+  --additional-properties, -ap (optional) Allow arbitrary properties for all schema objects without "additionalProperties: false"
+  --prettier-config, -c        (optional) specify path to Prettier config file
+  --raw-schema                 (optional) Parse as partial schema (raw components)
+  --version                    (optional) Force schema parsing version
 `,
   {
     flags: {
@@ -31,9 +32,15 @@ Options
       },
       immutableTypes: {
         type: "boolean",
+        alias: "it",
+      },
+      additionalProperties: {
+        type: "boolean",
+        alias: "ap",
       },
       prettierConfig: {
         type: "string",
+        alias: "c",
       },
       rawSchema: {
         type: "boolean",
@@ -58,6 +65,9 @@ async function main() {
   if (output === "FILE") {
     console.info(bold(`✨ openapi-typescript ${require("../package.json").version}`)); // only log if we’re NOT writing to stdout
   }
+  if (cli.flags.rawSchema && !cli.flags.version) {
+    throw new Error(`--raw-schema requires --version flag`);
+  }
 
   // 1. input
   let spec = undefined;
@@ -73,6 +83,8 @@ async function main() {
 
   // 2. generate schema (the main part!)
   const result = openapiTS(spec, {
+    auth: cli.flags.auth,
+    additionalProperties: cli.flags.additionalProperties,
     immutableTypes: cli.flags.immutableTypes,
     prettierConfig: cli.flags.prettierConfig,
     rawSchema: cli.flags.rawSchema,
