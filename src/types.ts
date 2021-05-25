@@ -1,3 +1,5 @@
+import { URL } from "url";
+
 export interface OpenAPI2 {
   swagger: string; // required
   paths?: Record<string, PathItemObject>;
@@ -111,6 +113,12 @@ export interface SchemaObject {
 export type SchemaFormatter = (schemaObj: SchemaObject) => string | undefined;
 
 export interface SwaggerToTSOptions {
+  /** Allow arbitrary properties on schemas (default: false) */
+  additionalProperties?: boolean;
+  /** (optional) Specify auth if using openapi-typescript to fetch URL */
+  auth?: string;
+  /** (optional) Specify current working directory (cwd) to resolve remote schemas on disk (not needed for remote URL schemas) */
+  cwd?: URL;
   /** Specify a formatter */
   formatter?: SchemaFormatter;
   /** Generates immutable types (readonly properties and readonly array) */
@@ -121,4 +129,17 @@ export interface SwaggerToTSOptions {
   rawSchema?: boolean;
   /** (optional) OpenAPI version. Must be present if parsing raw schema */
   version?: number;
+}
+
+/** Context passed to all submodules */
+export interface GlobalContext {
+  additionalProperties: boolean;
+  auth?: string;
+  formatter?: SchemaFormatter;
+  immutableTypes: boolean;
+  /** (optional) Should logging be suppressed? (necessary for STDOUT) */
+  silent?: boolean;
+  namespace?: string;
+  rawSchema: boolean;
+  version: number;
 }

@@ -85,8 +85,8 @@ export interface components {
     calendar: {
       dates?: {
         start?: Date;
-      } & { [key: string]: any };
-    } & { [key: string]: any };
+      };
+    };
   };
 }
 

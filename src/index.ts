@@ -3,7 +3,7 @@ import prettier from "prettier";
 import parserTypescript from "prettier/parser-typescript";
 import { swaggerVersion } from "./utils";
 import { transformAll } from "./transform/index";
-import { OpenAPI2, OpenAPI3, SchemaObject, SwaggerToTSOptions } from "./types";
+import { GlobalContext, OpenAPI2, OpenAPI3, SchemaObject, SwaggerToTSOptions } from "./types";
 export * from "./types"; // expose all types to consumers
 
 export const WARNING_MESSAGE = `/**
@@ -16,22 +16,27 @@ export const WARNING_MESSAGE = `/**
 
 export default function openapiTS(
   schema: OpenAPI2 | OpenAPI3 | Record<string, SchemaObject>,
-  options?: SwaggerToTSOptions
+  options: SwaggerToTSOptions = {}
 ): string {
-  // 1. determine version
-  const version = (options && options.version) || swaggerVersion(schema as OpenAPI2 | OpenAPI3);
+  // 1. set up context
+  const ctx: GlobalContext = {
+    auth: options.auth,
+    additionalProperties: options.additionalProperties || false,
+    formatter: typeof options.formatter === "function" ? options.formatter : undefined,
+    immutableTypes: options.immutableTypes || false,
+    rawSchema: options.rawSchema || false,
+    version: options.version || swaggerVersion(schema as OpenAPI2 | OpenAPI3),
+  } as any;
 
   // 2. generate output
-  let output = `${WARNING_MESSAGE}
-  ${transformAll(schema, {
-    formatter: options && typeof options.formatter === "function" ? options.formatter : undefined,
-    immutableTypes: (options && options.immutableTypes) || false,
-    rawSchema: options && options.rawSchema,
-    version,
-  })}
-`;
+  let output = WARNING_MESSAGE;
+  const rootTypes = transformAll(schema, { ...ctx });
+  for (const k of Object.keys(rootTypes)) {
+    if (typeof rootTypes[k] !== "string") continue;
+    output += `export interface ${k} {\n  ${rootTypes[k]}\n}\n\n`;
+  }
 
-  // 3. Prettify output
+  // 3. Prettify
   let prettierOptions: prettier.Options = {
     parser: "typescript",
     plugins: [parserTypescript],

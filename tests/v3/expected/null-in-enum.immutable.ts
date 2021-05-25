@@ -19,19 +19,19 @@ export interface components {
     /** Enum with null and nullable */
     readonly MyType: {
       readonly myField?: ("foo" | "bar") | null;
-    } & { readonly [key: string]: any };
+    };
     /** Enum with null */
     readonly MyTypeNotNullable: {
       readonly myField?: "foo" | "bar" | null;
-    } & { readonly [key: string]: any };
+    };
     /** Enum with null */
     readonly MyTypeNotNullableNotNull: {
       readonly myField?: "foo" | "bar";
-    } & { readonly [key: string]: any };
+    };
     /** Enum with null */
     readonly MyTypeMixed: {
       readonly myField?: "foo" | 2 | false | null;
-    } & { readonly [key: string]: any };
+    };
   };
 }
 

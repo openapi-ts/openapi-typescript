@@ -1,55 +1,57 @@
-import { ParameterObject, ReferenceObject } from "../types";
+import { GlobalContext, ParameterObject, ReferenceObject } from "../types";
 import { comment, tsReadonly } from "../utils";
 import { transformSchemaObj } from "./schema";
 
+interface TransformParametersOptions extends GlobalContext {
+  globalParameters?: Record<string, ParameterObject>;
+}
+
 export function transformParametersArray(
   parameters: (ReferenceObject | ParameterObject)[],
-  {
-    globalParameters,
-    immutableTypes,
-    version,
-  }: {
-    globalParameters?: Record<string, ParameterObject>;
-    immutableTypes: boolean;
-    version: number;
-  }
+  options: TransformParametersOptions
 ): string {
-  const readonly = tsReadonly(immutableTypes);
+  const { globalParameters = {}, ...ctx } = options;
+  const readonly = tsReadonly(ctx.immutableTypes);
 
   let output = "";
 
   // sort into map
   let mappedParams: Record<string, Record<string, ParameterObject>> = {};
-  parameters.forEach((paramObj: any) => {
+  for (const paramObj of parameters as any[]) {
     if (paramObj.$ref && globalParameters) {
       const paramName = paramObj.$ref.split("/").pop(); // take last segment
       if (globalParameters[paramName]) {
         const reference = globalParameters[paramName] as any;
         if (!mappedParams[reference.in]) mappedParams[reference.in] = {};
-        if (version === 2) {
-          mappedParams[reference.in][reference.name || paramName] = {
-            ...reference,
-            $ref: paramObj.$ref,
-          };
-        } else if (version === 3) {
-          mappedParams[reference.in][reference.name || paramName] = {
-            ...reference,
-            schema: { $ref: paramObj.$ref },
-          };
+        switch (ctx.version) {
+          case 3: {
+            mappedParams[reference.in][reference.name || paramName] = {
+              ...reference,
+              schema: { $ref: paramObj.$ref },
+            };
+            break;
+          }
+          case 2: {
+            mappedParams[reference.in][reference.name || paramName] = {
+              ...reference,
+              $ref: paramObj.$ref,
+            };
+            break;
+          }
         }
       }
-      return;
+      continue;
     }
 
-    if (!paramObj.in || !paramObj.name) return;
+    if (!paramObj.in || !paramObj.name) continue;
     if (!mappedParams[paramObj.in]) mappedParams[paramObj.in] = {};
     mappedParams[paramObj.in][paramObj.name] = paramObj;
-  });
+  }
 
   // transform output
-  Object.entries(mappedParams).forEach(([paramIn, paramGroup]) => {
+  for (const [paramIn, paramGroup] of Object.entries(mappedParams)) {
     output += `  ${readonly}${paramIn}: {\n`; // open in
-    Object.entries(paramGroup).forEach(([paramName, paramObj]) => {
+    for (const [paramName, paramObj] of Object.entries(paramGroup)) {
       let paramComment = "";
       if (paramObj.deprecated) paramComment += `@deprecated `;
       if (paramObj.description) paramComment += paramObj.description;
@@ -57,21 +59,28 @@ export function transformParametersArray(
 
       const required = paramObj.required ? `` : `?`;
       let paramType = ``;
-      if (version === 2) {
-        if (paramObj.in === "body" && paramObj.schema) {
-          paramType = transformSchemaObj(paramObj.schema, { immutableTypes, version });
-        } else if (paramObj.type) {
-          paramType = transformSchemaObj(paramObj, { immutableTypes, version });
-        } else {
-          paramType = "unknown";
+      switch (ctx.version) {
+        case 3: {
+          paramType = paramObj.schema
+            ? transformSchemaObj(paramObj.schema, { ...ctx, required: new Set<string>() })
+            : "unknown";
+          break;
         }
-      } else if (version === 3) {
-        paramType = paramObj.schema ? transformSchemaObj(paramObj.schema, { immutableTypes, version }) : "unknown";
+        case 2: {
+          if (paramObj.in === "body" && paramObj.schema) {
+            paramType = transformSchemaObj(paramObj.schema, { ...ctx, required: new Set<string>() });
+          } else if (paramObj.type) {
+            paramType = transformSchemaObj(paramObj, { ...ctx, required: new Set<string>() });
+          } else {
+            paramType = "unknown";
+          }
+          break;
+        }
       }
       output += `    ${readonly}"${paramName}"${required}: ${paramType};\n`;
-    });
+    }
     output += `  }\n`; // close in
-  });
+  }
 
   return output;
 }

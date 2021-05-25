@@ -684,19 +684,19 @@ export interface components {
       location: components["schemas"]["Location"];
       name: string;
       priority: number;
-    };
+    } & { [key: string]: any };
     Region: {
       id: components["schemas"]["ID"];
       type: "region";
       version: number;
       body: components["schemas"]["RegionBody"];
-    };
+    } & { [key: string]: any };
     CreateRegion: {
       body: components["schemas"]["RegionBody"];
-    };
+    } & { [key: string]: any };
     UpdateRegion: {
       name: string;
-    };
+    } & { [key: string]: any };
     ProviderBody: {
       owner_id?: components["schemas"]["OptionalFlexID"];
       team_id?: components["schemas"]["OptionalID"];
@@ -705,7 +705,7 @@ export interface components {
       logo_url?: components["schemas"]["LogoURL"];
       support_email?: string;
       documentation_url?: string;
-    };
+    } & { [key: string]: any };
     UpdateProviderBody: {
       owner_id?: components["schemas"]["OptionalFlexID"];
       team_id?: components["schemas"]["OptionalID"];
@@ -714,24 +714,24 @@ export interface components {
       logo_url?: components["schemas"]["OptionalLogoURL"];
       support_email?: string | null;
       documentation_url?: string | null;
-    };
+    } & { [key: string]: any };
     Provider: {
       id: components["schemas"]["ID"];
       version: number;
       type: "provider";
       body: components["schemas"]["ProviderBody"];
-    };
+    } & { [key: string]: any };
     CreateProvider: {
       body: components["schemas"]["ProviderBody"];
-    };
+    } & { [key: string]: any };
     UpdateProvider: {
       id: components["schemas"]["ID"];
       body: components["schemas"]["UpdateProviderBody"];
-    };
+    } & { [key: string]: any };
     UpdateProduct: {
       id: components["schemas"]["ID"];
       body: components["schemas"]["UpdateProductBody"];
-    };
+    } & { [key: string]: any };
     UpdateProductBody: {
       name?: components["schemas"]["Name"];
       label?: components["schemas"]["Label"];
@@ -752,26 +752,28 @@ export interface components {
        */
       terms_url?: string | null;
       feature_types?: components["schemas"]["FeatureType"][] | null;
-      integration?: {
-        provisioning?: components["schemas"]["ProductProvisioning"];
-        base_url?: string | null;
-        sso_url?: string | null;
-        version?: "v1" | null;
-        features?: {
-          access_code?: boolean | null;
-          sso?: boolean | null;
-          plan_change?: boolean | null;
-          credential?: ("none" | "single" | "multiple" | "unknown") | null;
-        };
-      } | null;
+      integration?:
+        | ({
+            provisioning?: components["schemas"]["ProductProvisioning"];
+            base_url?: string | null;
+            sso_url?: string | null;
+            version?: "v1" | null;
+            features?: {
+              access_code?: boolean | null;
+              sso?: boolean | null;
+              plan_change?: boolean | null;
+              credential?: ("none" | "single" | "multiple" | "unknown") | null;
+            } & { [key: string]: any };
+          } & { [key: string]: any })
+        | null;
       /** An array of platform ids to restrict this product for. */
       platform_ids?: components["schemas"]["ID"][] | null;
       tags?: components["schemas"]["ProductTags"];
-    };
+    } & { [key: string]: any };
     UpdatePlan: {
       id: components["schemas"]["ID"];
       body: components["schemas"]["UpdatePlanBody"];
-    };
+    } & { [key: string]: any };
     UpdatePlanBody: {
       name?: components["schemas"]["Name"];
       label?: components["schemas"]["Label"];
@@ -791,7 +793,7 @@ export interface components {
       trial_days?: number | null;
       /** Dollar value in cents */
       cost?: number | null;
-    };
+    } & { [key: string]: any };
     /**
      * A feature type represents the different aspects of a product that are
      * offered, these features can manifest differently depending on the plan.
@@ -820,7 +822,7 @@ export interface components {
        */
       measurable?: boolean;
       values?: components["schemas"]["FeatureValuesList"];
-    };
+    } & { [key: string]: any };
     /**
      * A list of allowable values for the feature.
      * To define values for a boolean feature type, only `true` is required,
@@ -859,31 +861,33 @@ export interface components {
         formula?: components["schemas"]["PriceFormula"];
         /** Description explains how a feature is calculated to the user. */
         description?: string;
-      };
+      } & { [key: string]: any };
       numeric_details?: components["schemas"]["FeatureNumericDetails"];
-    };
+    } & { [key: string]: any };
     /**
      * Optional container for additional details relating to numeric features.
      * This is required if the feature is measurable and numeric.
      */
-    FeatureNumericDetails: {
-      /**
-       * Sets the increment at which numbers can be selected if customizable, by
-       * default this is 1; for example, setting this to 8 would only allow integers
-       * in increments of 8 ( 0, 8, 16, ... ). This property is not used if the
-       * feature is measurable; except if it is set to 0, setting the increment to 0
-       * means this numeric details has no scale, and will not be or customizable.
-       * Some plans may not have a measureable or customizable feature.
-       */
-      increment?: number;
-      /** Minimum value that can be set by a user if customizable */
-      min?: number;
-      /** Maximum value that can be set by a user if customizable */
-      max?: number | null;
-      /** Applied to the end of the number for display, for example the ‘GB’ in ‘20 GB’. */
-      suffix?: string | null;
-      cost_ranges?: components["schemas"]["FeatureNumericRange"][] | null;
-    } | null;
+    FeatureNumericDetails:
+      | ({
+          /**
+           * Sets the increment at which numbers can be selected if customizable, by
+           * default this is 1; for example, setting this to 8 would only allow integers
+           * in increments of 8 ( 0, 8, 16, ... ). This property is not used if the
+           * feature is measurable; except if it is set to 0, setting the increment to 0
+           * means this numeric details has no scale, and will not be or customizable.
+           * Some plans may not have a measureable or customizable feature.
+           */
+          increment?: number;
+          /** Minimum value that can be set by a user if customizable */
+          min?: number;
+          /** Maximum value that can be set by a user if customizable */
+          max?: number | null;
+          /** Applied to the end of the number for display, for example the ‘GB’ in ‘20 GB’. */
+          suffix?: string | null;
+          cost_ranges?: components["schemas"]["FeatureNumericRange"][] | null;
+        } & { [key: string]: any })
+      | null;
     FeatureNumericRange: {
       /**
        * Defines the end of the range ( inclusive ), from the previous, or 0;
@@ -897,17 +901,17 @@ export interface components {
        * numeric value set in the feature to determine the cost.
        */
       cost_multiple?: number;
-    };
+    } & { [key: string]: any };
     FeatureValue: {
       feature: components["schemas"]["Label"];
       value: components["schemas"]["FeatureValueLabel"];
-    };
+    } & { [key: string]: any };
     ValueProp: {
       /** Heading of a value proposition. */
       header: string;
       /** Body of a value proposition. */
       body: string;
-    };
+    } & { [key: string]: any };
     /**
      * Image URL used for Product listings.
      *
@@ -956,8 +960,8 @@ export interface components {
          * product, it is just used to inform consumers through our clients.
          */
         featured?: boolean;
-      };
-    };
+      } & { [key: string]: any };
+    } & { [key: string]: any };
     /**
      * Provider Only, implies that the product should only be provisionable by the
      *   provider; so members of the provider team, no one else should be allowed.
@@ -997,7 +1001,7 @@ export interface components {
        * * `unknown`: The credential type is unknown.
        */
       credential?: "none" | "single" | "multiple" | "unknown";
-    };
+    } & { [key: string]: any };
     ProductBody: {
       provider_id: components["schemas"]["ID"];
       label: components["schemas"]["Label"];
@@ -1021,30 +1025,30 @@ export interface components {
       terms: {
         url?: string | null;
         provided: boolean;
-      };
+      } & { [key: string]: any };
       feature_types: components["schemas"]["FeatureType"][];
       billing: {
         type: "monthly-prorated" | "monthly-anniversary" | "annual-anniversary";
         currency: "usd";
-      };
+      } & { [key: string]: any };
       integration: {
         provisioning: components["schemas"]["ProductProvisioning"];
         base_url: string;
         sso_url?: string | null;
         version: "v1";
         features: components["schemas"]["ProductIntegrationFeatures"];
-      };
+      } & { [key: string]: any };
       tags?: components["schemas"]["ProductTags"];
-    };
+    } & { [key: string]: any };
     Product: {
       id: components["schemas"]["ID"];
       version: number;
       type: "product";
       body: components["schemas"]["ProductBody"];
-    };
+    } & { [key: string]: any };
     CreateProduct: {
       body: components["schemas"]["ProductBody"];
-    };
+    } & { [key: string]: any };
     /** Array of Plan IDs that this Plan can be resized to, if null all will be assumed */
     PlanResizeList: components["schemas"]["ID"][] | null;
     PlanBody: {
@@ -1066,45 +1070,47 @@ export interface components {
       trial_days?: number;
       /** Dollar value in cents. */
       cost: number;
-    };
+    } & { [key: string]: any };
     PlanState: "hidden" | "available" | "grandfathered" | "unlisted";
-    ExpandedPlanBody: components["schemas"]["PlanBody"] & {
-      /** An array of feature definitions for the plan, as defined on the Product. */
-      expanded_features: components["schemas"]["ExpandedFeature"][];
-      /** A boolean flag that indicates if a plan is free or not based on it's cost and features. */
-      free: boolean;
-      /** Plan cost using its default features plus base cost. */
-      defaultCost?: number;
-      /** A boolean flag that indicates if a plan has customizable features. */
-      customizable?: boolean;
-    };
-    ExpandedFeature: components["schemas"]["FeatureType"] & {
-      /** The string value set for the feature on the plan, this should only be used if the value property is null. */
-      value_string: string;
-      value: components["schemas"]["FeatureValueDetails"];
-    };
+    ExpandedPlanBody: components["schemas"]["PlanBody"] &
+      ({
+        /** An array of feature definitions for the plan, as defined on the Product. */
+        expanded_features: components["schemas"]["ExpandedFeature"][];
+        /** A boolean flag that indicates if a plan is free or not based on it's cost and features. */
+        free: boolean;
+        /** Plan cost using its default features plus base cost. */
+        defaultCost?: number;
+        /** A boolean flag that indicates if a plan has customizable features. */
+        customizable?: boolean;
+      } & { [key: string]: any }) & { [key: string]: any };
+    ExpandedFeature: components["schemas"]["FeatureType"] &
+      ({
+        /** The string value set for the feature on the plan, this should only be used if the value property is null. */
+        value_string: string;
+        value: components["schemas"]["FeatureValueDetails"];
+      } & { [key: string]: any }) & { [key: string]: any };
     Plan: {
       id: components["schemas"]["ID"];
       version: number;
       type: "plan";
       body: components["schemas"]["PlanBody"];
-    };
+    } & { [key: string]: any };
     ExpandedPlan: {
       id: components["schemas"]["ID"];
       version: number;
       type: "plan";
       body: components["schemas"]["ExpandedPlanBody"];
-    };
+    } & { [key: string]: any };
     CreatePlan: {
       body: components["schemas"]["PlanBody"];
-    };
+    } & { [key: string]: any };
     /** Unexpected error */
     Error: {
       /** The error type */
       type: string;
       /** Explanation of the errors */
       message: string[];
-    };
+    } & { [key: string]: any };
     /**
      * Describes how a feature cost should be calculated. An empty
      * string defaults to the normal price calculation using the value cost.
@@ -1136,7 +1142,7 @@ export interface components {
       body: components["schemas"]["ProductBody"];
       plans?: components["schemas"]["ExpandedPlan"][];
       provider: components["schemas"]["Provider"];
-    };
+    } & { [key: string]: any };
   };
   parameters: {
     /** Filter results to only include those that have this label. */
