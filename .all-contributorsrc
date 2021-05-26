@@ -364,6 +364,17 @@
         "test",
         "bug"
       ]
+    },
+    {
+      "login": "Chrg1001",
+      "name": "Yuto Yoshihara",
+      "avatar_url": "https://avatars.githubusercontent.com/u/40189653?v=4",
+      "profile": "https://github.com/Chrg1001",
+      "contributions": [
+        "code",
+        "bug",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
