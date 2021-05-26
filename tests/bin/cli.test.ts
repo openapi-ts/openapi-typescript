@@ -31,4 +31,14 @@ describe("cli", () => {
     const result = execSync(`../../bin/cli.js specs/petstore.yaml`, { cwd: __dirname });
     expect(result.toString("utf8")).toBe(expected);
   });
+
+  it("supports glob paths", () => {
+    const expectedPetstore = fs.readFileSync(path.join(__dirname, "expected", "petstore.ts"), "utf8");
+    const expectedManifold = fs.readFileSync(path.join(__dirname, "expected", "manifold.ts"), "utf8");
+    execSync(`../../bin/cli.js \"specs/*.yaml\" -o generated/`, { cwd: __dirname }); // Quotes are necessary because shells like zsh treats glob weirdly
+    const outputPetstore = fs.readFileSync(path.join(__dirname, "generated", "petstore.ts"), "utf8");
+    const outputManifold = fs.readFileSync(path.join(__dirname, "generated", "manifold.ts"), "utf8");
+    expect(outputPetstore).toBe(expectedPetstore);
+    expect(outputManifold).toBe(expectedManifold);
+  });
 });
