@@ -7685,17 +7685,17 @@ export interface components {
     /** State of a code scanning alert. */
     "code-scanning-alert-state": "open" | "dismissed" | "fixed";
     /** The security alert number. */
-    "alert-number": number;
+    "alert-number": number; // GET requests only
     /** The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    "alert-created-at": string;
+    "alert-created-at": string; // GET requests only
     /** The REST API URL of the alert resource. */
-    "alert-url": string;
+    "alert-url": string; // GET requests only
     /** The GitHub URL of the alert resource. */
-    "alert-html-url": string;
+    "alert-html-url": string; // GET requests only
     /** The REST API URL for fetching the list of instances for an alert. */
-    "alert-instances-url": string;
+    "alert-instances-url": string; // GET requests only
     /** The time that the alert was dismissed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    "code-scanning-alert-dismissed-at": string | null;
+    "code-scanning-alert-dismissed-at": string | null; // GET requests only
     /** **Required when the state is dismissed.** The reason for dismissing or closing the alert. Can be one of: `false positive`, `won't fix`, and `used in tests`. */
     "code-scanning-alert-dismissed-reason": string | null;
     "code-scanning-alert-rule-summary": {
@@ -7799,9 +7799,9 @@ export interface components {
     /** Identifies the variable values associated with the environment in which this analysis was performed. */
     "code-scanning-analysis-environment": string;
     /** The time that the analysis was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    "code-scanning-analysis-created-at": string;
+    "code-scanning-analysis-created-at": string; // GET requests only
     /** The REST API URL of the analysis resource. */
-    "code-scanning-analysis-url": string;
+    "code-scanning-analysis-url": string; // GET requests only
     "code-scanning-analysis": {
       ref: components["schemas"]["code-scanning-ref"];
       commit_sha: components["schemas"]["code-scanning-analysis-commit-sha"];
@@ -7823,9 +7823,9 @@ export interface components {
     /** Successful deletion of a code scanning analysis */
     "code-scanning-analysis-deletion": {
       /** Next deletable analysis in chain, without last analysis deletion confirmation */
-      next_analysis_url: string | null;
+      next_analysis_url: string | null; // GET requests only
       /** Next deletable analysis in chain, with last analysis deletion confirmation */
-      confirm_delete_url: string | null;
+      confirm_delete_url: string | null; // GET requests only
     } & { [key: string]: any };
     /** Scim Error */
     "scim-error": {
@@ -7841,13 +7841,13 @@ export interface components {
     "code-scanning-sarifs-receipt": {
       id?: components["schemas"]["code-scanning-analysis-sarif-id"];
       /** The REST API URL for checking the status of the upload. */
-      url?: string;
+      url?: string; // GET requests only
     } & { [key: string]: any };
     "code-scanning-sarifs-status": {
       /** `pending` files have not yet been processed, while `complete` means all results in the SARIF have been stored. */
       processing_status?: "pending" | "complete";
       /** The REST API URL for getting the analyses associated with the upload. */
-      analyses_url?: string | null;
+      analyses_url?: string | null; // GET requests only
     } & { [key: string]: any };
     /** Collaborator */
     collaborator: {

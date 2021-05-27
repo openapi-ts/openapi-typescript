@@ -33,7 +33,7 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
     output += transformSchemaObj(v.schema || v, options);
 
     // 4. close
-    output += `;\n`;
+    output += `;${v.readOnly ? "// GET requests only" : v.writeOnly ? "// POST/PUT/PATCH responses only" : ""}\n`;
   }
 
   return output.replace(/\n+$/, "\n"); // replace repeat line endings with only one
