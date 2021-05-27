@@ -618,11 +618,11 @@ export interface definitions {
       base_url?: string;
       sso_url?: string;
       version?: "v1";
-      features?: {
+      features: {
         access_code?: boolean;
         sso?: boolean;
         plan_change?: boolean;
-        credential?: "none" | "single" | "multiple" | "unknown";
+        credential: "none" | "single" | "multiple" | "unknown";
       };
     };
     /** An array of platform ids to restrict this product for. */
@@ -662,24 +662,24 @@ export interface definitions {
     name: definitions["Name"];
     type: "boolean" | "string" | "number";
     /** This sets whether or not the feature can be customized by a consumer. */
-    customizable?: boolean;
+    customizable: boolean;
     /**
      * This sets whether or not the feature can be upgraded by the consumer after the
      * resource has provisioned. Upgrading means setting a higher value or selecting a
      * higher element in the list.
      */
-    upgradable?: boolean;
+    upgradable: boolean;
     /**
      * This sets whether or not the feature can be downgraded by the consumer after the
      * resource has provisioned. Downgrading means setting a lower value or selecting a
      * lower element in the list.
      */
-    downgradable?: boolean;
+    downgradable: boolean;
     /**
      * Sets if this feature’s value is trackable from the provider,
      * this only really affects numeric constraints.
      */
-    measurable?: boolean;
+    measurable: boolean;
     values?: definitions["FeatureValuesList"];
   };
   /**
@@ -699,7 +699,7 @@ export interface definitions {
      * is selected or is default for the plan.
      * Cost is deprecated in favor of the `price.cost` field.
      */
-    cost?: number;
+    cost: number;
     /**
      * Price describes the cost of a feature. It should be preferred over
      * the `cost` property.
@@ -710,13 +710,13 @@ export interface definitions {
        * when this value is selected or is default for the plan.
        * Number features should use the cost range instead.
        */
-      cost?: number;
+      cost: number;
       /**
        * When a feature is used to multiply the cost of the plan or of
        * another feature, multiply factor is used for calculation.
        * A feature cannot have both a cost and a multiply factor.
        */
-      multiply_factor?: number;
+      multiply_factor: number;
       /** Price describes how the feature cost should be calculated. */
       formula?: definitions["PriceFormula"];
       /** Description explains how a feature is calculated to the user. */
@@ -737,9 +737,9 @@ export interface definitions {
      * means this numeric details has no scale, and will not be or customizable.
      * Some plans may not have a measureable or customizable feature.
      */
-    increment?: number;
+    increment: number;
     /** Minimum value that can be set by a user if customizable */
-    min?: number;
+    min: number;
     /** Maximum value that can be set by a user if customizable */
     max?: number;
     /** Applied to the end of the number for display, for example the ‘GB’ in ‘20 GB’. */
@@ -758,7 +758,7 @@ export interface definitions {
      * An integer in 10,000,000ths of cents, will be multiplied by the
      * numeric value set in the feature to determine the cost.
      */
-    cost_multiple?: number;
+    cost_multiple: number;
   };
   FeatureValue: {
     feature: definitions["Label"];
@@ -784,7 +784,7 @@ export interface definitions {
      * When true, everyone can see the product when requested. When false it will
      * not be visible to anyone except those on the provider team.
      */
-    public?: boolean;
+    public: boolean;
     /**
      * When true, the product will be displayed in product listings alongside
      * other products. When false the product will be excluded from listings,
@@ -792,32 +792,32 @@ export interface definitions {
      * Any pages that display information about the product when not listed,
      * should indicate to webcrawlers that the content should not be indexed.
      */
-    listed?: boolean;
+    listed: boolean;
     /**
      * Object to hold various flags for marketing purposes only. These are values
      * that need to be stored, but should not affect decision making in code. If
      * we find ourselves in a position where we think they should, we should
      * consider refactoring our listing definition.
      */
-    marketing?: {
+    marketing: {
       /**
        * Indicates whether or not the product is in `Beta` and should be
        * advertised as such. This does not have any impact on who can access the
        * product, it is just used to inform consumers through our clients.
        */
-      beta?: boolean;
+      beta: boolean;
       /**
        * Indicates whether or not the product is in `New` and should be
        * advertised as such. This does not have any impact on who can access the
        * product, it is just used to inform consumers through our clients.
        */
-      new?: boolean;
+      new: boolean;
       /**
        * Indicates whether or not the product is in `New` and should be
        * advertised as such. This does not have any impact on who can access the
        * product, it is just used to inform consumers through our clients.
        */
-      featured?: boolean;
+      featured: boolean;
     };
   };
   /**
@@ -858,7 +858,7 @@ export interface definitions {
      * * `multiple`: Multiple credentials are supported at the same time.
      * * `unknown`: The credential type is unknown.
      */
-    credential?: "none" | "single" | "multiple" | "unknown";
+    credential: "none" | "single" | "multiple" | "unknown";
   };
   ProductBody: {
     provider_id: definitions["ID"];
