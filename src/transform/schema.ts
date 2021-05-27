@@ -23,17 +23,37 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
 
   for (const k of Object.keys(obj)) {
     const v = obj[k];
-    // 1. JSDoc comment (goes above property)
-    if (v.description) output += comment(v.description);
+    if (
+      options.requestResponse == null ||
+      (options.requestResponse === "request" && !v.writeOnly) ||
+      (options.requestResponse === "response" && !v.readOnly)
+    ) {
+      // 1. JSDoc comment (goes above property)
+      if (v.description) output += comment(v.description);
 
-    // 2. name (with “?” if optional property)
-    output += `${readonly}"${k}"${options.required.has(k) ? "" : "?"}: `;
+      // 2. name (with “?” if optional property)
+      output += `${readonly}"${k}"${options.required.has(k) ? "" : "?"}: `;
 
-    // 3. transform
-    output += transformSchemaObj(v.schema || v, options);
+      // 3. transform
+      output += transformSchemaObj(v.schema || v, options);
 
-    // 4. close
-    output += `;${v.readOnly ? "// GET requests only" : v.writeOnly ? "// POST/PUT/PATCH responses only" : ""}\n`;
+      // 4. close
+      output += `;${v.readOnly ? " // GET requests only" : v.writeOnly ? " // POST/PUT/PATCH responses only" : ""}\n`;
+    }
+  }
+
+  return output.replace(/\n+$/, "\n"); // replace repeat line endings with only one
+}
+
+/** Used to merge definitions in components["schemas"] when using readOnly/writeOnly */
+export function transformSchemaRefMap(obj: Record<string, any>, options: GlobalContext): string {
+  const readonly = tsReadonly(options.immutableTypes);
+
+  let output = "";
+
+  for (const k of Object.keys(obj)) {
+    // name (with “?” if optional property)
+    output += `${readonly}"${k}": components["requestSchemas"]["${k}"] | components["responseSchemas"]["${k}"];\n`;
   }
 
   return output.replace(/\n+$/, "\n"); // replace repeat line endings with only one
@@ -68,7 +88,7 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
     // transform core type
     switch (nodeType(node)) {
       case "ref": {
-        output += transformRef(node.$ref);
+        output += transformRef(node.$ref, undefined, options.requestResponse);
         break;
       }
       case "string":

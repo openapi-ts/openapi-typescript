@@ -127,9 +127,13 @@ export interface SwaggerToTSOptions {
   prettierConfig?: string;
   /** (optional) Parsing input document as raw schema rather than OpenAPI document */
   rawSchema?: boolean;
+  /** (optional) Split the schema into requestSchema and responseSchema to support readOnly/writeOnly */
+  splitSchema?: boolean;
   /** (optional) OpenAPI version. Must be present if parsing raw schema */
   version?: number;
 }
+
+export type RequestResponse = "request" | "response";
 
 /** Context passed to all submodules */
 export interface GlobalContext {
@@ -141,5 +145,7 @@ export interface GlobalContext {
   silent?: boolean;
   namespace?: string;
   rawSchema: boolean;
+  splitSchema?: boolean;
   version: number;
+  requestResponse?: RequestResponse;
 }

@@ -19,6 +19,7 @@ Options
   --additional-properties, -ap (optional) Allow arbitrary properties for all schema objects without "additionalProperties: false"
   --prettier-config, -c        (optional) specify path to Prettier config file
   --raw-schema                 (optional) Parse as partial schema (raw components)
+  --split-schema, -s           (optional) Split the schema into requestSchema and responseSchema to support readOnly/writeOnly
   --version                    (optional) Force schema parsing version
 `,
   {
@@ -44,6 +45,10 @@ Options
       },
       rawSchema: {
         type: "boolean",
+      },
+      splitSchema: {
+        type: "boolean",
+        alias: "s",
       },
       version: {
         type: "number",
@@ -88,6 +93,7 @@ async function main() {
     immutableTypes: cli.flags.immutableTypes,
     prettierConfig: cli.flags.prettierConfig,
     rawSchema: cli.flags.rawSchema,
+    splitSchema: cli.flags.splitSchema,
     version: cli.flags.version,
   });
 

@@ -24,15 +24,23 @@ export function transformOperationObj(operation: OperationObject, options: Trans
   }
 
   if (operation.responses) {
-    output += `  ${readonly}responses: {\n    ${transformResponsesObj(operation.responses, ctx)}\n  }\n`;
+    output += `  ${readonly}responses: {\n    ${transformResponsesObj(operation.responses, {
+      ...ctx,
+      requestResponse: options.splitSchema ? "response" : undefined,
+    })}\n  }\n`;
   }
 
   if (operation.requestBody) {
+    const requestResponse = options.splitSchema ? "request" : undefined;
+
     if (isRef(operation.requestBody)) {
-      output += `  ${readonly}requestBody: ${transformRef(operation.requestBody.$ref)};\n`;
+      output += `  ${readonly}requestBody: ${transformRef(operation.requestBody.$ref, undefined, requestResponse)};\n`;
     } else {
       if (operation.requestBody.description) output += comment(operation.requestBody.description);
-      output += `  ${readonly}requestBody: {\n  ${transformRequestBodyObj(operation.requestBody, ctx)}  }\n`;
+      output += `  ${readonly}requestBody: {\n  ${transformRequestBodyObj(operation.requestBody, {
+        ...ctx,
+        requestResponse: requestResponse,
+      })}  }\n`;
     }
   }
 

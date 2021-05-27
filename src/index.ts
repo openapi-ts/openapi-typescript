@@ -25,6 +25,7 @@ export default function openapiTS(
     formatter: typeof options.formatter === "function" ? options.formatter : undefined,
     immutableTypes: options.immutableTypes || false,
     rawSchema: options.rawSchema || false,
+    splitSchema: options.splitSchema || false,
     version: options.version || swaggerVersion(schema as OpenAPI2 | OpenAPI3),
   } as any;
 

@@ -46,6 +46,18 @@ describe("SchemaObject", () => {
       required: ["required"],
       type: "object",
     };
+    const objReadWrite = {
+      type: "object",
+      properties: {
+        object: {
+          properties: {
+            string: { $ref: "#/components/schemas/object_ref", readOnly: true },
+            number: { $ref: "#/components/schemas/object_ref", writeOnly: true },
+          },
+          type: "object",
+        },
+      },
+    };
 
     it("object", () => {
       // standard object
@@ -64,6 +76,15 @@ describe("SchemaObject", () => {
 
       // required
       expect(transform(objRequired, { ...defaults })).toBe(`{\n"required": string;\n"optional"?: boolean;\n\n}`);
+    });
+
+    it("object (splitSchema)", () => {
+      expect(transform(objReadWrite, { ...defaults, splitSchema: true, requestResponse: "request" })).toBe(
+        `{\n"object"?: {\n"string"?: components["requestSchemas"]["object_ref"]; // GET requests only\n\n};\n\n}`
+      );
+      expect(transform(objReadWrite, { ...defaults, splitSchema: true, requestResponse: "response" })).toBe(
+        `{\n"object"?: {\n"number"?: components["responseSchemas"]["object_ref"]; // POST/PUT/PATCH responses only\n\n};\n\n}`
+      );
     });
 
     it("object (immutableTypes)", () => {

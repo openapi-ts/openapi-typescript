@@ -1,4 +1,4 @@
-import { OpenAPI2, OpenAPI3, ReferenceObject } from "./types";
+import { OpenAPI2, OpenAPI3, ReferenceObject, RequestResponse } from "./types";
 
 export function comment(text: string): string {
   const commentText = text.trim().replace(/\*\//g, "*\\/");
@@ -86,12 +86,15 @@ export function swaggerVersion(definition: OpenAPI2 | OpenAPI3): 2 | 3 {
 }
 
 /** Convert $ref to TS ref */
-export function transformRef(ref: string, root = ""): string {
+export function transformRef(ref: string, root = "", requestResponse?: RequestResponse): string {
   // TODO: load external file
   const isExternalRef = !ref.startsWith("#"); // if # isn’t first character, we can assume this is a remote schema
   if (isExternalRef) return "any";
 
   const parts = ref.replace(/^#\//, root).split("/");
+  if (requestResponse && parts[0] === "components" && parts[1] === "schemas") {
+    parts[1] = requestResponse + "Schemas";
+  }
   return `${parts[0]}["${parts.slice(1).join('"]["')}"]`;
 }
 

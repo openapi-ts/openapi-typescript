@@ -5,10 +5,11 @@ import { transformOperationObj } from "./operation";
 import { transformPathsObj } from "./paths";
 import { transformRequestBodies } from "./request";
 import { transformResponsesObj } from "./responses";
-import { transformSchemaObjMap } from "./schema";
+import { transformSchemaObjMap, transformSchemaRefMap } from "./schema";
 
 export function transformAll(schema: any, ctx: GlobalContext): Record<string, string> {
   const readonly = tsReadonly(ctx.immutableTypes);
+  const { splitSchema } = ctx;
 
   let output: Record<string, string> = {};
 
@@ -70,18 +71,43 @@ export function transformAll(schema: any, ctx: GlobalContext): Record<string, st
       if (schema.components) {
         // #/components/schemas
         if (schema.components.schemas) {
-          output.components += `  ${readonly}schemas: {\n    ${transformSchemaObjMap(schema.components.schemas, {
-            ...ctx,
-            required: new Set(Object.keys(schema.components.schemas)),
-          })}\n  }\n`;
+          const required = new Set(Object.keys(schema.components.schemas));
+
+          if (splitSchema) {
+            output.components += `  ${readonly}requestSchemas: {\n    ${transformSchemaObjMap(
+              schema.components.schemas,
+              {
+                ...ctx,
+                required,
+                requestResponse: "request",
+              }
+            )}\n  }\n`;
+            output.components += `  ${readonly}responseSchemas: {\n    ${transformSchemaObjMap(
+              schema.components.schemas,
+              {
+                ...ctx,
+                required,
+                requestResponse: "response",
+              }
+            )}\n  }\n`;
+            output.components += `  ${readonly}schemas: {\n    ${transformSchemaRefMap(
+              schema.components.schemas,
+              ctx
+            )}\n  }\n`;
+          } else {
+            output.components += `  ${readonly}schemas: {\n    ${transformSchemaObjMap(schema.components.schemas, {
+              ...ctx,
+              required,
+            })}\n  }\n`;
+          }
         }
 
         // #/components/responses
         if (schema.components.responses) {
-          output.components += `  ${readonly}responses: {\n    ${transformResponsesObj(
-            schema.components.responses,
-            ctx
-          )}\n  }\n`;
+          output.components += `  ${readonly}responses: {\n    ${transformResponsesObj(schema.components.responses, {
+            ...ctx,
+            requestResponse: splitSchema ? "response" : undefined,
+          })}\n  }\n`;
         }
 
         // #/components/parameters
@@ -96,7 +122,10 @@ export function transformAll(schema: any, ctx: GlobalContext): Record<string, st
         if (schema.components.requestBodies) {
           output.components += `  ${readonly}requestBodies: {\n    ${transformRequestBodies(
             schema.components.requestBodies,
-            ctx
+            {
+              ...ctx,
+              requestResponse: splitSchema ? "request" : undefined,
+            }
           )}\n  }\n`;
         }
 

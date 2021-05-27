@@ -114,6 +114,7 @@ For anything more complicated, or for generating specs dynamically, you can also
 | `--additional-properties`      | `-ap` | `false`  | (optional) Allow arbitrary properties for all schema objects without `additionalProperties: false` |
 | `--prettier-config [location]` |       |          | (optional) Path to your custom Prettier configuration for output |
 | `--raw-schema`                 |       | `false`  | Generate TS types from partial schema (e.g. having `components.schema` at the top level) |
+| `--split-schema`               | `-s`  | `false`  | Split the schema into requestSchema and responseSchema to support readOnly/writeOnly |
 
 ### 🐢 Node
 
