@@ -375,6 +375,15 @@
         "bug",
         "test"
       ]
+    },
+    {
+      "login": "sharmarajdaksh",
+      "name": "Dakshraj Sharma",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33689528?v=4",
+      "profile": "https://github.com/sharmarajdaksh",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
