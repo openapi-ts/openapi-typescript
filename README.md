@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/master/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-35-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-36-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -240,6 +240,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://www.ashsmith.io"><img src="https://avatars.githubusercontent.com/u/1086841?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ash Smith</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=ashsmith" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Aashsmith" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=ashsmith" title="Tests">⚠️</a></td>
     <td align="center"><a href="http://mehalter.com"><img src="https://avatars.githubusercontent.com/u/1591837?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Micah Halter</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=mehalter" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=mehalter" title="Tests">⚠️</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Amehalter" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/Chrg1001"><img src="https://avatars.githubusercontent.com/u/40189653?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yuto Yoshihara</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=Chrg1001" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3AChrg1001" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=Chrg1001" title="Tests">⚠️</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/sharmarajdaksh"><img src="https://avatars.githubusercontent.com/u/33689528?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dakshraj Sharma</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=sharmarajdaksh" title="Code">💻</a></td>
   </tr>
 </table>
 
