@@ -6618,6 +6618,8 @@ export interface components {
         } & { [key: string]: any };
         docker?: {
           tag?: any[];
+        } & {
+          tags: any;
         } & { [key: string]: any };
       } & { [key: string]: any };
     } & { [key: string]: any };
@@ -8123,6 +8125,9 @@ export interface components {
         html: string | null;
         self: string;
       } & { [key: string]: any };
+    } & {
+      content: any;
+      encoding: any;
     } & { [key: string]: any };
     /** A list of directory items */
     "content-directory": ({
@@ -19810,6 +19815,8 @@ export interface operations {
         "application/json": (Partial<
           {
             status?: "completed";
+          } & {
+            conclusion: any;
           } & { [key: string]: any }
         > &
           Partial<
@@ -19946,6 +19953,8 @@ export interface operations {
         "application/json": (Partial<
           {
             status?: "completed";
+          } & {
+            conclusion: any;
           } & { [key: string]: any }
         > &
           Partial<

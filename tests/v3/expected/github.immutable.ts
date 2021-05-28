@@ -6604,6 +6604,8 @@ export interface components {
         };
         readonly docker?: {
           readonly tag?: readonly any[];
+        } & {
+          tags: any;
         };
       };
     };
@@ -8100,6 +8102,9 @@ export interface components {
         readonly html: string | null;
         readonly self: string;
       };
+    } & {
+      content: any;
+      encoding: any;
     };
     /** A list of directory items */
     readonly "content-directory": readonly {
@@ -19762,6 +19767,8 @@ export interface operations {
         readonly "application/json": (Partial<
           {
             readonly status?: "completed";
+          } & {
+            conclusion: any;
           } & { readonly [key: string]: any }
         > &
           Partial<
@@ -19898,6 +19905,8 @@ export interface operations {
         readonly "application/json": (Partial<
           {
             readonly status?: "completed";
+          } & {
+            conclusion: any;
           } & { readonly [key: string]: any }
         > &
           Partial<

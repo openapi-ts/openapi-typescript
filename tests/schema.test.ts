@@ -368,6 +368,39 @@ describe("SchemaObject", () => {
         }"
       `);
     });
+    it("empty object with required fields", () => {
+      expect(
+        transform(
+          {
+            type: "object",
+            required: ["abc"],
+          },
+          { ...defaults }
+        )
+      ).toBe(`({ [key: string]: any }) & ({
+abc: any;
+})`);
+    });
+  });
+
+  it("object with missing required fields", () => {
+    expect(
+      transform(
+        {
+          type: "object",
+          required: ["abc", "email"],
+          properties: {
+            email: { type: "string" },
+          },
+        },
+        { ...defaults }
+      )
+    ).toBe(`({
+"email": string;
+
+}) & ({
+abc: any;
+})`);
   });
 
   describe("comments", () => {

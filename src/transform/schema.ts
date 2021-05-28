@@ -37,6 +37,19 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
   return output.replace(/\n+$/, "\n"); // replace repeat line endings with only one
 }
 
+/** make sure all required fields exist **/
+export function addRequiredProps(properties: Record<string, any>, required: string[]): string[] {
+  const missingRequired = required.filter((r: string) => !(r in properties));
+  if (missingRequired.length == 0) {
+    return [];
+  }
+  let output = "";
+  for (const r of missingRequired) {
+    output += `${r}: any;\n`;
+  }
+  return [`{\n${output}}`];
+}
+
 /** transform anyOf */
 export function transformAnyOf(anyOf: any, options: TransformSchemaObjOptions): string {
   // filter out anyOf keys that only have a `required` key. #642
@@ -99,14 +112,16 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
       }
       case "object": {
         const isAnyOfOrOneOfOrAllOf = "anyOf" in node || "oneOf" in node || "allOf" in node;
-
+        const missingRequired = addRequiredProps(node.properties || {}, node.required || []);
         // if empty object, then return generic map type
         if (
           !isAnyOfOrOneOfOrAllOf &&
           (!node.properties || !Object.keys(node.properties).length) &&
           !node.additionalProperties
         ) {
-          output += `{ ${readonly}[key: string]: any }`;
+          const emptyObj = `{ ${readonly}[key: string]: any }`;
+
+          output += tsIntersectionOf([emptyObj, ...missingRequired]);
           break;
         }
 
@@ -144,6 +159,7 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
           ...(node.anyOf ? [transformAnyOf(node.anyOf, options)] : []),
           ...(node.oneOf ? [transformOneOf(node.oneOf, options)] : []),
           ...(properties ? [`{\n${properties}\n}`] : []), // then properties (line breaks are important!)
+          ...missingRequired, // add required that are missing from properties
           ...(additionalProperties ? [additionalProperties] : []), // then additional properties
         ]);
 
