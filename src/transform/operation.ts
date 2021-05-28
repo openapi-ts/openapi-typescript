@@ -39,7 +39,7 @@ export function transformOperationObj(operation: OperationObject, options: Trans
       if (operation.requestBody.description) output += comment(operation.requestBody.description);
       output += `  ${readonly}requestBody: {\n  ${transformRequestBodyObj(operation.requestBody, {
         ...ctx,
-        requestResponse: requestResponse,
+        requestResponse,
       })}  }\n`;
     }
   }
