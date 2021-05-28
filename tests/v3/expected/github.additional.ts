@@ -5417,7 +5417,7 @@ export interface components {
       default_branch: string;
       open_issues_count: number;
       /** Whether this repository acts as a template that can be used to generate new repositories. */
-      is_template?: boolean;
+      is_template: boolean;
       topics?: string[];
       /** Whether issues are enabled. */
       has_issues: boolean;
@@ -5433,12 +5433,12 @@ export interface components {
       /** Returns whether or not this repository disabled. */
       disabled: boolean;
       /** The repository visibility: public, private, or internal. */
-      visibility?: string;
+      visibility: string;
       pushed_at: string | null;
       created_at: string | null;
       updated_at: string | null;
       /** Whether to allow rebase merges for pull requests. */
-      allow_rebase_merge?: boolean;
+      allow_rebase_merge: boolean;
       template_repository?:
         | ({
             id?: number;
@@ -5548,11 +5548,11 @@ export interface components {
         | null;
       temp_clone_token?: string;
       /** Whether to allow squash merges for pull requests. */
-      allow_squash_merge?: boolean;
+      allow_squash_merge: boolean;
       /** Whether to delete head branches when pull requests are merged */
-      delete_branch_on_merge?: boolean;
+      delete_branch_on_merge: boolean;
       /** Whether to allow merge commits for pull requests. */
-      allow_merge_commit?: boolean;
+      allow_merge_commit: boolean;
       subscribers_count?: number;
       network_count?: number;
       open_issues: number;
@@ -6849,7 +6849,7 @@ export interface components {
       default_branch: string;
       open_issues_count: number;
       /** Whether this repository acts as a template that can be used to generate new repositories. */
-      is_template?: boolean;
+      is_template: boolean;
       topics?: string[];
       /** Whether issues are enabled. */
       has_issues: boolean;
@@ -6865,20 +6865,20 @@ export interface components {
       /** Returns whether or not this repository disabled. */
       disabled: boolean;
       /** The repository visibility: public, private, or internal. */
-      visibility?: string;
+      visibility: string;
       pushed_at: string | null;
       created_at: string | null;
       updated_at: string | null;
       /** Whether to allow rebase merges for pull requests. */
-      allow_rebase_merge?: boolean;
+      allow_rebase_merge: boolean;
       template_repository?: (components["schemas"]["repository"] & { [key: string]: any }) | null;
       temp_clone_token?: string;
       /** Whether to allow squash merges for pull requests. */
-      allow_squash_merge?: boolean;
+      allow_squash_merge: boolean;
       /** Whether to delete head branches when pull requests are merged */
-      delete_branch_on_merge?: boolean;
+      delete_branch_on_merge: boolean;
       /** Whether to allow merge commits for pull requests. */
-      allow_merge_commit?: boolean;
+      allow_merge_commit: boolean;
       subscribers_count?: number;
       network_count?: number;
       open_issues: number;
@@ -7041,7 +7041,7 @@ export interface components {
       open_issues: number;
       watchers: number;
       /** Whether anonymous git access is allowed. */
-      anonymous_access_enabled?: boolean;
+      anonymous_access_enabled: boolean;
       code_of_conduct?: components["schemas"]["code-of-conduct-simple"];
     } & { [key: string]: any };
     /** An artifact */
@@ -8287,7 +8287,7 @@ export interface components {
       /** A short description of the status. */
       description: string;
       /** The environment of the deployment that the status is for. */
-      environment?: string;
+      environment: string;
       /** Deprecated: the URL to associate with this status. */
       target_url: string;
       created_at: string;
@@ -8295,9 +8295,9 @@ export interface components {
       deployment_url: string;
       repository_url: string;
       /** The URL for accessing your environment. */
-      environment_url?: string;
+      environment_url: string;
       /** The URL to associate with this status. */
-      log_url?: string;
+      log_url: string;
       performed_via_github_app?: (components["schemas"]["integration"] & { [key: string]: any }) | null;
     } & { [key: string]: any };
     /** The amount of time to delay a job after the job is initially triggered. The time (in minutes) must be an integer between 0 and 43,200 (30 days). */
@@ -9098,13 +9098,13 @@ export interface components {
       /** The first line of the range for a multi-line comment. */
       original_start_line?: number | null;
       /** The side of the first line of the range for a multi-line comment. */
-      start_side?: ("LEFT" | "RIGHT") | null;
+      start_side: ("LEFT" | "RIGHT") | null;
       /** The line of the blob to which the comment applies. The last line of the range for a multi-line comment */
       line?: number;
       /** The line of the blob to which the comment applies. The last line of the range for a multi-line comment */
       original_line?: number;
       /** The side of the diff to which the comment applies. The side of the last line of the range for a multi-line comment */
-      side?: "LEFT" | "RIGHT";
+      side: "LEFT" | "RIGHT";
       reactions?: components["schemas"]["reaction-rollup"];
       body_html?: string;
       body_text?: string;
@@ -9174,9 +9174,9 @@ export interface components {
       body_text?: string;
       body_html?: string;
       /** The side of the first line of the range for a multi-line comment. */
-      side?: "LEFT" | "RIGHT";
+      side: "LEFT" | "RIGHT";
       /** The side of the first line of the range for a multi-line comment. */
-      start_side?: ("LEFT" | "RIGHT") | null;
+      start_side: ("LEFT" | "RIGHT") | null;
       /** The line of the blob to which the comment applies. The last line of the range for a multi-line comment */
       line?: number;
       /** The original line of the blob to which the comment applies. The last line of the range for a multi-line comment */
@@ -11539,7 +11539,7 @@ export interface operations {
           /** Name of the runner group. */
           name?: string;
           /** Visibility of a runner group. You can select all organizations or select individual organizations. Can be one of: `all` or `selected` */
-          visibility?: "selected" | "all";
+          visibility: "selected" | "all";
         } & { [key: string]: any };
       };
     };
@@ -12709,7 +12709,7 @@ export interface operations {
           /** The Markdown text to render in HTML. */
           text: string;
           /** The rendering mode. */
-          mode?: "markdown" | "gfm";
+          mode: "markdown" | "gfm";
           /** The repository context to use when creating references in `gfm` mode. */
           context?: string;
         } & { [key: string]: any };
@@ -13097,7 +13097,7 @@ export interface operations {
       content: {
         "application/json": {
           /** Whether to block all notifications from a thread. */
-          ignored?: boolean;
+          ignored: boolean;
         } & { [key: string]: any };
       };
     };
@@ -13241,7 +13241,7 @@ export interface operations {
            * \* `admin` - can pull, push, and administer this repository.
            * \* `none` - no permissions granted by default.
            */
-          default_repository_permission?: "read" | "write" | "admin" | "none";
+          default_repository_permission: "read" | "write" | "admin" | "none";
           /**
            * Toggles the ability of non-admin organization members to create repositories. Can be one of:
            * \* `true` - all organization members can create repositories.
@@ -13249,7 +13249,7 @@ export interface operations {
            * Default: `true`
            * **Note:** A parameter can override this parameter. See `members_allowed_repository_creation_type` in this table for details. **Note:** A parameter can override this parameter. See `members_allowed_repository_creation_type` in this table for details.
            */
-          members_can_create_repositories?: boolean;
+          members_can_create_repositories: boolean;
           /**
            * Toggles whether organization members can create internal repositories, which are visible to all enterprise members. You can only allow members to create internal repositories if your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+. Can be one of:
            * \* `true` - all organization members can create internal repositories.
@@ -13284,19 +13284,19 @@ export interface operations {
            * \* `true` - all organization members can create GitHub Pages sites.
            * \* `false` - no organization members can create GitHub Pages sites. Existing published sites will not be impacted.
            */
-          members_can_create_pages?: boolean;
+          members_can_create_pages: boolean;
           /**
            * Toggles whether organization members can create public GitHub Pages sites. Can be one of:
            * \* `true` - all organization members can create public GitHub Pages sites.
            * \* `false` - no organization members can create public GitHub Pages sites. Existing published sites will not be impacted.
            */
-          members_can_create_public_pages?: boolean;
+          members_can_create_public_pages: boolean;
           /**
            * Toggles whether organization members can create private GitHub Pages sites. Can be one of:
            * \* `true` - all organization members can create private GitHub Pages sites.
            * \* `false` - no organization members can create private GitHub Pages sites. Existing published sites will not be impacted.
            */
-          members_can_create_private_pages?: boolean;
+          members_can_create_private_pages: boolean;
           blog?: string;
         } & { [key: string]: any };
       };
@@ -13538,7 +13538,7 @@ export interface operations {
           /** Name of the runner group. */
           name: string;
           /** Visibility of a runner group. You can select all repositories, select individual repositories, or limit access to private repositories. Can be one of: `all`, `selected`, or `private`. */
-          visibility?: "selected" | "all" | "private";
+          visibility: "selected" | "all" | "private";
           /** List of repository IDs that can access the runner group. */
           selected_repository_ids?: number[];
           /** List of runner IDs to add to the runner group. */
@@ -14492,9 +14492,9 @@ export interface operations {
             password?: string;
           } & { [key: string]: any };
           /** Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. */
-          events?: string[];
+          events: string[];
           /** Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications. */
-          active?: boolean;
+          active: boolean;
         } & { [key: string]: any };
       };
     };
@@ -14559,9 +14559,9 @@ export interface operations {
             insecure_ssl?: components["schemas"]["webhook-config-insecure-ssl"];
           } & { [key: string]: any };
           /** Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. */
-          events?: string[];
+          events: string[];
           /** Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications. */
-          active?: boolean;
+          active: boolean;
           name?: string;
         } & { [key: string]: any };
       };
@@ -14787,7 +14787,7 @@ export interface operations {
            * \* `direct_member` - Non-owner organization members with ability to see other members and join teams by invitation.
            * \* `billing_manager` - Non-owner organization members with ability to manage the billing settings of your organization.
            */
-          role?: "admin" | "direct_member" | "billing_manager";
+          role: "admin" | "direct_member" | "billing_manager";
           /** Specify IDs for the teams you want to invite new members to. */
           team_ids?: number[];
         } & { [key: string]: any };
@@ -15015,7 +15015,7 @@ export interface operations {
            * \* `admin` - The user will become an owner of the organization.
            * \* `member` - The user will become a non-owner member of the organization.
            */
-          role?: "admin" | "member";
+          role: "admin" | "member";
         } & { [key: string]: any };
       };
     };
@@ -15085,9 +15085,9 @@ export interface operations {
           /** A list of arrays indicating which repositories should be migrated. */
           repositories: string[];
           /** Indicates whether repositories should be locked (to prevent manipulation) while migrating data. */
-          lock_repositories?: boolean;
+          lock_repositories: boolean;
           /** Indicates whether attachments should be excluded from the migration (to reduce migration archive file size). */
-          exclude_attachments?: boolean;
+          exclude_attachments: boolean;
           exclude?: string[];
         } & { [key: string]: any };
       };
@@ -15659,36 +15659,36 @@ export interface operations {
           /** A URL with more information about the repository. */
           homepage?: string;
           /** Either `true` to create a private repository or `false` to create a public one. */
-          private?: boolean;
+          private: boolean;
           /**
            * Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. For more information, see "[Creating an internal repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-repository-visibility#about-internal-repositories)" in the GitHub Help documentation.
            * The `visibility` parameter overrides the `private` parameter when you use both parameters with the `nebula-preview` preview header.
            */
           visibility?: "public" | "private" | "visibility" | "internal";
           /** Either `true` to enable issues for this repository or `false` to disable them. */
-          has_issues?: boolean;
+          has_issues: boolean;
           /** Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error. */
-          has_projects?: boolean;
+          has_projects: boolean;
           /** Either `true` to enable the wiki for this repository or `false` to disable it. */
-          has_wiki?: boolean;
+          has_wiki: boolean;
           /** Either `true` to make this repo available as a template repository or `false` to prevent it. */
-          is_template?: boolean;
+          is_template: boolean;
           /** The id of the team that will be granted access to this repository. This is only valid when creating a repository in an organization. */
           team_id?: number;
           /** Pass `true` to create an initial commit with empty README. */
-          auto_init?: boolean;
+          auto_init: boolean;
           /** Desired language or platform [.gitignore template](https://github.com/github/gitignore) to apply. Use the name of the template without the extension. For example, "Haskell". */
           gitignore_template?: string;
           /** Choose an [open source license template](https://choosealicense.com/) that best suits your needs, and then use the [license keyword](https://help.github.com/articles/licensing-a-repository/#searching-github-by-license-type) as the `license_template` string. For example, "mit" or "mpl-2.0". */
           license_template?: string;
           /** Either `true` to allow squash-merging pull requests, or `false` to prevent squash-merging. */
-          allow_squash_merge?: boolean;
+          allow_squash_merge: boolean;
           /** Either `true` to allow merging pull requests with a merge commit, or `false` to prevent merging pull requests with merge commits. */
-          allow_merge_commit?: boolean;
+          allow_merge_commit: boolean;
           /** Either `true` to allow rebase-merging pull requests, or `false` to prevent rebase-merging. */
-          allow_rebase_merge?: boolean;
+          allow_rebase_merge: boolean;
           /** Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion. */
-          delete_branch_on_merge?: boolean;
+          delete_branch_on_merge: boolean;
         } & { [key: string]: any };
       };
     };
@@ -15863,7 +15863,7 @@ export interface operations {
            * \* `push` - team members can pull and push, but not administer newly-added repositories.
            * \* `admin` - team members can pull, push and administer newly-added repositories.
            */
-          permission?: "pull" | "push" | "admin";
+          permission: "pull" | "push" | "admin";
           /** The ID of a team to set as the parent team. */
           parent_team_id?: number;
         } & { [key: string]: any };
@@ -15956,7 +15956,7 @@ export interface operations {
            * \* `push` - team members can pull and push, but not administer newly-added repositories.
            * \* `admin` - team members can pull, push and administer newly-added repositories.
            */
-          permission?: "pull" | "push" | "admin";
+          permission: "pull" | "push" | "admin";
           /** The ID of a team to set as the parent team. */
           parent_team_id?: number | null;
         } & { [key: string]: any };
@@ -16025,7 +16025,7 @@ export interface operations {
           /** The discussion post's body text. */
           body: string;
           /** Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post. */
-          private?: boolean;
+          private: boolean;
         } & { [key: string]: any };
       };
     };
@@ -16562,7 +16562,7 @@ export interface operations {
            * \* `member` - a normal member of the team.
            * \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
            */
-          role?: "member" | "maintainer";
+          role: "member" | "maintainer";
         } & { [key: string]: any };
       };
     };
@@ -17387,7 +17387,7 @@ export interface operations {
       content: {
         "application/json": {
           /** The permission to grant the collaborator. */
-          permission?: "read" | "write" | "admin";
+          permission: "read" | "write" | "admin";
         } & { [key: string]: any };
       };
     };
@@ -17610,29 +17610,29 @@ export interface operations {
            * Either `true` to make the repository private or `false` to make it public. Default: `false`.
            * **Note**: You will get a `422` error if the organization restricts [changing repository visibility](https://help.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories) to organization owners and a non-owner tries to change the value of private. **Note**: You will get a `422` error if the organization restricts [changing repository visibility](https://help.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories) to organization owners and a non-owner tries to change the value of private.
            */
-          private?: boolean;
+          private: boolean;
           /** Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. The `visibility` parameter overrides the `private` parameter when you use both along with the `nebula-preview` preview header. */
           visibility?: "public" | "private" | "visibility" | "internal";
           /** Either `true` to enable issues for this repository or `false` to disable them. */
-          has_issues?: boolean;
+          has_issues: boolean;
           /** Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error. */
-          has_projects?: boolean;
+          has_projects: boolean;
           /** Either `true` to enable the wiki for this repository or `false` to disable it. */
-          has_wiki?: boolean;
+          has_wiki: boolean;
           /** Either `true` to make this repo available as a template repository or `false` to prevent it. */
-          is_template?: boolean;
+          is_template: boolean;
           /** Updates the default branch for this repository. */
           default_branch?: string;
           /** Either `true` to allow squash-merging pull requests, or `false` to prevent squash-merging. */
-          allow_squash_merge?: boolean;
+          allow_squash_merge: boolean;
           /** Either `true` to allow merging pull requests with a merge commit, or `false` to prevent merging pull requests with merge commits. */
-          allow_merge_commit?: boolean;
+          allow_merge_commit: boolean;
           /** Either `true` to allow rebase-merging pull requests, or `false` to prevent rebase-merging. */
-          allow_rebase_merge?: boolean;
+          allow_rebase_merge: boolean;
           /** Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion. */
-          delete_branch_on_merge?: boolean;
+          delete_branch_on_merge: boolean;
           /** `true` to archive this repository. **Note**: You cannot unarchive repositories through the API. */
-          archived?: boolean;
+          archived: boolean;
         } & { [key: string]: any };
       };
     };
@@ -19830,7 +19830,7 @@ export interface operations {
           /** A reference for the run on the integrator's system. */
           external_id?: string;
           /** The current status. Can be one of `queued`, `in_progress`, or `completed`. */
-          status?: "queued" | "in_progress" | "completed";
+          status: "queued" | "in_progress" | "completed";
           /** The time that the check run began. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
           started_at?: string;
           /**
@@ -20698,7 +20698,7 @@ export interface operations {
            * \* `maintain` - Recommended for project managers who need to manage the repository without access to sensitive or destructive actions.
            * \* `triage` - Recommended for contributors who need to proactively manage issues and pull requests without write access.
            */
-          permission?: "pull" | "push" | "admin" | "maintain" | "triage";
+          permission: "pull" | "push" | "admin" | "maintain" | "triage";
           permissions?: string;
         } & { [key: string]: any };
       };
@@ -21739,21 +21739,21 @@ export interface operations {
           /** The ref to deploy. This can be a branch, tag, or SHA. */
           ref: string;
           /** Specifies a task to execute (e.g., `deploy` or `deploy:migrations`). */
-          task?: string;
+          task: string;
           /** Attempts to automatically merge the default branch into the requested ref, if it's behind the default branch. */
-          auto_merge?: boolean;
+          auto_merge: boolean;
           /** The [status](https://docs.github.com/rest/reference/repos#statuses) contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts. */
           required_contexts?: string[];
           payload?: ({ [key: string]: any } | string) & { [key: string]: any };
           /** Name for the target deployment environment (e.g., `production`, `staging`, `qa`). */
-          environment?: string;
+          environment: string;
           /** Short description of the deployment. */
-          description?: string | null;
+          description: string | null;
           /**
            * Specifies if the given environment is specific to the deployment and will no longer exist at some point in the future. Default: `false`
            * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type. **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type.
            */
-          transient_environment?: boolean;
+          transient_environment: boolean;
           /**
            * Specifies if the given environment is one that end-users directly interact with. Default: `true` when `environment` is `production` and `false` otherwise.
            * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type.
@@ -21868,21 +21868,21 @@ export interface operations {
           /** The state of the status. Can be one of `error`, `failure`, `inactive`, `in_progress`, `queued` `pending`, or `success`. **Note:** To use the `inactive` state, you must provide the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type. To use the `in_progress` and `queued` states, you must provide the [`application/vnd.github.flash-preview+json`](https://docs.github.com/rest/overview/api-previews#deployment-statuses) custom media type. When you set a transient deployment to `inactive`, the deployment will be shown as `destroyed` in GitHub. */
           state: "error" | "failure" | "inactive" | "in_progress" | "queued" | "pending" | "success";
           /** The target URL to associate with this status. This URL should contain output to keep the user updated while the task is running or serve as historical information for what happened in the deployment. **Note:** It's recommended to use the `log_url` parameter, which replaces `target_url`. */
-          target_url?: string;
+          target_url: string;
           /**
            * The full URL of the deployment's output. This parameter replaces `target_url`. We will continue to accept `target_url` to support legacy uses, but we recommend replacing `target_url` with `log_url`. Setting `log_url` will automatically set `target_url` to the same value. Default: `""`
            * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type. **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type.
            */
-          log_url?: string;
+          log_url: string;
           /** A short description of the status. The maximum description length is 140 characters. */
-          description?: string;
+          description: string;
           /** Name for the target deployment environment, which can be changed when setting a deploy status. For example, `production`, `staging`, or `qa`. **Note:** This parameter requires you to use the [`application/vnd.github.flash-preview+json`](https://docs.github.com/rest/overview/api-previews#deployment-statuses) custom media type. */
           environment?: "production" | "staging" | "qa";
           /**
            * Sets the URL for accessing your environment. Default: `""`
            * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type. **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type.
            */
-          environment_url?: string;
+          environment_url: string;
           /**
            * Adds a new `inactive` status to all prior non-transient, non-production environment deployments with the same repository and `environment` name as the created status's deployment. An `inactive` status is only added to deployments that had a `success` state. Default: `true`
            * **Note:** To add an `inactive` status to `production` environments, you must use the [`application/vnd.github.flash-preview+json`](https://docs.github.com/rest/overview/api-previews#deployment-statuses) custom media type.
@@ -22165,7 +22165,7 @@ export interface operations {
           /** The new blob's content. */
           content: string;
           /** The encoding used for `content`. Currently, `"utf-8"` and `"base64"` are supported. */
-          encoding?: string;
+          encoding: string;
         } & { [key: string]: any };
       };
     };
@@ -22460,7 +22460,7 @@ export interface operations {
           /** The SHA1 value to set this reference to */
           sha: string;
           /** Indicates whether to force the update or to make sure the update is a fast-forward update. Leaving this out or setting it to `false` will make sure you're not overwriting work. */
-          force?: boolean;
+          force: boolean;
         } & { [key: string]: any };
       };
     };
@@ -22739,9 +22739,9 @@ export interface operations {
             digest?: string;
           } & { [key: string]: any };
           /** Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. */
-          events?: string[];
+          events: string[];
           /** Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications. */
-          active?: boolean;
+          active: boolean;
         } & { [key: string]: any };
       };
     };
@@ -22811,13 +22811,13 @@ export interface operations {
             room?: string;
           } & { [key: string]: any };
           /** Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. This replaces the entire array of events. */
-          events?: string[];
+          events: string[];
           /** Determines a list of events to be added to the list of events that the Hook triggers for. */
           add_events?: string[];
           /** Determines a list of events to be removed from the list of events that the Hook triggers for. */
           remove_events?: string[];
           /** Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications. */
-          active?: boolean;
+          active: boolean;
         } & { [key: string]: any };
       };
     };
@@ -24484,7 +24484,7 @@ export interface operations {
           /** The title of the milestone. */
           title: string;
           /** The state of the milestone. Either `open` or `closed`. */
-          state?: "open" | "closed";
+          state: "open" | "closed";
           /** A description of the milestone. */
           description?: string;
           /** The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
@@ -24550,7 +24550,7 @@ export interface operations {
           /** The title of the milestone. */
           title?: string;
           /** The state of the milestone. Either `open` or `closed`. */
-          state?: "open" | "closed";
+          state: "open" | "closed";
           /** A description of the milestone. */
           description?: string;
           /** The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
@@ -24715,7 +24715,7 @@ export interface operations {
             /** The repository branch used to publish your site's source files. */
             branch: string;
             /** The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`. Default: `/` */
-            path?: "/" | "/docs";
+            path: "/" | "/docs";
           } & { [key: string]: any };
         } & { [key: string]: any };
       };
@@ -25903,9 +25903,9 @@ export interface operations {
           /** Text describing the contents of the tag. */
           body?: string;
           /** `true` to create a draft (unpublished) release, `false` to create a published one. */
-          draft?: boolean;
+          draft: boolean;
           /** `true` to identify the release as a prerelease. `false` to identify the release as a full release. */
-          prerelease?: boolean;
+          prerelease: boolean;
         } & { [key: string]: any };
       };
     };
@@ -26433,7 +26433,7 @@ export interface operations {
           /** A short description of the status. */
           description?: string;
           /** A string label to differentiate this status from the status of other systems. This field is case-insensitive. */
-          context?: string;
+          context: string;
         } & { [key: string]: any };
       };
     };
@@ -26836,9 +26836,9 @@ export interface operations {
           /** A short description of the new repository. */
           description?: string;
           /** Set to `true` to include the directory structure and files from all branches in the template repository, and not just the default branch. Default: `false`. */
-          include_all_branches?: boolean;
+          include_all_branches: boolean;
           /** Either `true` to create a new private repository or `false` to create a new public one. */
-          private?: boolean;
+          private: boolean;
         } & { [key: string]: any };
       };
     };
@@ -28102,7 +28102,7 @@ export interface operations {
            * \* `push` - team members can pull and push, but not administer newly-added repositories.
            * \* `admin` - team members can pull, push and administer newly-added repositories.
            */
-          permission?: "pull" | "push" | "admin";
+          permission: "pull" | "push" | "admin";
           /** The ID of a team to set as the parent team. */
           parent_team_id?: number | null;
         } & { [key: string]: any };
@@ -28167,7 +28167,7 @@ export interface operations {
           /** The discussion post's body text. */
           body: string;
           /** Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post. */
-          private?: boolean;
+          private: boolean;
         } & { [key: string]: any };
       };
     };
@@ -28721,7 +28721,7 @@ export interface operations {
            * \* `member` - a normal member of the team.
            * \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
            */
-          role?: "member" | "maintainer";
+          role: "member" | "maintainer";
         } & { [key: string]: any };
       };
     };
@@ -30420,33 +30420,33 @@ export interface operations {
           /** A URL with more information about the repository. */
           homepage?: string;
           /** Whether the repository is private or public. */
-          private?: boolean;
+          private: boolean;
           /** Whether issues are enabled. */
-          has_issues?: boolean;
+          has_issues: boolean;
           /** Whether projects are enabled. */
-          has_projects?: boolean;
+          has_projects: boolean;
           /** Whether the wiki is enabled. */
-          has_wiki?: boolean;
+          has_wiki: boolean;
           /** The id of the team that will be granted access to this repository. This is only valid when creating a repository in an organization. */
           team_id?: number;
           /** Whether the repository is initialized with a minimal README. */
-          auto_init?: boolean;
+          auto_init: boolean;
           /** The desired language or platform to apply to the .gitignore. */
           gitignore_template?: string;
           /** The license keyword of the open source license for this repository. */
           license_template?: string;
           /** Whether to allow squash merges for pull requests. */
-          allow_squash_merge?: boolean;
+          allow_squash_merge: boolean;
           /** Whether to allow merge commits for pull requests. */
-          allow_merge_commit?: boolean;
+          allow_merge_commit: boolean;
           /** Whether to allow rebase merges for pull requests. */
-          allow_rebase_merge?: boolean;
+          allow_rebase_merge: boolean;
           /** Whether to delete head branches when pull requests are merged */
-          delete_branch_on_merge?: boolean;
+          delete_branch_on_merge: boolean;
           /** Whether downloads are enabled. */
-          has_downloads?: boolean;
+          has_downloads: boolean;
           /** Whether this repository acts as a template that can be used to generate new repositories. */
-          is_template?: boolean;
+          is_template: boolean;
         } & { [key: string]: any };
       };
     };

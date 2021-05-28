@@ -103,6 +103,7 @@ export interface SchemaObject {
   items?: ReferenceObject | SchemaObject;
   allOf?: SchemaObject;
   properties?: Record<string, ReferenceObject | SchemaObject>;
+  default?: any;
   additionalProperties?: boolean | ReferenceObject | SchemaObject;
   nullable?: boolean; // V3 ONLY
   oneOf?: (ReferenceObject | SchemaObject)[]; // V3 ONLY

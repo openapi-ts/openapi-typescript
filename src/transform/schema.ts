@@ -15,6 +15,12 @@ interface TransformSchemaObjOptions extends GlobalContext {
   required: Set<string>;
 }
 
+function hasDefaultValue(node: any): boolean {
+  if (node.hasOwnProperty("default")) return true;
+  // if (node.hasOwnProperty("$ref")) return true; // TODO: resolve remote $refs?
+  return false;
+}
+
 /** Take object keys and convert to TypeScript interface */
 export function transformSchemaObjMap(obj: Record<string, any>, options: TransformSchemaObjOptions): string {
   const readonly = tsReadonly(options.immutableTypes);
@@ -32,7 +38,8 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
       if (v.description) output += comment(v.description);
 
       // 2. name (with “?” if optional property)
-      output += `${readonly}"${k}"${options.required.has(k) ? "" : "?"}: `;
+      const required = options.required.has(k) || hasDefaultValue(v.schema || v) ? "" : "?";
+      output += `${readonly}"${k}"${required}: `;
 
       // 3. transform
       output += transformSchemaObj(v.schema || v, options);
