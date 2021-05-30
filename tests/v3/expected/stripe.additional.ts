@@ -1492,7 +1492,9 @@ export interface components {
      */
     account: {
       /** Business information about the account. */
-      business_profile?: (Partial<components["schemas"]["account_business_profile"]> & { [key: string]: any }) | null;
+      business_profile?:
+        | (Partial<components["schemas"]["account_business_profile"]> & { [key: string]: unknown })
+        | null;
       /** The business type. */
       business_type?: ("company" | "government_entity" | "individual" | "non_profit") | null;
       capabilities?: components["schemas"]["account_capabilities"];
@@ -1513,7 +1515,7 @@ export interface components {
       external_accounts?: {
         /** The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards. */
         data: ((Partial<components["schemas"]["bank_account"]> & Partial<components["schemas"]["card"]>) & {
-          [key: string]: any;
+          [key: string]: unknown;
         })[];
         /** True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
@@ -1521,7 +1523,7 @@ export interface components {
         object: "list";
         /** The URL where this list can be accessed. */
         url: string;
-      } & { [key: string]: any };
+      } & { [key: string]: unknown };
       /** Unique identifier for the object. */
       id: string;
       individual?: components["schemas"]["person"];
@@ -1533,21 +1535,21 @@ export interface components {
       payouts_enabled?: boolean;
       requirements?: components["schemas"]["account_requirements"];
       /** Options for customizing how the account functions within Stripe. */
-      settings?: (Partial<components["schemas"]["account_settings"]> & { [key: string]: any }) | null;
+      settings?: (Partial<components["schemas"]["account_settings"]> & { [key: string]: unknown }) | null;
       tos_acceptance?: components["schemas"]["account_tos_acceptance"];
       /** The Stripe account type. Can be `standard`, `express`, or `custom`. */
       type?: "custom" | "express" | "standard";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     account_branding_settings: {
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) An icon for the account. Must be square and at least 128px x 128px. */
-      icon?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: any }) | null;
+      icon?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: unknown }) | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A logo for the account that will be used in Checkout instead of the icon and without the account's name next to it if provided. Must be at least 128px x 128px. */
-      logo?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: any }) | null;
+      logo?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: unknown }) | null;
       /** A CSS hex color value representing the primary branding color for this account */
       primary_color?: string | null;
       /** A CSS hex color value representing the secondary branding color for this account */
       secondary_color?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     account_business_profile: {
       /** [The merchant category code for the account](https://stripe.com/docs/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide. */
       mcc?: string | null;
@@ -1556,7 +1558,7 @@ export interface components {
       /** Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes. */
       product_description?: string | null;
       /** A publicly available mailing address for sending support issues to. */
-      support_address?: (Partial<components["schemas"]["address"]> & { [key: string]: any }) | null;
+      support_address?: (Partial<components["schemas"]["address"]> & { [key: string]: unknown }) | null;
       /** A publicly available email address for sending support issues to. */
       support_email?: string | null;
       /** A publicly available phone number to call with support issues. */
@@ -1565,7 +1567,7 @@ export interface components {
       support_url?: string | null;
       /** The business's publicly available website. */
       url?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     account_capabilities: {
       /** The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges. */
       au_becs_debit_payments?: "active" | "inactive" | "pending";
@@ -1581,7 +1583,7 @@ export interface components {
       tax_reporting_us_1099_misc?: "active" | "inactive" | "pending";
       /** The status of the transfers capability of the account, or whether your platform can transfer funds to the account. */
       transfers?: "active" | "inactive" | "pending";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     account_capability_requirements: {
       /** The date the fields in `currently_due` must be collected by to keep the capability enabled for the account. */
       current_deadline?: number | null;
@@ -1597,24 +1599,24 @@ export interface components {
       past_due: string[];
       /** Fields that may become required depending on the results of verification or review. An empty array unless an asynchronous verification is pending. If verification fails, the fields in this array become required and move to `currently_due` or `past_due`. */
       pending_verification: string[];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     account_card_payments_settings: {
       decline_on?: components["schemas"]["account_decline_charge_on"];
       /** The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge. `statement_descriptor_prefix` is useful for maximizing descriptor space for the dynamic portion. */
       statement_descriptor_prefix?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     account_dashboard_settings: {
       /** The display name for this account. This is used on the Stripe Dashboard to differentiate between accounts. */
       display_name?: string | null;
       /** The timezone used in the Stripe Dashboard for this account. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones). */
       timezone?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     account_decline_charge_on: {
       /** Whether Stripe automatically declines charges with an incorrect ZIP or postal code. This setting only applies when a ZIP or postal code is provided and they fail bank verification. */
       avs_failure: boolean;
       /** Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification. */
       cvc_failure: boolean;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Account Links are the means by which a Connect platform grants a connected account permission to access
      * Stripe-hosted applications, such as Connect Onboarding.
@@ -1630,7 +1632,7 @@ export interface components {
       object: "account_link";
       /** The URL for the account link. */
       url: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     account_payments_settings: {
       /** The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge. */
       statement_descriptor?: string | null;
@@ -1638,14 +1640,14 @@ export interface components {
       statement_descriptor_kana?: string | null;
       /** The Kanji variation of the default text that appears on credit card statements when a charge is made (Japan only) */
       statement_descriptor_kanji?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     account_payout_settings: {
       /** A Boolean indicating if Stripe should try to reclaim negative balances from an attached bank account. See our [Understanding Connect Account Balances](https://stripe.com/docs/connect/account-balances) documentation for details. Default value is `true` for Express accounts and `false` for Custom accounts. */
       debit_negative_balances: boolean;
       schedule: components["schemas"]["transfer_schedule"];
       /** The text that appears on the bank account statement for payouts. If not set, this defaults to the platform's bank descriptor as set in the Dashboard. */
       statement_descriptor?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     account_requirements: {
       /** The date the fields in `currently_due` must be collected by to keep payouts enabled for the account. These fields might block payouts sooner if the next threshold is reached before these fields are collected. */
       current_deadline?: number | null;
@@ -1661,7 +1663,7 @@ export interface components {
       past_due?: string[] | null;
       /** Fields that may become required depending on the results of verification or review. An empty array unless an asynchronous verification is pending. If verification fails, the fields in this array become required and move to `currently_due` or `past_due`. */
       pending_verification?: string[] | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     account_requirements_error: {
       /** The code for the type of error. */
       code:
@@ -1707,14 +1709,14 @@ export interface components {
       reason: string;
       /** The specific user onboarding requirement field (in the requirements hash) that needs to be resolved. */
       requirement: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     account_settings: {
       branding: components["schemas"]["account_branding_settings"];
       card_payments: components["schemas"]["account_card_payments_settings"];
       dashboard: components["schemas"]["account_dashboard_settings"];
       payments: components["schemas"]["account_payments_settings"];
       payouts?: components["schemas"]["account_payout_settings"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     account_tos_acceptance: {
       /** The Unix timestamp marking when the Stripe Services Agreement was accepted by the account representative */
       date?: number | null;
@@ -1722,7 +1724,7 @@ export interface components {
       ip?: string | null;
       /** The user agent of the browser from which the Stripe Services Agreement was accepted by the account representative */
       user_agent?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     address: {
       /** City, district, suburb, town, or village. */
       city?: string | null;
@@ -1736,7 +1738,7 @@ export interface components {
       postal_code?: string | null;
       /** State, county, province, or region. */
       state?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     alipay_account: {
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
@@ -1744,7 +1746,7 @@ export interface components {
       customer?:
         | ((Partial<string> &
             Partial<components["schemas"]["customer"]> &
-            Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: any })
+            Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: unknown })
         | null;
       /** Uniquely identifies the account and will be the same across all Alipay account objects that are linked to the same Alipay account. */
       fingerprint: string;
@@ -1766,7 +1768,7 @@ export interface components {
       used: boolean;
       /** The username for the Alipay account. */
       username: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     api_errors: {
       /** For card errors, the ID of the failed charge. */
       charge?: string;
@@ -1786,7 +1788,7 @@ export interface components {
       /** The source object for errors returned on a request involving a source. */
       source?: (Partial<components["schemas"]["bank_account"]> &
         Partial<components["schemas"]["card"]> &
-        Partial<components["schemas"]["source"]>) & { [key: string]: any };
+        Partial<components["schemas"]["source"]>) & { [key: string]: unknown };
       /** The type of error returned. One of `api_connection_error`, `api_error`, `authentication_error`, `card_error`, `idempotency_error`, `invalid_request_error`, or `rate_limit_error` */
       type:
         | "api_connection_error"
@@ -1796,7 +1798,7 @@ export interface components {
         | "idempotency_error"
         | "invalid_request_error"
         | "rate_limit_error";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     apple_pay_domain: {
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
@@ -1807,7 +1809,7 @@ export interface components {
       livemode: boolean;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "apple_pay_domain";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     application: {
       /** Unique identifier for the object. */
       id: string;
@@ -1815,22 +1817,22 @@ export interface components {
       name?: string | null;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "application";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     application_fee: {
       /** ID of the Stripe account this fee was taken from. */
-      account: (Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: any };
+      account: (Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: unknown };
       /** Amount earned, in %s. */
       amount: number;
       /** Amount in %s refunded (can be less than the amount attribute on the fee if a partial refund was issued) */
       amount_refunded: number;
       /** ID of the Connect application that earned the fee. */
-      application: (Partial<string> & Partial<components["schemas"]["application"]>) & { [key: string]: any };
+      application: (Partial<string> & Partial<components["schemas"]["application"]>) & { [key: string]: unknown };
       /** Balance transaction that describes the impact of this collected application fee on your account balance (not including refunds). */
       balance_transaction?:
-        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: unknown })
         | null;
       /** ID of the charge that the application fee was taken from. */
-      charge: (Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: any };
+      charge: (Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: unknown };
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -1843,7 +1845,7 @@ export interface components {
       object: "application_fee";
       /** ID of the corresponding charge on the platform account, if this fee was the result of a charge using the `destination` parameter. */
       originating_transaction?:
-        | ((Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: unknown })
         | null;
       /** Whether the fee has been fully refunded. If the fee is only partially refunded, this attribute will still be false. */
       refunded: boolean;
@@ -1857,8 +1859,8 @@ export interface components {
         object: "list";
         /** The URL where this list can be accessed. */
         url: string;
-      } & { [key: string]: any };
-    } & { [key: string]: any };
+      } & { [key: string]: unknown };
+    } & { [key: string]: unknown };
     /**
      * This is an object representing your Stripe balance. You can retrieve it to see
      * the balance currently on your Stripe account.
@@ -1883,14 +1885,14 @@ export interface components {
       object: "balance";
       /** Funds that are not yet available in the balance, due to the 7-day rolling pay cycle. The pending balance for each currency, and for each payment type, can be found in the `source_types` property. */
       pending: components["schemas"]["balance_amount"][];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     balance_amount: {
       /** Balance amount. */
       amount: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       source_types?: components["schemas"]["balance_amount_by_source_type"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     balance_amount_by_source_type: {
       /** Amount for bank account. */
       bank_account?: number;
@@ -1898,7 +1900,7 @@ export interface components {
       card?: number;
       /** Amount for FPX. */
       fpx?: number;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Balance transactions represent funds moving through your Stripe account.
      * They're created for every type of transaction that comes into or flows out of your Stripe account balance.
@@ -1947,7 +1949,7 @@ export interface components {
             Partial<components["schemas"]["tax_deducted_at_source"]> &
             Partial<components["schemas"]["topup"]> &
             Partial<components["schemas"]["transfer"]> &
-            Partial<components["schemas"]["transfer_reversal"]>) & { [key: string]: any })
+            Partial<components["schemas"]["transfer_reversal"]>) & { [key: string]: unknown })
         | null;
       /** If the transaction's net funds are available in the Stripe balance yet. Either `available` or `pending`. */
       status: string;
@@ -1982,7 +1984,7 @@ export interface components {
         | "transfer_cancel"
         | "transfer_failure"
         | "transfer_refund";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * These bank accounts are payment methods on `Customer` objects.
      *
@@ -1994,7 +1996,7 @@ export interface components {
      */
     bank_account: {
       /** The ID of the account that the bank account is associated with. */
-      account?: ((Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: any }) | null;
+      account?: ((Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: unknown }) | null;
       /** The name of the person or business that owns the bank account. */
       account_holder_name?: string | null;
       /** The type of entity that holds the account. This can be either `individual` or `company`. */
@@ -2009,7 +2011,7 @@ export interface components {
       customer?:
         | ((Partial<string> &
             Partial<components["schemas"]["customer"]> &
-            Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: any })
+            Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: unknown })
         | null;
       /** Whether this bank account is the default external account for its currency. */
       default_for_currency?: boolean | null;
@@ -2031,17 +2033,17 @@ export interface components {
        * For external accounts, possible values are `new` and `errored`. Validations aren't run against external accounts because they're only used for payouts. This means the other statuses don't apply. If a transfer fails, the status is set to `errored` and transfers are stopped until account details are updated.
        */
       status: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     billing_details: {
       /** Billing address. */
-      address?: (Partial<components["schemas"]["address"]> & { [key: string]: any }) | null;
+      address?: (Partial<components["schemas"]["address"]> & { [key: string]: unknown }) | null;
       /** Email address. */
       email?: string | null;
       /** Full name. */
       name?: string | null;
       /** Billing phone number (including extension). */
       phone?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * A Session describes the instantiation of the Self-serve Portal for
      * a particular customer. By visiting the Self-serve Portal's URL, the customer
@@ -2066,7 +2068,7 @@ export interface components {
       return_url: string;
       /** The short-lived URL of the session giving customers access to the self-serve portal. */
       url: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     bitcoin_receiver: {
       /** True when this bitcoin receiver has received a non-zero amount of bitcoin. */
       active: boolean;
@@ -2116,12 +2118,12 @@ export interface components {
         object: "list";
         /** The URL where this list can be accessed. */
         url: string;
-      } & { [key: string]: any };
+      } & { [key: string]: unknown };
       /** This receiver contains uncaptured funds that can be used for a payment or refunded. */
       uncaptured_funds: boolean;
       /** Indicate if this source is used for payment. */
       used_for_payment?: boolean | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     bitcoin_transaction: {
       /** The amount of `currency` that the transaction was converted to in real-time. */
       amount: number;
@@ -2137,7 +2139,7 @@ export interface components {
       object: "bitcoin_transaction";
       /** The receiver to which this transaction was sent. */
       receiver: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * This is an object representing a capability for a Stripe account.
      *
@@ -2145,7 +2147,7 @@ export interface components {
      */
     capability: {
       /** The account for which the capability enables functionality. */
-      account: (Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: any };
+      account: (Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: unknown };
       /** The identifier for the capability. */
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -2157,7 +2159,7 @@ export interface components {
       requirements?: components["schemas"]["account_capability_requirements"];
       /** The status of the capability. Can be `active`, `inactive`, `pending`, or `unrequested`. */
       status: "active" | "disabled" | "inactive" | "pending" | "unrequested";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * You can store multiple cards on a customer in order to charge the customer
      * later. You can also store multiple debit cards on a recipient in order to
@@ -2167,7 +2169,7 @@ export interface components {
      */
     card: {
       /** The account this card belongs to. This attribute will not be in the card object if the card belongs to a customer or recipient instead. */
-      account?: ((Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: any }) | null;
+      account?: ((Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: unknown }) | null;
       /** City/District/Suburb/Town/Village. */
       address_city?: string | null;
       /** Billing address country, if provided when creating card. */
@@ -2195,7 +2197,7 @@ export interface components {
       customer?:
         | ((Partial<string> &
             Partial<components["schemas"]["customer"]> &
-            Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: any })
+            Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: unknown })
         | null;
       /** If a CVC was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`. */
       cvc_check?: string | null;
@@ -2222,11 +2224,11 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "card";
       /** The recipient that this card belongs to. This attribute will not be in the card object if the card belongs to a customer or account instead. */
-      recipient?: ((Partial<string> & Partial<components["schemas"]["recipient"]>) & { [key: string]: any }) | null;
+      recipient?: ((Partial<string> & Partial<components["schemas"]["recipient"]>) & { [key: string]: unknown }) | null;
       /** If the card number is tokenized, this is the method that was used. Can be `amex_express_checkout`, `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null. */
       tokenization_method?: string | null;
-    } & { [key: string]: any };
-    card_mandate_payment_method_details: { [key: string]: any };
+    } & { [key: string]: unknown };
+    card_mandate_payment_method_details: { [key: string]: unknown };
     /**
      * To charge a credit or a debit card, you create a `Charge` object. You can
      * retrieve and refund individual charges as well as list all charges. Charges
@@ -2240,16 +2242,18 @@ export interface components {
       /** Amount in %s refunded (can be less than the amount attribute on the charge if a partial refund was issued). */
       amount_refunded: number;
       /** ID of the Connect application that created the charge. */
-      application?: ((Partial<string> & Partial<components["schemas"]["application"]>) & { [key: string]: any }) | null;
+      application?:
+        | ((Partial<string> & Partial<components["schemas"]["application"]>) & { [key: string]: unknown })
+        | null;
       /** The application fee (if any) for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees) for details. */
       application_fee?:
-        | ((Partial<string> & Partial<components["schemas"]["application_fee"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["application_fee"]>) & { [key: string]: unknown })
         | null;
       /** The amount of the application fee (if any) for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees) for details. */
       application_fee_amount?: number | null;
       /** ID of the balance transaction that describes the impact of this charge on your account balance (not including refunds or disputes). */
       balance_transaction?:
-        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: unknown })
         | null;
       billing_details: components["schemas"]["billing_details"];
       /** The full statement descriptor that is passed to card networks, and that is displayed on your customers' credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined. */
@@ -2264,7 +2268,7 @@ export interface components {
       customer?:
         | ((Partial<string> &
             Partial<components["schemas"]["customer"]> &
-            Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: any })
+            Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: unknown })
         | null;
       /** An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null;
@@ -2275,11 +2279,11 @@ export interface components {
       /** Message to user further explaining reason for charge failure if available. */
       failure_message?: string | null;
       /** Information on fraud assessments for the charge. */
-      fraud_details?: (Partial<components["schemas"]["charge_fraud_details"]> & { [key: string]: any }) | null;
+      fraud_details?: (Partial<components["schemas"]["charge_fraud_details"]> & { [key: string]: unknown }) | null;
       /** Unique identifier for the object. */
       id: string;
       /** ID of the invoice this charge is for if one exists. */
-      invoice?: ((Partial<string> & Partial<components["schemas"]["invoice"]>) & { [key: string]: any }) | null;
+      invoice?: ((Partial<string> & Partial<components["schemas"]["invoice"]>) & { [key: string]: unknown }) | null;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -2287,22 +2291,24 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "charge";
       /** The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers) for details. */
-      on_behalf_of?: ((Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: any }) | null;
+      on_behalf_of?:
+        | ((Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: unknown })
+        | null;
       /** ID of the order this charge is for if one exists. */
-      order?: ((Partial<string> & Partial<components["schemas"]["order"]>) & { [key: string]: any }) | null;
+      order?: ((Partial<string> & Partial<components["schemas"]["order"]>) & { [key: string]: unknown }) | null;
       /** Details about whether the payment was accepted, and why. See [understanding declines](https://stripe.com/docs/declines) for details. */
-      outcome?: (Partial<components["schemas"]["charge_outcome"]> & { [key: string]: any }) | null;
+      outcome?: (Partial<components["schemas"]["charge_outcome"]> & { [key: string]: unknown }) | null;
       /** `true` if the charge succeeded, or was successfully authorized for later capture. */
       paid: boolean;
       /** ID of the PaymentIntent associated with this charge, if one exists. */
       payment_intent?:
-        | ((Partial<string> & Partial<components["schemas"]["payment_intent"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["payment_intent"]>) & { [key: string]: unknown })
         | null;
       /** ID of the payment method used in this charge. */
       payment_method?: string | null;
       /** Details about the payment method at the time of the transaction. */
       payment_method_details?:
-        | (Partial<components["schemas"]["payment_method_details"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["payment_method_details"]> & { [key: string]: unknown })
         | null;
       /** This is the email address that the receipt for this charge was sent to. */
       receipt_email?: string | null;
@@ -2322,14 +2328,14 @@ export interface components {
         object: "list";
         /** The URL where this list can be accessed. */
         url: string;
-      } & { [key: string]: any };
+      } & { [key: string]: unknown };
       /** ID of the review associated with this charge if one exists. */
-      review?: ((Partial<string> & Partial<components["schemas"]["review"]>) & { [key: string]: any }) | null;
+      review?: ((Partial<string> & Partial<components["schemas"]["review"]>) & { [key: string]: unknown }) | null;
       /** Shipping information for the charge. */
-      shipping?: (Partial<components["schemas"]["shipping"]> & { [key: string]: any }) | null;
+      shipping?: (Partial<components["schemas"]["shipping"]> & { [key: string]: unknown }) | null;
       /** The transfer ID which created this charge. Only present if the charge came from another Stripe account. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details. */
       source_transfer?:
-        | ((Partial<string> & Partial<components["schemas"]["transfer"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["transfer"]>) & { [key: string]: unknown })
         | null;
       /** For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
       statement_descriptor?: string | null;
@@ -2338,18 +2344,18 @@ export interface components {
       /** The status of the payment is either `succeeded`, `pending`, or `failed`. */
       status: string;
       /** ID of the transfer to the `destination` account (only applicable if the charge was created using the `destination` parameter). */
-      transfer?: (Partial<string> & Partial<components["schemas"]["transfer"]>) & { [key: string]: any };
+      transfer?: (Partial<string> & Partial<components["schemas"]["transfer"]>) & { [key: string]: unknown };
       /** An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details. */
-      transfer_data?: (Partial<components["schemas"]["charge_transfer_data"]> & { [key: string]: any }) | null;
+      transfer_data?: (Partial<components["schemas"]["charge_transfer_data"]> & { [key: string]: unknown }) | null;
       /** A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
       transfer_group?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     charge_fraud_details: {
       /** Assessments from Stripe. If set, the value is `fraudulent`. */
       stripe_report?: string;
       /** Assessments reported by you. If set, possible values of are `safe` and `fraudulent`. */
       user_report?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     charge_outcome: {
       /** Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://stripe.com/docs/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement. */
       network_status?: string | null;
@@ -2360,18 +2366,18 @@ export interface components {
       /** Stripe's evaluation of the riskiness of the payment. Possible values for evaluated payments are between 0 and 100. For non-card payments, card-based payments predating the public assignment of risk scores, or in the event of an error during evaluation, this field will not be present. This field is only available with Radar for Fraud Teams. */
       risk_score?: number;
       /** The ID of the Radar rule that matched the payment, if applicable. */
-      rule?: (Partial<string> & Partial<components["schemas"]["rule"]>) & { [key: string]: any };
+      rule?: (Partial<string> & Partial<components["schemas"]["rule"]>) & { [key: string]: unknown };
       /** A human-readable description of the outcome type and reason, designed for you (the recipient of the payment), not your customer. */
       seller_message?: string | null;
       /** Possible values are `authorized`, `manual_review`, `issuer_declined`, `blocked`, and `invalid`. See [understanding declines](https://stripe.com/docs/declines) and [Radar reviews](https://stripe.com/docs/radar/reviews) for details. */
       type: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     charge_transfer_data: {
       /** The amount transferred to the destination account, if specified. By default, the entire charge amount is transferred to the destination account. */
       amount?: number | null;
       /** ID of an existing, connected Stripe account to transfer funds to if `transfer_data` was specified in the charge request. */
-      destination: (Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: any };
-    } & { [key: string]: any };
+      destination: (Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: unknown };
+    } & { [key: string]: unknown };
     /**
      * A Checkout Session represents your customer's session as they pay for
      * one-time purchases or subscriptions through [Checkout](https://stripe.com/docs/payments/checkout).
@@ -2408,7 +2414,7 @@ export interface components {
        * during the session unless an existing customer was provided when
        * the session was created.
        */
-      customer?: ((Partial<string> & Partial<components["schemas"]["customer"]>) & { [key: string]: any }) | null;
+      customer?: ((Partial<string> & Partial<components["schemas"]["customer"]>) & { [key: string]: unknown }) | null;
       /**
        * If provided, this value will be used when the Customer object is created.
        * If not provided, customers will be asked to enter their email address.
@@ -2456,7 +2462,7 @@ export interface components {
       object: "checkout.session";
       /** The ID of the PaymentIntent for Checkout Sessions in `payment` mode. */
       payment_intent?:
-        | ((Partial<string> & Partial<components["schemas"]["payment_intent"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["payment_intent"]>) & { [key: string]: unknown })
         | null;
       /**
        * A list of the types of payment methods (e.g. card) this Checkout
@@ -2465,14 +2471,14 @@ export interface components {
       payment_method_types: string[];
       /** The ID of the SetupIntent for Checkout Sessions in `setup` mode. */
       setup_intent?:
-        | ((Partial<string> & Partial<components["schemas"]["setup_intent"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["setup_intent"]>) & { [key: string]: unknown })
         | null;
       /** Shipping information for this Checkout Session. */
-      shipping?: (Partial<components["schemas"]["shipping"]> & { [key: string]: any }) | null;
+      shipping?: (Partial<components["schemas"]["shipping"]> & { [key: string]: unknown }) | null;
       /** When set, provides configuration for Checkout to collect a shipping address from a customer. */
       shipping_address_collection?:
         | (Partial<components["schemas"]["payment_pages_payment_page_resources_shipping_address_collection"]> & {
-            [key: string]: any;
+            [key: string]: unknown;
           })
         | null;
       /**
@@ -2484,14 +2490,14 @@ export interface components {
       submit_type?: ("auto" | "book" | "donate" | "pay") | null;
       /** The ID of the subscription for Checkout Sessions in `subscription` mode. */
       subscription?:
-        | ((Partial<string> & Partial<components["schemas"]["subscription"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["subscription"]>) & { [key: string]: unknown })
         | null;
       /**
        * The URL the customer will be directed to after the payment or
        * subscription creation is successful.
        */
       success_url: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     checkout_session_custom_display_item_description: {
       /** The description of the line item. */
       description?: string | null;
@@ -2499,7 +2505,7 @@ export interface components {
       images?: string[] | null;
       /** The name of the line item. */
       name: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     checkout_session_display_item: {
       /** Amount for the display item. */
       amount?: number;
@@ -2512,21 +2518,21 @@ export interface components {
       sku?: components["schemas"]["sku"];
       /** The type of display item. One of `custom`, `plan` or `sku` */
       type?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     connect_collection_transfer: {
       /** Amount transferred, in %s. */
       amount: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /** ID of the account that funds are being collected for. */
-      destination: (Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: any };
+      destination: (Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: unknown };
       /** Unique identifier for the object. */
       id: string;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "connect_collection_transfer";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Stripe needs to collect certain pieces of information about each account
      * created. These requirements can differ depending on the account's country. The
@@ -2551,17 +2557,17 @@ export interface components {
       /** Countries that can accept transfers from the specified country. */
       supported_transfer_countries: string[];
       verification_fields: components["schemas"]["country_spec_verification_fields"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     country_spec_verification_field_details: {
       /** Additional fields which are only required for some users. */
       additional: string[];
       /** Fields which every account must eventually provide. */
       minimum: string[];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     country_spec_verification_fields: {
       company: components["schemas"]["country_spec_verification_field_details"];
       individual: components["schemas"]["country_spec_verification_field_details"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * A coupon contains information about a percent-off or amount-off discount you
      * might want to apply to a customer. Coupons may be applied to [invoices](https://stripe.com/docs/api#invoices) or
@@ -2598,7 +2604,7 @@ export interface components {
       times_redeemed: number;
       /** Taking account of the above properties, whether this coupon can still be applied to a customer. */
       valid: boolean;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Issue a credit note to adjust an invoice's amount after the invoice is finalized.
      *
@@ -2612,17 +2618,19 @@ export interface components {
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /** ID of the customer. */
-      customer: (Partial<string> & Partial<components["schemas"]["customer"]>) & { [key: string]: any };
+      customer: (Partial<string> & Partial<components["schemas"]["customer"]>) & { [key: string]: unknown };
       /** Customer balance transaction related to this credit note. */
       customer_balance_transaction?:
-        | ((Partial<string> & Partial<components["schemas"]["customer_balance_transaction"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["customer_balance_transaction"]>) & {
+            [key: string]: unknown;
+          })
         | null;
       /** The integer amount in **%s** representing the amount of the discount that was credited. */
       discount_amount: number;
       /** Unique identifier for the object. */
       id: string;
       /** ID of the invoice. */
-      invoice: (Partial<string> & Partial<components["schemas"]["invoice"]>) & { [key: string]: any };
+      invoice: (Partial<string> & Partial<components["schemas"]["invoice"]>) & { [key: string]: unknown };
       /** Line items that make up the credit note */
       lines: {
         /** Details about each object. */
@@ -2633,7 +2641,7 @@ export interface components {
         object: "list";
         /** The URL where this list can be accessed. */
         url: string;
-      } & { [key: string]: any };
+      } & { [key: string]: unknown };
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** Customer-facing text that appears on the credit note PDF. */
@@ -2651,7 +2659,7 @@ export interface components {
       /** Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` */
       reason?: ("duplicate" | "fraudulent" | "order_change" | "product_unsatisfactory") | null;
       /** Refund related to this credit note. */
-      refund?: ((Partial<string> & Partial<components["schemas"]["refund"]>) & { [key: string]: any }) | null;
+      refund?: ((Partial<string> & Partial<components["schemas"]["refund"]>) & { [key: string]: unknown }) | null;
       /** Status of this credit note, one of `issued` or `void`. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding). */
       status: "issued" | "void";
       /** The integer amount in **%s** representing the amount of the credit note, excluding tax and discount. */
@@ -2664,7 +2672,7 @@ export interface components {
       type: "post_payment" | "pre_payment";
       /** The time that the credit note was voided. */
       voided_at?: number | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     credit_note_line_item: {
       /** The integer amount in **%s** representing the gross amount being credited for this line item, excluding (exclusive) tax and discounts. */
       amount: number;
@@ -2692,15 +2700,15 @@ export interface components {
       unit_amount?: number | null;
       /** Same as `unit_amount`, but contains a decimal value with at most 12 decimal places. */
       unit_amount_decimal?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     credit_note_tax_amount: {
       /** The amount, in %s, of the tax. */
       amount: number;
       /** Whether this tax amount is inclusive or exclusive. */
       inclusive: boolean;
       /** The tax rate that was applied to get this tax amount. */
-      tax_rate: (Partial<string> & Partial<components["schemas"]["tax_rate"]>) & { [key: string]: any };
-    } & { [key: string]: any };
+      tax_rate: (Partial<string> & Partial<components["schemas"]["tax_rate"]>) & { [key: string]: unknown };
+    } & { [key: string]: unknown };
     /**
      * `Customer` objects allow you to perform recurring charges, and to track
      * multiple charges, that are associated with the same customer. The API allows
@@ -2711,7 +2719,7 @@ export interface components {
      */
     customer: {
       /** The customer's address. */
-      address?: (Partial<components["schemas"]["address"]> & { [key: string]: any }) | null;
+      address?: (Partial<components["schemas"]["address"]> & { [key: string]: unknown }) | null;
       /** Current balance, if any, being stored on the customer. If negative, the customer has credit to apply to their next invoice. If positive, the customer has an amount owed that will be added to their next invoice. The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice. This balance is only taken into account as invoices are finalized. */
       balance?: number;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -2729,14 +2737,14 @@ export interface components {
             Partial<components["schemas"]["bank_account"]> &
             Partial<components["schemas"]["bitcoin_receiver"]> &
             Partial<components["schemas"]["card"]> &
-            Partial<components["schemas"]["source"]>) & { [key: string]: any })
+            Partial<components["schemas"]["source"]>) & { [key: string]: unknown })
         | null;
       /** When the customer's latest invoice is billed by charging automatically, delinquent is true if the invoice's latest charge is failed. When the customer's latest invoice is billed by sending an invoice, delinquent is true if the invoice is not paid by its due date. */
       delinquent?: boolean | null;
       /** An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null;
       /** Describes the current discount active on the customer, if there is one. */
-      discount?: (Partial<components["schemas"]["discount"]> & { [key: string]: any }) | null;
+      discount?: (Partial<components["schemas"]["discount"]> & { [key: string]: unknown }) | null;
       /** The customer's email address. */
       email?: string | null;
       /** Unique identifier for the object. */
@@ -2759,7 +2767,7 @@ export interface components {
       /** The customer's preferred locales (languages), ordered by preference. */
       preferred_locales?: string[] | null;
       /** Mailing and shipping address for the customer. Appears on invoices emailed to this customer. */
-      shipping?: (Partial<components["schemas"]["shipping"]> & { [key: string]: any }) | null;
+      shipping?: (Partial<components["schemas"]["shipping"]> & { [key: string]: unknown }) | null;
       /** The customer's payment sources, if any. */
       sources: {
         /** Details about each object. */
@@ -2767,14 +2775,14 @@ export interface components {
           Partial<components["schemas"]["bank_account"]> &
           Partial<components["schemas"]["bitcoin_receiver"]> &
           Partial<components["schemas"]["card"]> &
-          Partial<components["schemas"]["source"]>) & { [key: string]: any })[];
+          Partial<components["schemas"]["source"]>) & { [key: string]: unknown })[];
         /** True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
         object: "list";
         /** The URL where this list can be accessed. */
         url: string;
-      } & { [key: string]: any };
+      } & { [key: string]: unknown };
       /** The customer's current subscriptions, if any. */
       subscriptions?: {
         /** Details about each object. */
@@ -2785,7 +2793,7 @@ export interface components {
         object: "list";
         /** The URL where this list can be accessed. */
         url: string;
-      } & { [key: string]: any };
+      } & { [key: string]: unknown };
       /** Describes the customer's tax exemption status. One of `none`, `exempt`, or `reverse`. When set to `reverse`, invoice and receipt PDFs include the text **"Reverse charge"**. */
       tax_exempt?: ("exempt" | "none" | "reverse") | null;
       /** The customer's tax IDs. */
@@ -2798,8 +2806,8 @@ export interface components {
         object: "list";
         /** The URL where this list can be accessed. */
         url: string;
-      } & { [key: string]: any };
-    } & { [key: string]: any };
+      } & { [key: string]: unknown };
+    } & { [key: string]: unknown };
     customer_acceptance: {
       /** The time at which the customer accepted the Mandate. */
       accepted_at?: number | null;
@@ -2807,7 +2815,7 @@ export interface components {
       online?: components["schemas"]["online_acceptance"];
       /** The type of customer acceptance information included with the Mandate. One of `online` or `offline`. */
       type: "offline" | "online";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Each customer has a [`balance`](https://stripe.com/docs/api/customers/object#customer_object-balance) value,
      * which denotes a debit or credit that's automatically applied to their next invoice upon finalization.
@@ -2822,11 +2830,13 @@ export interface components {
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** The ID of the credit note (if any) related to the transaction. */
-      credit_note?: ((Partial<string> & Partial<components["schemas"]["credit_note"]>) & { [key: string]: any }) | null;
+      credit_note?:
+        | ((Partial<string> & Partial<components["schemas"]["credit_note"]>) & { [key: string]: unknown })
+        | null;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /** The ID of the customer the transaction belongs to. */
-      customer: (Partial<string> & Partial<components["schemas"]["customer"]>) & { [key: string]: any };
+      customer: (Partial<string> & Partial<components["schemas"]["customer"]>) & { [key: string]: unknown };
       /** An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null;
       /** The customer's `balance` after the transaction was applied. A negative value decreases the amount due on the customer's next invoice. A positive value increases the amount due on the customer's next invoice. */
@@ -2834,7 +2844,7 @@ export interface components {
       /** Unique identifier for the object. */
       id: string;
       /** The ID of the invoice (if any) related to the transaction. */
-      invoice?: ((Partial<string> & Partial<components["schemas"]["invoice"]>) & { [key: string]: any }) | null;
+      invoice?: ((Partial<string> & Partial<components["schemas"]["invoice"]>) & { [key: string]: unknown }) | null;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -2852,7 +2862,7 @@ export interface components {
         | "migration"
         | "unapplied_from_invoice"
         | "unspent_receiver_credit";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_account: {
       /** Always true for a deleted object */
       deleted: true;
@@ -2860,7 +2870,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "account";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_alipay_account: {
       /** Always true for a deleted object */
       deleted: true;
@@ -2868,7 +2878,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "alipay_account";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_apple_pay_domain: {
       /** Always true for a deleted object */
       deleted: true;
@@ -2876,7 +2886,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "apple_pay_domain";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_bank_account: {
       /** Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account. */
       currency?: string | null;
@@ -2886,7 +2896,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "bank_account";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_bitcoin_receiver: {
       /** Always true for a deleted object */
       deleted: true;
@@ -2894,7 +2904,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "bitcoin_receiver";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_card: {
       /** Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account. */
       currency?: string | null;
@@ -2904,7 +2914,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "card";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_coupon: {
       /** Always true for a deleted object */
       deleted: true;
@@ -2912,7 +2922,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "coupon";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_customer: {
       /** Always true for a deleted object */
       deleted: true;
@@ -2920,15 +2930,15 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "customer";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_discount: {
       /** Always true for a deleted object */
       deleted: true;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "discount";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_external_account: (Partial<components["schemas"]["deleted_bank_account"]> &
-      Partial<components["schemas"]["deleted_card"]>) & { [key: string]: any };
+      Partial<components["schemas"]["deleted_card"]>) & { [key: string]: unknown };
     deleted_invoice: {
       /** Always true for a deleted object */
       deleted: true;
@@ -2936,7 +2946,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "invoice";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_invoiceitem: {
       /** Always true for a deleted object */
       deleted: true;
@@ -2944,11 +2954,11 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "invoiceitem";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_payment_source: (Partial<components["schemas"]["deleted_alipay_account"]> &
       Partial<components["schemas"]["deleted_bank_account"]> &
       Partial<components["schemas"]["deleted_bitcoin_receiver"]> &
-      Partial<components["schemas"]["deleted_card"]>) & { [key: string]: any };
+      Partial<components["schemas"]["deleted_card"]>) & { [key: string]: unknown };
     deleted_person: {
       /** Always true for a deleted object */
       deleted: true;
@@ -2956,7 +2966,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "person";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_plan: {
       /** Always true for a deleted object */
       deleted: true;
@@ -2964,7 +2974,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "plan";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_product: {
       /** Always true for a deleted object */
       deleted: true;
@@ -2972,7 +2982,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "product";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     "deleted_radar.value_list": {
       /** Always true for a deleted object */
       deleted: true;
@@ -2980,7 +2990,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "radar.value_list";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     "deleted_radar.value_list_item": {
       /** Always true for a deleted object */
       deleted: true;
@@ -2988,7 +2998,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "radar.value_list_item";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_recipient: {
       /** Always true for a deleted object */
       deleted: true;
@@ -2996,7 +3006,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "recipient";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_sku: {
       /** Always true for a deleted object */
       deleted: true;
@@ -3004,7 +3014,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "sku";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_subscription_item: {
       /** Always true for a deleted object */
       deleted: true;
@@ -3012,7 +3022,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "subscription_item";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_tax_id: {
       /** Always true for a deleted object */
       deleted: true;
@@ -3020,7 +3030,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "tax_id";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     "deleted_terminal.location": {
       /** Always true for a deleted object */
       deleted: true;
@@ -3028,7 +3038,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "terminal.location";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     "deleted_terminal.reader": {
       /** Always true for a deleted object */
       deleted: true;
@@ -3036,7 +3046,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "terminal.reader";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     deleted_webhook_endpoint: {
       /** Always true for a deleted object */
       deleted: true;
@@ -3044,7 +3054,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "webhook_endpoint";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     delivery_estimate: {
       /** If `type` is `"exact"`, `date` will be the expected delivery date in the format YYYY-MM-DD. */
       date?: string;
@@ -3054,7 +3064,7 @@ export interface components {
       latest?: string;
       /** The type of estimate. Must be either `"range"` or `"exact"`. */
       type: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * A discount represents the actual application of a coupon to a particular
      * customer. It contains information about when the discount began and when it
@@ -3068,7 +3078,7 @@ export interface components {
       customer?:
         | ((Partial<string> &
             Partial<components["schemas"]["customer"]> &
-            Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: any })
+            Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: unknown })
         | null;
       /** If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null. */
       end?: number | null;
@@ -3078,7 +3088,7 @@ export interface components {
       start: number;
       /** The subscription that this coupon is applied to, if it is applied to a particular subscription. */
       subscription?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * A dispute occurs when a customer questions your charge with their card issuer.
      * When this happens, you're given the opportunity to respond to the dispute with
@@ -3094,7 +3104,7 @@ export interface components {
       /** List of zero, one, or two balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute. */
       balance_transactions: components["schemas"]["balance_transaction"][];
       /** ID of the charge that was disputed. */
-      charge: (Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: any };
+      charge: (Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: unknown };
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -3113,7 +3123,7 @@ export interface components {
       object: "dispute";
       /** ID of the PaymentIntent that was disputed. */
       payment_intent?:
-        | ((Partial<string> & Partial<components["schemas"]["payment_intent"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["payment_intent"]>) & { [key: string]: unknown })
         | null;
       /** Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Read more about [dispute reasons](https://stripe.com/docs/disputes/categories). */
       reason: string;
@@ -3127,7 +3137,7 @@ export interface components {
         | "warning_needs_response"
         | "warning_under_review"
         | "won";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     dispute_evidence: {
       /** Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity. */
       access_activity_log?: string | null;
@@ -3135,7 +3145,7 @@ export interface components {
       billing_address?: string | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your subscription cancellation policy, as shown to the customer. */
       cancellation_policy?:
-        | ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: unknown })
         | null;
       /** An explanation of how and when the customer was shown your refund policy prior to purchase. */
       cancellation_policy_disclosure?: string | null;
@@ -3143,7 +3153,7 @@ export interface components {
       cancellation_rebuttal?: string | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any communication with the customer that you feel is relevant to your case. Examples include emails proving that the customer received the product or service, or demonstrating their use of or satisfaction with the product or service. */
       customer_communication?:
-        | ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: unknown })
         | null;
       /** The email address of the customer. */
       customer_email_address?: string | null;
@@ -3152,10 +3162,12 @@ export interface components {
       /** The IP address that the customer used when making the purchase. */
       customer_purchase_ip?: string | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A relevant document or contract showing the customer's signature. */
-      customer_signature?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: any }) | null;
+      customer_signature?:
+        | ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: unknown })
+        | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation for the prior charge that can uniquely identify the charge, such as a receipt, shipping label, work order, etc. This document should be paired with a similar document from the disputed payment that proves the two payments are separate. */
       duplicate_charge_documentation?:
-        | ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: unknown })
         | null;
       /** An explanation of the difference between the disputed charge versus the prior charge that appears to be a duplicate. */
       duplicate_charge_explanation?: string | null;
@@ -3164,9 +3176,9 @@ export interface components {
       /** A description of the product or service that was sold. */
       product_description?: string | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any receipt or message sent to the customer notifying them of the charge. */
-      receipt?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: any }) | null;
+      receipt?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: unknown }) | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your refund policy, as shown to the customer. */
-      refund_policy?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: any }) | null;
+      refund_policy?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: unknown }) | null;
       /** Documentation demonstrating that the customer was shown your refund policy prior to purchase. */
       refund_policy_disclosure?: string | null;
       /** A justification for why the customer is not entitled to a refund. */
@@ -3175,7 +3187,7 @@ export interface components {
       service_date?: string | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation showing proof that a service was provided to the customer. This could include a copy of a signed contract, work order, or other form of written agreement. */
       service_documentation?:
-        | ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: unknown })
         | null;
       /** The address to which a physical product was shipped. You should try to include as complete address information as possible. */
       shipping_address?: string | null;
@@ -3185,15 +3197,17 @@ export interface components {
       shipping_date?: string | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation showing proof that a product was shipped to the customer at the same address the customer provided to you. This could include a copy of the shipment receipt, shipping label, etc. It should show the customer's full shipping address, if possible. */
       shipping_documentation?:
-        | ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: unknown })
         | null;
       /** The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas. */
       shipping_tracking_number?: string | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any additional evidence or statements. */
-      uncategorized_file?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: any }) | null;
+      uncategorized_file?:
+        | ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: unknown })
+        | null;
       /** Any additional evidence or statements. */
       uncategorized_text?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     dispute_evidence_details: {
       /** Date by which evidence must be submitted in order to successfully challenge dispute. Will be null if the customer's bank or credit card company doesn't allow a response for this particular dispute. */
       due_by?: number | null;
@@ -3203,7 +3217,7 @@ export interface components {
       past_due: boolean;
       /** The number of times evidence has been submitted. Typically, you may only submit evidence once. */
       submission_count: number;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     ephemeral_key: {
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
@@ -3217,11 +3231,11 @@ export interface components {
       object: "ephemeral_key";
       /** The key's secret. You can use this value to make authorized requests to the Stripe API. */
       secret?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /** An error response from the Stripe API */
     error: {
       error: components["schemas"]["api_errors"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Events are our way of letting you know when something interesting happens in
      * your account. When an interesting event occurs, we create a new `Event`
@@ -3270,10 +3284,10 @@ export interface components {
       /** Number of webhooks that have yet to be successfully delivered (i.e., to return a 20x response) to the URLs you've specified. */
       pending_webhooks: number;
       /** Information on the API request that instigated the event. */
-      request?: (Partial<components["schemas"]["notification_event_request"]> & { [key: string]: any }) | null;
+      request?: (Partial<components["schemas"]["notification_event_request"]> & { [key: string]: unknown }) | null;
       /** Description of the event (e.g., `invoice.created` or `charge.refunded`). */
       type: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * `Exchange Rate` objects allow you to determine the rates that Stripe is
      * currently using to convert from one currency to another. Since this number is
@@ -3294,9 +3308,9 @@ export interface components {
       object: "exchange_rate";
       /** Hash where the keys are supported currencies and the values are the exchange rate at which the base id currency converts to the key currency. */
       rates: { [key: string]: number };
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     external_account: (Partial<components["schemas"]["bank_account"]> & Partial<components["schemas"]["card"]>) & {
-      [key: string]: any;
+      [key: string]: unknown;
     };
     fee: {
       /** Amount of the fee, in cents. */
@@ -3309,7 +3323,7 @@ export interface components {
       description?: string | null;
       /** Type of the fee, one of: `application_fee`, `stripe_fee` or `tax`. */
       type: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * `Application Fee Refund` objects allow you to refund an application fee that
      * has previously been created but not yet refunded. Funds will be refunded to
@@ -3322,21 +3336,21 @@ export interface components {
       amount: number;
       /** Balance transaction that describes the impact on your account balance. */
       balance_transaction?:
-        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: unknown })
         | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /** ID of the application fee that was refunded. */
-      fee: (Partial<string> & Partial<components["schemas"]["application_fee"]>) & { [key: string]: any };
+      fee: (Partial<string> & Partial<components["schemas"]["application_fee"]>) & { [key: string]: unknown };
       /** Unique identifier for the object. */
       id: string;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: { [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "fee_refund";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * This is an object representing a file hosted on Stripe's servers. The
      * file may have been uploaded by yourself using the [create file](https://stripe.com/docs/api#create_file)
@@ -3364,7 +3378,7 @@ export interface components {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any })
+          } & { [key: string]: unknown })
         | null;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "file";
@@ -3378,7 +3392,7 @@ export interface components {
       type?: string | null;
       /** The URL from which the file can be downloaded using your live secret API key. */
       url?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * To share the contents of a `File` object with non-Stripe users, you can
      * create a `FileLink`. `FileLink`s contain a URL that can be used to
@@ -3392,7 +3406,7 @@ export interface components {
       /** Time at which the link expires. */
       expires_at?: number | null;
       /** The file object this link points to. */
-      file: (Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: any };
+      file: (Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: unknown };
       /** Unique identifier for the object. */
       id: string;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -3403,7 +3417,7 @@ export interface components {
       object: "file_link";
       /** The publicly accessible URL to download the file. */
       url?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     financial_reporting_finance_report_run_run_parameters: {
       /** The set of output columns requested for inclusion in the report run. */
       columns?: string[];
@@ -3421,7 +3435,7 @@ export interface components {
       reporting_category?: string;
       /** Defaults to `Etc/UTC`. The output timezone for all timestamps in the report. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones). Has no effect on `interval_start` or `interval_end`. */
       timezone?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     inventory: {
       /** The count of inventory available. Will be present if and only if `type` is `finite`. */
       quantity?: number | null;
@@ -3429,7 +3443,7 @@ export interface components {
       type: string;
       /** An indicator of the inventory available. Possible values are `in_stock`, `limited`, and `out_of_stock`. Will be present if and only if `type` is `bucket`. */
       value?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Invoices are statements of amounts owed by a customer, and are either
      * generated one-off, or generated periodically from a subscription.
@@ -3497,7 +3511,7 @@ export interface components {
           )
         | null;
       /** ID of the latest charge generated for this invoice, if any. */
-      charge?: ((Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: any }) | null;
+      charge?: ((Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: unknown }) | null;
       /** Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. */
       collection_method?: ("charge_automatically" | "send_invoice") | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -3509,9 +3523,9 @@ export interface components {
       /** The ID of the customer who will be billed. */
       customer: (Partial<string> &
         Partial<components["schemas"]["customer"]> &
-        Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: any };
+        Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: unknown };
       /** The customer's address. Until the invoice is finalized, this field will equal `customer.address`. Once the invoice is finalized, this field will no longer be updated. */
-      customer_address?: (Partial<components["schemas"]["address"]> & { [key: string]: any }) | null;
+      customer_address?: (Partial<components["schemas"]["address"]> & { [key: string]: unknown }) | null;
       /** The customer's email. Until the invoice is finalized, this field will equal `customer.email`. Once the invoice is finalized, this field will no longer be updated. */
       customer_email?: string | null;
       /** The customer's name. Until the invoice is finalized, this field will equal `customer.name`. Once the invoice is finalized, this field will no longer be updated. */
@@ -3519,14 +3533,14 @@ export interface components {
       /** The customer's phone number. Until the invoice is finalized, this field will equal `customer.phone`. Once the invoice is finalized, this field will no longer be updated. */
       customer_phone?: string | null;
       /** The customer's shipping information. Until the invoice is finalized, this field will equal `customer.shipping`. Once the invoice is finalized, this field will no longer be updated. */
-      customer_shipping?: (Partial<components["schemas"]["shipping"]> & { [key: string]: any }) | null;
+      customer_shipping?: (Partial<components["schemas"]["shipping"]> & { [key: string]: unknown }) | null;
       /** The customer's tax exempt status. Until the invoice is finalized, this field will equal `customer.tax_exempt`. Once the invoice is finalized, this field will no longer be updated. */
       customer_tax_exempt?: ("exempt" | "none" | "reverse") | null;
       /** The customer's tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as `customer.tax_ids`. Once the invoice is finalized, this field will no longer be updated. */
       customer_tax_ids?: components["schemas"]["invoices_resource_invoice_tax_id"][] | null;
       /** ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings. */
       default_payment_method?:
-        | ((Partial<string> & Partial<components["schemas"]["payment_method"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["payment_method"]>) & { [key: string]: unknown })
         | null;
       /** ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source. */
       default_source?:
@@ -3535,14 +3549,14 @@ export interface components {
             Partial<components["schemas"]["bank_account"]> &
             Partial<components["schemas"]["bitcoin_receiver"]> &
             Partial<components["schemas"]["card"]> &
-            Partial<components["schemas"]["source"]>) & { [key: string]: any })
+            Partial<components["schemas"]["source"]>) & { [key: string]: unknown })
         | null;
       /** The tax rates applied to this invoice, if any. */
       default_tax_rates?: components["schemas"]["tax_rate"][] | null;
       /** An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard. */
       description?: string | null;
       /** Describes the current discount applied to this invoice, if there is one. */
-      discount?: (Partial<components["schemas"]["discount"]> & { [key: string]: any }) | null;
+      discount?: (Partial<components["schemas"]["discount"]> & { [key: string]: unknown }) | null;
       /** The date on which payment for this invoice is due. This value will be `null` for invoices where `collection_method=charge_automatically`. */
       due_date?: number | null;
       /** Ending customer balance after the invoice is finalized. Invoices are finalized approximately an hour after successful webhook delivery or when payment collection is attempted for the invoice. If the invoice has not been finalized yet, this will be null. */
@@ -3565,7 +3579,7 @@ export interface components {
         object: "list";
         /** The URL where this list can be accessed. */
         url: string;
-      } & { [key: string]: any };
+      } & { [key: string]: unknown };
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -3580,7 +3594,7 @@ export interface components {
       paid: boolean;
       /** The PaymentIntent associated with this invoice. The PaymentIntent is generated when the invoice is finalized, and can then be used to pay the invoice. Note that voiding an invoice will cancel the PaymentIntent. */
       payment_intent?:
-        | ((Partial<string> & Partial<components["schemas"]["payment_intent"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["payment_intent"]>) & { [key: string]: unknown })
         | null;
       /** End of the usage period during which invoice items were added to this invoice. */
       period_end: number;
@@ -3601,7 +3615,7 @@ export interface components {
       status_transitions: components["schemas"]["invoices_status_transitions"];
       /** The subscription that this invoice was prepared for, if any. */
       subscription?:
-        | ((Partial<string> & Partial<components["schemas"]["subscription"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["subscription"]>) & { [key: string]: unknown })
         | null;
       /** Only set for upcoming invoices that preview prorations. The time used to calculate prorations. */
       subscription_proration_date?: number;
@@ -3618,53 +3632,53 @@ export interface components {
       total_tax_amounts?: components["schemas"]["invoice_tax_amount"][] | null;
       /** Invoices are automatically paid or sent 1 hour after webhooks are delivered, or until all webhook delivery attempts have [been exhausted](https://stripe.com/docs/billing/webhooks#understand). This field tracks the time when webhooks for this invoice were successfully delivered. If the invoice had no webhooks to deliver, this will be set while the invoice is being created. */
       webhooks_delivered_at?: number | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     invoice_item_threshold_reason: {
       /** The IDs of the line items that triggered the threshold invoice. */
       line_item_ids: string[];
       /** The quantity threshold boundary that applied to the given line item. */
       usage_gte: number;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     invoice_line_item_period: {
       /** End of the line item's billing period */
       end: number;
       /** Start of the line item's billing period */
       start: number;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     invoice_setting_custom_field: {
       /** The name of the custom field. */
       name: string;
       /** The value of the custom field. */
       value: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     invoice_setting_customer_setting: {
       /** Default custom fields to be displayed on invoices for this customer. */
       custom_fields?: components["schemas"]["invoice_setting_custom_field"][] | null;
       /** ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices. */
       default_payment_method?:
-        | ((Partial<string> & Partial<components["schemas"]["payment_method"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["payment_method"]>) & { [key: string]: unknown })
         | null;
       /** Default footer to be displayed on invoices for this customer. */
       footer?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     invoice_setting_subscription_schedule_setting: {
       /** Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`. */
       days_until_due?: number | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     invoice_tax_amount: {
       /** The amount, in %s, of the tax. */
       amount: number;
       /** Whether this tax amount is inclusive or exclusive. */
       inclusive: boolean;
       /** The tax rate that was applied to get this tax amount. */
-      tax_rate: (Partial<string> & Partial<components["schemas"]["tax_rate"]>) & { [key: string]: any };
-    } & { [key: string]: any };
+      tax_rate: (Partial<string> & Partial<components["schemas"]["tax_rate"]>) & { [key: string]: unknown };
+    } & { [key: string]: unknown };
     invoice_threshold_reason: {
       /** The total invoice amount threshold boundary if it triggered the threshold invoice. */
       amount_gte?: number | null;
       /** Indicates which line items triggered a threshold invoice. */
       item_reasons: components["schemas"]["invoice_item_threshold_reason"][];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Sometimes you want to add a charge or credit to a customer, but actually
      * charge or credit the customer's card only at the end of a regular billing
@@ -3682,7 +3696,7 @@ export interface components {
       /** The ID of the customer who will be billed when this invoice item is billed. */
       customer: (Partial<string> &
         Partial<components["schemas"]["customer"]> &
-        Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: any };
+        Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: unknown };
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       date: number;
       /** An arbitrary string attached to the object. Often useful for displaying to users. */
@@ -3692,7 +3706,7 @@ export interface components {
       /** Unique identifier for the object. */
       id: string;
       /** The ID of the invoice this invoice item belongs to. */
-      invoice?: ((Partial<string> & Partial<components["schemas"]["invoice"]>) & { [key: string]: any }) | null;
+      invoice?: ((Partial<string> & Partial<components["schemas"]["invoice"]>) & { [key: string]: unknown }) | null;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -3701,14 +3715,14 @@ export interface components {
       object: "invoiceitem";
       period: components["schemas"]["invoice_line_item_period"];
       /** If the invoice item is a proration, the plan of the subscription that the proration was computed for. */
-      plan?: (Partial<components["schemas"]["plan"]> & { [key: string]: any }) | null;
+      plan?: (Partial<components["schemas"]["plan"]> & { [key: string]: unknown }) | null;
       /** Whether the invoice item was created automatically as a proration adjustment when the customer switched plans. */
       proration: boolean;
       /** Quantity of units for the invoice item. If the invoice item is a proration, the quantity of the subscription that the proration was computed for. */
       quantity: number;
       /** The subscription that this invoice item has been created for, if any. */
       subscription?:
-        | ((Partial<string> & Partial<components["schemas"]["subscription"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["subscription"]>) & { [key: string]: unknown })
         | null;
       /** The subscription item that this invoice item has been created for, if any. */
       subscription_item?: string;
@@ -3718,7 +3732,7 @@ export interface components {
       unit_amount?: number | null;
       /** Same as `unit_amount`, but contains a decimal value with at most 12 decimal places. */
       unit_amount_decimal?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     invoices_resource_invoice_tax_id: {
       /** The type of the tax ID, one of `eu_vat`, `nz_gst`, `au_abn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `my_sst`, `sg_gst`, or `unknown` */
       type:
@@ -3748,7 +3762,7 @@ export interface components {
         | "za_vat";
       /** The value of the tax ID. */
       value?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     invoices_status_transitions: {
       /** The time that the invoice draft was finalized. */
       finalized_at?: number | null;
@@ -3758,7 +3772,7 @@ export interface components {
       paid_at?: number | null;
       /** The time that the invoice was voided. */
       voided_at?: number | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * This resource has been renamed to [Early Fraud
      * Warning](#early_fraud_warning_object) and will be removed in a future API
@@ -3768,7 +3782,7 @@ export interface components {
       /** An IFR is actionable if it has not received a dispute and has not been fully refunded. You may wish to proactively refund a charge that receives an IFR, in order to avoid receiving a dispute later. */
       actionable: boolean;
       /** ID of the charge this issuer fraud record is for, optionally expanded. */
-      charge: (Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: any };
+      charge: (Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: unknown };
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** The type of fraud labelled by the issuer. One of `card_never_received`, `fraudulent_card_application`, `made_with_counterfeit_card`, `made_with_lost_card`, `made_with_stolen_card`, `misc`, `unauthorized_use_of_card`. */
@@ -3783,7 +3797,7 @@ export interface components {
       object: "issuer_fraud_record";
       /** The timestamp at which the card issuer posted the issuer fraud record. */
       post_date: number;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * When an [issued card](https://stripe.com/docs/issuing) is used to make a purchase, an Issuing `Authorization`
      * object is created. [Authorizations](https://stripe.com/docs/issuing/purchases/authorizations) must be approved for the
@@ -3803,7 +3817,7 @@ export interface components {
       card: components["schemas"]["issuing.card"];
       /** The cardholder to whom this authorization belongs. */
       cardholder?:
-        | ((Partial<string> & Partial<components["schemas"]["issuing.cardholder"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["issuing.cardholder"]>) & { [key: string]: unknown })
         | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
@@ -3824,7 +3838,7 @@ export interface components {
       object: "issuing.authorization";
       /** The pending authorization request. This field will only be non-null during an `issuing_authorization.request` webhook. */
       pending_request?:
-        | (Partial<components["schemas"]["issuing_authorization_pending_request"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["issuing_authorization_pending_request"]> & { [key: string]: unknown })
         | null;
       /** History of every time the authorization was approved/denied (whether approved/denied by you directly or by Stripe based on your `spending_controls`). If the merchant changes the authorization by performing an [incremental authorization or partial capture](https://stripe.com/docs/issuing/purchases/authorizations), you can look at this field to see the previous states of the authorization. */
       request_history: components["schemas"]["issuing_authorization_request"][];
@@ -3835,7 +3849,7 @@ export interface components {
       verification_data: components["schemas"]["issuing_authorization_verification_data"];
       /** What, if any, digital wallet was used for this authorization. One of `apple_pay`, `google_pay`, or `samsung_pay`. */
       wallet?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /** You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders. */
     "issuing.card": {
       /** The brand of the card. */
@@ -3867,22 +3881,22 @@ export interface components {
       object: "issuing.card";
       /** The latest card that replaces this card, if any. */
       replaced_by?:
-        | ((Partial<string> & Partial<components["schemas"]["issuing.card"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["issuing.card"]>) & { [key: string]: unknown })
         | null;
       /** The card this card replaces, if any. */
       replacement_for?:
-        | ((Partial<string> & Partial<components["schemas"]["issuing.card"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["issuing.card"]>) & { [key: string]: unknown })
         | null;
       /** The reason why the previous card needed to be replaced. */
       replacement_reason?: ("damaged" | "expired" | "lost" | "stolen") | null;
       /** Where and how the card will be shipped. */
-      shipping?: (Partial<components["schemas"]["issuing_card_shipping"]> & { [key: string]: any }) | null;
+      shipping?: (Partial<components["schemas"]["issuing_card_shipping"]> & { [key: string]: unknown }) | null;
       spending_controls: components["schemas"]["issuing_card_authorization_controls"];
       /** Whether authorizations can be approved on this card. */
       status: "active" | "canceled" | "inactive";
       /** The type of the card. */
       type: "physical" | "virtual";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * An Issuing `Cardholder` object represents an individual or business entity who is [issued](https://stripe.com/docs/issuing) cards.
      *
@@ -3891,7 +3905,7 @@ export interface components {
     "issuing.cardholder": {
       billing: components["schemas"]["issuing_cardholder_address"];
       /** Additional information about a `company` cardholder. */
-      company?: (Partial<components["schemas"]["issuing_cardholder_company"]> & { [key: string]: any }) | null;
+      company?: (Partial<components["schemas"]["issuing_cardholder_company"]> & { [key: string]: unknown }) | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** The cardholder's email address. */
@@ -3899,7 +3913,9 @@ export interface components {
       /** Unique identifier for the object. */
       id: string;
       /** Additional information about an `individual` cardholder. */
-      individual?: (Partial<components["schemas"]["issuing_cardholder_individual"]> & { [key: string]: any }) | null;
+      individual?:
+        | (Partial<components["schemas"]["issuing_cardholder_individual"]> & { [key: string]: unknown })
+        | null;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -3913,13 +3929,13 @@ export interface components {
       requirements: components["schemas"]["issuing_cardholder_requirements"];
       /** Spending rules that give you some control over how this cardholder's cards can be used. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details. */
       spending_controls?:
-        | (Partial<components["schemas"]["issuing_cardholder_authorization_controls"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["issuing_cardholder_authorization_controls"]> & { [key: string]: unknown })
         | null;
       /** Specifies whether to permit authorizations on this cardholder's cards. */
       status: "active" | "blocked" | "inactive";
       /** One of `individual` or `company`. */
       type: "company" | "individual";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * As a [card issuer](https://stripe.com/docs/issuing), you can [dispute](https://stripe.com/docs/issuing/purchases/disputes) transactions that you do not recognize, suspect to be fraudulent, or have some other issue.
      *
@@ -3932,7 +3948,7 @@ export interface components {
       livemode: boolean;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "issuing.dispute";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /** When a non-stripe BIN is used, any use of an [issued card](https://stripe.com/docs/issuing) must be settled directly with the card network. The net amount owed is represented by an Issuing `Settlement` object. */
     "issuing.settlement": {
       /** The Bank Identification Number reflecting this settlement record. */
@@ -3967,7 +3983,7 @@ export interface components {
       transaction_count: number;
       /** The total transaction amount reflected in this settlement. */
       transaction_volume: number;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Any use of an [issued card](https://stripe.com/docs/issuing) that results in funds entering or leaving
      * your Stripe account, such as a completed purchase or refund, is represented by an Issuing
@@ -3980,17 +3996,17 @@ export interface components {
       amount: number;
       /** The `Authorization` object that led to this transaction. */
       authorization?:
-        | ((Partial<string> & Partial<components["schemas"]["issuing.authorization"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["issuing.authorization"]>) & { [key: string]: unknown })
         | null;
       /** ID of the [balance transaction](https://stripe.com/docs/api/balance_transactions) associated with this transaction. */
       balance_transaction?:
-        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: unknown })
         | null;
       /** The card used to make this transaction. */
-      card: (Partial<string> & Partial<components["schemas"]["issuing.card"]>) & { [key: string]: any };
+      card: (Partial<string> & Partial<components["schemas"]["issuing.card"]>) & { [key: string]: unknown };
       /** The cardholder to whom this transaction belongs. */
       cardholder?:
-        | ((Partial<string> & Partial<components["schemas"]["issuing.cardholder"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["issuing.cardholder"]>) & { [key: string]: unknown })
         | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
@@ -4011,7 +4027,7 @@ export interface components {
       object: "issuing.transaction";
       /** The nature of the transaction. */
       type: "capture" | "refund";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     issuing_authorization_merchant_data: {
       /** A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values. */
       category: string;
@@ -4027,7 +4043,7 @@ export interface components {
       postal_code?: string | null;
       /** State where the seller is located */
       state?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     issuing_authorization_pending_request: {
       /** The additional amount Stripe will hold if the authorization is approved, in the card's [currency](https://stripe.com/docs/api#issuing_authorization_object-pending-request-currency) and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
       amount: number;
@@ -4039,7 +4055,7 @@ export interface components {
       merchant_amount: number;
       /** The local currency the merchant is requesting to authorize. */
       merchant_currency: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     issuing_authorization_request: {
       /** The authorization amount in your card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Stripe held this amount from your account to fund the authorization if the request was approved. */
       amount: number;
@@ -4068,7 +4084,7 @@ export interface components {
         | "webhook_approved"
         | "webhook_declined"
         | "webhook_timeout";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     issuing_authorization_verification_data: {
       /** Whether the cardholder provided an address first line and if it matched the cardholder’s `billing.address.line1`. */
       address_line1_check: "match" | "mismatch" | "not_provided";
@@ -4078,7 +4094,7 @@ export interface components {
       cvc_check: "match" | "mismatch" | "not_provided";
       /** Whether the cardholder provided an expiry date and if it matched Stripe’s record. */
       expiry_check: "match" | "mismatch" | "not_provided";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     issuing_card_authorization_controls: {
       /** Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations permitted on this card. */
       allowed_categories?:
@@ -4670,7 +4686,7 @@ export interface components {
       spending_limits?: components["schemas"]["issuing_card_spending_limit"][] | null;
       /** Currency for the amounts within spending_limits. Locked to the currency of the card. */
       spending_limits_currency?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     issuing_card_shipping: {
       address: components["schemas"]["address"];
       /** The delivery company that shipped a card. */
@@ -4689,7 +4705,7 @@ export interface components {
       tracking_url?: string | null;
       /** Packaging options. */
       type: "bulk" | "individual";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     issuing_card_spending_limit: {
       /** Maximum amount allowed to spend per time interval. */
       amount: number;
@@ -4988,10 +5004,10 @@ export interface components {
         | null;
       /** The time interval or event with which to apply this spending limit towards. */
       interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     issuing_cardholder_address: {
       address: components["schemas"]["address"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     issuing_cardholder_authorization_controls: {
       /** Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations permitted on this cardholder's cards. */
       allowed_categories?:
@@ -5583,29 +5599,29 @@ export interface components {
       spending_limits?: components["schemas"]["issuing_cardholder_spending_limit"][] | null;
       /** Currency for the amounts within spending_limits. */
       spending_limits_currency?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     issuing_cardholder_company: {
       /** Whether the company's business ID number was provided. */
       tax_id_provided: boolean;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     issuing_cardholder_id_document: {
       /** The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. */
-      back?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: any }) | null;
+      back?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: unknown }) | null;
       /** The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. */
-      front?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: any }) | null;
-    } & { [key: string]: any };
+      front?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: unknown }) | null;
+    } & { [key: string]: unknown };
     issuing_cardholder_individual: {
       /** The date of birth of this cardholder. */
-      dob?: (Partial<components["schemas"]["issuing_cardholder_individual_dob"]> & { [key: string]: any }) | null;
+      dob?: (Partial<components["schemas"]["issuing_cardholder_individual_dob"]> & { [key: string]: unknown }) | null;
       /** The first name of this cardholder. */
       first_name: string;
       /** The last name of this cardholder. */
       last_name: string;
       /** Government-issued ID document for this cardholder. */
       verification?:
-        | (Partial<components["schemas"]["issuing_cardholder_verification"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["issuing_cardholder_verification"]> & { [key: string]: unknown })
         | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     issuing_cardholder_individual_dob: {
       /** The day of birth, between 1 and 31. */
       day?: number | null;
@@ -5613,7 +5629,7 @@ export interface components {
       month?: number | null;
       /** The four-digit year of birth. */
       year?: number | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     issuing_cardholder_requirements: {
       /** If `disabled_reason` is present, all cards will decline authorizations with `cardholder_verification_required` reason. */
       disabled_reason?: ("listed" | "rejected.listed" | "under_review") | null;
@@ -5629,7 +5645,7 @@ export interface components {
             | "individual.verification.document"
           )[]
         | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     issuing_cardholder_spending_limit: {
       /** Maximum amount allowed to spend per time interval. */
       amount: number;
@@ -5928,17 +5944,19 @@ export interface components {
         | null;
       /** The time interval or event with which to apply this spending limit towards. */
       interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     issuing_cardholder_verification: {
       /** An identifying document, either a passport or local ID card. */
-      document?: (Partial<components["schemas"]["issuing_cardholder_id_document"]> & { [key: string]: any }) | null;
-    } & { [key: string]: any };
+      document?: (Partial<components["schemas"]["issuing_cardholder_id_document"]> & { [key: string]: unknown }) | null;
+    } & { [key: string]: unknown };
     legal_entity_company: {
       address?: components["schemas"]["address"];
       /** The Kana variation of the company's primary address (Japan only). */
-      address_kana?: (Partial<components["schemas"]["legal_entity_japan_address"]> & { [key: string]: any }) | null;
+      address_kana?: (Partial<components["schemas"]["legal_entity_japan_address"]> & { [key: string]: unknown }) | null;
       /** The Kanji variation of the company's primary address (Japan only). */
-      address_kanji?: (Partial<components["schemas"]["legal_entity_japan_address"]> & { [key: string]: any }) | null;
+      address_kanji?:
+        | (Partial<components["schemas"]["legal_entity_japan_address"]> & { [key: string]: unknown })
+        | null;
       /** Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-directors_provided). */
       directors_provided?: boolean;
       /** Whether the company's executives have been provided. This Boolean will be `true` if you've manually indicated that all executives are provided via [the `executives_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-executives_provided), or if Stripe determined that sufficient executives were provided. */
@@ -5978,22 +5996,22 @@ export interface components {
       vat_id_provided?: boolean;
       /** Information on the verification state of the company. */
       verification?:
-        | (Partial<components["schemas"]["legal_entity_company_verification"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["legal_entity_company_verification"]> & { [key: string]: unknown })
         | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     legal_entity_company_verification: {
       document: components["schemas"]["legal_entity_company_verification_document"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     legal_entity_company_verification_document: {
       /** The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. */
-      back?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: any }) | null;
+      back?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: unknown }) | null;
       /** A user-displayable string describing the verification state of this document. */
       details?: string | null;
       /** One of `document_corrupt`, `document_expired`, `document_failed_copy`, `document_failed_greyscale`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_not_readable`, `document_not_uploaded`, `document_type_not_supported`, or `document_too_large`. A machine-readable code specifying the verification state for this document. */
       details_code?: string | null;
       /** The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. */
-      front?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: any }) | null;
-    } & { [key: string]: any };
+      front?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: unknown }) | null;
+    } & { [key: string]: unknown };
     legal_entity_dob: {
       /** The day of birth, between 1 and 31. */
       day?: number | null;
@@ -6001,7 +6019,7 @@ export interface components {
       month?: number | null;
       /** The four-digit year of birth. */
       year?: number | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     legal_entity_japan_address: {
       /** City/Ward. */
       city?: string | null;
@@ -6017,11 +6035,11 @@ export interface components {
       state?: string | null;
       /** Town/cho-me. */
       town?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     legal_entity_person_verification: {
       /** A document showing address, either a passport, local ID card, or utility bill from a well-known utility company. */
       additional_document?:
-        | (Partial<components["schemas"]["legal_entity_person_verification_document"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["legal_entity_person_verification_document"]> & { [key: string]: unknown })
         | null;
       /** A user-displayable string describing the verification state for the person. For example, this may say "Provided identity information could not be verified". */
       details?: string | null;
@@ -6030,18 +6048,18 @@ export interface components {
       document?: components["schemas"]["legal_entity_person_verification_document"];
       /** The state of verification for the person. Possible values are `unverified`, `pending`, or `verified`. */
       status: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     legal_entity_person_verification_document: {
       /** The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. */
-      back?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: any }) | null;
+      back?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: unknown }) | null;
       /** A user-displayable string describing the verification state of this document. For example, if a document is uploaded and the picture is too fuzzy, this may say "Identity document is too unclear to read". */
       details?: string | null;
       /** One of `document_corrupt`, `document_country_not_supported`, `document_expired`, `document_failed_copy`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_failed_greyscale`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_missing_back`, `document_missing_front`, `document_not_readable`, `document_not_uploaded`, `document_photo_mismatch`, `document_too_large`, or `document_type_not_supported`. A machine-readable code specifying the verification state for this document. */
       details_code?: string | null;
       /** The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. */
-      front?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: any }) | null;
-    } & { [key: string]: any };
-    light_account_logout: { [key: string]: any };
+      front?: ((Partial<string> & Partial<components["schemas"]["file"]>) & { [key: string]: unknown }) | null;
+    } & { [key: string]: unknown };
+    light_account_logout: { [key: string]: unknown };
     line_item: {
       /** The amount, in %s. */
       amount: number;
@@ -6063,7 +6081,7 @@ export interface components {
       object: "line_item";
       period: components["schemas"]["invoice_line_item_period"];
       /** The plan of the subscription, if the line item is a subscription or a proration. */
-      plan?: (Partial<components["schemas"]["plan"]> & { [key: string]: any }) | null;
+      plan?: (Partial<components["schemas"]["plan"]> & { [key: string]: unknown }) | null;
       /** Whether this is a proration. */
       proration: boolean;
       /** The quantity of the subscription, if the line item is a subscription or a proration. */
@@ -6078,7 +6096,7 @@ export interface components {
       tax_rates?: components["schemas"]["tax_rate"][] | null;
       /** A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`. */
       type: "invoiceitem" | "subscription";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     login_link: {
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
@@ -6086,7 +6104,7 @@ export interface components {
       object: "login_link";
       /** The URL for the login link. */
       url: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /** A Mandate is a record of the permission a customer has given you to debit their payment method. */
     mandate: {
       customer_acceptance: components["schemas"]["customer_acceptance"];
@@ -6098,57 +6116,57 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "mandate";
       /** ID of the payment method associated with this mandate. */
-      payment_method: (Partial<string> & Partial<components["schemas"]["payment_method"]>) & { [key: string]: any };
+      payment_method: (Partial<string> & Partial<components["schemas"]["payment_method"]>) & { [key: string]: unknown };
       payment_method_details: components["schemas"]["mandate_payment_method_details"];
       single_use?: components["schemas"]["mandate_single_use"];
       /** The status of the mandate, which indicates whether it can be used to initiate a payment. */
       status: "active" | "inactive" | "pending";
       /** The type of the mandate. */
       type: "multi_use" | "single_use";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     mandate_au_becs_debit: {
       /** The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively. */
       url: string;
-    } & { [key: string]: any };
-    mandate_multi_use: { [key: string]: any };
+    } & { [key: string]: unknown };
+    mandate_multi_use: { [key: string]: unknown };
     mandate_payment_method_details: {
       au_becs_debit?: components["schemas"]["mandate_au_becs_debit"];
       card?: components["schemas"]["card_mandate_payment_method_details"];
       sepa_debit?: components["schemas"]["mandate_sepa_debit"];
       /** The type of the payment method associated with this mandate. An additional hash is included on `payment_method_details` with a name matching this value. It contains mandate information specific to the payment method. */
       type: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     mandate_sepa_debit: {
       /** The unique reference of the mandate. */
       reference: string;
       /** The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively. */
       url: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     mandate_single_use: {
       /** On a single use mandate, the amount of the payment. */
       amount: number;
       /** On a single use mandate, the currency of the payment. */
       currency: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     notification_event_data: {
       /** Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://stripe.com/docs/api#invoice_object) as the value of the object key. */
-      object: { [key: string]: any };
+      object: { [key: string]: unknown };
       /** Object containing the names of the attributes that have changed, and their previous values (sent along only with *.updated events). */
-      previous_attributes?: { [key: string]: any };
-    } & { [key: string]: any };
+      previous_attributes?: { [key: string]: unknown };
+    } & { [key: string]: unknown };
     notification_event_request: {
       /** ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API. */
       id?: string | null;
       /** The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*. */
       idempotency_key?: string | null;
-    } & { [key: string]: any };
-    offline_acceptance: { [key: string]: any };
+    } & { [key: string]: unknown };
+    offline_acceptance: { [key: string]: unknown };
     online_acceptance: {
       /** The IP address from which the Mandate was accepted by the customer. */
       ip_address?: string | null;
       /** The user agent of the browser from which the Mandate was accepted by the customer. */
       user_agent?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Order objects are created to handle end customers' purchases of previously
      * defined [products](https://stripe.com/docs/api#products). You can create, retrieve, and pay individual orders, as well
@@ -6166,7 +6184,7 @@ export interface components {
       /** A fee in cents that will be applied to the order and transferred to the application owner’s Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees documentation. */
       application_fee?: number | null;
       /** The ID of the payment used to pay for the order. Present if the order status is `paid`, `fulfilled`, or `refunded`. */
-      charge?: ((Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: any }) | null;
+      charge?: ((Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: unknown }) | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -6175,7 +6193,7 @@ export interface components {
       customer?:
         | ((Partial<string> &
             Partial<components["schemas"]["customer"]> &
-            Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: any })
+            Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: unknown })
         | null;
       /** The email address of the customer placing the order. */
       email?: string | null;
@@ -6202,23 +6220,23 @@ export interface components {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any })
+          } & { [key: string]: unknown })
         | null;
       /** The shipping method that is currently selected for this order, if any. If present, it is equal to one of the `id`s of shipping methods in the `shipping_methods` array. At order creation time, if there are multiple shipping methods, Stripe will automatically selected the first method. */
       selected_shipping_method?: string | null;
       /** The shipping address for the order. Present if the order is for goods to be shipped. */
-      shipping?: (Partial<components["schemas"]["shipping"]> & { [key: string]: any }) | null;
+      shipping?: (Partial<components["schemas"]["shipping"]> & { [key: string]: unknown }) | null;
       /** A list of supported shipping methods for this order. The desired shipping method can be specified either by updating the order, or when paying it. */
       shipping_methods?: components["schemas"]["shipping_method"][] | null;
       /** Current order status. One of `created`, `paid`, `canceled`, `fulfilled`, or `returned`. More details in the [Orders Guide](https://stripe.com/docs/orders/guide#understanding-order-statuses). */
       status: string;
       /** The timestamps at which the order status was updated. */
-      status_transitions?: (Partial<components["schemas"]["status_transitions"]> & { [key: string]: any }) | null;
+      status_transitions?: (Partial<components["schemas"]["status_transitions"]> & { [key: string]: unknown }) | null;
       /** Time at which the object was last updated. Measured in seconds since the Unix epoch. */
       updated?: number | null;
       /** The user's order ID if it is different from the Stripe order ID. */
       upstream_id?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * A representation of the constituent items of any given order. Can be used to
      * represent [SKUs](https://stripe.com/docs/api#skus), shipping costs, or taxes owed on the order.
@@ -6235,12 +6253,12 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "order_item";
       /** The ID of the associated object for this line item. Expandable if not null (e.g., expandable to a SKU). */
-      parent?: ((Partial<string> & Partial<components["schemas"]["sku"]>) & { [key: string]: any }) | null;
+      parent?: ((Partial<string> & Partial<components["schemas"]["sku"]>) & { [key: string]: unknown }) | null;
       /** A positive integer representing the number of instances of `parent` that are included in this order item. Applicable/present only if `type` is `sku`. */
       quantity?: number | null;
       /** The type of line item. One of `sku`, `tax`, `shipping`, or `discount`. */
       type: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * A return represents the full or partial return of a number of [order items](https://stripe.com/docs/api#order_items).
      * Returns always belong to an order, and may optionally contain a refund.
@@ -6263,10 +6281,10 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "order_return";
       /** The order that this return includes items from. */
-      order?: ((Partial<string> & Partial<components["schemas"]["order"]>) & { [key: string]: any }) | null;
+      order?: ((Partial<string> & Partial<components["schemas"]["order"]>) & { [key: string]: unknown }) | null;
       /** The ID of the refund issued for this return. */
-      refund?: ((Partial<string> & Partial<components["schemas"]["refund"]>) & { [key: string]: any }) | null;
-    } & { [key: string]: any };
+      refund?: ((Partial<string> & Partial<components["schemas"]["refund"]>) & { [key: string]: unknown }) | null;
+    } & { [key: string]: unknown };
     package_dimensions: {
       /** Height, in inches. */
       height: number;
@@ -6276,7 +6294,7 @@ export interface components {
       weight: number;
       /** Width, in inches. */
       width: number;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * A PaymentIntent guides you through the process of collecting a payment from your customer.
      * We recommend that you create exactly one PaymentIntent for each order or
@@ -6298,7 +6316,9 @@ export interface components {
       /** Amount that was collected by this PaymentIntent. */
       amount_received?: number;
       /** ID of the Connect application that created the PaymentIntent. */
-      application?: ((Partial<string> & Partial<components["schemas"]["application"]>) & { [key: string]: any }) | null;
+      application?:
+        | ((Partial<string> & Partial<components["schemas"]["application"]>) & { [key: string]: unknown })
+        | null;
       /** The amount of the application fee (if any) for the resulting payment. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
       application_fee_amount?: number | null;
       /** Populated when `status` is `canceled`, this is the time at which the PaymentIntent was canceled. Measured in seconds since the Unix epoch. */
@@ -6327,7 +6347,7 @@ export interface components {
         object: "list";
         /** The URL where this list can be accessed. */
         url: string;
-      } & { [key: string]: any };
+      } & { [key: string]: unknown };
       /**
        * The client secret of this PaymentIntent. Used for client-side retrieval using a publishable key.
        *
@@ -6351,40 +6371,42 @@ export interface components {
       customer?:
         | ((Partial<string> &
             Partial<components["schemas"]["customer"]> &
-            Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: any })
+            Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: unknown })
         | null;
       /** An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null;
       /** Unique identifier for the object. */
       id: string;
       /** ID of the invoice that created this PaymentIntent, if it exists. */
-      invoice?: ((Partial<string> & Partial<components["schemas"]["invoice"]>) & { [key: string]: any }) | null;
+      invoice?: ((Partial<string> & Partial<components["schemas"]["invoice"]>) & { [key: string]: unknown }) | null;
       /** The payment error encountered in the previous PaymentIntent confirmation. It will be cleared if the PaymentIntent is later updated for any reason. */
-      last_payment_error?: (Partial<components["schemas"]["api_errors"]> & { [key: string]: any }) | null;
+      last_payment_error?: (Partial<components["schemas"]["api_errors"]> & { [key: string]: unknown }) | null;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. For more information, see the [documentation](https://stripe.com/docs/payments/payment-intents/creating-payment-intents#storing-information-in-metadata). */
       metadata?: { [key: string]: string };
       /** If present, this property tells you what actions you need to take in order for your customer to fulfill a payment using the provided source. */
-      next_action?: (Partial<components["schemas"]["payment_intent_next_action"]> & { [key: string]: any }) | null;
+      next_action?: (Partial<components["schemas"]["payment_intent_next_action"]> & { [key: string]: unknown }) | null;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "payment_intent";
       /** The account (if any) for which the funds of the PaymentIntent are intended. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
-      on_behalf_of?: ((Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: any }) | null;
+      on_behalf_of?:
+        | ((Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: unknown })
+        | null;
       /** ID of the payment method used in this PaymentIntent. */
       payment_method?:
-        | ((Partial<string> & Partial<components["schemas"]["payment_method"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["payment_method"]>) & { [key: string]: unknown })
         | null;
       /** Payment-method-specific configuration for this PaymentIntent. */
       payment_method_options?:
-        | (Partial<components["schemas"]["payment_intent_payment_method_options"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["payment_intent_payment_method_options"]> & { [key: string]: unknown })
         | null;
       /** The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. */
       payment_method_types: string[];
       /** Email address that the receipt for the resulting payment will be sent to. */
       receipt_email?: string | null;
       /** ID of the review associated with this PaymentIntent, if any. */
-      review?: ((Partial<string> & Partial<components["schemas"]["review"]>) & { [key: string]: any }) | null;
+      review?: ((Partial<string> & Partial<components["schemas"]["review"]>) & { [key: string]: unknown }) | null;
       /**
        * Indicates that you intend to make future payments with this PaymentIntent's payment method.
        *
@@ -6394,7 +6416,7 @@ export interface components {
        */
       setup_future_usage?: ("off_session" | "on_session") | null;
       /** Shipping information for this PaymentIntent. */
-      shipping?: (Partial<components["schemas"]["shipping"]> & { [key: string]: any }) | null;
+      shipping?: (Partial<components["schemas"]["shipping"]> & { [key: string]: unknown }) | null;
       /** For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
       statement_descriptor?: string | null;
       /** Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
@@ -6409,26 +6431,26 @@ export interface components {
         | "requires_payment_method"
         | "succeeded";
       /** The data with which to automatically create a Transfer when the payment is finalized. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
-      transfer_data?: (Partial<components["schemas"]["transfer_data"]> & { [key: string]: any }) | null;
+      transfer_data?: (Partial<components["schemas"]["transfer_data"]> & { [key: string]: unknown }) | null;
       /** A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
       transfer_group?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_intent_next_action: {
       redirect_to_url?: components["schemas"]["payment_intent_next_action_redirect_to_url"];
       /** Type of the next action to perform, one of `redirect_to_url` or `use_stripe_sdk`. */
       type: string;
       /** When confirming a PaymentIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js. */
-      use_stripe_sdk?: { [key: string]: any };
-    } & { [key: string]: any };
+      use_stripe_sdk?: { [key: string]: unknown };
+    } & { [key: string]: unknown };
     payment_intent_next_action_redirect_to_url: {
       /** If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion. */
       return_url?: string | null;
       /** The URL you must redirect your customer to in order to authenticate the payment. */
       url?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_intent_payment_method_options: {
       card?: components["schemas"]["payment_intent_payment_method_options_card"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_intent_payment_method_options_card: {
       /**
        * Installment details for this payment (Mexico only).
@@ -6436,11 +6458,11 @@ export interface components {
        * For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
        */
       installments?:
-        | (Partial<components["schemas"]["payment_method_options_card_installments"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["payment_method_options_card_installments"]> & { [key: string]: unknown })
         | null;
       /** We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine. */
       request_three_d_secure?: ("any" | "automatic" | "challenge_only") | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * PaymentMethod objects represent your customer's payment instruments.
      * They can be used with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or saved to
@@ -6456,7 +6478,7 @@ export interface components {
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer. */
-      customer?: ((Partial<string> & Partial<components["schemas"]["customer"]>) & { [key: string]: any }) | null;
+      customer?: ((Partial<string> & Partial<components["schemas"]["customer"]>) & { [key: string]: unknown }) | null;
       fpx?: components["schemas"]["payment_method_fpx"];
       /** Unique identifier for the object. */
       id: string;
@@ -6470,7 +6492,7 @@ export interface components {
       sepa_debit?: components["schemas"]["payment_method_sepa_debit"];
       /** The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type. */
       type: "au_becs_debit" | "card" | "fpx" | "ideal" | "sepa_debit";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_au_becs_debit: {
       /** Six-digit number identifying bank and branch associated with this bank account. */
       bsb_number?: string | null;
@@ -6478,12 +6500,12 @@ export interface components {
       fingerprint?: string | null;
       /** Last four digits of the bank account number. */
       last4?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_card: {
       /** Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       brand: string;
       /** Checks on Card address and CVC if provided. */
-      checks?: (Partial<components["schemas"]["payment_method_card_checks"]> & { [key: string]: any }) | null;
+      checks?: (Partial<components["schemas"]["payment_method_card_checks"]> & { [key: string]: unknown }) | null;
       /** Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
       country?: string | null;
       /** Two-digit number representing the card's expiration month. */
@@ -6496,15 +6518,17 @@ export interface components {
       funding: string;
       /** Details of the original PaymentMethod that created this object. */
       generated_from?:
-        | (Partial<components["schemas"]["payment_method_card_generated_card"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["payment_method_card_generated_card"]> & { [key: string]: unknown })
         | null;
       /** The last four digits of the card. */
       last4: string;
       /** Contains details on how this Card maybe be used for 3D Secure authentication. */
-      three_d_secure_usage?: (Partial<components["schemas"]["three_d_secure_usage"]> & { [key: string]: any }) | null;
+      three_d_secure_usage?:
+        | (Partial<components["schemas"]["three_d_secure_usage"]> & { [key: string]: unknown })
+        | null;
       /** If this Card is part of a card wallet, this contains the details of the card wallet. */
-      wallet?: (Partial<components["schemas"]["payment_method_card_wallet"]> & { [key: string]: any }) | null;
-    } & { [key: string]: any };
+      wallet?: (Partial<components["schemas"]["payment_method_card_wallet"]> & { [key: string]: unknown }) | null;
+    } & { [key: string]: unknown };
     payment_method_card_checks: {
       /** If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`. */
       address_line1_check?: string | null;
@@ -6512,16 +6536,16 @@ export interface components {
       address_postal_code_check?: string | null;
       /** If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`. */
       cvc_check?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_card_generated_card: {
       /** The charge that created this object. */
       charge?: string | null;
       /** Transaction-specific details of the payment method used in the payment. */
       payment_method_details?:
-        | (Partial<components["schemas"]["payment_method_details"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["payment_method_details"]> & { [key: string]: unknown })
         | null;
-    } & { [key: string]: any };
-    payment_method_card_present: { [key: string]: any };
+    } & { [key: string]: unknown };
+    payment_method_card_present: { [key: string]: unknown };
     payment_method_card_wallet: {
       amex_express_checkout?: components["schemas"]["payment_method_card_wallet_amex_express_checkout"];
       apple_pay?: components["schemas"]["payment_method_card_wallet_apple_pay"];
@@ -6533,31 +6557,31 @@ export interface components {
       /** The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, or `visa_checkout`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type. */
       type: "amex_express_checkout" | "apple_pay" | "google_pay" | "masterpass" | "samsung_pay" | "visa_checkout";
       visa_checkout?: components["schemas"]["payment_method_card_wallet_visa_checkout"];
-    } & { [key: string]: any };
-    payment_method_card_wallet_amex_express_checkout: { [key: string]: any };
-    payment_method_card_wallet_apple_pay: { [key: string]: any };
-    payment_method_card_wallet_google_pay: { [key: string]: any };
+    } & { [key: string]: unknown };
+    payment_method_card_wallet_amex_express_checkout: { [key: string]: unknown };
+    payment_method_card_wallet_apple_pay: { [key: string]: unknown };
+    payment_method_card_wallet_google_pay: { [key: string]: unknown };
     payment_method_card_wallet_masterpass: {
       /** Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      billing_address?: (Partial<components["schemas"]["address"]> & { [key: string]: any }) | null;
+      billing_address?: (Partial<components["schemas"]["address"]> & { [key: string]: unknown }) | null;
       /** Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       email?: string | null;
       /** Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       name?: string | null;
       /** Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      shipping_address?: (Partial<components["schemas"]["address"]> & { [key: string]: any }) | null;
-    } & { [key: string]: any };
-    payment_method_card_wallet_samsung_pay: { [key: string]: any };
+      shipping_address?: (Partial<components["schemas"]["address"]> & { [key: string]: unknown }) | null;
+    } & { [key: string]: unknown };
+    payment_method_card_wallet_samsung_pay: { [key: string]: unknown };
     payment_method_card_wallet_visa_checkout: {
       /** Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      billing_address?: (Partial<components["schemas"]["address"]> & { [key: string]: any }) | null;
+      billing_address?: (Partial<components["schemas"]["address"]> & { [key: string]: unknown }) | null;
       /** Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       email?: string | null;
       /** Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       name?: string | null;
       /** Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      shipping_address?: (Partial<components["schemas"]["address"]> & { [key: string]: any }) | null;
-    } & { [key: string]: any };
+      shipping_address?: (Partial<components["schemas"]["address"]> & { [key: string]: unknown }) | null;
+    } & { [key: string]: unknown };
     payment_method_details: {
       ach_credit_transfer?: components["schemas"]["payment_method_details_ach_credit_transfer"];
       ach_debit?: components["schemas"]["payment_method_details_ach_debit"];
@@ -6583,7 +6607,7 @@ export interface components {
        */
       type: string;
       wechat?: components["schemas"]["payment_method_details_wechat"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_details_ach_credit_transfer: {
       /** Account number to transfer funds to. */
       account_number?: string | null;
@@ -6593,7 +6617,7 @@ export interface components {
       routing_number?: string | null;
       /** SWIFT code of the bank associated with the routing number. */
       swift_code?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_details_ach_debit: {
       /** Type of entity that holds the account. This can be either `individual` or `company`. */
       account_holder_type?: ("company" | "individual") | null;
@@ -6607,8 +6631,8 @@ export interface components {
       last4?: string | null;
       /** Routing transit number of the bank account. */
       routing_number?: string | null;
-    } & { [key: string]: any };
-    payment_method_details_alipay: { [key: string]: any };
+    } & { [key: string]: unknown };
+    payment_method_details_alipay: { [key: string]: unknown };
     payment_method_details_au_becs_debit: {
       /** Bank-State-Branch number of the bank account. */
       bsb_number?: string | null;
@@ -6618,7 +6642,7 @@ export interface components {
       last4?: string | null;
       /** ID of the mandate used to make this payment. */
       mandate?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_details_bancontact: {
       /** Bank code of bank associated with the bank account. */
       bank_code?: string | null;
@@ -6638,12 +6662,14 @@ export interface components {
        * (if supported) at the time of authorization or settlement. They cannot be set or mutated.
        */
       verified_name?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_details_card: {
       /** Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       brand?: string | null;
       /** Check results by Card networks on Card address and CVC at time of payment. */
-      checks?: (Partial<components["schemas"]["payment_method_details_card_checks"]> & { [key: string]: any }) | null;
+      checks?:
+        | (Partial<components["schemas"]["payment_method_details_card_checks"]> & { [key: string]: unknown })
+        | null;
       /** Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
       country?: string | null;
       /** Two-digit number representing the card's expiration month. */
@@ -6660,17 +6686,19 @@ export interface components {
        * For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
        */
       installments?:
-        | (Partial<components["schemas"]["payment_method_details_card_installments"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["payment_method_details_card_installments"]> & { [key: string]: unknown })
         | null;
       /** The last four digits of the card. */
       last4?: string | null;
       /** Identifies which network this charge was processed on. Can be `amex`, `diners`, `discover`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       network?: string | null;
       /** Populated if this transaction used 3D Secure authentication. */
-      three_d_secure?: (Partial<components["schemas"]["three_d_secure_details"]> & { [key: string]: any }) | null;
+      three_d_secure?: (Partial<components["schemas"]["three_d_secure_details"]> & { [key: string]: unknown }) | null;
       /** If this Card is part of a card wallet, this contains the details of the card wallet. */
-      wallet?: (Partial<components["schemas"]["payment_method_details_card_wallet"]> & { [key: string]: any }) | null;
-    } & { [key: string]: any };
+      wallet?:
+        | (Partial<components["schemas"]["payment_method_details_card_wallet"]> & { [key: string]: unknown })
+        | null;
+    } & { [key: string]: unknown };
     payment_method_details_card_checks: {
       /** If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`. */
       address_line1_check?: string | null;
@@ -6678,13 +6706,13 @@ export interface components {
       address_postal_code_check?: string | null;
       /** If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`. */
       cvc_check?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_details_card_installments: {
       /** Installment plan selected for the payment. */
       plan?:
-        | (Partial<components["schemas"]["payment_method_details_card_installments_plan"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["payment_method_details_card_installments_plan"]> & { [key: string]: unknown })
         | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_details_card_installments_plan: {
       /** For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card. */
       count?: number | null;
@@ -6695,7 +6723,7 @@ export interface components {
       interval?: "month" | null;
       /** Type of installment plan, one of `fixed_count`. */
       type: "fixed_count";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_details_card_present: {
       /** Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       brand?: string | null;
@@ -6723,9 +6751,9 @@ export interface components {
       read_method?: string | null;
       /** A collection of fields required to be displayed on receipts. Only required for EMV transactions. */
       receipt?:
-        | (Partial<components["schemas"]["payment_method_details_card_present_receipt"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["payment_method_details_card_present_receipt"]> & { [key: string]: unknown })
         | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_details_card_present_receipt: {
       /** EMV tag 9F26, cryptogram generated by the integrated circuit chip. */
       application_cryptogram?: string | null;
@@ -6743,7 +6771,7 @@ export interface components {
       terminal_verification_results?: string | null;
       /** An indication of various EMV functions performed during the transaction. */
       transaction_status_information?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_details_card_wallet: {
       amex_express_checkout?: components["schemas"]["payment_method_details_card_wallet_amex_express_checkout"];
       apple_pay?: components["schemas"]["payment_method_details_card_wallet_apple_pay"];
@@ -6755,38 +6783,38 @@ export interface components {
       /** The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, or `visa_checkout`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type. */
       type: "amex_express_checkout" | "apple_pay" | "google_pay" | "masterpass" | "samsung_pay" | "visa_checkout";
       visa_checkout?: components["schemas"]["payment_method_details_card_wallet_visa_checkout"];
-    } & { [key: string]: any };
-    payment_method_details_card_wallet_amex_express_checkout: { [key: string]: any };
-    payment_method_details_card_wallet_apple_pay: { [key: string]: any };
-    payment_method_details_card_wallet_google_pay: { [key: string]: any };
+    } & { [key: string]: unknown };
+    payment_method_details_card_wallet_amex_express_checkout: { [key: string]: unknown };
+    payment_method_details_card_wallet_apple_pay: { [key: string]: unknown };
+    payment_method_details_card_wallet_google_pay: { [key: string]: unknown };
     payment_method_details_card_wallet_masterpass: {
       /** Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      billing_address?: (Partial<components["schemas"]["address"]> & { [key: string]: any }) | null;
+      billing_address?: (Partial<components["schemas"]["address"]> & { [key: string]: unknown }) | null;
       /** Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       email?: string | null;
       /** Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       name?: string | null;
       /** Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      shipping_address?: (Partial<components["schemas"]["address"]> & { [key: string]: any }) | null;
-    } & { [key: string]: any };
-    payment_method_details_card_wallet_samsung_pay: { [key: string]: any };
+      shipping_address?: (Partial<components["schemas"]["address"]> & { [key: string]: unknown }) | null;
+    } & { [key: string]: unknown };
+    payment_method_details_card_wallet_samsung_pay: { [key: string]: unknown };
     payment_method_details_card_wallet_visa_checkout: {
       /** Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      billing_address?: (Partial<components["schemas"]["address"]> & { [key: string]: any }) | null;
+      billing_address?: (Partial<components["schemas"]["address"]> & { [key: string]: unknown }) | null;
       /** Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       email?: string | null;
       /** Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       name?: string | null;
       /** Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      shipping_address?: (Partial<components["schemas"]["address"]> & { [key: string]: any }) | null;
-    } & { [key: string]: any };
+      shipping_address?: (Partial<components["schemas"]["address"]> & { [key: string]: unknown }) | null;
+    } & { [key: string]: unknown };
     payment_method_details_eps: {
       /**
        * Owner's verified full name. Values are verified or provided by EPS directly
        * (if supported) at the time of authorization or settlement. They cannot be set or mutated.
        */
       verified_name?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_details_fpx: {
       /** The customer's bank. Can be one of `affin_bank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, or `pb_enterprise`. */
       bank:
@@ -6812,7 +6840,7 @@ export interface components {
         | "uob";
       /** Unique transaction id generated by FPX for every request from the merchant */
       transaction_id?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_details_giropay: {
       /** Bank code of bank associated with the bank account. */
       bank_code?: string | null;
@@ -6825,7 +6853,7 @@ export interface components {
        * (if supported) at the time of authorization or settlement. They cannot be set or mutated.
        */
       verified_name?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_details_ideal: {
       /** The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `sns_bank`, `triodos_bank`, or `van_lanschot`. */
       bank?:
@@ -6868,14 +6896,14 @@ export interface components {
        * (if supported) at the time of authorization or settlement. They cannot be set or mutated.
        */
       verified_name?: string | null;
-    } & { [key: string]: any };
-    payment_method_details_klarna: { [key: string]: any };
+    } & { [key: string]: unknown };
+    payment_method_details_klarna: { [key: string]: unknown };
     payment_method_details_multibanco: {
       /** Entity number associated with this Multibanco payment. */
       entity?: string | null;
       /** Reference number associated with this Multibanco payment. */
       reference?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_details_p24: {
       /** Unique reference for this Przelewy24 payment. */
       reference?: string | null;
@@ -6884,7 +6912,7 @@ export interface components {
        * (if supported) at the time of authorization or settlement. They cannot be set or mutated.
        */
       verified_name?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_details_sepa_debit: {
       /** Bank code of bank associated with the bank account. */
       bank_code?: string | null;
@@ -6898,7 +6926,7 @@ export interface components {
       last4?: string | null;
       /** ID of the mandate used to make this payment. */
       mandate?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_details_sofort: {
       /** Bank code of bank associated with the bank account. */
       bank_code?: string | null;
@@ -6915,9 +6943,9 @@ export interface components {
        * (if supported) at the time of authorization or settlement. They cannot be set or mutated.
        */
       verified_name?: string | null;
-    } & { [key: string]: any };
-    payment_method_details_stripe_account: { [key: string]: any };
-    payment_method_details_wechat: { [key: string]: any };
+    } & { [key: string]: unknown };
+    payment_method_details_stripe_account: { [key: string]: unknown };
+    payment_method_details_wechat: { [key: string]: unknown };
     payment_method_fpx: {
       /** The customer's bank, if provided. Can be one of `affin_bank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, or `pb_enterprise`. */
       bank:
@@ -6941,7 +6969,7 @@ export interface components {
         | "rhb"
         | "standard_chartered"
         | "uob";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_ideal: {
       /** The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `sns_bank`, `triodos_bank`, or `van_lanschot`. */
       bank?:
@@ -6977,7 +7005,7 @@ export interface components {
             | "TRIONL2U"
           )
         | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_options_card_installments: {
       /** Installment plans that may be selected for this PaymentIntent. */
       available_plans?: components["schemas"]["payment_method_details_card_installments_plan"][] | null;
@@ -6985,9 +7013,9 @@ export interface components {
       enabled: boolean;
       /** Installment plan selected for this PaymentIntent. */
       plan?:
-        | (Partial<components["schemas"]["payment_method_details_card_installments_plan"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["payment_method_details_card_installments_plan"]> & { [key: string]: unknown })
         | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_method_sepa_debit: {
       /** Bank code of bank associated with the bank account. */
       bank_code?: string | null;
@@ -6999,7 +7027,7 @@ export interface components {
       fingerprint?: string | null;
       /** Last four characters of the IBAN. */
       last4?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_pages_payment_page_resources_shipping_address_collection: {
       /**
        * An array of two-letter ISO country codes representing which countries Checkout should provide as options for
@@ -7244,13 +7272,13 @@ export interface components {
         | "ZW"
         | "ZZ"
       )[];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     payment_source: (Partial<components["schemas"]["account"]> &
       Partial<components["schemas"]["alipay_account"]> &
       Partial<components["schemas"]["bank_account"]> &
       Partial<components["schemas"]["bitcoin_receiver"]> &
       Partial<components["schemas"]["card"]> &
-      Partial<components["schemas"]["source"]>) & { [key: string]: any };
+      Partial<components["schemas"]["source"]>) & { [key: string]: unknown };
     /**
      * A `Payout` object is created when you receive funds from Stripe, or when you
      * initiate a payout to either a bank account or debit card of a [connected
@@ -7270,7 +7298,7 @@ export interface components {
       automatic: boolean;
       /** ID of the balance transaction that describes the impact of this payout on your account balance. */
       balance_transaction?:
-        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: unknown })
         | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
@@ -7284,11 +7312,11 @@ export interface components {
             Partial<components["schemas"]["bank_account"]> &
             Partial<components["schemas"]["card"]> &
             Partial<components["schemas"]["deleted_bank_account"]> &
-            Partial<components["schemas"]["deleted_card"]>) & { [key: string]: any })
+            Partial<components["schemas"]["deleted_card"]>) & { [key: string]: unknown })
         | null;
       /** If the payout failed or was canceled, this will be the ID of the balance transaction that reversed the initial balance transaction, and puts the funds from the failed payout back in your balance. */
       failure_balance_transaction?:
-        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: unknown })
         | null;
       /** Error code explaining reason for payout failure if available. See [Types of payout failures](https://stripe.com/docs/api#payout_failures) for a list of failure codes. */
       failure_code?: string | null;
@@ -7312,13 +7340,13 @@ export interface components {
       status: string;
       /** Can be `bank_account` or `card`. */
       type: "bank_account" | "card";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     period: {
       /** The end date of this usage period. All usage up to and including this point in time is included. */
       end?: number | null;
       /** The start date of this usage period. All usage after this point in time is included. */
       start?: number | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * This is an object representing a person associated with a Stripe account.
      *
@@ -7327,8 +7355,10 @@ export interface components {
     person: {
       account: string;
       address?: components["schemas"]["address"];
-      address_kana?: (Partial<components["schemas"]["legal_entity_japan_address"]> & { [key: string]: any }) | null;
-      address_kanji?: (Partial<components["schemas"]["legal_entity_japan_address"]> & { [key: string]: any }) | null;
+      address_kana?: (Partial<components["schemas"]["legal_entity_japan_address"]> & { [key: string]: unknown }) | null;
+      address_kanji?:
+        | (Partial<components["schemas"]["legal_entity_japan_address"]> & { [key: string]: unknown })
+        | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       dob?: components["schemas"]["legal_entity_dob"];
@@ -7350,10 +7380,10 @@ export interface components {
       object: "person";
       phone?: string | null;
       relationship?: components["schemas"]["person_relationship"];
-      requirements?: (Partial<components["schemas"]["person_requirements"]> & { [key: string]: any }) | null;
+      requirements?: (Partial<components["schemas"]["person_requirements"]> & { [key: string]: unknown }) | null;
       ssn_last_4_provided?: boolean;
       verification?: components["schemas"]["legal_entity_person_verification"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     person_relationship: {
       /** Whether the person is a director of the account's legal entity. Currently only required for accounts in the EU. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations. */
       director?: boolean | null;
@@ -7367,7 +7397,7 @@ export interface components {
       representative?: boolean | null;
       /** The person's title (e.g., CEO, Support Engineer). */
       title?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     person_requirements: {
       /** Fields that need to be collected to keep the person's account enabled. If not collected by the account's `current_deadline`, these fields appear in `past_due` as well, and the account is disabled. */
       currently_due: string[];
@@ -7379,7 +7409,7 @@ export interface components {
       past_due: string[];
       /** Fields that may become required depending on the results of verification or review. An empty array unless an asynchronous verification is pending. If verification fails, the fields in this array become required and move to `currently_due` or `past_due`. */
       pending_verification: string[];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Plans define the base price, currency, and billing cycle for subscriptions.
      * For example, you might have a $5/month plan
@@ -7421,19 +7451,19 @@ export interface components {
       product?:
         | ((Partial<string> &
             Partial<components["schemas"]["product"]> &
-            Partial<components["schemas"]["deleted_product"]>) & { [key: string]: any })
+            Partial<components["schemas"]["deleted_product"]>) & { [key: string]: unknown })
         | null;
       /** Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
       tiers?: components["schemas"]["plan_tier"][] | null;
       /** Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows. */
       tiers_mode?: ("graduated" | "volume") | null;
       /** Apply a transformation to the reported usage or set quantity before computing the amount billed. Cannot be combined with `tiers`. */
-      transform_usage?: (Partial<components["schemas"]["transform_usage"]> & { [key: string]: any }) | null;
+      transform_usage?: (Partial<components["schemas"]["transform_usage"]> & { [key: string]: unknown }) | null;
       /** Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan). */
       trial_period_days?: number | null;
       /** Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`. */
       usage_type: "licensed" | "metered";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     plan_tier: {
       /** Price for the entire tier. */
       flat_amount?: number | null;
@@ -7445,7 +7475,7 @@ export interface components {
       unit_amount_decimal?: string | null;
       /** Up to and including to this quantity will be contained in the tier. */
       up_to?: number | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     platform_tax_fee: {
       /** The Connected account that incurred this charge. */
       account: string;
@@ -7457,7 +7487,7 @@ export interface components {
       source_transaction: string;
       /** The type of tax (VAT). */
       type: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Store representations of products you sell in `Product` objects, used in
      * conjunction with [SKUs](https://stripe.com/docs/api#skus). Products may be physical goods, to be shipped, or
@@ -7494,7 +7524,7 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "product";
       /** The dimensions of this product for shipping purposes. A SKU associated with this product can override this value by having its own `package_dimensions`. Only applicable to products of `type=good`. */
-      package_dimensions?: (Partial<components["schemas"]["package_dimensions"]> & { [key: string]: any }) | null;
+      package_dimensions?: (Partial<components["schemas"]["package_dimensions"]> & { [key: string]: unknown }) | null;
       /** Whether this product is a shipped good. Only applicable to products of `type=good`. */
       shippable?: boolean | null;
       /** Extra information about a product which will appear on your customer's credit card statement. In the case that multiple products are billed at once, the first statement descriptor will be used. */
@@ -7507,7 +7537,7 @@ export interface components {
       updated: number;
       /** A URL of a publicly-accessible webpage for this product. Only applicable to products of `type=good`. */
       url?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * An early fraud warning indicates that the card issuer has notified us that a
      * charge may be fraudulent.
@@ -7518,7 +7548,7 @@ export interface components {
       /** An EFW is actionable if it has not received a dispute and has not been fully refunded. You may wish to proactively refund a charge that receives an EFW, in order to avoid receiving a dispute later. */
       actionable: boolean;
       /** ID of the charge this early fraud warning is for, optionally expanded. */
-      charge: (Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: any };
+      charge: (Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: unknown };
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** The type of fraud labelled by the issuer. One of `card_never_received`, `fraudulent_card_application`, `made_with_counterfeit_card`, `made_with_lost_card`, `made_with_stolen_card`, `misc`, `unauthorized_use_of_card`. */
@@ -7529,7 +7559,7 @@ export interface components {
       livemode: boolean;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "radar.early_fraud_warning";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Value lists allow you to group values together which can then be referenced in rules.
      *
@@ -7563,7 +7593,7 @@ export interface components {
         object: "list";
         /** The URL where this list can be accessed. */
         url: string;
-      } & { [key: string]: any };
+      } & { [key: string]: unknown };
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -7572,7 +7602,7 @@ export interface components {
       name: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "radar.value_list";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Value list items allow you to add specific values to a given Radar value list, which can then be used in rules.
      *
@@ -7593,7 +7623,7 @@ export interface components {
       value: string;
       /** The identifier of the value list this item belongs to. */
       value_list: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     radar_review_resource_location: {
       /** The city where the payment originated. */
       city?: string | null;
@@ -7605,7 +7635,7 @@ export interface components {
       longitude?: number | null;
       /** The state/county/province/region where the payment originated. */
       region?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     radar_review_resource_session: {
       /** The browser used in this browser session (e.g., `Chrome`). */
       browser?: string | null;
@@ -7615,7 +7645,7 @@ export interface components {
       platform?: string | null;
       /** The version for the browser session (e.g., `61.0.3163.100`). */
       version?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * With `Recipient` objects, you can transfer money from your Stripe account to a
      * third-party bank account or debit card. The API allows you to create, delete,
@@ -7631,7 +7661,7 @@ export interface components {
      */
     recipient: {
       /** Hash describing the current account on the recipient, if there is one. */
-      active_account?: (Partial<components["schemas"]["bank_account"]> & { [key: string]: any }) | null;
+      active_account?: (Partial<components["schemas"]["bank_account"]> & { [key: string]: unknown }) | null;
       cards?:
         | ({
             data: components["schemas"]["card"][];
@@ -7641,12 +7671,12 @@ export interface components {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any })
+          } & { [key: string]: unknown })
         | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** The default card to use for creating transfers to this recipient. */
-      default_card?: ((Partial<string> & Partial<components["schemas"]["card"]>) & { [key: string]: any }) | null;
+      default_card?: ((Partial<string> & Partial<components["schemas"]["card"]>) & { [key: string]: unknown }) | null;
       /** An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null;
       email?: string | null;
@@ -7657,15 +7687,15 @@ export interface components {
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: { [key: string]: string };
       /** The ID of the [Custom account](https://stripe.com/docs/connect/custom-accounts) this recipient was migrated to. If set, the recipient can no longer be updated, nor can transfers be made to it: use the Custom account instead. */
-      migrated_to?: ((Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: any }) | null;
+      migrated_to?: ((Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: unknown }) | null;
       /** Full, legal name of the recipient. */
       name?: string | null;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "recipient";
-      rolled_back_from?: (Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: any };
+      rolled_back_from?: (Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: unknown };
       /** Type of the recipient, one of `individual` or `corporation`. */
       type: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * `Refund` objects allow you to refund a charge that has previously been created
      * but not yet refunded. Funds will be refunded to the credit or debit card that
@@ -7678,10 +7708,10 @@ export interface components {
       amount: number;
       /** Balance transaction that describes the impact on your account balance. */
       balance_transaction?:
-        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: unknown })
         | null;
       /** ID of the charge that was refunded. */
-      charge?: ((Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: any }) | null;
+      charge?: ((Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: unknown }) | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -7690,7 +7720,7 @@ export interface components {
       description?: string;
       /** If the refund failed, this balance transaction describes the adjustment made on your account balance that reverses the initial balance transaction. */
       failure_balance_transaction?: (Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & {
-        [key: string]: any;
+        [key: string]: unknown;
       };
       /** If the refund failed, the reason for refund failure if known. Possible values are `lost_or_stolen_card`, `expired_or_canceled_card`, or `unknown`. */
       failure_reason?: string;
@@ -7702,7 +7732,7 @@ export interface components {
       object: "refund";
       /** ID of the PaymentIntent that was refunded. */
       payment_intent?:
-        | ((Partial<string> & Partial<components["schemas"]["payment_intent"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["payment_intent"]>) & { [key: string]: unknown })
         | null;
       /** Reason for the refund, either user-provided (`duplicate`, `fraudulent`, or `requested_by_customer`) or generated by Stripe internally (`expired_uncaptured_charge`). */
       reason?: string | null;
@@ -7710,15 +7740,15 @@ export interface components {
       receipt_number?: string | null;
       /** The transfer reversal that is associated with the refund. Only present if the charge came from another Stripe account. See the Connect documentation for details. */
       source_transfer_reversal?:
-        | ((Partial<string> & Partial<components["schemas"]["transfer_reversal"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["transfer_reversal"]>) & { [key: string]: unknown })
         | null;
       /** Status of the refund. For credit card refunds, this can be `pending`, `succeeded`, or `failed`. For other types of refunds, it can be `pending`, `succeeded`, `failed`, or `canceled`. Refer to our [refunds](https://stripe.com/docs/refunds#failed-refunds) documentation for more details. */
       status?: string | null;
       /** If the accompanying transfer was reversed, the transfer reversal object. Only applicable if the charge was created using the destination parameter. */
       transfer_reversal?:
-        | ((Partial<string> & Partial<components["schemas"]["transfer_reversal"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["transfer_reversal"]>) & { [key: string]: unknown })
         | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * The Report Run object represents an instance of a report type generated with
      * specific run parameters. Once the object is created, Stripe begins processing the report.
@@ -7751,7 +7781,7 @@ export interface components {
        * The file object representing the result of the report run (populated when
        *  `status=succeeded`).
        */
-      result?: (Partial<components["schemas"]["file"]> & { [key: string]: any }) | null;
+      result?: (Partial<components["schemas"]["file"]> & { [key: string]: unknown }) | null;
       /**
        * Status of this report run. This will be `pending` when the run is initially created.
        *  When the run finishes, this will be set to `succeeded` and the `result` field will be populated.
@@ -7763,7 +7793,7 @@ export interface components {
        *  `status=succeeded`). Measured in seconds since the Unix epoch.
        */
       succeeded_at?: number | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * The Report Type resource corresponds to a particular type of report, such as
      * the "Activity summary" or "Itemized payouts" reports. These objects are
@@ -7792,7 +7822,7 @@ export interface components {
       updated: number;
       /** Version of the Report Type. Different versions report with the same ID will have the same purpose, but may take different run parameters or have different result schemas. */
       version: number;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     reserve_transaction: {
       amount: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -7803,7 +7833,7 @@ export interface components {
       id: string;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "reserve_transaction";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Reviews can be used to supplement automated fraud detection with human expertise.
      *
@@ -7814,7 +7844,7 @@ export interface components {
       /** The ZIP or postal code of the card used, if applicable. */
       billing_zip?: string | null;
       /** The charge associated with this review. */
-      charge?: ((Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: any }) | null;
+      charge?: ((Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: unknown }) | null;
       /** The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, or `disputed`. */
       closed_reason?: ("approved" | "disputed" | "refunded" | "refunded_as_fraud") | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -7825,7 +7855,7 @@ export interface components {
       ip_address?: string | null;
       /** Information related to the location of the payment. Note that this information is an approximation and attempts to locate the nearest population center - it should not be used to determine a specific address. */
       ip_address_location?:
-        | (Partial<components["schemas"]["radar_review_resource_location"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["radar_review_resource_location"]> & { [key: string]: unknown })
         | null;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
@@ -7836,12 +7866,14 @@ export interface components {
       /** The reason the review was opened. One of `rule` or `manual`. */
       opened_reason: "manual" | "rule";
       /** The PaymentIntent ID associated with this review, if one exists. */
-      payment_intent?: (Partial<string> & Partial<components["schemas"]["payment_intent"]>) & { [key: string]: any };
+      payment_intent?: (Partial<string> & Partial<components["schemas"]["payment_intent"]>) & {
+        [key: string]: unknown;
+      };
       /** The reason the review is currently open or closed. One of `rule`, `manual`, `approved`, `refunded`, `refunded_as_fraud`, or `disputed`. */
       reason: string;
       /** Information related to the browsing session of the user who initiated the payment. */
-      session?: (Partial<components["schemas"]["radar_review_resource_session"]> & { [key: string]: any }) | null;
-    } & { [key: string]: any };
+      session?: (Partial<components["schemas"]["radar_review_resource_session"]> & { [key: string]: unknown }) | null;
+    } & { [key: string]: unknown };
     rule: {
       /** The action taken on the payment. */
       action: string;
@@ -7849,7 +7881,7 @@ export interface components {
       id: string;
       /** The predicate to evaluate the payment against. */
       predicate: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * If you have [scheduled a Sigma query](https://stripe.com/docs/sigma/scheduled-queries), you'll
      * receive a `sigma.scheduled_query_run.created` webhook each time the query
@@ -7863,7 +7895,7 @@ export interface components {
       data_load_time: number;
       error?: components["schemas"]["sigma_scheduled_query_run_error"];
       /** The file object representing the results of the query. */
-      file?: (Partial<components["schemas"]["file"]> & { [key: string]: any }) | null;
+      file?: (Partial<components["schemas"]["file"]> & { [key: string]: unknown }) | null;
       /** Unique identifier for the object. */
       id: string;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -7878,7 +7910,7 @@ export interface components {
       status: string;
       /** Title of the query. */
       title: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
      * For example, you could use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
@@ -7905,7 +7937,9 @@ export interface components {
      */
     setup_intent: {
       /** ID of the Connect application that created the SetupIntent. */
-      application?: ((Partial<string> & Partial<components["schemas"]["application"]>) & { [key: string]: any }) | null;
+      application?:
+        | ((Partial<string> & Partial<components["schemas"]["application"]>) & { [key: string]: unknown })
+        | null;
       /** Reason for cancellation of this SetupIntent, one of `abandoned`, `requested_by_customer`, or `duplicate`. */
       cancellation_reason?: ("abandoned" | "duplicate" | "requested_by_customer") | null;
       /**
@@ -7924,39 +7958,41 @@ export interface components {
       customer?:
         | ((Partial<string> &
             Partial<components["schemas"]["customer"]> &
-            Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: any })
+            Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: unknown })
         | null;
       /** An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null;
       /** Unique identifier for the object. */
       id: string;
       /** The error encountered in the previous SetupIntent confirmation. */
-      last_setup_error?: (Partial<components["schemas"]["api_errors"]> & { [key: string]: any }) | null;
+      last_setup_error?: (Partial<components["schemas"]["api_errors"]> & { [key: string]: unknown }) | null;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** ID of the multi use Mandate generated by the SetupIntent. */
-      mandate?: ((Partial<string> & Partial<components["schemas"]["mandate"]>) & { [key: string]: any }) | null;
+      mandate?: ((Partial<string> & Partial<components["schemas"]["mandate"]>) & { [key: string]: unknown }) | null;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata?: { [key: string]: string };
       /** If present, this property tells you what actions you need to take in order for your customer to continue payment setup. */
-      next_action?: (Partial<components["schemas"]["setup_intent_next_action"]> & { [key: string]: any }) | null;
+      next_action?: (Partial<components["schemas"]["setup_intent_next_action"]> & { [key: string]: unknown }) | null;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "setup_intent";
       /** The account (if any) for which the setup is intended. */
-      on_behalf_of?: ((Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: any }) | null;
+      on_behalf_of?:
+        | ((Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: unknown })
+        | null;
       /** ID of the payment method used with this SetupIntent. */
       payment_method?:
-        | ((Partial<string> & Partial<components["schemas"]["payment_method"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["payment_method"]>) & { [key: string]: unknown })
         | null;
       /** Payment-method-specific configuration for this SetupIntent. */
       payment_method_options?:
-        | (Partial<components["schemas"]["setup_intent_payment_method_options"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["setup_intent_payment_method_options"]> & { [key: string]: unknown })
         | null;
       /** The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. */
       payment_method_types: string[];
       /** ID of the single_use Mandate generated by the SetupIntent. */
       single_use_mandate?:
-        | ((Partial<string> & Partial<components["schemas"]["mandate"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["mandate"]>) & { [key: string]: unknown })
         | null;
       /** [Status](https://stripe.com/docs/payments/intents#intent-statuses) of this SetupIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `canceled`, or `succeeded`. */
       status:
@@ -7972,27 +8008,27 @@ export interface components {
        * Use `on_session` if you intend to only reuse the payment method when the customer is in your checkout flow. Use `off_session` if your customer may or may not be in your checkout flow. If not provided, this value defaults to `off_session`.
        */
       usage: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     setup_intent_next_action: {
       redirect_to_url?: components["schemas"]["setup_intent_next_action_redirect_to_url"];
       /** Type of the next action to perform, one of `redirect_to_url` or `use_stripe_sdk`. */
       type: string;
       /** When confirming a SetupIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js. */
-      use_stripe_sdk?: { [key: string]: any };
-    } & { [key: string]: any };
+      use_stripe_sdk?: { [key: string]: unknown };
+    } & { [key: string]: unknown };
     setup_intent_next_action_redirect_to_url: {
       /** If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion. */
       return_url?: string | null;
       /** The URL you must redirect your customer to in order to authenticate. */
       url?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     setup_intent_payment_method_options: {
       card?: components["schemas"]["setup_intent_payment_method_options_card"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     setup_intent_payment_method_options_card: {
       /** We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine. */
       request_three_d_secure?: ("any" | "automatic" | "challenge_only") | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     shipping: {
       address?: components["schemas"]["address"];
       /** The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc. */
@@ -8003,23 +8039,23 @@ export interface components {
       phone?: string | null;
       /** The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas. */
       tracking_number?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     shipping_method: {
       /** A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount for the line item. */
       amount: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /** The estimated delivery date for the given shipping method. Can be either a specific date or a range. */
-      delivery_estimate?: (Partial<components["schemas"]["delivery_estimate"]> & { [key: string]: any }) | null;
+      delivery_estimate?: (Partial<components["schemas"]["delivery_estimate"]> & { [key: string]: unknown }) | null;
       /** An arbitrary string attached to the object. Often useful for displaying to users. */
       description: string;
       /** Unique identifier for the object. */
       id: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     sigma_scheduled_query_run_error: {
       /** Information about the run failure. */
       message: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Stores representations of [stock keeping units](http://en.wikipedia.org/wiki/Stock_keeping_unit).
      * SKUs describe specific product variations, taking into account any combination of: attributes,
@@ -8051,14 +8087,14 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "sku";
       /** The dimensions of this SKU for shipping purposes. */
-      package_dimensions?: (Partial<components["schemas"]["package_dimensions"]> & { [key: string]: any }) | null;
+      package_dimensions?: (Partial<components["schemas"]["package_dimensions"]> & { [key: string]: unknown }) | null;
       /** The cost of the item as a positive integer in the smallest currency unit (that is, 100 cents to charge $1.00, or 100 to charge ¥100, Japanese Yen being a zero-decimal currency). */
       price: number;
       /** The ID of the product this SKU is associated with. The product must be currently active. */
-      product: (Partial<string> & Partial<components["schemas"]["product"]>) & { [key: string]: any };
+      product: (Partial<string> & Partial<components["schemas"]["product"]>) & { [key: string]: unknown };
       /** Time at which the object was last updated. Measured in seconds since the Unix epoch. */
       updated: number;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * `Source` objects allow you to accept a variety of payment methods. They
      * represent a customer's payment instrument, and can be used with the Stripe API
@@ -8102,7 +8138,7 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "source";
       /** Information about the owner of the payment instrument that may be used or required by particular source types. */
-      owner?: (Partial<components["schemas"]["source_owner"]> & { [key: string]: any }) | null;
+      owner?: (Partial<components["schemas"]["source_owner"]> & { [key: string]: unknown }) | null;
       p24?: components["schemas"]["source_type_p24"];
       receiver?: components["schemas"]["source_receiver_flow"];
       redirect?: components["schemas"]["source_redirect_flow"];
@@ -8136,13 +8172,13 @@ export interface components {
       /** Either `reusable` or `single_use`. Whether this source should be reusable or not. Some source types may or may not be reusable by construction, while others may leave the option at creation. If an incompatible value is passed, an error will be returned. */
       usage?: string | null;
       wechat?: components["schemas"]["source_type_wechat"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_code_verification_flow: {
       /** The number of attempts remaining to authenticate the source object with a verification code. */
       attempts_remaining: number;
       /** The status of the code verification, either `pending` (awaiting verification, `attempts_remaining` should be greater than 0), `succeeded` (successful verification) or `failed` (failed verification, cannot be verified anymore as `attempts_remaining` should be 0). */
       status: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Source mandate notifications should be created when a notification related to
      * a source mandate must be sent to the payer. They will trigger a webhook or
@@ -8168,11 +8204,11 @@ export interface components {
       status: string;
       /** The type of source this mandate notification is attached to. Should be the source type identifier code for the payment method, such as `three_d_secure`. */
       type: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_mandate_notification_bacs_debit_data: {
       /** Last 4 digits of the account number associated with the debit. */
       last4?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_mandate_notification_sepa_debit_data: {
       /** SEPA creditor ID. */
       creditor_identifier?: string;
@@ -8180,7 +8216,7 @@ export interface components {
       last4?: string;
       /** Mandate reference associated with the debit. */
       mandate_reference?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_order: {
       /** A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount for the order. */
       amount: number;
@@ -8191,7 +8227,7 @@ export interface components {
       /** List of items constituting the order. */
       items?: components["schemas"]["source_order_item"][] | null;
       shipping?: components["schemas"]["shipping"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_order_item: {
       /** The amount (price) for this order item. */
       amount?: number | null;
@@ -8203,10 +8239,10 @@ export interface components {
       quantity?: number;
       /** The type of this order item. Must be `sku`, `tax`, or `shipping`. */
       type?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_owner: {
       /** Owner's address. */
-      address?: (Partial<components["schemas"]["address"]> & { [key: string]: any }) | null;
+      address?: (Partial<components["schemas"]["address"]> & { [key: string]: unknown }) | null;
       /** Owner's email address. */
       email?: string | null;
       /** Owner's full name. */
@@ -8214,14 +8250,14 @@ export interface components {
       /** Owner's phone number (including extension). */
       phone?: string | null;
       /** Verified owner's address. Verified values are verified or provided by the payment method directly (and if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      verified_address?: (Partial<components["schemas"]["address"]> & { [key: string]: any }) | null;
+      verified_address?: (Partial<components["schemas"]["address"]> & { [key: string]: unknown }) | null;
       /** Verified owner's email address. Verified values are verified or provided by the payment method directly (and if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       verified_email?: string | null;
       /** Verified owner's full name. Verified values are verified or provided by the payment method directly (and if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       verified_name?: string | null;
       /** Verified owner's phone number (including extension). Verified values are verified or provided by the payment method directly (and if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       verified_phone?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_receiver_flow: {
       /** The address of the receiver source. This is the value that should be communicated to the customer to send their funds to. */
       address?: string | null;
@@ -8235,7 +8271,7 @@ export interface components {
       refund_attributes_method: string;
       /** Type of refund attribute status, one of `missing`, `requested`, or `available`. */
       refund_attributes_status: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_redirect_flow: {
       /** The failure reason for the redirect, either `user_abort` (the customer aborted or dropped out of the redirect flow), `declined` (the authentication failed or the transaction was declined), or `processing_error` (the redirect failed due to a technical error). Present only if the redirect status is `failed`. */
       failure_reason?: string | null;
@@ -8245,7 +8281,7 @@ export interface components {
       status: string;
       /** The URL provided to you to redirect a customer to as part of a `redirect` authentication flow. */
       url: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Some payment methods have no required amount that a customer must send.
      * Customers can be instructed to send any amount, and it can be made up of
@@ -8292,7 +8328,7 @@ export interface components {
         | "sofort"
         | "three_d_secure"
         | "wechat";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_transaction_ach_credit_transfer_data: {
       /** Customer data associated with the transfer. */
       customer_data?: string;
@@ -8302,7 +8338,7 @@ export interface components {
       last4?: string;
       /** Routing number associated with the transfer. */
       routing_number?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_transaction_chf_credit_transfer_data: {
       /** Reference associated with the transfer. */
       reference?: string;
@@ -8314,7 +8350,7 @@ export interface components {
       sender_iban?: string;
       /** Sender's name. */
       sender_name?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_transaction_gbp_credit_transfer_data: {
       /** Bank account fingerprint associated with the Stripe owned bank account receiving the transfer. */
       fingerprint?: string;
@@ -8330,13 +8366,13 @@ export interface components {
       sender_name?: string;
       /** Sender sort code associated with the transfer. */
       sender_sort_code?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_transaction_paper_check_data: {
       /** Time at which the deposited funds will be available for use. Measured in seconds since the Unix epoch. */
       available_at?: string;
       /** Comma-separated list of invoice IDs associated with the paper check. */
       invoices?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_transaction_sepa_credit_transfer_data: {
       /** Reference associated with the transfer. */
       reference?: string;
@@ -8344,7 +8380,7 @@ export interface components {
       sender_iban?: string;
       /** Sender's name. */
       sender_name?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_type_ach_credit_transfer: {
       account_number?: string | null;
       bank_name?: string | null;
@@ -8354,7 +8390,7 @@ export interface components {
       refund_routing_number?: string | null;
       routing_number?: string | null;
       swift_code?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_type_ach_debit: {
       bank_name?: string | null;
       country?: string | null;
@@ -8362,17 +8398,17 @@ export interface components {
       last4?: string | null;
       routing_number?: string | null;
       type?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_type_alipay: {
       data_string?: string | null;
       native_url?: string | null;
       statement_descriptor?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_type_au_becs_debit: {
       bsb_number?: string | null;
       fingerprint?: string | null;
       last4?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_type_bancontact: {
       bank_code?: string | null;
       bank_name?: string | null;
@@ -8380,7 +8416,7 @@ export interface components {
       iban_last4?: string | null;
       preferred_language?: string | null;
       statement_descriptor?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_type_card: {
       address_line1_check?: string | null;
       address_zip_check?: string | null;
@@ -8396,7 +8432,7 @@ export interface components {
       name?: string | null;
       three_d_secure?: string;
       tokenization_method?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_type_card_present: {
       application_cryptogram?: string;
       application_preferred_name?: string;
@@ -8421,23 +8457,23 @@ export interface components {
       reader?: string | null;
       terminal_verification_results?: string;
       transaction_status_information?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_type_eps: {
       reference?: string | null;
       statement_descriptor?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_type_giropay: {
       bank_code?: string | null;
       bank_name?: string | null;
       bic?: string | null;
       statement_descriptor?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_type_ideal: {
       bank?: string | null;
       bic?: string | null;
       iban_last4?: string | null;
       statement_descriptor?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_type_klarna: {
       background_image_url?: string;
       client_token?: string | null;
@@ -8464,7 +8500,7 @@ export interface components {
       redirect_url?: string;
       shipping_first_name?: string;
       shipping_last_name?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_type_multibanco: {
       entity?: string | null;
       reference?: string | null;
@@ -8476,10 +8512,10 @@ export interface components {
       refund_account_holder_address_state?: string | null;
       refund_account_holder_name?: string | null;
       refund_iban?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_type_p24: {
       reference?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_type_sepa_debit: {
       bank_code?: string | null;
       branch_code?: string | null;
@@ -8488,7 +8524,7 @@ export interface components {
       last4?: string | null;
       mandate_reference?: string | null;
       mandate_url?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_type_sofort: {
       bank_code?: string | null;
       bank_name?: string | null;
@@ -8497,7 +8533,7 @@ export interface components {
       iban_last4?: string | null;
       preferred_language?: string | null;
       statement_descriptor?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_type_three_d_secure: {
       address_line1_check?: string | null;
       address_zip_check?: string | null;
@@ -8516,12 +8552,12 @@ export interface components {
       name?: string | null;
       three_d_secure?: string;
       tokenization_method?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     source_type_wechat: {
       prepay_id?: string;
       qr_code_url?: string | null;
       statement_descriptor?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     status_transitions: {
       /** The time that the order was canceled. */
       canceled?: number | null;
@@ -8531,7 +8567,7 @@ export interface components {
       paid?: number | null;
       /** The time that the order was returned. */
       returned?: number | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Subscriptions allow you to charge a customer on a recurring basis.
      *
@@ -8544,7 +8580,7 @@ export interface components {
       billing_cycle_anchor: number;
       /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period */
       billing_thresholds?:
-        | (Partial<components["schemas"]["subscription_billing_thresholds"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["subscription_billing_thresholds"]> & { [key: string]: unknown })
         | null;
       /** A date in the future at which the subscription will automatically get canceled */
       cancel_at?: number | null;
@@ -8563,12 +8599,12 @@ export interface components {
       /** ID of the customer who owns the subscription. */
       customer: (Partial<string> &
         Partial<components["schemas"]["customer"]> &
-        Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: any };
+        Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: unknown };
       /** Number of days a customer has to pay invoices generated by this subscription. This value will be `null` for subscriptions where `collection_method=charge_automatically`. */
       days_until_due?: number | null;
       /** ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. If not set, invoices will use the default payment method in the customer's invoice settings. */
       default_payment_method?:
-        | ((Partial<string> & Partial<components["schemas"]["payment_method"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["payment_method"]>) & { [key: string]: unknown })
         | null;
       /** ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If not set, defaults to the customer's default source. */
       default_source?:
@@ -8577,12 +8613,12 @@ export interface components {
             Partial<components["schemas"]["bank_account"]> &
             Partial<components["schemas"]["bitcoin_receiver"]> &
             Partial<components["schemas"]["card"]> &
-            Partial<components["schemas"]["source"]>) & { [key: string]: any })
+            Partial<components["schemas"]["source"]>) & { [key: string]: unknown })
         | null;
       /** The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. */
       default_tax_rates?: components["schemas"]["tax_rate"][] | null;
       /** Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a subscription overrides a discount applied on a customer-wide basis. */
-      discount?: (Partial<components["schemas"]["discount"]> & { [key: string]: any }) | null;
+      discount?: (Partial<components["schemas"]["discount"]> & { [key: string]: unknown }) | null;
       /** If the subscription has ended, the date the subscription ended. */
       ended_at?: number | null;
       /** Unique identifier for the object. */
@@ -8597,9 +8633,11 @@ export interface components {
         object: "list";
         /** The URL where this list can be accessed. */
         url: string;
-      } & { [key: string]: any };
+      } & { [key: string]: unknown };
       /** The most recent invoice this subscription has generated. */
-      latest_invoice?: ((Partial<string> & Partial<components["schemas"]["invoice"]>) & { [key: string]: any }) | null;
+      latest_invoice?:
+        | ((Partial<string> & Partial<components["schemas"]["invoice"]>) & { [key: string]: unknown })
+        | null;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -8610,27 +8648,27 @@ export interface components {
       object: "subscription";
       /** If specified, payment collection for this subscription will be paused. */
       pause_collection?:
-        | (Partial<components["schemas"]["subscriptions_resource_pause_collection"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["subscriptions_resource_pause_collection"]> & { [key: string]: unknown })
         | null;
       /** Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
       pending_invoice_item_interval?:
-        | (Partial<components["schemas"]["subscription_pending_invoice_item_interval"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["subscription_pending_invoice_item_interval"]> & { [key: string]: unknown })
         | null;
       /** You can use this [SetupIntent](https://stripe.com/docs/api/setup_intents) to collect user authentication when creating a subscription without immediate payment or updating a subscription's payment method, allowing you to optimize for off-session payments. Learn more in the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication#scenario-2). */
       pending_setup_intent?:
-        | ((Partial<string> & Partial<components["schemas"]["setup_intent"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["setup_intent"]>) & { [key: string]: unknown })
         | null;
       /** If specified, [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates) that will be applied to the subscription once the `latest_invoice` has been paid. */
       pending_update?:
-        | (Partial<components["schemas"]["subscriptions_resource_pending_update"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["subscriptions_resource_pending_update"]> & { [key: string]: unknown })
         | null;
       /** Hash describing the plan the customer is subscribed to. Only set if the subscription contains a single plan. */
-      plan?: (Partial<components["schemas"]["plan"]> & { [key: string]: any }) | null;
+      plan?: (Partial<components["schemas"]["plan"]> & { [key: string]: unknown }) | null;
       /** The quantity of the plan to which the customer is subscribed. For example, if your plan is $10/user/month, and your customer has 5 users, you could pass 5 as the quantity to have the customer charged $50 (5 x $10) monthly. Only set if the subscription contains a single plan. */
       quantity?: number | null;
       /** The schedule attached to the subscription */
       schedule?:
-        | ((Partial<string> & Partial<components["schemas"]["subscription_schedule"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["subscription_schedule"]>) & { [key: string]: unknown })
         | null;
       /** Date when the subscription was first created. The date might differ from the `created` date due to backdating. */
       start_date: number;
@@ -8652,13 +8690,13 @@ export interface components {
       trial_end?: number | null;
       /** If the subscription has a trial, the beginning of that trial. */
       trial_start?: number | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     subscription_billing_thresholds: {
       /** Monetary threshold that triggers the subscription to create an invoice */
       amount_gte?: number | null;
       /** Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`. */
       reset_billing_cycle_anchor?: boolean | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Subscription items allow you to create customer subscriptions with more than
      * one plan, making it easy to represent complex billing relationships.
@@ -8666,7 +8704,7 @@ export interface components {
     subscription_item: {
       /** Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period */
       billing_thresholds?:
-        | (Partial<components["schemas"]["subscription_item_billing_thresholds"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["subscription_item_billing_thresholds"]> & { [key: string]: unknown })
         | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
@@ -8683,17 +8721,17 @@ export interface components {
       subscription: string;
       /** The tax rates which apply to this `subscription_item`. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`. */
       tax_rates?: components["schemas"]["tax_rate"][] | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     subscription_item_billing_thresholds: {
       /** Usage threshold that triggers the subscription to create an invoice */
       usage_gte?: number | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     subscription_pending_invoice_item_interval: {
       /** Specifies invoicing frequency. Either `day`, `week`, `month` or `year`. */
       interval: "day" | "month" | "week" | "year";
       /** The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). */
       interval_count: number;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * A subscription schedule allows you to create and manage the lifecycle of a subscription by predefining expected changes.
      *
@@ -8708,12 +8746,12 @@ export interface components {
       created: number;
       /** Object representing the start and end dates for the current phase of the subscription schedule, if it is `active`. */
       current_phase?:
-        | (Partial<components["schemas"]["subscription_schedule_current_phase"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["subscription_schedule_current_phase"]> & { [key: string]: unknown })
         | null;
       /** ID of the customer who owns the subscription schedule. */
       customer: (Partial<string> &
         Partial<components["schemas"]["customer"]> &
-        Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: any };
+        Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: unknown };
       default_settings: components["schemas"]["subscription_schedules_resource_default_settings"];
       /** Behavior of the subscription schedule and underlying subscription when it ends. */
       end_behavior: "cancel" | "none" | "release" | "renew";
@@ -8735,37 +8773,37 @@ export interface components {
       status: "active" | "canceled" | "completed" | "not_started" | "released";
       /** ID of the subscription managed by the subscription schedule. */
       subscription?:
-        | ((Partial<string> & Partial<components["schemas"]["subscription"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["subscription"]>) & { [key: string]: unknown })
         | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /** A phase item describes the plan and quantity of a phase. */
     subscription_schedule_configuration_item: {
       /** Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period */
       billing_thresholds?:
-        | (Partial<components["schemas"]["subscription_item_billing_thresholds"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["subscription_item_billing_thresholds"]> & { [key: string]: unknown })
         | null;
       /** ID of the plan to which the customer should be subscribed. */
       plan: (Partial<string> &
         Partial<components["schemas"]["plan"]> &
-        Partial<components["schemas"]["deleted_plan"]>) & { [key: string]: any };
+        Partial<components["schemas"]["deleted_plan"]>) & { [key: string]: unknown };
       /** Quantity of the plan to which the customer should be subscribed. */
       quantity?: number;
       /** The tax rates which apply to this `phase_item`. When set, the `default_tax_rates` on the phase do not apply to this `phase_item`. */
       tax_rates?: components["schemas"]["tax_rate"][] | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     subscription_schedule_current_phase: {
       /** The end of this phase of the subscription schedule. */
       end_date: number;
       /** The start of this phase of the subscription schedule. */
       start_date: number;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /** A phase describes the plans, coupon, and trialing status of a subscription for a predefined time period. */
     subscription_schedule_phase_configuration: {
       /** A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account during this phase of the schedule. */
       application_fee_percent?: number | null;
       /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period */
       billing_thresholds?:
-        | (Partial<components["schemas"]["subscription_billing_thresholds"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["subscription_billing_thresholds"]> & { [key: string]: unknown })
         | null;
       /** Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. */
       collection_method?: ("charge_automatically" | "send_invoice") | null;
@@ -8773,11 +8811,11 @@ export interface components {
       coupon?:
         | ((Partial<string> &
             Partial<components["schemas"]["coupon"]> &
-            Partial<components["schemas"]["deleted_coupon"]>) & { [key: string]: any })
+            Partial<components["schemas"]["deleted_coupon"]>) & { [key: string]: unknown })
         | null;
       /** ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings. */
       default_payment_method?:
-        | ((Partial<string> & Partial<components["schemas"]["payment_method"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["payment_method"]>) & { [key: string]: unknown })
         | null;
       /** The default tax rates to apply to the subscription during this phase of the subscription schedule. */
       default_tax_rates?: components["schemas"]["tax_rate"][] | null;
@@ -8785,7 +8823,7 @@ export interface components {
       end_date: number;
       /** The subscription schedule's default invoice settings. */
       invoice_settings?:
-        | (Partial<components["schemas"]["invoice_setting_subscription_schedule_setting"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["invoice_setting_subscription_schedule_setting"]> & { [key: string]: unknown })
         | null;
       /** Plans to subscribe during this phase of the subscription schedule. */
       plans: components["schemas"]["subscription_schedule_configuration_item"][];
@@ -8797,23 +8835,23 @@ export interface components {
       tax_percent?: number | null;
       /** When the trial ends within the phase. */
       trial_end?: number | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     subscription_schedules_resource_default_settings: {
       /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period */
       billing_thresholds?:
-        | (Partial<components["schemas"]["subscription_billing_thresholds"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["subscription_billing_thresholds"]> & { [key: string]: unknown })
         | null;
       /** Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. */
       collection_method?: ("charge_automatically" | "send_invoice") | null;
       /** ID of the default payment method for the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings. */
       default_payment_method?:
-        | ((Partial<string> & Partial<components["schemas"]["payment_method"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["payment_method"]>) & { [key: string]: unknown })
         | null;
       /** The subscription schedule's default invoice settings. */
       invoice_settings?:
-        | (Partial<components["schemas"]["invoice_setting_subscription_schedule_setting"]> & { [key: string]: any })
+        | (Partial<components["schemas"]["invoice_setting_subscription_schedule_setting"]> & { [key: string]: unknown })
         | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * The Pause Collection settings determine how we will pause collection for this subscription and for how long the subscription
      * should be paused.
@@ -8823,7 +8861,7 @@ export interface components {
       behavior: "keep_as_draft" | "mark_uncollectible" | "void";
       /** The time after which the subscription will resume collecting payments. */
       resumes_at?: number | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Pending Updates store the changes pending from a previous update that will be applied
      * to the Subscription upon successful payment.
@@ -8839,7 +8877,7 @@ export interface components {
       trial_end?: number | null;
       /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
       trial_from_plan?: boolean | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     tax_deducted_at_source: {
       /** Unique identifier for the object. */
       id: string;
@@ -8851,7 +8889,7 @@ export interface components {
       period_start: number;
       /** The TAN that was supplied to Stripe when TDS was assessed */
       tax_deduction_account_number: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * You can add one or multiple tax IDs to a [customer](https://stripe.com/docs/api/customers).
      * A customer's tax IDs are displayed on invoices and credit notes issued for the customer.
@@ -8864,7 +8902,7 @@ export interface components {
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** ID of the customer. */
-      customer: (Partial<string> & Partial<components["schemas"]["customer"]>) & { [key: string]: any };
+      customer: (Partial<string> & Partial<components["schemas"]["customer"]>) & { [key: string]: unknown };
       /** Unique identifier for the object. */
       id: string;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -8900,7 +8938,7 @@ export interface components {
       /** Value of the tax ID. */
       value: string;
       verification: components["schemas"]["tax_id_verification"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     tax_id_verification: {
       /** Verification status, one of `pending`, `verified`, `unverified`, or `unavailable`. */
       status: "pending" | "unavailable" | "unverified" | "verified";
@@ -8908,7 +8946,7 @@ export interface components {
       verified_address?: string | null;
       /** Verified name. */
       verified_name?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Tax rates can be applied to invoices and subscriptions to collect tax.
      *
@@ -8937,7 +8975,7 @@ export interface components {
       object: "tax_rate";
       /** This represents the tax rate percent out of 100. */
       percentage: number;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * A Connection Token is used by the Stripe Terminal SDK to connect to a reader.
      *
@@ -8950,7 +8988,7 @@ export interface components {
       object: "terminal.connection_token";
       /** Your application should pass this token to the Stripe Terminal SDK. */
       secret: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * A Location represents a grouping of readers.
      *
@@ -8968,7 +9006,7 @@ export interface components {
       metadata: { [key: string]: string };
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "terminal.location";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * A Reader represents a physical device for accepting payment details.
      *
@@ -8997,7 +9035,7 @@ export interface components {
       serial_number: string;
       /** The networking status of the reader. */
       status?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Cardholder authentication via 3D Secure is initiated by creating a `3D Secure`
      * object. Once the object has been created, you can use it to authenticate the
@@ -9023,7 +9061,7 @@ export interface components {
       redirect_url?: string | null;
       /** Possible values are `redirect_pending`, `succeeded`, or `failed`. When the cardholder can be authenticated, the object starts with status `redirect_pending`. When liability will be shifted to the cardholder's bank (either because the cardholder was successfully authenticated, or because the bank has not implemented 3D Secure, the object wlil be in status `succeeded`. `failed` indicates that authentication was attempted unsuccessfully. */
       status: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     three_d_secure_details: {
       /** Whether or not authentication was performed. 3D Secure will succeed without authentication when the card is not enrolled. */
       authenticated?: boolean;
@@ -9031,11 +9069,11 @@ export interface components {
       succeeded?: boolean;
       /** The version of 3D Secure that was used for this payment. */
       version: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     three_d_secure_usage: {
       /** Whether 3D Secure is supported on this card. */
       supported: boolean;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Tokenization is the process Stripe uses to collect sensitive card or bank
      * account details, or personally identifiable information (PII), directly from
@@ -9077,7 +9115,7 @@ export interface components {
       type: string;
       /** Whether this token has already been used (tokens can be used only once). */
       used: boolean;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * To top up your Stripe balance, you create a top-up object. You can retrieve
      * individual top-ups, as well as list all top-ups. Top-ups are identified by a
@@ -9090,7 +9128,7 @@ export interface components {
       amount: number;
       /** ID of the balance transaction that describes the impact of this top-up on your account balance. May not be specified depending on status of top-up. */
       balance_transaction?:
-        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: unknown })
         | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
@@ -9119,7 +9157,7 @@ export interface components {
       status: "canceled" | "failed" | "pending" | "reversed" | "succeeded";
       /** A string that identifies this top-up as part of a group. */
       transfer_group?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * A `Transfer` object is created when you move funds between Stripe accounts as
      * part of Connect.
@@ -9139,7 +9177,7 @@ export interface components {
       amount_reversed: number;
       /** Balance transaction that describes the impact of this transfer on your account balance. */
       balance_transaction?:
-        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: unknown })
         | null;
       /** Time that this record of the transfer was first created. */
       created: number;
@@ -9148,9 +9186,9 @@ export interface components {
       /** An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null;
       /** ID of the Stripe account the transfer was sent to. */
-      destination?: ((Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: any }) | null;
+      destination?: ((Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: unknown }) | null;
       /** If the destination is a Stripe account, this will be the ID of the payment that the destination account received for the transfer. */
-      destination_payment?: (Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: any };
+      destination_payment?: (Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: unknown };
       /** Unique identifier for the object. */
       id: string;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -9169,18 +9207,18 @@ export interface components {
         object: "list";
         /** The URL where this list can be accessed. */
         url: string;
-      } & { [key: string]: any };
+      } & { [key: string]: unknown };
       /** Whether the transfer has been fully reversed. If the transfer is only partially reversed, this attribute will still be false. */
       reversed: boolean;
       /** ID of the charge or payment that was used to fund the transfer. If null, the transfer was funded from the available balance. */
       source_transaction?:
-        | ((Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["charge"]>) & { [key: string]: unknown })
         | null;
       /** The source balance this transfer came from. One of `card`, `fpx`, or `bank_account`. */
       source_type?: string | null;
       /** A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
       transfer_group?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     transfer_data: {
       /** Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99). */
       amount?: number;
@@ -9189,8 +9227,8 @@ export interface components {
        * reporting, and where funds from the payment will be transferred to upon
        * payment success.
        */
-      destination: (Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: any };
-    } & { [key: string]: any };
+      destination: (Partial<string> & Partial<components["schemas"]["account"]>) & { [key: string]: unknown };
+    } & { [key: string]: unknown };
     /**
      * [Stripe Connect](https://stripe.com/docs/connect) platforms can reverse transfers made to a
      * connected account, either entirely or partially, and can also specify whether
@@ -9211,7 +9249,7 @@ export interface components {
       amount: number;
       /** Balance transaction that describes the impact on your account balance. */
       balance_transaction?:
-        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["balance_transaction"]>) & { [key: string]: unknown })
         | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
@@ -9219,7 +9257,7 @@ export interface components {
       currency: string;
       /** Linked payment refund for the transfer reversal. */
       destination_payment_refund?:
-        | ((Partial<string> & Partial<components["schemas"]["refund"]>) & { [key: string]: any })
+        | ((Partial<string> & Partial<components["schemas"]["refund"]>) & { [key: string]: unknown })
         | null;
       /** Unique identifier for the object. */
       id: string;
@@ -9228,10 +9266,12 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "transfer_reversal";
       /** ID of the refund responsible for the transfer reversal. */
-      source_refund?: ((Partial<string> & Partial<components["schemas"]["refund"]>) & { [key: string]: any }) | null;
+      source_refund?:
+        | ((Partial<string> & Partial<components["schemas"]["refund"]>) & { [key: string]: unknown })
+        | null;
       /** ID of the transfer that was reversed. */
-      transfer: (Partial<string> & Partial<components["schemas"]["transfer"]>) & { [key: string]: any };
-    } & { [key: string]: any };
+      transfer: (Partial<string> & Partial<components["schemas"]["transfer"]>) & { [key: string]: unknown };
+    } & { [key: string]: unknown };
     transfer_schedule: {
       /** The number of days charges for the account will be held before being paid out. */
       delay_days: number;
@@ -9241,13 +9281,13 @@ export interface components {
       monthly_anchor?: number;
       /** The day of the week funds will be paid out, of the style 'monday', 'tuesday', etc. Only shown if `interval` is weekly. */
       weekly_anchor?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     transform_usage: {
       /** Divide usage by this number. */
       divide_by: number;
       /** After division, either round the result `up` or `down`. */
       round: "down" | "up";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Usage records allow you to report customer usage and metrics to Stripe for
      * metered billing of subscription plans.
@@ -9267,7 +9307,7 @@ export interface components {
       subscription_item: string;
       /** The timestamp when this usage occurred. */
       timestamp: number;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     usage_record_summary: {
       /** Unique identifier for the object. */
       id: string;
@@ -9282,7 +9322,7 @@ export interface components {
       subscription_item: string;
       /** The total usage within this usage period. */
       total_usage: number;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * You can configure [webhook endpoints](https://stripe.com/docs/webhooks/) via the API to be
      * notified about events that happen in your Stripe account or connected
@@ -9317,7 +9357,7 @@ export interface components {
       status: string;
       /** The URL of the webhook endpoint. */
       url: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
   };
 }
 
@@ -9384,7 +9424,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -9412,7 +9452,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -9451,9 +9491,9 @@ export interface operations {
               currency?: string;
               object?: "bank_account";
               routing_number?: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           /** Business information about the account. */
           business_profile?: {
             mcc?: string;
@@ -9463,7 +9503,7 @@ export interface operations {
             support_phone?: string;
             support_url?: string;
             url?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The business type. */
           business_type?: "company" | "government_entity" | "individual" | "non_profit";
           /** Information about the company or business. This field is null unless `business_type` is set to `company`, `government_entity`, or `non_profit`. */
@@ -9475,7 +9515,7 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             address_kana?: {
               city?: string;
               country?: string;
@@ -9484,7 +9524,7 @@ export interface operations {
               postal_code?: string;
               state?: string;
               town?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             address_kanji?: {
               city?: string;
               country?: string;
@@ -9493,7 +9533,7 @@ export interface operations {
               postal_code?: string;
               state?: string;
               town?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             directors_provided?: boolean;
             executives_provided?: boolean;
             name?: string;
@@ -9525,9 +9565,9 @@ export interface operations {
               document?: {
                 back?: string;
                 front?: string;
-              } & { [key: string]: any };
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+              } & { [key: string]: unknown };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts). */
           default_currency?: string;
           /** Email address of the account representative. For Standard accounts, this is used to ask them to claim their Stripe account. For Custom accounts, this only makes the account easier to identify to platforms; Stripe does not email the account representative. */
@@ -9545,7 +9585,7 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             address_kana?: {
               city?: string;
               country?: string;
@@ -9554,7 +9594,7 @@ export interface operations {
               postal_code?: string;
               state?: string;
               town?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             address_kanji?: {
               city?: string;
               country?: string;
@@ -9563,15 +9603,15 @@ export interface operations {
               postal_code?: string;
               state?: string;
               town?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             dob?: (Partial<
               {
                 day: number;
                 month: number;
                 year: number;
-              } & { [key: string]: any }
+              } & { [key: string]: unknown }
             > &
-              Partial<"">) & { [key: string]: any };
+              Partial<"">) & { [key: string]: unknown };
             email?: string;
             first_name?: string;
             first_name_kana?: string;
@@ -9582,22 +9622,22 @@ export interface operations {
             last_name_kana?: string;
             last_name_kanji?: string;
             maiden_name?: string;
-            metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+            metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
             phone?: string;
             ssn_last_4?: string;
             verification?: {
               additional_document?: {
                 back?: string;
                 front?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               document?: {
                 back?: string;
                 front?: string;
-              } & { [key: string]: any };
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+              } & { [key: string]: unknown };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** The set of capabilities you want to unlock for this account. Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive. */
           requested_capabilities?: (
             | "au_becs_debit_payments"
@@ -9615,36 +9655,36 @@ export interface operations {
               logo?: string;
               primary_color?: string;
               secondary_color?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             card_payments?: {
               decline_on?: {
                 avs_failure?: boolean;
                 cvc_failure?: boolean;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               statement_descriptor_prefix?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             payments?: {
               statement_descriptor?: string;
               statement_descriptor_kana?: string;
               statement_descriptor_kanji?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             payouts?: {
               debit_negative_balances?: boolean;
               schedule?: {
-                delay_days?: (Partial<"minimum"> & Partial<number>) & { [key: string]: any };
+                delay_days?: (Partial<"minimum"> & Partial<number>) & { [key: string]: unknown };
                 interval?: "daily" | "manual" | "monthly" | "weekly";
                 monthly_anchor?: number;
                 weekly_anchor?: "friday" | "monday" | "saturday" | "sunday" | "thursday" | "tuesday" | "wednesday";
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               statement_descriptor?: string;
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance). */
           tos_acceptance?: {
             date?: number;
             ip?: string;
             user_agent?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
     };
@@ -9708,9 +9748,9 @@ export interface operations {
               currency?: string;
               object?: "bank_account";
               routing_number?: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           /** When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           default_for_currency?: boolean;
           /** Specifies which fields in the response should be expanded. */
@@ -9750,7 +9790,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -9806,7 +9846,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Cardholder name. */
           name?: string;
         };
@@ -9836,7 +9876,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -9860,7 +9900,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -9872,7 +9912,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -9903,7 +9943,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -9960,7 +10000,7 @@ export interface operations {
           "application/json": {
             /** The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards. */
             data: ((Partial<components["schemas"]["bank_account"]> & Partial<components["schemas"]["card"]>) & {
-              [key: string]: any;
+              [key: string]: unknown;
             })[];
             /** True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
@@ -9968,7 +10008,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -9980,7 +10020,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10013,9 +10053,9 @@ export interface operations {
               currency?: string;
               object?: "bank_account";
               routing_number?: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           /** When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           default_for_currency?: boolean;
           /** Specifies which fields in the response should be expanded. */
@@ -10055,7 +10095,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10111,7 +10151,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Cardholder name. */
           name?: string;
         };
@@ -10141,7 +10181,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10223,7 +10263,7 @@ export interface operations {
           executive?: boolean;
           owner?: boolean;
           representative?: boolean;
-        } & { [key: string]: any };
+        } & { [key: string]: unknown };
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
       };
@@ -10240,7 +10280,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -10252,7 +10292,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10284,7 +10324,7 @@ export interface operations {
             line2?: string;
             postal_code?: string;
             state?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The Kana variation of the person's address (Japan only). */
           address_kana?: {
             city?: string;
@@ -10294,7 +10334,7 @@ export interface operations {
             postal_code?: string;
             state?: string;
             town?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The Kanji variation of the person's address (Japan only). */
           address_kanji?: {
             city?: string;
@@ -10304,16 +10344,16 @@ export interface operations {
             postal_code?: string;
             state?: string;
             town?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The person's date of birth. */
           dob?: (Partial<
             {
               day: number;
               month: number;
               year: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -10337,7 +10377,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -10347,10 +10387,10 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: (Partial<number> & Partial<"">) & { [key: string]: any };
+            percent_ownership?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
             representative?: boolean;
             title?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The last 4 digits of the person's social security number. */
           ssn_last_4?: string;
           /** The person's verification status. */
@@ -10358,12 +10398,12 @@ export interface operations {
             additional_document?: {
               back?: string;
               front?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             document?: {
               back?: string;
               front?: string;
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
         };
       };
     };
@@ -10395,7 +10435,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10432,7 +10472,7 @@ export interface operations {
             line2?: string;
             postal_code?: string;
             state?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The Kana variation of the person's address (Japan only). */
           address_kana?: {
             city?: string;
@@ -10442,7 +10482,7 @@ export interface operations {
             postal_code?: string;
             state?: string;
             town?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The Kanji variation of the person's address (Japan only). */
           address_kanji?: {
             city?: string;
@@ -10452,16 +10492,16 @@ export interface operations {
             postal_code?: string;
             state?: string;
             town?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The person's date of birth. */
           dob?: (Partial<
             {
               day: number;
               month: number;
               year: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -10485,7 +10525,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -10495,10 +10535,10 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: (Partial<number> & Partial<"">) & { [key: string]: any };
+            percent_ownership?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
             representative?: boolean;
             title?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The last 4 digits of the person's social security number. */
           ssn_last_4?: string;
           /** The person's verification status. */
@@ -10506,12 +10546,12 @@ export interface operations {
             additional_document?: {
               back?: string;
               front?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             document?: {
               back?: string;
               front?: string;
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
         };
       };
     };
@@ -10539,7 +10579,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10559,7 +10599,7 @@ export interface operations {
           executive?: boolean;
           owner?: boolean;
           representative?: boolean;
-        } & { [key: string]: any };
+        } & { [key: string]: unknown };
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
       };
@@ -10576,7 +10616,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -10588,7 +10628,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10620,7 +10660,7 @@ export interface operations {
             line2?: string;
             postal_code?: string;
             state?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The Kana variation of the person's address (Japan only). */
           address_kana?: {
             city?: string;
@@ -10630,7 +10670,7 @@ export interface operations {
             postal_code?: string;
             state?: string;
             town?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The Kanji variation of the person's address (Japan only). */
           address_kanji?: {
             city?: string;
@@ -10640,16 +10680,16 @@ export interface operations {
             postal_code?: string;
             state?: string;
             town?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The person's date of birth. */
           dob?: (Partial<
             {
               day: number;
               month: number;
               year: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -10673,7 +10713,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -10683,10 +10723,10 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: (Partial<number> & Partial<"">) & { [key: string]: any };
+            percent_ownership?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
             representative?: boolean;
             title?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The last 4 digits of the person's social security number. */
           ssn_last_4?: string;
           /** The person's verification status. */
@@ -10694,12 +10734,12 @@ export interface operations {
             additional_document?: {
               back?: string;
               front?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             document?: {
               back?: string;
               front?: string;
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
         };
       };
     };
@@ -10731,7 +10771,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10768,7 +10808,7 @@ export interface operations {
             line2?: string;
             postal_code?: string;
             state?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The Kana variation of the person's address (Japan only). */
           address_kana?: {
             city?: string;
@@ -10778,7 +10818,7 @@ export interface operations {
             postal_code?: string;
             state?: string;
             town?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The Kanji variation of the person's address (Japan only). */
           address_kanji?: {
             city?: string;
@@ -10788,16 +10828,16 @@ export interface operations {
             postal_code?: string;
             state?: string;
             town?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The person's date of birth. */
           dob?: (Partial<
             {
               day: number;
               month: number;
               year: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -10821,7 +10861,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -10831,10 +10871,10 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: (Partial<number> & Partial<"">) & { [key: string]: any };
+            percent_ownership?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
             representative?: boolean;
             title?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The last 4 digits of the person's social security number. */
           ssn_last_4?: string;
           /** The person's verification status. */
@@ -10842,12 +10882,12 @@ export interface operations {
             additional_document?: {
               back?: string;
               front?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             document?: {
               back?: string;
               front?: string;
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
         };
       };
     };
@@ -10875,7 +10915,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10924,9 +10964,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -10949,7 +10989,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -10961,7 +11001,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -11002,9 +11042,9 @@ export interface operations {
               currency?: string;
               object?: "bank_account";
               routing_number?: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           /** Business information about the account. */
           business_profile?: {
             mcc?: string;
@@ -11014,7 +11054,7 @@ export interface operations {
             support_phone?: string;
             support_url?: string;
             url?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The business type. */
           business_type?: "company" | "government_entity" | "individual" | "non_profit";
           /** Information about the company or business. This field is null unless `business_type` is set to `company`, `government_entity`, or `non_profit`. */
@@ -11026,7 +11066,7 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             address_kana?: {
               city?: string;
               country?: string;
@@ -11035,7 +11075,7 @@ export interface operations {
               postal_code?: string;
               state?: string;
               town?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             address_kanji?: {
               city?: string;
               country?: string;
@@ -11044,7 +11084,7 @@ export interface operations {
               postal_code?: string;
               state?: string;
               town?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             directors_provided?: boolean;
             executives_provided?: boolean;
             name?: string;
@@ -11076,9 +11116,9 @@ export interface operations {
               document?: {
                 back?: string;
                 front?: string;
-              } & { [key: string]: any };
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+              } & { [key: string]: unknown };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** The country in which the account holder resides, or in which the business is legally established. This should be an ISO 3166-1 alpha-2 country code. For example, if you are in the United States and the business for which you're creating an account is legally represented in Canada, you would use `CA` as the country for the account being created. */
           country?: string;
           /** Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts). */
@@ -11098,7 +11138,7 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             address_kana?: {
               city?: string;
               country?: string;
@@ -11107,7 +11147,7 @@ export interface operations {
               postal_code?: string;
               state?: string;
               town?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             address_kanji?: {
               city?: string;
               country?: string;
@@ -11116,15 +11156,15 @@ export interface operations {
               postal_code?: string;
               state?: string;
               town?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             dob?: (Partial<
               {
                 day: number;
                 month: number;
                 year: number;
-              } & { [key: string]: any }
+              } & { [key: string]: unknown }
             > &
-              Partial<"">) & { [key: string]: any };
+              Partial<"">) & { [key: string]: unknown };
             email?: string;
             first_name?: string;
             first_name_kana?: string;
@@ -11135,22 +11175,22 @@ export interface operations {
             last_name_kana?: string;
             last_name_kanji?: string;
             maiden_name?: string;
-            metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+            metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
             phone?: string;
             ssn_last_4?: string;
             verification?: {
               additional_document?: {
                 back?: string;
                 front?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               document?: {
                 back?: string;
                 front?: string;
-              } & { [key: string]: any };
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+              } & { [key: string]: unknown };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** The set of capabilities you want to unlock for this account. Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive. */
           requested_capabilities?: (
             | "au_becs_debit_payments"
@@ -11168,36 +11208,36 @@ export interface operations {
               logo?: string;
               primary_color?: string;
               secondary_color?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             card_payments?: {
               decline_on?: {
                 avs_failure?: boolean;
                 cvc_failure?: boolean;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               statement_descriptor_prefix?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             payments?: {
               statement_descriptor?: string;
               statement_descriptor_kana?: string;
               statement_descriptor_kanji?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             payouts?: {
               debit_negative_balances?: boolean;
               schedule?: {
-                delay_days?: (Partial<"minimum"> & Partial<number>) & { [key: string]: any };
+                delay_days?: (Partial<"minimum"> & Partial<number>) & { [key: string]: unknown };
                 interval?: "daily" | "manual" | "monthly" | "weekly";
                 monthly_anchor?: number;
                 weekly_anchor?: "friday" | "monday" | "saturday" | "sunday" | "thursday" | "tuesday" | "wednesday";
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               statement_descriptor?: string;
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance). */
           tos_acceptance?: {
             date?: number;
             ip?: string;
             user_agent?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The type of Stripe account to create. Currently must be `custom`, as only [Custom accounts](https://stripe.com/docs/connect/custom-accounts) may be created via the API. */
           type?: "custom" | "express" | "standard";
         };
@@ -11231,7 +11271,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -11275,9 +11315,9 @@ export interface operations {
               currency?: string;
               object?: "bank_account";
               routing_number?: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           /** Business information about the account. */
           business_profile?: {
             mcc?: string;
@@ -11287,7 +11327,7 @@ export interface operations {
             support_phone?: string;
             support_url?: string;
             url?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The business type. */
           business_type?: "company" | "government_entity" | "individual" | "non_profit";
           /** Information about the company or business. This field is null unless `business_type` is set to `company`, `government_entity`, or `non_profit`. */
@@ -11299,7 +11339,7 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             address_kana?: {
               city?: string;
               country?: string;
@@ -11308,7 +11348,7 @@ export interface operations {
               postal_code?: string;
               state?: string;
               town?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             address_kanji?: {
               city?: string;
               country?: string;
@@ -11317,7 +11357,7 @@ export interface operations {
               postal_code?: string;
               state?: string;
               town?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             directors_provided?: boolean;
             executives_provided?: boolean;
             name?: string;
@@ -11349,9 +11389,9 @@ export interface operations {
               document?: {
                 back?: string;
                 front?: string;
-              } & { [key: string]: any };
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+              } & { [key: string]: unknown };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts). */
           default_currency?: string;
           /** Email address of the account representative. For Standard accounts, this is used to ask them to claim their Stripe account. For Custom accounts, this only makes the account easier to identify to platforms; Stripe does not email the account representative. */
@@ -11369,7 +11409,7 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             address_kana?: {
               city?: string;
               country?: string;
@@ -11378,7 +11418,7 @@ export interface operations {
               postal_code?: string;
               state?: string;
               town?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             address_kanji?: {
               city?: string;
               country?: string;
@@ -11387,15 +11427,15 @@ export interface operations {
               postal_code?: string;
               state?: string;
               town?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             dob?: (Partial<
               {
                 day: number;
                 month: number;
                 year: number;
-              } & { [key: string]: any }
+              } & { [key: string]: unknown }
             > &
-              Partial<"">) & { [key: string]: any };
+              Partial<"">) & { [key: string]: unknown };
             email?: string;
             first_name?: string;
             first_name_kana?: string;
@@ -11406,22 +11446,22 @@ export interface operations {
             last_name_kana?: string;
             last_name_kanji?: string;
             maiden_name?: string;
-            metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+            metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
             phone?: string;
             ssn_last_4?: string;
             verification?: {
               additional_document?: {
                 back?: string;
                 front?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               document?: {
                 back?: string;
                 front?: string;
-              } & { [key: string]: any };
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+              } & { [key: string]: unknown };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** The set of capabilities you want to unlock for this account. Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive. */
           requested_capabilities?: (
             | "au_becs_debit_payments"
@@ -11439,36 +11479,36 @@ export interface operations {
               logo?: string;
               primary_color?: string;
               secondary_color?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             card_payments?: {
               decline_on?: {
                 avs_failure?: boolean;
                 cvc_failure?: boolean;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               statement_descriptor_prefix?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             payments?: {
               statement_descriptor?: string;
               statement_descriptor_kana?: string;
               statement_descriptor_kanji?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             payouts?: {
               debit_negative_balances?: boolean;
               schedule?: {
-                delay_days?: (Partial<"minimum"> & Partial<number>) & { [key: string]: any };
+                delay_days?: (Partial<"minimum"> & Partial<number>) & { [key: string]: unknown };
                 interval?: "daily" | "manual" | "monthly" | "weekly";
                 monthly_anchor?: number;
                 weekly_anchor?: "friday" | "monday" | "saturday" | "sunday" | "thursday" | "tuesday" | "wednesday";
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               statement_descriptor?: string;
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance). */
           tos_acceptance?: {
             date?: number;
             ip?: string;
             user_agent?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
     };
@@ -11502,7 +11542,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -11540,9 +11580,9 @@ export interface operations {
               currency?: string;
               object?: "bank_account";
               routing_number?: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           /** When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           default_for_currency?: boolean;
           /** Specifies which fields in the response should be expanded. */
@@ -11583,7 +11623,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -11640,7 +11680,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Cardholder name. */
           name?: string;
         };
@@ -11671,7 +11711,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -11698,7 +11738,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -11710,7 +11750,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -11742,7 +11782,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -11803,7 +11843,7 @@ export interface operations {
           "application/json": {
             /** The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards. */
             data: ((Partial<components["schemas"]["bank_account"]> & Partial<components["schemas"]["card"]>) & {
-              [key: string]: any;
+              [key: string]: unknown;
             })[];
             /** True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
@@ -11811,7 +11851,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -11823,7 +11863,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -11861,9 +11901,9 @@ export interface operations {
               currency?: string;
               object?: "bank_account";
               routing_number?: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           /** When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           default_for_currency?: boolean;
           /** Specifies which fields in the response should be expanded. */
@@ -11904,7 +11944,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -11961,7 +12001,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Cardholder name. */
           name?: string;
         };
@@ -11992,7 +12032,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12085,7 +12125,7 @@ export interface operations {
           executive?: boolean;
           owner?: boolean;
           representative?: boolean;
-        } & { [key: string]: any };
+        } & { [key: string]: unknown };
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
       };
@@ -12102,7 +12142,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -12114,7 +12154,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12150,7 +12190,7 @@ export interface operations {
             line2?: string;
             postal_code?: string;
             state?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The Kana variation of the person's address (Japan only). */
           address_kana?: {
             city?: string;
@@ -12160,7 +12200,7 @@ export interface operations {
             postal_code?: string;
             state?: string;
             town?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The Kanji variation of the person's address (Japan only). */
           address_kanji?: {
             city?: string;
@@ -12170,16 +12210,16 @@ export interface operations {
             postal_code?: string;
             state?: string;
             town?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The person's date of birth. */
           dob?: (Partial<
             {
               day: number;
               month: number;
               year: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -12203,7 +12243,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -12213,10 +12253,10 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: (Partial<number> & Partial<"">) & { [key: string]: any };
+            percent_ownership?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
             representative?: boolean;
             title?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The last 4 digits of the person's social security number. */
           ssn_last_4?: string;
           /** The person's verification status. */
@@ -12224,12 +12264,12 @@ export interface operations {
             additional_document?: {
               back?: string;
               front?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             document?: {
               back?: string;
               front?: string;
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
         };
       };
     };
@@ -12262,7 +12302,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12299,7 +12339,7 @@ export interface operations {
             line2?: string;
             postal_code?: string;
             state?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The Kana variation of the person's address (Japan only). */
           address_kana?: {
             city?: string;
@@ -12309,7 +12349,7 @@ export interface operations {
             postal_code?: string;
             state?: string;
             town?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The Kanji variation of the person's address (Japan only). */
           address_kanji?: {
             city?: string;
@@ -12319,16 +12359,16 @@ export interface operations {
             postal_code?: string;
             state?: string;
             town?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The person's date of birth. */
           dob?: (Partial<
             {
               day: number;
               month: number;
               year: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -12352,7 +12392,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -12362,10 +12402,10 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: (Partial<number> & Partial<"">) & { [key: string]: any };
+            percent_ownership?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
             representative?: boolean;
             title?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The last 4 digits of the person's social security number. */
           ssn_last_4?: string;
           /** The person's verification status. */
@@ -12373,12 +12413,12 @@ export interface operations {
             additional_document?: {
               back?: string;
               front?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             document?: {
               back?: string;
               front?: string;
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
         };
       };
     };
@@ -12407,7 +12447,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12430,7 +12470,7 @@ export interface operations {
           executive?: boolean;
           owner?: boolean;
           representative?: boolean;
-        } & { [key: string]: any };
+        } & { [key: string]: unknown };
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
       };
@@ -12447,7 +12487,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -12459,7 +12499,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12495,7 +12535,7 @@ export interface operations {
             line2?: string;
             postal_code?: string;
             state?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The Kana variation of the person's address (Japan only). */
           address_kana?: {
             city?: string;
@@ -12505,7 +12545,7 @@ export interface operations {
             postal_code?: string;
             state?: string;
             town?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The Kanji variation of the person's address (Japan only). */
           address_kanji?: {
             city?: string;
@@ -12515,16 +12555,16 @@ export interface operations {
             postal_code?: string;
             state?: string;
             town?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The person's date of birth. */
           dob?: (Partial<
             {
               day: number;
               month: number;
               year: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -12548,7 +12588,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -12558,10 +12598,10 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: (Partial<number> & Partial<"">) & { [key: string]: any };
+            percent_ownership?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
             representative?: boolean;
             title?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The last 4 digits of the person's social security number. */
           ssn_last_4?: string;
           /** The person's verification status. */
@@ -12569,12 +12609,12 @@ export interface operations {
             additional_document?: {
               back?: string;
               front?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             document?: {
               back?: string;
               front?: string;
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
         };
       };
     };
@@ -12607,7 +12647,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12644,7 +12684,7 @@ export interface operations {
             line2?: string;
             postal_code?: string;
             state?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The Kana variation of the person's address (Japan only). */
           address_kana?: {
             city?: string;
@@ -12654,7 +12694,7 @@ export interface operations {
             postal_code?: string;
             state?: string;
             town?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The Kanji variation of the person's address (Japan only). */
           address_kanji?: {
             city?: string;
@@ -12664,16 +12704,16 @@ export interface operations {
             postal_code?: string;
             state?: string;
             town?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The person's date of birth. */
           dob?: (Partial<
             {
               day: number;
               month: number;
               year: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -12697,7 +12737,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -12707,10 +12747,10 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: (Partial<number> & Partial<"">) & { [key: string]: any };
+            percent_ownership?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
             representative?: boolean;
             title?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The last 4 digits of the person's social security number. */
           ssn_last_4?: string;
           /** The person's verification status. */
@@ -12718,12 +12758,12 @@ export interface operations {
             additional_document?: {
               back?: string;
               front?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             document?: {
               back?: string;
               front?: string;
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
         };
       };
     };
@@ -12752,7 +12792,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12819,7 +12859,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -12831,7 +12871,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12888,7 +12928,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12915,7 +12955,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12931,9 +12971,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -12956,7 +12996,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -12968,7 +13008,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13000,7 +13040,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13036,7 +13076,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -13068,7 +13108,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13133,7 +13173,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -13145,7 +13185,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13220,7 +13260,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13238,18 +13278,18 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         created?: (Partial<
           {
             gt?: number;
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** Only return transactions in a certain currency. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
         currency?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -13280,7 +13320,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -13292,7 +13332,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13327,7 +13367,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13345,18 +13385,18 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         created?: (Partial<
           {
             gt?: number;
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** Only return transactions in a certain currency. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
         currency?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -13387,7 +13427,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -13399,7 +13439,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13434,7 +13474,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13499,7 +13539,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -13511,7 +13551,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13542,7 +13582,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13578,7 +13618,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -13590,7 +13630,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13624,7 +13664,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -13636,7 +13676,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13650,9 +13690,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** Only return charges for the customer specified by this customer ID. */
         customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -13681,7 +13721,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -13693,7 +13733,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13739,9 +13779,9 @@ export interface operations {
               name?: string;
               number: string;
               object?: "card";
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency?: string;
           /** The ID of an existing customer that will be charged in this request. */
@@ -13752,13 +13792,13 @@ export interface operations {
             {
               account: string;
               amount?: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/charges-transfers#on-behalf-of). */
           on_behalf_of?: string;
           /** The email address to which this charge's [receipt](https://stripe.com/docs/dashboard/receipts) will be sent. The receipt will not be sent until the charge is paid, and no receipts will be sent for test mode charges. If this charge is for a [Customer](https://stripe.com/docs/api/customers/object), the email address specified here will override the customer's email address. If `receipt_email` is specified for a charge in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). */
@@ -13772,12 +13812,12 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             carrier?: string;
             name: string;
             phone?: string;
             tracking_number?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** A payment source to be charged. This can be the ID of a [card](https://stripe.com/docs/api#cards) (i.e., credit or debit card), a [bank account](https://stripe.com/docs/api#bank_accounts), a [source](https://stripe.com/docs/api#sources), a [token](https://stripe.com/docs/api#tokens), or a [connected account](https://stripe.com/docs/connect/account-debits#charging-a-connected-account). For certain sources---namely, [cards](https://stripe.com/docs/api#cards), [bank accounts](https://stripe.com/docs/api#bank_accounts), and attached [sources](https://stripe.com/docs/api#sources)---you must also pass the ID of the associated customer. */
           source?: string;
           /** For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
@@ -13788,7 +13828,7 @@ export interface operations {
           transfer_data?: {
             amount?: number;
             destination: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** A string that identifies this transaction as part of a group. For details, see [Grouping transactions](https://stripe.com/docs/connect/charges-transfers#transfer-options). */
           transfer_group?: string;
         };
@@ -13822,7 +13862,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13859,9 +13899,9 @@ export interface operations {
           /** A set of key-value pairs you can attach to a charge giving information about its riskiness. If you believe a charge is fraudulent, include a `user_report` key with a value of `fraudulent`. If you believe a charge is safe, include a `user_report` key with a value of `safe`. Stripe will use the information you send to improve our fraud detection algorithms. */
           fraud_details?: {
             user_report: "" | "fraudulent" | "safe";
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** This is the email address that the receipt for this charge will be sent to. If this field is updated, then a new email receipt will be sent to the updated address. */
           receipt_email?: string;
           /** Shipping information for the charge. Helps prevent fraud on charges for physical goods. */
@@ -13873,12 +13913,12 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             carrier?: string;
             name: string;
             phone?: string;
             tracking_number?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
           transfer_group?: string;
         };
@@ -13930,7 +13970,7 @@ export interface operations {
           /** An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details. */
           transfer_data?: {
             amount?: number;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
           transfer_group?: string;
         };
@@ -13964,7 +14004,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -14020,11 +14060,11 @@ export interface operations {
             shipping_tracking_number?: string;
             uncategorized_file?: string;
             uncategorized_text?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
           submit?: boolean;
         };
@@ -14100,7 +14140,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           payment_intent?: string;
           reason?: "duplicate" | "fraudulent" | "requested_by_customer";
           refund_application_fee?: boolean;
@@ -14139,7 +14179,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -14151,7 +14191,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -14183,7 +14223,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           payment_intent?: string;
           reason?: "duplicate" | "fraudulent" | "requested_by_customer";
           refund_application_fee?: boolean;
@@ -14220,7 +14260,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -14251,7 +14291,7 @@ export interface operations {
         "application/x-www-form-urlencoded": {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -14286,7 +14326,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -14298,7 +14338,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -14364,7 +14404,7 @@ export interface operations {
             name?: string;
             quantity: number;
             tax_rates?: string[];
-          } & { [key: string]: any })[];
+          } & { [key: string]: unknown })[];
           /** The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used. */
           locale?:
             | "auto"
@@ -14405,19 +14445,19 @@ export interface operations {
                 line2?: string;
                 postal_code?: string;
                 state?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               carrier?: string;
               name: string;
               phone?: string;
               tracking_number?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             statement_descriptor?: string;
             statement_descriptor_suffix?: string;
             transfer_data?: {
               amount?: number;
               destination: string;
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** A list of the types of payment methods (e.g., card) this Checkout session can accept. */
           payment_method_types: ("card" | "fpx" | "ideal")[];
           /** A subset of parameters to be passed to SetupIntent creation for Checkout Sessions in `setup` mode. */
@@ -14425,7 +14465,7 @@ export interface operations {
             description?: string;
             metadata?: { [key: string]: string };
             on_behalf_of?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** When set, provides configuration for Checkout to collect a shipping address from a customer. */
           shipping_address_collection?: {
             allowed_countries: (
@@ -14667,7 +14707,7 @@ export interface operations {
               | "ZW"
               | "ZZ"
             )[];
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /**
            * Describes the type of transaction being performed by Checkout in order to customize
            * relevant text on the page, such as the submit button. `submit_type` can only be
@@ -14683,12 +14723,12 @@ export interface operations {
               plan: string;
               quantity?: number;
               tax_rates?: string[];
-            } & { [key: string]: any })[];
+            } & { [key: string]: unknown })[];
             metadata?: { [key: string]: string };
             trial_end?: number;
             trial_from_plan?: boolean;
             trial_period_days?: number;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /**
            * The URL to which Stripe should send customers when payment or setup
            * is complete.
@@ -14728,7 +14768,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -14758,7 +14798,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -14770,7 +14810,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -14801,7 +14841,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -14816,9 +14856,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -14841,7 +14881,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -14853,7 +14893,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -14895,7 +14935,7 @@ export interface operations {
           /** A positive integer specifying the number of times the coupon can be redeemed before it's no longer valid. For example, you might have a 50% off coupon that the first 20 readers of your blog can use. */
           max_redemptions?: number;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
           name?: string;
           /** A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed). */
@@ -14933,7 +14973,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -14964,7 +15004,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
           name?: string;
         };
@@ -14994,7 +15034,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15028,7 +15068,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -15040,7 +15080,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15092,11 +15132,11 @@ export interface operations {
             description?: string;
             invoice_line_item?: string;
             quantity?: number;
-            tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
+            tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
             type: "custom_line_item" | "invoice_line_item";
             unit_amount?: number;
             unit_amount_decimal?: string;
-          } & { [key: string]: any })[];
+          } & { [key: string]: unknown })[];
           /** The credit note's memo appears on the credit note PDF. */
           memo?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -15131,11 +15171,11 @@ export interface operations {
           description?: string;
           invoice_line_item?: string;
           quantity?: number;
-          tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
+          tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
           type: "custom_line_item" | "invoice_line_item";
           unit_amount?: number;
           unit_amount_decimal?: string;
-        } & { [key: string]: any })[];
+        } & { [key: string]: unknown })[];
         /** The credit note's memo appears on the credit note PDF. */
         memo?: string;
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -15166,7 +15206,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15192,11 +15232,11 @@ export interface operations {
           description?: string;
           invoice_line_item?: string;
           quantity?: number;
-          tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
+          tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
           type: "custom_line_item" | "invoice_line_item";
           unit_amount?: number;
           unit_amount_decimal?: string;
-        } & { [key: string]: any })[];
+        } & { [key: string]: unknown })[];
         /** The credit note's memo appears on the credit note PDF. */
         memo?: string;
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -15226,7 +15266,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -15238,7 +15278,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15272,7 +15312,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -15284,7 +15324,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15315,7 +15355,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15393,9 +15433,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A filter on the list based on the customer's `email` field. The value must be a string. */
         email?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -15420,7 +15460,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -15432,7 +15472,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15464,9 +15504,9 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** An integer amount in %s that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice. */
           balance?: number;
           coupon?: string;
@@ -15484,14 +15524,14 @@ export interface operations {
               ({
                 name: string;
                 value: string;
-              } & { [key: string]: any })[]
+              } & { [key: string]: unknown })[]
             > &
-              Partial<"">) & { [key: string]: any };
+              Partial<"">) & { [key: string]: unknown };
             default_payment_method?: string;
             footer?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** The customer's full name or business name. */
           name?: string;
           /** The sequence to be used on the customer's next invoice. Defaults to 1. */
@@ -15511,12 +15551,12 @@ export interface operations {
                 line2?: string;
                 postal_code?: string;
                 state?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               name: string;
               phone?: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           source?: string;
           /** The customer's tax exemption. One of `none`, `exempt`, or `reverse`. */
           tax_exempt?: "" | "exempt" | "none" | "reverse";
@@ -15547,7 +15587,7 @@ export interface operations {
               | "us_ein"
               | "za_vat";
             value: string;
-          } & { [key: string]: any })[];
+          } & { [key: string]: unknown })[];
         };
       };
     };
@@ -15568,7 +15608,7 @@ export interface operations {
       200: {
         content: {
           "application/json": (Partial<components["schemas"]["customer"]> &
-            Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: any };
+            Partial<components["schemas"]["deleted_customer"]>) & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -15580,7 +15620,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15621,9 +15661,9 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** An integer amount in %s that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice. */
           balance?: number;
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
@@ -15636,9 +15676,9 @@ export interface operations {
               currency?: string;
               object?: "bank_account";
               routing_number?: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
           card?: (Partial<
             {
@@ -15655,9 +15695,9 @@ export interface operations {
               name?: string;
               number: string;
               object?: "card";
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           coupon?: string;
           /** ID of Alipay account to make the customer's new default for invoice payments. */
           default_alipay_account?: string;
@@ -15687,14 +15727,14 @@ export interface operations {
               ({
                 name: string;
                 value: string;
-              } & { [key: string]: any })[]
+              } & { [key: string]: unknown })[]
             > &
-              Partial<"">) & { [key: string]: any };
+              Partial<"">) & { [key: string]: unknown };
             default_payment_method?: string;
             footer?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** The customer's full name or business name. */
           name?: string;
           /** The sequence to be used on the customer's next invoice. Defaults to 1. */
@@ -15713,17 +15753,17 @@ export interface operations {
                 line2?: string;
                 postal_code?: string;
                 state?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               name: string;
               phone?: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           source?: string;
           /** The customer's tax exemption. One of `none`, `exempt`, or `reverse`. */
           tax_exempt?: "" | "exempt" | "none" | "reverse";
           /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          trial_end?: (Partial<"now"> & Partial<number>) & { [key: string]: any };
+          trial_end?: (Partial<"now"> & Partial<number>) & { [key: string]: unknown };
         };
       };
     };
@@ -15751,7 +15791,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15785,7 +15825,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -15797,7 +15837,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15834,7 +15874,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -15867,7 +15907,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15901,7 +15941,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -15936,7 +15976,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -15948,7 +15988,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15994,9 +16034,9 @@ export interface operations {
               currency?: string;
               object?: "bank_account";
               routing_number?: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
           card?: (Partial<
             {
@@ -16013,9 +16053,9 @@ export interface operations {
               name?: string;
               number: string;
               object?: "card";
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -16054,7 +16094,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -16072,7 +16112,7 @@ export interface operations {
         content: {
           "application/json": (Partial<components["schemas"]["card"]> &
             Partial<components["schemas"]["bank_account"]> &
-            Partial<components["schemas"]["source"]>) & { [key: string]: any };
+            Partial<components["schemas"]["source"]>) & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -16108,7 +16148,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Cardholder name. */
           name?: string;
           owner?: {
@@ -16119,11 +16159,11 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             email?: string;
             name?: string;
             phone?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
     };
@@ -16141,7 +16181,7 @@ export interface operations {
       200: {
         content: {
           "application/json": (Partial<components["schemas"]["payment_source"]> &
-            Partial<components["schemas"]["deleted_payment_source"]>) & { [key: string]: any };
+            Partial<components["schemas"]["deleted_payment_source"]>) & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -16226,7 +16266,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -16238,7 +16278,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -16284,9 +16324,9 @@ export interface operations {
               currency?: string;
               object?: "bank_account";
               routing_number?: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
           card?: (Partial<
             {
@@ -16303,9 +16343,9 @@ export interface operations {
               name?: string;
               number: string;
               object?: "card";
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -16344,7 +16384,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -16362,7 +16402,7 @@ export interface operations {
         content: {
           "application/json": (Partial<components["schemas"]["card"]> &
             Partial<components["schemas"]["bank_account"]> &
-            Partial<components["schemas"]["source"]>) & { [key: string]: any };
+            Partial<components["schemas"]["source"]>) & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -16398,7 +16438,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Cardholder name. */
           name?: string;
           owner?: {
@@ -16409,11 +16449,11 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             email?: string;
             name?: string;
             phone?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
     };
@@ -16431,7 +16471,7 @@ export interface operations {
       200: {
         content: {
           "application/json": (Partial<components["schemas"]["payment_source"]> &
-            Partial<components["schemas"]["deleted_payment_source"]>) & { [key: string]: any };
+            Partial<components["schemas"]["deleted_payment_source"]>) & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -16476,7 +16516,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -16503,7 +16543,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -16536,14 +16576,14 @@ export interface operations {
               Partial<components["schemas"]["bank_account"]> &
               Partial<components["schemas"]["bitcoin_receiver"]> &
               Partial<components["schemas"]["card"]> &
-              Partial<components["schemas"]["source"]>) & { [key: string]: any })[];
+              Partial<components["schemas"]["source"]>) & { [key: string]: unknown })[];
             /** True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -16555,7 +16595,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -16601,9 +16641,9 @@ export interface operations {
               currency?: string;
               object?: "bank_account";
               routing_number?: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
           card?: (Partial<
             {
@@ -16620,9 +16660,9 @@ export interface operations {
               name?: string;
               number: string;
               object?: "card";
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -16661,7 +16701,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -16679,7 +16719,7 @@ export interface operations {
         content: {
           "application/json": (Partial<components["schemas"]["card"]> &
             Partial<components["schemas"]["bank_account"]> &
-            Partial<components["schemas"]["source"]>) & { [key: string]: any };
+            Partial<components["schemas"]["source"]>) & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -16715,7 +16755,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Cardholder name. */
           name?: string;
           owner?: {
@@ -16726,11 +16766,11 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             email?: string;
             name?: string;
             phone?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
     };
@@ -16748,7 +16788,7 @@ export interface operations {
       200: {
         content: {
           "application/json": (Partial<components["schemas"]["payment_source"]> &
-            Partial<components["schemas"]["deleted_payment_source"]>) & { [key: string]: any };
+            Partial<components["schemas"]["deleted_payment_source"]>) & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -16830,7 +16870,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -16842,7 +16882,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -16881,9 +16921,9 @@ export interface operations {
             {
               amount_gte?: number;
               reset_billing_cycle_anchor?: boolean;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
           cancel_at?: number;
           /** Boolean indicating whether this subscription should cancel at the end of the current period. */
@@ -16899,7 +16939,7 @@ export interface operations {
           /** ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If not set, defaults to the customer's default source. */
           default_source?: string;
           /** The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. */
-          default_tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
+          default_tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** A list of up to 20 subscription items, each with an attached plan. */
@@ -16907,16 +16947,16 @@ export interface operations {
             billing_thresholds?: (Partial<
               {
                 usage_gte: number;
-              } & { [key: string]: any }
+              } & { [key: string]: unknown }
             > &
-              Partial<"">) & { [key: string]: any };
+              Partial<"">) & { [key: string]: unknown };
             metadata?: { [key: string]: string };
             plan?: string;
             quantity?: number;
-            tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
-          } & { [key: string]: any })[];
+            tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
+          } & { [key: string]: unknown })[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /**
@@ -16932,9 +16972,9 @@ export interface operations {
             {
               interval: "day" | "month" | "week" | "year";
               interval_count?: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
           prorate?: boolean;
           /**
@@ -16944,9 +16984,9 @@ export interface operations {
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /** A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-          tax_percent?: (Partial<number> & Partial<"">) & { [key: string]: any };
+          tax_percent?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
           /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          trial_end?: (Partial<"now"> & Partial<number>) & { [key: string]: any };
+          trial_end?: (Partial<"now"> & Partial<number>) & { [key: string]: unknown };
           /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
           trial_from_plan?: boolean;
           /** Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. */
@@ -16983,7 +17023,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17021,11 +17061,11 @@ export interface operations {
             {
               amount_gte?: number;
               reset_billing_cycle_anchor?: boolean;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
-          cancel_at?: (Partial<number> & Partial<"">) & { [key: string]: any };
+          cancel_at?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
           /** Boolean indicating whether this subscription should cancel at the end of the current period. */
           cancel_at_period_end?: boolean;
           /** Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`. */
@@ -17039,7 +17079,7 @@ export interface operations {
           /** ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If not set, defaults to the customer's default source. */
           default_source?: string;
           /** The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. Pass an empty string to remove previously-defined tax rates. */
-          default_tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
+          default_tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** List of subscription items, each with an attached plan. */
@@ -17047,19 +17087,19 @@ export interface operations {
             billing_thresholds?: (Partial<
               {
                 usage_gte: number;
-              } & { [key: string]: any }
+              } & { [key: string]: unknown }
             > &
-              Partial<"">) & { [key: string]: any };
+              Partial<"">) & { [key: string]: unknown };
             clear_usage?: boolean;
             deleted?: boolean;
             id?: string;
-            metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+            metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
             plan?: string;
             quantity?: number;
-            tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
-          } & { [key: string]: any })[];
+            tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
+          } & { [key: string]: unknown })[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /** If specified, payment collection for this subscription will be paused. */
@@ -17067,9 +17107,9 @@ export interface operations {
             {
               behavior: "keep_as_draft" | "mark_uncollectible" | "void";
               resumes_at?: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /**
            * Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
            *
@@ -17083,9 +17123,9 @@ export interface operations {
             {
               interval: "day" | "month" | "week" | "year";
               interval_count?: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
           prorate?: boolean;
           /**
@@ -17099,9 +17139,9 @@ export interface operations {
           /** If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations. */
           proration_date?: number;
           /** A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-          tax_percent?: (Partial<number> & Partial<"">) & { [key: string]: any };
+          tax_percent?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
           /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          trial_end?: (Partial<"now"> & Partial<number>) & { [key: string]: any };
+          trial_end?: (Partial<"now"> & Partial<number>) & { [key: string]: unknown };
           /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
           trial_from_plan?: boolean;
         };
@@ -17176,7 +17216,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17204,7 +17244,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17238,7 +17278,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -17250,7 +17290,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17339,7 +17379,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17367,7 +17407,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17383,9 +17423,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -17410,7 +17450,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -17422,7 +17462,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17453,7 +17493,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17514,11 +17554,11 @@ export interface operations {
             shipping_tracking_number?: string;
             uncategorized_file?: string;
             uncategorized_text?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
           submit?: boolean;
         };
@@ -17628,9 +17668,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** Filter events by whether all webhooks were successfully delivered. If false, events which are still pending or have failed all delivery attempts to a webhook endpoint will be returned. */
         delivery_success?: boolean;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -17659,7 +17699,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -17671,7 +17711,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17702,7 +17742,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17732,7 +17772,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -17744,7 +17784,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17775,7 +17815,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17789,9 +17829,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -17818,7 +17858,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -17830,7 +17870,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17860,7 +17900,7 @@ export interface operations {
           /** The ID of the file. The file's `purpose` must be one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `pci_document`, `sigma_scheduled_query`, or `tax_document_user_upload`. */
           file: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -17892,7 +17932,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17923,9 +17963,9 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** A future timestamp after which the link will no longer be usable, or `now` to expire the link immediately. */
-          expires_at?: (Partial<"now"> & Partial<number> & Partial<"">) & { [key: string]: any };
+          expires_at?: (Partial<"now"> & Partial<number> & Partial<"">) & { [key: string]: unknown };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -17940,9 +17980,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -17977,7 +18017,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -17989,7 +18029,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18024,8 +18064,8 @@ export interface operations {
           file_link_data?: {
             create: boolean;
             expires_at?: number;
-            metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
-          } & { [key: string]: any };
+            metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** The purpose of the uploaded file. Possible values are `additional_verification`, `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `identity_document`, `pci_document`, or `tax_document_user_upload`. */
           purpose:
             | "additional_verification"
@@ -18067,7 +18107,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18081,9 +18121,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned. */
         customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -18112,7 +18152,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -18124,7 +18164,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18162,12 +18202,12 @@ export interface operations {
           /** The ID of an existing invoice to add this invoice item to. When left blank, the invoice item will be added to the next upcoming scheduled invoice. This is useful when adding invoice items in response to an invoice.created webhook. You can only add invoice items to draft invoices. */
           invoice?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** The period associated with this invoice item. */
           period?: {
             end: number;
             start: number;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Non-negative integer. The quantity of units for the invoice item. */
           quantity?: number;
           /** The ID of a subscription to add this invoice item to. When left blank, the invoice item will be be added to the next upcoming scheduled invoice. When set, scheduled invoices for subscriptions other than the specified subscription will ignore the invoice item. Use this when you want to express that an invoice item has been accrued within the context of a particular subscription. */
@@ -18209,7 +18249,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18246,16 +18286,16 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** The period associated with this invoice item. */
           period?: {
             end: number;
             start: number;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Non-negative integer. The quantity of units for the invoice item. */
           quantity?: number;
           /** The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. Pass an empty string to remove previously-defined tax rates. */
-          tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
+          tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
           /** The integer unit amount in **%s** of the charge to be applied to the upcoming invoice. This unit_amount will be multiplied by the quantity to get the full amount. If you want to apply a credit to the customer's account, pass a negative unit_amount. */
           unit_amount?: number;
           /** Same as `unit_amount`, but accepts a decimal value with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set. */
@@ -18287,7 +18327,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18303,9 +18343,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** Only return invoices for the customer specified by this customer ID. */
         customer?: string;
         due_date?: (Partial<
@@ -18314,9 +18354,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -18343,7 +18383,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -18355,7 +18395,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18389,9 +18429,9 @@ export interface operations {
             ({
               name: string;
               value: string;
-            } & { [key: string]: any })[]
+            } & { [key: string]: unknown })[]
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** The ID of the customer who will be billed. */
           customer: string;
           /** The number of days from when the invoice is created until it is due. Valid only for invoices where `collection_method=send_invoice`. */
@@ -18411,7 +18451,7 @@ export interface operations {
           /** Footer to be displayed on the invoice. */
           footer?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`. */
           statement_descriptor?: string;
           /** The ID of the subscription to invoice, if any. If not set, the created invoice will include all pending invoice items for the customer. If set, the created invoice will only include pending invoice items for that subscription and pending invoice items not associated with any subscription. The subscription's billing cycle and regular subscription events won't be affected. */
@@ -18445,46 +18485,48 @@ export interface operations {
           description?: string;
           discountable?: boolean;
           invoiceitem?: string;
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           period?: {
             end: number;
             start: number;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           quantity?: number;
-          tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
+          tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
           unit_amount?: number;
           unit_amount_decimal?: string;
-        } & { [key: string]: any })[];
+        } & { [key: string]: unknown })[];
         /** The identifier of the unstarted schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields. */
         schedule?: string;
         /** The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions. */
         subscription?: string;
         /** For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`. */
-        subscription_billing_cycle_anchor?: (Partial<"now" | "unchanged"> & Partial<number>) & { [key: string]: any };
+        subscription_billing_cycle_anchor?: (Partial<"now" | "unchanged"> & Partial<number>) & {
+          [key: string]: unknown;
+        };
         /** Timestamp indicating when the subscription should be scheduled to cancel. Will prorate if within the current period and prorations have been enabled using `proration_behavior`.` */
-        subscription_cancel_at?: (Partial<number> & Partial<"">) & { [key: string]: any };
+        subscription_cancel_at?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
         /** Boolean indicating whether this subscription should cancel at the end of the current period. */
         subscription_cancel_at_period_end?: boolean;
         /** This simulates the subscription being canceled or expired immediately. */
         subscription_cancel_now?: boolean;
         /** If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. */
-        subscription_default_tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
+        subscription_default_tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
         /** List of subscription items, each with an attached plan. */
         subscription_items?: ({
           billing_thresholds?: (Partial<
             {
               usage_gte: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           clear_usage?: boolean;
           deleted?: boolean;
           id?: string;
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           plan?: string;
           quantity?: number;
-          tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
-        } & { [key: string]: any })[];
+          tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
+        } & { [key: string]: unknown })[];
         /** If previewing an update to a subscription, this decides whether the preview will show the result of applying prorations or not. If set, one of `subscription_items` or `subscription`, and one of `subscription_items` or `subscription_trial_end` are required. */
         subscription_prorate?: boolean;
         /**
@@ -18502,7 +18544,7 @@ export interface operations {
         /** If provided, the invoice returned will preview updating or creating a subscription with that tax percent. If set, one of `subscription_items` or `subscription` is required. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
         subscription_tax_percent?: number;
         /** If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. */
-        subscription_trial_end?: (Partial<"now"> & Partial<number>) & { [key: string]: any };
+        subscription_trial_end?: (Partial<"now"> & Partial<number>) & { [key: string]: unknown };
         /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed. */
         subscription_trial_from_plan?: boolean;
       };
@@ -18523,7 +18565,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18546,16 +18588,16 @@ export interface operations {
           description?: string;
           discountable?: boolean;
           invoiceitem?: string;
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           period?: {
             end: number;
             start: number;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           quantity?: number;
-          tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
+          tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
           unit_amount?: number;
           unit_amount_decimal?: string;
-        } & { [key: string]: any })[];
+        } & { [key: string]: unknown })[];
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** The identifier of the unstarted schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields. */
@@ -18565,31 +18607,33 @@ export interface operations {
         /** The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions. */
         subscription?: string;
         /** For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`. */
-        subscription_billing_cycle_anchor?: (Partial<"now" | "unchanged"> & Partial<number>) & { [key: string]: any };
+        subscription_billing_cycle_anchor?: (Partial<"now" | "unchanged"> & Partial<number>) & {
+          [key: string]: unknown;
+        };
         /** Timestamp indicating when the subscription should be scheduled to cancel. Will prorate if within the current period and prorations have been enabled using `proration_behavior`.` */
-        subscription_cancel_at?: (Partial<number> & Partial<"">) & { [key: string]: any };
+        subscription_cancel_at?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
         /** Boolean indicating whether this subscription should cancel at the end of the current period. */
         subscription_cancel_at_period_end?: boolean;
         /** This simulates the subscription being canceled or expired immediately. */
         subscription_cancel_now?: boolean;
         /** If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. */
-        subscription_default_tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
+        subscription_default_tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
         /** List of subscription items, each with an attached plan. */
         subscription_items?: ({
           billing_thresholds?: (Partial<
             {
               usage_gte: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           clear_usage?: boolean;
           deleted?: boolean;
           id?: string;
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           plan?: string;
           quantity?: number;
-          tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
-        } & { [key: string]: any })[];
+          tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
+        } & { [key: string]: unknown })[];
         /** If previewing an update to a subscription, this decides whether the preview will show the result of applying prorations or not. If set, one of `subscription_items` or `subscription`, and one of `subscription_items` or `subscription_trial_end` are required. */
         subscription_prorate?: boolean;
         /**
@@ -18607,7 +18651,7 @@ export interface operations {
         /** If provided, the invoice returned will preview updating or creating a subscription with that tax percent. If set, one of `subscription_items` or `subscription` is required. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
         subscription_tax_percent?: number;
         /** If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. */
-        subscription_trial_end?: (Partial<"now"> & Partial<number>) & { [key: string]: any };
+        subscription_trial_end?: (Partial<"now"> & Partial<number>) & { [key: string]: unknown };
         /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed. */
         subscription_trial_from_plan?: boolean;
       };
@@ -18625,7 +18669,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -18637,7 +18681,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18668,7 +18712,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18714,9 +18758,9 @@ export interface operations {
             ({
               name: string;
               value: string;
-            } & { [key: string]: any })[]
+            } & { [key: string]: unknown })[]
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** The number of days from which the invoice is created until it is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices. */
           days_until_due?: number;
           /** ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings. */
@@ -18724,7 +18768,7 @@ export interface operations {
           /** ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source. */
           default_source?: string;
           /** The tax rates that will apply to any line item that does not have `tax_rates` set. Pass an empty string to remove previously-defined tax rates. */
-          default_tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
+          default_tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
           /** An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard. */
           description?: string;
           /** The date on which payment for this invoice is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices. */
@@ -18734,11 +18778,11 @@ export interface operations {
           /** Footer to be displayed on the invoice. */
           footer?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`. */
           statement_descriptor?: string;
           /** The percent tax rate applied to the invoice, represented as a non-negative decimal number (with at most four decimal places) between 0 and 100. To unset a previously-set value, pass an empty string. This field can be updated only on `draft` invoices. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-          tax_percent?: (Partial<number> & Partial<"">) & { [key: string]: any };
+          tax_percent?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -18766,7 +18810,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18832,7 +18876,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -18844,7 +18888,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -19014,7 +19058,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -19026,7 +19070,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -19061,7 +19105,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -19080,9 +19124,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -19107,7 +19151,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -19119,7 +19163,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -19150,7 +19194,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -19181,7 +19225,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -19215,7 +19259,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -19247,7 +19291,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -19263,9 +19307,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** Only return cardholders that have the given email address. */
         email?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -19296,7 +19340,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -19308,7 +19352,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -19340,12 +19384,12 @@ export interface operations {
               line2?: string;
               postal_code: string;
               state?: string;
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** Additional information about a `company` cardholder. */
           company?: {
             tax_id?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The cardholder's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -19356,16 +19400,16 @@ export interface operations {
               day: number;
               month: number;
               year: number;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             first_name: string;
             last_name: string;
             verification?: {
               document?: {
                 back?: string;
                 front?: string;
-              } & { [key: string]: any };
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+              } & { [key: string]: unknown };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: { [key: string]: string };
           /** The cardholder's name. This will be printed on cards issued to them. */
@@ -20247,9 +20291,9 @@ export interface operations {
                 | "wrecking_and_salvage_yards"
               )[];
               interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
-            } & { [key: string]: any })[];
+            } & { [key: string]: unknown })[];
             spending_limits_currency?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Specifies whether to permit authorizations on this cardholder's cards. Defaults to `active`. */
           status?: "active" | "inactive";
           /** One of `individual` or `company`. */
@@ -20285,7 +20329,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -20322,12 +20366,12 @@ export interface operations {
               line2?: string;
               postal_code: string;
               state?: string;
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** Additional information about a `company` cardholder. */
           company?: {
             tax_id?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The cardholder's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -20338,16 +20382,16 @@ export interface operations {
               day: number;
               month: number;
               year: number;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             first_name: string;
             last_name: string;
             verification?: {
               document?: {
                 back?: string;
                 front?: string;
-              } & { [key: string]: any };
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+              } & { [key: string]: unknown };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: { [key: string]: string };
           /** The cardholder's phone number. */
@@ -21227,9 +21271,9 @@ export interface operations {
                 | "wrecking_and_salvage_yards"
               )[];
               interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
-            } & { [key: string]: any })[];
+            } & { [key: string]: unknown })[];
             spending_limits_currency?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Specifies whether to permit authorizations on this cardholder's cards. */
           status?: "active" | "inactive";
         };
@@ -21249,9 +21293,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Only return cards that have the given expiration month. */
@@ -21284,7 +21328,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -21296,7 +21340,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -21340,11 +21384,11 @@ export interface operations {
               line2?: string;
               postal_code: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             name: string;
             service?: "express" | "priority" | "standard";
             type?: "bulk" | "individual";
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Spending rules that give you some control over how your cards can be used. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details. */
           spending_controls?: {
             allowed_categories?: (
@@ -22220,8 +22264,8 @@ export interface operations {
                 | "wrecking_and_salvage_yards"
               )[];
               interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
-            } & { [key: string]: any })[];
-          } & { [key: string]: any };
+            } & { [key: string]: unknown })[];
+          } & { [key: string]: unknown };
           /** Whether authorizations can be approved on this card. Defaults to `inactive`. */
           status?: "active" | "inactive";
           /** The type of card to issue. Possible values are `physical` or `virtual`. */
@@ -22257,7 +22301,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -22290,7 +22334,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Spending rules that give you some control over how your cards can be used. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details. */
           spending_controls?: {
             allowed_categories?: (
@@ -23166,8 +23210,8 @@ export interface operations {
                 | "wrecking_and_salvage_yards"
               )[];
               interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
-            } & { [key: string]: any })[];
-          } & { [key: string]: any };
+            } & { [key: string]: unknown })[];
+          } & { [key: string]: unknown };
           /** Dictates whether authorizations can be approved on this card. If this card is being canceled because it was lost or stolen, this information should be provided as `cancellation_reason`. */
           status?: "active" | "canceled" | "inactive";
         };
@@ -23200,7 +23244,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -23212,7 +23256,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23270,7 +23314,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23317,9 +23361,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -23342,7 +23386,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -23354,7 +23398,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23385,7 +23429,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23436,9 +23480,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -23461,7 +23505,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -23473,7 +23517,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23504,7 +23548,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23535,7 +23579,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -23567,7 +23611,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23582,9 +23626,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -23609,7 +23653,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -23621,7 +23665,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23652,7 +23696,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23667,9 +23711,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** Only return orders for the given customer. */
         customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -23692,37 +23736,37 @@ export interface operations {
               gte?: number;
               lt?: number;
               lte?: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<number>) & { [key: string]: any };
+            Partial<number>) & { [key: string]: unknown };
           fulfilled?: (Partial<
             {
               gt?: number;
               gte?: number;
               lt?: number;
               lte?: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<number>) & { [key: string]: any };
+            Partial<number>) & { [key: string]: unknown };
           paid?: (Partial<
             {
               gt?: number;
               gte?: number;
               lt?: number;
               lte?: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<number>) & { [key: string]: any };
+            Partial<number>) & { [key: string]: unknown };
           returned?: (Partial<
             {
               gt?: number;
               gte?: number;
               lt?: number;
               lte?: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<number>) & { [key: string]: any };
-        } & { [key: string]: any };
+            Partial<number>) & { [key: string]: unknown };
+        } & { [key: string]: unknown };
         /** Only return orders with the given upstream order IDs. */
         upstream_ids?: string[];
       };
@@ -23739,7 +23783,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -23751,7 +23795,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23792,7 +23836,7 @@ export interface operations {
             parent?: string;
             quantity?: number;
             type?: "discount" | "shipping" | "sku" | "tax";
-          } & { [key: string]: any })[];
+          } & { [key: string]: unknown })[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: { [key: string]: string };
           /** Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true. */
@@ -23804,10 +23848,10 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             name: string;
             phone?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
     };
@@ -23839,7 +23883,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23872,14 +23916,14 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** The shipping method to select for fulfilling this order. If specified, must be one of the `id`s of a shipping method in the `shipping_methods` array. If specified, will overwrite the existing selected shipping method, updating `items` as necessary. */
           selected_shipping_method?: string;
           /** Tracking information once the order has been fulfilled. */
           shipping?: {
             carrier: string;
             tracking_number: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Current order status. One of `created`, `paid`, `canceled`, `fulfilled`, or `returned`. More detail in the [Orders Guide](https://stripe.com/docs/orders/guide#understanding-order-statuses). */
           status?: "canceled" | "created" | "fulfilled" | "paid" | "returned";
         };
@@ -23960,9 +24004,9 @@ export interface operations {
               parent?: string;
               quantity?: number;
               type?: "discount" | "shipping" | "sku" | "tax";
-            } & { [key: string]: any })[]
+            } & { [key: string]: unknown })[]
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -23978,9 +24022,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** Only return PaymentIntents for the customer specified by this customer ID. */
         customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -24005,7 +24049,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -24017,7 +24061,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -24086,18 +24130,18 @@ export interface operations {
           mandate_data?: {
             customer_acceptance: {
               accepted_at?: number;
-              offline?: { [key: string]: any };
+              offline?: { [key: string]: unknown };
               online?: {
                 ip_address: string;
                 user_agent: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               type: "offline" | "online";
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: { [key: string]: string };
           /** Set to `true` to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
-          off_session?: (Partial<boolean> & Partial<"one_off" | "recurring">) & { [key: string]: any };
+          off_session?: (Partial<boolean> & Partial<"one_off" | "recurring">) & { [key: string]: unknown };
           /** The Stripe account ID for which these funds are intended. For details, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
           on_behalf_of?: string;
           /**
@@ -24117,15 +24161,15 @@ export interface operations {
                       count: number;
                       interval: "month";
                       type: "fixed_count";
-                    } & { [key: string]: any }
+                    } & { [key: string]: unknown }
                   > &
-                    Partial<"">) & { [key: string]: any };
-                } & { [key: string]: any };
+                    Partial<"">) & { [key: string]: unknown };
+                } & { [key: string]: unknown };
                 request_three_d_secure?: "any" | "automatic";
-              } & { [key: string]: any }
+              } & { [key: string]: unknown }
             > &
-              Partial<"">) & { [key: string]: any };
-          } & { [key: string]: any };
+              Partial<"">) & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. If this is not provided, defaults to ["card"]. */
           payment_method_types?: string[];
           /** Email address that the receipt for the resulting payment will be sent to. */
@@ -24149,12 +24193,12 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             carrier?: string;
             name: string;
             phone?: string;
             tracking_number?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
           statement_descriptor?: string;
           /** Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
@@ -24166,7 +24210,7 @@ export interface operations {
           transfer_data?: {
             amount?: number;
             destination: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
           transfer_group?: string;
           /** Set to `true` only when using manual confirmation and the iOS or Android SDKs to handle additional authentication steps. */
@@ -24210,7 +24254,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -24249,7 +24293,7 @@ export interface operations {
           /** Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99). */
           amount?: number;
           /** The amount of the application fee (if any) for the resulting payment. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
-          application_fee_amount?: (Partial<number> & Partial<"">) & { [key: string]: any };
+          application_fee_amount?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
           /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency?: string;
           /**
@@ -24265,7 +24309,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent. */
           payment_method?: string;
           /** Payment-method-specific configuration for this PaymentIntent. */
@@ -24279,19 +24323,19 @@ export interface operations {
                       count: number;
                       interval: "month";
                       type: "fixed_count";
-                    } & { [key: string]: any }
+                    } & { [key: string]: unknown }
                   > &
-                    Partial<"">) & { [key: string]: any };
-                } & { [key: string]: any };
+                    Partial<"">) & { [key: string]: unknown };
+                } & { [key: string]: unknown };
                 request_three_d_secure?: "any" | "automatic";
-              } & { [key: string]: any }
+              } & { [key: string]: unknown }
             > &
-              Partial<"">) & { [key: string]: any };
-          } & { [key: string]: any };
+              Partial<"">) & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. */
           payment_method_types?: string[];
           /** Email address that the receipt for the resulting payment will be sent to. */
-          receipt_email?: (Partial<string> & Partial<"">) & { [key: string]: any };
+          receipt_email?: (Partial<string> & Partial<"">) & { [key: string]: unknown };
           /**
            * Indicates that you intend to make future payments with this PaymentIntent's payment method.
            *
@@ -24312,14 +24356,14 @@ export interface operations {
                 line2?: string;
                 postal_code?: string;
                 state?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               carrier?: string;
               name: string;
               phone?: string;
               tracking_number?: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
           statement_descriptor?: string;
           /** Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
@@ -24327,7 +24371,7 @@ export interface operations {
           /** The parameters used to automatically create a Transfer when the payment succeeds. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
           transfer_data?: {
             amount?: number;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** A string that identifies the resulting payment as part of a group. `transfer_group` may only be provided if it has not been set. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
           transfer_group?: string;
         };
@@ -24420,7 +24464,7 @@ export interface operations {
            */
           transfer_data?: {
             amount?: number;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
     };
@@ -24488,14 +24532,14 @@ export interface operations {
             {
               customer_acceptance: {
                 accepted_at?: number;
-                offline?: { [key: string]: any };
+                offline?: { [key: string]: unknown };
                 online?: {
                   ip_address: string;
                   user_agent: string;
-                } & { [key: string]: any };
+                } & { [key: string]: unknown };
                 type: "offline" | "online";
-              } & { [key: string]: any };
-            } & { [key: string]: any }
+              } & { [key: string]: unknown };
+            } & { [key: string]: unknown }
           > &
             Partial<
               {
@@ -24503,13 +24547,13 @@ export interface operations {
                   online: {
                     ip_address?: string;
                     user_agent?: string;
-                  } & { [key: string]: any };
+                  } & { [key: string]: unknown };
                   type: "online";
-                } & { [key: string]: any };
-              } & { [key: string]: any }
-            >) & { [key: string]: any };
+                } & { [key: string]: unknown };
+              } & { [key: string]: unknown }
+            >) & { [key: string]: unknown };
           /** Set to `true` to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). */
-          off_session?: (Partial<boolean> & Partial<"one_off" | "recurring">) & { [key: string]: any };
+          off_session?: (Partial<boolean> & Partial<"one_off" | "recurring">) & { [key: string]: unknown };
           /** ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent. */
           payment_method?: string;
           /** Payment-method-specific configuration for this PaymentIntent. */
@@ -24523,19 +24567,19 @@ export interface operations {
                       count: number;
                       interval: "month";
                       type: "fixed_count";
-                    } & { [key: string]: any }
+                    } & { [key: string]: unknown }
                   > &
-                    Partial<"">) & { [key: string]: any };
-                } & { [key: string]: any };
+                    Partial<"">) & { [key: string]: unknown };
+                } & { [key: string]: unknown };
                 request_three_d_secure?: "any" | "automatic";
-              } & { [key: string]: any }
+              } & { [key: string]: unknown }
             > &
-              Partial<"">) & { [key: string]: any };
-          } & { [key: string]: any };
+              Partial<"">) & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. */
           payment_method_types?: string[];
           /** Email address that the receipt for the resulting payment will be sent to. */
-          receipt_email?: (Partial<string> & Partial<"">) & { [key: string]: any };
+          receipt_email?: (Partial<string> & Partial<"">) & { [key: string]: unknown };
           /**
            * The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
            * If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
@@ -24562,14 +24606,14 @@ export interface operations {
                 line2?: string;
                 postal_code?: string;
                 state?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               carrier?: string;
               name: string;
               phone?: string;
               tracking_number?: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** Set to `true` only when using manual confirmation and the iOS or Android SDKs to handle additional authentication steps. */
           use_stripe_sdk?: boolean;
         };
@@ -24606,7 +24650,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -24618,7 +24662,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -24645,7 +24689,7 @@ export interface operations {
           au_becs_debit?: {
             account_number: string;
             bsb_number: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods. */
           billing_details?: {
             address?: {
@@ -24655,11 +24699,11 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             email?: string;
             name?: string;
             phone?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** If this is a `card` PaymentMethod, this hash contains the user's card details. For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format `card: {token: "tok_visa"}`. When creating with a card number, you must meet the requirements for [PCI compliance](https://stripe.com/docs/security#validating-pci-compliance). We strongly recommend using Stripe.js instead of interacting with this API directly. */
           card?: (Partial<
             {
@@ -24667,13 +24711,13 @@ export interface operations {
               exp_month: number;
               exp_year: number;
               number: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
             Partial<
               {
                 token: string;
-              } & { [key: string]: any }
-            >) & { [key: string]: any };
+              } & { [key: string]: unknown }
+            >) & { [key: string]: unknown };
           /** The `Customer` to whom the original PaymentMethod is attached. */
           customer?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -24701,7 +24745,7 @@ export interface operations {
               | "rhb"
               | "standard_chartered"
               | "uob";
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method. */
           ideal?: {
             bank?:
@@ -24717,7 +24761,7 @@ export interface operations {
               | "sns_bank"
               | "triodos_bank"
               | "van_lanschot";
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: { [key: string]: string };
           /** The PaymentMethod to share. */
@@ -24725,7 +24769,7 @@ export interface operations {
           /** If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account. */
           sepa_debit?: {
             iban: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type. Required unless `payment_method` is specified (see the [Cloning PaymentMethods](https://stripe.com/docs/payments/payment-methods/connect#cloning-payment-methods) guide) */
           type?: "au_becs_debit" | "card" | "fpx" | "ideal" | "sepa_debit";
         };
@@ -24759,7 +24803,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -24796,22 +24840,22 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             email?: string;
             name?: string;
             phone?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** If this is a `card` PaymentMethod, this hash contains the user's card details. */
           card?: {
             exp_month?: number;
             exp_year?: number;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account. */
-          sepa_debit?: { [key: string]: any };
+          sepa_debit?: { [key: string]: unknown };
         };
       };
     };
@@ -24900,18 +24944,18 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         created?: (Partial<
           {
             gt?: number;
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** The ID of an external account - only return payouts sent to this external account. */
         destination?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -24938,7 +24982,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -24950,7 +24994,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25028,7 +25072,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25059,7 +25103,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -25107,9 +25151,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -25134,7 +25178,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -25146,7 +25190,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25190,7 +25234,7 @@ export interface operations {
           /** The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). */
           interval_count?: number;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** A brief description of the plan, hidden from customers. */
           nickname?: string;
           product?: (Partial<
@@ -25201,24 +25245,24 @@ export interface operations {
               name: string;
               statement_descriptor?: string;
               unit_label?: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           /** Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
           tiers?: ({
             flat_amount?: number;
             flat_amount_decimal?: string;
             unit_amount?: number;
             unit_amount_decimal?: string;
-            up_to: (Partial<"inf"> & Partial<number>) & { [key: string]: any };
-          } & { [key: string]: any })[];
+            up_to: (Partial<"inf"> & Partial<number>) & { [key: string]: unknown };
+          } & { [key: string]: unknown })[];
           /** Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows. */
           tiers_mode?: "graduated" | "volume";
           /** Apply a transformation to the reported usage or set quantity before computing the billed price. Cannot be combined with `tiers`. */
           transform_usage?: {
             divide_by: number;
             round: "down" | "up";
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan). */
           trial_period_days?: number;
           /** Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`. */
@@ -25254,7 +25298,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25287,7 +25331,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** A brief description of the plan, hidden from customers. */
           nickname?: string;
           /** The product the plan belongs to. Note that after updating, statement descriptors and line items of the plan in active subscriptions will be affected. */
@@ -25321,7 +25365,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25338,9 +25382,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -25371,7 +25415,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -25383,7 +25427,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25432,7 +25476,7 @@ export interface operations {
             length: number;
             weight: number;
             width: number;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Whether this product is shipped (i.e., physical goods). Defaults to `true`. May only be set if type=`good`. */
           shippable?: boolean;
           /**
@@ -25479,7 +25523,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25510,7 +25554,7 @@ export interface operations {
           /** Whether the product is available for purchase. */
           active?: boolean;
           /** A list of up to 5 alphanumeric attributes that each SKU can provide values for (e.g., `["color", "size"]`). If a value for `attributes` is specified, the list specified will replace the existing attributes list on this product. Any attributes not present after the update will be deleted from the SKUs for this product. */
-          attributes?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
+          attributes?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
           /** A short one-line description of the product, meant to be displayable to the customer. May only be set if `type=good`. */
           caption?: string;
           /** An array of Connect application names or identifiers that should not be able to order the SKUs for this product. May only be set if `type=good`. */
@@ -25520,9 +25564,9 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** A list of up to 8 URLs of images for this product, meant to be displayable to the customer. */
-          images?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
+          images?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** The product's name, meant to be displayable to the customer. Whenever this product is sold via a subscription, name will show up on associated invoice line item descriptions. */
           name?: string;
           /** The dimensions of this product for shipping purposes. A SKU associated with this product can override this value by having its own `package_dimensions`. May only be set if `type=good`. */
@@ -25532,9 +25576,9 @@ export interface operations {
               length: number;
               weight: number;
               width: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** Whether this product is shipped (i.e., physical goods). Defaults to `true`. May only be set if `type=good`. */
           shippable?: boolean;
           /**
@@ -25575,7 +25619,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25607,7 +25651,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -25619,7 +25663,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25654,7 +25698,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25668,9 +25712,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -25697,7 +25741,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -25709,7 +25753,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25769,7 +25813,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25796,7 +25840,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25814,9 +25858,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -25839,7 +25883,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -25851,7 +25895,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25922,7 +25966,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25985,7 +26029,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25999,9 +26043,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -26027,7 +26071,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -26039,7 +26083,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -26076,7 +26120,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** The recipient's full, legal name. For type `individual`, should be in the format `First Last`, `First Middle Last`, or `First M Last` (no prefixes or suffixes). For `corporation`, the full, incorporated name. */
           name: string;
           /** The recipient's tax ID, as a string. For type `individual`, the full SSN; for type `corporation`, the full EIN. */
@@ -26103,7 +26147,7 @@ export interface operations {
       200: {
         content: {
           "application/json": (Partial<components["schemas"]["recipient"]> &
-            Partial<components["schemas"]["deleted_recipient"]>) & { [key: string]: any };
+            Partial<components["schemas"]["deleted_recipient"]>) & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -26115,7 +26159,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -26162,7 +26206,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** The recipient's full, legal name. For type `individual`, should be in the format `First Last`, `First Middle Last`, or `First M Last` (no prefixes or suffixes). For `corporation`, the full, incorporated name. */
           name?: string;
           /** The recipient's tax ID, as a string. For type `individual`, the full SSN; for type `corporation`, the full EIN. */
@@ -26194,7 +26238,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -26210,9 +26254,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -26237,7 +26281,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -26249,7 +26293,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -26277,7 +26321,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           payment_intent?: string;
           reason?: "duplicate" | "fraudulent" | "requested_by_customer";
           refund_application_fee?: boolean;
@@ -26313,7 +26357,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -26348,7 +26392,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -26363,9 +26407,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -26388,7 +26432,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -26400,7 +26444,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27060,7 +27104,7 @@ export interface operations {
               | "W-SU"
               | "WET"
               | "Zulu";
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The ID of the [report type](https://stripe.com/docs/reporting/statements/api#report-types) to run, such as `"balance.summary.1"`. */
           report_type: string;
         };
@@ -27094,7 +27138,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27118,7 +27162,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -27130,7 +27174,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27161,7 +27205,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27175,9 +27219,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -27200,7 +27244,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -27212,7 +27256,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27243,7 +27287,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27288,9 +27332,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** Only return SetupIntents for the customer specified by this customer ID. */
         customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -27317,7 +27361,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -27329,7 +27373,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27373,14 +27417,14 @@ export interface operations {
           mandate_data?: {
             customer_acceptance: {
               accepted_at?: number;
-              offline?: { [key: string]: any };
+              offline?: { [key: string]: unknown };
               online?: {
                 ip_address: string;
                 user_agent: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               type: "offline" | "online";
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: { [key: string]: string };
           /** The Stripe account ID for which this SetupIntent is created. */
@@ -27391,8 +27435,8 @@ export interface operations {
           payment_method_options?: {
             card?: {
               request_three_d_secure?: "any" | "automatic";
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** The list of payment method types (e.g. card) that this SetupIntent is allowed to use. If this is not provided, defaults to ["card"]. */
           payment_method_types?: string[];
           /** The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm). */
@@ -27401,7 +27445,7 @@ export interface operations {
           single_use?: {
             amount: number;
             currency: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Indicates how the payment method is intended to be used in the future. If not provided, this value defaults to `off_session`. */
           usage?: "off_session" | "on_session";
         };
@@ -27443,7 +27487,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27482,15 +27526,15 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
           payment_method?: string;
           /** Payment-method-specific configuration for this SetupIntent. */
           payment_method_options?: {
             card?: {
               request_three_d_secure?: "any" | "automatic";
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. If this is not provided, defaults to ["card"]. */
           payment_method_types?: string[];
         };
@@ -27580,14 +27624,14 @@ export interface operations {
             {
               customer_acceptance: {
                 accepted_at?: number;
-                offline?: { [key: string]: any };
+                offline?: { [key: string]: unknown };
                 online?: {
                   ip_address: string;
                   user_agent: string;
-                } & { [key: string]: any };
+                } & { [key: string]: unknown };
                 type: "offline" | "online";
-              } & { [key: string]: any };
-            } & { [key: string]: any }
+              } & { [key: string]: unknown };
+            } & { [key: string]: unknown }
           > &
             Partial<
               {
@@ -27595,19 +27639,19 @@ export interface operations {
                   online: {
                     ip_address?: string;
                     user_agent?: string;
-                  } & { [key: string]: any };
+                  } & { [key: string]: unknown };
                   type: "online";
-                } & { [key: string]: any };
-              } & { [key: string]: any }
-            >) & { [key: string]: any };
+                } & { [key: string]: unknown };
+              } & { [key: string]: unknown }
+            >) & { [key: string]: unknown };
           /** ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
           payment_method?: string;
           /** Payment-method-specific configuration for this SetupIntent. */
           payment_method_options?: {
             card?: {
               request_three_d_secure?: "any" | "automatic";
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /**
            * The URL to redirect your customer back to after they authenticate on the payment method's app or site.
            * If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
@@ -27644,7 +27688,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -27656,7 +27700,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27687,7 +27731,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27727,7 +27771,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -27739,7 +27783,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27779,7 +27823,7 @@ export interface operations {
             quantity?: number;
             type?: "bucket" | "finite" | "infinite";
             value?: "" | "in_stock" | "limited" | "out_of_stock";
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: { [key: string]: string };
           /** The dimensions of this SKU for shipping purposes. */
@@ -27788,7 +27832,7 @@ export interface operations {
             length: number;
             weight: number;
             width: number;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The cost of the item as a nonnegative integer in the smallest currency unit (that is, 100 cents to charge $1.00, or 100 to charge ¥100, Japanese Yen being a zero-decimal currency). */
           price: number;
           /** The ID of the product this SKU is associated with. Must be a product with type `good`. */
@@ -27813,7 +27857,7 @@ export interface operations {
       200: {
         content: {
           "application/json": (Partial<components["schemas"]["sku"]> &
-            Partial<components["schemas"]["deleted_sku"]>) & { [key: string]: any };
+            Partial<components["schemas"]["deleted_sku"]>) & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -27825,7 +27869,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27872,9 +27916,9 @@ export interface operations {
             quantity?: number;
             type?: "bucket" | "finite" | "infinite";
             value?: "" | "in_stock" | "limited" | "out_of_stock";
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** The dimensions of this SKU for shipping purposes. */
           package_dimensions?: (Partial<
             {
@@ -27882,9 +27926,9 @@ export interface operations {
               length: number;
               weight: number;
               width: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** The cost of the item as a positive integer in the smallest currency unit (that is, 100 cents to charge $1.00, or 100 to charge ¥100, Japanese Yen being a zero-decimal currency). */
           price?: number;
           /** The ID of the product that this SKU should belong to. The product must exist, have the same set of attribute names as the SKU's current product, and be of type `good`. */
@@ -27916,7 +27960,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27956,21 +28000,21 @@ export interface operations {
               ip?: string;
               offline?: {
                 contact_email: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               online?: {
                 date?: number;
                 ip?: string;
                 user_agent?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               status: "accepted" | "pending" | "refused" | "revoked";
               type?: "offline" | "online";
               user_agent?: string;
-            } & { [key: string]: any };
-            amount?: (Partial<number> & Partial<"">) & { [key: string]: any };
+            } & { [key: string]: unknown };
+            amount?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
             currency?: string;
             interval?: "one_time" | "scheduled" | "variable";
             notification_method?: "deprecated_none" | "email" | "manual" | "none" | "stripe_email";
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           metadata?: { [key: string]: string };
           /** The source to share. */
           original_source?: string;
@@ -27983,19 +28027,19 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             email?: string;
             name?: string;
             phone?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Optional parameters for the receiver flow. Can be set only if the source is a receiver (`flow` is `receiver`). */
           receiver?: {
             refund_attributes_method?: "email" | "manual" | "none";
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Parameters required for the redirect flow. Required if the source is authenticated by a redirect (`flow` is `redirect`). */
           redirect?: {
             return_url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it. */
           source_order?: {
             items?: ({
@@ -28005,7 +28049,7 @@ export interface operations {
               parent?: string;
               quantity?: number;
               type?: "discount" | "shipping" | "sku" | "tax";
-            } & { [key: string]: any })[];
+            } & { [key: string]: unknown })[];
             shipping?: {
               address: {
                 city?: string;
@@ -28014,13 +28058,13 @@ export interface operations {
                 line2?: string;
                 postal_code?: string;
                 state?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               carrier?: string;
               name?: string;
               phone?: string;
               tracking_number?: string;
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** An arbitrary string to be displayed on your customer's statement. As an example, if your website is `RunClub` and the item you're charging for is a race ticket, you may want to specify a `statement_descriptor` of `RunClub 5K race ticket.` While many payment types will display this information, some may not display it at all. */
           statement_descriptor?: string;
           /** An optional token used to create the source. When passed, token properties will override source parameters. */
@@ -28061,7 +28105,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28104,23 +28148,23 @@ export interface operations {
               ip?: string;
               offline?: {
                 contact_email: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               online?: {
                 date?: number;
                 ip?: string;
                 user_agent?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               status: "accepted" | "pending" | "refused" | "revoked";
               type?: "offline" | "online";
               user_agent?: string;
-            } & { [key: string]: any };
-            amount?: (Partial<number> & Partial<"">) & { [key: string]: any };
+            } & { [key: string]: unknown };
+            amount?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
             currency?: string;
             interval?: "one_time" | "scheduled" | "variable";
             notification_method?: "deprecated_none" | "email" | "manual" | "none" | "stripe_email";
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Information about the owner of the payment instrument that may be used or required by particular source types. */
           owner?: {
             address?: {
@@ -28130,11 +28174,11 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             email?: string;
             name?: string;
             phone?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it. */
           source_order?: {
             items?: ({
@@ -28144,7 +28188,7 @@ export interface operations {
               parent?: string;
               quantity?: number;
               type?: "discount" | "shipping" | "sku" | "tax";
-            } & { [key: string]: any })[];
+            } & { [key: string]: unknown })[];
             shipping?: {
               address: {
                 city?: string;
@@ -28153,13 +28197,13 @@ export interface operations {
                 line2?: string;
                 postal_code?: string;
                 state?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               carrier?: string;
               name?: string;
               phone?: string;
               tracking_number?: string;
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
         };
       };
     };
@@ -28192,7 +28236,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28225,7 +28269,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -28237,7 +28281,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28269,7 +28313,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28333,7 +28377,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -28345,7 +28389,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28372,9 +28416,9 @@ export interface operations {
           billing_thresholds?: (Partial<
             {
               usage_gte: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -28406,7 +28450,7 @@ export interface operations {
           /** The identifier of the subscription to modify. */
           subscription: string;
           /** A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates. */
-          tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
+          tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -28438,7 +28482,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28470,13 +28514,13 @@ export interface operations {
           billing_thresholds?: (Partial<
             {
               usage_gte: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /**
@@ -28504,7 +28548,7 @@ export interface operations {
           /** The quantity you'd like to apply to the subscription item you're creating. */
           quantity?: number;
           /** A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates. */
-          tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
+          tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -28584,7 +28628,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -28596,7 +28640,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28655,9 +28699,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** Only return subscription schedules that completed during the given date interval. */
         completed_at?: (Partial<
           {
@@ -28665,9 +28709,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** Only return subscription schedules that were created during the given date interval. */
         created?: (Partial<
           {
@@ -28675,9 +28719,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** Only return subscription schedules for the given customer. */
         customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -28693,9 +28737,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** Only return subscription schedules that have not started yet. */
         scheduled?: boolean;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -28714,7 +28758,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -28726,7 +28770,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28757,15 +28801,15 @@ export interface operations {
               {
                 amount_gte?: number;
                 reset_billing_cycle_anchor?: boolean;
-              } & { [key: string]: any }
+              } & { [key: string]: unknown }
             > &
-              Partial<"">) & { [key: string]: any };
+              Partial<"">) & { [key: string]: unknown };
             collection_method?: "charge_automatically" | "send_invoice";
             default_payment_method?: string;
             invoice_settings?: {
               days_until_due?: number;
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription. */
           end_behavior?: "cancel" | "none" | "release" | "renew";
           /** Specifies which fields in the response should be expanded. */
@@ -28773,7 +28817,7 @@ export interface operations {
           /** Migrate an existing subscription to be managed by a subscription schedule. If this parameter is set, a subscription schedule will be created using the subscription's plan(s), set to auto-renew using the subscription's interval. When using this parameter, other parameters (such as phase values) cannot be set. To create a subscription schedule with other modifications, we recommend making two separate API calls. */
           from_subscription?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. */
           phases?: ({
             application_fee_percent?: number;
@@ -28781,36 +28825,36 @@ export interface operations {
               {
                 amount_gte?: number;
                 reset_billing_cycle_anchor?: boolean;
-              } & { [key: string]: any }
+              } & { [key: string]: unknown }
             > &
-              Partial<"">) & { [key: string]: any };
+              Partial<"">) & { [key: string]: unknown };
             collection_method?: "charge_automatically" | "send_invoice";
             coupon?: string;
             default_payment_method?: string;
-            default_tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
+            default_tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
             end_date?: number;
             invoice_settings?: {
               days_until_due?: number;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             iterations?: number;
             plans: ({
               billing_thresholds?: (Partial<
                 {
                   usage_gte: number;
-                } & { [key: string]: any }
+                } & { [key: string]: unknown }
               > &
-                Partial<"">) & { [key: string]: any };
+                Partial<"">) & { [key: string]: unknown };
               plan?: string;
               quantity?: number;
-              tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
-            } & { [key: string]: any })[];
+              tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
+            } & { [key: string]: unknown })[];
             proration_behavior?: "always_invoice" | "create_prorations" | "none";
             tax_percent?: number;
             trial?: boolean;
             trial_end?: number;
-          } & { [key: string]: any })[];
+          } & { [key: string]: unknown })[];
           /** When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on. */
-          start_date?: (Partial<number> & Partial<"now">) & { [key: string]: any };
+          start_date?: (Partial<number> & Partial<"now">) & { [key: string]: unknown };
         };
       };
     };
@@ -28842,7 +28886,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28876,21 +28920,21 @@ export interface operations {
               {
                 amount_gte?: number;
                 reset_billing_cycle_anchor?: boolean;
-              } & { [key: string]: any }
+              } & { [key: string]: unknown }
             > &
-              Partial<"">) & { [key: string]: any };
+              Partial<"">) & { [key: string]: unknown };
             collection_method?: "charge_automatically" | "send_invoice";
             default_payment_method?: string;
             invoice_settings?: {
               days_until_due?: number;
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription. */
           end_behavior?: "cancel" | "none" | "release" | "renew";
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. Note that past phases can be omitted. */
           phases?: ({
             application_fee_percent?: number;
@@ -28898,35 +28942,35 @@ export interface operations {
               {
                 amount_gte?: number;
                 reset_billing_cycle_anchor?: boolean;
-              } & { [key: string]: any }
+              } & { [key: string]: unknown }
             > &
-              Partial<"">) & { [key: string]: any };
+              Partial<"">) & { [key: string]: unknown };
             collection_method?: "charge_automatically" | "send_invoice";
             coupon?: string;
             default_payment_method?: string;
-            default_tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
-            end_date?: (Partial<number> & Partial<"now">) & { [key: string]: any };
+            default_tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
+            end_date?: (Partial<number> & Partial<"now">) & { [key: string]: unknown };
             invoice_settings?: {
               days_until_due?: number;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             iterations?: number;
             plans: ({
               billing_thresholds?: (Partial<
                 {
                   usage_gte: number;
-                } & { [key: string]: any }
+                } & { [key: string]: unknown }
               > &
-                Partial<"">) & { [key: string]: any };
+                Partial<"">) & { [key: string]: unknown };
               plan?: string;
               quantity?: number;
-              tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
-            } & { [key: string]: any })[];
+              tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
+            } & { [key: string]: unknown })[];
             proration_behavior?: "always_invoice" | "create_prorations" | "none";
-            start_date?: (Partial<number> & Partial<"now">) & { [key: string]: any };
+            start_date?: (Partial<number> & Partial<"now">) & { [key: string]: unknown };
             tax_percent?: number;
             trial?: boolean;
-            trial_end?: (Partial<number> & Partial<"now">) & { [key: string]: any };
-          } & { [key: string]: any })[];
+            trial_end?: (Partial<number> & Partial<"now">) & { [key: string]: unknown };
+          } & { [key: string]: unknown })[];
           /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
           prorate?: boolean;
           /** If the update changes the current phase, indicates if the changes should be prorated. Valid values are `create_prorations` or `none`, and the default value is `create_prorations`. */
@@ -29013,27 +29057,27 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         current_period_end?: (Partial<
           {
             gt?: number;
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         current_period_start?: (Partial<
           {
             gt?: number;
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** The ID of the customer whose subscriptions will be retrieved. */
         customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -29071,7 +29115,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -29083,7 +29127,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29117,9 +29161,9 @@ export interface operations {
             {
               amount_gte?: number;
               reset_billing_cycle_anchor?: boolean;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
           cancel_at?: number;
           /** Boolean indicating whether this subscription should cancel at the end of the current period. */
@@ -29137,7 +29181,7 @@ export interface operations {
           /** ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If not set, defaults to the customer's default source. */
           default_source?: string;
           /** The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. */
-          default_tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
+          default_tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** A list of up to 20 subscription items, each with an attached plan. */
@@ -29145,16 +29189,16 @@ export interface operations {
             billing_thresholds?: (Partial<
               {
                 usage_gte: number;
-              } & { [key: string]: any }
+              } & { [key: string]: unknown }
             > &
-              Partial<"">) & { [key: string]: any };
+              Partial<"">) & { [key: string]: unknown };
             metadata?: { [key: string]: string };
             plan?: string;
             quantity?: number;
-            tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
-          } & { [key: string]: any })[];
+            tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
+          } & { [key: string]: unknown })[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /**
@@ -29170,9 +29214,9 @@ export interface operations {
             {
               interval: "day" | "month" | "week" | "year";
               interval_count?: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
           prorate?: boolean;
           /**
@@ -29182,9 +29226,9 @@ export interface operations {
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /** A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-          tax_percent?: (Partial<number> & Partial<"">) & { [key: string]: any };
+          tax_percent?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
           /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          trial_end?: (Partial<"now"> & Partial<number>) & { [key: string]: any };
+          trial_end?: (Partial<"now"> & Partial<number>) & { [key: string]: unknown };
           /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
           trial_from_plan?: boolean;
           /** Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. */
@@ -29220,7 +29264,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29257,11 +29301,11 @@ export interface operations {
             {
               amount_gte?: number;
               reset_billing_cycle_anchor?: boolean;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
-          cancel_at?: (Partial<number> & Partial<"">) & { [key: string]: any };
+          cancel_at?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
           /** Boolean indicating whether this subscription should cancel at the end of the current period. */
           cancel_at_period_end?: boolean;
           /** Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`. */
@@ -29275,7 +29319,7 @@ export interface operations {
           /** ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If not set, defaults to the customer's default source. */
           default_source?: string;
           /** The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. Pass an empty string to remove previously-defined tax rates. */
-          default_tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
+          default_tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** List of subscription items, each with an attached plan. */
@@ -29283,19 +29327,19 @@ export interface operations {
             billing_thresholds?: (Partial<
               {
                 usage_gte: number;
-              } & { [key: string]: any }
+              } & { [key: string]: unknown }
             > &
-              Partial<"">) & { [key: string]: any };
+              Partial<"">) & { [key: string]: unknown };
             clear_usage?: boolean;
             deleted?: boolean;
             id?: string;
-            metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+            metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
             plan?: string;
             quantity?: number;
-            tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: any };
-          } & { [key: string]: any })[];
+            tax_rates?: (Partial<string[]> & Partial<"">) & { [key: string]: unknown };
+          } & { [key: string]: unknown })[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /** If specified, payment collection for this subscription will be paused. */
@@ -29303,9 +29347,9 @@ export interface operations {
             {
               behavior: "keep_as_draft" | "mark_uncollectible" | "void";
               resumes_at?: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /**
            * Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
            *
@@ -29319,9 +29363,9 @@ export interface operations {
             {
               interval: "day" | "month" | "week" | "year";
               interval_count?: number;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<"">) & { [key: string]: any };
+            Partial<"">) & { [key: string]: unknown };
           /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
           prorate?: boolean;
           /**
@@ -29335,9 +29379,9 @@ export interface operations {
           /** If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations. */
           proration_date?: number;
           /** A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-          tax_percent?: (Partial<number> & Partial<"">) & { [key: string]: any };
+          tax_percent?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
           /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          trial_end?: (Partial<"now"> & Partial<number>) & { [key: string]: any };
+          trial_end?: (Partial<"now"> & Partial<number>) & { [key: string]: unknown };
           /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
           trial_from_plan?: boolean;
         };
@@ -29407,7 +29451,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29424,9 +29468,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -29451,7 +29495,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -29463,7 +29507,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29533,7 +29577,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29572,7 +29616,7 @@ export interface operations {
           /** The jurisdiction for the tax rate. */
           jurisdiction?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -29630,7 +29674,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -29642,7 +29686,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29673,13 +29717,13 @@ export interface operations {
             line2?: string;
             postal_code?: string;
             state?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** A name for the location. */
           display_name: string;
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -29711,7 +29755,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29747,13 +29791,13 @@ export interface operations {
             line2?: string;
             postal_code?: string;
             state?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** A name for the location. */
           display_name?: string;
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -29781,7 +29825,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29818,7 +29862,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -29830,7 +29874,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29860,7 +29904,7 @@ export interface operations {
           /** The location to assign the reader to. If no location is specified, the reader will be assigned to the account's default location. */
           location?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** A code generated by the reader used for registering to an account. */
           registration_code: string;
         };
@@ -29894,7 +29938,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29927,7 +29971,7 @@ export interface operations {
           /** The new label of the reader. */
           label?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -29955,7 +29999,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29992,7 +30036,7 @@ export interface operations {
                 line2?: string;
                 postal_code?: string;
                 state?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               address_kana?: {
                 city?: string;
                 country?: string;
@@ -30001,7 +30045,7 @@ export interface operations {
                 postal_code?: string;
                 state?: string;
                 town?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               address_kanji?: {
                 city?: string;
                 country?: string;
@@ -30010,7 +30054,7 @@ export interface operations {
                 postal_code?: string;
                 state?: string;
                 town?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               directors_provided?: boolean;
               executives_provided?: boolean;
               name?: string;
@@ -30042,9 +30086,9 @@ export interface operations {
                 document?: {
                   back?: string;
                   front?: string;
-                } & { [key: string]: any };
-              } & { [key: string]: any };
-            } & { [key: string]: any };
+                } & { [key: string]: unknown };
+              } & { [key: string]: unknown };
+            } & { [key: string]: unknown };
             individual?: {
               address?: {
                 city?: string;
@@ -30053,7 +30097,7 @@ export interface operations {
                 line2?: string;
                 postal_code?: string;
                 state?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               address_kana?: {
                 city?: string;
                 country?: string;
@@ -30062,7 +30106,7 @@ export interface operations {
                 postal_code?: string;
                 state?: string;
                 town?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               address_kanji?: {
                 city?: string;
                 country?: string;
@@ -30071,15 +30115,15 @@ export interface operations {
                 postal_code?: string;
                 state?: string;
                 town?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               dob?: (Partial<
                 {
                   day: number;
                   month: number;
                   year: number;
-                } & { [key: string]: any }
+                } & { [key: string]: unknown }
               > &
-                Partial<"">) & { [key: string]: any };
+                Partial<"">) & { [key: string]: unknown };
               email?: string;
               first_name?: string;
               first_name_kana?: string;
@@ -30090,22 +30134,22 @@ export interface operations {
               last_name_kana?: string;
               last_name_kanji?: string;
               maiden_name?: string;
-              metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+              metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
               phone?: string;
               ssn_last_4?: string;
               verification?: {
                 additional_document?: {
                   back?: string;
                   front?: string;
-                } & { [key: string]: any };
+                } & { [key: string]: unknown };
                 document?: {
                   back?: string;
                   front?: string;
-                } & { [key: string]: any };
-              } & { [key: string]: any };
-            } & { [key: string]: any };
+                } & { [key: string]: unknown };
+              } & { [key: string]: unknown };
+            } & { [key: string]: unknown };
             tos_shown_and_accepted?: boolean;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           /** The bank account this token will represent. */
           bank_account?: {
             account_holder_name?: string;
@@ -30114,7 +30158,7 @@ export interface operations {
             country: string;
             currency?: string;
             routing_number?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
           card?: (Partial<
             {
               address_city?: string;
@@ -30129,9 +30173,9 @@ export interface operations {
               exp_year: string;
               name?: string;
               number: string;
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           > &
-            Partial<string>) & { [key: string]: any };
+            Partial<string>) & { [key: string]: unknown };
           /** The customer (owned by the application's account) for which to create a token. This can be used only with an [OAuth access token](https://stripe.com/docs/connect/standard-accounts) or [Stripe-Account header](https://stripe.com/docs/connect/authentication). For more details, see [Cloning Saved Payment Methods](https://stripe.com/docs/connect/cloning-saved-payment-methods). */
           customer?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -30145,7 +30189,7 @@ export interface operations {
               line2?: string;
               postal_code?: string;
               state?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             address_kana?: {
               city?: string;
               country?: string;
@@ -30154,7 +30198,7 @@ export interface operations {
               postal_code?: string;
               state?: string;
               town?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             address_kanji?: {
               city?: string;
               country?: string;
@@ -30163,15 +30207,15 @@ export interface operations {
               postal_code?: string;
               state?: string;
               town?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             dob?: (Partial<
               {
                 day: number;
                 month: number;
                 year: number;
-              } & { [key: string]: any }
+              } & { [key: string]: unknown }
             > &
-              Partial<"">) & { [key: string]: any };
+              Partial<"">) & { [key: string]: unknown };
             email?: string;
             first_name?: string;
             first_name_kana?: string;
@@ -30182,32 +30226,32 @@ export interface operations {
             last_name_kana?: string;
             last_name_kanji?: string;
             maiden_name?: string;
-            metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+            metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
             phone?: string;
             relationship?: {
               director?: boolean;
               executive?: boolean;
               owner?: boolean;
-              percent_ownership?: (Partial<number> & Partial<"">) & { [key: string]: any };
+              percent_ownership?: (Partial<number> & Partial<"">) & { [key: string]: unknown };
               representative?: boolean;
               title?: string;
-            } & { [key: string]: any };
+            } & { [key: string]: unknown };
             ssn_last_4?: string;
             verification?: {
               additional_document?: {
                 back?: string;
                 front?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
               document?: {
                 back?: string;
                 front?: string;
-              } & { [key: string]: any };
-            } & { [key: string]: any };
-          } & { [key: string]: any };
+              } & { [key: string]: unknown };
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown };
           /** The PII this token will represent. */
           pii?: {
             id_number?: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
     };
@@ -30239,7 +30283,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -30254,9 +30298,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
         created?: (Partial<
           {
@@ -30264,9 +30308,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Specifies which fields in the response should be expanded. */
@@ -30291,7 +30335,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -30303,7 +30347,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -30335,7 +30379,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** The ID of a source to transfer funds from. For most users, this should be left unspecified which will use the bank account that was set up in the dashboard for the specified currency. In test mode, this can be a test bank token (see [Testing Top-ups](https://stripe.com/docs/connect/testing#testing-top-ups)). */
           source?: string;
           /** Extra information about a top-up for the source's bank statement. Limited to 15 ASCII characters. */
@@ -30373,7 +30417,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -30406,7 +30450,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -30451,9 +30495,9 @@ export interface operations {
             gte?: number;
             lt?: number;
             lte?: number;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
-          Partial<number>) & { [key: string]: any };
+          Partial<number>) & { [key: string]: unknown };
         /** Only return transfers for the destination specified by this account ID. */
         destination?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -30481,7 +30525,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -30493,7 +30537,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -30568,7 +30612,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -30580,7 +30624,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -30621,7 +30665,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** Boolean indicating whether the application fee should be refunded when reversing this transfer. If a full transfer reversal is given, the full application fee will be refunded. Otherwise, the application fee will be refunded with an amount proportional to the amount of the transfer reversed. */
           refund_application_fee?: boolean;
         };
@@ -30655,7 +30699,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -30692,7 +30736,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -30725,7 +30769,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -30761,7 +30805,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
         };
       };
     };
@@ -30792,7 +30836,7 @@ export interface operations {
             object: "list";
             /** The URL where this list can be accessed. */
             url: string;
-          } & { [key: string]: any };
+          } & { [key: string]: unknown };
         };
       };
       /** Error response. */
@@ -30804,7 +30848,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -31083,7 +31127,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** The URL of the webhook endpoint. */
           url: string;
         };
@@ -31117,7 +31161,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -31304,7 +31348,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: any };
+          metadata?: (Partial<{ [key: string]: string }> & Partial<"">) & { [key: string]: unknown };
           /** The URL of the webhook endpoint. */
           url?: string;
         };
@@ -31334,7 +31378,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };

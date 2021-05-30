@@ -235,7 +235,7 @@ export interface operations {
         /** Additional data to pass to server */
         readonly additionalMetadata?: string;
         /** file to upload */
-        readonly file?: { readonly [key: string]: any };
+        readonly file?: { readonly [key: string]: unknown };
       };
     };
     readonly responses: {

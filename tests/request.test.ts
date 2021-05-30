@@ -84,7 +84,7 @@ describe("requestBodies", () => {
             content: {
               "application/json": {
                 test?: string;
-              } & { [key: string]: any };
+              } & { [key: string]: unknown };
             };
           };`)
     );

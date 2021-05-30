@@ -74,12 +74,12 @@ export interface components {
       /** Order Status */
       status?: "placed" | "approved" | "delivered";
       complete: boolean;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /** A category for a pet */
     Category: {
       id?: number;
       name?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /** A User who is purchasing from the pet store */
     User: {
       id?: number;
@@ -91,12 +91,12 @@ export interface components {
       phone?: string;
       /** User Status */
       userStatus?: number;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /** A tag for a pet */
     Tag: {
       id?: number;
       name?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /** A pet for sale in the pet store */
     Pet: {
       id?: number;
@@ -106,13 +106,13 @@ export interface components {
       tags?: components["schemas"]["Tag"][];
       /** pet status in the store */
       status?: "available" | "pending" | "sold";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /** Describes the result of uploading an image resource */
     ApiResponse: {
       code?: number;
       type?: string;
       message?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
   };
   requestBodies: {
     /** List of user object */
@@ -244,7 +244,7 @@ export interface operations {
           name?: string;
           /** Updated status of the pet */
           status?: string;
-        } & { [key: string]: any };
+        } & { [key: string]: unknown };
       };
     };
   };
@@ -285,7 +285,7 @@ export interface operations {
           additionalMetadata?: string;
           /** file to upload */
           file?: string;
-        } & { [key: string]: any };
+        } & { [key: string]: unknown };
       };
     };
   };

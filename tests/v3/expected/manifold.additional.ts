@@ -684,19 +684,19 @@ export interface components {
       location: components["schemas"]["Location"];
       name: string;
       priority: number;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     Region: {
       id: components["schemas"]["ID"];
       type: "region";
       version: number;
       body: components["schemas"]["RegionBody"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     CreateRegion: {
       body: components["schemas"]["RegionBody"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     UpdateRegion: {
       name: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     ProviderBody: {
       owner_id?: components["schemas"]["OptionalFlexID"];
       team_id?: components["schemas"]["OptionalID"];
@@ -705,7 +705,7 @@ export interface components {
       logo_url?: components["schemas"]["LogoURL"];
       support_email?: string;
       documentation_url?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     UpdateProviderBody: {
       owner_id?: components["schemas"]["OptionalFlexID"];
       team_id?: components["schemas"]["OptionalID"];
@@ -714,24 +714,24 @@ export interface components {
       logo_url?: components["schemas"]["OptionalLogoURL"];
       support_email?: string | null;
       documentation_url?: string | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     Provider: {
       id: components["schemas"]["ID"];
       version: number;
       type: "provider";
       body: components["schemas"]["ProviderBody"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     CreateProvider: {
       body: components["schemas"]["ProviderBody"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     UpdateProvider: {
       id: components["schemas"]["ID"];
       body: components["schemas"]["UpdateProviderBody"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     UpdateProduct: {
       id: components["schemas"]["ID"];
       body: components["schemas"]["UpdateProductBody"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     UpdateProductBody: {
       name?: components["schemas"]["Name"];
       label?: components["schemas"]["Label"];
@@ -763,17 +763,17 @@ export interface components {
               sso?: boolean | null;
               plan_change?: boolean | null;
               credential: ("none" | "single" | "multiple" | "unknown") | null;
-            } & { [key: string]: any };
-          } & { [key: string]: any })
+            } & { [key: string]: unknown };
+          } & { [key: string]: unknown })
         | null;
       /** An array of platform ids to restrict this product for. */
       platform_ids?: components["schemas"]["ID"][] | null;
       tags?: components["schemas"]["ProductTags"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     UpdatePlan: {
       id: components["schemas"]["ID"];
       body: components["schemas"]["UpdatePlanBody"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     UpdatePlanBody: {
       name?: components["schemas"]["Name"];
       label?: components["schemas"]["Label"];
@@ -793,7 +793,7 @@ export interface components {
       trial_days?: number | null;
       /** Dollar value in cents */
       cost?: number | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * A feature type represents the different aspects of a product that are
      * offered, these features can manifest differently depending on the plan.
@@ -822,7 +822,7 @@ export interface components {
        */
       measurable: boolean;
       values?: components["schemas"]["FeatureValuesList"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * A list of allowable values for the feature.
      * To define values for a boolean feature type, only `true` is required,
@@ -861,9 +861,9 @@ export interface components {
         formula?: components["schemas"]["PriceFormula"];
         /** Description explains how a feature is calculated to the user. */
         description?: string;
-      } & { [key: string]: any };
+      } & { [key: string]: unknown };
       numeric_details?: components["schemas"]["FeatureNumericDetails"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Optional container for additional details relating to numeric features.
      * This is required if the feature is measurable and numeric.
@@ -886,7 +886,7 @@ export interface components {
           /** Applied to the end of the number for display, for example the ‘GB’ in ‘20 GB’. */
           suffix?: string | null;
           cost_ranges?: components["schemas"]["FeatureNumericRange"][] | null;
-        } & { [key: string]: any })
+        } & { [key: string]: unknown })
       | null;
     FeatureNumericRange: {
       /**
@@ -901,17 +901,17 @@ export interface components {
        * numeric value set in the feature to determine the cost.
        */
       cost_multiple?: number;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     FeatureValue: {
       feature: components["schemas"]["Label"];
       value: components["schemas"]["FeatureValueLabel"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     ValueProp: {
       /** Heading of a value proposition. */
       header: string;
       /** Body of a value proposition. */
       body: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Image URL used for Product listings.
      *
@@ -960,8 +960,8 @@ export interface components {
          * product, it is just used to inform consumers through our clients.
          */
         featured: boolean;
-      } & { [key: string]: any };
-    } & { [key: string]: any };
+      } & { [key: string]: unknown };
+    } & { [key: string]: unknown };
     /**
      * Provider Only, implies that the product should only be provisionable by the
      *   provider; so members of the provider team, no one else should be allowed.
@@ -1001,7 +1001,7 @@ export interface components {
        * * `unknown`: The credential type is unknown.
        */
       credential: "none" | "single" | "multiple" | "unknown";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     ProductBody: {
       provider_id: components["schemas"]["ID"];
       label: components["schemas"]["Label"];
@@ -1025,30 +1025,30 @@ export interface components {
       terms: {
         url?: string | null;
         provided: boolean;
-      } & { [key: string]: any };
+      } & { [key: string]: unknown };
       feature_types: components["schemas"]["FeatureType"][];
       billing: {
         type: "monthly-prorated" | "monthly-anniversary" | "annual-anniversary";
         currency: "usd";
-      } & { [key: string]: any };
+      } & { [key: string]: unknown };
       integration: {
         provisioning: components["schemas"]["ProductProvisioning"];
         base_url: string;
         sso_url?: string | null;
         version: "v1";
         features: components["schemas"]["ProductIntegrationFeatures"];
-      } & { [key: string]: any };
+      } & { [key: string]: unknown };
       tags?: components["schemas"]["ProductTags"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     Product: {
       id: components["schemas"]["ID"];
       version: number;
       type: "product";
       body: components["schemas"]["ProductBody"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     CreateProduct: {
       body: components["schemas"]["ProductBody"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /** Array of Plan IDs that this Plan can be resized to, if null all will be assumed */
     PlanResizeList: components["schemas"]["ID"][] | null;
     PlanBody: {
@@ -1070,7 +1070,7 @@ export interface components {
       trial_days?: number;
       /** Dollar value in cents. */
       cost: number;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     PlanState: "hidden" | "available" | "grandfathered" | "unlisted";
     ExpandedPlanBody: components["schemas"]["PlanBody"] &
       ({
@@ -1082,35 +1082,35 @@ export interface components {
         defaultCost?: number;
         /** A boolean flag that indicates if a plan has customizable features. */
         customizable?: boolean;
-      } & { [key: string]: any }) & { [key: string]: any };
+      } & { [key: string]: unknown }) & { [key: string]: unknown };
     ExpandedFeature: components["schemas"]["FeatureType"] &
       ({
         /** The string value set for the feature on the plan, this should only be used if the value property is null. */
         value_string: string;
         value: components["schemas"]["FeatureValueDetails"];
-      } & { [key: string]: any }) & { [key: string]: any };
+      } & { [key: string]: unknown }) & { [key: string]: unknown };
     Plan: {
       id: components["schemas"]["ID"];
       version: number;
       type: "plan";
       body: components["schemas"]["PlanBody"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     ExpandedPlan: {
       id: components["schemas"]["ID"];
       version: number;
       type: "plan";
       body: components["schemas"]["ExpandedPlanBody"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     CreatePlan: {
       body: components["schemas"]["PlanBody"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /** Unexpected error */
     Error: {
       /** The error type */
       type: string;
       /** Explanation of the errors */
       message: string[];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /**
      * Describes how a feature cost should be calculated. An empty
      * string defaults to the normal price calculation using the value cost.
@@ -1142,7 +1142,7 @@ export interface components {
       body: components["schemas"]["ProductBody"];
       plans?: components["schemas"]["ExpandedPlan"][];
       provider: components["schemas"]["Provider"];
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
   };
   parameters: {
     /** Filter results to only include those that have this label. */

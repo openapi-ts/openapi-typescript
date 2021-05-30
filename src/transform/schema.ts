@@ -80,7 +80,7 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
       case "string":
       case "number":
       case "boolean": {
-        output += nodeType(node) || "any";
+        output += nodeType(node) || "unknown";
         break;
       }
       case "enum": {
@@ -102,7 +102,7 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
           (!node.properties || !Object.keys(node.properties).length) &&
           !node.additionalProperties
         ) {
-          output += `{ ${readonly}[key: string]: any }`;
+          output += `{ ${readonly}[key: string]: unknown }`;
           break;
         }
 
@@ -118,7 +118,7 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
           (node.additionalProperties === undefined && options.additionalProperties && options.version === 3)
         ) {
           if ((node.additionalProperties ?? true) === true || Object.keys(node.additionalProperties).length === 0) {
-            additionalProperties = `{ ${readonly}[key: string]: any }`;
+            additionalProperties = `{ ${readonly}[key: string]: unknown }`;
           } else if (typeof node.additionalProperties === "object") {
             const oneOf: any[] | undefined = (node.additionalProperties as any).oneOf || undefined; // TypeScript does a really bad job at inference here, so we enforce a type
             const anyOf: any[] | undefined = (node.additionalProperties as any).anyOf || undefined; // "
@@ -150,7 +150,7 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
         if (Array.isArray(node.items)) {
           output += `${readonly}${tsTupleOf(node.items.map((node: any) => transformSchemaObj(node, options)))}`;
         } else {
-          output += `${readonly}${tsArrayOf(node.items ? transformSchemaObj(node.items as any, options) : "any")}`;
+          output += `${readonly}${tsArrayOf(node.items ? transformSchemaObj(node.items as any, options) : "unknown")}`;
         }
         break;
       }

@@ -5184,7 +5184,7 @@ export interface components {
       readonly client_secret?: string;
       readonly webhook_secret?: string;
       readonly pem?: string;
-    } & { readonly [key: string]: any };
+    } & { readonly [key: string]: unknown };
     /** Basic Error */
     readonly "basic-error": {
       readonly message?: string;
@@ -5726,7 +5726,7 @@ export interface components {
       readonly token: string;
       /** The time this token expires */
       readonly expires_at: string;
-      readonly permissions?: { readonly [key: string]: any };
+      readonly permissions?: { readonly [key: string]: unknown };
       /** The repositories this token has access to */
       readonly repositories?: readonly components["schemas"]["repository"][];
       readonly single_file?: string | null;
@@ -5745,15 +5745,15 @@ export interface components {
       /** The username of the account being blocked. */
       readonly blocked_user?: string;
       readonly business?: string;
-      readonly config?: readonly any[];
-      readonly config_was?: readonly any[];
+      readonly config?: readonly unknown[];
+      readonly config_was?: readonly unknown[];
       readonly content_type?: string;
       /** The time the audit log event was recorded, given as a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time). */
       readonly created_at?: number;
       readonly deploy_key_fingerprint?: string;
       readonly emoji?: string;
-      readonly events?: readonly any[];
-      readonly events_were?: readonly any[];
+      readonly events?: readonly unknown[];
+      readonly events_were?: readonly unknown[];
       readonly explanation?: string;
       readonly fingerprint?: string;
       readonly hook_id?: number;
@@ -6019,8 +6019,8 @@ export interface components {
       readonly comments_url: string;
       readonly owner?: components["schemas"]["simple-user"] | null;
       readonly truncated?: boolean;
-      readonly forks?: readonly { readonly [key: string]: any }[];
-      readonly history?: readonly { readonly [key: string]: any }[];
+      readonly forks?: readonly { readonly [key: string]: unknown }[];
+      readonly history?: readonly { readonly [key: string]: unknown }[];
     };
     /** Gist Simple */
     readonly "gist-simple": {
@@ -6564,7 +6564,7 @@ export interface components {
       readonly updated_at: string;
       readonly node_id: string;
       readonly archive_url?: string;
-      readonly exclude?: readonly { readonly [key: string]: any }[];
+      readonly exclude?: readonly { readonly [key: string]: unknown }[];
     };
     /** A software package */
     readonly package: {
@@ -6600,10 +6600,10 @@ export interface components {
       readonly metadata?: {
         readonly package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
         readonly container?: {
-          readonly tags: readonly any[];
+          readonly tags: readonly unknown[];
         };
         readonly docker?: {
-          readonly tag?: readonly any[];
+          readonly tag?: readonly unknown[];
         };
       };
     };
@@ -7230,7 +7230,7 @@ export interface components {
       readonly ref: string;
       /** Parameter to specify a task to execute */
       readonly task: string;
-      readonly payload: { readonly [key: string]: any };
+      readonly payload: { readonly [key: string]: unknown };
       readonly original_environment?: string;
       /** Name for the target deployment environment. */
       readonly environment: string;
@@ -9431,7 +9431,7 @@ export interface components {
       readonly operations?: readonly {
         readonly op: "add" | "remove" | "replace";
         readonly path?: string;
-        readonly value?: string | { readonly [key: string]: any } | readonly { readonly [key: string]: any }[];
+        readonly value?: string | { readonly [key: string]: unknown } | readonly { readonly [key: string]: unknown }[];
       }[];
       /** associated groups */
       readonly groups?: readonly {
@@ -9854,8 +9854,8 @@ export interface components {
         readonly primary_key_id?: number;
         readonly key_id?: string;
         readonly public_key?: string;
-        readonly emails?: readonly { readonly [key: string]: any }[];
-        readonly subkeys?: readonly { readonly [key: string]: any }[];
+        readonly emails?: readonly { readonly [key: string]: unknown }[];
+        readonly subkeys?: readonly { readonly [key: string]: unknown }[];
         readonly can_sign?: boolean;
         readonly can_encrypt_comms?: boolean;
         readonly can_encrypt_storage?: boolean;
@@ -10341,7 +10341,7 @@ export interface operations {
               readonly client_secret: string;
               readonly webhook_secret: string;
               readonly pem: string;
-            } & { readonly [key: string]: any });
+            } & { readonly [key: string]: unknown });
         };
       };
       readonly 404: components["responses"]["not_found"];
@@ -12200,14 +12200,14 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json":
-          | ((Partial<{ readonly [key: string]: any }> & Partial<{ readonly [key: string]: any }>) & {
+          | ((Partial<{ readonly [key: string]: unknown }> & Partial<{ readonly [key: string]: unknown }>) & {
               /** Description of the gist */
               readonly description?: string;
               /** Names of files to be updated */
               readonly files?: {
-                readonly [key: string]: Partial<{ readonly [key: string]: any }> &
-                  Partial<{ readonly [key: string]: any }> &
-                  Partial<{ readonly [key: string]: any }>;
+                readonly [key: string]: Partial<{ readonly [key: string]: unknown }> &
+                  Partial<{ readonly [key: string]: unknown }> &
+                  Partial<{ readonly [key: string]: unknown }>;
               };
             })
           | null;
@@ -12428,7 +12428,7 @@ export interface operations {
       /** Response if gist is not starred */
       readonly 404: {
         readonly content: {
-          readonly "application/json": { readonly [key: string]: any };
+          readonly "application/json": { readonly [key: string]: unknown };
         };
       };
     };
@@ -16970,7 +16970,7 @@ export interface operations {
       /** response */
       readonly 201: {
         readonly content: {
-          readonly "application/json": { readonly [key: string]: any };
+          readonly "application/json": { readonly [key: string]: unknown };
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -17179,7 +17179,7 @@ export interface operations {
       /** response */
       readonly 201: {
         readonly content: {
-          readonly "application/json": { readonly [key: string]: any };
+          readonly "application/json": { readonly [key: string]: unknown };
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -19768,12 +19768,12 @@ export interface operations {
         readonly "application/json": (Partial<
           {
             readonly status?: "completed";
-          } & { readonly [key: string]: any }
+          } & { readonly [key: string]: unknown }
         > &
           Partial<
             {
               readonly status?: "queued" | "in_progress";
-            } & { readonly [key: string]: any }
+            } & { readonly [key: string]: unknown }
           >) & {
           /** The name of the check. For example, "code-coverage". */
           readonly name: string;
@@ -19904,12 +19904,12 @@ export interface operations {
         readonly "application/json": (Partial<
           {
             readonly status?: "completed";
-          } & { readonly [key: string]: any }
+          } & { readonly [key: string]: unknown }
         > &
           Partial<
             {
               readonly status?: "queued" | "in_progress";
-            } & { readonly [key: string]: any }
+            } & { readonly [key: string]: unknown }
           >) & {
           /** The name of the check. For example, "code-coverage". */
           readonly name?: string;
@@ -21697,7 +21697,7 @@ export interface operations {
           readonly auto_merge: boolean;
           /** The [status](https://docs.github.com/rest/reference/repos#statuses) contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts. */
           readonly required_contexts?: readonly string[];
-          readonly payload?: { readonly [key: string]: any } | string;
+          readonly payload?: { readonly [key: string]: unknown } | string;
           /** Name for the target deployment environment (e.g., `production`, `staging`, `qa`). */
           readonly environment: string;
           /** Short description of the deployment. */
@@ -21898,7 +21898,7 @@ export interface operations {
           /** A custom webhook event name. */
           readonly event_type: string;
           /** JSON payload with extra information about the webhook event that your action or worklow may use. */
-          readonly client_payload?: { readonly [key: string]: any };
+          readonly client_payload?: { readonly [key: string]: unknown };
         };
       };
     };
@@ -25452,8 +25452,8 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/json": (Partial<{ readonly [key: string]: any }> &
-          Partial<{ readonly [key: string]: any }>) & {
+        readonly "application/json": (Partial<{ readonly [key: string]: unknown }> &
+          Partial<{ readonly [key: string]: unknown }>) & {
           /** An array of user `login`s that will be requested. */
           readonly reviewers?: readonly string[];
           /** An array of team `slug`s that will be requested. */
@@ -27158,7 +27158,7 @@ export interface operations {
           /** The SCIM schema URIs. */
           readonly schemas: readonly string[];
           /** Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
-          readonly Operations: readonly { readonly [key: string]: any }[];
+          readonly Operations: readonly { readonly [key: string]: unknown }[];
         };
       };
     };
@@ -27390,7 +27390,7 @@ export interface operations {
           /** The SCIM schema URIs. */
           readonly schemas: readonly string[];
           /** Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
-          readonly Operations: readonly { readonly [key: string]: any }[];
+          readonly Operations: readonly { readonly [key: string]: unknown }[];
         };
       };
     };
