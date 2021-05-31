@@ -92,6 +92,15 @@ export function transformRef(ref: string, root = ""): string {
   if (isExternalRef) return "any";
 
   const parts = ref.replace(/^#\//, root).split("/");
+
+  // References to properties of schemas like `#/components/schemas/Pet/properties/name`
+  // requires the components to be wrapped in a `properties` object. But to keep
+  // backwards compatibility we should instead just remove the `properties` part.
+  // For us to recognize the `properties` part it simply has to be the second last.
+  if (parts[parts.length - 2] === "properties") {
+    parts.splice(parts.length - 2, 1);
+  }
+
   return `${parts[0]}["${parts.slice(1).join('"]["')}"]`;
 }
 
