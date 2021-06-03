@@ -94,12 +94,11 @@ async function generateSchema(pathToSpec) {
 
   // output
   if (output === OUTPUT_FILE) {
-    let outputFile = path.resolve(process.cwd(), cli.flags.output);
-
-    // decide filename if outputFile is a directory
-    if (fs.existsSync(outputFile) && fs.lstatSync(outputFile).isDirectory()) {
-      const basename = path.basename(pathToSpec).split(".").slice(0, -1).join(".") + ".ts";
-      outputFile = path.resolve(outputFile, basename);
+    let outputFile = path.resolve(process.cwd(), cli.flags.output); // note: may be directory
+    const isDir = fs.existsSync(outputFile) && fs.lstatSync(outputFile).isDirectory();
+    if (isDir) {
+      const filename = pathToSpec.replace(new RegExp(`${path.extname(pathToSpec)}$`), ".ts");
+      outputFile = path.join(outputFile, filename);
     }
 
     await fs.promises.writeFile(outputFile, result, "utf8");
@@ -129,6 +128,8 @@ async function main() {
 
   // handle remote schema, exit
   if (/^https?:\/\//.test(pathToSpec)) {
+    if (output !== "." && output === OUTPUT_FILE)
+      await fs.promises.mkdir(path.dirname(cli.flags.output), { recursive: true });
     await generateSchema(pathToSpec);
     return;
   }
@@ -147,15 +148,14 @@ async function main() {
     errorAndExit(`❌ Expected directory for --output if using glob patterns. Received "${cli.flags.output}".`);
   }
 
-  // recursively create directories
-  if (output === OUTPUT_FILE && output !== ".") {
-    const parentDir = isGlob ? cli.flags.output : path.dirname(cli.flags.output); // if globbing, create output as directory; if file, create parent dir
-    await fs.promises.mkdir(parentDir, { recursive: true });
-  }
-
   // generate schema(s)
   await Promise.all(
     inputSpecPaths.map(async (specPath) => {
+      if (cli.flags.output !== "." && output === OUTPUT_FILE) {
+        let outputDir = path.join(process.cwd(), cli.flags.output);
+        if (!isGlob) outputDir = path.dirname(outputDir); // use output dir for glob; use parent dir for single files
+        await fs.promises.mkdir(path.join(outputDir, path.dirname(specPath)), { recursive: true }); // recursively make parent dirs
+      }
       await generateSchema(specPath);
     })
   );

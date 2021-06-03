@@ -35,9 +35,9 @@ npx openapi-typescript "specs/**/*.yaml" --output schemas/
 # 🔭 Loading spec from specs/one.yaml…
 # 🔭 Loading spec from specs/two.yaml…
 # 🔭 Loading spec from specs/three.yaml…
-# 🚀 specs/one.yaml -> schemas/one.ts [250ms]
-# 🚀 specs/two.yaml -> schemas/two.ts [250ms]
-# 🚀 specs/three.yaml -> schemas/three.ts [250ms]
+# 🚀 specs/one.yaml -> schemas/specs/one.ts [250ms]
+# 🚀 specs/two.yaml -> schemas/specs/two.ts [250ms]
+# 🚀 specs/three.yaml -> schemas/specs/three.ts [250ms]
 ```
 
 _Note: if generating a single schema, `--output` must be a file (preferably `*.ts`). If using globs, `--output` must be a directory._

@@ -1,6 +1,6 @@
 .cache
 .DS_Store
-**/generated/*.ts
+**/generated/
 coverage
 dist
 node_modules
