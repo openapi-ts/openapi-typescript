@@ -65,8 +65,8 @@
   "devDependencies": {
     "@types/jest": "^26.0.14",
     "@types/js-yaml": "^4.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.24.0",
-    "@typescript-eslint/parser": "^4.24.0",
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "@typescript-eslint/parser": "^4.26.0",
     "codecov": "^3.8.1",
     "eslint": "^7.26.0",
     "eslint-config-prettier": "^8.3.0",
