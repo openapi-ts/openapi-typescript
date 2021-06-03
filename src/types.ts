@@ -1,4 +1,4 @@
-import { URL } from "url";
+import type { URL } from "url";
 
 export interface OpenAPI2 {
   swagger: string; // required
@@ -130,6 +130,8 @@ export interface SwaggerToTSOptions {
   prettierConfig?: string;
   /** (optional) Parsing input document as raw schema rather than OpenAPI document */
   rawSchema?: boolean;
+  /** (optional) Should logging be suppressed? (necessary for STDOUT) */
+  silent?: boolean;
   /** (optional) OpenAPI version. Must be present if parsing raw schema */
   version?: number;
 }

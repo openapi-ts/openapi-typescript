@@ -10,11 +10,15 @@
 
 🚀 Convert [OpenAPI 3.0][openapi3] and [2.0 (Swagger)][openapi2] schemas to TypeScript interfaces using Node.js.
 
-💅 The output is prettified with [Prettier][prettier] (and can be customized!).
+**Features**
 
-👉 Works for both local and remote resources (filesystem and HTTP).
+- Convert [Open API 3.x][openapi3] and [Swagger 2.x][openapi2] to TypeScript types
+- Load schemas either from local `.yaml` or `.json` files, or from a remote URL (simple authentication supported with the `--auth` flag)
+- Supports remote `$ref`s using [json-schema-ref-parser][json-schema-ref-parser]
+- Formats output using [Prettier][prettier]
+- Uses the latest TypeScript 4.0 syntax
 
-View examples:
+**Examples**
 
 - [Stripe, OpenAPI 2.0](./examples/stripe-openapi2.ts)
 - [Stripe, OpenAPI 3.0](./examples/stripe-openapi3.ts)
@@ -106,19 +110,24 @@ npm i --save-dev openapi-typescript
 ```
 
 ```js
-const { readFileSync } = require("fs");
+const fs = require("fs");
 const openapiTS = require("openapi-typescript").default;
 
-const input = JSON.parse(readFileSync("spec.json", "utf8")); // Input can be any JS object (OpenAPI format)
-const output = openapiTS(input); // Outputs TypeScript defs as a string (to be parsed, or written to a file)
+// option 1: load [object] as schema (JSON only)
+const schema = await fs.promises.readFile("spec.json", "utf8") // must be OpenAPI JSON
+const output = await openapiTS(JSON.parse(schema));
+
+// option 2: load [string] as local file (YAML or JSON; released in v3.3)
+const localPath = path.join(__dirname, 'spec.yaml'); // may be YAML or JSON format
+const output = await openapiTS(localPath);
+
+// option 3: load [string] as remote URL (YAML or JSON; released in v3.3)
+const output = await openapiTS('https://myurl.com/v1/openapi.yaml');
 ```
 
-The Node API is a bit more flexible: it will only take a JS object as input (OpenAPI format), and return a string of TS
-definitions. This lets you pull from any source (a Swagger server, local files, etc.), and similarly lets you parse,
-post-process, and save the output anywhere.
+The Node API may be useful if dealing with dynamically-created schemas, or you’re using within context of a larger application. Pass in either a JSON-friendly object to load a schema from memory, or a string to load a schema from a local file or remote URL (it will load the file quickly using built-in Node methods). Note that a YAML string isn’t supported in the Node.js API; either use the CLI or convert to JSON using [js-yaml][js-yaml] first.
 
-If your specs are in YAML, you’ll have to convert them to JS objects using a library such as [js-yaml][js-yaml]. If
-you’re batching large folders of specs, [glob][glob] may also come in handy.
+⚠️ As of `v3.3`, this is an async function.
 
 #### Custom Formatter
 
@@ -164,6 +173,7 @@ encouraged but not required.
 
 [glob]: https://www.npmjs.com/package/glob
 [js-yaml]: https://www.npmjs.com/package/js-yaml
+[json-schema-ref-parser]: https://github.com/APIDevTools/json-schema-ref-parser
 [namespace]: https://www.typescriptlang.org/docs/handbook/namespaces.html
 [npm-run-all]: https://www.npmjs.com/package/npm-run-all
 [openapi-format]: https://swagger.io/specification/#data-types

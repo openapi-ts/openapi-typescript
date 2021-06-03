@@ -1,5 +1,5 @@
 import { GlobalContext, OperationObject, ParameterObject, PathItemObject } from "../types";
-import { comment, isRef, transformRef, tsReadonly } from "../utils";
+import { comment, isRef, tsReadonly } from "../utils";
 import { transformParametersArray } from "./parameters";
 import { transformRequestBodyObj } from "./request";
 import { transformResponsesObj } from "./responses";
@@ -29,7 +29,7 @@ export function transformOperationObj(operation: OperationObject, options: Trans
 
   if (operation.requestBody) {
     if (isRef(operation.requestBody)) {
-      output += `  ${readonly}requestBody: ${transformRef(operation.requestBody.$ref)};\n`;
+      output += `  ${readonly}requestBody: ${operation.requestBody.$ref};\n`;
     } else {
       if (operation.requestBody.description) output += comment(operation.requestBody.description);
       output += `  ${readonly}requestBody: {\n  ${transformRequestBodyObj(operation.requestBody, ctx)}  }\n`;

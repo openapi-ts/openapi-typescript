@@ -6,7 +6,6 @@ const path = require("path");
 const meow = require("meow");
 const glob = require("tiny-glob");
 const { default: openapiTS } = require("../dist/cjs/index.js");
-const { loadSpec } = require("./loaders");
 
 const cli = meow(
   `Usage
@@ -70,25 +69,15 @@ function errorAndExit(errorMessage) {
 async function generateSchema(pathToSpec) {
   const output = cli.flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
 
-  // load spec
-  let spec = undefined;
-  try {
-    spec = await loadSpec(pathToSpec, {
-      auth: cli.flags.auth,
-      log: output !== OUTPUT_STDOUT,
-    });
-  } catch (err) {
-    errorAndExit(`❌ ${err}`);
-  }
-
   // generate schema
-  const result = openapiTS(spec, {
-    auth: cli.flags.auth,
+  const result = await openapiTS(pathToSpec, {
     additionalProperties: cli.flags.additionalProperties,
-    immutableTypes: cli.flags.immutableTypes,
+    auth: cli.flags.auth,
     defaultNonNullable: cli.flags.defaultNonNullable,
+    immutableTypes: cli.flags.immutableTypes,
     prettierConfig: cli.flags.prettierConfig,
     rawSchema: cli.flags.rawSchema,
+    silent: output === OUTPUT_STDOUT,
     version: cli.flags.version,
   });
 
@@ -108,13 +97,14 @@ async function generateSchema(pathToSpec) {
     console.log(green(`🚀 ${pathToSpec} -> ${bold(outputFile)} [${time}ms]`));
   } else {
     process.stdout.write(result);
+    // if stdout, (still) don’t log anything to console!
   }
 
   return result;
 }
 
 async function main() {
-  const output = cli.flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
+  let output = cli.flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
   const pathToSpec = cli.input[0];
 
   if (output === OUTPUT_FILE) {
@@ -148,7 +138,7 @@ async function main() {
     errorAndExit(`❌ Expected directory for --output if using glob patterns. Received "${cli.flags.output}".`);
   }
 
-  // generate schema(s)
+  // generate schema(s) in parallel
   await Promise.all(
     inputSpecPaths.map(async (specPath) => {
       if (cli.flags.output !== "." && output === OUTPUT_FILE) {

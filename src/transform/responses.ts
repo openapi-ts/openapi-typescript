@@ -1,5 +1,5 @@
 import { GlobalContext } from "../types";
-import { comment, transformRef, tsReadonly } from "../utils";
+import { comment, tsReadonly } from "../utils";
 import { transformHeaderObjMap } from "./headers";
 import { transformSchemaObj } from "./schema";
 
@@ -16,7 +16,7 @@ export function transformResponsesObj(responsesObj: Record<string, any>, ctx: Gl
     if (response.description) output += comment(response.description);
 
     if (response.$ref) {
-      output += `  ${readonly}${statusCode}: ${transformRef(response.$ref)};\n`; // reference
+      output += `  ${readonly}${statusCode}: ${response.$ref};\n`; // reference
       continue;
     }
 
@@ -30,7 +30,7 @@ export function transformResponsesObj(responsesObj: Record<string, any>, ctx: Gl
     // headers
     if (response.headers && Object.keys(response.headers).length) {
       if (response.headers.$ref) {
-        output += `    ${readonly}headers: ${transformRef(response.headers.$ref)};\n`;
+        output += `    ${readonly}headers: ${response.headers.$ref};\n`;
       } else {
         output += `    ${readonly}headers: {\n      ${transformHeaderObjMap(response.headers, {
           ...ctx,
