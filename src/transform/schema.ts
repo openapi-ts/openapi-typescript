@@ -32,7 +32,8 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
 
     // 2. name (with “?” if optional property)
     const readonly = tsReadonly(options.immutableTypes);
-    const required = options.required.has(k) || hasDefaultValue(v.schema || v) ? "" : "?";
+    const required =
+      options.required.has(k) || (options.defaultNonNullable && hasDefaultValue(v.schema || v)) ? "" : "?";
     output += `${readonly}"${k}"${required}: `;
 
     // 3. transform

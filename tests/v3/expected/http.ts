@@ -761,7 +761,7 @@ export interface components {
           access_code?: boolean | null;
           sso?: boolean | null;
           plan_change?: boolean | null;
-          credential: ("none" | "single" | "multiple" | "unknown") | null;
+          credential?: ("none" | "single" | "multiple" | "unknown") | null;
         };
       } | null;
       /** An array of platform ids to restrict this product for. */
@@ -801,24 +801,24 @@ export interface components {
       name: components["schemas"]["Name"];
       type: "boolean" | "string" | "number";
       /** This sets whether or not the feature can be customized by a consumer. */
-      customizable: boolean;
+      customizable?: boolean;
       /**
        * This sets whether or not the feature can be upgraded by the consumer after the
        * resource has provisioned. Upgrading means setting a higher value or selecting a
        * higher element in the list.
        */
-      upgradable: boolean;
+      upgradable?: boolean;
       /**
        * This sets whether or not the feature can be downgraded by the consumer after the
        * resource has provisioned. Downgrading means setting a lower value or selecting a
        * lower element in the list.
        */
-      downgradable: boolean;
+      downgradable?: boolean;
       /**
        * Sets if this feature’s value is trackable from the provider,
        * this only really affects numeric constraints.
        */
-      measurable: boolean;
+      measurable?: boolean;
       values?: components["schemas"]["FeatureValuesList"];
     };
     /**
@@ -922,7 +922,7 @@ export interface components {
        * When true, everyone can see the product when requested. When false it will
        * not be visible to anyone except those on the provider team.
        */
-      public: boolean;
+      public?: boolean;
       /**
        * When true, the product will be displayed in product listings alongside
        * other products. When false the product will be excluded from listings,
@@ -930,7 +930,7 @@ export interface components {
        * Any pages that display information about the product when not listed,
        * should indicate to webcrawlers that the content should not be indexed.
        */
-      listed: boolean;
+      listed?: boolean;
       /**
        * Object to hold various flags for marketing purposes only. These are values
        * that need to be stored, but should not affect decision making in code. If
@@ -943,19 +943,19 @@ export interface components {
          * advertised as such. This does not have any impact on who can access the
          * product, it is just used to inform consumers through our clients.
          */
-        beta: boolean;
+        beta?: boolean;
         /**
          * Indicates whether or not the product is in `New` and should be
          * advertised as such. This does not have any impact on who can access the
          * product, it is just used to inform consumers through our clients.
          */
-        new: boolean;
+        new?: boolean;
         /**
          * Indicates whether or not the product is in `New` and should be
          * advertised as such. This does not have any impact on who can access the
          * product, it is just used to inform consumers through our clients.
          */
-        featured: boolean;
+        featured?: boolean;
       };
     };
     /**
@@ -996,7 +996,7 @@ export interface components {
        * * `multiple`: Multiple credentials are supported at the same time.
        * * `unknown`: The credential type is unknown.
        */
-      credential: "none" | "single" | "multiple" | "unknown";
+      credential?: "none" | "single" | "multiple" | "unknown";
     };
     ProductBody: {
       provider_id: components["schemas"]["ID"];

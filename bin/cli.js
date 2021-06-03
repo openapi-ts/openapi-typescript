@@ -18,6 +18,7 @@ Options
   --auth                       (optional) Provide an authentication token for private URL
   --immutable-types, -it       (optional) Generates immutable types (readonly properties and readonly array)
   --additional-properties, -ap (optional) Allow arbitrary properties for all schema objects without "additionalProperties: false"
+  --default-non-nullable       (optional) If a schema object has a default value set, don’t mark it as nullable
   --prettier-config, -c        (optional) specify path to Prettier config file
   --raw-schema                 (optional) Parse as partial schema (raw components)
   --version                    (optional) Force schema parsing version
@@ -34,6 +35,9 @@ Options
       immutableTypes: {
         type: "boolean",
         alias: "it",
+      },
+      defaultNonNullable: {
+        type: "boolean",
       },
       additionalProperties: {
         type: "boolean",
@@ -82,6 +86,7 @@ async function generateSchema(pathToSpec) {
     auth: cli.flags.auth,
     additionalProperties: cli.flags.additionalProperties,
     immutableTypes: cli.flags.immutableTypes,
+    defaultNonNullable: cli.flags.defaultNonNullable,
     prettierConfig: cli.flags.prettierConfig,
     rawSchema: cli.flags.rawSchema,
     version: cli.flags.version,

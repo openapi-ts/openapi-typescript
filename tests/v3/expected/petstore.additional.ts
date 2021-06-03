@@ -72,7 +72,7 @@ export interface components {
       shipDate?: string;
       /** Order Status */
       status?: "placed" | "approved" | "delivered";
-      complete: boolean;
+      complete?: boolean;
     } & { [key: string]: any };
     Category: {
       id?: number;

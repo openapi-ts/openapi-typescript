@@ -71,7 +71,7 @@ export interface definitions {
     shipDate?: string;
     /** Order Status */
     status?: "placed" | "approved" | "delivered";
-    complete: boolean;
+    complete?: boolean;
   };
   Category: {
     id?: number;

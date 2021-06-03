@@ -9,6 +9,7 @@ const defaults = {
   additionalProperties: false,
   globalParameters: {},
   immutableTypes: false,
+  defaultNonNullable: false,
   operations: {},
   rawSchema: false,
   version: 3, // both 2 and 3 should generate the same

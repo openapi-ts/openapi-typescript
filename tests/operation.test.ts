@@ -1,6 +1,11 @@
 import { transformOperationObj } from "../src/transform/operation";
 
-const defaults = { additionalProperties: false, immutableTypes: false, rawSchema: false };
+const defaults = {
+  additionalProperties: false,
+  immutableTypes: false,
+  defaultNonNullable: false,
+  rawSchema: false,
+};
 
 describe("requestBody", () => {
   const basicSchema = {

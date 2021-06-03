@@ -7,6 +7,7 @@ import { transformSchemaObj as transform } from "../src/transform/schema";
 const defaults = {
   additionalProperties: false,
   immutableTypes: false,
+  defaultNonNullable: false,
   required: new Set<string>(),
   rawSchema: false,
   version: 3,
@@ -367,6 +368,29 @@ describe("SchemaObject", () => {
 "loc"?: string;
 /** user photo */
 "avatar"?: string;
+
+}`);
+    });
+  });
+
+  describe("--default-non-nullable", () => {
+    it("default: objects with default values are nullable", () => {
+      expect(
+        transform({ type: "object", properties: { default: { type: "boolean", default: true } } }, { ...defaults })
+      ).toBe(`{
+"default"?: boolean;
+
+}`);
+    });
+
+    it("enabled: objects with default values are non-nullable", () => {
+      expect(
+        transform(
+          { type: "object", properties: { default: { type: "boolean", default: true } } },
+          { ...defaults, defaultNonNullable: true }
+        )
+      ).toBe(`{
+"default": boolean;
 
 }`);
     });
