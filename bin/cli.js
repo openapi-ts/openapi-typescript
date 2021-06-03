@@ -153,8 +153,12 @@ async function main() {
     inputSpecPaths.map(async (specPath) => {
       if (cli.flags.output !== "." && output === OUTPUT_FILE) {
         let outputDir = path.join(process.cwd(), cli.flags.output);
-        if (!isGlob) outputDir = path.dirname(outputDir); // use output dir for glob; use parent dir for single files
-        await fs.promises.mkdir(path.join(outputDir, path.dirname(specPath)), { recursive: true }); // recursively make parent dirs
+        if (isGlob) {
+          outputDir = path.join(outputDir, path.dirname(specPath)); // globs: use output dir + spec dir
+        } else {
+          outputDir = path.dirname(outputDir); // single files: just use output parent dir
+        }
+        await fs.promises.mkdir(outputDir, { recursive: true }); // recursively make parent dirs
       }
       await generateSchema(specPath);
     })
