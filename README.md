@@ -28,20 +28,34 @@ View examples:
 ```bash
 npx openapi-typescript schema.yaml --output schema.ts
 
-# 🤞 Loading spec from tests/v2/specs/stripe.yaml…
+# 🔭 Loading spec from schema.yaml…
 # 🚀 schema.yaml -> schema.ts [250ms]
+
+npx openapi-typescript "specs/**/*.yaml" --output schemas/
+# 🔭 Loading spec from specs/one.yaml…
+# 🔭 Loading spec from specs/two.yaml…
+# 🔭 Loading spec from specs/three.yaml…
+# 🚀 specs/one.yaml -> schemas/one.ts [250ms]
+# 🚀 specs/two.yaml -> schemas/two.ts [250ms]
+# 🚀 specs/three.yaml -> schemas/three.ts [250ms]
 ```
+
+_Note: if generating a single schema, `--output` must be a file (preferably `*.ts`). If using globs, `--output` must be a directory._
+
+_Thanks to [@sharmarajdaksh](https://github.com/sharmarajdaksh) for the glob feature!_
 
 #### ☁️ Reading specs from remote resource
 
 ```bash
 npx openapi-typescript https://petstore.swagger.io/v2/swagger.json --output petstore.ts
 
-# 🤞 Loading spec from https://petstore.swagger.io/v2/swagger.json…
+# 🔭 Loading spec from https://petstore.swagger.io/v2/swagger.json…
 # 🚀 https://petstore.swagger.io/v2/swagger.json -> petstore.ts [650ms]
 ```
 
-_Thanks to @psmyrdek for the remote spec feature!_
+_Note: for obvious reasons, globbing doesn’t work for remote schemas_
+
+_Thanks to [@psmyrdek](https://github.com/psmyrdek) for the remote spec feature!_
 
 #### Using in TypeScript
 
@@ -72,37 +86,6 @@ _Thanks to @gr2m for the operations feature!_
 ```bash
 npx openapi-typescript schema.yaml
 ```
-
-#### Generating multiple schemas
-
-In your `package.json`, for each schema you’d like to transform add one `generate:specs:[name]` npm-script. Then combine
-them all into one `generate:specs` script, like so:
-
-```json
-"scripts": {
-  "generate:specs": "npm run generate:specs:one && npm run generate:specs:two && npm run generate:specs:three",
-  "generate:specs:one": "npx openapi-typescript one.yaml -o one.ts",
-  "generate:specs:two": "npx openapi-typescript two.yaml -o two.ts",
-  "generate:specs:three": "npx openapi-typescript three.yaml -o three.ts"
-}
-```
-
-If you use [npm-run-all][npm-run-all], you can shorten this:
-
-```json
-"scripts": {
-  "generate:specs": "run-p generate:specs:*",
-```
-
-You can even specify unique options per-spec, if needed. To generate them all together, run:
-
-```bash
-npm run generate:specs
-```
-
-Rinse and repeat for more specs.
-
-For anything more complicated, or for generating specs dynamically, you can also use the [Node API](#node).
 
 #### CLI Options
 

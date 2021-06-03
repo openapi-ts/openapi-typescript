@@ -102,7 +102,7 @@ async function generateSchema(pathToSpec) {
       outputFile = path.resolve(outputFile, basename);
     }
 
-    fs.writeFileSync(outputFile, result, "utf8");
+    await fs.promises.writeFile(outputFile, result, "utf8");
 
     const timeEnd = process.hrtime(timeStart);
     const time = timeEnd[0] + Math.round(timeEnd[1] / 1e6);
@@ -143,17 +143,12 @@ async function main() {
   }
 
   // error: tried to glob output to single file
-  if (
-    isGlob &&
-    output === OUTPUT_FILE &&
-    fs.existsSync(cli.flags.output) &&
-    (await fs.promises.stat(cli.flags.output)).isFile()
-  ) {
+  if (isGlob && output === OUTPUT_FILE && fs.existsSync(cli.flags.output) && fs.lstatSync(cli.flags.output).isFile()) {
     errorAndExit(`❌ Expected directory for --output if using glob patterns. Received "${cli.flags.output}".`);
   }
 
   // recursively create directories
-  if (output === OUTPUT_FILE) {
+  if (output === OUTPUT_FILE && output !== ".") {
     const parentDir = isGlob ? cli.flags.output : path.dirname(cli.flags.output); // if globbing, create output as directory; if file, create parent dir
     await fs.promises.mkdir(parentDir, { recursive: true });
   }
