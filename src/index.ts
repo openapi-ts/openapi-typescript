@@ -20,8 +20,9 @@ export default function openapiTS(
 ): string {
   // 1. set up context
   const ctx: GlobalContext = {
-    auth: options.auth,
     additionalProperties: options.additionalProperties || false,
+    auth: options.auth,
+    defaultNonNullable: options.defaultNonNullable || false,
     formatter: typeof options.formatter === "function" ? options.formatter : undefined,
     immutableTypes: options.immutableTypes || false,
     rawSchema: options.rawSchema || false,

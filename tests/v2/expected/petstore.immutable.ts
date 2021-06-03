@@ -71,7 +71,7 @@ export interface definitions {
     readonly shipDate?: string;
     /** Order Status */
     readonly status?: "placed" | "approved" | "delivered";
-    readonly complete: boolean;
+    readonly complete?: boolean;
   };
   readonly Category: {
     readonly id?: number;

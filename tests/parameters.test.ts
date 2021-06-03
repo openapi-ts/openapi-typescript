@@ -1,6 +1,11 @@
 import { transformParametersArray } from "../src/transform/parameters";
 
-const defaults = { additionalProperties: false, immutableTypes: false, rawSchema: false };
+const defaults = {
+  additionalProperties: false,
+  immutableTypes: false,
+  defaultNonNullable: false,
+  rawSchema: false,
+};
 
 describe("transformParametersArray()", () => {
   describe("v2", () => {

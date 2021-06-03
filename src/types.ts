@@ -124,6 +124,8 @@ export interface SwaggerToTSOptions {
   formatter?: SchemaFormatter;
   /** Generates immutable types (readonly properties and readonly array) */
   immutableTypes?: boolean;
+  /** (optional) Treat schema objects with default values as non-nullable */
+  defaultNonNullable?: boolean;
   /** (optional) Path to Prettier config */
   prettierConfig?: string;
   /** (optional) Parsing input document as raw schema rather than OpenAPI document */
@@ -138,6 +140,7 @@ export interface GlobalContext {
   auth?: string;
   formatter?: SchemaFormatter;
   immutableTypes: boolean;
+  defaultNonNullable: boolean;
   /** (optional) Should logging be suppressed? (necessary for STDOUT) */
   silent?: boolean;
   namespace?: string;

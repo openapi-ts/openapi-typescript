@@ -5413,7 +5413,7 @@ export interface components {
       readonly default_branch: string;
       readonly open_issues_count: number;
       /** Whether this repository acts as a template that can be used to generate new repositories. */
-      readonly is_template: boolean;
+      readonly is_template?: boolean;
       readonly topics?: readonly string[];
       /** Whether issues are enabled. */
       readonly has_issues: boolean;
@@ -5429,12 +5429,12 @@ export interface components {
       /** Returns whether or not this repository disabled. */
       readonly disabled: boolean;
       /** The repository visibility: public, private, or internal. */
-      readonly visibility: string;
+      readonly visibility?: string;
       readonly pushed_at: string | null;
       readonly created_at: string | null;
       readonly updated_at: string | null;
       /** Whether to allow rebase merges for pull requests. */
-      readonly allow_rebase_merge: boolean;
+      readonly allow_rebase_merge?: boolean;
       readonly template_repository?: {
         readonly id?: number;
         readonly node_id?: string;
@@ -5542,11 +5542,11 @@ export interface components {
       } | null;
       readonly temp_clone_token?: string;
       /** Whether to allow squash merges for pull requests. */
-      readonly allow_squash_merge: boolean;
+      readonly allow_squash_merge?: boolean;
       /** Whether to delete head branches when pull requests are merged */
-      readonly delete_branch_on_merge: boolean;
+      readonly delete_branch_on_merge?: boolean;
       /** Whether to allow merge commits for pull requests. */
-      readonly allow_merge_commit: boolean;
+      readonly allow_merge_commit?: boolean;
       readonly subscribers_count?: number;
       readonly network_count?: number;
       readonly open_issues: number;
@@ -6835,7 +6835,7 @@ export interface components {
       readonly default_branch: string;
       readonly open_issues_count: number;
       /** Whether this repository acts as a template that can be used to generate new repositories. */
-      readonly is_template: boolean;
+      readonly is_template?: boolean;
       readonly topics?: readonly string[];
       /** Whether issues are enabled. */
       readonly has_issues: boolean;
@@ -6851,20 +6851,20 @@ export interface components {
       /** Returns whether or not this repository disabled. */
       readonly disabled: boolean;
       /** The repository visibility: public, private, or internal. */
-      readonly visibility: string;
+      readonly visibility?: string;
       readonly pushed_at: string | null;
       readonly created_at: string | null;
       readonly updated_at: string | null;
       /** Whether to allow rebase merges for pull requests. */
-      readonly allow_rebase_merge: boolean;
+      readonly allow_rebase_merge?: boolean;
       readonly template_repository?: components["schemas"]["repository"] | null;
       readonly temp_clone_token?: string;
       /** Whether to allow squash merges for pull requests. */
-      readonly allow_squash_merge: boolean;
+      readonly allow_squash_merge?: boolean;
       /** Whether to delete head branches when pull requests are merged */
-      readonly delete_branch_on_merge: boolean;
+      readonly delete_branch_on_merge?: boolean;
       /** Whether to allow merge commits for pull requests. */
-      readonly allow_merge_commit: boolean;
+      readonly allow_merge_commit?: boolean;
       readonly subscribers_count?: number;
       readonly network_count?: number;
       readonly open_issues: number;
@@ -7027,7 +7027,7 @@ export interface components {
       readonly open_issues: number;
       readonly watchers: number;
       /** Whether anonymous git access is allowed. */
-      readonly anonymous_access_enabled: boolean;
+      readonly anonymous_access_enabled?: boolean;
       readonly code_of_conduct?: components["schemas"]["code-of-conduct-simple"];
     };
     /** An artifact */
@@ -8262,7 +8262,7 @@ export interface components {
       /** A short description of the status. */
       readonly description: string;
       /** The environment of the deployment that the status is for. */
-      readonly environment: string;
+      readonly environment?: string;
       /** Deprecated: the URL to associate with this status. */
       readonly target_url: string;
       readonly created_at: string;
@@ -8270,9 +8270,9 @@ export interface components {
       readonly deployment_url: string;
       readonly repository_url: string;
       /** The URL for accessing your environment. */
-      readonly environment_url: string;
+      readonly environment_url?: string;
       /** The URL to associate with this status. */
-      readonly log_url: string;
+      readonly log_url?: string;
       readonly performed_via_github_app?: components["schemas"]["integration"] | null;
     };
     /** The amount of time to delay a job after the job is initially triggered. The time (in minutes) must be an integer between 0 and 43,200 (30 days). */
@@ -9063,13 +9063,13 @@ export interface components {
       /** The first line of the range for a multi-line comment. */
       readonly original_start_line?: number | null;
       /** The side of the first line of the range for a multi-line comment. */
-      readonly start_side: ("LEFT" | "RIGHT") | null;
+      readonly start_side?: ("LEFT" | "RIGHT") | null;
       /** The line of the blob to which the comment applies. The last line of the range for a multi-line comment */
       readonly line?: number;
       /** The line of the blob to which the comment applies. The last line of the range for a multi-line comment */
       readonly original_line?: number;
       /** The side of the diff to which the comment applies. The side of the last line of the range for a multi-line comment */
-      readonly side: "LEFT" | "RIGHT";
+      readonly side?: "LEFT" | "RIGHT";
       readonly reactions?: components["schemas"]["reaction-rollup"];
       readonly body_html?: string;
       readonly body_text?: string;
@@ -9139,9 +9139,9 @@ export interface components {
       readonly body_text?: string;
       readonly body_html?: string;
       /** The side of the first line of the range for a multi-line comment. */
-      readonly side: "LEFT" | "RIGHT";
+      readonly side?: "LEFT" | "RIGHT";
       /** The side of the first line of the range for a multi-line comment. */
-      readonly start_side: ("LEFT" | "RIGHT") | null;
+      readonly start_side?: ("LEFT" | "RIGHT") | null;
       /** The line of the blob to which the comment applies. The last line of the range for a multi-line comment */
       readonly line?: number;
       /** The original line of the blob to which the comment applies. The last line of the range for a multi-line comment */
@@ -11504,7 +11504,7 @@ export interface operations {
           /** Name of the runner group. */
           readonly name?: string;
           /** Visibility of a runner group. You can select all organizations or select individual organizations. Can be one of: `all` or `selected` */
-          readonly visibility: "selected" | "all";
+          readonly visibility?: "selected" | "all";
         };
       };
     };
@@ -12674,7 +12674,7 @@ export interface operations {
           /** The Markdown text to render in HTML. */
           readonly text: string;
           /** The rendering mode. */
-          readonly mode: "markdown" | "gfm";
+          readonly mode?: "markdown" | "gfm";
           /** The repository context to use when creating references in `gfm` mode. */
           readonly context?: string;
         };
@@ -13062,7 +13062,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** Whether to block all notifications from a thread. */
-          readonly ignored: boolean;
+          readonly ignored?: boolean;
         };
       };
     };
@@ -13205,7 +13205,7 @@ export interface operations {
            * \* `admin` - can pull, push, and administer this repository.
            * \* `none` - no permissions granted by default.
            */
-          readonly default_repository_permission: "read" | "write" | "admin" | "none";
+          readonly default_repository_permission?: "read" | "write" | "admin" | "none";
           /**
            * Toggles the ability of non-admin organization members to create repositories. Can be one of:
            * \* `true` - all organization members can create repositories.
@@ -13213,7 +13213,7 @@ export interface operations {
            * Default: `true`
            * **Note:** A parameter can override this parameter. See `members_allowed_repository_creation_type` in this table for details. **Note:** A parameter can override this parameter. See `members_allowed_repository_creation_type` in this table for details.
            */
-          readonly members_can_create_repositories: boolean;
+          readonly members_can_create_repositories?: boolean;
           /**
            * Toggles whether organization members can create internal repositories, which are visible to all enterprise members. You can only allow members to create internal repositories if your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+. Can be one of:
            * \* `true` - all organization members can create internal repositories.
@@ -13248,19 +13248,19 @@ export interface operations {
            * \* `true` - all organization members can create GitHub Pages sites.
            * \* `false` - no organization members can create GitHub Pages sites. Existing published sites will not be impacted.
            */
-          readonly members_can_create_pages: boolean;
+          readonly members_can_create_pages?: boolean;
           /**
            * Toggles whether organization members can create public GitHub Pages sites. Can be one of:
            * \* `true` - all organization members can create public GitHub Pages sites.
            * \* `false` - no organization members can create public GitHub Pages sites. Existing published sites will not be impacted.
            */
-          readonly members_can_create_public_pages: boolean;
+          readonly members_can_create_public_pages?: boolean;
           /**
            * Toggles whether organization members can create private GitHub Pages sites. Can be one of:
            * \* `true` - all organization members can create private GitHub Pages sites.
            * \* `false` - no organization members can create private GitHub Pages sites. Existing published sites will not be impacted.
            */
-          readonly members_can_create_private_pages: boolean;
+          readonly members_can_create_private_pages?: boolean;
           readonly blog?: string;
         };
       };
@@ -13502,7 +13502,7 @@ export interface operations {
           /** Name of the runner group. */
           readonly name: string;
           /** Visibility of a runner group. You can select all repositories, select individual repositories, or limit access to private repositories. Can be one of: `all`, `selected`, or `private`. */
-          readonly visibility: "selected" | "all" | "private";
+          readonly visibility?: "selected" | "all" | "private";
           /** List of repository IDs that can access the runner group. */
           readonly selected_repository_ids?: readonly number[];
           /** List of runner IDs to add to the runner group. */
@@ -14456,9 +14456,9 @@ export interface operations {
             readonly password?: string;
           };
           /** Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. */
-          readonly events: readonly string[];
+          readonly events?: readonly string[];
           /** Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications. */
-          readonly active: boolean;
+          readonly active?: boolean;
         };
       };
     };
@@ -14523,9 +14523,9 @@ export interface operations {
             readonly insecure_ssl?: components["schemas"]["webhook-config-insecure-ssl"];
           };
           /** Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. */
-          readonly events: readonly string[];
+          readonly events?: readonly string[];
           /** Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications. */
-          readonly active: boolean;
+          readonly active?: boolean;
           readonly name?: string;
         };
       };
@@ -14751,7 +14751,7 @@ export interface operations {
            * \* `direct_member` - Non-owner organization members with ability to see other members and join teams by invitation.
            * \* `billing_manager` - Non-owner organization members with ability to manage the billing settings of your organization.
            */
-          readonly role: "admin" | "direct_member" | "billing_manager";
+          readonly role?: "admin" | "direct_member" | "billing_manager";
           /** Specify IDs for the teams you want to invite new members to. */
           readonly team_ids?: readonly number[];
         };
@@ -14979,7 +14979,7 @@ export interface operations {
            * \* `admin` - The user will become an owner of the organization.
            * \* `member` - The user will become a non-owner member of the organization.
            */
-          readonly role: "admin" | "member";
+          readonly role?: "admin" | "member";
         };
       };
     };
@@ -15049,9 +15049,9 @@ export interface operations {
           /** A list of arrays indicating which repositories should be migrated. */
           readonly repositories: readonly string[];
           /** Indicates whether repositories should be locked (to prevent manipulation) while migrating data. */
-          readonly lock_repositories: boolean;
+          readonly lock_repositories?: boolean;
           /** Indicates whether attachments should be excluded from the migration (to reduce migration archive file size). */
-          readonly exclude_attachments: boolean;
+          readonly exclude_attachments?: boolean;
           readonly exclude?: readonly string[];
         };
       };
@@ -15623,36 +15623,36 @@ export interface operations {
           /** A URL with more information about the repository. */
           readonly homepage?: string;
           /** Either `true` to create a private repository or `false` to create a public one. */
-          readonly private: boolean;
+          readonly private?: boolean;
           /**
            * Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. For more information, see "[Creating an internal repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-repository-visibility#about-internal-repositories)" in the GitHub Help documentation.
            * The `visibility` parameter overrides the `private` parameter when you use both parameters with the `nebula-preview` preview header.
            */
           readonly visibility?: "public" | "private" | "visibility" | "internal";
           /** Either `true` to enable issues for this repository or `false` to disable them. */
-          readonly has_issues: boolean;
+          readonly has_issues?: boolean;
           /** Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error. */
-          readonly has_projects: boolean;
+          readonly has_projects?: boolean;
           /** Either `true` to enable the wiki for this repository or `false` to disable it. */
-          readonly has_wiki: boolean;
+          readonly has_wiki?: boolean;
           /** Either `true` to make this repo available as a template repository or `false` to prevent it. */
-          readonly is_template: boolean;
+          readonly is_template?: boolean;
           /** The id of the team that will be granted access to this repository. This is only valid when creating a repository in an organization. */
           readonly team_id?: number;
           /** Pass `true` to create an initial commit with empty README. */
-          readonly auto_init: boolean;
+          readonly auto_init?: boolean;
           /** Desired language or platform [.gitignore template](https://github.com/github/gitignore) to apply. Use the name of the template without the extension. For example, "Haskell". */
           readonly gitignore_template?: string;
           /** Choose an [open source license template](https://choosealicense.com/) that best suits your needs, and then use the [license keyword](https://help.github.com/articles/licensing-a-repository/#searching-github-by-license-type) as the `license_template` string. For example, "mit" or "mpl-2.0". */
           readonly license_template?: string;
           /** Either `true` to allow squash-merging pull requests, or `false` to prevent squash-merging. */
-          readonly allow_squash_merge: boolean;
+          readonly allow_squash_merge?: boolean;
           /** Either `true` to allow merging pull requests with a merge commit, or `false` to prevent merging pull requests with merge commits. */
-          readonly allow_merge_commit: boolean;
+          readonly allow_merge_commit?: boolean;
           /** Either `true` to allow rebase-merging pull requests, or `false` to prevent rebase-merging. */
-          readonly allow_rebase_merge: boolean;
+          readonly allow_rebase_merge?: boolean;
           /** Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion. */
-          readonly delete_branch_on_merge: boolean;
+          readonly delete_branch_on_merge?: boolean;
         };
       };
     };
@@ -15827,7 +15827,7 @@ export interface operations {
            * \* `push` - team members can pull and push, but not administer newly-added repositories.
            * \* `admin` - team members can pull, push and administer newly-added repositories.
            */
-          readonly permission: "pull" | "push" | "admin";
+          readonly permission?: "pull" | "push" | "admin";
           /** The ID of a team to set as the parent team. */
           readonly parent_team_id?: number;
         };
@@ -15920,7 +15920,7 @@ export interface operations {
            * \* `push` - team members can pull and push, but not administer newly-added repositories.
            * \* `admin` - team members can pull, push and administer newly-added repositories.
            */
-          readonly permission: "pull" | "push" | "admin";
+          readonly permission?: "pull" | "push" | "admin";
           /** The ID of a team to set as the parent team. */
           readonly parent_team_id?: number | null;
         };
@@ -15989,7 +15989,7 @@ export interface operations {
           /** The discussion post's body text. */
           readonly body: string;
           /** Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post. */
-          readonly private: boolean;
+          readonly private?: boolean;
         };
       };
     };
@@ -16526,7 +16526,7 @@ export interface operations {
            * \* `member` - a normal member of the team.
            * \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
            */
-          readonly role: "member" | "maintainer";
+          readonly role?: "member" | "maintainer";
         };
       };
     };
@@ -17347,7 +17347,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** The permission to grant the collaborator. */
-          readonly permission: "read" | "write" | "admin";
+          readonly permission?: "read" | "write" | "admin";
         };
       };
     };
@@ -17570,29 +17570,29 @@ export interface operations {
            * Either `true` to make the repository private or `false` to make it public. Default: `false`.
            * **Note**: You will get a `422` error if the organization restricts [changing repository visibility](https://help.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories) to organization owners and a non-owner tries to change the value of private. **Note**: You will get a `422` error if the organization restricts [changing repository visibility](https://help.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories) to organization owners and a non-owner tries to change the value of private.
            */
-          readonly private: boolean;
+          readonly private?: boolean;
           /** Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. The `visibility` parameter overrides the `private` parameter when you use both along with the `nebula-preview` preview header. */
           readonly visibility?: "public" | "private" | "visibility" | "internal";
           /** Either `true` to enable issues for this repository or `false` to disable them. */
-          readonly has_issues: boolean;
+          readonly has_issues?: boolean;
           /** Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error. */
-          readonly has_projects: boolean;
+          readonly has_projects?: boolean;
           /** Either `true` to enable the wiki for this repository or `false` to disable it. */
-          readonly has_wiki: boolean;
+          readonly has_wiki?: boolean;
           /** Either `true` to make this repo available as a template repository or `false` to prevent it. */
-          readonly is_template: boolean;
+          readonly is_template?: boolean;
           /** Updates the default branch for this repository. */
           readonly default_branch?: string;
           /** Either `true` to allow squash-merging pull requests, or `false` to prevent squash-merging. */
-          readonly allow_squash_merge: boolean;
+          readonly allow_squash_merge?: boolean;
           /** Either `true` to allow merging pull requests with a merge commit, or `false` to prevent merging pull requests with merge commits. */
-          readonly allow_merge_commit: boolean;
+          readonly allow_merge_commit?: boolean;
           /** Either `true` to allow rebase-merging pull requests, or `false` to prevent rebase-merging. */
-          readonly allow_rebase_merge: boolean;
+          readonly allow_rebase_merge?: boolean;
           /** Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion. */
-          readonly delete_branch_on_merge: boolean;
+          readonly delete_branch_on_merge?: boolean;
           /** `true` to archive this repository. **Note**: You cannot unarchive repositories through the API. */
-          readonly archived: boolean;
+          readonly archived?: boolean;
         };
       };
     };
@@ -19784,7 +19784,7 @@ export interface operations {
           /** A reference for the run on the integrator's system. */
           readonly external_id?: string;
           /** The current status. Can be one of `queued`, `in_progress`, or `completed`. */
-          readonly status: "queued" | "in_progress" | "completed";
+          readonly status?: "queued" | "in_progress" | "completed";
           /** The time that the check run began. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
           readonly started_at?: string;
           /**
@@ -20652,7 +20652,7 @@ export interface operations {
            * \* `maintain` - Recommended for project managers who need to manage the repository without access to sensitive or destructive actions.
            * \* `triage` - Recommended for contributors who need to proactively manage issues and pull requests without write access.
            */
-          readonly permission: "pull" | "push" | "admin" | "maintain" | "triage";
+          readonly permission?: "pull" | "push" | "admin" | "maintain" | "triage";
           readonly permissions?: string;
         };
       };
@@ -21692,21 +21692,21 @@ export interface operations {
           /** The ref to deploy. This can be a branch, tag, or SHA. */
           readonly ref: string;
           /** Specifies a task to execute (e.g., `deploy` or `deploy:migrations`). */
-          readonly task: string;
+          readonly task?: string;
           /** Attempts to automatically merge the default branch into the requested ref, if it's behind the default branch. */
-          readonly auto_merge: boolean;
+          readonly auto_merge?: boolean;
           /** The [status](https://docs.github.com/rest/reference/repos#statuses) contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts. */
           readonly required_contexts?: readonly string[];
           readonly payload?: { readonly [key: string]: any } | string;
           /** Name for the target deployment environment (e.g., `production`, `staging`, `qa`). */
-          readonly environment: string;
+          readonly environment?: string;
           /** Short description of the deployment. */
-          readonly description: string | null;
+          readonly description?: string | null;
           /**
            * Specifies if the given environment is specific to the deployment and will no longer exist at some point in the future. Default: `false`
            * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type. **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type.
            */
-          readonly transient_environment: boolean;
+          readonly transient_environment?: boolean;
           /**
            * Specifies if the given environment is one that end-users directly interact with. Default: `true` when `environment` is `production` and `false` otherwise.
            * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type.
@@ -21821,21 +21821,21 @@ export interface operations {
           /** The state of the status. Can be one of `error`, `failure`, `inactive`, `in_progress`, `queued` `pending`, or `success`. **Note:** To use the `inactive` state, you must provide the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type. To use the `in_progress` and `queued` states, you must provide the [`application/vnd.github.flash-preview+json`](https://docs.github.com/rest/overview/api-previews#deployment-statuses) custom media type. When you set a transient deployment to `inactive`, the deployment will be shown as `destroyed` in GitHub. */
           readonly state: "error" | "failure" | "inactive" | "in_progress" | "queued" | "pending" | "success";
           /** The target URL to associate with this status. This URL should contain output to keep the user updated while the task is running or serve as historical information for what happened in the deployment. **Note:** It's recommended to use the `log_url` parameter, which replaces `target_url`. */
-          readonly target_url: string;
+          readonly target_url?: string;
           /**
            * The full URL of the deployment's output. This parameter replaces `target_url`. We will continue to accept `target_url` to support legacy uses, but we recommend replacing `target_url` with `log_url`. Setting `log_url` will automatically set `target_url` to the same value. Default: `""`
            * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type. **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type.
            */
-          readonly log_url: string;
+          readonly log_url?: string;
           /** A short description of the status. The maximum description length is 140 characters. */
-          readonly description: string;
+          readonly description?: string;
           /** Name for the target deployment environment, which can be changed when setting a deploy status. For example, `production`, `staging`, or `qa`. **Note:** This parameter requires you to use the [`application/vnd.github.flash-preview+json`](https://docs.github.com/rest/overview/api-previews#deployment-statuses) custom media type. */
           readonly environment?: "production" | "staging" | "qa";
           /**
            * Sets the URL for accessing your environment. Default: `""`
            * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type. **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type.
            */
-          readonly environment_url: string;
+          readonly environment_url?: string;
           /**
            * Adds a new `inactive` status to all prior non-transient, non-production environment deployments with the same repository and `environment` name as the created status's deployment. An `inactive` status is only added to deployments that had a `success` state. Default: `true`
            * **Note:** To add an `inactive` status to `production` environments, you must use the [`application/vnd.github.flash-preview+json`](https://docs.github.com/rest/overview/api-previews#deployment-statuses) custom media type.
@@ -22118,7 +22118,7 @@ export interface operations {
           /** The new blob's content. */
           readonly content: string;
           /** The encoding used for `content`. Currently, `"utf-8"` and `"base64"` are supported. */
-          readonly encoding: string;
+          readonly encoding?: string;
         };
       };
     };
@@ -22413,7 +22413,7 @@ export interface operations {
           /** The SHA1 value to set this reference to */
           readonly sha: string;
           /** Indicates whether to force the update or to make sure the update is a fast-forward update. Leaving this out or setting it to `false` will make sure you're not overwriting work. */
-          readonly force: boolean;
+          readonly force?: boolean;
         };
       };
     };
@@ -22692,9 +22692,9 @@ export interface operations {
             readonly digest?: string;
           };
           /** Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. */
-          readonly events: readonly string[];
+          readonly events?: readonly string[];
           /** Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications. */
-          readonly active: boolean;
+          readonly active?: boolean;
         };
       };
     };
@@ -22764,13 +22764,13 @@ export interface operations {
             readonly room?: string;
           };
           /** Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. This replaces the entire array of events. */
-          readonly events: readonly string[];
+          readonly events?: readonly string[];
           /** Determines a list of events to be added to the list of events that the Hook triggers for. */
           readonly add_events?: readonly string[];
           /** Determines a list of events to be removed from the list of events that the Hook triggers for. */
           readonly remove_events?: readonly string[];
           /** Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications. */
-          readonly active: boolean;
+          readonly active?: boolean;
         };
       };
     };
@@ -24435,7 +24435,7 @@ export interface operations {
           /** The title of the milestone. */
           readonly title: string;
           /** The state of the milestone. Either `open` or `closed`. */
-          readonly state: "open" | "closed";
+          readonly state?: "open" | "closed";
           /** A description of the milestone. */
           readonly description?: string;
           /** The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
@@ -24501,7 +24501,7 @@ export interface operations {
           /** The title of the milestone. */
           readonly title?: string;
           /** The state of the milestone. Either `open` or `closed`. */
-          readonly state: "open" | "closed";
+          readonly state?: "open" | "closed";
           /** A description of the milestone. */
           readonly description?: string;
           /** The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
@@ -24664,7 +24664,7 @@ export interface operations {
             /** The repository branch used to publish your site's source files. */
             readonly branch: string;
             /** The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`. Default: `/` */
-            readonly path: "/" | "/docs";
+            readonly path?: "/" | "/docs";
           };
         };
       };
@@ -25849,9 +25849,9 @@ export interface operations {
           /** Text describing the contents of the tag. */
           readonly body?: string;
           /** `true` to create a draft (unpublished) release, `false` to create a published one. */
-          readonly draft: boolean;
+          readonly draft?: boolean;
           /** `true` to identify the release as a prerelease. `false` to identify the release as a full release. */
-          readonly prerelease: boolean;
+          readonly prerelease?: boolean;
         };
       };
     };
@@ -26379,7 +26379,7 @@ export interface operations {
           /** A short description of the status. */
           readonly description?: string;
           /** A string label to differentiate this status from the status of other systems. This field is case-insensitive. */
-          readonly context: string;
+          readonly context?: string;
         };
       };
     };
@@ -26782,9 +26782,9 @@ export interface operations {
           /** A short description of the new repository. */
           readonly description?: string;
           /** Set to `true` to include the directory structure and files from all branches in the template repository, and not just the default branch. Default: `false`. */
-          readonly include_all_branches: boolean;
+          readonly include_all_branches?: boolean;
           /** Either `true` to create a new private repository or `false` to create a new public one. */
-          readonly private: boolean;
+          readonly private?: boolean;
         };
       };
     };
@@ -28047,7 +28047,7 @@ export interface operations {
            * \* `push` - team members can pull and push, but not administer newly-added repositories.
            * \* `admin` - team members can pull, push and administer newly-added repositories.
            */
-          readonly permission: "pull" | "push" | "admin";
+          readonly permission?: "pull" | "push" | "admin";
           /** The ID of a team to set as the parent team. */
           readonly parent_team_id?: number | null;
         };
@@ -28112,7 +28112,7 @@ export interface operations {
           /** The discussion post's body text. */
           readonly body: string;
           /** Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post. */
-          readonly private: boolean;
+          readonly private?: boolean;
         };
       };
     };
@@ -28666,7 +28666,7 @@ export interface operations {
            * \* `member` - a normal member of the team.
            * \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
            */
-          readonly role: "member" | "maintainer";
+          readonly role?: "member" | "maintainer";
         };
       };
     };
@@ -30361,33 +30361,33 @@ export interface operations {
           /** A URL with more information about the repository. */
           readonly homepage?: string;
           /** Whether the repository is private or public. */
-          readonly private: boolean;
+          readonly private?: boolean;
           /** Whether issues are enabled. */
-          readonly has_issues: boolean;
+          readonly has_issues?: boolean;
           /** Whether projects are enabled. */
-          readonly has_projects: boolean;
+          readonly has_projects?: boolean;
           /** Whether the wiki is enabled. */
-          readonly has_wiki: boolean;
+          readonly has_wiki?: boolean;
           /** The id of the team that will be granted access to this repository. This is only valid when creating a repository in an organization. */
           readonly team_id?: number;
           /** Whether the repository is initialized with a minimal README. */
-          readonly auto_init: boolean;
+          readonly auto_init?: boolean;
           /** The desired language or platform to apply to the .gitignore. */
           readonly gitignore_template?: string;
           /** The license keyword of the open source license for this repository. */
           readonly license_template?: string;
           /** Whether to allow squash merges for pull requests. */
-          readonly allow_squash_merge: boolean;
+          readonly allow_squash_merge?: boolean;
           /** Whether to allow merge commits for pull requests. */
-          readonly allow_merge_commit: boolean;
+          readonly allow_merge_commit?: boolean;
           /** Whether to allow rebase merges for pull requests. */
-          readonly allow_rebase_merge: boolean;
+          readonly allow_rebase_merge?: boolean;
           /** Whether to delete head branches when pull requests are merged */
-          readonly delete_branch_on_merge: boolean;
+          readonly delete_branch_on_merge?: boolean;
           /** Whether downloads are enabled. */
-          readonly has_downloads: boolean;
+          readonly has_downloads?: boolean;
           /** Whether this repository acts as a template that can be used to generate new repositories. */
-          readonly is_template: boolean;
+          readonly is_template?: boolean;
         };
       };
     };
