@@ -94,15 +94,14 @@ async function generateSchema(pathToSpec) {
 
   // output
   if (output === OUTPUT_FILE) {
-    let outputFile = path.resolve(process.cwd(), cli.flags.output);
-
-    // decide filename if outputFile is a directory
-    if (fs.existsSync(outputFile) && fs.lstatSync(outputFile).isDirectory()) {
-      const basename = path.basename(pathToSpec).split(".").slice(0, -1).join(".") + ".ts";
-      outputFile = path.resolve(outputFile, basename);
+    let outputFile = path.resolve(process.cwd(), cli.flags.output); // note: may be directory
+    const isDir = fs.existsSync(outputFile) && fs.lstatSync(outputFile).isDirectory();
+    if (isDir) {
+      const filename = pathToSpec.replace(new RegExp(`${path.extname(pathToSpec)}$`), ".ts");
+      outputFile = path.join(outputFile, filename);
     }
 
-    fs.writeFileSync(outputFile, result, "utf8");
+    await fs.promises.writeFile(outputFile, result, "utf8");
 
     const timeEnd = process.hrtime(timeStart);
     const time = timeEnd[0] + Math.round(timeEnd[1] / 1e6);
@@ -117,53 +116,49 @@ async function generateSchema(pathToSpec) {
 async function main() {
   const output = cli.flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
   const pathToSpec = cli.input[0];
-  const inputSpecPaths = await glob(pathToSpec, { filesOnly: true });
 
   if (output === OUTPUT_FILE) {
     console.info(bold(`✨ openapi-typescript ${require("../package.json").version}`)); // only log if we’re NOT writing to stdout
   }
 
+  // error: --raw-schema
   if (cli.flags.rawSchema && !cli.flags.version) {
     throw new Error(`--raw-schema requires --version flag`);
   }
 
+  // handle remote schema, exit
   if (/^https?:\/\//.test(pathToSpec)) {
-    // handle remote resource input and exit
-    return await generateSchema(pathToSpec);
+    if (output !== "." && output === OUTPUT_FILE)
+      await fs.promises.mkdir(path.dirname(cli.flags.output), { recursive: true });
+    await generateSchema(pathToSpec);
+    return;
   }
 
-  //  no matches for glob
+  // handle local schema(s)
+  const inputSpecPaths = await glob(pathToSpec, { filesOnly: true });
+  const isGlob = inputSpecPaths.length > 1;
+
+  // error: no matches for glob
   if (inputSpecPaths.length === 0) {
-    errorAndExit(
-      `❌ Could not find any spec files matching the provided input path glob. Please check that the path is correct.`
-    );
+    errorAndExit(`❌ Could not find any specs matching "${pathToSpec}". Please check that the path is correct.`);
   }
 
-  if (output === OUTPUT_FILE) {
-    // recursively create parent directories if they don’t exist
-    const parentDirs = cli.flags.output.split(path.sep);
-    for (var i = 1; i < parentDirs.length; i++) {
-      const dir = path.resolve(process.cwd(), ...parentDirs.slice(0, i));
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir);
+  // error: tried to glob output to single file
+  if (isGlob && output === OUTPUT_FILE && fs.existsSync(cli.flags.output) && fs.lstatSync(cli.flags.output).isFile()) {
+    errorAndExit(`❌ Expected directory for --output if using glob patterns. Received "${cli.flags.output}".`);
+  }
+
+  // generate schema(s)
+  await Promise.all(
+    inputSpecPaths.map(async (specPath) => {
+      if (cli.flags.output !== "." && output === OUTPUT_FILE) {
+        let outputDir = path.join(process.cwd(), cli.flags.output);
+        if (!isGlob) outputDir = path.dirname(outputDir); // use output dir for glob; use parent dir for single files
+        await fs.promises.mkdir(path.join(outputDir, path.dirname(specPath)), { recursive: true }); // recursively make parent dirs
       }
-    }
-  }
-
-  // if there are multiple specs, ensure that output is a directory
-  if (inputSpecPaths.length > 1 && output === OUTPUT_FILE && !fs.lstatSync(cli.flags.output).isDirectory()) {
-    errorAndExit(
-      `❌ When specifying a glob matching multiple input specs, you must specify a directory for generated type definitions.`
-    );
-  }
-
-  let result = "";
-  for (const specPath of inputSpecPaths) {
-    // append result returned for each spec
-    result += await generateSchema(specPath);
-  }
-
-  return result;
+      await generateSchema(specPath);
+    })
+  );
 }
 
 main();
