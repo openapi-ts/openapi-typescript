@@ -55,10 +55,13 @@
   },
   "dependencies": {
     "hosted-git-info": "^3.0.8",
+    "i": "^0.3.6",
     "js-yaml": "^4.1.0",
+    "json-schema-to-typescript": "^10.1.4",
     "kleur": "^4.1.4",
     "meow": "^9.0.0",
     "mime": "^2.5.2",
+    "npm": "^7.16.0",
     "prettier": "^2.3.0",
     "tiny-glob": "^0.2.9"
   },

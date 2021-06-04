@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require("fs");
+const jsonToTs = require("json-schema-to-typescript");
 const { bold, green, red } = require("kleur");
 const path = require("path");
 const meow = require("meow");
@@ -25,6 +26,10 @@ Options
 `,
   {
     flags: {
+      jsonToTs: {
+        type: "boolean",
+        alias: "jtts",
+      },
       output: {
         type: "string",
         alias: "o",
@@ -73,10 +78,15 @@ async function generateSchema(pathToSpec) {
   // load spec
   let spec = undefined;
   try {
-    spec = await loadSpec(pathToSpec, {
-      auth: cli.flags.auth,
-      log: output !== OUTPUT_STDOUT,
-    });
+    if (cli.flags.jsonToTs) {
+     // parse json using json-schema-to-typescript
+     const typed = await jsonToTs.compileFromFile(pathToSpec);
+     return await fs.promises.writeFile(cli.flags.output, typed);
+    }
+      spec = await loadSpec(pathToSpec, {
+        auth: cli.flags.auth,
+        log: output !== OUTPUT_STDOUT,
+      });
   } catch (err) {
     errorAndExit(`❌ ${err}`);
   }

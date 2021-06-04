@@ -98,6 +98,7 @@ npx openapi-typescript schema.yaml
 | `--default-non-nullable`       |       | `false`  | (optional) Treat schema objects with default values as non-nullable                                     |
 | `--prettier-config [location]` | `-c`  |          | (optional) Path to your custom Prettier configuration for output                                        |
 | `--raw-schema`                 |       | `false`  | Generate TS types from partial schema (e.g. having `components.schema` at the top level)                |
+| `--jsonToTs`                   |       | `false`  | Generate TS types from json as specified [here](https://github.com/bcherny/json-schema-to-typescript)   |
 
 ### 🐢 Node
 

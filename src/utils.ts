@@ -60,7 +60,8 @@ export function nodeType(obj: any): SchemaObjectType | undefined {
 }
 
 /** Return OpenAPI version from definition */
-export function swaggerVersion(definition: OpenAPI2 | OpenAPI3): 2 | 3 {
+export function swaggerVersion(definition: OpenAPI2 | OpenAPI3): 2 | 3 | undefined {
+  if (!definition) return undefined;
   // OpenAPI 3
   if ("openapi" in definition) {
     // OpenAPI version requires semver, therefore will always be string
