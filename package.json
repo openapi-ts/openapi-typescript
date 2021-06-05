@@ -54,10 +54,10 @@
     "version": "npm run build"
   },
   "dependencies": {
+    "dtsgenerator": "^3.12.1",
     "hosted-git-info": "^3.0.8",
     "i": "^0.3.6",
     "js-yaml": "^4.1.0",
-    "json-schema-to-typescript": "^10.1.4",
     "kleur": "^4.1.4",
     "meow": "^9.0.0",
     "mime": "^2.5.2",

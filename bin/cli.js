@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require("fs");
-const jsonToTs = require("json-schema-to-typescript");
+const { default: dtsgenerator, parseSchema } = require('dtsgenerator');
 const { bold, green, red } = require("kleur");
 const path = require("path");
 const meow = require("meow");
@@ -72,6 +72,17 @@ function errorAndExit(errorMessage) {
   throw new Error(red(errorMessage));
 }
 
+async function generateTypesFromJsonSchema(cli, pathToSpec) {
+  const jsonStr = await fs.promises.readFile(pathToSpec);
+  try {
+    const schema = JSON.parse(jsonStr);
+    const content = await dtsgenerator({ contents: [parseSchema(schema)]})
+    return fs.promises.writeFile(cli.flags.output, content);
+  } catch (err) {
+    return err;
+  }
+}
+
 async function generateSchema(pathToSpec) {
   const output = cli.flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
 
@@ -79,11 +90,9 @@ async function generateSchema(pathToSpec) {
   let spec = undefined;
   try {
     if (cli.flags.jsonToTs) {
-     // parse json using json-schema-to-typescript
-     const typed = await jsonToTs.compileFromFile(pathToSpec);
-     return await fs.promises.writeFile(cli.flags.output, typed);
+      return await generateTypesFromJsonSchema(cli, pathToSpec);
     }
-      spec = await loadSpec(pathToSpec, {
+    spec = await loadSpec(pathToSpec, {
         auth: cli.flags.auth,
         log: output !== OUTPUT_STDOUT,
       });
