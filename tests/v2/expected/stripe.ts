@@ -1522,7 +1522,7 @@ export interface definitions {
     id: string;
     individual?: definitions["person"];
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata?: { [key: string]: any };
+    metadata?: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "account";
     /** Whether Stripe can send payouts to this account. */
@@ -1743,7 +1743,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata?: { [key: string]: any };
+    metadata?: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "alipay_account";
     /** If the Alipay account object is not reusable, the exact amount that you can create a charge for. */
@@ -1982,7 +1982,7 @@ export interface definitions {
     /** The last four digits of the bank account number. */
     last4: string;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata?: { [key: string]: any };
+    metadata?: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "bank_account";
     /** The routing transit number for the bank account. */
@@ -2060,7 +2060,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "bitcoin_receiver";
     /** The ID of the payment created from the receiver, if any. Hidden when viewing the receiver with a publishable key. */
@@ -2173,7 +2173,7 @@ export interface definitions {
     /** The last four digits of the card. */
     last4: string;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** Cardholder name. */
     name?: string;
     /** String representing the object's type. Objects of the same type share the same value. */
@@ -2183,7 +2183,7 @@ export interface definitions {
     /** If the card number is tokenized, this is the method that was used. Can be `amex_express_checkout`, `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null. */
     tokenization_method?: string;
   };
-  card_mandate_payment_method_details: { [key: string]: any };
+  card_mandate_payment_method_details: { [key: string]: unknown };
   /**
    * To charge a credit or a debit card, you create a `Charge` object. You can
    * retrieve and refund individual charges as well as list all charges. Charges
@@ -2231,7 +2231,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "charge";
     /** The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers) for details. */
@@ -2384,7 +2384,7 @@ export interface definitions {
       | "sv"
       | "zh";
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata?: { [key: string]: any };
+    metadata?: { [key: string]: unknown };
     /** The mode of the Checkout Session, one of `payment`, `setup`, or `subscription`. */
     mode?: "payment" | "setup" | "subscription";
     /** String representing the object's type. Objects of the same type share the same value. */
@@ -2466,7 +2466,7 @@ export interface definitions {
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "country_spec";
     /** Currencies that can be accepted in the specific country (for transfers). */
-    supported_bank_account_currencies: { [key: string]: any };
+    supported_bank_account_currencies: { [key: string]: unknown };
     /** Currencies that can be accepted in the specified country (for payments). */
     supported_payment_currencies: string[];
     /** Payment methods available in the specified country. You may need to enable some payment methods (e.g., [ACH](https://stripe.com/docs/ach)) on your account before they appear in this list. The `stripe` payment method refers to [charging through your platform](https://stripe.com/docs/connect/destination-charges). */
@@ -2508,7 +2508,7 @@ export interface definitions {
     /** Maximum number of times this coupon can be redeemed, in total, across all customers, before it is no longer valid. */
     max_redemptions?: number;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** Name of the coupon displayed to customers on for instance invoices or receipts. */
     name?: string;
     /** String representing the object's type. Objects of the same type share the same value. */
@@ -2560,7 +2560,7 @@ export interface definitions {
     /** Customer-facing text that appears on the credit note PDF. */
     memo?: string;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** A unique number that identifies this particular credit note and appears on the PDF of the credit note and its associated invoice. */
     number: string;
     /** String representing the object's type. Objects of the same type share the same value. */
@@ -2659,7 +2659,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata?: { [key: string]: any };
+    metadata?: { [key: string]: unknown };
     /** The customer's full name or business name. */
     name?: string;
     /** The suffix of the customer's next invoice number, e.g., 0001. */
@@ -2745,7 +2745,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata?: { [key: string]: any };
+    metadata?: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "customer_balance_transaction";
     /** Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, or `unapplied_from_invoice`. See the [Customer Balance page](https://stripe.com/docs/billing/customer/balance#types) to learn more about transaction types. */
@@ -3023,7 +3023,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "dispute";
     /** ID of the PaymentIntent that was disputed. */
@@ -3195,7 +3195,7 @@ export interface definitions {
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "exchange_rate";
     /** Hash where the keys are supported currencies and the values are the exchange rate at which the base id currency converts to the key currency. */
-    rates: { [key: string]: any };
+    rates: { [key: string]: unknown };
   };
   external_account: {
     /** The ID of the account that the bank account is associated with. */
@@ -3215,7 +3215,7 @@ export interface definitions {
     /** The last four digits of the bank account number. */
     last4: string;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata?: { [key: string]: any };
+    metadata?: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "bank_account";
   };
@@ -3252,7 +3252,7 @@ export interface definitions {
     /** Unique identifier for the object. */
     id: string;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "fee_refund";
   };
@@ -3315,7 +3315,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "file_link";
     /** The publicly accessible URL to download the file. */
@@ -3469,7 +3469,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata?: { [key: string]: any };
+    metadata?: { [key: string]: unknown };
     /** The time at which payment will next be attempted. This value will be `null` for invoices where `collection_method=send_invoice`. */
     next_payment_attempt?: number;
     /** A unique, identifying string that appears on emails sent to the customer for this invoice. This starts with the customer's unique invoice_prefix if it is specified. */
@@ -3588,7 +3588,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "invoiceitem";
     period: definitions["invoice_line_item_period"];
@@ -3706,7 +3706,7 @@ export interface definitions {
     merchant_currency: string;
     merchant_data: definitions["issuing_authorization_merchant_data"];
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "issuing.authorization";
     pending_request?: definitions["issuing_authorization_pending_request"];
@@ -3744,7 +3744,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** The full unredacted card number. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint. */
     number?: string;
     /** String representing the object's type. Objects of the same type share the same value. */
@@ -3780,7 +3780,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** The cardholder's name. This will be printed on cards issued to them. */
     name: string;
     /** String representing the object's type. Objects of the same type share the same value. */
@@ -3824,7 +3824,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** The total net amount required to settle with the network. */
     net_total: number;
     /** The card network for this settlement report. One of ["visa"] */
@@ -3874,7 +3874,7 @@ export interface definitions {
     merchant_currency: string;
     merchant_data: definitions["issuing_authorization_merchant_data"];
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "issuing.transaction";
     /** The nature of the transaction. */
@@ -5882,7 +5882,7 @@ export interface definitions {
     /** The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. */
     front?: string;
   };
-  light_account_logout: { [key: string]: any };
+  light_account_logout: { [key: string]: unknown };
   line_item: {
     /** The amount, in %s. */
     amount: number;
@@ -5899,7 +5899,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Note that for line items with `type=subscription` this will reflect the metadata of the subscription that caused the line item to be created. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "line_item";
     period: definitions["invoice_line_item_period"];
@@ -5950,7 +5950,7 @@ export interface definitions {
     /** The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively. */
     url: string;
   };
-  mandate_multi_use: { [key: string]: any };
+  mandate_multi_use: { [key: string]: unknown };
   mandate_payment_method_details: {
     au_becs_debit?: definitions["mandate_au_becs_debit"];
     card?: definitions["card_mandate_payment_method_details"];
@@ -5972,9 +5972,9 @@ export interface definitions {
   };
   notification_event_data: {
     /** Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://stripe.com/docs/api#invoice_object) as the value of the object key. */
-    object: { [key: string]: any };
+    object: { [key: string]: unknown };
     /** Object containing the names of the attributes that have changed, and their previous values (sent along only with *.updated events). */
-    previous_attributes?: { [key: string]: any };
+    previous_attributes?: { [key: string]: unknown };
   };
   notification_event_request: {
     /** ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API. */
@@ -5982,7 +5982,7 @@ export interface definitions {
     /** The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*. */
     idempotency_key?: string;
   };
-  offline_acceptance: { [key: string]: any };
+  offline_acceptance: { [key: string]: unknown };
   online_acceptance: {
     /** The IP address from which the Mandate was accepted by the customer. */
     ip_address?: string;
@@ -6024,7 +6024,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "order";
     /** A list of returns that have taken place for this order. */
@@ -6188,7 +6188,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. For more information, see the [documentation](https://stripe.com/docs/payments/payment-intents/creating-payment-intents#storing-information-in-metadata). */
-    metadata?: { [key: string]: any };
+    metadata?: { [key: string]: unknown };
     next_action?: definitions["payment_intent_next_action"];
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "payment_intent";
@@ -6234,7 +6234,7 @@ export interface definitions {
     /** Type of the next action to perform, one of `redirect_to_url` or `use_stripe_sdk`. */
     type: string;
     /** When confirming a PaymentIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js. */
-    use_stripe_sdk?: { [key: string]: any };
+    use_stripe_sdk?: { [key: string]: unknown };
   };
   payment_intent_next_action_redirect_to_url: {
     /** If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion. */
@@ -6273,7 +6273,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "payment_method";
     sepa_debit?: definitions["payment_method_sepa_debit"];
@@ -6321,7 +6321,7 @@ export interface definitions {
     charge?: string;
     payment_method_details?: definitions["payment_method_details"];
   };
-  payment_method_card_present: { [key: string]: any };
+  payment_method_card_present: { [key: string]: unknown };
   payment_method_card_wallet: {
     amex_express_checkout?: definitions["payment_method_card_wallet_amex_express_checkout"];
     apple_pay?: definitions["payment_method_card_wallet_apple_pay"];
@@ -6334,9 +6334,9 @@ export interface definitions {
     type: "amex_express_checkout" | "apple_pay" | "google_pay" | "masterpass" | "samsung_pay" | "visa_checkout";
     visa_checkout?: definitions["payment_method_card_wallet_visa_checkout"];
   };
-  payment_method_card_wallet_amex_express_checkout: { [key: string]: any };
-  payment_method_card_wallet_apple_pay: { [key: string]: any };
-  payment_method_card_wallet_google_pay: { [key: string]: any };
+  payment_method_card_wallet_amex_express_checkout: { [key: string]: unknown };
+  payment_method_card_wallet_apple_pay: { [key: string]: unknown };
+  payment_method_card_wallet_google_pay: { [key: string]: unknown };
   payment_method_card_wallet_masterpass: {
     billing_address?: definitions["address"];
     /** Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
@@ -6345,7 +6345,7 @@ export interface definitions {
     name?: string;
     shipping_address?: definitions["address"];
   };
-  payment_method_card_wallet_samsung_pay: { [key: string]: any };
+  payment_method_card_wallet_samsung_pay: { [key: string]: unknown };
   payment_method_card_wallet_visa_checkout: {
     billing_address?: definitions["address"];
     /** Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
@@ -6404,7 +6404,7 @@ export interface definitions {
     /** Routing transit number of the bank account. */
     routing_number?: string;
   };
-  payment_method_details_alipay: { [key: string]: any };
+  payment_method_details_alipay: { [key: string]: unknown };
   payment_method_details_au_becs_debit: {
     /** Bank-State-Branch number of the bank account. */
     bsb_number?: string;
@@ -6536,9 +6536,9 @@ export interface definitions {
     type: "amex_express_checkout" | "apple_pay" | "google_pay" | "masterpass" | "samsung_pay" | "visa_checkout";
     visa_checkout?: definitions["payment_method_details_card_wallet_visa_checkout"];
   };
-  payment_method_details_card_wallet_amex_express_checkout: { [key: string]: any };
-  payment_method_details_card_wallet_apple_pay: { [key: string]: any };
-  payment_method_details_card_wallet_google_pay: { [key: string]: any };
+  payment_method_details_card_wallet_amex_express_checkout: { [key: string]: unknown };
+  payment_method_details_card_wallet_apple_pay: { [key: string]: unknown };
+  payment_method_details_card_wallet_google_pay: { [key: string]: unknown };
   payment_method_details_card_wallet_masterpass: {
     billing_address?: definitions["address"];
     /** Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
@@ -6547,7 +6547,7 @@ export interface definitions {
     name?: string;
     shipping_address?: definitions["address"];
   };
-  payment_method_details_card_wallet_samsung_pay: { [key: string]: any };
+  payment_method_details_card_wallet_samsung_pay: { [key: string]: unknown };
   payment_method_details_card_wallet_visa_checkout: {
     billing_address?: definitions["address"];
     /** Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
@@ -6639,7 +6639,7 @@ export interface definitions {
      */
     verified_name?: string;
   };
-  payment_method_details_klarna: { [key: string]: any };
+  payment_method_details_klarna: { [key: string]: unknown };
   payment_method_details_multibanco: {
     /** Entity number associated with this Multibanco payment. */
     entity?: string;
@@ -6686,8 +6686,8 @@ export interface definitions {
      */
     verified_name?: string;
   };
-  payment_method_details_stripe_account: { [key: string]: any };
-  payment_method_details_wechat: { [key: string]: any };
+  payment_method_details_stripe_account: { [key: string]: unknown };
+  payment_method_details_wechat: { [key: string]: unknown };
   payment_method_fpx: {
     /** The customer's bank, if provided. Can be one of `affin_bank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, or `pb_enterprise`. */
     bank:
@@ -7010,7 +7010,7 @@ export interface definitions {
     /** Unique identifier for the object. */
     id: string;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata?: { [key: string]: any };
+    metadata?: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "account";
   };
@@ -7052,7 +7052,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces](https://stripe.com/blog/instant-payouts-for-marketplaces) for more information.) */
     method: string;
     /** String representing the object's type. Objects of the same type share the same value. */
@@ -7098,7 +7098,7 @@ export interface definitions {
     last_name_kanji?: string;
     maiden_name?: string;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata?: { [key: string]: any };
+    metadata?: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "person";
     phone?: string;
@@ -7165,7 +7165,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** A brief description of the plan, hidden from customers. */
     nickname?: string;
     /** String representing the object's type. Objects of the same type share the same value. */
@@ -7236,7 +7236,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** The product's name, meant to be displayable to the customer. Whenever this product is sold via a subscription, name will show up on associated invoice line item descriptions. */
     name: string;
     /** String representing the object's type. Objects of the same type share the same value. */
@@ -7314,7 +7314,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** The name of the value list. */
     name: string;
     /** String representing the object's type. Objects of the same type share the same value. */
@@ -7399,7 +7399,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** The ID of the [Custom account](https://stripe.com/docs/connect/custom-accounts) this recipient was migrated to. If set, the recipient can no longer be updated, nor can transfers be made to it: use the Custom account instead. */
     migrated_to?: string;
     /** Full, legal name of the recipient. */
@@ -7437,7 +7437,7 @@ export interface definitions {
     /** Unique identifier for the object. */
     id: string;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "refund";
     /** ID of the PaymentIntent that was refunded. */
@@ -7657,7 +7657,7 @@ export interface definitions {
     /** ID of the multi use Mandate generated by the SetupIntent. */
     mandate?: string;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata?: { [key: string]: any };
+    metadata?: { [key: string]: unknown };
     next_action?: definitions["setup_intent_next_action"];
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "setup_intent";
@@ -7690,7 +7690,7 @@ export interface definitions {
     /** Type of the next action to perform, one of `redirect_to_url` or `use_stripe_sdk`. */
     type: string;
     /** When confirming a SetupIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js. */
-    use_stripe_sdk?: { [key: string]: any };
+    use_stripe_sdk?: { [key: string]: unknown };
   };
   setup_intent_next_action_redirect_to_url: {
     /** If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion. */
@@ -7745,7 +7745,7 @@ export interface definitions {
     /** Whether the SKU is available for purchase. */
     active: boolean;
     /** A dictionary of attributes and values for the attributes defined by the product. If, for example, a product's attributes are `["size", "gender"]`, a valid SKU has the following dictionary of attributes: `{"size": "Medium", "gender": "Unisex"}`. */
-    attributes: { [key: string]: any };
+    attributes: { [key: string]: unknown };
     /** Time at which the object was created. Measured in seconds since the Unix epoch. */
     created: number;
     /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -7758,7 +7758,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "sku";
     package_dimensions?: definitions["package_dimensions"];
@@ -7807,7 +7807,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata?: { [key: string]: any };
+    metadata?: { [key: string]: unknown };
     multibanco?: definitions["source_type_multibanco"];
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "source";
@@ -8295,7 +8295,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** Specifies the approximate timestamp on which any pending invoice items will be billed according to the schedule provided at `pending_invoice_item_interval`. */
     next_pending_invoice_item_invoice?: number;
     /** String representing the object's type. Objects of the same type share the same value. */
@@ -8348,7 +8348,7 @@ export interface definitions {
     /** Unique identifier for the object. */
     id: string;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "subscription_item";
     plan: definitions["plan"];
@@ -8392,7 +8392,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata?: { [key: string]: any };
+    metadata?: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "subscription_schedule";
     /** Configuration for the subscription schedule's phases. */
@@ -8575,7 +8575,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "tax_rate";
     /** This represents the tax rate percent out of 100. */
@@ -8608,7 +8608,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "terminal.location";
   };
@@ -8633,7 +8633,7 @@ export interface definitions {
     /** The location identifier of the reader. */
     location?: string;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "terminal.reader";
     /** Serial number of the reader. */
@@ -8750,7 +8750,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "topup";
     source: definitions["source"];
@@ -8795,7 +8795,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "transfer";
     /** A list of reversals that have been applied to the transfer. */
@@ -8857,7 +8857,7 @@ export interface definitions {
     /** Unique identifier for the object. */
     id: string;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "transfer_reversal";
     /** ID of the refund responsible for the transfer reversal. */
@@ -8941,7 +8941,7 @@ export interface definitions {
     /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-    metadata: { [key: string]: any };
+    metadata: { [key: string]: unknown };
     /** String representing the object's type. Objects of the same type share the same value. */
     object: "webhook_endpoint";
     /** The endpoint's secret, used to generate [webhook signatures](https://stripe.com/docs/webhooks/signatures). Only returned at creation. */
@@ -9040,7 +9040,7 @@ export interface operations {
           /** An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
           account_token?: string;
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: any };
+          bank_account?: { [key: string]: unknown };
           /** Business information about the account. */
           business_profile?: {
             mcc?: string;
@@ -9151,7 +9151,7 @@ export interface operations {
               state?: string;
               town?: string;
             };
-            dob?: { [key: string]: any };
+            dob?: { [key: string]: unknown };
             email?: string;
             first_name?: string;
             first_name_kana?: string;
@@ -9162,7 +9162,7 @@ export interface operations {
             last_name_kana?: string;
             last_name_kanji?: string;
             maiden_name?: string;
-            metadata?: { [key: string]: any };
+            metadata?: { [key: string]: unknown };
             phone?: string;
             ssn_last_4?: string;
             verification?: {
@@ -9177,7 +9177,7 @@ export interface operations {
             };
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The set of capabilities you want to unlock for this account. Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive. */
           requested_capabilities?: (
             | "au_becs_debit_payments"
@@ -9211,7 +9211,7 @@ export interface operations {
             payouts?: {
               debit_negative_balances?: boolean;
               schedule?: {
-                delay_days?: { [key: string]: any };
+                delay_days?: { [key: string]: unknown };
                 interval?: "daily" | "manual" | "monthly" | "weekly";
                 monthly_anchor?: number;
                 weekly_anchor?: "friday" | "monday" | "saturday" | "sunday" | "thursday" | "tuesday" | "wednesday";
@@ -9273,7 +9273,7 @@ export interface operations {
         /** Body parameters for the request. */
         payload?: {
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: any };
+          bank_account?: { [key: string]: unknown };
           /** When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           default_for_currency?: boolean;
           /** Specifies which fields in the response should be expanded. */
@@ -9281,7 +9281,7 @@ export interface operations {
           /** Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           external_account?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -9355,7 +9355,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Cardholder name. */
           name?: string;
         };
@@ -9507,7 +9507,7 @@ export interface operations {
         /** Body parameters for the request. */
         payload?: {
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: any };
+          bank_account?: { [key: string]: unknown };
           /** When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           default_for_currency?: boolean;
           /** Specifies which fields in the response should be expanded. */
@@ -9515,7 +9515,7 @@ export interface operations {
           /** Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           external_account?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -9589,7 +9589,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Cardholder name. */
           name?: string;
         };
@@ -9752,7 +9752,7 @@ export interface operations {
             town?: string;
           };
           /** The person's date of birth. */
-          dob?: { [key: string]: any };
+          dob?: { [key: string]: unknown };
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -9776,7 +9776,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -9786,7 +9786,7 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: { [key: string]: any };
+            percent_ownership?: { [key: string]: unknown };
             representative?: boolean;
             title?: string;
           };
@@ -9879,7 +9879,7 @@ export interface operations {
             town?: string;
           };
           /** The person's date of birth. */
-          dob?: { [key: string]: any };
+          dob?: { [key: string]: unknown };
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -9903,7 +9903,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -9913,7 +9913,7 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: { [key: string]: any };
+            percent_ownership?: { [key: string]: unknown };
             representative?: boolean;
             title?: string;
           };
@@ -10034,7 +10034,7 @@ export interface operations {
             town?: string;
           };
           /** The person's date of birth. */
-          dob?: { [key: string]: any };
+          dob?: { [key: string]: unknown };
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -10058,7 +10058,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -10068,7 +10068,7 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: { [key: string]: any };
+            percent_ownership?: { [key: string]: unknown };
             representative?: boolean;
             title?: string;
           };
@@ -10161,7 +10161,7 @@ export interface operations {
             town?: string;
           };
           /** The person's date of birth. */
-          dob?: { [key: string]: any };
+          dob?: { [key: string]: unknown };
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -10185,7 +10185,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -10195,7 +10195,7 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: { [key: string]: any };
+            percent_ownership?: { [key: string]: unknown };
             representative?: boolean;
             title?: string;
           };
@@ -10325,7 +10325,7 @@ export interface operations {
           /** An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
           account_token?: string;
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: any };
+          bank_account?: { [key: string]: unknown };
           /** Business information about the account. */
           business_profile?: {
             mcc?: string;
@@ -10438,7 +10438,7 @@ export interface operations {
               state?: string;
               town?: string;
             };
-            dob?: { [key: string]: any };
+            dob?: { [key: string]: unknown };
             email?: string;
             first_name?: string;
             first_name_kana?: string;
@@ -10449,7 +10449,7 @@ export interface operations {
             last_name_kana?: string;
             last_name_kanji?: string;
             maiden_name?: string;
-            metadata?: { [key: string]: any };
+            metadata?: { [key: string]: unknown };
             phone?: string;
             ssn_last_4?: string;
             verification?: {
@@ -10464,7 +10464,7 @@ export interface operations {
             };
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The set of capabilities you want to unlock for this account. Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive. */
           requested_capabilities?: (
             | "au_becs_debit_payments"
@@ -10498,7 +10498,7 @@ export interface operations {
             payouts?: {
               debit_negative_balances?: boolean;
               schedule?: {
-                delay_days?: { [key: string]: any };
+                delay_days?: { [key: string]: unknown };
                 interval?: "daily" | "manual" | "monthly" | "weekly";
                 monthly_anchor?: number;
                 weekly_anchor?: "friday" | "monday" | "saturday" | "sunday" | "thursday" | "tuesday" | "wednesday";
@@ -10566,7 +10566,7 @@ export interface operations {
           /** An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
           account_token?: string;
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: any };
+          bank_account?: { [key: string]: unknown };
           /** Business information about the account. */
           business_profile?: {
             mcc?: string;
@@ -10677,7 +10677,7 @@ export interface operations {
               state?: string;
               town?: string;
             };
-            dob?: { [key: string]: any };
+            dob?: { [key: string]: unknown };
             email?: string;
             first_name?: string;
             first_name_kana?: string;
@@ -10688,7 +10688,7 @@ export interface operations {
             last_name_kana?: string;
             last_name_kanji?: string;
             maiden_name?: string;
-            metadata?: { [key: string]: any };
+            metadata?: { [key: string]: unknown };
             phone?: string;
             ssn_last_4?: string;
             verification?: {
@@ -10703,7 +10703,7 @@ export interface operations {
             };
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The set of capabilities you want to unlock for this account. Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive. */
           requested_capabilities?: (
             | "au_becs_debit_payments"
@@ -10737,7 +10737,7 @@ export interface operations {
             payouts?: {
               debit_negative_balances?: boolean;
               schedule?: {
-                delay_days?: { [key: string]: any };
+                delay_days?: { [key: string]: unknown };
                 interval?: "daily" | "manual" | "monthly" | "weekly";
                 monthly_anchor?: number;
                 weekly_anchor?: "friday" | "monday" | "saturday" | "sunday" | "thursday" | "tuesday" | "wednesday";
@@ -10799,7 +10799,7 @@ export interface operations {
         /** Body parameters for the request. */
         payload?: {
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: any };
+          bank_account?: { [key: string]: unknown };
           /** When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           default_for_currency?: boolean;
           /** Specifies which fields in the response should be expanded. */
@@ -10807,7 +10807,7 @@ export interface operations {
           /** Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           external_account?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -10883,7 +10883,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Cardholder name. */
           name?: string;
         };
@@ -11047,7 +11047,7 @@ export interface operations {
         /** Body parameters for the request. */
         payload?: {
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: any };
+          bank_account?: { [key: string]: unknown };
           /** When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           default_for_currency?: boolean;
           /** Specifies which fields in the response should be expanded. */
@@ -11055,7 +11055,7 @@ export interface operations {
           /** Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           external_account?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -11131,7 +11131,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Cardholder name. */
           name?: string;
         };
@@ -11304,7 +11304,7 @@ export interface operations {
             town?: string;
           };
           /** The person's date of birth. */
-          dob?: { [key: string]: any };
+          dob?: { [key: string]: unknown };
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -11328,7 +11328,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -11338,7 +11338,7 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: { [key: string]: any };
+            percent_ownership?: { [key: string]: unknown };
             representative?: boolean;
             title?: string;
           };
@@ -11432,7 +11432,7 @@ export interface operations {
             town?: string;
           };
           /** The person's date of birth. */
-          dob?: { [key: string]: any };
+          dob?: { [key: string]: unknown };
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -11456,7 +11456,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -11466,7 +11466,7 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: { [key: string]: any };
+            percent_ownership?: { [key: string]: unknown };
             representative?: boolean;
             title?: string;
           };
@@ -11593,7 +11593,7 @@ export interface operations {
             town?: string;
           };
           /** The person's date of birth. */
-          dob?: { [key: string]: any };
+          dob?: { [key: string]: unknown };
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -11617,7 +11617,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -11627,7 +11627,7 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: { [key: string]: any };
+            percent_ownership?: { [key: string]: unknown };
             representative?: boolean;
             title?: string;
           };
@@ -11721,7 +11721,7 @@ export interface operations {
             town?: string;
           };
           /** The person's date of birth. */
-          dob?: { [key: string]: any };
+          dob?: { [key: string]: unknown };
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -11745,7 +11745,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -11755,7 +11755,7 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: { [key: string]: any };
+            percent_ownership?: { [key: string]: unknown };
             representative?: boolean;
             title?: string;
           };
@@ -12009,7 +12009,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -12133,7 +12133,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -12533,7 +12533,7 @@ export interface operations {
           /** Whether to immediately capture the charge. Defaults to `true`. When `false`, the charge issues an authorization (or pre-authorization), and will need to be [captured](https://stripe.com/docs/api#capture_charge) later. Uncaptured charges expire in _seven days_. For more information, see the [authorizing charges and settling later](https://stripe.com/docs/charges/placing-a-hold) documentation. */
           capture?: boolean;
           /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
-          card?: { [key: string]: any };
+          card?: { [key: string]: unknown };
           /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency?: string;
           /** The ID of an existing customer that will be charged in this request. */
@@ -12547,7 +12547,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/charges-transfers#on-behalf-of). */
           on_behalf_of?: string;
           /** The email address to which this charge's [receipt](https://stripe.com/docs/dashboard/receipts) will be sent. The receipt will not be sent until the charge is paid, and no receipts will be sent for test mode charges. If this charge is for a [Customer](https://stripe.com/docs/api/customers/object), the email address specified here will override the customer's email address. If `receipt_email` is specified for a charge in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). */
@@ -12636,7 +12636,7 @@ export interface operations {
             user_report: "" | "fraudulent" | "safe";
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** This is the email address that the receipt for this charge will be sent to. If this field is updated, then a new email receipt will be sent to the updated address. */
           receipt_email?: string;
           /** Shipping information for the charge. Helps prevent fraud on charges for physical goods. */
@@ -12780,7 +12780,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
           submit?: boolean;
         };
@@ -12845,7 +12845,7 @@ export interface operations {
           amount?: number;
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           payment_intent?: string;
           reason?: "duplicate" | "fraudulent" | "requested_by_customer";
           refund_application_fee?: boolean;
@@ -12914,7 +12914,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           payment_intent?: string;
           reason?: "duplicate" | "fraudulent" | "requested_by_customer";
           refund_application_fee?: boolean;
@@ -12968,7 +12968,7 @@ export interface operations {
         payload?: {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -13090,7 +13090,7 @@ export interface operations {
             | "sv"
             | "zh";
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The mode of the Checkout Session, one of `payment`, `setup`, or `subscription`. */
           mode?: "payment" | "setup" | "subscription";
           /** A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode. */
@@ -13098,7 +13098,7 @@ export interface operations {
             application_fee_amount?: number;
             capture_method?: "automatic" | "manual";
             description?: string;
-            metadata?: { [key: string]: any };
+            metadata?: { [key: string]: unknown };
             on_behalf_of?: string;
             receipt_email?: string;
             setup_future_usage?: "off_session" | "on_session";
@@ -13128,7 +13128,7 @@ export interface operations {
           /** A subset of parameters to be passed to SetupIntent creation for Checkout Sessions in `setup` mode. */
           setup_intent_data?: {
             description?: string;
-            metadata?: { [key: string]: any };
+            metadata?: { [key: string]: unknown };
             on_behalf_of?: string;
           };
           /** When set, provides configuration for Checkout to collect a shipping address from a customer. */
@@ -13389,7 +13389,7 @@ export interface operations {
               quantity?: number;
               tax_rates?: string[];
             }[];
-            metadata?: { [key: string]: any };
+            metadata?: { [key: string]: unknown };
             trial_end?: number;
             trial_from_plan?: boolean;
             trial_period_days?: number;
@@ -13553,7 +13553,7 @@ export interface operations {
           /** A positive integer specifying the number of times the coupon can be redeemed before it's no longer valid. For example, you might have a 50% off coupon that the first 20 readers of your blog can use. */
           max_redemptions?: number;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
           name?: string;
           /** A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed). */
@@ -13608,7 +13608,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
           name?: string;
         };
@@ -13723,7 +13723,7 @@ export interface operations {
           /** The credit note's memo appears on the credit note PDF. */
           memo?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The integer amount in **%s** representing the amount that is credited outside of Stripe. */
           out_of_band_amount?: number;
           /** Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` */
@@ -13912,7 +13912,7 @@ export interface operations {
           /** Credit note memo. */
           memo?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -13995,7 +13995,7 @@ export interface operations {
         /** Body parameters for the request. */
         payload?: {
           /** The customer's address. */
-          address?: { [key: string]: any };
+          address?: { [key: string]: unknown };
           /** An integer amount in %s that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice. */
           balance?: number;
           /** The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. */
@@ -14018,7 +14018,7 @@ export interface operations {
             footer?: string;
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The customer's full name or business name. */
           name?: string;
           /** The sequence to be used on the customer's next invoice. Defaults to 1. */
@@ -14030,7 +14030,7 @@ export interface operations {
           /** Customer's preferred languages, ordered by preference. */
           preferred_locales?: string[];
           /** The customer's shipping information. Appears on invoices emailed to this customer. */
-          shipping?: { [key: string]: any };
+          shipping?: { [key: string]: unknown };
           /**
            * The source can be a [Token](https://stripe.com/docs/api#tokens) or a [Source](https://stripe.com/docs/api#sources), as returned by [Elements](https://stripe.com/docs/elements). You must provide a source if the customer does not already have a valid source attached, and you are subscribing the customer to be charged automatically for a plan that is not free.
            *
@@ -14119,13 +14119,13 @@ export interface operations {
         /** Body parameters for the request. */
         payload?: {
           /** The customer's address. */
-          address?: { [key: string]: any };
+          address?: { [key: string]: unknown };
           /** An integer amount in %s that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice. */
           balance?: number;
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: any };
+          bank_account?: { [key: string]: unknown };
           /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
-          card?: { [key: string]: any };
+          card?: { [key: string]: unknown };
           /** The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. */
           coupon?: string;
           /** ID of Alipay account to make the customer's new default for invoice payments. */
@@ -14160,7 +14160,7 @@ export interface operations {
             footer?: string;
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The customer's full name or business name. */
           name?: string;
           /** The sequence to be used on the customer's next invoice. Defaults to 1. */
@@ -14170,7 +14170,7 @@ export interface operations {
           /** Customer's preferred languages, ordered by preference. */
           preferred_locales?: string[];
           /** The customer's shipping information. Appears on invoices emailed to this customer. */
-          shipping?: { [key: string]: any };
+          shipping?: { [key: string]: unknown };
           /**
            * The source can be a [Token](https://stripe.com/docs/api#tokens) or a [Source](https://stripe.com/docs/api#sources), as returned by [Elements](https://stripe.com/docs/elements). You must provide a source if the customer does not already have a valid source attached, and you are subscribing the customer to be charged automatically for a plan that is not free.
            *
@@ -14182,7 +14182,7 @@ export interface operations {
           /** The customer's tax exemption. One of `none`, `exempt`, or `reverse`. */
           tax_exempt?: "" | "exempt" | "none" | "reverse";
           /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          trial_end?: { [key: string]: any };
+          trial_end?: { [key: string]: unknown };
         };
       };
     };
@@ -14270,7 +14270,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -14323,7 +14323,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -14393,13 +14393,13 @@ export interface operations {
           /** A token returned by [Stripe.js](https://stripe.com/docs/stripe.js) representing the user’s Alipay account details. */
           alipay_account?: string;
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: any };
+          bank_account?: { [key: string]: unknown };
           /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
-          card?: { [key: string]: any };
+          card?: { [key: string]: unknown };
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           source?: string;
         };
@@ -14472,7 +14472,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Cardholder name. */
           name?: string;
           owner?: {
@@ -14614,13 +14614,13 @@ export interface operations {
           /** A token returned by [Stripe.js](https://stripe.com/docs/stripe.js) representing the user’s Alipay account details. */
           alipay_account?: string;
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: any };
+          bank_account?: { [key: string]: unknown };
           /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
-          card?: { [key: string]: any };
+          card?: { [key: string]: unknown };
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           source?: string;
         };
@@ -14693,7 +14693,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Cardholder name. */
           name?: string;
           owner?: {
@@ -14845,13 +14845,13 @@ export interface operations {
           /** A token returned by [Stripe.js](https://stripe.com/docs/stripe.js) representing the user’s Alipay account details. */
           alipay_account?: string;
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: any };
+          bank_account?: { [key: string]: unknown };
           /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
-          card?: { [key: string]: any };
+          card?: { [key: string]: unknown };
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           source?: string;
         };
@@ -14924,7 +14924,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Cardholder name. */
           name?: string;
           owner?: {
@@ -15061,7 +15061,7 @@ export interface operations {
           /** A future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. */
           billing_cycle_anchor?: number;
           /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
-          billing_thresholds?: { [key: string]: any };
+          billing_thresholds?: { [key: string]: unknown };
           /** A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
           cancel_at?: number;
           /** Boolean indicating whether this subscription should cancel at the end of the current period. */
@@ -15082,14 +15082,14 @@ export interface operations {
           expand?: string[];
           /** A list of up to 20 subscription items, each with an attached plan. */
           items?: {
-            billing_thresholds?: { [key: string]: any };
-            metadata?: { [key: string]: any };
+            billing_thresholds?: { [key: string]: unknown };
+            metadata?: { [key: string]: unknown };
             plan?: string;
             quantity?: number;
             tax_rates?: string[];
           }[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /**
@@ -15101,7 +15101,7 @@ export interface operations {
            */
           payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /** Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-          pending_invoice_item_interval?: { [key: string]: any };
+          pending_invoice_item_interval?: { [key: string]: unknown };
           /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
           prorate?: boolean;
           /**
@@ -15111,9 +15111,9 @@ export interface operations {
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /** A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-          tax_percent?: { [key: string]: any };
+          tax_percent?: { [key: string]: unknown };
           /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          trial_end?: { [key: string]: any };
+          trial_end?: { [key: string]: unknown };
           /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
           trial_from_plan?: boolean;
           /** Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. */
@@ -15170,9 +15170,9 @@ export interface operations {
           /** Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle). */
           billing_cycle_anchor?: "now" | "unchanged";
           /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
-          billing_thresholds?: { [key: string]: any };
+          billing_thresholds?: { [key: string]: unknown };
           /** A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
-          cancel_at?: { [key: string]: any };
+          cancel_at?: { [key: string]: unknown };
           /** Boolean indicating whether this subscription should cancel at the end of the current period. */
           cancel_at_period_end?: boolean;
           /** Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`. */
@@ -15191,21 +15191,21 @@ export interface operations {
           expand?: string[];
           /** List of subscription items, each with an attached plan. */
           items?: {
-            billing_thresholds?: { [key: string]: any };
+            billing_thresholds?: { [key: string]: unknown };
             clear_usage?: boolean;
             deleted?: boolean;
             id?: string;
-            metadata?: { [key: string]: any };
+            metadata?: { [key: string]: unknown };
             plan?: string;
             quantity?: number;
             tax_rates?: string[];
           }[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /** If specified, payment collection for this subscription will be paused. */
-          pause_collection?: { [key: string]: any };
+          pause_collection?: { [key: string]: unknown };
           /**
            * Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
            *
@@ -15215,7 +15215,7 @@ export interface operations {
            */
           payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /** Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-          pending_invoice_item_interval?: { [key: string]: any };
+          pending_invoice_item_interval?: { [key: string]: unknown };
           /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
           prorate?: boolean;
           /**
@@ -15229,9 +15229,9 @@ export interface operations {
           /** If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations. */
           proration_date?: number;
           /** A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-          tax_percent?: { [key: string]: any };
+          tax_percent?: { [key: string]: unknown };
           /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          trial_end?: { [key: string]: any };
+          trial_end?: { [key: string]: unknown };
           /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
           trial_from_plan?: boolean;
         };
@@ -15562,7 +15562,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
           submit?: boolean;
         };
@@ -15827,7 +15827,7 @@ export interface operations {
           /** The ID of the file. The file's `purpose` must be one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `pci_document`, `sigma_scheduled_query`, or `tax_document_user_upload`. */
           file: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -15876,9 +15876,9 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** A future timestamp after which the link will no longer be usable, or `now` to expire the link immediately. */
-          expires_at?: { [key: string]: any };
+          expires_at?: { [key: string]: unknown };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -15947,7 +15947,7 @@ export interface operations {
           file_link_data?: {
             create: boolean;
             expires_at?: number;
-            metadata?: { [key: string]: any };
+            metadata?: { [key: string]: unknown };
           };
           /** The purpose of the uploaded file. Possible values are `additional_verification`, `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `identity_document`, `pci_document`, or `tax_document_user_upload`. */
           purpose:
@@ -16056,7 +16056,7 @@ export interface operations {
           /** The ID of an existing invoice to add this invoice item to. When left blank, the invoice item will be added to the next upcoming scheduled invoice. This is useful when adding invoice items in response to an invoice.created webhook. You can only add invoice items to draft invoices. */
           invoice?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The period associated with this invoice item. */
           period?: {
             end: number;
@@ -16126,7 +16126,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The period associated with this invoice item. */
           period?: {
             end: number;
@@ -16251,7 +16251,7 @@ export interface operations {
           /** Footer to be displayed on the invoice. */
           footer?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`. */
           statement_descriptor?: string;
           /** The ID of the subscription to invoice, if any. If not set, the created invoice will include all pending invoice items for the customer. If set, the created invoice will only include pending invoice items for that subscription and pending invoice items not associated with any subscription. The subscription's billing cycle and regular subscription events won't be affected. */
@@ -16481,11 +16481,11 @@ export interface operations {
           /** Footer to be displayed on the invoice. */
           footer?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`. */
           statement_descriptor?: string;
           /** The percent tax rate applied to the invoice, represented as a non-negative decimal number (with at most four decimal places) between 0 and 100. To unset a previously-set value, pass an empty string. This field can be updated only on `draft` invoices. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-          tax_percent?: { [key: string]: any };
+          tax_percent?: { [key: string]: unknown };
         };
       };
     };
@@ -16836,7 +16836,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -16865,7 +16865,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -16892,7 +16892,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -16992,7 +16992,7 @@ export interface operations {
             };
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The cardholder's name. This will be printed on cards issued to them. */
           name: string;
           /** The cardholder's phone number. This will be transformed to [E.164](https://en.wikipedia.org/wiki/E.164) if it is not provided in that format already. */
@@ -17960,7 +17960,7 @@ export interface operations {
             };
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The cardholder's phone number. */
           phone_number?: string;
           /** Spending rules that give you some control over how your cards can be used. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details. */
@@ -18917,7 +18917,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The card this is meant to be a replacement for (if any). */
           replacement_for?: string;
           /** If `replacement_for` is specified, this should indicate why that card is being replaced. */
@@ -19867,7 +19867,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Spending rules that give you some control over how your cards can be used. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details. */
           spending_controls?: {
             allowed_categories?: (
@@ -20803,7 +20803,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -20852,7 +20852,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -20936,7 +20936,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -21024,7 +21024,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -21191,7 +21191,7 @@ export interface operations {
             type?: "discount" | "shipping" | "sku" | "tax";
           }[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true. */
           shipping?: {
             address: {
@@ -21255,7 +21255,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The shipping method to select for fulfilling this order. If specified, must be one of the `id`s of a shipping method in the `shipping_methods` array. If specified, will overwrite the existing selected shipping method, updating `items` as necessary. */
           selected_shipping_method?: string;
           /** Tracking information once the order has been fulfilled. */
@@ -21297,7 +21297,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** A [Token](https://stripe.com/docs/api#tokens)'s or a [Source](https://stripe.com/docs/api#sources)'s ID, as returned by [Elements](https://stripe.com/docs/elements). If no customer was attached to the order at creation, either `source` or `customer` is required. Otherwise, the specified source will be charged intead of the customer attached to the order. */
           source?: string;
         };
@@ -21436,7 +21436,7 @@ export interface operations {
           mandate_data?: {
             customer_acceptance: {
               accepted_at?: number;
-              offline?: { [key: string]: any };
+              offline?: { [key: string]: unknown };
               online?: {
                 ip_address: string;
                 user_agent: string;
@@ -21445,9 +21445,9 @@ export interface operations {
             };
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Set to `true` to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
-          off_session?: { [key: string]: any };
+          off_session?: { [key: string]: unknown };
           /** The Stripe account ID for which these funds are intended. For details, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
           on_behalf_of?: string;
           /**
@@ -21458,7 +21458,7 @@ export interface operations {
           payment_method?: string;
           /** Payment-method-specific configuration for this PaymentIntent. */
           payment_method_options?: {
-            card?: { [key: string]: any };
+            card?: { [key: string]: unknown };
           };
           /** The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. If this is not provided, defaults to ["card"]. */
           payment_method_types?: string[];
@@ -21569,7 +21569,7 @@ export interface operations {
           /** Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99). */
           amount?: number;
           /** The amount of the application fee (if any) for the resulting payment. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
-          application_fee_amount?: { [key: string]: any };
+          application_fee_amount?: { [key: string]: unknown };
           /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency?: string;
           /**
@@ -21585,12 +21585,12 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent. */
           payment_method?: string;
           /** Payment-method-specific configuration for this PaymentIntent. */
           payment_method_options?: {
-            card?: { [key: string]: any };
+            card?: { [key: string]: unknown };
           };
           /** The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. */
           payment_method_types?: string[];
@@ -21607,7 +21607,7 @@ export interface operations {
            */
           setup_future_usage?: "" | "off_session" | "on_session";
           /** Shipping information for this PaymentIntent. */
-          shipping?: { [key: string]: any };
+          shipping?: { [key: string]: unknown };
           /** For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
           statement_descriptor?: string;
           /** Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
@@ -21760,7 +21760,7 @@ export interface operations {
           mandate_data?: {
             customer_acceptance: {
               accepted_at?: number;
-              offline?: { [key: string]: any };
+              offline?: { [key: string]: unknown };
               online?: {
                 ip_address: string;
                 user_agent: string;
@@ -21769,12 +21769,12 @@ export interface operations {
             };
           };
           /** Set to `true` to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). */
-          off_session?: { [key: string]: any };
+          off_session?: { [key: string]: unknown };
           /** ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent. */
           payment_method?: string;
           /** Payment-method-specific configuration for this PaymentIntent. */
           payment_method_options?: {
-            card?: { [key: string]: any };
+            card?: { [key: string]: unknown };
           };
           /** The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. */
           payment_method_types?: string[];
@@ -21797,7 +21797,7 @@ export interface operations {
            */
           setup_future_usage?: "" | "off_session" | "on_session";
           /** Shipping information for this PaymentIntent. */
-          shipping?: { [key: string]: any };
+          shipping?: { [key: string]: unknown };
           /** Set to `true` only when using manual confirmation and the iOS or Android SDKs to handle additional authentication steps. */
           use_stripe_sdk?: boolean;
         };
@@ -21877,7 +21877,7 @@ export interface operations {
             phone?: string;
           };
           /** If this is a `card` PaymentMethod, this hash contains the user's card details. For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format `card: {token: "tok_visa"}`. When creating with a card number, you must meet the requirements for [PCI compliance](https://stripe.com/docs/security#validating-pci-compliance). We strongly recommend using Stripe.js instead of interacting with this API directly. */
-          card?: { [key: string]: any };
+          card?: { [key: string]: unknown };
           /** The `Customer` to whom the original PaymentMethod is attached. */
           customer?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -21923,7 +21923,7 @@ export interface operations {
               | "van_lanschot";
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The PaymentMethod to share. */
           payment_method?: string;
           /** If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account. */
@@ -21999,9 +21999,9 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account. */
-          sepa_debit?: { [key: string]: any };
+          sepa_debit?: { [key: string]: unknown };
         };
       };
     };
@@ -22142,7 +22142,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces for more information](https://stripe.com/blog/instant-payouts-for-marketplaces).) */
           method?: "instant" | "standard";
           /** The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the balances API. One of `bank_account`, `card`, or `fpx`. */
@@ -22197,7 +22197,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -22303,14 +22303,14 @@ export interface operations {
           /** The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). */
           interval_count?: number;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** A brief description of the plan, hidden from customers. */
           nickname?: string;
           /** The product whose pricing the created plan will represent. This can either be the ID of an existing product, or a dictionary containing fields used to create a [service product](https://stripe.com/docs/api#product_object-type). */
           product?: {
             active?: boolean;
             id?: string;
-            metadata?: { [key: string]: any };
+            metadata?: { [key: string]: unknown };
             name: string;
             statement_descriptor?: string;
             unit_label?: string;
@@ -22321,7 +22321,7 @@ export interface operations {
             flat_amount_decimal?: string;
             unit_amount?: number;
             unit_amount_decimal?: string;
-            up_to: { [key: string]: any };
+            up_to: { [key: string]: unknown };
           }[];
           /** Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows. */
           tiers_mode?: "graduated" | "volume";
@@ -22384,7 +22384,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** A brief description of the plan, hidden from customers. */
           nickname?: string;
           /** The product the plan belongs to. Note that after updating, statement descriptors and line items of the plan in active subscriptions will be affected. */
@@ -22491,7 +22491,7 @@ export interface operations {
           /** A list of up to 8 URLs of images for this product, meant to be displayable to the customer. */
           images?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The product's name, meant to be displayable to the customer. Whenever this product is sold via a subscription, name will show up on associated invoice line item descriptions. */
           name: string;
           /** The dimensions of this product for shipping purposes. A SKU associated with this product can override this value by having its own `package_dimensions`. May only be set if type=`good`. */
@@ -22576,11 +22576,11 @@ export interface operations {
           /** A list of up to 8 URLs of images for this product, meant to be displayable to the customer. */
           images?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The product's name, meant to be displayable to the customer. Whenever this product is sold via a subscription, name will show up on associated invoice line item descriptions. */
           name?: string;
           /** The dimensions of this product for shipping purposes. A SKU associated with this product can override this value by having its own `package_dimensions`. May only be set if `type=good`. */
-          package_dimensions?: { [key: string]: any };
+          package_dimensions?: { [key: string]: unknown };
           /** Whether this product is shipped (i.e., physical goods). Defaults to `true`. May only be set if `type=good`. */
           shippable?: boolean;
           /**
@@ -22849,7 +22849,7 @@ export interface operations {
             | "ip_address"
             | "string";
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The human-readable name of the value list. */
           name: string;
         };
@@ -22902,7 +22902,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The human-readable name of the value list. */
           name?: string;
         };
@@ -22994,7 +22994,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The recipient's full, legal name. For type `individual`, should be in the format `First Last`, `First Middle Last`, or `First M Last` (no prefixes or suffixes). For `corporation`, the full, incorporated name. */
           name: string;
           /** The recipient's tax ID, as a string. For type `individual`, the full SSN; for type `corporation`, the full EIN. */
@@ -23065,7 +23065,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The recipient's full, legal name. For type `individual`, should be in the format `First Last`, `First Middle Last`, or `First M Last` (no prefixes or suffixes). For `corporation`, the full, incorporated name. */
           name?: string;
           /** The recipient's tax ID, as a string. For type `individual`, the full SSN; for type `corporation`, the full EIN. */
@@ -23151,7 +23151,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           payment_intent?: string;
           reason?: "duplicate" | "fraudulent" | "requested_by_customer";
           refund_application_fee?: boolean;
@@ -23208,7 +23208,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -24135,7 +24135,7 @@ export interface operations {
           mandate_data?: {
             customer_acceptance: {
               accepted_at?: number;
-              offline?: { [key: string]: any };
+              offline?: { [key: string]: unknown };
               online?: {
                 ip_address: string;
                 user_agent: string;
@@ -24144,7 +24144,7 @@ export interface operations {
             };
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The Stripe account ID for which this SetupIntent is created. */
           on_behalf_of?: string;
           /** ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
@@ -24230,7 +24230,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
           payment_method?: string;
           /** Payment-method-specific configuration for this SetupIntent. */
@@ -24317,7 +24317,7 @@ export interface operations {
           mandate_data?: {
             customer_acceptance: {
               accepted_at?: number;
-              offline?: { [key: string]: any };
+              offline?: { [key: string]: unknown };
               online?: {
                 ip_address: string;
                 user_agent: string;
@@ -24460,7 +24460,7 @@ export interface operations {
           /** Whether the SKU is available for purchase. Default to `true`. */
           active?: boolean;
           /** A dictionary of attributes and values for the attributes defined by the product. If, for example, a product's attributes are `["size", "gender"]`, a valid SKU has the following dictionary of attributes: `{"size": "Medium", "gender": "Unisex"}`. */
-          attributes?: { [key: string]: any };
+          attributes?: { [key: string]: unknown };
           /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency: string;
           /** Specifies which fields in the response should be expanded. */
@@ -24476,7 +24476,7 @@ export interface operations {
             value?: "" | "in_stock" | "limited" | "out_of_stock";
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The dimensions of this SKU for shipping purposes. */
           package_dimensions?: {
             height: number;
@@ -24540,7 +24540,7 @@ export interface operations {
           /** Whether this SKU is available for purchase. */
           active?: boolean;
           /** A dictionary of attributes and values for the attributes defined by the product. When specified, `attributes` will partially update the existing attributes dictionary on the product, with the postcondition that a value must be present for each attribute key on the product. */
-          attributes?: { [key: string]: any };
+          attributes?: { [key: string]: unknown };
           /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -24554,9 +24554,9 @@ export interface operations {
             value?: "" | "in_stock" | "limited" | "out_of_stock";
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The dimensions of this SKU for shipping purposes. */
-          package_dimensions?: { [key: string]: any };
+          package_dimensions?: { [key: string]: unknown };
           /** The cost of the item as a positive integer in the smallest currency unit (that is, 100 cents to charge $1.00, or 100 to charge ¥100, Japanese Yen being a zero-decimal currency). */
           price?: number;
           /** The ID of the product that this SKU should belong to. The product must exist, have the same set of attribute names as the SKU's current product, and be of type `good`. */
@@ -24626,13 +24626,13 @@ export interface operations {
               type?: "offline" | "online";
               user_agent?: string;
             };
-            amount?: { [key: string]: any };
+            amount?: { [key: string]: unknown };
             currency?: string;
             interval?: "one_time" | "scheduled" | "variable";
             notification_method?: "deprecated_none" | "email" | "manual" | "none" | "stripe_email";
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The source to share. */
           original_source?: string;
           /** Information about the owner of the payment instrument that may be used or required by particular source types. */
@@ -24762,13 +24762,13 @@ export interface operations {
               type?: "offline" | "online";
               user_agent?: string;
             };
-            amount?: { [key: string]: any };
+            amount?: { [key: string]: unknown };
             currency?: string;
             interval?: "one_time" | "scheduled" | "variable";
             notification_method?: "deprecated_none" | "email" | "manual" | "none" | "stripe_email";
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Information about the owner of the payment instrument that may be used or required by particular source types. */
           owner?: {
             address?: {
@@ -24973,11 +24973,11 @@ export interface operations {
         /** Body parameters for the request. */
         payload: {
           /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds. */
-          billing_thresholds?: { [key: string]: any };
+          billing_thresholds?: { [key: string]: unknown };
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /**
            * Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
            *
@@ -25052,11 +25052,11 @@ export interface operations {
         /** Body parameters for the request. */
         payload?: {
           /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds. */
-          billing_thresholds?: { [key: string]: any };
+          billing_thresholds?: { [key: string]: unknown };
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /**
@@ -25270,7 +25270,7 @@ export interface operations {
           customer?: string;
           /** Object representing the subscription schedule's default settings. */
           default_settings?: {
-            billing_thresholds?: { [key: string]: any };
+            billing_thresholds?: { [key: string]: unknown };
             collection_method?: "charge_automatically" | "send_invoice";
             default_payment_method?: string;
             invoice_settings?: {
@@ -25284,11 +25284,11 @@ export interface operations {
           /** Migrate an existing subscription to be managed by a subscription schedule. If this parameter is set, a subscription schedule will be created using the subscription's plan(s), set to auto-renew using the subscription's interval. When using this parameter, other parameters (such as phase values) cannot be set. To create a subscription schedule with other modifications, we recommend making two separate API calls. */
           from_subscription?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. */
           phases?: {
             application_fee_percent?: number;
-            billing_thresholds?: { [key: string]: any };
+            billing_thresholds?: { [key: string]: unknown };
             collection_method?: "charge_automatically" | "send_invoice";
             coupon?: string;
             default_payment_method?: string;
@@ -25299,7 +25299,7 @@ export interface operations {
             };
             iterations?: number;
             plans: {
-              billing_thresholds?: { [key: string]: any };
+              billing_thresholds?: { [key: string]: unknown };
               plan?: string;
               quantity?: number;
               tax_rates?: string[];
@@ -25310,7 +25310,7 @@ export interface operations {
             trial_end?: number;
           }[];
           /** When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on. */
-          start_date?: { [key: string]: any };
+          start_date?: { [key: string]: unknown };
         };
       };
     };
@@ -25358,7 +25358,7 @@ export interface operations {
         payload?: {
           /** Object representing the subscription schedule's default settings. */
           default_settings?: {
-            billing_thresholds?: { [key: string]: any };
+            billing_thresholds?: { [key: string]: unknown };
             collection_method?: "charge_automatically" | "send_invoice";
             default_payment_method?: string;
             invoice_settings?: {
@@ -25370,31 +25370,31 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. Note that past phases can be omitted. */
           phases?: {
             application_fee_percent?: number;
-            billing_thresholds?: { [key: string]: any };
+            billing_thresholds?: { [key: string]: unknown };
             collection_method?: "charge_automatically" | "send_invoice";
             coupon?: string;
             default_payment_method?: string;
             default_tax_rates?: string[];
-            end_date?: { [key: string]: any };
+            end_date?: { [key: string]: unknown };
             invoice_settings?: {
               days_until_due?: number;
             };
             iterations?: number;
             plans: {
-              billing_thresholds?: { [key: string]: any };
+              billing_thresholds?: { [key: string]: unknown };
               plan?: string;
               quantity?: number;
               tax_rates?: string[];
             }[];
             proration_behavior?: "always_invoice" | "create_prorations" | "none";
-            start_date?: { [key: string]: any };
+            start_date?: { [key: string]: unknown };
             tax_percent?: number;
             trial?: boolean;
-            trial_end?: { [key: string]: any };
+            trial_end?: { [key: string]: unknown };
           }[];
           /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
           prorate?: boolean;
@@ -25527,7 +25527,7 @@ export interface operations {
           /** A future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. */
           billing_cycle_anchor?: number;
           /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
-          billing_thresholds?: { [key: string]: any };
+          billing_thresholds?: { [key: string]: unknown };
           /** A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
           cancel_at?: number;
           /** Boolean indicating whether this subscription should cancel at the end of the current period. */
@@ -25550,14 +25550,14 @@ export interface operations {
           expand?: string[];
           /** A list of up to 20 subscription items, each with an attached plan. */
           items?: {
-            billing_thresholds?: { [key: string]: any };
-            metadata?: { [key: string]: any };
+            billing_thresholds?: { [key: string]: unknown };
+            metadata?: { [key: string]: unknown };
             plan?: string;
             quantity?: number;
             tax_rates?: string[];
           }[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /**
@@ -25569,7 +25569,7 @@ export interface operations {
            */
           payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /** Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-          pending_invoice_item_interval?: { [key: string]: any };
+          pending_invoice_item_interval?: { [key: string]: unknown };
           /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
           prorate?: boolean;
           /**
@@ -25579,9 +25579,9 @@ export interface operations {
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /** A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-          tax_percent?: { [key: string]: any };
+          tax_percent?: { [key: string]: unknown };
           /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          trial_end?: { [key: string]: any };
+          trial_end?: { [key: string]: unknown };
           /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
           trial_from_plan?: boolean;
           /** Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. */
@@ -25636,9 +25636,9 @@ export interface operations {
           /** Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle). */
           billing_cycle_anchor?: "now" | "unchanged";
           /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
-          billing_thresholds?: { [key: string]: any };
+          billing_thresholds?: { [key: string]: unknown };
           /** A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
-          cancel_at?: { [key: string]: any };
+          cancel_at?: { [key: string]: unknown };
           /** Boolean indicating whether this subscription should cancel at the end of the current period. */
           cancel_at_period_end?: boolean;
           /** Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`. */
@@ -25657,21 +25657,21 @@ export interface operations {
           expand?: string[];
           /** List of subscription items, each with an attached plan. */
           items?: {
-            billing_thresholds?: { [key: string]: any };
+            billing_thresholds?: { [key: string]: unknown };
             clear_usage?: boolean;
             deleted?: boolean;
             id?: string;
-            metadata?: { [key: string]: any };
+            metadata?: { [key: string]: unknown };
             plan?: string;
             quantity?: number;
             tax_rates?: string[];
           }[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /** If specified, payment collection for this subscription will be paused. */
-          pause_collection?: { [key: string]: any };
+          pause_collection?: { [key: string]: unknown };
           /**
            * Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
            *
@@ -25681,7 +25681,7 @@ export interface operations {
            */
           payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /** Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-          pending_invoice_item_interval?: { [key: string]: any };
+          pending_invoice_item_interval?: { [key: string]: unknown };
           /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
           prorate?: boolean;
           /**
@@ -25695,9 +25695,9 @@ export interface operations {
           /** If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations. */
           proration_date?: number;
           /** A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-          tax_percent?: { [key: string]: any };
+          tax_percent?: { [key: string]: unknown };
           /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          trial_end?: { [key: string]: any };
+          trial_end?: { [key: string]: unknown };
           /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
           trial_from_plan?: boolean;
         };
@@ -25825,7 +25825,7 @@ export interface operations {
           /** The jurisdiction for the tax rate. */
           jurisdiction?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** This represents the tax rate percent out of 100. */
           percentage: number;
         };
@@ -25884,7 +25884,7 @@ export interface operations {
           /** The jurisdiction for the tax rate. */
           jurisdiction?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -25976,7 +25976,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -26036,7 +26036,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -26122,7 +26122,7 @@ export interface operations {
           /** The location to assign the reader to. If no location is specified, the reader will be assigned to the account's default location. */
           location?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** A code generated by the reader used for registering to an account. */
           registration_code: string;
         };
@@ -26175,7 +26175,7 @@ export interface operations {
           /** The new label of the reader. */
           label?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -26308,7 +26308,7 @@ export interface operations {
                 state?: string;
                 town?: string;
               };
-              dob?: { [key: string]: any };
+              dob?: { [key: string]: unknown };
               email?: string;
               first_name?: string;
               first_name_kana?: string;
@@ -26319,7 +26319,7 @@ export interface operations {
               last_name_kana?: string;
               last_name_kanji?: string;
               maiden_name?: string;
-              metadata?: { [key: string]: any };
+              metadata?: { [key: string]: unknown };
               phone?: string;
               ssn_last_4?: string;
               verification?: {
@@ -26344,7 +26344,7 @@ export interface operations {
             currency?: string;
             routing_number?: string;
           };
-          card?: { [key: string]: any };
+          card?: { [key: string]: unknown };
           /** The customer (owned by the application's account) for which to create a token. This can be used only with an [OAuth access token](https://stripe.com/docs/connect/standard-accounts) or [Stripe-Account header](https://stripe.com/docs/connect/authentication). For more details, see [Cloning Saved Payment Methods](https://stripe.com/docs/connect/cloning-saved-payment-methods). */
           customer?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -26377,7 +26377,7 @@ export interface operations {
               state?: string;
               town?: string;
             };
-            dob?: { [key: string]: any };
+            dob?: { [key: string]: unknown };
             email?: string;
             first_name?: string;
             first_name_kana?: string;
@@ -26388,13 +26388,13 @@ export interface operations {
             last_name_kana?: string;
             last_name_kanji?: string;
             maiden_name?: string;
-            metadata?: { [key: string]: any };
+            metadata?: { [key: string]: unknown };
             phone?: string;
             relationship?: {
               director?: boolean;
               executive?: boolean;
               owner?: boolean;
-              percent_ownership?: { [key: string]: any };
+              percent_ownership?: { [key: string]: unknown };
               representative?: boolean;
               title?: string;
             };
@@ -26504,7 +26504,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The ID of a source to transfer funds from. For most users, this should be left unspecified which will use the bank account that was set up in the dashboard for the specified currency. In test mode, this can be a test bank token (see [Testing Top-ups](https://stripe.com/docs/connect/testing#testing-top-ups)). */
           source?: string;
           /** Extra information about a top-up for the source's bank statement. Limited to 15 ASCII characters. */
@@ -26561,7 +26561,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -26657,7 +26657,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-availability) for details. */
           source_transaction?: string;
           /** The source balance to use for this transfer. One of `bank_account`, `card`, or `fpx`. For most users, this will default to `card`. */
@@ -26737,7 +26737,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** Boolean indicating whether the application fee should be refunded when reversing this transfer. If a full transfer reversal is given, the full application fee will be refunded. Otherwise, the application fee will be refunded with an amount proportional to the amount of the transfer reversed. */
           refund_application_fee?: boolean;
         };
@@ -26794,7 +26794,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -26849,7 +26849,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
         };
       };
     };
@@ -27159,7 +27159,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The URL of the webhook endpoint. */
           url: string;
         };
@@ -27366,7 +27366,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: any };
+          metadata?: { [key: string]: unknown };
           /** The URL of the webhook endpoint. */
           url?: string;
         };

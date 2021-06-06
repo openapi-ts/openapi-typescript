@@ -38,14 +38,14 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
 }
 
 /** make sure all required fields exist **/
-export function addRequiredProps(properties: Record<string, any>, required: string[]): string[] {
-  const missingRequired = required.filter((r: string) => !(r in properties));
+export function addRequiredProps(properties: Record<string, any>, required: Set<string>): string[] {
+  const missingRequired = [...required].filter((r: string) => !(r in properties));
   if (missingRequired.length == 0) {
     return [];
   }
   let output = "";
   for (const r of missingRequired) {
-    output += `${r}: any;\n`;
+    output += `${r}: unknown;\n`;
   }
   return [`{\n${output}}`];
 }
@@ -119,7 +119,7 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
           (!node.properties || !Object.keys(node.properties).length) &&
           !node.additionalProperties
         ) {
-          const emptyObj = `{ ${readonly}[key: string]: any }`;
+          const emptyObj = `{ ${readonly}[key: string]: unknown }`;
 
           output += tsIntersectionOf([emptyObj, ...missingRequired]);
           break;

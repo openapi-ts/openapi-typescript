@@ -55,10 +55,10 @@ describe("SchemaObject", () => {
       );
 
       // unknown
-      expect(transform(objUnknown, { ...defaults })).toBe(`{ [key: string]: any }`);
+      expect(transform(objUnknown, { ...defaults })).toBe(`{ [key: string]: unknown }`);
 
       // empty
-      expect(transform({}, { ...defaults })).toBe(`{ [key: string]: any }`);
+      expect(transform({}, { ...defaults })).toBe(`{ [key: string]: unknown }`);
 
       // nullable
       expect(transform(objNullable, { ...defaults })).toBe(`({\n"string"?: string;\n\n}) | null`);
@@ -73,8 +73,8 @@ describe("SchemaObject", () => {
       expect(transform(objStd, opts)).toBe(
         `{\nreadonly "object"?: {\nreadonly "string"?: string;\nreadonly "number"?: components["schemas"]["object_ref"];\n\n};\n\n}`
       );
-      expect(transform(objUnknown, opts)).toBe(`{ readonly [key: string]: any }`);
-      expect(transform({}, opts)).toBe(`{ readonly [key: string]: any }`);
+      expect(transform(objUnknown, opts)).toBe(`{ readonly [key: string]: unknown }`);
+      expect(transform({}, opts)).toBe(`{ readonly [key: string]: unknown }`);
       expect(transform(objNullable, opts)).toBe(`({\nreadonly "string"?: string;\n\n}) | null`);
       expect(transform(objRequired, opts)).toBe(`{\nreadonly "required": string;\nreadonly "optional"?: boolean;\n\n}`);
     });
@@ -377,8 +377,8 @@ describe("SchemaObject", () => {
           },
           { ...defaults }
         )
-      ).toBe(`({ [key: string]: any }) & ({
-abc: any;
+      ).toBe(`({ [key: string]: unknown }) & ({
+abc: unknown;
 })`);
     });
   });
@@ -399,7 +399,7 @@ abc: any;
 "email": string;
 
 }) & ({
-abc: any;
+abc: unknown;
 })`);
   });
 
