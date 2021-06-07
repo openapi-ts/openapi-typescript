@@ -39,7 +39,19 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
 
 /** transform anyOf */
 export function transformAnyOf(anyOf: any, options: TransformSchemaObjOptions): string {
-  return tsIntersectionOf(anyOf.map((s: any) => tsPartial(transformSchemaObj(s, options))));
+  // filter out anyOf keys that only have a `required` key. #642
+  const schemas = anyOf.filter((s: any) => {
+    if (Object.keys(s).length > 1) return true;
+
+    if (s.required) return false;
+
+    return true;
+  });
+
+  if (schemas.length === 0) {
+    return "";
+  }
+  return tsIntersectionOf(schemas.map((s: any) => tsPartial(transformSchemaObj(s, options))));
 }
 
 /** transform oneOf */

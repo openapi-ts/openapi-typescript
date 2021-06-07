@@ -119,8 +119,10 @@ export function tsTupleOf(types: string[]): string {
 
 /** Convert T, U into T & U; */
 export function tsIntersectionOf(types: string[]): string {
-  if (types.length === 1) return types[0]; // don’t add parentheses around one thing
-  return `(${types.join(") & (")})`;
+  const typesWithValues = types.filter(Boolean);
+
+  if (typesWithValues.length === 1) return typesWithValues[0]; // don’t add parentheses around one thing
+  return `(${typesWithValues.join(") & (")})`;
 }
 
 /** Convert T into Partial<T> */
