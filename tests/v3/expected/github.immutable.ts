@@ -12313,21 +12313,14 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/json":
-          | ((Partial<{ readonly [key: string]: any }> &
-              Partial<{ readonly [key: string]: any }>) & {
-              /** Description of the gist */
-              readonly description?: string;
-              /** Names of files to be updated */
-              readonly files?: {
-                readonly [key: string]: Partial<{
-                  readonly [key: string]: any;
-                }> &
-                  Partial<{ readonly [key: string]: any }> &
-                  Partial<{ readonly [key: string]: any }>;
-              };
-            })
-          | null;
+        readonly "application/json": {
+          /** Description of the gist */
+          readonly description?: string;
+          /** Names of files to be updated */
+          readonly files?: {
+            readonly [key: string]: Partial<{ readonly [key: string]: any }>;
+          };
+        } | null;
       };
     };
   };
@@ -25732,8 +25725,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/json": (Partial<{ readonly [key: string]: any }> &
-          Partial<{ readonly [key: string]: any }>) & {
+        readonly "application/json": {
           /** An array of user `login`s that will be requested. */
           readonly reviewers?: readonly string[];
           /** An array of team `slug`s that will be requested. */
