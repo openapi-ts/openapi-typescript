@@ -5233,7 +5233,10 @@ export interface components {
     installation: {
       /** The ID of the installation. */
       id: number;
-      account: (Partial<components["schemas"]["simple-user"]> & Partial<components["schemas"]["enterprise"]>) | null;
+      account:
+        | (Partial<components["schemas"]["simple-user"]> &
+            Partial<components["schemas"]["enterprise"]>)
+        | null;
       /** Describe whether all repositories have been selected or there's a selection involved */
       repository_selection: "all" | "selected";
       access_tokens_url: string;
@@ -6485,7 +6488,10 @@ export interface components {
       type: string;
     };
     /** The type of GitHub user that can comment, open issues, or create pull requests while the interaction limit is in effect. Can be one of: `existing_users`, `contributors_only`, `collaborators_only`. */
-    "interaction-group": "existing_users" | "contributors_only" | "collaborators_only";
+    "interaction-group":
+      | "existing_users"
+      | "contributors_only"
+      | "collaborators_only";
     /** Interaction limit settings. */
     "interaction-limit-response": {
       limit: components["schemas"]["interaction-group"];
@@ -6493,7 +6499,12 @@ export interface components {
       expires_at: string;
     };
     /** The duration of the interaction restriction. Can be one of: `one_day`, `three_days`, `one_week`, `one_month`, `six_months`. Default: `one_day`. */
-    "interaction-expiry": "one_day" | "three_days" | "one_week" | "one_month" | "six_months";
+    "interaction-expiry":
+      | "one_day"
+      | "three_days"
+      | "one_week"
+      | "one_month"
+      | "six_months";
     /** Limit interactions to a specific type of user for a specified duration */
     "interaction-limit": {
       limit: components["schemas"]["interaction-group"];
@@ -6570,7 +6581,13 @@ export interface components {
       id: number;
       /** The name of the package. */
       name: string;
-      package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
+      package_type:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container";
       url: string;
       html_url: string;
       /** The number of versions of the package. */
@@ -6596,7 +6613,13 @@ export interface components {
       updated_at: string;
       deleted_at?: string;
       metadata?: {
-        package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
+        package_type:
+          | "npm"
+          | "maven"
+          | "rubygems"
+          | "docker"
+          | "nuget"
+          | "container";
         container?: {
           tags: any[];
         };
@@ -6723,7 +6746,15 @@ export interface components {
       node_id: string;
       user: components["schemas"]["simple-user"] | null;
       /** The reaction to use */
-      content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
+      content:
+        | "+1"
+        | "-1"
+        | "laugh"
+        | "confused"
+        | "heart"
+        | "hooray"
+        | "rocket"
+        | "eyes";
       created_at: string;
     };
     /** Team Membership */
@@ -7213,7 +7244,8 @@ export interface components {
       /** The people or teams that may approve jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed. */
       reviewers: {
         type?: components["schemas"]["deployment-reviewer-type"];
-        reviewer?: Partial<components["schemas"]["simple-user"]> & Partial<components["schemas"]["team-simple"]>;
+        reviewer?: Partial<components["schemas"]["simple-user"]> &
+          Partial<components["schemas"]["team-simple"]>;
       }[];
     };
     /** A request for a specific ref(branch,sha,tag) to be deployed */
@@ -7586,7 +7618,15 @@ export interface components {
       /** The phase of the lifecycle that the check is currently in. */
       status: "queued" | "in_progress" | "completed";
       conclusion:
-        | ("success" | "failure" | "neutral" | "cancelled" | "skipped" | "timed_out" | "action_required")
+        | (
+            | "success"
+            | "failure"
+            | "neutral"
+            | "cancelled"
+            | "skipped"
+            | "timed_out"
+            | "action_required"
+          )
         | null;
       started_at: string | null;
       completed_at: string | null;
@@ -7628,7 +7668,15 @@ export interface components {
       head_sha: string;
       status: ("queued" | "in_progress" | "completed") | null;
       conclusion:
-        | ("success" | "failure" | "neutral" | "cancelled" | "skipped" | "timed_out" | "action_required")
+        | (
+            | "success"
+            | "failure"
+            | "neutral"
+            | "cancelled"
+            | "skipped"
+            | "timed_out"
+            | "action_required"
+          )
         | null;
       url: string | null;
       before: string | null;
@@ -7704,7 +7752,9 @@ export interface components {
       end_column?: number;
     };
     /** A classification of the file. For example to identify it as generated. */
-    "code-scanning-alert-classification": ("source" | "generated" | "test" | "library") | null;
+    "code-scanning-alert-classification":
+      | ("source" | "generated" | "test" | "library")
+      | null;
     "code-scanning-alert-instance": {
       ref?: components["schemas"]["code-scanning-ref"];
       analysis_key?: components["schemas"]["code-scanning-analysis-analysis-key"];
@@ -8029,7 +8079,9 @@ export interface components {
         contributing: components["schemas"]["community-health-file"] | null;
         readme: components["schemas"]["community-health-file"] | null;
         issue_template: components["schemas"]["community-health-file"] | null;
-        pull_request_template: components["schemas"]["community-health-file"] | null;
+        pull_request_template:
+          | components["schemas"]["community-health-file"]
+          | null;
       };
       updated_at: string | null;
       content_reports_enabled?: boolean;
@@ -8254,7 +8306,14 @@ export interface components {
       id: number;
       node_id: string;
       /** The state of the status. */
-      state: "error" | "failure" | "inactive" | "pending" | "success" | "queued" | "in_progress";
+      state:
+        | "error"
+        | "failure"
+        | "inactive"
+        | "pending"
+        | "success"
+        | "queued"
+        | "in_progress";
       creator: components["schemas"]["simple-user"] | null;
       /** A short description of the status. */
       description: string;
@@ -8307,7 +8366,8 @@ export interface components {
           /** The people or teams that may approve jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed. */
           reviewers?: {
             type?: components["schemas"]["deployment-reviewer-type"];
-            reviewer?: Partial<components["schemas"]["simple-user"]> & Partial<components["schemas"]["team-simple"]>;
+            reviewer?: Partial<components["schemas"]["simple-user"]> &
+              Partial<components["schemas"]["team-simple"]>;
           }[];
         }> &
         Partial<{
@@ -10146,7 +10206,13 @@ export interface components {
     /** repo_name parameter */
     repo_name: string;
     /** The type of supported package. Can be one of `npm`, `maven`, `rubygems`, `nuget`, `docker`, or `container`. For Docker images that use the package namespace `https://ghcr.io/owner/package-name`, use `container`. */
-    package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
+    package_type:
+      | "npm"
+      | "maven"
+      | "rubygems"
+      | "docker"
+      | "nuget"
+      | "container";
     /** The name of the package. */
     package_name: string;
     /** Unique identifier of the package version. */
@@ -12196,7 +12262,8 @@ export interface operations {
     requestBody: {
       content: {
         "application/json":
-          | ((Partial<{ [key: string]: any }> & Partial<{ [key: string]: any }>) & {
+          | ((Partial<{ [key: string]: any }> &
+              Partial<{ [key: string]: any }>) & {
               /** Description of the gist */
               description?: string;
               /** Names of files to be updated */
@@ -15559,7 +15626,14 @@ export interface operations {
       };
       query: {
         /** Specifies the types of repositories you want returned. Can be one of `all`, `public`, `private`, `forks`, `sources`, `member`, `internal`. Default: `all`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `type` can also be `internal`. */
-        type?: "all" | "public" | "private" | "forks" | "sources" | "member" | "internal";
+        type?:
+          | "all"
+          | "public"
+          | "private"
+          | "forks"
+          | "sources"
+          | "member"
+          | "internal";
         /** Can be one of `created`, `updated`, `pushed`, `full_name`. */
         sort?: "created" | "updated" | "pushed" | "full_name";
         /** Can be one of `asc` or `desc`. Default: when using `full_name`: `asc`, otherwise `desc` */
@@ -16222,7 +16296,15 @@ export interface operations {
       };
       query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion comment. */
-        content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
+        content?:
+          | "+1"
+          | "-1"
+          | "laugh"
+          | "confused"
+          | "heart"
+          | "hooray"
+          | "rocket"
+          | "eyes";
         /** Results per page (max 100). */
         per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -16266,7 +16348,15 @@ export interface operations {
       content: {
         "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment. */
-          content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
+          content:
+            | "+1"
+            | "-1"
+            | "laugh"
+            | "confused"
+            | "heart"
+            | "hooray"
+            | "rocket"
+            | "eyes";
         };
       };
     };
@@ -16307,7 +16397,15 @@ export interface operations {
       };
       query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion. */
-        content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
+        content?:
+          | "+1"
+          | "-1"
+          | "laugh"
+          | "confused"
+          | "heart"
+          | "hooray"
+          | "rocket"
+          | "eyes";
         /** Results per page (max 100). */
         per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -16350,7 +16448,15 @@ export interface operations {
       content: {
         "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion. */
-          content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
+          content:
+            | "+1"
+            | "-1"
+            | "laugh"
+            | "confused"
+            | "heart"
+            | "hooray"
+            | "rocket"
+            | "eyes";
         };
       };
     };
@@ -20786,7 +20892,15 @@ export interface operations {
       };
       query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a commit comment. */
-        content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
+        content?:
+          | "+1"
+          | "-1"
+          | "laugh"
+          | "confused"
+          | "heart"
+          | "hooray"
+          | "rocket"
+          | "eyes";
         /** Results per page (max 100). */
         per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -20835,7 +20949,15 @@ export interface operations {
       content: {
         "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the commit comment. */
-          content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
+          content:
+            | "+1"
+            | "-1"
+            | "laugh"
+            | "confused"
+            | "heart"
+            | "hooray"
+            | "rocket"
+            | "eyes";
         };
       };
     };
@@ -21815,7 +21937,14 @@ export interface operations {
       content: {
         "application/json": {
           /** The state of the status. Can be one of `error`, `failure`, `inactive`, `in_progress`, `queued` `pending`, or `success`. **Note:** To use the `inactive` state, you must provide the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type. To use the `in_progress` and `queued` states, you must provide the [`application/vnd.github.flash-preview+json`](https://docs.github.com/rest/overview/api-previews#deployment-statuses) custom media type. When you set a transient deployment to `inactive`, the deployment will be shown as `destroyed` in GitHub. */
-          state: "error" | "failure" | "inactive" | "in_progress" | "queued" | "pending" | "success";
+          state:
+            | "error"
+            | "failure"
+            | "inactive"
+            | "in_progress"
+            | "queued"
+            | "pending"
+            | "success";
           /** The target URL to associate with this status. This URL should contain output to keep the user updated while the task is running or serve as historical information for what happened in the deployment. **Note:** It's recommended to use the `log_url` parameter, which replaces `target_url`. */
           target_url?: string;
           /**
@@ -23447,7 +23576,15 @@ export interface operations {
       };
       query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to an issue comment. */
-        content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
+        content?:
+          | "+1"
+          | "-1"
+          | "laugh"
+          | "confused"
+          | "heart"
+          | "hooray"
+          | "rocket"
+          | "eyes";
         /** Results per page (max 100). */
         per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -23496,7 +23633,15 @@ export interface operations {
       content: {
         "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue comment. */
-          content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
+          content:
+            | "+1"
+            | "-1"
+            | "laugh"
+            | "confused"
+            | "heart"
+            | "hooray"
+            | "rocket"
+            | "eyes";
         };
       };
     };
@@ -23981,7 +24126,15 @@ export interface operations {
       };
       query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to an issue. */
-        content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
+        content?:
+          | "+1"
+          | "-1"
+          | "laugh"
+          | "confused"
+          | "heart"
+          | "hooray"
+          | "rocket"
+          | "eyes";
         /** Results per page (max 100). */
         per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -24025,7 +24178,15 @@ export interface operations {
       content: {
         "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue. */
-          content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
+          content:
+            | "+1"
+            | "-1"
+            | "laugh"
+            | "confused"
+            | "heart"
+            | "hooray"
+            | "rocket"
+            | "eyes";
         };
       };
     };
@@ -25010,7 +25171,15 @@ export interface operations {
       };
       query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a pull request review comment. */
-        content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
+        content?:
+          | "+1"
+          | "-1"
+          | "laugh"
+          | "confused"
+          | "heart"
+          | "hooray"
+          | "rocket"
+          | "eyes";
         /** Results per page (max 100). */
         per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -25059,7 +25228,15 @@ export interface operations {
       content: {
         "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the pull request review comment. */
-          content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
+          content:
+            | "+1"
+            | "-1"
+            | "laugh"
+            | "confused"
+            | "heart"
+            | "hooray"
+            | "rocket"
+            | "eyes";
         };
       };
     };
@@ -25448,7 +25625,8 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (Partial<{ [key: string]: any }> & Partial<{ [key: string]: any }>) & {
+        "application/json": (Partial<{ [key: string]: any }> &
+          Partial<{ [key: string]: any }>) & {
           /** An array of user `login`s that will be requested. */
           reviewers?: string[];
           /** An array of team `slug`s that will be requested. */
@@ -28326,7 +28504,15 @@ export interface operations {
       };
       query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion comment. */
-        content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
+        content?:
+          | "+1"
+          | "-1"
+          | "laugh"
+          | "confused"
+          | "heart"
+          | "hooray"
+          | "rocket"
+          | "eyes";
         /** Results per page (max 100). */
         per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -28368,7 +28554,15 @@ export interface operations {
       content: {
         "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment. */
-          content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
+          content:
+            | "+1"
+            | "-1"
+            | "laugh"
+            | "confused"
+            | "heart"
+            | "hooray"
+            | "rocket"
+            | "eyes";
         };
       };
     };
@@ -28386,7 +28580,15 @@ export interface operations {
       };
       query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion. */
-        content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
+        content?:
+          | "+1"
+          | "-1"
+          | "laugh"
+          | "confused"
+          | "heart"
+          | "hooray"
+          | "rocket"
+          | "eyes";
         /** Results per page (max 100). */
         per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -28427,7 +28629,15 @@ export interface operations {
       content: {
         "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion. */
-          content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
+          content:
+            | "+1"
+            | "-1"
+            | "laugh"
+            | "confused"
+            | "heart"
+            | "hooray"
+            | "rocket"
+            | "eyes";
         };
       };
     };
@@ -29016,7 +29226,9 @@ export interface operations {
       /** response */
       200: {
         content: {
-          "application/json": components["schemas"]["private-user"] | components["schemas"]["public-user"];
+          "application/json":
+            | components["schemas"]["private-user"]
+            | components["schemas"]["public-user"];
         };
       };
       304: components["responses"]["not_modified"];
@@ -30621,7 +30833,9 @@ export interface operations {
       /** response */
       200: {
         content: {
-          "application/json": components["schemas"]["private-user"] | components["schemas"]["public-user"];
+          "application/json":
+            | components["schemas"]["private-user"]
+            | components["schemas"]["public-user"];
         };
       };
       404: components["responses"]["not_found"];
