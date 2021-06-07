@@ -73,7 +73,7 @@ export interface components {
       readonly shipDate?: string;
       /** Order Status */
       readonly status?: "placed" | "approved" | "delivered";
-      readonly complete: boolean;
+      readonly complete?: boolean;
     };
     /** A category for a pet */
     readonly Category: {
@@ -476,3 +476,5 @@ export interface operations {
     };
   };
 }
+
+export interface external {}

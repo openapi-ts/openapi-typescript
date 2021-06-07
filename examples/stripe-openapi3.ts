@@ -1492,9 +1492,13 @@ export interface components {
      */
     account: {
       /** Business information about the account. */
-      business_profile?: Partial<components["schemas"]["account_business_profile"]> | null;
+      business_profile?: Partial<
+        components["schemas"]["account_business_profile"]
+      > | null;
       /** The business type. */
-      business_type?: ("company" | "government_entity" | "individual" | "non_profit") | null;
+      business_type?:
+        | ("company" | "government_entity" | "individual" | "non_profit")
+        | null;
       capabilities?: components["schemas"]["account_capabilities"];
       /** Whether the account can create live charges. */
       charges_enabled?: boolean;
@@ -1512,7 +1516,8 @@ export interface components {
       /** External accounts (bank accounts and debit cards) currently attached to this account */
       external_accounts?: {
         /** The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards. */
-        data: (Partial<components["schemas"]["bank_account"]> & Partial<components["schemas"]["card"]>)[];
+        data: (Partial<components["schemas"]["bank_account"]> &
+          Partial<components["schemas"]["card"]>)[];
         /** True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
@@ -1822,9 +1827,13 @@ export interface components {
       /** Amount in %s refunded (can be less than the amount attribute on the fee if a partial refund was issued) */
       amount_refunded: number;
       /** ID of the Connect application that earned the fee. */
-      application: Partial<string> & Partial<components["schemas"]["application"]>;
+      application: Partial<string> &
+        Partial<components["schemas"]["application"]>;
       /** Balance transaction that describes the impact of this collected application fee on your account balance (not including refunds). */
-      balance_transaction?: (Partial<string> & Partial<components["schemas"]["balance_transaction"]>) | null;
+      balance_transaction?:
+        | (Partial<string> &
+            Partial<components["schemas"]["balance_transaction"]>)
+        | null;
       /** ID of the charge that the application fee was taken from. */
       charge: Partial<string> & Partial<components["schemas"]["charge"]>;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -1838,7 +1847,9 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "application_fee";
       /** ID of the corresponding charge on the platform account, if this fee was the result of a charge using the `destination` parameter. */
-      originating_transaction?: (Partial<string> & Partial<components["schemas"]["charge"]>) | null;
+      originating_transaction?:
+        | (Partial<string> & Partial<components["schemas"]["charge"]>)
+        | null;
       /** Whether the fee has been fully refunded. If the fee is only partially refunded, this attribute will still be false. */
       refunded: boolean;
       /** A list of refunds that have been applied to the fee. */
@@ -1988,7 +1999,9 @@ export interface components {
      */
     bank_account: {
       /** The ID of the account that the bank account is associated with. */
-      account?: (Partial<string> & Partial<components["schemas"]["account"]>) | null;
+      account?:
+        | (Partial<string> & Partial<components["schemas"]["account"]>)
+        | null;
       /** The name of the person or business that owns the bank account. */
       account_holder_name?: string | null;
       /** The type of entity that holds the account. This can be either `individual` or `company`. */
@@ -2161,7 +2174,9 @@ export interface components {
      */
     card: {
       /** The account this card belongs to. This attribute will not be in the card object if the card belongs to a customer or recipient instead. */
-      account?: (Partial<string> & Partial<components["schemas"]["account"]>) | null;
+      account?:
+        | (Partial<string> & Partial<components["schemas"]["account"]>)
+        | null;
       /** City/District/Suburb/Town/Village. */
       address_city?: string | null;
       /** Billing address country, if provided when creating card. */
@@ -2216,7 +2231,9 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "card";
       /** The recipient that this card belongs to. This attribute will not be in the card object if the card belongs to a customer or account instead. */
-      recipient?: (Partial<string> & Partial<components["schemas"]["recipient"]>) | null;
+      recipient?:
+        | (Partial<string> & Partial<components["schemas"]["recipient"]>)
+        | null;
       /** If the card number is tokenized, this is the method that was used. Can be `amex_express_checkout`, `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null. */
       tokenization_method?: string | null;
     };
@@ -2234,13 +2251,20 @@ export interface components {
       /** Amount in %s refunded (can be less than the amount attribute on the charge if a partial refund was issued). */
       amount_refunded: number;
       /** ID of the Connect application that created the charge. */
-      application?: (Partial<string> & Partial<components["schemas"]["application"]>) | null;
+      application?:
+        | (Partial<string> & Partial<components["schemas"]["application"]>)
+        | null;
       /** The application fee (if any) for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees) for details. */
-      application_fee?: (Partial<string> & Partial<components["schemas"]["application_fee"]>) | null;
+      application_fee?:
+        | (Partial<string> & Partial<components["schemas"]["application_fee"]>)
+        | null;
       /** The amount of the application fee (if any) for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees) for details. */
       application_fee_amount?: number | null;
       /** ID of the balance transaction that describes the impact of this charge on your account balance (not including refunds or disputes). */
-      balance_transaction?: (Partial<string> & Partial<components["schemas"]["balance_transaction"]>) | null;
+      balance_transaction?:
+        | (Partial<string> &
+            Partial<components["schemas"]["balance_transaction"]>)
+        | null;
       billing_details: components["schemas"]["billing_details"];
       /** The full statement descriptor that is passed to card networks, and that is displayed on your customers' credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined. */
       calculated_statement_descriptor?: string | null;
@@ -2265,11 +2289,15 @@ export interface components {
       /** Message to user further explaining reason for charge failure if available. */
       failure_message?: string | null;
       /** Information on fraud assessments for the charge. */
-      fraud_details?: Partial<components["schemas"]["charge_fraud_details"]> | null;
+      fraud_details?: Partial<
+        components["schemas"]["charge_fraud_details"]
+      > | null;
       /** Unique identifier for the object. */
       id: string;
       /** ID of the invoice this charge is for if one exists. */
-      invoice?: (Partial<string> & Partial<components["schemas"]["invoice"]>) | null;
+      invoice?:
+        | (Partial<string> & Partial<components["schemas"]["invoice"]>)
+        | null;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -2277,19 +2305,27 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "charge";
       /** The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers) for details. */
-      on_behalf_of?: (Partial<string> & Partial<components["schemas"]["account"]>) | null;
+      on_behalf_of?:
+        | (Partial<string> & Partial<components["schemas"]["account"]>)
+        | null;
       /** ID of the order this charge is for if one exists. */
-      order?: (Partial<string> & Partial<components["schemas"]["order"]>) | null;
+      order?:
+        | (Partial<string> & Partial<components["schemas"]["order"]>)
+        | null;
       /** Details about whether the payment was accepted, and why. See [understanding declines](https://stripe.com/docs/declines) for details. */
       outcome?: Partial<components["schemas"]["charge_outcome"]> | null;
       /** `true` if the charge succeeded, or was successfully authorized for later capture. */
       paid: boolean;
       /** ID of the PaymentIntent associated with this charge, if one exists. */
-      payment_intent?: (Partial<string> & Partial<components["schemas"]["payment_intent"]>) | null;
+      payment_intent?:
+        | (Partial<string> & Partial<components["schemas"]["payment_intent"]>)
+        | null;
       /** ID of the payment method used in this charge. */
       payment_method?: string | null;
       /** Details about the payment method at the time of the transaction. */
-      payment_method_details?: Partial<components["schemas"]["payment_method_details"]> | null;
+      payment_method_details?: Partial<
+        components["schemas"]["payment_method_details"]
+      > | null;
       /** This is the email address that the receipt for this charge was sent to. */
       receipt_email?: string | null;
       /** This is the transaction number that appears on email receipts sent for this charge. This attribute will be `null` until a receipt has been sent. */
@@ -2310,11 +2346,15 @@ export interface components {
         url: string;
       };
       /** ID of the review associated with this charge if one exists. */
-      review?: (Partial<string> & Partial<components["schemas"]["review"]>) | null;
+      review?:
+        | (Partial<string> & Partial<components["schemas"]["review"]>)
+        | null;
       /** Shipping information for the charge. */
       shipping?: Partial<components["schemas"]["shipping"]> | null;
       /** The transfer ID which created this charge. Only present if the charge came from another Stripe account. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details. */
-      source_transfer?: (Partial<string> & Partial<components["schemas"]["transfer"]>) | null;
+      source_transfer?:
+        | (Partial<string> & Partial<components["schemas"]["transfer"]>)
+        | null;
       /** For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
       statement_descriptor?: string | null;
       /** Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
@@ -2324,7 +2364,9 @@ export interface components {
       /** ID of the transfer to the `destination` account (only applicable if the charge was created using the `destination` parameter). */
       transfer?: Partial<string> & Partial<components["schemas"]["transfer"]>;
       /** An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details. */
-      transfer_data?: Partial<components["schemas"]["charge_transfer_data"]> | null;
+      transfer_data?: Partial<
+        components["schemas"]["charge_transfer_data"]
+      > | null;
       /** A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
       transfer_group?: string | null;
     };
@@ -2392,7 +2434,9 @@ export interface components {
        * during the session unless an existing customer was provided when
        * the session was created.
        */
-      customer?: (Partial<string> & Partial<components["schemas"]["customer"]>) | null;
+      customer?:
+        | (Partial<string> & Partial<components["schemas"]["customer"]>)
+        | null;
       /**
        * If provided, this value will be used when the Customer object is created.
        * If not provided, customers will be asked to enter their email address.
@@ -2402,7 +2446,9 @@ export interface components {
        */
       customer_email?: string | null;
       /** The line items, plans, or SKUs purchased by the customer. */
-      display_items?: components["schemas"]["checkout_session_display_item"][] | null;
+      display_items?:
+        | components["schemas"]["checkout_session_display_item"][]
+        | null;
       /**
        * Unique identifier for the object. Used to pass to `redirectToCheckout`
        * in Stripe.js.
@@ -2439,14 +2485,18 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "checkout.session";
       /** The ID of the PaymentIntent for Checkout Sessions in `payment` mode. */
-      payment_intent?: (Partial<string> & Partial<components["schemas"]["payment_intent"]>) | null;
+      payment_intent?:
+        | (Partial<string> & Partial<components["schemas"]["payment_intent"]>)
+        | null;
       /**
        * A list of the types of payment methods (e.g. card) this Checkout
        * Session is allowed to accept.
        */
       payment_method_types: string[];
       /** The ID of the SetupIntent for Checkout Sessions in `setup` mode. */
-      setup_intent?: (Partial<string> & Partial<components["schemas"]["setup_intent"]>) | null;
+      setup_intent?:
+        | (Partial<string> & Partial<components["schemas"]["setup_intent"]>)
+        | null;
       /** Shipping information for this Checkout Session. */
       shipping?: Partial<components["schemas"]["shipping"]> | null;
       /** When set, provides configuration for Checkout to collect a shipping address from a customer. */
@@ -2461,7 +2511,9 @@ export interface components {
        */
       submit_type?: ("auto" | "book" | "donate" | "pay") | null;
       /** The ID of the subscription for Checkout Sessions in `subscription` mode. */
-      subscription?: (Partial<string> & Partial<components["schemas"]["subscription"]>) | null;
+      subscription?:
+        | (Partial<string> & Partial<components["schemas"]["subscription"]>)
+        | null;
       /**
        * The URL the customer will be directed to after the payment or
        * subscription creation is successful.
@@ -2591,7 +2643,8 @@ export interface components {
       customer: Partial<string> & Partial<components["schemas"]["customer"]>;
       /** Customer balance transaction related to this credit note. */
       customer_balance_transaction?:
-        | (Partial<string> & Partial<components["schemas"]["customer_balance_transaction"]>)
+        | (Partial<string> &
+            Partial<components["schemas"]["customer_balance_transaction"]>)
         | null;
       /** The integer amount in **%s** representing the amount of the discount that was credited. */
       discount_amount: number;
@@ -2625,9 +2678,18 @@ export interface components {
       /** The link to download the PDF of the credit note. */
       pdf: string;
       /** Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` */
-      reason?: ("duplicate" | "fraudulent" | "order_change" | "product_unsatisfactory") | null;
+      reason?:
+        | (
+            | "duplicate"
+            | "fraudulent"
+            | "order_change"
+            | "product_unsatisfactory"
+          )
+        | null;
       /** Refund related to this credit note. */
-      refund?: (Partial<string> & Partial<components["schemas"]["refund"]>) | null;
+      refund?:
+        | (Partial<string> & Partial<components["schemas"]["refund"]>)
+        | null;
       /** Status of this credit note, one of `issued` or `void`. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding). */
       status: "issued" | "void";
       /** The integer amount in **%s** representing the amount of the credit note, excluding tax and discount. */
@@ -2798,7 +2860,9 @@ export interface components {
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** The ID of the credit note (if any) related to the transaction. */
-      credit_note?: (Partial<string> & Partial<components["schemas"]["credit_note"]>) | null;
+      credit_note?:
+        | (Partial<string> & Partial<components["schemas"]["credit_note"]>)
+        | null;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /** The ID of the customer the transaction belongs to. */
@@ -2810,7 +2874,9 @@ export interface components {
       /** Unique identifier for the object. */
       id: string;
       /** The ID of the invoice (if any) related to the transaction. */
-      invoice?: (Partial<string> & Partial<components["schemas"]["invoice"]>) | null;
+      invoice?:
+        | (Partial<string> & Partial<components["schemas"]["invoice"]>)
+        | null;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -2903,7 +2969,9 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "discount";
     };
-    deleted_external_account: Partial<components["schemas"]["deleted_bank_account"]> &
+    deleted_external_account: Partial<
+      components["schemas"]["deleted_bank_account"]
+    > &
       Partial<components["schemas"]["deleted_card"]>;
     deleted_invoice: {
       /** Always true for a deleted object */
@@ -2921,7 +2989,9 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "invoiceitem";
     };
-    deleted_payment_source: Partial<components["schemas"]["deleted_alipay_account"]> &
+    deleted_payment_source: Partial<
+      components["schemas"]["deleted_alipay_account"]
+    > &
       Partial<components["schemas"]["deleted_bank_account"]> &
       Partial<components["schemas"]["deleted_bitcoin_receiver"]> &
       Partial<components["schemas"]["deleted_card"]>;
@@ -3088,7 +3158,9 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "dispute";
       /** ID of the PaymentIntent that was disputed. */
-      payment_intent?: (Partial<string> & Partial<components["schemas"]["payment_intent"]>) | null;
+      payment_intent?:
+        | (Partial<string> & Partial<components["schemas"]["payment_intent"]>)
+        | null;
       /** Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Read more about [dispute reasons](https://stripe.com/docs/disputes/categories). */
       reason: string;
       /** Current status of dispute. Possible values are `warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `charge_refunded`, `won`, or `lost`. */
@@ -3108,13 +3180,17 @@ export interface components {
       /** The billing address provided by the customer. */
       billing_address?: string | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your subscription cancellation policy, as shown to the customer. */
-      cancellation_policy?: (Partial<string> & Partial<components["schemas"]["file"]>) | null;
+      cancellation_policy?:
+        | (Partial<string> & Partial<components["schemas"]["file"]>)
+        | null;
       /** An explanation of how and when the customer was shown your refund policy prior to purchase. */
       cancellation_policy_disclosure?: string | null;
       /** A justification for why the customer's subscription was not canceled. */
       cancellation_rebuttal?: string | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any communication with the customer that you feel is relevant to your case. Examples include emails proving that the customer received the product or service, or demonstrating their use of or satisfaction with the product or service. */
-      customer_communication?: (Partial<string> & Partial<components["schemas"]["file"]>) | null;
+      customer_communication?:
+        | (Partial<string> & Partial<components["schemas"]["file"]>)
+        | null;
       /** The email address of the customer. */
       customer_email_address?: string | null;
       /** The name of the customer. */
@@ -3122,9 +3198,13 @@ export interface components {
       /** The IP address that the customer used when making the purchase. */
       customer_purchase_ip?: string | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A relevant document or contract showing the customer's signature. */
-      customer_signature?: (Partial<string> & Partial<components["schemas"]["file"]>) | null;
+      customer_signature?:
+        | (Partial<string> & Partial<components["schemas"]["file"]>)
+        | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation for the prior charge that can uniquely identify the charge, such as a receipt, shipping label, work order, etc. This document should be paired with a similar document from the disputed payment that proves the two payments are separate. */
-      duplicate_charge_documentation?: (Partial<string> & Partial<components["schemas"]["file"]>) | null;
+      duplicate_charge_documentation?:
+        | (Partial<string> & Partial<components["schemas"]["file"]>)
+        | null;
       /** An explanation of the difference between the disputed charge versus the prior charge that appears to be a duplicate. */
       duplicate_charge_explanation?: string | null;
       /** The Stripe ID for the prior charge which appears to be a duplicate of the disputed charge. */
@@ -3132,9 +3212,13 @@ export interface components {
       /** A description of the product or service that was sold. */
       product_description?: string | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any receipt or message sent to the customer notifying them of the charge. */
-      receipt?: (Partial<string> & Partial<components["schemas"]["file"]>) | null;
+      receipt?:
+        | (Partial<string> & Partial<components["schemas"]["file"]>)
+        | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your refund policy, as shown to the customer. */
-      refund_policy?: (Partial<string> & Partial<components["schemas"]["file"]>) | null;
+      refund_policy?:
+        | (Partial<string> & Partial<components["schemas"]["file"]>)
+        | null;
       /** Documentation demonstrating that the customer was shown your refund policy prior to purchase. */
       refund_policy_disclosure?: string | null;
       /** A justification for why the customer is not entitled to a refund. */
@@ -3142,7 +3226,9 @@ export interface components {
       /** The date on which the customer received or began receiving the purchased service, in a clear human-readable format. */
       service_date?: string | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation showing proof that a service was provided to the customer. This could include a copy of a signed contract, work order, or other form of written agreement. */
-      service_documentation?: (Partial<string> & Partial<components["schemas"]["file"]>) | null;
+      service_documentation?:
+        | (Partial<string> & Partial<components["schemas"]["file"]>)
+        | null;
       /** The address to which a physical product was shipped. You should try to include as complete address information as possible. */
       shipping_address?: string | null;
       /** The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc. If multiple carriers were used for this purchase, please separate them with commas. */
@@ -3150,11 +3236,15 @@ export interface components {
       /** The date on which a physical product began its route to the shipping address, in a clear human-readable format. */
       shipping_date?: string | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation showing proof that a product was shipped to the customer at the same address the customer provided to you. This could include a copy of the shipment receipt, shipping label, etc. It should show the customer's full shipping address, if possible. */
-      shipping_documentation?: (Partial<string> & Partial<components["schemas"]["file"]>) | null;
+      shipping_documentation?:
+        | (Partial<string> & Partial<components["schemas"]["file"]>)
+        | null;
       /** The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas. */
       shipping_tracking_number?: string | null;
       /** (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any additional evidence or statements. */
-      uncategorized_file?: (Partial<string> & Partial<components["schemas"]["file"]>) | null;
+      uncategorized_file?:
+        | (Partial<string> & Partial<components["schemas"]["file"]>)
+        | null;
       /** Any additional evidence or statements. */
       uncategorized_text?: string | null;
     };
@@ -3234,7 +3324,9 @@ export interface components {
       /** Number of webhooks that have yet to be successfully delivered (i.e., to return a 20x response) to the URLs you've specified. */
       pending_webhooks: number;
       /** Information on the API request that instigated the event. */
-      request?: Partial<components["schemas"]["notification_event_request"]> | null;
+      request?: Partial<
+        components["schemas"]["notification_event_request"]
+      > | null;
       /** Description of the event (e.g., `invoice.created` or `charge.refunded`). */
       type: string;
     };
@@ -3259,7 +3351,8 @@ export interface components {
       /** Hash where the keys are supported currencies and the values are the exchange rate at which the base id currency converts to the key currency. */
       rates: { [key: string]: number };
     };
-    external_account: Partial<components["schemas"]["bank_account"]> & Partial<components["schemas"]["card"]>;
+    external_account: Partial<components["schemas"]["bank_account"]> &
+      Partial<components["schemas"]["card"]>;
     fee: {
       /** Amount of the fee, in cents. */
       amount: number;
@@ -3283,7 +3376,10 @@ export interface components {
       /** Amount, in %s. */
       amount: number;
       /** Balance transaction that describes the impact on your account balance. */
-      balance_transaction?: (Partial<string> & Partial<components["schemas"]["balance_transaction"]>) | null;
+      balance_transaction?:
+        | (Partial<string> &
+            Partial<components["schemas"]["balance_transaction"]>)
+        | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -3455,7 +3551,9 @@ export interface components {
           )
         | null;
       /** ID of the latest charge generated for this invoice, if any. */
-      charge?: (Partial<string> & Partial<components["schemas"]["charge"]>) | null;
+      charge?:
+        | (Partial<string> & Partial<components["schemas"]["charge"]>)
+        | null;
       /** Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. */
       collection_method?: ("charge_automatically" | "send_invoice") | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -3463,7 +3561,9 @@ export interface components {
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /** Custom fields displayed on the invoice. */
-      custom_fields?: components["schemas"]["invoice_setting_custom_field"][] | null;
+      custom_fields?:
+        | components["schemas"]["invoice_setting_custom_field"][]
+        | null;
       /** The ID of the customer who will be billed. */
       customer: Partial<string> &
         Partial<components["schemas"]["customer"]> &
@@ -3481,9 +3581,13 @@ export interface components {
       /** The customer's tax exempt status. Until the invoice is finalized, this field will equal `customer.tax_exempt`. Once the invoice is finalized, this field will no longer be updated. */
       customer_tax_exempt?: ("exempt" | "none" | "reverse") | null;
       /** The customer's tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as `customer.tax_ids`. Once the invoice is finalized, this field will no longer be updated. */
-      customer_tax_ids?: components["schemas"]["invoices_resource_invoice_tax_id"][] | null;
+      customer_tax_ids?:
+        | components["schemas"]["invoices_resource_invoice_tax_id"][]
+        | null;
       /** ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings. */
-      default_payment_method?: (Partial<string> & Partial<components["schemas"]["payment_method"]>) | null;
+      default_payment_method?:
+        | (Partial<string> & Partial<components["schemas"]["payment_method"]>)
+        | null;
       /** ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source. */
       default_source?:
         | (Partial<string> &
@@ -3535,7 +3639,9 @@ export interface components {
       /** Whether payment was successfully collected for this invoice. An invoice can be paid (most commonly) with a charge or with credit from the customer's account balance. */
       paid: boolean;
       /** The PaymentIntent associated with this invoice. The PaymentIntent is generated when the invoice is finalized, and can then be used to pay the invoice. Note that voiding an invoice will cancel the PaymentIntent. */
-      payment_intent?: (Partial<string> & Partial<components["schemas"]["payment_intent"]>) | null;
+      payment_intent?:
+        | (Partial<string> & Partial<components["schemas"]["payment_intent"]>)
+        | null;
       /** End of the usage period during which invoice items were added to this invoice. */
       period_end: number;
       /** Start of the usage period during which invoice items were added to this invoice. */
@@ -3551,10 +3657,14 @@ export interface components {
       /** Extra information about an invoice for the customer's credit card statement. */
       statement_descriptor?: string | null;
       /** The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview) */
-      status?: ("deleted" | "draft" | "open" | "paid" | "uncollectible" | "void") | null;
+      status?:
+        | ("deleted" | "draft" | "open" | "paid" | "uncollectible" | "void")
+        | null;
       status_transitions: components["schemas"]["invoices_status_transitions"];
       /** The subscription that this invoice was prepared for, if any. */
-      subscription?: (Partial<string> & Partial<components["schemas"]["subscription"]>) | null;
+      subscription?:
+        | (Partial<string> & Partial<components["schemas"]["subscription"]>)
+        | null;
       /** Only set for upcoming invoices that preview prorations. The time used to calculate prorations. */
       subscription_proration_date?: number;
       /** Total of all subscriptions, invoice items, and prorations on the invoice before any discount or tax is applied. */
@@ -3591,9 +3701,13 @@ export interface components {
     };
     invoice_setting_customer_setting: {
       /** Default custom fields to be displayed on invoices for this customer. */
-      custom_fields?: components["schemas"]["invoice_setting_custom_field"][] | null;
+      custom_fields?:
+        | components["schemas"]["invoice_setting_custom_field"][]
+        | null;
       /** ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices. */
-      default_payment_method?: (Partial<string> & Partial<components["schemas"]["payment_method"]>) | null;
+      default_payment_method?:
+        | (Partial<string> & Partial<components["schemas"]["payment_method"]>)
+        | null;
       /** Default footer to be displayed on invoices for this customer. */
       footer?: string | null;
     };
@@ -3642,7 +3756,9 @@ export interface components {
       /** Unique identifier for the object. */
       id: string;
       /** The ID of the invoice this invoice item belongs to. */
-      invoice?: (Partial<string> & Partial<components["schemas"]["invoice"]>) | null;
+      invoice?:
+        | (Partial<string> & Partial<components["schemas"]["invoice"]>)
+        | null;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -3657,7 +3773,9 @@ export interface components {
       /** Quantity of units for the invoice item. If the invoice item is a proration, the quantity of the subscription that the proration was computed for. */
       quantity: number;
       /** The subscription that this invoice item has been created for, if any. */
-      subscription?: (Partial<string> & Partial<components["schemas"]["subscription"]>) | null;
+      subscription?:
+        | (Partial<string> & Partial<components["schemas"]["subscription"]>)
+        | null;
       /** The subscription item that this invoice item has been created for, if any. */
       subscription_item?: string;
       /** The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. */
@@ -3745,12 +3863,20 @@ export interface components {
       /** Whether the authorization has been approved. */
       approved: boolean;
       /** How the card details were provided. */
-      authorization_method: "chip" | "contactless" | "keyed_in" | "online" | "swipe";
+      authorization_method:
+        | "chip"
+        | "contactless"
+        | "keyed_in"
+        | "online"
+        | "swipe";
       /** List of balance transactions associated with this authorization. */
       balance_transactions: components["schemas"]["balance_transaction"][];
       card: components["schemas"]["issuing.card"];
       /** The cardholder to whom this authorization belongs. */
-      cardholder?: (Partial<string> & Partial<components["schemas"]["issuing.cardholder"]>) | null;
+      cardholder?:
+        | (Partial<string> &
+            Partial<components["schemas"]["issuing.cardholder"]>)
+        | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -3769,7 +3895,9 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "issuing.authorization";
       /** The pending authorization request. This field will only be non-null during an `issuing_authorization.request` webhook. */
-      pending_request?: Partial<components["schemas"]["issuing_authorization_pending_request"]> | null;
+      pending_request?: Partial<
+        components["schemas"]["issuing_authorization_pending_request"]
+      > | null;
       /** History of every time the authorization was approved/denied (whether approved/denied by you directly or by Stripe based on your `spending_controls`). If the merchant changes the authorization by performing an [incremental authorization or partial capture](https://stripe.com/docs/issuing/purchases/authorizations), you can look at this field to see the previous states of the authorization. */
       request_history: components["schemas"]["issuing_authorization_request"][];
       /** The current status of the authorization in its lifecycle. */
@@ -3810,9 +3938,13 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "issuing.card";
       /** The latest card that replaces this card, if any. */
-      replaced_by?: (Partial<string> & Partial<components["schemas"]["issuing.card"]>) | null;
+      replaced_by?:
+        | (Partial<string> & Partial<components["schemas"]["issuing.card"]>)
+        | null;
       /** The card this card replaces, if any. */
-      replacement_for?: (Partial<string> & Partial<components["schemas"]["issuing.card"]>) | null;
+      replacement_for?:
+        | (Partial<string> & Partial<components["schemas"]["issuing.card"]>)
+        | null;
       /** The reason why the previous card needed to be replaced. */
       replacement_reason?: ("damaged" | "expired" | "lost" | "stolen") | null;
       /** Where and how the card will be shipped. */
@@ -3831,7 +3963,9 @@ export interface components {
     "issuing.cardholder": {
       billing: components["schemas"]["issuing_cardholder_address"];
       /** Additional information about a `company` cardholder. */
-      company?: Partial<components["schemas"]["issuing_cardholder_company"]> | null;
+      company?: Partial<
+        components["schemas"]["issuing_cardholder_company"]
+      > | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** The cardholder's email address. */
@@ -3839,7 +3973,9 @@ export interface components {
       /** Unique identifier for the object. */
       id: string;
       /** Additional information about an `individual` cardholder. */
-      individual?: Partial<components["schemas"]["issuing_cardholder_individual"]> | null;
+      individual?: Partial<
+        components["schemas"]["issuing_cardholder_individual"]
+      > | null;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -3852,7 +3988,9 @@ export interface components {
       phone_number?: string | null;
       requirements: components["schemas"]["issuing_cardholder_requirements"];
       /** Spending rules that give you some control over how this cardholder's cards can be used. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details. */
-      spending_controls?: Partial<components["schemas"]["issuing_cardholder_authorization_controls"]> | null;
+      spending_controls?: Partial<
+        components["schemas"]["issuing_cardholder_authorization_controls"]
+      > | null;
       /** Specifies whether to permit authorizations on this cardholder's cards. */
       status: "active" | "blocked" | "inactive";
       /** One of `individual` or `company`. */
@@ -3917,13 +4055,22 @@ export interface components {
       /** The transaction amount, which will be reflected in your balance. This amount is in your currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
       amount: number;
       /** The `Authorization` object that led to this transaction. */
-      authorization?: (Partial<string> & Partial<components["schemas"]["issuing.authorization"]>) | null;
+      authorization?:
+        | (Partial<string> &
+            Partial<components["schemas"]["issuing.authorization"]>)
+        | null;
       /** ID of the [balance transaction](https://stripe.com/docs/api/balance_transactions) associated with this transaction. */
-      balance_transaction?: (Partial<string> & Partial<components["schemas"]["balance_transaction"]>) | null;
+      balance_transaction?:
+        | (Partial<string> &
+            Partial<components["schemas"]["balance_transaction"]>)
+        | null;
       /** The card used to make this transaction. */
       card: Partial<string> & Partial<components["schemas"]["issuing.card"]>;
       /** The cardholder to whom this transaction belongs. */
-      cardholder?: (Partial<string> & Partial<components["schemas"]["issuing.cardholder"]>) | null;
+      cardholder?:
+        | (Partial<string> &
+            Partial<components["schemas"]["issuing.cardholder"]>)
+        | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -4599,7 +4746,9 @@ export interface components {
           )[]
         | null;
       /** Limit the spending with rules based on time intervals and categories. */
-      spending_limits?: components["schemas"]["issuing_card_spending_limit"][] | null;
+      spending_limits?:
+        | components["schemas"]["issuing_card_spending_limit"][]
+        | null;
       /** Currency for the amounts within spending_limits. Locked to the currency of the card. */
       spending_limits_currency?: string | null;
     };
@@ -4614,7 +4763,16 @@ export interface components {
       /** Shipment service, such as `standard` or `express`. */
       service: "express" | "priority" | "standard";
       /** The delivery status of the card. */
-      status?: ("canceled" | "delivered" | "failure" | "pending" | "returned" | "shipped") | null;
+      status?:
+        | (
+            | "canceled"
+            | "delivered"
+            | "failure"
+            | "pending"
+            | "returned"
+            | "shipped"
+          )
+        | null;
       /** A tracking number for a card shipment. */
       tracking_number?: string | null;
       /** A link to the shipping carrier's site where you can view detailed information about a card shipment. */
@@ -4919,7 +5077,13 @@ export interface components {
           )[]
         | null;
       /** The time interval or event with which to apply this spending limit towards. */
-      interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
+      interval:
+        | "all_time"
+        | "daily"
+        | "monthly"
+        | "per_authorization"
+        | "weekly"
+        | "yearly";
     };
     issuing_cardholder_address: {
       address: components["schemas"]["address"];
@@ -5512,7 +5676,9 @@ export interface components {
           )[]
         | null;
       /** Limit the spending with rules based on time intervals and categories. */
-      spending_limits?: components["schemas"]["issuing_cardholder_spending_limit"][] | null;
+      spending_limits?:
+        | components["schemas"]["issuing_cardholder_spending_limit"][]
+        | null;
       /** Currency for the amounts within spending_limits. */
       spending_limits_currency?: string | null;
     };
@@ -5528,13 +5694,17 @@ export interface components {
     };
     issuing_cardholder_individual: {
       /** The date of birth of this cardholder. */
-      dob?: Partial<components["schemas"]["issuing_cardholder_individual_dob"]> | null;
+      dob?: Partial<
+        components["schemas"]["issuing_cardholder_individual_dob"]
+      > | null;
       /** The first name of this cardholder. */
       first_name: string;
       /** The last name of this cardholder. */
       last_name: string;
       /** Government-issued ID document for this cardholder. */
-      verification?: Partial<components["schemas"]["issuing_cardholder_verification"]> | null;
+      verification?: Partial<
+        components["schemas"]["issuing_cardholder_verification"]
+      > | null;
     };
     issuing_cardholder_individual_dob: {
       /** The day of birth, between 1 and 31. */
@@ -5857,18 +6027,30 @@ export interface components {
           )[]
         | null;
       /** The time interval or event with which to apply this spending limit towards. */
-      interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
+      interval:
+        | "all_time"
+        | "daily"
+        | "monthly"
+        | "per_authorization"
+        | "weekly"
+        | "yearly";
     };
     issuing_cardholder_verification: {
       /** An identifying document, either a passport or local ID card. */
-      document?: Partial<components["schemas"]["issuing_cardholder_id_document"]> | null;
+      document?: Partial<
+        components["schemas"]["issuing_cardholder_id_document"]
+      > | null;
     };
     legal_entity_company: {
       address?: components["schemas"]["address"];
       /** The Kana variation of the company's primary address (Japan only). */
-      address_kana?: Partial<components["schemas"]["legal_entity_japan_address"]> | null;
+      address_kana?: Partial<
+        components["schemas"]["legal_entity_japan_address"]
+      > | null;
       /** The Kanji variation of the company's primary address (Japan only). */
-      address_kanji?: Partial<components["schemas"]["legal_entity_japan_address"]> | null;
+      address_kanji?: Partial<
+        components["schemas"]["legal_entity_japan_address"]
+      > | null;
       /** Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-directors_provided). */
       directors_provided?: boolean;
       /** Whether the company's executives have been provided. This Boolean will be `true` if you've manually indicated that all executives are provided via [the `executives_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-executives_provided), or if Stripe determined that sufficient executives were provided. */
@@ -5907,7 +6089,9 @@ export interface components {
       /** Whether the company's business VAT number was provided. */
       vat_id_provided?: boolean;
       /** Information on the verification state of the company. */
-      verification?: Partial<components["schemas"]["legal_entity_company_verification"]> | null;
+      verification?: Partial<
+        components["schemas"]["legal_entity_company_verification"]
+      > | null;
     };
     legal_entity_company_verification: {
       document: components["schemas"]["legal_entity_company_verification_document"];
@@ -5948,7 +6132,9 @@ export interface components {
     };
     legal_entity_person_verification: {
       /** A document showing address, either a passport, local ID card, or utility bill from a well-known utility company. */
-      additional_document?: Partial<components["schemas"]["legal_entity_person_verification_document"]> | null;
+      additional_document?: Partial<
+        components["schemas"]["legal_entity_person_verification_document"]
+      > | null;
       /** A user-displayable string describing the verification state for the person. For example, this may say "Provided identity information could not be verified". */
       details?: string | null;
       /** One of `document_address_mismatch`, `document_dob_mismatch`, `document_duplicate_type`, `document_id_number_mismatch`, `document_name_mismatch`, `document_nationality_mismatch`, `failed_keyed_identity`, or `failed_other`. A machine-readable code specifying the verification state for the person. */
@@ -6024,7 +6210,8 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "mandate";
       /** ID of the payment method associated with this mandate. */
-      payment_method: Partial<string> & Partial<components["schemas"]["payment_method"]>;
+      payment_method: Partial<string> &
+        Partial<components["schemas"]["payment_method"]>;
       payment_method_details: components["schemas"]["mandate_payment_method_details"];
       single_use?: components["schemas"]["mandate_single_use"];
       /** The status of the mandate, which indicates whether it can be used to initiate a payment. */
@@ -6092,7 +6279,9 @@ export interface components {
       /** A fee in cents that will be applied to the order and transferred to the application owner’s Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees documentation. */
       application_fee?: number | null;
       /** The ID of the payment used to pay for the order. Present if the order status is `paid`, `fulfilled`, or `refunded`. */
-      charge?: (Partial<string> & Partial<components["schemas"]["charge"]>) | null;
+      charge?:
+        | (Partial<string> & Partial<components["schemas"]["charge"]>)
+        | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -6137,7 +6326,9 @@ export interface components {
       /** Current order status. One of `created`, `paid`, `canceled`, `fulfilled`, or `returned`. More details in the [Orders Guide](https://stripe.com/docs/orders/guide#understanding-order-statuses). */
       status: string;
       /** The timestamps at which the order status was updated. */
-      status_transitions?: Partial<components["schemas"]["status_transitions"]> | null;
+      status_transitions?: Partial<
+        components["schemas"]["status_transitions"]
+      > | null;
       /** Time at which the object was last updated. Measured in seconds since the Unix epoch. */
       updated?: number | null;
       /** The user's order ID if it is different from the Stripe order ID. */
@@ -6187,9 +6378,13 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "order_return";
       /** The order that this return includes items from. */
-      order?: (Partial<string> & Partial<components["schemas"]["order"]>) | null;
+      order?:
+        | (Partial<string> & Partial<components["schemas"]["order"]>)
+        | null;
       /** The ID of the refund issued for this return. */
-      refund?: (Partial<string> & Partial<components["schemas"]["refund"]>) | null;
+      refund?:
+        | (Partial<string> & Partial<components["schemas"]["refund"]>)
+        | null;
     };
     package_dimensions: {
       /** Height, in inches. */
@@ -6222,7 +6417,9 @@ export interface components {
       /** Amount that was collected by this PaymentIntent. */
       amount_received?: number;
       /** ID of the Connect application that created the PaymentIntent. */
-      application?: (Partial<string> & Partial<components["schemas"]["application"]>) | null;
+      application?:
+        | (Partial<string> & Partial<components["schemas"]["application"]>)
+        | null;
       /** The amount of the application fee (if any) for the resulting payment. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
       application_fee_amount?: number | null;
       /** Populated when `status` is `canceled`, this is the time at which the PaymentIntent was canceled. Measured in seconds since the Unix epoch. */
@@ -6282,7 +6479,9 @@ export interface components {
       /** Unique identifier for the object. */
       id: string;
       /** ID of the invoice that created this PaymentIntent, if it exists. */
-      invoice?: (Partial<string> & Partial<components["schemas"]["invoice"]>) | null;
+      invoice?:
+        | (Partial<string> & Partial<components["schemas"]["invoice"]>)
+        | null;
       /** The payment error encountered in the previous PaymentIntent confirmation. It will be cleared if the PaymentIntent is later updated for any reason. */
       last_payment_error?: Partial<components["schemas"]["api_errors"]> | null;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -6290,21 +6489,31 @@ export interface components {
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. For more information, see the [documentation](https://stripe.com/docs/payments/payment-intents/creating-payment-intents#storing-information-in-metadata). */
       metadata?: { [key: string]: string };
       /** If present, this property tells you what actions you need to take in order for your customer to fulfill a payment using the provided source. */
-      next_action?: Partial<components["schemas"]["payment_intent_next_action"]> | null;
+      next_action?: Partial<
+        components["schemas"]["payment_intent_next_action"]
+      > | null;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "payment_intent";
       /** The account (if any) for which the funds of the PaymentIntent are intended. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
-      on_behalf_of?: (Partial<string> & Partial<components["schemas"]["account"]>) | null;
+      on_behalf_of?:
+        | (Partial<string> & Partial<components["schemas"]["account"]>)
+        | null;
       /** ID of the payment method used in this PaymentIntent. */
-      payment_method?: (Partial<string> & Partial<components["schemas"]["payment_method"]>) | null;
+      payment_method?:
+        | (Partial<string> & Partial<components["schemas"]["payment_method"]>)
+        | null;
       /** Payment-method-specific configuration for this PaymentIntent. */
-      payment_method_options?: Partial<components["schemas"]["payment_intent_payment_method_options"]> | null;
+      payment_method_options?: Partial<
+        components["schemas"]["payment_intent_payment_method_options"]
+      > | null;
       /** The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. */
       payment_method_types: string[];
       /** Email address that the receipt for the resulting payment will be sent to. */
       receipt_email?: string | null;
       /** ID of the review associated with this PaymentIntent, if any. */
-      review?: (Partial<string> & Partial<components["schemas"]["review"]>) | null;
+      review?:
+        | (Partial<string> & Partial<components["schemas"]["review"]>)
+        | null;
       /**
        * Indicates that you intend to make future payments with this PaymentIntent's payment method.
        *
@@ -6355,7 +6564,9 @@ export interface components {
        *
        * For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
        */
-      installments?: Partial<components["schemas"]["payment_method_options_card_installments"]> | null;
+      installments?: Partial<
+        components["schemas"]["payment_method_options_card_installments"]
+      > | null;
       /** We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine. */
       request_three_d_secure?: ("any" | "automatic" | "challenge_only") | null;
     };
@@ -6374,7 +6585,9 @@ export interface components {
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer. */
-      customer?: (Partial<string> & Partial<components["schemas"]["customer"]>) | null;
+      customer?:
+        | (Partial<string> & Partial<components["schemas"]["customer"]>)
+        | null;
       fpx?: components["schemas"]["payment_method_fpx"];
       /** Unique identifier for the object. */
       id: string;
@@ -6401,7 +6614,9 @@ export interface components {
       /** Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       brand: string;
       /** Checks on Card address and CVC if provided. */
-      checks?: Partial<components["schemas"]["payment_method_card_checks"]> | null;
+      checks?: Partial<
+        components["schemas"]["payment_method_card_checks"]
+      > | null;
       /** Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
       country?: string | null;
       /** Two-digit number representing the card's expiration month. */
@@ -6413,13 +6628,19 @@ export interface components {
       /** Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
       funding: string;
       /** Details of the original PaymentMethod that created this object. */
-      generated_from?: Partial<components["schemas"]["payment_method_card_generated_card"]> | null;
+      generated_from?: Partial<
+        components["schemas"]["payment_method_card_generated_card"]
+      > | null;
       /** The last four digits of the card. */
       last4: string;
       /** Contains details on how this Card maybe be used for 3D Secure authentication. */
-      three_d_secure_usage?: Partial<components["schemas"]["three_d_secure_usage"]> | null;
+      three_d_secure_usage?: Partial<
+        components["schemas"]["three_d_secure_usage"]
+      > | null;
       /** If this Card is part of a card wallet, this contains the details of the card wallet. */
-      wallet?: Partial<components["schemas"]["payment_method_card_wallet"]> | null;
+      wallet?: Partial<
+        components["schemas"]["payment_method_card_wallet"]
+      > | null;
     };
     payment_method_card_checks: {
       /** If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`. */
@@ -6433,7 +6654,9 @@ export interface components {
       /** The charge that created this object. */
       charge?: string | null;
       /** Transaction-specific details of the payment method used in the payment. */
-      payment_method_details?: Partial<components["schemas"]["payment_method_details"]> | null;
+      payment_method_details?: Partial<
+        components["schemas"]["payment_method_details"]
+      > | null;
     };
     payment_method_card_present: { [key: string]: any };
     payment_method_card_wallet: {
@@ -6445,7 +6668,13 @@ export interface components {
       masterpass?: components["schemas"]["payment_method_card_wallet_masterpass"];
       samsung_pay?: components["schemas"]["payment_method_card_wallet_samsung_pay"];
       /** The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, or `visa_checkout`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type. */
-      type: "amex_express_checkout" | "apple_pay" | "google_pay" | "masterpass" | "samsung_pay" | "visa_checkout";
+      type:
+        | "amex_express_checkout"
+        | "apple_pay"
+        | "google_pay"
+        | "masterpass"
+        | "samsung_pay"
+        | "visa_checkout";
       visa_checkout?: components["schemas"]["payment_method_card_wallet_visa_checkout"];
     };
     payment_method_card_wallet_amex_express_checkout: { [key: string]: any };
@@ -6557,7 +6786,9 @@ export interface components {
       /** Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       brand?: string | null;
       /** Check results by Card networks on Card address and CVC at time of payment. */
-      checks?: Partial<components["schemas"]["payment_method_details_card_checks"]> | null;
+      checks?: Partial<
+        components["schemas"]["payment_method_details_card_checks"]
+      > | null;
       /** Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
       country?: string | null;
       /** Two-digit number representing the card's expiration month. */
@@ -6573,15 +6804,21 @@ export interface components {
        *
        * For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
        */
-      installments?: Partial<components["schemas"]["payment_method_details_card_installments"]> | null;
+      installments?: Partial<
+        components["schemas"]["payment_method_details_card_installments"]
+      > | null;
       /** The last four digits of the card. */
       last4?: string | null;
       /** Identifies which network this charge was processed on. Can be `amex`, `diners`, `discover`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       network?: string | null;
       /** Populated if this transaction used 3D Secure authentication. */
-      three_d_secure?: Partial<components["schemas"]["three_d_secure_details"]> | null;
+      three_d_secure?: Partial<
+        components["schemas"]["three_d_secure_details"]
+      > | null;
       /** If this Card is part of a card wallet, this contains the details of the card wallet. */
-      wallet?: Partial<components["schemas"]["payment_method_details_card_wallet"]> | null;
+      wallet?: Partial<
+        components["schemas"]["payment_method_details_card_wallet"]
+      > | null;
     };
     payment_method_details_card_checks: {
       /** If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`. */
@@ -6593,7 +6830,9 @@ export interface components {
     };
     payment_method_details_card_installments: {
       /** Installment plan selected for the payment. */
-      plan?: Partial<components["schemas"]["payment_method_details_card_installments_plan"]> | null;
+      plan?: Partial<
+        components["schemas"]["payment_method_details_card_installments_plan"]
+      > | null;
     };
     payment_method_details_card_installments_plan: {
       /** For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card. */
@@ -6632,7 +6871,9 @@ export interface components {
       /** How were card details read in this transaction. Can be contact_emv, contactless_emv, magnetic_stripe_fallback, magnetic_stripe_track2, or contactless_magstripe_mode */
       read_method?: string | null;
       /** A collection of fields required to be displayed on receipts. Only required for EMV transactions. */
-      receipt?: Partial<components["schemas"]["payment_method_details_card_present_receipt"]> | null;
+      receipt?: Partial<
+        components["schemas"]["payment_method_details_card_present_receipt"]
+      > | null;
     };
     payment_method_details_card_present_receipt: {
       /** EMV tag 9F26, cryptogram generated by the integrated circuit chip. */
@@ -6661,10 +6902,18 @@ export interface components {
       masterpass?: components["schemas"]["payment_method_details_card_wallet_masterpass"];
       samsung_pay?: components["schemas"]["payment_method_details_card_wallet_samsung_pay"];
       /** The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, or `visa_checkout`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type. */
-      type: "amex_express_checkout" | "apple_pay" | "google_pay" | "masterpass" | "samsung_pay" | "visa_checkout";
+      type:
+        | "amex_express_checkout"
+        | "apple_pay"
+        | "google_pay"
+        | "masterpass"
+        | "samsung_pay"
+        | "visa_checkout";
       visa_checkout?: components["schemas"]["payment_method_details_card_wallet_visa_checkout"];
     };
-    payment_method_details_card_wallet_amex_express_checkout: { [key: string]: any };
+    payment_method_details_card_wallet_amex_express_checkout: {
+      [key: string]: any;
+    };
     payment_method_details_card_wallet_apple_pay: { [key: string]: any };
     payment_method_details_card_wallet_google_pay: { [key: string]: any };
     payment_method_details_card_wallet_masterpass: {
@@ -6888,11 +7137,15 @@ export interface components {
     };
     payment_method_options_card_installments: {
       /** Installment plans that may be selected for this PaymentIntent. */
-      available_plans?: components["schemas"]["payment_method_details_card_installments_plan"][] | null;
+      available_plans?:
+        | components["schemas"]["payment_method_details_card_installments_plan"][]
+        | null;
       /** Whether Installments are enabled for this PaymentIntent. */
       enabled: boolean;
       /** Installment plan selected for this PaymentIntent. */
-      plan?: Partial<components["schemas"]["payment_method_details_card_installments_plan"]> | null;
+      plan?: Partial<
+        components["schemas"]["payment_method_details_card_installments_plan"]
+      > | null;
     };
     payment_method_sepa_debit: {
       /** Bank code of bank associated with the bank account. */
@@ -7175,7 +7428,10 @@ export interface components {
       /** Returns `true` if the payout was created by an [automated payout schedule](https://stripe.com/docs/payouts#payout-schedule), and `false` if it was [requested manually](https://stripe.com/docs/payouts#manual-payouts). */
       automatic: boolean;
       /** ID of the balance transaction that describes the impact of this payout on your account balance. */
-      balance_transaction?: (Partial<string> & Partial<components["schemas"]["balance_transaction"]>) | null;
+      balance_transaction?:
+        | (Partial<string> &
+            Partial<components["schemas"]["balance_transaction"]>)
+        | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -7191,7 +7447,10 @@ export interface components {
             Partial<components["schemas"]["deleted_card"]>)
         | null;
       /** If the payout failed or was canceled, this will be the ID of the balance transaction that reversed the initial balance transaction, and puts the funds from the failed payout back in your balance. */
-      failure_balance_transaction?: (Partial<string> & Partial<components["schemas"]["balance_transaction"]>) | null;
+      failure_balance_transaction?:
+        | (Partial<string> &
+            Partial<components["schemas"]["balance_transaction"]>)
+        | null;
       /** Error code explaining reason for payout failure if available. See [Types of payout failures](https://stripe.com/docs/api#payout_failures) for a list of failure codes. */
       failure_code?: string | null;
       /** Message to user further explaining reason for payout failure if available. */
@@ -7229,8 +7488,12 @@ export interface components {
     person: {
       account: string;
       address?: components["schemas"]["address"];
-      address_kana?: Partial<components["schemas"]["legal_entity_japan_address"]> | null;
-      address_kanji?: Partial<components["schemas"]["legal_entity_japan_address"]> | null;
+      address_kana?: Partial<
+        components["schemas"]["legal_entity_japan_address"]
+      > | null;
+      address_kanji?: Partial<
+        components["schemas"]["legal_entity_japan_address"]
+      > | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       dob?: components["schemas"]["legal_entity_dob"];
@@ -7252,7 +7515,9 @@ export interface components {
       object: "person";
       phone?: string | null;
       relationship?: components["schemas"]["person_relationship"];
-      requirements?: Partial<components["schemas"]["person_requirements"]> | null;
+      requirements?: Partial<
+        components["schemas"]["person_requirements"]
+      > | null;
       ssn_last_4_provided?: boolean;
       verification?: components["schemas"]["legal_entity_person_verification"];
     };
@@ -7294,7 +7559,9 @@ export interface components {
       /** Whether the plan can be used for new purchases. */
       active: boolean;
       /** Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`. */
-      aggregate_usage?: ("last_during_period" | "last_ever" | "max" | "sum") | null;
+      aggregate_usage?:
+        | ("last_during_period" | "last_ever" | "max" | "sum")
+        | null;
       /** The amount in %s to be charged on the interval specified. */
       amount?: number | null;
       /** Same as `amount`, but contains a decimal value with at most 12 decimal places. */
@@ -7330,7 +7597,9 @@ export interface components {
       /** Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows. */
       tiers_mode?: ("graduated" | "volume") | null;
       /** Apply a transformation to the reported usage or set quantity before computing the amount billed. Cannot be combined with `tiers`. */
-      transform_usage?: Partial<components["schemas"]["transform_usage"]> | null;
+      transform_usage?: Partial<
+        components["schemas"]["transform_usage"]
+      > | null;
       /** Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan). */
       trial_period_days?: number | null;
       /** Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`. */
@@ -7396,7 +7665,9 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "product";
       /** The dimensions of this product for shipping purposes. A SKU associated with this product can override this value by having its own `package_dimensions`. Only applicable to products of `type=good`. */
-      package_dimensions?: Partial<components["schemas"]["package_dimensions"]> | null;
+      package_dimensions?: Partial<
+        components["schemas"]["package_dimensions"]
+      > | null;
       /** Whether this product is a shipped good. Only applicable to products of `type=good`. */
       shippable?: boolean | null;
       /** Extra information about a product which will appear on your customer's credit card statement. In the case that multiple products are billed at once, the first statement descriptor will be used. */
@@ -7546,7 +7817,9 @@ export interface components {
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** The default card to use for creating transfers to this recipient. */
-      default_card?: (Partial<string> & Partial<components["schemas"]["card"]>) | null;
+      default_card?:
+        | (Partial<string> & Partial<components["schemas"]["card"]>)
+        | null;
       /** An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null;
       email?: string | null;
@@ -7557,12 +7830,15 @@ export interface components {
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: { [key: string]: string };
       /** The ID of the [Custom account](https://stripe.com/docs/connect/custom-accounts) this recipient was migrated to. If set, the recipient can no longer be updated, nor can transfers be made to it: use the Custom account instead. */
-      migrated_to?: (Partial<string> & Partial<components["schemas"]["account"]>) | null;
+      migrated_to?:
+        | (Partial<string> & Partial<components["schemas"]["account"]>)
+        | null;
       /** Full, legal name of the recipient. */
       name?: string | null;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "recipient";
-      rolled_back_from?: Partial<string> & Partial<components["schemas"]["account"]>;
+      rolled_back_from?: Partial<string> &
+        Partial<components["schemas"]["account"]>;
       /** Type of the recipient, one of `individual` or `corporation`. */
       type: string;
     };
@@ -7577,9 +7853,14 @@ export interface components {
       /** Amount, in %s. */
       amount: number;
       /** Balance transaction that describes the impact on your account balance. */
-      balance_transaction?: (Partial<string> & Partial<components["schemas"]["balance_transaction"]>) | null;
+      balance_transaction?:
+        | (Partial<string> &
+            Partial<components["schemas"]["balance_transaction"]>)
+        | null;
       /** ID of the charge that was refunded. */
-      charge?: (Partial<string> & Partial<components["schemas"]["charge"]>) | null;
+      charge?:
+        | (Partial<string> & Partial<components["schemas"]["charge"]>)
+        | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -7587,7 +7868,8 @@ export interface components {
       /** An arbitrary string attached to the object. Often useful for displaying to users. (Available on non-card refunds only) */
       description?: string;
       /** If the refund failed, this balance transaction describes the adjustment made on your account balance that reverses the initial balance transaction. */
-      failure_balance_transaction?: Partial<string> & Partial<components["schemas"]["balance_transaction"]>;
+      failure_balance_transaction?: Partial<string> &
+        Partial<components["schemas"]["balance_transaction"]>;
       /** If the refund failed, the reason for refund failure if known. Possible values are `lost_or_stolen_card`, `expired_or_canceled_card`, or `unknown`. */
       failure_reason?: string;
       /** Unique identifier for the object. */
@@ -7597,17 +7879,25 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "refund";
       /** ID of the PaymentIntent that was refunded. */
-      payment_intent?: (Partial<string> & Partial<components["schemas"]["payment_intent"]>) | null;
+      payment_intent?:
+        | (Partial<string> & Partial<components["schemas"]["payment_intent"]>)
+        | null;
       /** Reason for the refund, either user-provided (`duplicate`, `fraudulent`, or `requested_by_customer`) or generated by Stripe internally (`expired_uncaptured_charge`). */
       reason?: string | null;
       /** This is the transaction number that appears on email receipts sent for this refund. */
       receipt_number?: string | null;
       /** The transfer reversal that is associated with the refund. Only present if the charge came from another Stripe account. See the Connect documentation for details. */
-      source_transfer_reversal?: (Partial<string> & Partial<components["schemas"]["transfer_reversal"]>) | null;
+      source_transfer_reversal?:
+        | (Partial<string> &
+            Partial<components["schemas"]["transfer_reversal"]>)
+        | null;
       /** Status of the refund. For credit card refunds, this can be `pending`, `succeeded`, or `failed`. For other types of refunds, it can be `pending`, `succeeded`, `failed`, or `canceled`. Refer to our [refunds](https://stripe.com/docs/refunds#failed-refunds) documentation for more details. */
       status?: string | null;
       /** If the accompanying transfer was reversed, the transfer reversal object. Only applicable if the charge was created using the destination parameter. */
-      transfer_reversal?: (Partial<string> & Partial<components["schemas"]["transfer_reversal"]>) | null;
+      transfer_reversal?:
+        | (Partial<string> &
+            Partial<components["schemas"]["transfer_reversal"]>)
+        | null;
     };
     /**
      * The Report Run object represents an instance of a report type generated with
@@ -7704,9 +7994,13 @@ export interface components {
       /** The ZIP or postal code of the card used, if applicable. */
       billing_zip?: string | null;
       /** The charge associated with this review. */
-      charge?: (Partial<string> & Partial<components["schemas"]["charge"]>) | null;
+      charge?:
+        | (Partial<string> & Partial<components["schemas"]["charge"]>)
+        | null;
       /** The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, or `disputed`. */
-      closed_reason?: ("approved" | "disputed" | "refunded" | "refunded_as_fraud") | null;
+      closed_reason?:
+        | ("approved" | "disputed" | "refunded" | "refunded_as_fraud")
+        | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** Unique identifier for the object. */
@@ -7714,7 +8008,9 @@ export interface components {
       /** The IP address where the payment originated. */
       ip_address?: string | null;
       /** Information related to the location of the payment. Note that this information is an approximation and attempts to locate the nearest population center - it should not be used to determine a specific address. */
-      ip_address_location?: Partial<components["schemas"]["radar_review_resource_location"]> | null;
+      ip_address_location?: Partial<
+        components["schemas"]["radar_review_resource_location"]
+      > | null;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** String representing the object's type. Objects of the same type share the same value. */
@@ -7724,11 +8020,14 @@ export interface components {
       /** The reason the review was opened. One of `rule` or `manual`. */
       opened_reason: "manual" | "rule";
       /** The PaymentIntent ID associated with this review, if one exists. */
-      payment_intent?: Partial<string> & Partial<components["schemas"]["payment_intent"]>;
+      payment_intent?: Partial<string> &
+        Partial<components["schemas"]["payment_intent"]>;
       /** The reason the review is currently open or closed. One of `rule`, `manual`, `approved`, `refunded`, `refunded_as_fraud`, or `disputed`. */
       reason: string;
       /** Information related to the browsing session of the user who initiated the payment. */
-      session?: Partial<components["schemas"]["radar_review_resource_session"]> | null;
+      session?: Partial<
+        components["schemas"]["radar_review_resource_session"]
+      > | null;
     };
     rule: {
       /** The action taken on the payment. */
@@ -7793,9 +8092,13 @@ export interface components {
      */
     setup_intent: {
       /** ID of the Connect application that created the SetupIntent. */
-      application?: (Partial<string> & Partial<components["schemas"]["application"]>) | null;
+      application?:
+        | (Partial<string> & Partial<components["schemas"]["application"]>)
+        | null;
       /** Reason for cancellation of this SetupIntent, one of `abandoned`, `requested_by_customer`, or `duplicate`. */
-      cancellation_reason?: ("abandoned" | "duplicate" | "requested_by_customer") | null;
+      cancellation_reason?:
+        | ("abandoned" | "duplicate" | "requested_by_customer")
+        | null;
       /**
        * The client secret of this SetupIntent. Used for client-side retrieval using a publishable key.
        *
@@ -7823,23 +8126,35 @@ export interface components {
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** ID of the multi use Mandate generated by the SetupIntent. */
-      mandate?: (Partial<string> & Partial<components["schemas"]["mandate"]>) | null;
+      mandate?:
+        | (Partial<string> & Partial<components["schemas"]["mandate"]>)
+        | null;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata?: { [key: string]: string };
       /** If present, this property tells you what actions you need to take in order for your customer to continue payment setup. */
-      next_action?: Partial<components["schemas"]["setup_intent_next_action"]> | null;
+      next_action?: Partial<
+        components["schemas"]["setup_intent_next_action"]
+      > | null;
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "setup_intent";
       /** The account (if any) for which the setup is intended. */
-      on_behalf_of?: (Partial<string> & Partial<components["schemas"]["account"]>) | null;
+      on_behalf_of?:
+        | (Partial<string> & Partial<components["schemas"]["account"]>)
+        | null;
       /** ID of the payment method used with this SetupIntent. */
-      payment_method?: (Partial<string> & Partial<components["schemas"]["payment_method"]>) | null;
+      payment_method?:
+        | (Partial<string> & Partial<components["schemas"]["payment_method"]>)
+        | null;
       /** Payment-method-specific configuration for this SetupIntent. */
-      payment_method_options?: Partial<components["schemas"]["setup_intent_payment_method_options"]> | null;
+      payment_method_options?: Partial<
+        components["schemas"]["setup_intent_payment_method_options"]
+      > | null;
       /** The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. */
       payment_method_types: string[];
       /** ID of the single_use Mandate generated by the SetupIntent. */
-      single_use_mandate?: (Partial<string> & Partial<components["schemas"]["mandate"]>) | null;
+      single_use_mandate?:
+        | (Partial<string> & Partial<components["schemas"]["mandate"]>)
+        | null;
       /** [Status](https://stripe.com/docs/payments/intents#intent-statuses) of this SetupIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `canceled`, or `succeeded`. */
       status:
         | "canceled"
@@ -7892,7 +8207,9 @@ export interface components {
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /** The estimated delivery date for the given shipping method. Can be either a specific date or a range. */
-      delivery_estimate?: Partial<components["schemas"]["delivery_estimate"]> | null;
+      delivery_estimate?: Partial<
+        components["schemas"]["delivery_estimate"]
+      > | null;
       /** An arbitrary string attached to the object. Often useful for displaying to users. */
       description: string;
       /** Unique identifier for the object. */
@@ -7933,7 +8250,9 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "sku";
       /** The dimensions of this SKU for shipping purposes. */
-      package_dimensions?: Partial<components["schemas"]["package_dimensions"]> | null;
+      package_dimensions?: Partial<
+        components["schemas"]["package_dimensions"]
+      > | null;
       /** The cost of the item as a positive integer in the smallest currency unit (that is, 100 cents to charge $1.00, or 100 to charge ¥100, Japanese Yen being a zero-decimal currency). */
       price: number;
       /** The ID of the product this SKU is associated with. The product must be currently active. */
@@ -8425,7 +8744,9 @@ export interface components {
       /** Determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. */
       billing_cycle_anchor: number;
       /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period */
-      billing_thresholds?: Partial<components["schemas"]["subscription_billing_thresholds"]> | null;
+      billing_thresholds?: Partial<
+        components["schemas"]["subscription_billing_thresholds"]
+      > | null;
       /** A date in the future at which the subscription will automatically get canceled */
       cancel_at?: number | null;
       /** If the subscription has been canceled with the `at_period_end` flag set to `true`, `cancel_at_period_end` on the subscription will be true. You can use this attribute to determine whether a subscription that has a status of active is scheduled to be canceled at the end of the current period. */
@@ -8447,7 +8768,9 @@ export interface components {
       /** Number of days a customer has to pay invoices generated by this subscription. This value will be `null` for subscriptions where `collection_method=charge_automatically`. */
       days_until_due?: number | null;
       /** ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. If not set, invoices will use the default payment method in the customer's invoice settings. */
-      default_payment_method?: (Partial<string> & Partial<components["schemas"]["payment_method"]>) | null;
+      default_payment_method?:
+        | (Partial<string> & Partial<components["schemas"]["payment_method"]>)
+        | null;
       /** ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If not set, defaults to the customer's default source. */
       default_source?:
         | (Partial<string> &
@@ -8477,7 +8800,9 @@ export interface components {
         url: string;
       };
       /** The most recent invoice this subscription has generated. */
-      latest_invoice?: (Partial<string> & Partial<components["schemas"]["invoice"]>) | null;
+      latest_invoice?:
+        | (Partial<string> & Partial<components["schemas"]["invoice"]>)
+        | null;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -8487,21 +8812,30 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "subscription";
       /** If specified, payment collection for this subscription will be paused. */
-      pause_collection?: Partial<components["schemas"]["subscriptions_resource_pause_collection"]> | null;
+      pause_collection?: Partial<
+        components["schemas"]["subscriptions_resource_pause_collection"]
+      > | null;
       /** Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
       pending_invoice_item_interval?: Partial<
         components["schemas"]["subscription_pending_invoice_item_interval"]
       > | null;
       /** You can use this [SetupIntent](https://stripe.com/docs/api/setup_intents) to collect user authentication when creating a subscription without immediate payment or updating a subscription's payment method, allowing you to optimize for off-session payments. Learn more in the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication#scenario-2). */
-      pending_setup_intent?: (Partial<string> & Partial<components["schemas"]["setup_intent"]>) | null;
+      pending_setup_intent?:
+        | (Partial<string> & Partial<components["schemas"]["setup_intent"]>)
+        | null;
       /** If specified, [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates) that will be applied to the subscription once the `latest_invoice` has been paid. */
-      pending_update?: Partial<components["schemas"]["subscriptions_resource_pending_update"]> | null;
+      pending_update?: Partial<
+        components["schemas"]["subscriptions_resource_pending_update"]
+      > | null;
       /** Hash describing the plan the customer is subscribed to. Only set if the subscription contains a single plan. */
       plan?: Partial<components["schemas"]["plan"]> | null;
       /** The quantity of the plan to which the customer is subscribed. For example, if your plan is $10/user/month, and your customer has 5 users, you could pass 5 as the quantity to have the customer charged $50 (5 x $10) monthly. Only set if the subscription contains a single plan. */
       quantity?: number | null;
       /** The schedule attached to the subscription */
-      schedule?: (Partial<string> & Partial<components["schemas"]["subscription_schedule"]>) | null;
+      schedule?:
+        | (Partial<string> &
+            Partial<components["schemas"]["subscription_schedule"]>)
+        | null;
       /** Date when the subscription was first created. The date might differ from the `created` date due to backdating. */
       start_date: number;
       /**
@@ -8515,7 +8849,14 @@ export interface components {
        *
        * If subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.
        */
-      status: "active" | "canceled" | "incomplete" | "incomplete_expired" | "past_due" | "trialing" | "unpaid";
+      status:
+        | "active"
+        | "canceled"
+        | "incomplete"
+        | "incomplete_expired"
+        | "past_due"
+        | "trialing"
+        | "unpaid";
       /** If provided, each invoice created by this subscription will apply the tax rate, increasing the amount billed to the customer. */
       tax_percent?: number | null;
       /** If the subscription has a trial, the end of that trial. */
@@ -8535,7 +8876,9 @@ export interface components {
      */
     subscription_item: {
       /** Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period */
-      billing_thresholds?: Partial<components["schemas"]["subscription_item_billing_thresholds"]> | null;
+      billing_thresholds?: Partial<
+        components["schemas"]["subscription_item_billing_thresholds"]
+      > | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** Unique identifier for the object. */
@@ -8575,7 +8918,9 @@ export interface components {
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** Object representing the start and end dates for the current phase of the subscription schedule, if it is `active`. */
-      current_phase?: Partial<components["schemas"]["subscription_schedule_current_phase"]> | null;
+      current_phase?: Partial<
+        components["schemas"]["subscription_schedule_current_phase"]
+      > | null;
       /** ID of the customer who owns the subscription schedule. */
       customer: Partial<string> &
         Partial<components["schemas"]["customer"]> &
@@ -8600,14 +8945,20 @@ export interface components {
       /** The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://stripe.com/docs/billing/subscriptions/subscription-schedules). */
       status: "active" | "canceled" | "completed" | "not_started" | "released";
       /** ID of the subscription managed by the subscription schedule. */
-      subscription?: (Partial<string> & Partial<components["schemas"]["subscription"]>) | null;
+      subscription?:
+        | (Partial<string> & Partial<components["schemas"]["subscription"]>)
+        | null;
     };
     /** A phase item describes the plan and quantity of a phase. */
     subscription_schedule_configuration_item: {
       /** Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period */
-      billing_thresholds?: Partial<components["schemas"]["subscription_item_billing_thresholds"]> | null;
+      billing_thresholds?: Partial<
+        components["schemas"]["subscription_item_billing_thresholds"]
+      > | null;
       /** ID of the plan to which the customer should be subscribed. */
-      plan: Partial<string> & Partial<components["schemas"]["plan"]> & Partial<components["schemas"]["deleted_plan"]>;
+      plan: Partial<string> &
+        Partial<components["schemas"]["plan"]> &
+        Partial<components["schemas"]["deleted_plan"]>;
       /** Quantity of the plan to which the customer should be subscribed. */
       quantity?: number;
       /** The tax rates which apply to this `phase_item`. When set, the `default_tax_rates` on the phase do not apply to this `phase_item`. */
@@ -8624,7 +8975,9 @@ export interface components {
       /** A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account during this phase of the schedule. */
       application_fee_percent?: number | null;
       /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period */
-      billing_thresholds?: Partial<components["schemas"]["subscription_billing_thresholds"]> | null;
+      billing_thresholds?: Partial<
+        components["schemas"]["subscription_billing_thresholds"]
+      > | null;
       /** Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. */
       collection_method?: ("charge_automatically" | "send_invoice") | null;
       /** ID of the coupon to use during this phase of the subscription schedule. */
@@ -8634,17 +8987,23 @@ export interface components {
             Partial<components["schemas"]["deleted_coupon"]>)
         | null;
       /** ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings. */
-      default_payment_method?: (Partial<string> & Partial<components["schemas"]["payment_method"]>) | null;
+      default_payment_method?:
+        | (Partial<string> & Partial<components["schemas"]["payment_method"]>)
+        | null;
       /** The default tax rates to apply to the subscription during this phase of the subscription schedule. */
       default_tax_rates?: components["schemas"]["tax_rate"][] | null;
       /** The end of this phase of the subscription schedule. */
       end_date: number;
       /** The subscription schedule's default invoice settings. */
-      invoice_settings?: Partial<components["schemas"]["invoice_setting_subscription_schedule_setting"]> | null;
+      invoice_settings?: Partial<
+        components["schemas"]["invoice_setting_subscription_schedule_setting"]
+      > | null;
       /** Plans to subscribe during this phase of the subscription schedule. */
       plans: components["schemas"]["subscription_schedule_configuration_item"][];
       /** Controls whether or not the subscription schedule will prorate when transitioning to this phase. Values are `create_prorations` and `none`. */
-      proration_behavior?: ("always_invoice" | "create_prorations" | "none") | null;
+      proration_behavior?:
+        | ("always_invoice" | "create_prorations" | "none")
+        | null;
       /** The start of this phase of the subscription schedule. */
       start_date: number;
       /** If provided, each invoice created during this phase of the subscription schedule will apply the tax rate, increasing the amount billed to the customer. */
@@ -8654,13 +9013,19 @@ export interface components {
     };
     subscription_schedules_resource_default_settings: {
       /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period */
-      billing_thresholds?: Partial<components["schemas"]["subscription_billing_thresholds"]> | null;
+      billing_thresholds?: Partial<
+        components["schemas"]["subscription_billing_thresholds"]
+      > | null;
       /** Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. */
       collection_method?: ("charge_automatically" | "send_invoice") | null;
       /** ID of the default payment method for the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings. */
-      default_payment_method?: (Partial<string> & Partial<components["schemas"]["payment_method"]>) | null;
+      default_payment_method?:
+        | (Partial<string> & Partial<components["schemas"]["payment_method"]>)
+        | null;
       /** The subscription schedule's default invoice settings. */
-      invoice_settings?: Partial<components["schemas"]["invoice_setting_subscription_schedule_setting"]> | null;
+      invoice_settings?: Partial<
+        components["schemas"]["invoice_setting_subscription_schedule_setting"]
+      > | null;
     };
     /**
      * The Pause Collection settings determine how we will pause collection for this subscription and for how long the subscription
@@ -8937,7 +9302,10 @@ export interface components {
       /** Amount transferred. */
       amount: number;
       /** ID of the balance transaction that describes the impact of this top-up on your account balance. May not be specified depending on status of top-up. */
-      balance_transaction?: (Partial<string> & Partial<components["schemas"]["balance_transaction"]>) | null;
+      balance_transaction?:
+        | (Partial<string> &
+            Partial<components["schemas"]["balance_transaction"]>)
+        | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -8984,7 +9352,10 @@ export interface components {
       /** Amount in %s reversed (can be less than the amount attribute on the transfer if a partial reversal was issued). */
       amount_reversed: number;
       /** Balance transaction that describes the impact of this transfer on your account balance. */
-      balance_transaction?: (Partial<string> & Partial<components["schemas"]["balance_transaction"]>) | null;
+      balance_transaction?:
+        | (Partial<string> &
+            Partial<components["schemas"]["balance_transaction"]>)
+        | null;
       /** Time that this record of the transfer was first created. */
       created: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -8992,9 +9363,12 @@ export interface components {
       /** An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null;
       /** ID of the Stripe account the transfer was sent to. */
-      destination?: (Partial<string> & Partial<components["schemas"]["account"]>) | null;
+      destination?:
+        | (Partial<string> & Partial<components["schemas"]["account"]>)
+        | null;
       /** If the destination is a Stripe account, this will be the ID of the payment that the destination account received for the transfer. */
-      destination_payment?: Partial<string> & Partial<components["schemas"]["charge"]>;
+      destination_payment?: Partial<string> &
+        Partial<components["schemas"]["charge"]>;
       /** Unique identifier for the object. */
       id: string;
       /** Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -9017,7 +9391,9 @@ export interface components {
       /** Whether the transfer has been fully reversed. If the transfer is only partially reversed, this attribute will still be false. */
       reversed: boolean;
       /** ID of the charge or payment that was used to fund the transfer. If null, the transfer was funded from the available balance. */
-      source_transaction?: (Partial<string> & Partial<components["schemas"]["charge"]>) | null;
+      source_transaction?:
+        | (Partial<string> & Partial<components["schemas"]["charge"]>)
+        | null;
       /** The source balance this transfer came from. One of `card`, `fpx`, or `bank_account`. */
       source_type?: string | null;
       /** A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
@@ -9052,13 +9428,18 @@ export interface components {
       /** Amount, in %s. */
       amount: number;
       /** Balance transaction that describes the impact on your account balance. */
-      balance_transaction?: (Partial<string> & Partial<components["schemas"]["balance_transaction"]>) | null;
+      balance_transaction?:
+        | (Partial<string> &
+            Partial<components["schemas"]["balance_transaction"]>)
+        | null;
       /** Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number;
       /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /** Linked payment refund for the transfer reversal. */
-      destination_payment_refund?: (Partial<string> & Partial<components["schemas"]["refund"]>) | null;
+      destination_payment_refund?:
+        | (Partial<string> & Partial<components["schemas"]["refund"]>)
+        | null;
       /** Unique identifier for the object. */
       id: string;
       /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -9066,7 +9447,9 @@ export interface components {
       /** String representing the object's type. Objects of the same type share the same value. */
       object: "transfer_reversal";
       /** ID of the refund responsible for the transfer reversal. */
-      source_refund?: (Partial<string> & Partial<components["schemas"]["refund"]>) | null;
+      source_refund?:
+        | (Partial<string> & Partial<components["schemas"]["refund"]>)
+        | null;
       /** ID of the transfer that was reversed. */
       transfer: Partial<string> & Partial<components["schemas"]["transfer"]>;
     };
@@ -9301,7 +9684,11 @@ export interface operations {
             url?: string;
           };
           /** The business type. */
-          business_type?: "company" | "government_entity" | "individual" | "non_profit";
+          business_type?:
+            | "company"
+            | "government_entity"
+            | "individual"
+            | "non_profit";
           /** Information about the company or business. This field is null unless `business_type` is set to `company`, `government_entity`, or `non_profit`. */
           company?: {
             address?: {
@@ -9468,7 +9855,14 @@ export interface operations {
                 delay_days?: Partial<"minimum"> & Partial<number>;
                 interval?: "daily" | "manual" | "monthly" | "weekly";
                 monthly_anchor?: number;
-                weekly_anchor?: "friday" | "monday" | "saturday" | "sunday" | "thursday" | "tuesday" | "wednesday";
+                weekly_anchor?:
+                  | "friday"
+                  | "monday"
+                  | "saturday"
+                  | "sunday"
+                  | "thursday"
+                  | "tuesday"
+                  | "wednesday";
               };
               statement_descriptor?: string;
             };
@@ -9791,7 +10185,8 @@ export interface operations {
         content: {
           "application/json": {
             /** The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards. */
-            data: (Partial<components["schemas"]["bank_account"]> & Partial<components["schemas"]["card"]>)[];
+            data: (Partial<components["schemas"]["bank_account"]> &
+              Partial<components["schemas"]["card"]>)[];
             /** True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
@@ -10832,7 +11227,11 @@ export interface operations {
             url?: string;
           };
           /** The business type. */
-          business_type?: "company" | "government_entity" | "individual" | "non_profit";
+          business_type?:
+            | "company"
+            | "government_entity"
+            | "individual"
+            | "non_profit";
           /** Information about the company or business. This field is null unless `business_type` is set to `company`, `government_entity`, or `non_profit`. */
           company?: {
             address?: {
@@ -11001,7 +11400,14 @@ export interface operations {
                 delay_days?: Partial<"minimum"> & Partial<number>;
                 interval?: "daily" | "manual" | "monthly" | "weekly";
                 monthly_anchor?: number;
-                weekly_anchor?: "friday" | "monday" | "saturday" | "sunday" | "thursday" | "tuesday" | "wednesday";
+                weekly_anchor?:
+                  | "friday"
+                  | "monday"
+                  | "saturday"
+                  | "sunday"
+                  | "thursday"
+                  | "tuesday"
+                  | "wednesday";
               };
               statement_descriptor?: string;
             };
@@ -11101,7 +11507,11 @@ export interface operations {
             url?: string;
           };
           /** The business type. */
-          business_type?: "company" | "government_entity" | "individual" | "non_profit";
+          business_type?:
+            | "company"
+            | "government_entity"
+            | "individual"
+            | "non_profit";
           /** Information about the company or business. This field is null unless `business_type` is set to `company`, `government_entity`, or `non_profit`. */
           company?: {
             address?: {
@@ -11268,7 +11678,14 @@ export interface operations {
                 delay_days?: Partial<"minimum"> & Partial<number>;
                 interval?: "daily" | "manual" | "monthly" | "weekly";
                 monthly_anchor?: number;
-                weekly_anchor?: "friday" | "monday" | "saturday" | "sunday" | "thursday" | "tuesday" | "wednesday";
+                weekly_anchor?:
+                  | "friday"
+                  | "monday"
+                  | "saturday"
+                  | "sunday"
+                  | "thursday"
+                  | "tuesday"
+                  | "wednesday";
               };
               statement_descriptor?: string;
             };
@@ -11610,7 +12027,8 @@ export interface operations {
         content: {
           "application/json": {
             /** The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards. */
-            data: (Partial<components["schemas"]["bank_account"]> & Partial<components["schemas"]["card"]>)[];
+            data: (Partial<components["schemas"]["bank_account"]> &
+              Partial<components["schemas"]["card"]>)[];
             /** True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /** String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
@@ -14882,7 +15300,11 @@ export interface operations {
           /** The integer amount in **%s** representing the amount that is credited outside of Stripe. */
           out_of_band_amount?: number;
           /** Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` */
-          reason?: "duplicate" | "fraudulent" | "order_change" | "product_unsatisfactory";
+          reason?:
+            | "duplicate"
+            | "fraudulent"
+            | "order_change"
+            | "product_unsatisfactory";
           /** ID of an existing refund to link this credit note to. */
           refund?: string;
           /** The integer amount in **%s** representing the amount to refund. If set, a refund will be created for the charge associated with the invoice. */
@@ -14921,7 +15343,11 @@ export interface operations {
         /** The integer amount in **%s** representing the amount that is credited outside of Stripe. */
         out_of_band_amount?: number;
         /** Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` */
-        reason?: "duplicate" | "fraudulent" | "order_change" | "product_unsatisfactory";
+        reason?:
+          | "duplicate"
+          | "fraudulent"
+          | "order_change"
+          | "product_unsatisfactory";
         /** ID of an existing refund to link this credit note to. */
         refund?: string;
         /** The integer amount in **%s** representing the amount to refund. If set, a refund will be created for the charge associated with the invoice. */
@@ -14982,7 +15408,11 @@ export interface operations {
         /** The integer amount in **%s** representing the amount that is credited outside of Stripe. */
         out_of_band_amount?: number;
         /** Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` */
-        reason?: "duplicate" | "fraudulent" | "order_change" | "product_unsatisfactory";
+        reason?:
+          | "duplicate"
+          | "fraudulent"
+          | "order_change"
+          | "product_unsatisfactory";
         /** ID of an existing refund to link this credit note to. */
         refund?: string;
         /** The integer amount in **%s** representing the amount to refund. If set, a refund will be created for the charge associated with the invoice. */
@@ -16674,7 +17104,10 @@ export interface operations {
            *
            * `pending_if_incomplete` is only used with updates and cannot be passed when creating a subscription.
            */
-          payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
+          payment_behavior?:
+            | "allow_incomplete"
+            | "error_if_incomplete"
+            | "pending_if_incomplete";
           /** Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
           pending_invoice_item_interval?: Partial<{
             interval: "day" | "month" | "week" | "year";
@@ -16817,7 +17250,10 @@ export interface operations {
            *
            * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
            */
-          payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
+          payment_behavior?:
+            | "allow_incomplete"
+            | "error_if_incomplete"
+            | "pending_if_incomplete";
           /** Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
           pending_invoice_item_interval?: Partial<{
             interval: "day" | "month" | "week" | "year";
@@ -18184,7 +18620,8 @@ export interface operations {
         /** The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions. */
         subscription?: string;
         /** For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`. */
-        subscription_billing_cycle_anchor?: Partial<"now" | "unchanged"> & Partial<number>;
+        subscription_billing_cycle_anchor?: Partial<"now" | "unchanged"> &
+          Partial<number>;
         /** Timestamp indicating when the subscription should be scheduled to cancel. Will prorate if within the current period and prorations have been enabled using `proration_behavior`.` */
         subscription_cancel_at?: Partial<number> & Partial<"">;
         /** Boolean indicating whether this subscription should cancel at the end of the current period. */
@@ -18216,7 +18653,10 @@ export interface operations {
          *
          * Prorations can be disabled by passing `none`.
          */
-        subscription_proration_behavior?: "always_invoice" | "create_prorations" | "none";
+        subscription_proration_behavior?:
+          | "always_invoice"
+          | "create_prorations"
+          | "none";
         /** If previewing an update to a subscription, and doing proration, `subscription_proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period, and cannot be before the subscription was on its current plan. If set, `subscription`, and one of `subscription_items`, or `subscription_trial_end` are required. Also, `subscription_proration` cannot be set to false. */
         subscription_proration_date?: number;
         /** Date a subscription is intended to start (can be future or past) */
@@ -18287,7 +18727,8 @@ export interface operations {
         /** The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions. */
         subscription?: string;
         /** For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`. */
-        subscription_billing_cycle_anchor?: Partial<"now" | "unchanged"> & Partial<number>;
+        subscription_billing_cycle_anchor?: Partial<"now" | "unchanged"> &
+          Partial<number>;
         /** Timestamp indicating when the subscription should be scheduled to cancel. Will prorate if within the current period and prorations have been enabled using `proration_behavior`.` */
         subscription_cancel_at?: Partial<number> & Partial<"">;
         /** Boolean indicating whether this subscription should cancel at the end of the current period. */
@@ -18319,7 +18760,10 @@ export interface operations {
          *
          * Prorations can be disabled by passing `none`.
          */
-        subscription_proration_behavior?: "always_invoice" | "create_prorations" | "none";
+        subscription_proration_behavior?:
+          | "always_invoice"
+          | "create_prorations"
+          | "none";
         /** If previewing an update to a subscription, and doing proration, `subscription_proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period, and cannot be before the subscription was on its current plan. If set, `subscription`, and one of `subscription_items`, or `subscription_trial_end` are required. Also, `subscription_proration` cannot be set to false. */
         subscription_proration_date?: number;
         /** Date a subscription is intended to start (can be future or past) */
@@ -19962,7 +20406,13 @@ export interface operations {
                 | "womens_ready_to_wear_stores"
                 | "wrecking_and_salvage_yards"
               )[];
-              interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
+              interval:
+                | "all_time"
+                | "daily"
+                | "monthly"
+                | "per_authorization"
+                | "weekly"
+                | "yearly";
             }[];
             spending_limits_currency?: string;
           };
@@ -20942,7 +21392,13 @@ export interface operations {
                 | "womens_ready_to_wear_stores"
                 | "wrecking_and_salvage_yards"
               )[];
-              interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
+              interval:
+                | "all_time"
+                | "daily"
+                | "monthly"
+                | "per_authorization"
+                | "weekly"
+                | "yearly";
             }[];
             spending_limits_currency?: string;
           };
@@ -21933,7 +22389,13 @@ export interface operations {
                 | "womens_ready_to_wear_stores"
                 | "wrecking_and_salvage_yards"
               )[];
-              interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
+              interval:
+                | "all_time"
+                | "daily"
+                | "monthly"
+                | "per_authorization"
+                | "weekly"
+                | "yearly";
             }[];
           };
           /** Whether authorizations can be approved on this card. Defaults to `inactive`. */
@@ -22879,7 +23341,13 @@ export interface operations {
                 | "womens_ready_to_wear_stores"
                 | "wrecking_and_salvage_yards"
               )[];
-              interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
+              interval:
+                | "all_time"
+                | "daily"
+                | "monthly"
+                | "per_authorization"
+                | "weekly"
+                | "yearly";
             }[];
           };
           /** Dictates whether authorizations can be approved on this card. If this card is being canceled because it was lost or stolen, this information should be provided as `cancellation_reason`. */
@@ -24049,7 +24517,11 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** Reason for canceling this PaymentIntent. Possible values are `duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned` */
-          cancellation_reason?: "abandoned" | "duplicate" | "fraudulent" | "requested_by_customer";
+          cancellation_reason?:
+            | "abandoned"
+            | "duplicate"
+            | "fraudulent"
+            | "requested_by_customer";
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
         };
@@ -24267,7 +24739,13 @@ export interface operations {
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
         /** A required filter on the list, based on the object `type` field. */
-        type: "au_becs_debit" | "card" | "card_present" | "fpx" | "ideal" | "sepa_debit";
+        type:
+          | "au_becs_debit"
+          | "card"
+          | "card_present"
+          | "fpx"
+          | "ideal"
+          | "sepa_debit";
       };
     };
     responses: {
@@ -27172,7 +27650,10 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** Reason for canceling this SetupIntent. Possible values are `abandoned`, `requested_by_customer`, or `duplicate` */
-          cancellation_reason?: "abandoned" | "duplicate" | "requested_by_customer";
+          cancellation_reason?:
+            | "abandoned"
+            | "duplicate"
+            | "requested_by_customer";
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
         };
@@ -27454,7 +27935,8 @@ export interface operations {
       /** Successful response. */
       200: {
         content: {
-          "application/json": Partial<components["schemas"]["sku"]> & Partial<components["schemas"]["deleted_sku"]>;
+          "application/json": Partial<components["schemas"]["sku"]> &
+            Partial<components["schemas"]["deleted_sku"]>;
         };
       };
       /** Error response. */
@@ -27608,7 +28090,12 @@ export interface operations {
             amount?: Partial<number> & Partial<"">;
             currency?: string;
             interval?: "one_time" | "scheduled" | "variable";
-            notification_method?: "deprecated_none" | "email" | "manual" | "none" | "stripe_email";
+            notification_method?:
+              | "deprecated_none"
+              | "email"
+              | "manual"
+              | "none"
+              | "stripe_email";
           };
           metadata?: { [key: string]: string };
           /** The source to share. */
@@ -27756,7 +28243,12 @@ export interface operations {
             amount?: Partial<number> & Partial<"">;
             currency?: string;
             interval?: "one_time" | "scheduled" | "variable";
-            notification_method?: "deprecated_none" | "email" | "manual" | "none" | "stripe_email";
+            notification_method?:
+              | "deprecated_none"
+              | "email"
+              | "manual"
+              | "none"
+              | "stripe_email";
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: Partial<{ [key: string]: string }> & Partial<"">;
@@ -28023,7 +28515,10 @@ export interface operations {
            *
            * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
            */
-          payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
+          payment_behavior?:
+            | "allow_incomplete"
+            | "error_if_incomplete"
+            | "pending_if_incomplete";
           /** The identifier of the plan to add to the subscription. */
           plan?: string;
           /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
@@ -28121,7 +28616,10 @@ export interface operations {
            *
            * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
            */
-          payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
+          payment_behavior?:
+            | "allow_incomplete"
+            | "error_if_incomplete"
+            | "pending_if_incomplete";
           /** The identifier of the new plan for this subscription item. */
           plan?: string;
           /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
@@ -28425,7 +28923,10 @@ export interface operations {
               quantity?: number;
               tax_rates?: Partial<string[]> & Partial<"">;
             }[];
-            proration_behavior?: "always_invoice" | "create_prorations" | "none";
+            proration_behavior?:
+              | "always_invoice"
+              | "create_prorations"
+              | "none";
             tax_percent?: number;
             trial?: boolean;
             trial_end?: number;
@@ -28536,7 +29037,10 @@ export interface operations {
               quantity?: number;
               tax_rates?: Partial<string[]> & Partial<"">;
             }[];
-            proration_behavior?: "always_invoice" | "create_prorations" | "none";
+            proration_behavior?:
+              | "always_invoice"
+              | "create_prorations"
+              | "none";
             start_date?: Partial<number> & Partial<"now">;
             tax_percent?: number;
             trial?: boolean;
@@ -28769,7 +29273,10 @@ export interface operations {
            *
            * `pending_if_incomplete` is only used with updates and cannot be passed when creating a subscription.
            */
-          payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
+          payment_behavior?:
+            | "allow_incomplete"
+            | "error_if_incomplete"
+            | "pending_if_incomplete";
           /** Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
           pending_invoice_item_interval?: Partial<{
             interval: "day" | "month" | "week" | "year";
@@ -28910,7 +29417,10 @@ export interface operations {
            *
            * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
            */
-          payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
+          payment_behavior?:
+            | "allow_incomplete"
+            | "error_if_incomplete"
+            | "pending_if_incomplete";
           /** Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
           pending_invoice_item_interval?: Partial<{
             interval: "day" | "month" | "week" | "year";
@@ -29576,7 +30086,11 @@ export interface operations {
         "application/x-www-form-urlencoded": {
           /** Information for the account this token will represent. */
           account?: {
-            business_type?: "company" | "government_entity" | "individual" | "non_profit";
+            business_type?:
+              | "company"
+              | "government_entity"
+              | "individual"
+              | "non_profit";
             company?: {
               address?: {
                 city?: string;
@@ -30920,3 +31434,5 @@ export interface operations {
     };
   };
 }
+
+export interface external {}

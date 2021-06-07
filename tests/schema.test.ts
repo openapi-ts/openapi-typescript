@@ -7,6 +7,7 @@ import { transformSchemaObj as transform } from "../src/transform/schema";
 const defaults = {
   additionalProperties: false,
   immutableTypes: false,
+  defaultNonNullable: false,
   required: new Set<string>(),
   rawSchema: false,
   version: 3,
@@ -34,7 +35,7 @@ describe("SchemaObject", () => {
       type: "object",
       properties: {
         object: {
-          properties: { string: { type: "string" }, number: { $ref: "#/components/schemas/object_ref" } },
+          properties: { string: { type: "string" }, number: { $ref: 'components["schemas"]["object_ref"]' } },
           type: "object",
         },
       },
@@ -119,12 +120,12 @@ describe("SchemaObject", () => {
       );
 
       // $ref
-      expect(transform({ type: "array", items: { $ref: "#/components/schemas/ArrayItem" } }, { ...defaults })).toBe(
+      expect(transform({ type: "array", items: { $ref: 'components["schemas"]["ArrayItem"]' } }, { ...defaults })).toBe(
         `(components["schemas"]["ArrayItem"])[]`
       );
 
       // inferred
-      expect(transform({ items: { $ref: "#/components/schemas/ArrayItem" } }, { ...defaults })).toBe(
+      expect(transform({ items: { $ref: 'components["schemas"]["ArrayItem"]' } }, { ...defaults })).toBe(
         `(components["schemas"]["ArrayItem"])[]`
       );
 
@@ -154,10 +155,10 @@ describe("SchemaObject", () => {
       expect(transform({ type: "array", items: { enum: ["chocolate", "vanilla"] } }, opts)).toBe(
         `readonly (('chocolate') | ('vanilla'))[]`
       );
-      expect(transform({ type: "array", items: { $ref: "#/components/schemas/ArrayItem" } }, opts)).toBe(
+      expect(transform({ type: "array", items: { $ref: 'components["schemas"]["ArrayItem"]' } }, opts)).toBe(
         `readonly (components["schemas"]["ArrayItem"])[]`
       );
-      expect(transform({ items: { $ref: "#/components/schemas/ArrayItem" } }, opts)).toBe(
+      expect(transform({ items: { $ref: 'components["schemas"]["ArrayItem"]' } }, opts)).toBe(
         `readonly (components["schemas"]["ArrayItem"])[]`
       );
       expect(transform({ type: "array", items: { type: "string" }, nullable: true }, opts)).toBe(
@@ -225,14 +226,9 @@ describe("SchemaObject", () => {
     });
 
     it("$ref", () => {
-      expect(transform({ $ref: "#/components/parameters/ReferenceObject" }, { ...defaults })).toBe(
+      expect(transform({ $ref: 'components["parameters"]["ReferenceObject"]' }, { ...defaults })).toBe(
         `components["parameters"]["ReferenceObject"]`
       );
-    });
-
-    // TODO: allow import later
-    it("$ref (external)", () => {
-      expect(transform({ $ref: "./external.yaml" }, { ...defaults })).toBe(`any`);
     });
   });
 
@@ -250,7 +246,7 @@ describe("SchemaObject", () => {
       );
 
       // $ref
-      expect(transform({ additionalProperties: { $ref: "#/definitions/Message" } }, { ...defaults })).toBe(
+      expect(transform({ additionalProperties: { $ref: 'definitions["Message"]' } }, { ...defaults })).toBe(
         `{ [key: string]: definitions["Message"]; }`
       );
     });
@@ -260,7 +256,7 @@ describe("SchemaObject", () => {
         transform(
           {
             allOf: [
-              { $ref: "#/components/schemas/base" },
+              { $ref: 'components["schemas"]["base"]' },
               { properties: { string: { type: "string" } }, type: "object" },
             ],
             properties: { password: { type: "string" } },
@@ -276,9 +272,9 @@ describe("SchemaObject", () => {
         transform(
           {
             anyOf: [
-              { $ref: "#/components/schemas/StringType" },
-              { $ref: "#/components/schemas/NumberType" },
-              { $ref: "#/components/schemas/BooleanType" },
+              { $ref: 'components["schemas"]["StringType"]' },
+              { $ref: 'components["schemas"]["NumberType"]' },
+              { $ref: 'components["schemas"]["BooleanType"]' },
             ],
           },
           { ...defaults }
@@ -292,7 +288,7 @@ describe("SchemaObject", () => {
       // standard
       expect(
         transform(
-          { oneOf: [{ type: "string" }, { type: "number" }, { $ref: "#/components/schemas/one_of_ref" }] },
+          { oneOf: [{ type: "string" }, { type: "number" }, { $ref: 'components["schemas"]["one_of_ref"]' }] },
           { ...defaults }
         )
       ).toBe(`(string) | (number) | (components["schemas"]["one_of_ref"])`);
@@ -388,6 +384,29 @@ describe("SchemaObject", () => {
 "loc"?: string;
 /** user photo */
 "avatar"?: string;
+
+}`);
+    });
+  });
+
+  describe("--default-non-nullable", () => {
+    it("default: objects with default values are nullable", () => {
+      expect(
+        transform({ type: "object", properties: { default: { type: "boolean", default: true } } }, { ...defaults })
+      ).toBe(`{
+"default"?: boolean;
+
+}`);
+    });
+
+    it("enabled: objects with default values are non-nullable", () => {
+      expect(
+        transform(
+          { type: "object", properties: { default: { type: "boolean", default: true } } },
+          { ...defaults, defaultNonNullable: true }
+        )
+      ).toBe(`{
+"default": boolean;
 
 }`);
     });

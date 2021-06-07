@@ -1,5 +1,5 @@
 import { GlobalContext, OperationObject, ParameterObject, PathItemObject } from "../types";
-import { comment, isRef, transformRef, tsReadonly } from "../utils";
+import { comment, isRef, tsReadonly } from "../utils";
 import { transformParametersArray } from "./parameters";
 import { transformRequestBodyObj } from "./request";
 import { transformResponsesObj } from "./responses";

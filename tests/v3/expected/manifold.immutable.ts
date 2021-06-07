@@ -761,7 +761,7 @@ export interface components {
           readonly access_code?: boolean | null;
           readonly sso?: boolean | null;
           readonly plan_change?: boolean | null;
-          readonly credential: ("none" | "single" | "multiple" | "unknown") | null;
+          readonly credential?: ("none" | "single" | "multiple" | "unknown") | null;
         };
       } | null;
       /** An array of platform ids to restrict this product for. */
@@ -801,24 +801,24 @@ export interface components {
       readonly name: components["schemas"]["Name"];
       readonly type: "boolean" | "string" | "number";
       /** This sets whether or not the feature can be customized by a consumer. */
-      readonly customizable: boolean;
+      readonly customizable?: boolean;
       /**
        * This sets whether or not the feature can be upgraded by the consumer after the
        * resource has provisioned. Upgrading means setting a higher value or selecting a
        * higher element in the list.
        */
-      readonly upgradable: boolean;
+      readonly upgradable?: boolean;
       /**
        * This sets whether or not the feature can be downgraded by the consumer after the
        * resource has provisioned. Downgrading means setting a lower value or selecting a
        * lower element in the list.
        */
-      readonly downgradable: boolean;
+      readonly downgradable?: boolean;
       /**
        * Sets if this feature’s value is trackable from the provider,
        * this only really affects numeric constraints.
        */
-      readonly measurable: boolean;
+      readonly measurable?: boolean;
       readonly values?: components["schemas"]["FeatureValuesList"];
     };
     /**
@@ -922,7 +922,7 @@ export interface components {
        * When true, everyone can see the product when requested. When false it will
        * not be visible to anyone except those on the provider team.
        */
-      readonly public: boolean;
+      readonly public?: boolean;
       /**
        * When true, the product will be displayed in product listings alongside
        * other products. When false the product will be excluded from listings,
@@ -930,7 +930,7 @@ export interface components {
        * Any pages that display information about the product when not listed,
        * should indicate to webcrawlers that the content should not be indexed.
        */
-      readonly listed: boolean;
+      readonly listed?: boolean;
       /**
        * Object to hold various flags for marketing purposes only. These are values
        * that need to be stored, but should not affect decision making in code. If
@@ -943,19 +943,19 @@ export interface components {
          * advertised as such. This does not have any impact on who can access the
          * product, it is just used to inform consumers through our clients.
          */
-        readonly beta: boolean;
+        readonly beta?: boolean;
         /**
          * Indicates whether or not the product is in `New` and should be
          * advertised as such. This does not have any impact on who can access the
          * product, it is just used to inform consumers through our clients.
          */
-        readonly new: boolean;
+        readonly new?: boolean;
         /**
          * Indicates whether or not the product is in `New` and should be
          * advertised as such. This does not have any impact on who can access the
          * product, it is just used to inform consumers through our clients.
          */
-        readonly featured: boolean;
+        readonly featured?: boolean;
       };
     };
     /**
@@ -996,7 +996,7 @@ export interface components {
        * * `multiple`: Multiple credentials are supported at the same time.
        * * `unknown`: The credential type is unknown.
        */
-      readonly credential: "none" | "single" | "multiple" | "unknown";
+      readonly credential?: "none" | "single" | "multiple" | "unknown";
     };
     readonly ProductBody: {
       readonly provider_id: components["schemas"]["ID"];
@@ -1145,3 +1145,5 @@ export interface components {
 }
 
 export interface operations {}
+
+export interface external {}

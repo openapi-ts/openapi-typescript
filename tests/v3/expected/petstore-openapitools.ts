@@ -73,7 +73,7 @@ export interface components {
       shipDate?: string;
       /** Order Status */
       status?: "placed" | "approved" | "delivered";
-      complete: boolean;
+      complete?: boolean;
     };
     /** A category for a pet */
     Category: {
@@ -476,3 +476,5 @@ export interface operations {
     };
   };
 }
+
+export interface external {}

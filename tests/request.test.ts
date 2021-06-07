@@ -1,7 +1,12 @@
 import prettier from "prettier";
 import { transformRequestBodies } from "../src/transform/request";
 
-const defaults = { additionalProperties: false, immutableTypes: false, rawSchema: false };
+const defaults = {
+  additionalProperties: false,
+  immutableTypes: false,
+  defaultNonNullable: false,
+  rawSchema: false,
+};
 
 function format(source: string) {
   return prettier.format(`type requestBodies = {${source.trim()}}`, { parser: "typescript" });
