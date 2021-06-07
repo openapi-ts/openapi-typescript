@@ -1,5 +1,5 @@
 import { GlobalContext, OperationObject, ParameterObject, PathItemObject } from "../types";
-import { comment, isRef, tsReadonly } from "../utils";
+import { comment, isRef, transformRequestResponseRef, tsReadonly } from "../utils";
 import { transformParametersArray } from "./parameters";
 import { transformRequestBodyObj } from "./request";
 import { transformResponsesObj } from "./responses";
@@ -34,7 +34,10 @@ export function transformOperationObj(operation: OperationObject, options: Trans
     const requestResponse = options.splitSchema ? "request" : undefined;
 
     if (isRef(operation.requestBody)) {
-      output += `  ${readonly}requestBody: ${transformRef(operation.requestBody.$ref, undefined, requestResponse)};\n`;
+      output += `  ${readonly}requestBody: ${transformRequestResponseRef(
+        operation.requestBody.$ref,
+        requestResponse
+      )};\n`;
     } else {
       if (operation.requestBody.description) output += comment(operation.requestBody.description);
       output += `  ${readonly}requestBody: {\n  ${transformRequestBodyObj(operation.requestBody, {

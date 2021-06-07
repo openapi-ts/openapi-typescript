@@ -1,5 +1,15 @@
 import { GlobalContext } from "../types";
-import { comment, nodeType, tsArrayOf, tsIntersectionOf, tsPartial, tsReadonly, tsTupleOf, tsUnionOf } from "../utils";
+import {
+  comment,
+  nodeType,
+  transformRequestResponseRef,
+  tsArrayOf,
+  tsIntersectionOf,
+  tsPartial,
+  tsReadonly,
+  tsTupleOf,
+  tsUnionOf,
+} from "../utils";
 
 interface TransformSchemaObjOptions extends GlobalContext {
   required: Set<string>;
@@ -52,7 +62,7 @@ export function transformSchemaRefMap(obj: Record<string, any>, options: GlobalC
 
   for (const k of Object.keys(obj)) {
     // name (with “?” if optional property)
-    output += `${readonly}"${k}": components["requestSchemas"]["${k}"] | components["responseSchemas"]["${k}"];\n`;
+    output += `${readonly}"${k}": components["x-requestSchemas"]["${k}"] | components["x-responseSchemas"]["${k}"];\n`;
   }
 
   return output.replace(/\n+$/, "\n"); // replace repeat line endings with only one
@@ -87,7 +97,8 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
     // transform core type
     switch (nodeType(node)) {
       case "ref": {
-        output += transformRef(node.$ref, undefined, options.requestResponse);
+        // these were transformed at load time when remote schemas were resolved; only transform if read/write only
+        output += transformRequestResponseRef(node.$ref, options.requestResponse);
         break;
       }
       case "string":

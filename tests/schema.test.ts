@@ -52,8 +52,8 @@ describe("SchemaObject", () => {
       properties: {
         object: {
           properties: {
-            string: { $ref: "#/components/schemas/object_ref", readOnly: true },
-            number: { $ref: "#/components/schemas/object_ref", writeOnly: true },
+            string: { $ref: 'components["schemas"]["object_ref"]', readOnly: true },
+            number: { $ref: 'components["schemas"]["object_ref"]', writeOnly: true },
           },
           type: "object",
         },
@@ -81,10 +81,10 @@ describe("SchemaObject", () => {
 
     it("object (splitSchema)", () => {
       expect(transform(objReadWrite, { ...defaults, splitSchema: true, requestResponse: "request" })).toBe(
-        `{\n"object"?: {\n"string"?: components["requestSchemas"]["object_ref"]; // GET requests only\n\n};\n\n}`
+        `{\n"object"?: {\n"string"?: components["x-requestSchemas"]["object_ref"]; // GET requests only\n\n};\n\n}`
       );
       expect(transform(objReadWrite, { ...defaults, splitSchema: true, requestResponse: "response" })).toBe(
-        `{\n"object"?: {\n"number"?: components["responseSchemas"]["object_ref"]; // POST/PUT/PATCH responses only\n\n};\n\n}`
+        `{\n"object"?: {\n"number"?: components["x-responseSchemas"]["object_ref"]; // POST/PUT/PATCH responses only\n\n};\n\n}`
       );
     });
 

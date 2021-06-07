@@ -74,7 +74,7 @@ export function transformAll(schema: any, ctx: GlobalContext): Record<string, st
           const required = new Set(Object.keys(schema.components.schemas));
 
           if (splitSchema) {
-            output.components += `  ${readonly}requestSchemas: {\n    ${transformSchemaObjMap(
+            output.components += `  ${readonly}"x-requestSchemas": {\n    ${transformSchemaObjMap(
               schema.components.schemas,
               {
                 ...ctx,
@@ -82,7 +82,7 @@ export function transformAll(schema: any, ctx: GlobalContext): Record<string, st
                 requestResponse: "request",
               }
             )}\n  }\n`;
-            output.components += `  ${readonly}responseSchemas: {\n    ${transformSchemaObjMap(
+            output.components += `  ${readonly}"x-responseSchemas": {\n    ${transformSchemaObjMap(
               schema.components.schemas,
               {
                 ...ctx,
@@ -90,7 +90,7 @@ export function transformAll(schema: any, ctx: GlobalContext): Record<string, st
                 requestResponse: "response",
               }
             )}\n  }\n`;
-            output.components += `  ${readonly}schemas: {\n    ${transformSchemaRefMap(
+            output.components += `  ${readonly}"schemas": {\n    ${transformSchemaRefMap(
               schema.components.schemas,
               ctx
             )}\n  }\n`;
