@@ -340,6 +340,34 @@ describe("SchemaObject", () => {
 
 })`);
     });
+
+    it("properties + anyOf with only required properties", () => {
+      expect(
+        transform(
+          {
+            properties: {
+              a: {
+                type: "string",
+              },
+
+              b: {
+                type: "string",
+              },
+            },
+
+            anyOf: [{ required: ["a"] }, { required: ["b"] }],
+          },
+
+          { ...defaults }
+        )
+      ).toMatchInlineSnapshot(`
+        "{
+        \\"a\\"?: string;
+        \\"b\\"?: string;
+
+        }"
+      `);
+    });
   });
 
   describe("comments", () => {
