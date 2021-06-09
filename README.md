@@ -60,7 +60,7 @@ npx openapi-typescript https://petstore.swagger.io/v2/swagger.json --output pets
 # 🚀 https://petstore.swagger.io/v2/swagger.json -> petstore.ts [650ms]
 ```
 
-_Note: for obvious reasons, globbing doesn’t work for remote schemas_
+_Note: globbing doesn’t work for remote schemas because there is no reliable way to determine a list of files to select from a remote file system._
 
 _Thanks to [@psmyrdek](https://github.com/psmyrdek) for the remote spec feature!_
 
