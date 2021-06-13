@@ -142,9 +142,9 @@ async function main() {
   await Promise.all(
     inputSpecPaths.map(async (specPath) => {
       if (cli.flags.output !== "." && output === OUTPUT_FILE) {
-        let outputDir = path.join(process.cwd(), cli.flags.output);
+        let outputDir = path.resolve(process.cwd(), cli.flags.output);
         if (isGlob) {
-          outputDir = path.join(outputDir, path.dirname(specPath)); // globs: use output dir + spec dir
+          outputDir = path.resolve(outputDir, path.dirname(specPath)); // globs: use output dir + spec dir
         } else {
           outputDir = path.dirname(outputDir); // single files: just use output parent dir
         }

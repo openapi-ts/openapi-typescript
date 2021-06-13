@@ -60,7 +60,7 @@
     "meow": "^9.0.0",
     "mime": "^2.5.2",
     "node-fetch": "^2.6.1",
-    "prettier": "^2.3.0",
+    "prettier": "^2.3.1",
     "tiny-glob": "^0.2.9"
   },
   "devDependencies": {
@@ -68,14 +68,14 @@
     "@types/js-yaml": "^4.0.1",
     "@types/mime": "^2.0.3",
     "@types/node-fetch": "^2.5.10",
-    "@typescript-eslint/eslint-plugin": "^4.25.0",
-    "@typescript-eslint/parser": "^4.25.0",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
     "codecov": "^3.8.2",
-    "eslint": "^7.27.0",
+    "eslint": "^7.28.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "jest": "^27.0.3",
-    "ts-jest": "^27.0.2",
+    "jest": "^27.0.4",
+    "ts-jest": "^27.0.3",
     "typescript": "^4.2.4"
   }
 }
