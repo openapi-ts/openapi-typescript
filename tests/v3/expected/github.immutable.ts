@@ -5234,8 +5234,7 @@ export interface components {
       /** The ID of the installation. */
       readonly id: number;
       readonly account:
-        | (Partial<components["schemas"]["simple-user"]> &
-            Partial<components["schemas"]["enterprise"]>)
+        | (Partial<components["schemas"]["simple-user"]> & Partial<components["schemas"]["enterprise"]>)
         | null;
       /** Describe whether all repositories have been selected or there's a selection involved */
       readonly repository_selection: "all" | "selected";
@@ -5581,10 +5580,7 @@ export interface components {
         readonly message?: string;
         readonly code: string;
         readonly index?: number;
-        readonly value?:
-          | (string | null)
-          | (number | null)
-          | (readonly string[] | null);
+        readonly value?: (string | null) | (number | null) | (readonly string[] | null);
       }[];
     };
     /** The authorization associated with an OAuth Access. */
@@ -5631,9 +5627,7 @@ export interface components {
       readonly created_at: string;
       readonly fingerprint: string | null;
       readonly user?: components["schemas"]["simple-user"] | null;
-      readonly installation?:
-        | components["schemas"]["scoped-installation"]
-        | null;
+      readonly installation?: components["schemas"]["scoped-installation"] | null;
     };
     /** Code Of Conduct */
     readonly "code-of-conduct": {
@@ -5890,9 +5884,7 @@ export interface components {
       readonly user: components["schemas"]["simple-user"] | null;
       readonly labels: readonly components["schemas"]["label"][];
       readonly assignee: components["schemas"]["simple-user"] | null;
-      readonly assignees?:
-        | readonly components["schemas"]["simple-user"][]
-        | null;
+      readonly assignees?: readonly components["schemas"]["simple-user"][] | null;
       readonly milestone: components["schemas"]["milestone"] | null;
       readonly locked: boolean;
       readonly active_lock_reason?: string | null;
@@ -5912,9 +5904,7 @@ export interface components {
       readonly body_text?: string;
       readonly timeline_url?: string;
       readonly repository?: components["schemas"]["repository"];
-      readonly performed_via_github_app?:
-        | components["schemas"]["integration"]
-        | null;
+      readonly performed_via_github_app?: components["schemas"]["integration"] | null;
     };
     readonly "reaction-rollup": {
       readonly url: string;
@@ -5945,9 +5935,7 @@ export interface components {
       readonly updated_at: string;
       readonly issue_url: string;
       readonly author_association: components["schemas"]["author_association"];
-      readonly performed_via_github_app?:
-        | components["schemas"]["integration"]
-        | null;
+      readonly performed_via_github_app?: components["schemas"]["integration"] | null;
       readonly reactions?: components["schemas"]["reaction-rollup"];
     };
     /** Event */
@@ -6128,9 +6116,7 @@ export interface components {
           }
       )[];
       readonly assignee: components["schemas"]["simple-user"] | null;
-      readonly assignees?:
-        | readonly components["schemas"]["simple-user"][]
-        | null;
+      readonly assignees?: readonly components["schemas"]["simple-user"][] | null;
       readonly milestone: components["schemas"]["milestone"] | null;
       readonly locked: boolean;
       readonly active_lock_reason?: string | null;
@@ -6150,9 +6136,7 @@ export interface components {
       readonly body_text?: string;
       readonly timeline_url?: string;
       readonly repository?: components["schemas"]["repository"];
-      readonly performed_via_github_app?:
-        | components["schemas"]["integration"]
-        | null;
+      readonly performed_via_github_app?: components["schemas"]["integration"] | null;
       readonly author_association: components["schemas"]["author_association"];
       readonly reactions?: components["schemas"]["reaction-rollup"];
     };
@@ -6503,10 +6487,7 @@ export interface components {
       readonly type: string;
     };
     /** The type of GitHub user that can comment, open issues, or create pull requests while the interaction limit is in effect. Can be one of: `existing_users`, `contributors_only`, `collaborators_only`. */
-    readonly "interaction-group":
-      | "existing_users"
-      | "contributors_only"
-      | "collaborators_only";
+    readonly "interaction-group": "existing_users" | "contributors_only" | "collaborators_only";
     /** Interaction limit settings. */
     readonly "interaction-limit-response": {
       readonly limit: components["schemas"]["interaction-group"];
@@ -6514,12 +6495,7 @@ export interface components {
       readonly expires_at: string;
     };
     /** The duration of the interaction restriction. Can be one of: `one_day`, `three_days`, `one_week`, `one_month`, `six_months`. Default: `one_day`. */
-    readonly "interaction-expiry":
-      | "one_day"
-      | "three_days"
-      | "one_week"
-      | "one_month"
-      | "six_months";
+    readonly "interaction-expiry": "one_day" | "three_days" | "one_week" | "one_month" | "six_months";
     /** Limit interactions to a specific type of user for a specified duration */
     readonly "interaction-limit": {
       readonly limit: components["schemas"]["interaction-group"];
@@ -6596,13 +6572,7 @@ export interface components {
       readonly id: number;
       /** The name of the package. */
       readonly name: string;
-      readonly package_type:
-        | "npm"
-        | "maven"
-        | "rubygems"
-        | "docker"
-        | "nuget"
-        | "container";
+      readonly package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
       readonly url: string;
       readonly html_url: string;
       /** The number of versions of the package. */
@@ -6628,13 +6598,7 @@ export interface components {
       readonly updated_at: string;
       readonly deleted_at?: string;
       readonly metadata?: {
-        readonly package_type:
-          | "npm"
-          | "maven"
-          | "rubygems"
-          | "docker"
-          | "nuget"
-          | "container";
+        readonly package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
         readonly container?: {
           readonly tags: readonly any[];
         };
@@ -6761,15 +6725,7 @@ export interface components {
       readonly node_id: string;
       readonly user: components["schemas"]["simple-user"] | null;
       /** The reaction to use */
-      readonly content:
-        | "+1"
-        | "-1"
-        | "laugh"
-        | "confused"
-        | "heart"
-        | "hooray"
-        | "rocket"
-        | "eyes";
+      readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
       readonly created_at: string;
     };
     /** Team Membership */
@@ -7193,9 +7149,7 @@ export interface components {
       /** The URL to the workflow run. */
       readonly url: string;
       readonly html_url: string;
-      readonly pull_requests:
-        | readonly components["schemas"]["pull-request-minimal"][]
-        | null;
+      readonly pull_requests: readonly components["schemas"]["pull-request-minimal"][] | null;
       readonly created_at: string;
       readonly updated_at: string;
       /** The URL to the jobs for the workflow run. */
@@ -7290,9 +7244,7 @@ export interface components {
       readonly transient_environment?: boolean;
       /** Specifies if the given environment is one that end-users directly interact with. Default: false. */
       readonly production_environment?: boolean;
-      readonly performed_via_github_app?:
-        | components["schemas"]["integration"]
-        | null;
+      readonly performed_via_github_app?: components["schemas"]["integration"] | null;
     };
     /** Workflow Run Usage */
     readonly "workflow-run-usage": {
@@ -7621,9 +7573,7 @@ export interface components {
       readonly transient_environment?: boolean;
       /** Specifies if the given environment is one that end-users directly interact with. Default: false. */
       readonly production_environment?: boolean;
-      readonly performed_via_github_app?:
-        | components["schemas"]["integration"]
-        | null;
+      readonly performed_via_github_app?: components["schemas"]["integration"] | null;
     };
     /** A check performed on the code of a given code change */
     readonly "check-run": {
@@ -7639,15 +7589,7 @@ export interface components {
       /** The phase of the lifecycle that the check is currently in. */
       readonly status: "queued" | "in_progress" | "completed";
       readonly conclusion:
-        | (
-            | "success"
-            | "failure"
-            | "neutral"
-            | "cancelled"
-            | "skipped"
-            | "timed_out"
-            | "action_required"
-          )
+        | ("success" | "failure" | "neutral" | "cancelled" | "skipped" | "timed_out" | "action_required")
         | null;
       readonly started_at: string | null;
       readonly completed_at: string | null;
@@ -7689,22 +7631,12 @@ export interface components {
       readonly head_sha: string;
       readonly status: ("queued" | "in_progress" | "completed") | null;
       readonly conclusion:
-        | (
-            | "success"
-            | "failure"
-            | "neutral"
-            | "cancelled"
-            | "skipped"
-            | "timed_out"
-            | "action_required"
-          )
+        | ("success" | "failure" | "neutral" | "cancelled" | "skipped" | "timed_out" | "action_required")
         | null;
       readonly url: string | null;
       readonly before: string | null;
       readonly after: string | null;
-      readonly pull_requests:
-        | readonly components["schemas"]["pull-request-minimal"][]
-        | null;
+      readonly pull_requests: readonly components["schemas"]["pull-request-minimal"][] | null;
       readonly app: components["schemas"]["integration"] | null;
       readonly repository: components["schemas"]["minimal-repository"];
       readonly created_at: string | null;
@@ -7775,9 +7707,7 @@ export interface components {
       readonly end_column?: number;
     };
     /** A classification of the file. For example to identify it as generated. */
-    readonly "code-scanning-alert-classification":
-      | ("source" | "generated" | "test" | "library")
-      | null;
+    readonly "code-scanning-alert-classification": ("source" | "generated" | "test" | "library") | null;
     readonly "code-scanning-alert-instance": {
       readonly ref?: components["schemas"]["code-scanning-ref"];
       readonly analysis_key?: components["schemas"]["code-scanning-analysis-analysis-key"];
@@ -8018,15 +7948,9 @@ export interface components {
       readonly merged_at: string | null;
       readonly merge_commit_sha: string | null;
       readonly assignee: components["schemas"]["simple-user"] | null;
-      readonly assignees?:
-        | readonly components["schemas"]["simple-user"][]
-        | null;
-      readonly requested_reviewers?:
-        | readonly components["schemas"]["simple-user"][]
-        | null;
-      readonly requested_teams?:
-        | readonly components["schemas"]["team-simple"][]
-        | null;
+      readonly assignees?: readonly components["schemas"]["simple-user"][] | null;
+      readonly requested_reviewers?: readonly components["schemas"]["simple-user"][] | null;
+      readonly requested_teams?: readonly components["schemas"]["team-simple"][] | null;
       readonly head: {
         readonly label: string;
         readonly ref: string;
@@ -8103,20 +8027,12 @@ export interface components {
       readonly description: string | null;
       readonly documentation: string | null;
       readonly files: {
-        readonly code_of_conduct:
-          | components["schemas"]["code-of-conduct-simple"]
-          | null;
+        readonly code_of_conduct: components["schemas"]["code-of-conduct-simple"] | null;
         readonly license: components["schemas"]["license-simple"] | null;
-        readonly contributing:
-          | components["schemas"]["community-health-file"]
-          | null;
+        readonly contributing: components["schemas"]["community-health-file"] | null;
         readonly readme: components["schemas"]["community-health-file"] | null;
-        readonly issue_template:
-          | components["schemas"]["community-health-file"]
-          | null;
-        readonly pull_request_template:
-          | components["schemas"]["community-health-file"]
-          | null;
+        readonly issue_template: components["schemas"]["community-health-file"] | null;
+        readonly pull_request_template: components["schemas"]["community-health-file"] | null;
       };
       readonly updated_at: string | null;
       readonly content_reports_enabled?: boolean;
@@ -8341,14 +8257,7 @@ export interface components {
       readonly id: number;
       readonly node_id: string;
       /** The state of the status. */
-      readonly state:
-        | "error"
-        | "failure"
-        | "inactive"
-        | "pending"
-        | "success"
-        | "queued"
-        | "in_progress";
+      readonly state: "error" | "failure" | "inactive" | "pending" | "success" | "queued" | "in_progress";
       readonly creator: components["schemas"]["simple-user"] | null;
       /** A short description of the status. */
       readonly description: string;
@@ -8364,9 +8273,7 @@ export interface components {
       readonly environment_url?: string;
       /** The URL to associate with this status. */
       readonly log_url?: string;
-      readonly performed_via_github_app?:
-        | components["schemas"]["integration"]
-        | null;
+      readonly performed_via_github_app?: components["schemas"]["integration"] | null;
     };
     /** The amount of time to delay a job after the job is initially triggered. The time (in minutes) must be an integer between 0 and 43,200 (30 days). */
     readonly "wait-timer": number;
@@ -8809,15 +8716,9 @@ export interface components {
       readonly merged_at: string | null;
       readonly merge_commit_sha: string | null;
       readonly assignee: components["schemas"]["simple-user"] | null;
-      readonly assignees?:
-        | readonly components["schemas"]["simple-user"][]
-        | null;
-      readonly requested_reviewers?:
-        | readonly components["schemas"]["simple-user"][]
-        | null;
-      readonly requested_teams?:
-        | readonly components["schemas"]["team-simple"][]
-        | null;
+      readonly assignees?: readonly components["schemas"]["simple-user"][] | null;
+      readonly requested_reviewers?: readonly components["schemas"]["simple-user"][] | null;
+      readonly requested_teams?: readonly components["schemas"]["team-simple"][] | null;
       readonly head: {
         readonly label: string;
         readonly ref: string;
@@ -9530,10 +9431,7 @@ export interface components {
       readonly operations?: readonly {
         readonly op: "add" | "remove" | "replace";
         readonly path?: string;
-        readonly value?:
-          | string
-          | { readonly [key: string]: any }
-          | readonly { readonly [key: string]: any }[];
+        readonly value?: string | { readonly [key: string]: any } | readonly { readonly [key: string]: any }[];
       }[];
       /** associated groups */
       readonly groups?: readonly {
@@ -9624,9 +9522,7 @@ export interface components {
       readonly title: string;
       readonly locked: boolean;
       readonly active_lock_reason?: string | null;
-      readonly assignees?:
-        | readonly components["schemas"]["simple-user"][]
-        | null;
+      readonly assignees?: readonly components["schemas"]["simple-user"][] | null;
       readonly user: components["schemas"]["simple-user"] | null;
       readonly labels: readonly {
         readonly id?: number;
@@ -9660,9 +9556,7 @@ export interface components {
       readonly body_html?: string;
       readonly body_text?: string;
       readonly timeline_url?: string;
-      readonly performed_via_github_app?:
-        | components["schemas"]["integration"]
-        | null;
+      readonly performed_via_github_app?: components["schemas"]["integration"] | null;
     };
     /** Label Search Result Item */
     readonly "label-search-result-item": {
@@ -10256,13 +10150,7 @@ export interface components {
     /** repo_name parameter */
     readonly repo_name: string;
     /** The type of supported package. Can be one of `npm`, `maven`, `rubygems`, `nuget`, `docker`, or `container`. For Docker images that use the package namespace `https://ghcr.io/owner/package-name`, use `container`. */
-    readonly package_type:
-      | "npm"
-      | "maven"
-      | "rubygems"
-      | "docker"
-      | "nuget"
-      | "container";
+    readonly package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
     /** The name of the package. */
     readonly package_name: string;
     /** Unique identifier of the package version. */
@@ -10884,9 +10772,7 @@ export interface operations {
       /** response */
       readonly 200: {
         readonly content: {
-          readonly "application/json":
-            | components["schemas"]["authorization"]
-            | null;
+          readonly "application/json": components["schemas"]["authorization"] | null;
         };
       };
       readonly 404: components["responses"]["not_found"];
@@ -12317,9 +12203,7 @@ export interface operations {
           /** Description of the gist */
           readonly description?: string;
           /** Names of files to be updated */
-          readonly files?: {
-            readonly [key: string]: Partial<{ readonly [key: string]: any }>;
-          };
+          readonly files?: { readonly [key: string]: Partial<{ readonly [key: string]: any }> };
         } | null;
       };
     };
@@ -12694,12 +12578,7 @@ export interface operations {
          * \* `subscribed`: Issues you're subscribed to updates for
          * \* `all`: All issues the authenticated user can see, regardless of participation or creation
          */
-        readonly filter?:
-          | "assigned"
-          | "created"
-          | "mentioned"
-          | "subscribed"
-          | "all";
+        readonly filter?: "assigned" | "created" | "mentioned" | "subscribed" | "all";
         /** Indicates the state of the issues to return. Can be either `open`, `closed`, or `all`. */
         readonly state?: "open" | "closed" | "all";
         /** A list of comma separated label names. Example: `bug,ui,@high` */
@@ -13320,11 +13199,7 @@ export interface operations {
            * \* `admin` - can pull, push, and administer this repository.
            * \* `none` - no permissions granted by default.
            */
-          readonly default_repository_permission?:
-            | "read"
-            | "write"
-            | "admin"
-            | "none";
+          readonly default_repository_permission?: "read" | "write" | "admin" | "none";
           /**
            * Toggles the ability of non-admin organization members to create repositories. Can be one of:
            * \* `true` - all organization members can create repositories.
@@ -13361,10 +13236,7 @@ export interface operations {
            * \* `none` - only admin members can create repositories.
            * **Note:** This parameter is deprecated and will be removed in the future. Its return value ignores internal repositories. Using this parameter overrides values set in `members_can_create_repositories`. See the parameter deprecation notice in the operation description for details.
            */
-          readonly members_allowed_repository_creation_type?:
-            | "all"
-            | "private"
-            | "none";
+          readonly members_allowed_repository_creation_type?: "all" | "private" | "none";
           /**
            * Toggles whether organization members can create GitHub Pages sites. Can be one of:
            * \* `true` - all organization members can create GitHub Pages sites.
@@ -14948,12 +14820,7 @@ export interface operations {
          * \* `subscribed`: Issues you're subscribed to updates for
          * \* `all`: All issues the authenticated user can see, regardless of participation or creation
          */
-        readonly filter?:
-          | "assigned"
-          | "created"
-          | "mentioned"
-          | "subscribed"
-          | "all";
+        readonly filter?: "assigned" | "created" | "mentioned" | "subscribed" | "all";
         /** Indicates the state of the issues to return. Can be either `open`, `closed`, or `all`. */
         readonly state?: "open" | "closed" | "all";
         /** A list of comma separated label names. Example: `bug,ui,@high` */
@@ -15690,14 +15557,7 @@ export interface operations {
       };
       readonly query: {
         /** Specifies the types of repositories you want returned. Can be one of `all`, `public`, `private`, `forks`, `sources`, `member`, `internal`. Default: `all`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `type` can also be `internal`. */
-        readonly type?:
-          | "all"
-          | "public"
-          | "private"
-          | "forks"
-          | "sources"
-          | "member"
-          | "internal";
+        readonly type?: "all" | "public" | "private" | "forks" | "sources" | "member" | "internal";
         /** Can be one of `created`, `updated`, `pushed`, `full_name`. */
         readonly sort?: "created" | "updated" | "pushed" | "full_name";
         /** Can be one of `asc` or `desc`. Default: when using `full_name`: `asc`, otherwise `desc` */
@@ -15762,11 +15622,7 @@ export interface operations {
            * Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. For more information, see "[Creating an internal repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-repository-visibility#about-internal-repositories)" in the GitHub Help documentation.
            * The `visibility` parameter overrides the `private` parameter when you use both parameters with the `nebula-preview` preview header.
            */
-          readonly visibility?:
-            | "public"
-            | "private"
-            | "visibility"
-            | "internal";
+          readonly visibility?: "public" | "private" | "visibility" | "internal";
           /** Either `true` to enable issues for this repository or `false` to disable them. */
           readonly has_issues?: boolean;
           /** Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error. */
@@ -16364,15 +16220,7 @@ export interface operations {
       };
       readonly query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion comment. */
-        readonly content?:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes";
+        readonly content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
         readonly per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -16416,15 +16264,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment. */
-          readonly content:
-            | "+1"
-            | "-1"
-            | "laugh"
-            | "confused"
-            | "heart"
-            | "hooray"
-            | "rocket"
-            | "eyes";
+          readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
     };
@@ -16465,15 +16305,7 @@ export interface operations {
       };
       readonly query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion. */
-        readonly content?:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes";
+        readonly content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
         readonly per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -16516,15 +16348,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion. */
-          readonly content:
-            | "+1"
-            | "-1"
-            | "laugh"
-            | "confused"
-            | "heart"
-            | "hooray"
-            | "rocket"
-            | "eyes";
+          readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
     };
@@ -16936,12 +16760,7 @@ export interface operations {
            *
            * If no permission is specified, the team's `permission` attribute will be used to determine what permission to grant the team on this repository.
            */
-          readonly permission?:
-            | "pull"
-            | "push"
-            | "admin"
-            | "maintain"
-            | "triage";
+          readonly permission?: "pull" | "push" | "admin" | "maintain" | "triage";
         };
       };
     };
@@ -17457,11 +17276,7 @@ export interface operations {
           /** State of the project; either 'open' or 'closed' */
           readonly state?: string;
           /** The baseline permission that all organization members have on this project */
-          readonly organization_permission?:
-            | "read"
-            | "write"
-            | "admin"
-            | "none";
+          readonly organization_permission?: "read" | "write" | "admin" | "none";
           /** Whether or not this project can be seen by everyone. */
           readonly private?: boolean;
         };
@@ -17751,11 +17566,7 @@ export interface operations {
            */
           readonly private?: boolean;
           /** Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. The `visibility` parameter overrides the `private` parameter when you use both along with the `nebula-preview` preview header. */
-          readonly visibility?:
-            | "public"
-            | "private"
-            | "visibility"
-            | "internal";
+          readonly visibility?: "public" | "private" | "visibility" | "internal";
           /** Either `true` to enable issues for this repository or `false` to disable them. */
           readonly has_issues?: boolean;
           /** Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error. */
@@ -20835,12 +20646,7 @@ export interface operations {
            * \* `maintain` - Recommended for project managers who need to manage the repository without access to sensitive or destructive actions.
            * \* `triage` - Recommended for contributors who need to proactively manage issues and pull requests without write access.
            */
-          readonly permission?:
-            | "pull"
-            | "push"
-            | "admin"
-            | "maintain"
-            | "triage";
+          readonly permission?: "pull" | "push" | "admin" | "maintain" | "triage";
           readonly permissions?: string;
         };
       };
@@ -20978,15 +20784,7 @@ export interface operations {
       };
       readonly query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a commit comment. */
-        readonly content?:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes";
+        readonly content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
         readonly per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -21035,15 +20833,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the commit comment. */
-          readonly content:
-            | "+1"
-            | "-1"
-            | "laugh"
-            | "confused"
-            | "heart"
-            | "hooray"
-            | "rocket"
-            | "eyes";
+          readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
     };
@@ -22023,14 +21813,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** The state of the status. Can be one of `error`, `failure`, `inactive`, `in_progress`, `queued` `pending`, or `success`. **Note:** To use the `inactive` state, you must provide the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type. To use the `in_progress` and `queued` states, you must provide the [`application/vnd.github.flash-preview+json`](https://docs.github.com/rest/overview/api-previews#deployment-statuses) custom media type. When you set a transient deployment to `inactive`, the deployment will be shown as `destroyed` in GitHub. */
-          readonly state:
-            | "error"
-            | "failure"
-            | "inactive"
-            | "in_progress"
-            | "queued"
-            | "pending"
-            | "success";
+          readonly state: "error" | "failure" | "inactive" | "in_progress" | "queued" | "pending" | "success";
           /** The target URL to associate with this status. This URL should contain output to keep the user updated while the task is running or serve as historical information for what happened in the deployment. **Note:** It's recommended to use the `log_url` parameter, which replaces `target_url`. */
           readonly target_url?: string;
           /**
@@ -22786,12 +22569,7 @@ export interface operations {
             /** The file referenced in the tree. */
             readonly path?: string;
             /** The file mode; one of `100644` for file (blob), `100755` for executable (blob), `040000` for subdirectory (tree), `160000` for submodule (commit), or `120000` for a blob that specifies the path of a symlink. */
-            readonly mode?:
-              | "100644"
-              | "100755"
-              | "040000"
-              | "160000"
-              | "120000";
+            readonly mode?: "100644" | "100755" | "040000" | "160000" | "120000";
             /** Either `blob`, `tree`, or `commit`. */
             readonly type?: "blob" | "tree" | "commit";
             /**
@@ -23453,12 +23231,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** The permissions that the associated user will have on the repository. Valid values are `read`, `write`, `maintain`, `triage`, and `admin`. */
-          readonly permissions?:
-            | "read"
-            | "write"
-            | "maintain"
-            | "triage"
-            | "admin";
+          readonly permissions?: "read" | "write" | "maintain" | "triage" | "admin";
         };
       };
     };
@@ -23672,15 +23445,7 @@ export interface operations {
       };
       readonly query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to an issue comment. */
-        readonly content?:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes";
+        readonly content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
         readonly per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -23729,15 +23494,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue comment. */
-          readonly content:
-            | "+1"
-            | "-1"
-            | "laugh"
-            | "confused"
-            | "heart"
-            | "hooray"
-            | "rocket"
-            | "eyes";
+          readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
     };
@@ -24189,11 +23946,7 @@ export interface operations {
            * \* `resolved`
            * \* `spam`
            */
-          readonly lock_reason?:
-            | "off-topic"
-            | "too heated"
-            | "resolved"
-            | "spam";
+          readonly lock_reason?: "off-topic" | "too heated" | "resolved" | "spam";
         } | null;
       };
     };
@@ -24226,15 +23979,7 @@ export interface operations {
       };
       readonly query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to an issue. */
-        readonly content?:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes";
+        readonly content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
         readonly per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -24278,15 +24023,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue. */
-          readonly content:
-            | "+1"
-            | "-1"
-            | "laugh"
-            | "confused"
-            | "heart"
-            | "hooray"
-            | "rocket"
-            | "eyes";
+          readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
     };
@@ -25271,15 +25008,7 @@ export interface operations {
       };
       readonly query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a pull request review comment. */
-        readonly content?:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes";
+        readonly content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
         readonly per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -25328,15 +25057,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the pull request review comment. */
-          readonly content:
-            | "+1"
-            | "-1"
-            | "laugh"
-            | "confused"
-            | "heart"
-            | "hooray"
-            | "rocket"
-            | "eyes";
+          readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
     };
@@ -28603,15 +28324,7 @@ export interface operations {
       };
       readonly query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion comment. */
-        readonly content?:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes";
+        readonly content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
         readonly per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -28653,15 +28366,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment. */
-          readonly content:
-            | "+1"
-            | "-1"
-            | "laugh"
-            | "confused"
-            | "heart"
-            | "hooray"
-            | "rocket"
-            | "eyes";
+          readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
     };
@@ -28679,15 +28384,7 @@ export interface operations {
       };
       readonly query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion. */
-        readonly content?:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes";
+        readonly content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
         readonly per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -28728,15 +28425,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion. */
-          readonly content:
-            | "+1"
-            | "-1"
-            | "laugh"
-            | "confused"
-            | "heart"
-            | "hooray"
-            | "rocket"
-            | "eyes";
+          readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
     };
@@ -29325,9 +29014,7 @@ export interface operations {
       /** response */
       readonly 200: {
         readonly content: {
-          readonly "application/json":
-            | components["schemas"]["private-user"]
-            | components["schemas"]["public-user"];
+          readonly "application/json": components["schemas"]["private-user"] | components["schemas"]["public-user"];
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -29905,12 +29592,7 @@ export interface operations {
          * \* `subscribed`: Issues you're subscribed to updates for
          * \* `all`: All issues the authenticated user can see, regardless of participation or creation
          */
-        readonly filter?:
-          | "assigned"
-          | "created"
-          | "mentioned"
-          | "subscribed"
-          | "all";
+        readonly filter?: "assigned" | "created" | "mentioned" | "subscribed" | "all";
         /** Indicates the state of the issues to return. Can be either `open`, `closed`, or `all`. */
         readonly state?: "open" | "closed" | "all";
         /** A list of comma separated label names. Example: `bug,ui,@high` */
@@ -30937,9 +30619,7 @@ export interface operations {
       /** response */
       readonly 200: {
         readonly content: {
-          readonly "application/json":
-            | components["schemas"]["private-user"]
-            | components["schemas"]["public-user"];
+          readonly "application/json": components["schemas"]["private-user"] | components["schemas"]["public-user"];
         };
       };
       readonly 404: components["responses"]["not_found"];
@@ -31137,11 +30817,7 @@ export interface operations {
       };
       readonly query: {
         /** Identifies which additional information you'd like to receive about the person's hovercard. Can be `organization`, `repository`, `issue`, `pull_request`. **Required** when using `subject_id`. */
-        readonly subject_type?:
-          | "organization"
-          | "repository"
-          | "issue"
-          | "pull_request";
+        readonly subject_type?: "organization" | "repository" | "issue" | "pull_request";
         /** Uses the ID for the `subject_type` you specified. **Required** when using `subject_type`. */
         readonly subject_id?: string;
       };

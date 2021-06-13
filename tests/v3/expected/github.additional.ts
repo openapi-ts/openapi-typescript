@@ -5162,9 +5162,7 @@ export interface components {
       /** The slug name of the GitHub app */
       slug?: string;
       node_id: string;
-      owner:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      owner: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       /** The name of the GitHub app */
       name: string;
       description: string | null;
@@ -5238,8 +5236,7 @@ export interface components {
       /** The ID of the installation. */
       id: number;
       account:
-        | ((Partial<components["schemas"]["simple-user"]> &
-            Partial<components["schemas"]["enterprise"]>) & {
+        | ((Partial<components["schemas"]["simple-user"]> & Partial<components["schemas"]["enterprise"]>) & {
             [key: string]: any;
           })
         | null;
@@ -5269,9 +5266,7 @@ export interface components {
       has_multiple_single_files?: boolean;
       single_file_paths?: string[];
       app_slug: string;
-      suspended_by?:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      suspended_by?: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       suspended_at?: string | null;
       contact_email?: string | null;
     } & { [key: string]: any };
@@ -5355,9 +5350,7 @@ export interface components {
       /** The name of the repository. */
       name: string;
       full_name: string;
-      license:
-        | (components["schemas"]["license-simple"] & { [key: string]: any })
-        | null;
+      license: (components["schemas"]["license-simple"] & { [key: string]: any }) | null;
       forks: number;
       permissions?: {
         admin: boolean;
@@ -5366,9 +5359,7 @@ export interface components {
         push: boolean;
         maintain?: boolean;
       } & { [key: string]: any };
-      owner:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      owner: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       /** Whether the repository is private or public. */
       private: boolean;
       html_url: string;
@@ -5595,9 +5586,7 @@ export interface components {
         message?: string;
         code: string;
         index?: number;
-        value?: ((string | null) | (number | null) | (string[] | null)) & {
-          [key: string]: any;
-        };
+        value?: ((string | null) | (number | null) | (string[] | null)) & { [key: string]: any };
       } & { [key: string]: any })[];
     } & { [key: string]: any };
     /** The authorization associated with an OAuth Access. */
@@ -5612,9 +5601,7 @@ export interface components {
       created_at: string;
       updated_at: string;
       scopes: string[];
-      user?:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      user?: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
     } & { [key: string]: any };
     "scoped-installation": {
       permissions: components["schemas"]["app-permissions"];
@@ -5645,14 +5632,8 @@ export interface components {
       updated_at: string;
       created_at: string;
       fingerprint: string | null;
-      user?:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
-      installation?:
-        | (components["schemas"]["scoped-installation"] & {
-            [key: string]: any;
-          })
-        | null;
+      user?: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
+      installation?: (components["schemas"]["scoped-installation"] & { [key: string]: any }) | null;
     } & { [key: string]: any };
     /** Code Of Conduct */
     "code-of-conduct": {
@@ -5874,9 +5855,7 @@ export interface components {
       /** The title of the milestone. */
       title: string;
       description: string | null;
-      creator:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      creator: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       open_issues: number;
       closed_issues: number;
       created_at: string;
@@ -5908,17 +5887,11 @@ export interface components {
       state: string;
       title: string;
       body?: string;
-      user:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      user: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       labels: components["schemas"]["label"][];
-      assignee:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      assignee: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       assignees?: components["schemas"]["simple-user"][] | null;
-      milestone:
-        | (components["schemas"]["milestone"] & { [key: string]: any })
-        | null;
+      milestone: (components["schemas"]["milestone"] & { [key: string]: any }) | null;
       locked: boolean;
       active_lock_reason?: string | null;
       comments: number;
@@ -5937,9 +5910,7 @@ export interface components {
       body_text?: string;
       timeline_url?: string;
       repository?: components["schemas"]["repository"];
-      performed_via_github_app?:
-        | (components["schemas"]["integration"] & { [key: string]: any })
-        | null;
+      performed_via_github_app?: (components["schemas"]["integration"] & { [key: string]: any }) | null;
     } & { [key: string]: any };
     "reaction-rollup": {
       url: string;
@@ -5965,16 +5936,12 @@ export interface components {
       body_text?: string;
       body_html?: string;
       html_url: string;
-      user:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      user: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       created_at: string;
       updated_at: string;
       issue_url: string;
       author_association: components["schemas"]["author_association"];
-      performed_via_github_app?:
-        | (components["schemas"]["integration"] & { [key: string]: any })
-        | null;
+      performed_via_github_app?: (components["schemas"]["integration"] & { [key: string]: any }) | null;
       reactions?: components["schemas"]["reaction-rollup"];
     } & { [key: string]: any };
     /** Event */
@@ -6054,13 +6021,9 @@ export interface components {
       updated_at: string;
       description: string | null;
       comments: number;
-      user:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      user: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       comments_url: string;
-      owner?:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      owner?: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       truncated?: boolean;
       forks?: { [key: string]: any }[];
       history?: { [key: string]: any }[];
@@ -6105,9 +6068,7 @@ export interface components {
       url: string;
       /** The comment text. */
       body: string;
-      user:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      user: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       created_at: string;
       updated_at: string;
       author_association: components["schemas"]["author_association"];
@@ -6116,9 +6077,7 @@ export interface components {
     "gist-commit": {
       url: string;
       version: string;
-      user:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      user: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       change_status: {
         total?: number;
         additions?: number;
@@ -6150,9 +6109,7 @@ export interface components {
       title: string;
       /** Contents of the issue */
       body?: string;
-      user:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      user: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       /** Labels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository */
       labels: ((
         | string
@@ -6166,13 +6123,9 @@ export interface components {
             default?: boolean;
           } & { [key: string]: any })
       ) & { [key: string]: any })[];
-      assignee:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      assignee: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       assignees?: components["schemas"]["simple-user"][] | null;
-      milestone:
-        | (components["schemas"]["milestone"] & { [key: string]: any })
-        | null;
+      milestone: (components["schemas"]["milestone"] & { [key: string]: any }) | null;
       locked: boolean;
       active_lock_reason?: string | null;
       comments: number;
@@ -6186,16 +6139,12 @@ export interface components {
       closed_at: string | null;
       created_at: string;
       updated_at: string;
-      closed_by?:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      closed_by?: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       body_html?: string;
       body_text?: string;
       timeline_url?: string;
       repository?: components["schemas"]["repository"];
-      performed_via_github_app?:
-        | (components["schemas"]["integration"] & { [key: string]: any })
-        | null;
+      performed_via_github_app?: (components["schemas"]["integration"] & { [key: string]: any }) | null;
       author_association: components["schemas"]["author_association"];
       reactions?: components["schemas"]["reaction-rollup"];
     } & { [key: string]: any };
@@ -6279,9 +6228,7 @@ export interface components {
       node_id: string;
       name: string;
       full_name: string;
-      owner:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      owner: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       private: boolean;
       html_url: string;
       description: string | null;
@@ -6354,9 +6301,7 @@ export interface components {
         push?: boolean;
         pull?: boolean;
       } & { [key: string]: any };
-      template_repository?:
-        | (components["schemas"]["repository"] & { [key: string]: any })
-        | null;
+      template_repository?: (components["schemas"]["repository"] & { [key: string]: any }) | null;
       temp_clone_token?: string;
       delete_branch_on_merge?: boolean;
       subscribers_count?: number;
@@ -6554,10 +6499,7 @@ export interface components {
       type: string;
     } & { [key: string]: any };
     /** The type of GitHub user that can comment, open issues, or create pull requests while the interaction limit is in effect. Can be one of: `existing_users`, `contributors_only`, `collaborators_only`. */
-    "interaction-group":
-      | "existing_users"
-      | "contributors_only"
-      | "collaborators_only";
+    "interaction-group": "existing_users" | "contributors_only" | "collaborators_only";
     /** Interaction limit settings. */
     "interaction-limit-response": {
       limit: components["schemas"]["interaction-group"];
@@ -6565,12 +6507,7 @@ export interface components {
       expires_at: string;
     } & { [key: string]: any };
     /** The duration of the interaction restriction. Can be one of: `one_day`, `three_days`, `one_week`, `one_month`, `six_months`. Default: `one_day`. */
-    "interaction-expiry":
-      | "one_day"
-      | "three_days"
-      | "one_week"
-      | "one_month"
-      | "six_months";
+    "interaction-expiry": "one_day" | "three_days" | "one_week" | "one_month" | "six_months";
     /** Limit interactions to a specific type of user for a specified duration */
     "interaction-limit": {
       limit: components["schemas"]["interaction-group"];
@@ -6613,9 +6550,7 @@ export interface components {
       html_url: string;
       members_url: string;
       repositories_url: string;
-      parent?:
-        | (components["schemas"]["team-simple"] & { [key: string]: any })
-        | null;
+      parent?: (components["schemas"]["team-simple"] & { [key: string]: any }) | null;
     } & { [key: string]: any };
     /** Org Membership */
     "org-membership": {
@@ -6624,9 +6559,7 @@ export interface components {
       role: string;
       organization_url: string;
       organization: components["schemas"]["organization-simple"];
-      user:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      user: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       permissions?: {
         can_create_repository: boolean;
       } & { [key: string]: any };
@@ -6634,9 +6567,7 @@ export interface components {
     /** A migration. */
     migration: {
       id: number;
-      owner:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      owner: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       guid: string;
       state: string;
       lock_repositories: boolean;
@@ -6655,24 +6586,14 @@ export interface components {
       id: number;
       /** The name of the package. */
       name: string;
-      package_type:
-        | "npm"
-        | "maven"
-        | "rubygems"
-        | "docker"
-        | "nuget"
-        | "container";
+      package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
       url: string;
       html_url: string;
       /** The number of versions of the package. */
       version_count: number;
       visibility: "private" | "public";
-      owner?:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
-      repository?:
-        | (components["schemas"]["minimal-repository"] & { [key: string]: any })
-        | null;
+      owner?: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
+      repository?: (components["schemas"]["minimal-repository"] & { [key: string]: any }) | null;
       created_at: string;
       updated_at: string;
     } & { [key: string]: any };
@@ -6691,13 +6612,7 @@ export interface components {
       updated_at: string;
       deleted_at?: string;
       metadata?: {
-        package_type:
-          | "npm"
-          | "maven"
-          | "rubygems"
-          | "docker"
-          | "nuget"
-          | "container";
+        package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
         container?: {
           tags: any[];
         } & { [key: string]: any };
@@ -6721,9 +6636,7 @@ export interface components {
       number: number;
       /** State of the project; either 'open' or 'closed' */
       state: string;
-      creator:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      creator: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       created_at: string;
       updated_at: string;
       /** The baseline permission that all organization members have on this project. Only present if owner is an organization. */
@@ -6765,9 +6678,7 @@ export interface components {
       permission: string;
       members_url: string;
       repositories_url: string;
-      parent?:
-        | (components["schemas"]["team-simple"] & { [key: string]: any })
-        | null;
+      parent?: (components["schemas"]["team-simple"] & { [key: string]: any }) | null;
       members_count: number;
       repos_count: number;
       created_at: string;
@@ -6778,9 +6689,7 @@ export interface components {
     } & { [key: string]: any };
     /** A team discussion is a persistent record of a free-form conversation within a team. */
     "team-discussion": {
-      author:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      author: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       /** The main text of the discussion. */
       body: string;
       body_html: string;
@@ -6807,9 +6716,7 @@ export interface components {
     } & { [key: string]: any };
     /** A reply to a discussion within a team. */
     "team-discussion-comment": {
-      author:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      author: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       /** The main text of the comment. */
       body: string;
       body_html: string;
@@ -6830,19 +6737,9 @@ export interface components {
     reaction: {
       id: number;
       node_id: string;
-      user:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      user: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       /** The reaction to use */
-      content:
-        | "+1"
-        | "-1"
-        | "laugh"
-        | "confused"
-        | "heart"
-        | "hooray"
-        | "rocket"
-        | "eyes";
+      content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
       created_at: string;
     } & { [key: string]: any };
     /** Team Membership */
@@ -6885,9 +6782,7 @@ export interface components {
       /** The name of the repository. */
       name: string;
       full_name: string;
-      license:
-        | (components["schemas"]["license-simple"] & { [key: string]: any })
-        | null;
+      license: (components["schemas"]["license-simple"] & { [key: string]: any }) | null;
       forks: number;
       permissions?: {
         admin: boolean;
@@ -6896,9 +6791,7 @@ export interface components {
         push: boolean;
         maintain?: boolean;
       } & { [key: string]: any };
-      owner:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      owner: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       /** Whether the repository is private or public. */
       private: boolean;
       html_url: string;
@@ -6978,9 +6871,7 @@ export interface components {
       updated_at: string | null;
       /** Whether to allow rebase merges for pull requests. */
       allow_rebase_merge?: boolean;
-      template_repository?:
-        | (components["schemas"]["repository"] & { [key: string]: any })
-        | null;
+      template_repository?: (components["schemas"]["repository"] & { [key: string]: any }) | null;
       temp_clone_token?: string;
       /** Whether to allow squash merges for pull requests. */
       allow_squash_merge?: boolean;
@@ -7001,9 +6892,7 @@ export interface components {
       id: number;
       node_id: string;
       note: string | null;
-      creator:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      creator: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       created_at: string;
       updated_at: string;
       /** Whether or not the card is archived */
@@ -7028,9 +6917,7 @@ export interface components {
     /** Repository Collaborator Permission */
     "repository-collaborator-permission": {
       permission: string;
-      user:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      user: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
     } & { [key: string]: any };
     "rate-limit": {
       limit: number;
@@ -7062,9 +6949,7 @@ export interface components {
       node_id: string;
       name: string;
       full_name: string;
-      owner:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      owner: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       private: boolean;
       html_url: string;
       description: string | null;
@@ -7140,21 +7025,15 @@ export interface components {
         push: boolean;
       } & { [key: string]: any };
       allow_rebase_merge?: boolean;
-      template_repository?:
-        | (components["schemas"]["repository"] & { [key: string]: any })
-        | null;
+      template_repository?: (components["schemas"]["repository"] & { [key: string]: any }) | null;
       temp_clone_token?: string | null;
       allow_squash_merge?: boolean;
       delete_branch_on_merge?: boolean;
       allow_merge_commit?: boolean;
       subscribers_count: number;
       network_count: number;
-      license:
-        | (components["schemas"]["license-simple"] & { [key: string]: any })
-        | null;
-      organization?:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      license: (components["schemas"]["license-simple"] & { [key: string]: any }) | null;
+      organization?: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       parent?: components["schemas"]["repository"];
       source?: components["schemas"]["repository"];
       forks: number;
@@ -7354,8 +7233,7 @@ export interface components {
       /** The people or teams that may approve jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed. */
       reviewers: ({
         type?: components["schemas"]["deployment-reviewer-type"];
-        reviewer?: (Partial<components["schemas"]["simple-user"]> &
-          Partial<components["schemas"]["team-simple"]>) & {
+        reviewer?: (Partial<components["schemas"]["simple-user"]> & Partial<components["schemas"]["team-simple"]>) & {
           [key: string]: any;
         };
       } & { [key: string]: any })[];
@@ -7376,9 +7254,7 @@ export interface components {
       /** Name for the target deployment environment. */
       environment: string;
       description: string | null;
-      creator:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      creator: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       created_at: string;
       updated_at: string;
       statuses_url: string;
@@ -7387,9 +7263,7 @@ export interface components {
       transient_environment?: boolean;
       /** Specifies if the given environment is one that end-users directly interact with. Default: false. */
       production_environment?: boolean;
-      performed_via_github_app?:
-        | (components["schemas"]["integration"] & { [key: string]: any })
-        | null;
+      performed_via_github_app?: (components["schemas"]["integration"] & { [key: string]: any }) | null;
     } & { [key: string]: any };
     /** Workflow Run Usage */
     "workflow-run-usage": {
@@ -7605,12 +7479,8 @@ export interface components {
       comments_url: string;
       commit: {
         url: string;
-        author:
-          | (components["schemas"]["git-user"] & { [key: string]: any })
-          | null;
-        committer:
-          | (components["schemas"]["git-user"] & { [key: string]: any })
-          | null;
+        author: (components["schemas"]["git-user"] & { [key: string]: any }) | null;
+        committer: (components["schemas"]["git-user"] & { [key: string]: any }) | null;
         message: string;
         comment_count: number;
         tree: {
@@ -7619,12 +7489,8 @@ export interface components {
         } & { [key: string]: any };
         verification?: components["schemas"]["verification"];
       } & { [key: string]: any };
-      author:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
-      committer:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      author: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
+      committer: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       parents: ({
         sha: string;
         url: string;
@@ -7726,9 +7592,7 @@ export interface components {
       transient_environment?: boolean;
       /** Specifies if the given environment is one that end-users directly interact with. Default: false. */
       production_environment?: boolean;
-      performed_via_github_app?:
-        | (components["schemas"]["integration"] & { [key: string]: any })
-        | null;
+      performed_via_github_app?: (components["schemas"]["integration"] & { [key: string]: any }) | null;
     } & { [key: string]: any };
     /** A check performed on the code of a given code change */
     "check-run": {
@@ -7744,15 +7608,7 @@ export interface components {
       /** The phase of the lifecycle that the check is currently in. */
       status: "queued" | "in_progress" | "completed";
       conclusion:
-        | (
-            | "success"
-            | "failure"
-            | "neutral"
-            | "cancelled"
-            | "skipped"
-            | "timed_out"
-            | "action_required"
-          )
+        | ("success" | "failure" | "neutral" | "cancelled" | "skipped" | "timed_out" | "action_required")
         | null;
       started_at: string | null;
       completed_at: string | null;
@@ -7770,9 +7626,7 @@ export interface components {
             id: number;
           } & { [key: string]: any })
         | null;
-      app:
-        | (components["schemas"]["integration"] & { [key: string]: any })
-        | null;
+      app: (components["schemas"]["integration"] & { [key: string]: any }) | null;
       pull_requests: components["schemas"]["pull-request-minimal"][];
       deployment?: components["schemas"]["deployment-simple"];
     } & { [key: string]: any };
@@ -7798,23 +7652,13 @@ export interface components {
       head_sha: string;
       status: ("queued" | "in_progress" | "completed") | null;
       conclusion:
-        | (
-            | "success"
-            | "failure"
-            | "neutral"
-            | "cancelled"
-            | "skipped"
-            | "timed_out"
-            | "action_required"
-          )
+        | ("success" | "failure" | "neutral" | "cancelled" | "skipped" | "timed_out" | "action_required")
         | null;
       url: string | null;
       before: string | null;
       after: string | null;
       pull_requests: components["schemas"]["pull-request-minimal"][] | null;
-      app:
-        | (components["schemas"]["integration"] & { [key: string]: any })
-        | null;
+      app: (components["schemas"]["integration"] & { [key: string]: any }) | null;
       repository: components["schemas"]["minimal-repository"];
       created_at: string | null;
       updated_at: string | null;
@@ -7884,9 +7728,7 @@ export interface components {
       end_column?: number;
     } & { [key: string]: any };
     /** A classification of the file. For example to identify it as generated. */
-    "code-scanning-alert-classification":
-      | ("source" | "generated" | "test" | "library")
-      | null;
+    "code-scanning-alert-classification": ("source" | "generated" | "test" | "library") | null;
     "code-scanning-alert-instance": {
       ref?: components["schemas"]["code-scanning-ref"];
       analysis_key?: components["schemas"]["code-scanning-analysis-analysis-key"];
@@ -8038,12 +7880,8 @@ export interface components {
       /** Unique identifier of the repository invitation. */
       id: number;
       repository: components["schemas"]["minimal-repository"];
-      invitee:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
-      inviter:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      invitee: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
+      inviter: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       /** The permission associated with the invitation. */
       permissions: "read" | "write" | "admin";
       created_at: string;
@@ -8065,9 +7903,7 @@ export interface components {
       position: number | null;
       line: number | null;
       commit_id: string;
-      user:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      user: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       created_at: string;
       updated_at: string;
       author_association: components["schemas"]["author_association"];
@@ -8116,9 +7952,7 @@ export interface components {
       state: string;
       locked: boolean;
       title: string;
-      user:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      user: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       body: string | null;
       labels: ({
         id?: number;
@@ -8129,18 +7963,14 @@ export interface components {
         color?: string;
         default?: boolean;
       } & { [key: string]: any })[];
-      milestone:
-        | (components["schemas"]["milestone"] & { [key: string]: any })
-        | null;
+      milestone: (components["schemas"]["milestone"] & { [key: string]: any }) | null;
       active_lock_reason?: string | null;
       created_at: string;
       updated_at: string;
       closed_at: string | null;
       merged_at: string | null;
       merge_commit_sha: string | null;
-      assignee:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      assignee: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       assignees?: components["schemas"]["simple-user"][] | null;
       requested_reviewers?: components["schemas"]["simple-user"][] | null;
       requested_teams?: components["schemas"]["team-simple"][] | null;
@@ -8149,18 +7979,14 @@ export interface components {
         ref: string;
         repo: components["schemas"]["repository"];
         sha: string;
-        user:
-          | (components["schemas"]["simple-user"] & { [key: string]: any })
-          | null;
+        user: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       } & { [key: string]: any };
       base: {
         label: string;
         ref: string;
         repo: components["schemas"]["repository"];
         sha: string;
-        user:
-          | (components["schemas"]["simple-user"] & { [key: string]: any })
-          | null;
+        user: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       } & { [key: string]: any };
       _links: {
         comments: components["schemas"]["link"];
@@ -8224,34 +8050,12 @@ export interface components {
       description: string | null;
       documentation: string | null;
       files: {
-        code_of_conduct:
-          | (components["schemas"]["code-of-conduct-simple"] & {
-              [key: string]: any;
-            })
-          | null;
-        license:
-          | (components["schemas"]["license-simple"] & { [key: string]: any })
-          | null;
-        contributing:
-          | (components["schemas"]["community-health-file"] & {
-              [key: string]: any;
-            })
-          | null;
-        readme:
-          | (components["schemas"]["community-health-file"] & {
-              [key: string]: any;
-            })
-          | null;
-        issue_template:
-          | (components["schemas"]["community-health-file"] & {
-              [key: string]: any;
-            })
-          | null;
-        pull_request_template:
-          | (components["schemas"]["community-health-file"] & {
-              [key: string]: any;
-            })
-          | null;
+        code_of_conduct: (components["schemas"]["code-of-conduct-simple"] & { [key: string]: any }) | null;
+        license: (components["schemas"]["license-simple"] & { [key: string]: any }) | null;
+        contributing: (components["schemas"]["community-health-file"] & { [key: string]: any }) | null;
+        readme: (components["schemas"]["community-health-file"] & { [key: string]: any }) | null;
+        issue_template: (components["schemas"]["community-health-file"] & { [key: string]: any }) | null;
+        pull_request_template: (components["schemas"]["community-health-file"] & { [key: string]: any }) | null;
       } & { [key: string]: any };
       updated_at: string | null;
       content_reports_enabled?: boolean;
@@ -8478,17 +8282,8 @@ export interface components {
       id: number;
       node_id: string;
       /** The state of the status. */
-      state:
-        | "error"
-        | "failure"
-        | "inactive"
-        | "pending"
-        | "success"
-        | "queued"
-        | "in_progress";
-      creator:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      state: "error" | "failure" | "inactive" | "pending" | "success" | "queued" | "in_progress";
+      creator: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       /** A short description of the status. */
       description: string;
       /** The environment of the deployment that the status is for. */
@@ -8503,9 +8298,7 @@ export interface components {
       environment_url?: string;
       /** The URL to associate with this status. */
       log_url?: string;
-      performed_via_github_app?:
-        | (components["schemas"]["integration"] & { [key: string]: any })
-        | null;
+      performed_via_github_app?: (components["schemas"]["integration"] & { [key: string]: any }) | null;
     } & { [key: string]: any };
     /** The amount of time to delay a job after the job is initially triggered. The time (in minutes) must be an integer between 0 and 43,200 (30 days). */
     "wait-timer": number;
@@ -8548,9 +8341,7 @@ export interface components {
             reviewers?: ({
               type?: components["schemas"]["deployment-reviewer-type"];
               reviewer?: (Partial<components["schemas"]["simple-user"]> &
-                Partial<components["schemas"]["team-simple"]>) & {
-                [key: string]: any;
-              };
+                Partial<components["schemas"]["team-simple"]>) & { [key: string]: any };
             } & { [key: string]: any })[];
           } & { [key: string]: any }
         > &
@@ -8805,27 +8596,17 @@ export interface components {
       id: number;
       node_id: string;
       url: string;
-      actor:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      actor: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       event: string;
       commit_id: string | null;
       commit_url: string | null;
       created_at: string;
       issue?: components["schemas"]["issue-simple"];
       label?: components["schemas"]["issue-event-label"];
-      assignee?:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
-      assigner?:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
-      review_requester?:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
-      requested_reviewer?:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      assignee?: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
+      assigner?: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
+      review_requester?: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
+      requested_reviewer?: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       requested_team?: components["schemas"]["team"];
       dismissed_review?: components["schemas"]["issue-event-dismissed-review"];
       milestone?: components["schemas"]["issue-event-milestone"];
@@ -8888,9 +8669,7 @@ export interface components {
         html: string | null;
         self: string;
       } & { [key: string]: any };
-      license:
-        | (components["schemas"]["license-simple"] & { [key: string]: any })
-        | null;
+      license: (components["schemas"]["license-simple"] & { [key: string]: any }) | null;
     } & { [key: string]: any };
     "pages-source-hash": {
       branch: string;
@@ -8919,9 +8698,7 @@ export interface components {
       error: {
         message: string | null;
       } & { [key: string]: any };
-      pusher:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      pusher: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       commit: string;
       duration: number;
       created_at: string;
@@ -8953,9 +8730,7 @@ export interface components {
       locked: boolean;
       /** The title of the pull request. */
       title: string;
-      user:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      user: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       body: string | null;
       labels: ({
         id?: number;
@@ -8966,18 +8741,14 @@ export interface components {
         color?: string;
         default?: boolean;
       } & { [key: string]: any })[];
-      milestone:
-        | (components["schemas"]["milestone"] & { [key: string]: any })
-        | null;
+      milestone: (components["schemas"]["milestone"] & { [key: string]: any }) | null;
       active_lock_reason?: string | null;
       created_at: string;
       updated_at: string;
       closed_at: string | null;
       merged_at: string | null;
       merge_commit_sha: string | null;
-      assignee:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      assignee: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       assignees?: components["schemas"]["simple-user"][] | null;
       requested_reviewers?: components["schemas"]["simple-user"][] | null;
       requested_teams?: components["schemas"]["team-simple"][] | null;
@@ -9215,9 +8986,7 @@ export interface components {
           allow_merge_commit?: boolean;
           allow_squash_merge?: boolean;
           allow_rebase_merge?: boolean;
-          license:
-            | (components["schemas"]["license-simple"] & { [key: string]: any })
-            | null;
+          license: (components["schemas"]["license-simple"] & { [key: string]: any }) | null;
           pushed_at: string;
           size: number;
           ssh_url: string;
@@ -9269,9 +9038,7 @@ export interface components {
       mergeable: boolean | null;
       rebaseable?: boolean | null;
       mergeable_state: string;
-      merged_by:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      merged_by: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       comments: number;
       review_comments: number;
       /** Indicates whether maintainers can modify the pull request. */
@@ -9358,9 +9125,7 @@ export interface components {
       /** Unique identifier of the review */
       id: number;
       node_id: string;
-      user:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      user: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       /** The text of the review. */
       body: string;
       state: string;
@@ -9394,9 +9159,7 @@ export interface components {
       commit_id: string;
       original_commit_id: string;
       in_reply_to_id?: number;
-      user:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      user: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       body: string;
       created_at: string;
       updated_at: string;
@@ -9439,9 +9202,7 @@ export interface components {
       download_count: number;
       created_at: string;
       updated_at: string;
-      uploader:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      uploader: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
     } & { [key: string]: any };
     /** A release. */
     release: {
@@ -9492,9 +9253,7 @@ export interface components {
     /** Stargazer */
     stargazer: {
       starred_at: string;
-      user:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      user: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
     } & { [key: string]: any };
     /** Code Frequency Stat */
     "code-frequency-stat": number[];
@@ -9506,9 +9265,7 @@ export interface components {
     } & { [key: string]: any };
     /** Contributor Activity */
     "contributor-activity": {
-      author:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      author: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       total: number;
       weeks: ({
         w?: string;
@@ -9709,9 +9466,7 @@ export interface components {
       operations?: ({
         op: "add" | "remove" | "replace";
         path?: string;
-        value?: (string | { [key: string]: any } | { [key: string]: any }[]) & {
-          [key: string]: any;
-        };
+        value?: (string | { [key: string]: any } | { [key: string]: any }[]) & { [key: string]: any };
       } & { [key: string]: any })[];
       /** associated groups */
       groups?: ({
@@ -9766,9 +9521,7 @@ export interface components {
           email: string;
           date: string;
         } & { [key: string]: any };
-        committer:
-          | (components["schemas"]["git-user"] & { [key: string]: any })
-          | null;
+        committer: (components["schemas"]["git-user"] & { [key: string]: any }) | null;
         comment_count: number;
         message: string;
         tree: {
@@ -9778,12 +9531,8 @@ export interface components {
         url: string;
         verification?: components["schemas"]["verification"];
       } & { [key: string]: any };
-      author:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
-      committer:
-        | (components["schemas"]["git-user"] & { [key: string]: any })
-        | null;
+      author: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
+      committer: (components["schemas"]["git-user"] & { [key: string]: any }) | null;
       parents: ({
         url?: string;
         html_url?: string;
@@ -9809,9 +9558,7 @@ export interface components {
       locked: boolean;
       active_lock_reason?: string | null;
       assignees?: components["schemas"]["simple-user"][] | null;
-      user:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      user: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       labels: ({
         id?: number;
         node_id?: string;
@@ -9822,12 +9569,8 @@ export interface components {
         description?: string | null;
       } & { [key: string]: any })[];
       state: string;
-      assignee:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
-      milestone:
-        | (components["schemas"]["milestone"] & { [key: string]: any })
-        | null;
+      assignee: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
+      milestone: (components["schemas"]["milestone"] & { [key: string]: any }) | null;
       comments: number;
       created_at: string;
       updated_at: string;
@@ -9848,9 +9591,7 @@ export interface components {
       body_html?: string;
       body_text?: string;
       timeline_url?: string;
-      performed_via_github_app?:
-        | (components["schemas"]["integration"] & { [key: string]: any })
-        | null;
+      performed_via_github_app?: (components["schemas"]["integration"] & { [key: string]: any }) | null;
     } & { [key: string]: any };
     /** Label Search Result Item */
     "label-search-result-item": {
@@ -9870,9 +9611,7 @@ export interface components {
       node_id: string;
       name: string;
       full_name: string;
-      owner:
-        | (components["schemas"]["simple-user"] & { [key: string]: any })
-        | null;
+      owner: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       private: boolean;
       html_url: string;
       description: string | null;
@@ -9944,9 +9683,7 @@ export interface components {
       archived: boolean;
       /** Returns whether or not this repository disabled. */
       disabled: boolean;
-      license:
-        | (components["schemas"]["license-simple"] & { [key: string]: any })
-        | null;
+      license: (components["schemas"]["license-simple"] & { [key: string]: any }) | null;
       permissions?: {
         admin: boolean;
         pull: boolean;
@@ -10448,13 +10185,7 @@ export interface components {
     /** repo_name parameter */
     repo_name: string;
     /** The type of supported package. Can be one of `npm`, `maven`, `rubygems`, `nuget`, `docker`, or `container`. For Docker images that use the package namespace `https://ghcr.io/owner/package-name`, use `container`. */
-    package_type:
-      | "npm"
-      | "maven"
-      | "rubygems"
-      | "docker"
-      | "nuget"
-      | "container";
+    package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
     /** The name of the package. */
     package_name: string;
     /** Unique identifier of the package version. */
@@ -11076,9 +10807,7 @@ export interface operations {
       /** response */
       200: {
         content: {
-          "application/json":
-            | (components["schemas"]["authorization"] & { [key: string]: any })
-            | null;
+          "application/json": (components["schemas"]["authorization"] & { [key: string]: any }) | null;
         };
       };
       404: components["responses"]["not_found"];
@@ -15866,14 +15595,7 @@ export interface operations {
       };
       query: {
         /** Specifies the types of repositories you want returned. Can be one of `all`, `public`, `private`, `forks`, `sources`, `member`, `internal`. Default: `all`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `type` can also be `internal`. */
-        type?:
-          | "all"
-          | "public"
-          | "private"
-          | "forks"
-          | "sources"
-          | "member"
-          | "internal";
+        type?: "all" | "public" | "private" | "forks" | "sources" | "member" | "internal";
         /** Can be one of `created`, `updated`, `pushed`, `full_name`. */
         sort?: "created" | "updated" | "pushed" | "full_name";
         /** Can be one of `asc` or `desc`. Default: when using `full_name`: `asc`, otherwise `desc` */
@@ -16536,15 +16258,7 @@ export interface operations {
       };
       query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion comment. */
-        content?:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes";
+        content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
         per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -16588,15 +16302,7 @@ export interface operations {
       content: {
         "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment. */
-          content:
-            | "+1"
-            | "-1"
-            | "laugh"
-            | "confused"
-            | "heart"
-            | "hooray"
-            | "rocket"
-            | "eyes";
+          content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         } & { [key: string]: any };
       };
     };
@@ -16637,15 +16343,7 @@ export interface operations {
       };
       query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion. */
-        content?:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes";
+        content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
         per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -16688,15 +16386,7 @@ export interface operations {
       content: {
         "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion. */
-          content:
-            | "+1"
-            | "-1"
-            | "laugh"
-            | "confused"
-            | "heart"
-            | "hooray"
-            | "rocket"
-            | "eyes";
+          content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         } & { [key: string]: any };
       };
     };
@@ -21142,15 +20832,7 @@ export interface operations {
       };
       query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a commit comment. */
-        content?:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes";
+        content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
         per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -21199,15 +20881,7 @@ export interface operations {
       content: {
         "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the commit comment. */
-          content:
-            | "+1"
-            | "-1"
-            | "laugh"
-            | "confused"
-            | "heart"
-            | "hooray"
-            | "rocket"
-            | "eyes";
+          content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         } & { [key: string]: any };
       };
     };
@@ -22188,14 +21862,7 @@ export interface operations {
       content: {
         "application/json": {
           /** The state of the status. Can be one of `error`, `failure`, `inactive`, `in_progress`, `queued` `pending`, or `success`. **Note:** To use the `inactive` state, you must provide the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type. To use the `in_progress` and `queued` states, you must provide the [`application/vnd.github.flash-preview+json`](https://docs.github.com/rest/overview/api-previews#deployment-statuses) custom media type. When you set a transient deployment to `inactive`, the deployment will be shown as `destroyed` in GitHub. */
-          state:
-            | "error"
-            | "failure"
-            | "inactive"
-            | "in_progress"
-            | "queued"
-            | "pending"
-            | "success";
+          state: "error" | "failure" | "inactive" | "in_progress" | "queued" | "pending" | "success";
           /** The target URL to associate with this status. This URL should contain output to keep the user updated while the task is running or serve as historical information for what happened in the deployment. **Note:** It's recommended to use the `log_url` parameter, which replaces `target_url`. */
           target_url?: string;
           /**
@@ -23827,15 +23494,7 @@ export interface operations {
       };
       query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to an issue comment. */
-        content?:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes";
+        content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
         per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -23884,15 +23543,7 @@ export interface operations {
       content: {
         "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue comment. */
-          content:
-            | "+1"
-            | "-1"
-            | "laugh"
-            | "confused"
-            | "heart"
-            | "hooray"
-            | "rocket"
-            | "eyes";
+          content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         } & { [key: string]: any };
       };
     };
@@ -24379,15 +24030,7 @@ export interface operations {
       };
       query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to an issue. */
-        content?:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes";
+        content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
         per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -24431,15 +24074,7 @@ export interface operations {
       content: {
         "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue. */
-          content:
-            | "+1"
-            | "-1"
-            | "laugh"
-            | "confused"
-            | "heart"
-            | "hooray"
-            | "rocket"
-            | "eyes";
+          content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         } & { [key: string]: any };
       };
     };
@@ -25426,15 +25061,7 @@ export interface operations {
       };
       query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a pull request review comment. */
-        content?:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes";
+        content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
         per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -25483,15 +25110,7 @@ export interface operations {
       content: {
         "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the pull request review comment. */
-          content:
-            | "+1"
-            | "-1"
-            | "laugh"
-            | "confused"
-            | "heart"
-            | "hooray"
-            | "rocket"
-            | "eyes";
+          content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         } & { [key: string]: any };
       };
     };
@@ -28763,15 +28382,7 @@ export interface operations {
       };
       query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion comment. */
-        content?:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes";
+        content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
         per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -28813,15 +28424,7 @@ export interface operations {
       content: {
         "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment. */
-          content:
-            | "+1"
-            | "-1"
-            | "laugh"
-            | "confused"
-            | "heart"
-            | "hooray"
-            | "rocket"
-            | "eyes";
+          content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         } & { [key: string]: any };
       };
     };
@@ -28839,15 +28442,7 @@ export interface operations {
       };
       query: {
         /** Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion. */
-        content?:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes";
+        content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         /** Results per page (max 100). */
         per_page?: components["parameters"]["per_page"];
         /** Page number of the results to fetch. */
@@ -28888,15 +28483,7 @@ export interface operations {
       content: {
         "application/json": {
           /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion. */
-          content:
-            | "+1"
-            | "-1"
-            | "laugh"
-            | "confused"
-            | "heart"
-            | "hooray"
-            | "rocket"
-            | "eyes";
+          content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         } & { [key: string]: any };
       };
     };
@@ -29485,10 +29072,9 @@ export interface operations {
       /** response */
       200: {
         content: {
-          "application/json": (
-            | components["schemas"]["private-user"]
-            | components["schemas"]["public-user"]
-          ) & { [key: string]: any };
+          "application/json": (components["schemas"]["private-user"] | components["schemas"]["public-user"]) & {
+            [key: string]: any;
+          };
         };
       };
       304: components["responses"]["not_modified"];
@@ -31095,10 +30681,9 @@ export interface operations {
       /** response */
       200: {
         content: {
-          "application/json": (
-            | components["schemas"]["private-user"]
-            | components["schemas"]["public-user"]
-          ) & { [key: string]: any };
+          "application/json": (components["schemas"]["private-user"] | components["schemas"]["public-user"]) & {
+            [key: string]: any;
+          };
         };
       };
       404: components["responses"]["not_found"];
