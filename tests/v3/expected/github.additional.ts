@@ -12235,15 +12235,11 @@ export interface operations {
     requestBody: {
       content: {
         "application/json":
-          | ((Partial<{ [key: string]: any }> & Partial<{ [key: string]: any }>) & {
+          | ({
               /** Description of the gist */
               description?: string;
               /** Names of files to be updated */
-              files?: {
-                [key: string]: Partial<{ [key: string]: any }> &
-                  Partial<{ [key: string]: any }> &
-                  Partial<{ [key: string]: any }>;
-              };
+              files?: { [key: string]: Partial<{ [key: string]: any }> };
             } & { [key: string]: any })
           | null;
       };
@@ -25505,7 +25501,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (Partial<{ [key: string]: any }> & Partial<{ [key: string]: any }>) & {
+        "application/json": {
           /** An array of user `login`s that will be requested. */
           reviewers?: string[];
           /** An array of team `slug`s that will be requested. */
