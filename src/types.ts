@@ -1,4 +1,4 @@
-import { URL } from "url";
+import type { URL } from "url";
 
 export interface OpenAPI2 {
   swagger: string; // required
@@ -103,6 +103,7 @@ export interface SchemaObject {
   items?: ReferenceObject | SchemaObject;
   allOf?: SchemaObject;
   properties?: Record<string, ReferenceObject | SchemaObject>;
+  default?: any;
   additionalProperties?: boolean | ReferenceObject | SchemaObject;
   nullable?: boolean; // V3 ONLY
   oneOf?: (ReferenceObject | SchemaObject)[]; // V3 ONLY
@@ -123,10 +124,14 @@ export interface SwaggerToTSOptions {
   formatter?: SchemaFormatter;
   /** Generates immutable types (readonly properties and readonly array) */
   immutableTypes?: boolean;
+  /** (optional) Treat schema objects with default values as non-nullable */
+  defaultNonNullable?: boolean;
   /** (optional) Path to Prettier config */
   prettierConfig?: string;
   /** (optional) Parsing input document as raw schema rather than OpenAPI document */
   rawSchema?: boolean;
+  /** (optional) Should logging be suppressed? (necessary for STDOUT) */
+  silent?: boolean;
   /** (optional) OpenAPI version. Must be present if parsing raw schema */
   version?: number;
 }
@@ -137,6 +142,7 @@ export interface GlobalContext {
   auth?: string;
   formatter?: SchemaFormatter;
   immutableTypes: boolean;
+  defaultNonNullable: boolean;
   /** (optional) Should logging be suppressed? (necessary for STDOUT) */
   silent?: boolean;
   namespace?: string;

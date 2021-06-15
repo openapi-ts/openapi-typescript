@@ -19,7 +19,7 @@ export function transformParametersArray(
   let mappedParams: Record<string, Record<string, ParameterObject>> = {};
   for (const paramObj of parameters as any[]) {
     if (paramObj.$ref && globalParameters) {
-      const paramName = paramObj.$ref.split("/").pop(); // take last segment
+      const paramName = paramObj.$ref.split('["').pop().replace(/"\]$/, ""); // take last segment
       if (globalParameters[paramName]) {
         const reference = globalParameters[paramName] as any;
         if (!mappedParams[reference.in]) mappedParams[reference.in] = {};

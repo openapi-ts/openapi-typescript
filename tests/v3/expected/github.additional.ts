@@ -5732,7 +5732,7 @@ export interface components {
       token: string;
       /** The time this token expires */
       expires_at: string;
-      permissions?: { [key: string]: any };
+      permissions?: { [key: string]: unknown };
       /** The repositories this token has access to */
       repositories?: components["schemas"]["repository"][];
       single_file?: string | null;
@@ -6025,8 +6025,8 @@ export interface components {
       comments_url: string;
       owner?: (components["schemas"]["simple-user"] & { [key: string]: any }) | null;
       truncated?: boolean;
-      forks?: { [key: string]: any }[];
-      history?: { [key: string]: any }[];
+      forks?: { [key: string]: unknown }[];
+      history?: { [key: string]: unknown }[];
     } & { [key: string]: any };
     /** Gist Simple */
     "gist-simple": {
@@ -6578,7 +6578,7 @@ export interface components {
       updated_at: string;
       node_id: string;
       archive_url?: string;
-      exclude?: { [key: string]: any }[];
+      exclude?: { [key: string]: unknown }[];
     } & { [key: string]: any };
     /** A software package */
     package: {
@@ -6618,6 +6618,8 @@ export interface components {
         } & { [key: string]: any };
         docker?: {
           tag?: any[];
+        } & {
+          tags: unknown;
         } & { [key: string]: any };
       } & { [key: string]: any };
     } & { [key: string]: any };
@@ -7249,7 +7251,7 @@ export interface components {
       ref: string;
       /** Parameter to specify a task to execute */
       task: string;
-      payload: { [key: string]: any };
+      payload: { [key: string]: unknown };
       original_environment?: string;
       /** Name for the target deployment environment. */
       environment: string;
@@ -8123,6 +8125,9 @@ export interface components {
         html: string | null;
         self: string;
       } & { [key: string]: any };
+    } & {
+      content: unknown;
+      encoding: unknown;
     } & { [key: string]: any };
     /** A list of directory items */
     "content-directory": ({
@@ -9466,7 +9471,7 @@ export interface components {
       operations?: ({
         op: "add" | "remove" | "replace";
         path?: string;
-        value?: (string | { [key: string]: any } | { [key: string]: any }[]) & { [key: string]: any };
+        value?: (string | { [key: string]: unknown } | { [key: string]: unknown }[]) & { [key: string]: any };
       } & { [key: string]: any })[];
       /** associated groups */
       groups?: ({
@@ -9889,8 +9894,8 @@ export interface components {
         primary_key_id?: number;
         key_id?: string;
         public_key?: string;
-        emails?: { [key: string]: any }[];
-        subkeys?: { [key: string]: any }[];
+        emails?: { [key: string]: unknown }[];
+        subkeys?: { [key: string]: unknown }[];
         can_sign?: boolean;
         can_encrypt_comms?: boolean;
         can_encrypt_storage?: boolean;
@@ -12235,15 +12240,11 @@ export interface operations {
     requestBody: {
       content: {
         "application/json":
-          | ((Partial<{ [key: string]: any }> & Partial<{ [key: string]: any }>) & {
+          | ({
               /** Description of the gist */
               description?: string;
               /** Names of files to be updated */
-              files?: {
-                [key: string]: Partial<{ [key: string]: any }> &
-                  Partial<{ [key: string]: any }> &
-                  Partial<{ [key: string]: any }>;
-              };
+              files?: { [key: string]: Partial<{ [key: string]: unknown }> };
             } & { [key: string]: any })
           | null;
       };
@@ -12463,7 +12464,7 @@ export interface operations {
       /** Response if gist is not starred */
       404: {
         content: {
-          "application/json": { [key: string]: any };
+          "application/json": { [key: string]: unknown };
         };
       };
     };
@@ -17008,7 +17009,7 @@ export interface operations {
       /** response */
       201: {
         content: {
-          "application/json": { [key: string]: any };
+          "application/json": { [key: string]: unknown };
         };
       };
       304: components["responses"]["not_modified"];
@@ -17219,7 +17220,7 @@ export interface operations {
       /** response */
       201: {
         content: {
-          "application/json": { [key: string]: any };
+          "application/json": { [key: string]: unknown };
         };
       };
       304: components["responses"]["not_modified"];
@@ -19814,6 +19815,8 @@ export interface operations {
         "application/json": (Partial<
           {
             status?: "completed";
+          } & {
+            conclusion: unknown;
           } & { [key: string]: any }
         > &
           Partial<
@@ -19950,6 +19953,8 @@ export interface operations {
         "application/json": (Partial<
           {
             status?: "completed";
+          } & {
+            conclusion: unknown;
           } & { [key: string]: any }
         > &
           Partial<
@@ -25505,7 +25510,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (Partial<{ [key: string]: any }> & Partial<{ [key: string]: any }>) & {
+        "application/json": {
           /** An array of user `login`s that will be requested. */
           reviewers?: string[];
           /** An array of team `slug`s that will be requested. */
@@ -27212,7 +27217,7 @@ export interface operations {
           /** The SCIM schema URIs. */
           schemas: string[];
           /** Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
-          Operations: { [key: string]: any }[];
+          Operations: { [key: string]: unknown }[];
         } & { [key: string]: any };
       };
     };
@@ -27444,7 +27449,7 @@ export interface operations {
           /** The SCIM schema URIs. */
           schemas: string[];
           /** Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
-          Operations: { [key: string]: any }[];
+          Operations: { [key: string]: unknown }[];
         } & { [key: string]: any };
       };
     };
@@ -31282,3 +31287,5 @@ export interface operations {
     };
   };
 }
+
+export interface external {}

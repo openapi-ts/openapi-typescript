@@ -4,8 +4,8 @@ const fs = require("fs");
 const { bold, green, red } = require("kleur");
 const path = require("path");
 const meow = require("meow");
+const glob = require("tiny-glob");
 const { default: openapiTS } = require("../dist/cjs/index.js");
-const { loadSpec } = require("./loaders");
 
 const cli = meow(
   `Usage
@@ -17,6 +17,7 @@ Options
   --auth                       (optional) Provide an authentication token for private URL
   --immutable-types, -it       (optional) Generates immutable types (readonly properties and readonly array)
   --additional-properties, -ap (optional) Allow arbitrary properties for all schema objects without "additionalProperties: false"
+  --default-non-nullable       (optional) If a schema object has a default value set, don’t mark it as nullable
   --prettier-config, -c        (optional) specify path to Prettier config file
   --raw-schema                 (optional) Parse as partial schema (raw components)
   --version                    (optional) Force schema parsing version
@@ -33,6 +34,9 @@ Options
       immutableTypes: {
         type: "boolean",
         alias: "it",
+      },
+      defaultNonNullable: {
+        type: "boolean",
       },
       additionalProperties: {
         type: "boolean",
@@ -52,70 +56,103 @@ Options
   }
 );
 
+const OUTPUT_FILE = "FILE";
+const OUTPUT_STDOUT = "STDOUT";
+
 const timeStart = process.hrtime();
 
+function errorAndExit(errorMessage) {
+  process.exitCode = 1; // needed for async functions
+  throw new Error(red(errorMessage));
+}
+
+async function generateSchema(pathToSpec) {
+  const output = cli.flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
+
+  // generate schema
+  const result = await openapiTS(pathToSpec, {
+    additionalProperties: cli.flags.additionalProperties,
+    auth: cli.flags.auth,
+    defaultNonNullable: cli.flags.defaultNonNullable,
+    immutableTypes: cli.flags.immutableTypes,
+    prettierConfig: cli.flags.prettierConfig,
+    rawSchema: cli.flags.rawSchema,
+    silent: output === OUTPUT_STDOUT,
+    version: cli.flags.version,
+  });
+
+  // output
+  if (output === OUTPUT_FILE) {
+    let outputFile = path.resolve(process.cwd(), cli.flags.output); // note: may be directory
+    const isDir = fs.existsSync(outputFile) && fs.lstatSync(outputFile).isDirectory();
+    if (isDir) {
+      const filename = pathToSpec.replace(new RegExp(`${path.extname(pathToSpec)}$`), ".ts");
+      outputFile = path.join(outputFile, filename);
+    }
+
+    await fs.promises.writeFile(outputFile, result, "utf8");
+
+    const timeEnd = process.hrtime(timeStart);
+    const time = timeEnd[0] + Math.round(timeEnd[1] / 1e6);
+    console.log(green(`🚀 ${pathToSpec} -> ${bold(outputFile)} [${time}ms]`));
+  } else {
+    process.stdout.write(result);
+    // if stdout, (still) don’t log anything to console!
+  }
+
+  return result;
+}
+
 async function main() {
-  let output = "FILE"; // FILE or STDOUT
+  let output = cli.flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
   const pathToSpec = cli.input[0];
 
-  // 0. setup
-  if (!cli.flags.output) {
-    output = "STDOUT"; // if --output not specified, fall back to stdout
-  }
-  if (output === "FILE") {
+  if (output === OUTPUT_FILE) {
     console.info(bold(`✨ openapi-typescript ${require("../package.json").version}`)); // only log if we’re NOT writing to stdout
   }
+
+  // error: --raw-schema
   if (cli.flags.rawSchema && !cli.flags.version) {
     throw new Error(`--raw-schema requires --version flag`);
   }
 
-  // 1. input
-  let spec = undefined;
-  try {
-    spec = await loadSpec(pathToSpec, {
-      auth: cli.flags.auth,
-      log: output !== "STDOUT",
-    });
-  } catch (err) {
-    process.exitCode = 1; // needed for async functions
-    throw new Error(red(`❌ ${err}`));
+  // handle remote schema, exit
+  if (/^https?:\/\//.test(pathToSpec)) {
+    if (output !== "." && output === OUTPUT_FILE)
+      await fs.promises.mkdir(path.dirname(cli.flags.output), { recursive: true });
+    await generateSchema(pathToSpec);
+    return;
   }
 
-  // 2. generate schema (the main part!)
-  const result = openapiTS(spec, {
-    auth: cli.flags.auth,
-    additionalProperties: cli.flags.additionalProperties,
-    immutableTypes: cli.flags.immutableTypes,
-    prettierConfig: cli.flags.prettierConfig,
-    rawSchema: cli.flags.rawSchema,
-    version: cli.flags.version,
-  });
+  // handle local schema(s)
+  const inputSpecPaths = await glob(pathToSpec, { filesOnly: true });
+  const isGlob = inputSpecPaths.length > 1;
 
-  // 3. output
-  if (output === "FILE") {
-    // output option 1: file
-    const outputFile = path.resolve(process.cwd(), cli.flags.output);
+  // error: no matches for glob
+  if (inputSpecPaths.length === 0) {
+    errorAndExit(`❌ Could not find any specs matching "${pathToSpec}". Please check that the path is correct.`);
+  }
 
-    // recursively create parent directories if they don’t exist
-    const parentDirs = cli.flags.output.split(path.sep);
-    for (var i = 1; i < parentDirs.length; i++) {
-      const dir = path.resolve(process.cwd(), ...parentDirs.slice(0, i));
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir);
+  // error: tried to glob output to single file
+  if (isGlob && output === OUTPUT_FILE && fs.existsSync(cli.flags.output) && fs.lstatSync(cli.flags.output).isFile()) {
+    errorAndExit(`❌ Expected directory for --output if using glob patterns. Received "${cli.flags.output}".`);
+  }
+
+  // generate schema(s) in parallel
+  await Promise.all(
+    inputSpecPaths.map(async (specPath) => {
+      if (cli.flags.output !== "." && output === OUTPUT_FILE) {
+        let outputDir = path.resolve(process.cwd(), cli.flags.output);
+        if (isGlob) {
+          outputDir = path.resolve(outputDir, path.dirname(specPath)); // globs: use output dir + spec dir
+        } else {
+          outputDir = path.dirname(outputDir); // single files: just use output parent dir
+        }
+        await fs.promises.mkdir(outputDir, { recursive: true }); // recursively make parent dirs
       }
-    }
-
-    fs.writeFileSync(outputFile, result, "utf8");
-
-    const timeEnd = process.hrtime(timeStart);
-    const time = timeEnd[0] + Math.round(timeEnd[1] / 1e6);
-    console.log(green(`🚀 ${pathToSpec} -> ${bold(cli.flags.output)} [${time}ms]`));
-  } else {
-    // output option 2: stdout
-    process.stdout.write(result);
-  }
-
-  return result;
+      await generateSchema(specPath);
+    })
+  );
 }
 
 main();

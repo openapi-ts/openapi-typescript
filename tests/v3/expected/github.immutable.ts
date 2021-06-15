@@ -5726,7 +5726,7 @@ export interface components {
       readonly token: string;
       /** The time this token expires */
       readonly expires_at: string;
-      readonly permissions?: { readonly [key: string]: any };
+      readonly permissions?: { readonly [key: string]: unknown };
       /** The repositories this token has access to */
       readonly repositories?: readonly components["schemas"]["repository"][];
       readonly single_file?: string | null;
@@ -6019,8 +6019,8 @@ export interface components {
       readonly comments_url: string;
       readonly owner?: components["schemas"]["simple-user"] | null;
       readonly truncated?: boolean;
-      readonly forks?: readonly { readonly [key: string]: any }[];
-      readonly history?: readonly { readonly [key: string]: any }[];
+      readonly forks?: readonly { readonly [key: string]: unknown }[];
+      readonly history?: readonly { readonly [key: string]: unknown }[];
     };
     /** Gist Simple */
     readonly "gist-simple": {
@@ -6564,7 +6564,7 @@ export interface components {
       readonly updated_at: string;
       readonly node_id: string;
       readonly archive_url?: string;
-      readonly exclude?: readonly { readonly [key: string]: any }[];
+      readonly exclude?: readonly { readonly [key: string]: unknown }[];
     };
     /** A software package */
     readonly package: {
@@ -6604,6 +6604,8 @@ export interface components {
         };
         readonly docker?: {
           readonly tag?: readonly any[];
+        } & {
+          tags: unknown;
         };
       };
     };
@@ -7230,7 +7232,7 @@ export interface components {
       readonly ref: string;
       /** Parameter to specify a task to execute */
       readonly task: string;
-      readonly payload: { readonly [key: string]: any };
+      readonly payload: { readonly [key: string]: unknown };
       readonly original_environment?: string;
       /** Name for the target deployment environment. */
       readonly environment: string;
@@ -8100,6 +8102,9 @@ export interface components {
         readonly html: string | null;
         readonly self: string;
       };
+    } & {
+      content: unknown;
+      encoding: unknown;
     };
     /** A list of directory items */
     readonly "content-directory": readonly {
@@ -9431,7 +9436,7 @@ export interface components {
       readonly operations?: readonly {
         readonly op: "add" | "remove" | "replace";
         readonly path?: string;
-        readonly value?: string | { readonly [key: string]: any } | readonly { readonly [key: string]: any }[];
+        readonly value?: string | { readonly [key: string]: unknown } | readonly { readonly [key: string]: unknown }[];
       }[];
       /** associated groups */
       readonly groups?: readonly {
@@ -9854,8 +9859,8 @@ export interface components {
         readonly primary_key_id?: number;
         readonly key_id?: string;
         readonly public_key?: string;
-        readonly emails?: readonly { readonly [key: string]: any }[];
-        readonly subkeys?: readonly { readonly [key: string]: any }[];
+        readonly emails?: readonly { readonly [key: string]: unknown }[];
+        readonly subkeys?: readonly { readonly [key: string]: unknown }[];
         readonly can_sign?: boolean;
         readonly can_encrypt_comms?: boolean;
         readonly can_encrypt_storage?: boolean;
@@ -12199,18 +12204,12 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/json":
-          | ((Partial<{ readonly [key: string]: any }> & Partial<{ readonly [key: string]: any }>) & {
-              /** Description of the gist */
-              readonly description?: string;
-              /** Names of files to be updated */
-              readonly files?: {
-                readonly [key: string]: Partial<{ readonly [key: string]: any }> &
-                  Partial<{ readonly [key: string]: any }> &
-                  Partial<{ readonly [key: string]: any }>;
-              };
-            })
-          | null;
+        readonly "application/json": {
+          /** Description of the gist */
+          readonly description?: string;
+          /** Names of files to be updated */
+          readonly files?: { readonly [key: string]: Partial<{ readonly [key: string]: unknown }> };
+        } | null;
       };
     };
   };
@@ -12428,7 +12427,7 @@ export interface operations {
       /** Response if gist is not starred */
       readonly 404: {
         readonly content: {
-          readonly "application/json": { readonly [key: string]: any };
+          readonly "application/json": { readonly [key: string]: unknown };
         };
       };
     };
@@ -16970,7 +16969,7 @@ export interface operations {
       /** response */
       readonly 201: {
         readonly content: {
-          readonly "application/json": { readonly [key: string]: any };
+          readonly "application/json": { readonly [key: string]: unknown };
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -17179,7 +17178,7 @@ export interface operations {
       /** response */
       readonly 201: {
         readonly content: {
-          readonly "application/json": { readonly [key: string]: any };
+          readonly "application/json": { readonly [key: string]: unknown };
         };
       };
       readonly 304: components["responses"]["not_modified"];
@@ -19768,6 +19767,8 @@ export interface operations {
         readonly "application/json": (Partial<
           {
             readonly status?: "completed";
+          } & {
+            conclusion: unknown;
           } & { readonly [key: string]: any }
         > &
           Partial<
@@ -19904,6 +19905,8 @@ export interface operations {
         readonly "application/json": (Partial<
           {
             readonly status?: "completed";
+          } & {
+            conclusion: unknown;
           } & { readonly [key: string]: any }
         > &
           Partial<
@@ -25452,8 +25455,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/json": (Partial<{ readonly [key: string]: any }> &
-          Partial<{ readonly [key: string]: any }>) & {
+        readonly "application/json": {
           /** An array of user `login`s that will be requested. */
           readonly reviewers?: readonly string[];
           /** An array of team `slug`s that will be requested. */
@@ -27158,7 +27160,7 @@ export interface operations {
           /** The SCIM schema URIs. */
           readonly schemas: readonly string[];
           /** Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
-          readonly Operations: readonly { readonly [key: string]: any }[];
+          readonly Operations: readonly { readonly [key: string]: unknown }[];
         };
       };
     };
@@ -27390,7 +27392,7 @@ export interface operations {
           /** The SCIM schema URIs. */
           readonly schemas: readonly string[];
           /** Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
-          readonly Operations: readonly { readonly [key: string]: any }[];
+          readonly Operations: readonly { readonly [key: string]: unknown }[];
         };
       };
     };
@@ -31221,3 +31223,5 @@ export interface operations {
     };
   };
 }
+
+export interface external {}

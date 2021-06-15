@@ -1,6 +1,11 @@
 import { transformParametersArray } from "../src/transform/parameters";
 
-const defaults = { additionalProperties: false, immutableTypes: false, rawSchema: false };
+const defaults = {
+  additionalProperties: false,
+  immutableTypes: false,
+  defaultNonNullable: false,
+  rawSchema: false,
+};
 
 describe("transformParametersArray()", () => {
   describe("v2", () => {
@@ -44,6 +49,7 @@ describe("transformParametersArray()", () => {
         transformParametersArray(basicSchema as any, {
           ...defaults,
           immutableTypes: true,
+          rawSchema: false,
           version: 2,
         }).trim()
       ).toBe(
@@ -61,9 +67,9 @@ describe("transformParametersArray()", () => {
     });
 
     const refSchema = [
-      { $ref: "#/parameters/per_page" },
-      { $ref: "#/parameters/page" },
-      { $ref: "#/parameters/since" },
+      { $ref: 'parameters["per_page"]' },
+      { $ref: 'parameters["page"]' },
+      { $ref: 'parameters["since"]' },
     ];
 
     it("$ref", () => {
@@ -150,6 +156,7 @@ describe("transformParametersArray()", () => {
         transformParametersArray(basicSchema as any, {
           ...defaults,
           immutableTypes: true,
+          rawSchema: false,
           version: 3,
         }).trim()
       ).toBe(
@@ -164,9 +171,9 @@ describe("transformParametersArray()", () => {
     });
 
     const refSchema = [
-      { $ref: "#/components/parameters/per_page" },
-      { $ref: "#/components/parameters/page" },
-      { $ref: "#/components/parameters/since" },
+      { $ref: 'components["parameters"]["per_page"]' },
+      { $ref: 'components["parameters"]["page"]' },
+      { $ref: 'components["parameters"]["since"]' },
     ];
 
     it("$ref", () => {
@@ -207,7 +214,7 @@ describe("transformParametersArray()", () => {
     });
 
     it("nullable", () => {
-      const schema = [
+      const schema: any = [
         { in: "query", name: "nullableString", schema: { type: "string", nullable: true } },
         { in: "query", name: "nullableNum", schema: { type: "number", nullable: true } },
       ];

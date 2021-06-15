@@ -9043,10 +9043,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        three_d_secure: unknown;
+        three_d_secure: string;
       };
     };
     responses: {
@@ -9065,7 +9065,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
     };
     responses: {
@@ -9364,10 +9364,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -9388,7 +9388,7 @@ export interface operations {
   PostAccountBankAccountsId: {
     parameters: {
       path: {
-        id: unknown;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -9439,7 +9439,7 @@ export interface operations {
   DeleteAccountBankAccountsId: {
     parameters: {
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -9458,7 +9458,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
     };
     responses: {
@@ -9485,10 +9485,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        capability: unknown;
+        capability: string;
       };
     };
     responses: {
@@ -9506,7 +9506,7 @@ export interface operations {
   PostAccountCapabilitiesCapability: {
     parameters: {
       path: {
-        capability: unknown;
+        capability: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -9534,13 +9534,13 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -9598,10 +9598,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -9622,7 +9622,7 @@ export interface operations {
   PostAccountExternalAccountsId: {
     parameters: {
       path: {
-        id: unknown;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -9673,7 +9673,7 @@ export interface operations {
   DeleteAccountExternalAccountsId: {
     parameters: {
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -9748,15 +9748,15 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** Filters on the list of people returned based on the person's relationship to the account's company. */
-        relationship?: unknown;
+        relationship?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -9885,10 +9885,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        person: unknown;
+        person: string;
       };
     };
     responses: {
@@ -9906,7 +9906,7 @@ export interface operations {
   PostAccountPeoplePerson: {
     parameters: {
       path: {
-        person: unknown;
+        person: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -10011,7 +10011,7 @@ export interface operations {
   DeleteAccountPeoplePerson: {
     parameters: {
       path: {
-        person: unknown;
+        person: string;
       };
     };
     responses: {
@@ -10030,15 +10030,15 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** Filters on the list of people returned based on the person's relationship to the account's company. */
-        relationship?: unknown;
+        relationship?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -10167,10 +10167,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        person: unknown;
+        person: string;
       };
     };
     responses: {
@@ -10188,7 +10188,7 @@ export interface operations {
   PostAccountPersonsPerson: {
     parameters: {
       path: {
-        person: unknown;
+        person: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -10293,7 +10293,7 @@ export interface operations {
   DeleteAccountPersonsPerson: {
     parameters: {
       path: {
-        person: unknown;
+        person: string;
       };
     };
     responses: {
@@ -10344,14 +10344,14 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
-        created?: unknown;
+        expand?: any[];
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -10607,10 +10607,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        account: unknown;
+        account: string;
       };
     };
     responses: {
@@ -10632,7 +10632,7 @@ export interface operations {
   PostAccountsAccount: {
     parameters: {
       path: {
-        account: unknown;
+        account: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -10860,7 +10860,7 @@ export interface operations {
   DeleteAccountsAccount: {
     parameters: {
       path: {
-        account: unknown;
+        account: string;
       };
     };
     responses: {
@@ -10878,7 +10878,7 @@ export interface operations {
   PostAccountsAccountBankAccounts: {
     parameters: {
       path: {
-        account: unknown;
+        account: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -10912,11 +10912,11 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        account: unknown;
-        id: unknown;
+        account: string;
+        id: string;
       };
     };
     responses: {
@@ -10937,8 +10937,8 @@ export interface operations {
   PostAccountsAccountBankAccountsId: {
     parameters: {
       path: {
-        account: unknown;
-        id: unknown;
+        account: string;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -10989,8 +10989,8 @@ export interface operations {
   DeleteAccountsAccountBankAccountsId: {
     parameters: {
       path: {
-        account: unknown;
-        id: unknown;
+        account: string;
+        id: string;
       };
     };
     responses: {
@@ -11009,10 +11009,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        account: unknown;
+        account: string;
       };
     };
     responses: {
@@ -11039,11 +11039,11 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        account: unknown;
-        capability: unknown;
+        account: string;
+        capability: string;
       };
     };
     responses: {
@@ -11061,8 +11061,8 @@ export interface operations {
   PostAccountsAccountCapabilitiesCapability: {
     parameters: {
       path: {
-        account: unknown;
-        capability: unknown;
+        account: string;
+        capability: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -11090,16 +11090,16 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
       path: {
-        account: unknown;
+        account: string;
       };
     };
     responses: {
@@ -11126,7 +11126,7 @@ export interface operations {
   PostAccountsAccountExternalAccounts: {
     parameters: {
       path: {
-        account: unknown;
+        account: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -11160,11 +11160,11 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        account: unknown;
-        id: unknown;
+        account: string;
+        id: string;
       };
     };
     responses: {
@@ -11185,8 +11185,8 @@ export interface operations {
   PostAccountsAccountExternalAccountsId: {
     parameters: {
       path: {
-        account: unknown;
-        id: unknown;
+        account: string;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -11237,8 +11237,8 @@ export interface operations {
   DeleteAccountsAccountExternalAccountsId: {
     parameters: {
       path: {
-        account: unknown;
-        id: unknown;
+        account: string;
+        id: string;
       };
     };
     responses: {
@@ -11260,7 +11260,7 @@ export interface operations {
   PostAccountsAccountLoginLinks: {
     parameters: {
       path: {
-        account: unknown;
+        account: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -11291,7 +11291,7 @@ export interface operations {
   PutAccountsAccountLogout: {
     parameters: {
       path: {
-        account: unknown;
+        account: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -11317,18 +11317,18 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** Filters on the list of people returned based on the person's relationship to the account's company. */
-        relationship?: unknown;
+        relationship?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
       path: {
-        account: unknown;
+        account: string;
       };
     };
     responses: {
@@ -11354,7 +11354,7 @@ export interface operations {
   PostAccountsAccountPeople: {
     parameters: {
       path: {
-        account: unknown;
+        account: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -11459,11 +11459,11 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        account: unknown;
-        person: unknown;
+        account: string;
+        person: string;
       };
     };
     responses: {
@@ -11481,8 +11481,8 @@ export interface operations {
   PostAccountsAccountPeoplePerson: {
     parameters: {
       path: {
-        account: unknown;
-        person: unknown;
+        account: string;
+        person: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -11586,8 +11586,8 @@ export interface operations {
   DeleteAccountsAccountPeoplePerson: {
     parameters: {
       path: {
-        account: unknown;
-        person: unknown;
+        account: string;
+        person: string;
       };
     };
     responses: {
@@ -11606,18 +11606,18 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** Filters on the list of people returned based on the person's relationship to the account's company. */
-        relationship?: unknown;
+        relationship?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
       path: {
-        account: unknown;
+        account: string;
       };
     };
     responses: {
@@ -11643,7 +11643,7 @@ export interface operations {
   PostAccountsAccountPersons: {
     parameters: {
       path: {
-        account: unknown;
+        account: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -11748,11 +11748,11 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        account: unknown;
-        person: unknown;
+        account: string;
+        person: string;
       };
     };
     responses: {
@@ -11770,8 +11770,8 @@ export interface operations {
   PostAccountsAccountPersonsPerson: {
     parameters: {
       path: {
-        account: unknown;
-        person: unknown;
+        account: string;
+        person: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -11875,8 +11875,8 @@ export interface operations {
   DeleteAccountsAccountPersonsPerson: {
     parameters: {
       path: {
-        account: unknown;
-        person: unknown;
+        account: string;
+        person: string;
       };
     };
     responses: {
@@ -11898,7 +11898,7 @@ export interface operations {
   PostAccountsAccountReject: {
     parameters: {
       path: {
-        account: unknown;
+        account: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -11926,14 +11926,14 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
-        domain_name?: unknown;
+        expand?: any[];
+        domain_name?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -11983,10 +11983,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        domain: unknown;
+        domain: string;
       };
     };
     responses: {
@@ -12004,7 +12004,7 @@ export interface operations {
   DeleteApplePayDomainsDomain: {
     parameters: {
       path: {
-        domain: unknown;
+        domain: string;
       };
     };
     responses: {
@@ -12023,16 +12023,16 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Only return application fees for the charge specified by this charge ID. */
-        charge?: unknown;
-        created?: unknown;
+        charge?: string;
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -12059,11 +12059,11 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        fee: unknown;
-        id: unknown;
+        fee: string;
+        id: string;
       };
     };
     responses: {
@@ -12085,8 +12085,8 @@ export interface operations {
   PostApplicationFeesFeeRefundsId: {
     parameters: {
       path: {
-        fee: unknown;
-        id: unknown;
+        fee: string;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -12114,10 +12114,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -12134,7 +12134,7 @@ export interface operations {
   PostApplicationFeesIdRefund: {
     parameters: {
       path: {
-        id: unknown;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -12162,16 +12162,16 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -12208,7 +12208,7 @@ export interface operations {
   PostApplicationFeesIdRefunds: {
     parameters: {
       path: {
-        id: unknown;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -12241,7 +12241,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
     };
     responses: {
@@ -12264,23 +12264,23 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
-        available_on?: unknown;
-        created?: unknown;
+        expand?: any[];
+        available_on?: number;
+        created?: number;
         /** Only return transactions in a certain currency. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-        currency?: unknown;
+        currency?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** For automatic Stripe payouts only, only returns transactions that were paid out on the specified payout ID. */
-        payout?: unknown;
+        payout?: string;
         /** Only returns the original transaction. */
-        source?: unknown;
+        source?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** Only returns transactions of the given type. One of: `charge`, `refund`, `adjustment`, `application_fee`, `application_fee_refund`, `transfer`, `payment`, `payout`, `payout_failure`, `stripe_fee`, or `network_cost`. */
-        type?: unknown;
+        type?: string;
       };
     };
     responses: {
@@ -12311,10 +12311,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -12337,23 +12337,23 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
-        available_on?: unknown;
-        created?: unknown;
+        expand?: any[];
+        available_on?: number;
+        created?: number;
         /** Only return transactions in a certain currency. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
-        currency?: unknown;
+        currency?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** For automatic Stripe payouts only, only returns transactions that were paid out on the specified payout ID. */
-        payout?: unknown;
+        payout?: string;
         /** Only returns the original transaction. */
-        source?: unknown;
+        source?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** Only returns transactions of the given type. One of: `charge`, `refund`, `adjustment`, `application_fee`, `application_fee_refund`, `transfer`, `payment`, `payout`, `payout_failure`, `stripe_fee`, or `network_cost`. */
-        type?: unknown;
+        type?: string;
       };
     };
     responses: {
@@ -12384,10 +12384,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -12432,19 +12432,19 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Filter for active receivers. */
-        active?: unknown;
+        active?: boolean;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** Filter for filled receivers. */
-        filled?: unknown;
+        filled?: boolean;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** Filter for receivers with uncaptured funds. */
-        uncaptured_funds?: unknown;
+        uncaptured_funds?: boolean;
       };
     };
     responses: {
@@ -12471,10 +12471,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -12493,18 +12493,18 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Only return transactions for the customer specified by this customer ID. */
-        customer?: unknown;
+        customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
       path: {
-        receiver: unknown;
+        receiver: string;
       };
     };
     responses: {
@@ -12532,16 +12532,16 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Only return transactions for the customer specified by this customer ID. */
-        customer?: unknown;
+        customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
-        receiver?: unknown;
+        limit?: number;
+        receiver?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -12569,20 +12569,20 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
-        created?: unknown;
+        expand?: any[];
+        created?: number;
         /** Only return charges for the customer specified by this customer ID. */
-        customer?: unknown;
+        customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** Only return charges that were created by the PaymentIntent specified by this PaymentIntent ID. */
-        payment_intent?: unknown;
+        payment_intent?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** Only return charges for this transfer group. */
-        transfer_group?: unknown;
+        transfer_group?: string;
       };
     };
     responses: {
@@ -12684,10 +12684,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        charge: unknown;
+        charge: string;
       };
     };
     responses: {
@@ -12705,7 +12705,7 @@ export interface operations {
   PostChargesCharge: {
     parameters: {
       path: {
-        charge: unknown;
+        charge: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -12763,7 +12763,7 @@ export interface operations {
   PostChargesChargeCapture: {
     parameters: {
       path: {
-        charge: unknown;
+        charge: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -12807,10 +12807,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        charge: unknown;
+        charge: string;
       };
     };
     responses: {
@@ -12827,7 +12827,7 @@ export interface operations {
   PostChargesChargeDispute: {
     parameters: {
       path: {
-        charge: unknown;
+        charge: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -12885,7 +12885,7 @@ export interface operations {
   PostChargesChargeDisputeClose: {
     parameters: {
       path: {
-        charge: unknown;
+        charge: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -12922,7 +12922,7 @@ export interface operations {
   PostChargesChargeRefund: {
     parameters: {
       path: {
-        charge: unknown;
+        charge: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -12954,16 +12954,16 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
       path: {
-        charge: unknown;
+        charge: string;
       };
     };
     responses: {
@@ -12990,7 +12990,7 @@ export interface operations {
   PostChargesChargeRefunds: {
     parameters: {
       path: {
-        charge: unknown;
+        charge: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -13023,11 +13023,11 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        charge: unknown;
-        refund: unknown;
+        charge: string;
+        refund: string;
       };
     };
     responses: {
@@ -13045,8 +13045,8 @@ export interface operations {
   PostChargesChargeRefundsRefund: {
     parameters: {
       path: {
-        charge: unknown;
-        refund: unknown;
+        charge: string;
+        refund: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -13073,17 +13073,17 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** Only return the Checkout Session for the PaymentIntent specified. */
-        payment_intent?: unknown;
+        payment_intent?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** Only return the Checkout Session for the subscription specified. */
-        subscription?: unknown;
+        subscription?: string;
       };
     };
     responses: {
@@ -13506,10 +13506,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        session: unknown;
+        session: string;
       };
     };
     responses: {
@@ -13528,13 +13528,13 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -13561,10 +13561,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        country: unknown;
+        country: string;
       };
     };
     responses: {
@@ -13583,15 +13583,15 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        created?: unknown;
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -13664,10 +13664,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        coupon: unknown;
+        coupon: string;
       };
     };
     responses: {
@@ -13685,7 +13685,7 @@ export interface operations {
   PostCouponsCoupon: {
     parameters: {
       path: {
-        coupon: unknown;
+        coupon: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -13714,7 +13714,7 @@ export interface operations {
   DeleteCouponsCoupon: {
     parameters: {
       path: {
-        coupon: unknown;
+        coupon: string;
       };
     };
     responses: {
@@ -13733,17 +13733,17 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Only return credit notes for the customer specified by this customer ID. */
-        customer?: unknown;
+        customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** Only return credit notes for the invoice specified by this invoice ID. */
-        invoice?: unknown;
+        invoice?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -13840,27 +13840,27 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** The integer amount in **%s** representing the total amount of the credit note. */
-        amount?: unknown;
+        amount?: number;
         /** The integer amount in **%s** representing the amount to credit the customer's balance, which will be automatically applied to their next invoice. */
-        credit_amount?: unknown;
+        credit_amount?: number;
         /** ID of the invoice. */
-        invoice: unknown;
+        invoice: string;
         /** Line items that make up the credit note. */
-        lines?: unknown;
+        lines?: any[];
         /** The credit note's memo appears on the credit note PDF. */
-        memo?: unknown;
+        memo?: string;
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: unknown;
+        metadata?: string;
         /** The integer amount in **%s** representing the amount that is credited outside of Stripe. */
-        out_of_band_amount?: unknown;
+        out_of_band_amount?: number;
         /** Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` */
-        reason?: unknown;
+        reason?: string;
         /** ID of an existing refund to link this credit note to. */
-        refund?: unknown;
+        refund?: string;
         /** The integer amount in **%s** representing the amount to refund. If set, a refund will be created for the charge associated with the invoice. */
-        refund_amount?: unknown;
+        refund_amount?: number;
       };
     };
     responses: {
@@ -13879,33 +13879,33 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** The integer amount in **%s** representing the total amount of the credit note. */
-        amount?: unknown;
+        amount?: number;
         /** The integer amount in **%s** representing the amount to credit the customer's balance, which will be automatically applied to their next invoice. */
-        credit_amount?: unknown;
+        credit_amount?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** ID of the invoice. */
-        invoice: unknown;
+        invoice: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** Line items that make up the credit note. */
-        lines?: unknown;
+        lines?: any[];
         /** The credit note's memo appears on the credit note PDF. */
-        memo?: unknown;
+        memo?: string;
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-        metadata?: unknown;
+        metadata?: string;
         /** The integer amount in **%s** representing the amount that is credited outside of Stripe. */
-        out_of_band_amount?: unknown;
+        out_of_band_amount?: number;
         /** Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` */
-        reason?: unknown;
+        reason?: string;
         /** ID of an existing refund to link this credit note to. */
-        refund?: unknown;
+        refund?: string;
         /** The integer amount in **%s** representing the amount to refund. If set, a refund will be created for the charge associated with the invoice. */
-        refund_amount?: unknown;
+        refund_amount?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -13933,16 +13933,16 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
       path: {
-        credit_note: unknown;
+        credit_note: string;
       };
     };
     responses: {
@@ -13970,10 +13970,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -13991,7 +13991,7 @@ export interface operations {
   PostCreditNotesId: {
     parameters: {
       path: {
-        id: unknown;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -14020,7 +14020,7 @@ export interface operations {
   PostCreditNotesIdVoid: {
     parameters: {
       path: {
-        id: unknown;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -14046,16 +14046,16 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
-        created?: unknown;
+        expand?: any[];
+        created?: number;
         /** A filter on the list based on the customer's `email` field. The value must be a string. */
-        email?: unknown;
+        email?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -14177,10 +14177,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        customer: unknown;
+        customer: string;
       };
     };
     responses: {
@@ -14202,7 +14202,7 @@ export interface operations {
   PostCustomersCustomer: {
     parameters: {
       path: {
-        customer: unknown;
+        customer: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -14290,7 +14290,7 @@ export interface operations {
   DeleteCustomersCustomer: {
     parameters: {
       path: {
-        customer: unknown;
+        customer: string;
       };
     };
     responses: {
@@ -14309,16 +14309,16 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
       path: {
-        customer: unknown;
+        customer: string;
       };
     };
     responses: {
@@ -14345,7 +14345,7 @@ export interface operations {
   PostCustomersCustomerBalanceTransactions: {
     parameters: {
       path: {
-        customer: unknown;
+        customer: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -14379,11 +14379,11 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        customer: unknown;
-        transaction: unknown;
+        customer: string;
+        transaction: string;
       };
     };
     responses: {
@@ -14401,8 +14401,8 @@ export interface operations {
   PostCustomersCustomerBalanceTransactionsTransaction: {
     parameters: {
       path: {
-        customer: unknown;
-        transaction: unknown;
+        customer: string;
+        transaction: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -14432,16 +14432,16 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
       path: {
-        customer: unknown;
+        customer: string;
       };
     };
     responses: {
@@ -14474,7 +14474,7 @@ export interface operations {
   PostCustomersCustomerBankAccounts: {
     parameters: {
       path: {
-        customer: unknown;
+        customer: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -14510,11 +14510,11 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        customer: unknown;
-        id: unknown;
+        customer: string;
+        id: string;
       };
     };
     responses: {
@@ -14532,8 +14532,8 @@ export interface operations {
   PostCustomersCustomerBankAccountsId: {
     parameters: {
       path: {
-        customer: unknown;
-        id: unknown;
+        customer: string;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -14595,8 +14595,8 @@ export interface operations {
   DeleteCustomersCustomerBankAccountsId: {
     parameters: {
       path: {
-        customer: unknown;
-        id: unknown;
+        customer: string;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -14621,8 +14621,8 @@ export interface operations {
   PostCustomersCustomerBankAccountsIdVerify: {
     parameters: {
       path: {
-        customer: unknown;
-        id: unknown;
+        customer: string;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -14654,16 +14654,16 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
       path: {
-        customer: unknown;
+        customer: string;
       };
     };
     responses: {
@@ -14695,7 +14695,7 @@ export interface operations {
   PostCustomersCustomerCards: {
     parameters: {
       path: {
-        customer: unknown;
+        customer: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -14731,11 +14731,11 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        customer: unknown;
-        id: unknown;
+        customer: string;
+        id: string;
       };
     };
     responses: {
@@ -14753,8 +14753,8 @@ export interface operations {
   PostCustomersCustomerCardsId: {
     parameters: {
       path: {
-        customer: unknown;
-        id: unknown;
+        customer: string;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -14816,8 +14816,8 @@ export interface operations {
   DeleteCustomersCustomerCardsId: {
     parameters: {
       path: {
-        customer: unknown;
-        id: unknown;
+        customer: string;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -14842,10 +14842,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        customer: unknown;
+        customer: string;
       };
     };
     responses: {
@@ -14863,7 +14863,7 @@ export interface operations {
   DeleteCustomersCustomerDiscount: {
     parameters: {
       path: {
-        customer: unknown;
+        customer: string;
       };
     };
     responses: {
@@ -14882,18 +14882,18 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** Filter sources according to a particular object type. */
-        object?: unknown;
+        object?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
       path: {
-        customer: unknown;
+        customer: string;
       };
     };
     responses: {
@@ -14926,7 +14926,7 @@ export interface operations {
   PostCustomersCustomerSources: {
     parameters: {
       path: {
-        customer: unknown;
+        customer: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -14962,11 +14962,11 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        customer: unknown;
-        id: unknown;
+        customer: string;
+        id: string;
       };
     };
     responses: {
@@ -14984,8 +14984,8 @@ export interface operations {
   PostCustomersCustomerSourcesId: {
     parameters: {
       path: {
-        customer: unknown;
-        id: unknown;
+        customer: string;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -15047,8 +15047,8 @@ export interface operations {
   DeleteCustomersCustomerSourcesId: {
     parameters: {
       path: {
-        customer: unknown;
-        id: unknown;
+        customer: string;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -15073,8 +15073,8 @@ export interface operations {
   PostCustomersCustomerSourcesIdVerify: {
     parameters: {
       path: {
-        customer: unknown;
-        id: unknown;
+        customer: string;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -15102,16 +15102,16 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
       path: {
-        customer: unknown;
+        customer: string;
       };
     };
     responses: {
@@ -15138,7 +15138,7 @@ export interface operations {
   PostCustomersCustomerSubscriptions: {
     parameters: {
       path: {
-        customer: unknown;
+        customer: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -15229,11 +15229,11 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        customer: unknown;
-        subscription_exposed_id: unknown;
+        customer: string;
+        subscription_exposed_id: string;
       };
     };
     responses: {
@@ -15251,8 +15251,8 @@ export interface operations {
   PostCustomersCustomerSubscriptionsSubscriptionExposedId: {
     parameters: {
       path: {
-        customer: unknown;
-        subscription_exposed_id: unknown;
+        customer: string;
+        subscription_exposed_id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -15353,8 +15353,8 @@ export interface operations {
   DeleteCustomersCustomerSubscriptionsSubscriptionExposedId: {
     parameters: {
       path: {
-        customer: unknown;
-        subscription_exposed_id: unknown;
+        customer: string;
+        subscription_exposed_id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -15383,11 +15383,11 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        customer: unknown;
-        subscription_exposed_id: unknown;
+        customer: string;
+        subscription_exposed_id: string;
       };
     };
     responses: {
@@ -15405,8 +15405,8 @@ export interface operations {
   DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount: {
     parameters: {
       path: {
-        customer: unknown;
-        subscription_exposed_id: unknown;
+        customer: string;
+        subscription_exposed_id: string;
       };
     };
     responses: {
@@ -15425,16 +15425,16 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
       path: {
-        customer: unknown;
+        customer: string;
       };
     };
     responses: {
@@ -15461,7 +15461,7 @@ export interface operations {
   PostCustomersCustomerTaxIds: {
     parameters: {
       path: {
-        customer: unknown;
+        customer: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -15514,11 +15514,11 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        customer: unknown;
-        id: unknown;
+        customer: string;
+        id: string;
       };
     };
     responses: {
@@ -15536,8 +15536,8 @@ export interface operations {
   DeleteCustomersCustomerTaxIdsId: {
     parameters: {
       path: {
-        customer: unknown;
-        id: unknown;
+        customer: string;
+        id: string;
       };
     };
     responses: {
@@ -15556,18 +15556,18 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Only return disputes associated to the charge specified by this charge ID. */
-        charge?: unknown;
-        created?: unknown;
+        charge?: string;
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** Only return disputes associated to the PaymentIntent specified by this PaymentIntent ID. */
-        payment_intent?: unknown;
+        payment_intent?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -15594,10 +15594,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        dispute: unknown;
+        dispute: string;
       };
     };
     responses: {
@@ -15619,7 +15619,7 @@ export interface operations {
   PostDisputesDispute: {
     parameters: {
       path: {
-        dispute: unknown;
+        dispute: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -15682,7 +15682,7 @@ export interface operations {
   PostDisputesDisputeClose: {
     parameters: {
       path: {
-        dispute: unknown;
+        dispute: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -15733,7 +15733,7 @@ export interface operations {
   DeleteEphemeralKeysKey: {
     parameters: {
       path: {
-        key: unknown;
+        key: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -15759,20 +15759,20 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
-        created?: unknown;
+        expand?: any[];
+        created?: number;
         /** Filter events by whether all webhooks were successfully delivered. If false, events which are still pending or have failed all delivery attempts to a webhook endpoint will be returned. */
-        delivery_success?: unknown;
+        delivery_success?: boolean;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** A string containing a specific event name, or group of events using * as a wildcard. The list will be filtered to include only events with a matching event property. */
-        type?: unknown;
+        type?: string;
         /** An array of up to 20 strings containing specific event names. The list will be filtered to include only events with a matching event property. You may pass either `type` or `types`, but not both. */
-        types?: unknown;
+        types?: any[];
       };
     };
     responses: {
@@ -15799,10 +15799,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -15821,13 +15821,13 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with the exchange rate for currency X your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and total number of supported payout currencies, and the default is the max. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with the exchange rate for currency X, your subsequent call can include `starting_after=X` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -15854,10 +15854,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        currency: unknown;
+        currency: string;
       };
     };
     responses: {
@@ -15876,18 +15876,18 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
-        created?: unknown;
+        expand?: any[];
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** Filter links by their expiration status. By default, all links are returned. */
-        expired?: unknown;
+        expired?: boolean;
         /** Only return links for the given file. */
-        file?: unknown;
+        file?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -15942,10 +15942,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        link: unknown;
+        link: string;
       };
     };
     responses: {
@@ -15963,7 +15963,7 @@ export interface operations {
   PostFileLinksLink: {
     parameters: {
       path: {
-        link: unknown;
+        link: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -15993,16 +15993,16 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
-        created?: unknown;
+        expand?: any[];
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** The file purpose to filter queries by. If none is provided, files will not be filtered by purpose. */
-        purpose?: unknown;
+        purpose?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -16073,10 +16073,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        file: unknown;
+        file: string;
       };
     };
     responses: {
@@ -16095,20 +16095,20 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
-        created?: unknown;
+        expand?: any[];
+        created?: number;
         /** The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned. */
-        customer?: unknown;
+        customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** Only return invoice items belonging to this invoice. If none is provided, all invoice items will be returned. If specifying an invoice, no customer identifier is needed. */
-        invoice?: unknown;
+        invoice?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** Set to `true` to only show pending invoice items, which are not yet attached to any invoices. Set to `false` to only show invoice items already attached to invoices. If unspecified, no filter is applied. */
-        pending?: unknown;
+        pending?: boolean;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -16186,10 +16186,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        invoiceitem: unknown;
+        invoiceitem: string;
       };
     };
     responses: {
@@ -16207,7 +16207,7 @@ export interface operations {
   PostInvoiceitemsInvoiceitem: {
     parameters: {
       path: {
-        invoiceitem: unknown;
+        invoiceitem: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -16253,7 +16253,7 @@ export interface operations {
   DeleteInvoiceitemsInvoiceitem: {
     parameters: {
       path: {
-        invoiceitem: unknown;
+        invoiceitem: string;
       };
     };
     responses: {
@@ -16272,23 +16272,23 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** The collection method of the invoice to retrieve. Either `charge_automatically` or `send_invoice`. */
-        collection_method?: unknown;
-        created?: unknown;
+        collection_method?: string;
+        created?: number;
         /** Only return invoices for the customer specified by this customer ID. */
-        customer?: unknown;
-        due_date?: unknown;
+        customer?: string;
+        due_date?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview) */
-        status?: unknown;
+        status?: string;
         /** Only return invoices for the subscription specified by this subscription ID. */
-        subscription?: unknown;
+        subscription?: string;
       };
     };
     responses: {
@@ -16378,31 +16378,31 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** The code of the coupon to apply. If `subscription` or `subscription_items` is provided, the invoice returned will preview updating or creating a subscription with that coupon. Otherwise, it will preview applying that coupon to the customer for the next upcoming invoice from among the customer's subscriptions. The invoice can be previewed without a coupon by passing this value as an empty string. */
-        coupon?: unknown;
+        coupon?: string;
         /** The identifier of the customer whose upcoming invoice you'd like to retrieve. */
-        customer?: unknown;
+        customer?: string;
         /** List of invoice items to add or update in the upcoming invoice preview. */
-        invoice_items?: unknown;
+        invoice_items?: any[];
         /** The identifier of the unstarted schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields. */
-        schedule?: unknown;
+        schedule?: string;
         /** The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions. */
-        subscription?: unknown;
+        subscription?: string;
         /** For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`. */
-        subscription_billing_cycle_anchor?: unknown;
+        subscription_billing_cycle_anchor?: string;
         /** Timestamp indicating when the subscription should be scheduled to cancel. Will prorate if within the current period and prorations have been enabled using `proration_behavior`.` */
-        subscription_cancel_at?: unknown;
+        subscription_cancel_at?: string;
         /** Boolean indicating whether this subscription should cancel at the end of the current period. */
-        subscription_cancel_at_period_end?: unknown;
+        subscription_cancel_at_period_end?: boolean;
         /** This simulates the subscription being canceled or expired immediately. */
-        subscription_cancel_now?: unknown;
+        subscription_cancel_now?: boolean;
         /** If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. */
-        subscription_default_tax_rates?: unknown;
+        subscription_default_tax_rates?: string;
         /** List of subscription items, each with an attached plan. */
-        subscription_items?: unknown;
+        subscription_items?: any[];
         /** If previewing an update to a subscription, this decides whether the preview will show the result of applying prorations or not. If set, one of `subscription_items` or `subscription`, and one of `subscription_items` or `subscription_trial_end` are required. */
-        subscription_prorate?: unknown;
+        subscription_prorate?: boolean;
         /**
          * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
          *
@@ -16410,17 +16410,17 @@ export interface operations {
          *
          * Prorations can be disabled by passing `none`.
          */
-        subscription_proration_behavior?: unknown;
+        subscription_proration_behavior?: string;
         /** If previewing an update to a subscription, and doing proration, `subscription_proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period, and cannot be before the subscription was on its current plan. If set, `subscription`, and one of `subscription_items`, or `subscription_trial_end` are required. Also, `subscription_proration` cannot be set to false. */
-        subscription_proration_date?: unknown;
+        subscription_proration_date?: number;
         /** Date a subscription is intended to start (can be future or past) */
-        subscription_start_date?: unknown;
+        subscription_start_date?: number;
         /** If provided, the invoice returned will preview updating or creating a subscription with that tax percent. If set, one of `subscription_items` or `subscription` is required. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-        subscription_tax_percent?: unknown;
+        subscription_tax_percent?: number;
         /** If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. */
-        subscription_trial_end?: unknown;
+        subscription_trial_end?: string;
         /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed. */
-        subscription_trial_from_plan?: unknown;
+        subscription_trial_from_plan?: boolean;
       };
     };
     responses: {
@@ -16439,37 +16439,37 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** The code of the coupon to apply. If `subscription` or `subscription_items` is provided, the invoice returned will preview updating or creating a subscription with that coupon. Otherwise, it will preview applying that coupon to the customer for the next upcoming invoice from among the customer's subscriptions. The invoice can be previewed without a coupon by passing this value as an empty string. */
-        coupon?: unknown;
+        coupon?: string;
         /** The identifier of the customer whose upcoming invoice you'd like to retrieve. */
-        customer?: unknown;
+        customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** List of invoice items to add or update in the upcoming invoice preview. */
-        invoice_items?: unknown;
+        invoice_items?: any[];
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** The identifier of the unstarted schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields. */
-        schedule?: unknown;
+        schedule?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions. */
-        subscription?: unknown;
+        subscription?: string;
         /** For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`. */
-        subscription_billing_cycle_anchor?: unknown;
+        subscription_billing_cycle_anchor?: string;
         /** Timestamp indicating when the subscription should be scheduled to cancel. Will prorate if within the current period and prorations have been enabled using `proration_behavior`.` */
-        subscription_cancel_at?: unknown;
+        subscription_cancel_at?: string;
         /** Boolean indicating whether this subscription should cancel at the end of the current period. */
-        subscription_cancel_at_period_end?: unknown;
+        subscription_cancel_at_period_end?: boolean;
         /** This simulates the subscription being canceled or expired immediately. */
-        subscription_cancel_now?: unknown;
+        subscription_cancel_now?: boolean;
         /** If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. */
-        subscription_default_tax_rates?: unknown;
+        subscription_default_tax_rates?: string;
         /** List of subscription items, each with an attached plan. */
-        subscription_items?: unknown;
+        subscription_items?: any[];
         /** If previewing an update to a subscription, this decides whether the preview will show the result of applying prorations or not. If set, one of `subscription_items` or `subscription`, and one of `subscription_items` or `subscription_trial_end` are required. */
-        subscription_prorate?: unknown;
+        subscription_prorate?: boolean;
         /**
          * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
          *
@@ -16477,17 +16477,17 @@ export interface operations {
          *
          * Prorations can be disabled by passing `none`.
          */
-        subscription_proration_behavior?: unknown;
+        subscription_proration_behavior?: string;
         /** If previewing an update to a subscription, and doing proration, `subscription_proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period, and cannot be before the subscription was on its current plan. If set, `subscription`, and one of `subscription_items`, or `subscription_trial_end` are required. Also, `subscription_proration` cannot be set to false. */
-        subscription_proration_date?: unknown;
+        subscription_proration_date?: number;
         /** Date a subscription is intended to start (can be future or past) */
-        subscription_start_date?: unknown;
+        subscription_start_date?: number;
         /** If provided, the invoice returned will preview updating or creating a subscription with that tax percent. If set, one of `subscription_items` or `subscription` is required. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-        subscription_tax_percent?: unknown;
+        subscription_tax_percent?: number;
         /** If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. */
-        subscription_trial_end?: unknown;
+        subscription_trial_end?: string;
         /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed. */
-        subscription_trial_from_plan?: unknown;
+        subscription_trial_from_plan?: boolean;
       };
     };
     responses: {
@@ -16515,10 +16515,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        invoice: unknown;
+        invoice: string;
       };
     };
     responses: {
@@ -16543,7 +16543,7 @@ export interface operations {
   PostInvoicesInvoice: {
     parameters: {
       path: {
-        invoice: unknown;
+        invoice: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -16599,7 +16599,7 @@ export interface operations {
   DeleteInvoicesInvoice: {
     parameters: {
       path: {
-        invoice: unknown;
+        invoice: string;
       };
     };
     responses: {
@@ -16617,7 +16617,7 @@ export interface operations {
   PostInvoicesInvoiceFinalize: {
     parameters: {
       path: {
-        invoice: unknown;
+        invoice: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -16645,16 +16645,16 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
       path: {
-        invoice: unknown;
+        invoice: string;
       };
     };
     responses: {
@@ -16681,7 +16681,7 @@ export interface operations {
   PostInvoicesInvoiceMarkUncollectible: {
     parameters: {
       path: {
-        invoice: unknown;
+        invoice: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -16706,7 +16706,7 @@ export interface operations {
   PostInvoicesInvoicePay: {
     parameters: {
       path: {
-        invoice: unknown;
+        invoice: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -16749,7 +16749,7 @@ export interface operations {
   PostInvoicesInvoiceSend: {
     parameters: {
       path: {
-        invoice: unknown;
+        invoice: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -16774,7 +16774,7 @@ export interface operations {
   PostInvoicesInvoiceVoid: {
     parameters: {
       path: {
-        invoice: unknown;
+        invoice: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -16800,15 +16800,15 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Only return issuer fraud records for the charge specified by this charge ID. */
-        charge?: unknown;
+        charge?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -16839,10 +16839,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        issuer_fraud_record: unknown;
+        issuer_fraud_record: string;
       };
     };
     responses: {
@@ -16861,21 +16861,21 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Only return issuing transactions that belong to the given card. */
-        card?: unknown;
+        card?: string;
         /** Only return authorizations belonging to the given cardholder. */
-        cardholder?: unknown;
+        cardholder?: string;
         /** Only return authorizations that were created during the given date interval. */
-        created?: unknown;
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** Only return authorizations with the given status. One of `pending`, `closed`, or `reversed`. */
-        status?: unknown;
+        status?: string;
       };
     };
     responses: {
@@ -16902,10 +16902,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        authorization: unknown;
+        authorization: string;
       };
     };
     responses: {
@@ -16923,7 +16923,7 @@ export interface operations {
   PostIssuingAuthorizationsAuthorization: {
     parameters: {
       path: {
-        authorization: unknown;
+        authorization: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -16950,7 +16950,7 @@ export interface operations {
   PostIssuingAuthorizationsAuthorizationApprove: {
     parameters: {
       path: {
-        authorization: unknown;
+        authorization: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -16979,7 +16979,7 @@ export interface operations {
   PostIssuingAuthorizationsAuthorizationDecline: {
     parameters: {
       path: {
-        authorization: unknown;
+        authorization: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -17007,23 +17007,23 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Only return cardholders that were created during the given date interval. */
-        created?: unknown;
+        created?: number;
         /** Only return cardholders that have the given email address. */
-        email?: unknown;
+        email?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** Only return cardholders that have the given phone number. */
-        phone_number?: unknown;
+        phone_number?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** Only return cardholders that have the given status. One of `active`, `inactive`, or `blocked`. */
-        status?: unknown;
+        status?: string;
         /** Only return cardholders that have the given type. One of `individual` or `company`. */
-        type?: unknown;
+        type?: string;
       };
     };
     responses: {
@@ -17999,10 +17999,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        cardholder: unknown;
+        cardholder: string;
       };
     };
     responses: {
@@ -18020,7 +18020,7 @@ export interface operations {
   PostIssuingCardholdersCardholder: {
     parameters: {
       path: {
-        cardholder: unknown;
+        cardholder: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -18969,27 +18969,27 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Only return cards belonging to the Cardholder with the provided ID. */
-        cardholder?: unknown;
+        cardholder?: string;
         /** Only return cards that were issued during the given date interval. */
-        created?: unknown;
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** Only return cards that have the given expiration month. */
-        exp_month?: unknown;
+        exp_month?: number;
         /** Only return cards that have the given expiration year. */
-        exp_year?: unknown;
+        exp_year?: number;
         /** Only return cards that have the given last four digits. */
-        last4?: unknown;
+        last4?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** Only return cards that have the given status. One of `active`, `inactive`, or `canceled`. */
-        status?: unknown;
+        status?: string;
         /** Only return cards that have the given type. One of `virtual` or `physical`. */
-        type?: unknown;
+        type?: string;
       };
     };
     responses: {
@@ -19949,10 +19949,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        card: unknown;
+        card: string;
       };
     };
     responses: {
@@ -19970,7 +19970,7 @@ export interface operations {
   PostIssuingCardsCard: {
     parameters: {
       path: {
-        card: unknown;
+        card: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -20885,13 +20885,13 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -20942,10 +20942,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        dispute: unknown;
+        dispute: string;
       };
     };
     responses: {
@@ -20963,7 +20963,7 @@ export interface operations {
   PostIssuingDisputesDispute: {
     parameters: {
       path: {
-        dispute: unknown;
+        dispute: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -20991,15 +20991,15 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Only return issuing settlements that were created during the given date interval. */
-        created?: unknown;
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -21026,10 +21026,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        settlement: unknown;
+        settlement: string;
       };
     };
     responses: {
@@ -21047,7 +21047,7 @@ export interface operations {
   PostIssuingSettlementsSettlement: {
     parameters: {
       path: {
-        settlement: unknown;
+        settlement: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -21075,19 +21075,19 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Only return transactions that belong to the given card. */
-        card?: unknown;
+        card?: string;
         /** Only return transactions that belong to the given cardholder. */
-        cardholder?: unknown;
+        cardholder?: string;
         /** Only return transactions that were created during the given date interval. */
-        created?: unknown;
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -21114,10 +21114,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        transaction: unknown;
+        transaction: string;
       };
     };
     responses: {
@@ -21135,7 +21135,7 @@ export interface operations {
   PostIssuingTransactionsTransaction: {
     parameters: {
       path: {
-        transaction: unknown;
+        transaction: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -21163,10 +21163,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        mandate: unknown;
+        mandate: string;
       };
     };
     responses: {
@@ -21185,17 +21185,17 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Date this return was created. */
-        created?: unknown;
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** The order to retrieve returns for. */
-        order?: unknown;
+        order?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -21222,10 +21222,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -21244,25 +21244,25 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Date this order was created. */
-        created?: unknown;
+        created?: number;
         /** Only return orders for the given customer. */
-        customer?: unknown;
+        customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** Only return orders with the given IDs. */
-        ids?: unknown;
+        ids?: any[];
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** Only return orders that have the given status. One of `created`, `paid`, `fulfilled`, or `refunded`. */
-        status?: unknown;
+        status?: string;
         /** Filter orders based on when they were paid, fulfilled, canceled, or returned. */
-        status_transitions?: unknown;
+        status_transitions?: string;
         /** Only return orders with the given upstream order IDs. */
-        upstream_ids?: unknown;
+        upstream_ids?: any[];
       };
     };
     responses: {
@@ -21343,10 +21343,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -21364,7 +21364,7 @@ export interface operations {
   PostOrdersId: {
     parameters: {
       path: {
-        id: unknown;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -21402,7 +21402,7 @@ export interface operations {
   PostOrdersIdPay: {
     parameters: {
       path: {
-        id: unknown;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -21437,7 +21437,7 @@ export interface operations {
   PostOrdersIdReturns: {
     parameters: {
       path: {
-        id: unknown;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -21471,17 +21471,17 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        created?: unknown;
+        created?: number;
         /** Only return PaymentIntents for the customer specified by this customer ID. */
-        customer?: unknown;
+        customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -21649,12 +21649,12 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** The client secret of the PaymentIntent. Required if a publishable key is used to retrieve the source. */
-        client_secret?: unknown;
+        client_secret?: string;
       };
       path: {
-        intent: unknown;
+        intent: string;
       };
     };
     responses: {
@@ -21680,7 +21680,7 @@ export interface operations {
   PostPaymentIntentsIntent: {
     parameters: {
       path: {
-        intent: unknown;
+        intent: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -21759,7 +21759,7 @@ export interface operations {
   PostPaymentIntentsIntentCancel: {
     parameters: {
       path: {
-        intent: unknown;
+        intent: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -21796,7 +21796,7 @@ export interface operations {
   PostPaymentIntentsIntentCapture: {
     parameters: {
       path: {
-        intent: unknown;
+        intent: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -21866,7 +21866,7 @@ export interface operations {
   PostPaymentIntentsIntentConfirm: {
     parameters: {
       path: {
-        intent: unknown;
+        intent: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -21942,17 +21942,17 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** The ID of the customer whose PaymentMethods will be retrieved. */
-        customer: unknown;
+        customer: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** A required filter on the list, based on the object `type` field. */
-        type: unknown;
+        type: string;
       };
     };
     responses: {
@@ -22074,10 +22074,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        payment_method: unknown;
+        payment_method: string;
       };
     };
     responses: {
@@ -22095,7 +22095,7 @@ export interface operations {
   PostPaymentMethodsPaymentMethod: {
     parameters: {
       path: {
-        payment_method: unknown;
+        payment_method: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -22155,7 +22155,7 @@ export interface operations {
   PostPaymentMethodsPaymentMethodAttach: {
     parameters: {
       path: {
-        payment_method: unknown;
+        payment_method: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -22182,7 +22182,7 @@ export interface operations {
   PostPaymentMethodsPaymentMethodDetach: {
     parameters: {
       path: {
-        payment_method: unknown;
+        payment_method: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -22208,19 +22208,19 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
-        arrival_date?: unknown;
-        created?: unknown;
+        expand?: any[];
+        arrival_date?: number;
+        created?: number;
         /** The ID of an external account - only return payouts sent to this external account. */
-        destination?: unknown;
+        destination?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** Only return payouts that have the given status: `pending`, `paid`, `failed`, or `canceled`. */
-        status?: unknown;
+        status?: string;
       };
     };
     responses: {
@@ -22291,10 +22291,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        payout: unknown;
+        payout: string;
       };
     };
     responses: {
@@ -22312,7 +22312,7 @@ export interface operations {
   PostPayoutsPayout: {
     parameters: {
       path: {
-        payout: unknown;
+        payout: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -22339,7 +22339,7 @@ export interface operations {
   PostPayoutsPayoutCancel: {
     parameters: {
       path: {
-        payout: unknown;
+        payout: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -22365,19 +22365,19 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Only return plans that are active or inactive (e.g., pass `false` to list all inactive plans). */
-        active?: unknown;
+        active?: boolean;
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        created?: unknown;
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** Only return plans for the given product. */
-        product?: unknown;
+        product?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -22476,10 +22476,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        plan: unknown;
+        plan: string;
       };
     };
     responses: {
@@ -22497,7 +22497,7 @@ export interface operations {
   PostPlansPlan: {
     parameters: {
       path: {
-        plan: unknown;
+        plan: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -22532,7 +22532,7 @@ export interface operations {
   DeletePlansPlan: {
     parameters: {
       path: {
-        plan: unknown;
+        plan: string;
       };
     };
     responses: {
@@ -22551,25 +22551,25 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Only return products that are active or inactive (e.g., pass `false` to list all inactive products). */
-        active?: unknown;
+        active?: boolean;
         /** Only return products that were created during the given date interval. */
-        created?: unknown;
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** Only return products with the given IDs. */
-        ids?: unknown;
+        ids?: any[];
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** Only return products that can be shipped (i.e., physical, not digital products). */
-        shippable?: unknown;
+        shippable?: boolean;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** Only return products of this type. */
-        type?: unknown;
+        type?: string;
         /** Only return products with the given url. */
-        url?: unknown;
+        url?: string;
       };
     };
     responses: {
@@ -22658,10 +22658,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -22679,7 +22679,7 @@ export interface operations {
   PostProductsId: {
     parameters: {
       path: {
-        id: unknown;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -22735,7 +22735,7 @@ export interface operations {
   DeleteProductsId: {
     parameters: {
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -22754,15 +22754,15 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Only return early fraud warnings for the charge specified by this charge ID. */
-        charge?: unknown;
+        charge?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -22793,10 +22793,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        early_fraud_warning: unknown;
+        early_fraud_warning: string;
       };
     };
     responses: {
@@ -22815,18 +22815,18 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
-        created?: unknown;
+        expand?: any[];
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** Return items belonging to the parent list whose value matches the specified value (using an "is like" match). */
-        value?: unknown;
+        value?: string;
         /** Identifier for the parent value list this item belongs to. */
-        value_list: unknown;
+        value_list: string;
       };
     };
     responses: {
@@ -22879,10 +22879,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        item: unknown;
+        item: string;
       };
     };
     responses: {
@@ -22900,7 +22900,7 @@ export interface operations {
   DeleteRadarValueListItemsItem: {
     parameters: {
       path: {
-        item: unknown;
+        item: string;
       };
     };
     responses: {
@@ -22919,18 +22919,18 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** The alias used to reference the value list when writing rules. */
-        alias?: unknown;
+        alias?: string;
         /** A value contained within a value list - returns all value lists containing this value. */
-        contains?: unknown;
-        created?: unknown;
+        contains?: string;
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -22994,10 +22994,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        value_list: unknown;
+        value_list: string;
       };
     };
     responses: {
@@ -23015,7 +23015,7 @@ export interface operations {
   PostRadarValueListsValueList: {
     parameters: {
       path: {
-        value_list: unknown;
+        value_list: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -23046,7 +23046,7 @@ export interface operations {
   DeleteRadarValueListsValueList: {
     parameters: {
       path: {
-        value_list: unknown;
+        value_list: string;
       };
     };
     responses: {
@@ -23065,17 +23065,17 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
-        created?: unknown;
+        expand?: any[];
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
-        type?: unknown;
+        starting_after?: string;
+        type?: string;
         /** Only return recipients that are verified or unverified. */
-        verified?: unknown;
+        verified?: boolean;
       };
     };
     responses: {
@@ -23143,10 +23143,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -23170,7 +23170,7 @@ export interface operations {
   PostRecipientsId: {
     parameters: {
       path: {
-        id: unknown;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -23211,7 +23211,7 @@ export interface operations {
   DeleteRecipientsId: {
     parameters: {
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -23230,18 +23230,18 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Only return refunds for the charge specified by this charge ID. */
-        charge?: unknown;
-        created?: unknown;
+        charge?: string;
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** Only return refunds for the PaymentIntent specified by this ID. */
-        payment_intent?: unknown;
+        payment_intent?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -23298,10 +23298,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        refund: unknown;
+        refund: string;
       };
     };
     responses: {
@@ -23323,7 +23323,7 @@ export interface operations {
   PostRefundsRefund: {
     parameters: {
       path: {
-        refund: unknown;
+        refund: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -23351,14 +23351,14 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
-        created?: unknown;
+        expand?: any[];
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -24045,10 +24045,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        report_run: unknown;
+        report_run: string;
       };
     };
     responses: {
@@ -24067,7 +24067,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
     };
     responses: {
@@ -24094,10 +24094,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        report_type: unknown;
+        report_type: string;
       };
     };
     responses: {
@@ -24116,14 +24116,14 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
-        created?: unknown;
+        expand?: any[];
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -24150,10 +24150,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        review: unknown;
+        review: string;
       };
     };
     responses: {
@@ -24171,7 +24171,7 @@ export interface operations {
   PostReviewsReviewApprove: {
     parameters: {
       path: {
-        review: unknown;
+        review: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -24197,19 +24197,19 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        created?: unknown;
+        created?: number;
         /** Only return SetupIntents for the customer specified by this customer ID. */
-        customer?: unknown;
+        customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** Only return SetupIntents associated with the specified payment method. */
-        payment_method?: unknown;
+        payment_method?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -24314,12 +24314,12 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** The client secret of the SetupIntent. Required if a publishable key is used to retrieve the SetupIntent. */
-        client_secret?: unknown;
+        client_secret?: string;
       };
       path: {
-        intent: unknown;
+        intent: string;
       };
     };
     responses: {
@@ -24337,7 +24337,7 @@ export interface operations {
   PostSetupIntentsIntent: {
     parameters: {
       path: {
-        intent: unknown;
+        intent: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -24386,7 +24386,7 @@ export interface operations {
   PostSetupIntentsIntentCancel: {
     parameters: {
       path: {
-        intent: unknown;
+        intent: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -24430,7 +24430,7 @@ export interface operations {
   PostSetupIntentsIntentConfirm: {
     parameters: {
       path: {
-        intent: unknown;
+        intent: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -24484,13 +24484,13 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -24517,10 +24517,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        scheduled_query_run: unknown;
+        scheduled_query_run: string;
       };
     };
     responses: {
@@ -24539,23 +24539,23 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Only return SKUs that are active or inactive (e.g., pass `false` to list all inactive products). */
-        active?: unknown;
+        active?: boolean;
         /** Only return SKUs that have the specified key-value pairs in this partially constructed dictionary. Can be specified only if `product` is also supplied. For instance, if the associated product has attributes `["color", "size"]`, passing in `attributes[color]=red` returns all the SKUs for this product that have `color` set to `red`. */
-        attributes?: unknown;
+        attributes?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** Only return SKUs with the given IDs. */
-        ids?: unknown;
+        ids?: any[];
         /** Only return SKUs that are either in stock or out of stock (e.g., pass `false` to list all SKUs that are out of stock). If no value is provided, all SKUs are returned. */
-        in_stock?: unknown;
+        in_stock?: boolean;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** The ID of the product whose SKUs will be retrieved. Must be a product with type `good`. */
-        product?: unknown;
+        product?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -24633,10 +24633,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -24658,7 +24658,7 @@ export interface operations {
   PostSkusId: {
     parameters: {
       path: {
-        id: unknown;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -24705,7 +24705,7 @@ export interface operations {
   DeleteSkusId: {
     parameters: {
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -24840,12 +24840,12 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** The client secret of the source. Required if a publishable key is used to retrieve the source. */
-        client_secret?: unknown;
+        client_secret?: string;
       };
       path: {
-        source: unknown;
+        source: string;
       };
     };
     responses: {
@@ -24867,7 +24867,7 @@ export interface operations {
   PostSourcesSource: {
     parameters: {
       path: {
-        source: unknown;
+        source: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -24963,11 +24963,11 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        mandate_notification: unknown;
-        source: unknown;
+        mandate_notification: string;
+        source: string;
       };
     };
     responses: {
@@ -24986,16 +24986,16 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
       path: {
-        source: unknown;
+        source: string;
       };
     };
     responses: {
@@ -25022,11 +25022,11 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        source: unknown;
-        source_transaction: unknown;
+        source: string;
+        source_transaction: string;
       };
     };
     responses: {
@@ -25044,7 +25044,7 @@ export interface operations {
   PostSourcesSourceVerify: {
     parameters: {
       path: {
-        source: unknown;
+        source: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -25072,15 +25072,15 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** The ID of the subscription whose items will be retrieved. */
-        subscription: unknown;
+        subscription: string;
       };
     };
     responses: {
@@ -25164,10 +25164,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        item: unknown;
+        item: string;
       };
     };
     responses: {
@@ -25185,7 +25185,7 @@ export interface operations {
   PostSubscriptionItemsItem: {
     parameters: {
       path: {
-        item: unknown;
+        item: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -25245,7 +25245,7 @@ export interface operations {
   DeleteSubscriptionItemsItem: {
     parameters: {
       path: {
-        item: unknown;
+        item: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -25287,16 +25287,16 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
       path: {
-        subscription_item: unknown;
+        subscription_item: string;
       };
     };
     responses: {
@@ -25330,7 +25330,7 @@ export interface operations {
   PostSubscriptionItemsSubscriptionItemUsageRecords: {
     parameters: {
       path: {
-        subscription_item: unknown;
+        subscription_item: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -25362,25 +25362,25 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Only return subscription schedules that were created canceled the given date interval. */
-        canceled_at?: unknown;
+        canceled_at?: number;
         /** Only return subscription schedules that completed during the given date interval. */
-        completed_at?: unknown;
+        completed_at?: number;
         /** Only return subscription schedules that were created during the given date interval. */
-        created?: unknown;
+        created?: number;
         /** Only return subscription schedules for the given customer. */
-        customer?: unknown;
+        customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** Only return subscription schedules that were released during the given date interval. */
-        released_at?: unknown;
+        released_at?: number;
         /** Only return subscription schedules that have not started yet. */
-        scheduled?: unknown;
+        scheduled?: boolean;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -25475,10 +25475,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        schedule: unknown;
+        schedule: string;
       };
     };
     responses: {
@@ -25496,7 +25496,7 @@ export interface operations {
   PostSubscriptionSchedulesSchedule: {
     parameters: {
       path: {
-        schedule: unknown;
+        schedule: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -25566,7 +25566,7 @@ export interface operations {
   PostSubscriptionSchedulesScheduleCancel: {
     parameters: {
       path: {
-        schedule: unknown;
+        schedule: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -25595,7 +25595,7 @@ export interface operations {
   PostSubscriptionSchedulesScheduleRelease: {
     parameters: {
       path: {
-        schedule: unknown;
+        schedule: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -25623,24 +25623,24 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** The collection method of the subscriptions to retrieve. Either `charge_automatically` or `send_invoice`. */
-        collection_method?: unknown;
-        created?: unknown;
-        current_period_end?: unknown;
-        current_period_start?: unknown;
+        collection_method?: string;
+        created?: number;
+        current_period_end?: number;
+        current_period_start?: number;
         /** The ID of the customer whose subscriptions will be retrieved. */
-        customer?: unknown;
+        customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** The ID of the plan whose subscriptions will be retrieved. */
-        plan?: unknown;
+        plan?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** The status of the subscriptions to retrieve. One of: `incomplete`, `incomplete_expired`, `trialing`, `active`, `past_due`, `unpaid`, `canceled`, or `all`. Passing in a value of `canceled` will return all canceled subscriptions, including those belonging to deleted customers. Passing in a value of `all` will return subscriptions of all statuses. */
-        status?: unknown;
+        status?: string;
       };
     };
     responses: {
@@ -25756,10 +25756,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        subscription_exposed_id: unknown;
+        subscription_exposed_id: string;
       };
     };
     responses: {
@@ -25777,7 +25777,7 @@ export interface operations {
   PostSubscriptionsSubscriptionExposedId: {
     parameters: {
       path: {
-        subscription_exposed_id: unknown;
+        subscription_exposed_id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -25878,7 +25878,7 @@ export interface operations {
   DeleteSubscriptionsSubscriptionExposedId: {
     parameters: {
       path: {
-        subscription_exposed_id: unknown;
+        subscription_exposed_id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -25907,7 +25907,7 @@ export interface operations {
   DeleteSubscriptionsSubscriptionExposedIdDiscount: {
     parameters: {
       path: {
-        subscription_exposed_id: unknown;
+        subscription_exposed_id: string;
       };
     };
     responses: {
@@ -25926,19 +25926,19 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Optional flag to filter by tax rates that are either active or not active (archived) */
-        active?: unknown;
+        active?: boolean;
         /** Optional range for filtering created date */
-        created?: unknown;
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** Optional flag to filter by tax rates that are inclusive (or those that are not inclusive) */
-        inclusive?: unknown;
+        inclusive?: boolean;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -26001,10 +26001,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        tax_rate: unknown;
+        tax_rate: string;
       };
     };
     responses: {
@@ -26022,7 +26022,7 @@ export interface operations {
   PostTaxRatesTaxRate: {
     parameters: {
       path: {
-        tax_rate: unknown;
+        tax_rate: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -26082,13 +26082,13 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -26150,10 +26150,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        location: unknown;
+        location: string;
       };
     };
     responses: {
@@ -26171,7 +26171,7 @@ export interface operations {
   PostTerminalLocationsLocation: {
     parameters: {
       path: {
-        location: unknown;
+        location: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -26209,7 +26209,7 @@ export interface operations {
   DeleteTerminalLocationsLocation: {
     parameters: {
       path: {
-        location: unknown;
+        location: string;
       };
     };
     responses: {
@@ -26228,19 +26228,19 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** Filters readers by device type */
-        device_type?: unknown;
+        device_type?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A location ID to filter the response list to only readers at the specific location */
-        location?: unknown;
+        location?: string;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** A status filter to filter readers to only offline or online readers */
-        status?: unknown;
+        status?: string;
       };
     };
     responses: {
@@ -26298,10 +26298,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        reader: unknown;
+        reader: string;
       };
     };
     responses: {
@@ -26319,7 +26319,7 @@ export interface operations {
   PostTerminalReadersReader: {
     parameters: {
       path: {
-        reader: unknown;
+        reader: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -26348,7 +26348,7 @@ export interface operations {
   DeleteTerminalReadersReader: {
     parameters: {
       path: {
-        reader: unknown;
+        reader: string;
       };
     };
     responses: {
@@ -26591,10 +26591,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        token: unknown;
+        token: string;
       };
     };
     responses: {
@@ -26613,19 +26613,19 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A positive integer representing how much to transfer. */
-        amount?: unknown;
+        amount?: number;
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        created?: unknown;
+        created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** Only return top-ups that have the given status. One of `canceled`, `failed`, `pending` or `succeeded`. */
-        status?: unknown;
+        status?: string;
       };
     };
     responses: {
@@ -26688,10 +26688,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        topup: unknown;
+        topup: string;
       };
     };
     responses: {
@@ -26709,7 +26709,7 @@ export interface operations {
   PostTopupsTopup: {
     parameters: {
       path: {
-        topup: unknown;
+        topup: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -26738,7 +26738,7 @@ export interface operations {
   PostTopupsTopupCancel: {
     parameters: {
       path: {
-        topup: unknown;
+        topup: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -26764,18 +26764,18 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
-        created?: unknown;
+        expand?: any[];
+        created?: number;
         /** Only return transfers for the destination specified by this account ID. */
-        destination?: unknown;
+        destination?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
         /** Only return transfers with the specified transfer group. */
-        transfer_group?: unknown;
+        transfer_group?: string;
       };
     };
     responses: {
@@ -26841,16 +26841,16 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
       path: {
-        id: unknown;
+        id: string;
       };
     };
     responses: {
@@ -26883,7 +26883,7 @@ export interface operations {
   PostTransfersIdReversals: {
     parameters: {
       path: {
-        id: unknown;
+        id: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -26917,10 +26917,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        transfer: unknown;
+        transfer: string;
       };
     };
     responses: {
@@ -26942,7 +26942,7 @@ export interface operations {
   PostTransfersTransfer: {
     parameters: {
       path: {
-        transfer: unknown;
+        transfer: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -26972,11 +26972,11 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        id: unknown;
-        transfer: unknown;
+        id: string;
+        transfer: string;
       };
     };
     responses: {
@@ -26998,8 +26998,8 @@ export interface operations {
   PostTransfersTransferReversalsId: {
     parameters: {
       path: {
-        id: unknown;
-        transfer: unknown;
+        id: string;
+        transfer: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -27027,13 +27027,13 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
-        ending_before?: unknown;
+        ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
-        limit?: unknown;
+        limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
-        starting_after?: unknown;
+        starting_after?: string;
       };
     };
     responses: {
@@ -27339,10 +27339,10 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: unknown;
+        expand?: any[];
       };
       path: {
-        webhook_endpoint: unknown;
+        webhook_endpoint: string;
       };
     };
     responses: {
@@ -27360,7 +27360,7 @@ export interface operations {
   PostWebhookEndpointsWebhookEndpoint: {
     parameters: {
       path: {
-        webhook_endpoint: unknown;
+        webhook_endpoint: string;
       };
       body: {
         /** Body parameters for the request. */
@@ -27545,7 +27545,7 @@ export interface operations {
   DeleteWebhookEndpointsWebhookEndpoint: {
     parameters: {
       path: {
-        webhook_endpoint: unknown;
+        webhook_endpoint: string;
       };
     };
     responses: {
@@ -27560,3 +27560,5 @@ export interface operations {
     };
   };
 }
+
+export interface external {}

@@ -2221,7 +2221,7 @@ export interface components {
       /** If the card number is tokenized, this is the method that was used. Can be `amex_express_checkout`, `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null. */
       readonly tokenization_method?: string | null;
     };
-    readonly card_mandate_payment_method_details: { readonly [key: string]: any };
+    readonly card_mandate_payment_method_details: { readonly [key: string]: unknown };
     /**
      * To charge a credit or a debit card, you create a `Charge` object. You can
      * retrieve and refund individual charges as well as list all charges. Charges
@@ -5968,7 +5968,7 @@ export interface components {
       /** The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. */
       readonly front?: (Partial<string> & Partial<components["schemas"]["file"]>) | null;
     };
-    readonly light_account_logout: { readonly [key: string]: any };
+    readonly light_account_logout: { readonly [key: string]: unknown };
     readonly line_item: {
       /** The amount, in %s. */
       readonly amount: number;
@@ -6037,7 +6037,7 @@ export interface components {
       /** The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively. */
       readonly url: string;
     };
-    readonly mandate_multi_use: { readonly [key: string]: any };
+    readonly mandate_multi_use: { readonly [key: string]: unknown };
     readonly mandate_payment_method_details: {
       readonly au_becs_debit?: components["schemas"]["mandate_au_becs_debit"];
       readonly card?: components["schemas"]["card_mandate_payment_method_details"];
@@ -6059,9 +6059,9 @@ export interface components {
     };
     readonly notification_event_data: {
       /** Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://stripe.com/docs/api#invoice_object) as the value of the object key. */
-      readonly object: { readonly [key: string]: any };
+      readonly object: { readonly [key: string]: unknown };
       /** Object containing the names of the attributes that have changed, and their previous values (sent along only with *.updated events). */
-      readonly previous_attributes?: { readonly [key: string]: any };
+      readonly previous_attributes?: { readonly [key: string]: unknown };
     };
     readonly notification_event_request: {
       /** ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API. */
@@ -6069,7 +6069,7 @@ export interface components {
       /** The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*. */
       readonly idempotency_key?: string | null;
     };
-    readonly offline_acceptance: { readonly [key: string]: any };
+    readonly offline_acceptance: { readonly [key: string]: unknown };
     readonly online_acceptance: {
       /** The IP address from which the Mandate was accepted by the customer. */
       readonly ip_address?: string | null;
@@ -6339,7 +6339,7 @@ export interface components {
       /** Type of the next action to perform, one of `redirect_to_url` or `use_stripe_sdk`. */
       readonly type: string;
       /** When confirming a PaymentIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js. */
-      readonly use_stripe_sdk?: { readonly [key: string]: any };
+      readonly use_stripe_sdk?: { readonly [key: string]: unknown };
     };
     readonly payment_intent_next_action_redirect_to_url: {
       /** If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion. */
@@ -6436,7 +6436,7 @@ export interface components {
       /** Transaction-specific details of the payment method used in the payment. */
       readonly payment_method_details?: Partial<components["schemas"]["payment_method_details"]> | null;
     };
-    readonly payment_method_card_present: { readonly [key: string]: any };
+    readonly payment_method_card_present: { readonly [key: string]: unknown };
     readonly payment_method_card_wallet: {
       readonly amex_express_checkout?: components["schemas"]["payment_method_card_wallet_amex_express_checkout"];
       readonly apple_pay?: components["schemas"]["payment_method_card_wallet_apple_pay"];
@@ -6455,9 +6455,9 @@ export interface components {
         | "visa_checkout";
       readonly visa_checkout?: components["schemas"]["payment_method_card_wallet_visa_checkout"];
     };
-    readonly payment_method_card_wallet_amex_express_checkout: { readonly [key: string]: any };
-    readonly payment_method_card_wallet_apple_pay: { readonly [key: string]: any };
-    readonly payment_method_card_wallet_google_pay: { readonly [key: string]: any };
+    readonly payment_method_card_wallet_amex_express_checkout: { readonly [key: string]: unknown };
+    readonly payment_method_card_wallet_apple_pay: { readonly [key: string]: unknown };
+    readonly payment_method_card_wallet_google_pay: { readonly [key: string]: unknown };
     readonly payment_method_card_wallet_masterpass: {
       /** Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly billing_address?: Partial<components["schemas"]["address"]> | null;
@@ -6468,7 +6468,7 @@ export interface components {
       /** Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly shipping_address?: Partial<components["schemas"]["address"]> | null;
     };
-    readonly payment_method_card_wallet_samsung_pay: { readonly [key: string]: any };
+    readonly payment_method_card_wallet_samsung_pay: { readonly [key: string]: unknown };
     readonly payment_method_card_wallet_visa_checkout: {
       /** Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly billing_address?: Partial<components["schemas"]["address"]> | null;
@@ -6529,7 +6529,7 @@ export interface components {
       /** Routing transit number of the bank account. */
       readonly routing_number?: string | null;
     };
-    readonly payment_method_details_alipay: { readonly [key: string]: any };
+    readonly payment_method_details_alipay: { readonly [key: string]: unknown };
     readonly payment_method_details_au_becs_debit: {
       /** Bank-State-Branch number of the bank account. */
       readonly bsb_number?: string | null;
@@ -6677,9 +6677,9 @@ export interface components {
         | "visa_checkout";
       readonly visa_checkout?: components["schemas"]["payment_method_details_card_wallet_visa_checkout"];
     };
-    readonly payment_method_details_card_wallet_amex_express_checkout: { readonly [key: string]: any };
-    readonly payment_method_details_card_wallet_apple_pay: { readonly [key: string]: any };
-    readonly payment_method_details_card_wallet_google_pay: { readonly [key: string]: any };
+    readonly payment_method_details_card_wallet_amex_express_checkout: { readonly [key: string]: unknown };
+    readonly payment_method_details_card_wallet_apple_pay: { readonly [key: string]: unknown };
+    readonly payment_method_details_card_wallet_google_pay: { readonly [key: string]: unknown };
     readonly payment_method_details_card_wallet_masterpass: {
       /** Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly billing_address?: Partial<components["schemas"]["address"]> | null;
@@ -6690,7 +6690,7 @@ export interface components {
       /** Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly shipping_address?: Partial<components["schemas"]["address"]> | null;
     };
-    readonly payment_method_details_card_wallet_samsung_pay: { readonly [key: string]: any };
+    readonly payment_method_details_card_wallet_samsung_pay: { readonly [key: string]: unknown };
     readonly payment_method_details_card_wallet_visa_checkout: {
       /** Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly billing_address?: Partial<components["schemas"]["address"]> | null;
@@ -6790,7 +6790,7 @@ export interface components {
        */
       readonly verified_name?: string | null;
     };
-    readonly payment_method_details_klarna: { readonly [key: string]: any };
+    readonly payment_method_details_klarna: { readonly [key: string]: unknown };
     readonly payment_method_details_multibanco: {
       /** Entity number associated with this Multibanco payment. */
       readonly entity?: string | null;
@@ -6837,8 +6837,8 @@ export interface components {
        */
       readonly verified_name?: string | null;
     };
-    readonly payment_method_details_stripe_account: { readonly [key: string]: any };
-    readonly payment_method_details_wechat: { readonly [key: string]: any };
+    readonly payment_method_details_stripe_account: { readonly [key: string]: unknown };
+    readonly payment_method_details_wechat: { readonly [key: string]: unknown };
     readonly payment_method_fpx: {
       /** The customer's bank, if provided. Can be one of `affin_bank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, or `pb_enterprise`. */
       readonly bank:
@@ -7879,7 +7879,7 @@ export interface components {
       /** Type of the next action to perform, one of `redirect_to_url` or `use_stripe_sdk`. */
       readonly type: string;
       /** When confirming a SetupIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js. */
-      readonly use_stripe_sdk?: { readonly [key: string]: any };
+      readonly use_stripe_sdk?: { readonly [key: string]: unknown };
     };
     readonly setup_intent_next_action_redirect_to_url: {
       /** If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion. */
@@ -9247,7 +9247,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -9275,7 +9275,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -9614,7 +9614,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -9700,7 +9700,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -9736,7 +9736,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -9767,7 +9767,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -9843,7 +9843,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -9916,7 +9916,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -10002,7 +10002,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -10113,7 +10113,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -10254,7 +10254,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -10396,7 +10396,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -10445,7 +10445,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -10586,7 +10586,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -10728,7 +10728,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -10812,7 +10812,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -11085,7 +11085,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -11359,7 +11359,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -11438,7 +11438,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -11526,7 +11526,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -11565,7 +11565,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -11597,7 +11597,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -11677,7 +11677,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -11756,7 +11756,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -11844,7 +11844,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -11966,7 +11966,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -12112,7 +12112,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -12255,7 +12255,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -12307,7 +12307,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -12453,7 +12453,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -12596,7 +12596,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -12675,7 +12675,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -12732,7 +12732,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -12759,7 +12759,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -12810,7 +12810,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -12842,7 +12842,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -12910,7 +12910,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -12987,7 +12987,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -13062,7 +13062,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -13130,7 +13130,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -13165,7 +13165,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -13233,7 +13233,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -13268,7 +13268,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -13345,7 +13345,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -13376,7 +13376,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -13424,7 +13424,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -13470,7 +13470,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -13525,7 +13525,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -13650,7 +13650,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -13792,7 +13792,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -13979,7 +13979,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -14048,7 +14048,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -14126,7 +14126,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -14556,7 +14556,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -14598,7 +14598,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -14629,7 +14629,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -14679,7 +14679,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -14759,7 +14759,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -14820,7 +14820,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -14866,7 +14866,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -14992,7 +14992,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -15064,7 +15064,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -15110,7 +15110,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -15141,7 +15141,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -15256,7 +15256,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -15400,7 +15400,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -15563,7 +15563,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -15609,7 +15609,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -15679,7 +15679,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -15760,7 +15760,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -15862,7 +15862,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -16046,7 +16046,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -16148,7 +16148,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -16280,7 +16280,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -16307,7 +16307,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -16359,7 +16359,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -16461,7 +16461,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -16642,7 +16642,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -16777,7 +16777,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -16962,7 +16962,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -16990,7 +16990,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -17036,7 +17036,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -17125,7 +17125,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -17153,7 +17153,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -17206,7 +17206,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -17237,7 +17237,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -17453,7 +17453,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -17484,7 +17484,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -17526,7 +17526,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -17557,7 +17557,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -17610,7 +17610,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -17672,7 +17672,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -17767,7 +17767,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -17845,7 +17845,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -17900,7 +17900,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -17985,7 +17985,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -18063,7 +18063,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -18127,7 +18127,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -18293,7 +18293,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -18405,7 +18405,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -18436,7 +18436,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -18534,7 +18534,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -18612,7 +18612,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -18794,7 +18794,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -18829,7 +18829,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -18885,7 +18885,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -18916,7 +18916,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -19072,7 +19072,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -20049,7 +20049,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -21058,7 +21058,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -22019,7 +22019,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -22974,7 +22974,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -23032,7 +23032,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -23114,7 +23114,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -23145,7 +23145,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -23231,7 +23231,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -23262,7 +23262,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -23325,7 +23325,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -23377,7 +23377,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -23408,7 +23408,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -23497,7 +23497,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -23585,7 +23585,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -23761,7 +23761,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -23830,7 +23830,7 @@ export interface operations {
           readonly mandate_data?: {
             readonly customer_acceptance: {
               readonly accepted_at?: number;
-              readonly offline?: { readonly [key: string]: any };
+              readonly offline?: { readonly [key: string]: unknown };
               readonly online?: {
                 readonly ip_address: string;
                 readonly user_agent: string;
@@ -23950,7 +23950,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -24221,7 +24221,7 @@ export interface operations {
           readonly mandate_data?: Partial<{
             readonly customer_acceptance: {
               readonly accepted_at?: number;
-              readonly offline?: { readonly [key: string]: any };
+              readonly offline?: { readonly [key: string]: unknown };
               readonly online?: {
                 readonly ip_address: string;
                 readonly user_agent: string;
@@ -24342,7 +24342,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -24479,7 +24479,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -24531,7 +24531,7 @@ export interface operations {
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           /** If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account. */
-          readonly sepa_debit?: { readonly [key: string]: any };
+          readonly sepa_debit?: { readonly [key: string]: unknown };
         };
       };
     };
@@ -24666,7 +24666,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -24744,7 +24744,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -24860,7 +24860,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -24966,7 +24966,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -25033,7 +25033,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -25093,7 +25093,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -25189,7 +25189,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -25283,7 +25283,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -25327,7 +25327,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -25362,7 +25362,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -25415,7 +25415,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -25475,7 +25475,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -25502,7 +25502,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -25555,7 +25555,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -25626,7 +25626,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -25689,7 +25689,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -25741,7 +25741,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -25817,7 +25817,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -25896,7 +25896,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -25949,7 +25949,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -26013,7 +26013,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -26098,7 +26098,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -26792,7 +26792,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -26828,7 +26828,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -26859,7 +26859,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -26908,7 +26908,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -26939,7 +26939,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -27023,7 +27023,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -27067,7 +27067,7 @@ export interface operations {
           readonly mandate_data?: {
             readonly customer_acceptance: {
               readonly accepted_at?: number;
-              readonly offline?: { readonly [key: string]: any };
+              readonly offline?: { readonly [key: string]: unknown };
               readonly online?: {
                 readonly ip_address: string;
                 readonly user_agent: string;
@@ -27137,7 +27137,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -27273,7 +27273,7 @@ export interface operations {
           readonly mandate_data?: Partial<{
             readonly customer_acceptance: {
               readonly accepted_at?: number;
-              readonly offline?: { readonly [key: string]: any };
+              readonly offline?: { readonly [key: string]: unknown };
               readonly online?: {
                 readonly ip_address: string;
                 readonly user_agent: string;
@@ -27346,7 +27346,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -27377,7 +27377,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -27429,7 +27429,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -27515,7 +27515,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -27604,7 +27604,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -27749,7 +27749,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -27880,7 +27880,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -27925,7 +27925,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -27957,7 +27957,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -28033,7 +28033,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -28124,7 +28124,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -28280,7 +28280,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -28402,7 +28402,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -28512,7 +28512,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -28741,7 +28741,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -28872,7 +28872,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -29051,7 +29051,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -29105,7 +29105,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -29175,7 +29175,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -29284,7 +29284,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -29353,7 +29353,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -29423,7 +29423,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -29472,7 +29472,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -29536,7 +29536,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -29597,7 +29597,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -29875,7 +29875,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -29935,7 +29935,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -30005,7 +30005,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -30123,7 +30123,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -30210,7 +30210,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -30285,7 +30285,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -30355,7 +30355,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -30434,7 +30434,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -30747,7 +30747,7 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
@@ -30964,8 +30964,10 @@ export interface operations {
     };
     readonly requestBody: {
       readonly content: {
-        readonly "application/x-www-form-urlencoded": { readonly [key: string]: any };
+        readonly "application/x-www-form-urlencoded": { readonly [key: string]: unknown };
       };
     };
   };
 }
+
+export interface external {}

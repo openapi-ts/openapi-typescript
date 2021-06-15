@@ -1,33 +1,31 @@
 import { GlobalContext } from "../types";
-import {
-  comment,
-  nodeType,
-  transformRef,
-  tsArrayOf,
-  tsIntersectionOf,
-  tsPartial,
-  tsReadonly,
-  tsTupleOf,
-  tsUnionOf,
-} from "../utils";
+import { comment, nodeType, tsArrayOf, tsIntersectionOf, tsPartial, tsReadonly, tsTupleOf, tsUnionOf } from "../utils";
 
 interface TransformSchemaObjOptions extends GlobalContext {
   required: Set<string>;
 }
 
+function hasDefaultValue(node: any): boolean {
+  if (node.hasOwnProperty("default")) return true;
+  // if (node.hasOwnProperty("$ref")) return true; // TODO: resolve remote $refs?
+  return false;
+}
+
 /** Take object keys and convert to TypeScript interface */
 export function transformSchemaObjMap(obj: Record<string, any>, options: TransformSchemaObjOptions): string {
-  const readonly = tsReadonly(options.immutableTypes);
-
   let output = "";
 
   for (const k of Object.keys(obj)) {
     const v = obj[k];
+
     // 1. JSDoc comment (goes above property)
     if (v.description) output += comment(v.description);
 
     // 2. name (with “?” if optional property)
-    output += `${readonly}"${k}"${options.required.has(k) ? "" : "?"}: `;
+    const readonly = tsReadonly(options.immutableTypes);
+    const required =
+      options.required.has(k) || (options.defaultNonNullable && hasDefaultValue(v.schema || v)) ? "" : "?";
+    output += `${readonly}"${k}"${required}: `;
 
     // 3. transform
     output += transformSchemaObj(v.schema || v, options);
@@ -39,9 +37,34 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
   return output.replace(/\n+$/, "\n"); // replace repeat line endings with only one
 }
 
+/** make sure all required fields exist **/
+export function addRequiredProps(properties: Record<string, any>, required: Set<string>): string[] {
+  const missingRequired = [...required].filter((r: string) => !(r in properties));
+  if (missingRequired.length == 0) {
+    return [];
+  }
+  let output = "";
+  for (const r of missingRequired) {
+    output += `${r}: unknown;\n`;
+  }
+  return [`{\n${output}}`];
+}
+
 /** transform anyOf */
 export function transformAnyOf(anyOf: any, options: TransformSchemaObjOptions): string {
-  return tsIntersectionOf(anyOf.map((s: any) => tsPartial(transformSchemaObj(s, options))));
+  // filter out anyOf keys that only have a `required` key. #642
+  const schemas = anyOf.filter((s: any) => {
+    if (Object.keys(s).length > 1) return true;
+
+    if (s.required) return false;
+
+    return true;
+  });
+
+  if (schemas.length === 0) {
+    return "";
+  }
+  return tsIntersectionOf(schemas.map((s: any) => tsPartial(transformSchemaObj(s, options))));
 }
 
 /** transform oneOf */
@@ -68,7 +91,7 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
     // transform core type
     switch (nodeType(node)) {
       case "ref": {
-        output += transformRef(node.$ref);
+        output += node.$ref; // these were transformed at load time when remote schemas were resolved; return as-is
         break;
       }
       case "string":
@@ -89,14 +112,16 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
       }
       case "object": {
         const isAnyOfOrOneOfOrAllOf = "anyOf" in node || "oneOf" in node || "allOf" in node;
-
+        const missingRequired = addRequiredProps(node.properties || {}, node.required || []);
         // if empty object, then return generic map type
         if (
           !isAnyOfOrOneOfOrAllOf &&
           (!node.properties || !Object.keys(node.properties).length) &&
           !node.additionalProperties
         ) {
-          output += `{ ${readonly}[key: string]: any }`;
+          const emptyObj = `{ ${readonly}[key: string]: unknown }`;
+
+          output += tsIntersectionOf([emptyObj, ...missingRequired]);
           break;
         }
 
@@ -134,6 +159,7 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
           ...(node.anyOf ? [transformAnyOf(node.anyOf, options)] : []),
           ...(node.oneOf ? [transformOneOf(node.oneOf, options)] : []),
           ...(properties ? [`{\n${properties}\n}`] : []), // then properties (line breaks are important!)
+          ...missingRequired, // add required that are missing from properties
           ...(additionalProperties ? [additionalProperties] : []), // then additional properties
         ]);
 

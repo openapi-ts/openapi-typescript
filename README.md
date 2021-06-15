@@ -3,18 +3,24 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/master/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-35-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-37-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
 
 🚀 Convert [OpenAPI 3.0][openapi3] and [2.0 (Swagger)][openapi2] schemas to TypeScript interfaces using Node.js.
 
-💅 The output is prettified with [Prettier][prettier] (and can be customized!).
+**Features**
 
-👉 Works for both local and remote resources (filesystem and HTTP).
+- ✅ [OpenAPI 3.0][openapi3]
+- ✅ [Swagger 2.0][openapi2]
+- ✅ Supports YAML and JSON schema formats
+- ✅ Supports loading via remote URL (simple authentication supported with the `--auth` flag)
+- ✅ Supports remote references: `$ref: "external.yaml#components/schemas/User"`
+- ✅ Formats using [Prettier][prettier]
+- ✅ TypeScript 4.0 features
 
-View examples:
+**Examples**
 
 - [Stripe, OpenAPI 2.0](./examples/stripe-openapi2.ts)
 - [Stripe, OpenAPI 3.0](./examples/stripe-openapi3.ts)
@@ -28,20 +34,35 @@ View examples:
 ```bash
 npx openapi-typescript schema.yaml --output schema.ts
 
-# 🤞 Loading spec from tests/v2/specs/stripe.yaml…
+# 🔭 Loading spec from schema.yaml…
 # 🚀 schema.yaml -> schema.ts [250ms]
+
+npx openapi-typescript "specs/**/*.yaml" --output schemas/
+
+# 🔭 Loading spec from specs/one.yaml…
+# 🔭 Loading spec from specs/two.yaml…
+# 🔭 Loading spec from specs/three.yaml…
+# 🚀 specs/one.yaml -> schemas/specs/one.ts [250ms]
+# 🚀 specs/two.yaml -> schemas/specs/two.ts [250ms]
+# 🚀 specs/three.yaml -> schemas/specs/three.ts [250ms]
 ```
+
+_Note: if generating a single schema, `--output` must be a file (preferably `*.ts`). If using globs, `--output` must be a directory._
+
+_Thanks to [@sharmarajdaksh](https://github.com/sharmarajdaksh) for the glob feature!_
 
 #### ☁️ Reading specs from remote resource
 
 ```bash
 npx openapi-typescript https://petstore.swagger.io/v2/swagger.json --output petstore.ts
 
-# 🤞 Loading spec from https://petstore.swagger.io/v2/swagger.json…
+# 🔭 Loading spec from https://petstore.swagger.io/v2/swagger.json…
 # 🚀 https://petstore.swagger.io/v2/swagger.json -> petstore.ts [650ms]
 ```
 
-_Thanks to @psmyrdek for the remote spec feature!_
+_Note: globbing doesn’t work for remote schemas because there is no reliable way to determine a list of files to select from a remote file system._
+
+_Thanks to [@psmyrdek](https://github.com/psmyrdek) for the remote spec feature!_
 
 #### Using in TypeScript
 
@@ -53,7 +74,7 @@ import { components } from './generated-schema.ts';
 type APIResponse = components["schemas"]["APIResponse"];
 ```
 
-The reason for all the `["…"]` everywhere is because OpenAPI lets you use more characters than are valid TypeScript identifiers. The goal of this project is to generate _all_ of your schema, not merely the parts that are “TypeScript-safe.”
+Because OpenAPI schemas may have invalid TypeScript characters as names, the square brackets are a safe way to access every property.
 
 Also note that there’s a special `operations` interface that you can import `OperationObjects` by their [operationId][openapi-operationid]:
 
@@ -63,57 +84,29 @@ import { operations } from './generated-schema.ts';
 type getUsersById = operations["getUsersById"];
 ```
 
-This is the only place where our generation differs from your schema as-written, but it’s done so as a convenience and shouldn’t cause any issues (you can still use deep references as-needed).
+Even though `operations` isn’t present in your original schema, it’s a simple convenience and won’t disrupt any of your other types.
 
-_Thanks to @gr2m for the operations feature!_
+_Thanks to [@gr2m](https://github.com/gr2m) for the operations feature!_
 
-#### Outputting to `stdout`
+#### Outputting to stdout
+
+Simply omit the `--output` flag to return to stdout:
 
 ```bash
 npx openapi-typescript schema.yaml
 ```
 
-#### Generating multiple schemas
-
-In your `package.json`, for each schema you’d like to transform add one `generate:specs:[name]` npm-script. Then combine
-them all into one `generate:specs` script, like so:
-
-```json
-"scripts": {
-  "generate:specs": "npm run generate:specs:one && npm run generate:specs:two && npm run generate:specs:three",
-  "generate:specs:one": "npx openapi-typescript one.yaml -o one.ts",
-  "generate:specs:two": "npx openapi-typescript two.yaml -o two.ts",
-  "generate:specs:three": "npx openapi-typescript three.yaml -o three.ts"
-}
-```
-
-If you use [npm-run-all][npm-run-all], you can shorten this:
-
-```json
-"scripts": {
-  "generate:specs": "run-p generate:specs:*",
-```
-
-You can even specify unique options per-spec, if needed. To generate them all together, run:
-
-```bash
-npm run generate:specs
-```
-
-Rinse and repeat for more specs.
-
-For anything more complicated, or for generating specs dynamically, you can also use the [Node API](#node).
-
 #### CLI Options
 
-| Option                         | Alias | Default  | Description                                                      |
-| :----------------------------- | :---- | :------: | :--------------------------------------------------------------- |
-| `--output [location]`          | `-o`  | (stdout) | Where should the output file be saved?                           |
-| `--auth [token]`               |       |          | (optional) Provide an auth token to be passed along in the request (only if accessing a private schema). |
-| `--immutable-types`            |       | `false`  | (optional) Generates immutable types (readonly properties and readonly array). |
-| `--additional-properties`      | `-ap` | `false`  | (optional) Allow arbitrary properties for all schema objects without `additionalProperties: false` |
-| `--prettier-config [location]` |       |          | (optional) Path to your custom Prettier configuration for output |
-| `--raw-schema`                 |       | `false`  | Generate TS types from partial schema (e.g. having `components.schema` at the top level) |
+| Option                         | Alias | Default  | Description                                                                                             |
+| :----------------------------- | :---- | :------: | :------------------------------------------------------------------------------------------------------ |
+| `--output [location]`          | `-o`  | (stdout) | Where should the output file be saved?                                                                  |
+| `--auth [token]`               |       |          | (optional) Provide an auth token to be passed along in the request (only if accessing a private schema) |
+| `--immutable-types`            | `-it` | `false`  | (optional) Generates immutable types (readonly properties and readonly array)                           |
+| `--additional-properties`      | `-ap` | `false`  | (optional) Allow arbitrary properties for all schema objects without `additionalProperties: false`      |
+| `--default-non-nullable`       |       | `false`  | (optional) Treat schema objects with default values as non-nullable                                     |
+| `--prettier-config [location]` | `-c`  |          | (optional) Path to your custom Prettier configuration for output                                        |
+| `--raw-schema`                 |       | `false`  | Generate TS types from partial schema (e.g. having `components.schema` at the top level)                |
 
 ### 🐢 Node
 
@@ -122,19 +115,24 @@ npm i --save-dev openapi-typescript
 ```
 
 ```js
-const { readFileSync } = require("fs");
+const fs = require("fs");
 const openapiTS = require("openapi-typescript").default;
 
-const input = JSON.parse(readFileSync("spec.json", "utf8")); // Input can be any JS object (OpenAPI format)
-const output = openapiTS(input); // Outputs TypeScript defs as a string (to be parsed, or written to a file)
+// example 1: load [object] as schema (JSON only)
+const schema = await fs.promises.readFile("spec.json", "utf8") // must be OpenAPI JSON
+const output = await openapiTS(JSON.parse(schema));
+
+// example 2: load [string] as local file (YAML or JSON; released in v4.0)
+const localPath = path.join(__dirname, 'spec.yaml'); // may be YAML or JSON format
+const output = await openapiTS(localPath);
+
+// example 3: load [string] as remote URL (YAML or JSON; released in v4.0)
+const output = await openapiTS('https://myurl.com/v1/openapi.yaml');
 ```
 
-The Node API is a bit more flexible: it will only take a JS object as input (OpenAPI format), and return a string of TS
-definitions. This lets you pull from any source (a Swagger server, local files, etc.), and similarly lets you parse,
-post-process, and save the output anywhere.
+The Node API may be useful if dealing with dynamically-created schemas, or you’re using within context of a larger application. Pass in either a JSON-friendly object to load a schema from memory, or a string to load a schema from a local file or remote URL (it will load the file quickly using built-in Node methods). Note that a YAML string isn’t supported in the Node.js API; either use the CLI or convert to JSON using [js-yaml][js-yaml] first.
 
-If your specs are in YAML, you’ll have to convert them to JS objects using a library such as [js-yaml][js-yaml]. If
-you’re batching large folders of specs, [glob][glob] may also come in handy.
+⚠️ As of `v4.0`, `openapiTS()` is an async function.
 
 #### Custom Formatter
 
@@ -240,6 +238,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://www.ashsmith.io"><img src="https://avatars.githubusercontent.com/u/1086841?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ash Smith</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=ashsmith" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Aashsmith" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=ashsmith" title="Tests">⚠️</a></td>
     <td align="center"><a href="http://mehalter.com"><img src="https://avatars.githubusercontent.com/u/1591837?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Micah Halter</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=mehalter" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=mehalter" title="Tests">⚠️</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Amehalter" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/Chrg1001"><img src="https://avatars.githubusercontent.com/u/40189653?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yuto Yoshihara</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=Chrg1001" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3AChrg1001" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=Chrg1001" title="Tests">⚠️</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/sharmarajdaksh"><img src="https://avatars.githubusercontent.com/u/33689528?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dakshraj Sharma</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=sharmarajdaksh" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/shuluster"><img src="https://avatars.githubusercontent.com/u/1707910?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shaosu Liu</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=shuluster" title="Code">💻</a></td>
   </tr>
 </table>
 

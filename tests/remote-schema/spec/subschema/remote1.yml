@@ -1,0 +1,10 @@
+openapi: 3.1.0
+components:
+  schemas:
+    Remote1:
+      description: this is a duplicate of spec.yml#components/schemas/Remote1
+      type: string
+    Remote2:
+      $ref: "./remote2.yml#components/schemas/Remote2"
+    Circular:
+      $ref: "../spec.yml#components/schemas/Circular"

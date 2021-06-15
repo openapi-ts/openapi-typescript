@@ -1,7 +1,7 @@
 {
   "name": "openapi-typescript",
   "description": "Generate TypeScript types from Swagger OpenAPI specs",
-  "version": "3.3.0",
+  "version": "4.0.1",
   "engines": {
     "node": ">= 10.0.0"
   },
@@ -48,8 +48,8 @@
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts src",
     "prepare": "npm run build",
     "pregenerate": "npm run build",
-    "test": "npm run build && jest --no-cache",
-    "test:coverage": "npm run build && jest --no-cache --coverage && codecov",
+    "test": "npm run build && jest --no-cache --test-timeout=10000",
+    "test:coverage": "npm run build && jest --no-cache --test-timeout=10000 --coverage && codecov",
     "typecheck": "tsc --noEmit",
     "version": "npm run build"
   },
@@ -59,19 +59,23 @@
     "kleur": "^4.1.4",
     "meow": "^9.0.0",
     "mime": "^2.5.2",
-    "prettier": "^2.3.0"
+    "node-fetch": "^2.6.1",
+    "prettier": "^2.3.1",
+    "tiny-glob": "^0.2.9"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.14",
-    "@types/js-yaml": "^4.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.24.0",
-    "@typescript-eslint/parser": "^4.24.0",
-    "codecov": "^3.8.1",
-    "eslint": "^7.26.0",
+    "@types/jest": "^26.0.23",
+    "@types/js-yaml": "^4.0.1",
+    "@types/mime": "^2.0.3",
+    "@types/node-fetch": "^2.5.10",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
+    "codecov": "^3.8.2",
+    "eslint": "^7.28.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "jest": "^26.6.3",
-    "ts-jest": "^26.5.6",
+    "jest": "^27.0.4",
+    "ts-jest": "^27.0.3",
     "typescript": "^4.2.4"
   }
 }

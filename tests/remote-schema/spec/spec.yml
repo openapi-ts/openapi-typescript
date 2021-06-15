@@ -1,0 +1,10 @@
+openapi: 3.1.0
+components:
+  schemas:
+    Circular:
+      description: this is a duplicate of subschema/remote1.yml
+      type: string
+    Remote1:
+      $ref: "./subschema/remote1.yml#components/schemas/Remote1"
+    Pet:
+      $ref: "https://raw.githubusercontent.com/drwpow/openapi-typescript/main/tests/v3/specs/petstore.yaml#components/schemas/Pet"

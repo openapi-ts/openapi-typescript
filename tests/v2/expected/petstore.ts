@@ -235,7 +235,7 @@ export interface operations {
         /** Additional data to pass to server */
         additionalMetadata?: string;
         /** file to upload */
-        file?: { [key: string]: any };
+        file?: { [key: string]: unknown };
       };
     };
     responses: {
@@ -421,3 +421,5 @@ export interface operations {
     };
   };
 }
+
+export interface external {}
