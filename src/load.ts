@@ -70,6 +70,7 @@ export default async function load(schemaURL: URL, options: LoadOptions): Promis
   } else {
     // load remote
     const headers = new Headers();
+    headers.set("User-Agent", "openapi-typescript");
     if (options.auth) headers.set("Authorization", options.auth);
     const res = await fetch(schemaURL.href, { method: "GET", headers });
     contentType = res.headers.get("Content-Type") || "";
