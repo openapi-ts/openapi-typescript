@@ -137,7 +137,9 @@ export function transformSchemaObj(node: any, options: Options): string {
         let additionalProperties: string | undefined;
         if (node.additionalProperties || (node.additionalProperties === undefined && options.version === 3)) {
           if ((node.additionalProperties ?? true) === true || Object.keys(node.additionalProperties).length === 0) {
-            additionalProperties = `{ ${readonly}[key: string]: unknown }`;
+            if (!(node.type == null && isAnyOfOrOneOfOrAllOf)) {
+              additionalProperties = `{ ${readonly}[key: string]: unknown }`;
+            }
           } else if (typeof node.additionalProperties === "object") {
             const oneOf: any[] | undefined = (node.additionalProperties as any).oneOf || undefined; // TypeScript does a really bad job at inference here, so we enforce a type
             const anyOf: any[] | undefined = (node.additionalProperties as any).anyOf || undefined; // "
@@ -146,8 +148,9 @@ export function transformSchemaObj(node: any, options: Options): string {
             } else if (anyOf) {
               additionalProperties = `{ ${readonly}[key: string]: ${transformAnyOf(anyOf, options)}; }`;
             } else {
-              additionalProperties = `{ ${readonly}[key: string]: ${transformSchemaObj(node.additionalProperties, options) || "any"
-                }; }`;
+              additionalProperties = `{ ${readonly}[key: string]: ${
+                transformSchemaObj(node.additionalProperties, options) || "any"
+              }; }`;
             }
           }
         }
