@@ -1,6 +1,7 @@
 import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
+import { sanitizeLB } from "../test-utils";
 
 const cmd = `node ../../bin/cli.js`;
 const schemas = fs.readdirSync(path.join(__dirname, "specs"));
@@ -18,7 +19,7 @@ describe("cli", () => {
         fs.promises.readFile(path.join(__dirname, "generated", output), "utf8"),
         fs.promises.readFile(path.join(__dirname, "expected", output), "utf8"),
       ]);
-      expect(generated).toBe(expected);
+      expect(generated).toBe(sanitizeLB(expected));
     });
 
     it(`reads ${schema} spec (v2) from file (immutable types)`, async () => {
@@ -32,7 +33,7 @@ describe("cli", () => {
         fs.promises.readFile(path.join(__dirname, "generated", output), "utf8"),
         fs.promises.readFile(path.join(__dirname, "expected", output), "utf8"),
       ]);
-      expect(generated).toBe(expected);
+      expect(generated).toBe(sanitizeLB(expected));
     });
   });
 
@@ -45,6 +46,6 @@ describe("cli", () => {
       fs.promises.readFile(path.join(__dirname, "generated", "http.ts"), "utf8"),
       fs.promises.readFile(path.join(__dirname, "expected", "http.ts"), "utf8"),
     ]);
-    expect(generated).toBe(expected);
+    expect(generated).toBe(sanitizeLB(expected));
   });
 });

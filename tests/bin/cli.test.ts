@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { execSync } from "child_process";
+import { sanitizeLB } from "../test-utils";
 
 // Note(drew): OpenAPI support is already well-tested in v2/index.test.ts and
 // v3/index.test.ts. So this file is mainly for testing other flags.
@@ -16,7 +17,7 @@ describe("cli", () => {
       fs.promises.readFile(path.join(__dirname, "generated", "prettier-json.ts"), "utf8"),
       fs.promises.readFile(path.join(__dirname, "expected", "prettier-json.ts"), "utf8"),
     ]);
-    expect(generated).toBe(expected);
+    expect(generated).toBe(sanitizeLB(expected));
   });
 
   it("--prettier-config (.js)", async () => {
@@ -27,13 +28,13 @@ describe("cli", () => {
       fs.promises.readFile(path.join(__dirname, "generated", "prettier-js.ts"), "utf8"),
       fs.promises.readFile(path.join(__dirname, "expected", "prettier-js.ts"), "utf8"),
     ]);
-    expect(generated).toBe(expected);
+    expect(generated).toBe(sanitizeLB(expected));
   });
 
   it("stdout", async () => {
     const expected = fs.readFileSync(path.join(__dirname, "expected", "stdout.ts"), "utf8");
     const generated = execSync(`${cmd} specs/petstore.yaml`, { cwd: __dirname });
-    expect(generated.toString("utf8")).toBe(expected);
+    expect(generated.toString("utf8")).toBe(sanitizeLB(expected));
   });
 
   it("supports glob paths", async () => {
@@ -44,7 +45,7 @@ describe("cli", () => {
       fs.promises.readFile(path.join(__dirname, "generated", "specs", "manifold.ts"), "utf8"),
       fs.promises.readFile(path.join(__dirname, "expected", "manifold.ts"), "utf8"),
     ]);
-    expect(generatedPetstore).toBe(expectedPetstore);
-    expect(generatedManifold).toBe(expectedManifold);
+    expect(generatedPetstore).toBe(sanitizeLB(expectedPetstore));
+    expect(generatedManifold).toBe(sanitizeLB(expectedManifold));
   });
 });

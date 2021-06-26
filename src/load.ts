@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { URL } from "url";
 import fetch, { Headers } from "node-fetch";
+import slash from "slash";
 import mime from "mime";
 import yaml from "js-yaml";
 import { GlobalContext } from "./types";
@@ -36,7 +37,9 @@ export function resolveSchema(url: string): URL {
   }
 
   // option 2: local
-  const localPath = path.isAbsolute(url) ? new URL("", `file://${url}`) : new URL(url, `file://${process.cwd()}/`); // if absolute path is provided use that; otherwise search cwd\
+  const localPath = path.isAbsolute(url)
+    ? new URL("", `file://${slash(url)}`)
+    : new URL(url, `file://${slash(process.cwd())}/`); // if absolute path is provided use that; otherwise search cwd\
   if (!fs.existsSync(localPath)) {
     throw new Error(`Could not locate ${url}`);
   } else if (fs.statSync(localPath).isDirectory()) {
@@ -108,7 +111,9 @@ export default async function load(schemaURL: URL, options: LoadOptions): Promis
     if (refURL) {
       // load $refs (only if new) and merge subschemas with top-level schema
       const nextURL =
-        refURL.startsWith("http://") || refURL.startsWith("https://") ? new URL(refURL) : new URL(refURL, schemaURL);
+        refURL.startsWith("http://") || refURL.startsWith("https://")
+          ? new URL(refURL)
+          : new URL(slash(refURL), schemaURL);
       refPromises.push(
         load(nextURL, options).then((subschemas) => {
           for (const subschemaURL of Object.keys(subschemas)) {
