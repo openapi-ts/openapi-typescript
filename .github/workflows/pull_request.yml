@@ -3,13 +3,6 @@ name: branch
 on: [pull_request]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-      - run: npm ci
-      - run: npm run build
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -18,10 +11,11 @@ jobs:
       - run: npm ci
       - run: npm run lint
   test:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
