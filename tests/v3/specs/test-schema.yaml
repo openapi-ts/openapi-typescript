@@ -1,0 +1,835 @@
+openapi: 3.0.3
+info:
+  title: Unified Home Data Projection
+  description: Provides data for unified home frontends
+  version: "1.0"
+servers:
+- url: http://localhost:8002
+- url: sgw://unified-home-data
+paths:
+  /home:
+    get:
+      tags:
+      - unifiedhome
+      summary: home unifiedhome
+      operationId: unifiedhome#home
+      responses:
+        "200":
+          description: OK response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HomeResponseBody'
+              example:
+                account:
+                  engagementConfig:
+                    accountDashboard: false
+                  id: 5c592fdf-a331-4408-8f60-800363e4c20c
+                  logoUrl: https://via.placeholder.com/150.png
+                  name: Hooli
+                  performanceConfig:
+                    developmentResources: true
+                    goals: false
+                    peerFeedbackInvites: false
+                    performanceCycles: false
+                    praise: true
+                    reviews: true
+                    selfReflections: false
+                    teams: false
+                  products:
+                    effectiveness: true
+                    engagement: false
+                    performance: false
+                  subdomain: hooli
+                user:
+                  availableThreeSixties:
+                  - surveyLaunchDate: "2021-01-30T08:30:00Z"
+                    surveyName: Individual Effectiveness, Jan 2020
+                    surveyUrl: /path/to/my/360/process
+                  - surveyLaunchDate: "2021-01-30T08:30:00Z"
+                    surveyName: Individual Effectiveness, Jan 2020
+                    surveyUrl: /path/to/my/360/process
+                  email: jane@example.com
+                  hasDirectReports: true
+                  hasSkillsCoachAccess: false
+                  id: 5c592fdf-a331-4408-8f60-800363e4c20c
+                  locale: de
+                  name: Jane Doe
+                  profileImageUrl: https://via.placeholder.com/150.png
+                  roles:
+                    accountAdmin: true
+                    accountDashboardViewer: true
+                    hrBusinessPartner: false
+                    performanceAdmin: false
+                    surveyAdmin: false
+                    surveyCreator: true
+                    surveyDataAnalyst: false
+        "403":
+          description: Forbidden response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+              example:
+                errors:
+                - code: SJfdDF-2S4
+                  detail: This action is forbidden
+                  id: f6fb80fb-ec88-4e92-abf5-c10369904784
+                  title: prohibido
+                - code: SJfdDF-2S4
+                  detail: This action is forbidden
+                  id: f6fb80fb-ec88-4e92-abf5-c10369904784
+                  title: prohibido
+                - code: SJfdDF-2S4
+                  detail: This action is forbidden
+                  id: f6fb80fb-ec88-4e92-abf5-c10369904784
+                  title: prohibido
+                - code: SJfdDF-2S4
+                  detail: This action is forbidden
+                  id: f6fb80fb-ec88-4e92-abf5-c10369904784
+                  title: prohibido
+      security:
+      - jwt_header_Authorization: []
+  /nav:
+    get:
+      tags:
+      - unifiedhome
+      summary: nav unifiedhome
+      operationId: unifiedhome#nav
+      responses:
+        "200":
+          description: OK response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HomeResponseBody'
+              example:
+                account:
+                  engagementConfig:
+                    accountDashboard: false
+                  id: 5c592fdf-a331-4408-8f60-800363e4c20c
+                  logoUrl: https://via.placeholder.com/150.png
+                  name: Hooli
+                  performanceConfig:
+                    developmentResources: true
+                    goals: false
+                    peerFeedbackInvites: false
+                    performanceCycles: false
+                    praise: true
+                    reviews: true
+                    selfReflections: false
+                    teams: false
+                  products:
+                    effectiveness: true
+                    engagement: false
+                    performance: false
+                  subdomain: hooli
+                user:
+                  availableThreeSixties:
+                  - surveyLaunchDate: "2021-01-30T08:30:00Z"
+                    surveyName: Individual Effectiveness, Jan 2020
+                    surveyUrl: /path/to/my/360/process
+                  - surveyLaunchDate: "2021-01-30T08:30:00Z"
+                    surveyName: Individual Effectiveness, Jan 2020
+                    surveyUrl: /path/to/my/360/process
+                  email: jane@example.com
+                  hasDirectReports: true
+                  hasSkillsCoachAccess: false
+                  id: 5c592fdf-a331-4408-8f60-800363e4c20c
+                  locale: de
+                  name: Jane Doe
+                  profileImageUrl: https://via.placeholder.com/150.png
+                  roles:
+                    accountAdmin: true
+                    accountDashboardViewer: true
+                    hrBusinessPartner: false
+                    performanceAdmin: false
+                    surveyAdmin: false
+                    surveyCreator: true
+                    surveyDataAnalyst: false
+        "403":
+          description: Forbidden response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+              example:
+                errors:
+                - code: SJfdDF-2S4
+                  detail: This action is forbidden
+                  id: f6fb80fb-ec88-4e92-abf5-c10369904784
+                  title: prohibido
+                - code: SJfdDF-2S4
+                  detail: This action is forbidden
+                  id: f6fb80fb-ec88-4e92-abf5-c10369904784
+                  title: prohibido
+                - code: SJfdDF-2S4
+                  detail: This action is forbidden
+                  id: f6fb80fb-ec88-4e92-abf5-c10369904784
+                  title: prohibido
+                - code: SJfdDF-2S4
+                  detail: This action is forbidden
+                  id: f6fb80fb-ec88-4e92-abf5-c10369904784
+                  title: prohibido
+      security:
+      - jwt_header_Authorization: []
+  /status:
+    get:
+      tags:
+      - status
+      summary: status status
+      operationId: status#status
+      responses:
+        "200":
+          description: OK response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+              example:
+                build:
+                  branch: cose/fix-all-the-things
+                  commit: 83197f2044979a71c8cbc6b4d72d10c3c1690684
+                  number: "1439"
+                  version: 1.0.0-beta
+                environment:
+                  farm: flamingo
+                  managerLabsEndpoint: https://manager-lab.com
+                  murmurEndpoint: https://murmur.com
+                  perfEndpoint: https://perf.com
+  /v1/home:
+    get:
+      tags:
+      - unifiedhome
+      summary: home unifiedhome
+      operationId: unifiedhome#home
+      responses:
+        "200":
+          description: OK response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HomeResponseBody'
+              example:
+                account:
+                  engagementConfig:
+                    accountDashboard: false
+                  id: 5c592fdf-a331-4408-8f60-800363e4c20c
+                  logoUrl: https://via.placeholder.com/150.png
+                  name: Hooli
+                  performanceConfig:
+                    developmentResources: true
+                    goals: false
+                    peerFeedbackInvites: false
+                    performanceCycles: false
+                    praise: true
+                    reviews: true
+                    selfReflections: false
+                    teams: false
+                  products:
+                    effectiveness: true
+                    engagement: false
+                    performance: false
+                  subdomain: hooli
+                user:
+                  availableThreeSixties:
+                  - surveyLaunchDate: "2021-01-30T08:30:00Z"
+                    surveyName: Individual Effectiveness, Jan 2020
+                    surveyUrl: /path/to/my/360/process
+                  - surveyLaunchDate: "2021-01-30T08:30:00Z"
+                    surveyName: Individual Effectiveness, Jan 2020
+                    surveyUrl: /path/to/my/360/process
+                  email: jane@example.com
+                  hasDirectReports: true
+                  hasSkillsCoachAccess: false
+                  id: 5c592fdf-a331-4408-8f60-800363e4c20c
+                  locale: de
+                  name: Jane Doe
+                  profileImageUrl: https://via.placeholder.com/150.png
+                  roles:
+                    accountAdmin: true
+                    accountDashboardViewer: true
+                    hrBusinessPartner: false
+                    performanceAdmin: false
+                    surveyAdmin: false
+                    surveyCreator: true
+                    surveyDataAnalyst: false
+        "403":
+          description: Forbidden response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+              example:
+                errors:
+                - code: SJfdDF-2S4
+                  detail: This action is forbidden
+                  id: f6fb80fb-ec88-4e92-abf5-c10369904784
+                  title: prohibido
+                - code: SJfdDF-2S4
+                  detail: This action is forbidden
+                  id: f6fb80fb-ec88-4e92-abf5-c10369904784
+                  title: prohibido
+                - code: SJfdDF-2S4
+                  detail: This action is forbidden
+                  id: f6fb80fb-ec88-4e92-abf5-c10369904784
+                  title: prohibido
+                - code: SJfdDF-2S4
+                  detail: This action is forbidden
+                  id: f6fb80fb-ec88-4e92-abf5-c10369904784
+                  title: prohibido
+      security:
+      - jwt_header_Authorization: []
+  /v1/nav:
+    get:
+      tags:
+      - unifiedhome
+      summary: nav unifiedhome
+      operationId: unifiedhome#nav
+      responses:
+        "200":
+          description: OK response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HomeResponseBody'
+              example:
+                account:
+                  engagementConfig:
+                    accountDashboard: false
+                  id: 5c592fdf-a331-4408-8f60-800363e4c20c
+                  logoUrl: https://via.placeholder.com/150.png
+                  name: Hooli
+                  performanceConfig:
+                    developmentResources: true
+                    goals: false
+                    peerFeedbackInvites: false
+                    performanceCycles: false
+                    praise: true
+                    reviews: true
+                    selfReflections: false
+                    teams: false
+                  products:
+                    effectiveness: true
+                    engagement: false
+                    performance: false
+                  subdomain: hooli
+                user:
+                  availableThreeSixties:
+                  - surveyLaunchDate: "2021-01-30T08:30:00Z"
+                    surveyName: Individual Effectiveness, Jan 2020
+                    surveyUrl: /path/to/my/360/process
+                  - surveyLaunchDate: "2021-01-30T08:30:00Z"
+                    surveyName: Individual Effectiveness, Jan 2020
+                    surveyUrl: /path/to/my/360/process
+                  email: jane@example.com
+                  hasDirectReports: true
+                  hasSkillsCoachAccess: false
+                  id: 5c592fdf-a331-4408-8f60-800363e4c20c
+                  locale: de
+                  name: Jane Doe
+                  profileImageUrl: https://via.placeholder.com/150.png
+                  roles:
+                    accountAdmin: true
+                    accountDashboardViewer: true
+                    hrBusinessPartner: false
+                    performanceAdmin: false
+                    surveyAdmin: false
+                    surveyCreator: true
+                    surveyDataAnalyst: false
+        "403":
+          description: Forbidden response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+              example:
+                errors:
+                - code: SJfdDF-2S4
+                  detail: This action is forbidden
+                  id: f6fb80fb-ec88-4e92-abf5-c10369904784
+                  title: prohibido
+                - code: SJfdDF-2S4
+                  detail: This action is forbidden
+                  id: f6fb80fb-ec88-4e92-abf5-c10369904784
+                  title: prohibido
+                - code: SJfdDF-2S4
+                  detail: This action is forbidden
+                  id: f6fb80fb-ec88-4e92-abf5-c10369904784
+                  title: prohibido
+                - code: SJfdDF-2S4
+                  detail: This action is forbidden
+                  id: f6fb80fb-ec88-4e92-abf5-c10369904784
+                  title: prohibido
+      security:
+      - jwt_header_Authorization: []
+components:
+  schemas:
+    Accountengagementconfig:
+      type: object
+      properties:
+        accountDashboard:
+          type: boolean
+          description: True if the account dashboard is enabled
+          example: true
+      example:
+        accountDashboard: false
+      required:
+      - accountDashboard
+    Accountperformanceconfig:
+      type: object
+      properties:
+        developmentResources:
+          type: boolean
+          example: true
+        goals:
+          type: boolean
+          example: false
+        peerFeedbackInvites:
+          type: boolean
+          example: false
+        performanceCycles:
+          type: boolean
+          example: false
+        praise:
+          type: boolean
+          example: false
+        reviews:
+          type: boolean
+          example: true
+        selfReflections:
+          type: boolean
+          example: true
+        teams:
+          type: boolean
+          example: false
+      example:
+        developmentResources: true
+        goals: true
+        peerFeedbackInvites: true
+        performanceCycles: false
+        praise: true
+        reviews: false
+        selfReflections: false
+        teams: true
+      required:
+      - developmentResources
+      - goals
+      - peerFeedbackInvites
+      - performanceCycles
+      - praise
+      - reviews
+      - selfReflections
+      - teams
+    Accountproducts:
+      type: object
+      properties:
+        effectiveness:
+          type: boolean
+          example: true
+        engagement:
+          type: boolean
+          example: true
+        performance:
+          type: boolean
+          example: false
+      example:
+        effectiveness: false
+        engagement: false
+        performance: true
+      required:
+      - effectiveness
+      - engagement
+      - performance
+    Accountresult:
+      type: object
+      properties:
+        engagementConfig:
+          $ref: '#/components/schemas/Accountengagementconfig'
+        id:
+          type: string
+          description: The account's aggregate ID
+          example: 5c592fdf-a331-4408-8f60-800363e4c20c
+        logoUrl:
+          type: string
+          example: https://via.placeholder.com/150.png
+        name:
+          type: string
+          example: Hooli
+        performanceConfig:
+          $ref: '#/components/schemas/Accountperformanceconfig'
+        products:
+          $ref: '#/components/schemas/Accountproducts'
+        subdomain:
+          type: string
+          example: hooli
+      example:
+        engagementConfig:
+          accountDashboard: false
+        id: 5c592fdf-a331-4408-8f60-800363e4c20c
+        logoUrl: https://via.placeholder.com/150.png
+        name: Hooli
+        performanceConfig:
+          developmentResources: true
+          goals: false
+          peerFeedbackInvites: false
+          performanceCycles: false
+          praise: true
+          reviews: true
+          selfReflections: false
+          teams: false
+        products:
+          effectiveness: true
+          engagement: false
+          performance: false
+        subdomain: hooli
+      required:
+      - id
+      - name
+      - subdomain
+      - products
+      - engagementConfig
+      - performanceConfig
+    ErrorInstance:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Service-specific error code, expressed as a string
+          example: SJfdDF-2S4
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of
+            the problem
+          example: This action is forbidden
+        id:
+          type: string
+          description: A unique identifier for this particular occurrence of the problem
+          example: f6fb80fb-ec88-4e92-abf5-c10369904784
+        title:
+          type: string
+          description: A a short, human-readable name for the class of errors
+          example: prohibido
+      example:
+        code: SJfdDF-2S4
+        detail: This action is forbidden
+        id: f6fb80fb-ec88-4e92-abf5-c10369904784
+        title: prohibido
+      required:
+      - title
+    Forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorInstance'
+          example:
+          - code: SJfdDF-2S4
+            detail: This action is forbidden
+            id: f6fb80fb-ec88-4e92-abf5-c10369904784
+            title: prohibido
+          - code: SJfdDF-2S4
+            detail: This action is forbidden
+            id: f6fb80fb-ec88-4e92-abf5-c10369904784
+            title: prohibido
+          - code: SJfdDF-2S4
+            detail: This action is forbidden
+            id: f6fb80fb-ec88-4e92-abf5-c10369904784
+            title: prohibido
+          - code: SJfdDF-2S4
+            detail: This action is forbidden
+            id: f6fb80fb-ec88-4e92-abf5-c10369904784
+            title: prohibido
+      description: Access denied
+      example:
+        errors:
+        - code: SJfdDF-2S4
+          detail: This action is forbidden
+          id: f6fb80fb-ec88-4e92-abf5-c10369904784
+          title: prohibido
+        - code: SJfdDF-2S4
+          detail: This action is forbidden
+          id: f6fb80fb-ec88-4e92-abf5-c10369904784
+          title: prohibido
+        - code: SJfdDF-2S4
+          detail: This action is forbidden
+          id: f6fb80fb-ec88-4e92-abf5-c10369904784
+          title: prohibido
+        - code: SJfdDF-2S4
+          detail: This action is forbidden
+          id: f6fb80fb-ec88-4e92-abf5-c10369904784
+          title: prohibido
+      required:
+      - errors
+    HomeResponseBody:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/Accountresult'
+        user:
+          $ref: '#/components/schemas/Userresult'
+      description: Data required for the unified home
+      example:
+        account:
+          engagementConfig:
+            accountDashboard: false
+          id: 5c592fdf-a331-4408-8f60-800363e4c20c
+          logoUrl: https://via.placeholder.com/150.png
+          name: Hooli
+          performanceConfig:
+            developmentResources: true
+            goals: false
+            peerFeedbackInvites: false
+            performanceCycles: false
+            praise: true
+            reviews: true
+            selfReflections: false
+            teams: false
+          products:
+            effectiveness: true
+            engagement: false
+            performance: false
+          subdomain: hooli
+        user:
+          availableThreeSixties:
+          - surveyLaunchDate: "2021-01-30T08:30:00Z"
+            surveyName: Individual Effectiveness, Jan 2020
+            surveyUrl: /path/to/my/360/process
+          - surveyLaunchDate: "2021-01-30T08:30:00Z"
+            surveyName: Individual Effectiveness, Jan 2020
+            surveyUrl: /path/to/my/360/process
+          email: jane@example.com
+          hasDirectReports: true
+          hasSkillsCoachAccess: false
+          id: 5c592fdf-a331-4408-8f60-800363e4c20c
+          locale: de
+          name: Jane Doe
+          profileImageUrl: https://via.placeholder.com/150.png
+          roles:
+            accountAdmin: true
+            accountDashboardViewer: true
+            hrBusinessPartner: false
+            performanceAdmin: false
+            surveyAdmin: false
+            surveyCreator: true
+            surveyDataAnalyst: false
+      required:
+      - user
+      - account
+    StatusBuildDetails:
+      type: object
+      properties:
+        branch:
+          type: string
+          description: Git branch this version was built from
+          example: cose/fix-all-the-things
+        commit:
+          type: string
+          description: Git commit hash this version was built from
+          example: 83197f2044979a71c8cbc6b4d72d10c3c1690684
+        number:
+          type: string
+          description: Buildkite build number
+          example: "1439"
+        version:
+          type: string
+          description: Application version
+          example: 1.0.0-beta
+      description: Information about this build
+      example:
+        branch: cose/fix-all-the-things
+        commit: 83197f2044979a71c8cbc6b4d72d10c3c1690684
+        number: "1439"
+        version: 1.0.0-beta
+    StatusEnvironmentDetails:
+      type: object
+      properties:
+        farm:
+          type: string
+          description: Deployed farm name
+          example: flamingo
+        managerLabsEndpoint:
+          type: string
+          description: URL used to communicate with Manager Labs
+          example: https://manager-lab.com
+        murmurEndpoint:
+          type: string
+          description: URL used to communicate with Murmur
+          example: https://murmur.com
+        perfEndpoint:
+          type: string
+          description: URL used to communicate with Performance
+          example: https://perf.com
+      description: Details of the environment of the application
+      example:
+        farm: flamingo
+        managerLabsEndpoint: https://manager-lab.com
+        murmurEndpoint: https://murmur.com
+        perfEndpoint: https://perf.com
+    StatusResponse:
+      type: object
+      properties:
+        build:
+          $ref: '#/components/schemas/StatusBuildDetails'
+        environment:
+          $ref: '#/components/schemas/StatusEnvironmentDetails'
+      example:
+        build:
+          branch: cose/fix-all-the-things
+          commit: 83197f2044979a71c8cbc6b4d72d10c3c1690684
+          number: "1439"
+          version: 1.0.0-beta
+        environment:
+          farm: flamingo
+          managerLabsEndpoint: https://manager-lab.com
+          murmurEndpoint: https://murmur.com
+          perfEndpoint: https://perf.com
+    Useravailablethreesixties:
+      type: object
+      properties:
+        surveyLaunchDate:
+          type: string
+          description: The date and time when the survey was launched
+          example: "2021-01-30T08:30:00Z"
+          format: date-time
+        surveyName:
+          type: string
+          description: The name of the 360 survey
+          example: Individual Effectiveness, Jan 2020
+        surveyUrl:
+          type: string
+          description: The url for the user's 360 survey process
+          example: /path/to/my/360/process
+      example:
+        surveyLaunchDate: "2021-01-30T08:30:00Z"
+        surveyName: Individual Effectiveness, Jan 2020
+        surveyUrl: /path/to/my/360/process
+      required:
+      - surveyName
+      - surveyUrl
+      - surveyLaunchDate
+    Userresult:
+      type: object
+      properties:
+        availableThreeSixties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Useravailablethreesixties'
+          description: Available three sixty surveys for the user
+          example:
+          - surveyLaunchDate: "2021-01-30T08:30:00Z"
+            surveyName: Individual Effectiveness, Jan 2020
+            surveyUrl: /path/to/my/360/process
+          - surveyLaunchDate: "2021-01-30T08:30:00Z"
+            surveyName: Individual Effectiveness, Jan 2020
+            surveyUrl: /path/to/my/360/process
+        email:
+          type: string
+          example: jane@example.com
+        hasDirectReports:
+          type: boolean
+          description: True if the user has direct reports in Performance
+          example: false
+        hasSkillsCoachAccess:
+          type: boolean
+          description: True if the user is permitted to access Skills Coach
+          example: true
+        id:
+          type: string
+          description: The account's aggregate ID
+          example: 5c592fdf-a331-4408-8f60-800363e4c20c
+        locale:
+          type: string
+          description: The language set for the user
+          example: de
+        name:
+          type: string
+          example: Jane Doe
+        profileImageUrl:
+          type: string
+          example: https://via.placeholder.com/150.png
+        roles:
+          $ref: '#/components/schemas/Userroles'
+      example:
+        availableThreeSixties:
+        - surveyLaunchDate: "2021-01-30T08:30:00Z"
+          surveyName: Individual Effectiveness, Jan 2020
+          surveyUrl: /path/to/my/360/process
+        - surveyLaunchDate: "2021-01-30T08:30:00Z"
+          surveyName: Individual Effectiveness, Jan 2020
+          surveyUrl: /path/to/my/360/process
+        - surveyLaunchDate: "2021-01-30T08:30:00Z"
+          surveyName: Individual Effectiveness, Jan 2020
+          surveyUrl: /path/to/my/360/process
+        - surveyLaunchDate: "2021-01-30T08:30:00Z"
+          surveyName: Individual Effectiveness, Jan 2020
+          surveyUrl: /path/to/my/360/process
+        email: jane@example.com
+        hasDirectReports: false
+        hasSkillsCoachAccess: false
+        id: 5c592fdf-a331-4408-8f60-800363e4c20c
+        locale: de
+        name: Jane Doe
+        profileImageUrl: https://via.placeholder.com/150.png
+        roles:
+          accountAdmin: true
+          accountDashboardViewer: true
+          hrBusinessPartner: false
+          performanceAdmin: false
+          surveyAdmin: false
+          surveyCreator: true
+          surveyDataAnalyst: false
+      required:
+      - id
+      - name
+      - hasDirectReports
+      - hasSkillsCoachAccess
+      - roles
+    Userroles:
+      type: object
+      properties:
+        accountAdmin:
+          type: boolean
+          example: false
+        accountDashboardViewer:
+          type: boolean
+          description: True if the user has permission to see the account dashboard
+          example: true
+        hrBusinessPartner:
+          type: boolean
+          example: true
+        performanceAdmin:
+          type: boolean
+          example: true
+        surveyAdmin:
+          type: boolean
+          example: true
+        surveyCreator:
+          type: boolean
+          example: true
+        surveyDataAnalyst:
+          type: boolean
+          example: false
+      example:
+        accountAdmin: true
+        accountDashboardViewer: false
+        hrBusinessPartner: true
+        performanceAdmin: false
+        surveyAdmin: true
+        surveyCreator: false
+        surveyDataAnalyst: true
+      required:
+      - accountAdmin
+      - accountDashboardViewer
+      - performanceAdmin
+      - surveyAdmin
+      - surveyDataAnalyst
+      - surveyCreator
+      - hrBusinessPartner
+  securitySchemes:
+    jwt_header_Authorization:
+      type: http
+      description: Secures endpoint by requiring a valid JWT token. The token is either
+        in the Authorization header or in the X-CA-SGW-Authorization header.
+      scheme: bearer
