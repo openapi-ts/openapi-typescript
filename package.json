@@ -61,7 +61,7 @@
     "mime": "^2.5.2",
     "node-fetch": "^2.6.1",
     "prettier": "^2.3.1",
-    "slash": "^3.0.0",
+    "slash": "^4.0.0",
     "tiny-glob": "^0.2.9"
   },
   "devDependencies": {
