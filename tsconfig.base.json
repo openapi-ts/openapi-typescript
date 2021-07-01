@@ -5,7 +5,6 @@
     "esModuleInterop": true,
     "lib": ["ES2020"],
     "moduleResolution": "Node",
-    "noImplicitAny": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "removeComments": true,
