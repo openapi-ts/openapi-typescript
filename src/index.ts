@@ -68,9 +68,16 @@ export default async function openapiTS(
   }
 
   // 2b. external schemas (subschemas)
-  output += `export interface external {\n`;
+
   const externalKeys = Object.keys(external);
   externalKeys.sort((a, b) => a.localeCompare(b, "en", { numeric: true })); // sort external keys because they may have resolved in a different order each time
+
+  // only generate interface if we have any properties (don't create empty interface)
+  // https://github.com/drwpow/openapi-typescript/issues/680
+  if (externalKeys.length > 0) {
+    output += `export interface external {\n`;
+  }
+
   for (const subschemaURL of externalKeys) {
     output += `  "${subschemaURL}": {\n`;
     const subschemaTypes = transformAll(external[subschemaURL], { ...ctx, namespace: subschemaURL });
@@ -79,7 +86,10 @@ export default async function openapiTS(
     }
     output += `  }\n`;
   }
-  output += `}\n\n`;
+
+  if (externalKeys.length > 0) {
+    output += `}\n\n`;
+  }
 
   // 3. Prettify
   let prettierOptions: prettier.Options = {
