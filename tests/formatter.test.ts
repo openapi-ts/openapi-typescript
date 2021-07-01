@@ -37,8 +37,6 @@ export interface components {
 }
 
 export interface operations {}
-
-export interface external {}
 `);
   });
 
@@ -93,8 +91,6 @@ export interface components {
 }
 
 export interface operations {}
-
-export interface external {}
 `);
   });
 });

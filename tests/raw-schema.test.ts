@@ -26,8 +26,6 @@ export interface definitions {
     email: string;
   };
 }
-
-export interface external {}
 `);
   });
 
@@ -57,8 +55,6 @@ export interface schemas {
     email: string;
   };
 }
-
-export interface external {}
 `);
   });
 });

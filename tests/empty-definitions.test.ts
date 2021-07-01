@@ -55,8 +55,6 @@ export interface operations {
     };
   };
 }
-
-export interface external {}
 `);
 
     expect(await openapiTS(schema as any, { immutableTypes: true, version: 2 })).toBe(`/**
@@ -84,8 +82,6 @@ export interface operations {
     };
   };
 }
-
-export interface external {}
 `);
   });
 });

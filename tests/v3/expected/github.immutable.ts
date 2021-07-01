@@ -31223,5 +31223,3 @@ export interface operations {
     };
   };
 }
-
-export interface external {}
