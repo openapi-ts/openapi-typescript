@@ -3,13 +3,15 @@
     "baseUrl": "./src",
     "declaration": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "lib": ["ES2018"],
     "moduleResolution": "Node",
     "noImplicitReturns": true,
     "removeComments": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES2018"
+    "target": "ES2018",
+    "useDefineForClassFields": true
   },
   "exclude": ["examples/*", "tests/**/*"],
   "include": ["src"]
