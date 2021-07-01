@@ -43,14 +43,14 @@
   },
   "homepage": "https://github.com/drwpow/openapi-typescript#readme",
   "scripts": {
-    "build": "rm -rf dist && tsc --build tsconfig.esm.json && tsc --build tsconfig.cjs.json",
+    "build": "rm -rf dist && tsc --project tsconfig.esm.json && tsc --project tsconfig.cjs.json",
     "format": "yarn prettier -w .",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts src",
     "prepare": "npm run build",
     "pregenerate": "npm run build",
     "test": "npm run build && jest --no-cache --test-timeout=10000",
     "test:coverage": "npm run build && jest --no-cache --test-timeout=10000 --coverage && codecov",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit --project tsconfig.esm.json",
     "version": "npm run build"
   },
   "dependencies": {
