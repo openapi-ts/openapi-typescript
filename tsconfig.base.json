@@ -3,14 +3,14 @@
     "baseUrl": "./src",
     "declaration": true,
     "esModuleInterop": true,
-    "lib": ["ES2020"],
+    "lib": ["ES2018"],
     "moduleResolution": "Node",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "removeComments": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES2020"
+    "target": "ES2018"
   },
   "exclude": ["examples/*", "tests/**/*"],
   "include": ["src"]
