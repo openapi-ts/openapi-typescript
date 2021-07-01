@@ -115,7 +115,7 @@ npm i --save-dev openapi-typescript
 ```
 
 ```js
-const { readFile } = require("fs/promises");
+const { readFile } = require("fs").promises;
 const openapiTS = require("openapi-typescript").default;
 
 // example 1: load [object] as schema (JSON only)

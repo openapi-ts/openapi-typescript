@@ -1,5 +1,4 @@
-import { existsSync, statSync } from "fs";
-import { readFile } from "fs/promises";
+import { existsSync, promises, statSync } from "fs";
 import path from "path";
 import { URL } from "url";
 import fetch, { Headers } from "node-fetch";
@@ -8,6 +7,8 @@ import mime from "mime";
 import yaml from "js-yaml";
 import { GlobalContext } from "./types";
 import { parseRef } from "./utils";
+
+const { readFile } = promises;
 
 type PartialSchema = Record<string, any>; // not a very accurate type, but this is easier to deal with before we know we’re dealing with a valid spec
 

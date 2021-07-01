@@ -1,8 +1,10 @@
 import { execSync } from "child_process";
 import { readdirSync } from "fs";
-import { readFile } from "fs/promises";
+import { promises } from "fs";
 import { join } from "path";
 import { sanitizeLB } from "../test-utils";
+
+const { readFile } = promises;
 
 const cmd = `node ../../bin/cli.js`;
 const schemas = readdirSync(join(__dirname, "specs"));

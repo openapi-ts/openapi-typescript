@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { existsSync, lstatSync } = require("fs");
-const { mkdir, writeFile } = require("fs/promises");
+const { mkdir, writeFile } = require("fs").promises;
 const { bold, green, red } = require("kleur");
 const path = require("path");
 const meow = require("meow");

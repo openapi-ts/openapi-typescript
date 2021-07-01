@@ -1,10 +1,12 @@
-import { readFile } from "fs/promises";
+import { promises } from "fs";
 import { join } from "path";
 import { execSync } from "child_process";
 import { sanitizeLB } from "../test-utils";
 
 // Note(drew): OpenAPI support is already well-tested in v2/index.test.ts and
 // v3/index.test.ts. So this file is mainly for testing other flags.
+
+const { readFile } = promises;
 
 const cmd = `node ../../bin/cli.js`;
 
