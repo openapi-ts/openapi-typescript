@@ -6,7 +6,6 @@
     "lib": ["ES2018"],
     "moduleResolution": "Node",
     "noImplicitReturns": true,
-    "noUnusedLocals": true,
     "removeComments": true,
     "sourceMap": true,
     "strict": true,
