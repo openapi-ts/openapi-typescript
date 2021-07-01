@@ -115,11 +115,11 @@ npm i --save-dev openapi-typescript
 ```
 
 ```js
-const fs = require("fs");
+const { readFile } = require("fs/promises");
 const openapiTS = require("openapi-typescript").default;
 
 // example 1: load [object] as schema (JSON only)
-const schema = await fs.promises.readFile("spec.json", "utf8") // must be OpenAPI JSON
+const schema = await readFile("spec.json", "utf8") // must be OpenAPI JSON
 const output = await openapiTS(JSON.parse(schema));
 
 // example 2: load [string] as local file (YAML or JSON; released in v4.0)

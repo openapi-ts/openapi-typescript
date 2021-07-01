@@ -1,4 +1,5 @@
-import fs from "fs";
+import { existsSync, statSync } from "fs";
+import { readFile } from "fs/promises";
 import path from "path";
 import { URL } from "url";
 import fetch, { Headers } from "node-fetch";
@@ -40,9 +41,9 @@ export function resolveSchema(url: string): URL {
   const localPath = path.isAbsolute(url)
     ? new URL("", `file://${slash(url)}`)
     : new URL(url, `file://${slash(process.cwd())}/`); // if absolute path is provided use that; otherwise search cwd\
-  if (!fs.existsSync(localPath)) {
+  if (!existsSync(localPath)) {
     throw new Error(`Could not locate ${url}`);
-  } else if (fs.statSync(localPath).isDirectory()) {
+  } else if (statSync(localPath).isDirectory()) {
     throw new Error(`${localPath} is a directory not a file`);
   }
   return localPath;
@@ -68,7 +69,7 @@ export default async function load(schemaURL: URL, options: LoadOptions): Promis
 
   if (isFile(schemaURL)) {
     // load local
-    contents = await fs.promises.readFile(schemaURL, "utf8");
+    contents = await readFile(schemaURL, "utf8");
     contentType = mime.getType(schemaURL.href) || "";
   } else {
     // load remote

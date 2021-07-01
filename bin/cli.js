@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-const fs = require("fs");
+const { existsSync, lstatSync } = require("fs");
+const { mkdir, writeFile } = require("fs/promises");
 const { bold, green, red } = require("kleur");
 const path = require("path");
 const meow = require("meow");
@@ -84,13 +85,13 @@ async function generateSchema(pathToSpec) {
   // output
   if (output === OUTPUT_FILE) {
     let outputFile = path.resolve(process.cwd(), cli.flags.output); // note: may be directory
-    const isDir = fs.existsSync(outputFile) && fs.lstatSync(outputFile).isDirectory();
+    const isDir = existsSync(outputFile) && lstatSync(outputFile).isDirectory();
     if (isDir) {
       const filename = pathToSpec.replace(new RegExp(`${path.extname(pathToSpec)}$`), ".ts");
       outputFile = path.join(outputFile, filename);
     }
 
-    await fs.promises.writeFile(outputFile, result, "utf8");
+    await writeFile(outputFile, result, "utf8");
 
     const timeEnd = process.hrtime(timeStart);
     const time = timeEnd[0] + Math.round(timeEnd[1] / 1e6);
@@ -118,8 +119,7 @@ async function main() {
 
   // handle remote schema, exit
   if (/^https?:\/\//.test(pathToSpec)) {
-    if (output !== "." && output === OUTPUT_FILE)
-      await fs.promises.mkdir(path.dirname(cli.flags.output), { recursive: true });
+    if (output !== "." && output === OUTPUT_FILE) await mkdir(path.dirname(cli.flags.output), { recursive: true });
     await generateSchema(pathToSpec);
     return;
   }
@@ -134,7 +134,7 @@ async function main() {
   }
 
   // error: tried to glob output to single file
-  if (isGlob && output === OUTPUT_FILE && fs.existsSync(cli.flags.output) && fs.lstatSync(cli.flags.output).isFile()) {
+  if (isGlob && output === OUTPUT_FILE && existsSync(cli.flags.output) && lstatSync(cli.flags.output).isFile()) {
     errorAndExit(`❌ Expected directory for --output if using glob patterns. Received "${cli.flags.output}".`);
   }
 
@@ -148,7 +148,7 @@ async function main() {
         } else {
           outputDir = path.dirname(outputDir); // single files: just use output parent dir
         }
-        await fs.promises.mkdir(outputDir, { recursive: true }); // recursively make parent dirs
+        await mkdir(outputDir, { recursive: true }); // recursively make parent dirs
       }
       await generateSchema(specPath);
     })

@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+import { readFile } from "fs/promises";
+import { join } from "path";
 import { execSync } from "child_process";
 import { sanitizeLB } from "../test-utils";
 
@@ -14,8 +14,8 @@ describe("cli", () => {
       cwd: __dirname,
     });
     const [generated, expected] = await Promise.all([
-      fs.promises.readFile(path.join(__dirname, "generated", "prettier-json.ts"), "utf8"),
-      fs.promises.readFile(path.join(__dirname, "expected", "prettier-json.ts"), "utf8"),
+      readFile(join(__dirname, "generated", "prettier-json.ts"), "utf8"),
+      readFile(join(__dirname, "expected", "prettier-json.ts"), "utf8"),
     ]);
     expect(generated).toBe(sanitizeLB(expected));
   });
@@ -25,14 +25,14 @@ describe("cli", () => {
       cwd: __dirname,
     });
     const [generated, expected] = await Promise.all([
-      fs.promises.readFile(path.join(__dirname, "generated", "prettier-js.ts"), "utf8"),
-      fs.promises.readFile(path.join(__dirname, "expected", "prettier-js.ts"), "utf8"),
+      readFile(join(__dirname, "generated", "prettier-js.ts"), "utf8"),
+      readFile(join(__dirname, "expected", "prettier-js.ts"), "utf8"),
     ]);
     expect(generated).toBe(sanitizeLB(expected));
   });
 
   it("stdout", async () => {
-    const expected = fs.readFileSync(path.join(__dirname, "expected", "stdout.ts"), "utf8");
+    const expected = await readFile(join(__dirname, "expected", "stdout.ts"), "utf8");
     const generated = execSync(`${cmd} specs/petstore.yaml`, { cwd: __dirname });
     expect(generated.toString("utf8")).toBe(sanitizeLB(expected));
   });
@@ -40,10 +40,10 @@ describe("cli", () => {
   it("supports glob paths", async () => {
     execSync(`${cmd} "specs/*.yaml" -o generated/`, { cwd: __dirname }); // Quotes are necessary because shells like zsh treats glob weirdly
     const [generatedPetstore, expectedPetstore, generatedManifold, expectedManifold] = await Promise.all([
-      fs.promises.readFile(path.join(__dirname, "generated", "specs", "petstore.ts"), "utf8"),
-      fs.promises.readFile(path.join(__dirname, "expected", "petstore.ts"), "utf8"),
-      fs.promises.readFile(path.join(__dirname, "generated", "specs", "manifold.ts"), "utf8"),
-      fs.promises.readFile(path.join(__dirname, "expected", "manifold.ts"), "utf8"),
+      readFile(join(__dirname, "generated", "specs", "petstore.ts"), "utf8"),
+      readFile(join(__dirname, "expected", "petstore.ts"), "utf8"),
+      readFile(join(__dirname, "generated", "specs", "manifold.ts"), "utf8"),
+      readFile(join(__dirname, "expected", "manifold.ts"), "utf8"),
     ]);
     expect(generatedPetstore).toBe(sanitizeLB(expectedPetstore));
     expect(generatedManifold).toBe(sanitizeLB(expectedManifold));

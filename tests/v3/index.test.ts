@@ -1,10 +1,11 @@
 import { execSync } from "child_process";
-import fs from "fs";
-import path from "path";
+import { readdirSync } from "fs";
+import { readFile } from "fs/promises";
+import { join } from "path";
 import { sanitizeLB } from "../test-utils";
 
 const cmd = `node ../../bin/cli.js`;
-const schemas = fs.readdirSync(path.join(__dirname, "specs"));
+const schemas = readdirSync(join(__dirname, "specs"));
 
 describe("cli", () => {
   schemas.forEach((schema) => {
@@ -15,8 +16,8 @@ describe("cli", () => {
         cwd: __dirname,
       });
       const [generated, expected] = await Promise.all([
-        fs.promises.readFile(path.join(__dirname, "generated", output), "utf8"),
-        fs.promises.readFile(path.join(__dirname, "expected", output), "utf8"),
+        readFile(join(__dirname, "generated", output), "utf8"),
+        readFile(join(__dirname, "expected", output), "utf8"),
       ]);
       expect(generated).toBe(sanitizeLB(expected));
     });
@@ -28,8 +29,8 @@ describe("cli", () => {
         cwd: __dirname,
       });
       const [generated, expected] = await Promise.all([
-        fs.promises.readFile(path.join(__dirname, "generated", output), "utf8"),
-        fs.promises.readFile(path.join(__dirname, "expected", output), "utf8"),
+        readFile(join(__dirname, "generated", output), "utf8"),
+        readFile(join(__dirname, "expected", output), "utf8"),
       ]);
       expect(generated).toBe(sanitizeLB(expected));
     });
@@ -41,8 +42,8 @@ describe("cli", () => {
         cwd: __dirname,
       });
       const [generated, expected] = await Promise.all([
-        fs.promises.readFile(path.join(__dirname, "generated", output), "utf8"),
-        fs.promises.readFile(path.join(__dirname, "expected", output), "utf8"),
+        readFile(join(__dirname, "generated", output), "utf8"),
+        readFile(join(__dirname, "expected", output), "utf8"),
       ]);
       expect(generated).toBe(sanitizeLB(expected));
     });
@@ -54,8 +55,8 @@ describe("cli", () => {
       { cwd: __dirname }
     );
     const [generated, expected] = await Promise.all([
-      fs.promises.readFile(path.join(__dirname, "generated", "http.ts"), "utf8"),
-      fs.promises.readFile(path.join(__dirname, "expected", "http.ts"), "utf8"),
+      readFile(join(__dirname, "generated", "http.ts"), "utf8"),
+      readFile(join(__dirname, "expected", "http.ts"), "utf8"),
     ]);
     expect(generated).toBe(sanitizeLB(expected));
   });
