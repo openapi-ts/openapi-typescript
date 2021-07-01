@@ -1,2 +1,6 @@
 example/*.ts
 bin
+
+dist
+examples
+tests
