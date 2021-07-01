@@ -18,7 +18,7 @@ export const WARNING_MESSAGE = `/**
 
 export default async function openapiTS(
   schema: string | OpenAPI2 | OpenAPI3 | Record<string, SchemaObject>,
-  options: SwaggerToTSOptions = {} as any
+  options: SwaggerToTSOptions = {}
 ): Promise<string> {
   const ctx: GlobalContext = {
     additionalProperties: options.additionalProperties || false,
@@ -28,7 +28,7 @@ export default async function openapiTS(
     immutableTypes: options.immutableTypes || false,
     rawSchema: options.rawSchema || false,
     version: options.version || 3,
-  } as any;
+  };
 
   // note: we may be loading many large schemas into memory at once; take care to reuse references without cloning
 
