@@ -8,7 +8,6 @@
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "removeComments": true,
-    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "target": "ES2020"
