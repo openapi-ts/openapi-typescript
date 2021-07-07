@@ -9,6 +9,9 @@ import { GlobalContext } from "./types";
 import { parseRef } from "./utils";
 
 type PartialSchema = Record<string, any>; // not a very accurate type, but this is easier to deal with before we know we’re dealing with a valid spec
+type SchemaMap = { [url: string]: PartialSchema };
+
+export const VIRTUAL_JSON_URL = `file:///_json`; // fake URL reserved for dynamic JSON
 
 function parseSchema(schema: any, type: "YAML" | "JSON") {
   if (type === "YAML") {
@@ -50,70 +53,88 @@ export function resolveSchema(url: string): URL {
 
 interface LoadOptions extends GlobalContext {
   rootURL: URL;
-  schemas: { [url: string]: PartialSchema };
+  schemas: SchemaMap;
 }
 
 // temporary cache for load()
 let urlCache = new Set<string>(); // URL cache (prevent URLs from being loaded over and over)
 
 /** Load a schema from local path or remote URL */
-export default async function load(schemaURL: URL, options: LoadOptions): Promise<{ [url: string]: PartialSchema }> {
-  if (urlCache.has(schemaURL.href)) return options.schemas; // exit early if this has already been scanned
-  urlCache.add(schemaURL.href); // add URL to cache
+export default async function load(
+  schema: URL | PartialSchema,
+  options: LoadOptions
+): Promise<{ [url: string]: PartialSchema }> {
+  const isJSON = schema instanceof URL === false; // if this is dynamically-passed-in JSON, we’ll have to change a few things
+  let schemaID = isJSON ? new URL(VIRTUAL_JSON_URL).href : schema.href;
 
   const schemas = options.schemas;
 
-  let contents = "";
-  let contentType = "";
-
-  if (isFile(schemaURL)) {
-    // load local
-    contents = await fs.promises.readFile(schemaURL, "utf8");
-    contentType = mime.getType(schemaURL.href) || "";
-  } else {
-    // load remote
-    const headers = new Headers();
-    headers.set("User-Agent", "openapi-typescript");
-    if (options.auth) headers.set("Authorization", options.auth);
-    const res = await fetch(schemaURL.href, { method: "GET", headers });
-    contentType = res.headers.get("Content-Type") || "";
-    contents = await res.text();
+  // scenario 1: load schema from dynamic JSON
+  if (isJSON) {
+    schemas[schemaID] = schema;
   }
+  // scenario 2: fetch schema from URL (local or remote)
+  else {
+    if (urlCache.has(schemaID)) return options.schemas; // exit early if this has already been scanned
+    urlCache.add(schemaID); // add URL to cache
 
-  const isYAML = contentType === "application/openapi+yaml" || contentType === "text/yaml";
-  const isJSON =
-    contentType === "application/json" ||
-    contentType === "application/json5" ||
-    contentType === "application/openapi+json";
-  if (isYAML) {
-    schemas[schemaURL.href] = parseSchema(contents, "YAML");
-  } else if (isJSON) {
-    schemas[schemaURL.href] = parseSchema(contents, "JSON");
-  } else {
-    // if contentType is unknown, guess
-    try {
-      schemas[schemaURL.href] = parseSchema(contents, "JSON");
-    } catch (err1) {
+    let contents = "";
+    let contentType = "";
+    const schemaURL = schema as URL; // helps TypeScript
+
+    if (isFile(schemaURL)) {
+      // load local
+      contents = await fs.promises.readFile(schemaURL, "utf8");
+      contentType = mime.getType(schemaID) || "";
+    } else {
+      // load remote
+      const headers = new Headers();
+      headers.set("User-Agent", "openapi-typescript");
+      if (options.auth) headers.set("Authorization", options.auth);
+      const res = await fetch(schemaID, { method: "GET", headers });
+      contentType = res.headers.get("Content-Type") || "";
+      contents = await res.text();
+    }
+
+    const isYAML = contentType === "application/openapi+yaml" || contentType === "text/yaml";
+    const isJSON =
+      contentType === "application/json" ||
+      contentType === "application/json5" ||
+      contentType === "application/openapi+json";
+    if (isYAML) {
+      schemas[schemaID] = parseSchema(contents, "YAML");
+    } else if (isJSON) {
+      schemas[schemaID] = parseSchema(contents, "JSON");
+    } else {
+      // if contentType is unknown, guess
       try {
-        schemas[schemaURL.href] = parseSchema(contents, "YAML");
-      } catch (err2) {
-        throw new Error(`Unknown format${contentType ? `: "${contentType}"` : ""}. Only YAML or JSON supported.`); // give up: unknown type
+        schemas[schemaID] = parseSchema(contents, "JSON");
+      } catch (err1) {
+        try {
+          schemas[schemaID] = parseSchema(contents, "YAML");
+        } catch (err2) {
+          throw new Error(`Unknown format${contentType ? `: "${contentType}"` : ""}. Only YAML or JSON supported.`); // give up: unknown type
+        }
       }
     }
   }
 
   // scan $refs, but don’t transform (load everything in parallel)
   const refPromises: Promise<any>[] = [];
-  schemas[schemaURL.href] = JSON.parse(JSON.stringify(schemas[schemaURL.href]), (k, v) => {
+  schemas[schemaID] = JSON.parse(JSON.stringify(schemas[schemaID]), (k, v) => {
     if (k !== "$ref" || typeof v !== "string") return v;
 
     const { url: refURL } = parseRef(v);
     if (refURL) {
       // load $refs (only if new) and merge subschemas with top-level schema
-      const nextURL =
-        refURL.startsWith("http://") || refURL.startsWith("https://")
-          ? new URL(refURL)
-          : new URL(slash(refURL), schemaURL);
+      const isRemoteURL = refURL.startsWith("http://") || refURL.startsWith("https://");
+
+      // if this is dynamic JSON, we have no idea how to resolve relative URLs, so throw here
+      if (isJSON && !isRemoteURL) {
+        throw new Error(`Can’t load URL "${refURL}" from dynamic JSON. Load this schema from a URL instead.`);
+      }
+
+      const nextURL = isRemoteURL ? new URL(refURL) : new URL(slash(refURL), schema as URL);
       refPromises.push(
         load(nextURL, options).then((subschemas) => {
           for (const subschemaURL of Object.keys(subschemas)) {
@@ -128,7 +149,7 @@ export default async function load(schemaURL: URL, options: LoadOptions): Promis
   await Promise.all(refPromises);
 
   // transform $refs once, at the root schema, after all have been scanned & downloaded (much easier to do here when we have the context)
-  if (schemaURL.href === options.rootURL.href) {
+  if (schemaID === options.rootURL.href) {
     for (const subschemaURL of Object.keys(schemas)) {
       // transform $refs in schema
       schemas[subschemaURL] = JSON.parse(JSON.stringify(schemas[subschemaURL]), (k, v) => {

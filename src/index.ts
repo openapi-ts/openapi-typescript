@@ -2,7 +2,8 @@ import path from "path";
 import { bold, yellow } from "kleur";
 import prettier from "prettier";
 import parserTypescript from "prettier/parser-typescript";
-import load, { resolveSchema } from "./load";
+import { URL } from "url";
+import load, { resolveSchema, VIRTUAL_JSON_URL } from "./load";
 import { swaggerVersion } from "./utils";
 import { transformAll } from "./transform/index";
 import { GlobalContext, OpenAPI2, OpenAPI3, SchemaObject, SwaggerToTSOptions } from "./types";
@@ -35,24 +36,31 @@ export default async function openapiTS(
   // 1. load schema
   let rootSchema: Record<string, any> = {};
   let external: Record<string, Record<string, any>> = {};
+  const allSchemas: Record<string, Record<string, any>> = {};
   if (typeof schema === "string") {
     const schemaURL = resolveSchema(schema);
     if (options.silent === false) console.log(yellow(`🔭 Loading spec from ${bold(schemaURL.href)}…`));
-    const schemas: Record<string, Record<string, any>> = {};
     await load(schemaURL, {
       ...ctx,
-      schemas,
+      schemas: allSchemas,
       rootURL: schemaURL, // as it crawls schemas recursively, it needs to know which is the root to resolve everything relative to
     });
-    for (const k of Object.keys(schemas)) {
+    for (const k of Object.keys(allSchemas)) {
       if (k === schemaURL.href) {
-        rootSchema = schemas[k];
+        rootSchema = allSchemas[k];
       } else {
-        external[k] = schemas[k];
+        external[k] = allSchemas[k];
       }
     }
   } else {
-    rootSchema = schema;
+    await load(schema, { ...ctx, schemas: allSchemas, rootURL: new URL(VIRTUAL_JSON_URL) });
+    for (const k of Object.keys(allSchemas)) {
+      if (k === VIRTUAL_JSON_URL) {
+        rootSchema = allSchemas[k];
+      } else {
+        external[k] = allSchemas[k];
+      }
+    }
   }
 
   // 2. generate raw output
