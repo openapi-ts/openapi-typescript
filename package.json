@@ -1,9 +1,9 @@
 {
   "name": "openapi-typescript",
   "description": "Generate TypeScript types from Swagger OpenAPI specs",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "engines": {
-    "node": ">= 10.0.0"
+    "node": ">= 12.0.0"
   },
   "author": "drew@pow.rs",
   "license": "ISC",
@@ -44,12 +44,12 @@
   "homepage": "https://github.com/drwpow/openapi-typescript#readme",
   "scripts": {
     "build": "rm -rf dist && tsc --project tsconfig.esm.json && tsc --project tsconfig.cjs.json",
-    "format": "yarn prettier -w .",
-    "lint": "eslint --ignore-path .gitignore --ext .js,.ts src",
+    "format": "npm run prettier -w .",
+    "lint": "eslint .",
     "prepare": "npm run build",
     "pregenerate": "npm run build",
-    "test": "npm run build && jest --no-cache --test-timeout=10000",
-    "test:coverage": "npm run build && jest --no-cache --test-timeout=10000 --coverage && codecov",
+    "test": "npm run build && jest --no-cache",
+    "test:coverage": "npm run build && jest --no-cache --coverage && codecov",
     "typecheck": "tsc --noEmit --project tsconfig.esm.json",
     "version": "npm run build"
   },
