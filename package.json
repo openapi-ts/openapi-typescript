@@ -3,7 +3,8 @@
   "description": "Generate TypeScript types from Swagger OpenAPI specs",
   "version": "4.0.2",
   "engines": {
-    "node": ">= 12.0.0"
+    "node": ">= 12.0.0",
+    "npm": ">= 7.0.0"
   },
   "author": "drew@pow.rs",
   "license": "ISC",
