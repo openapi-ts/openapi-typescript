@@ -54,16 +54,16 @@ export function resolveSchema(url: string): URL {
 interface LoadOptions extends GlobalContext {
   rootURL: URL;
   schemas: SchemaMap;
+  urlCache?: Set<string>; // URL cache (prevent URLs from being loaded over and over)
 }
-
-// temporary cache for load()
-let urlCache = new Set<string>(); // URL cache (prevent URLs from being loaded over and over)
 
 /** Load a schema from local path or remote URL */
 export default async function load(
   schema: URL | PartialSchema,
   options: LoadOptions
 ): Promise<{ [url: string]: PartialSchema }> {
+  const urlCache = options.urlCache || new Set<string>();
+
   const isJSON = schema instanceof URL === false; // if this is dynamically-passed-in JSON, we’ll have to change a few things
   let schemaID = isJSON ? new URL(VIRTUAL_JSON_URL).href : schema.href;
 
@@ -136,7 +136,7 @@ export default async function load(
 
       const nextURL = isRemoteURL ? new URL(refURL) : new URL(slash(refURL), schema as URL);
       refPromises.push(
-        load(nextURL, options).then((subschemas) => {
+        load(nextURL, { ...options, urlCache }).then((subschemas) => {
           for (const subschemaURL of Object.keys(subschemas)) {
             schemas[subschemaURL] = subschemas[subschemaURL];
           }
