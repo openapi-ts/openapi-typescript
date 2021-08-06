@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import path from "path";
 import { bold, yellow } from "kleur";
 import prettier from "prettier";
@@ -54,11 +55,15 @@ async function openapiTS(
   if (typeof schema === "string") {
     const schemaURL = resolveSchema(schema);
     if (options.silent === false) console.log(yellow(`🔭 Loading spec from ${bold(schemaURL.href)}…`));
+
     await load(schemaURL, {
       ...ctx,
       schemas: allSchemas,
       rootURL: schemaURL, // as it crawls schemas recursively, it needs to know which is the root to resolve everything relative to
+      httpHeaders: options.httpHeaders,
+      httpMethod: options.httpMethod
     });
+
     for (const k of Object.keys(allSchemas)) {
       if (k === schemaURL.href) {
         rootSchema = allSchemas[k];
@@ -67,7 +72,14 @@ async function openapiTS(
       }
     }
   } else {
-    await load(schema, { ...ctx, schemas: allSchemas, rootURL: new URL(VIRTUAL_JSON_URL) });
+    await load(schema, {
+      ...ctx, schemas:
+      allSchemas,
+      rootURL: new URL(VIRTUAL_JSON_URL),
+      httpHeaders: options.httpHeaders,
+      httpMethod: options.httpMethod
+    });
+
     for (const k of Object.keys(allSchemas)) {
       if (k === VIRTUAL_JSON_URL) {
         rootSchema = allSchemas[k];

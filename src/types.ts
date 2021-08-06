@@ -120,6 +120,7 @@ export type HTTPHeaderMap<T = any> = T extends string
   ? Headers | Map<string, PrimitiveValue> | Record<string, PrimitiveValue>
   : null;
 
+export type HTTPVerb = "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS";
 export interface SwaggerToTSOptions<T = any> {
   /** Allow arbitrary properties on schemas (default: false) */
   additionalProperties?: boolean;
@@ -148,6 +149,16 @@ export interface SwaggerToTSOptions<T = any> {
    * These headers will only be sent in the case that the schema URL protocol is of type http or https.
    */
   httpHeaders?: HTTPHeaderMap<T>;
+  /**
+   * HTTP verb used to fetch the schema from a remote server. This is only applied
+   * when the schema is a string and has the http or https protocol present. By default,
+   * the request will use the HTTP GET method to fetch the schema from the server.
+   *
+   * @type {HTTPVerb}
+   * @memberof SwaggerToTSOptions
+   * @default {string} GET
+   */
+  httpMethod?: HTTPVerb;
 }
 
 /** Context passed to all submodules */
