@@ -50,6 +50,7 @@
     "pregenerate": "npm run build",
     "test": "npm run build && jest --no-cache",
     "test:watch": "npm run build && jest --no-cache --watch",
+    "test:update": "npm run build && jest --no-cache --u",
     "test:coverage": "npm run build && jest --no-cache --coverage && codecov",
     "typecheck": "tsc --noEmit --project tsconfig.esm.json",
     "version": "npm run build"
