@@ -1,4 +1,5 @@
 import type { URL } from "url";
+import type { Headers } from "node-fetch";
 
 export interface OpenAPI2 {
   swagger: string; // required
@@ -115,6 +116,10 @@ export type SchemaFormatter = (schemaObj: SchemaObject) => string | undefined;
 
 export type PrimitiveValue = string | number | boolean | bigint | null | undefined | symbol;
 
+export type HTTPHeaderMap<T = any> = T extends string
+  ? Headers | Map<string, PrimitiveValue> | Record<string, PrimitiveValue>
+  : null;
+
 export interface SwaggerToTSOptions<T = any> {
   /** Allow arbitrary properties on schemas (default: false) */
   additionalProperties?: boolean;
@@ -142,7 +147,7 @@ export interface SwaggerToTSOptions<T = any> {
    * or Accept: text/yaml to be sent in order to figure out how to properly fetch the OpenAPI/Swagger document as code.
    * These headers will only be sent in the case that the schema URL protocol is of type http or https.
    */
-  httpHeaders?: T extends string ? Map<string, PrimitiveValue> | Record<string, PrimitiveValue> : null;
+  httpHeaders?: HTTPHeaderMap<T>;
 }
 
 /** Context passed to all submodules */
