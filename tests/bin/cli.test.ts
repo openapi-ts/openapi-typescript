@@ -18,7 +18,6 @@ describe("cli", () => {
       fs.promises.readFile(path.join(__dirname, "expected", "prettier-json.ts"), "utf8"),
     ]);
 
-    console.log(generated)
     expect(generated).toBe(sanitizeLB(expected));
   });
 
