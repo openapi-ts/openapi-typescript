@@ -83,11 +83,16 @@ function parseHttpHeaders(httpHeaders: HTTPHeaderMap): Record<string, string> {
         headerVal = (httpHeaders as Record<string, PrimitiveValue>)[headerKey as string];
       }
 
-      try {
-        const stringVal = JSON.stringify(headerVal);
-        finalHeaders[headerKey] = stringVal;
-      } catch (err) {
-        console.error(red(`Cannot parse key: ${headerKey} into JSON format. Continuing with next HTTP header`));
+      // If the value of the header is already a string, we can move on, otherwise we have to parse it
+      if(typeof headerVal === "string") {
+        finalHeaders[headerKey] = headerVal;
+      } else {
+        try {
+          const stringVal = JSON.stringify(headerVal);
+          finalHeaders[headerKey] = stringVal;
+        } catch (err) {
+          console.error(red(`Cannot parse key: ${headerKey} into JSON format. Continuing with next HTTP header`));
+        }
       }
     });
   }
@@ -150,7 +155,6 @@ export default async function load(
       if (options.auth) {
         headers.set("Authorization", options.auth)
       };
-
 
       // Fetch Swagger Schema by schemaID in cache/URL via GET request
       let httpMethod: HTTPVerb = "GET";
