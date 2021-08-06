@@ -5,7 +5,9 @@ import { URL } from "url";
 import slash from "slash";
 import mime from "mime";
 import yaml from "js-yaml";
-import { GlobalContext } from "./types";
+import { red } from "kleur";
+
+import { GlobalContext, HTTPHeaderMap, PrimitiveValue } from "./types";
 import { parseRef } from "./utils";
 
 type PartialSchema = Record<string, any>; // not a very accurate type, but this is easier to deal with before we know we’re dealing with a valid spec
@@ -51,9 +53,51 @@ export function resolveSchema(url: string): URL {
   return localPath;
 }
 
+/**
+ * Accepts income HTTP headers and appends them to
+ * the fetch request for the schema.
+ *
+ * @param {HTTPHeaderMap} httpHeaders
+ * @return {Record<string, string>}  {Record<string, string>} Final HTTP headers outcome.
+ */
+function parseHttpHeaders(httpHeaders: HTTPHeaderMap): Record<string, string> {
+  const finalHeaders: Record<string, string> = {};
+
+  if (httpHeaders == null) {
+    return finalHeaders;
+  }
+
+  if (typeof httpHeaders === "object") {
+    const isHeaderMap = httpHeaders instanceof Headers;
+    const isStandardMap = httpHeaders instanceof Map;
+    const isMap = isHeaderMap || isStandardMap;
+    const headerKeys = isMap ? Array.from((httpHeaders as Headers).keys()) : Object.keys(httpHeaders);
+
+    // Obtain the header key
+    headerKeys.forEach((headerKey) => {
+      let headerVal: PrimitiveValue;
+      if (isMap) {
+        headerVal = (httpHeaders as Headers).get(headerKey);
+      } else {
+        headerVal = (httpHeaders as Record<string, PrimitiveValue>)[headerKey as string];
+      }
+
+      try {
+        const stringVal = JSON.stringify(headerVal);
+        finalHeaders[headerKey] = stringVal;
+      } catch (err) {
+        console.error(red(`Cannot parse key: ${headerKey} into JSON format. Continuing with next header`));
+      }
+    });
+  }
+
+  return finalHeaders;
+}
+
 interface LoadOptions extends GlobalContext {
   rootURL: URL;
   schemas: SchemaMap;
+  httpHeaders?: HTTPHeaderMap;
 }
 
 // temporary cache for load()
@@ -88,13 +132,20 @@ export default async function load(
       contentType = mime.getType(schemaID) || "";
     } else {
       // load remote
-      const res = await fetch(schemaID, {
-        method: "GET",
-        headers: {
-          "User-Agent": "openapi-typescript",
-          ...(options.auth ? {} : { Authorization: options.auth }),
-        },
-      });
+      const headers: HeadersInit = {
+        "User-Agent": "openapi-typescript",
+      };
+      if (options.auth) headers.Authorizaton = options.auth;
+
+      // Add custom parsed headers
+      if (options.httpHeaders) {
+        const parsedHeaders = parseHttpHeaders(options.httpHeaders);
+        for (const [k, v] of Object.entries(parsedHeaders)) {
+          headers[k] = v;
+        }
+      }
+
+      const res = await fetch(schemaID, { method: "GET", headers });
       contentType = res.headers.get("Content-Type") || "";
       contents = await res.text();
     }
