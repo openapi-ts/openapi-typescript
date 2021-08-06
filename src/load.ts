@@ -7,7 +7,7 @@ import mime from "mime";
 import yaml from "js-yaml";
 import { red } from "kleur";
 
-import { GlobalContext, HTTPHeaderMap, PrimitiveValue } from "./types";
+import { GlobalContext, HTTPHeaderMap, HTTPVerb, PrimitiveValue } from "./types";
 import { parseRef } from "./utils";
 
 type PartialSchema = Record<string, any>; // not a very accurate type, but this is easier to deal with before we know we’re dealing with a valid spec
@@ -86,7 +86,7 @@ function parseHttpHeaders(httpHeaders: HTTPHeaderMap): Record<string, string> {
         const stringVal = JSON.stringify(headerVal);
         finalHeaders[headerKey] = stringVal;
       } catch (err) {
-        console.error(red(`Cannot parse key: ${headerKey} into JSON format. Continuing with next header`));
+        console.error(red(`Cannot parse key: ${headerKey} into JSON format. Continuing with next HTTP header`));
       }
     });
   }
@@ -98,6 +98,7 @@ interface LoadOptions extends GlobalContext {
   rootURL: URL;
   schemas: SchemaMap;
   httpHeaders?: HTTPHeaderMap;
+  httpMethod?: HTTPVerb;
 }
 
 // temporary cache for load()
@@ -137,7 +138,7 @@ export default async function load(
       };
       if (options.auth) headers.Authorizaton = options.auth;
 
-      // Add custom parsed headers
+      // Add custom parsed HTTP headers
       if (options.httpHeaders) {
         const parsedHeaders = parseHttpHeaders(options.httpHeaders);
         for (const [k, v] of Object.entries(parsedHeaders)) {
@@ -145,7 +146,7 @@ export default async function load(
         }
       }
 
-      const res = await fetch(schemaID, { method: "GET", headers });
+      const res = await fetch(schemaID, { method: options.httpMethod || "GET", headers });
       contentType = res.headers.get("Content-Type") || "";
       contents = await res.text();
     }
