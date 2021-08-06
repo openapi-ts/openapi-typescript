@@ -6,7 +6,6 @@ import slash from "slash";
 import mime from "mime";
 import yaml from "js-yaml";
 import { red } from "kleur";
-
 import { GlobalContext, HTTPHeaderMap, HTTPVerb, PrimitiveValue } from "./types";
 import { parseRef } from "./utils";
 
