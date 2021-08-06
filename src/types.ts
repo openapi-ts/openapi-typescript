@@ -113,7 +113,9 @@ export interface SchemaObject {
 
 export type SchemaFormatter = (schemaObj: SchemaObject) => string | undefined;
 
-export interface SwaggerToTSOptions {
+export type PrimitiveValue = string | number | boolean | bigint | null | undefined | symbol;
+
+export interface SwaggerToTSOptions<T = any> {
   /** Allow arbitrary properties on schemas (default: false) */
   additionalProperties?: boolean;
   /** (optional) Specify auth if using openapi-typescript to fetch URL */
@@ -134,6 +136,13 @@ export interface SwaggerToTSOptions {
   silent?: boolean;
   /** (optional) OpenAPI version. Must be present if parsing raw schema */
   version?: number;
+  /**
+   * (optional) List of HTTP headers that will be sent with the fetch request to a remote schema. This is
+   * in addition to the authorization header. In some cases, servers require headers such as Accept: application/json
+   * or Accept: text/yaml to be sent in order to figure out how to properly fetch the OpenAPI/Swagger document as code.
+   * These headers will only be sent in the case that the schema URL protocol is of type http or https.
+   */
+  httpHeaders?: T extends string ? Map<string, PrimitiveValue> | Record<string, PrimitiveValue> : null;
 }
 
 /** Context passed to all submodules */
