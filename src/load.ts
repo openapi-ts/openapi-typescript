@@ -9,7 +9,7 @@ import yaml from "js-yaml";
 import { red } from "kleur";
 
 import { GlobalContext, HTTPHeaderMap, HTTPVerb, PrimitiveValue } from "./types";
-import { parseRef } from "./utils";
+import { isValidHTTPMethod, parseRef } from "./utils";
 
 type PartialSchema = Record<string, any>; // not a very accurate type, but this is easier to deal with before we know we’re dealing with a valid spec
 type SchemaMap = { [url: string]: PartialSchema };
@@ -158,10 +158,9 @@ export default async function load(
 
       // Fetch Swagger Schema by schemaID in cache/URL via GET request
       let httpMethod: HTTPVerb = "GET";
-      if(options.httpMethod && typeof options.httpMethod === 'string' && options.httpMethod.length) {
+      if(options.httpMethod && typeof options.httpMethod === 'string' && isValidHTTPMethod(httpMethod)) {
         httpMethod = options.httpMethod;
       }
-
       const res = await fetch(schemaID, { method: httpMethod, headers });
       contentType = res.headers.get("Content-Type") || "";
       contents = await res.text();

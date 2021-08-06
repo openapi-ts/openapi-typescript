@@ -15,6 +15,8 @@ Options
   --help                       display this
   --output, -o                 Specify output file (default: stdout)
   --auth                       (optional) Provide an authentication token for private URL
+  --httpHeaders, -hdrs         (optional) Provide a JSON object as string of HTTP headers for remote schema request
+  --httpMethod, -m             (optional) Provide the HTTP Verb/Method for fetching a schema from a remote URL
   --immutable-types, -it       (optional) Generates immutable types (readonly properties and readonly array)
   --additional-properties, -ap (optional) Allow arbitrary properties for all schema objects without "additionalProperties: false"
   --default-non-nullable       (optional) If a schema object has a default value set, don’t mark it as nullable
@@ -30,6 +32,15 @@ Options
       },
       auth: {
         type: "string",
+      },
+      httpHeaders:{
+        type: "string",
+        alias: "x",
+      },
+      httpMethod: {
+        type: "string",
+        alias: "m",
+        default: "GET"
       },
       immutableTypes: {
         type: "boolean",
@@ -69,6 +80,16 @@ function errorAndExit(errorMessage) {
 async function generateSchema(pathToSpec) {
   const output = cli.flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
 
+
+  let finalHttpHeaders = {};
+  if(cli.flags.httpHeaders != null) {
+    try {
+      finalHttpHeaders = JSON.parse(cli.flags.httpHeaders);
+    } catch(err) {
+      errorAndExit("A JSON string of the HTTP Headers object must be supplied to properly parse for HTTP schema fetching");
+    }
+  }
+
   // generate schema
   const result = await openapiTS(pathToSpec, {
     additionalProperties: cli.flags.additionalProperties,
@@ -79,6 +100,8 @@ async function generateSchema(pathToSpec) {
     rawSchema: cli.flags.rawSchema,
     silent: output === OUTPUT_STDOUT,
     version: cli.flags.version,
+    httpHeaders: finalHttpHeaders,
+    httpMethod: cli.flags.httpMethod
   });
 
   // output

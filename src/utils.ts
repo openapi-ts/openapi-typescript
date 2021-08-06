@@ -1,4 +1,4 @@
-import { OpenAPI2, OpenAPI3, ReferenceObject } from "./types";
+import { HTTPVerb, OpenAPI2, OpenAPI3, ReferenceObject } from "./types";
 
 export function comment(text: string): string {
   const commentText = text.trim().replace(/\*\//g, "*\\/");
@@ -138,4 +138,18 @@ export function tsReadonly(immutable: boolean): string {
 export function tsUnionOf(types: Array<string | number | boolean>): string {
   if (types.length === 1) return `${types[0]}`; // don’t add parentheses around one thing
   return `(${types.join(") | (")})`;
+}
+
+/**
+ * Determines if the http method being evaluated
+ * is permitted for the fetch request to the server
+ * to load the schema.
+ *
+ * @export
+ * @param {string} httpMethod
+ * @return {boolean} isValid
+ */
+export function isValidHTTPMethod(httpMethod: string | HTTPVerb): boolean {
+  const validMethodRegexp = /(GET|POST|PUT|PATCH|DELETE|OPTIONS)/gi;
+  return validMethodRegexp.test(httpMethod);
 }
