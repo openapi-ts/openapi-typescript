@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import path from "path";
 import { bold, yellow } from "kleur";
 import prettier from "prettier";
@@ -61,7 +60,7 @@ async function openapiTS(
       schemas: allSchemas,
       rootURL: schemaURL, // as it crawls schemas recursively, it needs to know which is the root to resolve everything relative to
       httpHeaders: options.httpHeaders,
-      httpMethod: options.httpMethod
+      httpMethod: options.httpMethod,
     });
 
     for (const k of Object.keys(allSchemas)) {
@@ -73,11 +72,11 @@ async function openapiTS(
     }
   } else {
     await load(schema, {
-      ...ctx, schemas:
-      allSchemas,
+      ...ctx,
+      schemas: allSchemas,
       rootURL: new URL(VIRTUAL_JSON_URL),
       httpHeaders: options.httpHeaders,
-      httpMethod: options.httpMethod
+      httpMethod: options.httpMethod,
     });
 
     for (const k of Object.keys(allSchemas)) {
