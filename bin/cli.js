@@ -33,14 +33,14 @@ Options
       auth: {
         type: "string",
       },
-      httpHeaders:{
+      httpHeaders: {
         type: "string",
         alias: "x",
       },
       httpMethod: {
         type: "string",
         alias: "m",
-        default: "GET"
+        default: "GET",
       },
       immutableTypes: {
         type: "boolean",
@@ -80,13 +80,14 @@ function errorAndExit(errorMessage) {
 async function generateSchema(pathToSpec) {
   const output = cli.flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
 
-
   let finalHttpHeaders = {};
-  if(cli.flags.httpHeaders != null) {
+  if (cli.flags.httpHeaders != null) {
     try {
       finalHttpHeaders = JSON.parse(cli.flags.httpHeaders);
-    } catch(err) {
-      errorAndExit("A JSON string of the HTTP Headers object must be supplied to properly parse for HTTP schema fetching");
+    } catch (err) {
+      errorAndExit(
+        "A JSON string of the HTTP Headers object must be supplied to properly parse for HTTP schema fetching"
+      );
     }
   }
 
@@ -101,7 +102,7 @@ async function generateSchema(pathToSpec) {
     silent: output === OUTPUT_STDOUT,
     version: cli.flags.version,
     httpHeaders: finalHttpHeaders,
-    httpMethod: cli.flags.httpMethod
+    httpMethod: cli.flags.httpMethod,
   });
 
   // output
