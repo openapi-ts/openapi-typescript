@@ -84,7 +84,7 @@ function parseHttpHeaders(httpHeaders: HTTPHeaderMap): Record<string, string> {
       }
 
       // If the value of the header is already a string, we can move on, otherwise we have to parse it
-      if(typeof headerVal === "string") {
+      if (typeof headerVal === "string") {
         finalHeaders[headerKey] = headerVal;
       } else {
         try {
@@ -144,8 +144,8 @@ export default async function load(
       // Add custom parsed HTTP headers
       if (options.httpHeaders) {
         const parsedHeaders = parseHttpHeaders(options.httpHeaders);
-        Object.keys(parsedHeaders).forEach(headerKey => {
-          const customVal = parsedHeaders[headerKey]
+        Object.keys(parsedHeaders).forEach((headerKey) => {
+          const customVal = parsedHeaders[headerKey];
           headers.set(headerKey, customVal as string);
         });
       }
@@ -153,12 +153,12 @@ export default async function load(
       // Default OpenAPITypescript header overrides
       headers.set("User-Agent", "openapi-typescript");
       if (options.auth) {
-        headers.set("Authorization", options.auth)
-      };
+        headers.set("Authorization", options.auth);
+      }
 
       // Fetch Swagger Schema by schemaID in cache/URL via GET request
       let httpMethod: HTTPVerb = "GET";
-      if(options.httpMethod && typeof options.httpMethod === 'string' && isValidHTTPMethod(httpMethod)) {
+      if (options.httpMethod && typeof options.httpMethod === "string" && isValidHTTPMethod(httpMethod)) {
         httpMethod = options.httpMethod;
       }
       const res = await fetch(schemaID, { method: httpMethod, headers });
