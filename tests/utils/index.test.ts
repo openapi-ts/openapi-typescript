@@ -1,4 +1,4 @@
-import { swaggerVersion, comment } from "../../src/utils";
+import { swaggerVersion, comment, isValidHTTPMethod } from "../../src/utils";
 
 describe("swaggerVersion", () => {
   it("v2", () => {
@@ -25,4 +25,27 @@ describe("comment", () => {
 `
     );
   });
+});
+
+describe("isValidHTTPMethod()", () => {
+  it("Should return false if the http method is invalid fromr regex", () => {
+    const valid = isValidHTTPMethod("test");
+    expect(valid).toBe(false);
+  });
+
+  it.each([
+    ["GET", true],
+    ["POST", true],
+    ["PUT", true],
+    ["PATCH", true],
+    ["DELETE", true],
+    ["OPTIONS", true],
+    ["INVALID", false],
+  ])(
+    "Should check the HTTP method %p to be %p in order to check remote fetch validity",
+    (httpMethod: string, expectedOutcome: boolean) => {
+      const valid = isValidHTTPMethod(httpMethod);
+      expect(valid).toBe(expectedOutcome);
+    }
+  );
 });
