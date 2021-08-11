@@ -78,13 +78,14 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
 
   let output = "";
 
+  // pass in formatter, if specified
+  const overriddenType = options.formatter && options.formatter(node);
+
   // open nullable
   if (node.nullable) {
     output += "(";
   }
 
-  // pass in formatter, if specified
-  const overriddenType = options.formatter && options.formatter(node);
   if (overriddenType) {
     output += overriddenType;
   } else {
