@@ -19,11 +19,12 @@ export const WARNING_MESSAGE = `/**
 
 /**
  * This function is the entry to the program and allows the user to pass in a remote schema and/or local schema.
+ * The URL or schema and headers can be passed in either programtically and/or via the CLI.
  * Remote schemas are fetched from a server that supplies JSON or YAML format via an HTTP GET request. File based schemas
  * are loaded in via file path, most commonly prefixed with the file:// format. Alternatively, the user can pass in
  * OpenAPI2 or OpenAPI3 schema objects that can be parsed directly by the function without reading the file system.
  *
- * We use function overloading to generate stronger types for our different schema types and option types.
+ * Function overloading is utilized for generating stronger types for our different schema types and option types.
  *
  * @param {string} schema Root Swagger Schema HTTP URL, File URL, and/or JSON or YAML schema
  * @param {SwaggerToTSOptions<typeof schema>} [options] Options to specify to the parsing system
