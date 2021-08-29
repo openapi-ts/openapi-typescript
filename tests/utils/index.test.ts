@@ -34,6 +34,10 @@ describe("isValidHTTPMethod()", () => {
   });
 
   it.each([
+    [undefined, false],
+    [null, false],
+    ["", false],
+    [{ cannotBeObject: true }, false],
     ["GET", true],
     ["POST", true],
     ["PUT", true],
@@ -43,8 +47,10 @@ describe("isValidHTTPMethod()", () => {
     ["INVALID", false],
   ])(
     "Should check the HTTP method %p to be %p in order to check remote fetch validity",
-    (httpMethod: string, expectedOutcome: boolean) => {
-      const valid = isValidHTTPMethod(httpMethod);
+    (httpMethod: string | object | undefined | null, expectedOutcome: boolean) => {
+      const convertedMethodToTest: any = httpMethod;
+
+      const valid = isValidHTTPMethod(convertedMethodToTest);
       expect(valid).toBe(expectedOutcome);
     }
   );
