@@ -16,8 +16,8 @@ Options
   --help                       display this
   --output, -o                 Specify output file (default: stdout)
   --auth                       (optional) Provide an authentication token for private URL
-  --headers, -xs               (optional) Provide a JSON object as string of HTTP headers for remote schema request
-  --header, -x                 (optional) Provide an array of or singular headers as an alternative to a JSON object. Each header must follow the key:value pattern
+  --headersObject, -h          (optional) Provide a JSON object as string of HTTP headers for remote schema request
+  --header, -x                 (optional) Provide an array of or singular headers as an alternative to a JSON object. Each header must follow the key: value pattern
   --httpMethod, -m             (optional) Provide the HTTP Verb/Method for fetching a schema from a remote URL
   --immutable-types, -it       (optional) Generates immutable types (readonly properties and readonly array)
   --additional-properties, -ap (optional) Allow arbitrary properties for all schema objects without "additionalProperties: false"

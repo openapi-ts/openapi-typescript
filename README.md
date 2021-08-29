@@ -107,6 +107,9 @@ npx openapi-typescript schema.yaml
 | `--default-non-nullable`       |       | `false`  | (optional) Treat schema objects with default values as non-nullable                                     |
 | `--prettier-config [location]` | `-c`  |          | (optional) Path to your custom Prettier configuration for output                                        |
 | `--raw-schema`                 |       | `false`  | Generate TS types from partial schema (e.g. having `components.schema` at the top level)                |
+| `--httpMethod`                 | `-m`  | `GET`    | (optional) Provide the HTTP Verb/Method for fetching a schema from a remote URL                         |
+| `--headersObject`                    | `-h`  |          | (optional) Provide a JSON object as string of HTTP headers for remote schema request. This will take **prescedence** if the singular headers flag is specified as well.                               |
+| `--header`                     | `-x`  |          | (optional) Provide an array of or singular headers as an alternative to a JSON object. Each header must follow the `key: value` pattern                               |
 
 ### 🐢 Node
 
