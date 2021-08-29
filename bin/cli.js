@@ -6,8 +6,9 @@ const meow = require("meow");
 const path = require("path");
 const glob = require("tiny-glob");
 const { default: openapiTS } = require("../dist/cjs/index.js");
+const { getCLISchemaHeadersJSON, getCLIHeadersFromArray } = require("./utils");
 
-let cli = meow(
+const cli = meow(
   `Usage
   $ openapi-typescript [input] [options]
 
@@ -15,7 +16,8 @@ Options
   --help                       display this
   --output, -o                 Specify output file (default: stdout)
   --auth                       (optional) Provide an authentication token for private URL
-  --httpHeaders, -x            (optional) Provide a JSON object as string of HTTP headers for remote schema request
+  --headers, -xs               (optional) Provide a JSON object as string of HTTP headers for remote schema request
+  --header, -x                 (optional) Provide an array of or singular headers as an alternative to a JSON object. Each header must follow the key:value pattern
   --httpMethod, -m             (optional) Provide the HTTP Verb/Method for fetching a schema from a remote URL
   --immutable-types, -it       (optional) Generates immutable types (readonly properties and readonly array)
   --additional-properties, -ap (optional) Allow arbitrary properties for all schema objects without "additionalProperties: false"
@@ -33,9 +35,14 @@ Options
       auth: {
         type: "string",
       },
-      httpHeaders: {
+      headersObject: {
+        type: "string",
+        alias: "h",
+      },
+      header: {
         type: "string",
         alias: "x",
+        isMultiple: true,
       },
       httpMethod: {
         type: "string",
@@ -80,15 +87,16 @@ function errorAndExit(errorMessage) {
 async function generateSchema(pathToSpec) {
   const output = cli.flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
 
+  // Parse incoming headers from CLI flags
+  // If both header flags are present, default to JSON.
+  // Otherwise, we can use the preferred header parsing function.
   let finalHttpHeaders = {};
-  if (cli.flags.httpHeaders != null) {
-    try {
-      finalHttpHeaders = JSON.parse(cli.flags.httpHeaders);
-    } catch (err) {
-      errorAndExit(
-        "A JSON string of the HTTP Headers object must be supplied to properly parse for HTTP schema fetching"
-      );
-    }
+  if (cli.flags.header && cli.flags.headersObject) {
+    finalHttpHeaders = getCLISchemaHeadersJSON(cli.flags.headersObject);
+  } else if (cli.flags.headersObject) {
+    finalHttpHeaders = getCLISchemaHeadersJSON(cli.flags.headersObject);
+  } else if (cli.flags.header) {
+    finalHttpHeaders = getCLIHeadersFromArray(cli.flags.header);
   }
 
   // generate schema
@@ -107,18 +115,18 @@ async function generateSchema(pathToSpec) {
 
   // output
   if (output === OUTPUT_FILE) {
-    let outputFile = path.resolve(process.cwd(), cli.flags.output); // note: may be directory
-    const isDir = fs.existsSync(outputFile) && fs.lstatSync(outputFile).isDirectory();
+    let outputFilePath = path.resolve(process.cwd(), cli.flags.output); // note: may be directory
+    const isDir = fs.existsSync(outputFilePath) && fs.lstatSync(outputFilePath).isDirectory();
     if (isDir) {
       const filename = pathToSpec.replace(new RegExp(`${path.extname(pathToSpec)}$`), ".ts");
-      outputFile = path.join(outputFile, filename);
+      outputFilePath = path.join(outputFilePath, filename);
     }
 
-    await fs.promises.writeFile(outputFile, result, "utf8");
+    await fs.promises.writeFile(outputFilePath, result, "utf8");
 
     const timeEnd = process.hrtime(timeStart);
     const time = timeEnd[0] + Math.round(timeEnd[1] / 1e6);
-    console.log(green(`🚀 ${pathToSpec} -> ${bold(outputFile)} [${time}ms]`));
+    console.log(green(`🚀 ${pathToSpec} -> ${bold(outputFilePath)} [${time}ms]`));
   } else {
     process.stdout.write(result);
     // if stdout, (still) don’t log anything to console!
