@@ -1,4 +1,4 @@
-import { swaggerVersion, comment, isValidHTTPMethod } from "../../src/utils";
+import { swaggerVersion, comment, isValidHTTPMethod, tsPartial, tsReadonly, tsUnionOf } from "../../src/utils";
 
 describe("swaggerVersion", () => {
   it("v2", () => {
@@ -27,8 +27,41 @@ describe("comment", () => {
   });
 });
 
+describe("tsPartial()", () => {
+  it.each([["number"], ["string"], ["boolean"], ["null"], ["undefined"]])(
+    "Should return a partial type with a generic of %p",
+    (genericType: string) => {
+      expect(tsPartial(genericType)).toBe(`Partial<${genericType}>`);
+    }
+  );
+});
+
+describe("tsReadonly()", () => {
+  it("Should return readonly if isMutable true", () => {
+    const isPrefixedReadonly = tsReadonly(true).startsWith("readonly ");
+    expect(isPrefixedReadonly).toBe(true);
+  });
+
+  it("Should return not return readonly prefix if isMutable false", () => {
+    const isPrefixedReadonly = tsReadonly(false).startsWith("");
+    expect(isPrefixedReadonly).toBe(true);
+  });
+});
+
+describe("tsUnionOf()", () => {
+  it("Should return first type index at 0 if the type array length is only 1", () => {
+    const unionType = tsUnionOf(["string"]);
+    expect(unionType).toBe("string");
+  });
+
+  it("Should return union type string if multiple types specified", () => {
+    const unionType = tsUnionOf(["string", "boolean", "number"]);
+    expect(unionType).toBe("(string) | (boolean) | (number)");
+  });
+});
+
 describe("isValidHTTPMethod()", () => {
-  it("Should return false if the http method is invalid fromr regex", () => {
+  it("Should return false if the http method is invalid from regex", () => {
     const valid = isValidHTTPMethod("test");
     expect(valid).toBe(false);
   });
