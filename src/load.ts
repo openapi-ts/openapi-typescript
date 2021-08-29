@@ -62,42 +62,44 @@ export function resolveSchema(url: string): URL {
 function parseHttpHeaders(httpHeaders: HTTPHeaderMap): Record<string, string> {
   const finalHeaders: Record<string, string> = {};
 
+  // Ensure HTTP Headers are defined
   if (httpHeaders == null) {
     return finalHeaders;
   }
 
-  if (typeof httpHeaders === "object") {
-    const isHeaderMap = httpHeaders instanceof Headers;
-    const isStandardMap = httpHeaders instanceof Map;
-    const isMap = isHeaderMap || isStandardMap;
-    const headerKeys = isMap ? Array.from((httpHeaders as Headers).keys()) : Object.keys(httpHeaders);
-
-    // Obtain the header key
-    headerKeys.forEach((headerKey) => {
-      let headerVal: PrimitiveValue;
-      if (isMap) {
-        headerVal = (httpHeaders as Headers).get(headerKey);
-      } else {
-        headerVal = (httpHeaders as Record<string, PrimitiveValue>)[headerKey as string];
-      }
-
-      // If the value of the header is already a string, we can move on, otherwise we have to parse it
-      if (typeof headerVal === "string") {
-        finalHeaders[headerKey] = headerVal;
-      } else {
-        try {
-          const stringVal = JSON.stringify(headerVal);
-          finalHeaders[headerKey] = stringVal;
-        } catch (err) {
-          console.error(
-            red(
-              `Cannot parse key: ${headerKey} into JSON format. Continuing with the next HTTP header that is specified`
-            )
-          );
-        }
-      }
-    });
+  // Check to early return if the HTTP Headers are not in the proper shape
+  if (typeof httpHeaders !== "object") {
+    return finalHeaders;
   }
+
+  const isHeaderMap = httpHeaders instanceof Headers;
+  const isStandardMap = httpHeaders instanceof Map;
+  const isMap = isHeaderMap || isStandardMap;
+  const headerKeys = isMap ? Array.from((httpHeaders as Headers).keys()) : Object.keys(httpHeaders);
+
+  // Obtain the header key
+  headerKeys.forEach((headerKey) => {
+    let headerVal: PrimitiveValue;
+    if (isMap) {
+      headerVal = (httpHeaders as Headers).get(headerKey);
+    } else {
+      headerVal = (httpHeaders as Record<string, PrimitiveValue>)[headerKey as string];
+    }
+
+    // If the value of the header is already a string, we can move on, otherwise we have to parse it
+    if (typeof headerVal === "string") {
+      finalHeaders[headerKey] = headerVal;
+    } else {
+      try {
+        const stringVal = JSON.stringify(headerVal);
+        finalHeaders[headerKey] = stringVal;
+      } catch (err) {
+        console.error(
+          red(`Cannot parse key: ${headerKey} into JSON format. Continuing with the next HTTP header that is specified`)
+        );
+      }
+    }
+  });
 
   return finalHeaders;
 }
