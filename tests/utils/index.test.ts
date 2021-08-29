@@ -1,4 +1,12 @@
-import { swaggerVersion, comment, isValidHTTPMethod, tsPartial, tsReadonly, tsUnionOf } from "../../src/utils";
+import {
+  swaggerVersion,
+  comment,
+  isValidHTTPMethod,
+  tsPartial,
+  tsReadonly,
+  tsUnionOf,
+  tsIntersectionOf,
+} from "../../src/utils";
 
 describe("swaggerVersion", () => {
   it("v2", () => {
@@ -45,6 +53,18 @@ describe("tsReadonly()", () => {
   it("Should return not return readonly prefix if isMutable false", () => {
     const isPrefixedReadonly = tsReadonly(false).startsWith("");
     expect(isPrefixedReadonly).toBe(true);
+  });
+});
+
+describe("tsIntersectionOf()", () => {
+  it("Should filter out falsy values and only return one type", () => {
+    const types = ["", "boolean"];
+    expect(tsIntersectionOf(types)).toBe("boolean");
+  });
+
+  it("Should return an intersection type with multiple types", () => {
+    const types = ["string", "boolean"];
+    expect(tsIntersectionOf(types)).toBe("(string) & (boolean)");
   });
 });
 
