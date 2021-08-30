@@ -1,7 +1,8 @@
 import { resolve } from "path";
 import { URL } from "url";
+import { Headers } from "node-fetch";
 
-import { isFile, parseSchema, resolveSchema } from "../src/load";
+import { isFile, parseHttpHeaders, parseSchema, resolveSchema } from "../src/load";
 
 // Mock Variables
 const mockSchema = '{"testing": 123}';
@@ -68,6 +69,61 @@ describe("Load Schema Tests", () => {
       const existingDirectory = resolve(currentWorkingDirectory, "src");
       const mockExistingURL = new URL(existingDirectory, "file://");
       expect(() => resolveSchema(existingDirectory)).toThrowError(`${mockExistingURL} is a directory not a file`);
+    });
+  });
+
+  describe("parseHttpHeaders()", () => {
+    it("Should return an empty object when headers passed are nullish", () => {
+      expect(parseHttpHeaders(null)).toStrictEqual({});
+    });
+
+    it("Should return an empty object if headers is defined and not an object", () => {
+      expect(parseHttpHeaders(true as any)).toStrictEqual({});
+    });
+
+    it("Should parse headers when added via the Map data structure", () => {
+      const mockHeaderMap = new Map([["x-testing", true]]);
+
+      expect(parseHttpHeaders(mockHeaderMap)).toStrictEqual({
+        "x-testing": "true",
+      });
+    });
+
+    it("Should parse headers when added via the Headers map data structure", () => {
+      const mockHeaderMap = new Headers();
+      mockHeaderMap.append("x-testing", "true");
+
+      expect(parseHttpHeaders(mockHeaderMap)).toStrictEqual({
+        "x-testing": "true",
+      });
+    });
+
+    it("Should parse headers when passed as a vanilla JS/JSON object", () => {
+      const mockHeaders = {
+        "x-testing": true,
+        "x-more": "I am testing parsed headers",
+      };
+
+      expect(parseHttpHeaders(mockHeaders)).toStrictEqual({
+        "x-testing": "true",
+        "x-more": "I am testing parsed headers",
+      });
+    });
+
+    it("Should log an error when the header value cannot be parsed", () => {
+      jest.spyOn(console, "error");
+
+      const mockHeaders = {
+        "x-testing": true,
+        "x-more": "I am testing parsed headers",
+        "cannot-parse": Math.random,
+      };
+
+      expect(parseHttpHeaders(mockHeaders as any)).toStrictEqual({
+        "x-testing": "true",
+        "x-more": "I am testing parsed headers",
+        "cannot-parse": undefined,
+      });
     });
   });
 });
