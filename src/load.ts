@@ -61,7 +61,7 @@ export function resolveSchema(url: string): URL {
  * @param {HTTPHeaderMap} httpHeaders
  * @return {Record<string, string>}  {Record<string, string>} Final HTTP headers outcome.
  */
-export function parseHttpHeaders(httpHeaders: HTTPHeaderMap): Record<string, string> {
+export function parseHttpHeaders<THeader = any>(httpHeaders: HTTPHeaderMap<THeader>): Record<string, string> {
   const finalHeaders: Record<string, string> = {};
 
   // Ensure HTTP Headers are defined
