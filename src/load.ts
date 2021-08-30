@@ -30,7 +30,7 @@ export function parseSchema(schema: any, type: "YAML" | "JSON") {
   }
 }
 
-function isFile(url: URL): boolean {
+export function isFile(url: URL): boolean {
   return url.protocol === "file:";
 }
 
