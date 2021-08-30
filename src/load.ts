@@ -82,7 +82,7 @@ export function parseHttpHeaders<THeader = any>(httpHeaders: HTTPHeaderMap<THead
 
   // Obtain the header key
   headerKeys.forEach((headerKey) => {
-    let headerVal: PrimitiveValue;
+    let headerVal: PrimitiveValue = "";
     if (isMap) {
       headerVal = (httpHeaders as Headers).get(headerKey);
     } else {
