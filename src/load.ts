@@ -97,6 +97,7 @@ export function parseHttpHeaders(httpHeaders: HTTPHeaderMap): Record<string, str
         const stringVal = JSON.stringify(headerVal);
         finalHeaders[headerKey] = stringVal;
       } catch (err) {
+        /* istanbul ignore next */
         console.error(
           red(`Cannot parse key: ${headerKey} into JSON format. Continuing with the next HTTP header that is specified`)
         );
