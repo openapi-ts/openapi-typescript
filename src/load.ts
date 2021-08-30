@@ -44,11 +44,13 @@ export function resolveSchema(url: string): URL {
   const localPath = path.isAbsolute(url)
     ? new URL("", `file://${slash(url)}`)
     : new URL(url, `file://${slash(process.cwd())}/`); // if absolute path is provided use that; otherwise search cwd\
+
   if (!fs.existsSync(localPath)) {
     throw new Error(`Could not locate ${url}`);
   } else if (fs.statSync(localPath).isDirectory()) {
     throw new Error(`${localPath} is a directory not a file`);
   }
+
   return localPath;
 }
 
