@@ -14,7 +14,7 @@ type SchemaMap = { [url: string]: PartialSchema };
 
 export const VIRTUAL_JSON_URL = `file:///_json`; // fake URL reserved for dynamic JSON
 
-function parseSchema(schema: any, type: "YAML" | "JSON") {
+export function parseSchema(schema: any, type: "YAML" | "JSON") {
   if (type === "YAML") {
     try {
       return yaml.load(schema);
