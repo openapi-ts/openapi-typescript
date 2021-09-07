@@ -124,7 +124,7 @@ export default async function load(
   options: LoadOptions
 ): Promise<{ [url: string]: PartialSchema }> {
   const isJSON = schema instanceof URL === false; // if this is dynamically-passed-in JSON, we’ll have to change a few things
-  let schemaID = isJSON ? new URL(VIRTUAL_JSON_URL).href : schema.href;
+  let schemaID = isJSON ? new URL(VIRTUAL_JSON_URL).href : (schema.href as string);
 
   const schemas = options.schemas;
 
