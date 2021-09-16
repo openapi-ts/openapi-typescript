@@ -19,7 +19,10 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
     const v = obj[k];
 
     // 1. JSDoc comment (goes above property)
-    if (v.description) output += comment(v.description);
+    let schemaComment = "";
+    if (v.deprecated) schemaComment += `@deprecated `;
+    if (v.description) schemaComment += v.description;
+    if (schemaComment) output += comment(schemaComment);
 
     // 2. name (with “?” if optional property)
     const readonly = tsReadonly(options.immutableTypes);
