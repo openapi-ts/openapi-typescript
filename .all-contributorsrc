@@ -402,6 +402,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ericzorn93",
+      "name": "Eric Zorn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22532542?v=4",
+      "profile": "http://www.zornwebdev.com",
+      "contributions": [
+        "code",
+        "test",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

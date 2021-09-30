@@ -32,7 +32,17 @@ export function isRef(obj: any): obj is ReferenceObject {
 }
 
 /** Return type of node (works for v2 or v3, as there are no conflicting types) */
-type SchemaObjectType = "anyOf" | "array" | "boolean" | "enum" | "number" | "object" | "oneOf" | "ref" | "string";
+type SchemaObjectType =
+  | "anyOf"
+  | "array"
+  | "boolean"
+  | "enum"
+  | "number"
+  | "object"
+  | "oneOf"
+  | "ref"
+  | "string"
+  | "unknown";
 export function nodeType(obj: any): SchemaObjectType | undefined {
   if (!obj || typeof obj !== "object") {
     return undefined;
@@ -65,6 +75,11 @@ export function nodeType(obj: any): SchemaObjectType | undefined {
   // array
   if (obj.type === "array" || obj.items) {
     return "array";
+  }
+
+  // file
+  if (obj.type === "file") {
+    return "unknown";
   }
 
   // return object by default

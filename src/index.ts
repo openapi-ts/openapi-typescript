@@ -17,9 +17,22 @@ export const WARNING_MESSAGE = `/**
 
 `;
 
-export default async function openapiTS(
+/**
+ * This function is the entry to the program and allows the user to pass in a remote schema and/or local schema.
+ * The URL or schema and headers can be passed in either programtically and/or via the CLI.
+ * Remote schemas are fetched from a server that supplies JSON or YAML format via an HTTP GET request. File based schemas
+ * are loaded in via file path, most commonly prefixed with the file:// format. Alternatively, the user can pass in
+ * OpenAPI2 or OpenAPI3 schema objects that can be parsed directly by the function without reading the file system.
+ *
+ * Function overloading is utilized for generating stronger types for our different schema types and option types.
+ *
+ * @param {string} schema Root Swagger Schema HTTP URL, File URL, and/or JSON or YAML schema
+ * @param {SwaggerToTSOptions<typeof schema>} [options] Options to specify to the parsing system
+ * @return {Promise<string>}  {Promise<string>} Parsed file schema
+ */
+async function openapiTS(
   schema: string | OpenAPI2 | OpenAPI3 | Record<string, SchemaObject>,
-  options: SwaggerToTSOptions = {} as any
+  options: SwaggerToTSOptions = {} as Partial<SwaggerToTSOptions>
 ): Promise<string> {
   const ctx: GlobalContext = {
     additionalProperties: options.additionalProperties || false,
@@ -40,11 +53,15 @@ export default async function openapiTS(
   if (typeof schema === "string") {
     const schemaURL = resolveSchema(schema);
     if (options.silent === false) console.log(yellow(`🔭 Loading spec from ${bold(schemaURL.href)}…`));
+
     await load(schemaURL, {
       ...ctx,
       schemas: allSchemas,
       rootURL: schemaURL, // as it crawls schemas recursively, it needs to know which is the root to resolve everything relative to
+      httpHeaders: options.httpHeaders,
+      httpMethod: options.httpMethod,
     });
+
     for (const k of Object.keys(allSchemas)) {
       if (k === schemaURL.href) {
         rootSchema = allSchemas[k];
@@ -53,7 +70,14 @@ export default async function openapiTS(
       }
     }
   } else {
-    await load(schema, { ...ctx, schemas: allSchemas, rootURL: new URL(VIRTUAL_JSON_URL) });
+    await load(schema, {
+      ...ctx,
+      schemas: allSchemas,
+      rootURL: new URL(VIRTUAL_JSON_URL),
+      httpHeaders: options.httpHeaders,
+      httpMethod: options.httpMethod,
+    });
+
     for (const k of Object.keys(allSchemas)) {
       if (k === VIRTUAL_JSON_URL) {
         rootSchema = allSchemas[k];
@@ -108,3 +132,5 @@ export default async function openapiTS(
   }
   return prettier.format(output, prettierOptions);
 }
+
+export default openapiTS;

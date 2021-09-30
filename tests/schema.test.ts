@@ -209,6 +209,10 @@ describe("SchemaObject", () => {
         `components["parameters"]["ReferenceObject"]`
       );
     });
+
+    it("file", () => {
+      expect(transform({ type: "file" }, { ...defaults })).toBe("unknown");
+    });
   });
 
   describe("advanced", () => {

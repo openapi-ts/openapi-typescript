@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/main/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-38-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-39-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -98,15 +98,18 @@ npx openapi-typescript schema.yaml
 
 #### CLI Options
 
-| Option                         | Alias | Default  | Description                                                                                             |
-| :----------------------------- | :---- | :------: | :------------------------------------------------------------------------------------------------------ |
-| `--output [location]`          | `-o`  | (stdout) | Where should the output file be saved?                                                                  |
-| `--auth [token]`               |       |          | (optional) Provide an auth token to be passed along in the request (only if accessing a private schema) |
-| `--immutable-types`            | `-it` | `false`  | (optional) Generates immutable types (readonly properties and readonly array)                           |
-| `--additional-properties`      | `-ap` | `false`  | (optional) Allow arbitrary properties for all schema objects without `additionalProperties: false`      |
-| `--default-non-nullable`       |       | `false`  | (optional) Treat schema objects with default values as non-nullable                                     |
-| `--prettier-config [location]` | `-c`  |          | (optional) Path to your custom Prettier configuration for output                                        |
-| `--raw-schema`                 |       | `false`  | Generate TS types from partial schema (e.g. having `components.schema` at the top level)                |
+| Option                         | Alias | Default  | Description                                                                                                                             |
+| :----------------------------- | :---- | :------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| `--output [location]`          | `-o`  | (stdout) | Where should the output file be saved?                                                                                                  |
+| `--auth [token]`               |       |          | (optional) Provide an auth token to be passed along in the request (only if accessing a private schema)                                 |
+| `--immutable-types`            | `-it` | `false`  | (optional) Generates immutable types (readonly properties and readonly array)                                                           |
+| `--additional-properties`      | `-ap` | `false`  | (optional) Allow arbitrary properties for all schema objects without `additionalProperties: false`                                      |
+| `--default-non-nullable`       |       | `false`  | (optional) Treat schema objects with default values as non-nullable                                                                     |
+| `--prettier-config [location]` | `-c`  |          | (optional) Path to your custom Prettier configuration for output                                                                        |
+| `--raw-schema`                 |       | `false`  | Generate TS types from partial schema (e.g. having `components.schema` at the top level)                                                |
+| `--httpMethod`                 | `-m`  | `GET`    | (optional) Provide the HTTP Verb/Method for fetching a schema from a remote URL                                                         |
+| `--headersObject`              | `-h`  |          | (optional) Provide a JSON object as string of HTTP headers for remote schema request. This will take priority over `--header`           |
+| `--header`                     | `-x`  |          | (optional) Provide an array of or singular headers as an alternative to a JSON object. Each header must follow the `key: value` pattern |
 
 ### 🐢 Node
 
@@ -243,6 +246,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/sharmarajdaksh"><img src="https://avatars.githubusercontent.com/u/33689528?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dakshraj Sharma</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=sharmarajdaksh" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/shuluster"><img src="https://avatars.githubusercontent.com/u/1707910?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shaosu Liu</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=shuluster" title="Code">💻</a></td>
     <td align="center"><a href="https://vytenis.kuciauskas.lt"><img src="https://avatars.githubusercontent.com/u/468006?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vytenis</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=FDiskas" title="Code">💻</a></td>
+    <td align="center"><a href="http://www.zornwebdev.com"><img src="https://avatars.githubusercontent.com/u/22532542?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Eric Zorn</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=ericzorn93" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=ericzorn93" title="Tests">⚠️</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=ericzorn93" title="Documentation">📖</a></td>
   </tr>
 </table>
 
