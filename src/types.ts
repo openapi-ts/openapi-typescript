@@ -21,6 +21,8 @@ export interface OpenAPI3 {
   };
 }
 
+export type Headers = Record<string, string>;
+
 export interface HeaderObject {
   // note: this extends ParameterObject, minus "name" & "in"
   type?: string; // required
@@ -134,6 +136,21 @@ export interface SwaggerToTSOptions {
   silent?: boolean;
   /** (optional) OpenAPI version. Must be present if parsing raw schema */
   version?: number;
+  /**
+   * (optional) List of HTTP headers that will be sent with the fetch request to a remote schema. This is
+   * in addition to the authorization header. In some cases, servers require headers such as Accept: application/json
+   * or Accept: text/yaml to be sent in order to figure out how to properly fetch the OpenAPI/Swagger document as code.
+   * These headers will only be sent in the case that the schema URL protocol is of type http or https.
+   */
+  httpHeaders?: Headers;
+  /**
+   * HTTP verb used to fetch the schema from a remote server. This is only applied
+   * when the schema is a string and has the http or https protocol present. By default,
+   * the request will use the HTTP GET method to fetch the schema from the server.
+   *
+   * @default {string} GET
+   */
+  httpMethod?: string;
 }
 
 /** Context passed to all submodules */

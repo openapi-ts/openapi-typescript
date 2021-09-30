@@ -5,7 +5,8 @@ import { URL } from "url";
 import slash from "slash";
 import mime from "mime";
 import yaml from "js-yaml";
-import { GlobalContext } from "./types";
+import { red } from "kleur";
+import { GlobalContext, Headers } from "./types";
 import { parseRef } from "./utils";
 
 type PartialSchema = Record<string, any>; // not a very accurate type, but this is easier to deal with before we know we’re dealing with a valid spec
@@ -43,17 +44,52 @@ export function resolveSchema(url: string): URL {
   const localPath = path.isAbsolute(url)
     ? new URL("", `file://${slash(url)}`)
     : new URL(url, `file://${slash(process.cwd())}/`); // if absolute path is provided use that; otherwise search cwd\
+
   if (!fs.existsSync(localPath)) {
     throw new Error(`Could not locate ${url}`);
   } else if (fs.statSync(localPath).isDirectory()) {
     throw new Error(`${localPath} is a directory not a file`);
   }
+
   return localPath;
+}
+
+/**
+ * Accepts income HTTP headers and appends them to
+ * the fetch request for the schema.
+ *
+ * @param {HTTPHeaderMap} httpHeaders
+ * @return {Record<string, string>}  {Record<string, string>} Final HTTP headers outcome.
+ */
+function parseHttpHeaders(httpHeaders: Record<string, any>): Headers {
+  const finalHeaders: Record<string, string> = {};
+
+  // Obtain the header key
+  for (const [k, v] of Object.entries(httpHeaders)) {
+    // If the value of the header is already a string, we can move on, otherwise we have to parse it
+    if (typeof v === "string") {
+      finalHeaders[k] = v;
+    } else {
+      try {
+        const stringVal = JSON.stringify(v);
+        finalHeaders[k] = stringVal;
+      } catch (err) {
+        /* istanbul ignore next */
+        console.error(
+          red(`Cannot parse key: ${k} into JSON format. Continuing with the next HTTP header that is specified`)
+        );
+      }
+    }
+  }
+
+  return finalHeaders;
 }
 
 interface LoadOptions extends GlobalContext {
   rootURL: URL;
   schemas: SchemaMap;
+  httpHeaders?: Headers;
+  httpMethod?: string;
 }
 
 // temporary cache for load()
@@ -65,7 +101,7 @@ export default async function load(
   options: LoadOptions
 ): Promise<{ [url: string]: PartialSchema }> {
   const isJSON = schema instanceof URL === false; // if this is dynamically-passed-in JSON, we’ll have to change a few things
-  let schemaID = isJSON ? new URL(VIRTUAL_JSON_URL).href : schema.href;
+  let schemaID = isJSON ? new URL(VIRTUAL_JSON_URL).href : (schema.href as string);
 
   const schemas = options.schemas;
 
@@ -88,13 +124,20 @@ export default async function load(
       contentType = mime.getType(schemaID) || "";
     } else {
       // load remote
-      const res = await fetch(schemaID, {
-        method: "GET",
-        headers: {
-          "User-Agent": "openapi-typescript",
-          ...(options.auth ? {} : { Authorization: options.auth }),
-        },
-      });
+      const headers: Headers = {
+        "User-Agent": "openapi-typescript",
+      };
+      if (options.auth) headers.Authorizaton = options.auth;
+
+      // Add custom parsed HTTP headers
+      if (options.httpHeaders) {
+        const parsedHeaders = parseHttpHeaders(options.httpHeaders);
+        for (const [k, v] of Object.entries(parsedHeaders)) {
+          headers[k] = v;
+        }
+      }
+
+      const res = await fetch(schemaID, { method: options.httpMethod || "GET", headers });
       contentType = res.headers.get("Content-Type") || "";
       contents = await res.text();
     }
