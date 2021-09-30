@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/main/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-40-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-41-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -248,6 +248,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://vytenis.kuciauskas.lt"><img src="https://avatars.githubusercontent.com/u/468006?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vytenis</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=FDiskas" title="Code">💻</a></td>
     <td align="center"><a href="http://www.zornwebdev.com"><img src="https://avatars.githubusercontent.com/u/22532542?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Eric Zorn</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=ericzorn93" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=ericzorn93" title="Tests">⚠️</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=ericzorn93" title="Documentation">📖</a></td>
     <td align="center"><a href="https://www.mbelsky.com/"><img src="https://avatars.githubusercontent.com/u/3923527?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Max Belsky</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=mbelsky" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Ambelsky" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/Peteck"><img src="https://avatars.githubusercontent.com/u/1520592?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Peter Bech</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=Peteck" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3APeteck" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
