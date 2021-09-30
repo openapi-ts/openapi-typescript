@@ -20,7 +20,7 @@ It’s also recommended you have [ESLint][eslint] installed and set up correctly
 > ```
 > git remote add upstream https://github.com/drwpow/openapi-typescript.git
 > git fetch upstream
-> git branch --set-upstream-to=upstream/master master
+> git branch --set-upstream-to=upstream/main main
 > ```
 >
 > This will add the original repository as a "remote" called "upstream," Then fetch the git information from that
