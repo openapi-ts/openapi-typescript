@@ -413,6 +413,16 @@
         "test",
         "doc"
       ]
+    },
+    {
+      "login": "mbelsky",
+      "name": "Max Belsky",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3923527?v=4",
+      "profile": "https://www.mbelsky.com/",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
