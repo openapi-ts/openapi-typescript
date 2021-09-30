@@ -5184,7 +5184,7 @@ export interface components {
       client_secret?: string;
       webhook_secret?: string;
       pem?: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /** Basic Error */
     "basic-error": {
       message?: string;
@@ -5743,15 +5743,15 @@ export interface components {
       /** The username of the account being blocked. */
       blocked_user?: string;
       business?: string;
-      config?: any[];
-      config_was?: any[];
+      config?: unknown[];
+      config_was?: unknown[];
       content_type?: string;
       /** The time the audit log event was recorded, given as a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time). */
       created_at?: number;
       deploy_key_fingerprint?: string;
       emoji?: string;
-      events?: any[];
-      events_were?: any[];
+      events?: unknown[];
+      events_were?: unknown[];
       explanation?: string;
       fingerprint?: string;
       hook_id?: number;
@@ -6017,8 +6017,8 @@ export interface components {
       comments_url: string;
       owner?: components["schemas"]["simple-user"] | null;
       truncated?: boolean;
-      forks?: { [key: string]: unknown }[];
-      history?: { [key: string]: unknown }[];
+      forks?: unknown[];
+      history?: unknown[];
     };
     /** Gist Simple */
     "gist-simple": {
@@ -6562,7 +6562,7 @@ export interface components {
       updated_at: string;
       node_id: string;
       archive_url?: string;
-      exclude?: { [key: string]: unknown }[];
+      exclude?: unknown[];
     };
     /** A software package */
     package: {
@@ -6598,10 +6598,10 @@ export interface components {
       metadata?: {
         package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
         container?: {
-          tags: any[];
+          tags: unknown[];
         };
         docker?: {
-          tag?: any[];
+          tag?: unknown[];
         } & {
           tags: unknown;
         };
@@ -9432,7 +9432,7 @@ export interface components {
       operations?: {
         op: "add" | "remove" | "replace";
         path?: string;
-        value?: string | { [key: string]: unknown } | { [key: string]: unknown }[];
+        value?: string | { [key: string]: unknown } | unknown[];
       }[];
       /** associated groups */
       groups?: {
@@ -9855,8 +9855,8 @@ export interface components {
         primary_key_id?: number;
         key_id?: string;
         public_key?: string;
-        emails?: { [key: string]: unknown }[];
-        subkeys?: { [key: string]: unknown }[];
+        emails?: unknown[];
+        subkeys?: unknown[];
         can_sign?: boolean;
         can_encrypt_comms?: boolean;
         can_encrypt_storage?: boolean;
@@ -10342,7 +10342,7 @@ export interface operations {
               client_secret: string;
               webhook_secret: string;
               pem: string;
-            } & { [key: string]: any });
+            } & { [key: string]: unknown });
         };
       };
       404: components["responses"]["not_found"];
@@ -19765,12 +19765,12 @@ export interface operations {
             status?: "completed";
           } & {
             conclusion: unknown;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
           Partial<
             {
               status?: "queued" | "in_progress";
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           >) & {
           /** The name of the check. For example, "code-coverage". */
           name: string;
@@ -19903,12 +19903,12 @@ export interface operations {
             status?: "completed";
           } & {
             conclusion: unknown;
-          } & { [key: string]: any }
+          } & { [key: string]: unknown }
         > &
           Partial<
             {
               status?: "queued" | "in_progress";
-            } & { [key: string]: any }
+            } & { [key: string]: unknown }
           >) & {
           /** The name of the check. For example, "code-coverage". */
           name?: string;
@@ -21696,7 +21696,7 @@ export interface operations {
           auto_merge?: boolean;
           /** The [status](https://docs.github.com/rest/reference/repos#statuses) contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts. */
           required_contexts?: string[];
-          payload?: { [key: string]: any } | string;
+          payload?: { [key: string]: unknown } | string;
           /** Name for the target deployment environment (e.g., `production`, `staging`, `qa`). */
           environment?: string;
           /** Short description of the deployment. */
@@ -21897,7 +21897,7 @@ export interface operations {
           /** A custom webhook event name. */
           event_type: string;
           /** JSON payload with extra information about the webhook event that your action or worklow may use. */
-          client_payload?: { [key: string]: any };
+          client_payload?: { [key: string]: unknown };
         };
       };
     };

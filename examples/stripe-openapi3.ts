@@ -2237,7 +2237,7 @@ export interface components {
       /** If the card number is tokenized, this is the method that was used. Can be `amex_express_checkout`, `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null. */
       tokenization_method?: string | null;
     };
-    card_mandate_payment_method_details: { [key: string]: any };
+    card_mandate_payment_method_details: { [key: string]: unknown };
     /**
      * To charge a credit or a debit card, you create a `Charge` object. You can
      * retrieve and refund individual charges as well as list all charges. Charges
@@ -6153,7 +6153,7 @@ export interface components {
       /** The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. */
       front?: (Partial<string> & Partial<components["schemas"]["file"]>) | null;
     };
-    light_account_logout: { [key: string]: any };
+    light_account_logout: { [key: string]: unknown };
     line_item: {
       /** The amount, in %s. */
       amount: number;
@@ -6223,7 +6223,7 @@ export interface components {
       /** The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively. */
       url: string;
     };
-    mandate_multi_use: { [key: string]: any };
+    mandate_multi_use: { [key: string]: unknown };
     mandate_payment_method_details: {
       au_becs_debit?: components["schemas"]["mandate_au_becs_debit"];
       card?: components["schemas"]["card_mandate_payment_method_details"];
@@ -6245,9 +6245,9 @@ export interface components {
     };
     notification_event_data: {
       /** Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://stripe.com/docs/api#invoice_object) as the value of the object key. */
-      object: { [key: string]: any };
+      object: { [key: string]: unknown };
       /** Object containing the names of the attributes that have changed, and their previous values (sent along only with *.updated events). */
-      previous_attributes?: { [key: string]: any };
+      previous_attributes?: { [key: string]: unknown };
     };
     notification_event_request: {
       /** ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API. */
@@ -6255,7 +6255,7 @@ export interface components {
       /** The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*. */
       idempotency_key?: string | null;
     };
-    offline_acceptance: { [key: string]: any };
+    offline_acceptance: { [key: string]: unknown };
     online_acceptance: {
       /** The IP address from which the Mandate was accepted by the customer. */
       ip_address?: string | null;
@@ -6547,7 +6547,7 @@ export interface components {
       /** Type of the next action to perform, one of `redirect_to_url` or `use_stripe_sdk`. */
       type: string;
       /** When confirming a PaymentIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js. */
-      use_stripe_sdk?: { [key: string]: any };
+      use_stripe_sdk?: { [key: string]: unknown };
     };
     payment_intent_next_action_redirect_to_url: {
       /** If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion. */
@@ -6658,7 +6658,7 @@ export interface components {
         components["schemas"]["payment_method_details"]
       > | null;
     };
-    payment_method_card_present: { [key: string]: any };
+    payment_method_card_present: { [key: string]: unknown };
     payment_method_card_wallet: {
       amex_express_checkout?: components["schemas"]["payment_method_card_wallet_amex_express_checkout"];
       apple_pay?: components["schemas"]["payment_method_card_wallet_apple_pay"];
@@ -6677,9 +6677,11 @@ export interface components {
         | "visa_checkout";
       visa_checkout?: components["schemas"]["payment_method_card_wallet_visa_checkout"];
     };
-    payment_method_card_wallet_amex_express_checkout: { [key: string]: any };
-    payment_method_card_wallet_apple_pay: { [key: string]: any };
-    payment_method_card_wallet_google_pay: { [key: string]: any };
+    payment_method_card_wallet_amex_express_checkout: {
+      [key: string]: unknown;
+    };
+    payment_method_card_wallet_apple_pay: { [key: string]: unknown };
+    payment_method_card_wallet_google_pay: { [key: string]: unknown };
     payment_method_card_wallet_masterpass: {
       /** Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       billing_address?: Partial<components["schemas"]["address"]> | null;
@@ -6690,7 +6692,7 @@ export interface components {
       /** Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       shipping_address?: Partial<components["schemas"]["address"]> | null;
     };
-    payment_method_card_wallet_samsung_pay: { [key: string]: any };
+    payment_method_card_wallet_samsung_pay: { [key: string]: unknown };
     payment_method_card_wallet_visa_checkout: {
       /** Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       billing_address?: Partial<components["schemas"]["address"]> | null;
@@ -6751,7 +6753,7 @@ export interface components {
       /** Routing transit number of the bank account. */
       routing_number?: string | null;
     };
-    payment_method_details_alipay: { [key: string]: any };
+    payment_method_details_alipay: { [key: string]: unknown };
     payment_method_details_au_becs_debit: {
       /** Bank-State-Branch number of the bank account. */
       bsb_number?: string | null;
@@ -6912,10 +6914,10 @@ export interface components {
       visa_checkout?: components["schemas"]["payment_method_details_card_wallet_visa_checkout"];
     };
     payment_method_details_card_wallet_amex_express_checkout: {
-      [key: string]: any;
+      [key: string]: unknown;
     };
-    payment_method_details_card_wallet_apple_pay: { [key: string]: any };
-    payment_method_details_card_wallet_google_pay: { [key: string]: any };
+    payment_method_details_card_wallet_apple_pay: { [key: string]: unknown };
+    payment_method_details_card_wallet_google_pay: { [key: string]: unknown };
     payment_method_details_card_wallet_masterpass: {
       /** Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       billing_address?: Partial<components["schemas"]["address"]> | null;
@@ -6926,7 +6928,7 @@ export interface components {
       /** Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       shipping_address?: Partial<components["schemas"]["address"]> | null;
     };
-    payment_method_details_card_wallet_samsung_pay: { [key: string]: any };
+    payment_method_details_card_wallet_samsung_pay: { [key: string]: unknown };
     payment_method_details_card_wallet_visa_checkout: {
       /** Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       billing_address?: Partial<components["schemas"]["address"]> | null;
@@ -7026,7 +7028,7 @@ export interface components {
        */
       verified_name?: string | null;
     };
-    payment_method_details_klarna: { [key: string]: any };
+    payment_method_details_klarna: { [key: string]: unknown };
     payment_method_details_multibanco: {
       /** Entity number associated with this Multibanco payment. */
       entity?: string | null;
@@ -7073,8 +7075,8 @@ export interface components {
        */
       verified_name?: string | null;
     };
-    payment_method_details_stripe_account: { [key: string]: any };
-    payment_method_details_wechat: { [key: string]: any };
+    payment_method_details_stripe_account: { [key: string]: unknown };
+    payment_method_details_wechat: { [key: string]: unknown };
     payment_method_fpx: {
       /** The customer's bank, if provided. Can be one of `affin_bank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, or `pb_enterprise`. */
       bank:
@@ -8175,7 +8177,7 @@ export interface components {
       /** Type of the next action to perform, one of `redirect_to_url` or `use_stripe_sdk`. */
       type: string;
       /** When confirming a SetupIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js. */
-      use_stripe_sdk?: { [key: string]: any };
+      use_stripe_sdk?: { [key: string]: unknown };
     };
     setup_intent_next_action_redirect_to_url: {
       /** If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion. */
@@ -9605,7 +9607,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -9633,7 +9635,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -9976,7 +9978,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10062,7 +10064,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10098,7 +10100,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10129,7 +10131,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10205,7 +10207,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10278,7 +10280,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10364,7 +10366,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10475,7 +10477,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10616,7 +10618,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10758,7 +10760,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10807,7 +10809,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -10948,7 +10950,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -11090,7 +11092,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -11174,7 +11176,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -11451,7 +11453,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -11729,7 +11731,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -11808,7 +11810,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -11896,7 +11898,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -11935,7 +11937,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -11967,7 +11969,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12047,7 +12049,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12126,7 +12128,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12214,7 +12216,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12336,7 +12338,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12482,7 +12484,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12625,7 +12627,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12677,7 +12679,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12823,7 +12825,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -12966,7 +12968,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13045,7 +13047,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13102,7 +13104,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13129,7 +13131,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13180,7 +13182,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13212,7 +13214,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13280,7 +13282,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13357,7 +13359,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13432,7 +13434,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13500,7 +13502,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13535,7 +13537,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13603,7 +13605,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13638,7 +13640,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13715,7 +13717,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13746,7 +13748,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13794,7 +13796,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13840,7 +13842,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -13895,7 +13897,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -14020,7 +14022,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -14162,7 +14164,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -14349,7 +14351,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -14418,7 +14420,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -14496,7 +14498,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -14926,7 +14928,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -14968,7 +14970,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -14999,7 +15001,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15049,7 +15051,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15129,7 +15131,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15190,7 +15192,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15236,7 +15238,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15370,7 +15372,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15446,7 +15448,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15492,7 +15494,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15523,7 +15525,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15638,7 +15640,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15782,7 +15784,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15945,7 +15947,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -15991,7 +15993,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -16061,7 +16063,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -16142,7 +16144,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -16244,7 +16246,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -16428,7 +16430,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -16530,7 +16532,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -16662,7 +16664,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -16689,7 +16691,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -16741,7 +16743,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -16843,7 +16845,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17024,7 +17026,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17162,7 +17164,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17350,7 +17352,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17378,7 +17380,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17424,7 +17426,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17513,7 +17515,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17541,7 +17543,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17594,7 +17596,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17625,7 +17627,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17841,7 +17843,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17872,7 +17874,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17914,7 +17916,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17945,7 +17947,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -17998,7 +18000,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18060,7 +18062,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18155,7 +18157,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18233,7 +18235,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18288,7 +18290,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18373,7 +18375,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18451,7 +18453,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18515,7 +18517,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18685,7 +18687,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18801,7 +18803,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18832,7 +18834,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -18930,7 +18932,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -19008,7 +19010,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -19190,7 +19192,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -19225,7 +19227,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -19281,7 +19283,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -19312,7 +19314,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -19468,7 +19470,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -20451,7 +20453,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -21466,7 +21468,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -22433,7 +22435,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23394,7 +23396,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23452,7 +23454,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23534,7 +23536,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23565,7 +23567,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23651,7 +23653,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23682,7 +23684,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23745,7 +23747,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23797,7 +23799,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23828,7 +23830,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -23917,7 +23919,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -24005,7 +24007,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -24181,7 +24183,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -24250,7 +24252,7 @@ export interface operations {
           mandate_data?: {
             customer_acceptance: {
               accepted_at?: number;
-              offline?: { [key: string]: any };
+              offline?: { [key: string]: unknown };
               online?: {
                 ip_address: string;
                 user_agent: string;
@@ -24370,7 +24372,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -24645,7 +24647,7 @@ export interface operations {
           mandate_data?: Partial<{
             customer_acceptance: {
               accepted_at?: number;
-              offline?: { [key: string]: any };
+              offline?: { [key: string]: unknown };
               online?: {
                 ip_address: string;
                 user_agent: string;
@@ -24772,7 +24774,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -24909,7 +24911,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -24961,7 +24963,7 @@ export interface operations {
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: Partial<{ [key: string]: string }> & Partial<"">;
           /** If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account. */
-          sepa_debit?: { [key: string]: any };
+          sepa_debit?: { [key: string]: unknown };
         };
       };
     };
@@ -25096,7 +25098,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25174,7 +25176,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25290,7 +25292,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25396,7 +25398,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25463,7 +25465,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25523,7 +25525,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25619,7 +25621,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25713,7 +25715,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25757,7 +25759,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25792,7 +25794,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25845,7 +25847,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25905,7 +25907,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25932,7 +25934,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -25985,7 +25987,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -26056,7 +26058,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -26119,7 +26121,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -26171,7 +26173,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -26247,7 +26249,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -26326,7 +26328,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -26379,7 +26381,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -26443,7 +26445,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -26528,7 +26530,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27222,7 +27224,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27258,7 +27260,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27289,7 +27291,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27338,7 +27340,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27369,7 +27371,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27453,7 +27455,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27497,7 +27499,7 @@ export interface operations {
           mandate_data?: {
             customer_acceptance: {
               accepted_at?: number;
-              offline?: { [key: string]: any };
+              offline?: { [key: string]: unknown };
               online?: {
                 ip_address: string;
                 user_agent: string;
@@ -27567,7 +27569,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27706,7 +27708,7 @@ export interface operations {
           mandate_data?: Partial<{
             customer_acceptance: {
               accepted_at?: number;
-              offline?: { [key: string]: any };
+              offline?: { [key: string]: unknown };
               online?: {
                 ip_address: string;
                 user_agent: string;
@@ -27779,7 +27781,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27810,7 +27812,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27862,7 +27864,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -27948,7 +27950,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28037,7 +28039,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28187,7 +28189,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28323,7 +28325,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28368,7 +28370,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28400,7 +28402,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28476,7 +28478,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28570,7 +28572,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28729,7 +28731,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28851,7 +28853,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -28964,7 +28966,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29196,7 +29198,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29330,7 +29332,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29512,7 +29514,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29566,7 +29568,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29636,7 +29638,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29745,7 +29747,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29814,7 +29816,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29884,7 +29886,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29933,7 +29935,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -29997,7 +29999,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -30058,7 +30060,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -30340,7 +30342,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -30400,7 +30402,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -30470,7 +30472,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -30588,7 +30590,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -30675,7 +30677,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -30750,7 +30752,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -30820,7 +30822,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -30899,7 +30901,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -31212,7 +31214,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };
@@ -31429,7 +31431,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": { [key: string]: any };
+        "application/x-www-form-urlencoded": { [key: string]: unknown };
       };
     };
   };

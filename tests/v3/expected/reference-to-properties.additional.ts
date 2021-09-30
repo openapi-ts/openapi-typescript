@@ -13,7 +13,7 @@ export interface components {
   schemas: {
     Pet: {
       name: string;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
   };
 }
 
@@ -26,7 +26,7 @@ export interface operations {
       content: {
         "application/json": {
           name?: components["schemas"]["Pet"]["name"];
-        } & { [key: string]: any };
+        } & { [key: string]: unknown };
       };
     };
   };

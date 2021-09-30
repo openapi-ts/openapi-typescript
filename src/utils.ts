@@ -43,9 +43,9 @@ type SchemaObjectType =
   | "ref"
   | "string"
   | "unknown";
-export function nodeType(obj: any): SchemaObjectType | undefined {
+export function nodeType(obj: any): SchemaObjectType {
   if (!obj || typeof obj !== "object") {
-    return undefined;
+    return "unknown";
   }
 
   if (obj.$ref) {
@@ -77,13 +77,20 @@ export function nodeType(obj: any): SchemaObjectType | undefined {
     return "array";
   }
 
-  // file
-  if (obj.type === "file") {
-    return "unknown";
+  // object
+  if (
+    obj.type === "object" ||
+    obj.hasOwnProperty("allOf") ||
+    obj.hasOwnProperty("anyOf") ||
+    obj.hasOwnProperty("oneOf") ||
+    obj.hasOwnProperty("properties") ||
+    obj.hasOwnProperty("additionalProperties")
+  ) {
+    return "object";
   }
 
-  // return object by default
-  return "object";
+  // return unknown by default
+  return "unknown";
 }
 
 /** Return OpenAPI version from definition */
