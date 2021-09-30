@@ -6,7 +6,7 @@ import slash from "slash";
 import mime from "mime";
 import yaml from "js-yaml";
 import { red } from "kleur";
-import { GlobalContext, HTTPHeaderMap, HTTPVerb, PrimitiveValue } from "./types";
+import { GlobalContext, Headers } from "./types";
 import { parseRef } from "./utils";
 
 type PartialSchema = Record<string, any>; // not a very accurate type, but this is easier to deal with before we know we’re dealing with a valid spec
@@ -14,7 +14,7 @@ type SchemaMap = { [url: string]: PartialSchema };
 
 export const VIRTUAL_JSON_URL = `file:///_json`; // fake URL reserved for dynamic JSON
 
-export function parseSchema(schema: any, type: "YAML" | "JSON") {
+function parseSchema(schema: any, type: "YAML" | "JSON") {
   if (type === "YAML") {
     try {
       return yaml.load(schema);
@@ -30,7 +30,7 @@ export function parseSchema(schema: any, type: "YAML" | "JSON") {
   }
 }
 
-export function isFile(url: URL): boolean {
+function isFile(url: URL): boolean {
   return url.protocol === "file:";
 }
 
@@ -61,49 +61,26 @@ export function resolveSchema(url: string): URL {
  * @param {HTTPHeaderMap} httpHeaders
  * @return {Record<string, string>}  {Record<string, string>} Final HTTP headers outcome.
  */
-export function parseHttpHeaders<THeader = any>(httpHeaders: HTTPHeaderMap<THeader>): Record<string, string> {
+function parseHttpHeaders(httpHeaders: Record<string, any>): Headers {
   const finalHeaders: Record<string, string> = {};
 
-  // Ensure HTTP Headers are defined
-  if (httpHeaders == null) {
-    return finalHeaders;
-  }
-
-  // Check to early return if the HTTP Headers are not in the proper shape
-  if (typeof httpHeaders !== "object") {
-    return finalHeaders;
-  }
-
-  // Check whether the passed headers are a map or JSON object data structure
-  const isHeaderMap = httpHeaders instanceof Headers;
-  const isStandardMap = httpHeaders instanceof Map;
-  const isMap = isHeaderMap || isStandardMap;
-  const headerKeys = isMap ? Array.from((httpHeaders as Headers).keys()) : Object.keys(httpHeaders);
-
   // Obtain the header key
-  headerKeys.forEach((headerKey) => {
-    let headerVal: PrimitiveValue = "";
-    if (isMap) {
-      headerVal = (httpHeaders as Headers).get(headerKey);
-    } else {
-      headerVal = (httpHeaders as Record<string, PrimitiveValue>)[headerKey as string];
-    }
-
+  for (const [k, v] of Object.entries(httpHeaders)) {
     // If the value of the header is already a string, we can move on, otherwise we have to parse it
-    if (typeof headerVal === "string") {
-      finalHeaders[headerKey] = headerVal;
+    if (typeof v === "string") {
+      finalHeaders[k] = v;
     } else {
       try {
-        const stringVal = JSON.stringify(headerVal);
-        finalHeaders[headerKey] = stringVal;
+        const stringVal = JSON.stringify(v);
+        finalHeaders[k] = stringVal;
       } catch (err) {
         /* istanbul ignore next */
         console.error(
-          red(`Cannot parse key: ${headerKey} into JSON format. Continuing with the next HTTP header that is specified`)
+          red(`Cannot parse key: ${k} into JSON format. Continuing with the next HTTP header that is specified`)
         );
       }
     }
-  });
+  }
 
   return finalHeaders;
 }
@@ -111,8 +88,8 @@ export function parseHttpHeaders<THeader = any>(httpHeaders: HTTPHeaderMap<THead
 interface LoadOptions extends GlobalContext {
   rootURL: URL;
   schemas: SchemaMap;
-  httpHeaders?: HTTPHeaderMap;
-  httpMethod?: HTTPVerb;
+  httpHeaders?: Headers;
+  httpMethod?: string;
 }
 
 // temporary cache for load()
@@ -147,7 +124,7 @@ export default async function load(
       contentType = mime.getType(schemaID) || "";
     } else {
       // load remote
-      const headers: HeadersInit = {
+      const headers: Headers = {
         "User-Agent": "openapi-typescript",
       };
       if (options.auth) headers.Authorizaton = options.auth;

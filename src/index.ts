@@ -30,13 +30,9 @@ export const WARNING_MESSAGE = `/**
  * @param {SwaggerToTSOptions<typeof schema>} [options] Options to specify to the parsing system
  * @return {Promise<string>}  {Promise<string>} Parsed file schema
  */
-function openapiTS(schema: string, options?: SwaggerToTSOptions<typeof schema>): Promise<string>;
-function openapiTS(schema: OpenAPI2, options?: SwaggerToTSOptions<typeof schema>): Promise<string>;
-function openapiTS(schema: OpenAPI3, options?: SwaggerToTSOptions<typeof schema>): Promise<string>;
-function openapiTS(schema: Record<string, SchemaObject>, options: SwaggerToTSOptions<typeof schema>): Promise<string>;
 async function openapiTS(
   schema: string | OpenAPI2 | OpenAPI3 | Record<string, SchemaObject>,
-  options: SwaggerToTSOptions<typeof schema> = {} as Partial<SwaggerToTSOptions<typeof schema>>
+  options: SwaggerToTSOptions = {} as Partial<SwaggerToTSOptions>
 ): Promise<string> {
   const ctx: GlobalContext = {
     additionalProperties: options.additionalProperties || false,

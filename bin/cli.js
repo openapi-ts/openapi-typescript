@@ -6,7 +6,6 @@ const meow = require("meow");
 const path = require("path");
 const glob = require("tiny-glob");
 const { default: openapiTS } = require("../dist/cjs/index.js");
-const { getCLISchemaHeadersJSON, getCLIHeadersFromArray } = require("./utils");
 
 const cli = meow(
   `Usage
@@ -88,15 +87,19 @@ async function generateSchema(pathToSpec) {
   const output = cli.flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
 
   // Parse incoming headers from CLI flags
-  // If both header flags are present, default to JSON.
-  // Otherwise, we can use the preferred header parsing function.
-  let finalHttpHeaders = {};
-  if (cli.flags.header && cli.flags.headersObject) {
-    finalHttpHeaders = getCLISchemaHeadersJSON(cli.flags.headersObject);
-  } else if (cli.flags.headersObject) {
-    finalHttpHeaders = getCLISchemaHeadersJSON(cli.flags.headersObject);
-  } else if (cli.flags.header) {
-    finalHttpHeaders = getCLIHeadersFromArray(cli.flags.header);
+  let httpHeaders = {};
+  // prefer --headersObject if specified
+  if (cli.flags.headersObject) {
+    httpHeaders = JSON.parse(cli.flags.headersObject); // note: this will generate a recognizable error for the user to act on
+  }
+  // otherwise, parse --header
+  else if (Array.isArray(cli.flags.header)) {
+    cli.flags.header.forEach((header) => {
+      const firstColon = header.indexOf(":");
+      const k = header.substring(0, firstColon).trim();
+      const v = header.substring(firstColon + 1).trim();
+      httpHeaders[k] = v;
+    });
   }
 
   // generate schema
@@ -109,7 +112,7 @@ async function generateSchema(pathToSpec) {
     rawSchema: cli.flags.rawSchema,
     silent: output === OUTPUT_STDOUT,
     version: cli.flags.version,
-    httpHeaders: finalHttpHeaders,
+    httpHeaders,
     httpMethod: cli.flags.httpMethod,
   });
 

@@ -1,6 +1,4 @@
-import { METHODS as HTTPMethods } from "http";
-
-import { HTTPVerb, OpenAPI2, OpenAPI3, ReferenceObject } from "./types";
+import { OpenAPI2, OpenAPI3, ReferenceObject } from "./types";
 
 export function comment(text: string): string {
   const commentText = text.trim().replace(/\*\//g, "*\\/");

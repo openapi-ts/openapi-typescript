@@ -1,5 +1,4 @@
 import type { URL } from "url";
-import type { Headers } from "node-fetch";
 
 export interface OpenAPI2 {
   swagger: string; // required
@@ -21,6 +20,8 @@ export interface OpenAPI3 {
     links?: Record<string, ReferenceObject | LinkObject>;
   };
 }
+
+export type Headers = Record<string, string>;
 
 export interface HeaderObject {
   // note: this extends ParameterObject, minus "name" & "in"
@@ -114,14 +115,7 @@ export interface SchemaObject {
 
 export type SchemaFormatter = (schemaObj: SchemaObject) => string | undefined;
 
-export type PrimitiveValue = string | number | boolean | bigint | null | undefined | symbol;
-
-export type HTTPHeaderMap<T = any> = T extends string
-  ? Headers | Map<string, PrimitiveValue> | Record<string, PrimitiveValue>
-  : null;
-
-export type HTTPVerb = "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS";
-export interface SwaggerToTSOptions<T = any> {
+export interface SwaggerToTSOptions {
   /** Allow arbitrary properties on schemas (default: false) */
   additionalProperties?: boolean;
   /** (optional) Specify auth if using openapi-typescript to fetch URL */
@@ -148,17 +142,15 @@ export interface SwaggerToTSOptions<T = any> {
    * or Accept: text/yaml to be sent in order to figure out how to properly fetch the OpenAPI/Swagger document as code.
    * These headers will only be sent in the case that the schema URL protocol is of type http or https.
    */
-  httpHeaders?: HTTPHeaderMap<T>;
+  httpHeaders?: Headers;
   /**
    * HTTP verb used to fetch the schema from a remote server. This is only applied
    * when the schema is a string and has the http or https protocol present. By default,
    * the request will use the HTTP GET method to fetch the schema from the server.
    *
-   * @type {HTTPVerb}
-   * @memberof SwaggerToTSOptions
    * @default {string} GET
    */
-  httpMethod?: HTTPVerb;
+  httpMethod?: string;
 }
 
 /** Context passed to all submodules */
