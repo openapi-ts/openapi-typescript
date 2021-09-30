@@ -2,12 +2,12 @@
 
 const fs = require("fs");
 const { bold, green, red } = require("kleur");
-const path = require("path");
 const meow = require("meow");
+const path = require("path");
 const glob = require("tiny-glob");
 const { default: openapiTS } = require("../dist/cjs/index.js");
 
-const cli = meow(
+let cli = meow(
   `Usage
   $ openapi-typescript [input] [options]
 

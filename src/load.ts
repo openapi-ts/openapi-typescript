@@ -1,7 +1,7 @@
+import fetch from "node-fetch";
 import fs from "fs";
 import path from "path";
 import { URL } from "url";
-import fetch, { Headers } from "node-fetch";
 import slash from "slash";
 import mime from "mime";
 import yaml from "js-yaml";
@@ -17,13 +17,13 @@ function parseSchema(schema: any, type: "YAML" | "JSON") {
   if (type === "YAML") {
     try {
       return yaml.load(schema);
-    } catch (err) {
+    } catch (err: any) {
       throw new Error(`YAML: ${err.toString()}`);
     }
   } else {
     try {
       return JSON.parse(schema);
-    } catch (err) {
+    } catch (err: any) {
       throw new Error(`JSON: ${err.toString()}`);
     }
   }
@@ -88,10 +88,13 @@ export default async function load(
       contentType = mime.getType(schemaID) || "";
     } else {
       // load remote
-      const headers = new Headers();
-      headers.set("User-Agent", "openapi-typescript");
-      if (options.auth) headers.set("Authorization", options.auth);
-      const res = await fetch(schemaID, { method: "GET", headers });
+      const res = await fetch(schemaID, {
+        method: "GET",
+        headers: {
+          "User-Agent": "openapi-typescript",
+          ...(options.auth ? {} : { Authorization: options.auth }),
+        },
+      });
       contentType = res.headers.get("Content-Type") || "";
       contents = await res.text();
     }
