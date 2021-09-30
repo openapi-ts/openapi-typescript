@@ -8991,7 +8991,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         three_d_secure: string;
@@ -9013,7 +9013,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
     };
     responses: {
@@ -9040,7 +9040,7 @@ export interface operations {
           /** An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
           account_token?: string;
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: unknown };
+          bank_account?: unknown;
           /** Business information about the account. */
           business_profile?: {
             mcc?: string;
@@ -9151,7 +9151,7 @@ export interface operations {
               state?: string;
               town?: string;
             };
-            dob?: { [key: string]: unknown };
+            dob?: unknown;
             email?: string;
             first_name?: string;
             first_name_kana?: string;
@@ -9162,7 +9162,7 @@ export interface operations {
             last_name_kana?: string;
             last_name_kanji?: string;
             maiden_name?: string;
-            metadata?: { [key: string]: unknown };
+            metadata?: unknown;
             phone?: string;
             ssn_last_4?: string;
             verification?: {
@@ -9177,7 +9177,7 @@ export interface operations {
             };
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** The set of capabilities you want to unlock for this account. Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive. */
           requested_capabilities?: (
             | "au_becs_debit_payments"
@@ -9211,7 +9211,7 @@ export interface operations {
             payouts?: {
               debit_negative_balances?: boolean;
               schedule?: {
-                delay_days?: { [key: string]: unknown };
+                delay_days?: unknown;
                 interval?: "daily" | "manual" | "monthly" | "weekly";
                 monthly_anchor?: number;
                 weekly_anchor?: "friday" | "monday" | "saturday" | "sunday" | "thursday" | "tuesday" | "wednesday";
@@ -9273,7 +9273,7 @@ export interface operations {
         /** Body parameters for the request. */
         payload?: {
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: unknown };
+          bank_account?: unknown;
           /** When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           default_for_currency?: boolean;
           /** Specifies which fields in the response should be expanded. */
@@ -9301,7 +9301,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         id: string;
@@ -9355,7 +9355,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Cardholder name. */
           name?: string;
         };
@@ -9395,7 +9395,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
     };
     responses: {
@@ -9422,7 +9422,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         capability: string;
@@ -9471,7 +9471,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -9507,7 +9507,7 @@ export interface operations {
         /** Body parameters for the request. */
         payload?: {
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: unknown };
+          bank_account?: unknown;
           /** When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           default_for_currency?: boolean;
           /** Specifies which fields in the response should be expanded. */
@@ -9535,7 +9535,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         id: string;
@@ -9589,7 +9589,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Cardholder name. */
           name?: string;
         };
@@ -9685,7 +9685,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -9752,7 +9752,7 @@ export interface operations {
             town?: string;
           };
           /** The person's date of birth. */
-          dob?: { [key: string]: unknown };
+          dob?: unknown;
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -9776,7 +9776,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -9786,7 +9786,7 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: { [key: string]: unknown };
+            percent_ownership?: unknown;
             representative?: boolean;
             title?: string;
           };
@@ -9822,7 +9822,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         person: string;
@@ -9879,7 +9879,7 @@ export interface operations {
             town?: string;
           };
           /** The person's date of birth. */
-          dob?: { [key: string]: unknown };
+          dob?: unknown;
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -9903,7 +9903,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -9913,7 +9913,7 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: { [key: string]: unknown };
+            percent_ownership?: unknown;
             representative?: boolean;
             title?: string;
           };
@@ -9967,7 +9967,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -10034,7 +10034,7 @@ export interface operations {
             town?: string;
           };
           /** The person's date of birth. */
-          dob?: { [key: string]: unknown };
+          dob?: unknown;
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -10058,7 +10058,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -10068,7 +10068,7 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: { [key: string]: unknown };
+            percent_ownership?: unknown;
             representative?: boolean;
             title?: string;
           };
@@ -10104,7 +10104,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         person: string;
@@ -10161,7 +10161,7 @@ export interface operations {
             town?: string;
           };
           /** The person's date of birth. */
-          dob?: { [key: string]: unknown };
+          dob?: unknown;
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -10185,7 +10185,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -10195,7 +10195,7 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: { [key: string]: unknown };
+            percent_ownership?: unknown;
             representative?: boolean;
             title?: string;
           };
@@ -10281,7 +10281,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -10325,7 +10325,7 @@ export interface operations {
           /** An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
           account_token?: string;
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: unknown };
+          bank_account?: unknown;
           /** Business information about the account. */
           business_profile?: {
             mcc?: string;
@@ -10438,7 +10438,7 @@ export interface operations {
               state?: string;
               town?: string;
             };
-            dob?: { [key: string]: unknown };
+            dob?: unknown;
             email?: string;
             first_name?: string;
             first_name_kana?: string;
@@ -10449,7 +10449,7 @@ export interface operations {
             last_name_kana?: string;
             last_name_kanji?: string;
             maiden_name?: string;
-            metadata?: { [key: string]: unknown };
+            metadata?: unknown;
             phone?: string;
             ssn_last_4?: string;
             verification?: {
@@ -10464,7 +10464,7 @@ export interface operations {
             };
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** The set of capabilities you want to unlock for this account. Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive. */
           requested_capabilities?: (
             | "au_becs_debit_payments"
@@ -10498,7 +10498,7 @@ export interface operations {
             payouts?: {
               debit_negative_balances?: boolean;
               schedule?: {
-                delay_days?: { [key: string]: unknown };
+                delay_days?: unknown;
                 interval?: "daily" | "manual" | "monthly" | "weekly";
                 monthly_anchor?: number;
                 weekly_anchor?: "friday" | "monday" | "saturday" | "sunday" | "thursday" | "tuesday" | "wednesday";
@@ -10533,7 +10533,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         account: string;
@@ -10566,7 +10566,7 @@ export interface operations {
           /** An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
           account_token?: string;
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: unknown };
+          bank_account?: unknown;
           /** Business information about the account. */
           business_profile?: {
             mcc?: string;
@@ -10677,7 +10677,7 @@ export interface operations {
               state?: string;
               town?: string;
             };
-            dob?: { [key: string]: unknown };
+            dob?: unknown;
             email?: string;
             first_name?: string;
             first_name_kana?: string;
@@ -10688,7 +10688,7 @@ export interface operations {
             last_name_kana?: string;
             last_name_kanji?: string;
             maiden_name?: string;
-            metadata?: { [key: string]: unknown };
+            metadata?: unknown;
             phone?: string;
             ssn_last_4?: string;
             verification?: {
@@ -10703,7 +10703,7 @@ export interface operations {
             };
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** The set of capabilities you want to unlock for this account. Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive. */
           requested_capabilities?: (
             | "au_becs_debit_payments"
@@ -10737,7 +10737,7 @@ export interface operations {
             payouts?: {
               debit_negative_balances?: boolean;
               schedule?: {
-                delay_days?: { [key: string]: unknown };
+                delay_days?: unknown;
                 interval?: "daily" | "manual" | "monthly" | "weekly";
                 monthly_anchor?: number;
                 weekly_anchor?: "friday" | "monday" | "saturday" | "sunday" | "thursday" | "tuesday" | "wednesday";
@@ -10799,7 +10799,7 @@ export interface operations {
         /** Body parameters for the request. */
         payload?: {
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: unknown };
+          bank_account?: unknown;
           /** When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           default_for_currency?: boolean;
           /** Specifies which fields in the response should be expanded. */
@@ -10827,7 +10827,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         account: string;
@@ -10883,7 +10883,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Cardholder name. */
           name?: string;
         };
@@ -10924,7 +10924,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         account: string;
@@ -10954,7 +10954,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         account: string;
@@ -11005,7 +11005,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -11047,7 +11047,7 @@ export interface operations {
         /** Body parameters for the request. */
         payload?: {
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: unknown };
+          bank_account?: unknown;
           /** When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           default_for_currency?: boolean;
           /** Specifies which fields in the response should be expanded. */
@@ -11075,7 +11075,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         account: string;
@@ -11131,7 +11131,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Cardholder name. */
           name?: string;
         };
@@ -11232,7 +11232,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -11304,7 +11304,7 @@ export interface operations {
             town?: string;
           };
           /** The person's date of birth. */
-          dob?: { [key: string]: unknown };
+          dob?: unknown;
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -11328,7 +11328,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -11338,7 +11338,7 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: { [key: string]: unknown };
+            percent_ownership?: unknown;
             representative?: boolean;
             title?: string;
           };
@@ -11374,7 +11374,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         account: string;
@@ -11432,7 +11432,7 @@ export interface operations {
             town?: string;
           };
           /** The person's date of birth. */
-          dob?: { [key: string]: unknown };
+          dob?: unknown;
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -11456,7 +11456,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -11466,7 +11466,7 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: { [key: string]: unknown };
+            percent_ownership?: unknown;
             representative?: boolean;
             title?: string;
           };
@@ -11521,7 +11521,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -11593,7 +11593,7 @@ export interface operations {
             town?: string;
           };
           /** The person's date of birth. */
-          dob?: { [key: string]: unknown };
+          dob?: unknown;
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -11617,7 +11617,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -11627,7 +11627,7 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: { [key: string]: unknown };
+            percent_ownership?: unknown;
             representative?: boolean;
             title?: string;
           };
@@ -11663,7 +11663,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         account: string;
@@ -11721,7 +11721,7 @@ export interface operations {
             town?: string;
           };
           /** The person's date of birth. */
-          dob?: { [key: string]: unknown };
+          dob?: unknown;
           /** The person's email address. */
           email?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -11745,7 +11745,7 @@ export interface operations {
           /** The person's maiden name. */
           maiden_name?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
           person_token?: string;
           /** The person's phone number. */
@@ -11755,7 +11755,7 @@ export interface operations {
             director?: boolean;
             executive?: boolean;
             owner?: boolean;
-            percent_ownership?: { [key: string]: unknown };
+            percent_ownership?: unknown;
             representative?: boolean;
             title?: string;
           };
@@ -11841,7 +11841,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         domain_name?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -11898,7 +11898,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         domain: string;
@@ -11938,7 +11938,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Only return application fees for the charge specified by this charge ID. */
         charge?: string;
         created?: number;
@@ -11974,7 +11974,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         fee: string;
@@ -12009,7 +12009,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -12029,7 +12029,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         id: string;
@@ -12077,7 +12077,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -12156,7 +12156,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
     };
     responses: {
@@ -12179,7 +12179,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         available_on?: number;
         created?: number;
         /** Only return transactions in a certain currency. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -12226,7 +12226,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         id: string;
@@ -12252,7 +12252,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         available_on?: number;
         created?: number;
         /** Only return transactions in a certain currency. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -12299,7 +12299,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         id: string;
@@ -12347,7 +12347,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Filter for active receivers. */
         active?: boolean;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -12386,7 +12386,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         id: string;
@@ -12408,7 +12408,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Only return transactions for the customer specified by this customer ID. */
         customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -12447,7 +12447,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Only return transactions for the customer specified by this customer ID. */
         customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -12484,7 +12484,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         created?: number;
         /** Only return charges for the customer specified by this customer ID. */
         customer?: string;
@@ -12533,7 +12533,7 @@ export interface operations {
           /** Whether to immediately capture the charge. Defaults to `true`. When `false`, the charge issues an authorization (or pre-authorization), and will need to be [captured](https://stripe.com/docs/api#capture_charge) later. Uncaptured charges expire in _seven days_. For more information, see the [authorizing charges and settling later](https://stripe.com/docs/charges/placing-a-hold) documentation. */
           capture?: boolean;
           /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
-          card?: { [key: string]: unknown };
+          card?: unknown;
           /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency?: string;
           /** The ID of an existing customer that will be charged in this request. */
@@ -12547,7 +12547,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/charges-transfers#on-behalf-of). */
           on_behalf_of?: string;
           /** The email address to which this charge's [receipt](https://stripe.com/docs/dashboard/receipts) will be sent. The receipt will not be sent until the charge is paid, and no receipts will be sent for test mode charges. If this charge is for a [Customer](https://stripe.com/docs/api/customers/object), the email address specified here will override the customer's email address. If `receipt_email` is specified for a charge in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). */
@@ -12599,7 +12599,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         charge: string;
@@ -12636,7 +12636,7 @@ export interface operations {
             user_report: "" | "fraudulent" | "safe";
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** This is the email address that the receipt for this charge will be sent to. If this field is updated, then a new email receipt will be sent to the updated address. */
           receipt_email?: string;
           /** Shipping information for the charge. Helps prevent fraud on charges for physical goods. */
@@ -12722,7 +12722,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         charge: string;
@@ -12780,7 +12780,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
           submit?: boolean;
         };
@@ -12845,7 +12845,7 @@ export interface operations {
           amount?: number;
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           payment_intent?: string;
           reason?: "duplicate" | "fraudulent" | "requested_by_customer";
           refund_application_fee?: boolean;
@@ -12869,7 +12869,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -12938,7 +12938,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         charge: string;
@@ -12968,7 +12968,7 @@ export interface operations {
         payload?: {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -12988,7 +12988,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -13421,7 +13421,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         session: string;
@@ -13443,7 +13443,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -13476,7 +13476,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         country: string;
@@ -13498,7 +13498,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
         created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -13553,7 +13553,7 @@ export interface operations {
           /** A positive integer specifying the number of times the coupon can be redeemed before it's no longer valid. For example, you might have a 50% off coupon that the first 20 readers of your blog can use. */
           max_redemptions?: number;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
           name?: string;
           /** A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed). */
@@ -13579,7 +13579,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         coupon: string;
@@ -13608,7 +13608,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
           name?: string;
         };
@@ -13648,7 +13648,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Only return credit notes for the customer specified by this customer ID. */
         customer?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -13751,7 +13751,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** The integer amount in **%s** representing the total amount of the credit note. */
         amount?: number;
         /** The integer amount in **%s** representing the amount to credit the customer's balance, which will be automatically applied to their next invoice. */
@@ -13759,7 +13759,7 @@ export interface operations {
         /** ID of the invoice. */
         invoice: string;
         /** Line items that make up the credit note. */
-        lines?: any[];
+        lines?: unknown[];
         /** The credit note's memo appears on the credit note PDF. */
         memo?: string;
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -13790,7 +13790,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** The integer amount in **%s** representing the total amount of the credit note. */
         amount?: number;
         /** The integer amount in **%s** representing the amount to credit the customer's balance, which will be automatically applied to their next invoice. */
@@ -13802,7 +13802,7 @@ export interface operations {
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** Line items that make up the credit note. */
-        lines?: any[];
+        lines?: unknown[];
         /** The credit note's memo appears on the credit note PDF. */
         memo?: string;
         /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -13844,7 +13844,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -13881,7 +13881,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         id: string;
@@ -13957,7 +13957,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         created?: number;
         /** A filter on the list based on the customer's `email` field. The value must be a string. */
         email?: string;
@@ -13995,7 +13995,7 @@ export interface operations {
         /** Body parameters for the request. */
         payload?: {
           /** The customer's address. */
-          address?: { [key: string]: unknown };
+          address?: unknown;
           /** An integer amount in %s that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice. */
           balance?: number;
           /** The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. */
@@ -14018,7 +14018,7 @@ export interface operations {
             footer?: string;
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** The customer's full name or business name. */
           name?: string;
           /** The sequence to be used on the customer's next invoice. Defaults to 1. */
@@ -14030,7 +14030,7 @@ export interface operations {
           /** Customer's preferred languages, ordered by preference. */
           preferred_locales?: string[];
           /** The customer's shipping information. Appears on invoices emailed to this customer. */
-          shipping?: { [key: string]: unknown };
+          shipping?: unknown;
           /**
            * The source can be a [Token](https://stripe.com/docs/api#tokens) or a [Source](https://stripe.com/docs/api#sources), as returned by [Elements](https://stripe.com/docs/elements). You must provide a source if the customer does not already have a valid source attached, and you are subscribing the customer to be charged automatically for a plan that is not free.
            *
@@ -14088,7 +14088,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         customer: string;
@@ -14119,13 +14119,13 @@ export interface operations {
         /** Body parameters for the request. */
         payload?: {
           /** The customer's address. */
-          address?: { [key: string]: unknown };
+          address?: unknown;
           /** An integer amount in %s that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice. */
           balance?: number;
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: unknown };
+          bank_account?: unknown;
           /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
-          card?: { [key: string]: unknown };
+          card?: unknown;
           /** The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. */
           coupon?: string;
           /** ID of Alipay account to make the customer's new default for invoice payments. */
@@ -14160,7 +14160,7 @@ export interface operations {
             footer?: string;
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** The customer's full name or business name. */
           name?: string;
           /** The sequence to be used on the customer's next invoice. Defaults to 1. */
@@ -14170,7 +14170,7 @@ export interface operations {
           /** Customer's preferred languages, ordered by preference. */
           preferred_locales?: string[];
           /** The customer's shipping information. Appears on invoices emailed to this customer. */
-          shipping?: { [key: string]: unknown };
+          shipping?: unknown;
           /**
            * The source can be a [Token](https://stripe.com/docs/api#tokens) or a [Source](https://stripe.com/docs/api#sources), as returned by [Elements](https://stripe.com/docs/elements). You must provide a source if the customer does not already have a valid source attached, and you are subscribing the customer to be charged automatically for a plan that is not free.
            *
@@ -14182,7 +14182,7 @@ export interface operations {
           /** The customer's tax exemption. One of `none`, `exempt`, or `reverse`. */
           tax_exempt?: "" | "exempt" | "none" | "reverse";
           /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          trial_end?: { [key: string]: unknown };
+          trial_end?: unknown;
         };
       };
     };
@@ -14220,7 +14220,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -14270,7 +14270,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -14290,7 +14290,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         customer: string;
@@ -14323,7 +14323,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -14343,7 +14343,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -14393,9 +14393,9 @@ export interface operations {
           /** A token returned by [Stripe.js](https://stripe.com/docs/stripe.js) representing the user’s Alipay account details. */
           alipay_account?: string;
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: unknown };
+          bank_account?: unknown;
           /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
-          card?: { [key: string]: unknown };
+          card?: unknown;
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -14421,7 +14421,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         customer: string;
@@ -14472,7 +14472,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Cardholder name. */
           name?: string;
           owner?: {
@@ -14565,7 +14565,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -14614,9 +14614,9 @@ export interface operations {
           /** A token returned by [Stripe.js](https://stripe.com/docs/stripe.js) representing the user’s Alipay account details. */
           alipay_account?: string;
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: unknown };
+          bank_account?: unknown;
           /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
-          card?: { [key: string]: unknown };
+          card?: unknown;
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -14642,7 +14642,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         customer: string;
@@ -14693,7 +14693,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Cardholder name. */
           name?: string;
           owner?: {
@@ -14753,7 +14753,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         customer: string;
@@ -14793,7 +14793,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -14845,9 +14845,9 @@ export interface operations {
           /** A token returned by [Stripe.js](https://stripe.com/docs/stripe.js) representing the user’s Alipay account details. */
           alipay_account?: string;
           /** Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
-          bank_account?: { [key: string]: unknown };
+          bank_account?: unknown;
           /** A token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js). */
-          card?: { [key: string]: unknown };
+          card?: unknown;
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -14873,7 +14873,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         customer: string;
@@ -14924,7 +14924,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Cardholder name. */
           name?: string;
           owner?: {
@@ -15013,7 +15013,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -15061,7 +15061,7 @@ export interface operations {
           /** A future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. */
           billing_cycle_anchor?: number;
           /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
-          billing_thresholds?: { [key: string]: unknown };
+          billing_thresholds?: unknown;
           /** A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
           cancel_at?: number;
           /** Boolean indicating whether this subscription should cancel at the end of the current period. */
@@ -15082,14 +15082,14 @@ export interface operations {
           expand?: string[];
           /** A list of up to 20 subscription items, each with an attached plan. */
           items?: {
-            billing_thresholds?: { [key: string]: unknown };
+            billing_thresholds?: unknown;
             metadata?: { [key: string]: unknown };
             plan?: string;
             quantity?: number;
             tax_rates?: string[];
           }[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /**
@@ -15101,7 +15101,7 @@ export interface operations {
            */
           payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /** Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-          pending_invoice_item_interval?: { [key: string]: unknown };
+          pending_invoice_item_interval?: unknown;
           /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
           prorate?: boolean;
           /**
@@ -15111,9 +15111,9 @@ export interface operations {
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /** A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-          tax_percent?: { [key: string]: unknown };
+          tax_percent?: unknown;
           /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          trial_end?: { [key: string]: unknown };
+          trial_end?: unknown;
           /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
           trial_from_plan?: boolean;
           /** Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. */
@@ -15137,7 +15137,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         customer: string;
@@ -15170,9 +15170,9 @@ export interface operations {
           /** Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle). */
           billing_cycle_anchor?: "now" | "unchanged";
           /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
-          billing_thresholds?: { [key: string]: unknown };
+          billing_thresholds?: unknown;
           /** A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
-          cancel_at?: { [key: string]: unknown };
+          cancel_at?: unknown;
           /** Boolean indicating whether this subscription should cancel at the end of the current period. */
           cancel_at_period_end?: boolean;
           /** Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`. */
@@ -15191,21 +15191,21 @@ export interface operations {
           expand?: string[];
           /** List of subscription items, each with an attached plan. */
           items?: {
-            billing_thresholds?: { [key: string]: unknown };
+            billing_thresholds?: unknown;
             clear_usage?: boolean;
             deleted?: boolean;
             id?: string;
-            metadata?: { [key: string]: unknown };
+            metadata?: unknown;
             plan?: string;
             quantity?: number;
             tax_rates?: string[];
           }[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /** If specified, payment collection for this subscription will be paused. */
-          pause_collection?: { [key: string]: unknown };
+          pause_collection?: unknown;
           /**
            * Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
            *
@@ -15215,7 +15215,7 @@ export interface operations {
            */
           payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /** Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-          pending_invoice_item_interval?: { [key: string]: unknown };
+          pending_invoice_item_interval?: unknown;
           /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
           prorate?: boolean;
           /**
@@ -15229,9 +15229,9 @@ export interface operations {
           /** If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations. */
           proration_date?: number;
           /** A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-          tax_percent?: { [key: string]: unknown };
+          tax_percent?: unknown;
           /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          trial_end?: { [key: string]: unknown };
+          trial_end?: unknown;
           /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
           trial_from_plan?: boolean;
         };
@@ -15288,7 +15288,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         customer: string;
@@ -15330,7 +15330,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -15419,7 +15419,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         customer: string;
@@ -15461,7 +15461,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Only return disputes associated to the charge specified by this charge ID. */
         charge?: string;
         created?: number;
@@ -15499,7 +15499,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         dispute: string;
@@ -15562,7 +15562,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
           submit?: boolean;
         };
@@ -15664,7 +15664,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         created?: number;
         /** Filter events by whether all webhooks were successfully delivered. If false, events which are still pending or have failed all delivery attempts to a webhook endpoint will be returned. */
         delivery_success?: boolean;
@@ -15677,7 +15677,7 @@ export interface operations {
         /** A string containing a specific event name, or group of events using * as a wildcard. The list will be filtered to include only events with a matching event property. */
         type?: string;
         /** An array of up to 20 strings containing specific event names. The list will be filtered to include only events with a matching event property. You may pass either `type` or `types`, but not both. */
-        types?: any[];
+        types?: unknown[];
       };
     };
     responses: {
@@ -15704,7 +15704,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         id: string;
@@ -15726,7 +15726,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with the exchange rate for currency X your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and total number of supported payout currencies, and the default is the max. */
@@ -15759,7 +15759,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         currency: string;
@@ -15781,7 +15781,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -15827,7 +15827,7 @@ export interface operations {
           /** The ID of the file. The file's `purpose` must be one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `pci_document`, `sigma_scheduled_query`, or `tax_document_user_upload`. */
           file: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -15847,7 +15847,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         link: string;
@@ -15876,9 +15876,9 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** A future timestamp after which the link will no longer be usable, or `now` to expire the link immediately. */
-          expires_at?: { [key: string]: unknown };
+          expires_at?: unknown;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -15898,7 +15898,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -15947,7 +15947,7 @@ export interface operations {
           file_link_data?: {
             create: boolean;
             expires_at?: number;
-            metadata?: { [key: string]: unknown };
+            metadata?: unknown;
           };
           /** The purpose of the uploaded file. Possible values are `additional_verification`, `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `identity_document`, `pci_document`, or `tax_document_user_upload`. */
           purpose:
@@ -15978,7 +15978,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         file: string;
@@ -16000,7 +16000,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         created?: number;
         /** The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned. */
         customer?: string;
@@ -16056,7 +16056,7 @@ export interface operations {
           /** The ID of an existing invoice to add this invoice item to. When left blank, the invoice item will be added to the next upcoming scheduled invoice. This is useful when adding invoice items in response to an invoice.created webhook. You can only add invoice items to draft invoices. */
           invoice?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** The period associated with this invoice item. */
           period?: {
             end: number;
@@ -16091,7 +16091,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         invoiceitem: string;
@@ -16126,7 +16126,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** The period associated with this invoice item. */
           period?: {
             end: number;
@@ -16177,7 +16177,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** The collection method of the invoice to retrieve. Either `charge_automatically` or `send_invoice`. */
         collection_method?: string;
         created?: number;
@@ -16251,7 +16251,7 @@ export interface operations {
           /** Footer to be displayed on the invoice. */
           footer?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`. */
           statement_descriptor?: string;
           /** The ID of the subscription to invoice, if any. If not set, the created invoice will include all pending invoice items for the customer. If set, the created invoice will only include pending invoice items for that subscription and pending invoice items not associated with any subscription. The subscription's billing cycle and regular subscription events won't be affected. */
@@ -16283,13 +16283,13 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** The code of the coupon to apply. If `subscription` or `subscription_items` is provided, the invoice returned will preview updating or creating a subscription with that coupon. Otherwise, it will preview applying that coupon to the customer for the next upcoming invoice from among the customer's subscriptions. The invoice can be previewed without a coupon by passing this value as an empty string. */
         coupon?: string;
         /** The identifier of the customer whose upcoming invoice you'd like to retrieve. */
         customer?: string;
         /** List of invoice items to add or update in the upcoming invoice preview. */
-        invoice_items?: any[];
+        invoice_items?: unknown[];
         /** The identifier of the unstarted schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields. */
         schedule?: string;
         /** The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions. */
@@ -16305,7 +16305,7 @@ export interface operations {
         /** If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. */
         subscription_default_tax_rates?: string;
         /** List of subscription items, each with an attached plan. */
-        subscription_items?: any[];
+        subscription_items?: unknown[];
         /** If previewing an update to a subscription, this decides whether the preview will show the result of applying prorations or not. If set, one of `subscription_items` or `subscription`, and one of `subscription_items` or `subscription_trial_end` are required. */
         subscription_prorate?: boolean;
         /**
@@ -16344,7 +16344,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** The code of the coupon to apply. If `subscription` or `subscription_items` is provided, the invoice returned will preview updating or creating a subscription with that coupon. Otherwise, it will preview applying that coupon to the customer for the next upcoming invoice from among the customer's subscriptions. The invoice can be previewed without a coupon by passing this value as an empty string. */
         coupon?: string;
         /** The identifier of the customer whose upcoming invoice you'd like to retrieve. */
@@ -16352,7 +16352,7 @@ export interface operations {
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** List of invoice items to add or update in the upcoming invoice preview. */
-        invoice_items?: any[];
+        invoice_items?: unknown[];
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** The identifier of the unstarted schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields. */
@@ -16372,7 +16372,7 @@ export interface operations {
         /** If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. */
         subscription_default_tax_rates?: string;
         /** List of subscription items, each with an attached plan. */
-        subscription_items?: any[];
+        subscription_items?: unknown[];
         /** If previewing an update to a subscription, this decides whether the preview will show the result of applying prorations or not. If set, one of `subscription_items` or `subscription`, and one of `subscription_items` or `subscription_trial_end` are required. */
         subscription_prorate?: boolean;
         /**
@@ -16420,7 +16420,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         invoice: string;
@@ -16481,11 +16481,11 @@ export interface operations {
           /** Footer to be displayed on the invoice. */
           footer?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`. */
           statement_descriptor?: string;
           /** The percent tax rate applied to the invoice, represented as a non-negative decimal number (with at most four decimal places) between 0 and 100. To unset a previously-set value, pass an empty string. This field can be updated only on `draft` invoices. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-          tax_percent?: { [key: string]: unknown };
+          tax_percent?: unknown;
         };
       };
     };
@@ -16550,7 +16550,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -16705,7 +16705,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Only return issuer fraud records for the charge specified by this charge ID. */
         charge?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -16744,7 +16744,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         issuer_fraud_record: string;
@@ -16766,7 +16766,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Only return issuing transactions that belong to the given card. */
         card?: string;
         /** Only return authorizations belonging to the given cardholder. */
@@ -16807,7 +16807,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         authorization: string;
@@ -16836,7 +16836,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -16865,7 +16865,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -16892,7 +16892,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -16912,7 +16912,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Only return cardholders that were created during the given date interval. */
         created?: number;
         /** Only return cardholders that have the given email address. */
@@ -17898,7 +17898,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         cardholder: string;
@@ -18862,7 +18862,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Only return cards belonging to the Cardholder with the provided ID. */
         cardholder?: string;
         /** Only return cards that were issued during the given date interval. */
@@ -19836,7 +19836,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         card: string;
@@ -19867,7 +19867,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Spending rules that give you some control over how your cards can be used. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details. */
           spending_controls?: {
             allowed_categories?: (
@@ -20766,7 +20766,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -20823,7 +20823,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         dispute: string;
@@ -20872,7 +20872,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Only return issuing settlements that were created during the given date interval. */
         created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -20907,7 +20907,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         settlement: string;
@@ -20956,7 +20956,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Only return transactions that belong to the given card. */
         card?: string;
         /** Only return transactions that belong to the given cardholder. */
@@ -20995,7 +20995,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         transaction: string;
@@ -21024,7 +21024,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -21044,7 +21044,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         mandate: string;
@@ -21066,7 +21066,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Date this return was created. */
         created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -21103,7 +21103,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         id: string;
@@ -21125,7 +21125,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Date this order was created. */
         created?: number;
         /** Only return orders for the given customer. */
@@ -21133,7 +21133,7 @@ export interface operations {
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Only return orders with the given IDs. */
-        ids?: any[];
+        ids?: unknown[];
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -21143,7 +21143,7 @@ export interface operations {
         /** Filter orders based on when they were paid, fulfilled, canceled, or returned. */
         status_transitions?: string;
         /** Only return orders with the given upstream order IDs. */
-        upstream_ids?: any[];
+        upstream_ids?: unknown[];
       };
     };
     responses: {
@@ -21224,7 +21224,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         id: string;
@@ -21255,7 +21255,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** The shipping method to select for fulfilling this order. If specified, must be one of the `id`s of a shipping method in the `shipping_methods` array. If specified, will overwrite the existing selected shipping method, updating `items` as necessary. */
           selected_shipping_method?: string;
           /** Tracking information once the order has been fulfilled. */
@@ -21352,7 +21352,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
         created?: number;
         /** Only return PaymentIntents for the customer specified by this customer ID. */
@@ -21447,7 +21447,7 @@ export interface operations {
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: { [key: string]: unknown };
           /** Set to `true` to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
-          off_session?: { [key: string]: unknown };
+          off_session?: unknown;
           /** The Stripe account ID for which these funds are intended. For details, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
           on_behalf_of?: string;
           /**
@@ -21458,7 +21458,7 @@ export interface operations {
           payment_method?: string;
           /** Payment-method-specific configuration for this PaymentIntent. */
           payment_method_options?: {
-            card?: { [key: string]: unknown };
+            card?: unknown;
           };
           /** The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. If this is not provided, defaults to ["card"]. */
           payment_method_types?: string[];
@@ -21530,7 +21530,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** The client secret of the PaymentIntent. Required if a publishable key is used to retrieve the source. */
         client_secret?: string;
       };
@@ -21569,7 +21569,7 @@ export interface operations {
           /** Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99). */
           amount?: number;
           /** The amount of the application fee (if any) for the resulting payment. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
-          application_fee_amount?: { [key: string]: unknown };
+          application_fee_amount?: unknown;
           /** Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency?: string;
           /**
@@ -21585,12 +21585,12 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent. */
           payment_method?: string;
           /** Payment-method-specific configuration for this PaymentIntent. */
           payment_method_options?: {
-            card?: { [key: string]: unknown };
+            card?: unknown;
           };
           /** The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. */
           payment_method_types?: string[];
@@ -21607,7 +21607,7 @@ export interface operations {
            */
           setup_future_usage?: "" | "off_session" | "on_session";
           /** Shipping information for this PaymentIntent. */
-          shipping?: { [key: string]: unknown };
+          shipping?: unknown;
           /** For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
           statement_descriptor?: string;
           /** Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
@@ -21769,12 +21769,12 @@ export interface operations {
             };
           };
           /** Set to `true` to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). */
-          off_session?: { [key: string]: unknown };
+          off_session?: unknown;
           /** ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent. */
           payment_method?: string;
           /** Payment-method-specific configuration for this PaymentIntent. */
           payment_method_options?: {
-            card?: { [key: string]: unknown };
+            card?: unknown;
           };
           /** The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. */
           payment_method_types?: string[];
@@ -21797,7 +21797,7 @@ export interface operations {
            */
           setup_future_usage?: "" | "off_session" | "on_session";
           /** Shipping information for this PaymentIntent. */
-          shipping?: { [key: string]: unknown };
+          shipping?: unknown;
           /** Set to `true` only when using manual confirmation and the iOS or Android SDKs to handle additional authentication steps. */
           use_stripe_sdk?: boolean;
         };
@@ -21819,7 +21819,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** The ID of the customer whose PaymentMethods will be retrieved. */
         customer: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -21951,7 +21951,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         payment_method: string;
@@ -21999,7 +21999,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account. */
           sepa_debit?: { [key: string]: unknown };
         };
@@ -22085,7 +22085,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         arrival_date?: number;
         created?: number;
         /** The ID of an external account - only return payouts sent to this external account. */
@@ -22168,7 +22168,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         payout: string;
@@ -22197,7 +22197,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -22242,7 +22242,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Only return plans that are active or inactive (e.g., pass `false` to list all inactive plans). */
         active?: boolean;
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
@@ -22303,7 +22303,7 @@ export interface operations {
           /** The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). */
           interval_count?: number;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** A brief description of the plan, hidden from customers. */
           nickname?: string;
           /** The product whose pricing the created plan will represent. This can either be the ID of an existing product, or a dictionary containing fields used to create a [service product](https://stripe.com/docs/api#product_object-type). */
@@ -22321,7 +22321,7 @@ export interface operations {
             flat_amount_decimal?: string;
             unit_amount?: number;
             unit_amount_decimal?: string;
-            up_to: { [key: string]: unknown };
+            up_to: unknown;
           }[];
           /** Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows. */
           tiers_mode?: "graduated" | "volume";
@@ -22353,7 +22353,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         plan: string;
@@ -22384,7 +22384,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** A brief description of the plan, hidden from customers. */
           nickname?: string;
           /** The product the plan belongs to. Note that after updating, statement descriptors and line items of the plan in active subscriptions will be affected. */
@@ -22428,7 +22428,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Only return products that are active or inactive (e.g., pass `false` to list all inactive products). */
         active?: boolean;
         /** Only return products that were created during the given date interval. */
@@ -22436,7 +22436,7 @@ export interface operations {
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Only return products with the given IDs. */
-        ids?: any[];
+        ids?: unknown[];
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** Only return products that can be shipped (i.e., physical, not digital products). */
@@ -22535,7 +22535,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         id: string;
@@ -22576,11 +22576,11 @@ export interface operations {
           /** A list of up to 8 URLs of images for this product, meant to be displayable to the customer. */
           images?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** The product's name, meant to be displayable to the customer. Whenever this product is sold via a subscription, name will show up on associated invoice line item descriptions. */
           name?: string;
           /** The dimensions of this product for shipping purposes. A SKU associated with this product can override this value by having its own `package_dimensions`. May only be set if `type=good`. */
-          package_dimensions?: { [key: string]: unknown };
+          package_dimensions?: unknown;
           /** Whether this product is shipped (i.e., physical goods). Defaults to `true`. May only be set if `type=good`. */
           shippable?: boolean;
           /**
@@ -22631,7 +22631,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Only return early fraud warnings for the charge specified by this charge ID. */
         charge?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -22670,7 +22670,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         early_fraud_warning: string;
@@ -22692,7 +22692,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -22756,7 +22756,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         item: string;
@@ -22796,7 +22796,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** The alias used to reference the value list when writing rules. */
         alias?: string;
         /** A value contained within a value list - returns all value lists containing this value. */
@@ -22871,7 +22871,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         value_list: string;
@@ -22942,7 +22942,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -22994,7 +22994,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** The recipient's full, legal name. For type `individual`, should be in the format `First Last`, `First Middle Last`, or `First M Last` (no prefixes or suffixes). For `corporation`, the full, incorporated name. */
           name: string;
           /** The recipient's tax ID, as a string. For type `individual`, the full SSN; for type `corporation`, the full EIN. */
@@ -23020,7 +23020,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         id: string;
@@ -23065,7 +23065,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** The recipient's full, legal name. For type `individual`, should be in the format `First Last`, `First Middle Last`, or `First M Last` (no prefixes or suffixes). For `corporation`, the full, incorporated name. */
           name?: string;
           /** The recipient's tax ID, as a string. For type `individual`, the full SSN; for type `corporation`, the full EIN. */
@@ -23107,7 +23107,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Only return refunds for the charge specified by this charge ID. */
         charge?: string;
         created?: number;
@@ -23175,7 +23175,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         refund: string;
@@ -23208,7 +23208,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -23228,7 +23228,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -23922,7 +23922,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         report_run: string;
@@ -23944,7 +23944,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
     };
     responses: {
@@ -23971,7 +23971,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         report_type: string;
@@ -23993,7 +23993,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         created?: number;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -24027,7 +24027,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         review: string;
@@ -24074,7 +24074,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
         created?: number;
         /** Only return SetupIntents for the customer specified by this customer ID. */
@@ -24191,7 +24191,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** The client secret of the SetupIntent. Required if a publishable key is used to retrieve the SetupIntent. */
         client_secret?: string;
       };
@@ -24230,7 +24230,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
           payment_method?: string;
           /** Payment-method-specific configuration for this SetupIntent. */
@@ -24358,7 +24358,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -24391,7 +24391,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         scheduled_query_run: string;
@@ -24413,7 +24413,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Only return SKUs that are active or inactive (e.g., pass `false` to list all inactive products). */
         active?: boolean;
         /** Only return SKUs that have the specified key-value pairs in this partially constructed dictionary. Can be specified only if `product` is also supplied. For instance, if the associated product has attributes `["color", "size"]`, passing in `attributes[color]=red` returns all the SKUs for this product that have `color` set to `red`. */
@@ -24421,7 +24421,7 @@ export interface operations {
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** Only return SKUs with the given IDs. */
-        ids?: any[];
+        ids?: unknown[];
         /** Only return SKUs that are either in stock or out of stock (e.g., pass `false` to list all SKUs that are out of stock). If no value is provided, all SKUs are returned. */
         in_stock?: boolean;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -24507,7 +24507,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         id: string;
@@ -24554,9 +24554,9 @@ export interface operations {
             value?: "" | "in_stock" | "limited" | "out_of_stock";
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** The dimensions of this SKU for shipping purposes. */
-          package_dimensions?: { [key: string]: unknown };
+          package_dimensions?: unknown;
           /** The cost of the item as a positive integer in the smallest currency unit (that is, 100 cents to charge $1.00, or 100 to charge ¥100, Japanese Yen being a zero-decimal currency). */
           price?: number;
           /** The ID of the product that this SKU should belong to. The product must exist, have the same set of attribute names as the SKU's current product, and be of type `good`. */
@@ -24626,7 +24626,7 @@ export interface operations {
               type?: "offline" | "online";
               user_agent?: string;
             };
-            amount?: { [key: string]: unknown };
+            amount?: unknown;
             currency?: string;
             interval?: "one_time" | "scheduled" | "variable";
             notification_method?: "deprecated_none" | "email" | "manual" | "none" | "stripe_email";
@@ -24709,7 +24709,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** The client secret of the source. Required if a publishable key is used to retrieve the source. */
         client_secret?: string;
       };
@@ -24762,13 +24762,13 @@ export interface operations {
               type?: "offline" | "online";
               user_agent?: string;
             };
-            amount?: { [key: string]: unknown };
+            amount?: unknown;
             currency?: string;
             interval?: "one_time" | "scheduled" | "variable";
             notification_method?: "deprecated_none" | "email" | "manual" | "none" | "stripe_email";
           };
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Information about the owner of the payment instrument that may be used or required by particular source types. */
           owner?: {
             address?: {
@@ -24827,7 +24827,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         mandate_notification: string;
@@ -24850,7 +24850,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -24886,7 +24886,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         source: string;
@@ -24936,7 +24936,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -24973,7 +24973,7 @@ export interface operations {
         /** Body parameters for the request. */
         payload: {
           /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds. */
-          billing_thresholds?: { [key: string]: unknown };
+          billing_thresholds?: unknown;
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -25025,7 +25025,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         item: string;
@@ -25052,11 +25052,11 @@ export interface operations {
         /** Body parameters for the request. */
         payload?: {
           /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds. */
-          billing_thresholds?: { [key: string]: unknown };
+          billing_thresholds?: unknown;
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /**
@@ -25145,7 +25145,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -25220,7 +25220,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Only return subscription schedules that were created canceled the given date interval. */
         canceled_at?: number;
         /** Only return subscription schedules that completed during the given date interval. */
@@ -25270,7 +25270,7 @@ export interface operations {
           customer?: string;
           /** Object representing the subscription schedule's default settings. */
           default_settings?: {
-            billing_thresholds?: { [key: string]: unknown };
+            billing_thresholds?: unknown;
             collection_method?: "charge_automatically" | "send_invoice";
             default_payment_method?: string;
             invoice_settings?: {
@@ -25284,11 +25284,11 @@ export interface operations {
           /** Migrate an existing subscription to be managed by a subscription schedule. If this parameter is set, a subscription schedule will be created using the subscription's plan(s), set to auto-renew using the subscription's interval. When using this parameter, other parameters (such as phase values) cannot be set. To create a subscription schedule with other modifications, we recommend making two separate API calls. */
           from_subscription?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. */
           phases?: {
             application_fee_percent?: number;
-            billing_thresholds?: { [key: string]: unknown };
+            billing_thresholds?: unknown;
             collection_method?: "charge_automatically" | "send_invoice";
             coupon?: string;
             default_payment_method?: string;
@@ -25299,7 +25299,7 @@ export interface operations {
             };
             iterations?: number;
             plans: {
-              billing_thresholds?: { [key: string]: unknown };
+              billing_thresholds?: unknown;
               plan?: string;
               quantity?: number;
               tax_rates?: string[];
@@ -25310,7 +25310,7 @@ export interface operations {
             trial_end?: number;
           }[];
           /** When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on. */
-          start_date?: { [key: string]: unknown };
+          start_date?: unknown;
         };
       };
     };
@@ -25330,7 +25330,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         schedule: string;
@@ -25358,7 +25358,7 @@ export interface operations {
         payload?: {
           /** Object representing the subscription schedule's default settings. */
           default_settings?: {
-            billing_thresholds?: { [key: string]: unknown };
+            billing_thresholds?: unknown;
             collection_method?: "charge_automatically" | "send_invoice";
             default_payment_method?: string;
             invoice_settings?: {
@@ -25370,31 +25370,31 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. Note that past phases can be omitted. */
           phases?: {
             application_fee_percent?: number;
-            billing_thresholds?: { [key: string]: unknown };
+            billing_thresholds?: unknown;
             collection_method?: "charge_automatically" | "send_invoice";
             coupon?: string;
             default_payment_method?: string;
             default_tax_rates?: string[];
-            end_date?: { [key: string]: unknown };
+            end_date?: unknown;
             invoice_settings?: {
               days_until_due?: number;
             };
             iterations?: number;
             plans: {
-              billing_thresholds?: { [key: string]: unknown };
+              billing_thresholds?: unknown;
               plan?: string;
               quantity?: number;
               tax_rates?: string[];
             }[];
             proration_behavior?: "always_invoice" | "create_prorations" | "none";
-            start_date?: { [key: string]: unknown };
+            start_date?: unknown;
             tax_percent?: number;
             trial?: boolean;
-            trial_end?: { [key: string]: unknown };
+            trial_end?: unknown;
           }[];
           /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
           prorate?: boolean;
@@ -25475,7 +25475,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** The collection method of the subscriptions to retrieve. Either `charge_automatically` or `send_invoice`. */
         collection_method?: string;
         created?: number;
@@ -25527,7 +25527,7 @@ export interface operations {
           /** A future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. */
           billing_cycle_anchor?: number;
           /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
-          billing_thresholds?: { [key: string]: unknown };
+          billing_thresholds?: unknown;
           /** A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
           cancel_at?: number;
           /** Boolean indicating whether this subscription should cancel at the end of the current period. */
@@ -25550,14 +25550,14 @@ export interface operations {
           expand?: string[];
           /** A list of up to 20 subscription items, each with an attached plan. */
           items?: {
-            billing_thresholds?: { [key: string]: unknown };
+            billing_thresholds?: unknown;
             metadata?: { [key: string]: unknown };
             plan?: string;
             quantity?: number;
             tax_rates?: string[];
           }[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /**
@@ -25569,7 +25569,7 @@ export interface operations {
            */
           payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /** Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-          pending_invoice_item_interval?: { [key: string]: unknown };
+          pending_invoice_item_interval?: unknown;
           /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
           prorate?: boolean;
           /**
@@ -25579,9 +25579,9 @@ export interface operations {
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /** A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-          tax_percent?: { [key: string]: unknown };
+          tax_percent?: unknown;
           /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          trial_end?: { [key: string]: unknown };
+          trial_end?: unknown;
           /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
           trial_from_plan?: boolean;
           /** Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. */
@@ -25605,7 +25605,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         subscription_exposed_id: string;
@@ -25636,9 +25636,9 @@ export interface operations {
           /** Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle). */
           billing_cycle_anchor?: "now" | "unchanged";
           /** Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
-          billing_thresholds?: { [key: string]: unknown };
+          billing_thresholds?: unknown;
           /** A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
-          cancel_at?: { [key: string]: unknown };
+          cancel_at?: unknown;
           /** Boolean indicating whether this subscription should cancel at the end of the current period. */
           cancel_at_period_end?: boolean;
           /** Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`. */
@@ -25657,21 +25657,21 @@ export interface operations {
           expand?: string[];
           /** List of subscription items, each with an attached plan. */
           items?: {
-            billing_thresholds?: { [key: string]: unknown };
+            billing_thresholds?: unknown;
             clear_usage?: boolean;
             deleted?: boolean;
             id?: string;
-            metadata?: { [key: string]: unknown };
+            metadata?: unknown;
             plan?: string;
             quantity?: number;
             tax_rates?: string[];
           }[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /** If specified, payment collection for this subscription will be paused. */
-          pause_collection?: { [key: string]: unknown };
+          pause_collection?: unknown;
           /**
            * Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
            *
@@ -25681,7 +25681,7 @@ export interface operations {
            */
           payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /** Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-          pending_invoice_item_interval?: { [key: string]: unknown };
+          pending_invoice_item_interval?: unknown;
           /** This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
           prorate?: boolean;
           /**
@@ -25695,9 +25695,9 @@ export interface operations {
           /** If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations. */
           proration_date?: number;
           /** A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
-          tax_percent?: { [key: string]: unknown };
+          tax_percent?: unknown;
           /** Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          trial_end?: { [key: string]: unknown };
+          trial_end?: unknown;
           /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. */
           trial_from_plan?: boolean;
         };
@@ -25772,7 +25772,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Optional flag to filter by tax rates that are either active or not active (archived) */
         active?: boolean;
         /** Optional range for filtering created date */
@@ -25847,7 +25847,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         tax_rate: string;
@@ -25884,7 +25884,7 @@ export interface operations {
           /** The jurisdiction for the tax rate. */
           jurisdiction?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -25928,7 +25928,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -25976,7 +25976,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -25996,7 +25996,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         location: string;
@@ -26036,7 +26036,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -26074,7 +26074,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** Filters readers by device type */
         device_type?: string;
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -26122,7 +26122,7 @@ export interface operations {
           /** The location to assign the reader to. If no location is specified, the reader will be assigned to the account's default location. */
           location?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** A code generated by the reader used for registering to an account. */
           registration_code: string;
         };
@@ -26144,7 +26144,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         reader: string;
@@ -26175,7 +26175,7 @@ export interface operations {
           /** The new label of the reader. */
           label?: string;
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -26308,7 +26308,7 @@ export interface operations {
                 state?: string;
                 town?: string;
               };
-              dob?: { [key: string]: unknown };
+              dob?: unknown;
               email?: string;
               first_name?: string;
               first_name_kana?: string;
@@ -26319,7 +26319,7 @@ export interface operations {
               last_name_kana?: string;
               last_name_kanji?: string;
               maiden_name?: string;
-              metadata?: { [key: string]: unknown };
+              metadata?: unknown;
               phone?: string;
               ssn_last_4?: string;
               verification?: {
@@ -26344,7 +26344,7 @@ export interface operations {
             currency?: string;
             routing_number?: string;
           };
-          card?: { [key: string]: unknown };
+          card?: unknown;
           /** The customer (owned by the application's account) for which to create a token. This can be used only with an [OAuth access token](https://stripe.com/docs/connect/standard-accounts) or [Stripe-Account header](https://stripe.com/docs/connect/authentication). For more details, see [Cloning Saved Payment Methods](https://stripe.com/docs/connect/cloning-saved-payment-methods). */
           customer?: string;
           /** Specifies which fields in the response should be expanded. */
@@ -26377,7 +26377,7 @@ export interface operations {
               state?: string;
               town?: string;
             };
-            dob?: { [key: string]: unknown };
+            dob?: unknown;
             email?: string;
             first_name?: string;
             first_name_kana?: string;
@@ -26388,13 +26388,13 @@ export interface operations {
             last_name_kana?: string;
             last_name_kanji?: string;
             maiden_name?: string;
-            metadata?: { [key: string]: unknown };
+            metadata?: unknown;
             phone?: string;
             relationship?: {
               director?: boolean;
               executive?: boolean;
               owner?: boolean;
-              percent_ownership?: { [key: string]: unknown };
+              percent_ownership?: unknown;
               representative?: boolean;
               title?: string;
             };
@@ -26433,7 +26433,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         token: string;
@@ -26455,7 +26455,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A positive integer representing how much to transfer. */
         amount?: number;
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
@@ -26504,7 +26504,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** The ID of a source to transfer funds from. For most users, this should be left unspecified which will use the bank account that was set up in the dashboard for the specified currency. In test mode, this can be a test bank token (see [Testing Top-ups](https://stripe.com/docs/connect/testing#testing-top-ups)). */
           source?: string;
           /** Extra information about a top-up for the source's bank statement. Limited to 15 ASCII characters. */
@@ -26530,7 +26530,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         topup: string;
@@ -26561,7 +26561,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -26606,7 +26606,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         created?: number;
         /** Only return transfers for the destination specified by this account ID. */
         destination?: string;
@@ -26683,7 +26683,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -26737,7 +26737,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** Boolean indicating whether the application fee should be refunded when reversing this transfer. If a full transfer reversal is given, the full application fee will be refunded. Otherwise, the application fee will be refunded with an amount proportional to the amount of the transfer reversed. */
           refund_application_fee?: boolean;
         };
@@ -26759,7 +26759,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         transfer: string;
@@ -26794,7 +26794,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -26814,7 +26814,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         id: string;
@@ -26849,7 +26849,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
         };
       };
     };
@@ -26869,7 +26869,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -27159,7 +27159,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** The URL of the webhook endpoint. */
           url: string;
         };
@@ -27181,7 +27181,7 @@ export interface operations {
     parameters: {
       query: {
         /** Specifies which fields in the response should be expanded. */
-        expand?: any[];
+        expand?: unknown[];
       };
       path: {
         webhook_endpoint: string;
@@ -27366,7 +27366,7 @@ export interface operations {
           /** Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: { [key: string]: unknown };
+          metadata?: unknown;
           /** The URL of the webhook endpoint. */
           url?: string;
         };

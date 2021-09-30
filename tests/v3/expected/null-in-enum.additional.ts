@@ -19,19 +19,19 @@ export interface components {
     /** Enum with null and nullable */
     MyType: {
       myField?: ("foo" | "bar") | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /** Enum with null */
     MyTypeNotNullable: {
       myField?: "foo" | "bar" | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /** Enum with null */
     MyTypeNotNullableNotNull: {
       myField?: "foo" | "bar";
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
     /** Enum with null */
     MyTypeMixed: {
       myField?: "foo" | 2 | false | null;
-    } & { [key: string]: any };
+    } & { [key: string]: unknown };
   };
 }
 
