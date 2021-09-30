@@ -433,6 +433,15 @@
         "code",
         "bug"
       ]
+    },
+    {
+      "login": "rustyconover",
+      "name": "Rusty Conover",
+      "avatar_url": "https://avatars.githubusercontent.com/u/731941?v=4",
+      "profile": "https://rusty.today",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
