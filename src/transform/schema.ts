@@ -97,7 +97,8 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
       }
       case "string":
       case "number":
-      case "boolean": {
+      case "boolean":
+      case "unknown": {
         output += nodeType(node) || "any";
         break;
       }
