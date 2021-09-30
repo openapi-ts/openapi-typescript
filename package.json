@@ -68,7 +68,7 @@
     "@types/jest": "^27.0.0",
     "@types/js-yaml": "^4.0.1",
     "@types/mime": "^2.0.3",
-    "@types/node-fetch": "^2.5.12",
+    "@types/node-fetch": "^3.0.3",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "codecov": "^3.8.2",
