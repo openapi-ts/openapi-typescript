@@ -455,4 +455,13 @@ abc: unknown;
 }`);
     });
   });
+
+  describe("deprecated", () => {
+    expect(transform({ type: "object", properties: { userId: { type: "string", deprecated: true } } }, { ...defaults }))
+      .toBe(`{
+/** @deprecated */
+"userId"?: string;
+
+}`);
+  });
 });
