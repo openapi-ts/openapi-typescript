@@ -61,7 +61,7 @@ describe("cli", () => {
     ).not.toThrow();
   });
 
-  it.only("--headersObject", async () => {
+  it("--headersObject", async () => {
     // note: same as above—testing the parser is the biggest win; values can be tested trivially with manual debugging
     expect(() => {
       execSync(
