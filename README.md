@@ -88,6 +88,55 @@ Even though `operations` isn’t present in your original schema, it’s a simpl
 
 _Thanks to [@gr2m](https://github.com/gr2m) for the operations feature!_
 
+#### openapi-typescript-fetch
+
+The generated spec can also be used with [openapi-typescript-fetch](https://www.npmjs.com/package/openapi-typescript-fetch) which implements a typed fetch client for openapi-typescript.
+
+```ts
+import { paths } from './petstore'
+
+import { Fetcher } from 'openapi-typescript-fetch'
+
+// declare fetcher for paths
+const fetcher = Fetcher.for<paths>()
+
+// global configuration
+fetcher.configure({
+  baseUrl: 'https://petstore.swagger.io/v2',
+  init: {
+    headers: {
+      ...
+    },
+  },
+  use: [...] // middlewares
+})
+
+// create fetch operations
+const findPetsByStatus = fetcher.path('/pet/findByStatus').method('get').create()
+const addPet = fetcher.path('/pet').method('post').create()
+
+// fetch
+try {
+  const { status, data: pets } = await findPetsByStatus({
+    status: ['available', 'pending'],
+  })
+  await addPet({ ... })
+} catch(e) {
+  // check which operation threw the exception
+  if (e instanceof addPet.Error) {
+    // get discriminated union { status, data } 
+    const error = e.getActualType()
+    if (error.status === 400) {
+      error.data.validationErrors // 400 response data
+    } else if (error.status === 500) {
+      error.data.errorMessage // 500 response data
+    } else {
+      ...
+    }
+  }
+}
+```
+
 #### Outputting to stdout
 
 Simply omit the `--output` flag to return to stdout:
