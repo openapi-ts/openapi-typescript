@@ -1,5 +1,14 @@
 import { GlobalContext } from "../types";
-import { comment, nodeType, tsArrayOf, tsIntersectionOf, tsPartial, tsReadonly, tsTupleOf, tsUnionOf } from "../utils";
+import {
+  prepareComment,
+  nodeType,
+  tsArrayOf,
+  tsIntersectionOf,
+  tsPartial,
+  tsReadonly,
+  tsTupleOf,
+  tsUnionOf,
+} from "../utils";
 
 interface TransformSchemaObjOptions extends GlobalContext {
   required: Set<string>;
@@ -18,11 +27,9 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
   for (const k of Object.keys(obj)) {
     const v = obj[k];
 
-    // 1. JSDoc comment (goes above property)
-    let schemaComment = "";
-    if (v.deprecated) schemaComment += `@deprecated `;
-    if (v.description) schemaComment += v.description;
-    if (schemaComment) output += comment(schemaComment);
+    // 1. Add comment in jsdoc notation
+    const comment = prepareComment(v);
+    if (comment) output += comment;
 
     // 2. name (with “?” if optional property)
     const readonly = tsReadonly(options.immutableTypes);
