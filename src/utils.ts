@@ -1,5 +1,42 @@
 import { OpenAPI2, OpenAPI3, ReferenceObject } from "./types";
 
+type CommentObject = {
+  title?: string; // not jsdoc
+  format?: string; // not jsdoc
+  deprecated?: boolean; // jsdoc without value
+  description?: string; // jsdoc with value
+  default?: string; // jsdoc with value
+  example?: string; // jsdoc with value
+};
+
+/**
+ * Preparing comments from fields
+ * @see {comment} for output examples
+ * @returns void if not comments or jsdoc format comment string
+ */
+export function prepareComment(v: CommentObject): string | void {
+  const commentsArray: Array<string> = [];
+
+  // * Not JSDOC tags: [title, format]
+  if (v.title) commentsArray.push(`${v.title} `);
+  if (v.format) commentsArray.push(`Format: ${v.format} `);
+
+  // * JSDOC tags without value
+  // 'Deprecated' without value
+  if (v.deprecated) commentsArray.push(`@deprecated `);
+
+  // * JSDOC tags with value
+  const supportedJsDocTags: Array<keyof CommentObject> = ["description", "default", "example"];
+  for (let index = 0; index < supportedJsDocTags.length; index++) {
+    const field = supportedJsDocTags[index];
+    if (v[field]) commentsArray.push(`@${field} ${v[field]} `);
+  }
+
+  if (!commentsArray.length) return;
+
+  return comment(commentsArray.join("\n"));
+}
+
 export function comment(text: string): string {
   const commentText = text.trim().replace(/\*\//g, "*\\/");
 
