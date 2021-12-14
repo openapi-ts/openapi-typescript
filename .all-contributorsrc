@@ -451,6 +451,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ottomated",
+      "name": "ottomated",
+      "avatar_url": "https://avatars.githubusercontent.com/u/31470743?v=4",
+      "profile": "https://ottomated.net",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
