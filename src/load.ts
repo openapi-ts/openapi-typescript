@@ -127,7 +127,7 @@ export default async function load(
       const headers: Headers = {
         "User-Agent": "openapi-typescript",
       };
-      if (options.auth) headers.Authorizaton = options.auth;
+      if (options.auth) headers.Authorization = options.auth;
 
       // Add custom parsed HTTP headers
       if (options.httpHeaders) {
