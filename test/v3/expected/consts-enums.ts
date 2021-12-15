@@ -25,7 +25,7 @@ export interface components {
       /** @constant */
       myConstTestField?: "constant-value";
       /** @constant */
-      myConstTestFieldNullable: 4 | null;
+      myConstTestFieldNullable?: 4 | null;
     };
   };
 }

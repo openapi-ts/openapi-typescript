@@ -29,4 +29,3 @@ components:
           type: number
           const: 4
           nullable: true
-          required: true
