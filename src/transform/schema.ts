@@ -8,7 +8,9 @@ import {
   tsReadonly,
   tsTupleOf,
   tsUnionOf,
-} from "../utils.js";
+  parseSingleSimpleValue,
+  ParsedSimpleValue,
+} from "../utils";
 
 interface TransformSchemaObjOptions extends GlobalContext {
   required: Set<string>;
@@ -34,7 +36,9 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
     // 2. name (with “?” if optional property)
     const readonly = tsReadonly(options.immutableTypes);
     const required =
-      options.required.has(k) || (options.defaultNonNullable && hasDefaultValue(v.schema || v)) ? "" : "?";
+      v.required || options.required.has(k) || (options.defaultNonNullable && hasDefaultValue(v.schema || v))
+        ? ""
+        : "?";
     output += `${readonly}"${k}"${required}: `;
 
     // 3. transform
@@ -112,12 +116,15 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
         output += nodeType(node);
         break;
       }
+      case "const": {
+        output += parseSingleSimpleValue(node.const, node.nullable);
+        break;
+      }
       case "enum": {
-        const items: Array<string | number | boolean> = [];
+        const items: Array<ParsedSimpleValue> = [];
         (node.enum as unknown[]).forEach((item) => {
-          if (typeof item === "string") items.push(`'${item.replace(/'/g, "\\'")}'`);
-          else if (typeof item === "number" || typeof item === "boolean") items.push(item);
-          else if (item === null && !node.nullable) items.push("null");
+          const value = parseSingleSimpleValue(item, node.nullable);
+          items.push(value);
         });
         output += tsUnionOf(items);
         break;
