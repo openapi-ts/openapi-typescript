@@ -461,6 +461,15 @@
         "code",
         "bug"
       ]
+    },
+    {
+      "login": "sadfsdfdsa",
+      "name": "Artem Shuvaev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/28733669?v=4",
+      "profile": "https://karanarqq.dev",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
