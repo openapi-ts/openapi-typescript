@@ -11,7 +11,4 @@ module.exports = {
     "prettier/prettier": "error",
     "prefer-const": "off",
   },
-  env: {
-    jest: true,
-  },
 };

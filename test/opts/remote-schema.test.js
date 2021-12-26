@@ -1,12 +1,13 @@
-import eol from "eol";
-import fs from "fs";
-import path from "path";
-import openapiTS from "../../src/index";
+const { expect } = require("chai");
+const fs = require("fs");
+const eol = require("eol");
+const path = require("path");
+const { default: openapiTS } = require("../../dist/cjs/index.js");
 
 describe("remote $refs", () => {
   it("resolves remote $refs", async () => {
     const generated = await openapiTS(path.join(__dirname, "fixtures", "remote-schema", "spec.yml"));
     const expected = eol.lf(fs.readFileSync(path.join(__dirname, "expected", "remote-schema.ts"), "utf8"));
-    expect(generated).toBe(expected);
+    expect(generated).to.equal(expected);
   });
 });

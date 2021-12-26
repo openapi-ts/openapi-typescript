@@ -1,10 +1,11 @@
-import fs from "fs";
-import path from "path";
-import { execSync } from "child_process";
-import { sanitizeLB } from "../test-utils";
+const { expect } = require("chai");
+const eol = require("eol");
+const fs = require("fs");
+const path = require("path");
+const { execSync } = require("child_process");
 
 // Note(drew): OpenAPI support is already well-tested in v2/index.test.ts and
-// v3/index.test.ts. So this file is mainly for testing other flags.
+// v3/index.test.ts. Only use these tests for testing CLI flags.
 
 const cmd = `node ../../bin/cli.js`;
 const cwd = __dirname;
@@ -14,41 +15,35 @@ describe("cli", () => {
     execSync(`${cmd} specs/petstore.yaml -o generated/prettier-json.ts --prettier-config fixtures/.prettierrc`, {
       cwd,
     });
-    const [generated, expected] = await Promise.all([
-      fs.promises.readFile(path.join(__dirname, "generated", "prettier-json.ts"), "utf8"),
-      fs.promises.readFile(path.join(__dirname, "expected", "prettier-json.ts"), "utf8"),
-    ]);
-
-    expect(generated).toBe(sanitizeLB(expected));
+    const generated = fs.readFileSync(path.join(cwd, "generated", "prettier-json.ts"), "utf8");
+    const expected = eol.lf(fs.readFileSync(path.join(cwd, "expected", "prettier-json.ts"), "utf8"));
+    expect(generated).to.equal(expected);
   });
 
   it("--prettier-config (.js)", async () => {
     execSync(`${cmd} specs/petstore.yaml -o generated/prettier-js.ts --prettier-config fixtures/prettier.config.js`, {
       cwd,
     });
-    const [generated, expected] = await Promise.all([
-      fs.promises.readFile(path.join(__dirname, "generated", "prettier-js.ts"), "utf8"),
-      fs.promises.readFile(path.join(__dirname, "expected", "prettier-js.ts"), "utf8"),
-    ]);
-    expect(generated).toBe(sanitizeLB(expected));
+    const generated = fs.readFileSync(path.join(cwd, "generated", "prettier-js.ts"), "utf8");
+    const expected = eol.lf(fs.readFileSync(path.join(cwd, "expected", "prettier-js.ts"), "utf8"));
+    expect(generated).to.equal(expected);
   });
 
   it("stdout", async () => {
-    const expected = fs.readFileSync(path.join(__dirname, "expected", "stdout.ts"), "utf8");
     const generated = execSync(`${cmd} specs/petstore.yaml`, { cwd });
-    expect(generated.toString("utf8")).toBe(sanitizeLB(expected));
+    const expected = eol.lf(fs.readFileSync(path.join(cwd, "expected", "stdout.ts"), "utf8"));
+    expect(generated.toString("utf8")).to.equal(expected);
   });
 
   it("supports glob paths", async () => {
     execSync(`${cmd} "specs/*.yaml" -o generated/`, { cwd }); // Quotes are necessary because shells like zsh treats glob weirdly
-    const [generatedPetstore, expectedPetstore, generatedManifold, expectedManifold] = await Promise.all([
-      fs.promises.readFile(path.join(__dirname, "generated", "specs", "petstore.ts"), "utf8"),
-      fs.promises.readFile(path.join(__dirname, "expected", "specs", "petstore.ts"), "utf8"),
-      fs.promises.readFile(path.join(__dirname, "generated", "specs", "manifold.ts"), "utf8"),
-      fs.promises.readFile(path.join(__dirname, "expected", "specs", "manifold.ts"), "utf8"),
-    ]);
-    expect(generatedPetstore).toBe(sanitizeLB(expectedPetstore));
-    expect(generatedManifold).toBe(sanitizeLB(expectedManifold));
+    const generatedPetstore = fs.readFileSync(path.join(cwd, "generated", "specs", "petstore.ts"), "utf8");
+    const expectedPetstore = eol.lf(fs.readFileSync(path.join(cwd, "expected", "specs", "petstore.ts"), "utf8"));
+    expect(generatedPetstore).to.equal(expectedPetstore);
+
+    const generatedManifold = fs.readFileSync(path.join(cwd, "generated", "specs", "manifold.ts"), "utf8");
+    const expectedManifold = eol.lf(fs.readFileSync(path.join(cwd, "expected", "specs", "manifold.ts"), "utf8"));
+    expect(generatedManifold).to.equal(expectedManifold);
   });
 
   it("--header", async () => {
@@ -58,7 +53,7 @@ describe("cli", () => {
         `${cmd} https://raw.githubusercontent.com/drwpow/openapi-typescript/main/tests/v2/specs/manifold.yaml --header "x-openapi-format:json" --header "x-openapi-version:3.0.1"`,
         { cwd }
       ).toString("utf8")
-    ).not.toThrow();
+    ).not.to.throw();
   });
 
   it("--headersObject", async () => {
@@ -68,6 +63,6 @@ describe("cli", () => {
         `${cmd} https://raw.githubusercontent.com/drwpow/openapi-typescript/main/tests/v2/specs/manifold.yaml --headersObject "{\\"x-boolean\\":true, \\"x-number\\":3.0, \\"x-string\\": \\"openapi\\"}"`,
         { cwd }
       );
-    }).not.toThrow();
+    }).not.to.throw();
   });
 });

@@ -1,7 +1,7 @@
-import { GlobalContext, OperationObject, ParameterObject, PathItemObject } from "../types";
-import { comment, tsReadonly } from "../utils";
-import { transformOperationObj } from "./operation";
-import { transformParametersArray } from "./parameters";
+import type { GlobalContext, OperationObject, ParameterObject, PathItemObject } from "../types";
+import { comment, tsReadonly } from "../utils.js";
+import { transformOperationObj } from "./operation.js";
+import { transformParametersArray } from "./parameters.js";
 
 interface TransformPathsObjOption extends GlobalContext {
   globalParameters: Record<string, ParameterObject>;

@@ -1,4 +1,5 @@
-import { transformOperationObj } from "../../src/transform/operation";
+const { expect } = require("chai");
+const { transformOperationObj } = require("../../dist/cjs/transform/operation.js");
 
 const defaults = {
   additionalProperties: false,
@@ -27,7 +28,7 @@ describe("requestBody", () => {
         ...defaults,
         version: 3,
       }).trim()
-    ).toBe(`requestBody: {
+    ).to.equal(`requestBody: {
     content: {
       "application/json": components["schemas"]["Pet"];
       "application/xml": components["schemas"]["Pet"];
@@ -43,7 +44,7 @@ describe("requestBody", () => {
         rawSchema: false,
         version: 3,
       }).trim()
-    ).toBe(`readonly requestBody: {
+    ).to.equal(`readonly requestBody: {
     readonly content: {
       readonly "application/json": components["schemas"]["Pet"];
       readonly "application/xml": components["schemas"]["Pet"];
@@ -61,7 +62,7 @@ describe("requestBody", () => {
         ...defaults,
         version: 3,
       }).trim()
-    ).toBe(`requestBody: components["requestBodies"]["Request"];`);
+    ).to.equal(`requestBody: components["requestBodies"]["Request"];`);
   });
 
   it("$ref (immutableTypes)", () => {
@@ -72,7 +73,7 @@ describe("requestBody", () => {
         rawSchema: false,
         version: 3,
       }).trim()
-    ).toBe(`readonly requestBody: components["requestBodies"]["Request"];`);
+    ).to.equal(`readonly requestBody: components["requestBodies"]["Request"];`);
   });
 });
 
@@ -97,7 +98,7 @@ describe("parameters", () => {
           pathItem: {},
         }
       ).trim()
-    ).toBe(`parameters: {
+    ).to.equal(`parameters: {
       path: {
     "p1"?: string;
   }
@@ -125,7 +126,7 @@ describe("parameters", () => {
           },
         }
       ).trim()
-    ).toBe(`parameters: {
+    ).to.equal(`parameters: {
       path: {
     "p1"?: string;
   }
@@ -177,7 +178,7 @@ describe("parameters", () => {
           },
         }
       ).trim()
-    ).toBe(`parameters: {
+    ).to.equal(`parameters: {
       path: {
     "p2"?: number;
     "p3"?: string;

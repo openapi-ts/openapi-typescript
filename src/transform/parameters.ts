@@ -1,6 +1,6 @@
-import { GlobalContext, ParameterObject, ReferenceObject } from "../types";
-import { comment, tsReadonly } from "../utils";
-import { transformSchemaObj } from "./schema";
+import type { GlobalContext, ParameterObject, ReferenceObject } from "../types";
+import { comment, tsReadonly } from "../utils.js";
+import { transformSchemaObj } from "./schema.js";
 
 interface TransformParametersOptions extends GlobalContext {
   globalParameters?: Record<string, ParameterObject>;

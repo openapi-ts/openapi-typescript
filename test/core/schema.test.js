@@ -1,14 +1,14 @@
 /**
  * Tests raw generation, pre-Prettier
  */
-
-import { transformSchemaObj as transform } from "../../src/transform/schema";
+const { expect } = require("chai");
+const { transformSchemaObj: transform } = require("../../dist/cjs/transform/schema.js");
 
 const defaults = {
   additionalProperties: false,
   immutableTypes: false,
   defaultNonNullable: false,
-  required: new Set<string>(),
+  required: new Set(),
   rawSchema: false,
   version: 3,
 };
@@ -16,19 +16,19 @@ const defaults = {
 describe("SchemaObject", () => {
   describe("basic", () => {
     it("string", () => {
-      expect(transform({ type: "string" }, { ...defaults })).toBe("string");
-      expect(transform({ type: "string", nullable: true }, { ...defaults })).toBe("(string) | null");
+      expect(transform({ type: "string" }, { ...defaults })).to.equal("string");
+      expect(transform({ type: "string", nullable: true }, { ...defaults })).to.equal("(string) | null");
     });
 
     it("number", () => {
-      expect(transform({ type: "integer" }, { ...defaults })).toBe("number");
-      expect(transform({ type: "number" }, { ...defaults })).toBe("number");
-      expect(transform({ type: "number", nullable: true }, { ...defaults })).toBe("(number) | null");
+      expect(transform({ type: "integer" }, { ...defaults })).to.equal("number");
+      expect(transform({ type: "number" }, { ...defaults })).to.equal("number");
+      expect(transform({ type: "number", nullable: true }, { ...defaults })).to.equal("(number) | null");
     });
 
     it("boolean", () => {
-      expect(transform({ type: "boolean" }, { ...defaults })).toBe("boolean");
-      expect(transform({ type: "boolean", nullable: true }, { ...defaults })).toBe("(boolean) | null");
+      expect(transform({ type: "boolean" }, { ...defaults })).to.equal("boolean");
+      expect(transform({ type: "boolean", nullable: true }, { ...defaults })).to.equal("(boolean) | null");
     });
 
     const objStd = {
@@ -50,40 +50,42 @@ describe("SchemaObject", () => {
 
     it("object", () => {
       // standard object
-      expect(transform(objStd, { ...defaults })).toBe(
+      expect(transform(objStd, { ...defaults })).to.equal(
         `{\n"object"?: {\n"string"?: string;\n"number"?: components["schemas"]["object_ref"];\n\n};\n\n}`
       );
 
       // unknown
-      expect(transform(objUnknown, { ...defaults })).toBe(`{ [key: string]: unknown }`);
+      expect(transform(objUnknown, { ...defaults })).to.equal(`{ [key: string]: unknown }`);
 
       // empty
-      expect(transform({}, { ...defaults })).toBe(`unknown`);
+      expect(transform({}, { ...defaults })).to.equal(`unknown`);
 
       // nullable
-      expect(transform(objNullable, { ...defaults })).toBe(`({\n"string"?: string;\n\n}) | null`);
+      expect(transform(objNullable, { ...defaults })).to.equal(`({\n"string"?: string;\n\n}) | null`);
 
       // required
-      expect(transform(objRequired, { ...defaults })).toBe(`{\n"required": string;\n"optional"?: boolean;\n\n}`);
+      expect(transform(objRequired, { ...defaults })).to.equal(`{\n"required": string;\n"optional"?: boolean;\n\n}`);
     });
 
     it("object (immutableTypes)", () => {
       // (same as above test, but with immutableTypes: true)
       const opts = { ...defaults, immutableTypes: true };
-      expect(transform(objStd, opts)).toBe(
+      expect(transform(objStd, opts)).to.equal(
         `{\nreadonly "object"?: {\nreadonly "string"?: string;\nreadonly "number"?: components["schemas"]["object_ref"];\n\n};\n\n}`
       );
-      expect(transform(objUnknown, opts)).toBe(`{ readonly [key: string]: unknown }`);
-      expect(transform({}, opts)).toBe(`unknown`);
-      expect(transform(objNullable, opts)).toBe(`({\nreadonly "string"?: string;\n\n}) | null`);
-      expect(transform(objRequired, opts)).toBe(`{\nreadonly "required": string;\nreadonly "optional"?: boolean;\n\n}`);
+      expect(transform(objUnknown, opts)).to.equal(`{ readonly [key: string]: unknown }`);
+      expect(transform({}, opts)).to.equal(`unknown`);
+      expect(transform(objNullable, opts)).to.equal(`({\nreadonly "string"?: string;\n\n}) | null`);
+      expect(transform(objRequired, opts)).to.equal(
+        `{\nreadonly "required": string;\nreadonly "optional"?: boolean;\n\n}`
+      );
     });
 
     it("array", () => {
       // primitive
-      expect(transform({ type: "array", items: { type: "string" } }, { ...defaults })).toBe(`(string)[]`);
-      expect(transform({ type: "array", items: { type: "number" } }, { ...defaults })).toBe(`(number)[]`);
-      expect(transform({ type: "array", items: { type: "boolean" } }, { ...defaults })).toBe(`(boolean)[]`);
+      expect(transform({ type: "array", items: { type: "string" } }, { ...defaults })).to.equal(`(string)[]`);
+      expect(transform({ type: "array", items: { type: "number" } }, { ...defaults })).to.equal(`(number)[]`);
+      expect(transform({ type: "array", items: { type: "boolean" } }, { ...defaults })).to.equal(`(boolean)[]`);
 
       // nested
       expect(
@@ -91,30 +93,30 @@ describe("SchemaObject", () => {
           { type: "array", items: { type: "array", items: { type: "array", items: { type: "number" } } } },
           { ...defaults }
         )
-      ).toBe(`(((number)[])[])[]`);
+      ).to.equal(`(((number)[])[])[]`);
 
       // enum
-      expect(transform({ type: "array", items: { enum: ["chocolate", "vanilla"] } }, { ...defaults })).toBe(
+      expect(transform({ type: "array", items: { enum: ["chocolate", "vanilla"] } }, { ...defaults })).to.equal(
         `(('chocolate') | ('vanilla'))[]`
       );
 
       // $ref
-      expect(transform({ type: "array", items: { $ref: 'components["schemas"]["ArrayItem"]' } }, { ...defaults })).toBe(
-        `(components["schemas"]["ArrayItem"])[]`
-      );
+      expect(
+        transform({ type: "array", items: { $ref: 'components["schemas"]["ArrayItem"]' } }, { ...defaults })
+      ).to.equal(`(components["schemas"]["ArrayItem"])[]`);
 
       // inferred
-      expect(transform({ items: { $ref: 'components["schemas"]["ArrayItem"]' } }, { ...defaults })).toBe(
+      expect(transform({ items: { $ref: 'components["schemas"]["ArrayItem"]' } }, { ...defaults })).to.equal(
         `(components["schemas"]["ArrayItem"])[]`
       );
 
       // tuple
-      expect(transform({ type: "array", items: [{ type: "string" }, { type: "number" }] }, { ...defaults })).toBe(
+      expect(transform({ type: "array", items: [{ type: "string" }, { type: "number" }] }, { ...defaults })).to.equal(
         `[string, number]`
       );
 
       // nullable
-      expect(transform({ type: "array", items: { type: "string" }, nullable: true }, { ...defaults })).toBe(
+      expect(transform({ type: "array", items: { type: "string" }, nullable: true }, { ...defaults })).to.equal(
         `((string)[]) | null`
       );
     });
@@ -122,28 +124,28 @@ describe("SchemaObject", () => {
     it("array (immutableTypes)", () => {
       // (same as above test, but with immutableTypes: true)
       const opts = { ...defaults, immutableTypes: true };
-      expect(transform({ type: "array", items: { type: "string" } }, opts)).toBe(`readonly (string)[]`);
-      expect(transform({ type: "array", items: { type: "number" } }, opts)).toBe(`readonly (number)[]`);
-      expect(transform({ type: "array", items: { type: "boolean" } }, opts)).toBe(`readonly (boolean)[]`);
+      expect(transform({ type: "array", items: { type: "string" } }, opts)).to.equal(`readonly (string)[]`);
+      expect(transform({ type: "array", items: { type: "number" } }, opts)).to.equal(`readonly (number)[]`);
+      expect(transform({ type: "array", items: { type: "boolean" } }, opts)).to.equal(`readonly (boolean)[]`);
       expect(
         transform(
           { type: "array", items: { type: "array", items: { type: "array", items: { type: "number" } } } },
           opts
         )
-      ).toBe(`readonly (readonly (readonly (number)[])[])[]`);
-      expect(transform({ type: "array", items: { enum: ["chocolate", "vanilla"] } }, opts)).toBe(
+      ).to.equal(`readonly (readonly (readonly (number)[])[])[]`);
+      expect(transform({ type: "array", items: { enum: ["chocolate", "vanilla"] } }, opts)).to.equal(
         `readonly (('chocolate') | ('vanilla'))[]`
       );
-      expect(transform({ type: "array", items: { $ref: 'components["schemas"]["ArrayItem"]' } }, opts)).toBe(
+      expect(transform({ type: "array", items: { $ref: 'components["schemas"]["ArrayItem"]' } }, opts)).to.equal(
         `readonly (components["schemas"]["ArrayItem"])[]`
       );
-      expect(transform({ items: { $ref: 'components["schemas"]["ArrayItem"]' } }, opts)).toBe(
+      expect(transform({ items: { $ref: 'components["schemas"]["ArrayItem"]' } }, opts)).to.equal(
         `readonly (components["schemas"]["ArrayItem"])[]`
       );
-      expect(transform({ type: "array", items: { type: "string" }, nullable: true }, opts)).toBe(
+      expect(transform({ type: "array", items: { type: "string" }, nullable: true }, opts)).to.equal(
         `(readonly (string)[]) | null`
       );
-      expect(transform({ type: "array", items: [{ type: "string" }, { type: "number" }] }, opts)).toBe(
+      expect(transform({ type: "array", items: [{ type: "string" }, { type: "number" }] }, opts)).to.equal(
         `readonly [string, number]`
       );
     });
@@ -152,14 +154,14 @@ describe("SchemaObject", () => {
       const enumBasic = ["Totoro", "Sats'uki", "Mei"]; // note: also tests quotes in enum
       expect(
         transform({ properties: { string: { type: "string", enum: enumBasic } }, type: "object" }, { ...defaults })
-      ).toBe(`{
+      ).to.equal(`{
 "string"?: ('Totoro') | ('Sats\\'uki') | ('Mei');
 
 }`);
 
       const enumNull = ["Totoro", "Sats'uki", "Mei", null];
       expect(transform({ properties: { string: { type: "string", enum: enumNull } }, type: "object" }, { ...defaults }))
-        .toBe(`{
+        .to.equal(`{
 "string"?: ('Totoro') | ('Sats\\'uki') | ('Mei') | (null);
 
 }`);
@@ -167,7 +169,7 @@ describe("SchemaObject", () => {
       const enumMixed = ["Totoro", 2, false, null];
       expect(
         transform({ properties: { string: { type: "string", enum: enumMixed } }, type: "object" }, { ...defaults })
-      ).toBe(`{
+      ).to.equal(`{
 "string"?: ('Totoro') | (2) | (false) | (null);
 
 }`);
@@ -178,7 +180,7 @@ describe("SchemaObject", () => {
           { properties: { string: { type: "string", enum: enumMixed, nullable: true } }, type: "object" },
           { ...defaults }
         )
-      ).toBe(`{
+      ).to.equal(`{
 "string"?: (('Totoro') | (2) | (false)) | null;
 
 }`);
@@ -190,13 +192,15 @@ describe("SchemaObject", () => {
           { properties: { string: { type: "string", enum: enumMixed2, nullable: true } }, type: "object" },
           { ...defaults }
         )
-      ).toBe(`{
+      ).to.equal(`{
 "string"?: (('Totoro') | (2) | (false)) | null;
 
 }`);
 
       // empty
-      expect(transform({ properties: { string: { type: "string", enum: [] } }, type: "object" }, { ...defaults })).toBe(
+      expect(
+        transform({ properties: { string: { type: "string", enum: [] } }, type: "object" }, { ...defaults })
+      ).to.equal(
         `{
 "string"?: string;
 
@@ -205,31 +209,31 @@ describe("SchemaObject", () => {
     });
 
     it("$ref", () => {
-      expect(transform({ $ref: 'components["parameters"]["ReferenceObject"]' }, { ...defaults })).toBe(
+      expect(transform({ $ref: 'components["parameters"]["ReferenceObject"]' }, { ...defaults })).to.equal(
         `components["parameters"]["ReferenceObject"]`
       );
     });
 
     it("file", () => {
-      expect(transform({ type: "file" }, { ...defaults })).toBe("unknown");
+      expect(transform({ type: "file" }, { ...defaults })).to.equal("unknown");
     });
   });
 
   describe("advanced", () => {
     it("additionalProperties", () => {
       // boolean
-      expect(transform({ additionalProperties: true }, { ...defaults })).toBe(`{ [key: string]: unknown }`);
+      expect(transform({ additionalProperties: true }, { ...defaults })).to.equal(`{ [key: string]: unknown }`);
 
       // empty object
-      expect(transform({ additionalProperties: {} }, { ...defaults })).toBe(`{ [key: string]: unknown }`);
+      expect(transform({ additionalProperties: {} }, { ...defaults })).to.equal(`{ [key: string]: unknown }`);
 
       // type
-      expect(transform({ additionalProperties: { type: "string" } }, { ...defaults })).toBe(
+      expect(transform({ additionalProperties: { type: "string" } }, { ...defaults })).to.equal(
         `{ [key: string]: string; }`
       );
 
       // $ref
-      expect(transform({ additionalProperties: { $ref: 'definitions["Message"]' } }, { ...defaults })).toBe(
+      expect(transform({ additionalProperties: { $ref: 'definitions["Message"]' } }, { ...defaults })).to.equal(
         `{ [key: string]: definitions["Message"]; }`
       );
     });
@@ -247,7 +251,7 @@ describe("SchemaObject", () => {
           },
           { ...defaults }
         )
-      ).toBe(`(components["schemas"]["base"]) & ({\n"string"?: string;\n\n}) & ({\n"password"?: string;\n\n})`);
+      ).to.equal(`(components["schemas"]["base"]) & ({\n"string"?: string;\n\n}) & ({\n"password"?: string;\n\n})`);
     });
 
     it("anyOf", () => {
@@ -262,7 +266,7 @@ describe("SchemaObject", () => {
           },
           { ...defaults }
         )
-      ).toBe(
+      ).to.equal(
         `(Partial<components["schemas"]["StringType"]>) & (Partial<components["schemas"]["NumberType"]>) & (Partial<components["schemas"]["BooleanType"]>)`
       );
     });
@@ -274,7 +278,7 @@ describe("SchemaObject", () => {
           { oneOf: [{ type: "string" }, { type: "number" }, { $ref: 'components["schemas"]["one_of_ref"]' }] },
           { ...defaults }
         )
-      ).toBe(`(string) | (number) | (components["schemas"]["one_of_ref"])`);
+      ).to.equal(`(string) | (number) | (components["schemas"]["one_of_ref"])`);
 
       // additionalProperties
       expect(
@@ -285,7 +289,7 @@ describe("SchemaObject", () => {
           },
           { ...defaults }
         )
-      ).toBe(`{ [key: string]: (string) | (number) | (boolean); }`);
+      ).to.equal(`{ [key: string]: (string) | (number) | (boolean); }`);
     });
 
     // https://www.jsonschemavalidator.net/s/fOyR2UtQ
@@ -305,7 +309,7 @@ describe("SchemaObject", () => {
           },
           { ...defaults }
         )
-      ).toBe(`(({
+      ).to.equal(`(({
 "b": string;
 
 }) | ({
@@ -333,7 +337,7 @@ describe("SchemaObject", () => {
           },
           { ...defaults }
         )
-      ).toBe(`((Partial<{
+      ).to.equal(`((Partial<{
 "b": string;
 
 }>) & (Partial<{
@@ -364,7 +368,7 @@ describe("SchemaObject", () => {
 
           { ...defaults }
         )
-      ).toBe(`{
+      ).to.equal(`{
 "a"?: string;
 "b"?: string;
 
@@ -379,7 +383,7 @@ describe("SchemaObject", () => {
           },
           { ...defaults }
         )
-      ).toBe(`({ [key: string]: unknown }) & ({
+      ).to.equal(`({ [key: string]: unknown }) & ({
 abc: unknown;
 })`);
     });
@@ -397,7 +401,7 @@ abc: unknown;
         },
         { ...defaults }
       )
-    ).toBe(`({
+    ).to.equal(`({
 "email": string;
 
 }) & ({
@@ -419,7 +423,7 @@ abc: unknown;
           },
           { ...defaults }
         )
-      ).toBe(`{
+      ).to.equal(`{
 /** @description user email */
 "email"?: string;
 /** @description user location */
@@ -435,7 +439,7 @@ abc: unknown;
     it("default: objects with default values are nullable", () => {
       expect(
         transform({ type: "object", properties: { default: { type: "boolean", default: true } } }, { ...defaults })
-      ).toBe(`{
+      ).to.equal(`{
 /** @default true */
 "default"?: boolean;
 
@@ -448,7 +452,7 @@ abc: unknown;
           { type: "object", properties: { default: { type: "boolean", default: true } } },
           { ...defaults, defaultNonNullable: true }
         )
-      ).toBe(`{
+      ).to.equal(`{
 /** @default true */
 "default": boolean;
 
@@ -458,7 +462,7 @@ abc: unknown;
 
   describe("deprecated", () => {
     expect(transform({ type: "object", properties: { userId: { type: "string", deprecated: true } } }, { ...defaults }))
-      .toBe(`{
+      .to.equal(`{
 /** @deprecated */
 "userId"?: string;
 

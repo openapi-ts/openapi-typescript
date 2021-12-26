@@ -1,11 +1,11 @@
-import { GlobalContext, OperationObject, PathItemObject } from "../types";
-import { comment, tsReadonly } from "../utils";
-import { transformHeaderObjMap } from "./headers";
-import { transformOperationObj } from "./operation";
-import { transformPathsObj } from "./paths";
-import { transformRequestBodies } from "./request";
-import { transformResponsesObj } from "./responses";
-import { transformSchemaObjMap } from "./schema";
+import type { GlobalContext, OperationObject, PathItemObject } from "../types";
+import { comment, tsReadonly } from "../utils.js";
+import { transformHeaderObjMap } from "./headers.js";
+import { transformOperationObj } from "./operation.js";
+import { transformPathsObj } from "./paths.js";
+import { transformRequestBodies } from "./request.js";
+import { transformResponsesObj } from "./responses.js";
+import { transformSchemaObjMap } from "./schema.js";
 
 export function transformAll(schema: any, ctx: GlobalContext): Record<string, string> {
   const readonly = tsReadonly(ctx.immutableTypes);

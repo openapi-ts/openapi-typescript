@@ -1,5 +1,6 @@
-import prettier from "prettier";
-import { transformRequestBodies } from "../../src/transform/request";
+const { expect } = require("chai");
+const prettier = require("prettier");
+const { transformRequestBodies } = require("../../dist/cjs/transform/request.js");
 
 const defaults = {
   additionalProperties: false,
@@ -8,7 +9,7 @@ const defaults = {
   rawSchema: false,
 };
 
-function format(source: string) {
+function format(source) {
   return prettier.format(`type requestBodies = {${source.trim()}}`, { parser: "typescript" });
 }
 
@@ -30,7 +31,7 @@ describe("requestBodies", () => {
   };
 
   it("basic", () => {
-    expect(format(transformRequestBodies(basicSchema, { ...defaults, version: 2 }))).toBe(
+    expect(format(transformRequestBodies(basicSchema, { ...defaults, version: 2 }))).to.equal(
       format(`/** Pet request body */
           Pet: {
             content: {
@@ -43,7 +44,7 @@ describe("requestBodies", () => {
   });
 
   it("basic (immutableTypes)", () => {
-    expect(format(transformRequestBodies(basicSchema, { ...defaults, immutableTypes: true, version: 2 }))).toBe(
+    expect(format(transformRequestBodies(basicSchema, { ...defaults, immutableTypes: true, version: 2 }))).to.equal(
       format(`/** Pet request body */
           Pet: {
             readonly content: {
@@ -70,7 +71,7 @@ describe("requestBodies", () => {
   };
 
   it("hypenated", () => {
-    expect(format(transformRequestBodies(schemaHyphen, { ...defaults, version: 3 }))).toBe(
+    expect(format(transformRequestBodies(schemaHyphen, { ...defaults, version: 3 }))).to.equal(
       format(`/** Pet-example request body */
           "Pet-example": {
             content: {
@@ -83,7 +84,9 @@ describe("requestBodies", () => {
   });
 
   it("hypenated (additionalProperties)", () => {
-    expect(format(transformRequestBodies(schemaHyphen, { ...defaults, additionalProperties: true, version: 3 }))).toBe(
+    expect(
+      format(transformRequestBodies(schemaHyphen, { ...defaults, additionalProperties: true, version: 3 }))
+    ).to.equal(
       format(`/** Pet-example request body */
           "Pet-example": {
             content: {
@@ -96,7 +99,7 @@ describe("requestBodies", () => {
   });
 
   it("hyphenated (immutable)", () => {
-    expect(format(transformRequestBodies(schemaHyphen, { ...defaults, immutableTypes: true, version: 3 }))).toBe(
+    expect(format(transformRequestBodies(schemaHyphen, { ...defaults, immutableTypes: true, version: 3 }))).to.equal(
       format(`/** Pet-example request body */
           "Pet-example": {
             readonly content: {
