@@ -1,4 +1,4 @@
-import { transformParametersArray } from "../src/transform/parameters";
+import { transformParametersArray } from "../../src/transform/parameters";
 
 const defaults = {
   additionalProperties: false,

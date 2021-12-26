@@ -1,5 +1,5 @@
 import prettier from "prettier";
-import { transformPathsObj as transform } from "../src/transform/paths";
+import { transformPathsObj as transform } from "../../src/transform/paths";
 
 function format(source: string): string {
   return prettier.format(`export interface paths {\n${source}\n}`, { parser: "typescript" });

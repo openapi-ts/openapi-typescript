@@ -62,9 +62,9 @@
     "js-yaml": "^4.1.0",
     "kleur": "^4.1.4",
     "meow": "^9.0.0",
-    "mime": "^2.5.2",
-    "node-fetch": "^2.6.5",
-    "prettier": "^2.4.1",
+    "mime": "^3.0.0",
+    "node-fetch": "^2.6.6",
+    "prettier": "^2.5.1",
     "slash": "^3.0.0",
     "tiny-glob": "^0.2.9"
   },
@@ -73,14 +73,15 @@
     "@types/js-yaml": "^4.0.1",
     "@types/mime": "^2.0.3",
     "@types/node-fetch": "^2.5.12",
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
-    "@typescript-eslint/parser": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.8.0",
+    "@typescript-eslint/parser": "^5.8.0",
     "codecov": "^3.8.2",
-    "eslint": "^8.0.1",
+    "eol": "^0.9.1",
+    "eslint": "^8.5.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "jest": "^27.2.5",
-    "ts-jest": "^27.0.5",
+    "jest": "^27.4.5",
+    "ts-jest": "^27.1.2",
     "typescript": "^4.4.3"
   }
 }

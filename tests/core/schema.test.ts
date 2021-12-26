@@ -2,7 +2,7 @@
  * Tests raw generation, pre-Prettier
  */
 
-import { transformSchemaObj as transform } from "../src/transform/schema";
+import { transformSchemaObj as transform } from "../../src/transform/schema";
 
 const defaults = {
   additionalProperties: false,
@@ -364,13 +364,11 @@ describe("SchemaObject", () => {
 
           { ...defaults }
         )
-      ).toMatchInlineSnapshot(`
-        "{
-        \\"a\\"?: string;
-        \\"b\\"?: string;
+      ).toBe(`{
+"a"?: string;
+"b"?: string;
 
-        }"
-      `);
+}`);
     });
     it("empty object with required fields", () => {
       expect(
@@ -422,11 +420,11 @@ abc: unknown;
           { ...defaults }
         )
       ).toBe(`{
-/** user email */
+/** @description user email */
 "email"?: string;
-/** user location */
+/** @description user location */
 "loc"?: string;
-/** user photo */
+/** @description user photo */
 "avatar"?: string;
 
 }`);
@@ -438,6 +436,7 @@ abc: unknown;
       expect(
         transform({ type: "object", properties: { default: { type: "boolean", default: true } } }, { ...defaults })
       ).toBe(`{
+/** @default true */
 "default"?: boolean;
 
 }`);
@@ -450,6 +449,7 @@ abc: unknown;
           { ...defaults, defaultNonNullable: true }
         )
       ).toBe(`{
+/** @default true */
 "default": boolean;
 
 }`);

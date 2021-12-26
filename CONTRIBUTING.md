@@ -58,6 +58,10 @@ This should update the expected TypeScript definiton.
 
 _Also if this appears in `examples/` feel free to update that, too!_
 
+## Testing
+
+Tests can be run with `npm test`. This will build the library first to ensure you’re not testing a stale build.
+
 ## Help needed
 
 Please check out the [the open issues][issues]. Issues labelled [**Help Wanted**][help-wanted] and [**Good First

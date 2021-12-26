@@ -5131,44 +5131,122 @@ export interface paths {
 
 export interface components {
   readonly schemas: {
-    /** Simple User */
+    /**
+     * Simple User
+     * @description Simple User
+     */
     readonly "simple-user": {
+      /** @example octocat */
       readonly login: string;
+      /** @example 1 */
       readonly id: number;
+      /** @example MDQ6VXNlcjE= */
       readonly node_id: string;
+      /**
+       * Format: uri
+       * @example https://github.com/images/error/octocat_happy.gif
+       */
       readonly avatar_url: string;
+      /** @example 41d064eb2195891e12d0413f63227ea7 */
       readonly gravatar_id: string | null;
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat
+       */
       readonly url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat
+       */
       readonly html_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat/followers
+       */
       readonly followers_url: string;
+      /** @example https://api.github.com/users/octocat/following{/other_user} */
       readonly following_url: string;
+      /** @example https://api.github.com/users/octocat/gists{/gist_id} */
       readonly gists_url: string;
+      /** @example https://api.github.com/users/octocat/starred{/owner}{/repo} */
       readonly starred_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat/subscriptions
+       */
       readonly subscriptions_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat/orgs
+       */
       readonly organizations_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat/repos
+       */
       readonly repos_url: string;
+      /** @example https://api.github.com/users/octocat/events{/privacy} */
       readonly events_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat/received_events
+       */
       readonly received_events_url: string;
+      /** @example User */
       readonly type: string;
       readonly site_admin: boolean;
+      /** @example "2020-07-09T00:17:55Z" */
       readonly starred_at?: string;
     } | null;
-    /** GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub. */
+    /**
+     * GitHub app
+     * @description GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
+     */
     readonly integration: {
-      /** Unique identifier of the GitHub app */
+      /**
+       * @description Unique identifier of the GitHub app
+       * @example 37
+       */
       readonly id: number;
-      /** The slug name of the GitHub app */
+      /**
+       * @description The slug name of the GitHub app
+       * @example probot-owners
+       */
       readonly slug?: string;
+      /** @example MDExOkludGVncmF0aW9uMQ== */
       readonly node_id: string;
       readonly owner: components["schemas"]["simple-user"] | null;
-      /** The name of the GitHub app */
+      /**
+       * @description The name of the GitHub app
+       * @example Probot Owners
+       */
       readonly name: string;
+      /** @example The description of the app. */
       readonly description: string | null;
+      /**
+       * Format: uri
+       * @example https://example.com
+       */
       readonly external_url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/apps/super-ci
+       */
       readonly html_url: string;
+      /**
+       * Format: date-time
+       * @example 2017-07-08T16:18:44-04:00
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2017-07-08T16:18:44-04:00
+       */
       readonly updated_at: string;
-      /** The set of permissions for the GitHub app */
+      /**
+       * @description The set of permissions for the GitHub app
+       * @example [object Object]
+       */
       readonly permissions: {
         readonly issues?: string;
         readonly checks?: string;
@@ -5176,75 +5254,157 @@ export interface components {
         readonly contents?: string;
         readonly deployments?: string;
       } & { readonly [key: string]: string };
-      /** The list of events for the GitHub app */
+      /**
+       * @description The list of events for the GitHub app
+       * @example label,deployment
+       */
       readonly events: readonly string[];
-      /** The number of installations associated with the GitHub app */
+      /**
+       * @description The number of installations associated with the GitHub app
+       * @example 5
+       */
       readonly installations_count?: number;
+      /** @example "Iv1.25b5d1e65ffc4022" */
       readonly client_id?: string;
+      /** @example "1d4b2097ac622ba702d19de498f005747a8b21d3" */
       readonly client_secret?: string;
+      /** @example "6fba8f2fc8a7e8f2cca5577eddd82ca7586b3b6b" */
       readonly webhook_secret?: string;
+      /** @example "-----BEGIN RSA PRIVATE KEY-----\nMIIEogIBAAKCAQEArYxrNYD/iT5CZVpRJu4rBKmmze3PVmT/gCo2ATUvDvZTPTey\nxcGJ3vvrJXazKk06pN05TN29o98jrYz4cengG3YGsXPNEpKsIrEl8NhbnxapEnM9\nJCMRe0P5JcPsfZlX6hmiT7136GRWiGOUba2X9+HKh8QJVLG5rM007TBER9/z9mWm\nrJuNh+m5l320oBQY/Qq3A7wzdEfZw8qm/mIN0FCeoXH1L6B8xXWaAYBwhTEh6SSn\nZHlO1Xu1JWDmAvBCi0RO5aRSKM8q9QEkvvHP4yweAtK3N8+aAbZ7ovaDhyGz8r6r\nzhU1b8Uo0Z2ysf503WqzQgIajr7Fry7/kUwpgQIDAQABAoIBADwJp80Ko1xHPZDy\nfcCKBDfIuPvkmSW6KumbsLMaQv1aGdHDwwTGv3t0ixSay8CGlxMRtRDyZPib6SvQ\n6OH/lpfpbMdW2ErkksgtoIKBVrDilfrcAvrNZu7NxRNbhCSvN8q0s4ICecjbbVQh\nnueSdlA6vGXbW58BHMq68uRbHkP+k+mM9U0mDJ1HMch67wlg5GbayVRt63H7R2+r\nVxcna7B80J/lCEjIYZznawgiTvp3MSanTglqAYi+m1EcSsP14bJIB9vgaxS79kTu\noiSo93leJbBvuGo8QEiUqTwMw4tDksmkLsoqNKQ1q9P7LZ9DGcujtPy4EZsamSJT\ny8OJt0ECgYEA2lxOxJsQk2kI325JgKFjo92mQeUObIvPfSNWUIZQDTjniOI6Gv63\nGLWVFrZcvQBWjMEQraJA9xjPbblV8PtfO87MiJGLWCHFxmPz2dzoedN+2Coxom8m\nV95CLz8QUShuao6u/RYcvUaZEoYs5bHcTmy5sBK80JyEmafJPtCQVxMCgYEAy3ar\nZr3yv4xRPEPMat4rseswmuMooSaK3SKub19WFI5IAtB/e7qR1Rj9JhOGcZz+OQrl\nT78O2OFYlgOIkJPvRMrPpK5V9lslc7tz1FSh3BZMRGq5jSyD7ETSOQ0c8T2O/s7v\nbeEPbVbDe4mwvM24XByH0GnWveVxaDl51ABD65sCgYB3ZAspUkOA5egVCh8kNpnd\nSd6SnuQBE3ySRlT2WEnCwP9Ph6oPgn+oAfiPX4xbRqkL8q/k0BdHQ4h+zNwhk7+h\nWtPYRAP1Xxnc/F+jGjb+DVaIaKGU18MWPg7f+FI6nampl3Q0KvfxwX0GdNhtio8T\nTj1E+SnFwh56SRQuxSh2gwKBgHKjlIO5NtNSflsUYFM+hyQiPiqnHzddfhSG+/3o\nm5nNaSmczJesUYreH5San7/YEy2UxAugvP7aSY2MxB+iGsiJ9WD2kZzTUlDZJ7RV\nUzWsoqBR+eZfVJ2FUWWvy8TpSG6trh4dFxImNtKejCR1TREpSiTV3Zb1dmahK9GV\nrK9NAoGAbBxRLoC01xfxCTgt5BDiBcFVh4fp5yYKwavJPLzHSpuDOrrI9jDn1oKN\nonq5sDU1i391zfQvdrbX4Ova48BN+B7p63FocP/MK5tyyBoT8zQEk2+vWDOw7H/Z\nu5dTCPxTIsoIwUw1I+7yIxqJzLPFgR2gVBwY1ra/8iAqCj+zeBw=\n-----END RSA PRIVATE KEY-----\n" */
       readonly pem?: string;
     } & { readonly [key: string]: unknown };
-    /** Basic Error */
+    /**
+     * Basic Error
+     * @description Basic Error
+     */
     readonly "basic-error": {
       readonly message?: string;
       readonly documentation_url?: string;
     };
-    /** Validation Error Simple */
+    /**
+     * Validation Error Simple
+     * @description Validation Error Simple
+     */
     readonly "validation-error-simple": {
       readonly message: string;
       readonly documentation_url: string;
       readonly errors?: readonly string[];
     };
-    /** The URL to which the payloads will be delivered. */
+    /**
+     * Format: uri
+     * @description The URL to which the payloads will be delivered.
+     * @example https://example.com/webhook
+     */
     readonly "webhook-config-url": string;
-    /** The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`. */
+    /**
+     * @description The media type used to serialize the payloads. Supported values include `json` and `form`. The default is `form`.
+     * @example "json"
+     */
     readonly "webhook-config-content-type": string;
-    /** If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers). */
+    /**
+     * @description If provided, the `secret` will be used as the `key` to generate the HMAC hex digest value for [delivery signature headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
+     * @example "********"
+     */
     readonly "webhook-config-secret": string;
-    /** Determines whether the SSL certificate of the host for `url` will be verified when delivering payloads. Supported values include `0` (verification is performed) and `1` (verification is not performed). The default is `0`. **We strongly recommend not setting this to `1` as you are subject to man-in-the-middle and other attacks.** */
+    /**
+     * @description Determines whether the SSL certificate of the host for `url` will be verified when delivering payloads. Supported values include `0` (verification is performed) and `1` (verification is not performed). The default is `0`. **We strongly recommend not setting this to `1` as you are subject to man-in-the-middle and other attacks.**
+     * @example "0"
+     */
     readonly "webhook-config-insecure-ssl": string;
-    /** Configuration object of the webhook */
+    /**
+     * Webhook Configuration
+     * @description Configuration object of the webhook
+     */
     readonly "webhook-config": {
       readonly url?: components["schemas"]["webhook-config-url"];
       readonly content_type?: components["schemas"]["webhook-config-content-type"];
       readonly secret?: components["schemas"]["webhook-config-secret"];
       readonly insecure_ssl?: components["schemas"]["webhook-config-insecure-ssl"];
     };
-    /** An enterprise account */
+    /**
+     * Enterprise
+     * @description An enterprise account
+     */
     readonly enterprise: {
-      /** A short description of the enterprise. */
+      /** @description A short description of the enterprise. */
       readonly description?: string | null;
+      /**
+       * Format: uri
+       * @example https://github.com/enterprises/octo-business
+       */
       readonly html_url: string;
-      /** The enterprise's website URL. */
+      /**
+       * Format: uri
+       * @description The enterprise's website URL.
+       */
       readonly website_url?: string | null;
-      /** Unique identifier of the enterprise */
+      /**
+       * @description Unique identifier of the enterprise
+       * @example 42
+       */
       readonly id: number;
+      /** @example MDEwOlJlcG9zaXRvcnkxMjk2MjY5 */
       readonly node_id: string;
-      /** The name of the enterprise. */
+      /**
+       * @description The name of the enterprise.
+       * @example Octo Business
+       */
       readonly name: string;
-      /** The slug url identifier for the enterprise. */
+      /**
+       * @description The slug url identifier for the enterprise.
+       * @example octo-business
+       */
       readonly slug: string;
+      /**
+       * Format: date-time
+       * @example 2019-01-26T19:01:12Z
+       */
       readonly created_at: string | null;
+      /**
+       * Format: date-time
+       * @example 2019-01-26T19:14:43Z
+       */
       readonly updated_at: string | null;
+      /** Format: uri */
       readonly avatar_url: string;
     };
-    /** Installation */
+    /**
+     * Installation
+     * @description Installation
+     */
     readonly installation: {
-      /** The ID of the installation. */
+      /**
+       * @description The ID of the installation.
+       * @example 1
+       */
       readonly id: number;
       readonly account:
         | (Partial<components["schemas"]["simple-user"]> & Partial<components["schemas"]["enterprise"]>)
         | null;
-      /** Describe whether all repositories have been selected or there's a selection involved */
+      /** @description Describe whether all repositories have been selected or there's a selection involved */
       readonly repository_selection: "all" | "selected";
+      /**
+       * Format: uri
+       * @example https://api.github.com/installations/1/access_tokens
+       */
       readonly access_tokens_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/installation/repositories
+       */
       readonly repositories_url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/organizations/github/settings/installations/1
+       */
       readonly html_url: string;
+      /** @example 1 */
       readonly app_id: number;
-      /** The ID of the user or organization this token is being scoped to. */
+      /** @description The ID of the user or organization this token is being scoped to. */
       readonly target_id: number;
+      /** @example Organization */
       readonly target_type: string;
+      /** @example [object Object] */
       readonly permissions: {
         readonly deployments?: string;
         readonly checks?: string;
@@ -5252,99 +5412,136 @@ export interface components {
         readonly contents?: string;
         readonly pull_requests?: string;
         readonly statuses?: string;
+        /** @example "read" */
         readonly issues?: string;
+        /** @example "read" */
         readonly organization_administration?: string;
       };
       readonly events: readonly string[];
+      /** Format: date-time */
       readonly created_at: string;
+      /** Format: date-time */
       readonly updated_at: string;
+      /** @example config.yaml */
       readonly single_file_name: string | null;
+      /** @example true */
       readonly has_multiple_single_files?: boolean;
+      /** @example config.yml,.github/issue_TEMPLATE.md */
       readonly single_file_paths?: readonly string[];
+      /** @example github-actions */
       readonly app_slug: string;
       readonly suspended_by?: components["schemas"]["simple-user"] | null;
+      /** Format: date-time */
       readonly suspended_at?: string | null;
+      /** @example "test_13f1e99741e3e004@d7e1eb0bc0a1ba12.com" */
       readonly contact_email?: string | null;
     };
-    /** The permissions granted to the user-to-server access token. */
+    /**
+     * App Permissions
+     * @description The permissions granted to the user-to-server access token.
+     * @example [object Object]
+     */
     readonly "app-permissions": {
-      /** The level of permission to grant the access token for GitHub Actions workflows, workflow runs, and artifacts. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token for GitHub Actions workflows, workflow runs, and artifacts. Can be one of: `read` or `write`. */
       readonly actions?: "read" | "write";
-      /** The level of permission to grant the access token for repository creation, deletion, settings, teams, and collaborators creation. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token for repository creation, deletion, settings, teams, and collaborators creation. Can be one of: `read` or `write`. */
       readonly administration?: "read" | "write";
-      /** The level of permission to grant the access token for checks on code. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token for checks on code. Can be one of: `read` or `write`. */
       readonly checks?: "read" | "write";
-      /** The level of permission to grant the access token for notification of content references and creation content attachments. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token for notification of content references and creation content attachments. Can be one of: `read` or `write`. */
       readonly content_references?: "read" | "write";
-      /** The level of permission to grant the access token for repository contents, commits, branches, downloads, releases, and merges. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token for repository contents, commits, branches, downloads, releases, and merges. Can be one of: `read` or `write`. */
       readonly contents?: "read" | "write";
-      /** The level of permission to grant the access token for deployments and deployment statuses. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token for deployments and deployment statuses. Can be one of: `read` or `write`. */
       readonly deployments?: "read" | "write";
-      /** The level of permission to grant the access token for managing repository environments. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token for managing repository environments. Can be one of: `read` or `write`. */
       readonly environments?: "read" | "write";
-      /** The level of permission to grant the access token for issues and related comments, assignees, labels, and milestones. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token for issues and related comments, assignees, labels, and milestones. Can be one of: `read` or `write`. */
       readonly issues?: "read" | "write";
-      /** The level of permission to grant the access token to search repositories, list collaborators, and access repository metadata. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token to search repositories, list collaborators, and access repository metadata. Can be one of: `read` or `write`. */
       readonly metadata?: "read" | "write";
-      /** The level of permission to grant the access token for packages published to GitHub Packages. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token for packages published to GitHub Packages. Can be one of: `read` or `write`. */
       readonly packages?: "read" | "write";
-      /** The level of permission to grant the access token to retrieve Pages statuses, configuration, and builds, as well as create new builds. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token to retrieve Pages statuses, configuration, and builds, as well as create new builds. Can be one of: `read` or `write`. */
       readonly pages?: "read" | "write";
-      /** The level of permission to grant the access token for pull requests and related comments, assignees, labels, milestones, and merges. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token for pull requests and related comments, assignees, labels, milestones, and merges. Can be one of: `read` or `write`. */
       readonly pull_requests?: "read" | "write";
-      /** The level of permission to grant the access token to manage the post-receive hooks for a repository. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token to manage the post-receive hooks for a repository. Can be one of: `read` or `write`. */
       readonly repository_hooks?: "read" | "write";
-      /** The level of permission to grant the access token to manage repository projects, columns, and cards. Can be one of: `read`, `write`, or `admin`. */
+      /** @description The level of permission to grant the access token to manage repository projects, columns, and cards. Can be one of: `read`, `write`, or `admin`. */
       readonly repository_projects?: "read" | "write" | "admin";
-      /** The level of permission to grant the access token to view and manage secret scanning alerts. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token to view and manage secret scanning alerts. Can be one of: `read` or `write`. */
       readonly secret_scanning_alerts?: "read" | "write";
-      /** The level of permission to grant the access token to manage repository secrets. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token to manage repository secrets. Can be one of: `read` or `write`. */
       readonly secrets?: "read" | "write";
-      /** The level of permission to grant the access token to view and manage security events like code scanning alerts. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token to view and manage security events like code scanning alerts. Can be one of: `read` or `write`. */
       readonly security_events?: "read" | "write";
-      /** The level of permission to grant the access token to manage just a single file. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token to manage just a single file. Can be one of: `read` or `write`. */
       readonly single_file?: "read" | "write";
-      /** The level of permission to grant the access token for commit statuses. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token for commit statuses. Can be one of: `read` or `write`. */
       readonly statuses?: "read" | "write";
-      /** The level of permission to grant the access token to retrieve Dependabot alerts. Can be one of: `read`. */
+      /** @description The level of permission to grant the access token to retrieve Dependabot alerts. Can be one of: `read`. */
       readonly vulnerability_alerts?: "read";
-      /** The level of permission to grant the access token to update GitHub Actions workflow files. Can be one of: `write`. */
+      /** @description The level of permission to grant the access token to update GitHub Actions workflow files. Can be one of: `write`. */
       readonly workflows?: "write";
-      /** The level of permission to grant the access token for organization teams and members. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token for organization teams and members. Can be one of: `read` or `write`. */
       readonly members?: "read" | "write";
-      /** The level of permission to grant the access token to manage access to an organization. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token to manage access to an organization. Can be one of: `read` or `write`. */
       readonly organization_administration?: "read" | "write";
-      /** The level of permission to grant the access token to manage the post-receive hooks for an organization. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token to manage the post-receive hooks for an organization. Can be one of: `read` or `write`. */
       readonly organization_hooks?: "read" | "write";
-      /** The level of permission to grant the access token for viewing an organization's plan. Can be one of: `read`. */
+      /** @description The level of permission to grant the access token for viewing an organization's plan. Can be one of: `read`. */
       readonly organization_plan?: "read";
-      /** The level of permission to grant the access token to manage organization projects, columns, and cards. Can be one of: `read`, `write`, or `admin`. */
+      /** @description The level of permission to grant the access token to manage organization projects, columns, and cards. Can be one of: `read`, `write`, or `admin`. */
       readonly organization_projects?: "read" | "write" | "admin";
-      /** The level of permission to grant the access token to manage organization secrets. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token to manage organization secrets. Can be one of: `read` or `write`. */
       readonly organization_secrets?: "read" | "write";
-      /** The level of permission to grant the access token to view and manage GitHub Actions self-hosted runners available to an organization. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token to view and manage GitHub Actions self-hosted runners available to an organization. Can be one of: `read` or `write`. */
       readonly organization_self_hosted_runners?: "read" | "write";
-      /** The level of permission to grant the access token to view and manage users blocked by the organization. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token to view and manage users blocked by the organization. Can be one of: `read` or `write`. */
       readonly organization_user_blocking?: "read" | "write";
-      /** The level of permission to grant the access token to manage team discussions and related comments. Can be one of: `read` or `write`. */
+      /** @description The level of permission to grant the access token to manage team discussions and related comments. Can be one of: `read` or `write`. */
       readonly team_discussions?: "read" | "write";
     };
-    /** License Simple */
+    /**
+     * License Simple
+     * @description License Simple
+     */
     readonly "license-simple": {
+      /** @example mit */
       readonly key: string;
+      /** @example MIT License */
       readonly name: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/licenses/mit
+       */
       readonly url: string | null;
+      /** @example MIT */
       readonly spdx_id: string | null;
+      /** @example MDc6TGljZW5zZW1pdA== */
       readonly node_id: string;
+      /** Format: uri */
       readonly html_url?: string;
     };
-    /** A git repository */
+    /**
+     * Repository
+     * @description A git repository
+     */
     readonly repository: {
-      /** Unique identifier of the repository */
+      /**
+       * @description Unique identifier of the repository
+       * @example 42
+       */
       readonly id: number;
+      /** @example MDEwOlJlcG9zaXRvcnkxMjk2MjY5 */
       readonly node_id: string;
-      /** The name of the repository. */
+      /**
+       * @description The name of the repository.
+       * @example Team Environment
+       */
       readonly name: string;
+      /** @example octocat/Hello-World */
       readonly full_name: string;
       readonly license: components["schemas"]["license-simple"] | null;
       readonly forks: number;
@@ -5356,84 +5553,228 @@ export interface components {
         readonly maintain?: boolean;
       };
       readonly owner: components["schemas"]["simple-user"] | null;
-      /** Whether the repository is private or public. */
+      /** @description Whether the repository is private or public. */
       readonly private: boolean;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World
+       */
       readonly html_url: string;
+      /** @example This your first repo! */
       readonly description: string | null;
       readonly fork: boolean;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World
+       */
       readonly url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref} */
       readonly archive_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/assignees{/user} */
       readonly assignees_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha} */
       readonly blobs_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/branches{/branch} */
       readonly branches_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator} */
       readonly collaborators_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/comments{/number} */
       readonly comments_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/commits{/sha} */
       readonly commits_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head} */
       readonly compare_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/contents/{+path} */
       readonly contents_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/contributors
+       */
       readonly contributors_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/deployments
+       */
       readonly deployments_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/downloads
+       */
       readonly downloads_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/events
+       */
       readonly events_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/forks
+       */
       readonly forks_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/commits{/sha} */
       readonly git_commits_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/refs{/sha} */
       readonly git_refs_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/tags{/sha} */
       readonly git_tags_url: string;
+      /** @example git:github.com/octocat/Hello-World.git */
       readonly git_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/issues/comments{/number} */
       readonly issue_comment_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/issues/events{/number} */
       readonly issue_events_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/issues{/number} */
       readonly issues_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/keys{/key_id} */
       readonly keys_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/labels{/name} */
       readonly labels_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/languages
+       */
       readonly languages_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/merges
+       */
       readonly merges_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/milestones{/number} */
       readonly milestones_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/notifications{?since,all,participating} */
       readonly notifications_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/pulls{/number} */
       readonly pulls_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/releases{/id} */
       readonly releases_url: string;
+      /** @example git@github.com:octocat/Hello-World.git */
       readonly ssh_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/stargazers
+       */
       readonly stargazers_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/statuses/{sha} */
       readonly statuses_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/subscribers
+       */
       readonly subscribers_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/subscription
+       */
       readonly subscription_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/tags
+       */
       readonly tags_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/teams
+       */
       readonly teams_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/trees{/sha} */
       readonly trees_url: string;
+      /** @example https://github.com/octocat/Hello-World.git */
       readonly clone_url: string;
+      /**
+       * Format: uri
+       * @example git:git.example.com/octocat/Hello-World
+       */
       readonly mirror_url: string | null;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/hooks
+       */
       readonly hooks_url: string;
+      /**
+       * Format: uri
+       * @example https://svn.github.com/octocat/Hello-World
+       */
       readonly svn_url: string;
+      /**
+       * Format: uri
+       * @example https://github.com
+       */
       readonly homepage: string | null;
       readonly language: string | null;
+      /** @example 9 */
       readonly forks_count: number;
+      /** @example 80 */
       readonly stargazers_count: number;
+      /** @example 80 */
       readonly watchers_count: number;
+      /** @example 108 */
       readonly size: number;
-      /** The default branch of the repository. */
+      /**
+       * @description The default branch of the repository.
+       * @example master
+       */
       readonly default_branch: string;
       readonly open_issues_count: number;
-      /** Whether this repository acts as a template that can be used to generate new repositories. */
+      /**
+       * @description Whether this repository acts as a template that can be used to generate new repositories.
+       * @example true
+       */
       readonly is_template?: boolean;
       readonly topics?: readonly string[];
-      /** Whether issues are enabled. */
+      /**
+       * @description Whether issues are enabled.
+       * @default true
+       * @example true
+       */
       readonly has_issues: boolean;
-      /** Whether projects are enabled. */
+      /**
+       * @description Whether projects are enabled.
+       * @default true
+       * @example true
+       */
       readonly has_projects: boolean;
-      /** Whether the wiki is enabled. */
+      /**
+       * @description Whether the wiki is enabled.
+       * @default true
+       * @example true
+       */
       readonly has_wiki: boolean;
       readonly has_pages: boolean;
-      /** Whether downloads are enabled. */
+      /**
+       * @description Whether downloads are enabled.
+       * @default true
+       * @example true
+       */
       readonly has_downloads: boolean;
-      /** Whether the repository is archived. */
+      /** @description Whether the repository is archived. */
       readonly archived: boolean;
-      /** Returns whether or not this repository disabled. */
+      /** @description Returns whether or not this repository disabled. */
       readonly disabled: boolean;
-      /** The repository visibility: public, private, or internal. */
+      /**
+       * @description The repository visibility: public, private, or internal.
+       * @default public
+       */
       readonly visibility?: string;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:06:43Z
+       */
       readonly pushed_at: string | null;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:01:12Z
+       */
       readonly created_at: string | null;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:14:43Z
+       */
       readonly updated_at: string | null;
-      /** Whether to allow rebase merges for pull requests. */
+      /**
+       * @description Whether to allow rebase merges for pull requests.
+       * @default true
+       * @example true
+       */
       readonly allow_rebase_merge?: boolean;
       readonly template_repository?: {
         readonly id?: number;
@@ -5541,36 +5882,56 @@ export interface components {
         readonly network_count?: number;
       } | null;
       readonly temp_clone_token?: string;
-      /** Whether to allow squash merges for pull requests. */
+      /**
+       * @description Whether to allow squash merges for pull requests.
+       * @default true
+       * @example true
+       */
       readonly allow_squash_merge?: boolean;
-      /** Whether to delete head branches when pull requests are merged */
+      /** @description Whether to delete head branches when pull requests are merged */
       readonly delete_branch_on_merge?: boolean;
-      /** Whether to allow merge commits for pull requests. */
+      /**
+       * @description Whether to allow merge commits for pull requests.
+       * @default true
+       * @example true
+       */
       readonly allow_merge_commit?: boolean;
       readonly subscribers_count?: number;
       readonly network_count?: number;
       readonly open_issues: number;
       readonly watchers: number;
       readonly master_branch?: string;
+      /** @example "2020-07-09T00:17:42Z" */
       readonly starred_at?: string;
     };
-    /** Authentication token for a GitHub App installed on a user or org. */
+    /**
+     * Installation Token
+     * @description Authentication token for a GitHub App installed on a user or org.
+     */
     readonly "installation-token": {
       readonly token: string;
       readonly expires_at: string;
       readonly permissions?: {
         readonly issues?: string;
         readonly contents?: string;
+        /** @example read */
         readonly metadata?: string;
+        /** @example read */
         readonly single_file?: string;
       };
       readonly repository_selection?: "all" | "selected";
       readonly repositories?: readonly components["schemas"]["repository"][];
+      /** @example README.md */
       readonly single_file?: string;
+      /** @example true */
       readonly has_multiple_single_files?: boolean;
+      /** @example config.yml,.github/issue_TEMPLATE.md */
       readonly single_file_paths?: readonly string[];
     };
-    /** Validation Error */
+    /**
+     * Validation Error
+     * @description Validation Error
+     */
     readonly "validation-error": {
       readonly message: string;
       readonly documentation_url: string;
@@ -5583,35 +5944,65 @@ export interface components {
         readonly value?: (string | null) | (number | null) | (readonly string[] | null);
       }[];
     };
-    /** The authorization associated with an OAuth Access. */
+    /**
+     * Application Grant
+     * @description The authorization associated with an OAuth Access.
+     */
     readonly "application-grant": {
+      /** @example 1 */
       readonly id: number;
+      /**
+       * Format: uri
+       * @example https://api.github.com/applications/grants/1
+       */
       readonly url: string;
       readonly app: {
         readonly client_id: string;
         readonly name: string;
+        /** Format: uri */
         readonly url: string;
       };
+      /**
+       * Format: date-time
+       * @example 2011-09-06T17:26:27Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2011-09-06T20:39:23Z
+       */
       readonly updated_at: string;
+      /** @example public_repo */
       readonly scopes: readonly string[];
       readonly user?: components["schemas"]["simple-user"] | null;
     };
+    /** Scoped Installation */
     readonly "scoped-installation": {
       readonly permissions: components["schemas"]["app-permissions"];
-      /** Describe whether all repositories have been selected or there's a selection involved */
+      /** @description Describe whether all repositories have been selected or there's a selection involved */
       readonly repository_selection: "all" | "selected";
+      /** @example config.yaml */
       readonly single_file_name: string | null;
+      /** @example true */
       readonly has_multiple_single_files?: boolean;
+      /** @example config.yml,.github/issue_TEMPLATE.md */
       readonly single_file_paths?: readonly string[];
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat/repos
+       */
       readonly repositories_url: string;
       readonly account: components["schemas"]["simple-user"];
     };
-    /** The authorization for an OAuth app, GitHub App, or a Personal Access Token. */
+    /**
+     * Authorization
+     * @description The authorization for an OAuth app, GitHub App, or a Personal Access Token.
+     */
     readonly authorization: {
       readonly id: number;
+      /** Format: uri */
       readonly url: string;
-      /** A list of scopes that this authorization is in. */
+      /** @description A list of scopes that this authorization is in. */
       readonly scopes: readonly string[] | null;
       readonly token: string;
       readonly token_last_eight: string | null;
@@ -5619,69 +6010,172 @@ export interface components {
       readonly app: {
         readonly client_id: string;
         readonly name: string;
+        /** Format: uri */
         readonly url: string;
       };
       readonly note: string | null;
+      /** Format: uri */
       readonly note_url: string | null;
+      /** Format: date-time */
       readonly updated_at: string;
+      /** Format: date-time */
       readonly created_at: string;
       readonly fingerprint: string | null;
       readonly user?: components["schemas"]["simple-user"] | null;
       readonly installation?: components["schemas"]["scoped-installation"] | null;
     };
-    /** Code Of Conduct */
+    /**
+     * Code Of Conduct
+     * @description Code Of Conduct
+     */
     readonly "code-of-conduct": {
+      /** @example contributor_covenant */
       readonly key: string;
+      /** @example Contributor Covenant */
       readonly name: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/codes_of_conduct/contributor_covenant
+       */
       readonly url: string;
+      /**
+       * @example # Contributor Covenant Code of Conduct
+       *
+       * ## Our Pledge
+       *
+       * In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
+       *
+       * ## Our Standards
+       *
+       * Examples of behavior that contributes to creating a positive environment include:
+       *
+       * * Using welcoming and inclusive language
+       * * Being respectful of differing viewpoints and experiences
+       * * Gracefully accepting constructive criticism
+       * * Focusing on what is best for the community
+       * * Showing empathy towards other community members
+       *
+       * Examples of unacceptable behavior by participants include:
+       *
+       * * The use of sexualized language or imagery and unwelcome sexual attention or advances
+       * * Trolling, insulting/derogatory comments, and personal or political attacks
+       * * Public or private harassment
+       * * Publishing others' private information, such as a physical or electronic address, without explicit permission
+       * * Other conduct which could reasonably be considered inappropriate in a professional setting
+       *
+       * ## Our Responsibilities
+       *
+       * Project maintainers are responsible for clarifying the standards of acceptable behavior and are expected to take appropriate and fair corrective action in response
+       *                   to any instances of unacceptable behavior.
+       *
+       * Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct, or to ban temporarily or permanently any contributor for other behaviors that they deem inappropriate, threatening, offensive, or harmful.
+       *
+       * ## Scope
+       *
+       * This Code of Conduct applies both within project spaces and in public spaces when an individual is representing the project or its community. Examples of representing a project or community include using an official project e-mail address,
+       *                   posting via an official social media account, or acting as an appointed representative at an online or offline event. Representation of a project may be further defined and clarified by project maintainers.
+       *
+       * ## Enforcement
+       *
+       * Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at [EMAIL]. The project team will review and investigate all complaints, and will respond in a way that it deems appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.
+       *
+       * Project maintainers who do not follow or enforce the Code of Conduct in good faith may face temporary or permanent repercussions as determined by other members of the project's leadership.
+       *
+       * ## Attribution
+       *
+       * This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4, available at [http://contributor-covenant.org/version/1/4][version]
+       *
+       * [homepage]: http://contributor-covenant.org
+       * [version]: http://contributor-covenant.org/version/1/4/
+       */
       readonly body?: string;
+      /** Format: uri */
       readonly html_url: string | null;
     };
-    /** Content Reference attachments allow you to provide context around URLs posted in comments */
+    /**
+     * ContentReferenceAttachment
+     * @description Content Reference attachments allow you to provide context around URLs posted in comments
+     */
     readonly "content-reference-attachment": {
-      /** The ID of the attachment */
+      /**
+       * @description The ID of the attachment
+       * @example 21
+       */
       readonly id: number;
-      /** The title of the attachment */
+      /**
+       * @description The title of the attachment
+       * @example Title of the attachment
+       */
       readonly title: string;
-      /** The body of the attachment */
+      /**
+       * @description The body of the attachment
+       * @example Body of the attachment
+       */
       readonly body: string;
-      /** The node_id of the content attachment */
+      /**
+       * @description The node_id of the content attachment
+       * @example MDE3OkNvbnRlbnRBdHRhY2htZW50MjE=
+       */
       readonly node_id?: string;
     };
-    /** The policy that controls the organizations in the enterprise that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`. */
+    /** @description The policy that controls the organizations in the enterprise that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`. */
     readonly "enabled-organizations": "all" | "none" | "selected";
-    /** The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`. */
+    /** @description The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`. */
     readonly "allowed-actions": "all" | "local_only" | "selected";
-    /** The API URL to use to get or set the actions that are allowed to run, when `allowed_actions` is set to `selected`. */
+    /** @description The API URL to use to get or set the actions that are allowed to run, when `allowed_actions` is set to `selected`. */
     readonly "selected-actions-url": string;
     readonly "actions-enterprise-permissions": {
       readonly enabled_organizations: components["schemas"]["enabled-organizations"];
-      /** The API URL to use to get or set the selected organizations that are allowed to run GitHub Actions, when `enabled_organizations` is set to `selected`. */
+      /** @description The API URL to use to get or set the selected organizations that are allowed to run GitHub Actions, when `enabled_organizations` is set to `selected`. */
       readonly selected_organizations_url?: string;
       readonly allowed_actions: components["schemas"]["allowed-actions"];
       readonly selected_actions_url?: components["schemas"]["selected-actions-url"];
     };
-    /** Organization Simple */
+    /**
+     * Organization Simple
+     * @description Organization Simple
+     */
     readonly "organization-simple": {
+      /** @example github */
       readonly login: string;
+      /** @example 1 */
       readonly id: number;
+      /** @example MDEyOk9yZ2FuaXphdGlvbjE= */
       readonly node_id: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/orgs/github
+       */
       readonly url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/orgs/github/repos
+       */
       readonly repos_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/orgs/github/events
+       */
       readonly events_url: string;
+      /** @example https://api.github.com/orgs/github/hooks */
       readonly hooks_url: string;
+      /** @example https://api.github.com/orgs/github/issues */
       readonly issues_url: string;
+      /** @example https://api.github.com/orgs/github/members{/member} */
       readonly members_url: string;
+      /** @example https://api.github.com/orgs/github/public_members{/member} */
       readonly public_members_url: string;
+      /** @example https://github.com/images/error/octocat_happy.gif */
       readonly avatar_url: string;
+      /** @example A great organization */
       readonly description: string | null;
     };
     readonly "selected-actions": {
-      /** Whether GitHub-owned actions are allowed. For example, this includes the actions in the `actions` organization. */
+      /** @description Whether GitHub-owned actions are allowed. For example, this includes the actions in the `actions` organization. */
       readonly github_owned_allowed: boolean;
-      /** Whether actions in GitHub Marketplace from verified creators are allowed. Set to `true` to allow all GitHub Marketplace actions by verified creators. */
+      /** @description Whether actions in GitHub Marketplace from verified creators are allowed. Set to `true` to allow all GitHub Marketplace actions by verified creators. */
       readonly verified_allowed: boolean;
-      /** Specifies a list of string-matching patterns to allow specific action(s). Wildcards, tags, and SHAs are allowed. For example, `monalisa/octocat@*`, `monalisa/octocat@v2`, `monalisa/*`." */
+      /** @description Specifies a list of string-matching patterns to allow specific action(s). Wildcards, tags, and SHAs are allowed. For example, `monalisa/octocat@*`, `monalisa/octocat@v2`, `monalisa/*`." */
       readonly patterns_allowed: readonly string[];
     };
     readonly "runner-groups-enterprise": {
@@ -5693,62 +6187,92 @@ export interface components {
       readonly runners_url: string;
       readonly allows_public_repositories: boolean;
     };
-    /** A self hosted runner */
+    /**
+     * Self hosted runners
+     * @description A self hosted runner
+     */
     readonly runner: {
-      /** The id of the runner. */
+      /**
+       * @description The id of the runner.
+       * @example 5
+       */
       readonly id: number;
-      /** The name of the runner. */
+      /**
+       * @description The name of the runner.
+       * @example iMac
+       */
       readonly name: string;
-      /** The Operating System of the runner. */
+      /**
+       * @description The Operating System of the runner.
+       * @example macos
+       */
       readonly os: string;
-      /** The status of the runner. */
+      /**
+       * @description The status of the runner.
+       * @example online
+       */
       readonly status: string;
       readonly busy: boolean;
       readonly labels: readonly {
-        /** Unique identifier of the label. */
+        /** @description Unique identifier of the label. */
         readonly id?: number;
-        /** Name of the label. */
+        /** @description Name of the label. */
         readonly name?: string;
-        /** The type of label. Read-only labels are applied automatically when the runner is configured. */
+        /** @description The type of label. Read-only labels are applied automatically when the runner is configured. */
         readonly type?: "read-only" | "custom";
       }[];
     };
-    /** Runner Application */
+    /**
+     * Runner Application
+     * @description Runner Application
+     */
     readonly "runner-application": {
       readonly os: string;
       readonly architecture: string;
       readonly download_url: string;
       readonly filename: string;
     };
-    /** Authentication Token */
+    /**
+     * Authentication Token
+     * @description Authentication Token
+     */
     readonly "authentication-token": {
-      /** The token used for authentication */
+      /**
+       * @description The token used for authentication
+       * @example v1.1f699f1069f60xxx
+       */
       readonly token: string;
-      /** The time this token expires */
+      /**
+       * Format: date-time
+       * @description The time this token expires
+       * @example 2016-07-11T22:14:10Z
+       */
       readonly expires_at: string;
+      /** @example [object Object] */
       readonly permissions?: { readonly [key: string]: unknown };
-      /** The repositories this token has access to */
+      /** @description The repositories this token has access to */
       readonly repositories?: readonly components["schemas"]["repository"][];
+      /** @example config.yaml */
       readonly single_file?: string | null;
-      /** Describe whether all repositories have been selected or there's a selection involved */
+      /** @description Describe whether all repositories have been selected or there's a selection involved */
       readonly repository_selection?: "all" | "selected";
     };
     readonly "audit-log-event": {
-      /** The time the audit log event occurred, given as a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time). */
+      /** @description The time the audit log event occurred, given as a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time). */
       readonly "@timestamp"?: number;
-      /** The name of the action that was performed, for example `user.login` or `repo.create`. */
+      /** @description The name of the action that was performed, for example `user.login` or `repo.create`. */
       readonly action?: string;
       readonly active?: boolean;
       readonly active_was?: boolean;
-      /** The actor who performed the action. */
+      /** @description The actor who performed the action. */
       readonly actor?: string;
-      /** The username of the account being blocked. */
+      /** @description The username of the account being blocked. */
       readonly blocked_user?: string;
       readonly business?: string;
       readonly config?: readonly unknown[];
       readonly config_was?: readonly unknown[];
       readonly content_type?: string;
-      /** The time the audit log event was recorded, given as a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time). */
+      /** @description The time the audit log event was recorded, given as a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time). */
       readonly created_at?: number;
       readonly deploy_key_fingerprint?: string;
       readonly emoji?: string;
@@ -5765,99 +6289,171 @@ export interface components {
       readonly org?: string;
       readonly previous_visibility?: string;
       readonly read_only?: boolean;
-      /** The name of the repository. */
+      /** @description The name of the repository. */
       readonly repo?: string;
-      /** The name of the repository. */
+      /** @description The name of the repository. */
       readonly repository?: string;
       readonly repository_public?: boolean;
       readonly target_login?: string;
       readonly team?: string;
-      /** The type of protocol (for example, HTTP or SSH) used to transfer Git data. */
+      /** @description The type of protocol (for example, HTTP or SSH) used to transfer Git data. */
       readonly transport_protocol?: number;
-      /** A human readable name for the protocol (for example, HTTP or SSH) used to transfer Git data. */
+      /** @description A human readable name for the protocol (for example, HTTP or SSH) used to transfer Git data. */
       readonly transport_protocol_name?: string;
-      /** The user that was affected by the action performed (if available). */
+      /** @description The user that was affected by the action performed (if available). */
       readonly user?: string;
-      /** The repository visibility, for example `public` or `private`. */
+      /** @description The repository visibility, for example `public` or `private`. */
       readonly visibility?: string;
     };
     readonly "actions-billing-usage": {
-      /** The sum of the free and paid GitHub Actions minutes used. */
+      /** @description The sum of the free and paid GitHub Actions minutes used. */
       readonly total_minutes_used: number;
-      /** The total paid GitHub Actions minutes used. */
+      /** @description The total paid GitHub Actions minutes used. */
       readonly total_paid_minutes_used: number;
-      /** The amount of free GitHub Actions minutes available. */
+      /** @description The amount of free GitHub Actions minutes available. */
       readonly included_minutes: number;
       readonly minutes_used_breakdown: {
-        /** Total minutes used on Ubuntu runner machines. */
+        /** @description Total minutes used on Ubuntu runner machines. */
         readonly UBUNTU?: number;
-        /** Total minutes used on macOS runner machines. */
+        /** @description Total minutes used on macOS runner machines. */
         readonly MACOS?: number;
-        /** Total minutes used on Windows runner machines. */
+        /** @description Total minutes used on Windows runner machines. */
         readonly WINDOWS?: number;
       };
     };
     readonly "packages-billing-usage": {
-      /** Sum of the free and paid storage space (GB) for GitHuub Packages. */
+      /** @description Sum of the free and paid storage space (GB) for GitHuub Packages. */
       readonly total_gigabytes_bandwidth_used: number;
-      /** Total paid storage space (GB) for GitHuub Packages. */
+      /** @description Total paid storage space (GB) for GitHuub Packages. */
       readonly total_paid_gigabytes_bandwidth_used: number;
-      /** Free storage space (GB) for GitHub Packages. */
+      /** @description Free storage space (GB) for GitHub Packages. */
       readonly included_gigabytes_bandwidth: number;
     };
     readonly "combined-billing-usage": {
-      /** Numbers of days left in billing cycle. */
+      /** @description Numbers of days left in billing cycle. */
       readonly days_left_in_billing_cycle: number;
-      /** Estimated storage space (GB) used in billing cycle. */
+      /** @description Estimated storage space (GB) used in billing cycle. */
       readonly estimated_paid_storage_for_month: number;
-      /** Estimated sum of free and paid storage space (GB) used in billing cycle. */
+      /** @description Estimated sum of free and paid storage space (GB) used in billing cycle. */
       readonly estimated_storage_for_month: number;
     };
-    /** Actor */
+    /**
+     * Actor
+     * @description Actor
+     */
     readonly actor: {
       readonly id: number;
       readonly login: string;
       readonly display_login?: string;
       readonly gravatar_id: string | null;
+      /** Format: uri */
       readonly url: string;
+      /** Format: uri */
       readonly avatar_url: string;
     };
-    /** Color-coded labels help you categorize and filter your issues (just like labels in Gmail). */
+    /**
+     * Label
+     * @description Color-coded labels help you categorize and filter your issues (just like labels in Gmail).
+     */
     readonly label: {
+      /** @example 208045946 */
       readonly id: number;
+      /** @example MDU6TGFiZWwyMDgwNDU5NDY= */
       readonly node_id: string;
-      /** URL for the label */
+      /**
+       * Format: uri
+       * @description URL for the label
+       * @example https://api.github.com/repositories/42/labels/bug
+       */
       readonly url: string;
-      /** The name of the label. */
+      /**
+       * @description The name of the label.
+       * @example bug
+       */
       readonly name: string;
+      /** @example Something isn't working */
       readonly description: string | null;
-      /** 6-character hex code, without the leading #, identifying the color */
+      /**
+       * @description 6-character hex code, without the leading #, identifying the color
+       * @example FFFFFF
+       */
       readonly color: string;
+      /** @example true */
       readonly default: boolean;
     };
-    /** A collection of related issues and pull requests. */
+    /**
+     * Milestone
+     * @description A collection of related issues and pull requests.
+     */
     readonly milestone: {
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/milestones/1
+       */
       readonly url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/milestones/v1.0
+       */
       readonly html_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/milestones/1/labels
+       */
       readonly labels_url: string;
+      /** @example 1002604 */
       readonly id: number;
+      /** @example MDk6TWlsZXN0b25lMTAwMjYwNA== */
       readonly node_id: string;
-      /** The number of the milestone. */
+      /**
+       * @description The number of the milestone.
+       * @example 42
+       */
       readonly number: number;
-      /** The state of the milestone. */
+      /**
+       * @description The state of the milestone.
+       * @default open
+       * @example open
+       */
       readonly state: "open" | "closed";
-      /** The title of the milestone. */
+      /**
+       * @description The title of the milestone.
+       * @example v1.0
+       */
       readonly title: string;
+      /** @example Tracking milestone for version 1.0 */
       readonly description: string | null;
       readonly creator: components["schemas"]["simple-user"] | null;
+      /** @example 4 */
       readonly open_issues: number;
+      /** @example 8 */
       readonly closed_issues: number;
+      /**
+       * Format: date-time
+       * @example 2011-04-10T20:09:31Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2014-03-03T18:58:10Z
+       */
       readonly updated_at: string;
+      /**
+       * Format: date-time
+       * @example 2013-02-12T13:22:01Z
+       */
       readonly closed_at: string | null;
+      /**
+       * Format: date-time
+       * @example 2012-10-09T23:39:01Z
+       */
       readonly due_on: string | null;
     };
-    /** How the author is associated with the repository. */
+    /**
+     * author_association
+     * @description How the author is associated with the repository.
+     * @example OWNER
+     */
     readonly author_association:
       | "COLLABORATOR"
       | "CONTRIBUTOR"
@@ -5867,46 +6463,95 @@ export interface components {
       | "MEMBER"
       | "NONE"
       | "OWNER";
-    /** Issue Simple */
+    /**
+     * Issue Simple
+     * @description Issue Simple
+     */
     readonly "issue-simple": {
+      /** @example 1 */
       readonly id: number;
+      /** @example MDU6SXNzdWUx */
       readonly node_id: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/issues/1347
+       */
       readonly url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World
+       */
       readonly repository_url: string;
+      /** @example https://api.github.com/repos/octocat/Hello-World/issues/1347/labels{/name} */
       readonly labels_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/issues/1347/comments
+       */
       readonly comments_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/issues/1347/events
+       */
       readonly events_url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/issues/1347
+       */
       readonly html_url: string;
+      /** @example 1347 */
       readonly number: number;
+      /** @example open */
       readonly state: string;
+      /** @example Found a bug */
       readonly title: string;
+      /** @example I'm having a problem with this. */
       readonly body?: string;
       readonly user: components["schemas"]["simple-user"] | null;
       readonly labels: readonly components["schemas"]["label"][];
       readonly assignee: components["schemas"]["simple-user"] | null;
       readonly assignees?: readonly components["schemas"]["simple-user"][] | null;
       readonly milestone: components["schemas"]["milestone"] | null;
+      /** @example true */
       readonly locked: boolean;
+      /** @example too heated */
       readonly active_lock_reason?: string | null;
       readonly comments: number;
       readonly pull_request?: {
+        /** Format: date-time */
         readonly merged_at?: string | null;
+        /** Format: uri */
         readonly diff_url: string | null;
+        /** Format: uri */
         readonly html_url: string | null;
+        /** Format: uri */
         readonly patch_url: string | null;
+        /** Format: uri */
         readonly url: string | null;
       };
+      /** Format: date-time */
       readonly closed_at: string | null;
+      /**
+       * Format: date-time
+       * @example 2011-04-22T13:33:48Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2011-04-22T13:33:48Z
+       */
       readonly updated_at: string;
       readonly author_association: components["schemas"]["author_association"];
       readonly body_html?: string;
       readonly body_text?: string;
+      /** Format: uri */
       readonly timeline_url?: string;
       readonly repository?: components["schemas"]["repository"];
       readonly performed_via_github_app?: components["schemas"]["integration"] | null;
     };
+    /** Reaction Rollup */
     readonly "reaction-rollup": {
+      /** Format: uri */
       readonly url: string;
       readonly total_count: number;
       readonly "+1": number;
@@ -5918,27 +6563,53 @@ export interface components {
       readonly eyes: number;
       readonly rocket: number;
     };
-    /** Comments provide a way for people to collaborate on an issue. */
+    /**
+     * Issue Comment
+     * @description Comments provide a way for people to collaborate on an issue.
+     */
     readonly "issue-comment": {
-      /** Unique identifier of the issue comment */
+      /**
+       * @description Unique identifier of the issue comment
+       * @example 42
+       */
       readonly id: number;
       readonly node_id: string;
-      /** URL for the issue comment */
+      /**
+       * Format: uri
+       * @description URL for the issue comment
+       * @example https://api.github.com/repositories/42/issues/comments/1
+       */
       readonly url: string;
-      /** Contents of the issue comment */
+      /**
+       * @description Contents of the issue comment
+       * @example What version of Safari were you using when you observed this bug?
+       */
       readonly body?: string;
       readonly body_text?: string;
       readonly body_html?: string;
+      /** Format: uri */
       readonly html_url: string;
       readonly user: components["schemas"]["simple-user"] | null;
+      /**
+       * Format: date-time
+       * @example 2011-04-14T16:00:49Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2011-04-14T16:00:49Z
+       */
       readonly updated_at: string;
+      /** Format: uri */
       readonly issue_url: string;
       readonly author_association: components["schemas"]["author_association"];
       readonly performed_via_github_app?: components["schemas"]["integration"] | null;
       readonly reactions?: components["schemas"]["reaction-rollup"];
     };
-    /** Event */
+    /**
+     * Event
+     * @description Event
+     */
     readonly event: {
       readonly id: string;
       readonly type: string | null;
@@ -5946,6 +6617,7 @@ export interface components {
       readonly repo: {
         readonly id: number;
         readonly name: string;
+        /** Format: uri */
         readonly url: string;
       };
       readonly org?: components["schemas"]["actor"];
@@ -5963,22 +6635,37 @@ export interface components {
         }[];
       };
       readonly public: boolean;
+      /** Format: date-time */
       readonly created_at: string | null;
     };
-    /** Hypermedia Link with Type */
+    /**
+     * Link With Type
+     * @description Hypermedia Link with Type
+     */
     readonly "link-with-type": {
       readonly href: string;
       readonly type: string;
     };
-    /** Feed */
+    /**
+     * Feed
+     * @description Feed
+     */
     readonly feed: {
+      /** @example https://github.com/timeline */
       readonly timeline_url: string;
+      /** @example https://github.com/{user} */
       readonly user_url: string;
+      /** @example https://github.com/octocat */
       readonly current_user_public_url?: string;
+      /** @example https://github.com/octocat.private?token=abc123 */
       readonly current_user_url?: string;
+      /** @example https://github.com/octocat.private.actor?token=abc123 */
       readonly current_user_actor_url?: string;
+      /** @example https://github.com/octocat-org */
       readonly current_user_organization_url?: string;
+      /** @example https://github.com/organizations/github/octocat.private.atom?token=abc123 */
       readonly current_user_organization_urls?: readonly string[];
+      /** @example https://github.com/security-advisories */
       readonly security_advisories_url?: string;
       readonly _links: {
         readonly timeline: components["schemas"]["link-with-type"];
@@ -5991,15 +6678,24 @@ export interface components {
         readonly current_user_organizations?: readonly components["schemas"]["link-with-type"][];
       };
     };
-    /** Base Gist */
+    /**
+     * Base Gist
+     * @description Base Gist
+     */
     readonly "base-gist": {
+      /** Format: uri */
       readonly url: string;
+      /** Format: uri */
       readonly forks_url: string;
+      /** Format: uri */
       readonly commits_url: string;
       readonly id: string;
       readonly node_id: string;
+      /** Format: uri */
       readonly git_pull_url: string;
+      /** Format: uri */
       readonly git_push_url: string;
+      /** Format: uri */
       readonly html_url: string;
       readonly files: {
         readonly [key: string]: {
@@ -6011,18 +6707,24 @@ export interface components {
         };
       };
       readonly public: boolean;
+      /** Format: date-time */
       readonly created_at: string;
+      /** Format: date-time */
       readonly updated_at: string;
       readonly description: string | null;
       readonly comments: number;
       readonly user: components["schemas"]["simple-user"] | null;
+      /** Format: uri */
       readonly comments_url: string;
       readonly owner?: components["schemas"]["simple-user"] | null;
       readonly truncated?: boolean;
       readonly forks?: readonly unknown[];
       readonly history?: readonly unknown[];
     };
-    /** Gist Simple */
+    /**
+     * Gist Simple
+     * @description Gist Simple
+     */
     readonly "gist-simple": {
       readonly url?: string;
       readonly forks_url?: string;
@@ -6053,21 +6755,49 @@ export interface components {
       readonly owner?: components["schemas"]["simple-user"];
       readonly truncated?: boolean;
     };
-    /** A comment made to a gist. */
+    /**
+     * Gist Comment
+     * @description A comment made to a gist.
+     */
     readonly "gist-comment": {
+      /** @example 1 */
       readonly id: number;
+      /** @example MDExOkdpc3RDb21tZW50MQ== */
       readonly node_id: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/gists/a6db0bec360bb87e9418/comments/1
+       */
       readonly url: string;
-      /** The comment text. */
+      /**
+       * @description The comment text.
+       * @example Body of the attachment
+       */
       readonly body: string;
       readonly user: components["schemas"]["simple-user"] | null;
+      /**
+       * Format: date-time
+       * @example 2011-04-18T23:23:56Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2011-04-18T23:23:56Z
+       */
       readonly updated_at: string;
       readonly author_association: components["schemas"]["author_association"];
     };
-    /** Gist Commit */
+    /**
+     * Gist Commit
+     * @description Gist Commit
+     */
     readonly "gist-commit": {
+      /**
+       * Format: uri
+       * @example https://api.github.com/gists/aa5a315d61ae9438b18d/57a7f021a713b1c5a6a199b54cc514735d2d462f
+       */
       readonly url: string;
+      /** @example 57a7f021a713b1c5a6a199b54cc514735d2d462f */
       readonly version: string;
       readonly user: components["schemas"]["simple-user"] | null;
       readonly change_status: {
@@ -6075,39 +6805,93 @@ export interface components {
         readonly additions?: number;
         readonly deletions?: number;
       };
+      /**
+       * Format: date-time
+       * @example 2010-04-14T02:15:15Z
+       */
       readonly committed_at: string;
     };
-    /** Gitignore Template */
+    /**
+     * Gitignore Template
+     * @description Gitignore Template
+     */
     readonly "gitignore-template": {
+      /** @example C */
       readonly name: string;
+      /**
+       * @example # Object files
+       * *.o
+       *
+       * # Libraries
+       * *.lib
+       * *.a
+       *
+       * # Shared objects (inc. Windows DLLs)
+       * *.dll
+       * *.so
+       * *.so.*
+       * *.dylib
+       *
+       * # Executables
+       * *.exe
+       * *.out
+       * *.app
+       */
       readonly source: string;
     };
-    /** Issues are a great way to keep track of tasks, enhancements, and bugs for your projects. */
+    /**
+     * Issue
+     * @description Issues are a great way to keep track of tasks, enhancements, and bugs for your projects.
+     */
     readonly issue: {
       readonly id: number;
       readonly node_id: string;
-      /** URL for the issue */
+      /**
+       * Format: uri
+       * @description URL for the issue
+       * @example https://api.github.com/repositories/42/issues/1
+       */
       readonly url: string;
+      /** Format: uri */
       readonly repository_url: string;
       readonly labels_url: string;
+      /** Format: uri */
       readonly comments_url: string;
+      /** Format: uri */
       readonly events_url: string;
+      /** Format: uri */
       readonly html_url: string;
-      /** Number uniquely identifying the issue within its repository */
+      /**
+       * @description Number uniquely identifying the issue within its repository
+       * @example 42
+       */
       readonly number: number;
-      /** State of the issue; either 'open' or 'closed' */
+      /**
+       * @description State of the issue; either 'open' or 'closed'
+       * @example open
+       */
       readonly state: string;
-      /** Title of the issue */
+      /**
+       * @description Title of the issue
+       * @example Widget creation fails in Safari on OS X 10.8
+       */
       readonly title: string;
-      /** Contents of the issue */
+      /**
+       * @description Contents of the issue
+       * @example It looks like the new widget form is broken on Safari. When I try and create the widget, Safari crashes. This is reproducible on 10.8, but not 10.9. Maybe a browser bug?
+       */
       readonly body?: string;
       readonly user: components["schemas"]["simple-user"] | null;
-      /** Labels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository */
+      /**
+       * @description Labels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository
+       * @example bug,registration
+       */
       readonly labels: readonly (
         | string
         | {
             readonly id?: number;
             readonly node_id?: string;
+            /** Format: uri */
             readonly url?: string;
             readonly name?: string;
             readonly description?: string | null;
@@ -6122,57 +6906,136 @@ export interface components {
       readonly active_lock_reason?: string | null;
       readonly comments: number;
       readonly pull_request?: {
+        /** Format: date-time */
         readonly merged_at?: string | null;
+        /** Format: uri */
         readonly diff_url: string | null;
+        /** Format: uri */
         readonly html_url: string | null;
+        /** Format: uri */
         readonly patch_url: string | null;
+        /** Format: uri */
         readonly url: string | null;
       };
+      /** Format: date-time */
       readonly closed_at: string | null;
+      /** Format: date-time */
       readonly created_at: string;
+      /** Format: date-time */
       readonly updated_at: string;
       readonly closed_by?: components["schemas"]["simple-user"] | null;
       readonly body_html?: string;
       readonly body_text?: string;
+      /** Format: uri */
       readonly timeline_url?: string;
       readonly repository?: components["schemas"]["repository"];
       readonly performed_via_github_app?: components["schemas"]["integration"] | null;
       readonly author_association: components["schemas"]["author_association"];
       readonly reactions?: components["schemas"]["reaction-rollup"];
     };
-    /** License */
+    /**
+     * License
+     * @description License
+     */
     readonly license: {
+      /** @example mit */
       readonly key: string;
+      /** @example MIT License */
       readonly name: string;
+      /** @example MIT */
       readonly spdx_id: string | null;
+      /**
+       * Format: uri
+       * @example https://api.github.com/licenses/mit
+       */
       readonly url: string | null;
+      /** @example MDc6TGljZW5zZW1pdA== */
       readonly node_id: string;
+      /**
+       * Format: uri
+       * @example http://choosealicense.com/licenses/mit/
+       */
       readonly html_url: string;
+      /** @example A permissive license that is short and to the point. It lets people do anything with your code with proper attribution and without warranty. */
       readonly description: string;
+      /** @example Create a text file (typically named LICENSE or LICENSE.txt) in the root of your source code and copy the text of the license into the file. Replace [year] with the current year and [fullname] with the name (or names) of the copyright holders. */
       readonly implementation: string;
+      /** @example commercial-use,modifications,distribution,sublicense,private-use */
       readonly permissions: readonly string[];
+      /** @example include-copyright */
       readonly conditions: readonly string[];
+      /** @example no-liability */
       readonly limitations: readonly string[];
+      /**
+       * @example
+       *
+       * The MIT License (MIT)
+       *
+       * Copyright (c) [year] [fullname]
+       *
+       * Permission is hereby granted, free of charge, to any person obtaining a copy
+       * of this software and associated documentation files (the "Software"), to deal
+       * in the Software without restriction, including without limitation the rights
+       * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+       * copies of the Software, and to permit persons to whom the Software is
+       * furnished to do so, subject to the following conditions:
+       *
+       * The above copyright notice and this permission notice shall be included in all
+       * copies or substantial portions of the Software.
+       *
+       * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+       * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+       * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+       * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+       * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+       * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+       * SOFTWARE.
+       */
       readonly body: string;
+      /** @example true */
       readonly featured: boolean;
     };
-    /** Marketplace Listing Plan */
+    /**
+     * Marketplace Listing Plan
+     * @description Marketplace Listing Plan
+     */
     readonly "marketplace-listing-plan": {
+      /**
+       * Format: uri
+       * @example https://api.github.com/marketplace_listing/plans/1313
+       */
       readonly url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/marketplace_listing/plans/1313/accounts
+       */
       readonly accounts_url: string;
+      /** @example 1313 */
       readonly id: number;
+      /** @example 3 */
       readonly number: number;
+      /** @example Pro */
       readonly name: string;
+      /** @example A professional-grade CI solution */
       readonly description: string;
+      /** @example 1099 */
       readonly monthly_price_in_cents: number;
+      /** @example 11870 */
       readonly yearly_price_in_cents: number;
+      /** @example flat-rate */
       readonly price_model: string;
+      /** @example true */
       readonly has_free_trial: boolean;
       readonly unit_name: string | null;
+      /** @example published */
       readonly state: string;
+      /** @example Up to 25 private repositories,11 concurrent builds */
       readonly bullets: readonly string[];
     };
-    /** Marketplace Purchase */
+    /**
+     * Marketplace Purchase
+     * @description Marketplace Purchase
+     */
     readonly "marketplace-purchase": {
       readonly url: string;
       readonly type: string;
@@ -6197,72 +7060,174 @@ export interface components {
         readonly plan?: components["schemas"]["marketplace-listing-plan"];
       };
     };
-    /** Api Overview */
+    /**
+     * Api Overview
+     * @description Api Overview
+     */
     readonly "api-overview": {
+      /** @example true */
       readonly verifiable_password_authentication: boolean;
       readonly ssh_key_fingerprints?: {
         readonly SHA256_RSA?: string;
         readonly SHA256_DSA?: string;
       };
+      /** @example 127.0.0.1/32 */
       readonly hooks?: readonly string[];
+      /** @example 127.0.0.1/32 */
       readonly web?: readonly string[];
+      /** @example 127.0.0.1/32 */
       readonly api?: readonly string[];
+      /** @example 127.0.0.1/32 */
       readonly git?: readonly string[];
+      /** @example 192.30.252.153/32,192.30.252.154/32 */
       readonly pages?: readonly string[];
+      /** @example 54.158.161.132,54.226.70.38 */
       readonly importer?: readonly string[];
+      /** @example 13.64.0.0/16,13.65.0.0/16 */
       readonly actions?: readonly string[];
     };
-    /** Minimal Repository */
+    /**
+     * Minimal Repository
+     * @description Minimal Repository
+     */
     readonly "minimal-repository": {
+      /** @example 1296269 */
       readonly id: number;
+      /** @example MDEwOlJlcG9zaXRvcnkxMjk2MjY5 */
       readonly node_id: string;
+      /** @example Hello-World */
       readonly name: string;
+      /** @example octocat/Hello-World */
       readonly full_name: string;
       readonly owner: components["schemas"]["simple-user"] | null;
       readonly private: boolean;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World
+       */
       readonly html_url: string;
+      /** @example This your first repo! */
       readonly description: string | null;
       readonly fork: boolean;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World
+       */
       readonly url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref} */
       readonly archive_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/assignees{/user} */
       readonly assignees_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha} */
       readonly blobs_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/branches{/branch} */
       readonly branches_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator} */
       readonly collaborators_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/comments{/number} */
       readonly comments_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/commits{/sha} */
       readonly commits_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head} */
       readonly compare_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/contents/{+path} */
       readonly contents_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/contributors
+       */
       readonly contributors_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/deployments
+       */
       readonly deployments_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/downloads
+       */
       readonly downloads_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/events
+       */
       readonly events_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/forks
+       */
       readonly forks_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/commits{/sha} */
       readonly git_commits_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/refs{/sha} */
       readonly git_refs_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/tags{/sha} */
       readonly git_tags_url: string;
       readonly git_url?: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/issues/comments{/number} */
       readonly issue_comment_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/issues/events{/number} */
       readonly issue_events_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/issues{/number} */
       readonly issues_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/keys{/key_id} */
       readonly keys_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/labels{/name} */
       readonly labels_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/languages
+       */
       readonly languages_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/merges
+       */
       readonly merges_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/milestones{/number} */
       readonly milestones_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/notifications{?since,all,participating} */
       readonly notifications_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/pulls{/number} */
       readonly pulls_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/releases{/id} */
       readonly releases_url: string;
       readonly ssh_url?: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/stargazers
+       */
       readonly stargazers_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/statuses/{sha} */
       readonly statuses_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/subscribers
+       */
       readonly subscribers_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/subscription
+       */
       readonly subscription_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/tags
+       */
       readonly tags_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/teams
+       */
       readonly teams_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/trees{/sha} */
       readonly trees_url: string;
       readonly clone_url?: string;
       readonly mirror_url?: string | null;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/hooks
+       */
       readonly hooks_url: string;
       readonly svn_url?: string;
       readonly homepage?: string | null;
@@ -6283,8 +7248,20 @@ export interface components {
       readonly archived?: boolean;
       readonly disabled?: boolean;
       readonly visibility?: string;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:06:43Z
+       */
       readonly pushed_at?: string | null;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:01:12Z
+       */
       readonly created_at?: string | null;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:14:43Z
+       */
       readonly updated_at?: string | null;
       readonly permissions?: {
         readonly admin?: boolean;
@@ -6307,7 +7284,10 @@ export interface components {
       readonly open_issues?: number;
       readonly watchers?: number;
     };
-    /** Thread */
+    /**
+     * Thread
+     * @description Thread
+     */
     readonly thread: {
       readonly id: string;
       readonly repository: components["schemas"]["minimal-repository"];
@@ -6322,53 +7302,134 @@ export interface components {
       readonly updated_at: string;
       readonly last_read_at: string | null;
       readonly url: string;
+      /** @example https://api.github.com/notifications/threads/2/subscription */
       readonly subscription_url: string;
     };
-    /** Thread Subscription */
+    /**
+     * Thread Subscription
+     * @description Thread Subscription
+     */
     readonly "thread-subscription": {
+      /** @example true */
       readonly subscribed: boolean;
       readonly ignored: boolean;
       readonly reason: string | null;
+      /**
+       * Format: date-time
+       * @example 2012-10-06T21:34:12Z
+       */
       readonly created_at: string | null;
+      /**
+       * Format: uri
+       * @example https://api.github.com/notifications/threads/1/subscription
+       */
       readonly url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/notifications/threads/1
+       */
       readonly thread_url?: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/1
+       */
       readonly repository_url?: string;
     };
-    /** Organization Full */
+    /**
+     * Organization Full
+     * @description Organization Full
+     */
     readonly "organization-full": {
+      /** @example github */
       readonly login: string;
+      /** @example 1 */
       readonly id: number;
+      /** @example MDEyOk9yZ2FuaXphdGlvbjE= */
       readonly node_id: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/orgs/github
+       */
       readonly url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/orgs/github/repos
+       */
       readonly repos_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/orgs/github/events
+       */
       readonly events_url: string;
+      /** @example https://api.github.com/orgs/github/hooks */
       readonly hooks_url: string;
+      /** @example https://api.github.com/orgs/github/issues */
       readonly issues_url: string;
+      /** @example https://api.github.com/orgs/github/members{/member} */
       readonly members_url: string;
+      /** @example https://api.github.com/orgs/github/public_members{/member} */
       readonly public_members_url: string;
+      /** @example https://github.com/images/error/octocat_happy.gif */
       readonly avatar_url: string;
+      /** @example A great organization */
       readonly description: string | null;
+      /** @example github */
       readonly name?: string;
+      /** @example GitHub */
       readonly company?: string;
+      /**
+       * Format: uri
+       * @example https://github.com/blog
+       */
       readonly blog?: string;
+      /** @example San Francisco */
       readonly location?: string;
+      /**
+       * Format: email
+       * @example octocat@github.com
+       */
       readonly email?: string;
+      /** @example github */
       readonly twitter_username?: string | null;
+      /** @example true */
       readonly is_verified?: boolean;
+      /** @example true */
       readonly has_organization_projects: boolean;
+      /** @example true */
       readonly has_repository_projects: boolean;
+      /** @example 2 */
       readonly public_repos: number;
+      /** @example 1 */
       readonly public_gists: number;
+      /** @example 20 */
       readonly followers: number;
       readonly following: number;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat
+       */
       readonly html_url: string;
+      /**
+       * Format: date-time
+       * @example 2008-01-14T04:33:35Z
+       */
       readonly created_at: string;
+      /** @example Organization */
       readonly type: string;
+      /** @example 100 */
       readonly total_private_repos?: number;
+      /** @example 100 */
       readonly owned_private_repos?: number;
+      /** @example 81 */
       readonly private_gists?: number | null;
+      /** @example 10000 */
       readonly disk_usage?: number | null;
+      /** @example 8 */
       readonly collaborators?: number | null;
+      /**
+       * Format: email
+       * @example org@example.com
+       */
       readonly billing_email?: string | null;
       readonly plan?: {
         readonly name: string;
@@ -6378,20 +7439,28 @@ export interface components {
         readonly seats?: number;
       };
       readonly default_repository_permission?: string | null;
+      /** @example true */
       readonly members_can_create_repositories?: boolean | null;
+      /** @example true */
       readonly two_factor_requirement_enabled?: boolean | null;
+      /** @example all */
       readonly members_allowed_repository_creation_type?: string;
+      /** @example true */
       readonly members_can_create_public_repositories?: boolean;
+      /** @example true */
       readonly members_can_create_private_repositories?: boolean;
+      /** @example true */
       readonly members_can_create_internal_repositories?: boolean;
+      /** @example true */
       readonly members_can_create_pages?: boolean;
+      /** Format: date-time */
       readonly updated_at: string;
     };
-    /** The policy that controls the repositories in the organization that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`. */
+    /** @description The policy that controls the repositories in the organization that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`. */
     readonly "enabled-repositories": "all" | "none" | "selected";
     readonly "actions-organization-permissions": {
       readonly enabled_repositories: components["schemas"]["enabled-repositories"];
-      /** The API URL to use to get or set the selected repositories that are allowed to run GitHub Actions, when `enabled_repositories` is set to `selected`. */
+      /** @description The API URL to use to get or set the selected repositories that are allowed to run GitHub Actions, when `enabled_repositories` is set to `selected`. */
       readonly selected_repositories_url?: string;
       readonly allowed_actions: components["schemas"]["allowed-actions"];
       readonly selected_actions_url?: components["schemas"]["selected-actions-url"];
@@ -6401,59 +7470,123 @@ export interface components {
       readonly name: string;
       readonly visibility: string;
       readonly default: boolean;
-      /** Link to the selected repositories resource for this runner group. Not present unless visibility was set to `selected` */
+      /** @description Link to the selected repositories resource for this runner group. Not present unless visibility was set to `selected` */
       readonly selected_repositories_url?: string;
       readonly runners_url: string;
       readonly inherited: boolean;
       readonly inherited_allows_public_repositories?: boolean;
       readonly allows_public_repositories: boolean;
     };
-    /** Secrets for GitHub Actions for an organization. */
+    /**
+     * Actions Secret for an Organization
+     * @description Secrets for GitHub Actions for an organization.
+     */
     readonly "organization-actions-secret": {
-      /** The name of the secret. */
+      /**
+       * @description The name of the secret.
+       * @example SECRET_TOKEN
+       */
       readonly name: string;
+      /** Format: date-time */
       readonly created_at: string;
+      /** Format: date-time */
       readonly updated_at: string;
-      /** Visibility of a secret */
+      /** @description Visibility of a secret */
       readonly visibility: "all" | "private" | "selected";
+      /**
+       * Format: uri
+       * @example https://api.github.com/organizations/org/secrets/my_secret/repositories
+       */
       readonly selected_repositories_url?: string;
     };
-    /** The public key used for setting Actions Secrets. */
+    /**
+     * ActionsPublicKey
+     * @description The public key used for setting Actions Secrets.
+     */
     readonly "actions-public-key": {
-      /** The identifier for the key. */
+      /**
+       * @description The identifier for the key.
+       * @example 1234567
+       */
       readonly key_id: string;
-      /** The Base64 encoded public key. */
+      /**
+       * @description The Base64 encoded public key.
+       * @example hBT5WZEj8ZoOv6TYJsfWq7MxTEQopZO5/IT3ZCVQPzs=
+       */
       readonly key: string;
+      /** @example 2 */
       readonly id?: number;
+      /** @example https://api.github.com/user/keys/2 */
       readonly url?: string;
+      /** @example ssh-rsa AAAAB3NzaC1yc2EAAA */
       readonly title?: string;
+      /** @example 2011-01-26T19:01:12Z */
       readonly created_at?: string;
     };
-    /** Credential Authorization */
+    /**
+     * Credential Authorization
+     * @description Credential Authorization
+     */
     readonly "credential-authorization": {
-      /** User login that owns the underlying credential. */
+      /**
+       * @description User login that owns the underlying credential.
+       * @example monalisa
+       */
       readonly login: string;
-      /** Unique identifier for the credential. */
+      /**
+       * @description Unique identifier for the credential.
+       * @example 1
+       */
       readonly credential_id: number;
-      /** Human-readable description of the credential type. */
+      /**
+       * @description Human-readable description of the credential type.
+       * @example SSH Key
+       */
       readonly credential_type: string;
-      /** Last eight characters of the credential. Only included in responses with credential_type of personal access token. */
+      /**
+       * @description Last eight characters of the credential. Only included in responses with credential_type of personal access token.
+       * @example 12345678
+       */
       readonly token_last_eight?: string;
-      /** Date when the credential was authorized for use. */
+      /**
+       * Format: date-time
+       * @description Date when the credential was authorized for use.
+       * @example 2011-01-26T19:06:43Z
+       */
       readonly credential_authorized_at: string;
-      /** List of oauth scopes the token has been granted. */
+      /**
+       * @description List of oauth scopes the token has been granted.
+       * @example user,repo
+       */
       readonly scopes?: readonly string[];
-      /** Unique string to distinguish the credential. Only included in responses with credential_type of SSH Key. */
+      /**
+       * @description Unique string to distinguish the credential. Only included in responses with credential_type of SSH Key.
+       * @example jklmnop12345678
+       */
       readonly fingerprint?: string;
-      /** Date when the credential was last accessed. May be null if it was never accessed */
+      /**
+       * Format: date-time
+       * @description Date when the credential was last accessed. May be null if it was never accessed
+       * @example 2011-01-26T19:06:43Z
+       */
       readonly credential_accessed_at?: string | null;
+      /** @example 12345678 */
       readonly authorized_credential_id?: number | null;
-      /** The title given to the ssh key. This will only be present when the credential is an ssh key. */
+      /**
+       * @description The title given to the ssh key. This will only be present when the credential is an ssh key.
+       * @example my ssh key
+       */
       readonly authorized_credential_title?: string | null;
-      /** The note given to the token. This will only be present when the credential is a token. */
+      /**
+       * @description The note given to the token. This will only be present when the credential is a token.
+       * @example my token
+       */
       readonly authorized_credential_note?: string | null;
     };
-    /** Organization Invitation */
+    /**
+     * Organization Invitation
+     * @description Organization Invitation
+     */
     readonly "organization-invitation": {
       readonly id: number;
       readonly login: string | null;
@@ -6465,65 +7598,150 @@ export interface components {
       readonly inviter: components["schemas"]["simple-user"];
       readonly team_count: number;
       readonly invitation_team_url: string;
+      /** @example "MDIyOk9yZ2FuaXphdGlvbkludml0YXRpb24x" */
       readonly node_id: string;
+      /** @example "https://api.github.com/organizations/16/invitations/1/teams" */
       readonly invitation_teams_url?: string;
     };
-    /** Org Hook */
+    /**
+     * Org Hook
+     * @description Org Hook
+     */
     readonly "org-hook": {
+      /** @example 1 */
       readonly id: number;
+      /**
+       * Format: uri
+       * @example https://api.github.com/orgs/octocat/hooks/1
+       */
       readonly url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/orgs/octocat/hooks/1/pings
+       */
       readonly ping_url: string;
+      /** @example web */
       readonly name: string;
+      /** @example push,pull_request */
       readonly events: readonly string[];
+      /** @example true */
       readonly active: boolean;
       readonly config: {
+        /** @example "http://example.com/2" */
         readonly url?: string;
+        /** @example "0" */
         readonly insecure_ssl?: string;
+        /** @example "form" */
         readonly content_type?: string;
+        /** @example "********" */
         readonly secret?: string;
       };
+      /**
+       * Format: date-time
+       * @example 2011-09-06T20:39:23Z
+       */
       readonly updated_at: string;
+      /**
+       * Format: date-time
+       * @example 2011-09-06T17:26:27Z
+       */
       readonly created_at: string;
       readonly type: string;
     };
-    /** The type of GitHub user that can comment, open issues, or create pull requests while the interaction limit is in effect. Can be one of: `existing_users`, `contributors_only`, `collaborators_only`. */
+    /**
+     * @description The type of GitHub user that can comment, open issues, or create pull requests while the interaction limit is in effect. Can be one of: `existing_users`, `contributors_only`, `collaborators_only`.
+     * @example collaborators_only
+     */
     readonly "interaction-group": "existing_users" | "contributors_only" | "collaborators_only";
-    /** Interaction limit settings. */
+    /**
+     * Interaction Limits
+     * @description Interaction limit settings.
+     */
     readonly "interaction-limit-response": {
       readonly limit: components["schemas"]["interaction-group"];
+      /** @example repository */
       readonly origin: string;
+      /**
+       * Format: date-time
+       * @example 2018-08-17T04:18:39Z
+       */
       readonly expires_at: string;
     };
-    /** The duration of the interaction restriction. Can be one of: `one_day`, `three_days`, `one_week`, `one_month`, `six_months`. Default: `one_day`. */
+    /**
+     * @description The duration of the interaction restriction. Can be one of: `one_day`, `three_days`, `one_week`, `one_month`, `six_months`. Default: `one_day`.
+     * @example one_month
+     */
     readonly "interaction-expiry": "one_day" | "three_days" | "one_week" | "one_month" | "six_months";
-    /** Limit interactions to a specific type of user for a specified duration */
+    /**
+     * Interaction Restrictions
+     * @description Limit interactions to a specific type of user for a specified duration
+     */
     readonly "interaction-limit": {
       readonly limit: components["schemas"]["interaction-group"];
       readonly expiry?: components["schemas"]["interaction-expiry"];
     };
-    /** Groups of organization members that gives permissions on specified repositories. */
+    /**
+     * Team Simple
+     * @description Groups of organization members that gives permissions on specified repositories.
+     */
     readonly "team-simple": {
-      /** Unique identifier of the team */
+      /**
+       * @description Unique identifier of the team
+       * @example 1
+       */
       readonly id: number;
+      /** @example MDQ6VGVhbTE= */
       readonly node_id: string;
-      /** URL for the team */
+      /**
+       * Format: uri
+       * @description URL for the team
+       * @example https://api.github.com/organizations/1/team/1
+       */
       readonly url: string;
+      /** @example https://api.github.com/organizations/1/team/1/members{/member} */
       readonly members_url: string;
-      /** Name of the team */
+      /**
+       * @description Name of the team
+       * @example Justice League
+       */
       readonly name: string;
-      /** Description of the team */
+      /**
+       * @description Description of the team
+       * @example A great team.
+       */
       readonly description: string | null;
-      /** Permission that the team will have for its repositories */
+      /**
+       * @description Permission that the team will have for its repositories
+       * @example admin
+       */
       readonly permission: string;
-      /** The level of privacy this team should have */
+      /**
+       * @description The level of privacy this team should have
+       * @example closed
+       */
       readonly privacy?: string;
+      /**
+       * Format: uri
+       * @example https://github.com/orgs/rails/teams/core
+       */
       readonly html_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/organizations/1/team/1/repos
+       */
       readonly repositories_url: string;
+      /** @example justice-league */
       readonly slug: string;
-      /** Distinguished Name (DN) that team maps to within LDAP environment */
+      /**
+       * @description Distinguished Name (DN) that team maps to within LDAP environment
+       * @example uid=example,ou=users,dc=github,dc=com
+       */
       readonly ldap_dn?: string;
     } | null;
-    /** Groups of organization members that gives permissions on specified repositories. */
+    /**
+     * Team
+     * @description Groups of organization members that gives permissions on specified repositories.
+     */
     readonly team: {
       readonly id: number;
       readonly node_id: string;
@@ -6532,17 +7750,36 @@ export interface components {
       readonly description: string | null;
       readonly privacy?: string;
       readonly permission: string;
+      /** Format: uri */
       readonly url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/orgs/rails/teams/core
+       */
       readonly html_url: string;
       readonly members_url: string;
+      /** Format: uri */
       readonly repositories_url: string;
       readonly parent?: components["schemas"]["team-simple"] | null;
     };
-    /** Org Membership */
+    /**
+     * Org Membership
+     * @description Org Membership
+     */
     readonly "org-membership": {
+      /**
+       * Format: uri
+       * @example https://api.github.com/orgs/octocat/memberships/defunkt
+       */
       readonly url: string;
+      /** @example active */
       readonly state: string;
+      /** @example admin */
       readonly role: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/orgs/octocat
+       */
       readonly organization_url: string;
       readonly organization: components["schemas"]["organization-simple"];
       readonly user: components["schemas"]["simple-user"] | null;
@@ -6550,58 +7787,125 @@ export interface components {
         readonly can_create_repository: boolean;
       };
     };
-    /** A migration. */
+    /**
+     * Migration
+     * @description A migration.
+     */
     readonly migration: {
+      /** @example 79 */
       readonly id: number;
       readonly owner: components["schemas"]["simple-user"] | null;
+      /** @example 0b989ba4-242f-11e5-81e1-c7b6966d2516 */
       readonly guid: string;
+      /** @example pending */
       readonly state: string;
+      /** @example true */
       readonly lock_repositories: boolean;
       readonly exclude_attachments: boolean;
       readonly repositories: readonly components["schemas"]["repository"][];
+      /**
+       * Format: uri
+       * @example https://api.github.com/orgs/octo-org/migrations/79
+       */
       readonly url: string;
+      /**
+       * Format: date-time
+       * @example 2015-07-06T15:33:38-07:00
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2015-07-06T15:33:38-07:00
+       */
       readonly updated_at: string;
       readonly node_id: string;
+      /** Format: uri */
       readonly archive_url?: string;
       readonly exclude?: readonly unknown[];
     };
-    /** A software package */
+    /**
+     * Package
+     * @description A software package
+     */
     readonly package: {
-      /** Unique identifier of the package. */
+      /**
+       * @description Unique identifier of the package.
+       * @example 1
+       */
       readonly id: number;
-      /** The name of the package. */
+      /**
+       * @description The name of the package.
+       * @example super-linter
+       */
       readonly name: string;
+      /** @example docker */
       readonly package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
+      /** @example https://api.github.com/orgs/github/packages/container/super-linter */
       readonly url: string;
+      /** @example https://github.com/orgs/github/packages/container/package/super-linter */
       readonly html_url: string;
-      /** The number of versions of the package. */
+      /**
+       * @description The number of versions of the package.
+       * @example 1
+       */
       readonly version_count: number;
+      /** @example private */
       readonly visibility: "private" | "public";
       readonly owner?: components["schemas"]["simple-user"] | null;
       readonly repository?: components["schemas"]["minimal-repository"] | null;
+      /** Format: date-time */
       readonly created_at: string;
+      /** Format: date-time */
       readonly updated_at: string;
     };
-    /** A version of a software package */
+    /**
+     * Package Version
+     * @description A version of a software package
+     */
     readonly "package-version": {
-      /** Unique identifier of the package version. */
+      /**
+       * @description Unique identifier of the package version.
+       * @example 1
+       */
       readonly id: number;
-      /** The name of the package version. */
+      /**
+       * @description The name of the package version.
+       * @example latest
+       */
       readonly name: string;
+      /** @example https://api.github.com/orgs/github/packages/container/super-linter/versions/786068 */
       readonly url: string;
+      /** @example https://github.com/orgs/github/packages/container/package/super-linter */
       readonly package_html_url: string;
+      /** @example https://github.com/orgs/github/packages/container/super-linter/786068 */
       readonly html_url?: string;
+      /** @example MIT */
       readonly license?: string;
       readonly description?: string;
+      /**
+       * Format: date-time
+       * @example 2011-04-10T20:09:31Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2014-03-03T18:58:10Z
+       */
       readonly updated_at: string;
+      /**
+       * Format: date-time
+       * @example 2014-03-03T18:58:10Z
+       */
       readonly deleted_at?: string;
+      /** Package Version Metadata */
       readonly metadata?: {
+        /** @example docker */
         readonly package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
+        /** Container Metadata */
         readonly container?: {
           readonly tags: readonly unknown[];
         };
+        /** Docker Metadata */
         readonly docker?: {
           readonly tag?: readonly unknown[];
         } & {
@@ -6609,135 +7913,345 @@ export interface components {
         };
       };
     };
-    /** Projects are a way to organize columns and cards of work. */
+    /**
+     * Project
+     * @description Projects are a way to organize columns and cards of work.
+     */
     readonly project: {
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/api-playground/projects-test
+       */
       readonly owner_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/projects/1002604
+       */
       readonly url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/api-playground/projects-test/projects/12
+       */
       readonly html_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/projects/1002604/columns
+       */
       readonly columns_url: string;
+      /** @example 1002604 */
       readonly id: number;
+      /** @example MDc6UHJvamVjdDEwMDI2MDQ= */
       readonly node_id: string;
-      /** Name of the project */
+      /**
+       * @description Name of the project
+       * @example Week One Sprint
+       */
       readonly name: string;
-      /** Body of the project */
+      /**
+       * @description Body of the project
+       * @example This project represents the sprint of the first week in January
+       */
       readonly body: string | null;
+      /** @example 1 */
       readonly number: number;
-      /** State of the project; either 'open' or 'closed' */
+      /**
+       * @description State of the project; either 'open' or 'closed'
+       * @example open
+       */
       readonly state: string;
       readonly creator: components["schemas"]["simple-user"] | null;
+      /**
+       * Format: date-time
+       * @example 2011-04-10T20:09:31Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2014-03-03T18:58:10Z
+       */
       readonly updated_at: string;
-      /** The baseline permission that all organization members have on this project. Only present if owner is an organization. */
+      /** @description The baseline permission that all organization members have on this project. Only present if owner is an organization. */
       readonly organization_permission?: "read" | "write" | "admin" | "none";
-      /** Whether or not this project can be seen by everyone. Only present if owner is an organization. */
+      /** @description Whether or not this project can be seen by everyone. Only present if owner is an organization. */
       readonly private?: boolean;
     };
-    /** External Groups to be mapped to a team for membership */
+    /**
+     * GroupMapping
+     * @description External Groups to be mapped to a team for membership
+     */
     readonly "group-mapping": {
-      /** Array of groups to be mapped to this team */
+      /**
+       * @description Array of groups to be mapped to this team
+       * @example [object Object],[object Object]
+       */
       readonly groups?: readonly {
-        /** The ID of the group */
+        /**
+         * @description The ID of the group
+         * @example 111a1a11-aaa1-1aaa-11a1-a1a1a1a1a1aa
+         */
         readonly group_id: string;
-        /** The name of the group */
+        /**
+         * @description The name of the group
+         * @example saml-azuread-test
+         */
         readonly group_name: string;
-        /** a description of the group */
+        /**
+         * @description a description of the group
+         * @example A group of Developers working on AzureAD SAML SSO
+         */
         readonly group_description: string;
-        /** synchronization status for this group mapping */
+        /**
+         * @description synchronization status for this group mapping
+         * @example unsynced
+         */
         readonly status?: string;
-        /** the time of the last sync for this group-mapping */
+        /**
+         * @description the time of the last sync for this group-mapping
+         * @example 2019-06-03 22:27:15:000 -700
+         */
         readonly synced_at?: string;
       }[];
     };
-    /** Groups of organization members that gives permissions on specified repositories. */
+    /**
+     * Full Team
+     * @description Groups of organization members that gives permissions on specified repositories.
+     */
     readonly "team-full": {
-      /** Unique identifier of the team */
+      /**
+       * @description Unique identifier of the team
+       * @example 42
+       */
       readonly id: number;
+      /** @example MDQ6VGVhbTE= */
       readonly node_id: string;
-      /** URL for the team */
+      /**
+       * Format: uri
+       * @description URL for the team
+       * @example https://api.github.com/organizations/1/team/1
+       */
       readonly url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/orgs/rails/teams/core
+       */
       readonly html_url: string;
-      /** Name of the team */
+      /**
+       * @description Name of the team
+       * @example Developers
+       */
       readonly name: string;
+      /** @example justice-league */
       readonly slug: string;
+      /** @example A great team. */
       readonly description: string | null;
-      /** The level of privacy this team should have */
+      /**
+       * @description The level of privacy this team should have
+       * @example closed
+       */
       readonly privacy?: "closed" | "secret";
-      /** Permission that the team will have for its repositories */
+      /**
+       * @description Permission that the team will have for its repositories
+       * @example push
+       */
       readonly permission: string;
+      /** @example https://api.github.com/organizations/1/team/1/members{/member} */
       readonly members_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/organizations/1/team/1/repos
+       */
       readonly repositories_url: string;
       readonly parent?: components["schemas"]["team-simple"] | null;
+      /** @example 3 */
       readonly members_count: number;
+      /** @example 10 */
       readonly repos_count: number;
+      /**
+       * Format: date-time
+       * @example 2017-07-14T16:53:42Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2017-08-17T12:37:15Z
+       */
       readonly updated_at: string;
       readonly organization: components["schemas"]["organization-full"];
-      /** Distinguished Name (DN) that team maps to within LDAP environment */
+      /**
+       * @description Distinguished Name (DN) that team maps to within LDAP environment
+       * @example uid=example,ou=users,dc=github,dc=com
+       */
       readonly ldap_dn?: string;
     };
-    /** A team discussion is a persistent record of a free-form conversation within a team. */
+    /**
+     * Team Discussion
+     * @description A team discussion is a persistent record of a free-form conversation within a team.
+     */
     readonly "team-discussion": {
       readonly author: components["schemas"]["simple-user"] | null;
-      /** The main text of the discussion. */
+      /**
+       * @description The main text of the discussion.
+       * @example Please suggest improvements to our workflow in comments.
+       */
       readonly body: string;
+      /** @example <p>Hi! This is an area for us to collaborate as a team</p> */
       readonly body_html: string;
-      /** The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server. */
+      /**
+       * @description The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
+       * @example 0307116bbf7ced493b8d8a346c650b71
+       */
       readonly body_version: string;
       readonly comments_count: number;
+      /**
+       * Format: uri
+       * @example https://api.github.com/organizations/1/team/2343027/discussions/1/comments
+       */
       readonly comments_url: string;
+      /**
+       * Format: date-time
+       * @example 2018-01-25T18:56:31Z
+       */
       readonly created_at: string;
+      /** Format: date-time */
       readonly last_edited_at: string | null;
+      /**
+       * Format: uri
+       * @example https://github.com/orgs/github/teams/justice-league/discussions/1
+       */
       readonly html_url: string;
+      /** @example MDE0OlRlYW1EaXNjdXNzaW9uMQ== */
       readonly node_id: string;
-      /** The unique sequence number of a team discussion. */
+      /**
+       * @description The unique sequence number of a team discussion.
+       * @example 42
+       */
       readonly number: number;
-      /** Whether or not this discussion should be pinned for easy retrieval. */
+      /**
+       * @description Whether or not this discussion should be pinned for easy retrieval.
+       * @example true
+       */
       readonly pinned: boolean;
-      /** Whether or not this discussion should be restricted to team members and organization administrators. */
+      /**
+       * @description Whether or not this discussion should be restricted to team members and organization administrators.
+       * @example true
+       */
       readonly private: boolean;
+      /**
+       * Format: uri
+       * @example https://api.github.com/organizations/1/team/2343027
+       */
       readonly team_url: string;
-      /** The title of the discussion. */
+      /**
+       * @description The title of the discussion.
+       * @example How can we improve our workflow?
+       */
       readonly title: string;
+      /**
+       * Format: date-time
+       * @example 2018-01-25T18:56:31Z
+       */
       readonly updated_at: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/organizations/1/team/2343027/discussions/1
+       */
       readonly url: string;
       readonly reactions?: components["schemas"]["reaction-rollup"];
     };
-    /** A reply to a discussion within a team. */
+    /**
+     * Team Discussion Comment
+     * @description A reply to a discussion within a team.
+     */
     readonly "team-discussion-comment": {
       readonly author: components["schemas"]["simple-user"] | null;
-      /** The main text of the comment. */
+      /**
+       * @description The main text of the comment.
+       * @example I agree with this suggestion.
+       */
       readonly body: string;
+      /** @example <p>Do you like apples?</p> */
       readonly body_html: string;
-      /** The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server. */
+      /**
+       * @description The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
+       * @example 0307116bbf7ced493b8d8a346c650b71
+       */
       readonly body_version: string;
+      /**
+       * Format: date-time
+       * @example 2018-01-15T23:53:58Z
+       */
       readonly created_at: string;
+      /** Format: date-time */
       readonly last_edited_at: string | null;
+      /**
+       * Format: uri
+       * @example https://api.github.com/organizations/1/team/2403582/discussions/1
+       */
       readonly discussion_url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/orgs/github/teams/justice-league/discussions/1/comments/1
+       */
       readonly html_url: string;
+      /** @example MDIxOlRlYW1EaXNjdXNzaW9uQ29tbWVudDE= */
       readonly node_id: string;
-      /** The unique sequence number of a team discussion comment. */
+      /**
+       * @description The unique sequence number of a team discussion comment.
+       * @example 42
+       */
       readonly number: number;
+      /**
+       * Format: date-time
+       * @example 2018-01-15T23:53:58Z
+       */
       readonly updated_at: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/organizations/1/team/2403582/discussions/1/comments/1
+       */
       readonly url: string;
       readonly reactions?: components["schemas"]["reaction-rollup"];
     };
-    /** Reactions to conversations provide a way to help people express their feelings more simply and effectively. */
+    /**
+     * Reaction
+     * @description Reactions to conversations provide a way to help people express their feelings more simply and effectively.
+     */
     readonly reaction: {
+      /** @example 1 */
       readonly id: number;
+      /** @example MDg6UmVhY3Rpb24x */
       readonly node_id: string;
       readonly user: components["schemas"]["simple-user"] | null;
-      /** The reaction to use */
+      /**
+       * @description The reaction to use
+       * @example heart
+       */
       readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
+      /**
+       * Format: date-time
+       * @example 2016-05-20T20:09:31Z
+       */
       readonly created_at: string;
     };
-    /** Team Membership */
+    /**
+     * Team Membership
+     * @description Team Membership
+     */
     readonly "team-membership": {
+      /** Format: uri */
       readonly url: string;
-      /** The role of the user in the team. */
+      /**
+       * @description The role of the user in the team.
+       * @default member
+       * @example member
+       */
       readonly role: "member" | "maintainer";
       readonly state: string;
     };
-    /** A team's access to a project. */
+    /**
+     * Team Project
+     * @description A team's access to a project.
+     */
     readonly "team-project": {
       readonly owner_url: string;
       readonly url: string;
@@ -6752,9 +8266,9 @@ export interface components {
       readonly creator: components["schemas"]["simple-user"];
       readonly created_at: string;
       readonly updated_at: string;
-      /** The organization permission for this project. Only present when owner is an organization. */
+      /** @description The organization permission for this project. Only present when owner is an organization. */
       readonly organization_permission?: string;
-      /** Whether the project is private or not. Only present when owner is an organization. */
+      /** @description Whether the project is private or not. Only present when owner is an organization. */
       readonly private?: boolean;
       readonly permissions: {
         readonly read: boolean;
@@ -6762,13 +8276,24 @@ export interface components {
         readonly admin: boolean;
       };
     };
-    /** A team's access to a repository. */
+    /**
+     * Team Repository
+     * @description A team's access to a repository.
+     */
     readonly "team-repository": {
-      /** Unique identifier of the repository */
+      /**
+       * @description Unique identifier of the repository
+       * @example 42
+       */
       readonly id: number;
+      /** @example MDEwOlJlcG9zaXRvcnkxMjk2MjY5 */
       readonly node_id: string;
-      /** The name of the repository. */
+      /**
+       * @description The name of the repository.
+       * @example Team Environment
+       */
       readonly name: string;
+      /** @example octocat/Hello-World */
       readonly full_name: string;
       readonly license: components["schemas"]["license-simple"] | null;
       readonly forks: number;
@@ -6780,92 +8305,244 @@ export interface components {
         readonly maintain?: boolean;
       };
       readonly owner: components["schemas"]["simple-user"] | null;
-      /** Whether the repository is private or public. */
+      /** @description Whether the repository is private or public. */
       readonly private: boolean;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World
+       */
       readonly html_url: string;
+      /** @example This your first repo! */
       readonly description: string | null;
       readonly fork: boolean;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World
+       */
       readonly url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref} */
       readonly archive_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/assignees{/user} */
       readonly assignees_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha} */
       readonly blobs_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/branches{/branch} */
       readonly branches_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator} */
       readonly collaborators_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/comments{/number} */
       readonly comments_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/commits{/sha} */
       readonly commits_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head} */
       readonly compare_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/contents/{+path} */
       readonly contents_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/contributors
+       */
       readonly contributors_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/deployments
+       */
       readonly deployments_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/downloads
+       */
       readonly downloads_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/events
+       */
       readonly events_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/forks
+       */
       readonly forks_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/commits{/sha} */
       readonly git_commits_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/refs{/sha} */
       readonly git_refs_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/tags{/sha} */
       readonly git_tags_url: string;
+      /** @example git:github.com/octocat/Hello-World.git */
       readonly git_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/issues/comments{/number} */
       readonly issue_comment_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/issues/events{/number} */
       readonly issue_events_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/issues{/number} */
       readonly issues_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/keys{/key_id} */
       readonly keys_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/labels{/name} */
       readonly labels_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/languages
+       */
       readonly languages_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/merges
+       */
       readonly merges_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/milestones{/number} */
       readonly milestones_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/notifications{?since,all,participating} */
       readonly notifications_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/pulls{/number} */
       readonly pulls_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/releases{/id} */
       readonly releases_url: string;
+      /** @example git@github.com:octocat/Hello-World.git */
       readonly ssh_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/stargazers
+       */
       readonly stargazers_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/statuses/{sha} */
       readonly statuses_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/subscribers
+       */
       readonly subscribers_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/subscription
+       */
       readonly subscription_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/tags
+       */
       readonly tags_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/teams
+       */
       readonly teams_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/trees{/sha} */
       readonly trees_url: string;
+      /** @example https://github.com/octocat/Hello-World.git */
       readonly clone_url: string;
+      /**
+       * Format: uri
+       * @example git:git.example.com/octocat/Hello-World
+       */
       readonly mirror_url: string | null;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/hooks
+       */
       readonly hooks_url: string;
+      /**
+       * Format: uri
+       * @example https://svn.github.com/octocat/Hello-World
+       */
       readonly svn_url: string;
+      /**
+       * Format: uri
+       * @example https://github.com
+       */
       readonly homepage: string | null;
       readonly language: string | null;
+      /** @example 9 */
       readonly forks_count: number;
+      /** @example 80 */
       readonly stargazers_count: number;
+      /** @example 80 */
       readonly watchers_count: number;
+      /** @example 108 */
       readonly size: number;
-      /** The default branch of the repository. */
+      /**
+       * @description The default branch of the repository.
+       * @example master
+       */
       readonly default_branch: string;
       readonly open_issues_count: number;
-      /** Whether this repository acts as a template that can be used to generate new repositories. */
+      /**
+       * @description Whether this repository acts as a template that can be used to generate new repositories.
+       * @example true
+       */
       readonly is_template?: boolean;
       readonly topics?: readonly string[];
-      /** Whether issues are enabled. */
+      /**
+       * @description Whether issues are enabled.
+       * @default true
+       * @example true
+       */
       readonly has_issues: boolean;
-      /** Whether projects are enabled. */
+      /**
+       * @description Whether projects are enabled.
+       * @default true
+       * @example true
+       */
       readonly has_projects: boolean;
-      /** Whether the wiki is enabled. */
+      /**
+       * @description Whether the wiki is enabled.
+       * @default true
+       * @example true
+       */
       readonly has_wiki: boolean;
       readonly has_pages: boolean;
-      /** Whether downloads are enabled. */
+      /**
+       * @description Whether downloads are enabled.
+       * @default true
+       * @example true
+       */
       readonly has_downloads: boolean;
-      /** Whether the repository is archived. */
+      /** @description Whether the repository is archived. */
       readonly archived: boolean;
-      /** Returns whether or not this repository disabled. */
+      /** @description Returns whether or not this repository disabled. */
       readonly disabled: boolean;
-      /** The repository visibility: public, private, or internal. */
+      /**
+       * @description The repository visibility: public, private, or internal.
+       * @default public
+       */
       readonly visibility?: string;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:06:43Z
+       */
       readonly pushed_at: string | null;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:01:12Z
+       */
       readonly created_at: string | null;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:14:43Z
+       */
       readonly updated_at: string | null;
-      /** Whether to allow rebase merges for pull requests. */
+      /**
+       * @description Whether to allow rebase merges for pull requests.
+       * @default true
+       * @example true
+       */
       readonly allow_rebase_merge?: boolean;
       readonly template_repository?: components["schemas"]["repository"] | null;
       readonly temp_clone_token?: string;
-      /** Whether to allow squash merges for pull requests. */
+      /**
+       * @description Whether to allow squash merges for pull requests.
+       * @default true
+       * @example true
+       */
       readonly allow_squash_merge?: boolean;
-      /** Whether to delete head branches when pull requests are merged */
+      /** @description Whether to delete head branches when pull requests are merged */
       readonly delete_branch_on_merge?: boolean;
-      /** Whether to allow merge commits for pull requests. */
+      /**
+       * @description Whether to allow merge commits for pull requests.
+       * @default true
+       * @example true
+       */
       readonly allow_merge_commit?: boolean;
       readonly subscribers_count?: number;
       readonly network_count?: number;
@@ -6873,46 +8550,115 @@ export interface components {
       readonly watchers: number;
       readonly master_branch?: string;
     };
-    /** Project cards represent a scope of work. */
+    /**
+     * Project Card
+     * @description Project cards represent a scope of work.
+     */
     readonly "project-card": {
+      /**
+       * Format: uri
+       * @example https://api.github.com/projects/columns/cards/1478
+       */
       readonly url: string;
-      /** The project card's ID */
+      /**
+       * @description The project card's ID
+       * @example 42
+       */
       readonly id: number;
+      /** @example MDExOlByb2plY3RDYXJkMTQ3OA== */
       readonly node_id: string;
+      /** @example Add payload for delete Project column */
       readonly note: string | null;
       readonly creator: components["schemas"]["simple-user"] | null;
+      /**
+       * Format: date-time
+       * @example 2016-09-05T14:21:06Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2016-09-05T14:20:22Z
+       */
       readonly updated_at: string;
-      /** Whether or not the card is archived */
+      /** @description Whether or not the card is archived */
       readonly archived?: boolean;
+      /**
+       * Format: uri
+       * @example https://api.github.com/projects/columns/367
+       */
       readonly column_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/api-playground/projects-test/issues/3
+       */
       readonly content_url?: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/projects/120
+       */
       readonly project_url: string;
     };
-    /** Project columns contain cards of work. */
+    /**
+     * Project Column
+     * @description Project columns contain cards of work.
+     */
     readonly "project-column": {
+      /**
+       * Format: uri
+       * @example https://api.github.com/projects/columns/367
+       */
       readonly url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/projects/120
+       */
       readonly project_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/projects/columns/367/cards
+       */
       readonly cards_url: string;
-      /** The unique identifier of the project column */
+      /**
+       * @description The unique identifier of the project column
+       * @example 42
+       */
       readonly id: number;
+      /** @example MDEzOlByb2plY3RDb2x1bW4zNjc= */
       readonly node_id: string;
-      /** Name of the project column */
+      /**
+       * @description Name of the project column
+       * @example Remaining tasks
+       */
       readonly name: string;
+      /**
+       * Format: date-time
+       * @example 2016-09-05T14:18:44Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2016-09-05T14:22:28Z
+       */
       readonly updated_at: string;
     };
-    /** Repository Collaborator Permission */
+    /**
+     * Repository Collaborator Permission
+     * @description Repository Collaborator Permission
+     */
     readonly "repository-collaborator-permission": {
       readonly permission: string;
       readonly user: components["schemas"]["simple-user"] | null;
     };
+    /** Rate Limit */
     readonly "rate-limit": {
       readonly limit: number;
       readonly remaining: number;
       readonly reset: number;
     };
-    /** Rate Limit Overview */
+    /**
+     * Rate Limit Overview
+     * @description Rate Limit Overview
+     */
     readonly "rate-limit-overview": {
       readonly resources: {
         readonly core: components["schemas"]["rate-limit"];
@@ -6924,100 +8670,249 @@ export interface components {
       };
       readonly rate: components["schemas"]["rate-limit"];
     };
-    /** Code of Conduct Simple */
+    /**
+     * Code Of Conduct Simple
+     * @description Code of Conduct Simple
+     */
     readonly "code-of-conduct-simple": {
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/github/docs/community/code_of_conduct
+       */
       readonly url: string;
+      /** @example citizen_code_of_conduct */
       readonly key: string;
+      /** @example Citizen Code of Conduct */
       readonly name: string;
+      /**
+       * Format: uri
+       * @example https://github.com/github/docs/blob/main/CODE_OF_CONDUCT.md
+       */
       readonly html_url: string | null;
     };
-    /** Full Repository */
+    /**
+     * Full Repository
+     * @description Full Repository
+     */
     readonly "full-repository": {
+      /** @example 1296269 */
       readonly id: number;
+      /** @example MDEwOlJlcG9zaXRvcnkxMjk2MjY5 */
       readonly node_id: string;
+      /** @example Hello-World */
       readonly name: string;
+      /** @example octocat/Hello-World */
       readonly full_name: string;
       readonly owner: components["schemas"]["simple-user"] | null;
       readonly private: boolean;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World
+       */
       readonly html_url: string;
+      /** @example This your first repo! */
       readonly description: string | null;
       readonly fork: boolean;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World
+       */
       readonly url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref} */
       readonly archive_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/assignees{/user} */
       readonly assignees_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha} */
       readonly blobs_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/branches{/branch} */
       readonly branches_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator} */
       readonly collaborators_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/comments{/number} */
       readonly comments_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/commits{/sha} */
       readonly commits_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head} */
       readonly compare_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/contents/{+path} */
       readonly contents_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/contributors
+       */
       readonly contributors_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/deployments
+       */
       readonly deployments_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/downloads
+       */
       readonly downloads_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/events
+       */
       readonly events_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/forks
+       */
       readonly forks_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/commits{/sha} */
       readonly git_commits_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/refs{/sha} */
       readonly git_refs_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/tags{/sha} */
       readonly git_tags_url: string;
+      /** @example git:github.com/octocat/Hello-World.git */
       readonly git_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/issues/comments{/number} */
       readonly issue_comment_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/issues/events{/number} */
       readonly issue_events_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/issues{/number} */
       readonly issues_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/keys{/key_id} */
       readonly keys_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/labels{/name} */
       readonly labels_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/languages
+       */
       readonly languages_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/merges
+       */
       readonly merges_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/milestones{/number} */
       readonly milestones_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/notifications{?since,all,participating} */
       readonly notifications_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/pulls{/number} */
       readonly pulls_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/releases{/id} */
       readonly releases_url: string;
+      /** @example git@github.com:octocat/Hello-World.git */
       readonly ssh_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/stargazers
+       */
       readonly stargazers_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/statuses/{sha} */
       readonly statuses_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/subscribers
+       */
       readonly subscribers_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/subscription
+       */
       readonly subscription_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/tags
+       */
       readonly tags_url: string;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/teams
+       */
       readonly teams_url: string;
+      /** @example http://api.github.com/repos/octocat/Hello-World/git/trees{/sha} */
       readonly trees_url: string;
+      /** @example https://github.com/octocat/Hello-World.git */
       readonly clone_url: string;
+      /**
+       * Format: uri
+       * @example git:git.example.com/octocat/Hello-World
+       */
       readonly mirror_url: string | null;
+      /**
+       * Format: uri
+       * @example http://api.github.com/repos/octocat/Hello-World/hooks
+       */
       readonly hooks_url: string;
+      /**
+       * Format: uri
+       * @example https://svn.github.com/octocat/Hello-World
+       */
       readonly svn_url: string;
+      /**
+       * Format: uri
+       * @example https://github.com
+       */
       readonly homepage: string | null;
       readonly language: string | null;
+      /** @example 9 */
       readonly forks_count: number;
+      /** @example 80 */
       readonly stargazers_count: number;
+      /** @example 80 */
       readonly watchers_count: number;
+      /** @example 108 */
       readonly size: number;
+      /** @example master */
       readonly default_branch: string;
       readonly open_issues_count: number;
+      /** @example true */
       readonly is_template?: boolean;
+      /** @example octocat,atom,electron,API */
       readonly topics?: readonly string[];
+      /** @example true */
       readonly has_issues: boolean;
+      /** @example true */
       readonly has_projects: boolean;
+      /** @example true */
       readonly has_wiki: boolean;
       readonly has_pages: boolean;
+      /** @example true */
       readonly has_downloads: boolean;
       readonly archived: boolean;
-      /** Returns whether or not this repository disabled. */
+      /** @description Returns whether or not this repository disabled. */
       readonly disabled: boolean;
-      /** The repository visibility: public, private, or internal. */
+      /**
+       * @description The repository visibility: public, private, or internal.
+       * @example public
+       */
       readonly visibility?: string;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:06:43Z
+       */
       readonly pushed_at: string;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:01:12Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:14:43Z
+       */
       readonly updated_at: string;
       readonly permissions?: {
         readonly admin: boolean;
         readonly pull: boolean;
         readonly push: boolean;
       };
+      /** @example true */
       readonly allow_rebase_merge?: boolean;
       readonly template_repository?: components["schemas"]["repository"] | null;
       readonly temp_clone_token?: string | null;
+      /** @example true */
       readonly allow_squash_merge?: boolean;
       readonly delete_branch_on_merge?: boolean;
+      /** @example true */
       readonly allow_merge_commit?: boolean;
+      /** @example 42 */
       readonly subscribers_count: number;
       readonly network_count: number;
       readonly license: components["schemas"]["license-simple"] | null;
@@ -7028,71 +8923,143 @@ export interface components {
       readonly master_branch?: string;
       readonly open_issues: number;
       readonly watchers: number;
-      /** Whether anonymous git access is allowed. */
+      /**
+       * @description Whether anonymous git access is allowed.
+       * @default true
+       */
       readonly anonymous_access_enabled?: boolean;
       readonly code_of_conduct?: components["schemas"]["code-of-conduct-simple"];
     };
-    /** An artifact */
+    /**
+     * Artifact
+     * @description An artifact
+     */
     readonly artifact: {
+      /** @example 5 */
       readonly id: number;
+      /** @example MDEwOkNoZWNrU3VpdGU1 */
       readonly node_id: string;
-      /** The name of the artifact. */
+      /**
+       * @description The name of the artifact.
+       * @example AdventureWorks.Framework
+       */
       readonly name: string;
-      /** The size in bytes of the artifact. */
+      /**
+       * @description The size in bytes of the artifact.
+       * @example 12345
+       */
       readonly size_in_bytes: number;
+      /** @example https://api.github.com/repos/github/hello-world/actions/artifacts/5 */
       readonly url: string;
+      /** @example https://api.github.com/repos/github/hello-world/actions/artifacts/5/zip */
       readonly archive_download_url: string;
-      /** Whether or not the artifact has expired. */
+      /** @description Whether or not the artifact has expired. */
       readonly expired: boolean;
+      /** Format: date-time */
       readonly created_at: string | null;
+      /** Format: date-time */
       readonly expires_at: string;
+      /** Format: date-time */
       readonly updated_at: string | null;
     };
-    /** Information of a job execution in a workflow run */
+    /**
+     * Job
+     * @description Information of a job execution in a workflow run
+     */
     readonly job: {
-      /** The id of the job. */
+      /**
+       * @description The id of the job.
+       * @example 21
+       */
       readonly id: number;
-      /** The id of the associated workflow run. */
+      /**
+       * @description The id of the associated workflow run.
+       * @example 5
+       */
       readonly run_id: number;
+      /** @example https://api.github.com/repos/github/hello-world/actions/runs/5 */
       readonly run_url: string;
+      /** @example MDg6Q2hlY2tSdW40 */
       readonly node_id: string;
-      /** The SHA of the commit that is being run. */
+      /**
+       * @description The SHA of the commit that is being run.
+       * @example 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
+       */
       readonly head_sha: string;
+      /** @example https://api.github.com/repos/github/hello-world/actions/jobs/21 */
       readonly url: string;
+      /** @example https://github.com/github/hello-world/runs/4 */
       readonly html_url: string | null;
-      /** The phase of the lifecycle that the job is currently in. */
+      /**
+       * @description The phase of the lifecycle that the job is currently in.
+       * @example queued
+       */
       readonly status: "queued" | "in_progress" | "completed";
-      /** The outcome of the job. */
+      /**
+       * @description The outcome of the job.
+       * @example success
+       */
       readonly conclusion: string | null;
-      /** The time that the job started, in ISO 8601 format. */
+      /**
+       * Format: date-time
+       * @description The time that the job started, in ISO 8601 format.
+       * @example 2019-08-08T08:00:00-07:00
+       */
       readonly started_at: string;
-      /** The time that the job finished, in ISO 8601 format. */
+      /**
+       * Format: date-time
+       * @description The time that the job finished, in ISO 8601 format.
+       * @example 2019-08-08T08:00:00-07:00
+       */
       readonly completed_at: string | null;
-      /** The name of the job. */
+      /**
+       * @description The name of the job.
+       * @example test-coverage
+       */
       readonly name: string;
-      /** Steps in this job. */
+      /** @description Steps in this job. */
       readonly steps?: readonly {
-        /** The phase of the lifecycle that the job is currently in. */
+        /**
+         * @description The phase of the lifecycle that the job is currently in.
+         * @example queued
+         */
         readonly status: "queued" | "in_progress" | "completed";
-        /** The outcome of the job. */
+        /**
+         * @description The outcome of the job.
+         * @example success
+         */
         readonly conclusion: string | null;
-        /** The name of the job. */
+        /**
+         * @description The name of the job.
+         * @example test-coverage
+         */
         readonly name: string;
+        /** @example 1 */
         readonly number: number;
-        /** The time that the step started, in ISO 8601 format. */
+        /**
+         * Format: date-time
+         * @description The time that the step started, in ISO 8601 format.
+         * @example 2019-08-08T08:00:00-07:00
+         */
         readonly started_at?: string | null;
-        /** The time that the job finished, in ISO 8601 format. */
+        /**
+         * Format: date-time
+         * @description The time that the job finished, in ISO 8601 format.
+         * @example 2019-08-08T08:00:00-07:00
+         */
         readonly completed_at?: string | null;
       }[];
+      /** @example https://api.github.com/repos/github/hello-world/check-runs/4 */
       readonly check_run_url: string;
     };
-    /** Whether GitHub Actions is enabled on the repository. */
+    /** @description Whether GitHub Actions is enabled on the repository. */
     readonly "actions-enabled": boolean;
     readonly "actions-repository-permissions": {
       readonly enabled: components["schemas"]["actions-enabled"];
       readonly allowed_actions: components["schemas"]["allowed-actions"];
       readonly selected_actions_url?: components["schemas"]["selected-actions-url"];
     };
+    /** Pull Request Minimal */
     readonly "pull-request-minimal": {
       readonly id: number;
       readonly number: number;
@@ -7116,11 +9083,15 @@ export interface components {
         };
       };
     };
-    /** Simple Commit */
+    /**
+     * Simple Commit
+     * @description Simple Commit
+     */
     readonly "simple-commit": {
       readonly id: string;
       readonly tree_id: string;
       readonly message: string;
+      /** Format: date-time */
       readonly timestamp: string;
       readonly author: {
         readonly name: string;
@@ -7131,124 +9102,274 @@ export interface components {
         readonly email: string;
       } | null;
     };
-    /** An invocation of a workflow */
+    /**
+     * Workflow Run
+     * @description An invocation of a workflow
+     */
     readonly "workflow-run": {
-      /** The ID of the workflow run. */
+      /**
+       * @description The ID of the workflow run.
+       * @example 5
+       */
       readonly id: number;
-      /** The name of the workflow run. */
+      /**
+       * @description The name of the workflow run.
+       * @example Build
+       */
       readonly name?: string;
+      /** @example MDEwOkNoZWNrU3VpdGU1 */
       readonly node_id: string;
+      /** @example master */
       readonly head_branch: string | null;
-      /** The SHA of the head commit that points to the version of the worflow being run. */
+      /**
+       * @description The SHA of the head commit that points to the version of the worflow being run.
+       * @example 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
+       */
       readonly head_sha: string;
-      /** The auto incrementing run number for the workflow run. */
+      /**
+       * @description The auto incrementing run number for the workflow run.
+       * @example 106
+       */
       readonly run_number: number;
+      /** @example push */
       readonly event: string;
+      /** @example completed */
       readonly status: string | null;
+      /** @example neutral */
       readonly conclusion: string | null;
-      /** The ID of the parent workflow. */
+      /**
+       * @description The ID of the parent workflow.
+       * @example 5
+       */
       readonly workflow_id: number;
-      /** The URL to the workflow run. */
+      /**
+       * @description The URL to the workflow run.
+       * @example https://api.github.com/repos/github/hello-world/actions/runs/5
+       */
       readonly url: string;
+      /** @example https://github.com/github/hello-world/suites/4 */
       readonly html_url: string;
       readonly pull_requests: readonly components["schemas"]["pull-request-minimal"][] | null;
+      /** Format: date-time */
       readonly created_at: string;
+      /** Format: date-time */
       readonly updated_at: string;
-      /** The URL to the jobs for the workflow run. */
+      /**
+       * @description The URL to the jobs for the workflow run.
+       * @example https://api.github.com/repos/github/hello-world/actions/runs/5/jobs
+       */
       readonly jobs_url: string;
-      /** The URL to download the logs for the workflow run. */
+      /**
+       * @description The URL to download the logs for the workflow run.
+       * @example https://api.github.com/repos/github/hello-world/actions/runs/5/logs
+       */
       readonly logs_url: string;
-      /** The URL to the associated check suite. */
+      /**
+       * @description The URL to the associated check suite.
+       * @example https://api.github.com/repos/github/hello-world/check-suites/12
+       */
       readonly check_suite_url: string;
-      /** The URL to the artifacts for the workflow run. */
+      /**
+       * @description The URL to the artifacts for the workflow run.
+       * @example https://api.github.com/repos/github/hello-world/actions/runs/5/rerun/artifacts
+       */
       readonly artifacts_url: string;
-      /** The URL to cancel the workflow run. */
+      /**
+       * @description The URL to cancel the workflow run.
+       * @example https://api.github.com/repos/github/hello-world/actions/runs/5/cancel
+       */
       readonly cancel_url: string;
-      /** The URL to rerun the workflow run. */
+      /**
+       * @description The URL to rerun the workflow run.
+       * @example https://api.github.com/repos/github/hello-world/actions/runs/5/rerun
+       */
       readonly rerun_url: string;
-      /** The URL to the workflow. */
+      /**
+       * @description The URL to the workflow.
+       * @example https://api.github.com/repos/github/hello-world/actions/workflows/main.yaml
+       */
       readonly workflow_url: string;
       readonly head_commit: components["schemas"]["simple-commit"];
       readonly repository: components["schemas"]["minimal-repository"];
       readonly head_repository: components["schemas"]["minimal-repository"];
+      /** @example 5 */
       readonly head_repository_id?: number;
     };
-    /** An entry in the reviews log for environment deployments */
+    /**
+     * Environment Approval
+     * @description An entry in the reviews log for environment deployments
+     */
     readonly "environment-approvals": {
-      /** The list of environments that were approved or rejected */
+      /** @description The list of environments that were approved or rejected */
       readonly environments: readonly {
-        /** The id of the environment. */
+        /**
+         * @description The id of the environment.
+         * @example 56780428
+         */
         readonly id?: number;
+        /** @example MDExOkVudmlyb25tZW50NTY3ODA0Mjg= */
         readonly node_id?: string;
-        /** The name of the environment. */
+        /**
+         * @description The name of the environment.
+         * @example staging
+         */
         readonly name?: string;
+        /** @example https://api.github.com/repos/github/hello-world/environments/staging */
         readonly url?: string;
+        /** @example https://github.com/github/hello-world/deployments/activity_log?environments_filter=staging */
         readonly html_url?: string;
-        /** The time that the environment was created, in ISO 8601 format. */
+        /**
+         * Format: date-time
+         * @description The time that the environment was created, in ISO 8601 format.
+         * @example 2020-11-23T22:00:40Z
+         */
         readonly created_at?: string;
-        /** The time that the environment was last updated, in ISO 8601 format. */
+        /**
+         * Format: date-time
+         * @description The time that the environment was last updated, in ISO 8601 format.
+         * @example 2020-11-23T22:00:40Z
+         */
         readonly updated_at?: string;
       }[];
-      /** Whether deployment to the environment(s) was approved or rejected */
+      /**
+       * @description Whether deployment to the environment(s) was approved or rejected
+       * @example approved
+       */
       readonly state: "approved" | "rejected";
       readonly user: components["schemas"]["simple-user"];
-      /** The comment submitted with the deployment review */
+      /**
+       * @description The comment submitted with the deployment review
+       * @example Ship it!
+       */
       readonly comment: string;
     };
-    /** The type of reviewer. Must be one of: `User` or `Team` */
+    /**
+     * @description The type of reviewer. Must be one of: `User` or `Team`
+     * @example User
+     */
     readonly "deployment-reviewer-type": "User" | "Team";
-    /** Details of a deployment that is waiting for protection rules to pass */
+    /**
+     * Pending Deployment
+     * @description Details of a deployment that is waiting for protection rules to pass
+     */
     readonly "pending-deployment": {
       readonly environment: {
-        /** The id of the environment. */
+        /**
+         * @description The id of the environment.
+         * @example 56780428
+         */
         readonly id?: number;
+        /** @example MDExOkVudmlyb25tZW50NTY3ODA0Mjg= */
         readonly node_id?: string;
-        /** The name of the environment. */
+        /**
+         * @description The name of the environment.
+         * @example staging
+         */
         readonly name?: string;
+        /** @example https://api.github.com/repos/github/hello-world/environments/staging */
         readonly url?: string;
+        /** @example https://github.com/github/hello-world/deployments/activity_log?environments_filter=staging */
         readonly html_url?: string;
       };
-      /** The set duration of the wait timer */
+      /**
+       * @description The set duration of the wait timer
+       * @example 30
+       */
       readonly wait_timer: number;
-      /** The time that the wait timer began. */
+      /**
+       * Format: date-time
+       * @description The time that the wait timer began.
+       * @example 2020-11-23T22:00:40Z
+       */
       readonly wait_timer_started_at: string | null;
-      /** Whether the currently authenticated user can approve the deployment */
+      /**
+       * @description Whether the currently authenticated user can approve the deployment
+       * @example true
+       */
       readonly current_user_can_approve: boolean;
-      /** The people or teams that may approve jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed. */
+      /** @description The people or teams that may approve jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed. */
       readonly reviewers: readonly {
         readonly type?: components["schemas"]["deployment-reviewer-type"];
         readonly reviewer?: Partial<components["schemas"]["simple-user"]> &
           Partial<components["schemas"]["team-simple"]>;
       }[];
     };
-    /** A request for a specific ref(branch,sha,tag) to be deployed */
+    /**
+     * Deployment
+     * @description A request for a specific ref(branch,sha,tag) to be deployed
+     */
     readonly deployment: {
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/example/deployments/1
+       */
       readonly url: string;
-      /** Unique identifier of the deployment */
+      /**
+       * @description Unique identifier of the deployment
+       * @example 42
+       */
       readonly id: number;
+      /** @example MDEwOkRlcGxveW1lbnQx */
       readonly node_id: string;
+      /** @example a84d88e7554fc1fa21bcbc4efae3c782a70d2b9d */
       readonly sha: string;
-      /** The ref to deploy. This can be a branch, tag, or sha. */
+      /**
+       * @description The ref to deploy. This can be a branch, tag, or sha.
+       * @example topic-branch
+       */
       readonly ref: string;
-      /** Parameter to specify a task to execute */
+      /**
+       * @description Parameter to specify a task to execute
+       * @example deploy
+       */
       readonly task: string;
       readonly payload: { readonly [key: string]: unknown };
+      /** @example staging */
       readonly original_environment?: string;
-      /** Name for the target deployment environment. */
+      /**
+       * @description Name for the target deployment environment.
+       * @example production
+       */
       readonly environment: string;
+      /** @example Deploy request from hubot */
       readonly description: string | null;
       readonly creator: components["schemas"]["simple-user"] | null;
+      /**
+       * Format: date-time
+       * @example 2012-07-20T01:19:13Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2012-07-20T01:19:13Z
+       */
       readonly updated_at: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/example/deployments/1/statuses
+       */
       readonly statuses_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/example
+       */
       readonly repository_url: string;
-      /** Specifies if the given environment is will no longer exist at some point in the future. Default: false. */
+      /**
+       * @description Specifies if the given environment is will no longer exist at some point in the future. Default: false.
+       * @example true
+       */
       readonly transient_environment?: boolean;
-      /** Specifies if the given environment is one that end-users directly interact with. Default: false. */
+      /**
+       * @description Specifies if the given environment is one that end-users directly interact with. Default: false.
+       * @example true
+       */
       readonly production_environment?: boolean;
       readonly performed_via_github_app?: components["schemas"]["integration"] | null;
     };
-    /** Workflow Run Usage */
+    /**
+     * Workflow Run Usage
+     * @description Workflow Run Usage
+     */
     readonly "workflow-run-usage": {
       readonly billable: {
         readonly UBUNTU?: {
@@ -7266,28 +9387,62 @@ export interface components {
       };
       readonly run_duration_ms: number;
     };
-    /** Set secrets for GitHub Actions. */
+    /**
+     * Actions Secret
+     * @description Set secrets for GitHub Actions.
+     */
     readonly "actions-secret": {
-      /** The name of the secret. */
+      /**
+       * @description The name of the secret.
+       * @example SECRET_TOKEN
+       */
       readonly name: string;
+      /** Format: date-time */
       readonly created_at: string;
+      /** Format: date-time */
       readonly updated_at: string;
     };
-    /** A GitHub Actions workflow */
+    /**
+     * Workflow
+     * @description A GitHub Actions workflow
+     */
     readonly workflow: {
+      /** @example 5 */
       readonly id: number;
+      /** @example MDg6V29ya2Zsb3cxMg== */
       readonly node_id: string;
+      /** @example CI */
       readonly name: string;
+      /** @example ruby.yaml */
       readonly path: string;
+      /** @example active */
       readonly state: "active" | "deleted";
+      /**
+       * Format: date-time
+       * @example 2019-12-06T14:20:20.000Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2019-12-06T14:20:20.000Z
+       */
       readonly updated_at: string;
+      /** @example https://api.github.com/repos/actions/setup-ruby/workflows/5 */
       readonly url: string;
+      /** @example https://github.com/actions/setup-ruby/blob/master/.github/workflows/ruby.yaml */
       readonly html_url: string;
+      /** @example https://github.com/actions/setup-ruby/workflows/CI/badge.svg */
       readonly badge_url: string;
+      /**
+       * Format: date-time
+       * @example 2019-12-06T14:20:20.000Z
+       */
       readonly deleted_at?: string;
     };
-    /** Workflow Usage */
+    /**
+     * Workflow Usage
+     * @description Workflow Usage
+     */
     readonly "workflow-usage": {
       readonly billable: {
         readonly UBUNTU?: {
@@ -7301,32 +9456,60 @@ export interface components {
         };
       };
     };
-    /** Protected Branch Admin Enforced */
+    /**
+     * Protected Branch Admin Enforced
+     * @description Protected Branch Admin Enforced
+     */
     readonly "protected-branch-admin-enforced": {
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/branches/master/protection/enforce_admins
+       */
       readonly url: string;
+      /** @example true */
       readonly enabled: boolean;
     };
-    /** Protected Branch Pull Request Review */
+    /**
+     * Protected Branch Pull Request Review
+     * @description Protected Branch Pull Request Review
+     */
     readonly "protected-branch-pull-request-review": {
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/branches/master/protection/dismissal_restrictions
+       */
       readonly url?: string;
       readonly dismissal_restrictions?: {
-        /** The list of users with review dismissal access. */
+        /** @description The list of users with review dismissal access. */
         readonly users?: readonly components["schemas"]["simple-user"][];
-        /** The list of teams with review dismissal access. */
+        /** @description The list of teams with review dismissal access. */
         readonly teams?: readonly components["schemas"]["team"][];
+        /** @example "https://api.github.com/repos/the-org/an-org-repo/branches/master/protection/dismissal_restrictions" */
         readonly url?: string;
+        /** @example "https://api.github.com/repos/the-org/an-org-repo/branches/master/protection/dismissal_restrictions/users" */
         readonly users_url?: string;
+        /** @example "https://api.github.com/repos/the-org/an-org-repo/branches/master/protection/dismissal_restrictions/teams" */
         readonly teams_url?: string;
       };
+      /** @example true */
       readonly dismiss_stale_reviews: boolean;
+      /** @example true */
       readonly require_code_owner_reviews: boolean;
+      /** @example 2 */
       readonly required_approving_review_count?: number;
     };
-    /** Branch Restriction Policy */
+    /**
+     * Branch Restriction Policy
+     * @description Branch Restriction Policy
+     */
     readonly "branch-restriction-policy": {
+      /** Format: uri */
       readonly url: string;
+      /** Format: uri */
       readonly users_url: string;
+      /** Format: uri */
       readonly teams_url: string;
+      /** Format: uri */
       readonly apps_url: string;
       readonly users: readonly {
         readonly login?: string;
@@ -7379,15 +9562,25 @@ export interface components {
           readonly public_members_url?: string;
           readonly avatar_url?: string;
           readonly description?: string;
+          /** @example "" */
           readonly gravatar_id?: string;
+          /** @example "https://github.com/testorg-ea8ec76d71c3af4b" */
           readonly html_url?: string;
+          /** @example "https://api.github.com/users/testorg-ea8ec76d71c3af4b/followers" */
           readonly followers_url?: string;
+          /** @example "https://api.github.com/users/testorg-ea8ec76d71c3af4b/following{/other_user}" */
           readonly following_url?: string;
+          /** @example "https://api.github.com/users/testorg-ea8ec76d71c3af4b/gists{/gist_id}" */
           readonly gists_url?: string;
+          /** @example "https://api.github.com/users/testorg-ea8ec76d71c3af4b/starred{/owner}{/repo}" */
           readonly starred_url?: string;
+          /** @example "https://api.github.com/users/testorg-ea8ec76d71c3af4b/subscriptions" */
           readonly subscriptions_url?: string;
+          /** @example "https://api.github.com/users/testorg-ea8ec76d71c3af4b/orgs" */
           readonly organizations_url?: string;
+          /** @example "https://api.github.com/users/testorg-ea8ec76d71c3af4b/received_events" */
           readonly received_events_url?: string;
+          /** @example "Organization" */
           readonly type?: string;
         };
         readonly name?: string;
@@ -7405,7 +9598,10 @@ export interface components {
         readonly events?: readonly string[];
       }[];
     };
-    /** Branch Protection */
+    /**
+     * Branch Protection
+     * @description Branch Protection
+     */
     readonly "branch-protection": {
       readonly url?: string;
       readonly required_status_checks: {
@@ -7427,47 +9623,88 @@ export interface components {
         readonly enabled?: boolean;
       };
       readonly enabled: boolean;
+      /** @example "branch/with/protection" */
       readonly name?: string;
+      /** @example "https://api.github.com/repos/owner-79e94e2d36b3fd06a32bb213/AAA_Public_Repo/branches/branch/with/protection/protection" */
       readonly protection_url?: string;
     };
-    /** Short Branch */
+    /**
+     * Short Branch
+     * @description Short Branch
+     */
     readonly "short-branch": {
       readonly name: string;
       readonly commit: {
         readonly sha: string;
+        /** Format: uri */
         readonly url: string;
       };
       readonly protected: boolean;
       readonly protection?: components["schemas"]["branch-protection"];
+      /** Format: uri */
       readonly protection_url?: string;
     };
-    /** Metaproperties for Git author/committer information. */
+    /**
+     * Git User
+     * @description Metaproperties for Git author/committer information.
+     */
     readonly "git-user": {
+      /** @example "Chris Wanstrath" */
       readonly name?: string;
+      /** @example "chris@ozmm.org" */
       readonly email?: string;
+      /** @example "2007-10-29T02:42:39.000-07:00" */
       readonly date?: string;
     };
+    /** Verification */
     readonly verification: {
       readonly verified: boolean;
       readonly reason: string;
       readonly payload: string | null;
       readonly signature: string | null;
     };
-    /** Commit */
+    /**
+     * Commit
+     * @description Commit
+     */
     readonly commit: {
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/commits/6dcb09b5b57875f334f61aebed695e2e4193db5e
+       */
       readonly url: string;
+      /** @example 6dcb09b5b57875f334f61aebed695e2e4193db5e */
       readonly sha: string;
+      /** @example MDY6Q29tbWl0NmRjYjA5YjViNTc4NzVmMzM0ZjYxYWViZWQ2OTVlMmU0MTkzZGI1ZQ== */
       readonly node_id: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/commit/6dcb09b5b57875f334f61aebed695e2e4193db5e
+       */
       readonly html_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/commits/6dcb09b5b57875f334f61aebed695e2e4193db5e/comments
+       */
       readonly comments_url: string;
       readonly commit: {
+        /**
+         * Format: uri
+         * @example https://api.github.com/repos/octocat/Hello-World/commits/6dcb09b5b57875f334f61aebed695e2e4193db5e
+         */
         readonly url: string;
         readonly author: components["schemas"]["git-user"] | null;
         readonly committer: components["schemas"]["git-user"] | null;
+        /** @example Fix all the bugs */
         readonly message: string;
         readonly comment_count: number;
         readonly tree: {
+          /** @example 827efc6d56897b048c772eb4087f854f46256132 */
           readonly sha: string;
+          /**
+           * Format: uri
+           * @example https://api.github.com/repos/octocat/Hello-World/tree/827efc6d56897b048c772eb4087f854f46256132
+           */
           readonly url: string;
         };
         readonly verification?: components["schemas"]["verification"];
@@ -7475,8 +9712,17 @@ export interface components {
       readonly author: components["schemas"]["simple-user"] | null;
       readonly committer: components["schemas"]["simple-user"] | null;
       readonly parents: readonly {
+        /** @example 7638417db6d59f3c431d3e1f261cc637155684cd */
         readonly sha: string;
+        /**
+         * Format: uri
+         * @example https://api.github.com/repos/octocat/Hello-World/commits/7638417db6d59f3c431d3e1f261cc637155684cd
+         */
         readonly url: string;
+        /**
+         * Format: uri
+         * @example https://github.com/octocat/Hello-World/commit/7638417db6d59f3c431d3e1f261cc637155684cd
+         */
         readonly html_url?: string;
       }[];
       readonly stats?: {
@@ -7493,54 +9739,91 @@ export interface components {
         readonly raw_url?: string;
         readonly blob_url?: string;
         readonly patch?: string;
+        /** @example "1e8e60ce9733d5283f7836fa602b6365a66b2567" */
         readonly sha?: string;
+        /** @example "https://api.github.com/repos/owner-3d68404b07d25daeb2d4a6bf/AAA_Public_Repo/contents/geometry.js?ref=c3956841a7cb7e8ba4a6fd923568d86958f01573" */
         readonly contents_url?: string;
+        /** @example "subdir/before_name.txt" */
         readonly previous_filename?: string;
       }[];
     };
-    /** Branch With Protection */
+    /**
+     * Branch With Protection
+     * @description Branch With Protection
+     */
     readonly "branch-with-protection": {
       readonly name: string;
       readonly commit: components["schemas"]["commit"];
       readonly _links: {
         readonly html: string;
+        /** Format: uri */
         readonly self: string;
       };
       readonly protected: boolean;
       readonly protection: components["schemas"]["branch-protection"];
+      /** Format: uri */
       readonly protection_url: string;
+      /** @example "mas*" */
       readonly pattern?: string;
+      /** @example 1 */
       readonly required_approving_review_count?: number;
     };
-    /** Status Check Policy */
+    /**
+     * Status Check Policy
+     * @description Status Check Policy
+     */
     readonly "status-check-policy": {
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/branches/master/protection/required_status_checks
+       */
       readonly url: string;
+      /** @example true */
       readonly strict: boolean;
+      /** @example continuous-integration/travis-ci */
       readonly contexts: readonly string[];
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/branches/master/protection/required_status_checks/contexts
+       */
       readonly contexts_url: string;
     };
-    /** Branch protections protect branches */
+    /**
+     * Protected Branch
+     * @description Branch protections protect branches
+     */
     readonly "protected-branch": {
+      /** Format: uri */
       readonly url: string;
       readonly required_status_checks?: components["schemas"]["status-check-policy"];
       readonly required_pull_request_reviews?: {
+        /** Format: uri */
         readonly url: string;
         readonly dismiss_stale_reviews?: boolean;
         readonly require_code_owner_reviews?: boolean;
         readonly required_approving_review_count?: number;
         readonly dismissal_restrictions?: {
+          /** Format: uri */
           readonly url: string;
+          /** Format: uri */
           readonly users_url: string;
+          /** Format: uri */
           readonly teams_url: string;
           readonly users: readonly components["schemas"]["simple-user"][];
           readonly teams: readonly components["schemas"]["team"][];
         };
       };
       readonly required_signatures?: {
+        /**
+         * Format: uri
+         * @example https://api.github.com/repos/octocat/Hello-World/branches/master/protection/required_signatures
+         */
         readonly url: string;
+        /** @example true */
         readonly enabled: boolean;
       };
       readonly enforce_admins?: {
+        /** Format: uri */
         readonly url: string;
         readonly enabled: boolean;
       };
@@ -7555,54 +9838,125 @@ export interface components {
       };
       readonly restrictions?: components["schemas"]["branch-restriction-policy"];
     };
-    /** A deployment created as the result of an Actions check run from a workflow that references an environment */
+    /**
+     * Deployment
+     * @description A deployment created as the result of an Actions check run from a workflow that references an environment
+     */
     readonly "deployment-simple": {
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/example/deployments/1
+       */
       readonly url: string;
-      /** Unique identifier of the deployment */
+      /**
+       * @description Unique identifier of the deployment
+       * @example 42
+       */
       readonly id: number;
+      /** @example MDEwOkRlcGxveW1lbnQx */
       readonly node_id: string;
-      /** Parameter to specify a task to execute */
+      /**
+       * @description Parameter to specify a task to execute
+       * @example deploy
+       */
       readonly task: string;
+      /** @example staging */
       readonly original_environment?: string;
-      /** Name for the target deployment environment. */
+      /**
+       * @description Name for the target deployment environment.
+       * @example production
+       */
       readonly environment: string;
+      /** @example Deploy request from hubot */
       readonly description: string | null;
+      /**
+       * Format: date-time
+       * @example 2012-07-20T01:19:13Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2012-07-20T01:19:13Z
+       */
       readonly updated_at: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/example/deployments/1/statuses
+       */
       readonly statuses_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/example
+       */
       readonly repository_url: string;
-      /** Specifies if the given environment is will no longer exist at some point in the future. Default: false. */
+      /**
+       * @description Specifies if the given environment is will no longer exist at some point in the future. Default: false.
+       * @example true
+       */
       readonly transient_environment?: boolean;
-      /** Specifies if the given environment is one that end-users directly interact with. Default: false. */
+      /**
+       * @description Specifies if the given environment is one that end-users directly interact with. Default: false.
+       * @example true
+       */
       readonly production_environment?: boolean;
       readonly performed_via_github_app?: components["schemas"]["integration"] | null;
     };
-    /** A check performed on the code of a given code change */
+    /**
+     * CheckRun
+     * @description A check performed on the code of a given code change
+     */
     readonly "check-run": {
-      /** The id of the check. */
+      /**
+       * @description The id of the check.
+       * @example 21
+       */
       readonly id: number;
-      /** The SHA of the commit that is being checked. */
+      /**
+       * @description The SHA of the commit that is being checked.
+       * @example 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
+       */
       readonly head_sha: string;
+      /** @example MDg6Q2hlY2tSdW40 */
       readonly node_id: string;
+      /** @example 42 */
       readonly external_id: string | null;
+      /** @example https://api.github.com/repos/github/hello-world/check-runs/4 */
       readonly url: string;
+      /** @example https://github.com/github/hello-world/runs/4 */
       readonly html_url: string | null;
+      /** @example https://example.com */
       readonly details_url: string | null;
-      /** The phase of the lifecycle that the check is currently in. */
+      /**
+       * @description The phase of the lifecycle that the check is currently in.
+       * @example queued
+       */
       readonly status: "queued" | "in_progress" | "completed";
+      /** @example neutral */
       readonly conclusion:
         | ("success" | "failure" | "neutral" | "cancelled" | "skipped" | "timed_out" | "action_required")
         | null;
+      /**
+       * Format: date-time
+       * @example 2018-05-04T01:14:52Z
+       */
       readonly started_at: string | null;
+      /**
+       * Format: date-time
+       * @example 2018-05-04T01:14:52Z
+       */
       readonly completed_at: string | null;
       readonly output: {
         readonly title: string | null;
         readonly summary: string | null;
         readonly text: string | null;
         readonly annotations_count: number;
+        /** Format: uri */
         readonly annotations_url: string;
       };
-      /** The name of the check. */
+      /**
+       * @description The name of the check.
+       * @example test-coverage
+       */
       readonly name: string;
       readonly check_suite: {
         readonly id: number;
@@ -7611,43 +9965,74 @@ export interface components {
       readonly pull_requests: readonly components["schemas"]["pull-request-minimal"][];
       readonly deployment?: components["schemas"]["deployment-simple"];
     };
-    /** Check Annotation */
+    /**
+     * Check Annotation
+     * @description Check Annotation
+     */
     readonly "check-annotation": {
+      /** @example README.md */
       readonly path: string;
+      /** @example 2 */
       readonly start_line: number;
+      /** @example 2 */
       readonly end_line: number;
+      /** @example 5 */
       readonly start_column: number | null;
+      /** @example 10 */
       readonly end_column: number | null;
+      /** @example warning */
       readonly annotation_level: string | null;
+      /** @example Spell Checker */
       readonly title: string | null;
+      /** @example Check your spelling for 'banaas'. */
       readonly message: string | null;
+      /** @example Do you mean 'bananas' or 'banana'? */
       readonly raw_details: string | null;
       readonly blob_href: string;
     };
-    /** A suite of checks performed on the code of a given code change */
+    /**
+     * CheckSuite
+     * @description A suite of checks performed on the code of a given code change
+     */
     readonly "check-suite": {
+      /** @example 5 */
       readonly id: number;
+      /** @example MDEwOkNoZWNrU3VpdGU1 */
       readonly node_id: string;
+      /** @example master */
       readonly head_branch: string | null;
-      /** The SHA of the head commit that is being checked. */
+      /**
+       * @description The SHA of the head commit that is being checked.
+       * @example 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
+       */
       readonly head_sha: string;
+      /** @example completed */
       readonly status: ("queued" | "in_progress" | "completed") | null;
+      /** @example neutral */
       readonly conclusion:
         | ("success" | "failure" | "neutral" | "cancelled" | "skipped" | "timed_out" | "action_required")
         | null;
+      /** @example https://api.github.com/repos/github/hello-world/check-suites/5 */
       readonly url: string | null;
+      /** @example 146e867f55c26428e5f9fade55a9bbf5e95a7912 */
       readonly before: string | null;
+      /** @example d6fde92930d4715a2b49857d24b940956b26d2d3 */
       readonly after: string | null;
       readonly pull_requests: readonly components["schemas"]["pull-request-minimal"][] | null;
       readonly app: components["schemas"]["integration"] | null;
       readonly repository: components["schemas"]["minimal-repository"];
+      /** Format: date-time */
       readonly created_at: string | null;
+      /** Format: date-time */
       readonly updated_at: string | null;
       readonly head_commit: components["schemas"]["simple-commit"];
       readonly latest_check_runs_count: number;
       readonly check_runs_url: string;
     };
-    /** Check suite configuration preferences for a repository. */
+    /**
+     * Check Suite Preference
+     * @description Check suite configuration preferences for a repository.
+     */
     readonly "check-suite-preference": {
       readonly preferences: {
         readonly auto_trigger_checks?: readonly {
@@ -7657,50 +10042,65 @@ export interface components {
       };
       readonly repository: components["schemas"]["repository"];
     };
-    /** The name of the tool used to generate the code scanning analysis. */
+    /** @description The name of the tool used to generate the code scanning analysis. */
     readonly "code-scanning-analysis-tool-name": string;
-    /** The GUID of the tool used to generate the code scanning analysis, if provided in the uploaded SARIF data. */
+    /** @description The GUID of the tool used to generate the code scanning analysis, if provided in the uploaded SARIF data. */
     readonly "code-scanning-analysis-tool-guid": string | null;
-    /** The full Git reference, formatted as `refs/heads/<branch name>`. */
+    /** @description The full Git reference, formatted as `refs/heads/<branch name>`. */
     readonly "code-scanning-ref": string;
-    /** State of a code scanning alert. */
+    /** @description State of a code scanning alert. */
     readonly "code-scanning-alert-state": "open" | "dismissed" | "fixed";
-    /** The security alert number. */
+    /** @description The security alert number. */
     readonly "alert-number": number;
-    /** The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`. */
+    /**
+     * Format: date-time
+     * @description The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
+     */
     readonly "alert-created-at": string;
-    /** The REST API URL of the alert resource. */
+    /**
+     * Format: uri
+     * @description The REST API URL of the alert resource.
+     */
     readonly "alert-url": string;
-    /** The GitHub URL of the alert resource. */
+    /**
+     * Format: uri
+     * @description The GitHub URL of the alert resource.
+     */
     readonly "alert-html-url": string;
-    /** The REST API URL for fetching the list of instances for an alert. */
+    /**
+     * Format: uri
+     * @description The REST API URL for fetching the list of instances for an alert.
+     */
     readonly "alert-instances-url": string;
-    /** The time that the alert was dismissed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`. */
+    /**
+     * Format: date-time
+     * @description The time that the alert was dismissed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
+     */
     readonly "code-scanning-alert-dismissed-at": string | null;
-    /** **Required when the state is dismissed.** The reason for dismissing or closing the alert. Can be one of: `false positive`, `won't fix`, and `used in tests`. */
+    /** @description **Required when the state is dismissed.** The reason for dismissing or closing the alert. Can be one of: `false positive`, `won't fix`, and `used in tests`. */
     readonly "code-scanning-alert-dismissed-reason": string | null;
     readonly "code-scanning-alert-rule-summary": {
-      /** A unique identifier for the rule used to detect the alert. */
+      /** @description A unique identifier for the rule used to detect the alert. */
       readonly id?: string | null;
-      /** The name of the rule used to detect the alert. */
+      /** @description The name of the rule used to detect the alert. */
       readonly name?: string;
-      /** The severity of the alert. */
+      /** @description The severity of the alert. */
       readonly severity?: ("none" | "note" | "warning" | "error") | null;
-      /** A short description of the rule used to detect the alert. */
+      /** @description A short description of the rule used to detect the alert. */
       readonly description?: string;
     };
-    /** The version of the tool used to generate the code scanning analysis. */
+    /** @description The version of the tool used to generate the code scanning analysis. */
     readonly "code-scanning-analysis-tool-version": string | null;
     readonly "code-scanning-analysis-tool": {
       readonly name?: components["schemas"]["code-scanning-analysis-tool-name"];
       readonly version?: components["schemas"]["code-scanning-analysis-tool-version"];
       readonly guid?: components["schemas"]["code-scanning-analysis-tool-guid"];
     };
-    /** Identifies the configuration under which the analysis was executed. For example, in GitHub Actions this includes the workflow filename and job name. */
+    /** @description Identifies the configuration under which the analysis was executed. For example, in GitHub Actions this includes the workflow filename and job name. */
     readonly "code-scanning-analysis-analysis-key": string;
-    /** Identifies the variable values associated with the environment in which the analysis that generated this alert instance was performed, such as the language that was analyzed. */
+    /** @description Identifies the variable values associated with the environment in which the analysis that generated this alert instance was performed, such as the language that was analyzed. */
     readonly "code-scanning-alert-environment": string;
-    /** Describe a region within a file for the alert. */
+    /** @description Describe a region within a file for the alert. */
     readonly "code-scanning-alert-location": {
       readonly path?: string;
       readonly start_line?: number;
@@ -7708,7 +10108,7 @@ export interface components {
       readonly start_column?: number;
       readonly end_column?: number;
     };
-    /** A classification of the file. For example to identify it as generated. */
+    /** @description A classification of the file. For example to identify it as generated. */
     readonly "code-scanning-alert-classification": ("source" | "generated" | "test" | "library") | null;
     readonly "code-scanning-alert-instance": {
       readonly ref?: components["schemas"]["code-scanning-ref"];
@@ -7722,7 +10122,7 @@ export interface components {
       readonly location?: components["schemas"]["code-scanning-alert-location"];
       readonly html_url?: string;
       /**
-       * Classifications that have been applied to the file that triggered the alert.
+       * @description Classifications that have been applied to the file that triggered the alert.
        * For example identifying it as documentation, or a generated file.
        */
       readonly classifications?: readonly components["schemas"]["code-scanning-alert-classification"][];
@@ -7742,19 +10142,19 @@ export interface components {
       readonly most_recent_instance: components["schemas"]["code-scanning-alert-instance"];
     };
     readonly "code-scanning-alert-rule": {
-      /** A unique identifier for the rule used to detect the alert. */
+      /** @description A unique identifier for the rule used to detect the alert. */
       readonly id?: string | null;
-      /** The name of the rule used to detect the alert. */
+      /** @description The name of the rule used to detect the alert. */
       readonly name?: string;
-      /** The severity of the alert. */
+      /** @description The severity of the alert. */
       readonly severity?: ("none" | "note" | "warning" | "error") | null;
-      /** A short description of the rule used to detect the alert. */
+      /** @description A short description of the rule used to detect the alert. */
       readonly description?: string;
-      /** description of the rule used to detect the alert. */
+      /** @description description of the rule used to detect the alert. */
       readonly full_description?: string;
-      /** A set of tags applicable for the rule. */
+      /** @description A set of tags applicable for the rule. */
       readonly tags?: readonly string[];
-      /** Detailed documentation for the rule as GitHub Flavored Markdown. */
+      /** @description Detailed documentation for the rule as GitHub Flavored Markdown. */
       readonly help?: string;
     };
     readonly "code-scanning-alert": {
@@ -7771,44 +10171,66 @@ export interface components {
       readonly tool: components["schemas"]["code-scanning-analysis-tool"];
       readonly most_recent_instance: components["schemas"]["code-scanning-alert-instance"];
     };
-    /** Sets the state of the code scanning alert. Can be one of `open` or `dismissed`. You must provide `dismissed_reason` when you set the state to `dismissed`. */
+    /** @description Sets the state of the code scanning alert. Can be one of `open` or `dismissed`. You must provide `dismissed_reason` when you set the state to `dismissed`. */
     readonly "code-scanning-alert-set-state": "open" | "dismissed";
-    /** An identifier for the upload. */
+    /**
+     * @description An identifier for the upload.
+     * @example 6c81cd8e-b078-4ac3-a3be-1dad7dbd0b53
+     */
     readonly "code-scanning-analysis-sarif-id": string;
-    /** The SHA of the commit to which the analysis you are uploading relates. */
+    /** @description The SHA of the commit to which the analysis you are uploading relates. */
     readonly "code-scanning-analysis-commit-sha": string;
-    /** Identifies the variable values associated with the environment in which this analysis was performed. */
+    /** @description Identifies the variable values associated with the environment in which this analysis was performed. */
     readonly "code-scanning-analysis-environment": string;
-    /** The time that the analysis was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`. */
+    /**
+     * Format: date-time
+     * @description The time that the analysis was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
+     */
     readonly "code-scanning-analysis-created-at": string;
-    /** The REST API URL of the analysis resource. */
+    /**
+     * Format: uri
+     * @description The REST API URL of the analysis resource.
+     */
     readonly "code-scanning-analysis-url": string;
     readonly "code-scanning-analysis": {
       readonly ref: components["schemas"]["code-scanning-ref"];
       readonly commit_sha: components["schemas"]["code-scanning-analysis-commit-sha"];
       readonly analysis_key: components["schemas"]["code-scanning-analysis-analysis-key"];
       readonly environment: components["schemas"]["code-scanning-analysis-environment"];
+      /** @example error reading field xyz */
       readonly error: string;
       readonly created_at: components["schemas"]["code-scanning-analysis-created-at"];
-      /** The total number of results in the analysis. */
+      /** @description The total number of results in the analysis. */
       readonly results_count: number;
-      /** The total number of rules used in the analysis. */
+      /** @description The total number of rules used in the analysis. */
       readonly rules_count: number;
-      /** Unique identifier for this analysis. */
+      /** @description Unique identifier for this analysis. */
       readonly id: number;
       readonly url: components["schemas"]["code-scanning-analysis-url"];
       readonly sarif_id: components["schemas"]["code-scanning-analysis-sarif-id"];
       readonly tool: components["schemas"]["code-scanning-analysis-tool"];
       readonly deletable: boolean;
     };
-    /** Successful deletion of a code scanning analysis */
+    /**
+     * Analysis deletion
+     * @description Successful deletion of a code scanning analysis
+     */
     readonly "code-scanning-analysis-deletion": {
-      /** Next deletable analysis in chain, without last analysis deletion confirmation */
+      /**
+       * Format: uri
+       * @description Next deletable analysis in chain, without last analysis deletion confirmation
+       */
       readonly next_analysis_url: string | null;
-      /** Next deletable analysis in chain, with last analysis deletion confirmation */
+      /**
+       * Format: uri
+       * @description Next deletable analysis in chain, with last analysis deletion confirmation
+       */
       readonly confirm_delete_url: string | null;
     };
-    /** Scim Error */
+    /**
+     * Scim Error
+     * @description Scim Error
+     */
     readonly "scim-error": {
       readonly message?: string | null;
       readonly documentation_url?: string | null;
@@ -7817,37 +10239,87 @@ export interface components {
       readonly scimType?: string | null;
       readonly schemas?: readonly string[];
     };
-    /** A Base64 string representing the SARIF file to upload. You must first compress your SARIF file using [`gzip`](http://www.gnu.org/software/gzip/manual/gzip.html) and then translate the contents of the file into a Base64 encoding string. For more information, see "[SARIF support for code scanning](https://docs.github.com/github/finding-security-vulnerabilities-and-errors-in-your-code/sarif-support-for-code-scanning)." */
+    /** @description A Base64 string representing the SARIF file to upload. You must first compress your SARIF file using [`gzip`](http://www.gnu.org/software/gzip/manual/gzip.html) and then translate the contents of the file into a Base64 encoding string. For more information, see "[SARIF support for code scanning](https://docs.github.com/github/finding-security-vulnerabilities-and-errors-in-your-code/sarif-support-for-code-scanning)." */
     readonly "code-scanning-analysis-sarif-file": string;
     readonly "code-scanning-sarifs-receipt": {
       readonly id?: components["schemas"]["code-scanning-analysis-sarif-id"];
-      /** The REST API URL for checking the status of the upload. */
+      /**
+       * Format: uri
+       * @description The REST API URL for checking the status of the upload.
+       */
       readonly url?: string;
     };
     readonly "code-scanning-sarifs-status": {
-      /** `pending` files have not yet been processed, while `complete` means all results in the SARIF have been stored. */
+      /** @description `pending` files have not yet been processed, while `complete` means all results in the SARIF have been stored. */
       readonly processing_status?: "pending" | "complete";
-      /** The REST API URL for getting the analyses associated with the upload. */
+      /**
+       * Format: uri
+       * @description The REST API URL for getting the analyses associated with the upload.
+       */
       readonly analyses_url?: string | null;
     };
-    /** Collaborator */
+    /**
+     * Collaborator
+     * @description Collaborator
+     */
     readonly collaborator: {
+      /** @example octocat */
       readonly login: string;
+      /** @example 1 */
       readonly id: number;
+      /** @example MDQ6VXNlcjE= */
       readonly node_id: string;
+      /**
+       * Format: uri
+       * @example https://github.com/images/error/octocat_happy.gif
+       */
       readonly avatar_url: string;
+      /** @example 41d064eb2195891e12d0413f63227ea7 */
       readonly gravatar_id: string | null;
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat
+       */
       readonly url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat
+       */
       readonly html_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat/followers
+       */
       readonly followers_url: string;
+      /** @example https://api.github.com/users/octocat/following{/other_user} */
       readonly following_url: string;
+      /** @example https://api.github.com/users/octocat/gists{/gist_id} */
       readonly gists_url: string;
+      /** @example https://api.github.com/users/octocat/starred{/owner}{/repo} */
       readonly starred_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat/subscriptions
+       */
       readonly subscriptions_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat/orgs
+       */
       readonly organizations_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat/repos
+       */
       readonly repos_url: string;
+      /** @example https://api.github.com/users/octocat/events{/privacy} */
       readonly events_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat/received_events
+       */
       readonly received_events_url: string;
+      /** @example User */
       readonly type: string;
       readonly site_admin: boolean;
       readonly permissions?: {
@@ -7856,26 +10328,48 @@ export interface components {
         readonly admin: boolean;
       };
     };
-    /** Repository invitations let you manage who you collaborate with. */
+    /**
+     * Repository Invitation
+     * @description Repository invitations let you manage who you collaborate with.
+     */
     readonly "repository-invitation": {
-      /** Unique identifier of the repository invitation. */
+      /**
+       * @description Unique identifier of the repository invitation.
+       * @example 42
+       */
       readonly id: number;
       readonly repository: components["schemas"]["minimal-repository"];
       readonly invitee: components["schemas"]["simple-user"] | null;
       readonly inviter: components["schemas"]["simple-user"] | null;
-      /** The permission associated with the invitation. */
+      /**
+       * @description The permission associated with the invitation.
+       * @example read
+       */
       readonly permissions: "read" | "write" | "admin";
+      /**
+       * Format: date-time
+       * @example 2016-06-13T14:52:50-05:00
+       */
       readonly created_at: string;
-      /** Whether or not the invitation has expired */
+      /** @description Whether or not the invitation has expired */
       readonly expired?: boolean;
-      /** URL for the repository invitation */
+      /**
+       * @description URL for the repository invitation
+       * @example https://api.github.com/user/repository-invitations/1
+       */
       readonly url: string;
+      /** @example https://github.com/octocat/Hello-World/invitations */
       readonly html_url: string;
       readonly node_id: string;
     };
-    /** Commit Comment */
+    /**
+     * Commit Comment
+     * @description Commit Comment
+     */
     readonly "commit-comment": {
+      /** Format: uri */
       readonly html_url: string;
+      /** Format: uri */
       readonly url: string;
       readonly id: number;
       readonly node_id: string;
@@ -7885,12 +10379,17 @@ export interface components {
       readonly line: number | null;
       readonly commit_id: string;
       readonly user: components["schemas"]["simple-user"] | null;
+      /** Format: date-time */
       readonly created_at: string;
+      /** Format: date-time */
       readonly updated_at: string;
       readonly author_association: components["schemas"]["author_association"];
       readonly reactions?: components["schemas"]["reaction-rollup"];
     };
-    /** Branch Short */
+    /**
+     * Branch Short
+     * @description Branch Short
+     */
     readonly "branch-short": {
       readonly name: string;
       readonly commit: {
@@ -7899,39 +10398,92 @@ export interface components {
       };
       readonly protected: boolean;
     };
-    /** Hypermedia Link */
+    /**
+     * Link
+     * @description Hypermedia Link
+     */
     readonly link: {
       readonly href: string;
     };
-    /** The status of auto merging a pull request. */
+    /**
+     * Auto merge
+     * @description The status of auto merging a pull request.
+     */
     readonly auto_merge: {
       readonly enabled_by: components["schemas"]["simple-user"];
-      /** The merge method to use. */
+      /** @description The merge method to use. */
       readonly merge_method: "merge" | "squash" | "rebase";
-      /** Title for the merge commit message. */
+      /** @description Title for the merge commit message. */
       readonly commit_title: string;
-      /** Commit message for the merge commit. */
+      /** @description Commit message for the merge commit. */
       readonly commit_message: string;
     } | null;
-    /** Pull Request Simple */
+    /**
+     * Pull Request Simple
+     * @description Pull Request Simple
+     */
     readonly "pull-request-simple": {
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/pulls/1347
+       */
       readonly url: string;
+      /** @example 1 */
       readonly id: number;
+      /** @example MDExOlB1bGxSZXF1ZXN0MQ== */
       readonly node_id: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/pull/1347
+       */
       readonly html_url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/pull/1347.diff
+       */
       readonly diff_url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/pull/1347.patch
+       */
       readonly patch_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/issues/1347
+       */
       readonly issue_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/pulls/1347/commits
+       */
       readonly commits_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/pulls/1347/comments
+       */
       readonly review_comments_url: string;
+      /** @example https://api.github.com/repos/octocat/Hello-World/pulls/comments{/number} */
       readonly review_comment_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/issues/1347/comments
+       */
       readonly comments_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/statuses/6dcb09b5b57875f334f61aebed695e2e4193db5e
+       */
       readonly statuses_url: string;
+      /** @example 1347 */
       readonly number: number;
+      /** @example open */
       readonly state: string;
+      /** @example true */
       readonly locked: boolean;
+      /** @example new-feature */
       readonly title: string;
       readonly user: components["schemas"]["simple-user"] | null;
+      /** @example Please pull these awesome changes */
       readonly body: string | null;
       readonly labels: readonly {
         readonly id?: number;
@@ -7943,11 +10495,29 @@ export interface components {
         readonly default?: boolean;
       }[];
       readonly milestone: components["schemas"]["milestone"] | null;
+      /** @example too heated */
       readonly active_lock_reason?: string | null;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:01:12Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:01:12Z
+       */
       readonly updated_at: string;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:01:12Z
+       */
       readonly closed_at: string | null;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:01:12Z
+       */
       readonly merged_at: string | null;
+      /** @example e5bd3914e2e596debea16f433f57875b5b90bcd6 */
       readonly merge_commit_sha: string | null;
       readonly assignee: components["schemas"]["simple-user"] | null;
       readonly assignees?: readonly components["schemas"]["simple-user"][] | null;
@@ -7979,33 +10549,47 @@ export interface components {
       };
       readonly author_association: components["schemas"]["author_association"];
       readonly auto_merge: components["schemas"]["auto_merge"];
-      /** Indicates whether or not the pull request is a draft. */
+      /** @description Indicates whether or not the pull request is a draft. */
       readonly draft?: boolean;
     };
+    /** Simple Commit Status */
     readonly "simple-commit-status": {
       readonly description: string | null;
       readonly id: number;
       readonly node_id: string;
       readonly state: string;
       readonly context: string;
+      /** Format: uri */
       readonly target_url: string;
       readonly required?: boolean | null;
+      /** Format: uri */
       readonly avatar_url: string | null;
+      /** Format: uri */
       readonly url: string;
+      /** Format: date-time */
       readonly created_at: string;
+      /** Format: date-time */
       readonly updated_at: string;
     };
-    /** Combined Commit Status */
+    /**
+     * Combined Commit Status
+     * @description Combined Commit Status
+     */
     readonly "combined-commit-status": {
       readonly state: string;
       readonly statuses: readonly components["schemas"]["simple-commit-status"][];
       readonly sha: string;
       readonly total_count: number;
       readonly repository: components["schemas"]["minimal-repository"];
+      /** Format: uri */
       readonly commit_url: string;
+      /** Format: uri */
       readonly url: string;
     };
-    /** The status of a commit. */
+    /**
+     * Status
+     * @description The status of a commit.
+     */
     readonly status: {
       readonly url: string;
       readonly avatar_url: string | null;
@@ -8019,14 +10603,23 @@ export interface components {
       readonly updated_at: string;
       readonly creator: components["schemas"]["simple-user"];
     };
+    /** Community Health File */
     readonly "community-health-file": {
+      /** Format: uri */
       readonly url: string;
+      /** Format: uri */
       readonly html_url: string;
     };
-    /** Community Profile */
+    /**
+     * Community Profile
+     * @description Community Profile
+     */
     readonly "community-profile": {
+      /** @example 100 */
       readonly health_percentage: number;
+      /** @example My first repository on GitHub! */
       readonly description: string | null;
+      /** @example example.com */
       readonly documentation: string | null;
       readonly files: {
         readonly code_of_conduct: components["schemas"]["code-of-conduct-simple"] | null;
@@ -8036,49 +10629,111 @@ export interface components {
         readonly issue_template: components["schemas"]["community-health-file"] | null;
         readonly pull_request_template: components["schemas"]["community-health-file"] | null;
       };
+      /**
+       * Format: date-time
+       * @example 2017-02-28T19:09:29Z
+       */
       readonly updated_at: string | null;
+      /** @example true */
       readonly content_reports_enabled?: boolean;
     };
-    /** Diff Entry */
+    /**
+     * Diff Entry
+     * @description Diff Entry
+     */
     readonly "diff-entry": {
+      /** @example bbcd538c8e72b8c175046e27cc8f907076331401 */
       readonly sha: string;
+      /** @example file1.txt */
       readonly filename: string;
+      /** @example added */
       readonly status: string;
+      /** @example 103 */
       readonly additions: number;
+      /** @example 21 */
       readonly deletions: number;
+      /** @example 124 */
       readonly changes: number;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/blob/6dcb09b5b57875f334f61aebed695e2e4193db5e/file1.txt
+       */
       readonly blob_url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/raw/6dcb09b5b57875f334f61aebed695e2e4193db5e/file1.txt
+       */
       readonly raw_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/contents/file1.txt?ref=6dcb09b5b57875f334f61aebed695e2e4193db5e
+       */
       readonly contents_url: string;
+      /** @example @@ -132,7 +132,7 @@ module Test @@ -1000,7 +1000,7 @@ module Test */
       readonly patch?: string;
+      /** @example file.txt */
       readonly previous_filename?: string;
     };
-    /** Commit Comparison */
+    /**
+     * Commit Comparison
+     * @description Commit Comparison
+     */
     readonly "commit-comparison": {
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/compare/master...topic
+       */
       readonly url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/compare/master...topic
+       */
       readonly html_url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/compare/octocat:bbcd538c8e72b8c175046e27cc8f907076331401...octocat:0328041d1152db8ae77652d1618a02e57f745f17
+       */
       readonly permalink_url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/compare/master...topic.diff
+       */
       readonly diff_url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/compare/master...topic.patch
+       */
       readonly patch_url: string;
       readonly base_commit: components["schemas"]["commit"];
       readonly merge_base_commit: components["schemas"]["commit"];
+      /** @example ahead */
       readonly status: "diverged" | "ahead" | "behind" | "identical";
+      /** @example 4 */
       readonly ahead_by: number;
+      /** @example 5 */
       readonly behind_by: number;
+      /** @example 6 */
       readonly total_commits: number;
       readonly commits: readonly components["schemas"]["commit"][];
       readonly files: readonly components["schemas"]["diff-entry"][];
     };
-    /** Content Tree */
+    /**
+     * Content Tree
+     * @description Content Tree
+     */
     readonly "content-tree": {
       readonly type: string;
       readonly size: number;
       readonly name: string;
       readonly path: string;
       readonly sha: string;
+      /** Format: uri */
       readonly url: string;
+      /** Format: uri */
       readonly git_url: string | null;
+      /** Format: uri */
       readonly html_url: string | null;
+      /** Format: uri */
       readonly download_url: string | null;
       readonly entries?: readonly {
         readonly type: string;
@@ -8087,26 +10742,39 @@ export interface components {
         readonly path: string;
         readonly content?: string;
         readonly sha: string;
+        /** Format: uri */
         readonly url: string;
+        /** Format: uri */
         readonly git_url: string | null;
+        /** Format: uri */
         readonly html_url: string | null;
+        /** Format: uri */
         readonly download_url: string | null;
         readonly _links: {
+          /** Format: uri */
           readonly git: string | null;
+          /** Format: uri */
           readonly html: string | null;
+          /** Format: uri */
           readonly self: string;
         };
       }[];
       readonly _links: {
+        /** Format: uri */
         readonly git: string | null;
+        /** Format: uri */
         readonly html: string | null;
+        /** Format: uri */
         readonly self: string;
       };
     } & {
       content: unknown;
       encoding: unknown;
     };
-    /** A list of directory items */
+    /**
+     * Content Directory
+     * @description A list of directory items
+     */
     readonly "content-directory": readonly {
       readonly type: string;
       readonly size: number;
@@ -8114,17 +10782,27 @@ export interface components {
       readonly path: string;
       readonly content?: string;
       readonly sha: string;
+      /** Format: uri */
       readonly url: string;
+      /** Format: uri */
       readonly git_url: string | null;
+      /** Format: uri */
       readonly html_url: string | null;
+      /** Format: uri */
       readonly download_url: string | null;
       readonly _links: {
+        /** Format: uri */
         readonly git: string | null;
+        /** Format: uri */
         readonly html: string | null;
+        /** Format: uri */
         readonly self: string;
       };
     }[];
-    /** Content File */
+    /**
+     * Content File
+     * @description Content File
+     */
     readonly "content-file": {
       readonly type: string;
       readonly encoding: string;
@@ -8133,19 +10811,31 @@ export interface components {
       readonly path: string;
       readonly content: string;
       readonly sha: string;
+      /** Format: uri */
       readonly url: string;
+      /** Format: uri */
       readonly git_url: string | null;
+      /** Format: uri */
       readonly html_url: string | null;
+      /** Format: uri */
       readonly download_url: string | null;
       readonly _links: {
+        /** Format: uri */
         readonly git: string | null;
+        /** Format: uri */
         readonly html: string | null;
+        /** Format: uri */
         readonly self: string;
       };
+      /** @example "actual/actual.md" */
       readonly target?: string;
+      /** @example "git://example.com/defunkt/dotjs.git" */
       readonly submodule_git_url?: string;
     };
-    /** An object describing a symlink */
+    /**
+     * Symlink Content
+     * @description An object describing a symlink
+     */
     readonly "content-symlink": {
       readonly type: string;
       readonly target: string;
@@ -8153,35 +10843,56 @@ export interface components {
       readonly name: string;
       readonly path: string;
       readonly sha: string;
+      /** Format: uri */
       readonly url: string;
+      /** Format: uri */
       readonly git_url: string | null;
+      /** Format: uri */
       readonly html_url: string | null;
+      /** Format: uri */
       readonly download_url: string | null;
       readonly _links: {
+        /** Format: uri */
         readonly git: string | null;
+        /** Format: uri */
         readonly html: string | null;
+        /** Format: uri */
         readonly self: string;
       };
     };
-    /** An object describing a symlink */
+    /**
+     * Symlink Content
+     * @description An object describing a symlink
+     */
     readonly "content-submodule": {
       readonly type: string;
+      /** Format: uri */
       readonly submodule_git_url: string;
       readonly size: number;
       readonly name: string;
       readonly path: string;
       readonly sha: string;
+      /** Format: uri */
       readonly url: string;
+      /** Format: uri */
       readonly git_url: string | null;
+      /** Format: uri */
       readonly html_url: string | null;
+      /** Format: uri */
       readonly download_url: string | null;
       readonly _links: {
+        /** Format: uri */
         readonly git: string | null;
+        /** Format: uri */
         readonly html: string | null;
+        /** Format: uri */
         readonly self: string;
       };
     };
-    /** File Commit */
+    /**
+     * File Commit
+     * @description File Commit
+     */
     readonly "file-commit": {
       readonly content: {
         readonly name?: string;
@@ -8232,23 +10943,34 @@ export interface components {
         };
       };
     };
-    /** Contributor */
+    /**
+     * Contributor
+     * @description Contributor
+     */
     readonly contributor: {
       readonly login?: string;
       readonly id?: number;
       readonly node_id?: string;
+      /** Format: uri */
       readonly avatar_url?: string;
       readonly gravatar_id?: string | null;
+      /** Format: uri */
       readonly url?: string;
+      /** Format: uri */
       readonly html_url?: string;
+      /** Format: uri */
       readonly followers_url?: string;
       readonly following_url?: string;
       readonly gists_url?: string;
       readonly starred_url?: string;
+      /** Format: uri */
       readonly subscriptions_url?: string;
+      /** Format: uri */
       readonly organizations_url?: string;
+      /** Format: uri */
       readonly repos_url?: string;
       readonly events_url?: string;
+      /** Format: uri */
       readonly received_events_url?: string;
       readonly type: string;
       readonly site_admin?: boolean;
@@ -8256,63 +10978,138 @@ export interface components {
       readonly email?: string;
       readonly name?: string;
     };
-    /** The status of a deployment. */
+    /**
+     * Deployment Status
+     * @description The status of a deployment.
+     */
     readonly "deployment-status": {
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/example/deployments/42/statuses/1
+       */
       readonly url: string;
+      /** @example 1 */
       readonly id: number;
+      /** @example MDE2OkRlcGxveW1lbnRTdGF0dXMx */
       readonly node_id: string;
-      /** The state of the status. */
+      /**
+       * @description The state of the status.
+       * @example success
+       */
       readonly state: "error" | "failure" | "inactive" | "pending" | "success" | "queued" | "in_progress";
       readonly creator: components["schemas"]["simple-user"] | null;
-      /** A short description of the status. */
+      /**
+       * @description A short description of the status.
+       * @example Deployment finished successfully.
+       */
       readonly description: string;
-      /** The environment of the deployment that the status is for. */
+      /**
+       * @description The environment of the deployment that the status is for.
+       * @example production
+       */
       readonly environment?: string;
-      /** Deprecated: the URL to associate with this status. */
+      /**
+       * Format: uri
+       * @description Deprecated: the URL to associate with this status.
+       * @example https://example.com/deployment/42/output
+       */
       readonly target_url: string;
+      /**
+       * Format: date-time
+       * @example 2012-07-20T01:19:13Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2012-07-20T01:19:13Z
+       */
       readonly updated_at: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/example/deployments/42
+       */
       readonly deployment_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/example
+       */
       readonly repository_url: string;
-      /** The URL for accessing your environment. */
+      /**
+       * Format: uri
+       * @description The URL for accessing your environment.
+       * @example https://staging.example.com/
+       */
       readonly environment_url?: string;
-      /** The URL to associate with this status. */
+      /**
+       * Format: uri
+       * @description The URL to associate with this status.
+       * @example https://example.com/deployment/42/output
+       */
       readonly log_url?: string;
       readonly performed_via_github_app?: components["schemas"]["integration"] | null;
     };
-    /** The amount of time to delay a job after the job is initially triggered. The time (in minutes) must be an integer between 0 and 43,200 (30 days). */
+    /**
+     * @description The amount of time to delay a job after the job is initially triggered. The time (in minutes) must be an integer between 0 and 43,200 (30 days).
+     * @example 30
+     */
     readonly "wait-timer": number;
-    /** The type of deployment branch policy for this environment. To allow all branches to deploy, set to `null`. */
+    /** @description The type of deployment branch policy for this environment. To allow all branches to deploy, set to `null`. */
     readonly deployment_branch_policy: {
-      /** Whether only branches with branch protection rules can deploy to this environment. If `protected_branches` is `true`, `custom_branch_policies` must be `false`; if `protected_branches` is `false`, `custom_branch_policies` must be `true`. */
+      /** @description Whether only branches with branch protection rules can deploy to this environment. If `protected_branches` is `true`, `custom_branch_policies` must be `false`; if `protected_branches` is `false`, `custom_branch_policies` must be `true`. */
       readonly protected_branches: boolean;
-      /** Whether only branches that match the specified name patterns can deploy to this environment.  If `custom_branch_policies` is `true`, `protected_branches` must be `false`; if `custom_branch_policies` is `false`, `protected_branches` must be `true`. */
+      /** @description Whether only branches that match the specified name patterns can deploy to this environment.  If `custom_branch_policies` is `true`, `protected_branches` must be `false`; if `custom_branch_policies` is `false`, `protected_branches` must be `true`. */
       readonly custom_branch_policies: boolean;
     } | null;
-    /** Details of a deployment environment */
+    /**
+     * Environment
+     * @description Details of a deployment environment
+     */
     readonly environment: {
-      /** The id of the environment. */
+      /**
+       * @description The id of the environment.
+       * @example 56780428
+       */
       readonly id: number;
+      /** @example MDExOkVudmlyb25tZW50NTY3ODA0Mjg= */
       readonly node_id: string;
-      /** The name of the environment. */
+      /**
+       * @description The name of the environment.
+       * @example staging
+       */
       readonly name: string;
+      /** @example https://api.github.com/repos/github/hello-world/environments/staging */
       readonly url: string;
+      /** @example https://github.com/github/hello-world/deployments/activity_log?environments_filter=staging */
       readonly html_url: string;
-      /** The time that the environment was created, in ISO 8601 format. */
+      /**
+       * Format: date-time
+       * @description The time that the environment was created, in ISO 8601 format.
+       * @example 2020-11-23T22:00:40Z
+       */
       readonly created_at: string;
-      /** The time that the environment was last updated, in ISO 8601 format. */
+      /**
+       * Format: date-time
+       * @description The time that the environment was last updated, in ISO 8601 format.
+       * @example 2020-11-23T22:00:40Z
+       */
       readonly updated_at: string;
       readonly protection_rules?: readonly (Partial<{
+        /** @example 3515 */
         readonly id: number;
+        /** @example MDQ6R2F0ZTM1MTU= */
         readonly node_id: string;
+        /** @example wait_timer */
         readonly type: string;
         readonly wait_timer?: components["schemas"]["wait-timer"];
       }> &
         Partial<{
+          /** @example 3755 */
           readonly id: number;
+          /** @example MDQ6R2F0ZTM3NTU= */
           readonly node_id: string;
+          /** @example required_reviewers */
           readonly type: string;
-          /** The people or teams that may approve jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed. */
+          /** @description The people or teams that may approve jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed. */
           readonly reviewers?: readonly {
             readonly type?: components["schemas"]["deployment-reviewer-type"];
             readonly reviewer?: Partial<components["schemas"]["simple-user"]> &
@@ -8320,62 +11117,111 @@ export interface components {
           }[];
         }> &
         Partial<{
+          /** @example 3515 */
           readonly id: number;
+          /** @example MDQ6R2F0ZTM1MTU= */
           readonly node_id: string;
+          /** @example branch_policy */
           readonly type: string;
         }>)[];
       readonly deployment_branch_policy?: components["schemas"]["deployment_branch_policy"];
     };
-    /** Short Blob */
+    /**
+     * Short Blob
+     * @description Short Blob
+     */
     readonly "short-blob": {
       readonly url: string;
       readonly sha: string;
     };
-    /** Blob */
+    /**
+     * Blob
+     * @description Blob
+     */
     readonly blob: {
       readonly content: string;
       readonly encoding: string;
+      /** Format: uri */
       readonly url: string;
       readonly sha: string;
       readonly size: number | null;
       readonly node_id: string;
       readonly highlighted_content?: string;
     };
-    /** Low-level Git commit operations within a repository */
+    /**
+     * Git Commit
+     * @description Low-level Git commit operations within a repository
+     */
     readonly "git-commit": {
-      /** SHA for the commit */
+      /**
+       * @description SHA for the commit
+       * @example 7638417db6d59f3c431d3e1f261cc637155684cd
+       */
       readonly sha: string;
       readonly node_id: string;
+      /** Format: uri */
       readonly url: string;
-      /** Identifying information for the git-user */
+      /** @description Identifying information for the git-user */
       readonly author: {
-        /** Timestamp of the commit */
+        /**
+         * Format: date-time
+         * @description Timestamp of the commit
+         * @example 2014-08-09T08:02:04+12:00
+         */
         readonly date: string;
-        /** Git email address of the user */
+        /**
+         * @description Git email address of the user
+         * @example monalisa.octocat@example.com
+         */
         readonly email: string;
-        /** Name of the git user */
+        /**
+         * @description Name of the git user
+         * @example Monalisa Octocat
+         */
         readonly name: string;
       };
-      /** Identifying information for the git-user */
+      /** @description Identifying information for the git-user */
       readonly committer: {
-        /** Timestamp of the commit */
+        /**
+         * Format: date-time
+         * @description Timestamp of the commit
+         * @example 2014-08-09T08:02:04+12:00
+         */
         readonly date: string;
-        /** Git email address of the user */
+        /**
+         * @description Git email address of the user
+         * @example monalisa.octocat@example.com
+         */
         readonly email: string;
-        /** Name of the git user */
+        /**
+         * @description Name of the git user
+         * @example Monalisa Octocat
+         */
         readonly name: string;
       };
-      /** Message describing the purpose of the commit */
+      /**
+       * @description Message describing the purpose of the commit
+       * @example Fix #42
+       */
       readonly message: string;
       readonly tree: {
-        /** SHA for the commit */
+        /**
+         * @description SHA for the commit
+         * @example 7638417db6d59f3c431d3e1f261cc637155684cd
+         */
         readonly sha: string;
+        /** Format: uri */
         readonly url: string;
       };
       readonly parents: readonly {
-        /** SHA for the commit */
+        /**
+         * @description SHA for the commit
+         * @example 7638417db6d59f3c431d3e1f261cc637155684cd
+         */
         readonly sha: string;
+        /** Format: uri */
         readonly url: string;
+        /** Format: uri */
         readonly html_url: string;
       }[];
       readonly verification: {
@@ -8384,29 +11230,53 @@ export interface components {
         readonly signature: string | null;
         readonly payload: string | null;
       };
+      /** Format: uri */
       readonly html_url: string;
     };
-    /** Git references within a repository */
+    /**
+     * Git Reference
+     * @description Git references within a repository
+     */
     readonly "git-ref": {
       readonly ref: string;
       readonly node_id: string;
+      /** Format: uri */
       readonly url: string;
       readonly object: {
         readonly type: string;
-        /** SHA for the reference */
+        /**
+         * @description SHA for the reference
+         * @example 7638417db6d59f3c431d3e1f261cc637155684cd
+         */
         readonly sha: string;
+        /** Format: uri */
         readonly url: string;
       };
     };
-    /** Metadata for a Git tag */
+    /**
+     * Git Tag
+     * @description Metadata for a Git tag
+     */
     readonly "git-tag": {
+      /** @example MDM6VGFnOTQwYmQzMzYyNDhlZmFlMGY5ZWU1YmM3YjJkNWM5ODU4ODdiMTZhYw== */
       readonly node_id: string;
-      /** Name of the tag */
+      /**
+       * @description Name of the tag
+       * @example v0.0.1
+       */
       readonly tag: string;
+      /** @example 940bd336248efae0f9ee5bc7b2d5c985887b16ac */
       readonly sha: string;
-      /** URL for the tag */
+      /**
+       * Format: uri
+       * @description URL for the tag
+       * @example https://api.github.com/repositories/42/git/tags/940bd336248efae0f9ee5bc7b2d5c985887b16ac
+       */
       readonly url: string;
-      /** Message describing the purpose of the tag */
+      /**
+       * @description Message describing the purpose of the tag
+       * @example Initial public release
+       */
       readonly message: string;
       readonly tagger: {
         readonly date: string;
@@ -8416,65 +11286,124 @@ export interface components {
       readonly object: {
         readonly sha: string;
         readonly type: string;
+        /** Format: uri */
         readonly url: string;
       };
       readonly verification?: components["schemas"]["verification"];
     };
-    /** The hierarchy between files in a Git repository. */
+    /**
+     * Git Tree
+     * @description The hierarchy between files in a Git repository.
+     */
     readonly "git-tree": {
       readonly sha: string;
+      /** Format: uri */
       readonly url: string;
       readonly truncated: boolean;
-      /** Objects specifying a tree structure */
+      /**
+       * @description Objects specifying a tree structure
+       * @example [object Object]
+       */
       readonly tree: readonly {
+        /** @example test/file.rb */
         readonly path?: string;
+        /** @example 040000 */
         readonly mode?: string;
+        /** @example tree */
         readonly type?: string;
+        /** @example 23f6827669e43831def8a7ad935069c8bd418261 */
         readonly sha?: string;
+        /** @example 12 */
         readonly size?: number;
+        /** @example https://api.github.com/repos/owner-482f3203ecf01f67e9deb18e/BBB_Private_Repo/git/blobs/23f6827669e43831def8a7ad935069c8bd418261 */
         readonly url?: string;
       }[];
     };
+    /** Hook Response */
     readonly "hook-response": {
       readonly code: number | null;
       readonly status: string | null;
       readonly message: string | null;
     };
-    /** Webhooks for repositories. */
+    /**
+     * Webhook
+     * @description Webhooks for repositories.
+     */
     readonly hook: {
       readonly type: string;
-      /** Unique identifier of the webhook. */
+      /**
+       * @description Unique identifier of the webhook.
+       * @example 42
+       */
       readonly id: number;
-      /** The name of a valid service, use 'web' for a webhook. */
+      /**
+       * @description The name of a valid service, use 'web' for a webhook.
+       * @example web
+       */
       readonly name: string;
-      /** Determines whether the hook is actually triggered on pushes. */
+      /**
+       * @description Determines whether the hook is actually triggered on pushes.
+       * @example true
+       */
       readonly active: boolean;
-      /** Determines what events the hook is triggered for. Default: ['push']. */
+      /**
+       * @description Determines what events the hook is triggered for. Default: ['push'].
+       * @example push,pull_request
+       */
       readonly events: readonly string[];
       readonly config: {
+        /** @example "foo@bar.com" */
         readonly email?: string;
+        /** @example "foo" */
         readonly password?: string;
+        /** @example "roomer" */
         readonly room?: string;
+        /** @example "foo" */
         readonly subdomain?: string;
         readonly url?: components["schemas"]["webhook-config-url"];
         readonly insecure_ssl?: components["schemas"]["webhook-config-insecure-ssl"];
         readonly content_type?: components["schemas"]["webhook-config-content-type"];
+        /** @example "sha256" */
         readonly digest?: string;
         readonly secret?: components["schemas"]["webhook-config-secret"];
+        /** @example "abc" */
         readonly token?: string;
       };
+      /**
+       * Format: date-time
+       * @example 2011-09-06T20:39:23Z
+       */
       readonly updated_at: string;
+      /**
+       * Format: date-time
+       * @example 2011-09-06T17:26:27Z
+       */
       readonly created_at: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/hooks/1
+       */
       readonly url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/hooks/1/test
+       */
       readonly test_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/hooks/1/pings
+       */
       readonly ping_url: string;
       readonly last_response: components["schemas"]["hook-response"];
     };
-    /** A repository import from an external source. */
+    /**
+     * Import
+     * @description A repository import from an external source.
+     */
     readonly import: {
       readonly vcs: string | null;
       readonly use_lfs?: string;
-      /** The URL of the originating repository. */
+      /** @description The URL of the originating repository. */
       readonly vcs_url: string;
       readonly svc_root?: string;
       readonly tfvc_project?: string;
@@ -8511,67 +11440,110 @@ export interface components {
       }[];
       readonly message?: string;
       readonly authors_count?: number | null;
+      /** Format: uri */
       readonly url: string;
+      /** Format: uri */
       readonly html_url: string;
+      /** Format: uri */
       readonly authors_url: string;
+      /** Format: uri */
       readonly repository_url: string;
       readonly svn_root?: string;
     };
-    /** Porter Author */
+    /**
+     * Porter Author
+     * @description Porter Author
+     */
     readonly "porter-author": {
       readonly id: number;
       readonly remote_id: string;
       readonly remote_name: string;
       readonly email: string;
       readonly name: string;
+      /** Format: uri */
       readonly url: string;
+      /** Format: uri */
       readonly import_url: string;
     };
-    /** Porter Large File */
+    /**
+     * Porter Large File
+     * @description Porter Large File
+     */
     readonly "porter-large-file": {
       readonly ref_name: string;
       readonly path: string;
       readonly oid: string;
       readonly size: number;
     };
-    /** Issue Event Label */
+    /**
+     * Issue Event Label
+     * @description Issue Event Label
+     */
     readonly "issue-event-label": {
       readonly name: string | null;
       readonly color: string | null;
     };
+    /** Issue Event Dismissed Review */
     readonly "issue-event-dismissed-review": {
       readonly state: string;
       readonly review_id: number;
       readonly dismissal_message: string | null;
       readonly dismissal_commit_id?: string | null;
     };
-    /** Issue Event Milestone */
+    /**
+     * Issue Event Milestone
+     * @description Issue Event Milestone
+     */
     readonly "issue-event-milestone": {
       readonly title: string;
     };
-    /** Issue Event Project Card */
+    /**
+     * Issue Event Project Card
+     * @description Issue Event Project Card
+     */
     readonly "issue-event-project-card": {
+      /** Format: uri */
       readonly url: string;
       readonly id: number;
+      /** Format: uri */
       readonly project_url: string;
       readonly project_id: number;
       readonly column_name: string;
       readonly previous_column_name?: string;
     };
-    /** Issue Event Rename */
+    /**
+     * Issue Event Rename
+     * @description Issue Event Rename
+     */
     readonly "issue-event-rename": {
       readonly from: string;
       readonly to: string;
     };
-    /** Issue Event */
+    /**
+     * Issue Event
+     * @description Issue Event
+     */
     readonly "issue-event": {
+      /** @example 1 */
       readonly id: number;
+      /** @example MDEwOklzc3VlRXZlbnQx */
       readonly node_id: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/issues/events/1
+       */
       readonly url: string;
       readonly actor: components["schemas"]["simple-user"] | null;
+      /** @example closed */
       readonly event: string;
+      /** @example 6dcb09b5b57875f334f61aebed695e2e4193db5e */
       readonly commit_id: string | null;
+      /** @example https://api.github.com/repos/octocat/Hello-World/commits/6dcb09b5b57875f334f61aebed695e2e4193db5e */
       readonly commit_url: string | null;
+      /**
+       * Format: date-time
+       * @example 2011-04-14T16:00:49Z
+       */
       readonly created_at: string;
       readonly issue?: components["schemas"]["issue-simple"];
       readonly label?: components["schemas"]["issue-event-label"];
@@ -8587,7 +11559,10 @@ export interface components {
       readonly author_association?: components["schemas"]["author_association"];
       readonly lock_reason?: string | null;
     };
-    /** Issue Event for Issue */
+    /**
+     * Issue Event for Issue
+     * @description Issue Event for Issue
+     */
     readonly "issue-event-for-issue": {
       readonly id?: number;
       readonly node_id?: string;
@@ -8597,21 +11572,36 @@ export interface components {
       readonly commit_id?: string | null;
       readonly commit_url?: string | null;
       readonly created_at?: string;
+      /** @example "480d4f47447129f015cb327536c522ca683939a1" */
       readonly sha?: string;
+      /** @example "https://github.com/owner-3906e11a33a3d55ba449d63f/BBB_Private_Repo/commit/480d4f47447129f015cb327536c522ca683939a1" */
       readonly html_url?: string;
+      /** @example "add a bunch of files" */
       readonly message?: string;
+      /** @example "https://api.github.com/repos/owner-3906e11a33a3d55ba449d63f/AAA_Public_Repo/issues/1" */
       readonly issue_url?: string;
+      /** @example "2020-07-09T00:17:36Z" */
       readonly updated_at?: string;
       readonly author_association?: components["schemas"]["author_association"];
+      /** @example ":+1:" */
       readonly body?: string;
+      /** @example "off-topic" */
       readonly lock_reason?: string;
+      /** @example "2020-07-09T00:17:51Z" */
       readonly submitted_at?: string;
+      /** @example "commented" */
       readonly state?: string;
+      /** @example "https://api.github.com/repos/owner-3906e11a33a3d55ba449d63f/AAA_Public_Repo/pulls/2" */
       readonly pull_request_url?: string;
+      /** @example "<p>Accusantium fugiat cumque. Autem qui nostrum. Atque quae ullam.</p>" */
       readonly body_html?: string;
+      /** @example "Accusantium fugiat cumque. Autem qui nostrum. Atque quae ullam." */
       readonly body_text?: string;
     };
-    /** An SSH key granting access to a single repository. */
+    /**
+     * Deploy Key
+     * @description An SSH key granting access to a single repository.
+     */
     readonly "deploy-key": {
       readonly id: number;
       readonly key: string;
@@ -8621,50 +11611,88 @@ export interface components {
       readonly created_at: string;
       readonly read_only: boolean;
     };
-    /** Language */
+    /**
+     * Language
+     * @description Language
+     */
     readonly language: { readonly [key: string]: number };
-    /** License Content */
+    /**
+     * License Content
+     * @description License Content
+     */
     readonly "license-content": {
       readonly name: string;
       readonly path: string;
       readonly sha: string;
       readonly size: number;
+      /** Format: uri */
       readonly url: string;
+      /** Format: uri */
       readonly html_url: string | null;
+      /** Format: uri */
       readonly git_url: string | null;
+      /** Format: uri */
       readonly download_url: string | null;
       readonly type: string;
       readonly content: string;
       readonly encoding: string;
       readonly _links: {
+        /** Format: uri */
         readonly git: string | null;
+        /** Format: uri */
         readonly html: string | null;
+        /** Format: uri */
         readonly self: string;
       };
       readonly license: components["schemas"]["license-simple"] | null;
     };
+    /** Pages Source Hash */
     readonly "pages-source-hash": {
       readonly branch: string;
       readonly path: string;
     };
-    /** The configuration for GitHub Pages for a repository. */
+    /**
+     * GitHub Pages
+     * @description The configuration for GitHub Pages for a repository.
+     */
     readonly page: {
-      /** The API address for accessing this Page resource. */
+      /**
+       * Format: uri
+       * @description The API address for accessing this Page resource.
+       * @example https://api.github.com/repos/github/hello-world/pages
+       */
       readonly url: string;
-      /** The status of the most recent build of the Page. */
+      /**
+       * @description The status of the most recent build of the Page.
+       * @example built
+       */
       readonly status: ("built" | "building" | "errored") | null;
-      /** The Pages site's custom domain */
+      /**
+       * @description The Pages site's custom domain
+       * @example example.com
+       */
       readonly cname: string | null;
-      /** Whether the Page has a custom 404 page. */
+      /** @description Whether the Page has a custom 404 page. */
       readonly custom_404: boolean;
-      /** The web address the Page can be accessed from. */
+      /**
+       * Format: uri
+       * @description The web address the Page can be accessed from.
+       * @example https://example.com
+       */
       readonly html_url?: string;
       readonly source?: components["schemas"]["pages-source-hash"];
-      /** Whether the GitHub Pages site is publicly visible. If set to `true`, the site is accessible to anyone on the internet. If set to `false`, the site will only be accessible to users who have at least `read` access to the repository that published the site. */
+      /**
+       * @description Whether the GitHub Pages site is publicly visible. If set to `true`, the site is accessible to anyone on the internet. If set to `false`, the site will only be accessible to users who have at least `read` access to the repository that published the site.
+       * @example true
+       */
       readonly public: boolean;
     };
-    /** Page Build */
+    /**
+     * Page Build
+     * @description Page Build
+     */
     readonly "page-build": {
+      /** Format: uri */
       readonly url: string;
       readonly status: string;
       readonly error: {
@@ -8673,36 +11701,99 @@ export interface components {
       readonly pusher: components["schemas"]["simple-user"] | null;
       readonly commit: string;
       readonly duration: number;
+      /** Format: date-time */
       readonly created_at: string;
+      /** Format: date-time */
       readonly updated_at: string;
     };
-    /** Page Build Status */
+    /**
+     * Page Build Status
+     * @description Page Build Status
+     */
     readonly "page-build-status": {
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/github/hello-world/pages/builds/latest
+       */
       readonly url: string;
+      /** @example queued */
       readonly status: string;
     };
-    /** Pull requests let you tell others about changes you've pushed to a repository on GitHub. Once a pull request is sent, interested parties can review the set of changes, discuss potential modifications, and even push follow-up commits if necessary. */
+    /**
+     * Pull Request
+     * @description Pull requests let you tell others about changes you've pushed to a repository on GitHub. Once a pull request is sent, interested parties can review the set of changes, discuss potential modifications, and even push follow-up commits if necessary.
+     */
     readonly "pull-request": {
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/pulls/1347
+       */
       readonly url: string;
+      /** @example 1 */
       readonly id: number;
+      /** @example MDExOlB1bGxSZXF1ZXN0MQ== */
       readonly node_id: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/pull/1347
+       */
       readonly html_url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/pull/1347.diff
+       */
       readonly diff_url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/pull/1347.patch
+       */
       readonly patch_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/issues/1347
+       */
       readonly issue_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/pulls/1347/commits
+       */
       readonly commits_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/pulls/1347/comments
+       */
       readonly review_comments_url: string;
+      /** @example https://api.github.com/repos/octocat/Hello-World/pulls/comments{/number} */
       readonly review_comment_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/issues/1347/comments
+       */
       readonly comments_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/statuses/6dcb09b5b57875f334f61aebed695e2e4193db5e
+       */
       readonly statuses_url: string;
-      /** Number uniquely identifying the pull request within its repository. */
+      /**
+       * @description Number uniquely identifying the pull request within its repository.
+       * @example 42
+       */
       readonly number: number;
-      /** State of this Pull Request. Either `open` or `closed`. */
+      /**
+       * @description State of this Pull Request. Either `open` or `closed`.
+       * @example open
+       */
       readonly state: "open" | "closed";
+      /** @example true */
       readonly locked: boolean;
-      /** The title of the pull request. */
+      /**
+       * @description The title of the pull request.
+       * @example Amazing new feature
+       */
       readonly title: string;
       readonly user: components["schemas"]["simple-user"] | null;
+      /** @example Please pull these awesome changes */
       readonly body: string | null;
       readonly labels: readonly {
         readonly id?: number;
@@ -8714,11 +11805,29 @@ export interface components {
         readonly default?: boolean;
       }[];
       readonly milestone: components["schemas"]["milestone"] | null;
+      /** @example too heated */
       readonly active_lock_reason?: string | null;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:01:12Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:01:12Z
+       */
       readonly updated_at: string;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:01:12Z
+       */
       readonly closed_at: string | null;
+      /**
+       * Format: date-time
+       * @example 2011-01-26T19:01:12Z
+       */
       readonly merged_at: string | null;
+      /** @example e5bd3914e2e596debea16f433f57875b5b90bcd6 */
       readonly merge_commit_sha: string | null;
       readonly assignee: components["schemas"]["simple-user"] | null;
       readonly assignees?: readonly components["schemas"]["simple-user"][] | null;
@@ -8737,18 +11846,25 @@ export interface components {
           readonly commits_url: string;
           readonly compare_url: string;
           readonly contents_url: string;
+          /** Format: uri */
           readonly contributors_url: string;
+          /** Format: uri */
           readonly deployments_url: string;
           readonly description: string | null;
+          /** Format: uri */
           readonly downloads_url: string;
+          /** Format: uri */
           readonly events_url: string;
           readonly fork: boolean;
+          /** Format: uri */
           readonly forks_url: string;
           readonly full_name: string;
           readonly git_commits_url: string;
           readonly git_refs_url: string;
           readonly git_tags_url: string;
+          /** Format: uri */
           readonly hooks_url: string;
+          /** Format: uri */
           readonly html_url: string;
           readonly id: number;
           readonly node_id: string;
@@ -8757,41 +11873,57 @@ export interface components {
           readonly issues_url: string;
           readonly keys_url: string;
           readonly labels_url: string;
+          /** Format: uri */
           readonly languages_url: string;
+          /** Format: uri */
           readonly merges_url: string;
           readonly milestones_url: string;
           readonly name: string;
           readonly notifications_url: string;
           readonly owner: {
+            /** Format: uri */
             readonly avatar_url: string;
             readonly events_url: string;
+            /** Format: uri */
             readonly followers_url: string;
             readonly following_url: string;
             readonly gists_url: string;
             readonly gravatar_id: string | null;
+            /** Format: uri */
             readonly html_url: string;
             readonly id: number;
             readonly node_id: string;
             readonly login: string;
+            /** Format: uri */
             readonly organizations_url: string;
+            /** Format: uri */
             readonly received_events_url: string;
+            /** Format: uri */
             readonly repos_url: string;
             readonly site_admin: boolean;
             readonly starred_url: string;
+            /** Format: uri */
             readonly subscriptions_url: string;
             readonly type: string;
+            /** Format: uri */
             readonly url: string;
           };
           readonly private: boolean;
           readonly pulls_url: string;
           readonly releases_url: string;
+          /** Format: uri */
           readonly stargazers_url: string;
           readonly statuses_url: string;
+          /** Format: uri */
           readonly subscribers_url: string;
+          /** Format: uri */
           readonly subscription_url: string;
+          /** Format: uri */
           readonly tags_url: string;
+          /** Format: uri */
           readonly teams_url: string;
           readonly trees_url: string;
+          /** Format: uri */
           readonly url: string;
           readonly clone_url: string;
           readonly default_branch: string;
@@ -8803,11 +11935,13 @@ export interface components {
           readonly has_projects: boolean;
           readonly has_wiki: boolean;
           readonly has_pages: boolean;
+          /** Format: uri */
           readonly homepage: string | null;
           readonly language: string | null;
           readonly master_branch?: string;
           readonly archived: boolean;
           readonly disabled: boolean;
+          /** Format: uri */
           readonly mirror_url: string | null;
           readonly open_issues: number;
           readonly open_issues_count: number;
@@ -8823,40 +11957,53 @@ export interface components {
           readonly license: {
             readonly key: string;
             readonly name: string;
+            /** Format: uri */
             readonly url: string | null;
             readonly spdx_id: string | null;
             readonly node_id: string;
           } | null;
+          /** Format: date-time */
           readonly pushed_at: string;
           readonly size: number;
           readonly ssh_url: string;
           readonly stargazers_count: number;
+          /** Format: uri */
           readonly svn_url: string;
           readonly topics?: readonly string[];
           readonly watchers: number;
           readonly watchers_count: number;
+          /** Format: date-time */
           readonly created_at: string;
+          /** Format: date-time */
           readonly updated_at: string;
         };
         readonly sha: string;
         readonly user: {
+          /** Format: uri */
           readonly avatar_url: string;
           readonly events_url: string;
+          /** Format: uri */
           readonly followers_url: string;
           readonly following_url: string;
           readonly gists_url: string;
           readonly gravatar_id: string | null;
+          /** Format: uri */
           readonly html_url: string;
           readonly id: number;
           readonly node_id: string;
           readonly login: string;
+          /** Format: uri */
           readonly organizations_url: string;
+          /** Format: uri */
           readonly received_events_url: string;
+          /** Format: uri */
           readonly repos_url: string;
           readonly site_admin: boolean;
           readonly starred_url: string;
+          /** Format: uri */
           readonly subscriptions_url: string;
           readonly type: string;
+          /** Format: uri */
           readonly url: string;
         };
       };
@@ -8873,18 +12020,25 @@ export interface components {
           readonly commits_url: string;
           readonly compare_url: string;
           readonly contents_url: string;
+          /** Format: uri */
           readonly contributors_url: string;
+          /** Format: uri */
           readonly deployments_url: string;
           readonly description: string | null;
+          /** Format: uri */
           readonly downloads_url: string;
+          /** Format: uri */
           readonly events_url: string;
           readonly fork: boolean;
+          /** Format: uri */
           readonly forks_url: string;
           readonly full_name: string;
           readonly git_commits_url: string;
           readonly git_refs_url: string;
           readonly git_tags_url: string;
+          /** Format: uri */
           readonly hooks_url: string;
+          /** Format: uri */
           readonly html_url: string;
           readonly id: number;
           readonly node_id: string;
@@ -8893,41 +12047,57 @@ export interface components {
           readonly issues_url: string;
           readonly keys_url: string;
           readonly labels_url: string;
+          /** Format: uri */
           readonly languages_url: string;
+          /** Format: uri */
           readonly merges_url: string;
           readonly milestones_url: string;
           readonly name: string;
           readonly notifications_url: string;
           readonly owner: {
+            /** Format: uri */
             readonly avatar_url: string;
             readonly events_url: string;
+            /** Format: uri */
             readonly followers_url: string;
             readonly following_url: string;
             readonly gists_url: string;
             readonly gravatar_id: string | null;
+            /** Format: uri */
             readonly html_url: string;
             readonly id: number;
             readonly node_id: string;
             readonly login: string;
+            /** Format: uri */
             readonly organizations_url: string;
+            /** Format: uri */
             readonly received_events_url: string;
+            /** Format: uri */
             readonly repos_url: string;
             readonly site_admin: boolean;
             readonly starred_url: string;
+            /** Format: uri */
             readonly subscriptions_url: string;
             readonly type: string;
+            /** Format: uri */
             readonly url: string;
           };
           readonly private: boolean;
           readonly pulls_url: string;
           readonly releases_url: string;
+          /** Format: uri */
           readonly stargazers_url: string;
           readonly statuses_url: string;
+          /** Format: uri */
           readonly subscribers_url: string;
+          /** Format: uri */
           readonly subscription_url: string;
+          /** Format: uri */
           readonly tags_url: string;
+          /** Format: uri */
           readonly teams_url: string;
           readonly trees_url: string;
+          /** Format: uri */
           readonly url: string;
           readonly clone_url: string;
           readonly default_branch: string;
@@ -8939,11 +12109,13 @@ export interface components {
           readonly has_projects: boolean;
           readonly has_wiki: boolean;
           readonly has_pages: boolean;
+          /** Format: uri */
           readonly homepage: string | null;
           readonly language: string | null;
           readonly master_branch?: string;
           readonly archived: boolean;
           readonly disabled: boolean;
+          /** Format: uri */
           readonly mirror_url: string | null;
           readonly open_issues: number;
           readonly open_issues_count: number;
@@ -8957,36 +12129,48 @@ export interface components {
           readonly allow_squash_merge?: boolean;
           readonly allow_rebase_merge?: boolean;
           readonly license: components["schemas"]["license-simple"] | null;
+          /** Format: date-time */
           readonly pushed_at: string;
           readonly size: number;
           readonly ssh_url: string;
           readonly stargazers_count: number;
+          /** Format: uri */
           readonly svn_url: string;
           readonly topics?: readonly string[];
           readonly watchers: number;
           readonly watchers_count: number;
+          /** Format: date-time */
           readonly created_at: string;
+          /** Format: date-time */
           readonly updated_at: string;
         };
         readonly sha: string;
         readonly user: {
+          /** Format: uri */
           readonly avatar_url: string;
           readonly events_url: string;
+          /** Format: uri */
           readonly followers_url: string;
           readonly following_url: string;
           readonly gists_url: string;
           readonly gravatar_id: string | null;
+          /** Format: uri */
           readonly html_url: string;
           readonly id: number;
           readonly node_id: string;
           readonly login: string;
+          /** Format: uri */
           readonly organizations_url: string;
+          /** Format: uri */
           readonly received_events_url: string;
+          /** Format: uri */
           readonly repos_url: string;
           readonly site_admin: boolean;
           readonly starred_url: string;
+          /** Format: uri */
           readonly subscriptions_url: string;
           readonly type: string;
+          /** Format: uri */
           readonly url: string;
         };
       };
@@ -9002,104 +12186,227 @@ export interface components {
       };
       readonly author_association: components["schemas"]["author_association"];
       readonly auto_merge: components["schemas"]["auto_merge"];
-      /** Indicates whether or not the pull request is a draft. */
+      /** @description Indicates whether or not the pull request is a draft. */
       readonly draft?: boolean;
       readonly merged: boolean;
+      /** @example true */
       readonly mergeable: boolean | null;
+      /** @example true */
       readonly rebaseable?: boolean | null;
+      /** @example clean */
       readonly mergeable_state: string;
       readonly merged_by: components["schemas"]["simple-user"] | null;
+      /** @example 10 */
       readonly comments: number;
       readonly review_comments: number;
-      /** Indicates whether maintainers can modify the pull request. */
+      /**
+       * @description Indicates whether maintainers can modify the pull request.
+       * @example true
+       */
       readonly maintainer_can_modify: boolean;
+      /** @example 3 */
       readonly commits: number;
+      /** @example 100 */
       readonly additions: number;
+      /** @example 3 */
       readonly deletions: number;
+      /** @example 5 */
       readonly changed_files: number;
     };
-    /** Pull Request Review Comments are comments on a portion of the Pull Request's diff. */
+    /**
+     * Pull Request Review Comment
+     * @description Pull Request Review Comments are comments on a portion of the Pull Request's diff.
+     */
     readonly "pull-request-review-comment": {
-      /** URL for the pull request review comment */
+      /**
+       * @description URL for the pull request review comment
+       * @example https://api.github.com/repos/octocat/Hello-World/pulls/comments/1
+       */
       readonly url: string;
-      /** The ID of the pull request review to which the comment belongs. */
+      /**
+       * @description The ID of the pull request review to which the comment belongs.
+       * @example 42
+       */
       readonly pull_request_review_id: number | null;
-      /** The ID of the pull request review comment. */
+      /**
+       * @description The ID of the pull request review comment.
+       * @example 1
+       */
       readonly id: number;
-      /** The node ID of the pull request review comment. */
+      /**
+       * @description The node ID of the pull request review comment.
+       * @example MDI0OlB1bGxSZXF1ZXN0UmV2aWV3Q29tbWVudDEw
+       */
       readonly node_id: string;
-      /** The diff of the line that the comment refers to. */
+      /**
+       * @description The diff of the line that the comment refers to.
+       * @example @@ -16,33 +16,40 @@ public class Connection : IConnection...
+       */
       readonly diff_hunk: string;
-      /** The relative path of the file to which the comment applies. */
+      /**
+       * @description The relative path of the file to which the comment applies.
+       * @example config/database.yaml
+       */
       readonly path: string;
-      /** The line index in the diff to which the comment applies. */
+      /**
+       * @description The line index in the diff to which the comment applies.
+       * @example 1
+       */
       readonly position: number;
-      /** The index of the original line in the diff to which the comment applies. */
+      /**
+       * @description The index of the original line in the diff to which the comment applies.
+       * @example 4
+       */
       readonly original_position: number;
-      /** The SHA of the commit to which the comment applies. */
+      /**
+       * @description The SHA of the commit to which the comment applies.
+       * @example 6dcb09b5b57875f334f61aebed695e2e4193db5e
+       */
       readonly commit_id: string;
-      /** The SHA of the original commit to which the comment applies. */
+      /**
+       * @description The SHA of the original commit to which the comment applies.
+       * @example 9c48853fa3dc5c1c3d6f1f1cd1f2743e72652840
+       */
       readonly original_commit_id: string;
-      /** The comment ID to reply to. */
+      /**
+       * @description The comment ID to reply to.
+       * @example 8
+       */
       readonly in_reply_to_id?: number;
       readonly user: components["schemas"]["simple-user"];
-      /** The text of the comment. */
+      /**
+       * @description The text of the comment.
+       * @example We should probably include a check for null values here.
+       */
       readonly body: string;
+      /**
+       * Format: date-time
+       * @example 2011-04-14T16:00:49Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2011-04-14T16:00:49Z
+       */
       readonly updated_at: string;
-      /** HTML URL for the pull request review comment. */
+      /**
+       * Format: uri
+       * @description HTML URL for the pull request review comment.
+       * @example https://github.com/octocat/Hello-World/pull/1#discussion-diff-1
+       */
       readonly html_url: string;
-      /** URL for the pull request that the review comment belongs to. */
+      /**
+       * Format: uri
+       * @description URL for the pull request that the review comment belongs to.
+       * @example https://api.github.com/repos/octocat/Hello-World/pulls/1
+       */
       readonly pull_request_url: string;
       readonly author_association: components["schemas"]["author_association"];
       readonly _links: {
         readonly self: {
+          /**
+           * Format: uri
+           * @example https://api.github.com/repos/octocat/Hello-World/pulls/comments/1
+           */
           readonly href: string;
         };
         readonly html: {
+          /**
+           * Format: uri
+           * @example https://github.com/octocat/Hello-World/pull/1#discussion-diff-1
+           */
           readonly href: string;
         };
         readonly pull_request: {
+          /**
+           * Format: uri
+           * @example https://api.github.com/repos/octocat/Hello-World/pulls/1
+           */
           readonly href: string;
         };
       };
-      /** The first line of the range for a multi-line comment. */
+      /**
+       * @description The first line of the range for a multi-line comment.
+       * @example 2
+       */
       readonly start_line?: number | null;
-      /** The first line of the range for a multi-line comment. */
+      /**
+       * @description The first line of the range for a multi-line comment.
+       * @example 2
+       */
       readonly original_start_line?: number | null;
-      /** The side of the first line of the range for a multi-line comment. */
+      /**
+       * @description The side of the first line of the range for a multi-line comment.
+       * @default RIGHT
+       */
       readonly start_side?: ("LEFT" | "RIGHT") | null;
-      /** The line of the blob to which the comment applies. The last line of the range for a multi-line comment */
+      /**
+       * @description The line of the blob to which the comment applies. The last line of the range for a multi-line comment
+       * @example 2
+       */
       readonly line?: number;
-      /** The line of the blob to which the comment applies. The last line of the range for a multi-line comment */
+      /**
+       * @description The line of the blob to which the comment applies. The last line of the range for a multi-line comment
+       * @example 2
+       */
       readonly original_line?: number;
-      /** The side of the diff to which the comment applies. The side of the last line of the range for a multi-line comment */
+      /**
+       * @description The side of the diff to which the comment applies. The side of the last line of the range for a multi-line comment
+       * @default RIGHT
+       */
       readonly side?: "LEFT" | "RIGHT";
       readonly reactions?: components["schemas"]["reaction-rollup"];
+      /** @example "<p>comment body</p>" */
       readonly body_html?: string;
+      /** @example "comment body" */
       readonly body_text?: string;
     };
-    /** Pull Request Merge Result */
+    /**
+     * Pull Request Merge Result
+     * @description Pull Request Merge Result
+     */
     readonly "pull-request-merge-result": {
       readonly sha: string;
       readonly merged: boolean;
       readonly message: string;
     };
-    /** Pull Request Review Request */
+    /**
+     * Pull Request Review Request
+     * @description Pull Request Review Request
+     */
     readonly "pull-request-review-request": {
       readonly users: readonly components["schemas"]["simple-user"][];
       readonly teams: readonly components["schemas"]["team-simple"][];
     };
-    /** Pull Request Reviews are reviews on pull requests. */
+    /**
+     * Pull Request Review
+     * @description Pull Request Reviews are reviews on pull requests.
+     */
     readonly "pull-request-review": {
-      /** Unique identifier of the review */
+      /**
+       * @description Unique identifier of the review
+       * @example 42
+       */
       readonly id: number;
+      /** @example MDE3OlB1bGxSZXF1ZXN0UmV2aWV3ODA= */
       readonly node_id: string;
       readonly user: components["schemas"]["simple-user"] | null;
-      /** The text of the review. */
+      /**
+       * @description The text of the review.
+       * @example This looks great.
+       */
       readonly body: string;
+      /** @example CHANGES_REQUESTED */
       readonly state: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/pull/12#pullrequestreview-80
+       */
       readonly html_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/pulls/12
+       */
       readonly pull_request_url: string;
       readonly _links: {
         readonly html: {
@@ -9109,31 +12416,69 @@ export interface components {
           readonly href: string;
         };
       };
+      /** Format: date-time */
       readonly submitted_at?: string;
-      /** A commit SHA for the review. */
+      /**
+       * @description A commit SHA for the review.
+       * @example 54bb654c9e6025347f57900a4a5c2313a96b8035
+       */
       readonly commit_id: string;
       readonly body_html?: string;
       readonly body_text?: string;
       readonly author_association: components["schemas"]["author_association"];
     };
-    /** Legacy Review Comment */
+    /**
+     * Legacy Review Comment
+     * @description Legacy Review Comment
+     */
     readonly "review-comment": {
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/pulls/comments/1
+       */
       readonly url: string;
+      /** @example 42 */
       readonly pull_request_review_id: number | null;
+      /** @example 10 */
       readonly id: number;
+      /** @example MDI0OlB1bGxSZXF1ZXN0UmV2aWV3Q29tbWVudDEw */
       readonly node_id: string;
+      /** @example @@ -16,33 +16,40 @@ public class Connection : IConnection... */
       readonly diff_hunk: string;
+      /** @example file1.txt */
       readonly path: string;
+      /** @example 1 */
       readonly position: number | null;
+      /** @example 4 */
       readonly original_position: number;
+      /** @example 6dcb09b5b57875f334f61aebed695e2e4193db5e */
       readonly commit_id: string;
+      /** @example 9c48853fa3dc5c1c3d6f1f1cd1f2743e72652840 */
       readonly original_commit_id: string;
+      /** @example 8 */
       readonly in_reply_to_id?: number;
       readonly user: components["schemas"]["simple-user"] | null;
+      /** @example Great stuff */
       readonly body: string;
+      /**
+       * Format: date-time
+       * @example 2011-04-14T16:00:49Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2011-04-14T16:00:49Z
+       */
       readonly updated_at: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/pull/1#discussion-diff-1
+       */
       readonly html_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/Hello-World/pulls/1
+       */
       readonly pull_request_url: string;
       readonly author_association: components["schemas"]["author_association"];
       readonly _links: {
@@ -9143,67 +12488,111 @@ export interface components {
       };
       readonly body_text?: string;
       readonly body_html?: string;
-      /** The side of the first line of the range for a multi-line comment. */
+      /**
+       * @description The side of the first line of the range for a multi-line comment.
+       * @default RIGHT
+       */
       readonly side?: "LEFT" | "RIGHT";
-      /** The side of the first line of the range for a multi-line comment. */
+      /**
+       * @description The side of the first line of the range for a multi-line comment.
+       * @default RIGHT
+       */
       readonly start_side?: ("LEFT" | "RIGHT") | null;
-      /** The line of the blob to which the comment applies. The last line of the range for a multi-line comment */
+      /**
+       * @description The line of the blob to which the comment applies. The last line of the range for a multi-line comment
+       * @example 2
+       */
       readonly line?: number;
-      /** The original line of the blob to which the comment applies. The last line of the range for a multi-line comment */
+      /**
+       * @description The original line of the blob to which the comment applies. The last line of the range for a multi-line comment
+       * @example 2
+       */
       readonly original_line?: number;
-      /** The first line of the range for a multi-line comment. */
+      /**
+       * @description The first line of the range for a multi-line comment.
+       * @example 2
+       */
       readonly start_line?: number | null;
-      /** The original first line of the range for a multi-line comment. */
+      /**
+       * @description The original first line of the range for a multi-line comment.
+       * @example 2
+       */
       readonly original_start_line?: number | null;
     };
-    /** Data related to a release. */
+    /**
+     * Release Asset
+     * @description Data related to a release.
+     */
     readonly "release-asset": {
+      /** Format: uri */
       readonly url: string;
+      /** Format: uri */
       readonly browser_download_url: string;
       readonly id: number;
       readonly node_id: string;
-      /** The file name of the asset. */
+      /**
+       * @description The file name of the asset.
+       * @example Team Environment
+       */
       readonly name: string;
       readonly label: string | null;
-      /** State of the release asset. */
+      /** @description State of the release asset. */
       readonly state: "uploaded" | "open";
       readonly content_type: string;
       readonly size: number;
       readonly download_count: number;
+      /** Format: date-time */
       readonly created_at: string;
+      /** Format: date-time */
       readonly updated_at: string;
       readonly uploader: components["schemas"]["simple-user"] | null;
     };
-    /** A release. */
+    /**
+     * Release
+     * @description A release.
+     */
     readonly release: {
+      /** Format: uri */
       readonly url: string;
+      /** Format: uri */
       readonly html_url: string;
+      /** Format: uri */
       readonly assets_url: string;
       readonly upload_url: string;
+      /** Format: uri */
       readonly tarball_url: string | null;
+      /** Format: uri */
       readonly zipball_url: string | null;
       readonly id: number;
       readonly node_id: string;
-      /** The name of the tag. */
+      /**
+       * @description The name of the tag.
+       * @example v1.0.0
+       */
       readonly tag_name: string;
-      /** Specifies the commitish value that determines where the Git tag is created from. */
+      /**
+       * @description Specifies the commitish value that determines where the Git tag is created from.
+       * @example master
+       */
       readonly target_commitish: string;
       readonly name: string | null;
       readonly body?: string | null;
-      /** true to create a draft (unpublished) release, false to create a published one. */
+      /** @description true to create a draft (unpublished) release, false to create a published one. */
       readonly draft: boolean;
-      /** Whether to identify the release as a prerelease or a full release. */
+      /** @description Whether to identify the release as a prerelease or a full release. */
       readonly prerelease: boolean;
+      /** Format: date-time */
       readonly created_at: string;
+      /** Format: date-time */
       readonly published_at: string | null;
       readonly author: components["schemas"]["simple-user"];
       readonly assets: readonly components["schemas"]["release-asset"][];
       readonly body_html?: string;
       readonly body_text?: string;
     };
-    /** Sets the state of the secret scanning alert. Can be either `open` or `resolved`. You must provide `resolution` when you set the state to `resolved`. */
+    /** @description Sets the state of the secret scanning alert. Can be either `open` or `resolved`. You must provide `resolution` when you set the state to `resolved`. */
     readonly "secret-scanning-alert-state": "open" | "resolved";
-    /** **Required when the `state` is `resolved`.** The reason for resolving the alert. Can be one of `false_positive`, `wont_fix`, `revoked`, or `used_in_tests`. */
+    /** @description **Required when the `state` is `resolved`.** The reason for resolving the alert. Can be one of `false_positive`, `wont_fix`, `revoked`, or `used_in_tests`. */
     readonly "secret-scanning-alert-resolution": string | null;
     readonly "secret-scanning-alert": {
       readonly number?: components["schemas"]["alert-number"];
@@ -9212,31 +12601,52 @@ export interface components {
       readonly html_url?: components["schemas"]["alert-html-url"];
       readonly state?: components["schemas"]["secret-scanning-alert-state"];
       readonly resolution?: components["schemas"]["secret-scanning-alert-resolution"];
-      /** The time that the alert was resolved in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`. */
+      /**
+       * Format: date-time
+       * @description The time that the alert was resolved in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
+       */
       readonly resolved_at?: string | null;
       readonly resolved_by?: components["schemas"]["simple-user"];
-      /** The type of secret that secret scanning detected. */
+      /** @description The type of secret that secret scanning detected. */
       readonly secret_type?: string;
-      /** The secret that was detected. */
+      /** @description The secret that was detected. */
       readonly secret?: string;
     };
-    /** Stargazer */
+    /**
+     * Stargazer
+     * @description Stargazer
+     */
     readonly stargazer: {
+      /** Format: date-time */
       readonly starred_at: string;
       readonly user: components["schemas"]["simple-user"] | null;
     };
-    /** Code Frequency Stat */
+    /**
+     * Code Frequency Stat
+     * @description Code Frequency Stat
+     */
     readonly "code-frequency-stat": readonly number[];
-    /** Commit Activity */
+    /**
+     * Commit Activity
+     * @description Commit Activity
+     */
     readonly "commit-activity": {
+      /** @example 0,3,26,20,39,1,0 */
       readonly days: readonly number[];
+      /** @example 89 */
       readonly total: number;
+      /** @example 1336280400 */
       readonly week: number;
     };
-    /** Contributor Activity */
+    /**
+     * Contributor Activity
+     * @description Contributor Activity
+     */
     readonly "contributor-activity": {
       readonly author: components["schemas"]["simple-user"] | null;
+      /** @example 135 */
       readonly total: number;
+      /** @example [object Object] */
       readonly weeks: readonly {
         readonly w?: string;
         readonly a?: number;
@@ -9244,63 +12654,123 @@ export interface components {
         readonly c?: number;
       }[];
     };
+    /** Participation Stats */
     readonly "participation-stats": {
       readonly all: readonly number[];
       readonly owner: readonly number[];
     };
-    /** Repository invitations let you manage who you collaborate with. */
+    /**
+     * Repository Invitation
+     * @description Repository invitations let you manage who you collaborate with.
+     */
     readonly "repository-subscription": {
-      /** Determines if notifications should be received from this repository. */
+      /**
+       * @description Determines if notifications should be received from this repository.
+       * @example true
+       */
       readonly subscribed: boolean;
-      /** Determines if all notifications should be blocked from this repository. */
+      /** @description Determines if all notifications should be blocked from this repository. */
       readonly ignored: boolean;
       readonly reason: string | null;
+      /**
+       * Format: date-time
+       * @example 2012-10-06T21:34:12Z
+       */
       readonly created_at: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/example/subscription
+       */
       readonly url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/repos/octocat/example
+       */
       readonly repository_url: string;
     };
-    /** Tag */
+    /**
+     * Tag
+     * @description Tag
+     */
     readonly tag: {
+      /** @example v0.1 */
       readonly name: string;
       readonly commit: {
         readonly sha: string;
+        /** Format: uri */
         readonly url: string;
       };
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/zipball/v0.1
+       */
       readonly zipball_url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat/Hello-World/tarball/v0.1
+       */
       readonly tarball_url: string;
       readonly node_id: string;
     };
-    /** A topic aggregates entities that are related to a subject. */
+    /**
+     * Topic
+     * @description A topic aggregates entities that are related to a subject.
+     */
     readonly topic: {
       readonly names: readonly string[];
     };
+    /** Traffic */
     readonly traffic: {
+      /** Format: date-time */
       readonly timestamp: string;
       readonly uniques: number;
       readonly count: number;
     };
-    /** Clone Traffic */
+    /**
+     * Clone Traffic
+     * @description Clone Traffic
+     */
     readonly "clone-traffic": {
+      /** @example 173 */
       readonly count: number;
+      /** @example 128 */
       readonly uniques: number;
       readonly clones: readonly components["schemas"]["traffic"][];
     };
-    /** Content Traffic */
+    /**
+     * Content Traffic
+     * @description Content Traffic
+     */
     readonly "content-traffic": {
+      /** @example /github/hubot */
       readonly path: string;
+      /** @example github/hubot: A customizable life embetterment robot. */
       readonly title: string;
+      /** @example 3542 */
       readonly count: number;
+      /** @example 2225 */
       readonly uniques: number;
     };
-    /** Referrer Traffic */
+    /**
+     * Referrer Traffic
+     * @description Referrer Traffic
+     */
     readonly "referrer-traffic": {
+      /** @example Google */
       readonly referrer: string;
+      /** @example 4 */
       readonly count: number;
+      /** @example 3 */
       readonly uniques: number;
     };
-    /** View Traffic */
+    /**
+     * View Traffic
+     * @description View Traffic
+     */
     readonly "view-traffic": {
+      /** @example 14850 */
       readonly count: number;
+      /** @example 3782 */
       readonly uniques: number;
       readonly views: readonly components["schemas"]["traffic"][];
     };
@@ -9400,59 +12870,104 @@ export interface components {
         readonly location?: string;
       };
     };
-    /** SCIM /Users provisioning endpoints */
+    /**
+     * SCIM /Users
+     * @description SCIM /Users provisioning endpoints
+     */
     readonly "scim-user": {
-      /** SCIM schema used. */
+      /** @description SCIM schema used. */
       readonly schemas: readonly string[];
-      /** Unique identifier of an external identity */
+      /**
+       * @description Unique identifier of an external identity
+       * @example 1b78eada-9baa-11e6-9eb6-a431576d590e
+       */
       readonly id: string;
-      /** The ID of the User. */
+      /**
+       * @description The ID of the User.
+       * @example a7b0f98395
+       */
       readonly externalId: string | null;
-      /** Configured by the admin. Could be an email, login, or username */
+      /**
+       * @description Configured by the admin. Could be an email, login, or username
+       * @example someone@example.com
+       */
       readonly userName: string | null;
-      /** The name of the user, suitable for display to end-users */
+      /**
+       * @description The name of the user, suitable for display to end-users
+       * @example Jon Doe
+       */
       readonly displayName?: string | null;
+      /** @example [object Object] */
       readonly name: {
         readonly givenName: string | null;
         readonly familyName: string | null;
         readonly formatted?: string | null;
       };
-      /** user emails */
+      /**
+       * @description user emails
+       * @example [object Object],[object Object]
+       */
       readonly emails: readonly {
         readonly value: string;
         readonly primary?: boolean;
       }[];
-      /** The active status of the User. */
+      /**
+       * @description The active status of the User.
+       * @example true
+       */
       readonly active: boolean;
       readonly meta: {
+        /** @example User */
         readonly resourceType?: string;
+        /**
+         * Format: date-time
+         * @example 2019-01-24T22:45:36.000Z
+         */
         readonly created?: string;
+        /**
+         * Format: date-time
+         * @example 2019-01-24T22:45:36.000Z
+         */
         readonly lastModified?: string;
+        /**
+         * Format: uri
+         * @example https://api.github.com/scim/v2/organizations/myorg-123abc55141bfd8f/Users/c42772b5-2029-11e9-8543-9264a97dec8d
+         */
         readonly location?: string;
       };
-      /** The ID of the organization. */
+      /** @description The ID of the organization. */
       readonly organization_id?: number;
-      /** Set of operations to be performed */
+      /**
+       * @description Set of operations to be performed
+       * @example [object Object]
+       */
       readonly operations?: readonly {
         readonly op: "add" | "remove" | "replace";
         readonly path?: string;
         readonly value?: string | { readonly [key: string]: unknown } | readonly unknown[];
       }[];
-      /** associated groups */
+      /** @description associated groups */
       readonly groups?: readonly {
         readonly value?: string;
         readonly display?: string;
       }[];
     };
-    /** SCIM User List */
+    /**
+     * SCIM User List
+     * @description SCIM User List
+     */
     readonly "scim-user-list": {
-      /** SCIM schema used. */
+      /** @description SCIM schema used. */
       readonly schemas: readonly string[];
+      /** @example 3 */
       readonly totalResults: number;
+      /** @example 10 */
       readonly itemsPerPage: number;
+      /** @example 1 */
       readonly startIndex: number;
       readonly Resources: readonly components["schemas"]["scim-user"][];
     };
+    /** Search Result Text Matches */
     readonly "search-result-text-matches": readonly {
       readonly object_url?: string;
       readonly object_type?: string | null;
@@ -9463,32 +12978,47 @@ export interface components {
         readonly indices?: readonly number[];
       }[];
     }[];
-    /** Code Search Result Item */
+    /**
+     * Code Search Result Item
+     * @description Code Search Result Item
+     */
     readonly "code-search-result-item": {
       readonly name: string;
       readonly path: string;
       readonly sha: string;
+      /** Format: uri */
       readonly url: string;
+      /** Format: uri */
       readonly git_url: string;
+      /** Format: uri */
       readonly html_url: string;
       readonly repository: components["schemas"]["minimal-repository"];
       readonly score: number;
       readonly file_size?: number;
       readonly language?: string | null;
+      /** Format: date-time */
       readonly last_modified_at?: string;
+      /** @example 73..77,77..78 */
       readonly line_numbers?: readonly string[];
       readonly text_matches?: components["schemas"]["search-result-text-matches"];
     };
-    /** Commit Search Result Item */
+    /**
+     * Commit Search Result Item
+     * @description Commit Search Result Item
+     */
     readonly "commit-search-result-item": {
+      /** Format: uri */
       readonly url: string;
       readonly sha: string;
+      /** Format: uri */
       readonly html_url: string;
+      /** Format: uri */
       readonly comments_url: string;
       readonly commit: {
         readonly author: {
           readonly name: string;
           readonly email: string;
+          /** Format: date-time */
           readonly date: string;
         };
         readonly committer: components["schemas"]["git-user"] | null;
@@ -9496,8 +13026,10 @@ export interface components {
         readonly message: string;
         readonly tree: {
           readonly sha: string;
+          /** Format: uri */
           readonly url: string;
         };
+        /** Format: uri */
         readonly url: string;
         readonly verification?: components["schemas"]["verification"];
       };
@@ -9513,13 +13045,21 @@ export interface components {
       readonly node_id: string;
       readonly text_matches?: components["schemas"]["search-result-text-matches"];
     };
-    /** Issue Search Result Item */
+    /**
+     * Issue Search Result Item
+     * @description Issue Search Result Item
+     */
     readonly "issue-search-result-item": {
+      /** Format: uri */
       readonly url: string;
+      /** Format: uri */
       readonly repository_url: string;
       readonly labels_url: string;
+      /** Format: uri */
       readonly comments_url: string;
+      /** Format: uri */
       readonly events_url: string;
+      /** Format: uri */
       readonly html_url: string;
       readonly id: number;
       readonly node_id: string;
@@ -9542,15 +13082,23 @@ export interface components {
       readonly assignee: components["schemas"]["simple-user"] | null;
       readonly milestone: components["schemas"]["milestone"] | null;
       readonly comments: number;
+      /** Format: date-time */
       readonly created_at: string;
+      /** Format: date-time */
       readonly updated_at: string;
+      /** Format: date-time */
       readonly closed_at: string | null;
       readonly text_matches?: components["schemas"]["search-result-text-matches"];
       readonly pull_request?: {
+        /** Format: date-time */
         readonly merged_at?: string | null;
+        /** Format: uri */
         readonly diff_url: string | null;
+        /** Format: uri */
         readonly html_url: string | null;
+        /** Format: uri */
         readonly patch_url: string | null;
+        /** Format: uri */
         readonly url: string | null;
       };
       readonly body?: string;
@@ -9560,13 +13108,18 @@ export interface components {
       readonly repository?: components["schemas"]["repository"];
       readonly body_html?: string;
       readonly body_text?: string;
+      /** Format: uri */
       readonly timeline_url?: string;
       readonly performed_via_github_app?: components["schemas"]["integration"] | null;
     };
-    /** Label Search Result Item */
+    /**
+     * Label Search Result Item
+     * @description Label Search Result Item
+     */
     readonly "label-search-result-item": {
       readonly id: number;
       readonly node_id: string;
+      /** Format: uri */
       readonly url: string;
       readonly name: string;
       readonly color: string;
@@ -9575,7 +13128,10 @@ export interface components {
       readonly score: number;
       readonly text_matches?: components["schemas"]["search-result-text-matches"];
     };
-    /** Repo Search Result Item */
+    /**
+     * Repo Search Result Item
+     * @description Repo Search Result Item
+     */
     readonly "repo-search-result-item": {
       readonly id: number;
       readonly node_id: string;
@@ -9583,13 +13139,19 @@ export interface components {
       readonly full_name: string;
       readonly owner: components["schemas"]["simple-user"] | null;
       readonly private: boolean;
+      /** Format: uri */
       readonly html_url: string;
       readonly description: string | null;
       readonly fork: boolean;
+      /** Format: uri */
       readonly url: string;
+      /** Format: date-time */
       readonly created_at: string;
+      /** Format: date-time */
       readonly updated_at: string;
+      /** Format: date-time */
       readonly pushed_at: string;
+      /** Format: uri */
       readonly homepage: string | null;
       readonly size: number;
       readonly stargazers_count: number;
@@ -9600,25 +13162,35 @@ export interface components {
       readonly master_branch?: string;
       readonly default_branch: string;
       readonly score: number;
+      /** Format: uri */
       readonly forks_url: string;
       readonly keys_url: string;
       readonly collaborators_url: string;
+      /** Format: uri */
       readonly teams_url: string;
+      /** Format: uri */
       readonly hooks_url: string;
       readonly issue_events_url: string;
+      /** Format: uri */
       readonly events_url: string;
       readonly assignees_url: string;
       readonly branches_url: string;
+      /** Format: uri */
       readonly tags_url: string;
       readonly blobs_url: string;
       readonly git_tags_url: string;
       readonly git_refs_url: string;
       readonly trees_url: string;
       readonly statuses_url: string;
+      /** Format: uri */
       readonly languages_url: string;
+      /** Format: uri */
       readonly stargazers_url: string;
+      /** Format: uri */
       readonly contributors_url: string;
+      /** Format: uri */
       readonly subscribers_url: string;
+      /** Format: uri */
       readonly subscription_url: string;
       readonly commits_url: string;
       readonly git_commits_url: string;
@@ -9626,8 +13198,10 @@ export interface components {
       readonly issue_comment_url: string;
       readonly contents_url: string;
       readonly compare_url: string;
+      /** Format: uri */
       readonly merges_url: string;
       readonly archive_url: string;
+      /** Format: uri */
       readonly downloads_url: string;
       readonly issues_url: string;
       readonly pulls_url: string;
@@ -9635,15 +13209,18 @@ export interface components {
       readonly notifications_url: string;
       readonly labels_url: string;
       readonly releases_url: string;
+      /** Format: uri */
       readonly deployments_url: string;
       readonly git_url: string;
       readonly ssh_url: string;
       readonly clone_url: string;
+      /** Format: uri */
       readonly svn_url: string;
       readonly forks: number;
       readonly open_issues: number;
       readonly watchers: number;
       readonly topics?: readonly string[];
+      /** Format: uri */
       readonly mirror_url: string | null;
       readonly has_issues: boolean;
       readonly has_projects: boolean;
@@ -9651,7 +13228,7 @@ export interface components {
       readonly has_wiki: boolean;
       readonly has_downloads: boolean;
       readonly archived: boolean;
-      /** Returns whether or not this repository disabled. */
+      /** @description Returns whether or not this repository disabled. */
       readonly disabled: boolean;
       readonly license: components["schemas"]["license-simple"] | null;
       readonly permissions?: {
@@ -9666,7 +13243,10 @@ export interface components {
       readonly allow_rebase_merge?: boolean;
       readonly delete_branch_on_merge?: boolean;
     };
-    /** Topic Search Result Item */
+    /**
+     * Topic Search Result Item
+     * @description Topic Search Result Item
+     */
     readonly "topic-search-result-item": {
       readonly name: string;
       readonly display_name: string | null;
@@ -9674,12 +13254,15 @@ export interface components {
       readonly description: string | null;
       readonly created_by: string | null;
       readonly released: string | null;
+      /** Format: date-time */
       readonly created_at: string;
+      /** Format: date-time */
       readonly updated_at: string;
       readonly featured: boolean;
       readonly curated: boolean;
       readonly score: number;
       readonly repository_count?: number | null;
+      /** Format: uri */
       readonly logo_url?: string | null;
       readonly text_matches?: components["schemas"]["search-result-text-matches"];
       readonly related?:
@@ -9703,19 +13286,30 @@ export interface components {
           }[]
         | null;
     };
-    /** User Search Result Item */
+    /**
+     * User Search Result Item
+     * @description User Search Result Item
+     */
     readonly "user-search-result-item": {
       readonly login: string;
       readonly id: number;
       readonly node_id: string;
+      /** Format: uri */
       readonly avatar_url: string;
       readonly gravatar_id: string | null;
+      /** Format: uri */
       readonly url: string;
+      /** Format: uri */
       readonly html_url: string;
+      /** Format: uri */
       readonly followers_url: string;
+      /** Format: uri */
       readonly subscriptions_url: string;
+      /** Format: uri */
       readonly organizations_url: string;
+      /** Format: uri */
       readonly repos_url: string;
+      /** Format: uri */
       readonly received_events_url: string;
       readonly type: string;
       readonly score: number;
@@ -9727,10 +13321,13 @@ export interface components {
       readonly public_gists?: number;
       readonly followers?: number;
       readonly following?: number;
+      /** Format: date-time */
       readonly created_at?: string;
+      /** Format: date-time */
       readonly updated_at?: string;
       readonly name?: string | null;
       readonly bio?: string | null;
+      /** Format: email */
       readonly email?: string | null;
       readonly location?: string | null;
       readonly site_admin: boolean;
@@ -9738,47 +13335,119 @@ export interface components {
       readonly text_matches?: components["schemas"]["search-result-text-matches"];
       readonly blog?: string | null;
       readonly company?: string | null;
+      /** Format: date-time */
       readonly suspended_at?: string | null;
     };
-    /** Private User */
+    /**
+     * Private User
+     * @description Private User
+     */
     readonly "private-user": {
+      /** @example octocat */
       readonly login: string;
+      /** @example 1 */
       readonly id: number;
+      /** @example MDQ6VXNlcjE= */
       readonly node_id: string;
+      /**
+       * Format: uri
+       * @example https://github.com/images/error/octocat_happy.gif
+       */
       readonly avatar_url: string;
+      /** @example 41d064eb2195891e12d0413f63227ea7 */
       readonly gravatar_id: string | null;
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat
+       */
       readonly url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/octocat
+       */
       readonly html_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat/followers
+       */
       readonly followers_url: string;
+      /** @example https://api.github.com/users/octocat/following{/other_user} */
       readonly following_url: string;
+      /** @example https://api.github.com/users/octocat/gists{/gist_id} */
       readonly gists_url: string;
+      /** @example https://api.github.com/users/octocat/starred{/owner}{/repo} */
       readonly starred_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat/subscriptions
+       */
       readonly subscriptions_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat/orgs
+       */
       readonly organizations_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat/repos
+       */
       readonly repos_url: string;
+      /** @example https://api.github.com/users/octocat/events{/privacy} */
       readonly events_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/users/octocat/received_events
+       */
       readonly received_events_url: string;
+      /** @example User */
       readonly type: string;
       readonly site_admin: boolean;
+      /** @example monalisa octocat */
       readonly name: string | null;
+      /** @example GitHub */
       readonly company: string | null;
+      /** @example https://github.com/blog */
       readonly blog: string | null;
+      /** @example San Francisco */
       readonly location: string | null;
+      /**
+       * Format: email
+       * @example octocat@github.com
+       */
       readonly email: string | null;
       readonly hireable: boolean | null;
+      /** @example There once was... */
       readonly bio: string | null;
+      /** @example monalisa */
       readonly twitter_username?: string | null;
+      /** @example 2 */
       readonly public_repos: number;
+      /** @example 1 */
       readonly public_gists: number;
+      /** @example 20 */
       readonly followers: number;
       readonly following: number;
+      /**
+       * Format: date-time
+       * @example 2008-01-14T04:33:35Z
+       */
       readonly created_at: string;
+      /**
+       * Format: date-time
+       * @example 2008-01-14T04:33:35Z
+       */
       readonly updated_at: string;
+      /** @example 81 */
       readonly private_gists: number;
+      /** @example 100 */
       readonly total_private_repos: number;
+      /** @example 100 */
       readonly owned_private_repos: number;
+      /** @example 10000 */
       readonly disk_usage: number;
+      /** @example 8 */
       readonly collaborators: number;
+      /** @example true */
       readonly two_factor_authentication: boolean;
       readonly plan?: {
         readonly collaborators: number;
@@ -9786,27 +13455,39 @@ export interface components {
         readonly space: number;
         readonly private_repos: number;
       };
+      /** Format: date-time */
       readonly suspended_at?: string | null;
       readonly business_plus?: boolean;
       readonly ldap_dn?: string;
     };
-    /** Public User */
+    /**
+     * Public User
+     * @description Public User
+     */
     readonly "public-user": {
       readonly login: string;
       readonly id: number;
       readonly node_id: string;
+      /** Format: uri */
       readonly avatar_url: string;
       readonly gravatar_id: string | null;
+      /** Format: uri */
       readonly url: string;
+      /** Format: uri */
       readonly html_url: string;
+      /** Format: uri */
       readonly followers_url: string;
       readonly following_url: string;
       readonly gists_url: string;
       readonly starred_url: string;
+      /** Format: uri */
       readonly subscriptions_url: string;
+      /** Format: uri */
       readonly organizations_url: string;
+      /** Format: uri */
       readonly repos_url: string;
       readonly events_url: string;
+      /** Format: uri */
       readonly received_events_url: string;
       readonly type: string;
       readonly site_admin: boolean;
@@ -9814,6 +13495,7 @@ export interface components {
       readonly company: string | null;
       readonly blog: string | null;
       readonly location: string | null;
+      /** Format: email */
       readonly email: string | null;
       readonly hireable: boolean | null;
       readonly bio: string | null;
@@ -9822,7 +13504,9 @@ export interface components {
       readonly public_gists: number;
       readonly followers: number;
       readonly following: number;
+      /** Format: date-time */
       readonly created_at: string;
+      /** Format: date-time */
       readonly updated_at: string;
       readonly plan?: {
         readonly collaborators: number;
@@ -9830,30 +13514,54 @@ export interface components {
         readonly space: number;
         readonly private_repos: number;
       };
+      /** Format: date-time */
       readonly suspended_at?: string | null;
+      /** @example 1 */
       readonly private_gists?: number;
+      /** @example 2 */
       readonly total_private_repos?: number;
+      /** @example 2 */
       readonly owned_private_repos?: number;
+      /** @example 1 */
       readonly disk_usage?: number;
+      /** @example 3 */
       readonly collaborators?: number;
     };
-    /** Email */
+    /**
+     * Email
+     * @description Email
+     */
     readonly email: {
+      /**
+       * Format: email
+       * @example octocat@github.com
+       */
       readonly email: string;
+      /** @example true */
       readonly primary: boolean;
+      /** @example true */
       readonly verified: boolean;
+      /** @example public */
       readonly visibility: string | null;
     };
-    /** A unique encryption key */
+    /**
+     * GPG Key
+     * @description A unique encryption key
+     */
     readonly "gpg-key": {
+      /** @example 3 */
       readonly id: number;
       readonly primary_key_id: number | null;
+      /** @example 3262EFF25BA0D270 */
       readonly key_id: string;
+      /** @example xsBNBFayYZ... */
       readonly public_key: string;
+      /** @example [object Object] */
       readonly emails: readonly {
         readonly email?: string;
         readonly verified?: boolean;
       }[];
+      /** @example [object Object] */
       readonly subkeys: readonly {
         readonly id?: number;
         readonly primary_key_id?: number;
@@ -9869,58 +13577,100 @@ export interface components {
         readonly expires_at?: string | null;
         readonly raw_key?: string | null;
       }[];
+      /** @example true */
       readonly can_sign: boolean;
       readonly can_encrypt_comms: boolean;
       readonly can_encrypt_storage: boolean;
+      /** @example true */
       readonly can_certify: boolean;
+      /**
+       * Format: date-time
+       * @example 2016-03-24T11:31:04-06:00
+       */
       readonly created_at: string;
+      /** Format: date-time */
       readonly expires_at: string | null;
       readonly raw_key: string | null;
     };
-    /** Key */
+    /**
+     * Key
+     * @description Key
+     */
     readonly key: {
       readonly key_id: string;
       readonly key: string;
       readonly id: number;
       readonly url: string;
       readonly title: string;
+      /** Format: date-time */
       readonly created_at: string;
       readonly verified: boolean;
       readonly read_only: boolean;
     };
+    /** Marketplace Account */
     readonly "marketplace-account": {
+      /** Format: uri */
       readonly url: string;
       readonly id: number;
       readonly type: string;
       readonly node_id?: string;
       readonly login: string;
+      /** Format: email */
       readonly email?: string | null;
+      /** Format: email */
       readonly organization_billing_email?: string | null;
     };
-    /** User Marketplace Purchase */
+    /**
+     * User Marketplace Purchase
+     * @description User Marketplace Purchase
+     */
     readonly "user-marketplace-purchase": {
+      /** @example monthly */
       readonly billing_cycle: string;
+      /**
+       * Format: date-time
+       * @example 2017-11-11T00:00:00Z
+       */
       readonly next_billing_date: string | null;
       readonly unit_count: number | null;
+      /** @example true */
       readonly on_free_trial: boolean;
+      /**
+       * Format: date-time
+       * @example 2017-11-11T00:00:00Z
+       */
       readonly free_trial_ends_on: string | null;
+      /**
+       * Format: date-time
+       * @example 2017-11-02T01:12:12Z
+       */
       readonly updated_at: string | null;
       readonly account: components["schemas"]["marketplace-account"];
       readonly plan: components["schemas"]["marketplace-listing-plan"];
     };
-    /** Starred Repository */
+    /**
+     * Starred Repository
+     * @description Starred Repository
+     */
     readonly "starred-repository": {
+      /** Format: date-time */
       readonly starred_at: string;
       readonly repo: components["schemas"]["repository"];
     };
-    /** Hovercard */
+    /**
+     * Hovercard
+     * @description Hovercard
+     */
     readonly hovercard: {
       readonly contexts: readonly {
         readonly message: string;
         readonly octicon: string;
       }[];
     };
-    /** Key Simple */
+    /**
+     * Key Simple
+     * @description Key Simple
+     */
     readonly "key-simple": {
       readonly id: number;
       readonly key: string;
@@ -10070,34 +13820,34 @@ export interface components {
     };
   };
   readonly parameters: {
-    /** Results per page (max 100). */
+    /** @description Results per page (max 100). */
     readonly per_page: number;
-    /** Page number of the results to fetch. */
+    /** @description Page number of the results to fetch. */
     readonly page: number;
-    /** Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
+    /** @description Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
     readonly since: string;
-    /** installation_id parameter */
+    /** @description installation_id parameter */
     readonly installation_id: number;
-    /** grant_id parameter */
+    /** @description grant_id parameter */
     readonly grant_id: number;
-    /** The client ID of your GitHub app. */
+    /** @description The client ID of your GitHub app. */
     readonly "client-id": string;
     readonly "access-token": string;
     readonly app_slug: string;
-    /** authorization_id parameter */
+    /** @description authorization_id parameter */
     readonly authorization_id: number;
-    /** The slug version of the enterprise name. You can also substitute this value with the enterprise id. */
+    /** @description The slug version of the enterprise name. You can also substitute this value with the enterprise id. */
     readonly enterprise: string;
-    /** Unique identifier of an organization. */
+    /** @description Unique identifier of an organization. */
     readonly org_id: number;
-    /** Unique identifier of the self-hosted runner group. */
+    /** @description Unique identifier of the self-hosted runner group. */
     readonly runner_group_id: number;
-    /** Unique identifier of the self-hosted runner. */
+    /** @description Unique identifier of the self-hosted runner. */
     readonly runner_id: number;
-    /** A search phrase. For more information, see [Searching the audit log](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/reviewing-the-audit-log-for-your-organization#searching-the-audit-log). */
+    /** @description A search phrase. For more information, see [Searching the audit log](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/reviewing-the-audit-log-for-your-organization#searching-the-audit-log). */
     readonly "audit-log-phrase": string;
     /**
-     * The event types to include:
+     * @description The event types to include:
      *
      * - `web` - returns web (non-Git) events
      * - `git` - returns Git events
@@ -10106,81 +13856,81 @@ export interface components {
      * The default is `web`.
      */
     readonly "audit-log-include": "web" | "git" | "all";
-    /** A cursor, as given in the [Link header](https://docs.github.com/rest/overview/resources-in-the-rest-api#link-header). If specified, the query only searches for events after this cursor. */
+    /** @description A cursor, as given in the [Link header](https://docs.github.com/rest/overview/resources-in-the-rest-api#link-header). If specified, the query only searches for events after this cursor. */
     readonly "audit-log-after": string;
-    /** A cursor, as given in the [Link header](https://docs.github.com/rest/overview/resources-in-the-rest-api#link-header). If specified, the query only searches for events before this cursor. */
+    /** @description A cursor, as given in the [Link header](https://docs.github.com/rest/overview/resources-in-the-rest-api#link-header). If specified, the query only searches for events before this cursor. */
     readonly "audit-log-before": string;
     /**
-     * The order of audit log events. To list newest events first, specify `desc`. To list oldest events first, specify `asc`.
+     * @description The order of audit log events. To list newest events first, specify `desc`. To list oldest events first, specify `asc`.
      *
      * The default is `desc`.
      */
     readonly "audit-log-order": "desc" | "asc";
-    /** gist_id parameter */
+    /** @description gist_id parameter */
     readonly gist_id: string;
-    /** comment_id parameter */
+    /** @description comment_id parameter */
     readonly comment_id: number;
-    /** A list of comma separated label names. Example: `bug,ui,@high` */
+    /** @description A list of comma separated label names. Example: `bug,ui,@high` */
     readonly labels: string;
-    /** One of `asc` (ascending) or `desc` (descending). */
+    /** @description One of `asc` (ascending) or `desc` (descending). */
     readonly direction: "asc" | "desc";
-    /** account_id parameter */
+    /** @description account_id parameter */
     readonly account_id: number;
-    /** plan_id parameter */
+    /** @description plan_id parameter */
     readonly plan_id: number;
-    /** One of `created` (when the repository was starred) or `updated` (when it was last pushed to). */
+    /** @description One of `created` (when the repository was starred) or `updated` (when it was last pushed to). */
     readonly sort: "created" | "updated";
     readonly owner: string;
     readonly repo: string;
-    /** If `true`, show notifications marked as read. */
+    /** @description If `true`, show notifications marked as read. */
     readonly all: boolean;
-    /** If `true`, only shows notifications in which the user is directly participating or mentioned. */
+    /** @description If `true`, only shows notifications in which the user is directly participating or mentioned. */
     readonly participating: boolean;
-    /** Only show notifications updated before the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
+    /** @description Only show notifications updated before the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
     readonly before: string;
-    /** thread_id parameter */
+    /** @description thread_id parameter */
     readonly thread_id: number;
-    /** An organization ID. Only return organizations with an ID greater than this ID. */
+    /** @description An organization ID. Only return organizations with an ID greater than this ID. */
     readonly "since-org": number;
     readonly org: string;
     readonly repository_id: number;
-    /** secret_name parameter */
+    /** @description secret_name parameter */
     readonly secret_name: string;
     readonly username: string;
     readonly "hook-id": number;
-    /** invitation_id parameter */
+    /** @description invitation_id parameter */
     readonly invitation_id: number;
-    /** migration_id parameter */
+    /** @description migration_id parameter */
     readonly migration_id: number;
-    /** repo_name parameter */
+    /** @description repo_name parameter */
     readonly repo_name: string;
-    /** The type of supported package. Can be one of `npm`, `maven`, `rubygems`, `nuget`, `docker`, or `container`. For Docker images that use the package namespace `https://ghcr.io/owner/package-name`, use `container`. */
+    /** @description The type of supported package. Can be one of `npm`, `maven`, `rubygems`, `nuget`, `docker`, or `container`. For Docker images that use the package namespace `https://ghcr.io/owner/package-name`, use `container`. */
     readonly package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
-    /** The name of the package. */
+    /** @description The name of the package. */
     readonly package_name: string;
-    /** Unique identifier of the package version. */
+    /** @description Unique identifier of the package version. */
     readonly package_version_id: number;
-    /** team_slug parameter */
+    /** @description team_slug parameter */
     readonly team_slug: string;
     readonly "discussion-number": number;
     readonly "comment-number": number;
     readonly "reaction-id": number;
     readonly "project-id": number;
-    /** card_id parameter */
+    /** @description card_id parameter */
     readonly card_id: number;
-    /** column_id parameter */
+    /** @description column_id parameter */
     readonly column_id: number;
-    /** artifact_id parameter */
+    /** @description artifact_id parameter */
     readonly artifact_id: number;
-    /** job_id parameter */
+    /** @description job_id parameter */
     readonly job_id: number;
-    /** Returns someone's workflow runs. Use the login for the user who created the `push` associated with the check suite or workflow run. */
+    /** @description Returns someone's workflow runs. Use the login for the user who created the `push` associated with the check suite or workflow run. */
     readonly actor: string;
-    /** Returns workflow runs associated with a branch. Use the name of the branch of the `push`. */
+    /** @description Returns workflow runs associated with a branch. Use the name of the branch of the `push`. */
     readonly "workflow-run-branch": string;
-    /** Returns workflow run triggered by the event you specify. For example, `push`, `pull_request` or `issue`. For more information, see "[Events that trigger workflows](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows)." */
+    /** @description Returns workflow run triggered by the event you specify. For example, `push`, `pull_request` or `issue`. For more information, see "[Events that trigger workflows](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows)." */
     readonly event: string;
-    /** Returns workflow runs with the check run `status` or `conclusion` that you specify. For example, a conclusion can be `success` or a status can be `in_progress`. Only GitHub can set a status of `waiting` or `requested`. For a list of the possible `status` and `conclusion` options, see "[Create a check run](https://docs.github.com/rest/reference/checks#create-a-check-run)." */
+    /** @description Returns workflow runs with the check run `status` or `conclusion` that you specify. For example, a conclusion can be `success` or a status can be `in_progress`. Only GitHub can set a status of `waiting` or `requested`. For a list of the possible `status` and `conclusion` options, see "[Create a check run](https://docs.github.com/rest/reference/checks#create-a-check-run)." */
     readonly "workflow-run-status":
       | "completed"
       | "action_required"
@@ -10195,65 +13945,65 @@ export interface components {
       | "queued"
       | "requested"
       | "waiting";
-    /** The id of the workflow run */
+    /** @description The id of the workflow run */
     readonly "run-id": number;
-    /** The ID of the workflow. You can also pass the workflow file name as a string. */
+    /** @description The ID of the workflow. You can also pass the workflow file name as a string. */
     readonly "workflow-id": number | string;
-    /** The name of the branch. */
+    /** @description The name of the branch. */
     readonly branch: string;
-    /** check_run_id parameter */
+    /** @description check_run_id parameter */
     readonly check_run_id: number;
-    /** check_suite_id parameter */
+    /** @description check_suite_id parameter */
     readonly check_suite_id: number;
-    /** Returns check runs with the specified `name`. */
+    /** @description Returns check runs with the specified `name`. */
     readonly check_name: string;
-    /** Returns check runs with the specified `status`. Can be one of `queued`, `in_progress`, or `completed`. */
+    /** @description Returns check runs with the specified `status`. Can be one of `queued`, `in_progress`, or `completed`. */
     readonly status: "queued" | "in_progress" | "completed";
-    /** The name of a code scanning tool. Only results by this tool will be listed. You can specify the tool by using either `tool_name` or `tool_guid`, but not both. */
+    /** @description The name of a code scanning tool. Only results by this tool will be listed. You can specify the tool by using either `tool_name` or `tool_guid`, but not both. */
     readonly tool_name: components["schemas"]["code-scanning-analysis-tool-name"];
-    /** The GUID of a code scanning tool. Only results by this tool will be listed. Note that some code scanning tools may not include a GUID in their analysis data. You can specify the tool by using either `tool_guid` or `tool_name`, but not both. */
+    /** @description The GUID of a code scanning tool. Only results by this tool will be listed. Note that some code scanning tools may not include a GUID in their analysis data. You can specify the tool by using either `tool_guid` or `tool_name`, but not both. */
     readonly tool_guid: components["schemas"]["code-scanning-analysis-tool-guid"];
-    /** The Git reference for the results you want to list. The `ref` for a branch can be formatted either as `refs/heads/<branch name>` or simply `<branch name>`. To reference a pull request use `refs/pull/<number>/merge`. */
+    /** @description The Git reference for the results you want to list. The `ref` for a branch can be formatted either as `refs/heads/<branch name>` or simply `<branch name>`. To reference a pull request use `refs/pull/<number>/merge`. */
     readonly git_ref: components["schemas"]["code-scanning-ref"];
-    /** The number that identifies an alert. You can find this at the end of the URL for a code scanning alert within GitHub, and in the `number` field in the response from the `GET /repos/{owner}/{repo}/code-scanning/alerts` operation. */
+    /** @description The number that identifies an alert. You can find this at the end of the URL for a code scanning alert within GitHub, and in the `number` field in the response from the `GET /repos/{owner}/{repo}/code-scanning/alerts` operation. */
     readonly alert_number: components["schemas"]["alert-number"];
-    /** commit_sha parameter */
+    /** @description commit_sha parameter */
     readonly commit_sha: string;
-    /** deployment_id parameter */
+    /** @description deployment_id parameter */
     readonly deployment_id: number;
-    /** The name of the environment */
+    /** @description The name of the environment */
     readonly environment_name: string;
-    /** A user ID. Only return users with an ID greater than this ID. */
+    /** @description A user ID. Only return users with an ID greater than this ID. */
     readonly "since-user": number;
-    /** issue_number parameter */
+    /** @description issue_number parameter */
     readonly issue_number: number;
-    /** key_id parameter */
+    /** @description key_id parameter */
     readonly key_id: number;
-    /** milestone_number parameter */
+    /** @description milestone_number parameter */
     readonly milestone_number: number;
     readonly "pull-number": number;
-    /** review_id parameter */
+    /** @description review_id parameter */
     readonly review_id: number;
-    /** asset_id parameter */
+    /** @description asset_id parameter */
     readonly asset_id: number;
-    /** release_id parameter */
+    /** @description release_id parameter */
     readonly release_id: number;
-    /** Must be one of: `day`, `week`. */
+    /** @description Must be one of: `day`, `week`. */
     readonly per: "day" | "week";
-    /** A repository ID. Only return repositories with an ID greater than this ID. */
+    /** @description A repository ID. Only return repositories with an ID greater than this ID. */
     readonly "since-repo": number;
-    /** Used for pagination: the index of the first result to return. */
+    /** @description Used for pagination: the index of the first result to return. */
     readonly start_index: number;
-    /** Used for pagination: the number of results to return. */
+    /** @description Used for pagination: the number of results to return. */
     readonly count: number;
-    /** Identifier generated by the GitHub SCIM endpoint. */
+    /** @description Identifier generated by the GitHub SCIM endpoint. */
     readonly scim_group_id: string;
-    /** scim_user_id parameter */
+    /** @description scim_user_id parameter */
     readonly scim_user_id: string;
-    /** Determines whether the first search result returned is the highest number of matches (`desc`) or lowest number of matches (`asc`). This parameter is ignored unless you provide `sort`. */
+    /** @description Determines whether the first search result returned is the highest number of matches (`desc`) or lowest number of matches (`asc`). This parameter is ignored unless you provide `sort`. */
     readonly order: "desc" | "asc";
     readonly "team-id": number;
-    /** gpg_key_id parameter */
+    /** @description gpg_key_id parameter */
     readonly gpg_key_id: number;
   };
   readonly headers: {
@@ -10275,38 +14025,71 @@ export interface operations {
       readonly 200: {
         readonly content: {
           readonly "application/json": {
+            /** Format: uri */
             readonly current_user_url: string;
+            /** Format: uri */
             readonly current_user_authorizations_html_url: string;
+            /** Format: uri */
             readonly authorizations_url: string;
+            /** Format: uri */
             readonly code_search_url: string;
+            /** Format: uri */
             readonly commit_search_url: string;
+            /** Format: uri */
             readonly emails_url: string;
+            /** Format: uri */
             readonly emojis_url: string;
+            /** Format: uri */
             readonly events_url: string;
+            /** Format: uri */
             readonly feeds_url: string;
+            /** Format: uri */
             readonly followers_url: string;
+            /** Format: uri */
             readonly following_url: string;
+            /** Format: uri */
             readonly gists_url: string;
+            /** Format: uri */
             readonly hub_url: string;
+            /** Format: uri */
             readonly issue_search_url: string;
+            /** Format: uri */
             readonly issues_url: string;
+            /** Format: uri */
             readonly keys_url: string;
+            /** Format: uri */
             readonly label_search_url: string;
+            /** Format: uri */
             readonly notifications_url: string;
+            /** Format: uri */
             readonly organization_url: string;
+            /** Format: uri */
             readonly organization_repositories_url: string;
+            /** Format: uri */
             readonly organization_teams_url: string;
+            /** Format: uri */
             readonly public_gists_url: string;
+            /** Format: uri */
             readonly rate_limit_url: string;
+            /** Format: uri */
             readonly repository_url: string;
+            /** Format: uri */
             readonly repository_search_url: string;
+            /** Format: uri */
             readonly current_user_repositories_url: string;
+            /** Format: uri */
             readonly starred_url: string;
+            /** Format: uri */
             readonly starred_gists_url: string;
+            /** Format: uri */
             readonly topic_search_url?: string;
+            /** Format: uri */
             readonly user_url: string;
+            /** Format: uri */
             readonly user_organizations_url: string;
+            /** Format: uri */
             readonly user_repositories_url: string;
+            /** Format: uri */
             readonly user_search_url: string;
           };
         };
@@ -10489,9 +14272,12 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** List of repository names that the token should have access to */
+          /** @description List of repository names that the token should have access to */
           readonly repositories?: readonly string[];
-          /** List of repository IDs that the token should have access to */
+          /**
+           * @description List of repository IDs that the token should have access to
+           * @example 1
+           */
           readonly repository_ids?: readonly number[];
           readonly permissions?: components["schemas"]["app-permissions"];
         };
@@ -10621,7 +14407,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The OAuth access token used to authenticate to the GitHub API. */
+          /** @description The OAuth access token used to authenticate to the GitHub API. */
           readonly access_token?: string;
         };
       };
@@ -10668,7 +14454,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The access_token of the OAuth application. */
+          /** @description The access_token of the OAuth application. */
           readonly access_token: string;
         };
       };
@@ -10690,7 +14476,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The OAuth access token used to authenticate to the GitHub API. */
+          /** @description The OAuth access token used to authenticate to the GitHub API. */
           readonly access_token?: string;
         };
       };
@@ -10716,7 +14502,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The access_token of the OAuth application. */
+          /** @description The access_token of the OAuth application. */
           readonly access_token: string;
         };
       };
@@ -10745,15 +14531,27 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** **Required.** The OAuth access token used to authenticate to the GitHub API. */
+          /**
+           * @description **Required.** The OAuth access token used to authenticate to the GitHub API.
+           * @example e72e16c7e42f292c6912e7710c838347ae178b4a
+           */
           readonly access_token?: string;
-          /** The name of the user or organization to scope the user-to-server access token to. **Required** unless `target_id` is specified. */
+          /**
+           * @description The name of the user or organization to scope the user-to-server access token to. **Required** unless `target_id` is specified.
+           * @example octocat
+           */
           readonly target?: string;
-          /** The ID of the user or organization to scope the user-to-server access token to. **Required** unless `target` is specified. */
+          /**
+           * @description The ID of the user or organization to scope the user-to-server access token to. **Required** unless `target` is specified.
+           * @example 1
+           */
           readonly target_id?: number;
-          /** The list of repository IDs to scope the user-to-server access token to. `repositories` may not be specified if `repository_ids` is specified. */
+          /** @description The list of repository IDs to scope the user-to-server access token to. `repositories` may not be specified if `repository_ids` is specified. */
           readonly repositories?: readonly string[];
-          /** The list of repository names to scope the user-to-server access token to. `repository_ids` may not be specified if `repositories` is specified. */
+          /**
+           * @description The list of repository names to scope the user-to-server access token to. `repository_ids` may not be specified if `repositories` is specified.
+           * @example 1
+           */
           readonly repository_ids?: readonly number[];
           readonly permissions?: components["schemas"]["app-permissions"];
         };
@@ -10904,17 +14702,23 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** A list of scopes that this authorization is in. */
+          /**
+           * @description A list of scopes that this authorization is in.
+           * @example public_repo,user
+           */
           readonly scopes?: readonly string[] | null;
-          /** A note to remind you what the OAuth token is for. */
+          /**
+           * @description A note to remind you what the OAuth token is for.
+           * @example Update all gems
+           */
           readonly note?: string;
-          /** A URL to remind you what app the OAuth token is for. */
+          /** @description A URL to remind you what app the OAuth token is for. */
           readonly note_url?: string;
-          /** The OAuth app client key for which to create the token. */
+          /** @description The OAuth app client key for which to create the token. */
           readonly client_id?: string;
-          /** The OAuth app client secret for which to create the token. */
+          /** @description The OAuth app client secret for which to create the token. */
           readonly client_secret?: string;
-          /** A unique string to distinguish an authorization from others created for the same client ID and user. */
+          /** @description A unique string to distinguish an authorization from others created for the same client ID and user. */
           readonly fingerprint?: string;
         };
       };
@@ -10965,15 +14769,21 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The OAuth app client secret for which to create the token. */
+          /** @description The OAuth app client secret for which to create the token. */
           readonly client_secret: string;
-          /** A list of scopes that this authorization is in. */
+          /**
+           * @description A list of scopes that this authorization is in.
+           * @example public_repo,user
+           */
           readonly scopes?: readonly string[] | null;
-          /** A note to remind you what the OAuth token is for. */
+          /**
+           * @description A note to remind you what the OAuth token is for.
+           * @example Update all gems
+           */
           readonly note?: string;
-          /** A URL to remind you what app the OAuth token is for. */
+          /** @description A URL to remind you what app the OAuth token is for. */
           readonly note_url?: string;
-          /** A unique string to distinguish an authorization from others created for the same client ID and user. */
+          /** @description A unique string to distinguish an authorization from others created for the same client ID and user. */
           readonly fingerprint?: string;
         };
       };
@@ -11020,13 +14830,19 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The OAuth app client secret for which to create the token. */
+          /** @description The OAuth app client secret for which to create the token. */
           readonly client_secret: string;
-          /** A list of scopes that this authorization is in. */
+          /**
+           * @description A list of scopes that this authorization is in.
+           * @example public_repo,user
+           */
           readonly scopes?: readonly string[] | null;
-          /** A note to remind you what the OAuth token is for. */
+          /**
+           * @description A note to remind you what the OAuth token is for.
+           * @example Update all gems
+           */
           readonly note?: string;
-          /** A URL to remind you what app the OAuth token is for. */
+          /** @description A URL to remind you what app the OAuth token is for. */
           readonly note_url?: string;
         };
       };
@@ -11094,17 +14910,23 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** A list of scopes that this authorization is in. */
+          /**
+           * @description A list of scopes that this authorization is in.
+           * @example public_repo,user
+           */
           readonly scopes?: readonly string[] | null;
-          /** A list of scopes to add to this authorization. */
+          /** @description A list of scopes to add to this authorization. */
           readonly add_scopes?: readonly string[];
-          /** A list of scopes to remove from this authorization. */
+          /** @description A list of scopes to remove from this authorization. */
           readonly remove_scopes?: readonly string[];
-          /** A note to remind you what the OAuth token is for. */
+          /**
+           * @description A note to remind you what the OAuth token is for.
+           * @example Update all gems
+           */
           readonly note?: string;
-          /** A URL to remind you what app the OAuth token is for. */
+          /** @description A URL to remind you what app the OAuth token is for. */
           readonly note_url?: string;
-          /** A unique string to distinguish an authorization from others created for the same client ID and user. */
+          /** @description A unique string to distinguish an authorization from others created for the same client ID and user. */
           readonly fingerprint?: string;
         };
       };
@@ -11171,9 +14993,15 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The title of the attachment */
+          /**
+           * @description The title of the attachment
+           * @example Title of the attachment
+           */
           readonly title: string;
-          /** The body of the attachment */
+          /**
+           * @description The body of the attachment
+           * @example Body of the attachment
+           */
           readonly body: string;
         };
       };
@@ -11287,7 +15115,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** List of organization IDs to enable for GitHub Actions. */
+          /** @description List of organization IDs to enable for GitHub Actions. */
           readonly selected_organization_ids: readonly number[];
         };
       };
@@ -11427,13 +15255,13 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Name of the runner group. */
+          /** @description Name of the runner group. */
           readonly name: string;
-          /** Visibility of a runner group. You can select all organizations or select individual organization. Can be one of: `all` or `selected` */
+          /** @description Visibility of a runner group. You can select all organizations or select individual organization. Can be one of: `all` or `selected` */
           readonly visibility?: "selected" | "all";
-          /** List of organization IDs that can access the runner group. */
+          /** @description List of organization IDs that can access the runner group. */
           readonly selected_organization_ids?: readonly number[];
-          /** List of runner IDs to add to the runner group. */
+          /** @description List of runner IDs to add to the runner group. */
           readonly runners?: readonly number[];
         };
       };
@@ -11506,9 +15334,12 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Name of the runner group. */
+          /** @description Name of the runner group. */
           readonly name?: string;
-          /** Visibility of a runner group. You can select all organizations or select individual organizations. Can be one of: `all` or `selected` */
+          /**
+           * @description Visibility of a runner group. You can select all organizations or select individual organizations. Can be one of: `all` or `selected`
+           * @default all
+           */
           readonly visibility?: "selected" | "all";
         };
       };
@@ -11567,7 +15398,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** List of organization IDs that can access the runner group. */
+          /** @description List of organization IDs that can access the runner group. */
           readonly selected_organization_ids: readonly number[];
         };
       };
@@ -11669,7 +15500,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** List of runner IDs to add to the runner group. */
+          /** @description List of runner IDs to add to the runner group. */
           readonly runners: readonly number[];
         };
       };
@@ -12082,12 +15913,18 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Description of the gist */
+          /**
+           * @description Description of the gist
+           * @example Example Ruby script
+           */
           readonly description?: string;
-          /** Names and content for the files that make up the gist */
+          /**
+           * @description Names and content for the files that make up the gist
+           * @example [object Object]
+           */
           readonly files: {
             readonly [key: string]: {
-              /** Content of the file */
+              /** @description Content of the file */
               readonly content: string;
             };
           };
@@ -12205,9 +16042,15 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Description of the gist */
+          /**
+           * @description Description of the gist
+           * @example Example Ruby script
+           */
           readonly description?: string;
-          /** Names of files to be updated */
+          /**
+           * @description Names of files to be updated
+           * @example [object Object]
+           */
           readonly files?: { readonly [key: string]: Partial<{ readonly [key: string]: unknown }> };
         } | null;
       };
@@ -12263,7 +16106,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The comment text. */
+          /**
+           * @description The comment text.
+           * @example Body of the attachment
+           */
           readonly body: string;
         };
       };
@@ -12328,7 +16174,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The comment text. */
+          /**
+           * @description The comment text.
+           * @example Body of the attachment
+           */
           readonly body: string;
         };
       };
@@ -12538,6 +16387,7 @@ export interface operations {
           readonly "application/json": {
             readonly total_count: number;
             readonly repositories: readonly components["schemas"]["repository"][];
+            /** @example selected */
             readonly repository_selection?: string;
           };
         };
@@ -12670,11 +16520,15 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The Markdown text to render in HTML. */
+          /** @description The Markdown text to render in HTML. */
           readonly text: string;
-          /** The rendering mode. */
+          /**
+           * @description The rendering mode.
+           * @default markdown
+           * @example markdown
+           */
           readonly mode?: "markdown" | "gfm";
-          /** The repository context to use when creating references in `gfm` mode. */
+          /** @description The repository context to use when creating references in `gfm` mode. */
           readonly context?: string;
         };
       };
@@ -12967,9 +16821,12 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Describes the last point that notifications were checked. */
+          /**
+           * Format: date-time
+           * @description Describes the last point that notifications were checked.
+           */
           readonly last_read_at?: string;
-          /** Whether the notification has been read. */
+          /** @description Whether the notification has been read. */
           readonly read?: boolean;
         };
       };
@@ -13060,7 +16917,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Whether to block all notifications from a thread. */
+          /** @description Whether to block all notifications from a thread. */
           readonly ignored?: boolean;
         };
       };
@@ -13179,63 +17036,65 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Billing email address. This address is not publicized. */
+          /** @description Billing email address. This address is not publicized. */
           readonly billing_email?: string;
-          /** The company name. */
+          /** @description The company name. */
           readonly company?: string;
-          /** The publicly visible email address. */
+          /** @description The publicly visible email address. */
           readonly email?: string;
-          /** The Twitter username of the company. */
+          /** @description The Twitter username of the company. */
           readonly twitter_username?: string;
-          /** The location. */
+          /** @description The location. */
           readonly location?: string;
-          /** The shorthand name of the company. */
+          /** @description The shorthand name of the company. */
           readonly name?: string;
-          /** The description of the company. */
+          /** @description The description of the company. */
           readonly description?: string;
-          /** Toggles whether an organization can use organization projects. */
+          /** @description Toggles whether an organization can use organization projects. */
           readonly has_organization_projects?: boolean;
-          /** Toggles whether repositories that belong to the organization can use repository projects. */
+          /** @description Toggles whether repositories that belong to the organization can use repository projects. */
           readonly has_repository_projects?: boolean;
           /**
-           * Default permission level members have for organization repositories:
+           * @description Default permission level members have for organization repositories:
            * \* `read` - can pull, but not push to or administer this repository.
            * \* `write` - can pull and push, but not administer this repository.
            * \* `admin` - can pull, push, and administer this repository.
            * \* `none` - no permissions granted by default.
+           * @default read
            */
           readonly default_repository_permission?: "read" | "write" | "admin" | "none";
           /**
-           * Toggles the ability of non-admin organization members to create repositories. Can be one of:
+           * @description Toggles the ability of non-admin organization members to create repositories. Can be one of:
            * \* `true` - all organization members can create repositories.
            * \* `false` - only organization owners can create repositories.
            * Default: `true`
            * **Note:** A parameter can override this parameter. See `members_allowed_repository_creation_type` in this table for details. **Note:** A parameter can override this parameter. See `members_allowed_repository_creation_type` in this table for details.
+           * @default true
            */
           readonly members_can_create_repositories?: boolean;
           /**
-           * Toggles whether organization members can create internal repositories, which are visible to all enterprise members. You can only allow members to create internal repositories if your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+. Can be one of:
+           * @description Toggles whether organization members can create internal repositories, which are visible to all enterprise members. You can only allow members to create internal repositories if your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+. Can be one of:
            * \* `true` - all organization members can create internal repositories.
            * \* `false` - only organization owners can create internal repositories.
            * Default: `true`. For more information, see "[Restricting repository creation in your organization](https://help.github.com/github/setting-up-and-managing-organizations-and-teams/restricting-repository-creation-in-your-organization)" in the GitHub Help documentation.
            */
           readonly members_can_create_internal_repositories?: boolean;
           /**
-           * Toggles whether organization members can create private repositories, which are visible to organization members with permission. Can be one of:
+           * @description Toggles whether organization members can create private repositories, which are visible to organization members with permission. Can be one of:
            * \* `true` - all organization members can create private repositories.
            * \* `false` - only organization owners can create private repositories.
            * Default: `true`. For more information, see "[Restricting repository creation in your organization](https://help.github.com/github/setting-up-and-managing-organizations-and-teams/restricting-repository-creation-in-your-organization)" in the GitHub Help documentation.
            */
           readonly members_can_create_private_repositories?: boolean;
           /**
-           * Toggles whether organization members can create public repositories, which are visible to anyone. Can be one of:
+           * @description Toggles whether organization members can create public repositories, which are visible to anyone. Can be one of:
            * \* `true` - all organization members can create public repositories.
            * \* `false` - only organization owners can create public repositories.
            * Default: `true`. For more information, see "[Restricting repository creation in your organization](https://help.github.com/github/setting-up-and-managing-organizations-and-teams/restricting-repository-creation-in-your-organization)" in the GitHub Help documentation.
            */
           readonly members_can_create_public_repositories?: boolean;
           /**
-           * Specifies which types of repositories non-admin organization members can create. Can be one of:
+           * @description Specifies which types of repositories non-admin organization members can create. Can be one of:
            * \* `all` - all organization members can create public and private repositories.
            * \* `private` - members can create private repositories. This option is only available to repositories that are part of an organization on GitHub Enterprise Cloud.
            * \* `none` - only admin members can create repositories.
@@ -13243,23 +17102,27 @@ export interface operations {
            */
           readonly members_allowed_repository_creation_type?: "all" | "private" | "none";
           /**
-           * Toggles whether organization members can create GitHub Pages sites. Can be one of:
+           * @description Toggles whether organization members can create GitHub Pages sites. Can be one of:
            * \* `true` - all organization members can create GitHub Pages sites.
            * \* `false` - no organization members can create GitHub Pages sites. Existing published sites will not be impacted.
+           * @default true
            */
           readonly members_can_create_pages?: boolean;
           /**
-           * Toggles whether organization members can create public GitHub Pages sites. Can be one of:
+           * @description Toggles whether organization members can create public GitHub Pages sites. Can be one of:
            * \* `true` - all organization members can create public GitHub Pages sites.
            * \* `false` - no organization members can create public GitHub Pages sites. Existing published sites will not be impacted.
+           * @default true
            */
           readonly members_can_create_public_pages?: boolean;
           /**
-           * Toggles whether organization members can create private GitHub Pages sites. Can be one of:
+           * @description Toggles whether organization members can create private GitHub Pages sites. Can be one of:
            * \* `true` - all organization members can create private GitHub Pages sites.
            * \* `false` - no organization members can create private GitHub Pages sites. Existing published sites will not be impacted.
+           * @default true
            */
           readonly members_can_create_private_pages?: boolean;
+          /** @example "http://github.blog" */
           readonly blog?: string;
         };
       };
@@ -13358,7 +17221,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** List of repository IDs to enable for GitHub Actions. */
+          /** @description List of repository IDs to enable for GitHub Actions. */
           readonly selected_repository_ids: readonly number[];
         };
       };
@@ -13498,13 +17361,16 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Name of the runner group. */
+          /** @description Name of the runner group. */
           readonly name: string;
-          /** Visibility of a runner group. You can select all repositories, select individual repositories, or limit access to private repositories. Can be one of: `all`, `selected`, or `private`. */
+          /**
+           * @description Visibility of a runner group. You can select all repositories, select individual repositories, or limit access to private repositories. Can be one of: `all`, `selected`, or `private`.
+           * @default all
+           */
           readonly visibility?: "selected" | "all" | "private";
-          /** List of repository IDs that can access the runner group. */
+          /** @description List of repository IDs that can access the runner group. */
           readonly selected_repository_ids?: readonly number[];
-          /** List of runner IDs to add to the runner group. */
+          /** @description List of runner IDs to add to the runner group. */
           readonly runners?: readonly number[];
         };
       };
@@ -13580,9 +17446,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Name of the runner group. */
+          /** @description Name of the runner group. */
           readonly name?: string;
-          /** Visibility of a runner group. You can select all repositories, select individual repositories, or all private repositories. Can be one of: `all`, `selected`, or `private`. */
+          /** @description Visibility of a runner group. You can select all repositories, select individual repositories, or all private repositories. Can be one of: `all`, `selected`, or `private`. */
           readonly visibility?: "selected" | "all" | "private";
         };
       };
@@ -13637,7 +17503,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** List of repository IDs that can access the runner group. */
+          /** @description List of repository IDs that can access the runner group. */
           readonly selected_repository_ids: readonly number[];
         };
       };
@@ -13744,7 +17610,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** List of runner IDs to add to the runner group. */
+          /** @description List of runner IDs to add to the runner group. */
           readonly runners: readonly number[];
         };
       };
@@ -14098,18 +17964,18 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an organization public key](https://docs.github.com/rest/reference/actions#get-an-organization-public-key) endpoint. */
+          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an organization public key](https://docs.github.com/rest/reference/actions#get-an-organization-public-key) endpoint. */
           readonly encrypted_value?: string;
-          /** ID of the key you used to encrypt the secret. */
+          /** @description ID of the key you used to encrypt the secret. */
           readonly key_id?: string;
           /**
-           * Configures the access that repositories have to the organization secret. Can be one of:
+           * @description Configures the access that repositories have to the organization secret. Can be one of:
            * \- `all` - All repositories in an organization can access the secret.
            * \- `private` - Private repositories in an organization can access the secret.
            * \- `selected` - Only specific repositories can access the secret.
            */
           readonly visibility?: "all" | "private" | "selected";
-          /** An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can manage the list of selected repositories using the [List selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#list-selected-repositories-for-an-organization-secret), [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret), and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret) endpoints. */
+          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can manage the list of selected repositories using the [List selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#list-selected-repositories-for-an-organization-secret), [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret), and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret) endpoints. */
           readonly selected_repository_ids?: readonly string[];
         };
       };
@@ -14166,7 +18032,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret) and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret) endpoints. */
+          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret) and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret) endpoints. */
           readonly selected_repository_ids?: readonly number[];
         };
       };
@@ -14443,20 +18309,28 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Must be passed as "web". */
+          /** @description Must be passed as "web". */
           readonly name: string;
-          /** Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/orgs#create-hook-config-params). */
+          /** @description Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/orgs#create-hook-config-params). */
           readonly config: {
             readonly url: components["schemas"]["webhook-config-url"];
             readonly content_type?: components["schemas"]["webhook-config-content-type"];
             readonly secret?: components["schemas"]["webhook-config-secret"];
             readonly insecure_ssl?: components["schemas"]["webhook-config-insecure-ssl"];
+            /** @example "kdaigle" */
             readonly username?: string;
+            /** @example "password" */
             readonly password?: string;
           };
-          /** Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. */
+          /**
+           * @description Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for.
+           * @default push
+           */
           readonly events?: readonly string[];
-          /** Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications. */
+          /**
+           * @description Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
+           * @default true
+           */
           readonly active?: boolean;
         };
       };
@@ -14514,17 +18388,24 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/orgs#update-hook-config-params). */
+          /** @description Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/orgs#update-hook-config-params). */
           readonly config?: {
             readonly url: components["schemas"]["webhook-config-url"];
             readonly content_type?: components["schemas"]["webhook-config-content-type"];
             readonly secret?: components["schemas"]["webhook-config-secret"];
             readonly insecure_ssl?: components["schemas"]["webhook-config-insecure-ssl"];
           };
-          /** Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. */
+          /**
+           * @description Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for.
+           * @default push
+           */
           readonly events?: readonly string[];
-          /** Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications. */
+          /**
+           * @description Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
+           * @default true
+           */
           readonly active?: boolean;
+          /** @example "web" */
           readonly name?: string;
         };
       };
@@ -14740,18 +18621,19 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** **Required unless you provide `email`**. GitHub user ID for the person you are inviting. */
+          /** @description **Required unless you provide `email`**. GitHub user ID for the person you are inviting. */
           readonly invitee_id?: number;
-          /** **Required unless you provide `invitee_id`**. Email address of the person you are inviting, which can be an existing GitHub user. */
+          /** @description **Required unless you provide `invitee_id`**. Email address of the person you are inviting, which can be an existing GitHub user. */
           readonly email?: string;
           /**
-           * Specify role for new member. Can be one of:
+           * @description Specify role for new member. Can be one of:
            * \* `admin` - Organization owners with full administrative rights to the organization and complete access to all repositories and teams.
            * \* `direct_member` - Non-owner organization members with ability to see other members and join teams by invitation.
            * \* `billing_manager` - Non-owner organization members with ability to manage the billing settings of your organization.
+           * @default direct_member
            */
           readonly role?: "admin" | "direct_member" | "billing_manager";
-          /** Specify IDs for the teams you want to invite new members to. */
+          /** @description Specify IDs for the teams you want to invite new members to. */
           readonly team_ids?: readonly number[];
         };
       };
@@ -14974,9 +18856,10 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /**
-           * The role to give the user in the organization. Can be one of:
+           * @description The role to give the user in the organization. Can be one of:
            * \* `admin` - The user will become an owner of the organization.
            * \* `member` - The user will become a non-owner member of the organization.
+           * @default member
            */
           readonly role?: "admin" | "member";
         };
@@ -15045,11 +18928,11 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** A list of arrays indicating which repositories should be migrated. */
+          /** @description A list of arrays indicating which repositories should be migrated. */
           readonly repositories: readonly string[];
-          /** Indicates whether repositories should be locked (to prevent manipulation) while migrating data. */
+          /** @description Indicates whether repositories should be locked (to prevent manipulation) while migrating data. */
           readonly lock_repositories?: boolean;
-          /** Indicates whether attachments should be excluded from the migration (to reduce migration archive file size). */
+          /** @description Indicates whether attachments should be excluded from the migration (to reduce migration archive file size). */
           readonly exclude_attachments?: boolean;
           readonly exclude?: readonly string[];
         };
@@ -15479,9 +19362,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The name of the project. */
+          /** @description The name of the project. */
           readonly name: string;
-          /** The description of the project. */
+          /** @description The description of the project. */
           readonly body?: string;
         };
       };
@@ -15615,42 +19498,60 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The name of the repository. */
+          /** @description The name of the repository. */
           readonly name: string;
-          /** A short description of the repository. */
+          /** @description A short description of the repository. */
           readonly description?: string;
-          /** A URL with more information about the repository. */
+          /** @description A URL with more information about the repository. */
           readonly homepage?: string;
-          /** Either `true` to create a private repository or `false` to create a public one. */
+          /** @description Either `true` to create a private repository or `false` to create a public one. */
           readonly private?: boolean;
           /**
-           * Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. For more information, see "[Creating an internal repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-repository-visibility#about-internal-repositories)" in the GitHub Help documentation.
+           * @description Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. For more information, see "[Creating an internal repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-repository-visibility#about-internal-repositories)" in the GitHub Help documentation.
            * The `visibility` parameter overrides the `private` parameter when you use both parameters with the `nebula-preview` preview header.
            */
           readonly visibility?: "public" | "private" | "visibility" | "internal";
-          /** Either `true` to enable issues for this repository or `false` to disable them. */
+          /**
+           * @description Either `true` to enable issues for this repository or `false` to disable them.
+           * @default true
+           */
           readonly has_issues?: boolean;
-          /** Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error. */
+          /**
+           * @description Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error.
+           * @default true
+           */
           readonly has_projects?: boolean;
-          /** Either `true` to enable the wiki for this repository or `false` to disable it. */
+          /**
+           * @description Either `true` to enable the wiki for this repository or `false` to disable it.
+           * @default true
+           */
           readonly has_wiki?: boolean;
-          /** Either `true` to make this repo available as a template repository or `false` to prevent it. */
+          /** @description Either `true` to make this repo available as a template repository or `false` to prevent it. */
           readonly is_template?: boolean;
-          /** The id of the team that will be granted access to this repository. This is only valid when creating a repository in an organization. */
+          /** @description The id of the team that will be granted access to this repository. This is only valid when creating a repository in an organization. */
           readonly team_id?: number;
-          /** Pass `true` to create an initial commit with empty README. */
+          /** @description Pass `true` to create an initial commit with empty README. */
           readonly auto_init?: boolean;
-          /** Desired language or platform [.gitignore template](https://github.com/github/gitignore) to apply. Use the name of the template without the extension. For example, "Haskell". */
+          /** @description Desired language or platform [.gitignore template](https://github.com/github/gitignore) to apply. Use the name of the template without the extension. For example, "Haskell". */
           readonly gitignore_template?: string;
-          /** Choose an [open source license template](https://choosealicense.com/) that best suits your needs, and then use the [license keyword](https://help.github.com/articles/licensing-a-repository/#searching-github-by-license-type) as the `license_template` string. For example, "mit" or "mpl-2.0". */
+          /** @description Choose an [open source license template](https://choosealicense.com/) that best suits your needs, and then use the [license keyword](https://help.github.com/articles/licensing-a-repository/#searching-github-by-license-type) as the `license_template` string. For example, "mit" or "mpl-2.0". */
           readonly license_template?: string;
-          /** Either `true` to allow squash-merging pull requests, or `false` to prevent squash-merging. */
+          /**
+           * @description Either `true` to allow squash-merging pull requests, or `false` to prevent squash-merging.
+           * @default true
+           */
           readonly allow_squash_merge?: boolean;
-          /** Either `true` to allow merging pull requests with a merge commit, or `false` to prevent merging pull requests with merge commits. */
+          /**
+           * @description Either `true` to allow merging pull requests with a merge commit, or `false` to prevent merging pull requests with merge commits.
+           * @default true
+           */
           readonly allow_merge_commit?: boolean;
-          /** Either `true` to allow rebase-merging pull requests, or `false` to prevent rebase-merging. */
+          /**
+           * @description Either `true` to allow rebase-merging pull requests, or `false` to prevent rebase-merging.
+           * @default true
+           */
           readonly allow_rebase_merge?: boolean;
-          /** Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion. */
+          /** @description Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion. */
           readonly delete_branch_on_merge?: boolean;
         };
       };
@@ -15801,16 +19702,16 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The name of the team. */
+          /** @description The name of the team. */
           readonly name: string;
-          /** The description of the team. */
+          /** @description The description of the team. */
           readonly description?: string;
-          /** List GitHub IDs for organization members who will become team maintainers. */
+          /** @description List GitHub IDs for organization members who will become team maintainers. */
           readonly maintainers?: readonly string[];
-          /** The full name (e.g., "organization-name/repository-name") of repositories to add the team to. */
+          /** @description The full name (e.g., "organization-name/repository-name") of repositories to add the team to. */
           readonly repo_names?: readonly string[];
           /**
-           * The level of privacy this team should have. The options are:
+           * @description The level of privacy this team should have. The options are:
            * **For a non-nested team:**
            * \* `secret` - only visible to organization owners and members of this team.
            * \* `closed` - visible to all members of this organization.
@@ -15821,13 +19722,14 @@ export interface operations {
            */
           readonly privacy?: "secret" | "closed";
           /**
-           * **Deprecated**. The permission that new repositories will be added to the team with when none is specified. Can be one of:
+           * @description **Deprecated**. The permission that new repositories will be added to the team with when none is specified. Can be one of:
            * \* `pull` - team members can pull, but not push to or administer newly-added repositories.
            * \* `push` - team members can pull and push, but not administer newly-added repositories.
            * \* `admin` - team members can pull, push and administer newly-added repositories.
+           * @default pull
            */
           readonly permission?: "pull" | "push" | "admin";
-          /** The ID of a team to set as the parent team. */
+          /** @description The ID of a team to set as the parent team. */
           readonly parent_team_id?: number;
         };
       };
@@ -15900,12 +19802,12 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The name of the team. */
+          /** @description The name of the team. */
           readonly name?: string;
-          /** The description of the team. */
+          /** @description The description of the team. */
           readonly description?: string;
           /**
-           * The level of privacy this team should have. Editing teams without specifying this parameter leaves `privacy` intact. When a team is nested, the `privacy` for parent teams cannot be `secret`. The options are:
+           * @description The level of privacy this team should have. Editing teams without specifying this parameter leaves `privacy` intact. When a team is nested, the `privacy` for parent teams cannot be `secret`. The options are:
            * **For a non-nested team:**
            * \* `secret` - only visible to organization owners and members of this team.
            * \* `closed` - visible to all members of this organization.
@@ -15914,13 +19816,14 @@ export interface operations {
            */
           readonly privacy?: "secret" | "closed";
           /**
-           * **Deprecated**. The permission that new repositories will be added to the team with when none is specified. Can be one of:
+           * @description **Deprecated**. The permission that new repositories will be added to the team with when none is specified. Can be one of:
            * \* `pull` - team members can pull, but not push to or administer newly-added repositories.
            * \* `push` - team members can pull and push, but not administer newly-added repositories.
            * \* `admin` - team members can pull, push and administer newly-added repositories.
+           * @default pull
            */
           readonly permission?: "pull" | "push" | "admin";
-          /** The ID of a team to set as the parent team. */
+          /** @description The ID of a team to set as the parent team. */
           readonly parent_team_id?: number | null;
         };
       };
@@ -15983,11 +19886,11 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The discussion post's title. */
+          /** @description The discussion post's title. */
           readonly title: string;
-          /** The discussion post's body text. */
+          /** @description The discussion post's body text. */
           readonly body: string;
-          /** Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post. */
+          /** @description Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post. */
           readonly private?: boolean;
         };
       };
@@ -16060,9 +19963,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The discussion post's title. */
+          /** @description The discussion post's title. */
           readonly title?: string;
-          /** The discussion post's body text. */
+          /** @description The discussion post's body text. */
           readonly body?: string;
         };
       };
@@ -16127,7 +20030,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The discussion comment's body text. */
+          /** @description The discussion comment's body text. */
           readonly body: string;
         };
       };
@@ -16203,7 +20106,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The discussion comment's body text. */
+          /** @description The discussion comment's body text. */
           readonly body: string;
         };
       };
@@ -16268,7 +20171,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment. */
+          /** @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment. */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
@@ -16352,7 +20255,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion. */
+          /** @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion. */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
@@ -16521,9 +20424,10 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /**
-           * The role that this user should have in the team. Can be one of:
+           * @description The role that this user should have in the team. Can be one of:
            * \* `member` - a normal member of the team.
            * \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
+           * @default member
            */
           readonly role?: "member" | "maintainer";
         };
@@ -16640,7 +20544,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /**
-           * The permission to grant to the team for this project. Can be one of:
+           * @description The permission to grant to the team for this project. Can be one of:
            * \* `read` - team members can read, but not write to or administer this project.
            * \* `write` - team members can read and write, but not administer this project.
            * \* `admin` - team members can read, write and administer this project.
@@ -16756,7 +20660,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /**
-           * The permission to grant the team on this repository. Can be one of:
+           * @description The permission to grant the team on this repository. Can be one of:
            * \* `pull` - team members can pull, but not push to or administer this repository.
            * \* `push` - team members can pull and push, but not administer this repository.
            * \* `admin` - team members can pull, push and administer this repository.
@@ -16840,13 +20744,13 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The IdP groups you want to connect to a GitHub team. When updating, the new `groups` object will replace the original one. You must include any existing groups that you don't want to remove. */
+          /** @description The IdP groups you want to connect to a GitHub team. When updating, the new `groups` object will replace the original one. You must include any existing groups that you don't want to remove. */
           readonly groups: readonly {
-            /** ID of the IdP group. */
+            /** @description ID of the IdP group. */
             readonly group_id: string;
-            /** Name of the IdP group. */
+            /** @description Name of the IdP group. */
             readonly group_name: string;
-            /** Description of the IdP group. */
+            /** @description Description of the IdP group. */
             readonly group_description: string;
           }[];
         };
@@ -16950,9 +20854,12 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The project card's note */
+          /**
+           * @description The project card's note
+           * @example Update all gems
+           */
           readonly note?: string | null;
-          /** Whether or not the card is archived */
+          /** @description Whether or not the card is archived */
           readonly archived?: boolean;
         };
       };
@@ -17008,9 +20915,15 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The position of the card in a column */
+          /**
+           * @description The position of the card in a column
+           * @example bottom
+           */
           readonly position: string;
-          /** The unique identifier of the column the card should be moved to */
+          /**
+           * @description The unique identifier of the column the card should be moved to
+           * @example 42
+           */
           readonly column_id?: number;
         };
       };
@@ -17072,7 +20985,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Name of the project column */
+          /**
+           * @description Name of the project column
+           * @example Remaining tasks
+           */
           readonly name: string;
         };
       };
@@ -17155,13 +21071,22 @@ export interface operations {
       readonly content: {
         readonly "application/json":
           | {
-              /** The project card's note */
+              /**
+               * @description The project card's note
+               * @example Update all gems
+               */
               readonly note: string | null;
             }
           | {
-              /** The unique identifier of the content associated with the card */
+              /**
+               * @description The unique identifier of the content associated with the card
+               * @example 42
+               */
               readonly content_id: number;
-              /** The piece of content associated with the card */
+              /**
+               * @description The piece of content associated with the card
+               * @example PullRequest
+               */
               readonly content_type: string;
             };
       };
@@ -17189,7 +21114,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The position of the column in a project */
+          /**
+           * @description The position of the column in a project
+           * @example last
+           */
           readonly position: string;
         };
       };
@@ -17274,15 +21202,24 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Name of the project */
+          /**
+           * @description Name of the project
+           * @example Week One Sprint
+           */
           readonly name?: string;
-          /** Body of the project */
+          /**
+           * @description Body of the project
+           * @example This project represents the sprint of the first week in January
+           */
           readonly body?: string | null;
-          /** State of the project; either 'open' or 'closed' */
+          /**
+           * @description State of the project; either 'open' or 'closed'
+           * @example open
+           */
           readonly state?: string;
-          /** The baseline permission that all organization members have on this project */
+          /** @description The baseline permission that all organization members have on this project */
           readonly organization_permission?: "read" | "write" | "admin" | "none";
-          /** Whether or not this project can be seen by everyone. */
+          /** @description Whether or not this project can be seen by everyone. */
           readonly private?: boolean;
         };
       };
@@ -17345,7 +21282,11 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The permission to grant the collaborator. */
+          /**
+           * @description The permission to grant the collaborator.
+           * @default write
+           * @example write
+           */
           readonly permission?: "read" | "write" | "admin";
         };
       };
@@ -17439,7 +21380,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Name of the project column */
+          /**
+           * @description Name of the project column
+           * @example Remaining tasks
+           */
           readonly name: string;
         };
       };
@@ -17559,38 +21503,56 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The name of the repository. */
+          /** @description The name of the repository. */
           readonly name?: string;
-          /** A short description of the repository. */
+          /** @description A short description of the repository. */
           readonly description?: string;
-          /** A URL with more information about the repository. */
+          /** @description A URL with more information about the repository. */
           readonly homepage?: string;
           /**
-           * Either `true` to make the repository private or `false` to make it public. Default: `false`.
+           * @description Either `true` to make the repository private or `false` to make it public. Default: `false`.
            * **Note**: You will get a `422` error if the organization restricts [changing repository visibility](https://help.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories) to organization owners and a non-owner tries to change the value of private. **Note**: You will get a `422` error if the organization restricts [changing repository visibility](https://help.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories) to organization owners and a non-owner tries to change the value of private.
            */
           readonly private?: boolean;
-          /** Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. The `visibility` parameter overrides the `private` parameter when you use both along with the `nebula-preview` preview header. */
+          /** @description Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. The `visibility` parameter overrides the `private` parameter when you use both along with the `nebula-preview` preview header. */
           readonly visibility?: "public" | "private" | "visibility" | "internal";
-          /** Either `true` to enable issues for this repository or `false` to disable them. */
+          /**
+           * @description Either `true` to enable issues for this repository or `false` to disable them.
+           * @default true
+           */
           readonly has_issues?: boolean;
-          /** Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error. */
+          /**
+           * @description Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error.
+           * @default true
+           */
           readonly has_projects?: boolean;
-          /** Either `true` to enable the wiki for this repository or `false` to disable it. */
+          /**
+           * @description Either `true` to enable the wiki for this repository or `false` to disable it.
+           * @default true
+           */
           readonly has_wiki?: boolean;
-          /** Either `true` to make this repo available as a template repository or `false` to prevent it. */
+          /** @description Either `true` to make this repo available as a template repository or `false` to prevent it. */
           readonly is_template?: boolean;
-          /** Updates the default branch for this repository. */
+          /** @description Updates the default branch for this repository. */
           readonly default_branch?: string;
-          /** Either `true` to allow squash-merging pull requests, or `false` to prevent squash-merging. */
+          /**
+           * @description Either `true` to allow squash-merging pull requests, or `false` to prevent squash-merging.
+           * @default true
+           */
           readonly allow_squash_merge?: boolean;
-          /** Either `true` to allow merging pull requests with a merge commit, or `false` to prevent merging pull requests with merge commits. */
+          /**
+           * @description Either `true` to allow merging pull requests with a merge commit, or `false` to prevent merging pull requests with merge commits.
+           * @default true
+           */
           readonly allow_merge_commit?: boolean;
-          /** Either `true` to allow rebase-merging pull requests, or `false` to prevent rebase-merging. */
+          /**
+           * @description Either `true` to allow rebase-merging pull requests, or `false` to prevent rebase-merging.
+           * @default true
+           */
           readonly allow_rebase_merge?: boolean;
-          /** Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion. */
+          /** @description Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion. */
           readonly delete_branch_on_merge?: boolean;
-          /** `true` to archive this repository. **Note**: You cannot unarchive repositories through the API. */
+          /** @description `true` to archive this repository. **Note**: You cannot unarchive repositories through the API. */
           readonly archived?: boolean;
         };
       };
@@ -18219,11 +22181,20 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The list of environment ids to approve or reject */
+          /**
+           * @description The list of environment ids to approve or reject
+           * @example 161171787,161171795
+           */
           readonly environment_ids: readonly number[];
-          /** Whether to approve or reject deployment to the specified environments. Must be one of: `approved` or `rejected` */
+          /**
+           * @description Whether to approve or reject deployment to the specified environments. Must be one of: `approved` or `rejected`
+           * @example approved
+           */
           readonly state: "approved" | "rejected";
-          /** A comment to accompany the deployment review */
+          /**
+           * @description A comment to accompany the deployment review
+           * @example Ship it!
+           */
           readonly comment: string;
         };
       };
@@ -18425,9 +22396,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get a repository public key](https://docs.github.com/rest/reference/actions#get-a-repository-public-key) endpoint. */
+          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get a repository public key](https://docs.github.com/rest/reference/actions#get-a-repository-public-key) endpoint. */
           readonly encrypted_value?: string;
-          /** ID of the key you used to encrypt the secret. */
+          /** @description ID of the key you used to encrypt the secret. */
           readonly key_id?: string;
         };
       };
@@ -18536,9 +22507,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The git reference for the workflow. The reference can be a branch or tag name. */
+          /** @description The git reference for the workflow. The reference can be a branch or tag name. */
           readonly ref: string;
-          /** Input keys and values configured in the workflow file. The maximum number of properties is 10. Any default properties configured in the workflow file will be used when `inputs` are omitted. */
+          /** @description Input keys and values configured in the workflow file. The maximum number of properties is 10. Any default properties configured in the workflow file will be used when `inputs` are omitted. */
           readonly inputs?: { readonly [key: string]: string };
         };
       };
@@ -18803,45 +22774,45 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Require status checks to pass before merging. Set to `null` to disable. */
+          /** @description Require status checks to pass before merging. Set to `null` to disable. */
           readonly required_status_checks: {
-            /** Require branches to be up to date before merging. */
+            /** @description Require branches to be up to date before merging. */
             readonly strict: boolean;
-            /** The list of status checks to require in order to merge into this branch */
+            /** @description The list of status checks to require in order to merge into this branch */
             readonly contexts: readonly string[];
           } | null;
-          /** Enforce all configured restrictions for administrators. Set to `true` to enforce required status checks for repository administrators. Set to `null` to disable. */
+          /** @description Enforce all configured restrictions for administrators. Set to `true` to enforce required status checks for repository administrators. Set to `null` to disable. */
           readonly enforce_admins: boolean | null;
-          /** Require at least one approving review on a pull request, before merging. Set to `null` to disable. */
+          /** @description Require at least one approving review on a pull request, before merging. Set to `null` to disable. */
           readonly required_pull_request_reviews: {
-            /** Specify which users and teams can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories. */
+            /** @description Specify which users and teams can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories. */
             readonly dismissal_restrictions?: {
-              /** The list of user `login`s with dismissal access */
+              /** @description The list of user `login`s with dismissal access */
               readonly users?: readonly string[];
-              /** The list of team `slug`s with dismissal access */
+              /** @description The list of team `slug`s with dismissal access */
               readonly teams?: readonly string[];
             };
-            /** Set to `true` if you want to automatically dismiss approving reviews when someone pushes a new commit. */
+            /** @description Set to `true` if you want to automatically dismiss approving reviews when someone pushes a new commit. */
             readonly dismiss_stale_reviews?: boolean;
-            /** Blocks merging pull requests until [code owners](https://help.github.com/articles/about-code-owners/) review them. */
+            /** @description Blocks merging pull requests until [code owners](https://help.github.com/articles/about-code-owners/) review them. */
             readonly require_code_owner_reviews?: boolean;
-            /** Specify the number of reviewers required to approve pull requests. Use a number between 1 and 6. */
+            /** @description Specify the number of reviewers required to approve pull requests. Use a number between 1 and 6. */
             readonly required_approving_review_count?: number;
           } | null;
-          /** Restrict who can push to the protected branch. User, app, and team `restrictions` are only available for organization-owned repositories. Set to `null` to disable. */
+          /** @description Restrict who can push to the protected branch. User, app, and team `restrictions` are only available for organization-owned repositories. Set to `null` to disable. */
           readonly restrictions: {
-            /** The list of user `login`s with push access */
+            /** @description The list of user `login`s with push access */
             readonly users: readonly string[];
-            /** The list of team `slug`s with push access */
+            /** @description The list of team `slug`s with push access */
             readonly teams: readonly string[];
-            /** The list of app `slug`s with push access */
+            /** @description The list of app `slug`s with push access */
             readonly apps?: readonly string[];
           } | null;
-          /** Enforces a linear commit Git history, which prevents anyone from pushing merge commits to a branch. Set to `true` to enforce a linear commit history. Set to `false` to disable a linear commit Git history. Your repository must allow squash merging or rebase merging before you can enable a linear commit history. Default: `false`. For more information, see "[Requiring a linear commit history](https://help.github.com/github/administering-a-repository/requiring-a-linear-commit-history)" in the GitHub Help documentation. */
+          /** @description Enforces a linear commit Git history, which prevents anyone from pushing merge commits to a branch. Set to `true` to enforce a linear commit history. Set to `false` to disable a linear commit Git history. Your repository must allow squash merging or rebase merging before you can enable a linear commit history. Default: `false`. For more information, see "[Requiring a linear commit history](https://help.github.com/github/administering-a-repository/requiring-a-linear-commit-history)" in the GitHub Help documentation. */
           readonly required_linear_history?: boolean;
-          /** Permits force pushes to the protected branch by anyone with write access to the repository. Set to `true` to allow force pushes. Set to `false` or `null` to block force pushes. Default: `false`. For more information, see "[Enabling force pushes to a protected branch](https://help.github.com/en/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch)" in the GitHub Help documentation." */
+          /** @description Permits force pushes to the protected branch by anyone with write access to the repository. Set to `true` to allow force pushes. Set to `false` or `null` to block force pushes. Default: `false`. For more information, see "[Enabling force pushes to a protected branch](https://help.github.com/en/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch)" in the GitHub Help documentation." */
           readonly allow_force_pushes?: boolean | null;
-          /** Allows deletion of the protected branch by anyone with write access to the repository. Set to `false` to prevent deletion of the protected branch. Default: `false`. For more information, see "[Enabling force pushes to a protected branch](https://help.github.com/en/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch)" in the GitHub Help documentation. */
+          /** @description Allows deletion of the protected branch by anyone with write access to the repository. Set to `false` to prevent deletion of the protected branch. Default: `false`. For more information, see "[Enabling force pushes to a protected branch](https://help.github.com/en/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch)" in the GitHub Help documentation. */
           readonly allow_deletions?: boolean;
         };
       };
@@ -18988,18 +22959,18 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Specify which users and teams can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories. */
+          /** @description Specify which users and teams can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories. */
           readonly dismissal_restrictions?: {
-            /** The list of user `login`s with dismissal access */
+            /** @description The list of user `login`s with dismissal access */
             readonly users?: readonly string[];
-            /** The list of team `slug`s with dismissal access */
+            /** @description The list of team `slug`s with dismissal access */
             readonly teams?: readonly string[];
           };
-          /** Set to `true` if you want to automatically dismiss approving reviews when someone pushes a new commit. */
+          /** @description Set to `true` if you want to automatically dismiss approving reviews when someone pushes a new commit. */
           readonly dismiss_stale_reviews?: boolean;
-          /** Blocks merging pull requests until [code owners](https://help.github.com/articles/about-code-owners/) have reviewed. */
+          /** @description Blocks merging pull requests until [code owners](https://help.github.com/articles/about-code-owners/) have reviewed. */
           readonly require_code_owner_reviews?: boolean;
-          /** Specifies the number of reviewers required to approve pull requests. Use a number between 1 and 6. */
+          /** @description Specifies the number of reviewers required to approve pull requests. Use a number between 1 and 6. */
           readonly required_approving_review_count?: number;
         };
       };
@@ -19137,9 +23108,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Require branches to be up to date before merging. */
+          /** @description Require branches to be up to date before merging. */
           readonly strict?: boolean;
-          /** The list of status checks to require in order to merge into this branch */
+          /** @description The list of status checks to require in order to merge into this branch */
           readonly contexts?: readonly string[];
         };
       };
@@ -19188,7 +23159,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** contexts parameter */
+          /** @description contexts parameter */
           readonly contexts: readonly string[];
         };
       };
@@ -19218,7 +23189,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** contexts parameter */
+          /** @description contexts parameter */
           readonly contexts: readonly string[];
         };
       };
@@ -19247,7 +23218,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** contexts parameter */
+          /** @description contexts parameter */
           readonly contexts: readonly string[];
         };
       };
@@ -19352,7 +23323,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** apps parameter */
+          /** @description apps parameter */
           readonly apps: readonly string[];
         };
       };
@@ -19388,7 +23359,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** apps parameter */
+          /** @description apps parameter */
           readonly apps: readonly string[];
         };
       };
@@ -19424,7 +23395,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** apps parameter */
+          /** @description apps parameter */
           readonly apps: readonly string[];
         };
       };
@@ -19484,7 +23455,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** teams parameter */
+          /** @description teams parameter */
           readonly teams: readonly string[];
         };
       };
@@ -19520,7 +23491,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** teams parameter */
+          /** @description teams parameter */
           readonly teams: readonly string[];
         };
       };
@@ -19556,7 +23527,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** teams parameter */
+          /** @description teams parameter */
           readonly teams: readonly string[];
         };
       };
@@ -19616,7 +23587,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** users parameter */
+          /** @description users parameter */
           readonly users: readonly string[];
         };
       };
@@ -19652,7 +23623,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** users parameter */
+          /** @description users parameter */
           readonly users: readonly string[];
         };
       };
@@ -19688,7 +23659,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** users parameter */
+          /** @description users parameter */
           readonly users: readonly string[];
         };
       };
@@ -19734,7 +23705,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The new name of the branch. */
+          /** @description The new name of the branch. */
           readonly new_name: string;
         };
       };
@@ -19776,20 +23747,23 @@ export interface operations {
               readonly status?: "queued" | "in_progress";
             } & { readonly [key: string]: unknown }
           >) & {
-          /** The name of the check. For example, "code-coverage". */
+          /** @description The name of the check. For example, "code-coverage". */
           readonly name: string;
-          /** The SHA of the commit. */
+          /** @description The SHA of the commit. */
           readonly head_sha: string;
-          /** The URL of the integrator's site that has the full details of the check. If the integrator does not provide this, then the homepage of the GitHub app is used. */
+          /** @description The URL of the integrator's site that has the full details of the check. If the integrator does not provide this, then the homepage of the GitHub app is used. */
           readonly details_url?: string;
-          /** A reference for the run on the integrator's system. */
+          /** @description A reference for the run on the integrator's system. */
           readonly external_id?: string;
-          /** The current status. Can be one of `queued`, `in_progress`, or `completed`. */
+          /**
+           * @description The current status. Can be one of `queued`, `in_progress`, or `completed`.
+           * @default queued
+           */
           readonly status?: "queued" | "in_progress" | "completed";
-          /** The time that the check run began. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
+          /** @description The time that the check run began. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
           readonly started_at?: string;
           /**
-           * **Required if you provide `completed_at` or a `status` of `completed`**. The final conclusion of the check. Can be one of `action_required`, `cancelled`, `failure`, `neutral`, `success`, `skipped`, `stale`, or `timed_out`. When the conclusion is `action_required`, additional details should be provided on the site specified by `details_url`.
+           * @description **Required if you provide `completed_at` or a `status` of `completed`**. The final conclusion of the check. Can be one of `action_required`, `cancelled`, `failure`, `neutral`, `success`, `skipped`, `stale`, or `timed_out`. When the conclusion is `action_required`, additional details should be provided on the site specified by `details_url`.
            * **Note:** Providing `conclusion` will automatically set the `status` parameter to `completed`. You cannot change a check run conclusion to `stale`, only GitHub can set this.
            */
           readonly conclusion?:
@@ -19801,54 +23775,54 @@ export interface operations {
             | "skipped"
             | "stale"
             | "timed_out";
-          /** The time the check completed. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
+          /** @description The time the check completed. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
           readonly completed_at?: string;
-          /** Check runs can accept a variety of data in the `output` object, including a `title` and `summary` and can optionally provide descriptive details about the run. See the [`output` object](https://docs.github.com/rest/reference/checks#output-object) description. */
+          /** @description Check runs can accept a variety of data in the `output` object, including a `title` and `summary` and can optionally provide descriptive details about the run. See the [`output` object](https://docs.github.com/rest/reference/checks#output-object) description. */
           readonly output?: {
-            /** The title of the check run. */
+            /** @description The title of the check run. */
             readonly title: string;
-            /** The summary of the check run. This parameter supports Markdown. */
+            /** @description The summary of the check run. This parameter supports Markdown. */
             readonly summary: string;
-            /** The details of the check run. This parameter supports Markdown. */
+            /** @description The details of the check run. This parameter supports Markdown. */
             readonly text?: string;
-            /** Adds information from your analysis to specific lines of code. Annotations are visible on GitHub in the **Checks** and **Files changed** tab of the pull request. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://docs.github.com/rest/reference/checks#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. For details about how you can view annotations on GitHub, see "[About status checks](https://help.github.com/articles/about-status-checks#checks)". See the [`annotations` object](https://docs.github.com/rest/reference/checks#annotations-object) description for details about how to use this parameter. */
+            /** @description Adds information from your analysis to specific lines of code. Annotations are visible on GitHub in the **Checks** and **Files changed** tab of the pull request. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://docs.github.com/rest/reference/checks#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. For details about how you can view annotations on GitHub, see "[About status checks](https://help.github.com/articles/about-status-checks#checks)". See the [`annotations` object](https://docs.github.com/rest/reference/checks#annotations-object) description for details about how to use this parameter. */
             readonly annotations?: readonly {
-              /** The path of the file to add an annotation to. For example, `assets/css/main.css`. */
+              /** @description The path of the file to add an annotation to. For example, `assets/css/main.css`. */
               readonly path: string;
-              /** The start line of the annotation. */
+              /** @description The start line of the annotation. */
               readonly start_line: number;
-              /** The end line of the annotation. */
+              /** @description The end line of the annotation. */
               readonly end_line: number;
-              /** The start column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values. */
+              /** @description The start column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values. */
               readonly start_column?: number;
-              /** The end column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values. */
+              /** @description The end column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values. */
               readonly end_column?: number;
-              /** The level of the annotation. Can be one of `notice`, `warning`, or `failure`. */
+              /** @description The level of the annotation. Can be one of `notice`, `warning`, or `failure`. */
               readonly annotation_level: "notice" | "warning" | "failure";
-              /** A short description of the feedback for these lines of code. The maximum size is 64 KB. */
+              /** @description A short description of the feedback for these lines of code. The maximum size is 64 KB. */
               readonly message: string;
-              /** The title that represents the annotation. The maximum size is 255 characters. */
+              /** @description The title that represents the annotation. The maximum size is 255 characters. */
               readonly title?: string;
-              /** Details about this annotation. The maximum size is 64 KB. */
+              /** @description Details about this annotation. The maximum size is 64 KB. */
               readonly raw_details?: string;
             }[];
-            /** Adds images to the output displayed in the GitHub pull request UI. See the [`images` object](https://docs.github.com/rest/reference/checks#images-object) description for details. */
+            /** @description Adds images to the output displayed in the GitHub pull request UI. See the [`images` object](https://docs.github.com/rest/reference/checks#images-object) description for details. */
             readonly images?: readonly {
-              /** The alternative text for the image. */
+              /** @description The alternative text for the image. */
               readonly alt: string;
-              /** The full URL of the image. */
+              /** @description The full URL of the image. */
               readonly image_url: string;
-              /** A short image description. */
+              /** @description A short image description. */
               readonly caption?: string;
             }[];
           };
-          /** Displays a button on GitHub that can be clicked to alert your app to do additional tasks. For example, a code linting app can display a button that automatically fixes detected errors. The button created in this object is displayed after the check run completes. When a user clicks the button, GitHub sends the [`check_run.requested_action` webhook](https://docs.github.com/webhooks/event-payloads/#check_run) to your app. Each action includes a `label`, `identifier` and `description`. A maximum of three actions are accepted. See the [`actions` object](https://docs.github.com/rest/reference/checks#actions-object) description. To learn more about check runs and requested actions, see "[Check runs and requested actions](https://docs.github.com/rest/reference/checks#check-runs-and-requested-actions)." To learn more about check runs and requested actions, see "[Check runs and requested actions](https://docs.github.com/rest/reference/checks#check-runs-and-requested-actions)." */
+          /** @description Displays a button on GitHub that can be clicked to alert your app to do additional tasks. For example, a code linting app can display a button that automatically fixes detected errors. The button created in this object is displayed after the check run completes. When a user clicks the button, GitHub sends the [`check_run.requested_action` webhook](https://docs.github.com/webhooks/event-payloads/#check_run) to your app. Each action includes a `label`, `identifier` and `description`. A maximum of three actions are accepted. See the [`actions` object](https://docs.github.com/rest/reference/checks#actions-object) description. To learn more about check runs and requested actions, see "[Check runs and requested actions](https://docs.github.com/rest/reference/checks#check-runs-and-requested-actions)." To learn more about check runs and requested actions, see "[Check runs and requested actions](https://docs.github.com/rest/reference/checks#check-runs-and-requested-actions)." */
           readonly actions?: readonly {
-            /** The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
+            /** @description The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
             readonly label: string;
-            /** A short explanation of what this action would do. The maximum size is 40 characters. */
+            /** @description A short explanation of what this action would do. The maximum size is 40 characters. */
             readonly description: string;
-            /** A reference for the action on the integrator's system. The maximum size is 20 characters. */
+            /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
             readonly identifier: string;
           }[];
         };
@@ -19914,18 +23888,18 @@ export interface operations {
               readonly status?: "queued" | "in_progress";
             } & { readonly [key: string]: unknown }
           >) & {
-          /** The name of the check. For example, "code-coverage". */
+          /** @description The name of the check. For example, "code-coverage". */
           readonly name?: string;
-          /** The URL of the integrator's site that has the full details of the check. */
+          /** @description The URL of the integrator's site that has the full details of the check. */
           readonly details_url?: string;
-          /** A reference for the run on the integrator's system. */
+          /** @description A reference for the run on the integrator's system. */
           readonly external_id?: string;
-          /** This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
+          /** @description This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
           readonly started_at?: string;
-          /** The current status. Can be one of `queued`, `in_progress`, or `completed`. */
+          /** @description The current status. Can be one of `queued`, `in_progress`, or `completed`. */
           readonly status?: "queued" | "in_progress" | "completed";
           /**
-           * **Required if you provide `completed_at` or a `status` of `completed`**. The final conclusion of the check. Can be one of `action_required`, `cancelled`, `failure`, `neutral`, `success`, `skipped`, `stale`, or `timed_out`.
+           * @description **Required if you provide `completed_at` or a `status` of `completed`**. The final conclusion of the check. Can be one of `action_required`, `cancelled`, `failure`, `neutral`, `success`, `skipped`, `stale`, or `timed_out`.
            * **Note:** Providing `conclusion` will automatically set the `status` parameter to `completed`. You cannot change a check run conclusion to `stale`, only GitHub can set this.
            */
           readonly conclusion?:
@@ -19937,54 +23911,54 @@ export interface operations {
             | "skipped"
             | "stale"
             | "timed_out";
-          /** The time the check completed. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
+          /** @description The time the check completed. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
           readonly completed_at?: string;
-          /** Check runs can accept a variety of data in the `output` object, including a `title` and `summary` and can optionally provide descriptive details about the run. See the [`output` object](https://docs.github.com/rest/reference/checks#output-object-1) description. */
+          /** @description Check runs can accept a variety of data in the `output` object, including a `title` and `summary` and can optionally provide descriptive details about the run. See the [`output` object](https://docs.github.com/rest/reference/checks#output-object-1) description. */
           readonly output?: {
-            /** **Required**. */
+            /** @description **Required**. */
             readonly title?: string;
-            /** Can contain Markdown. */
+            /** @description Can contain Markdown. */
             readonly summary: string;
-            /** Can contain Markdown. */
+            /** @description Can contain Markdown. */
             readonly text?: string;
-            /** Adds information from your analysis to specific lines of code. Annotations are visible in GitHub's pull request UI. Annotations are visible in GitHub's pull request UI. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://docs.github.com/rest/reference/checks#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. For details about annotations in the UI, see "[About status checks](https://help.github.com/articles/about-status-checks#checks)". See the [`annotations` object](https://docs.github.com/rest/reference/checks#annotations-object-1) description for details. */
+            /** @description Adds information from your analysis to specific lines of code. Annotations are visible in GitHub's pull request UI. Annotations are visible in GitHub's pull request UI. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://docs.github.com/rest/reference/checks#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. For details about annotations in the UI, see "[About status checks](https://help.github.com/articles/about-status-checks#checks)". See the [`annotations` object](https://docs.github.com/rest/reference/checks#annotations-object-1) description for details. */
             readonly annotations?: readonly {
-              /** The path of the file to add an annotation to. For example, `assets/css/main.css`. */
+              /** @description The path of the file to add an annotation to. For example, `assets/css/main.css`. */
               readonly path: string;
-              /** The start line of the annotation. */
+              /** @description The start line of the annotation. */
               readonly start_line: number;
-              /** The end line of the annotation. */
+              /** @description The end line of the annotation. */
               readonly end_line: number;
-              /** The start column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values. */
+              /** @description The start column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values. */
               readonly start_column?: number;
-              /** The end column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values. */
+              /** @description The end column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values. */
               readonly end_column?: number;
-              /** The level of the annotation. Can be one of `notice`, `warning`, or `failure`. */
+              /** @description The level of the annotation. Can be one of `notice`, `warning`, or `failure`. */
               readonly annotation_level: "notice" | "warning" | "failure";
-              /** A short description of the feedback for these lines of code. The maximum size is 64 KB. */
+              /** @description A short description of the feedback for these lines of code. The maximum size is 64 KB. */
               readonly message: string;
-              /** The title that represents the annotation. The maximum size is 255 characters. */
+              /** @description The title that represents the annotation. The maximum size is 255 characters. */
               readonly title?: string;
-              /** Details about this annotation. The maximum size is 64 KB. */
+              /** @description Details about this annotation. The maximum size is 64 KB. */
               readonly raw_details?: string;
             }[];
-            /** Adds images to the output displayed in the GitHub pull request UI. See the [`images` object](https://docs.github.com/rest/reference/checks#annotations-object-1) description for details. */
+            /** @description Adds images to the output displayed in the GitHub pull request UI. See the [`images` object](https://docs.github.com/rest/reference/checks#annotations-object-1) description for details. */
             readonly images?: readonly {
-              /** The alternative text for the image. */
+              /** @description The alternative text for the image. */
               readonly alt: string;
-              /** The full URL of the image. */
+              /** @description The full URL of the image. */
               readonly image_url: string;
-              /** A short image description. */
+              /** @description A short image description. */
               readonly caption?: string;
             }[];
           };
-          /** Possible further actions the integrator can perform, which a user may trigger. Each action includes a `label`, `identifier` and `description`. A maximum of three actions are accepted. See the [`actions` object](https://docs.github.com/rest/reference/checks#actions-object) description. To learn more about check runs and requested actions, see "[Check runs and requested actions](https://docs.github.com/rest/reference/checks#check-runs-and-requested-actions)." */
+          /** @description Possible further actions the integrator can perform, which a user may trigger. Each action includes a `label`, `identifier` and `description`. A maximum of three actions are accepted. See the [`actions` object](https://docs.github.com/rest/reference/checks#actions-object) description. To learn more about check runs and requested actions, see "[Check runs and requested actions](https://docs.github.com/rest/reference/checks#check-runs-and-requested-actions)." */
           readonly actions?: readonly {
-            /** The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
+            /** @description The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
             readonly label: string;
-            /** A short explanation of what this action would do. The maximum size is 40 characters. */
+            /** @description A short explanation of what this action would do. The maximum size is 40 characters. */
             readonly description: string;
-            /** A reference for the action on the integrator's system. The maximum size is 20 characters. */
+            /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
             readonly identifier: string;
           }[];
         };
@@ -20040,7 +24014,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The sha of the head commit. */
+          /** @description The sha of the head commit. */
           readonly head_sha: string;
         };
       };
@@ -20065,11 +24039,14 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Enables or disables automatic creation of CheckSuite events upon pushes to the repository. Enabled by default. See the [`auto_trigger_checks` object](https://docs.github.com/rest/reference/checks#auto_trigger_checks-object) description for details. */
+          /** @description Enables or disables automatic creation of CheckSuite events upon pushes to the repository. Enabled by default. See the [`auto_trigger_checks` object](https://docs.github.com/rest/reference/checks#auto_trigger_checks-object) description for details. */
           readonly auto_trigger_checks?: readonly {
-            /** The `id` of the GitHub App. */
+            /** @description The `id` of the GitHub App. */
             readonly app_id: number;
-            /** Set to `true` to enable automatic creation of CheckSuite events upon pushes to the repository, or `false` to disable them. */
+            /**
+             * @description Set to `true` to enable automatic creation of CheckSuite events upon pushes to the repository, or `false` to disable them.
+             * @default true
+             */
             readonly setting: boolean;
           }[];
         };
@@ -20520,13 +24497,18 @@ export interface operations {
           readonly ref: components["schemas"]["code-scanning-ref"];
           readonly sarif: components["schemas"]["code-scanning-analysis-sarif-file"];
           /**
-           * The base directory used in the analysis, as it appears in the SARIF file.
+           * Format: uri
+           * @description The base directory used in the analysis, as it appears in the SARIF file.
            * This property is used to convert file paths from absolute to relative, so that alerts can be mapped to their correct location in the repository.
+           * @example file:///github/workspace/
            */
           readonly checkout_uri?: string;
-          /** The time that the analysis run began. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
+          /**
+           * Format: date
+           * @description The time that the analysis run began. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+           */
           readonly started_at?: string;
-          /** The name of the tool used to generate the code scanning analysis. If this parameter is not used, the tool name defaults to "API". If the uploaded SARIF contains a tool GUID, this will be available for filtering using the `tool_guid` parameter of operations such as `GET /repos/{owner}/{repo}/code-scanning/alerts`. */
+          /** @description The name of the tool used to generate the code scanning analysis. If this parameter is not used, the tool name defaults to "API". If the uploaded SARIF contains a tool GUID, this will be available for filtering using the `tool_guid` parameter of operations such as `GET /repos/{owner}/{repo}/code-scanning/alerts`. */
           readonly tool_name?: string;
         };
       };
@@ -20648,14 +24630,16 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /**
-           * The permission to grant the collaborator. **Only valid on organization-owned repositories.** Can be one of:
+           * @description The permission to grant the collaborator. **Only valid on organization-owned repositories.** Can be one of:
            * \* `pull` - can pull, but not push to or administer this repository.
            * \* `push` - can pull and push, but not administer this repository.
            * \* `admin` - can pull, push and administer this repository.
            * \* `maintain` - Recommended for project managers who need to manage the repository without access to sensitive or destructive actions.
            * \* `triage` - Recommended for contributors who need to proactively manage issues and pull requests without write access.
+           * @default push
            */
           readonly permission?: "pull" | "push" | "admin" | "maintain" | "triage";
+          /** @example "push" */
           readonly permissions?: string;
         };
       };
@@ -20776,7 +24760,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The contents of the comment */
+          /** @description The contents of the comment */
           readonly body: string;
         };
       };
@@ -20841,7 +24825,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the commit comment. */
+          /** @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the commit comment. */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
@@ -21015,13 +24999,13 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The contents of the comment. */
+          /** @description The contents of the comment. */
           readonly body: string;
-          /** Relative path of the file to comment on. */
+          /** @description Relative path of the file to comment on. */
           readonly path?: string;
-          /** Line index in the diff to comment on. */
+          /** @description Line index in the diff to comment on. */
           readonly position?: number;
-          /** **Deprecated**. Use **position** parameter instead. Line number in the file to comment on. */
+          /** @description **Deprecated**. Use **position** parameter instead. Line number in the file to comment on. */
           readonly line?: number;
         };
       };
@@ -21458,28 +25442,30 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The commit message. */
+          /** @description The commit message. */
           readonly message: string;
-          /** The new file content, using Base64 encoding. */
+          /** @description The new file content, using Base64 encoding. */
           readonly content: string;
-          /** **Required if you are updating a file**. The blob SHA of the file being replaced. */
+          /** @description **Required if you are updating a file**. The blob SHA of the file being replaced. */
           readonly sha?: string;
-          /** The branch name. Default: the repository’s default branch (usually `master`) */
+          /** @description The branch name. Default: the repository’s default branch (usually `master`) */
           readonly branch?: string;
-          /** The person that committed the file. Default: the authenticated user. */
+          /** @description The person that committed the file. Default: the authenticated user. */
           readonly committer?: {
-            /** The name of the author or committer of the commit. You'll receive a `422` status code if `name` is omitted. */
+            /** @description The name of the author or committer of the commit. You'll receive a `422` status code if `name` is omitted. */
             readonly name: string;
-            /** The email of the author or committer of the commit. You'll receive a `422` status code if `email` is omitted. */
+            /** @description The email of the author or committer of the commit. You'll receive a `422` status code if `email` is omitted. */
             readonly email: string;
+            /** @example "2013-01-05T13:13:22+05:00" */
             readonly date?: string;
           };
-          /** The author of the file. Default: The `committer` or the authenticated user if you omit `committer`. */
+          /** @description The author of the file. Default: The `committer` or the authenticated user if you omit `committer`. */
           readonly author?: {
-            /** The name of the author or committer of the commit. You'll receive a `422` status code if `name` is omitted. */
+            /** @description The name of the author or committer of the commit. You'll receive a `422` status code if `name` is omitted. */
             readonly name: string;
-            /** The email of the author or committer of the commit. You'll receive a `422` status code if `email` is omitted. */
+            /** @description The email of the author or committer of the commit. You'll receive a `422` status code if `email` is omitted. */
             readonly email: string;
+            /** @example "2013-01-15T17:13:22+05:00" */
             readonly date?: string;
           };
         };
@@ -21519,24 +25505,24 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The commit message. */
+          /** @description The commit message. */
           readonly message: string;
-          /** The blob SHA of the file being replaced. */
+          /** @description The blob SHA of the file being replaced. */
           readonly sha: string;
-          /** The branch name. Default: the repository’s default branch (usually `master`) */
+          /** @description The branch name. Default: the repository’s default branch (usually `master`) */
           readonly branch?: string;
-          /** object containing information about the committer. */
+          /** @description object containing information about the committer. */
           readonly committer?: {
-            /** The name of the author (or committer) of the commit */
+            /** @description The name of the author (or committer) of the commit */
             readonly name?: string;
-            /** The email of the author (or committer) of the commit */
+            /** @description The email of the author (or committer) of the commit */
             readonly email?: string;
           };
-          /** object containing information about the author. */
+          /** @description object containing information about the author. */
           readonly author?: {
-            /** The name of the author (or committer) of the commit */
+            /** @description The name of the author (or committer) of the commit */
             readonly name?: string;
-            /** The email of the author (or committer) of the commit */
+            /** @description The email of the author (or committer) of the commit */
             readonly email?: string;
           };
         };
@@ -21683,6 +25669,7 @@ export interface operations {
         readonly content: {
           readonly "application/json": {
             readonly message?: string;
+            /** @example "https://docs.github.com/rest/reference/repos#create-a-deployment" */
             readonly documentation_url?: string;
           };
         };
@@ -21692,29 +25679,39 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The ref to deploy. This can be a branch, tag, or SHA. */
+          /** @description The ref to deploy. This can be a branch, tag, or SHA. */
           readonly ref: string;
-          /** Specifies a task to execute (e.g., `deploy` or `deploy:migrations`). */
+          /**
+           * @description Specifies a task to execute (e.g., `deploy` or `deploy:migrations`).
+           * @default deploy
+           */
           readonly task?: string;
-          /** Attempts to automatically merge the default branch into the requested ref, if it's behind the default branch. */
+          /**
+           * @description Attempts to automatically merge the default branch into the requested ref, if it's behind the default branch.
+           * @default true
+           */
           readonly auto_merge?: boolean;
-          /** The [status](https://docs.github.com/rest/reference/repos#statuses) contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts. */
+          /** @description The [status](https://docs.github.com/rest/reference/repos#statuses) contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts. */
           readonly required_contexts?: readonly string[];
           readonly payload?: { readonly [key: string]: unknown } | string;
-          /** Name for the target deployment environment (e.g., `production`, `staging`, `qa`). */
+          /**
+           * @description Name for the target deployment environment (e.g., `production`, `staging`, `qa`).
+           * @default production
+           */
           readonly environment?: string;
-          /** Short description of the deployment. */
+          /** @description Short description of the deployment. */
           readonly description?: string | null;
           /**
-           * Specifies if the given environment is specific to the deployment and will no longer exist at some point in the future. Default: `false`
+           * @description Specifies if the given environment is specific to the deployment and will no longer exist at some point in the future. Default: `false`
            * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type. **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type.
            */
           readonly transient_environment?: boolean;
           /**
-           * Specifies if the given environment is one that end-users directly interact with. Default: `true` when `environment` is `production` and `false` otherwise.
+           * @description Specifies if the given environment is one that end-users directly interact with. Default: `true` when `environment` is `production` and `false` otherwise.
            * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type.
            */
           readonly production_environment?: boolean;
+          /** @example "1776-07-04T00:00:00.000-07:52" */
           readonly created_at?: string;
         };
       };
@@ -21821,26 +25818,26 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The state of the status. Can be one of `error`, `failure`, `inactive`, `in_progress`, `queued` `pending`, or `success`. **Note:** To use the `inactive` state, you must provide the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type. To use the `in_progress` and `queued` states, you must provide the [`application/vnd.github.flash-preview+json`](https://docs.github.com/rest/overview/api-previews#deployment-statuses) custom media type. When you set a transient deployment to `inactive`, the deployment will be shown as `destroyed` in GitHub. */
+          /** @description The state of the status. Can be one of `error`, `failure`, `inactive`, `in_progress`, `queued` `pending`, or `success`. **Note:** To use the `inactive` state, you must provide the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type. To use the `in_progress` and `queued` states, you must provide the [`application/vnd.github.flash-preview+json`](https://docs.github.com/rest/overview/api-previews#deployment-statuses) custom media type. When you set a transient deployment to `inactive`, the deployment will be shown as `destroyed` in GitHub. */
           readonly state: "error" | "failure" | "inactive" | "in_progress" | "queued" | "pending" | "success";
-          /** The target URL to associate with this status. This URL should contain output to keep the user updated while the task is running or serve as historical information for what happened in the deployment. **Note:** It's recommended to use the `log_url` parameter, which replaces `target_url`. */
+          /** @description The target URL to associate with this status. This URL should contain output to keep the user updated while the task is running or serve as historical information for what happened in the deployment. **Note:** It's recommended to use the `log_url` parameter, which replaces `target_url`. */
           readonly target_url?: string;
           /**
-           * The full URL of the deployment's output. This parameter replaces `target_url`. We will continue to accept `target_url` to support legacy uses, but we recommend replacing `target_url` with `log_url`. Setting `log_url` will automatically set `target_url` to the same value. Default: `""`
+           * @description The full URL of the deployment's output. This parameter replaces `target_url`. We will continue to accept `target_url` to support legacy uses, but we recommend replacing `target_url` with `log_url`. Setting `log_url` will automatically set `target_url` to the same value. Default: `""`
            * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type. **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type.
            */
           readonly log_url?: string;
-          /** A short description of the status. The maximum description length is 140 characters. */
+          /** @description A short description of the status. The maximum description length is 140 characters. */
           readonly description?: string;
-          /** Name for the target deployment environment, which can be changed when setting a deploy status. For example, `production`, `staging`, or `qa`. **Note:** This parameter requires you to use the [`application/vnd.github.flash-preview+json`](https://docs.github.com/rest/overview/api-previews#deployment-statuses) custom media type. */
+          /** @description Name for the target deployment environment, which can be changed when setting a deploy status. For example, `production`, `staging`, or `qa`. **Note:** This parameter requires you to use the [`application/vnd.github.flash-preview+json`](https://docs.github.com/rest/overview/api-previews#deployment-statuses) custom media type. */
           readonly environment?: "production" | "staging" | "qa";
           /**
-           * Sets the URL for accessing your environment. Default: `""`
+           * @description Sets the URL for accessing your environment. Default: `""`
            * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type. **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type.
            */
           readonly environment_url?: string;
           /**
-           * Adds a new `inactive` status to all prior non-transient, non-production environment deployments with the same repository and `environment` name as the created status's deployment. An `inactive` status is only added to deployments that had a `success` state. Default: `true`
+           * @description Adds a new `inactive` status to all prior non-transient, non-production environment deployments with the same repository and `environment` name as the created status's deployment. An `inactive` status is only added to deployments that had a `success` state. Default: `true`
            * **Note:** To add an `inactive` status to `production` environments, you must use the [`application/vnd.github.flash-preview+json`](https://docs.github.com/rest/overview/api-previews#deployment-statuses) custom media type.
            * **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type.
            */
@@ -21898,9 +25895,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** A custom webhook event name. */
+          /** @description A custom webhook event name. */
           readonly event_type: string;
-          /** JSON payload with extra information about the webhook event that your action or worklow may use. */
+          /** @description JSON payload with extra information about the webhook event that your action or worklow may use. */
           readonly client_payload?: { readonly [key: string]: unknown };
         };
       };
@@ -21923,7 +25920,10 @@ export interface operations {
       readonly 200: {
         readonly content: {
           readonly "application/json": {
-            /** The number of environments in this repository */
+            /**
+             * @description The number of environments in this repository
+             * @example 5
+             */
             readonly total_count?: number;
             readonly environments?: readonly components["schemas"]["environment"][];
           };
@@ -21986,10 +25986,13 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           readonly wait_timer?: components["schemas"]["wait-timer"];
-          /** The people or teams that may review jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed. */
+          /** @description The people or teams that may review jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed. */
           readonly reviewers?: readonly {
             readonly type?: components["schemas"]["deployment-reviewer-type"];
-            /** The id of the user or team who can review the deployment */
+            /**
+             * @description The id of the user or team who can review the deployment
+             * @example 4532992
+             */
             readonly id?: number;
           }[];
           readonly deployment_branch_policy?: components["schemas"]["deployment_branch_policy"];
@@ -22087,7 +26090,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Optional parameter to specify the organization name if forking into an organization. */
+          /** @description Optional parameter to specify the organization name if forking into an organization. */
           readonly organization?: string;
         };
       };
@@ -22118,9 +26121,12 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The new blob's content. */
+          /** @description The new blob's content. */
           readonly content: string;
-          /** The encoding used for `content`. Currently, `"utf-8"` and `"base64"` are supported. */
+          /**
+           * @description The encoding used for `content`. Currently, `"utf-8"` and `"base64"` are supported.
+           * @default utf-8
+           */
           readonly encoding?: string;
         };
       };
@@ -22206,31 +26212,31 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The commit message */
+          /** @description The commit message */
           readonly message: string;
-          /** The SHA of the tree object this commit points to */
+          /** @description The SHA of the tree object this commit points to */
           readonly tree: string;
-          /** The SHAs of the commits that were the parents of this commit. If omitted or empty, the commit will be written as a root commit. For a single parent, an array of one SHA should be provided; for a merge commit, an array of more than one should be provided. */
+          /** @description The SHAs of the commits that were the parents of this commit. If omitted or empty, the commit will be written as a root commit. For a single parent, an array of one SHA should be provided; for a merge commit, an array of more than one should be provided. */
           readonly parents?: readonly string[];
-          /** Information about the author of the commit. By default, the `author` will be the authenticated user and the current date. See the `author` and `committer` object below for details. */
+          /** @description Information about the author of the commit. By default, the `author` will be the authenticated user and the current date. See the `author` and `committer` object below for details. */
           readonly author?: {
-            /** The name of the author (or committer) of the commit */
+            /** @description The name of the author (or committer) of the commit */
             readonly name?: string;
-            /** The email of the author (or committer) of the commit */
+            /** @description The email of the author (or committer) of the commit */
             readonly email?: string;
-            /** Indicates when this commit was authored (or committed). This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
+            /** @description Indicates when this commit was authored (or committed). This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
             readonly date?: string;
           };
-          /** Information about the person who is making the commit. By default, `committer` will use the information set in `author`. See the `author` and `committer` object below for details. */
+          /** @description Information about the person who is making the commit. By default, `committer` will use the information set in `author`. See the `author` and `committer` object below for details. */
           readonly committer?: {
-            /** The name of the author (or committer) of the commit */
+            /** @description The name of the author (or committer) of the commit */
             readonly name?: string;
-            /** The email of the author (or committer) of the commit */
+            /** @description The email of the author (or committer) of the commit */
             readonly email?: string;
-            /** Indicates when this commit was authored (or committed). This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
+            /** @description Indicates when this commit was authored (or committed). This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
             readonly date?: string;
           };
-          /** The [PGP signature](https://en.wikipedia.org/wiki/Pretty_Good_Privacy) of the commit. GitHub adds the signature to the `gpgsig` header of the created commit. For a commit signature to be verifiable by Git or GitHub, it must be an ASCII-armored detached PGP signature over the string commit as it would be written to the object database. To pass a `signature` parameter, you need to first manually create a valid PGP signature, which can be complicated. You may find it easier to [use the command line](https://git-scm.com/book/id/v2/Git-Tools-Signing-Your-Work) to create signed commits. */
+          /** @description The [PGP signature](https://en.wikipedia.org/wiki/Pretty_Good_Privacy) of the commit. GitHub adds the signature to the `gpgsig` header of the created commit. For a commit signature to be verifiable by Git or GitHub, it must be an ASCII-armored detached PGP signature over the string commit as it would be written to the object database. To pass a `signature` parameter, you need to first manually create a valid PGP signature, which can be complicated. You may find it easier to [use the command line](https://git-scm.com/book/id/v2/Git-Tools-Signing-Your-Work) to create signed commits. */
           readonly signature?: string;
         };
       };
@@ -22368,10 +26374,11 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The name of the fully qualified reference (ie: `refs/heads/master`). If it doesn't start with 'refs' and have at least two slashes, it will be rejected. */
+          /** @description The name of the fully qualified reference (ie: `refs/heads/master`). If it doesn't start with 'refs' and have at least two slashes, it will be rejected. */
           readonly ref: string;
-          /** The SHA1 value for this reference. */
+          /** @description The SHA1 value for this reference. */
           readonly sha: string;
+          /** @example "refs/heads/newbranch" */
           readonly key?: string;
         };
       };
@@ -22413,9 +26420,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The SHA1 value to set this reference to */
+          /** @description The SHA1 value to set this reference to */
           readonly sha: string;
-          /** Indicates whether to force the update or to make sure the update is a fast-forward update. Leaving this out or setting it to `false` will make sure you're not overwriting work. */
+          /** @description Indicates whether to force the update or to make sure the update is a fast-forward update. Leaving this out or setting it to `false` will make sure you're not overwriting work. */
           readonly force?: boolean;
         };
       };
@@ -22475,21 +26482,21 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The tag's name. This is typically a version (e.g., "v0.0.1"). */
+          /** @description The tag's name. This is typically a version (e.g., "v0.0.1"). */
           readonly tag: string;
-          /** The tag message. */
+          /** @description The tag message. */
           readonly message: string;
-          /** The SHA of the git object this is tagging. */
+          /** @description The SHA of the git object this is tagging. */
           readonly object: string;
-          /** The type of the object we're tagging. Normally this is a `commit` but it can also be a `tree` or a `blob`. */
+          /** @description The type of the object we're tagging. Normally this is a `commit` but it can also be a `tree` or a `blob`. */
           readonly type: "commit" | "tree" | "blob";
-          /** An object with information about the individual creating the tag. */
+          /** @description An object with information about the individual creating the tag. */
           readonly tagger?: {
-            /** The name of the author of the tag */
+            /** @description The name of the author of the tag */
             readonly name?: string;
-            /** The email of the author of the tag */
+            /** @description The email of the author of the tag */
             readonly email?: string;
-            /** When this object was tagged. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
+            /** @description When this object was tagged. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
             readonly date?: string;
           };
         };
@@ -22573,29 +26580,29 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Objects (of `path`, `mode`, `type`, and `sha`) specifying a tree structure. */
+          /** @description Objects (of `path`, `mode`, `type`, and `sha`) specifying a tree structure. */
           readonly tree: readonly {
-            /** The file referenced in the tree. */
+            /** @description The file referenced in the tree. */
             readonly path?: string;
-            /** The file mode; one of `100644` for file (blob), `100755` for executable (blob), `040000` for subdirectory (tree), `160000` for submodule (commit), or `120000` for a blob that specifies the path of a symlink. */
+            /** @description The file mode; one of `100644` for file (blob), `100755` for executable (blob), `040000` for subdirectory (tree), `160000` for submodule (commit), or `120000` for a blob that specifies the path of a symlink. */
             readonly mode?: "100644" | "100755" | "040000" | "160000" | "120000";
-            /** Either `blob`, `tree`, or `commit`. */
+            /** @description Either `blob`, `tree`, or `commit`. */
             readonly type?: "blob" | "tree" | "commit";
             /**
-             * The SHA1 checksum ID of the object in the tree. Also called `tree.sha`. If the value is `null` then the file will be deleted.
+             * @description The SHA1 checksum ID of the object in the tree. Also called `tree.sha`. If the value is `null` then the file will be deleted.
              *
              * **Note:** Use either `tree.sha` or `content` to specify the contents of the entry. Using both `tree.sha` and `content` will return an error.
              */
             readonly sha?: string | null;
             /**
-             * The content you want this file to have. GitHub will write this blob out and use that SHA for this entry. Use either this, or `tree.sha`.
+             * @description The content you want this file to have. GitHub will write this blob out and use that SHA for this entry. Use either this, or `tree.sha`.
              *
              * **Note:** Use either `tree.sha` or `content` to specify the contents of the entry. Using both `tree.sha` and `content` will return an error.
              */
             readonly content?: string;
           }[];
           /**
-           * The SHA1 of an existing Git tree object which will be used as the base for the new tree. If provided, a new Git tree object will be created from entries in the Git tree object pointed to by `base_tree` and entries defined in the `tree` parameter. Entries defined in the `tree` parameter will overwrite items from `base_tree` with the same `path`. If you're creating new changes on a branch, then normally you'd set `base_tree` to the SHA1 of the Git tree object of the current latest commit on the branch you're working on.
+           * @description The SHA1 of an existing Git tree object which will be used as the base for the new tree. If provided, a new Git tree object will be created from entries in the Git tree object pointed to by `base_tree` and entries defined in the `tree` parameter. Entries defined in the `tree` parameter will overwrite items from `base_tree` with the same `path`. If you're creating new changes on a branch, then normally you'd set `base_tree` to the SHA1 of the Git tree object of the current latest commit on the branch you're working on.
            * If not provided, GitHub will create a new Git tree object from only the entries defined in the `tree` parameter. If you create a new commit pointing to such a tree, then all files which were a part of the parent commit's tree and were not defined in the `tree` parameter will be listed as deleted by the new commit.
            */
           readonly base_tree?: string;
@@ -22683,20 +26690,28 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Use `web` to create a webhook. Default: `web`. This parameter only accepts the value `web`. */
+          /** @description Use `web` to create a webhook. Default: `web`. This parameter only accepts the value `web`. */
           readonly name?: string;
-          /** Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/repos#create-hook-config-params). */
+          /** @description Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/repos#create-hook-config-params). */
           readonly config: {
             readonly url: components["schemas"]["webhook-config-url"];
             readonly content_type?: components["schemas"]["webhook-config-content-type"];
             readonly secret?: components["schemas"]["webhook-config-secret"];
             readonly insecure_ssl?: components["schemas"]["webhook-config-insecure-ssl"];
+            /** @example "abc" */
             readonly token?: string;
+            /** @example "sha256" */
             readonly digest?: string;
           };
-          /** Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. */
+          /**
+           * @description Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for.
+           * @default push
+           */
           readonly events?: readonly string[];
-          /** Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications. */
+          /**
+           * @description Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
+           * @default true
+           */
           readonly active?: boolean;
         };
       };
@@ -22757,22 +26772,30 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/repos#create-hook-config-params). */
+          /** @description Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/repos#create-hook-config-params). */
           readonly config?: {
             readonly url: components["schemas"]["webhook-config-url"];
             readonly content_type?: components["schemas"]["webhook-config-content-type"];
             readonly secret?: components["schemas"]["webhook-config-secret"];
             readonly insecure_ssl?: components["schemas"]["webhook-config-insecure-ssl"];
+            /** @example "bar@example.com" */
             readonly address?: string;
+            /** @example "The Serious Room" */
             readonly room?: string;
           };
-          /** Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. This replaces the entire array of events. */
+          /**
+           * @description Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. This replaces the entire array of events.
+           * @default push
+           */
           readonly events?: readonly string[];
-          /** Determines a list of events to be added to the list of events that the Hook triggers for. */
+          /** @description Determines a list of events to be added to the list of events that the Hook triggers for. */
           readonly add_events?: readonly string[];
-          /** Determines a list of events to be removed from the list of events that the Hook triggers for. */
+          /** @description Determines a list of events to be removed from the list of events that the Hook triggers for. */
           readonly remove_events?: readonly string[];
-          /** Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications. */
+          /**
+           * @description Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
+           * @default true
+           */
           readonly active?: boolean;
         };
       };
@@ -22943,15 +26966,15 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The URL of the originating repository. */
+          /** @description The URL of the originating repository. */
           readonly vcs_url: string;
-          /** The originating VCS type. Can be one of `subversion`, `git`, `mercurial`, or `tfvc`. Please be aware that without this parameter, the import job will take additional time to detect the VCS type before beginning the import. This detection step will be reflected in the response. */
+          /** @description The originating VCS type. Can be one of `subversion`, `git`, `mercurial`, or `tfvc`. Please be aware that without this parameter, the import job will take additional time to detect the VCS type before beginning the import. This detection step will be reflected in the response. */
           readonly vcs?: "subversion" | "git" | "mercurial" | "tfvc";
-          /** If authentication is required, the username to provide to `vcs_url`. */
+          /** @description If authentication is required, the username to provide to `vcs_url`. */
           readonly vcs_username?: string;
-          /** If authentication is required, the password to provide to `vcs_url`. */
+          /** @description If authentication is required, the password to provide to `vcs_url`. */
           readonly vcs_password?: string;
-          /** For a tfvc import, the name of the project that is being imported. */
+          /** @description For a tfvc import, the name of the project that is being imported. */
           readonly tfvc_project?: string;
         };
       };
@@ -22992,11 +27015,13 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The username to provide to the originating repository. */
+          /** @description The username to provide to the originating repository. */
           readonly vcs_username?: string;
-          /** The password to provide to the originating repository. */
+          /** @description The password to provide to the originating repository. */
           readonly vcs_password?: string;
+          /** @example "git" */
           readonly vcs?: string;
+          /** @example "project1" */
           readonly tfvc_project?: string;
         };
       };
@@ -23050,10 +27075,11 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The new Git author email. */
+          /** @description The new Git author email. */
           readonly email?: string;
-          /** The new Git author name. */
+          /** @description The new Git author name. */
           readonly name?: string;
+          /** @example "can't touch this" */
           readonly remote_id?: string;
         };
       };
@@ -23096,7 +27122,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Can be one of `opt_in` (large files will be stored using Git LFS) or `opt_out` (large files will be removed during the import). */
+          /** @description Can be one of `opt_in` (large files will be stored using Git LFS) or `opt_out` (large files will be removed during the import). */
           readonly use_lfs: "opt_in" | "opt_out";
         };
       };
@@ -23239,7 +27265,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The permissions that the associated user will have on the repository. Valid values are `read`, `write`, `maintain`, `triage`, and `admin`. */
+          /** @description The permissions that the associated user will have on the repository. Valid values are `read`, `write`, `maintain`, `triage`, and `admin`. */
           readonly permissions?: "read" | "write" | "maintain" | "triage" | "admin";
         };
       };
@@ -23328,14 +27354,14 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The title of the issue. */
+          /** @description The title of the issue. */
           readonly title: string | number;
-          /** The contents of the issue. */
+          /** @description The contents of the issue. */
           readonly body?: string;
-          /** Login for the user that this issue should be assigned to. _NOTE: Only users with push access can set the assignee for new issues. The assignee is silently dropped otherwise. **This field is deprecated.**_ */
+          /** @description Login for the user that this issue should be assigned to. _NOTE: Only users with push access can set the assignee for new issues. The assignee is silently dropped otherwise. **This field is deprecated.**_ */
           readonly assignee?: string | null;
           readonly milestone?: (string | number) | null;
-          /** Labels to associate with this issue. _NOTE: Only users with push access can set labels for new issues. Labels are silently dropped otherwise._ */
+          /** @description Labels to associate with this issue. _NOTE: Only users with push access can set labels for new issues. Labels are silently dropped otherwise._ */
           readonly labels?: readonly (
             | string
             | {
@@ -23345,7 +27371,7 @@ export interface operations {
                 readonly color?: string | null;
               }
           )[];
-          /** Logins for Users to assign to this issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._ */
+          /** @description Logins for Users to assign to this issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._ */
           readonly assignees?: readonly string[];
         };
       };
@@ -23437,7 +27463,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The contents of the comment. */
+          /** @description The contents of the comment. */
           readonly body: string;
         };
       };
@@ -23502,7 +27528,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue comment. */
+          /** @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue comment. */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
@@ -23634,16 +27660,16 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The title of the issue. */
+          /** @description The title of the issue. */
           readonly title?: (string | number) | null;
-          /** The contents of the issue. */
+          /** @description The contents of the issue. */
           readonly body?: string | null;
-          /** Login for the user that this issue should be assigned to. **This field is deprecated.** */
+          /** @description Login for the user that this issue should be assigned to. **This field is deprecated.** */
           readonly assignee?: string | null;
-          /** State of the issue. Either `open` or `closed`. */
+          /** @description State of the issue. Either `open` or `closed`. */
           readonly state?: "open" | "closed";
           readonly milestone?: (string | number) | null;
-          /** Labels to associate with this issue. Pass one or more Labels to _replace_ the set of Labels on this Issue. Send an empty array (`[]`) to clear all Labels from the Issue. _NOTE: Only users with push access can set labels for issues. Labels are silently dropped otherwise._ */
+          /** @description Labels to associate with this issue. Pass one or more Labels to _replace_ the set of Labels on this Issue. Send an empty array (`[]`) to clear all Labels from the Issue. _NOTE: Only users with push access can set labels for issues. Labels are silently dropped otherwise._ */
           readonly labels?: readonly (
             | string
             | {
@@ -23653,7 +27679,7 @@ export interface operations {
                 readonly color?: string | null;
               }
           )[];
-          /** Logins for Users to assign to this issue. Pass one or more user logins to _replace_ the set of assignees on this Issue. Send an empty array (`[]`) to clear all assignees from the Issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._ */
+          /** @description Logins for Users to assign to this issue. Pass one or more user logins to _replace_ the set of assignees on this Issue. Send an empty array (`[]`) to clear all assignees from the Issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._ */
           readonly assignees?: readonly string[];
         };
       };
@@ -23680,7 +27706,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Usernames of people to assign this issue to. _NOTE: Only users with push access can add assignees to an issue. Assignees are silently ignored otherwise._ */
+          /** @description Usernames of people to assign this issue to. _NOTE: Only users with push access can add assignees to an issue. Assignees are silently ignored otherwise._ */
           readonly assignees?: readonly string[];
         };
       };
@@ -23707,7 +27733,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Usernames of assignees to remove from an issue. _NOTE: Only users with push access can remove assignees from an issue. Assignees are silently ignored otherwise._ */
+          /** @description Usernames of assignees to remove from an issue. _NOTE: Only users with push access can remove assignees from an issue. Assignees are silently ignored otherwise._ */
           readonly assignees?: readonly string[];
         };
       };
@@ -23771,7 +27797,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The contents of the comment. */
+          /** @description The contents of the comment. */
           readonly body: string;
         };
       };
@@ -23852,7 +27878,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The names of the labels to add to the issue. You can pass an empty array to remove all labels. **Note:** Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key. */
+          /** @description The names of the labels to add to the issue. You can pass an empty array to remove all labels. **Note:** Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key. */
           readonly labels?: readonly string[];
         };
       };
@@ -23880,7 +27906,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The name of the label to add to the issue. Must contain at least one label. **Note:** Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key. */
+          /** @description The name of the label to add to the issue. Must contain at least one label. **Note:** Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key. */
           readonly labels: readonly string[];
         };
       };
@@ -23949,7 +27975,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /**
-           * The reason for locking the issue or pull request conversation. Lock will fail if you don't use one of these reasons:
+           * @description The reason for locking the issue or pull request conversation. Lock will fail if you don't use one of these reasons:
            * \* `off-topic`
            * \* `too heated`
            * \* `resolved`
@@ -24031,7 +28057,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue. */
+          /** @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue. */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
@@ -24131,12 +28157,12 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** A name for the key. */
+          /** @description A name for the key. */
           readonly title?: string;
-          /** The contents of the key. */
+          /** @description The contents of the key. */
           readonly key: string;
           /**
-           * If `true`, the key will only be able to read repository contents. Otherwise, the key will be able to read and write.
+           * @description If `true`, the key will only be able to read repository contents. Otherwise, the key will be able to read and write.
            *
            * Deploy keys with write access can perform the same actions as an organization member with admin access, or a collaborator on a personal repository. For more information, see "[Repository permission levels for an organization](https://help.github.com/articles/repository-permission-levels-for-an-organization/)" and "[Permission levels for a user account repository](https://help.github.com/articles/permission-levels-for-a-user-account-repository/)."
            */
@@ -24226,11 +28252,11 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The name of the label. Emoji can be added to label names, using either native emoji or colon-style markup. For example, typing `:strawberry:` will render the emoji ![:strawberry:](https://github.githubassets.com/images/icons/emoji/unicode/1f353.png ":strawberry:"). For a full list of available emoji and codes, see [emoji-cheat-sheet.com](http://emoji-cheat-sheet.com/). */
+          /** @description The name of the label. Emoji can be added to label names, using either native emoji or colon-style markup. For example, typing `:strawberry:` will render the emoji ![:strawberry:](https://github.githubassets.com/images/icons/emoji/unicode/1f353.png ":strawberry:"). For a full list of available emoji and codes, see [emoji-cheat-sheet.com](http://emoji-cheat-sheet.com/). */
           readonly name: string;
-          /** The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`. */
+          /** @description The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`. */
           readonly color?: string;
-          /** A short description of the label. */
+          /** @description A short description of the label. */
           readonly description?: string;
         };
       };
@@ -24286,11 +28312,11 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The new name of the label. Emoji can be added to label names, using either native emoji or colon-style markup. For example, typing `:strawberry:` will render the emoji ![:strawberry:](https://github.githubassets.com/images/icons/emoji/unicode/1f353.png ":strawberry:"). For a full list of available emoji and codes, see [emoji-cheat-sheet.com](http://emoji-cheat-sheet.com/). */
+          /** @description The new name of the label. Emoji can be added to label names, using either native emoji or colon-style markup. For example, typing `:strawberry:` will render the emoji ![:strawberry:](https://github.githubassets.com/images/icons/emoji/unicode/1f353.png ":strawberry:"). For a full list of available emoji and codes, see [emoji-cheat-sheet.com](http://emoji-cheat-sheet.com/). */
           readonly new_name?: string;
-          /** The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`. */
+          /** @description The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`. */
           readonly color?: string;
-          /** A short description of the label. */
+          /** @description A short description of the label. */
           readonly description?: string;
         };
       };
@@ -24354,6 +28380,7 @@ export interface operations {
         readonly content: {
           readonly "application/json": {
             readonly message?: string;
+            /** @example "https://docs.github.com/rest/reference/repos#perform-a-merge" */
             readonly documentation_url?: string;
           };
         };
@@ -24363,6 +28390,7 @@ export interface operations {
         readonly content: {
           readonly "application/json": {
             readonly message?: string;
+            /** @example "https://docs.github.com/rest/reference/repos#perform-a-merge" */
             readonly documentation_url?: string;
           };
         };
@@ -24372,11 +28400,11 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The name of the base branch that the head will be merged into. */
+          /** @description The name of the base branch that the head will be merged into. */
           readonly base: string;
-          /** The head to merge. This can be a branch name or a commit SHA1. */
+          /** @description The head to merge. This can be a branch name or a commit SHA1. */
           readonly head: string;
-          /** Commit message to use for the merge commit. If omitted, a default message will be used. */
+          /** @description Commit message to use for the merge commit. If omitted, a default message will be used. */
           readonly commit_message?: string;
         };
       };
@@ -24435,13 +28463,16 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The title of the milestone. */
+          /** @description The title of the milestone. */
           readonly title: string;
-          /** The state of the milestone. Either `open` or `closed`. */
+          /**
+           * @description The state of the milestone. Either `open` or `closed`.
+           * @default open
+           */
           readonly state?: "open" | "closed";
-          /** A description of the milestone. */
+          /** @description A description of the milestone. */
           readonly description?: string;
-          /** The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
+          /** @description The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
           readonly due_on?: string;
         };
       };
@@ -24501,13 +28532,16 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The title of the milestone. */
+          /** @description The title of the milestone. */
           readonly title?: string;
-          /** The state of the milestone. Either `open` or `closed`. */
+          /**
+           * @description The state of the milestone. Either `open` or `closed`.
+           * @default open
+           */
           readonly state?: "open" | "closed";
-          /** A description of the milestone. */
+          /** @description A description of the milestone. */
           readonly description?: string;
-          /** The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
+          /** @description The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
           readonly due_on?: string;
         };
       };
@@ -24585,7 +28619,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Describes the last point that notifications were checked. Anything updated since this time will not be marked as read. If you omit this parameter, all notifications are marked as read. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. Default: The current timestamp. */
+          /** @description Describes the last point that notifications were checked. Anything updated since this time will not be marked as read. If you omit this parameter, all notifications are marked as read. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. Default: The current timestamp. */
           readonly last_read_at?: string;
         };
       };
@@ -24625,15 +28659,15 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Specify a custom domain for the repository. Sending a `null` value will remove the custom domain. For more about custom domains, see "[Using a custom domain with GitHub Pages](https://help.github.com/articles/using-a-custom-domain-with-github-pages/)." */
+          /** @description Specify a custom domain for the repository. Sending a `null` value will remove the custom domain. For more about custom domains, see "[Using a custom domain with GitHub Pages](https://help.github.com/articles/using-a-custom-domain-with-github-pages/)." */
           readonly cname?: string | null;
-          /** Configures access controls for the GitHub Pages site. If public is set to `true`, the site is accessible to anyone on the internet. If set to `false`, the site will only be accessible to users who have at least `read` access to the repository that published the site. This includes anyone in your Enterprise if the repository is set to `internal` visibility. This feature is only available to repositories in an organization on an Enterprise plan. */
+          /** @description Configures access controls for the GitHub Pages site. If public is set to `true`, the site is accessible to anyone on the internet. If set to `false`, the site will only be accessible to users who have at least `read` access to the repository that published the site. This includes anyone in your Enterprise if the repository is set to `internal` visibility. This feature is only available to repositories in an organization on an Enterprise plan. */
           readonly public?: boolean;
           readonly source: Partial<"gh-pages" | "master" | "master /docs"> &
             Partial<{
-              /** The repository branch used to publish your site's source files. */
+              /** @description The repository branch used to publish your site's source files. */
               readonly branch: string;
-              /** The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`. */
+              /** @description The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`. */
               readonly path: "/" | "/docs";
             }>;
         };
@@ -24662,11 +28696,14 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The source branch and directory used to publish your Pages site. */
+          /** @description The source branch and directory used to publish your Pages site. */
           readonly source: {
-            /** The repository branch used to publish your site's source files. */
+            /** @description The repository branch used to publish your site's source files. */
             readonly branch: string;
-            /** The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`. Default: `/` */
+            /**
+             * @description The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`. Default: `/`
+             * @default /
+             */
             readonly path?: "/" | "/docs";
           };
         };
@@ -24820,9 +28857,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The name of the project. */
+          /** @description The name of the project. */
           readonly name: string;
-          /** The description of the project. */
+          /** @description The description of the project. */
           readonly body?: string;
         };
       };
@@ -24896,18 +28933,19 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The title of the new pull request. */
+          /** @description The title of the new pull request. */
           readonly title?: string;
-          /** The name of the branch where your changes are implemented. For cross-repository pull requests in the same network, namespace `head` with a user like this: `username:branch`. */
+          /** @description The name of the branch where your changes are implemented. For cross-repository pull requests in the same network, namespace `head` with a user like this: `username:branch`. */
           readonly head: string;
-          /** The name of the branch you want the changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repository that requests a merge to a base of another repository. */
+          /** @description The name of the branch you want the changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repository that requests a merge to a base of another repository. */
           readonly base: string;
-          /** The contents of the pull request. */
+          /** @description The contents of the pull request. */
           readonly body?: string;
-          /** Indicates whether [maintainers can modify](https://help.github.com/articles/allowing-changes-to-a-pull-request-branch-created-from-a-fork/) the pull request. */
+          /** @description Indicates whether [maintainers can modify](https://help.github.com/articles/allowing-changes-to-a-pull-request-branch-created-from-a-fork/) the pull request. */
           readonly maintainer_can_modify?: boolean;
-          /** Indicates whether the pull request is a draft. See "[Draft Pull Requests](https://help.github.com/en/articles/about-pull-requests#draft-pull-requests)" in the GitHub Help documentation to learn more. */
+          /** @description Indicates whether the pull request is a draft. See "[Draft Pull Requests](https://help.github.com/en/articles/about-pull-requests#draft-pull-requests)" in the GitHub Help documentation to learn more. */
           readonly draft?: boolean;
+          /** @example 1 */
           readonly issue?: number;
         };
       };
@@ -25000,7 +29038,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The text of the reply to the review comment. */
+          /** @description The text of the reply to the review comment. */
           readonly body: string;
         };
       };
@@ -25065,7 +29103,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the pull request review comment. */
+          /** @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the pull request review comment. */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
@@ -25154,15 +29192,15 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The title of the pull request. */
+          /** @description The title of the pull request. */
           readonly title?: string;
-          /** The contents of the pull request. */
+          /** @description The contents of the pull request. */
           readonly body?: string;
-          /** State of this Pull Request. Either `open` or `closed`. */
+          /** @description State of this Pull Request. Either `open` or `closed`. */
           readonly state?: "open" | "closed";
-          /** The name of the branch you want your changes pulled into. This should be an existing branch on the current repository. You cannot update the base branch on a pull request to point to another repository. */
+          /** @description The name of the branch you want your changes pulled into. This should be an existing branch on the current repository. You cannot update the base branch on a pull request to point to another repository. */
           readonly base?: string;
-          /** Indicates whether [maintainers can modify](https://help.github.com/articles/allowing-changes-to-a-pull-request-branch-created-from-a-fork/) the pull request. */
+          /** @description Indicates whether [maintainers can modify](https://help.github.com/articles/allowing-changes-to-a-pull-request-branch-created-from-a-fork/) the pull request. */
           readonly maintainer_can_modify?: boolean;
         };
       };
@@ -25232,22 +29270,23 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The text of the review comment. */
+          /** @description The text of the review comment. */
           readonly body: string;
-          /** The SHA of the commit needing a comment. Not using the latest commit SHA may render your comment outdated if a subsequent commit modifies the line you specify as the `position`. */
+          /** @description The SHA of the commit needing a comment. Not using the latest commit SHA may render your comment outdated if a subsequent commit modifies the line you specify as the `position`. */
           readonly commit_id?: string;
-          /** The relative path to the file that necessitates a comment. */
+          /** @description The relative path to the file that necessitates a comment. */
           readonly path?: string;
-          /** **Required without `comfort-fade` preview**. The position in the diff where you want to add a review comment. Note this value is not the same as the line number in the file. For help finding the position value, read the note above. */
+          /** @description **Required without `comfort-fade` preview**. The position in the diff where you want to add a review comment. Note this value is not the same as the line number in the file. For help finding the position value, read the note above. */
           readonly position?: number;
-          /** **Required with `comfort-fade` preview**. In a split diff view, the side of the diff that the pull request's changes appear on. Can be `LEFT` or `RIGHT`. Use `LEFT` for deletions that appear in red. Use `RIGHT` for additions that appear in green or unchanged lines that appear in white and are shown for context. For a multi-line comment, side represents whether the last line of the comment range is a deletion or addition. For more information, see "[Diff view options](https://help.github.com/en/articles/about-comparing-branches-in-pull-requests#diff-view-options)" in the GitHub Help documentation. */
+          /** @description **Required with `comfort-fade` preview**. In a split diff view, the side of the diff that the pull request's changes appear on. Can be `LEFT` or `RIGHT`. Use `LEFT` for deletions that appear in red. Use `RIGHT` for additions that appear in green or unchanged lines that appear in white and are shown for context. For a multi-line comment, side represents whether the last line of the comment range is a deletion or addition. For more information, see "[Diff view options](https://help.github.com/en/articles/about-comparing-branches-in-pull-requests#diff-view-options)" in the GitHub Help documentation. */
           readonly side?: "LEFT" | "RIGHT";
-          /** **Required with `comfort-fade` preview**. The line of the blob in the pull request diff that the comment applies to. For a multi-line comment, the last line of the range that your comment applies to. */
+          /** @description **Required with `comfort-fade` preview**. The line of the blob in the pull request diff that the comment applies to. For a multi-line comment, the last line of the range that your comment applies to. */
           readonly line?: number;
-          /** **Required when using multi-line comments**. To create multi-line comments, you must use the `comfort-fade` preview header. The `start_line` is the first line in the pull request diff that your multi-line comment applies to. To learn more about multi-line comments, see "[Commenting on a pull request](https://help.github.com/en/articles/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)" in the GitHub Help documentation. */
+          /** @description **Required when using multi-line comments**. To create multi-line comments, you must use the `comfort-fade` preview header. The `start_line` is the first line in the pull request diff that your multi-line comment applies to. To learn more about multi-line comments, see "[Commenting on a pull request](https://help.github.com/en/articles/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)" in the GitHub Help documentation. */
           readonly start_line?: number;
-          /** **Required when using multi-line comments**. To create multi-line comments, you must use the `comfort-fade` preview header. The `start_side` is the starting side of the diff that the comment applies to. Can be `LEFT` or `RIGHT`. To learn more about multi-line comments, see "[Commenting on a pull request](https://help.github.com/en/articles/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)" in the GitHub Help documentation. See `side` in this table for additional context. */
+          /** @description **Required when using multi-line comments**. To create multi-line comments, you must use the `comfort-fade` preview header. The `start_side` is the starting side of the diff that the comment applies to. Can be `LEFT` or `RIGHT`. To learn more about multi-line comments, see "[Commenting on a pull request](https://help.github.com/en/articles/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)" in the GitHub Help documentation. See `side` in this table for additional context. */
           readonly start_side?: "LEFT" | "RIGHT" | "side";
+          /** @example 2 */
           readonly in_reply_to?: number;
         };
       };
@@ -25283,7 +29322,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The text of the review comment. */
+          /** @description The text of the review comment. */
           readonly body: string;
         };
       };
@@ -25397,13 +29436,13 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Title for the automatic commit message. */
+          /** @description Title for the automatic commit message. */
           readonly commit_title?: string;
-          /** Extra detail to append to automatic commit message. */
+          /** @description Extra detail to append to automatic commit message. */
           readonly commit_message?: string;
-          /** SHA that pull request head must match to allow merge. */
+          /** @description SHA that pull request head must match to allow merge. */
           readonly sha?: string;
-          /** Merge method to use. Possible values are `merge`, `squash` or `rebase`. Default is `merge`. */
+          /** @description Merge method to use. Possible values are `merge`, `squash` or `rebase`. Default is `merge`. */
           readonly merge_method?: "merge" | "squash" | "rebase";
         } | null;
       };
@@ -25456,9 +29495,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** An array of user `login`s that will be requested. */
+          /** @description An array of user `login`s that will be requested. */
           readonly reviewers?: readonly string[];
-          /** An array of team `slug`s that will be requested. */
+          /** @description An array of team `slug`s that will be requested. */
           readonly team_reviewers?: readonly string[];
         };
       };
@@ -25480,9 +29519,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** An array of user `login`s that will be removed. */
+          /** @description An array of user `login`s that will be removed. */
           readonly reviewers: readonly string[];
-          /** An array of team `slug`s that will be removed. */
+          /** @description An array of team `slug`s that will be removed. */
           readonly team_reviewers?: readonly string[];
         };
       };
@@ -25543,23 +29582,27 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The SHA of the commit that needs a review. Not using the latest commit SHA may render your review comment outdated if a subsequent commit modifies the line you specify as the `position`. Defaults to the most recent commit in the pull request when you do not specify a value. */
+          /** @description The SHA of the commit that needs a review. Not using the latest commit SHA may render your review comment outdated if a subsequent commit modifies the line you specify as the `position`. Defaults to the most recent commit in the pull request when you do not specify a value. */
           readonly commit_id?: string;
-          /** **Required** when using `REQUEST_CHANGES` or `COMMENT` for the `event` parameter. The body text of the pull request review. */
+          /** @description **Required** when using `REQUEST_CHANGES` or `COMMENT` for the `event` parameter. The body text of the pull request review. */
           readonly body?: string;
-          /** The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. By leaving this blank, you set the review action state to `PENDING`, which means you will need to [submit the pull request review](https://docs.github.com/rest/reference/pulls#submit-a-review-for-a-pull-request) when you are ready. */
+          /** @description The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. By leaving this blank, you set the review action state to `PENDING`, which means you will need to [submit the pull request review](https://docs.github.com/rest/reference/pulls#submit-a-review-for-a-pull-request) when you are ready. */
           readonly event?: "APPROVE" | "REQUEST_CHANGES" | "COMMENT";
-          /** Use the following table to specify the location, destination, and contents of the draft review comment. */
+          /** @description Use the following table to specify the location, destination, and contents of the draft review comment. */
           readonly comments?: readonly {
-            /** The relative path to the file that necessitates a review comment. */
+            /** @description The relative path to the file that necessitates a review comment. */
             readonly path: string;
-            /** The position in the diff where you want to add a review comment. Note this value is not the same as the line number in the file. For help finding the position value, read the note below. */
+            /** @description The position in the diff where you want to add a review comment. Note this value is not the same as the line number in the file. For help finding the position value, read the note below. */
             readonly position?: number;
-            /** Text of the review comment. */
+            /** @description Text of the review comment. */
             readonly body: string;
+            /** @example 28 */
             readonly line?: number;
+            /** @example RIGHT */
             readonly side?: string;
+            /** @example 26 */
             readonly start_line?: number;
+            /** @example LEFT */
             readonly start_side?: string;
           }[];
         };
@@ -25609,7 +29652,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The body text of the pull request review. */
+          /** @description The body text of the pull request review. */
           readonly body: string;
         };
       };
@@ -25688,8 +29731,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The message for the pull request review dismissal */
+          /** @description The message for the pull request review dismissal */
           readonly message: string;
+          /** @example "APPROVE" */
           readonly event?: string;
         };
       };
@@ -25719,9 +29763,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The body text of the pull request review */
+          /** @description The body text of the pull request review */
           readonly body?: string;
-          /** The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. When you leave this blank, the API returns _HTTP 422 (Unrecognizable entity)_ and sets the review action state to `PENDING`, which means you will need to re-submit the pull request review using a review action. */
+          /** @description The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. When you leave this blank, the API returns _HTTP 422 (Unrecognizable entity)_ and sets the review action state to `PENDING`, which means you will need to re-submit the pull request review using a review action. */
           readonly event: "APPROVE" | "REQUEST_CHANGES" | "COMMENT";
         };
       };
@@ -25753,7 +29797,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The expected SHA of the pull request's HEAD ref. This is the most recent commit on the pull request's branch. If the expected SHA does not match the pull request's HEAD, you will receive a `422 Unprocessable Entity` status. You can use the "[List commits](https://docs.github.com/rest/reference/repos#list-commits)" endpoint to find the most recent commit SHA. Default: SHA of the pull request's current HEAD ref. */
+          /** @description The expected SHA of the pull request's HEAD ref. This is the most recent commit on the pull request's branch. If the expected SHA does not match the pull request's HEAD, you will receive a `422 Unprocessable Entity` status. You can use the "[List commits](https://docs.github.com/rest/reference/repos#list-commits)" endpoint to find the most recent commit SHA. Default: SHA of the pull request's current HEAD ref. */
           readonly expected_head_sha?: string;
         } | null;
       };
@@ -25842,17 +29886,17 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The name of the tag. */
+          /** @description The name of the tag. */
           readonly tag_name: string;
-          /** Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually `master`). */
+          /** @description Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually `master`). */
           readonly target_commitish?: string;
-          /** The name of the release. */
+          /** @description The name of the release. */
           readonly name?: string;
-          /** Text describing the contents of the tag. */
+          /** @description Text describing the contents of the tag. */
           readonly body?: string;
-          /** `true` to create a draft (unpublished) release, `false` to create a published one. */
+          /** @description `true` to create a draft (unpublished) release, `false` to create a published one. */
           readonly draft?: boolean;
-          /** `true` to identify the release as a prerelease. `false` to identify the release as a full release. */
+          /** @description `true` to identify the release as a prerelease. `false` to identify the release as a full release. */
           readonly prerelease?: boolean;
         };
       };
@@ -25915,10 +29959,11 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The file name of the asset. */
+          /** @description The file name of the asset. */
           readonly name?: string;
-          /** An alternate short description of the asset. Used in place of the filename. */
+          /** @description An alternate short description of the asset. Used in place of the filename. */
           readonly label?: string;
+          /** @example "uploaded" */
           readonly state?: string;
         };
       };
@@ -26021,17 +30066,17 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The name of the tag. */
+          /** @description The name of the tag. */
           readonly tag_name?: string;
-          /** Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually `master`). */
+          /** @description Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually `master`). */
           readonly target_commitish?: string;
-          /** The name of the release. */
+          /** @description The name of the release. */
           readonly name?: string;
-          /** Text describing the contents of the tag. */
+          /** @description Text describing the contents of the tag. */
           readonly body?: string;
-          /** `true` makes the release a draft, and `false` publishes the release. */
+          /** @description `true` makes the release a draft, and `false` publishes the release. */
           readonly draft?: boolean;
-          /** `true` to identify the release as a prerelease, `false` to identify the release as a full release. */
+          /** @description `true` to identify the release as a prerelease, `false` to identify the release as a full release. */
           readonly prerelease?: boolean;
         };
       };
@@ -26370,17 +30415,20 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The state of the status. Can be one of `error`, `failure`, `pending`, or `success`. */
+          /** @description The state of the status. Can be one of `error`, `failure`, `pending`, or `success`. */
           readonly state: "error" | "failure" | "pending" | "success";
           /**
-           * The target URL to associate with this status. This URL will be linked from the GitHub UI to allow users to easily see the source of the status.
+           * @description The target URL to associate with this status. This URL will be linked from the GitHub UI to allow users to easily see the source of the status.
            * For example, if your continuous integration system is posting build status, you would want to provide the deep link for the build output for this specific SHA:
            * `http://ci.example.com/user/repo/build/sha`
            */
           readonly target_url?: string;
-          /** A short description of the status. */
+          /** @description A short description of the status. */
           readonly description?: string;
-          /** A string label to differentiate this status from the status of other systems. This field is case-insensitive. */
+          /**
+           * @description A string label to differentiate this status from the status of other systems. This field is case-insensitive.
+           * @default default
+           */
           readonly context?: string;
         };
       };
@@ -26448,9 +30496,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Determines if notifications should be received from this repository. */
+          /** @description Determines if notifications should be received from this repository. */
           readonly subscribed?: boolean;
-          /** Determines if all notifications should be blocked from this repository. */
+          /** @description Determines if all notifications should be blocked from this repository. */
           readonly ignored?: boolean;
         };
       };
@@ -26573,7 +30621,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** An array of topics to add to the repository. Pass one or more topics to _replace_ the set of existing topics. Send an empty array (`[]`) to clear all topics from the repository. **Note:** Topic `names` cannot contain uppercase letters. */
+          /** @description An array of topics to add to the repository. Pass one or more topics to _replace_ the set of existing topics. Send an empty array (`[]`) to clear all topics from the repository. **Note:** Topic `names` cannot contain uppercase letters. */
           readonly names: readonly string[];
         };
       };
@@ -26678,9 +30726,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The username or organization name the repository will be transferred to. */
+          /** @description The username or organization name the repository will be transferred to. */
           readonly new_owner: string;
-          /** ID of the team or teams to add to the repository. Teams can only be added to organization-owned repositories. */
+          /** @description ID of the team or teams to add to the repository. Teams can only be added to organization-owned repositories. */
           readonly team_ids?: readonly number[];
         };
       };
@@ -26777,15 +30825,15 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The organization or person who will own the new repository. To create a new repository in an organization, the authenticated user must be a member of the specified organization. */
+          /** @description The organization or person who will own the new repository. To create a new repository in an organization, the authenticated user must be a member of the specified organization. */
           readonly owner?: string;
-          /** The name of the new repository. */
+          /** @description The name of the new repository. */
           readonly name: string;
-          /** A short description of the new repository. */
+          /** @description A short description of the new repository. */
           readonly description?: string;
-          /** Set to `true` to include the directory structure and files from all branches in the template repository, and not just the default branch. Default: `false`. */
+          /** @description Set to `true` to include the directory structure and files from all branches in the template repository, and not just the default branch. Default: `false`. */
           readonly include_all_branches?: boolean;
-          /** Either `true` to create a new private repository or `false` to create a new public one. */
+          /** @description Either `true` to create a new private repository or `false` to create a new public one. */
           readonly private?: boolean;
         };
       };
@@ -26979,9 +31027,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an environment public key](https://docs.github.com/rest/reference/actions#get-an-environment-public-key) endpoint. */
+          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an environment public key](https://docs.github.com/rest/reference/actions#get-an-environment-public-key) endpoint. */
           readonly encrypted_value?: string;
-          /** ID of the key you used to encrypt the secret. */
+          /** @description ID of the key you used to encrypt the secret. */
           readonly key_id?: string;
         };
       };
@@ -27049,12 +31097,12 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The SCIM schema URIs. */
+          /** @description The SCIM schema URIs. */
           readonly schemas: readonly string[];
-          /** The name of the SCIM group. This must match the GitHub organization that the group maps to. */
+          /** @description The name of the SCIM group. This must match the GitHub organization that the group maps to. */
           readonly displayName: string;
           readonly members?: readonly {
-            /** The SCIM user ID for a user. */
+            /** @description The SCIM user ID for a user. */
             readonly value: string;
           }[];
         };
@@ -27105,12 +31153,12 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The SCIM schema URIs. */
+          /** @description The SCIM schema URIs. */
           readonly schemas: readonly string[];
-          /** The name of the SCIM group. This must match the GitHub organization that the group maps to. */
+          /** @description The name of the SCIM group. This must match the GitHub organization that the group maps to. */
           readonly displayName: string;
           readonly members?: readonly {
-            /** The SCIM user ID for a user. */
+            /** @description The SCIM user ID for a user. */
             readonly value: string;
           }[];
         };
@@ -27157,9 +31205,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The SCIM schema URIs. */
+          /** @description The SCIM schema URIs. */
           readonly schemas: readonly string[];
-          /** Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
+          /** @description Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
           readonly Operations: readonly { readonly [key: string]: unknown }[];
         };
       };
@@ -27232,26 +31280,26 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The SCIM schema URIs. */
+          /** @description The SCIM schema URIs. */
           readonly schemas: readonly string[];
-          /** The username for the user. */
+          /** @description The username for the user. */
           readonly userName: string;
           readonly name: {
-            /** The first name of the user. */
+            /** @description The first name of the user. */
             readonly givenName: string;
-            /** The last name of the user. */
+            /** @description The last name of the user. */
             readonly familyName: string;
           };
-          /** List of user emails. */
+          /** @description List of user emails. */
           readonly emails: readonly {
-            /** The email address. */
+            /** @description The email address. */
             readonly value: string;
-            /** The type of email address. */
+            /** @description The type of email address. */
             readonly type: string;
-            /** Whether this email address is the primary address. */
+            /** @description Whether this email address is the primary address. */
             readonly primary: boolean;
           }[];
-          /** List of SCIM group IDs the user is a member of. */
+          /** @description List of SCIM group IDs the user is a member of. */
           readonly groups?: readonly {
             readonly value?: string;
           }[];
@@ -27307,26 +31355,26 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The SCIM schema URIs. */
+          /** @description The SCIM schema URIs. */
           readonly schemas: readonly string[];
-          /** The username for the user. */
+          /** @description The username for the user. */
           readonly userName: string;
           readonly name: {
-            /** The first name of the user. */
+            /** @description The first name of the user. */
             readonly givenName: string;
-            /** The last name of the user. */
+            /** @description The last name of the user. */
             readonly familyName: string;
           };
-          /** List of user emails. */
+          /** @description List of user emails. */
           readonly emails: readonly {
-            /** The email address. */
+            /** @description The email address. */
             readonly value: string;
-            /** The type of email address. */
+            /** @description The type of email address. */
             readonly type: string;
-            /** Whether this email address is the primary address. */
+            /** @description Whether this email address is the primary address. */
             readonly primary: boolean;
           }[];
-          /** List of SCIM group IDs the user is a member of. */
+          /** @description List of SCIM group IDs the user is a member of. */
           readonly groups?: readonly {
             readonly value?: string;
           }[];
@@ -27389,9 +31437,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The SCIM schema URIs. */
+          /** @description The SCIM schema URIs. */
           readonly schemas: readonly string[];
-          /** Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
+          /** @description Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
           readonly Operations: readonly { readonly [key: string]: unknown }[];
         };
       };
@@ -27474,16 +31522,26 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Configured by the admin. Could be an email, login, or username */
+          /**
+           * @description Configured by the admin. Could be an email, login, or username
+           * @example someone@example.com
+           */
           readonly userName: string;
-          /** The name of the user, suitable for display to end-users */
+          /**
+           * @description The name of the user, suitable for display to end-users
+           * @example Jon Doe
+           */
           readonly displayName?: string;
+          /** @example [object Object] */
           readonly name: {
             readonly givenName: string;
             readonly familyName: string;
             readonly formatted?: string;
           };
-          /** user emails */
+          /**
+           * @description user emails
+           * @example [object Object],[object Object]
+           */
           readonly emails: readonly {
             readonly value: string;
             readonly primary?: boolean;
@@ -27547,19 +31605,29 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           readonly schemas?: readonly string[];
-          /** The name of the user, suitable for display to end-users */
+          /**
+           * @description The name of the user, suitable for display to end-users
+           * @example Jon Doe
+           */
           readonly displayName?: string;
           readonly externalId?: string;
           readonly groups?: readonly string[];
           readonly active?: boolean;
-          /** Configured by the admin. Could be an email, login, or username */
+          /**
+           * @description Configured by the admin. Could be an email, login, or username
+           * @example someone@example.com
+           */
           readonly userName: string;
+          /** @example [object Object] */
           readonly name: {
             readonly givenName: string;
             readonly familyName: string;
             readonly formatted?: string;
           };
-          /** user emails */
+          /**
+           * @description user emails
+           * @example [object Object],[object Object]
+           */
           readonly emails: readonly {
             readonly type?: string;
             readonly value: string;
@@ -27633,7 +31701,10 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           readonly schemas?: readonly string[];
-          /** Set of operations to be performed */
+          /**
+           * @description Set of operations to be performed
+           * @example [object Object]
+           */
           readonly Operations: readonly {
             readonly op: "add" | "remove" | "replace";
             readonly path?: string;
@@ -28030,12 +32101,12 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The name of the team. */
+          /** @description The name of the team. */
           readonly name: string;
-          /** The description of the team. */
+          /** @description The description of the team. */
           readonly description?: string;
           /**
-           * The level of privacy this team should have. Editing teams without specifying this parameter leaves `privacy` intact. The options are:
+           * @description The level of privacy this team should have. Editing teams without specifying this parameter leaves `privacy` intact. The options are:
            * **For a non-nested team:**
            * \* `secret` - only visible to organization owners and members of this team.
            * \* `closed` - visible to all members of this organization.
@@ -28044,13 +32115,14 @@ export interface operations {
            */
           readonly privacy?: "secret" | "closed";
           /**
-           * **Deprecated**. The permission that new repositories will be added to the team with when none is specified. Can be one of:
+           * @description **Deprecated**. The permission that new repositories will be added to the team with when none is specified. Can be one of:
            * \* `pull` - team members can pull, but not push to or administer newly-added repositories.
            * \* `push` - team members can pull and push, but not administer newly-added repositories.
            * \* `admin` - team members can pull, push and administer newly-added repositories.
+           * @default pull
            */
           readonly permission?: "pull" | "push" | "admin";
-          /** The ID of a team to set as the parent team. */
+          /** @description The ID of a team to set as the parent team. */
           readonly parent_team_id?: number | null;
         };
       };
@@ -28109,11 +32181,11 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The discussion post's title. */
+          /** @description The discussion post's title. */
           readonly title: string;
-          /** The discussion post's body text. */
+          /** @description The discussion post's body text. */
           readonly body: string;
-          /** Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post. */
+          /** @description Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post. */
           readonly private?: boolean;
         };
       };
@@ -28180,9 +32252,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The discussion post's title. */
+          /** @description The discussion post's title. */
           readonly title?: string;
-          /** The discussion post's body text. */
+          /** @description The discussion post's body text. */
           readonly body?: string;
         };
       };
@@ -28243,7 +32315,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The discussion comment's body text. */
+          /** @description The discussion comment's body text. */
           readonly body: string;
         };
       };
@@ -28313,7 +32385,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The discussion comment's body text. */
+          /** @description The discussion comment's body text. */
           readonly body: string;
         };
       };
@@ -28374,7 +32446,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment. */
+          /** @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment. */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
@@ -28433,7 +32505,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion. */
+          /** @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion. */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
@@ -28558,6 +32630,7 @@ export interface operations {
               readonly field?: string;
               readonly resource?: string;
             }[];
+            /** @example "https://docs.github.com/rest" */
             readonly documentation_url?: string;
           };
         };
@@ -28655,6 +32728,7 @@ export interface operations {
               readonly field?: string;
               readonly resource?: string;
             }[];
+            /** @example "https://help.github.com/articles/github-and-trade-controls" */
             readonly documentation_url?: string;
           };
         };
@@ -28664,9 +32738,10 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /**
-           * The role that this user should have in the team. Can be one of:
+           * @description The role that this user should have in the team. Can be one of:
            * \* `member` - a normal member of the team.
            * \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
+           * @default member
            */
           readonly role?: "member" | "maintainer";
         };
@@ -28781,7 +32856,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /**
-           * The permission to grant to the team for this project. Can be one of:
+           * @description The permission to grant to the team for this project. Can be one of:
            * \* `read` - team members can read, but not write to or administer this project.
            * \* `write` - team members can read and write, but not administer this project.
            * \* `admin` - team members can read, write and administer this project.
@@ -28889,7 +32964,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": {
           /**
-           * The permission to grant the team on this repository. Can be one of:
+           * @description The permission to grant the team on this repository. Can be one of:
            * \* `pull` - team members can pull, but not push to or administer this repository.
            * \* `push` - team members can pull and push, but not administer this repository.
            * \* `admin` - team members can pull, push and administer this repository.
@@ -28969,18 +33044,22 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The IdP groups you want to connect to a GitHub team. When updating, the new `groups` object will replace the original one. You must include any existing groups that you don't want to remove. */
+          /** @description The IdP groups you want to connect to a GitHub team. When updating, the new `groups` object will replace the original one. You must include any existing groups that you don't want to remove. */
           readonly groups: readonly {
-            /** ID of the IdP group. */
+            /** @description ID of the IdP group. */
             readonly group_id: string;
-            /** Name of the IdP group. */
+            /** @description Name of the IdP group. */
             readonly group_name: string;
-            /** Description of the IdP group. */
+            /** @description Description of the IdP group. */
             readonly group_description: string;
+            /** @example "caceab43fc9ffa20081c" */
             readonly id?: string;
+            /** @example "external-team-6c13e7288ef7" */
             readonly name?: string;
+            /** @example "moar cheese pleese" */
             readonly description?: string;
           }[];
+          /** @example "I am not a timestamp" */
           readonly synced_at?: string;
         };
       };
@@ -29050,21 +33129,39 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The new name of the user. */
+          /**
+           * @description The new name of the user.
+           * @example Omar Jahandar
+           */
           readonly name?: string;
-          /** The publicly visible email address of the user. */
+          /**
+           * @description The publicly visible email address of the user.
+           * @example omar@example.com
+           */
           readonly email?: string;
-          /** The new blog URL of the user. */
+          /**
+           * @description The new blog URL of the user.
+           * @example blog.example.com
+           */
           readonly blog?: string;
-          /** The new Twitter username of the user. */
+          /**
+           * @description The new Twitter username of the user.
+           * @example therealomarj
+           */
           readonly twitter_username?: string | null;
-          /** The new company of the user. */
+          /**
+           * @description The new company of the user.
+           * @example Acme corporation
+           */
           readonly company?: string;
-          /** The new location of the user. */
+          /**
+           * @description The new location of the user.
+           * @example Berlin, Germany
+           */
           readonly location?: string;
-          /** The new hiring availability of the user. */
+          /** @description The new hiring availability of the user. */
           readonly hireable?: boolean;
-          /** The new short biography of the user. */
+          /** @description The new short biography of the user. */
           readonly bio?: string;
         };
       };
@@ -29157,9 +33254,12 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** An email address associated with the GitHub user account to manage. */
+          /**
+           * @description An email address associated with the GitHub user account to manage.
+           * @example org@example.com
+           */
           readonly email: string;
-          /** Denotes whether an email is publically visible. */
+          /** @description Denotes whether an email is publically visible. */
           readonly visibility: "public" | "private";
         };
       };
@@ -29209,7 +33309,10 @@ export interface operations {
       readonly content: {
         readonly "application/json":
           | {
-              /** Adds one or more email addresses to your GitHub account. Must contain at least one email address. **Note:** Alternatively, you can pass a single email address or an `array` of emails addresses directly, but we recommend that you pass an object using the `emails` key. */
+              /**
+               * @description Adds one or more email addresses to your GitHub account. Must contain at least one email address. **Note:** Alternatively, you can pass a single email address or an `array` of emails addresses directly, but we recommend that you pass an object using the `emails` key.
+               * @example
+               */
               readonly emails: readonly string[];
             }
           | readonly string[]
@@ -29233,7 +33336,7 @@ export interface operations {
       readonly content: {
         readonly "application/json":
           | {
-              /** Email addresses associated with the GitHub user account. */
+              /** @description Email addresses associated with the GitHub user account. */
               readonly emails: readonly string[];
             }
           | readonly string[]
@@ -29386,7 +33489,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** A GPG key in ASCII-armored format. */
+          /** @description A GPG key in ASCII-armored format. */
           readonly armored_public_key: string;
         };
       };
@@ -29673,9 +33776,12 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** A descriptive name for the new key. */
+          /**
+           * @description A descriptive name for the new key.
+           * @example Personal MacBook Air
+           */
           readonly title?: string;
-          /** The public SSH key to add to your GitHub account. */
+          /** @description The public SSH key to add to your GitHub account. */
           readonly key: string;
         };
       };
@@ -29826,7 +33932,7 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The state that the membership should be in. Only `"active"` will be accepted. */
+          /** @description The state that the membership should be in. Only `"active"` will be accepted. */
           readonly state: "active";
         };
       };
@@ -29873,11 +33979,20 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Lock the repositories being migrated at the start of the migration */
+          /**
+           * @description Lock the repositories being migrated at the start of the migration
+           * @example true
+           */
           readonly lock_repositories?: boolean;
-          /** Do not include attachments in the migration */
+          /**
+           * @description Do not include attachments in the migration
+           * @example true
+           */
           readonly exclude_attachments?: boolean;
-          /** Exclude attributes from the API response to improve performance */
+          /**
+           * @description Exclude attributes from the API response to improve performance
+           * @example repositories
+           */
           readonly exclude?: readonly "repositories"[];
           readonly repositories: readonly string[];
         };
@@ -30242,9 +34357,15 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** Name of the project */
+          /**
+           * @description Name of the project
+           * @example Week One Sprint
+           */
           readonly name: string;
-          /** Body of the project */
+          /**
+           * @description Body of the project
+           * @example This project represents the sprint of the first week in January
+           */
           readonly body?: string | null;
         };
       };
@@ -30356,39 +34477,79 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** The name of the repository. */
+          /**
+           * @description The name of the repository.
+           * @example Team Environment
+           */
           readonly name: string;
-          /** A short description of the repository. */
+          /** @description A short description of the repository. */
           readonly description?: string;
-          /** A URL with more information about the repository. */
+          /** @description A URL with more information about the repository. */
           readonly homepage?: string;
-          /** Whether the repository is private or public. */
+          /** @description Whether the repository is private or public. */
           readonly private?: boolean;
-          /** Whether issues are enabled. */
+          /**
+           * @description Whether issues are enabled.
+           * @default true
+           * @example true
+           */
           readonly has_issues?: boolean;
-          /** Whether projects are enabled. */
+          /**
+           * @description Whether projects are enabled.
+           * @default true
+           * @example true
+           */
           readonly has_projects?: boolean;
-          /** Whether the wiki is enabled. */
+          /**
+           * @description Whether the wiki is enabled.
+           * @default true
+           * @example true
+           */
           readonly has_wiki?: boolean;
-          /** The id of the team that will be granted access to this repository. This is only valid when creating a repository in an organization. */
+          /** @description The id of the team that will be granted access to this repository. This is only valid when creating a repository in an organization. */
           readonly team_id?: number;
-          /** Whether the repository is initialized with a minimal README. */
+          /** @description Whether the repository is initialized with a minimal README. */
           readonly auto_init?: boolean;
-          /** The desired language or platform to apply to the .gitignore. */
+          /**
+           * @description The desired language or platform to apply to the .gitignore.
+           * @example Haskell
+           */
           readonly gitignore_template?: string;
-          /** The license keyword of the open source license for this repository. */
+          /**
+           * @description The license keyword of the open source license for this repository.
+           * @example mit
+           */
           readonly license_template?: string;
-          /** Whether to allow squash merges for pull requests. */
+          /**
+           * @description Whether to allow squash merges for pull requests.
+           * @default true
+           * @example true
+           */
           readonly allow_squash_merge?: boolean;
-          /** Whether to allow merge commits for pull requests. */
+          /**
+           * @description Whether to allow merge commits for pull requests.
+           * @default true
+           * @example true
+           */
           readonly allow_merge_commit?: boolean;
-          /** Whether to allow rebase merges for pull requests. */
+          /**
+           * @description Whether to allow rebase merges for pull requests.
+           * @default true
+           * @example true
+           */
           readonly allow_rebase_merge?: boolean;
-          /** Whether to delete head branches when pull requests are merged */
+          /** @description Whether to delete head branches when pull requests are merged */
           readonly delete_branch_on_merge?: boolean;
-          /** Whether downloads are enabled. */
+          /**
+           * @description Whether downloads are enabled.
+           * @default true
+           * @example true
+           */
           readonly has_downloads?: boolean;
-          /** Whether this repository acts as a template that can be used to generate new repositories. */
+          /**
+           * @description Whether this repository acts as a template that can be used to generate new repositories.
+           * @example true
+           */
           readonly is_template?: boolean;
         };
       };

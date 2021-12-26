@@ -1,6 +1,7 @@
 .cache
 .DS_Store
 **/generated/
+**/__snapshots__/
 coverage
 dist
 node_modules

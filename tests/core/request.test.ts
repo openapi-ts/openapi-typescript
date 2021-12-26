@@ -1,5 +1,5 @@
 import prettier from "prettier";
-import { transformRequestBodies } from "../src/transform/request";
+import { transformRequestBodies } from "../../src/transform/request";
 
 const defaults = {
   additionalProperties: false,

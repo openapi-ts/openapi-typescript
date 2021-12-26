@@ -65,23 +65,38 @@ export interface paths {
 
 export interface components {
   schemas: {
-    /** An order for a pets from the pet store */
+    /**
+     * Pet Order
+     * @description An order for a pets from the pet store
+     */
     Order: {
+      /** Format: int64 */
       id?: number;
+      /** Format: int64 */
       petId?: number;
+      /** Format: int32 */
       quantity?: number;
+      /** Format: date-time */
       shipDate?: string;
-      /** Order Status */
+      /** @description Order Status */
       status?: "placed" | "approved" | "delivered";
       complete?: boolean;
     };
-    /** A category for a pet */
+    /**
+     * Pet category
+     * @description A category for a pet
+     */
     Category: {
+      /** Format: int64 */
       id?: number;
       name?: string;
     };
-    /** A User who is purchasing from the pet store */
+    /**
+     * a User
+     * @description A User who is purchasing from the pet store
+     */
     User: {
+      /** Format: int64 */
       id?: number;
       username?: string;
       firstName?: string;
@@ -89,26 +104,42 @@ export interface components {
       email?: string;
       password?: string;
       phone?: string;
-      /** User Status */
+      /**
+       * Format: int32
+       * @description User Status
+       */
       userStatus?: number;
     };
-    /** A tag for a pet */
+    /**
+     * Pet Tag
+     * @description A tag for a pet
+     */
     Tag: {
+      /** Format: int64 */
       id?: number;
       name?: string;
     };
-    /** A pet for sale in the pet store */
+    /**
+     * a Pet
+     * @description A pet for sale in the pet store
+     */
     Pet: {
+      /** Format: int64 */
       id?: number;
       category?: components["schemas"]["Category"];
+      /** @example doggie */
       name: string;
       photoUrls: string[];
       tags?: components["schemas"]["Tag"][];
-      /** pet status in the store */
+      /** @description pet status in the store */
       status?: "available" | "pending" | "sold";
     };
-    /** Describes the result of uploading an image resource */
+    /**
+     * An uploaded response
+     * @description Describes the result of uploading an image resource
+     */
     ApiResponse: {
+      /** Format: int32 */
       code?: number;
       type?: string;
       message?: string;
@@ -240,9 +271,9 @@ export interface operations {
     requestBody: {
       content: {
         "application/x-www-form-urlencoded": {
-          /** Updated name of the pet */
+          /** @description Updated name of the pet */
           name?: string;
-          /** Updated status of the pet */
+          /** @description Updated status of the pet */
           status?: string;
         };
       };
@@ -281,9 +312,12 @@ export interface operations {
     requestBody: {
       content: {
         "multipart/form-data": {
-          /** Additional data to pass to server */
+          /** @description Additional data to pass to server */
           additionalMetadata?: string;
-          /** file to upload */
+          /**
+           * Format: binary
+           * @description file to upload
+           */
           file?: string;
         };
       };

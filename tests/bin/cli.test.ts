@@ -43,9 +43,9 @@ describe("cli", () => {
     execSync(`${cmd} "specs/*.yaml" -o generated/`, { cwd }); // Quotes are necessary because shells like zsh treats glob weirdly
     const [generatedPetstore, expectedPetstore, generatedManifold, expectedManifold] = await Promise.all([
       fs.promises.readFile(path.join(__dirname, "generated", "specs", "petstore.ts"), "utf8"),
-      fs.promises.readFile(path.join(__dirname, "expected", "petstore.ts"), "utf8"),
+      fs.promises.readFile(path.join(__dirname, "expected", "specs", "petstore.ts"), "utf8"),
       fs.promises.readFile(path.join(__dirname, "generated", "specs", "manifold.ts"), "utf8"),
-      fs.promises.readFile(path.join(__dirname, "expected", "manifold.ts"), "utf8"),
+      fs.promises.readFile(path.join(__dirname, "expected", "specs", "manifold.ts"), "utf8"),
     ]);
     expect(generatedPetstore).toBe(sanitizeLB(expectedPetstore));
     expect(generatedManifold).toBe(sanitizeLB(expectedManifold));

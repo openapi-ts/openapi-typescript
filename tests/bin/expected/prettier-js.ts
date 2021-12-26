@@ -66,19 +66,25 @@ export interface paths {
 export interface components {
   schemas: {
     Order: {
+      /** Format: int64 */
       id?: number
+      /** Format: int64 */
       petId?: number
+      /** Format: int32 */
       quantity?: number
+      /** Format: date-time */
       shipDate?: string
-      /** Order Status */
+      /** @description Order Status */
       status?: 'placed' | 'approved' | 'delivered'
       complete?: boolean
     }
     Category: {
+      /** Format: int64 */
       id?: number
       name?: string
     }
     User: {
+      /** Format: int64 */
       id?: number
       username?: string
       firstName?: string
@@ -86,23 +92,30 @@ export interface components {
       email?: string
       password?: string
       phone?: string
-      /** User Status */
+      /**
+       * Format: int32
+       * @description User Status
+       */
       userStatus?: number
     }
     Tag: {
+      /** Format: int64 */
       id?: number
       name?: string
     }
     Pet: {
+      /** Format: int64 */
       id?: number
       category?: components['schemas']['Category']
+      /** @example doggie */
       name: string
       photoUrls: string[]
       tags?: components['schemas']['Tag'][]
-      /** pet status in the store */
+      /** @description pet status in the store */
       status?: 'available' | 'pending' | 'sold'
     }
     ApiResponse: {
+      /** Format: int32 */
       code?: number
       type?: string
       message?: string
@@ -217,9 +230,9 @@ export interface operations {
     requestBody: {
       content: {
         'application/x-www-form-urlencoded': {
-          /** Updated name of the pet */
+          /** @description Updated name of the pet */
           name?: string
-          /** Updated status of the pet */
+          /** @description Updated status of the pet */
           status?: string
         }
       }
@@ -260,9 +273,12 @@ export interface operations {
     requestBody: {
       content: {
         'multipart/form-data': {
-          /** Additional data to pass to server */
+          /** @description Additional data to pass to server */
           additionalMetadata?: string
-          /** file to upload */
+          /**
+           * Format: binary
+           * @description file to upload
+           */
           file?: string
         }
       }
