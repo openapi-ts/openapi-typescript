@@ -461,6 +461,15 @@
         "code",
         "bug"
       ]
+    },
+    {
+      "login": "ajaishankar",
+      "name": "ajaishankar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/328008?v=4",
+      "profile": "https://github.com/ajaishankar",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
