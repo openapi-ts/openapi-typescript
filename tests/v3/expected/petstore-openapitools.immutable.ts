@@ -65,23 +65,38 @@ export interface paths {
 
 export interface components {
   readonly schemas: {
-    /** An order for a pets from the pet store */
+    /**
+     * Pet Order
+     * @description An order for a pets from the pet store
+     */
     readonly Order: {
+      /** Format: int64 */
       readonly id?: number;
+      /** Format: int64 */
       readonly petId?: number;
+      /** Format: int32 */
       readonly quantity?: number;
+      /** Format: date-time */
       readonly shipDate?: string;
-      /** Order Status */
+      /** @description Order Status */
       readonly status?: "placed" | "approved" | "delivered";
       readonly complete?: boolean;
     };
-    /** A category for a pet */
+    /**
+     * Pet category
+     * @description A category for a pet
+     */
     readonly Category: {
+      /** Format: int64 */
       readonly id?: number;
       readonly name?: string;
     };
-    /** A User who is purchasing from the pet store */
+    /**
+     * a User
+     * @description A User who is purchasing from the pet store
+     */
     readonly User: {
+      /** Format: int64 */
       readonly id?: number;
       readonly username?: string;
       readonly firstName?: string;
@@ -89,26 +104,42 @@ export interface components {
       readonly email?: string;
       readonly password?: string;
       readonly phone?: string;
-      /** User Status */
+      /**
+       * Format: int32
+       * @description User Status
+       */
       readonly userStatus?: number;
     };
-    /** A tag for a pet */
+    /**
+     * Pet Tag
+     * @description A tag for a pet
+     */
     readonly Tag: {
+      /** Format: int64 */
       readonly id?: number;
       readonly name?: string;
     };
-    /** A pet for sale in the pet store */
+    /**
+     * a Pet
+     * @description A pet for sale in the pet store
+     */
     readonly Pet: {
+      /** Format: int64 */
       readonly id?: number;
       readonly category?: components["schemas"]["Category"];
+      /** @example doggie */
       readonly name: string;
       readonly photoUrls: readonly string[];
       readonly tags?: readonly components["schemas"]["Tag"][];
-      /** pet status in the store */
+      /** @description pet status in the store */
       readonly status?: "available" | "pending" | "sold";
     };
-    /** Describes the result of uploading an image resource */
+    /**
+     * An uploaded response
+     * @description Describes the result of uploading an image resource
+     */
     readonly ApiResponse: {
+      /** Format: int32 */
       readonly code?: number;
       readonly type?: string;
       readonly message?: string;
@@ -240,9 +271,9 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/x-www-form-urlencoded": {
-          /** Updated name of the pet */
+          /** @description Updated name of the pet */
           readonly name?: string;
-          /** Updated status of the pet */
+          /** @description Updated status of the pet */
           readonly status?: string;
         };
       };
@@ -281,9 +312,12 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "multipart/form-data": {
-          /** Additional data to pass to server */
+          /** @description Additional data to pass to server */
           readonly additionalMetadata?: string;
-          /** file to upload */
+          /**
+           * Format: binary
+           * @description file to upload
+           */
           readonly file?: string;
         };
       };

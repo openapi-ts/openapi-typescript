@@ -10,19 +10,19 @@ export interface paths {
 }
 
 export interface definitions {
-  /** Enum with null and nullable */
+  /** @description Enum with null and nullable */
   readonly MyType: {
     readonly myField?: ("foo" | "bar") | null;
   };
-  /** Enum with null */
+  /** @description Enum with null */
   readonly MyTypeNotNullable: {
     readonly myField?: "foo" | "bar" | null;
   };
-  /** Enum with null */
+  /** @description Enum with null */
   readonly MyTypeNotNullableNotNull: {
     readonly myField?: "foo" | "bar";
   };
-  /** Enum with null */
+  /** @description Enum with null */
   readonly MyTypeMixed: {
     readonly myField?: "foo" | 2 | false | null;
   };

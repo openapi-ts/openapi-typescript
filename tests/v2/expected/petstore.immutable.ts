@@ -65,19 +65,25 @@ export interface paths {
 
 export interface definitions {
   readonly Order: {
+    /** Format: int64 */
     readonly id?: number;
+    /** Format: int64 */
     readonly petId?: number;
+    /** Format: int32 */
     readonly quantity?: number;
+    /** Format: date-time */
     readonly shipDate?: string;
-    /** Order Status */
+    /** @description Order Status */
     readonly status?: "placed" | "approved" | "delivered";
     readonly complete?: boolean;
   };
   readonly Category: {
+    /** Format: int64 */
     readonly id?: number;
     readonly name?: string;
   };
   readonly User: {
+    /** Format: int64 */
     readonly id?: number;
     readonly username?: string;
     readonly firstName?: string;
@@ -85,23 +91,30 @@ export interface definitions {
     readonly email?: string;
     readonly password?: string;
     readonly phone?: string;
-    /** User Status */
+    /**
+     * Format: int32
+     * @description User Status
+     */
     readonly userStatus?: number;
   };
   readonly Tag: {
+    /** Format: int64 */
     readonly id?: number;
     readonly name?: string;
   };
   readonly Pet: {
+    /** Format: int64 */
     readonly id?: number;
     readonly category?: definitions["Category"];
+    /** @example doggie */
     readonly name: string;
     readonly photoUrls: readonly string[];
     readonly tags?: readonly definitions["Tag"][];
-    /** pet status in the store */
+    /** @description pet status in the store */
     readonly status?: "available" | "pending" | "sold";
   };
   readonly ApiResponse: {
+    /** Format: int32 */
     readonly code?: number;
     readonly type?: string;
     readonly message?: string;

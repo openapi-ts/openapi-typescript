@@ -1,4 +1,4 @@
-import { transformOperationObj } from "../src/transform/operation";
+import { transformOperationObj } from "../../src/transform/operation";
 
 const defaults = {
   additionalProperties: false,

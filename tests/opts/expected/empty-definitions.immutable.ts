@@ -9,26 +9,17 @@ export interface paths {
   };
 }
 
-export interface definitions {
-  readonly Pet: {
-    /** Format: int64 */
-    readonly id?: number;
-    /** @example doggie */
-    readonly name: string;
-  };
-}
-
 export interface operations {
   readonly addPet: {
     readonly parameters: {
       readonly body: {
-        readonly body: {
-          readonly name?: definitions["Pet"]["name"];
-        };
+        /** Pet object that needs to be added to the store */
+        readonly body: definitions["Pet"];
       };
     };
     readonly responses: {
-      readonly 200: unknown;
+      /** Invalid input */
+      readonly 405: unknown;
     };
   };
 }

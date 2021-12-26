@@ -9,26 +9,17 @@ export interface paths {
   };
 }
 
-export interface definitions {
-  Pet: {
-    /** Format: int64 */
-    id?: number;
-    /** @example doggie */
-    name: string;
-  };
-}
-
 export interface operations {
   addPet: {
     parameters: {
       body: {
-        body: {
-          name?: definitions["Pet"]["name"];
-        };
+        /** Pet object that needs to be added to the store */
+        body: definitions["Pet"];
       };
     };
     responses: {
-      200: unknown;
+      /** Invalid input */
+      405: unknown;
     };
   };
 }

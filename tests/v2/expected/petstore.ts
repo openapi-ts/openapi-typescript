@@ -65,19 +65,25 @@ export interface paths {
 
 export interface definitions {
   Order: {
+    /** Format: int64 */
     id?: number;
+    /** Format: int64 */
     petId?: number;
+    /** Format: int32 */
     quantity?: number;
+    /** Format: date-time */
     shipDate?: string;
-    /** Order Status */
+    /** @description Order Status */
     status?: "placed" | "approved" | "delivered";
     complete?: boolean;
   };
   Category: {
+    /** Format: int64 */
     id?: number;
     name?: string;
   };
   User: {
+    /** Format: int64 */
     id?: number;
     username?: string;
     firstName?: string;
@@ -85,23 +91,30 @@ export interface definitions {
     email?: string;
     password?: string;
     phone?: string;
-    /** User Status */
+    /**
+     * Format: int32
+     * @description User Status
+     */
     userStatus?: number;
   };
   Tag: {
+    /** Format: int64 */
     id?: number;
     name?: string;
   };
   Pet: {
+    /** Format: int64 */
     id?: number;
     category?: definitions["Category"];
+    /** @example doggie */
     name: string;
     photoUrls: string[];
     tags?: definitions["Tag"][];
-    /** pet status in the store */
+    /** @description pet status in the store */
     status?: "available" | "pending" | "sold";
   };
   ApiResponse: {
+    /** Format: int32 */
     code?: number;
     type?: string;
     message?: string;

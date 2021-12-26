@@ -10,19 +10,19 @@ export interface paths {
 }
 
 export interface definitions {
-  /** Enum with null and nullable */
+  /** @description Enum with null and nullable */
   MyType: {
     myField?: ("foo" | "bar") | null;
   };
-  /** Enum with null */
+  /** @description Enum with null */
   MyTypeNotNullable: {
     myField?: "foo" | "bar" | null;
   };
-  /** Enum with null */
+  /** @description Enum with null */
   MyTypeNotNullableNotNull: {
     myField?: "foo" | "bar";
   };
-  /** Enum with null */
+  /** @description Enum with null */
   MyTypeMixed: {
     myField?: "foo" | 2 | false | null;
   };
