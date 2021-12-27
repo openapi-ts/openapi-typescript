@@ -1,6 +1,5 @@
 import type { GlobalContext, OpenAPI2, OpenAPI3, SchemaObject, SwaggerToTSOptions } from "./types";
 import path from "path";
-import * as color from "kleur/colors";
 import prettier from "prettier";
 import parserTypescript from "prettier/parser-typescript.js";
 import { URL } from "url";
@@ -31,7 +30,7 @@ export const WARNING_MESSAGE = `/**
  * @return {Promise<string>}  {Promise<string>} Parsed file schema
  */
 async function openapiTS(
-  schema: string | OpenAPI2 | OpenAPI3 | Record<string, SchemaObject>,
+  schema: string | URL | OpenAPI2 | OpenAPI3 | Record<string, SchemaObject>,
   options: SwaggerToTSOptions = {} as Partial<SwaggerToTSOptions>
 ): Promise<string> {
   const ctx: GlobalContext = {
@@ -46,44 +45,28 @@ async function openapiTS(
 
   // note: we may be loading many large schemas into memory at once; take care to reuse references without cloning
 
+  const isInlineSchema = typeof schema != "string" && schema instanceof URL == false;
+
   // 1. load schema
   let rootSchema: Record<string, any> = {};
   let external: Record<string, Record<string, any>> = {};
   const allSchemas: Record<string, Record<string, any>> = {};
-  if (typeof schema === "string") {
-    const schemaURL = resolveSchema(schema);
-    if (options.silent === false) console.log(color.yellow(`🔭 Loading spec from ${color.bold(schemaURL.href)}…`));
+  const schemaURL: URL = typeof schema === "string" ? resolveSchema(schema) : (schema as URL);
 
-    await load(schemaURL, {
-      ...ctx,
-      schemas: allSchemas,
-      rootURL: schemaURL, // as it crawls schemas recursively, it needs to know which is the root to resolve everything relative to
-      httpHeaders: options.httpHeaders,
-      httpMethod: options.httpMethod,
-    });
+  await load(schemaURL, {
+    ...ctx,
+    schemas: allSchemas,
+    rootURL: isInlineSchema ? new URL(VIRTUAL_JSON_URL) : schemaURL, // if an inline schema is passed, use virtual URL
+    httpHeaders: options.httpHeaders,
+    httpMethod: options.httpMethod,
+  });
 
-    for (const k of Object.keys(allSchemas)) {
-      if (k === schemaURL.href) {
-        rootSchema = allSchemas[k];
-      } else {
-        external[k] = allSchemas[k];
-      }
-    }
-  } else {
-    await load(schema, {
-      ...ctx,
-      schemas: allSchemas,
-      rootURL: new URL(VIRTUAL_JSON_URL),
-      httpHeaders: options.httpHeaders,
-      httpMethod: options.httpMethod,
-    });
-
-    for (const k of Object.keys(allSchemas)) {
-      if (k === VIRTUAL_JSON_URL) {
-        rootSchema = allSchemas[k];
-      } else {
-        external[k] = allSchemas[k];
-      }
+  for (const k of Object.keys(allSchemas)) {
+    const rootSchemaID = isInlineSchema ? VIRTUAL_JSON_URL : schemaURL.href;
+    if (k === rootSchemaID) {
+      rootSchema = allSchemas[k];
+    } else {
+      external[k] = allSchemas[k];
     }
   }
 

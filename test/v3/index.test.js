@@ -1,14 +1,14 @@
-const { expect } = require("chai");
-const { execSync } = require("child_process");
-const eol = require("eol");
-const fs = require("fs");
-const path = require("path");
-const yaml = require("js-yaml");
-const { default: openapiTS } = require("../../dist/cjs/index.js");
+import { expect } from "chai";
+import { execSync } from "child_process";
+import eol from "eol";
+import fs from "fs";
+import yaml from "js-yaml";
+import openapiTS from "../../dist/esm/index.js";
+import { fileURLToPath } from "url";
 
 const cmd = `node ../../bin/cli.js`;
-const cwd = __dirname;
-const schemas = fs.readdirSync(path.join(__dirname, "specs/"));
+const cwd = new URL(".", import.meta.url);
+const schemas = fs.readdirSync(new URL("./specs/", cwd));
 
 describe("cli", () => {
   schemas.forEach((schema) => {
@@ -16,8 +16,8 @@ describe("cli", () => {
       const filename = schema.replace(/\.(json|yaml)$/, ".ts");
 
       execSync(`${cmd} specs/${schema} -o generated/${filename} --prettier-config .prettierrc`, { cwd });
-      const generated = fs.readFileSync(path.join(__dirname, "generated", filename), "utf8");
-      const expected = eol.lf(fs.readFileSync(path.join(__dirname, "expected", filename), "utf8"));
+      const generated = fs.readFileSync(new URL(`./generated/${filename}`, cwd), "utf8");
+      const expected = eol.lf(fs.readFileSync(new URL(`./expected/${filename}`, cwd), "utf8"));
       expect(generated).to.equal(expected);
     });
 
@@ -28,8 +28,8 @@ describe("cli", () => {
         `${cmd} specs/${schema} -o generated/${filename} --prettier-config .prettierrc --additional-properties`,
         { cwd }
       );
-      const generated = fs.readFileSync(path.join(__dirname, "generated", filename), "utf8");
-      const expected = eol.lf(fs.readFileSync(path.join(__dirname, "expected", filename), "utf8"));
+      const generated = fs.readFileSync(new URL(`./generated/${filename}`, cwd), "utf8");
+      const expected = eol.lf(fs.readFileSync(new URL(`./expected/${filename}`, cwd), "utf8"));
       expect(generated).to.equal(expected);
     });
 
@@ -39,8 +39,8 @@ describe("cli", () => {
       execSync(`${cmd} specs/${schema} -o generated/${filename} --prettier-config .prettierrc --immutable-types`, {
         cwd,
       });
-      const generated = fs.readFileSync(path.join(__dirname, "generated", filename), "utf8");
-      const expected = eol.lf(fs.readFileSync(path.join(__dirname, "expected", filename), "utf8"));
+      const generated = fs.readFileSync(new URL(`./generated/${filename}`, cwd), "utf8");
+      const expected = eol.lf(fs.readFileSync(new URL(`./expected/${filename}`, cwd), "utf8"));
       expect(generated).to.equal(expected);
     });
   });
@@ -50,8 +50,8 @@ describe("cli", () => {
       `${cmd} https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/manifold.yaml -o generated/http.ts`,
       { cwd }
     );
-    const generated = fs.readFileSync(path.join(__dirname, "generated", "http.ts"), "utf8");
-    const expected = eol.lf(fs.readFileSync(path.join(__dirname, "expected", "http.ts"), "utf8"));
+    const generated = fs.readFileSync(new URL("./generated/http.ts", cwd), "utf8");
+    const expected = eol.lf(fs.readFileSync(new URL("./expected/http.ts", cwd), "utf8"));
     expect(generated).to.equal(expected);
   });
 });
@@ -59,12 +59,12 @@ describe("cli", () => {
 describe("json", () => {
   schemas.forEach((schema) => {
     it(`reads ${schema} from JSON`, async () => {
-      const spec = fs.readFileSync(path.join(__dirname, "specs", schema), "utf8");
+      const spec = fs.readFileSync(new URL(`./specs/${schema}`, cwd), "utf8");
       const generated = await openapiTS(yaml.load(spec), {
-        prettierConfig: path.join(__dirname, "..", "..", ".prettierrc"),
+        prettierConfig: fileURLToPath(new URL("../../.prettierrc", cwd)),
       });
       const expected = eol.lf(
-        fs.readFileSync(path.join(__dirname, "expected", schema.replace(/\.(json|yaml)$/, ".ts")), "utf8")
+        fs.readFileSync(new URL(`./expected/${schema.replace(/\.(json|yaml)$/, ".ts")}`, cwd), "utf8")
       );
       expect(generated).to.equal(expected);
     });

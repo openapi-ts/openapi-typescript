@@ -1,5 +1,5 @@
-const { expect } = require("chai");
-const { default: openapiTS } = require("../../dist/cjs/index.js");
+import { expect } from "chai";
+import openapiTS from "../../dist/esm/index.js";
 
 describe("rawSchema", () => {
   it("v2", async () => {

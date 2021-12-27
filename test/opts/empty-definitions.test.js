@@ -1,8 +1,7 @@
-const { expect } = require("chai");
-const eol = require("eol");
-const fs = require("fs");
-const path = require("path");
-const { default: openapiTS } = require("../../dist/cjs/index.js");
+import { expect } from "chai";
+import eol from "eol";
+import fs from "fs";
+import openapiTS from "../../dist/esm/index.js";
 
 describe("allow empty definitions", () => {
   const schema = {
@@ -35,14 +34,14 @@ describe("allow empty definitions", () => {
 
   it("basic", async () => {
     const generated = await openapiTS(schema, { version: 2 });
-    const expected = eol.lf(fs.readFileSync(path.join(__dirname, "expected", "empty-definitions.ts"), "utf8"));
+    const expected = eol.lf(fs.readFileSync(new URL("./expected/empty-definitions.ts", import.meta.url), "utf8"));
     expect(generated).to.equal(expected);
   });
 
   it("immutable", async () => {
     const generated = await openapiTS(schema, { immutableTypes: true, version: 2 });
     const expected = eol.lf(
-      fs.readFileSync(path.join(__dirname, "expected", "empty-definitions.immutable.ts"), "utf8")
+      fs.readFileSync(new URL("./expected/empty-definitions.immutable.ts", import.meta.url), "utf8")
     );
     expect(generated).to.equal(expected);
   });

@@ -1,8 +1,8 @@
 /**
  * Tests raw generation, pre-Prettier
  */
-const { expect } = require("chai");
-const { transformSchemaObj: transform } = require("../../dist/cjs/transform/schema.js");
+import { expect } from "chai";
+import { transformSchemaObj as transform } from "../../dist/esm/transform/schema.js";
 
 const defaults = {
   additionalProperties: false,

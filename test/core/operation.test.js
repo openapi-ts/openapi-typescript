@@ -1,5 +1,5 @@
-const { expect } = require("chai");
-const { transformOperationObj } = require("../../dist/cjs/transform/operation.js");
+import { expect } from "chai";
+import { transformOperationObj } from "../../dist/esm/transform/operation.js";
 
 const defaults = {
   additionalProperties: false,

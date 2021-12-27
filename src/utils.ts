@@ -152,7 +152,7 @@ export function swaggerVersion(definition: OpenAPI2 | OpenAPI3): 2 | 3 {
   }
 
   throw new Error(
-    `🚏 version missing from schema; specify whether this is OpenAPI v3 or v2 https://swagger.io/specification`
+    `✘  version missing from schema; specify whether this is OpenAPI v3 or v2 https://swagger.io/specification`
   );
 }
 
