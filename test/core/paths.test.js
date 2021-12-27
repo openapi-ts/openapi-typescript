@@ -1,7 +1,8 @@
-import prettier from "prettier";
-import { transformPathsObj as transform } from "../../src/transform/paths";
+const { expect } = require("chai");
+const prettier = require("prettier");
+const { transformPathsObj: transform } = require("../../dist/cjs/transform/paths.js");
 
-function format(source: string): string {
+function format(source) {
   return prettier.format(`export interface paths {\n${source}\n}`, { parser: "typescript" });
 }
 
@@ -16,7 +17,7 @@ const defaults = {
 };
 
 describe("transformPathsObj", () => {
-  const basicSchema: any = {
+  const basicSchema = {
     "/": {
       get: {
         responses: {
@@ -70,7 +71,7 @@ describe("transformPathsObj", () => {
   };
 
   it("basic", () => {
-    expect(format(transform(basicSchema, { ...defaults }))).toBe(
+    expect(format(transform(basicSchema, { ...defaults }))).to.equal(
       format(`
   "/": {
     get: {
@@ -115,7 +116,7 @@ describe("transformPathsObj", () => {
   });
 
   it("basic (immutableTypes)", () => {
-    expect(format(transform(basicSchema, { ...defaults, immutableTypes: true }))).toBe(
+    expect(format(transform(basicSchema, { ...defaults, immutableTypes: true }))).to.equal(
       format(`
   readonly "/": {
     readonly get: {
@@ -159,7 +160,7 @@ describe("transformPathsObj", () => {
     );
   });
 
-  const emptyResponsesSchema: any = {
+  const emptyResponsesSchema = {
     "/no-content": {
       get: {
         responses: {
@@ -173,7 +174,7 @@ describe("transformPathsObj", () => {
   };
 
   it("empty responses (#333, #536)", () => {
-    expect(format(transform(emptyResponsesSchema, { ...defaults, version: 3 }))).toBe(
+    expect(format(transform(emptyResponsesSchema, { ...defaults, version: 3 }))).to.equal(
       format(`
   "/no-content": {
     get: {
@@ -209,7 +210,7 @@ describe("transformPathsObj", () => {
   });
 
   it("empty responses (immutableTypes)", () => {
-    expect(format(transform(emptyResponsesSchema, { ...defaults, immutableTypes: true }))).toBe(
+    expect(format(transform(emptyResponsesSchema, { ...defaults, immutableTypes: true }))).to.equal(
       format(`
   readonly "/no-content": {
     readonly get: {
@@ -244,7 +245,7 @@ describe("transformPathsObj", () => {
     );
   });
 
-  const requestBodySchema: any = {
+  const requestBodySchema = {
     "/tests": {
       post: {
         requestBody: {
@@ -282,7 +283,7 @@ describe("transformPathsObj", () => {
   };
 
   it("requestBody (#338)", () => {
-    expect(format(transform(requestBodySchema, { ...defaults }))).toBe(
+    expect(format(transform(requestBodySchema, { ...defaults }))).to.equal(
       format(`
   "/tests": {
     post: {
@@ -310,7 +311,7 @@ describe("transformPathsObj", () => {
   });
 
   it("requestBody (immutableTypes)", () => {
-    expect(format(transform(requestBodySchema, { ...defaults, immutableTypes: true }))).toBe(
+    expect(format(transform(requestBodySchema, { ...defaults, immutableTypes: true }))).to.equal(
       format(`
   readonly "/tests": {
     readonly post: {
@@ -372,7 +373,7 @@ describe("transformPathsObj", () => {
           }
         )
       )
-    ).toBe(
+    ).to.equal(
       format(`
   "/some/path": {
     get: {
@@ -404,7 +405,7 @@ describe("transformPathsObj", () => {
           { ...defaults }
         )
       )
-    ).toBe(
+    ).to.equal(
       format(`
   "/{example}": {
     get: {
@@ -441,7 +442,7 @@ describe("transformPathsObj", () => {
           { ...defaults }
         )
       )
-    ).toBe(
+    ).to.equal(
       format(`
   "/c/{id}.json": {
     /** Get a list of topics in the specified category */
@@ -475,7 +476,7 @@ describe("transformPathsObj", () => {
           { ...defaults }
         )
       )
-    ).toBe(
+    ).to.equal(
       format(`
   /** root description */
   "/": {

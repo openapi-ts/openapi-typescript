@@ -1,7 +1,7 @@
-import { GlobalContext } from "../types";
-import { comment, tsReadonly } from "../utils";
-import { transformHeaderObjMap } from "./headers";
-import { transformSchemaObj } from "./schema";
+import type { GlobalContext } from "../types";
+import { comment, tsReadonly } from "../utils.js";
+import { transformHeaderObjMap } from "./headers.js";
+import { transformSchemaObj } from "./schema.js";
 
 const resType = (res: string | number) => (res === 204 || (res >= 300 && res < 400) ? "never" : "unknown");
 

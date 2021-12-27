@@ -1,6 +1,6 @@
-import { GlobalContext, HeaderObject } from "../types";
-import { comment, tsReadonly } from "../utils";
-import { transformSchemaObj } from "./schema";
+import type { GlobalContext, HeaderObject } from "../types";
+import { comment, tsReadonly } from "../utils.js";
+import { transformSchemaObj } from "./schema.js";
 
 interface TransformHeadersOptions extends GlobalContext {
   required: Set<string>;

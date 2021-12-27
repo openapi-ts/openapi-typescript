@@ -1,6 +1,6 @@
-import { GlobalContext, RequestBody } from "../types";
-import { comment, tsReadonly } from "../utils";
-import { transformSchemaObj } from "./schema";
+import type { GlobalContext, RequestBody } from "../types";
+import { comment, tsReadonly } from "../utils.js";
+import { transformSchemaObj } from "./schema.js";
 
 export function transformRequestBodies(requestBodies: Record<string, RequestBody>, ctx: GlobalContext) {
   let output = "";

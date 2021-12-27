@@ -125,7 +125,7 @@ async function generateSchema(pathToSpec) {
       outputFilePath = path.join(outputFilePath, filename);
     }
 
-    await fs.promises.writeFile(outputFilePath, result, "utf8");
+    fs.writeFileSync(outputFilePath, result, "utf8");
 
     const timeEnd = process.hrtime(timeStart);
     const time = timeEnd[0] + Math.round(timeEnd[1] / 1e6);
@@ -153,8 +153,7 @@ async function main() {
 
   // handle remote schema, exit
   if (/^https?:\/\//.test(pathToSpec)) {
-    if (output !== "." && output === OUTPUT_FILE)
-      await fs.promises.mkdir(path.dirname(cli.flags.output), { recursive: true });
+    if (output !== "." && output === OUTPUT_FILE) fs.mkdirSync(path.dirname(cli.flags.output), { recursive: true });
     await generateSchema(pathToSpec);
     return;
   }
@@ -183,7 +182,7 @@ async function main() {
         } else {
           outputDir = path.dirname(outputDir); // single files: just use output parent dir
         }
-        await fs.promises.mkdir(outputDir, { recursive: true }); // recursively make parent dirs
+        fs.mkdirSync(outputDir, { recursive: true }); // recursively make parent dirs
       }
       await generateSchema(specPath);
     })

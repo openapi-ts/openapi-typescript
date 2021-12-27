@@ -60,7 +60,9 @@ _Also if this appears in `examples/` feel free to update that, too!_
 
 ## Testing
 
-Tests can be run with `npm test`. This will build the library first to ensure you’re not testing a stale build.
+```
+npm test
+```
 
 ## Help needed
 

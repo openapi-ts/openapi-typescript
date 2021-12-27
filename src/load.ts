@@ -1,3 +1,4 @@
+import type { GlobalContext, Headers } from "./types";
 import fetch from "node-fetch";
 import fs from "fs";
 import path from "path";
@@ -5,9 +6,8 @@ import { URL } from "url";
 import slash from "slash";
 import mime from "mime";
 import yaml from "js-yaml";
-import { red } from "kleur";
-import { GlobalContext, Headers } from "./types";
-import { parseRef } from "./utils";
+import * as color from "kleur/colors";
+import { parseRef } from "./utils.js";
 
 type PartialSchema = Record<string, any>; // not a very accurate type, but this is easier to deal with before we know we’re dealing with a valid spec
 type SchemaMap = { [url: string]: PartialSchema };
@@ -76,7 +76,7 @@ function parseHttpHeaders(httpHeaders: Record<string, any>): Headers {
       } catch (err) {
         /* istanbul ignore next */
         console.error(
-          red(`Cannot parse key: ${k} into JSON format. Continuing with the next HTTP header that is specified`)
+          color.red(`Cannot parse key: ${k} into JSON format. Continuing with the next HTTP header that is specified`)
         );
       }
     }
@@ -120,7 +120,7 @@ export default async function load(
 
     if (isFile(schemaURL)) {
       // load local
-      contents = await fs.promises.readFile(schemaURL, "utf8");
+      contents = fs.readFileSync(schemaURL, "utf8");
       contentType = mime.getType(schemaID) || "";
     } else {
       // load remote

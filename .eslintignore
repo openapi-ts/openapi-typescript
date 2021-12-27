@@ -1,6 +1,7 @@
 example/*.ts
 bin
-
 dist
 examples
-tests
+**/generated/*
+**/expected/*
+**/specs/*

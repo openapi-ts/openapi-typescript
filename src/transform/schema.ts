@@ -1,4 +1,4 @@
-import { GlobalContext } from "../types";
+import type { GlobalContext } from "../types";
 import {
   prepareComment,
   nodeType,
@@ -8,7 +8,7 @@ import {
   tsReadonly,
   tsTupleOf,
   tsUnionOf,
-} from "../utils";
+} from "../utils.js";
 
 interface TransformSchemaObjOptions extends GlobalContext {
   required: Set<string>;

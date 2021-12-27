@@ -7,16 +7,19 @@
     "npm": ">= 7.0.0"
   },
   "author": "drew@pow.rs",
-  "license": "ISC",
+  "license": "MIT",
   "bin": {
     "openapi-typescript": "bin/cli.js"
   },
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "exports": {
-    "browser": "./dist/esm/index.js",
-    "import": "./dist/esm/index.js",
-    "require": "./dist/cjs/index.js"
+    ".": {
+      "browser": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.js"
+    },
+    "./*": "./*"
   },
   "files": [
     "bin",
@@ -44,16 +47,15 @@
   },
   "homepage": "https://github.com/drwpow/openapi-typescript#readme",
   "scripts": {
-    "build": "rm -rf dist && tsc --project tsconfig.esm.json && tsc --project tsconfig.cjs.json",
+    "build": "rm -rf dist && npm run build:esm && npm run build:cjs",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build:esm": "tsc --project tsconfig.esm.json && renamer --find .js --replace .mjs \"dist/esm/**/*\"",
     "format": "npm run prettier -w .",
     "lint": "eslint .",
     "prepare": "npm run build",
     "pregenerate": "npm run build",
-    "test": "npm run build && jest --testTimeout=30000",
-    "test:watch": "npm run build && jest --no-cache --watch",
-    "test:update": "npm run build && jest -u",
-    "test:coverage": "npm run build && jest --no-cache --coverage && codecov",
-    "test:coverage:local": "npm run build && jest --no-cache --collectCoverage",
+    "test": "mocha --recursive --parallel --timeout 30000",
+    "test:coverage": "nyc --reporter=lcov mocha --recursive --parallel --timeout 30000 && codecov",
     "typecheck": "tsc --noEmit --project tsconfig.esm.json",
     "version": "npm run build"
   },
@@ -69,19 +71,21 @@
     "tiny-glob": "^0.2.9"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.2",
     "@types/js-yaml": "^4.0.1",
     "@types/mime": "^2.0.3",
     "@types/node-fetch": "^2.5.12",
+    "@types/prettier": "^2.4.2",
     "@typescript-eslint/eslint-plugin": "^5.8.0",
     "@typescript-eslint/parser": "^5.8.0",
-    "codecov": "^3.8.2",
+    "chai": "^4.3.4",
+    "codecov": "^3.8.3",
     "eol": "^0.9.1",
     "eslint": "^8.5.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "jest": "^27.4.5",
-    "ts-jest": "^27.1.2",
-    "typescript": "^4.4.3"
+    "mocha": "^9.1.3",
+    "nyc": "^15.1.0",
+    "renamer": "^4.0.0",
+    "typescript": "^4.5.4"
   }
 }
