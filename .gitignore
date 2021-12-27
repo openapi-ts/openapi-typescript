@@ -1,5 +1,6 @@
 .cache
 .DS_Store
+.nyc_output/
 **/generated/
 **/__snapshots__/
 coverage/
