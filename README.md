@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/main/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-44-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-45-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -303,6 +303,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/bunkscene"><img src="https://avatars.githubusercontent.com/u/2693678?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dave Carlson</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=bunkscene" title="Code">💻</a></td>
     <td align="center"><a href="https://ottomated.net"><img src="https://avatars.githubusercontent.com/u/31470743?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ottomated</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=ottomated" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Aottomated" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://karanarqq.dev"><img src="https://avatars.githubusercontent.com/u/28733669?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Artem Shuvaev</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=sadfsdfdsa" title="Code">💻</a></td>
   </tr>
 </table>
 
