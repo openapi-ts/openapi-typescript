@@ -47,7 +47,7 @@ describe("cli", () => {
 
   it("reads spec (v3) from remote resource", async () => {
     execSync(
-      `${cmd} https://raw.githubusercontent.com/drwpow/openapi-typescript/main/tests/v3/specs/manifold.yaml -o generated/http.ts`,
+      `${cmd} https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/manifold.yaml -o generated/http.ts`,
       { cwd }
     );
     const generated = fs.readFileSync(path.join(__dirname, "generated", "http.ts"), "utf8");

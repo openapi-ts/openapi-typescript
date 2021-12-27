@@ -50,7 +50,7 @@ describe("cli", () => {
     // note: we can’t check headers passed to fetch() without mocking (and overcomplicating/flake-ifying the tests). simply testing the parsing is the biggest win.
     expect(() =>
       execSync(
-        `${cmd} https://raw.githubusercontent.com/drwpow/openapi-typescript/main/tests/v2/specs/manifold.yaml --header "x-openapi-format:json" --header "x-openapi-version:3.0.1"`,
+        `${cmd} https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v2/specs/manifold.yaml --header "x-openapi-format:json" --header "x-openapi-version:3.0.1"`,
         { cwd }
       ).toString("utf8")
     ).not.to.throw();
@@ -60,7 +60,7 @@ describe("cli", () => {
     // note: same as above—testing the parser is the biggest win; values can be tested trivially with manual debugging
     expect(() => {
       execSync(
-        `${cmd} https://raw.githubusercontent.com/drwpow/openapi-typescript/main/tests/v2/specs/manifold.yaml --headersObject "{\\"x-boolean\\":true, \\"x-number\\":3.0, \\"x-string\\": \\"openapi\\"}"`,
+        `${cmd} https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v2/specs/manifold.yaml --headersObject "{\\"x-boolean\\":true, \\"x-number\\":3.0, \\"x-string\\": \\"openapi\\"}"`,
         { cwd }
       );
     }).not.to.throw();
