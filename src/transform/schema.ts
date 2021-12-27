@@ -10,7 +10,7 @@ import {
   tsUnionOf,
   parseSingleSimpleValue,
   ParsedSimpleValue,
-} from "../utils";
+} from "../utils.js";
 
 interface TransformSchemaObjOptions extends GlobalContext {
   required: Set<string>;
