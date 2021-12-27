@@ -1,7 +1,0 @@
-{
-  "compilerOptions": {
-    "module": "CommonJS",
-    "outDir": "./dist/cjs"
-  },
-  "extends": "./tsconfig.base.json"
-}

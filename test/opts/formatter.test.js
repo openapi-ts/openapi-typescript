@@ -1,8 +1,7 @@
-const { expect } = require("chai");
-const fs = require("fs");
-const eol = require("eol");
-const path = require("path");
-const { default: openapiTS } = require("../../dist/cjs/index.js");
+import { expect } from "chai";
+import fs from "fs";
+import eol from "eol";
+import openapiTS from "../../dist/esm/index.js";
 
 describe("formatter", () => {
   it("basic", async () => {
@@ -27,7 +26,7 @@ describe("formatter", () => {
       },
       version: 3,
     });
-    const expected = eol.lf(fs.readFileSync(path.join(__dirname, "expected", "formatter-basic.ts"), "utf8"));
+    const expected = eol.lf(fs.readFileSync(new URL("./expected/formatter-basic.ts", import.meta.url), "utf8"));
     expect(generated).to.equal(expected);
   });
 
@@ -63,7 +62,7 @@ describe("formatter", () => {
       },
       version: 3,
     });
-    const expected = eol.lf(fs.readFileSync(path.join(__dirname, "expected", "formatter-has-object.ts"), "utf8"));
+    const expected = eol.lf(fs.readFileSync(new URL("./expected/formatter-has-object.ts", import.meta.url), "utf8"));
     expect(generated).to.equal(expected);
   });
 });

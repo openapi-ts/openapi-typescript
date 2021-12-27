@@ -1,6 +1,6 @@
-const { expect } = require("chai");
-const prettier = require("prettier");
-const { transformPathsObj: transform } = require("../../dist/cjs/transform/paths.js");
+import { expect } from "chai";
+import prettier from "prettier";
+import { transformPathsObj as transform } from "../../dist/esm/transform/paths.js";
 
 function format(source) {
   return prettier.format(`export interface paths {\n${source}\n}`, { parser: "typescript" });

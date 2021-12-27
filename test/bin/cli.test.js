@@ -1,22 +1,21 @@
-const { expect } = require("chai");
-const eol = require("eol");
-const fs = require("fs");
-const path = require("path");
-const { execSync } = require("child_process");
+import { expect } from "chai";
+import { execSync } from "child_process";
+import eol from "eol";
+import fs from "fs";
 
 // Note(drew): OpenAPI support is already well-tested in v2/index.test.ts and
 // v3/index.test.ts. Only use these tests for testing CLI flags.
 
 const cmd = `node ../../bin/cli.js`;
-const cwd = __dirname;
+const cwd = new URL(".", import.meta.url);
 
 describe("cli", () => {
   it("--prettier-config (JSON)", async () => {
     execSync(`${cmd} specs/petstore.yaml -o generated/prettier-json.ts --prettier-config fixtures/.prettierrc`, {
       cwd,
     });
-    const generated = fs.readFileSync(path.join(cwd, "generated", "prettier-json.ts"), "utf8");
-    const expected = eol.lf(fs.readFileSync(path.join(cwd, "expected", "prettier-json.ts"), "utf8"));
+    const generated = fs.readFileSync(new URL("./generated/prettier-json.ts", cwd), "utf8");
+    const expected = eol.lf(fs.readFileSync(new URL("./expected/prettier-json.ts", cwd), "utf8"));
     expect(generated).to.equal(expected);
   });
 
@@ -24,25 +23,25 @@ describe("cli", () => {
     execSync(`${cmd} specs/petstore.yaml -o generated/prettier-js.ts --prettier-config fixtures/prettier.config.js`, {
       cwd,
     });
-    const generated = fs.readFileSync(path.join(cwd, "generated", "prettier-js.ts"), "utf8");
-    const expected = eol.lf(fs.readFileSync(path.join(cwd, "expected", "prettier-js.ts"), "utf8"));
+    const generated = fs.readFileSync(new URL("./generated/prettier-js.ts", cwd), "utf8");
+    const expected = eol.lf(fs.readFileSync(new URL("./expected/prettier-js.ts", cwd), "utf8"));
     expect(generated).to.equal(expected);
   });
 
   it("stdout", async () => {
     const generated = execSync(`${cmd} specs/petstore.yaml`, { cwd });
-    const expected = eol.lf(fs.readFileSync(path.join(cwd, "expected", "stdout.ts"), "utf8"));
+    const expected = eol.lf(fs.readFileSync(new URL("./expected/stdout.ts", cwd), "utf8"));
     expect(generated.toString("utf8")).to.equal(expected);
   });
 
   it("supports glob paths", async () => {
     execSync(`${cmd} "specs/*.yaml" -o generated/`, { cwd }); // Quotes are necessary because shells like zsh treats glob weirdly
-    const generatedPetstore = fs.readFileSync(path.join(cwd, "generated", "specs", "petstore.ts"), "utf8");
-    const expectedPetstore = eol.lf(fs.readFileSync(path.join(cwd, "expected", "specs", "petstore.ts"), "utf8"));
+    const generatedPetstore = fs.readFileSync(new URL("./generated/specs/petstore.ts", cwd), "utf8");
+    const expectedPetstore = eol.lf(fs.readFileSync(new URL("./expected/specs/petstore.ts", cwd), "utf8"));
     expect(generatedPetstore).to.equal(expectedPetstore);
 
-    const generatedManifold = fs.readFileSync(path.join(cwd, "generated", "specs", "manifold.ts"), "utf8");
-    const expectedManifold = eol.lf(fs.readFileSync(path.join(cwd, "expected", "specs", "manifold.ts"), "utf8"));
+    const generatedManifold = fs.readFileSync(new URL("./generated/specs/manifold.ts", cwd), "utf8");
+    const expectedManifold = eol.lf(fs.readFileSync(new URL("./expected/specs/manifold.ts", cwd), "utf8"));
     expect(generatedManifold).to.equal(expectedManifold);
   });
 

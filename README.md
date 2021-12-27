@@ -69,7 +69,7 @@ _Thanks to [@psmyrdek](https://github.com/psmyrdek) for the remote spec feature!
 Import any top-level item from the generated spec to use it. It works best if you also alias types to save on typing:
 
 ```ts
-import { components } from './generated-schema.ts';
+import { components } from "./generated-schema.ts";
 
 type APIResponse = components["schemas"]["APIResponse"];
 ```
@@ -79,7 +79,7 @@ Because OpenAPI schemas may have invalid TypeScript characters as names, the squ
 Also note that there’s a special `operations` interface that you can import `OperationObjects` by their [operationId][openapi-operationid]:
 
 ```ts
-import { operations } from './generated-schema.ts';
+import { operations } from "./generated-schema.ts";
 
 type getUsersById = operations["getUsersById"];
 ```
@@ -93,16 +93,16 @@ _Thanks to [@gr2m](https://github.com/gr2m) for the operations feature!_
 The generated spec can also be used with [openapi-typescript-fetch](https://www.npmjs.com/package/openapi-typescript-fetch) which implements a typed fetch client for openapi-typescript.
 
 ```ts
-import { paths } from './petstore'
+import { paths } from "./petstore";
 
-import { Fetcher } from 'openapi-typescript-fetch'
+import { Fetcher } from "openapi-typescript-fetch";
 
 // declare fetcher for paths
 const fetcher = Fetcher.for<paths>()
 
 // global configuration
 fetcher.configure({
-  baseUrl: 'https://petstore.swagger.io/v2',
+  baseUrl: "https://petstore.swagger.io/v2",
   init: {
     headers: {
       ...
@@ -112,19 +112,19 @@ fetcher.configure({
 })
 
 // create fetch operations
-const findPetsByStatus = fetcher.path('/pet/findByStatus').method('get').create()
-const addPet = fetcher.path('/pet').method('post').create()
+const findPetsByStatus = fetcher.path("/pet/findByStatus").method("get").create()
+const addPet = fetcher.path("/pet").method("post").create()
 
 // fetch
 try {
   const { status, data: pets } = await findPetsByStatus({
-    status: ['available', 'pending'],
+    status: ["available", "pending"],
   })
   await addPet({ ... })
 } catch(e) {
   // check which operation threw the exception
   if (e instanceof addPet.Error) {
-    // get discriminated union { status, data } 
+    // get discriminated union { status, data }
     const error = e.getActualType()
     if (error.status === 400) {
       error.data.validationErrors // 400 response data
@@ -167,19 +167,19 @@ npm i --save-dev openapi-typescript
 ```
 
 ```js
-const fs = require("fs");
-const openapiTS = require("openapi-typescript").default;
+import fs from "fs";
+import openapiTS from "openapi-typescript";
 
 // example 1: load [object] as schema (JSON only)
 const schema = await fs.promises.readFile("spec.json", "utf8") // must be OpenAPI JSON
 const output = await openapiTS(JSON.parse(schema));
 
 // example 2: load [string] as local file (YAML or JSON; released in v4.0)
-const localPath = path.join(__dirname, 'spec.yaml'); // may be YAML or JSON format
+const localPath = new URL("./spec.yaml", import.meta.url); // may be YAML or JSON format
 const output = await openapiTS(localPath);
 
 // example 3: load [string] as remote URL (YAML or JSON; released in v4.0)
-const output = await openapiTS('https://myurl.com/v1/openapi.yaml');
+const output = await openapiTS("https://myurl.com/v1/openapi.yaml");
 ```
 
 The Node API may be useful if dealing with dynamically-created schemas, or you’re using within context of a larger application. Pass in either a JSON-friendly object to load a schema from memory, or a string to load a schema from a local file or remote URL (it will load the file quickly using built-in Node methods). Note that a YAML string isn’t supported in the Node.js API; either use the CLI or convert to JSON using [js-yaml][js-yaml] first.
@@ -204,7 +204,7 @@ By default, this will generate a type `updated_at?: string;`. But we can overrid
 ```js
 const types = openapiTS(mySchema, {
   formatter(node: SchemaObject) {
-    if (node.format === 'date-time') {
+    if (node.format === "date-time") {
       return "Date"; // return the TypeScript “Date” type, as a string
     }
   // for all other schema objects, let openapi-typescript decide (return undefined)

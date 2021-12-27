@@ -3,14 +3,15 @@ import fetch from "node-fetch";
 import fs from "fs";
 import path from "path";
 import { URL } from "url";
-import slash from "slash";
 import mime from "mime";
 import yaml from "js-yaml";
-import * as color from "kleur/colors";
 import { parseRef } from "./utils.js";
 
 type PartialSchema = Record<string, any>; // not a very accurate type, but this is easier to deal with before we know we’re dealing with a valid spec
 type SchemaMap = { [url: string]: PartialSchema };
+
+const RED = "\u001b[31m";
+const RESET = "\u001b[0m";
 
 export const VIRTUAL_JSON_URL = `file:///_json`; // fake URL reserved for dynamic JSON
 
@@ -41,9 +42,7 @@ export function resolveSchema(url: string): URL {
   }
 
   // option 2: local
-  const localPath = path.isAbsolute(url)
-    ? new URL("", `file://${slash(url)}`)
-    : new URL(url, `file://${slash(process.cwd())}/`); // if absolute path is provided use that; otherwise search cwd\
+  const localPath = path.isAbsolute(url) ? new URL("", `file://${url}`) : new URL(url, `file://${process.cwd()}/`); // if absolute path is provided use that; otherwise search cwd\
 
   if (!fs.existsSync(localPath)) {
     throw new Error(`Could not locate ${url}`);
@@ -76,7 +75,7 @@ function parseHttpHeaders(httpHeaders: Record<string, any>): Headers {
       } catch (err) {
         /* istanbul ignore next */
         console.error(
-          color.red(`Cannot parse key: ${k} into JSON format. Continuing with the next HTTP header that is specified`)
+          `${RED}Cannot parse key: ${k} into JSON format. Continuing with the next HTTP header that is specified${RESET}`
         );
       }
     }
@@ -180,7 +179,7 @@ export default async function load(
         throw new Error(`Can’t load URL "${refURL}" from dynamic JSON. Load this schema from a URL instead.`);
       }
 
-      const nextURL = isRemoteURL ? new URL(refURL) : new URL(slash(refURL), schema as URL);
+      const nextURL = isRemoteURL ? new URL(refURL) : new URL(refURL, schema as URL);
       refPromises.push(
         load(nextURL, { ...options, urlCache }).then((subschemas) => {
           for (const subschemaURL of Object.keys(subschemas)) {

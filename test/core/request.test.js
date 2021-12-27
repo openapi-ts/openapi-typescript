@@ -1,6 +1,6 @@
-const { expect } = require("chai");
-const prettier = require("prettier");
-const { transformRequestBodies } = require("../../dist/cjs/transform/request.js");
+import { expect } from "chai";
+import prettier from "prettier";
+import { transformRequestBodies } from "../../dist/esm/transform/request.js";
 
 const defaults = {
   additionalProperties: false,

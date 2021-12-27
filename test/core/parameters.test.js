@@ -1,5 +1,5 @@
-const { expect } = require("chai");
-const { transformParametersArray } = require("../../dist/cjs/transform/parameters.js");
+import { expect } from "chai";
+import { transformParametersArray } from "../../dist/esm/transform/parameters.js";
 
 const defaults = {
   additionalProperties: false,
