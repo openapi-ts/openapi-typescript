@@ -28,20 +28,21 @@ export function prepareComment(v: CommentObject): string | void {
   // * JSDOC tags without value
   // 'Deprecated' without value
   if (v.deprecated) commentsArray.push(`@deprecated `);
-  // 'Constant' without value
-  if (v.const) commentsArray.push(`@constant `);
-
-  // * JSDOC 'Enum' with type
-  if (v.enum) {
-    const canBeNull = v.nullable ? `|${null}` : "";
-    commentsArray.push(`@enum {${v.type}${canBeNull}}`);
-  }
 
   // * JSDOC tags with value
   const supportedJsDocTags: Array<keyof CommentObject> = ["description", "default", "example"];
   for (let index = 0; index < supportedJsDocTags.length; index++) {
     const field = supportedJsDocTags[index];
     if (v[field]) commentsArray.push(`@${field} ${v[field]} `);
+  }
+
+  // * JSDOC 'Constant' without value
+  if (v.const) commentsArray.push(`@constant `);
+
+  // * JSDOC 'Enum' with type
+  if (v.enum) {
+    const canBeNull = v.nullable ? `|${null}` : "";
+    commentsArray.push(`@enum {${v.type}${canBeNull}}`);
   }
 
   if (!commentsArray.length) return;

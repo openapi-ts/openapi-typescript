@@ -78,7 +78,10 @@ export interface components {
       readonly quantity?: number;
       /** Format: date-time */
       readonly shipDate?: string;
-      /** @description Order Status */
+      /**
+       * @description Order Status
+       * @enum {string}
+       */
       readonly status?: "placed" | "approved" | "delivered";
       readonly complete?: boolean;
     };
@@ -131,7 +134,10 @@ export interface components {
       readonly name: string;
       readonly photoUrls: readonly string[];
       readonly tags?: readonly components["schemas"]["Tag"][];
-      /** @description pet status in the store */
+      /**
+       * @description pet status in the store
+       * @enum {string}
+       */
       readonly status?: "available" | "pending" | "sold";
     };
     /**

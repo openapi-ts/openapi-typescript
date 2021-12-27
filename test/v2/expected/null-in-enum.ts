@@ -12,18 +12,22 @@ export interface paths {
 export interface definitions {
   /** @description Enum with null and nullable */
   MyType: {
-    myField?: ("foo" | "bar") | null;
+    /** @enum {string|null} */
+    myField?: ("foo" | "bar" | null) | null;
   };
   /** @description Enum with null */
   MyTypeNotNullable: {
+    /** @enum {string} */
     myField?: "foo" | "bar" | null;
   };
   /** @description Enum with null */
   MyTypeNotNullableNotNull: {
+    /** @enum {string} */
     myField?: "foo" | "bar";
   };
   /** @description Enum with null */
   MyTypeMixed: {
+    /** @enum {string} */
     myField?: "foo" | 2 | false | null;
   };
 }

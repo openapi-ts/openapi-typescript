@@ -88,7 +88,10 @@ export interface external {
           quantity?: number;
           /** Format: date-time */
           shipDate?: string;
-          /** @description Order Status */
+          /**
+           * @description Order Status
+           * @enum {string}
+           */
           status?: "placed" | "approved" | "delivered";
           complete?: boolean;
         };
@@ -125,7 +128,10 @@ export interface external {
           name: string;
           photoUrls: string[];
           tags?: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Tag"][];
-          /** @description pet status in the store */
+          /**
+           * @description pet status in the store
+           * @enum {string}
+           */
           status?: "available" | "pending" | "sold";
         };
         ApiResponse: {

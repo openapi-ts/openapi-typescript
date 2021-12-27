@@ -155,6 +155,7 @@ describe("SchemaObject", () => {
       expect(
         transform({ properties: { string: { type: "string", enum: enumBasic } }, type: "object" }, { ...defaults })
       ).to.equal(`{
+/** @enum {string} */
 "string"?: ('Totoro') | ('Sats\\'uki') | ('Mei');
 
 }`);
@@ -162,6 +163,7 @@ describe("SchemaObject", () => {
       const enumNull = ["Totoro", "Sats'uki", "Mei", null];
       expect(transform({ properties: { string: { type: "string", enum: enumNull } }, type: "object" }, { ...defaults }))
         .to.equal(`{
+/** @enum {string} */
 "string"?: ('Totoro') | ('Sats\\'uki') | ('Mei') | (null);
 
 }`);
@@ -170,6 +172,7 @@ describe("SchemaObject", () => {
       expect(
         transform({ properties: { string: { type: "string", enum: enumMixed } }, type: "object" }, { ...defaults })
       ).to.equal(`{
+/** @enum {string} */
 "string"?: ('Totoro') | (2) | (false) | (null);
 
 }`);
@@ -181,7 +184,8 @@ describe("SchemaObject", () => {
           { ...defaults }
         )
       ).to.equal(`{
-"string"?: (('Totoro') | (2) | (false)) | null;
+/** @enum {string|null} */
+"string"?: (('Totoro') | (2) | (false) | (null)) | null;
 
 }`);
 
@@ -193,6 +197,7 @@ describe("SchemaObject", () => {
           { ...defaults }
         )
       ).to.equal(`{
+/** @enum {string|null} */
 "string"?: (('Totoro') | (2) | (false)) | null;
 
 }`);
@@ -202,11 +207,14 @@ describe("SchemaObject", () => {
         transform({ properties: { string: { type: "string", enum: [] } }, type: "object" }, { ...defaults })
       ).to.equal(
         `{
+/** @enum {string} */
 "string"?: string;
 
 }`
       );
     });
+
+    console.log("ASD LAST");
 
     it("$ref", () => {
       expect(transform({ $ref: 'components["parameters"]["ReferenceObject"]' }, { ...defaults })).to.equal(

@@ -556,7 +556,9 @@ export interface definitions {
   };
   readonly Region: {
     readonly id: definitions["ID"];
+    /** @enum {string} */
     readonly type: "region";
+    /** @enum {integer} */
     readonly version: 1;
     readonly body: definitions["RegionBody"];
   };
@@ -590,7 +592,9 @@ export interface definitions {
   };
   readonly Provider: {
     readonly id: definitions["ID"];
+    /** @enum {integer} */
     readonly version: 1;
+    /** @enum {string} */
     readonly type: "provider";
     readonly body: definitions["ProviderBody"];
   };
@@ -633,13 +637,17 @@ export interface definitions {
       readonly base_url?: string;
       /** Format: url */
       readonly sso_url?: string;
+      /** @enum {string} */
       readonly version?: "v1";
       /** @default [object Object] */
       readonly features?: {
         readonly access_code?: boolean;
         readonly sso?: boolean;
         readonly plan_change?: boolean;
-        /** @default multiple */
+        /**
+         * @default multiple
+         * @enum {string}
+         */
         readonly credential?: "none" | "single" | "multiple" | "unknown";
       };
     };
@@ -678,6 +686,7 @@ export interface definitions {
   readonly FeatureType: {
     readonly label: definitions["Label"];
     readonly name: definitions["Name"];
+    /** @enum {string} */
     readonly type: "boolean" | "string" | "number";
     /** @description This sets whether or not the feature can be customized by a consumer. */
     readonly customizable?: boolean;
@@ -803,6 +812,7 @@ export interface definitions {
   readonly ProductImageURL: string;
   /** @description List of tags for product categorization and search */
   readonly ProductTags: readonly definitions["Label"][];
+  /** @enum {string} */
   readonly ProductState: "available" | "hidden" | "grandfathered" | "new" | "upcoming";
   /** @default [object Object] */
   readonly ProductListing: {
@@ -854,6 +864,8 @@ export interface definitions {
    * Pre-Order, should not be used yet. But in the future it should allow people to
    *   pre-provision a resource for when it does go live.
    * Public, means the resource is live and everyone should be able to provision it.
+   *
+   * @enum {string}
    */
   readonly ProductProvisioning: "provider-only" | "pre-order" | "public";
   /** @default [object Object] */
@@ -877,6 +889,8 @@ export interface definitions {
      * @description Describes how the region for a resource is specified, if
      * unspecified, then regions have no impact on this
      * resource.
+     *
+     * @enum {string}
      */
     readonly region?: "user-specified" | "unspecified";
     /**
@@ -888,6 +902,7 @@ export interface definitions {
      * * `unknown`: The credential type is unknown.
      *
      * @default multiple
+     * @enum {string}
      */
     readonly credential?: "none" | "single" | "multiple" | "unknown";
   };
@@ -921,7 +936,9 @@ export interface definitions {
     };
     readonly feature_types: readonly definitions["FeatureType"][];
     readonly billing: {
+      /** @enum {string} */
       readonly type: "monthly-prorated" | "monthly-anniversary" | "annual-anniversary";
+      /** @enum {string} */
       readonly currency: "usd";
     };
     readonly integration: {
@@ -930,6 +947,7 @@ export interface definitions {
       readonly base_url: string;
       /** Format: url */
       readonly sso_url?: string;
+      /** @enum {string} */
       readonly version: "v1";
       readonly features: definitions["ProductIntegrationFeatures"];
     };
@@ -937,7 +955,9 @@ export interface definitions {
   };
   readonly Product: {
     readonly id: definitions["ID"];
+    /** @enum {integer} */
     readonly version: 1;
+    /** @enum {string} */
     readonly type: "product";
     readonly body: definitions["ProductBody"];
   };
@@ -966,6 +986,7 @@ export interface definitions {
     /** @description Dollar value in cents. */
     readonly cost: number;
   };
+  /** @enum {string} */
   readonly PlanState: "hidden" | "available" | "grandfathered" | "unlisted";
   readonly ExpandedPlanBody: definitions["PlanBody"] & {
     /** @description An array of feature definitions for the plan, as defined on the Product. */
@@ -984,13 +1005,17 @@ export interface definitions {
   };
   readonly Plan: {
     readonly id: definitions["ID"];
+    /** @enum {integer} */
     readonly version: 1;
+    /** @enum {string} */
     readonly type: "plan";
     readonly body: definitions["PlanBody"];
   };
   readonly ExpandedPlan: {
     readonly id: definitions["ID"];
+    /** @enum {integer} */
     readonly version: 1;
+    /** @enum {string} */
     readonly type: "plan";
     readonly body: definitions["ExpandedPlanBody"];
   };
@@ -1030,7 +1055,9 @@ export interface definitions {
   readonly PriceFormula: string;
   readonly ExpandedProduct: {
     readonly id: definitions["ID"];
+    /** @enum {integer} */
     readonly version: 1;
+    /** @enum {string} */
     readonly type: "product";
     readonly body: definitions["ProductBody"];
     readonly plans?: readonly definitions["ExpandedPlan"][];

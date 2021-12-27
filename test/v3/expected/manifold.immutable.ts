@@ -695,6 +695,7 @@ export interface components {
     };
     readonly Region: {
       readonly id: components["schemas"]["ID"];
+      /** @enum {string} */
       readonly type: "region";
       readonly version: number;
       readonly body: components["schemas"]["RegionBody"];
@@ -730,6 +731,7 @@ export interface components {
     readonly Provider: {
       readonly id: components["schemas"]["ID"];
       readonly version: number;
+      /** @enum {string} */
       readonly type: "provider";
       readonly body: components["schemas"]["ProviderBody"];
     };
@@ -772,12 +774,16 @@ export interface components {
         readonly base_url?: string | null;
         /** Format: url */
         readonly sso_url?: string | null;
+        /** @enum {string|null} */
         readonly version?: "v1" | null;
         readonly features?: {
           readonly access_code?: boolean | null;
           readonly sso?: boolean | null;
           readonly plan_change?: boolean | null;
-          /** @default multiple */
+          /**
+           * @default multiple
+           * @enum {string|null}
+           */
           readonly credential?: ("none" | "single" | "multiple" | "unknown") | null;
         };
       } | null;
@@ -816,6 +822,7 @@ export interface components {
     readonly FeatureType: {
       readonly label: components["schemas"]["Label"];
       readonly name: components["schemas"]["Name"];
+      /** @enum {string} */
       readonly type: "boolean" | "string" | "number";
       /** @description This sets whether or not the feature can be customized by a consumer. */
       readonly customizable?: boolean;
@@ -934,6 +941,7 @@ export interface components {
     readonly ProductImageURL: string;
     /** @description List of tags for product categorization and search */
     readonly ProductTags: readonly components["schemas"]["Label"][];
+    /** @enum {string} */
     readonly ProductState: "available" | "hidden" | "grandfathered" | "new" | "upcoming";
     readonly ProductListing: {
       /**
@@ -982,6 +990,8 @@ export interface components {
      * Pre-Order, should not be used yet. But in the future it should allow people to
      *   pre-provision a resource for when it does go live.
      * Public, means the resource is live and everyone should be able to provision it.
+     *
+     * @enum {string}
      */
     readonly ProductProvisioning: "provider-only" | "pre-order" | "public";
     readonly ProductIntegrationFeatures: {
@@ -1004,6 +1014,8 @@ export interface components {
        * @description Describes how the region for a resource is specified, if
        * unspecified, then regions have no impact on this
        * resource.
+       *
+       * @enum {string}
        */
       readonly region?: "user-specified" | "unspecified";
       /**
@@ -1015,6 +1027,7 @@ export interface components {
        * * `unknown`: The credential type is unknown.
        *
        * @default multiple
+       * @enum {string}
        */
       readonly credential?: "none" | "single" | "multiple" | "unknown";
     };
@@ -1047,7 +1060,9 @@ export interface components {
       };
       readonly feature_types: readonly components["schemas"]["FeatureType"][];
       readonly billing: {
+        /** @enum {string} */
         readonly type: "monthly-prorated" | "monthly-anniversary" | "annual-anniversary";
+        /** @enum {string} */
         readonly currency: "usd";
       };
       readonly integration: {
@@ -1056,6 +1071,7 @@ export interface components {
         readonly base_url: string;
         /** Format: url */
         readonly sso_url?: string | null;
+        /** @enum {string} */
         readonly version: "v1";
         readonly features: components["schemas"]["ProductIntegrationFeatures"];
       };
@@ -1064,6 +1080,7 @@ export interface components {
     readonly Product: {
       readonly id: components["schemas"]["ID"];
       readonly version: number;
+      /** @enum {string} */
       readonly type: "product";
       readonly body: components["schemas"]["ProductBody"];
     };
@@ -1092,6 +1109,7 @@ export interface components {
       /** @description Dollar value in cents. */
       readonly cost: number;
     };
+    /** @enum {string} */
     readonly PlanState: "hidden" | "available" | "grandfathered" | "unlisted";
     readonly ExpandedPlanBody: components["schemas"]["PlanBody"] & {
       /** @description An array of feature definitions for the plan, as defined on the Product. */
@@ -1111,12 +1129,14 @@ export interface components {
     readonly Plan: {
       readonly id: components["schemas"]["ID"];
       readonly version: number;
+      /** @enum {string} */
       readonly type: "plan";
       readonly body: components["schemas"]["PlanBody"];
     };
     readonly ExpandedPlan: {
       readonly id: components["schemas"]["ID"];
       readonly version: number;
+      /** @enum {string} */
       readonly type: "plan";
       readonly body: components["schemas"]["ExpandedPlanBody"];
     };
@@ -1157,6 +1177,7 @@ export interface components {
     readonly ExpandedProduct: {
       readonly id: components["schemas"]["ID"];
       readonly version: number;
+      /** @enum {string} */
       readonly type: "product";
       readonly body: components["schemas"]["ProductBody"];
       readonly plans?: readonly components["schemas"]["ExpandedPlan"][];

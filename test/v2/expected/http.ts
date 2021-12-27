@@ -556,7 +556,9 @@ export interface definitions {
   };
   Region: {
     id: definitions["ID"];
+    /** @enum {string} */
     type: "region";
+    /** @enum {integer} */
     version: 1;
     body: definitions["RegionBody"];
   };
@@ -590,7 +592,9 @@ export interface definitions {
   };
   Provider: {
     id: definitions["ID"];
+    /** @enum {integer} */
     version: 1;
+    /** @enum {string} */
     type: "provider";
     body: definitions["ProviderBody"];
   };
@@ -633,13 +637,17 @@ export interface definitions {
       base_url?: string;
       /** Format: url */
       sso_url?: string;
+      /** @enum {string} */
       version?: "v1";
       /** @default [object Object] */
       features?: {
         access_code?: boolean;
         sso?: boolean;
         plan_change?: boolean;
-        /** @default multiple */
+        /**
+         * @default multiple
+         * @enum {string}
+         */
         credential?: "none" | "single" | "multiple" | "unknown";
       };
     };
@@ -678,6 +686,7 @@ export interface definitions {
   FeatureType: {
     label: definitions["Label"];
     name: definitions["Name"];
+    /** @enum {string} */
     type: "boolean" | "string" | "number";
     /** @description This sets whether or not the feature can be customized by a consumer. */
     customizable?: boolean;
@@ -803,6 +812,7 @@ export interface definitions {
   ProductImageURL: string;
   /** @description List of tags for product categorization and search */
   ProductTags: definitions["Label"][];
+  /** @enum {string} */
   ProductState: "available" | "hidden" | "grandfathered" | "new" | "upcoming";
   /** @default [object Object] */
   ProductListing: {
@@ -854,6 +864,8 @@ export interface definitions {
    * Pre-Order, should not be used yet. But in the future it should allow people to
    *   pre-provision a resource for when it does go live.
    * Public, means the resource is live and everyone should be able to provision it.
+   *
+   * @enum {string}
    */
   ProductProvisioning: "provider-only" | "pre-order" | "public";
   /** @default [object Object] */
@@ -877,6 +889,8 @@ export interface definitions {
      * @description Describes how the region for a resource is specified, if
      * unspecified, then regions have no impact on this
      * resource.
+     *
+     * @enum {string}
      */
     region?: "user-specified" | "unspecified";
     /**
@@ -888,6 +902,7 @@ export interface definitions {
      * * `unknown`: The credential type is unknown.
      *
      * @default multiple
+     * @enum {string}
      */
     credential?: "none" | "single" | "multiple" | "unknown";
   };
@@ -921,7 +936,9 @@ export interface definitions {
     };
     feature_types: definitions["FeatureType"][];
     billing: {
+      /** @enum {string} */
       type: "monthly-prorated" | "monthly-anniversary" | "annual-anniversary";
+      /** @enum {string} */
       currency: "usd";
     };
     integration: {
@@ -930,6 +947,7 @@ export interface definitions {
       base_url: string;
       /** Format: url */
       sso_url?: string;
+      /** @enum {string} */
       version: "v1";
       features: definitions["ProductIntegrationFeatures"];
     };
@@ -937,7 +955,9 @@ export interface definitions {
   };
   Product: {
     id: definitions["ID"];
+    /** @enum {integer} */
     version: 1;
+    /** @enum {string} */
     type: "product";
     body: definitions["ProductBody"];
   };
@@ -966,6 +986,7 @@ export interface definitions {
     /** @description Dollar value in cents. */
     cost: number;
   };
+  /** @enum {string} */
   PlanState: "hidden" | "available" | "grandfathered" | "unlisted";
   ExpandedPlanBody: definitions["PlanBody"] & {
     /** @description An array of feature definitions for the plan, as defined on the Product. */
@@ -984,13 +1005,17 @@ export interface definitions {
   };
   Plan: {
     id: definitions["ID"];
+    /** @enum {integer} */
     version: 1;
+    /** @enum {string} */
     type: "plan";
     body: definitions["PlanBody"];
   };
   ExpandedPlan: {
     id: definitions["ID"];
+    /** @enum {integer} */
     version: 1;
+    /** @enum {string} */
     type: "plan";
     body: definitions["ExpandedPlanBody"];
   };
@@ -1030,7 +1055,9 @@ export interface definitions {
   PriceFormula: string;
   ExpandedProduct: {
     id: definitions["ID"];
+    /** @enum {integer} */
     version: 1;
+    /** @enum {string} */
     type: "product";
     body: definitions["ProductBody"];
     plans?: definitions["ExpandedPlan"][];

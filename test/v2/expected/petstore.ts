@@ -73,7 +73,10 @@ export interface definitions {
     quantity?: number;
     /** Format: date-time */
     shipDate?: string;
-    /** @description Order Status */
+    /**
+     * @description Order Status
+     * @enum {string}
+     */
     status?: "placed" | "approved" | "delivered";
     complete?: boolean;
   };
@@ -110,7 +113,10 @@ export interface definitions {
     name: string;
     photoUrls: string[];
     tags?: definitions["Tag"][];
-    /** @description pet status in the store */
+    /**
+     * @description pet status in the store
+     * @enum {string}
+     */
     status?: "available" | "pending" | "sold";
   };
   ApiResponse: {
