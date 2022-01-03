@@ -58,6 +58,8 @@ export interface OperationObject {
   description?: string;
   tags?: string[]; // unused
   summary?: string; // unused
+  consumes?: string; // unused
+  produces?: string; // unused
   operationId?: string;
   parameters?: (ReferenceObject | ParameterObject)[];
   requestBody?: ReferenceObject | RequestBody;
