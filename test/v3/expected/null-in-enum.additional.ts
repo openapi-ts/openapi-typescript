@@ -18,18 +18,22 @@ export interface components {
   schemas: {
     /** @description Enum with null and nullable */
     MyType: {
-      myField?: ("foo" | "bar") | null;
+      /** @enum {string|null} */
+      myField?: ("foo" | "bar" | null) | null;
     } & { [key: string]: unknown };
     /** @description Enum with null */
     MyTypeNotNullable: {
+      /** @enum {string} */
       myField?: "foo" | "bar" | null;
     } & { [key: string]: unknown };
     /** @description Enum with null */
     MyTypeNotNullableNotNull: {
+      /** @enum {string} */
       myField?: "foo" | "bar";
     } & { [key: string]: unknown };
     /** @description Enum with null */
     MyTypeMixed: {
+      /** @enum {string} */
       myField?: "foo" | 2 | false | null;
     } & { [key: string]: unknown };
   };

@@ -695,6 +695,7 @@ export interface components {
     } & { [key: string]: unknown };
     Region: {
       id: components["schemas"]["ID"];
+      /** @enum {string} */
       type: "region";
       version: number;
       body: components["schemas"]["RegionBody"];
@@ -730,6 +731,7 @@ export interface components {
     Provider: {
       id: components["schemas"]["ID"];
       version: number;
+      /** @enum {string} */
       type: "provider";
       body: components["schemas"]["ProviderBody"];
     } & { [key: string]: unknown };
@@ -773,12 +775,16 @@ export interface components {
             base_url?: string | null;
             /** Format: url */
             sso_url?: string | null;
+            /** @enum {string|null} */
             version?: "v1" | null;
             features?: {
               access_code?: boolean | null;
               sso?: boolean | null;
               plan_change?: boolean | null;
-              /** @default multiple */
+              /**
+               * @default multiple
+               * @enum {string|null}
+               */
               credential?: ("none" | "single" | "multiple" | "unknown") | null;
             } & { [key: string]: unknown };
           } & { [key: string]: unknown })
@@ -818,6 +824,7 @@ export interface components {
     FeatureType: {
       label: components["schemas"]["Label"];
       name: components["schemas"]["Name"];
+      /** @enum {string} */
       type: "boolean" | "string" | "number";
       /** @description This sets whether or not the feature can be customized by a consumer. */
       customizable?: boolean;
@@ -938,6 +945,7 @@ export interface components {
     ProductImageURL: string;
     /** @description List of tags for product categorization and search */
     ProductTags: components["schemas"]["Label"][];
+    /** @enum {string} */
     ProductState: "available" | "hidden" | "grandfathered" | "new" | "upcoming";
     ProductListing: {
       /**
@@ -986,6 +994,8 @@ export interface components {
      * Pre-Order, should not be used yet. But in the future it should allow people to
      *   pre-provision a resource for when it does go live.
      * Public, means the resource is live and everyone should be able to provision it.
+     *
+     * @enum {string}
      */
     ProductProvisioning: "provider-only" | "pre-order" | "public";
     ProductIntegrationFeatures: {
@@ -1008,6 +1018,8 @@ export interface components {
        * @description Describes how the region for a resource is specified, if
        * unspecified, then regions have no impact on this
        * resource.
+       *
+       * @enum {string}
        */
       region?: "user-specified" | "unspecified";
       /**
@@ -1019,6 +1031,7 @@ export interface components {
        * * `unknown`: The credential type is unknown.
        *
        * @default multiple
+       * @enum {string}
        */
       credential?: "none" | "single" | "multiple" | "unknown";
     } & { [key: string]: unknown };
@@ -1051,7 +1064,9 @@ export interface components {
       } & { [key: string]: unknown };
       feature_types: components["schemas"]["FeatureType"][];
       billing: {
+        /** @enum {string} */
         type: "monthly-prorated" | "monthly-anniversary" | "annual-anniversary";
+        /** @enum {string} */
         currency: "usd";
       } & { [key: string]: unknown };
       integration: {
@@ -1060,6 +1075,7 @@ export interface components {
         base_url: string;
         /** Format: url */
         sso_url?: string | null;
+        /** @enum {string} */
         version: "v1";
         features: components["schemas"]["ProductIntegrationFeatures"];
       } & { [key: string]: unknown };
@@ -1068,6 +1084,7 @@ export interface components {
     Product: {
       id: components["schemas"]["ID"];
       version: number;
+      /** @enum {string} */
       type: "product";
       body: components["schemas"]["ProductBody"];
     } & { [key: string]: unknown };
@@ -1096,6 +1113,7 @@ export interface components {
       /** @description Dollar value in cents. */
       cost: number;
     } & { [key: string]: unknown };
+    /** @enum {string} */
     PlanState: "hidden" | "available" | "grandfathered" | "unlisted";
     ExpandedPlanBody: components["schemas"]["PlanBody"] &
       ({
@@ -1117,12 +1135,14 @@ export interface components {
     Plan: {
       id: components["schemas"]["ID"];
       version: number;
+      /** @enum {string} */
       type: "plan";
       body: components["schemas"]["PlanBody"];
     } & { [key: string]: unknown };
     ExpandedPlan: {
       id: components["schemas"]["ID"];
       version: number;
+      /** @enum {string} */
       type: "plan";
       body: components["schemas"]["ExpandedPlanBody"];
     } & { [key: string]: unknown };
@@ -1163,6 +1183,7 @@ export interface components {
     ExpandedProduct: {
       id: components["schemas"]["ID"];
       version: number;
+      /** @enum {string} */
       type: "product";
       body: components["schemas"]["ProductBody"];
       plans?: components["schemas"]["ExpandedPlan"][];

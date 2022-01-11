@@ -19,22 +19,13 @@ export interface components {
     /** @description Enum with null and nullable */
     MyType: {
       /** @enum {string|null} */
-      myField?: ("foo" | "bar" | null) | null;
-    };
-    /** @description Enum with null */
-    MyTypeNotNullable: {
-      /** @enum {string} */
-      myField?: "foo" | "bar" | null;
-    };
-    /** @description Enum with null */
-    MyTypeNotNullableNotNull: {
-      /** @enum {string} */
-      myField?: "foo" | "bar";
-    };
-    /** @description Enum with null */
-    MyTypeMixed: {
-      /** @enum {string} */
-      myField?: "foo" | 2 | false | null;
+      myEnumTestFieldNullable?: ("foo" | "bar" | null) | null;
+      /** @enum {string|null} */
+      myEnumTestField?: ("foo" | "bar" | null) | null;
+      /** @constant */
+      myConstTestField?: "constant-value";
+      /** @constant */
+      myConstTestFieldNullable?: 4 | null;
     };
   };
 }

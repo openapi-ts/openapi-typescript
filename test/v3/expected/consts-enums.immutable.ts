@@ -19,22 +19,13 @@ export interface components {
     /** @description Enum with null and nullable */
     readonly MyType: {
       /** @enum {string|null} */
-      readonly myField?: ("foo" | "bar" | null) | null;
-    };
-    /** @description Enum with null */
-    readonly MyTypeNotNullable: {
-      /** @enum {string} */
-      readonly myField?: "foo" | "bar" | null;
-    };
-    /** @description Enum with null */
-    readonly MyTypeNotNullableNotNull: {
-      /** @enum {string} */
-      readonly myField?: "foo" | "bar";
-    };
-    /** @description Enum with null */
-    readonly MyTypeMixed: {
-      /** @enum {string} */
-      readonly myField?: "foo" | 2 | false | null;
+      readonly myEnumTestFieldNullable?: ("foo" | "bar" | null) | null;
+      /** @enum {string|null} */
+      readonly myEnumTestField?: ("foo" | "bar" | null) | null;
+      /** @constant */
+      readonly myConstTestField?: "constant-value";
+      /** @constant */
+      readonly myConstTestFieldNullable?: 4 | null;
     };
   };
 }

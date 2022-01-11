@@ -74,7 +74,10 @@ export interface components {
       quantity?: number;
       /** Format: date-time */
       shipDate?: string;
-      /** @description Order Status */
+      /**
+       * @description Order Status
+       * @enum {string}
+       */
       status?: "placed" | "approved" | "delivered";
       complete?: boolean;
     };
@@ -111,7 +114,10 @@ export interface components {
       name: string;
       photoUrls: string[];
       tags?: components["schemas"]["Tag"][];
-      /** @description pet status in the store */
+      /**
+       * @description pet status in the store
+       * @enum {string}
+       */
       status?: "available" | "pending" | "sold";
     };
     ApiResponse: {

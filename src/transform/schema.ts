@@ -8,6 +8,8 @@ import {
   tsReadonly,
   tsTupleOf,
   tsUnionOf,
+  parseSingleSimpleValue,
+  ParsedSimpleValue,
 } from "../utils.js";
 
 interface TransformSchemaObjOptions extends GlobalContext {
@@ -112,12 +114,15 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
         output += nodeType(node);
         break;
       }
+      case "const": {
+        output += parseSingleSimpleValue(node.const, node.nullable);
+        break;
+      }
       case "enum": {
-        const items: Array<string | number | boolean> = [];
+        const items: Array<ParsedSimpleValue> = [];
         (node.enum as unknown[]).forEach((item) => {
-          if (typeof item === "string") items.push(`'${item.replace(/'/g, "\\'")}'`);
-          else if (typeof item === "number" || typeof item === "boolean") items.push(item);
-          else if (item === null && !node.nullable) items.push("null");
+          const value = parseSingleSimpleValue(item, node.nullable);
+          items.push(value);
         });
         output += tsUnionOf(items);
         break;

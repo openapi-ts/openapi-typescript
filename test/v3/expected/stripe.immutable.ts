@@ -1494,7 +1494,10 @@ export interface components {
     readonly account: {
       /** @description Business information about the account. */
       readonly business_profile?: Partial<components["schemas"]["account_business_profile"]> | null;
-      /** @description The business type. */
+      /**
+       * @description The business type.
+       * @enum {string|null}
+       */
       readonly business_type?: ("company" | "government_entity" | "individual" | "non_profit") | null;
       readonly capabilities?: components["schemas"]["account_capabilities"];
       /** @description Whether the account can create live charges. */
@@ -1523,7 +1526,10 @@ export interface components {
           Partial<components["schemas"]["card"]>)[];
         /** @description True if this list has another page of items after this one that can be fetched. */
         readonly has_more: boolean;
-        /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+        /**
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+         * @enum {string}
+         */
         readonly object: "list";
         /** @description The URL where this list can be accessed. */
         readonly url: string;
@@ -1533,7 +1539,10 @@ export interface components {
       readonly individual?: components["schemas"]["person"];
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata?: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "account";
       /** @description Whether Stripe can send payouts to this account. */
       readonly payouts_enabled?: boolean;
@@ -1541,7 +1550,10 @@ export interface components {
       /** @description Options for customizing how the account functions within Stripe. */
       readonly settings?: Partial<components["schemas"]["account_settings"]> | null;
       readonly tos_acceptance?: components["schemas"]["account_tos_acceptance"];
-      /** @description The Stripe account type. Can be `standard`, `express`, or `custom`. */
+      /**
+       * @description The Stripe account type. Can be `standard`, `express`, or `custom`.
+       * @enum {string}
+       */
       readonly type?: "custom" | "express" | "standard";
     };
     /** AccountBrandingSettings */
@@ -1576,19 +1588,40 @@ export interface components {
     };
     /** AccountCapabilities */
     readonly account_capabilities: {
-      /** @description The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges. */
+      /**
+       * @description The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges.
+       * @enum {string}
+       */
       readonly au_becs_debit_payments?: "active" | "inactive" | "pending";
-      /** @description The status of the card issuing capability of the account, or whether you can use Issuing to distribute funds on cards */
+      /**
+       * @description The status of the card issuing capability of the account, or whether you can use Issuing to distribute funds on cards
+       * @enum {string}
+       */
       readonly card_issuing?: "active" | "inactive" | "pending";
-      /** @description The status of the card payments capability of the account, or whether the account can directly process credit and debit card charges. */
+      /**
+       * @description The status of the card payments capability of the account, or whether the account can directly process credit and debit card charges.
+       * @enum {string}
+       */
       readonly card_payments?: "active" | "inactive" | "pending";
-      /** @description The status of the legacy payments capability of the account. */
+      /**
+       * @description The status of the legacy payments capability of the account.
+       * @enum {string}
+       */
       readonly legacy_payments?: "active" | "inactive" | "pending";
-      /** @description The status of the tax reporting 1099-K (US) capability of the account. */
+      /**
+       * @description The status of the tax reporting 1099-K (US) capability of the account.
+       * @enum {string}
+       */
       readonly tax_reporting_us_1099_k?: "active" | "inactive" | "pending";
-      /** @description The status of the tax reporting 1099-MISC (US) capability of the account. */
+      /**
+       * @description The status of the tax reporting 1099-MISC (US) capability of the account.
+       * @enum {string}
+       */
       readonly tax_reporting_us_1099_misc?: "active" | "inactive" | "pending";
-      /** @description The status of the transfers capability of the account, or whether your platform can transfer funds to the account. */
+      /**
+       * @description The status of the transfers capability of the account, or whether your platform can transfer funds to the account.
+       * @enum {string}
+       */
       readonly transfers?: "active" | "inactive" | "pending";
     };
     /** AccountCapabilityRequirements */
@@ -1649,7 +1682,10 @@ export interface components {
        * @description The timestamp at which this account link will expire.
        */
       readonly expires_at: number;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "account_link";
       /** @description The URL for the account link. */
       readonly url: string;
@@ -1693,7 +1729,10 @@ export interface components {
     };
     /** AccountRequirementsError */
     readonly account_requirements_error: {
-      /** @description The code for the type of error. */
+      /**
+       * @description The code for the type of error.
+       * @enum {string}
+       */
       readonly code:
         | "invalid_address_city_state_postal_code"
         | "invalid_street_address"
@@ -1794,7 +1833,10 @@ export interface components {
       readonly livemode: boolean;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata?: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "alipay_account";
       /** @description If the Alipay account object is not reusable, the exact amount that you can create a charge for. */
       readonly payment_amount?: number | null;
@@ -1828,7 +1870,10 @@ export interface components {
       readonly source?: Partial<components["schemas"]["bank_account"]> &
         Partial<components["schemas"]["card"]> &
         Partial<components["schemas"]["source"]>;
-      /** @description The type of error returned. One of `api_connection_error`, `api_error`, `authentication_error`, `card_error`, `idempotency_error`, `invalid_request_error`, or `rate_limit_error` */
+      /**
+       * @description The type of error returned. One of `api_connection_error`, `api_error`, `authentication_error`, `card_error`, `idempotency_error`, `invalid_request_error`, or `rate_limit_error`
+       * @enum {string}
+       */
       readonly type:
         | "api_connection_error"
         | "api_error"
@@ -1850,7 +1895,10 @@ export interface components {
       readonly id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "apple_pay_domain";
     };
     /** Application */
@@ -1859,7 +1907,10 @@ export interface components {
       readonly id: string;
       /** @description The name of the application. */
       readonly name?: string | null;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "application";
     };
     /** PlatformFee */
@@ -1887,7 +1938,10 @@ export interface components {
       readonly id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "application_fee";
       /** @description ID of the corresponding charge on the platform account, if this fee was the result of a charge using the `destination` parameter. */
       readonly originating_transaction?: (Partial<string> & Partial<components["schemas"]["charge"]>) | null;
@@ -1902,7 +1956,10 @@ export interface components {
         readonly data: readonly components["schemas"]["fee_refund"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         readonly has_more: boolean;
-        /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+        /**
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+         * @enum {string}
+         */
         readonly object: "list";
         /** @description The URL where this list can be accessed. */
         readonly url: string;
@@ -1929,7 +1986,10 @@ export interface components {
       readonly connect_reserved?: readonly components["schemas"]["balance_amount"][];
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "balance";
       /** @description Funds that are not yet available in the balance, due to the 7-day rolling pay cycle. The pending balance for each currency, and for each payment type, can be found in the `source_types` property. */
       readonly pending: readonly components["schemas"]["balance_amount"][];
@@ -1985,7 +2045,10 @@ export interface components {
       readonly id: string;
       /** @description Net amount of the transaction, in %s. */
       readonly net: number;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "balance_transaction";
       /** @description [Learn more](https://stripe.com/docs/reports/reporting-categories) about how reporting categories can help you understand balance transactions from an accounting perspective. */
       readonly reporting_category: string;
@@ -2010,7 +2073,10 @@ export interface components {
         | null;
       /** @description If the transaction's net funds are available in the Stripe balance yet. Either `available` or `pending`. */
       readonly status: string;
-      /** @description Transaction type: `adjustment`, `advance`, `advance_funding`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_transaction`, `payment`, `payment_failure_refund`, `payment_refund`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. [Learn more](https://stripe.com/docs/reports/balance-transaction-types) about balance transaction types and what they represent. If you are looking to classify transactions for accounting purposes, you might want to consider `reporting_category` instead. */
+      /**
+       * @description Transaction type: `adjustment`, `advance`, `advance_funding`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_transaction`, `payment`, `payment_failure_refund`, `payment_refund`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. [Learn more](https://stripe.com/docs/reports/balance-transaction-types) about balance transaction types and what they represent. If you are looking to classify transactions for accounting purposes, you might want to consider `reporting_category` instead.
+       * @enum {string}
+       */
       readonly type:
         | "adjustment"
         | "advance"
@@ -2081,7 +2147,10 @@ export interface components {
       readonly last4: string;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata?: { readonly [key: string]: string } | null;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "bank_account";
       /** @description The routing transit number for the bank account. */
       readonly routing_number?: string | null;
@@ -2125,7 +2194,10 @@ export interface components {
       readonly id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "billing_portal.session";
       /** @description The URL to which Stripe should send customers when they click on the link to return to your website. */
       readonly return_url: string;
@@ -2169,7 +2241,10 @@ export interface components {
       readonly livemode: boolean;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "bitcoin_receiver";
       /** @description The ID of the payment created from the receiver, if any. Hidden when viewing the receiver with a publishable key. */
       readonly payment?: string | null;
@@ -2184,7 +2259,10 @@ export interface components {
         readonly data: readonly components["schemas"]["bitcoin_transaction"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         readonly has_more: boolean;
-        /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+        /**
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+         * @enum {string}
+         */
         readonly object: "list";
         /** @description The URL where this list can be accessed. */
         readonly url: string;
@@ -2209,7 +2287,10 @@ export interface components {
       readonly currency: string;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "bitcoin_transaction";
       /** @description The receiver to which this transaction was sent. */
       readonly receiver: string;
@@ -2225,7 +2306,10 @@ export interface components {
       readonly account: Partial<string> & Partial<components["schemas"]["account"]>;
       /** @description The identifier for the capability. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "capability";
       /** @description Whether the capability has been requested. */
       readonly requested: boolean;
@@ -2235,7 +2319,10 @@ export interface components {
        */
       readonly requested_at?: number | null;
       readonly requirements?: components["schemas"]["account_capability_requirements"];
-      /** @description The status of the capability. Can be `active`, `inactive`, `pending`, or `unrequested`. */
+      /**
+       * @description The status of the capability. Can be `active`, `inactive`, `pending`, or `unrequested`.
+       * @enum {string}
+       */
       readonly status: "active" | "disabled" | "inactive" | "pending" | "unrequested";
     };
     /**
@@ -2300,7 +2387,10 @@ export interface components {
       readonly metadata: { readonly [key: string]: string };
       /** @description Cardholder name. */
       readonly name?: string | null;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "card";
       /** @description The recipient that this card belongs to. This attribute will not be in the card object if the card belongs to a customer or account instead. */
       readonly recipient?: (Partial<string> & Partial<components["schemas"]["recipient"]>) | null;
@@ -2366,7 +2456,10 @@ export interface components {
       readonly livemode: boolean;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "charge";
       /** @description The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers) for details. */
       readonly on_behalf_of?: (Partial<string> & Partial<components["schemas"]["account"]>) | null;
@@ -2399,7 +2492,10 @@ export interface components {
         readonly data: readonly components["schemas"]["refund"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         readonly has_more: boolean;
-        /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+        /**
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+         * @enum {string}
+         */
         readonly object: "list";
         /** @description The URL where this list can be accessed. */
         readonly url: string;
@@ -2509,7 +2605,10 @@ export interface components {
       readonly id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used. */
+      /**
+       * @description The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
+       * @enum {string|null}
+       */
       readonly locale?:
         | (
             | "auto"
@@ -2533,9 +2632,15 @@ export interface components {
         | null;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata?: { readonly [key: string]: string } | null;
-      /** @description The mode of the Checkout Session, one of `payment`, `setup`, or `subscription`. */
+      /**
+       * @description The mode of the Checkout Session, one of `payment`, `setup`, or `subscription`.
+       * @enum {string|null}
+       */
       readonly mode?: ("payment" | "setup" | "subscription") | null;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "checkout.session";
       /** @description The ID of the PaymentIntent for Checkout Sessions in `payment` mode. */
       readonly payment_intent?: (Partial<string> & Partial<components["schemas"]["payment_intent"]>) | null;
@@ -2557,6 +2662,7 @@ export interface components {
        * relevant text on the page, such as the submit button. `submit_type` can only be
        * specified on Checkout Sessions in `payment` mode, but not Checkout Sessions
        * in `subscription` or `setup` mode.
+       * @enum {string|null}
        */
       readonly submit_type?: ("auto" | "book" | "donate" | "pay") | null;
       /** @description The ID of the subscription for Checkout Sessions in `subscription` mode. */
@@ -2602,7 +2708,10 @@ export interface components {
       readonly id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "connect_collection_transfer";
     };
     /**
@@ -2619,7 +2728,10 @@ export interface components {
       readonly default_currency: string;
       /** @description Unique identifier for the object. Represented as the ISO country code for this country. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "country_spec";
       /** @description Currencies that can be accepted in the specific country (for transfers). */
       readonly supported_bank_account_currencies: { readonly [key: string]: readonly string[] };
@@ -2659,7 +2771,10 @@ export interface components {
       readonly created: number;
       /** @description If `amount_off` has been set, the three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the amount to take off. */
       readonly currency?: string | null;
-      /** @description One of `forever`, `once`, and `repeating`. Describes how long a customer who applies this coupon will get the discount. */
+      /**
+       * @description One of `forever`, `once`, and `repeating`. Describes how long a customer who applies this coupon will get the discount.
+       * @enum {string}
+       */
       readonly duration: "forever" | "once" | "repeating";
       /** @description If `duration` is `repeating`, the number of months the coupon applies. Null if coupon `duration` is `forever` or `once`. */
       readonly duration_in_months?: number | null;
@@ -2673,7 +2788,10 @@ export interface components {
       readonly metadata: { readonly [key: string]: string };
       /** @description Name of the coupon displayed to customers on for instance invoices or receipts. */
       readonly name?: string | null;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "coupon";
       /** @description Percent that will be taken off the subtotal of any invoices for this customer for the duration of the coupon. For example, a coupon with percent_off of 50 will make a %s100 invoice %s50 instead. */
       readonly percent_off?: number | null;
@@ -2724,7 +2842,10 @@ export interface components {
         readonly data: readonly components["schemas"]["credit_note_line_item"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         readonly has_more: boolean;
-        /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+        /**
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+         * @enum {string}
+         */
         readonly object: "list";
         /** @description The URL where this list can be accessed. */
         readonly url: string;
@@ -2737,17 +2858,26 @@ export interface components {
       readonly metadata: { readonly [key: string]: string };
       /** @description A unique number that identifies this particular credit note and appears on the PDF of the credit note and its associated invoice. */
       readonly number: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "credit_note";
       /** @description Amount that was credited outside of Stripe. */
       readonly out_of_band_amount?: number | null;
       /** @description The link to download the PDF of the credit note. */
       readonly pdf: string;
-      /** @description Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` */
+      /**
+       * @description Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
+       * @enum {string|null}
+       */
       readonly reason?: ("duplicate" | "fraudulent" | "order_change" | "product_unsatisfactory") | null;
       /** @description Refund related to this credit note. */
       readonly refund?: (Partial<string> & Partial<components["schemas"]["refund"]>) | null;
-      /** @description Status of this credit note, one of `issued` or `void`. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding). */
+      /**
+       * @description Status of this credit note, one of `issued` or `void`. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+       * @enum {string}
+       */
       readonly status: "issued" | "void";
       /** @description The integer amount in **%s** representing the amount of the credit note, excluding tax and discount. */
       readonly subtotal: number;
@@ -2755,7 +2885,10 @@ export interface components {
       readonly tax_amounts: readonly components["schemas"]["credit_note_tax_amount"][];
       /** @description The integer amount in **%s** representing the total amount of the credit note, including tax and discount. */
       readonly total: number;
-      /** @description Type of this credit note, one of `pre_payment` or `post_payment`. A `pre_payment` credit note means it was issued when the invoice was open. A `post_payment` credit note means it was issued when the invoice was paid. */
+      /**
+       * @description Type of this credit note, one of `pre_payment` or `post_payment`. A `pre_payment` credit note means it was issued when the invoice was open. A `post_payment` credit note means it was issued when the invoice was paid.
+       * @enum {string}
+       */
       readonly type: "post_payment" | "pre_payment";
       /**
        * Format: unix-time
@@ -2777,7 +2910,10 @@ export interface components {
       readonly invoice_line_item?: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "credit_note_line_item";
       /** @description The number of units of product being credited. */
       readonly quantity?: number | null;
@@ -2785,7 +2921,10 @@ export interface components {
       readonly tax_amounts: readonly components["schemas"]["credit_note_tax_amount"][];
       /** @description The tax rates which apply to the line item. */
       readonly tax_rates: readonly components["schemas"]["tax_rate"][];
-      /** @description The type of the credit note line item, one of `invoice_line_item` or `custom_line_item`. When the type is `invoice_line_item` there is an additional `invoice_line_item` property on the resource the value of which is the id of the credited line item on the invoice. */
+      /**
+       * @description The type of the credit note line item, one of `invoice_line_item` or `custom_line_item`. When the type is `invoice_line_item` there is an additional `invoice_line_item` property on the resource the value of which is the id of the credited line item on the invoice.
+       * @enum {string}
+       */
       readonly type: "custom_line_item" | "invoice_line_item";
       /** @description The cost of each unit of product being credited. */
       readonly unit_amount?: number | null;
@@ -2859,7 +2998,10 @@ export interface components {
       readonly name?: string | null;
       /** @description The suffix of the customer's next invoice number, e.g., 0001. */
       readonly next_invoice_sequence?: number;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "customer";
       /** @description The customer's phone number. */
       readonly phone?: string | null;
@@ -2880,7 +3022,10 @@ export interface components {
           Partial<components["schemas"]["source"]>)[];
         /** @description True if this list has another page of items after this one that can be fetched. */
         readonly has_more: boolean;
-        /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+        /**
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+         * @enum {string}
+         */
         readonly object: "list";
         /** @description The URL where this list can be accessed. */
         readonly url: string;
@@ -2894,12 +3039,18 @@ export interface components {
         readonly data: readonly components["schemas"]["subscription"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         readonly has_more: boolean;
-        /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+        /**
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+         * @enum {string}
+         */
         readonly object: "list";
         /** @description The URL where this list can be accessed. */
         readonly url: string;
       };
-      /** @description Describes the customer's tax exemption status. One of `none`, `exempt`, or `reverse`. When set to `reverse`, invoice and receipt PDFs include the text **"Reverse charge"**. */
+      /**
+       * @description Describes the customer's tax exemption status. One of `none`, `exempt`, or `reverse`. When set to `reverse`, invoice and receipt PDFs include the text **"Reverse charge"**.
+       * @enum {string|null}
+       */
       readonly tax_exempt?: ("exempt" | "none" | "reverse") | null;
       /**
        * TaxIDsList
@@ -2910,7 +3061,10 @@ export interface components {
         readonly data: readonly components["schemas"]["tax_id"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         readonly has_more: boolean;
-        /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+        /**
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+         * @enum {string}
+         */
         readonly object: "list";
         /** @description The URL where this list can be accessed. */
         readonly url: string;
@@ -2925,7 +3079,10 @@ export interface components {
       readonly accepted_at?: number | null;
       readonly offline?: components["schemas"]["offline_acceptance"];
       readonly online?: components["schemas"]["online_acceptance"];
-      /** @description The type of customer acceptance information included with the Mandate. One of `online` or `offline`. */
+      /**
+       * @description The type of customer acceptance information included with the Mandate. One of `online` or `offline`.
+       * @enum {string}
+       */
       readonly type: "offline" | "online";
     };
     /**
@@ -2963,9 +3120,15 @@ export interface components {
       readonly livemode: boolean;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata?: { readonly [key: string]: string } | null;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "customer_balance_transaction";
-      /** @description Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, or `unapplied_from_invoice`. See the [Customer Balance page](https://stripe.com/docs/billing/customer/balance#types) to learn more about transaction types. */
+      /**
+       * @description Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, or `unapplied_from_invoice`. See the [Customer Balance page](https://stripe.com/docs/billing/customer/balance#types) to learn more about transaction types.
+       * @enum {string}
+       */
       readonly type:
         | "adjustment"
         | "applied_to_invoice"
@@ -2979,85 +3142,139 @@ export interface components {
     };
     /** DeletedAccount */
     readonly deleted_account: {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "account";
     };
     /** AlipayDeletedAccount */
     readonly deleted_alipay_account: {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "alipay_account";
     };
     /** DeletedApplePayDomain */
     readonly deleted_apple_pay_domain: {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "apple_pay_domain";
     };
     /** DeletedBankAccount */
     readonly deleted_bank_account: {
       /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account. */
       readonly currency?: string | null;
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "bank_account";
     };
     /** BitcoinDeletedReceiver */
     readonly deleted_bitcoin_receiver: {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "bitcoin_receiver";
     };
     /** DeletedCard */
     readonly deleted_card: {
       /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account. */
       readonly currency?: string | null;
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "card";
     };
     /** DeletedCoupon */
     readonly deleted_coupon: {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "coupon";
     };
     /** DeletedCustomer */
     readonly deleted_customer: {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "customer";
     };
     /** DeletedDiscount */
     readonly deleted_discount: {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "discount";
     };
     /** Polymorphic */
@@ -3065,20 +3282,32 @@ export interface components {
       Partial<components["schemas"]["deleted_card"]>;
     /** DeletedInvoice */
     readonly deleted_invoice: {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "invoice";
     };
     /** DeletedInvoiceItem */
     readonly deleted_invoiceitem: {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "invoiceitem";
     };
     /** Polymorphic */
@@ -3088,110 +3317,182 @@ export interface components {
       Partial<components["schemas"]["deleted_card"]>;
     /** DeletedPerson */
     readonly deleted_person: {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "person";
     };
     /** DeletedPlan */
     readonly deleted_plan: {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "plan";
     };
     /** DeletedProduct */
     readonly deleted_product: {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "product";
     };
     /** RadarListDeletedList */
     readonly "deleted_radar.value_list": {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "radar.value_list";
     };
     /** RadarListDeletedListItem */
     readonly "deleted_radar.value_list_item": {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "radar.value_list_item";
     };
     /** DeletedTransferRecipient */
     readonly deleted_recipient: {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "recipient";
     };
     /** DeletedSKU */
     readonly deleted_sku: {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "sku";
     };
     /** DeletedSubscriptionItem */
     readonly deleted_subscription_item: {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "subscription_item";
     };
     /** deleted_tax_id */
     readonly deleted_tax_id: {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "tax_id";
     };
     /** TerminalLocationDeletedLocation */
     readonly "deleted_terminal.location": {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "terminal.location";
     };
     /** TerminalReaderDeletedReader */
     readonly "deleted_terminal.reader": {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "terminal.reader";
     };
     /** NotificationWebhookEndpointDeleted */
     readonly deleted_webhook_endpoint: {
-      /** @description Always true for a deleted object */
+      /**
+       * @description Always true for a deleted object
+       * @enum {boolean}
+       */
       readonly deleted: true;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "webhook_endpoint";
     };
     /** DeliveryEstimate */
@@ -3226,7 +3527,10 @@ export interface components {
        * @description If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null.
        */
       readonly end?: number | null;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "discount";
       /**
        * Format: unix-time
@@ -3270,13 +3574,19 @@ export interface components {
       readonly livemode: boolean;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "dispute";
       /** @description ID of the PaymentIntent that was disputed. */
       readonly payment_intent?: (Partial<string> & Partial<components["schemas"]["payment_intent"]>) | null;
       /** @description Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Read more about [dispute reasons](https://stripe.com/docs/disputes/categories). */
       readonly reason: string;
-      /** @description Current status of dispute. Possible values are `warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `charge_refunded`, `won`, or `lost`. */
+      /**
+       * @description Current status of dispute. Possible values are `warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `charge_refunded`, `won`, or `lost`.
+       * @enum {string}
+       */
       readonly status:
         | "charge_refunded"
         | "lost"
@@ -3374,7 +3684,10 @@ export interface components {
       readonly id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "ephemeral_key";
       /** @description The key's secret. You can use this value to make authorized requests to the Stripe API. */
       readonly secret?: string;
@@ -3430,7 +3743,10 @@ export interface components {
       readonly id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "event";
       /** @description Number of webhooks that have yet to be successfully delivered (i.e., to return a 20x response) to the URLs you've specified. */
       readonly pending_webhooks: number;
@@ -3456,7 +3772,10 @@ export interface components {
     readonly exchange_rate: {
       /** @description Unique identifier for the object. Represented as the three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "exchange_rate";
       /** @description Hash where the keys are supported currencies and the values are the exchange rate at which the base id currency converts to the key currency. */
       readonly rates: { readonly [key: string]: number };
@@ -3502,7 +3821,10 @@ export interface components {
       readonly id: string;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "fee_refund";
     };
     /**
@@ -3534,12 +3856,18 @@ export interface components {
         readonly data: readonly components["schemas"]["file_link"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         readonly has_more: boolean;
-        /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+        /**
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+         * @enum {string}
+         */
         readonly object: "list";
         /** @description The URL where this list can be accessed. */
         readonly url: string;
       } | null;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "file";
       /** @description The purpose of the file. Possible values are `additional_verification`, `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `identity_document`, `pci_document`, `sigma_scheduled_query`, or `tax_document_user_upload`. */
       readonly purpose: string;
@@ -3579,7 +3907,10 @@ export interface components {
       readonly livemode: boolean;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "file_link";
       /** @description The publicly accessible URL to download the file. */
       readonly url?: string | null;
@@ -3672,7 +4003,10 @@ export interface components {
       readonly attempted: boolean;
       /** @description Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. When `false`, the invoice's state will not automatically advance without an explicit action. */
       readonly auto_advance?: boolean;
-      /** @description Indicates the reason why the invoice was created. `subscription_cycle` indicates an invoice created by a subscription advancing into a new period. `subscription_create` indicates an invoice created due to creating a subscription. `subscription_update` indicates an invoice created due to updating a subscription. `subscription` is set for all old invoices to indicate either a change to a subscription or a period advancement. `manual` is set for all invoices unrelated to a subscription (for example: created via the invoice editor). The `upcoming` value is reserved for simulated invoices per the upcoming invoice endpoint. `subscription_threshold` indicates an invoice created due to a billing threshold being reached. */
+      /**
+       * @description Indicates the reason why the invoice was created. `subscription_cycle` indicates an invoice created by a subscription advancing into a new period. `subscription_create` indicates an invoice created due to creating a subscription. `subscription_update` indicates an invoice created due to updating a subscription. `subscription` is set for all old invoices to indicate either a change to a subscription or a period advancement. `manual` is set for all invoices unrelated to a subscription (for example: created via the invoice editor). The `upcoming` value is reserved for simulated invoices per the upcoming invoice endpoint. `subscription_threshold` indicates an invoice created due to a billing threshold being reached.
+       * @enum {string|null}
+       */
       readonly billing_reason?:
         | (
             | "automatic_pending_invoice_item_invoice"
@@ -3687,7 +4021,10 @@ export interface components {
         | null;
       /** @description ID of the latest charge generated for this invoice, if any. */
       readonly charge?: (Partial<string> & Partial<components["schemas"]["charge"]>) | null;
-      /** @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. */
+      /**
+       * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions.
+       * @enum {string|null}
+       */
       readonly collection_method?: ("charge_automatically" | "send_invoice") | null;
       /**
        * Format: unix-time
@@ -3712,7 +4049,10 @@ export interface components {
       readonly customer_phone?: string | null;
       /** @description The customer's shipping information. Until the invoice is finalized, this field will equal `customer.shipping`. Once the invoice is finalized, this field will no longer be updated. */
       readonly customer_shipping?: Partial<components["schemas"]["shipping"]> | null;
-      /** @description The customer's tax exempt status. Until the invoice is finalized, this field will equal `customer.tax_exempt`. Once the invoice is finalized, this field will no longer be updated. */
+      /**
+       * @description The customer's tax exempt status. Until the invoice is finalized, this field will equal `customer.tax_exempt`. Once the invoice is finalized, this field will no longer be updated.
+       * @enum {string|null}
+       */
       readonly customer_tax_exempt?: ("exempt" | "none" | "reverse") | null;
       /** @description The customer's tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as `customer.tax_ids`. Once the invoice is finalized, this field will no longer be updated. */
       readonly customer_tax_ids?: readonly components["schemas"]["invoices_resource_invoice_tax_id"][] | null;
@@ -3757,7 +4097,10 @@ export interface components {
         readonly data: readonly components["schemas"]["line_item"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         readonly has_more: boolean;
-        /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+        /**
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+         * @enum {string}
+         */
         readonly object: "list";
         /** @description The URL where this list can be accessed. */
         readonly url: string;
@@ -3773,7 +4116,10 @@ export interface components {
       readonly next_payment_attempt?: number | null;
       /** @description A unique, identifying string that appears on emails sent to the customer for this invoice. This starts with the customer's unique invoice_prefix if it is specified. */
       readonly number?: string | null;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "invoice";
       /** @description Whether payment was successfully collected for this invoice. An invoice can be paid (most commonly) with a charge or with credit from the customer's account balance. */
       readonly paid: boolean;
@@ -3799,7 +4145,10 @@ export interface components {
       readonly starting_balance: number;
       /** @description Extra information about an invoice for the customer's credit card statement. */
       readonly statement_descriptor?: string | null;
-      /** @description The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview) */
+      /**
+       * @description The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview)
+       * @enum {string|null}
+       */
       readonly status?: ("deleted" | "draft" | "open" | "paid" | "uncollectible" | "void") | null;
       readonly status_transitions: components["schemas"]["invoices_status_transitions"];
       /** @description The subscription that this invoice was prepared for, if any. */
@@ -3910,7 +4259,10 @@ export interface components {
       readonly livemode: boolean;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "invoiceitem";
       readonly period: components["schemas"]["invoice_line_item_period"];
       /** @description If the invoice item is a proration, the plan of the subscription that the proration was computed for. */
@@ -3935,7 +4287,10 @@ export interface components {
     };
     /** InvoicesResourceInvoiceTaxID */
     readonly invoices_resource_invoice_tax_id: {
-      /** @description The type of the tax ID, one of `eu_vat`, `nz_gst`, `au_abn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `my_sst`, `sg_gst`, or `unknown` */
+      /**
+       * @description The type of the tax ID, one of `eu_vat`, `nz_gst`, `au_abn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `my_sst`, `sg_gst`, or `unknown`
+       * @enum {string}
+       */
       readonly type:
         | "au_abn"
         | "ca_bn"
@@ -4011,7 +4366,10 @@ export interface components {
       readonly id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "issuer_fraud_record";
       /** @description The timestamp at which the card issuer posted the issuer fraud record. */
       readonly post_date: number;
@@ -4029,7 +4387,10 @@ export interface components {
       readonly amount: number;
       /** @description Whether the authorization has been approved. */
       readonly approved: boolean;
-      /** @description How the card details were provided. */
+      /**
+       * @description How the card details were provided.
+       * @enum {string}
+       */
       readonly authorization_method: "chip" | "contactless" | "keyed_in" | "online" | "swipe";
       /** @description List of balance transactions associated with this authorization. */
       readonly balance_transactions: readonly components["schemas"]["balance_transaction"][];
@@ -4054,13 +4415,19 @@ export interface components {
       readonly merchant_data: components["schemas"]["issuing_authorization_merchant_data"];
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "issuing.authorization";
       /** @description The pending authorization request. This field will only be non-null during an `issuing_authorization.request` webhook. */
       readonly pending_request?: Partial<components["schemas"]["issuing_authorization_pending_request"]> | null;
       /** @description History of every time the authorization was approved/denied (whether approved/denied by you directly or by Stripe based on your `spending_controls`). If the merchant changes the authorization by performing an [incremental authorization or partial capture](https://stripe.com/docs/issuing/purchases/authorizations), you can look at this field to see the previous states of the authorization. */
       readonly request_history: readonly components["schemas"]["issuing_authorization_request"][];
-      /** @description The current status of the authorization in its lifecycle. */
+      /**
+       * @description The current status of the authorization in its lifecycle.
+       * @enum {string}
+       */
       readonly status: "closed" | "pending" | "reversed";
       /** @description List of [transactions](https://stripe.com/docs/api/issuing/transactions) associated with this authorization. */
       readonly transactions: readonly components["schemas"]["issuing.transaction"][];
@@ -4075,7 +4442,10 @@ export interface components {
     readonly "issuing.card": {
       /** @description The brand of the card. */
       readonly brand: string;
-      /** @description The reason why the card was canceled. */
+      /**
+       * @description The reason why the card was canceled.
+       * @enum {string|null}
+       */
       readonly cancellation_reason?: ("lost" | "stolen") | null;
       readonly cardholder: components["schemas"]["issuing.cardholder"];
       /**
@@ -4101,20 +4471,32 @@ export interface components {
       readonly metadata: { readonly [key: string]: string };
       /** @description The full unredacted card number. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint. */
       readonly number?: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "issuing.card";
       /** @description The latest card that replaces this card, if any. */
       readonly replaced_by?: (Partial<string> & Partial<components["schemas"]["issuing.card"]>) | null;
       /** @description The card this card replaces, if any. */
       readonly replacement_for?: (Partial<string> & Partial<components["schemas"]["issuing.card"]>) | null;
-      /** @description The reason why the previous card needed to be replaced. */
+      /**
+       * @description The reason why the previous card needed to be replaced.
+       * @enum {string|null}
+       */
       readonly replacement_reason?: ("damaged" | "expired" | "lost" | "stolen") | null;
       /** @description Where and how the card will be shipped. */
       readonly shipping?: Partial<components["schemas"]["issuing_card_shipping"]> | null;
       readonly spending_controls: components["schemas"]["issuing_card_authorization_controls"];
-      /** @description Whether authorizations can be approved on this card. */
+      /**
+       * @description Whether authorizations can be approved on this card.
+       * @enum {string}
+       */
       readonly status: "active" | "canceled" | "inactive";
-      /** @description The type of the card. */
+      /**
+       * @description The type of the card.
+       * @enum {string}
+       */
       readonly type: "physical" | "virtual";
     };
     /**
@@ -4144,16 +4526,25 @@ export interface components {
       readonly metadata: { readonly [key: string]: string };
       /** @description The cardholder's name. This will be printed on cards issued to them. */
       readonly name: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "issuing.cardholder";
       /** @description The cardholder's phone number. */
       readonly phone_number?: string | null;
       readonly requirements: components["schemas"]["issuing_cardholder_requirements"];
       /** @description Spending rules that give you some control over how this cardholder's cards can be used. Refer to our [authorizations](https://stripe.com/docs/issuing/purchases/authorizations) documentation for more details. */
       readonly spending_controls?: Partial<components["schemas"]["issuing_cardholder_authorization_controls"]> | null;
-      /** @description Specifies whether to permit authorizations on this cardholder's cards. */
+      /**
+       * @description Specifies whether to permit authorizations on this cardholder's cards.
+       * @enum {string}
+       */
       readonly status: "active" | "blocked" | "inactive";
-      /** @description One of `individual` or `company`. */
+      /**
+       * @description One of `individual` or `company`.
+       * @enum {string}
+       */
       readonly type: "company" | "individual";
     };
     /**
@@ -4167,7 +4558,10 @@ export interface components {
       readonly id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "issuing.dispute";
     };
     /**
@@ -4196,13 +4590,19 @@ export interface components {
       readonly metadata: { readonly [key: string]: string };
       /** @description The total net amount required to settle with the network. */
       readonly net_total: number;
-      /** @description The card network for this settlement report. One of ["visa"] */
+      /**
+       * @description The card network for this settlement report. One of ["visa"]
+       * @enum {string}
+       */
       readonly network: "visa";
       /** @description The total amount of fees owed to the network. */
       readonly network_fees: number;
       /** @description The Settlement Identification Number assigned by the network. */
       readonly network_settlement_identifier: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "issuing.settlement";
       /** @description One of `international` or `uk_national_net`. */
       readonly settlement_service: string;
@@ -4248,9 +4648,15 @@ export interface components {
       readonly merchant_data: components["schemas"]["issuing_authorization_merchant_data"];
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "issuing.transaction";
-      /** @description The nature of the transaction. */
+      /**
+       * @description The nature of the transaction.
+       * @enum {string}
+       */
       readonly type: "capture" | "refund";
     };
     /** IssuingAuthorizationMerchantData */
@@ -4300,7 +4706,10 @@ export interface components {
       readonly merchant_amount: number;
       /** @description The currency that was collected by the merchant and presented to the cardholder for the authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       readonly merchant_currency: string;
-      /** @description The reason for the approval or decline. */
+      /**
+       * @description The reason for the approval or decline.
+       * @enum {string}
+       */
       readonly reason:
         | "account_disabled"
         | "card_active"
@@ -4318,13 +4727,25 @@ export interface components {
     };
     /** IssuingAuthorizationVerificationData */
     readonly issuing_authorization_verification_data: {
-      /** @description Whether the cardholder provided an address first line and if it matched the cardholder’s `billing.address.line1`. */
+      /**
+       * @description Whether the cardholder provided an address first line and if it matched the cardholder’s `billing.address.line1`.
+       * @enum {string}
+       */
       readonly address_line1_check: "match" | "mismatch" | "not_provided";
-      /** @description Whether the cardholder provided a postal code and if it matched the cardholder’s `billing.address.postal_code`. */
+      /**
+       * @description Whether the cardholder provided a postal code and if it matched the cardholder’s `billing.address.postal_code`.
+       * @enum {string}
+       */
       readonly address_postal_code_check: "match" | "mismatch" | "not_provided";
-      /** @description Whether the cardholder provided a CVC and if it matched Stripe’s record. */
+      /**
+       * @description Whether the cardholder provided a CVC and if it matched Stripe’s record.
+       * @enum {string}
+       */
       readonly cvc_check: "match" | "mismatch" | "not_provided";
-      /** @description Whether the cardholder provided an expiry date and if it matched Stripe’s record. */
+      /**
+       * @description Whether the cardholder provided an expiry date and if it matched Stripe’s record.
+       * @enum {string}
+       */
       readonly expiry_check: "match" | "mismatch" | "not_provided";
     };
     /** IssuingCardAuthorizationControls */
@@ -4923,7 +5344,10 @@ export interface components {
     /** IssuingCardShipping */
     readonly issuing_card_shipping: {
       readonly address: components["schemas"]["address"];
-      /** @description The delivery company that shipped a card. */
+      /**
+       * @description The delivery company that shipped a card.
+       * @enum {string|null}
+       */
       readonly carrier?: ("fedex" | "usps") | null;
       /**
        * Format: unix-time
@@ -4932,15 +5356,24 @@ export interface components {
       readonly eta?: number | null;
       /** @description Recipient name. */
       readonly name: string;
-      /** @description Shipment service, such as `standard` or `express`. */
+      /**
+       * @description Shipment service, such as `standard` or `express`.
+       * @enum {string}
+       */
       readonly service: "express" | "priority" | "standard";
-      /** @description The delivery status of the card. */
+      /**
+       * @description The delivery status of the card.
+       * @enum {string|null}
+       */
       readonly status?: ("canceled" | "delivered" | "failure" | "pending" | "returned" | "shipped") | null;
       /** @description A tracking number for a card shipment. */
       readonly tracking_number?: string | null;
       /** @description A link to the shipping carrier's site where you can view detailed information about a card shipment. */
       readonly tracking_url?: string | null;
-      /** @description Packaging options. */
+      /**
+       * @description Packaging options.
+       * @enum {string}
+       */
       readonly type: "bulk" | "individual";
     };
     /** IssuingCardSpendingLimit */
@@ -5240,7 +5673,10 @@ export interface components {
             | "wrecking_and_salvage_yards"
           )[]
         | null;
-      /** @description The time interval or event with which to apply this spending limit towards. */
+      /**
+       * @description The time interval or event with which to apply this spending limit towards.
+       * @enum {string}
+       */
       readonly interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
     };
     /** IssuingCardholderAddress */
@@ -5874,7 +6310,10 @@ export interface components {
     };
     /** IssuingCardholderRequirements */
     readonly issuing_cardholder_requirements: {
-      /** @description If `disabled_reason` is present, all cards will decline authorizations with `cardholder_verification_required` reason. */
+      /**
+       * @description If `disabled_reason` is present, all cards will decline authorizations with `cardholder_verification_required` reason.
+       * @enum {string|null}
+       */
       readonly disabled_reason?: ("listed" | "rejected.listed" | "under_review") | null;
       /** @description Array of fields that need to be collected in order to verify and re-enable the cardholder. */
       readonly past_due?:
@@ -6186,7 +6625,10 @@ export interface components {
             | "wrecking_and_salvage_yards"
           )[]
         | null;
-      /** @description The time interval or event with which to apply this spending limit towards. */
+      /**
+       * @description The time interval or event with which to apply this spending limit towards.
+       * @enum {string}
+       */
       readonly interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
     };
     /** IssuingCardholderVerification */
@@ -6215,7 +6657,10 @@ export interface components {
       readonly owners_provided?: boolean;
       /** @description The company's phone number (used for verification). */
       readonly phone?: string | null;
-      /** @description The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details. */
+      /**
+       * @description The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
+       * @enum {string}
+       */
       readonly structure?:
         | "government_instrumentality"
         | "governmental_unit"
@@ -6325,7 +6770,10 @@ export interface components {
       readonly livemode: boolean;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Note that for line items with `type=subscription` this will reflect the metadata of the subscription that caused the line item to be created. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "line_item";
       readonly period: components["schemas"]["invoice_line_item_period"];
       /** @description The plan of the subscription, if the line item is a subscription or a proration. */
@@ -6342,7 +6790,10 @@ export interface components {
       readonly tax_amounts?: readonly components["schemas"]["invoice_tax_amount"][] | null;
       /** @description The tax rates which apply to the line item. */
       readonly tax_rates?: readonly components["schemas"]["tax_rate"][] | null;
-      /** @description A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`. */
+      /**
+       * @description A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`.
+       * @enum {string}
+       */
       readonly type: "invoiceitem" | "subscription";
     };
     /** LoginLink */
@@ -6352,7 +6803,10 @@ export interface components {
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       readonly created: number;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "login_link";
       /** @description The URL for the login link. */
       readonly url: string;
@@ -6368,15 +6822,24 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
       readonly multi_use?: components["schemas"]["mandate_multi_use"];
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "mandate";
       /** @description ID of the payment method associated with this mandate. */
       readonly payment_method: Partial<string> & Partial<components["schemas"]["payment_method"]>;
       readonly payment_method_details: components["schemas"]["mandate_payment_method_details"];
       readonly single_use?: components["schemas"]["mandate_single_use"];
-      /** @description The status of the mandate, which indicates whether it can be used to initiate a payment. */
+      /**
+       * @description The status of the mandate, which indicates whether it can be used to initiate a payment.
+       * @enum {string}
+       */
       readonly status: "active" | "inactive" | "pending";
-      /** @description The type of the mandate. */
+      /**
+       * @description The type of the mandate.
+       * @enum {string}
+       */
       readonly type: "multi_use" | "single_use";
     };
     /** mandate_au_becs_debit */
@@ -6475,7 +6938,10 @@ export interface components {
       readonly livemode: boolean;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "order";
       /**
        * OrderReturnList
@@ -6486,7 +6952,10 @@ export interface components {
         readonly data: readonly components["schemas"]["order_return"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         readonly has_more: boolean;
-        /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+        /**
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+         * @enum {string}
+         */
         readonly object: "list";
         /** @description The URL where this list can be accessed. */
         readonly url: string;
@@ -6523,7 +6992,10 @@ export interface components {
       readonly currency: string;
       /** @description Description of the line item, meant to be displayable to the user (e.g., `"Express shipping"`). */
       readonly description: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "order_item";
       /** @description The ID of the associated object for this line item. Expandable if not null (e.g., expandable to a SKU). */
       readonly parent?: (Partial<string> & Partial<components["schemas"]["sku"]>) | null;
@@ -6555,7 +7027,10 @@ export interface components {
       readonly items: readonly components["schemas"]["order_item"][];
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "order_return";
       /** @description The order that this return includes items from. */
       readonly order?: (Partial<string> & Partial<components["schemas"]["order"]>) | null;
@@ -6603,7 +7078,10 @@ export interface components {
        * @description Populated when `status` is `canceled`, this is the time at which the PaymentIntent was canceled. Measured in seconds since the Unix epoch.
        */
       readonly canceled_at?: number | null;
-      /** @description Reason for cancellation of this PaymentIntent, either user-provided (`duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`) or generated by Stripe internally (`failed_invoice`, `void_invoice`, or `automatic`). */
+      /**
+       * @description Reason for cancellation of this PaymentIntent, either user-provided (`duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`) or generated by Stripe internally (`failed_invoice`, `void_invoice`, or `automatic`).
+       * @enum {string|null}
+       */
       readonly cancellation_reason?:
         | (
             | "abandoned"
@@ -6615,7 +7093,10 @@ export interface components {
             | "void_invoice"
           )
         | null;
-      /** @description Controls when the funds will be captured from the customer's account. */
+      /**
+       * @description Controls when the funds will be captured from the customer's account.
+       * @enum {string}
+       */
       readonly capture_method: "automatic" | "manual";
       /**
        * PaymentFlowsPaymentIntentResourceChargeList
@@ -6626,7 +7107,10 @@ export interface components {
         readonly data: readonly components["schemas"]["charge"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         readonly has_more: boolean;
-        /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+        /**
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+         * @enum {string}
+         */
         readonly object: "list";
         /** @description The URL where this list can be accessed. */
         readonly url: string;
@@ -6639,6 +7123,7 @@ export interface components {
        * Refer to our docs to [accept a payment](https://stripe.com/docs/payments/accept-a-payment) and learn about how `client_secret` should be handled.
        */
       readonly client_secret?: string | null;
+      /** @enum {string} */
       readonly confirmation_method: "automatic" | "manual";
       /**
        * Format: unix-time
@@ -6673,7 +7158,10 @@ export interface components {
       readonly metadata?: { readonly [key: string]: string };
       /** @description If present, this property tells you what actions you need to take in order for your customer to fulfill a payment using the provided source. */
       readonly next_action?: Partial<components["schemas"]["payment_intent_next_action"]> | null;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "payment_intent";
       /** @description The account (if any) for which the funds of the PaymentIntent are intended. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
       readonly on_behalf_of?: (Partial<string> & Partial<components["schemas"]["account"]>) | null;
@@ -6693,6 +7181,7 @@ export interface components {
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
        *
        * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+       * @enum {string|null}
        */
       readonly setup_future_usage?: ("off_session" | "on_session") | null;
       /** @description Shipping information for this PaymentIntent. */
@@ -6701,7 +7190,10 @@ export interface components {
       readonly statement_descriptor?: string | null;
       /** @description Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
       readonly statement_descriptor_suffix?: string | null;
-      /** @description Status of this PaymentIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `requires_capture`, `canceled`, or `succeeded`. Read more about each PaymentIntent [status](https://stripe.com/docs/payments/intents#intent-statuses). */
+      /**
+       * @description Status of this PaymentIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `requires_capture`, `canceled`, or `succeeded`. Read more about each PaymentIntent [status](https://stripe.com/docs/payments/intents#intent-statuses).
+       * @enum {string}
+       */
       readonly status:
         | "canceled"
         | "processing"
@@ -6742,7 +7234,10 @@ export interface components {
        * For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
        */
       readonly installments?: Partial<components["schemas"]["payment_method_options_card_installments"]> | null;
-      /** @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine. */
+      /**
+       * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+       * @enum {string|null}
+       */
       readonly request_three_d_secure?: ("any" | "automatic" | "challenge_only") | null;
     };
     /**
@@ -6773,10 +7268,16 @@ export interface components {
       readonly livemode: boolean;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "payment_method";
       readonly sepa_debit?: components["schemas"]["payment_method_sepa_debit"];
-      /** @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type. */
+      /**
+       * @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
+       * @enum {string}
+       */
       readonly type: "au_becs_debit" | "card" | "fpx" | "ideal" | "sepa_debit";
     };
     /** payment_method_au_becs_debit */
@@ -6840,7 +7341,10 @@ export interface components {
       readonly google_pay?: components["schemas"]["payment_method_card_wallet_google_pay"];
       readonly masterpass?: components["schemas"]["payment_method_card_wallet_masterpass"];
       readonly samsung_pay?: components["schemas"]["payment_method_card_wallet_samsung_pay"];
-      /** @description The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, or `visa_checkout`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type. */
+      /**
+       * @description The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, or `visa_checkout`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
+       * @enum {string}
+       */
       readonly type:
         | "amex_express_checkout"
         | "apple_pay"
@@ -6920,7 +7424,10 @@ export interface components {
     };
     /** payment_method_details_ach_debit */
     readonly payment_method_details_ach_debit: {
-      /** @description Type of entity that holds the account. This can be either `individual` or `company`. */
+      /**
+       * @description Type of entity that holds the account. This can be either `individual` or `company`.
+       * @enum {string|null}
+       */
       readonly account_holder_type?: ("company" | "individual") | null;
       /** @description Name of the bank associated with the bank account. */
       readonly bank_name?: string | null;
@@ -6959,6 +7466,7 @@ export interface components {
       /**
        * @description Preferred language of the Bancontact authorization page that the customer is redirected to.
        * Can be one of `en`, `de`, `fr`, or `nl`
+       * @enum {string|null}
        */
       readonly preferred_language?: ("de" | "en" | "fr" | "nl") | null;
       /**
@@ -7019,9 +7527,13 @@ export interface components {
       /**
        * @description For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
        * One of `month`.
+       * @enum {string|null}
        */
       readonly interval?: "month" | null;
-      /** @description Type of installment plan, one of `fixed_count`. */
+      /**
+       * @description Type of installment plan, one of `fixed_count`.
+       * @enum {string}
+       */
       readonly type: "fixed_count";
     };
     /** payment_method_details_card_present */
@@ -7081,7 +7593,10 @@ export interface components {
       readonly google_pay?: components["schemas"]["payment_method_details_card_wallet_google_pay"];
       readonly masterpass?: components["schemas"]["payment_method_details_card_wallet_masterpass"];
       readonly samsung_pay?: components["schemas"]["payment_method_details_card_wallet_samsung_pay"];
-      /** @description The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, or `visa_checkout`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type. */
+      /**
+       * @description The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, or `visa_checkout`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
+       * @enum {string}
+       */
       readonly type:
         | "amex_express_checkout"
         | "apple_pay"
@@ -7131,7 +7646,10 @@ export interface components {
     };
     /** payment_method_details_fpx */
     readonly payment_method_details_fpx: {
-      /** @description The customer's bank. Can be one of `affin_bank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, or `pb_enterprise`. */
+      /**
+       * @description The customer's bank. Can be one of `affin_bank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, or `pb_enterprise`.
+       * @enum {string}
+       */
       readonly bank:
         | "affin_bank"
         | "alliance_bank"
@@ -7172,7 +7690,10 @@ export interface components {
     };
     /** payment_method_details_ideal */
     readonly payment_method_details_ideal: {
-      /** @description The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `sns_bank`, `triodos_bank`, or `van_lanschot`. */
+      /**
+       * @description The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `sns_bank`, `triodos_bank`, or `van_lanschot`.
+       * @enum {string|null}
+       */
       readonly bank?:
         | (
             | "abn_amro"
@@ -7189,7 +7710,10 @@ export interface components {
             | "van_lanschot"
           )
         | null;
-      /** @description The Bank Identifier Code of the customer's bank. */
+      /**
+       * @description The Bank Identifier Code of the customer's bank.
+       * @enum {string|null}
+       */
       readonly bic?:
         | (
             | "ABNANL2A"
@@ -7272,7 +7796,10 @@ export interface components {
     readonly payment_method_details_wechat: { readonly [key: string]: unknown };
     /** payment_method_fpx */
     readonly payment_method_fpx: {
-      /** @description The customer's bank, if provided. Can be one of `affin_bank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, or `pb_enterprise`. */
+      /**
+       * @description The customer's bank, if provided. Can be one of `affin_bank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, or `pb_enterprise`.
+       * @enum {string}
+       */
       readonly bank:
         | "affin_bank"
         | "alliance_bank"
@@ -7297,7 +7824,10 @@ export interface components {
     };
     /** payment_method_ideal */
     readonly payment_method_ideal: {
-      /** @description The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `sns_bank`, `triodos_bank`, or `van_lanschot`. */
+      /**
+       * @description The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `sns_bank`, `triodos_bank`, or `van_lanschot`.
+       * @enum {string|null}
+       */
       readonly bank?:
         | (
             | "abn_amro"
@@ -7314,7 +7844,10 @@ export interface components {
             | "van_lanschot"
           )
         | null;
-      /** @description The Bank Identifier Code of the customer's bank, if the bank was provided. */
+      /**
+       * @description The Bank Identifier Code of the customer's bank, if the bank was provided.
+       * @enum {string|null}
+       */
       readonly bic?:
         | (
             | "ABNANL2A"
@@ -7665,7 +8198,10 @@ export interface components {
       readonly metadata: { readonly [key: string]: string };
       /** @description The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces](https://stripe.com/blog/instant-payouts-for-marketplaces) for more information.) */
       readonly method: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "payout";
       /** @description The source balance this payout came from. One of `card`, `fpx`, or `bank_account`. */
       readonly source_type: string;
@@ -7673,7 +8209,10 @@ export interface components {
       readonly statement_descriptor?: string | null;
       /** @description Current status of the payout: `paid`, `pending`, `in_transit`, `canceled` or `failed`. A payout is `pending` until it is submitted to the bank, when it becomes `in_transit`. The status then changes to `paid` if the transaction goes through, or to `failed` or `canceled` (within 5 business days). Some failed payouts may initially show as `paid` but then change to `failed`. */
       readonly status: string;
-      /** @description Can be `bank_account` or `card`. */
+      /**
+       * @description Can be `bank_account` or `card`.
+       * @enum {string}
+       */
       readonly type: "bank_account" | "card";
     };
     /** Period */
@@ -7720,7 +8259,10 @@ export interface components {
       readonly maiden_name?: string | null;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata?: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "person";
       readonly phone?: string | null;
       readonly relationship?: components["schemas"]["person_relationship"];
@@ -7768,7 +8310,10 @@ export interface components {
     readonly plan: {
       /** @description Whether the plan can be used for new purchases. */
       readonly active: boolean;
-      /** @description Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`. */
+      /**
+       * @description Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
+       * @enum {string|null}
+       */
       readonly aggregate_usage?: ("last_during_period" | "last_ever" | "max" | "sum") | null;
       /** @description The amount in %s to be charged on the interval specified. */
       readonly amount?: number | null;
@@ -7777,7 +8322,10 @@ export interface components {
        * @description Same as `amount`, but contains a decimal value with at most 12 decimal places.
        */
       readonly amount_decimal?: string | null;
-      /** @description Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes. */
+      /**
+       * @description Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
+       * @enum {string}
+       */
       readonly billing_scheme: "per_unit" | "tiered";
       /**
        * Format: unix-time
@@ -7788,7 +8336,10 @@ export interface components {
       readonly currency: string;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`. */
+      /**
+       * @description The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
+       * @enum {string}
+       */
       readonly interval: "day" | "month" | "week" | "year";
       /** @description The number of intervals (specified in the `interval` attribute) between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. */
       readonly interval_count: number;
@@ -7798,7 +8349,10 @@ export interface components {
       readonly metadata: { readonly [key: string]: string };
       /** @description A brief description of the plan, hidden from customers. */
       readonly nickname?: string | null;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "plan";
       /** @description The product whose pricing this plan determines. */
       readonly product?:
@@ -7808,13 +8362,19 @@ export interface components {
         | null;
       /** @description Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
       readonly tiers?: readonly components["schemas"]["plan_tier"][] | null;
-      /** @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows. */
+      /**
+       * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows.
+       * @enum {string|null}
+       */
       readonly tiers_mode?: ("graduated" | "volume") | null;
       /** @description Apply a transformation to the reported usage or set quantity before computing the amount billed. Cannot be combined with `tiers`. */
       readonly transform_usage?: Partial<components["schemas"]["transform_usage"]> | null;
       /** @description Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan). */
       readonly trial_period_days?: number | null;
-      /** @description Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`. */
+      /**
+       * @description Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
+       * @enum {string}
+       */
       readonly usage_type: "licensed" | "metered";
     };
     /** PlanTier */
@@ -7842,7 +8402,10 @@ export interface components {
       readonly account: string;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "platform_tax_fee";
       /** @description The payment object that caused this tax to be inflicted. */
       readonly source_transaction: string;
@@ -7886,7 +8449,10 @@ export interface components {
       readonly metadata: { readonly [key: string]: string };
       /** @description The product's name, meant to be displayable to the customer. Whenever this product is sold via a subscription, name will show up on associated invoice line item descriptions. */
       readonly name: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "product";
       /** @description The dimensions of this product for shipping purposes. A SKU associated with this product can override this value by having its own `package_dimensions`. Only applicable to products of `type=good`. */
       readonly package_dimensions?: Partial<components["schemas"]["package_dimensions"]> | null;
@@ -7894,7 +8460,10 @@ export interface components {
       readonly shippable?: boolean | null;
       /** @description Extra information about a product which will appear on your customer's credit card statement. In the case that multiple products are billed at once, the first statement descriptor will be used. */
       readonly statement_descriptor?: string | null;
-      /** @description The type of the product. The product is either of type `good`, which is eligible for use with Orders and SKUs, or `service`, which is eligible for use with Subscriptions and Plans. */
+      /**
+       * @description The type of the product. The product is either of type `good`, which is eligible for use with Orders and SKUs, or `service`, which is eligible for use with Subscriptions and Plans.
+       * @enum {string}
+       */
       readonly type: "good" | "service";
       /** @description A label that represents units of this product in Stripe and on customers’ receipts and invoices. When set, this will be included in associated invoice line item descriptions. */
       readonly unit_label?: string | null;
@@ -7929,7 +8498,10 @@ export interface components {
       readonly id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "radar.early_fraud_warning";
     };
     /**
@@ -7950,7 +8522,10 @@ export interface components {
       readonly created_by: string;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description The type of items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, or `case_sensitive_string`. */
+      /**
+       * @description The type of items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, or `case_sensitive_string`.
+       * @enum {string}
+       */
       readonly item_type:
         | "card_bin"
         | "card_fingerprint"
@@ -7968,7 +8543,10 @@ export interface components {
         readonly data: readonly components["schemas"]["radar.value_list_item"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         readonly has_more: boolean;
-        /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+        /**
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+         * @enum {string}
+         */
         readonly object: "list";
         /** @description The URL where this list can be accessed. */
         readonly url: string;
@@ -7979,7 +8557,10 @@ export interface components {
       readonly metadata: { readonly [key: string]: string };
       /** @description The name of the value list. */
       readonly name: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "radar.value_list";
     };
     /**
@@ -8000,7 +8581,10 @@ export interface components {
       readonly id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "radar.value_list_item";
       /** @description The value of the item. */
       readonly value: string;
@@ -8053,7 +8637,10 @@ export interface components {
         readonly data: readonly components["schemas"]["card"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         readonly has_more: boolean;
-        /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+        /**
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+         * @enum {string}
+         */
         readonly object: "list";
         /** @description The URL where this list can be accessed. */
         readonly url: string;
@@ -8078,7 +8665,10 @@ export interface components {
       readonly migrated_to?: (Partial<string> & Partial<components["schemas"]["account"]>) | null;
       /** @description Full, legal name of the recipient. */
       readonly name?: string | null;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "recipient";
       readonly rolled_back_from?: Partial<string> & Partial<components["schemas"]["account"]>;
       /** @description Type of the recipient, one of `individual` or `corporation`. */
@@ -8116,7 +8706,10 @@ export interface components {
       readonly id: string;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "refund";
       /** @description ID of the PaymentIntent that was refunded. */
       readonly payment_intent?: (Partial<string> & Partial<components["schemas"]["payment_intent"]>) | null;
@@ -8160,7 +8753,10 @@ export interface components {
       readonly id: string;
       /** @description Always `true`: reports can only be run on live-mode data. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "reporting.report_run";
       readonly parameters: components["schemas"]["financial_reporting_finance_report_run_run_parameters"];
       /** @description The ID of the [report type](https://stripe.com/docs/reporting/statements/api#report-types) to run, such as `"balance.summary.1"`. */
@@ -8212,7 +8808,10 @@ export interface components {
       readonly id: string;
       /** @description Human-readable name of the Report Type */
       readonly name: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "reporting.report_type";
       /**
        * Format: unix-time
@@ -8231,7 +8830,10 @@ export interface components {
       readonly description?: string | null;
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "reserve_transaction";
     };
     /**
@@ -8246,7 +8848,10 @@ export interface components {
       readonly billing_zip?: string | null;
       /** @description The charge associated with this review. */
       readonly charge?: (Partial<string> & Partial<components["schemas"]["charge"]>) | null;
-      /** @description The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, or `disputed`. */
+      /**
+       * @description The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, or `disputed`.
+       * @enum {string|null}
+       */
       readonly closed_reason?: ("approved" | "disputed" | "refunded" | "refunded_as_fraud") | null;
       /**
        * Format: unix-time
@@ -8261,11 +8866,17 @@ export interface components {
       readonly ip_address_location?: Partial<components["schemas"]["radar_review_resource_location"]> | null;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "review";
       /** @description If `true`, the review needs action. */
       readonly open: boolean;
-      /** @description The reason the review was opened. One of `rule` or `manual`. */
+      /**
+       * @description The reason the review was opened. One of `rule` or `manual`.
+       * @enum {string}
+       */
       readonly opened_reason: "manual" | "rule";
       /** @description The PaymentIntent ID associated with this review, if one exists. */
       readonly payment_intent?: Partial<string> & Partial<components["schemas"]["payment_intent"]>;
@@ -8308,7 +8919,10 @@ export interface components {
       readonly id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "scheduled_query_run";
       /**
        * Format: unix-time
@@ -8350,7 +8964,10 @@ export interface components {
     readonly setup_intent: {
       /** @description ID of the Connect application that created the SetupIntent. */
       readonly application?: (Partial<string> & Partial<components["schemas"]["application"]>) | null;
-      /** @description Reason for cancellation of this SetupIntent, one of `abandoned`, `requested_by_customer`, or `duplicate`. */
+      /**
+       * @description Reason for cancellation of this SetupIntent, one of `abandoned`, `requested_by_customer`, or `duplicate`.
+       * @enum {string|null}
+       */
       readonly cancellation_reason?: ("abandoned" | "duplicate" | "requested_by_customer") | null;
       /**
        * @description The client secret of this SetupIntent. Used for client-side retrieval using a publishable key.
@@ -8387,7 +9004,10 @@ export interface components {
       readonly metadata?: { readonly [key: string]: string };
       /** @description If present, this property tells you what actions you need to take in order for your customer to continue payment setup. */
       readonly next_action?: Partial<components["schemas"]["setup_intent_next_action"]> | null;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "setup_intent";
       /** @description The account (if any) for which the setup is intended. */
       readonly on_behalf_of?: (Partial<string> & Partial<components["schemas"]["account"]>) | null;
@@ -8399,7 +9019,10 @@ export interface components {
       readonly payment_method_types: readonly string[];
       /** @description ID of the single_use Mandate generated by the SetupIntent. */
       readonly single_use_mandate?: (Partial<string> & Partial<components["schemas"]["mandate"]>) | null;
-      /** @description [Status](https://stripe.com/docs/payments/intents#intent-statuses) of this SetupIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `canceled`, or `succeeded`. */
+      /**
+       * @description [Status](https://stripe.com/docs/payments/intents#intent-statuses) of this SetupIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `canceled`, or `succeeded`.
+       * @enum {string}
+       */
       readonly status:
         | "canceled"
         | "processing"
@@ -8435,7 +9058,10 @@ export interface components {
     };
     /** setup_intent_payment_method_options_card */
     readonly setup_intent_payment_method_options_card: {
-      /** @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine. */
+      /**
+       * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+       * @enum {string|null}
+       */
       readonly request_three_d_secure?: ("any" | "automatic" | "challenge_only") | null;
     };
     /** Shipping */
@@ -8500,7 +9126,10 @@ export interface components {
       readonly livemode: boolean;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "sku";
       /** @description The dimensions of this SKU for shipping purposes. */
       readonly package_dimensions?: Partial<components["schemas"]["package_dimensions"]> | null;
@@ -8558,7 +9187,10 @@ export interface components {
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata?: { readonly [key: string]: string } | null;
       readonly multibanco?: components["schemas"]["source_type_multibanco"];
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "source";
       /** @description Information about the owner of the payment instrument that may be used or required by particular source types. */
       readonly owner?: Partial<components["schemas"]["source_owner"]> | null;
@@ -8573,7 +9205,10 @@ export interface components {
       /** @description The status of the source, one of `canceled`, `chargeable`, `consumed`, `failed`, or `pending`. Only `chargeable` sources can be used to create a charge. */
       readonly status: string;
       readonly three_d_secure?: components["schemas"]["source_type_three_d_secure"];
-      /** @description The `type` of the source. The `type` is a payment method, one of `ach_credit_transfer`, `ach_debit`, `alipay`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `multibanco`, `klarna`, `p24`, `sepa_debit`, `sofort`, `three_d_secure`, or `wechat`. An additional hash is included on the source with a name matching this value. It contains additional information specific to the [payment method](https://stripe.com/docs/sources) used. */
+      /**
+       * @description The `type` of the source. The `type` is a payment method, one of `ach_credit_transfer`, `ach_debit`, `alipay`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `multibanco`, `klarna`, `p24`, `sepa_debit`, `sofort`, `three_d_secure`, or `wechat`. An additional hash is included on the source with a name matching this value. It contains additional information specific to the [payment method](https://stripe.com/docs/sources) used.
+       * @enum {string}
+       */
       readonly type:
         | "ach_credit_transfer"
         | "ach_debit"
@@ -8622,7 +9257,10 @@ export interface components {
       readonly id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "source_mandate_notification";
       /** @description The reason of the mandate notification. Valid reasons are `mandate_confirmed` or `debit_initiated`. */
       readonly reason: string;
@@ -8741,7 +9379,10 @@ export interface components {
       readonly id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "source_transaction";
       readonly paper_check?: components["schemas"]["source_transaction_paper_check_data"];
       readonly sepa_credit_transfer?: components["schemas"]["source_transaction_sepa_credit_transfer_data"];
@@ -8749,7 +9390,10 @@ export interface components {
       readonly source: string;
       /** @description The status of the transaction, one of `succeeded`, `pending`, or `failed`. */
       readonly status: string;
-      /** @description The type of source this transaction is attached to. */
+      /**
+       * @description The type of source this transaction is attached to.
+       * @enum {string}
+       */
       readonly type:
         | "ach_credit_transfer"
         | "ach_debit"
@@ -9053,7 +9697,10 @@ export interface components {
        * @description If the subscription has been canceled, the date of that cancellation. If the subscription was canceled with `cancel_at_period_end`, `canceled_at` will still reflect the date of the initial cancellation request, not the end of the subscription period when the subscription is automatically moved to a canceled state.
        */
       readonly canceled_at?: number | null;
-      /** @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. */
+      /**
+       * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions.
+       * @enum {string|null}
+       */
       readonly collection_method?: ("charge_automatically" | "send_invoice") | null;
       /**
        * Format: unix-time
@@ -9107,7 +9754,10 @@ export interface components {
         readonly data: readonly components["schemas"]["subscription_item"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         readonly has_more: boolean;
-        /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+        /**
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+         * @enum {string}
+         */
         readonly object: "list";
         /** @description The URL where this list can be accessed. */
         readonly url: string;
@@ -9123,7 +9773,10 @@ export interface components {
        * @description Specifies the approximate timestamp on which any pending invoice items will be billed according to the schedule provided at `pending_invoice_item_interval`.
        */
       readonly next_pending_invoice_item_invoice?: number | null;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "subscription";
       /** @description If specified, payment collection for this subscription will be paused. */
       readonly pause_collection?: Partial<components["schemas"]["subscriptions_resource_pause_collection"]> | null;
@@ -9156,6 +9809,7 @@ export interface components {
        * If subscription `collection_method=charge_automatically` it becomes `past_due` when payment to renew it fails and `canceled` or `unpaid` (depending on your subscriptions settings) when Stripe has exhausted all payment retry attempts.
        *
        * If subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.
+       * @enum {string}
        */
       readonly status: "active" | "canceled" | "incomplete" | "incomplete_expired" | "past_due" | "trialing" | "unpaid";
       /** @description If provided, each invoice created by this subscription will apply the tax rate, increasing the amount billed to the customer. */
@@ -9192,7 +9846,10 @@ export interface components {
       readonly id: string;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "subscription_item";
       readonly plan: components["schemas"]["plan"];
       /** @description The [quantity](https://stripe.com/docs/subscriptions/quantities) of the plan to which the customer should be subscribed. */
@@ -9209,7 +9866,10 @@ export interface components {
     };
     /** SubscriptionPendingInvoiceItemInterval */
     readonly subscription_pending_invoice_item_interval: {
-      /** @description Specifies invoicing frequency. Either `day`, `week`, `month` or `year`. */
+      /**
+       * @description Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+       * @enum {string}
+       */
       readonly interval: "day" | "month" | "week" | "year";
       /** @description The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). */
       readonly interval_count: number;
@@ -9243,7 +9903,10 @@ export interface components {
         Partial<components["schemas"]["customer"]> &
         Partial<components["schemas"]["deleted_customer"]>;
       readonly default_settings: components["schemas"]["subscription_schedules_resource_default_settings"];
-      /** @description Behavior of the subscription schedule and underlying subscription when it ends. */
+      /**
+       * @description Behavior of the subscription schedule and underlying subscription when it ends.
+       * @enum {string}
+       */
       readonly end_behavior: "cancel" | "none" | "release" | "renew";
       /** @description Unique identifier for the object. */
       readonly id: string;
@@ -9251,7 +9914,10 @@ export interface components {
       readonly livemode: boolean;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata?: { readonly [key: string]: string } | null;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "subscription_schedule";
       /** @description Configuration for the subscription schedule's phases. */
       readonly phases: readonly components["schemas"]["subscription_schedule_phase_configuration"][];
@@ -9262,7 +9928,10 @@ export interface components {
       readonly released_at?: number | null;
       /** @description ID of the subscription once managed by the subscription schedule (if it is released). */
       readonly released_subscription?: string | null;
-      /** @description The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://stripe.com/docs/billing/subscriptions/subscription-schedules). */
+      /**
+       * @description The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://stripe.com/docs/billing/subscriptions/subscription-schedules).
+       * @enum {string}
+       */
       readonly status: "active" | "canceled" | "completed" | "not_started" | "released";
       /** @description ID of the subscription managed by the subscription schedule. */
       readonly subscription?: (Partial<string> & Partial<components["schemas"]["subscription"]>) | null;
@@ -9305,7 +9974,10 @@ export interface components {
       readonly application_fee_percent?: number | null;
       /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period */
       readonly billing_thresholds?: Partial<components["schemas"]["subscription_billing_thresholds"]> | null;
-      /** @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. */
+      /**
+       * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions.
+       * @enum {string|null}
+       */
       readonly collection_method?: ("charge_automatically" | "send_invoice") | null;
       /** @description ID of the coupon to use during this phase of the subscription schedule. */
       readonly coupon?:
@@ -9328,7 +10000,10 @@ export interface components {
       > | null;
       /** @description Plans to subscribe during this phase of the subscription schedule. */
       readonly plans: readonly components["schemas"]["subscription_schedule_configuration_item"][];
-      /** @description Controls whether or not the subscription schedule will prorate when transitioning to this phase. Values are `create_prorations` and `none`. */
+      /**
+       * @description Controls whether or not the subscription schedule will prorate when transitioning to this phase. Values are `create_prorations` and `none`.
+       * @enum {string|null}
+       */
       readonly proration_behavior?: ("always_invoice" | "create_prorations" | "none") | null;
       /**
        * Format: unix-time
@@ -9347,7 +10022,10 @@ export interface components {
     readonly subscription_schedules_resource_default_settings: {
       /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period */
       readonly billing_thresholds?: Partial<components["schemas"]["subscription_billing_thresholds"]> | null;
-      /** @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. */
+      /**
+       * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions.
+       * @enum {string|null}
+       */
       readonly collection_method?: ("charge_automatically" | "send_invoice") | null;
       /** @description ID of the default payment method for the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings. */
       readonly default_payment_method?: (Partial<string> & Partial<components["schemas"]["payment_method"]>) | null;
@@ -9362,7 +10040,10 @@ export interface components {
      * should be paused.
      */
     readonly subscriptions_resource_pause_collection: {
-      /** @description The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`. */
+      /**
+       * @description The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+       * @enum {string}
+       */
       readonly behavior: "keep_as_draft" | "mark_uncollectible" | "void";
       /**
        * Format: unix-time
@@ -9400,7 +10081,10 @@ export interface components {
     readonly tax_deducted_at_source: {
       /** @description Unique identifier for the object. */
       readonly id: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "tax_deducted_at_source";
       /**
        * Format: unix-time
@@ -9436,9 +10120,15 @@ export interface components {
       readonly id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "tax_id";
-      /** @description Type of the tax ID, one of `au_abn`, `ca_bn`, `ca_qst`, `ch_vat`, `es_cif`, `eu_vat`, `hk_br`, `in_gst`, `jp_cn`, `kr_brn`, `li_uid`, `mx_rfc`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `ru_inn`, `sg_gst`, `sg_uen`, `th_vat`, `tw_vat`, `us_ein`, or `za_vat`. Note that some legacy tax IDs have type `unknown` */
+      /**
+       * @description Type of the tax ID, one of `au_abn`, `ca_bn`, `ca_qst`, `ch_vat`, `es_cif`, `eu_vat`, `hk_br`, `in_gst`, `jp_cn`, `kr_brn`, `li_uid`, `mx_rfc`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `ru_inn`, `sg_gst`, `sg_uen`, `th_vat`, `tw_vat`, `us_ein`, or `za_vat`. Note that some legacy tax IDs have type `unknown`
+       * @enum {string}
+       */
       readonly type:
         | "au_abn"
         | "ca_bn"
@@ -9470,7 +10160,10 @@ export interface components {
     };
     /** tax_id_verification */
     readonly tax_id_verification: {
-      /** @description Verification status, one of `pending`, `verified`, `unverified`, or `unavailable`. */
+      /**
+       * @description Verification status, one of `pending`, `verified`, `unverified`, or `unavailable`.
+       * @enum {string}
+       */
       readonly status: "pending" | "unavailable" | "unverified" | "verified";
       /** @description Verified address. */
       readonly verified_address?: string | null;
@@ -9505,7 +10198,10 @@ export interface components {
       readonly livemode: boolean;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "tax_rate";
       /** @description This represents the tax rate percent out of 100. */
       readonly percentage: number;
@@ -9519,7 +10215,10 @@ export interface components {
     readonly "terminal.connection_token": {
       /** @description The id of the location that this connection token is scoped to. */
       readonly location?: string;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "terminal.connection_token";
       /** @description Your application should pass this token to the Stripe Terminal SDK. */
       readonly secret: string;
@@ -9540,7 +10239,10 @@ export interface components {
       readonly livemode: boolean;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "terminal.location";
     };
     /**
@@ -9552,7 +10254,10 @@ export interface components {
     readonly "terminal.reader": {
       /** @description The current software version of the reader. */
       readonly device_sw_version?: string | null;
-      /** @description Type of reader, one of `bbpos_chipper2x` or `verifone_P400`. */
+      /**
+       * @description Type of reader, one of `bbpos_chipper2x` or `verifone_P400`.
+       * @enum {string}
+       */
       readonly device_type: "bbpos_chipper2x" | "verifone_P400";
       /** @description Unique identifier for the object. */
       readonly id: string;
@@ -9566,7 +10271,10 @@ export interface components {
       readonly location?: string | null;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "terminal.reader";
       /** @description Serial number of the reader. */
       readonly serial_number: string;
@@ -9596,7 +10304,10 @@ export interface components {
       readonly id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "three_d_secure";
       /** @description If present, this is the URL that you should send the cardholder to for authentication. If you are going to use Stripe.js to display the authentication page in an iframe, you should use the value "_callback". */
       readonly redirect_url?: string | null;
@@ -9656,7 +10367,10 @@ export interface components {
       readonly id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "token";
       /** @description Type of the token: `account`, `bank_account`, `card`, or `pii`. */
       readonly type: string;
@@ -9697,12 +10411,18 @@ export interface components {
       readonly livemode: boolean;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "topup";
       readonly source: components["schemas"]["source"];
       /** @description Extra information about a top-up. This will appear on your source's bank statement. It must contain at least one letter. */
       readonly statement_descriptor?: string | null;
-      /** @description The status of the top-up is either `canceled`, `failed`, `pending`, `reversed`, or `succeeded`. */
+      /**
+       * @description The status of the top-up is either `canceled`, `failed`, `pending`, `reversed`, or `succeeded`.
+       * @enum {string}
+       */
       readonly status: "canceled" | "failed" | "pending" | "reversed" | "succeeded";
       /** @description A string that identifies this top-up as part of a group. */
       readonly transfer_group?: string | null;
@@ -9746,7 +10466,10 @@ export interface components {
       readonly livemode: boolean;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "transfer";
       /**
        * TransferReversalList
@@ -9757,7 +10480,10 @@ export interface components {
         readonly data: readonly components["schemas"]["transfer_reversal"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         readonly has_more: boolean;
-        /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+        /**
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+         * @enum {string}
+         */
         readonly object: "list";
         /** @description The URL where this list can be accessed. */
         readonly url: string;
@@ -9816,7 +10542,10 @@ export interface components {
       readonly id: string;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "transfer_reversal";
       /** @description ID of the refund responsible for the transfer reversal. */
       readonly source_refund?: (Partial<string> & Partial<components["schemas"]["refund"]>) | null;
@@ -9838,7 +10567,10 @@ export interface components {
     readonly transform_usage: {
       /** @description Divide usage by this number. */
       readonly divide_by: number;
-      /** @description After division, either round the result `up` or `down`. */
+      /**
+       * @description After division, either round the result `up` or `down`.
+       * @enum {string}
+       */
       readonly round: "down" | "up";
     };
     /**
@@ -9853,7 +10585,10 @@ export interface components {
       readonly id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "usage_record";
       /** @description The usage quantity for the specified date. */
       readonly quantity: number;
@@ -9873,7 +10608,10 @@ export interface components {
       readonly invoice?: string | null;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "usage_record_summary";
       readonly period: components["schemas"]["period"];
       /** @description The ID of the subscription item this summary is describing. */
@@ -9911,7 +10649,10 @@ export interface components {
       readonly livemode: boolean;
       /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string };
-      /** @description String representing the object's type. Objects of the same type share the same value. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
       readonly object: "webhook_endpoint";
       /** @description The endpoint's secret, used to generate [webhook signatures](https://stripe.com/docs/webhooks/signatures). Only returned at creation. */
       readonly secret?: string;
@@ -10046,10 +10787,12 @@ export interface operations {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
           readonly bank_account?: Partial<{
             readonly account_holder_name?: string;
+            /** @enum {string} */
             readonly account_holder_type?: "company" | "individual";
             readonly account_number: string;
             readonly country: string;
             readonly currency?: string;
+            /** @enum {string} */
             readonly object?: "bank_account";
             readonly routing_number?: string;
           }> &
@@ -10067,7 +10810,10 @@ export interface operations {
             readonly support_url?: string;
             readonly url?: string;
           };
-          /** @description The business type. */
+          /**
+           * @description The business type.
+           * @enum {string}
+           */
           readonly business_type?: "company" | "government_entity" | "individual" | "non_profit";
           /**
            * company_specs
@@ -10110,6 +10856,7 @@ export interface operations {
             readonly name_kanji?: string;
             readonly owners_provided?: boolean;
             readonly phone?: string;
+            /** @enum {string} */
             readonly structure?:
               | ""
               | "government_instrumentality"
@@ -10259,8 +11006,10 @@ export interface operations {
               /** transfer_schedule_specs */
               readonly schedule?: {
                 readonly delay_days?: Partial<"minimum"> & Partial<number>;
+                /** @enum {string} */
                 readonly interval?: "daily" | "manual" | "monthly" | "weekly";
                 readonly monthly_anchor?: number;
+                /** @enum {string} */
                 readonly weekly_anchor?:
                   | "friday"
                   | "monday"
@@ -10339,10 +11088,12 @@ export interface operations {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
           readonly bank_account?: Partial<{
             readonly account_holder_name?: string;
+            /** @enum {string} */
             readonly account_holder_type?: "company" | "individual";
             readonly account_number: string;
             readonly country: string;
             readonly currency?: string;
+            /** @enum {string} */
             readonly object?: "bank_account";
             readonly routing_number?: string;
           }> &
@@ -10419,7 +11170,10 @@ export interface operations {
         readonly "application/x-www-form-urlencoded": {
           /** @description The name of the person or business that owns the bank account. */
           readonly account_holder_name?: string;
-          /** @description The type of entity that holds the account. This can be either `individual` or `company`. */
+          /**
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
+           * @enum {string}
+           */
           readonly account_holder_type?: "" | "company" | "individual";
           /** @description City/District/Suburb/Town/Village. */
           readonly address_city?: string;
@@ -10492,7 +11246,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["capability"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -10599,7 +11356,10 @@ export interface operations {
               Partial<components["schemas"]["card"]>)[];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -10641,10 +11401,12 @@ export interface operations {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
           readonly bank_account?: Partial<{
             readonly account_holder_name?: string;
+            /** @enum {string} */
             readonly account_holder_type?: "company" | "individual";
             readonly account_number: string;
             readonly country: string;
             readonly currency?: string;
+            /** @enum {string} */
             readonly object?: "bank_account";
             readonly routing_number?: string;
           }> &
@@ -10721,7 +11483,10 @@ export interface operations {
         readonly "application/x-www-form-urlencoded": {
           /** @description The name of the person or business that owns the bank account. */
           readonly account_holder_name?: string;
-          /** @description The type of entity that holds the account. This can be either `individual` or `company`. */
+          /**
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
+           * @enum {string}
+           */
           readonly account_holder_type?: "" | "company" | "individual";
           /** @description City/District/Suburb/Town/Village. */
           readonly address_city?: string;
@@ -10869,7 +11634,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["person"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -11235,7 +12003,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["person"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -11593,7 +12364,10 @@ export interface operations {
         readonly "application/x-www-form-urlencoded": {
           /** @description The identifier of the account to create an account link for. */
           readonly account: string;
-          /** @description Which information the platform needs to collect from the user. One of `currently_due` or `eventually_due`. Default is `currently_due`. */
+          /**
+           * @description Which information the platform needs to collect from the user. One of `currently_due` or `eventually_due`. Default is `currently_due`.
+           * @enum {string}
+           */
           readonly collect?: "currently_due" | "eventually_due";
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
@@ -11601,7 +12375,10 @@ export interface operations {
           readonly failure_url: string;
           /** @description The URL that the user will be redirected to upon leaving or completing the linked flow successfully. */
           readonly success_url: string;
-          /** @description The type of account link the user is requesting. Possible values are `custom_account_verification` or `custom_account_update`. */
+          /**
+           * @description The type of account link the user is requesting. Possible values are `custom_account_verification` or `custom_account_update`.
+           * @enum {string}
+           */
           readonly type: "custom_account_update" | "custom_account_verification";
         };
       };
@@ -11636,7 +12413,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["account"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -11686,10 +12466,12 @@ export interface operations {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
           readonly bank_account?: Partial<{
             readonly account_holder_name?: string;
+            /** @enum {string} */
             readonly account_holder_type?: "company" | "individual";
             readonly account_number: string;
             readonly country: string;
             readonly currency?: string;
+            /** @enum {string} */
             readonly object?: "bank_account";
             readonly routing_number?: string;
           }> &
@@ -11707,7 +12489,10 @@ export interface operations {
             readonly support_url?: string;
             readonly url?: string;
           };
-          /** @description The business type. */
+          /**
+           * @description The business type.
+           * @enum {string}
+           */
           readonly business_type?: "company" | "government_entity" | "individual" | "non_profit";
           /**
            * company_specs
@@ -11750,6 +12535,7 @@ export interface operations {
             readonly name_kanji?: string;
             readonly owners_provided?: boolean;
             readonly phone?: string;
+            /** @enum {string} */
             readonly structure?:
               | ""
               | "government_instrumentality"
@@ -11901,8 +12687,10 @@ export interface operations {
               /** transfer_schedule_specs */
               readonly schedule?: {
                 readonly delay_days?: Partial<"minimum"> & Partial<number>;
+                /** @enum {string} */
                 readonly interval?: "daily" | "manual" | "monthly" | "weekly";
                 readonly monthly_anchor?: number;
+                /** @enum {string} */
                 readonly weekly_anchor?:
                   | "friday"
                   | "monday"
@@ -11925,7 +12713,10 @@ export interface operations {
             readonly ip?: string;
             readonly user_agent?: string;
           };
-          /** @description The type of Stripe account to create. Currently must be `custom`, as only [Custom accounts](https://stripe.com/docs/connect/custom-accounts) may be created via the API. */
+          /**
+           * @description The type of Stripe account to create. Currently must be `custom`, as only [Custom accounts](https://stripe.com/docs/connect/custom-accounts) may be created via the API.
+           * @enum {string}
+           */
           readonly type?: "custom" | "express" | "standard";
         };
       };
@@ -11995,10 +12786,12 @@ export interface operations {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
           readonly bank_account?: Partial<{
             readonly account_holder_name?: string;
+            /** @enum {string} */
             readonly account_holder_type?: "company" | "individual";
             readonly account_number: string;
             readonly country: string;
             readonly currency?: string;
+            /** @enum {string} */
             readonly object?: "bank_account";
             readonly routing_number?: string;
           }> &
@@ -12016,7 +12809,10 @@ export interface operations {
             readonly support_url?: string;
             readonly url?: string;
           };
-          /** @description The business type. */
+          /**
+           * @description The business type.
+           * @enum {string}
+           */
           readonly business_type?: "company" | "government_entity" | "individual" | "non_profit";
           /**
            * company_specs
@@ -12059,6 +12855,7 @@ export interface operations {
             readonly name_kanji?: string;
             readonly owners_provided?: boolean;
             readonly phone?: string;
+            /** @enum {string} */
             readonly structure?:
               | ""
               | "government_instrumentality"
@@ -12208,8 +13005,10 @@ export interface operations {
               /** transfer_schedule_specs */
               readonly schedule?: {
                 readonly delay_days?: Partial<"minimum"> & Partial<number>;
+                /** @enum {string} */
                 readonly interval?: "daily" | "manual" | "monthly" | "weekly";
                 readonly monthly_anchor?: number;
+                /** @enum {string} */
                 readonly weekly_anchor?:
                   | "friday"
                   | "monday"
@@ -12296,10 +13095,12 @@ export interface operations {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
           readonly bank_account?: Partial<{
             readonly account_holder_name?: string;
+            /** @enum {string} */
             readonly account_holder_type?: "company" | "individual";
             readonly account_number: string;
             readonly country: string;
             readonly currency?: string;
+            /** @enum {string} */
             readonly object?: "bank_account";
             readonly routing_number?: string;
           }> &
@@ -12378,7 +13179,10 @@ export interface operations {
         readonly "application/x-www-form-urlencoded": {
           /** @description The name of the person or business that owns the bank account. */
           readonly account_holder_name?: string;
-          /** @description The type of entity that holds the account. This can be either `individual` or `company`. */
+          /**
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
+           * @enum {string}
+           */
           readonly account_holder_type?: "" | "company" | "individual";
           /** @description City/District/Suburb/Town/Village. */
           readonly address_city?: string;
@@ -12455,7 +13259,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["capability"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -12567,7 +13374,10 @@ export interface operations {
               Partial<components["schemas"]["card"]>)[];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -12614,10 +13424,12 @@ export interface operations {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
           readonly bank_account?: Partial<{
             readonly account_holder_name?: string;
+            /** @enum {string} */
             readonly account_holder_type?: "company" | "individual";
             readonly account_number: string;
             readonly country: string;
             readonly currency?: string;
+            /** @enum {string} */
             readonly object?: "bank_account";
             readonly routing_number?: string;
           }> &
@@ -12696,7 +13508,10 @@ export interface operations {
         readonly "application/x-www-form-urlencoded": {
           /** @description The name of the person or business that owns the bank account. */
           readonly account_holder_name?: string;
-          /** @description The type of entity that holds the account. This can be either `individual` or `company`. */
+          /**
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
+           * @enum {string}
+           */
           readonly account_holder_type?: "" | "company" | "individual";
           /** @description City/District/Suburb/Town/Village. */
           readonly address_city?: string;
@@ -12856,7 +13671,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["person"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -13231,7 +14049,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["person"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -13633,7 +14454,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["apple_pay_domain"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -13768,7 +14592,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["application_fee"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -13945,7 +14772,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["fee_refund"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -14088,7 +14918,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["balance_transaction"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -14191,7 +15024,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["balance_transaction"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -14303,7 +15139,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["bitcoin_receiver"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -14382,7 +15221,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["bitcoin_transaction"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -14428,7 +15270,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["bitcoin_transaction"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -14483,7 +15328,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["charge"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -14543,6 +15391,7 @@ export interface operations {
             readonly metadata?: { readonly [key: string]: string };
             readonly name?: string;
             readonly number: string;
+            /** @enum {string} */
             readonly object?: "card";
           }> &
             Partial<string>;
@@ -14670,6 +15519,7 @@ export interface operations {
            * @description A set of key-value pairs you can attach to a charge giving information about its riskiness. If you believe a charge is fraudulent, include a `user_report` key with a value of `fraudulent`. If you believe a charge is safe, include a `user_report` key with a value of `safe`. Stripe will use the information you send to improve our fraud detection algorithms.
            */
           readonly fraud_details?: {
+            /** @enum {string} */
             readonly user_report: "" | "fraudulent" | "safe";
           };
           /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -14924,6 +15774,7 @@ export interface operations {
           /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           readonly payment_intent?: string;
+          /** @enum {string} */
           readonly reason?: "duplicate" | "fraudulent" | "requested_by_customer";
           readonly refund_application_fee?: boolean;
           readonly reverse_transfer?: boolean;
@@ -14957,7 +15808,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["refund"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -15007,6 +15861,7 @@ export interface operations {
           /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           readonly payment_intent?: string;
+          /** @enum {string} */
           readonly reason?: "duplicate" | "fraudulent" | "requested_by_customer";
           readonly refund_application_fee?: boolean;
           readonly reverse_transfer?: boolean;
@@ -15104,7 +15959,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["checkout.session"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -15143,7 +16001,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/x-www-form-urlencoded": {
-          /** @description Specify whether Checkout should collect the customer's billing address. */
+          /**
+           * @description Specify whether Checkout should collect the customer's billing address.
+           * @enum {string}
+           */
           readonly billing_address_collection?: "auto" | "required";
           /** @description The URL the customer will be directed to if they decide to cancel payment and return to your website. */
           readonly cancel_url: string;
@@ -15187,7 +16048,10 @@ export interface operations {
             readonly quantity: number;
             readonly tax_rates?: readonly string[];
           }[];
-          /** @description The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used. */
+          /**
+           * @description The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
+           * @enum {string}
+           */
           readonly locale?:
             | "auto"
             | "da"
@@ -15208,7 +16072,10 @@ export interface operations {
             | "zh";
           /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           readonly metadata?: { readonly [key: string]: string };
-          /** @description The mode of the Checkout Session, one of `payment`, `setup`, or `subscription`. */
+          /**
+           * @description The mode of the Checkout Session, one of `payment`, `setup`, or `subscription`.
+           * @enum {string}
+           */
           readonly mode?: "payment" | "setup" | "subscription";
           /**
            * payment_intent_data_params
@@ -15216,11 +16083,13 @@ export interface operations {
            */
           readonly payment_intent_data?: {
             readonly application_fee_amount?: number;
+            /** @enum {string} */
             readonly capture_method?: "automatic" | "manual";
             readonly description?: string;
             readonly metadata?: { readonly [key: string]: string };
             readonly on_behalf_of?: string;
             readonly receipt_email?: string;
+            /** @enum {string} */
             readonly setup_future_usage?: "off_session" | "on_session";
             /** shipping */
             readonly shipping?: {
@@ -15507,6 +16376,7 @@ export interface operations {
            * relevant text on the page, such as the submit button. `submit_type` can only be
            * specified on Checkout Sessions in `payment` mode, but not Checkout Sessions
            * in `subscription` or `setup` mode.
+           * @enum {string}
            */
           readonly submit_type?: "auto" | "book" | "donate" | "pay";
           /**
@@ -15592,7 +16462,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["country_spec"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -15673,7 +16546,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["coupon"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -15720,7 +16596,10 @@ export interface operations {
           readonly amount_off?: number;
           /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed). */
           readonly currency?: string;
-          /** @description Specifies how long the discount will be in effect. Can be `forever`, `once`, or `repeating`. */
+          /**
+           * @description Specifies how long the discount will be in effect. Can be `forever`, `once`, or `repeating`.
+           * @enum {string}
+           */
           readonly duration: "forever" | "once" | "repeating";
           /** @description Required only if `duration` is `repeating`, in which case it must be a positive integer that specifies the number of months the discount will be in effect. */
           readonly duration_in_months?: number;
@@ -15863,7 +16742,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["credit_note"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -15932,6 +16814,7 @@ export interface operations {
             readonly invoice_line_item?: string;
             readonly quantity?: number;
             readonly tax_rates?: Partial<readonly string[]> & Partial<"">;
+            /** @enum {string} */
             readonly type: "custom_line_item" | "invoice_line_item";
             readonly unit_amount?: number;
             /** Format: decimal */
@@ -15943,7 +16826,10 @@ export interface operations {
           readonly metadata?: { readonly [key: string]: string };
           /** @description The integer amount in **%s** representing the amount that is credited outside of Stripe. */
           readonly out_of_band_amount?: number;
-          /** @description Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` */
+          /**
+           * @description Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
+           * @enum {string}
+           */
           readonly reason?: "duplicate" | "fraudulent" | "order_change" | "product_unsatisfactory";
           /** @description ID of an existing refund to link this credit note to. */
           readonly refund?: string;
@@ -15972,6 +16858,7 @@ export interface operations {
           readonly invoice_line_item?: string;
           readonly quantity?: number;
           readonly tax_rates?: Partial<readonly string[]> & Partial<"">;
+          /** @enum {string} */
           readonly type: "custom_line_item" | "invoice_line_item";
           readonly unit_amount?: number;
           /** Format: decimal */
@@ -16034,6 +16921,7 @@ export interface operations {
           readonly invoice_line_item?: string;
           readonly quantity?: number;
           readonly tax_rates?: Partial<readonly string[]> & Partial<"">;
+          /** @enum {string} */
           readonly type: "custom_line_item" | "invoice_line_item";
           readonly unit_amount?: number;
           /** Format: decimal */
@@ -16064,7 +16952,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["credit_note_line_item"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -16110,7 +17001,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["credit_note_line_item"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -16256,7 +17150,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["customer"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -16358,10 +17255,14 @@ export interface operations {
           }> &
             Partial<"">;
           readonly source?: string;
-          /** @description The customer's tax exemption. One of `none`, `exempt`, or `reverse`. */
+          /**
+           * @description The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
+           * @enum {string}
+           */
           readonly tax_exempt?: "" | "exempt" | "none" | "reverse";
           /** @description The customer's tax IDs. */
           readonly tax_id_data?: readonly {
+            /** @enum {string} */
             readonly type:
               | "au_abn"
               | "ca_bn"
@@ -16467,10 +17368,12 @@ export interface operations {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
           readonly bank_account?: Partial<{
             readonly account_holder_name?: string;
+            /** @enum {string} */
             readonly account_holder_type?: "company" | "individual";
             readonly account_number: string;
             readonly country: string;
             readonly currency?: string;
+            /** @enum {string} */
             readonly object?: "bank_account";
             readonly routing_number?: string;
           }> &
@@ -16489,6 +17392,7 @@ export interface operations {
             readonly metadata?: { readonly [key: string]: string };
             readonly name?: string;
             readonly number: string;
+            /** @enum {string} */
             readonly object?: "card";
           }> &
             Partial<string>;
@@ -16556,7 +17460,10 @@ export interface operations {
           }> &
             Partial<"">;
           readonly source?: string;
-          /** @description The customer's tax exemption. One of `none`, `exempt`, or `reverse`. */
+          /**
+           * @description The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
+           * @enum {string}
+           */
           readonly tax_exempt?: "" | "exempt" | "none" | "reverse";
           /** @description Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
           readonly trial_end?: Partial<"now"> & Partial<number>;
@@ -16617,7 +17524,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["customer_balance_transaction"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -16768,7 +17678,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["bank_account"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -16823,10 +17736,12 @@ export interface operations {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
           readonly bank_account?: Partial<{
             readonly account_holder_name?: string;
+            /** @enum {string} */
             readonly account_holder_type?: "company" | "individual";
             readonly account_number: string;
             readonly country: string;
             readonly currency?: string;
+            /** @enum {string} */
             readonly object?: "bank_account";
             readonly routing_number?: string;
           }> &
@@ -16845,6 +17760,7 @@ export interface operations {
             readonly metadata?: { readonly [key: string]: string };
             readonly name?: string;
             readonly number: string;
+            /** @enum {string} */
             readonly object?: "card";
           }> &
             Partial<string>;
@@ -16919,7 +17835,10 @@ export interface operations {
         readonly "application/x-www-form-urlencoded": {
           /** @description The name of the person or business that owns the bank account. */
           readonly account_holder_name?: string;
-          /** @description The type of entity that holds the account. This can be either `individual` or `company`. */
+          /**
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
+           * @enum {string}
+           */
           readonly account_holder_type?: "company" | "individual";
           /** @description City/District/Suburb/Town/Village. */
           readonly address_city?: string;
@@ -17056,7 +17975,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["card"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -17111,10 +18033,12 @@ export interface operations {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
           readonly bank_account?: Partial<{
             readonly account_holder_name?: string;
+            /** @enum {string} */
             readonly account_holder_type?: "company" | "individual";
             readonly account_number: string;
             readonly country: string;
             readonly currency?: string;
+            /** @enum {string} */
             readonly object?: "bank_account";
             readonly routing_number?: string;
           }> &
@@ -17133,6 +18057,7 @@ export interface operations {
             readonly metadata?: { readonly [key: string]: string };
             readonly name?: string;
             readonly number: string;
+            /** @enum {string} */
             readonly object?: "card";
           }> &
             Partial<string>;
@@ -17207,7 +18132,10 @@ export interface operations {
         readonly "application/x-www-form-urlencoded": {
           /** @description The name of the person or business that owns the bank account. */
           readonly account_holder_name?: string;
-          /** @description The type of entity that holds the account. This can be either `individual` or `company`. */
+          /**
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
+           * @enum {string}
+           */
           readonly account_holder_type?: "company" | "individual";
           /** @description City/District/Suburb/Town/Village. */
           readonly address_city?: string;
@@ -17371,7 +18299,10 @@ export interface operations {
               Partial<components["schemas"]["source"]>)[];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -17426,10 +18357,12 @@ export interface operations {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/stripe.js), or a dictionary containing a user's bank account details. */
           readonly bank_account?: Partial<{
             readonly account_holder_name?: string;
+            /** @enum {string} */
             readonly account_holder_type?: "company" | "individual";
             readonly account_number: string;
             readonly country: string;
             readonly currency?: string;
+            /** @enum {string} */
             readonly object?: "bank_account";
             readonly routing_number?: string;
           }> &
@@ -17448,6 +18381,7 @@ export interface operations {
             readonly metadata?: { readonly [key: string]: string };
             readonly name?: string;
             readonly number: string;
+            /** @enum {string} */
             readonly object?: "card";
           }> &
             Partial<string>;
@@ -17522,7 +18456,10 @@ export interface operations {
         readonly "application/x-www-form-urlencoded": {
           /** @description The name of the person or business that owns the bank account. */
           readonly account_holder_name?: string;
-          /** @description The type of entity that holds the account. This can be either `individual` or `company`. */
+          /**
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
+           * @enum {string}
+           */
           readonly account_holder_type?: "company" | "individual";
           /** @description City/District/Suburb/Town/Village. */
           readonly address_city?: string;
@@ -17656,7 +18593,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["subscription"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -17725,7 +18665,10 @@ export interface operations {
           readonly cancel_at?: number;
           /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
           readonly cancel_at_period_end?: boolean;
-          /** @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`. */
+          /**
+           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`.
+           * @enum {string}
+           */
           readonly collection_method?: "charge_automatically" | "send_invoice";
           /** @description The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. */
           readonly coupon?: string;
@@ -17760,10 +18703,12 @@ export interface operations {
            * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
            *
            * `pending_if_incomplete` is only used with updates and cannot be passed when creating a subscription.
+           * @enum {string}
            */
           readonly payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /** @description Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
           readonly pending_invoice_item_interval?: Partial<{
+            /** @enum {string} */
             readonly interval: "day" | "month" | "week" | "year";
             readonly interval_count?: number;
           }> &
@@ -17774,6 +18719,7 @@ export interface operations {
            * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) resulting from the `billing_cycle_anchor`. Valid values are `create_prorations` or `none`.
            *
            * Passing `create_prorations` will cause proration invoice items to be created when applicable. Prorations can be disabled by passing `none`. If no value is passed, the default is `create_prorations`.
+           * @enum {string}
            */
           readonly proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /** @description A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
@@ -17847,7 +18793,10 @@ export interface operations {
         readonly "application/x-www-form-urlencoded": {
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           readonly application_fee_percent?: number;
-          /** @description Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle). */
+          /**
+           * @description Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+           * @enum {string}
+           */
           readonly billing_cycle_anchor?: "now" | "unchanged";
           /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
           readonly billing_thresholds?: Partial<{
@@ -17859,7 +18808,10 @@ export interface operations {
           readonly cancel_at?: Partial<number> & Partial<"">;
           /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
           readonly cancel_at_period_end?: boolean;
-          /** @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`. */
+          /**
+           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`.
+           * @enum {string}
+           */
           readonly collection_method?: "charge_automatically" | "send_invoice";
           /** @description The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. */
           readonly coupon?: string;
@@ -17893,6 +18845,7 @@ export interface operations {
           readonly off_session?: boolean;
           /** @description If specified, payment collection for this subscription will be paused. */
           readonly pause_collection?: Partial<{
+            /** @enum {string} */
             readonly behavior: "keep_as_draft" | "mark_uncollectible" | "void";
             /** Format: unix-time */
             readonly resumes_at?: number;
@@ -17904,10 +18857,12 @@ export interface operations {
            * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
            *
            * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+           * @enum {string}
            */
           readonly payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /** @description Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
           readonly pending_invoice_item_interval?: Partial<{
+            /** @enum {string} */
             readonly interval: "day" | "month" | "week" | "year";
             readonly interval_count?: number;
           }> &
@@ -17920,6 +18875,7 @@ export interface operations {
            * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
            *
            * Prorations can be disabled by passing `none`.
+           * @enum {string}
            */
           readonly proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /**
@@ -18063,7 +19019,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["tax_id"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -18109,7 +19068,10 @@ export interface operations {
         readonly "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
-          /** @description Type of the tax ID, one of `eu_vat`, `nz_gst`, `au_abn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `my_sst`, or `sg_gst` */
+          /**
+           * @description Type of the tax ID, one of `eu_vat`, `nz_gst`, `au_abn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `my_sst`, or `sg_gst`
+           * @enum {string}
+           */
           readonly type:
             | "au_abn"
             | "ca_bn"
@@ -18233,7 +19195,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["dispute"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -18483,7 +19448,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["event"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -18556,7 +19524,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["exchange_rate"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -18640,7 +19611,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["file_link"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -18800,7 +19774,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["file"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -18857,7 +19834,10 @@ export interface operations {
             readonly expires_at?: number;
             readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           };
-          /** @description The purpose of the uploaded file. Possible values are `additional_verification`, `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `identity_document`, `pci_document`, or `tax_document_user_upload`. */
+          /**
+           * @description The purpose of the uploaded file. Possible values are `additional_verification`, `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `identity_document`, `pci_document`, or `tax_document_user_upload`.
+           * @enum {string}
+           */
           readonly purpose:
             | "additional_verification"
             | "business_icon"
@@ -18937,7 +19917,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["invoiceitem"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -19180,7 +20163,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["invoice"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -19223,7 +20209,10 @@ export interface operations {
           readonly application_fee_amount?: number;
           /** @description Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. When `false`, the invoice's state will not automatically advance without an explicit action. */
           readonly auto_advance?: boolean;
-          /** @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. Defaults to `charge_automatically`. */
+          /**
+           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. Defaults to `charge_automatically`.
+           * @enum {string}
+           */
           readonly collection_method?: "charge_automatically" | "send_invoice";
           /** @description A list of up to 4 custom fields to be displayed on the invoice. */
           readonly custom_fields?: Partial<
@@ -19469,7 +20458,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["line_item"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -19555,7 +20547,10 @@ export interface operations {
           readonly application_fee_amount?: number;
           /** @description Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. */
           readonly auto_advance?: boolean;
-          /** @description Either `charge_automatically` or `send_invoice`. This field can be updated only on `draft` invoices. */
+          /**
+           * @description Either `charge_automatically` or `send_invoice`. This field can be updated only on `draft` invoices.
+           * @enum {string}
+           */
           readonly collection_method?: "charge_automatically" | "send_invoice";
           /** @description A list of up to 4 custom fields to be displayed on the invoice. If a value for `custom_fields` is specified, the list specified will replace the existing custom field list on this invoice. Pass an empty string to remove previously-defined fields. */
           readonly custom_fields?: Partial<
@@ -19679,7 +20674,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["line_item"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -19861,7 +20859,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["issuer_fraud_record"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -19952,7 +20953,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["issuing.authorization"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -20139,7 +21143,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["issuing.cardholder"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -21109,13 +22116,20 @@ export interface operations {
                 | "womens_ready_to_wear_stores"
                 | "wrecking_and_salvage_yards"
               )[];
+              /** @enum {string} */
               readonly interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
             }[];
             readonly spending_limits_currency?: string;
           };
-          /** @description Specifies whether to permit authorizations on this cardholder's cards. Defaults to `active`. */
+          /**
+           * @description Specifies whether to permit authorizations on this cardholder's cards. Defaults to `active`.
+           * @enum {string}
+           */
           readonly status?: "active" | "inactive";
-          /** @description One of `individual` or `company`. */
+          /**
+           * @description One of `individual` or `company`.
+           * @enum {string}
+           */
           readonly type: "company" | "individual";
         };
       };
@@ -22105,11 +23119,15 @@ export interface operations {
                 | "womens_ready_to_wear_stores"
                 | "wrecking_and_salvage_yards"
               )[];
+              /** @enum {string} */
               readonly interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
             }[];
             readonly spending_limits_currency?: string;
           };
-          /** @description Specifies whether to permit authorizations on this cardholder's cards. */
+          /**
+           * @description Specifies whether to permit authorizations on this cardholder's cards.
+           * @enum {string}
+           */
           readonly status?: "active" | "inactive";
         };
       };
@@ -22157,7 +23175,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["issuing.card"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -22206,7 +23227,10 @@ export interface operations {
           readonly metadata?: { readonly [key: string]: string };
           /** @description The card this is meant to be a replacement for (if any). */
           readonly replacement_for?: string;
-          /** @description If `replacement_for` is specified, this should indicate why that card is being replaced. */
+          /**
+           * @description If `replacement_for` is specified, this should indicate why that card is being replaced.
+           * @enum {string}
+           */
           readonly replacement_reason?: "damaged" | "expired" | "lost" | "stolen";
           /**
            * shipping_specs
@@ -22223,7 +23247,9 @@ export interface operations {
               readonly state?: string;
             };
             readonly name: string;
+            /** @enum {string} */
             readonly service?: "express" | "priority" | "standard";
+            /** @enum {string} */
             readonly type?: "bulk" | "individual";
           };
           /**
@@ -23103,12 +24129,19 @@ export interface operations {
                 | "womens_ready_to_wear_stores"
                 | "wrecking_and_salvage_yards"
               )[];
+              /** @enum {string} */
               readonly interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
             }[];
           };
-          /** @description Whether authorizations can be approved on this card. Defaults to `inactive`. */
+          /**
+           * @description Whether authorizations can be approved on this card. Defaults to `inactive`.
+           * @enum {string}
+           */
           readonly status?: "active" | "inactive";
-          /** @description The type of card to issue. Possible values are `physical` or `virtual`. */
+          /**
+           * @description The type of card to issue. Possible values are `physical` or `virtual`.
+           * @enum {string}
+           */
           readonly type: "physical" | "virtual";
         };
       };
@@ -23169,7 +24202,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/x-www-form-urlencoded": {
-          /** @description Reason why the `status` of this card is `canceled`. */
+          /**
+           * @description Reason why the `status` of this card is `canceled`.
+           * @enum {string}
+           */
           readonly cancellation_reason?: "lost" | "stolen";
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
@@ -24052,10 +25088,14 @@ export interface operations {
                 | "womens_ready_to_wear_stores"
                 | "wrecking_and_salvage_yards"
               )[];
+              /** @enum {string} */
               readonly interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
             }[];
           };
-          /** @description Dictates whether authorizations can be approved on this card. If this card is being canceled because it was lost or stolen, this information should be provided as `cancellation_reason`. */
+          /**
+           * @description Dictates whether authorizations can be approved on this card. If this card is being canceled because it was lost or stolen, this information should be provided as `cancellation_reason`.
+           * @enum {string}
+           */
           readonly status?: "active" | "canceled" | "inactive";
         };
       };
@@ -24083,7 +25123,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["issuing.dispute"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -24223,7 +25266,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["issuing.settlement"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -24340,7 +25386,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["issuing.transaction"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -24486,7 +25535,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["order_return"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -24606,7 +25658,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["order"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -24662,6 +25717,7 @@ export interface operations {
             readonly description?: string;
             readonly parent?: string;
             readonly quantity?: number;
+            /** @enum {string} */
             readonly type?: "discount" | "shipping" | "sku" | "tax";
           }[];
           /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -24758,7 +25814,10 @@ export interface operations {
             readonly carrier: string;
             readonly tracking_number: string;
           };
-          /** @description Current order status. One of `created`, `paid`, `canceled`, `fulfilled`, or `returned`. More detail in the [Orders Guide](https://stripe.com/docs/orders/guide#understanding-order-statuses). */
+          /**
+           * @description Current order status. One of `created`, `paid`, `canceled`, `fulfilled`, or `returned`. More detail in the [Orders Guide](https://stripe.com/docs/orders/guide#understanding-order-statuses).
+           * @enum {string}
+           */
           readonly status?: "canceled" | "created" | "fulfilled" | "paid" | "returned";
         };
       };
@@ -24837,6 +25896,7 @@ export interface operations {
               readonly description?: string;
               readonly parent?: string;
               readonly quantity?: number;
+              /** @enum {string} */
               readonly type?: "discount" | "shipping" | "sku" | "tax";
             }[]
           > &
@@ -24877,7 +25937,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["payment_intent"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -24935,10 +25998,14 @@ export interface operations {
            * more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
            */
           readonly application_fee_amount?: number;
-          /** @description Controls when the funds will be captured from the customer's account. */
+          /**
+           * @description Controls when the funds will be captured from the customer's account.
+           * @enum {string}
+           */
           readonly capture_method?: "automatic" | "manual";
           /** @description Set to `true` to attempt to [confirm](https://stripe.com/docs/api/payment_intents/confirm) this PaymentIntent immediately. This parameter defaults to `false`. When creating and confirming a PaymentIntent at the same time, parameters available in the [confirm](https://stripe.com/docs/api/payment_intents/confirm) API may also be provided. */
           readonly confirm?: boolean;
+          /** @enum {string} */
           readonly confirmation_method?: "automatic" | "manual";
           /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           readonly currency: string;
@@ -24974,6 +26041,7 @@ export interface operations {
                 readonly ip_address: string;
                 readonly user_agent: string;
               };
+              /** @enum {string} */
               readonly type: "offline" | "online";
             };
           };
@@ -25000,11 +26068,14 @@ export interface operations {
                 readonly enabled?: boolean;
                 readonly plan?: Partial<{
                   readonly count: number;
+                  /** @enum {string} */
                   readonly interval: "month";
+                  /** @enum {string} */
                   readonly type: "fixed_count";
                 }> &
                   Partial<"">;
               };
+              /** @enum {string} */
               readonly request_three_d_secure?: "any" | "automatic";
             }> &
               Partial<"">;
@@ -25021,6 +26092,7 @@ export interface operations {
            * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
            *
            * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+           * @enum {string}
            */
           readonly setup_future_usage?: "off_session" | "on_session";
           /**
@@ -25167,11 +26239,14 @@ export interface operations {
                 readonly enabled?: boolean;
                 readonly plan?: Partial<{
                   readonly count: number;
+                  /** @enum {string} */
                   readonly interval: "month";
+                  /** @enum {string} */
                   readonly type: "fixed_count";
                 }> &
                   Partial<"">;
               };
+              /** @enum {string} */
               readonly request_three_d_secure?: "any" | "automatic";
             }> &
               Partial<"">;
@@ -25188,6 +26263,7 @@ export interface operations {
            * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
            *
            * If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+           * @enum {string}
            */
           readonly setup_future_usage?: "" | "off_session" | "on_session";
           /** @description Shipping information for this PaymentIntent. */
@@ -25252,7 +26328,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/x-www-form-urlencoded": {
-          /** @description Reason for canceling this PaymentIntent. Possible values are `duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned` */
+          /**
+           * @description Reason for canceling this PaymentIntent. Possible values are `duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`
+           * @enum {string}
+           */
           readonly cancellation_reason?: "abandoned" | "duplicate" | "fraudulent" | "requested_by_customer";
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
@@ -25387,6 +26466,7 @@ export interface operations {
                 readonly ip_address: string;
                 readonly user_agent: string;
               };
+              /** @enum {string} */
               readonly type: "offline" | "online";
             };
           }> &
@@ -25398,6 +26478,7 @@ export interface operations {
                   readonly ip_address?: string;
                   readonly user_agent?: string;
                 };
+                /** @enum {string} */
                 readonly type: "online";
               };
             }>;
@@ -25416,11 +26497,14 @@ export interface operations {
                 readonly enabled?: boolean;
                 readonly plan?: Partial<{
                   readonly count: number;
+                  /** @enum {string} */
                   readonly interval: "month";
+                  /** @enum {string} */
                   readonly type: "fixed_count";
                 }> &
                   Partial<"">;
               };
+              /** @enum {string} */
               readonly request_three_d_secure?: "any" | "automatic";
             }> &
               Partial<"">;
@@ -25443,6 +26527,7 @@ export interface operations {
            * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
            *
            * If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+           * @enum {string}
            */
           readonly setup_future_usage?: "" | "off_session" | "on_session";
           /** @description Shipping information for this PaymentIntent. */
@@ -25494,7 +26579,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["payment_method"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -25578,6 +26666,7 @@ export interface operations {
            * @description If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
            */
           readonly fpx?: {
+            /** @enum {string} */
             readonly bank:
               | "affin_bank"
               | "alliance_bank"
@@ -25605,6 +26694,7 @@ export interface operations {
            * @description If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
            */
           readonly ideal?: {
+            /** @enum {string} */
             readonly bank?:
               | "abn_amro"
               | "asn_bank"
@@ -25630,7 +26720,10 @@ export interface operations {
           readonly sepa_debit?: {
             readonly iban: string;
           };
-          /** @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type. Required unless `payment_method` is specified (see the [Cloning PaymentMethods](https://stripe.com/docs/payments/payment-methods/connect#cloning-payment-methods) guide) */
+          /**
+           * @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type. Required unless `payment_method` is specified (see the [Cloning PaymentMethods](https://stripe.com/docs/payments/payment-methods/connect#cloning-payment-methods) guide)
+           * @enum {string}
+           */
           readonly type?: "au_becs_debit" | "card" | "fpx" | "ideal" | "sepa_debit";
         };
       };
@@ -25844,7 +26937,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["payout"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -25901,9 +26997,15 @@ export interface operations {
           readonly expand?: readonly string[];
           /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           readonly metadata?: { readonly [key: string]: string };
-          /** @description The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces for more information](https://stripe.com/blog/instant-payouts-for-marketplaces).) */
+          /**
+           * @description The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces for more information](https://stripe.com/blog/instant-payouts-for-marketplaces).)
+           * @enum {string}
+           */
           readonly method?: "instant" | "standard";
-          /** @description The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the balances API. One of `bank_account`, `card`, or `fpx`. */
+          /**
+           * @description The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the balances API. One of `bank_account`, `card`, or `fpx`.
+           * @enum {string}
+           */
           readonly source_type?: "bank_account" | "card" | "fpx";
           /** @description A string to be displayed on the recipient's bank or card statement. This may be at most 22 characters. Attempting to use a `statement_descriptor` longer than 22 characters will return an error. Note: Most banks will truncate this information and/or display it inconsistently. Some may not display it at all. */
           readonly statement_descriptor?: string;
@@ -26038,7 +27140,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["plan"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -26079,7 +27184,10 @@ export interface operations {
         readonly "application/x-www-form-urlencoded": {
           /** @description Whether the plan is currently available for new subscriptions. Defaults to `true`. */
           readonly active?: boolean;
-          /** @description Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`. */
+          /**
+           * @description Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
+           * @enum {string}
+           */
           readonly aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum";
           /** @description A positive integer in %s (or 0 for a free plan) representing how much to charge on a recurring basis. */
           readonly amount?: number;
@@ -26088,7 +27196,10 @@ export interface operations {
            * @description Same as `amount`, but accepts a decimal value with at most 12 decimal places. Only one of `amount` and `amount_decimal` can be set.
            */
           readonly amount_decimal?: string;
-          /** @description Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes. */
+          /**
+           * @description Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
+           * @enum {string}
+           */
           readonly billing_scheme?: "per_unit" | "tiered";
           /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           readonly currency: string;
@@ -26096,7 +27207,10 @@ export interface operations {
           readonly expand?: readonly string[];
           /** @description An identifier randomly generated by Stripe. Used to identify this plan when subscribing a customer. You can optionally override this ID, but the ID must be unique across all plans in your Stripe account. You can, however, use the same plan ID in both live and test modes. */
           readonly id?: string;
-          /** @description Specifies billing frequency. Either `day`, `week`, `month` or `year`. */
+          /**
+           * @description Specifies billing frequency. Either `day`, `week`, `month` or `year`.
+           * @enum {string}
+           */
           readonly interval: "day" | "month" | "week" | "year";
           /** @description The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). */
           readonly interval_count?: number;
@@ -26123,7 +27237,10 @@ export interface operations {
             readonly unit_amount_decimal?: string;
             readonly up_to: Partial<"inf"> & Partial<number>;
           }[];
-          /** @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows. */
+          /**
+           * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows.
+           * @enum {string}
+           */
           readonly tiers_mode?: "graduated" | "volume";
           /**
            * transform_usage_param
@@ -26131,11 +27248,15 @@ export interface operations {
            */
           readonly transform_usage?: {
             readonly divide_by: number;
+            /** @enum {string} */
             readonly round: "down" | "up";
           };
           /** @description Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan). */
           readonly trial_period_days?: number;
-          /** @description Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`. */
+          /**
+           * @description Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
+           * @enum {string}
+           */
           readonly usage_type?: "licensed" | "metered";
         };
       };
@@ -26279,7 +27400,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["product"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -26357,7 +27481,10 @@ export interface operations {
            *  It must contain at least one letter.
            */
           readonly statement_descriptor?: string;
-          /** @description The type of the product. Defaults to `service` if not explicitly specified, enabling use of this product with Subscriptions and Plans. Set this parameter to `good` to use this product with Orders and SKUs. On API versions before `2018-02-05`, this field defaults to `good` for compatibility reasons. */
+          /**
+           * @description The type of the product. Defaults to `service` if not explicitly specified, enabling use of this product with Subscriptions and Plans. Set this parameter to `good` to use this product with Orders and SKUs. On API versions before `2018-02-05`, this field defaults to `good` for compatibility reasons.
+           * @enum {string}
+           */
           readonly type?: "good" | "service";
           /** @description A label that represents units of this product in Stripe and on customers’ receipts and invoices. When set, this will be included in associated invoice line item descriptions. */
           readonly unit_label?: string;
@@ -26516,7 +27643,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["radar.early_fraud_warning"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -26604,7 +27734,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["radar.value_list_item"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -26744,7 +27877,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["radar.value_list"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -26787,7 +27923,10 @@ export interface operations {
           readonly alias: string;
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
-          /** @description Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, or `case_sensitive_string`. Use `string` if the item type is unknown or mixed. */
+          /**
+           * @description Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, or `case_sensitive_string`. Use `string` if the item type is unknown or mixed.
+           * @enum {string}
+           */
           readonly item_type?:
             | "card_bin"
             | "card_fingerprint"
@@ -26930,7 +28069,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["recipient"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -27138,7 +28280,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["refund"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -27184,6 +28329,7 @@ export interface operations {
           /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<"">;
           readonly payment_intent?: string;
+          /** @enum {string} */
           readonly reason?: "duplicate" | "fraudulent" | "requested_by_customer";
           readonly refund_application_fee?: boolean;
           readonly reverse_transfer?: boolean;
@@ -27287,7 +28433,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["reporting.report_run"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -27341,6 +28490,7 @@ export interface operations {
             /** Format: unix-time */
             readonly interval_start?: number;
             readonly payout?: string;
+            /** @enum {string} */
             readonly reporting_category?:
               | "advance"
               | "advance_funding"
@@ -27373,6 +28523,7 @@ export interface operations {
               | "topup_reversal"
               | "transfer"
               | "transfer_reversal";
+            /** @enum {string} */
             readonly timezone?:
               | "Africa/Abidjan"
               | "Africa/Accra"
@@ -28022,7 +29173,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["reporting.report_type"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -28102,7 +29256,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["review"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -28217,7 +29374,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["setup_intent"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -28289,6 +29449,7 @@ export interface operations {
                 readonly ip_address: string;
                 readonly user_agent: string;
               };
+              /** @enum {string} */
               readonly type: "offline" | "online";
             };
           };
@@ -28305,6 +29466,7 @@ export interface operations {
           readonly payment_method_options?: {
             /** setup_intent_param */
             readonly card?: {
+              /** @enum {string} */
               readonly request_three_d_secure?: "any" | "automatic";
             };
           };
@@ -28320,7 +29482,10 @@ export interface operations {
             readonly amount: number;
             readonly currency: string;
           };
-          /** @description Indicates how the payment method is intended to be used in the future. If not provided, this value defaults to `off_session`. */
+          /**
+           * @description Indicates how the payment method is intended to be used in the future. If not provided, this value defaults to `off_session`.
+           * @enum {string}
+           */
           readonly usage?: "off_session" | "on_session";
         };
       };
@@ -28410,6 +29575,7 @@ export interface operations {
           readonly payment_method_options?: {
             /** setup_intent_param */
             readonly card?: {
+              /** @enum {string} */
               readonly request_three_d_secure?: "any" | "automatic";
             };
           };
@@ -28447,7 +29613,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/x-www-form-urlencoded": {
-          /** @description Reason for canceling this SetupIntent. Possible values are `abandoned`, `requested_by_customer`, or `duplicate` */
+          /**
+           * @description Reason for canceling this SetupIntent. Possible values are `abandoned`, `requested_by_customer`, or `duplicate`
+           * @enum {string}
+           */
           readonly cancellation_reason?: "abandoned" | "duplicate" | "requested_by_customer";
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
@@ -28510,6 +29679,7 @@ export interface operations {
                 readonly ip_address: string;
                 readonly user_agent: string;
               };
+              /** @enum {string} */
               readonly type: "offline" | "online";
             };
           }> &
@@ -28521,6 +29691,7 @@ export interface operations {
                   readonly ip_address?: string;
                   readonly user_agent?: string;
                 };
+                /** @enum {string} */
                 readonly type: "online";
               };
             }>;
@@ -28533,6 +29704,7 @@ export interface operations {
           readonly payment_method_options?: {
             /** setup_intent_param */
             readonly card?: {
+              /** @enum {string} */
               readonly request_three_d_secure?: "any" | "automatic";
             };
           };
@@ -28568,7 +29740,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["scheduled_query_run"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -28651,7 +29826,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["sku"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -28708,7 +29886,9 @@ export interface operations {
            */
           readonly inventory: {
             readonly quantity?: number;
+            /** @enum {string} */
             readonly type?: "bucket" | "finite" | "infinite";
+            /** @enum {string} */
             readonly value?: "" | "in_stock" | "limited" | "out_of_stock";
           };
           /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -28807,7 +29987,9 @@ export interface operations {
            */
           readonly inventory?: {
             readonly quantity?: number;
+            /** @enum {string} */
             readonly type?: "bucket" | "finite" | "infinite";
+            /** @enum {string} */
             readonly value?: "" | "in_stock" | "limited" | "out_of_stock";
           };
           /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -28882,7 +30064,10 @@ export interface operations {
           readonly customer?: string;
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
-          /** @description The authentication `flow` of the source to create. `flow` is one of `redirect`, `receiver`, `code_verification`, `none`. It is generally inferred unless a type supports multiple flows. */
+          /**
+           * @description The authentication `flow` of the source to create. `flow` is one of `redirect`, `receiver`, `code_verification`, `none`. It is generally inferred unless a type supports multiple flows.
+           * @enum {string}
+           */
           readonly flow?: "code_verification" | "none" | "receiver" | "redirect";
           /**
            * mandate_params
@@ -28905,13 +30090,17 @@ export interface operations {
                 readonly ip?: string;
                 readonly user_agent?: string;
               };
+              /** @enum {string} */
               readonly status: "accepted" | "pending" | "refused" | "revoked";
+              /** @enum {string} */
               readonly type?: "offline" | "online";
               readonly user_agent?: string;
             };
             readonly amount?: Partial<number> & Partial<"">;
             readonly currency?: string;
+            /** @enum {string} */
             readonly interval?: "one_time" | "scheduled" | "variable";
+            /** @enum {string} */
             readonly notification_method?: "deprecated_none" | "email" | "manual" | "none" | "stripe_email";
           };
           readonly metadata?: { readonly [key: string]: string };
@@ -28940,6 +30129,7 @@ export interface operations {
            * @description Optional parameters for the receiver flow. Can be set only if the source is a receiver (`flow` is `receiver`).
            */
           readonly receiver?: {
+            /** @enum {string} */
             readonly refund_attributes_method?: "email" | "manual" | "none";
           };
           /**
@@ -28960,6 +30150,7 @@ export interface operations {
               readonly description?: string;
               readonly parent?: string;
               readonly quantity?: number;
+              /** @enum {string} */
               readonly type?: "discount" | "shipping" | "sku" | "tax";
             }[];
             /** order_shipping */
@@ -28985,6 +30176,7 @@ export interface operations {
           readonly token?: string;
           /** @description The `type` of the source to create. Required unless `customer` and `original_source` are specified (see the [Cloning card Sources](https://stripe.com/docs/sources/connect#cloning-card-sources) guide) */
           readonly type?: string;
+          /** @enum {string} */
           readonly usage?: "reusable" | "single_use";
         };
       };
@@ -29076,13 +30268,17 @@ export interface operations {
                 readonly ip?: string;
                 readonly user_agent?: string;
               };
+              /** @enum {string} */
               readonly status: "accepted" | "pending" | "refused" | "revoked";
+              /** @enum {string} */
               readonly type?: "offline" | "online";
               readonly user_agent?: string;
             };
             readonly amount?: Partial<number> & Partial<"">;
             readonly currency?: string;
+            /** @enum {string} */
             readonly interval?: "one_time" | "scheduled" | "variable";
+            /** @enum {string} */
             readonly notification_method?: "deprecated_none" | "email" | "manual" | "none" | "stripe_email";
           };
           /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -29116,6 +30312,7 @@ export interface operations {
               readonly description?: string;
               readonly parent?: string;
               readonly quantity?: number;
+              /** @enum {string} */
               readonly type?: "discount" | "shipping" | "sku" | "tax";
             }[];
             /** order_shipping */
@@ -29196,7 +30393,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["source_transaction"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -29304,7 +30504,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["subscription_item"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -29358,6 +30561,7 @@ export interface operations {
            * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
            *
            * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+           * @enum {string}
            */
           readonly payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /** @description The identifier of the plan to add to the subscription. */
@@ -29370,6 +30574,7 @@ export interface operations {
            * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
            *
            * Prorations can be disabled by passing `none`.
+           * @enum {string}
            */
           readonly proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /**
@@ -29459,6 +30664,7 @@ export interface operations {
            * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
            *
            * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+           * @enum {string}
            */
           readonly payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /** @description The identifier of the new plan for this subscription item. */
@@ -29471,6 +30677,7 @@ export interface operations {
            * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
            *
            * Prorations can be disabled by passing `none`.
+           * @enum {string}
            */
           readonly proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /**
@@ -29520,6 +30727,7 @@ export interface operations {
            * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
            *
            * Prorations can be disabled by passing `none`.
+           * @enum {string}
            */
           readonly proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /**
@@ -29560,7 +30768,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["usage_record_summary"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -29612,7 +30823,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/x-www-form-urlencoded": {
-          /** @description Valid values are `increment` (default) or `set`. When using `increment` the specified `quantity` will be added to the usage at the specified timestamp. The `set` action will overwrite the usage quantity at that timestamp. If the subscription has [billing thresholds](https://stripe.com/docs/api/subscriptions/object#subscription_object-billing_thresholds), `increment` is the only allowed value. */
+          /**
+           * @description Valid values are `increment` (default) or `set`. When using `increment` the specified `quantity` will be added to the usage at the specified timestamp. The `set` action will overwrite the usage quantity at that timestamp. If the subscription has [billing thresholds](https://stripe.com/docs/api/subscriptions/object#subscription_object-billing_thresholds), `increment` is the only allowed value.
+           * @enum {string}
+           */
           readonly action?: "increment" | "set";
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
@@ -29682,7 +30896,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["subscription_schedule"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -29733,6 +30950,7 @@ export interface operations {
               readonly reset_billing_cycle_anchor?: boolean;
             }> &
               Partial<"">;
+            /** @enum {string} */
             readonly collection_method?: "charge_automatically" | "send_invoice";
             readonly default_payment_method?: string;
             /** subscription_schedules_param */
@@ -29740,7 +30958,10 @@ export interface operations {
               readonly days_until_due?: number;
             };
           };
-          /** @description Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription. */
+          /**
+           * @description Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
+           * @enum {string}
+           */
           readonly end_behavior?: "cancel" | "none" | "release" | "renew";
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
@@ -29756,6 +30977,7 @@ export interface operations {
               readonly reset_billing_cycle_anchor?: boolean;
             }> &
               Partial<"">;
+            /** @enum {string} */
             readonly collection_method?: "charge_automatically" | "send_invoice";
             readonly coupon?: string;
             readonly default_payment_method?: string;
@@ -29776,6 +30998,7 @@ export interface operations {
               readonly quantity?: number;
               readonly tax_rates?: Partial<readonly string[]> & Partial<"">;
             }[];
+            /** @enum {string} */
             readonly proration_behavior?: "always_invoice" | "create_prorations" | "none";
             readonly tax_percent?: number;
             readonly trial?: boolean;
@@ -29853,6 +31076,7 @@ export interface operations {
               readonly reset_billing_cycle_anchor?: boolean;
             }> &
               Partial<"">;
+            /** @enum {string} */
             readonly collection_method?: "charge_automatically" | "send_invoice";
             readonly default_payment_method?: string;
             /** subscription_schedules_param */
@@ -29860,7 +31084,10 @@ export interface operations {
               readonly days_until_due?: number;
             };
           };
-          /** @description Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription. */
+          /**
+           * @description Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
+           * @enum {string}
+           */
           readonly end_behavior?: "cancel" | "none" | "release" | "renew";
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[];
@@ -29874,6 +31101,7 @@ export interface operations {
               readonly reset_billing_cycle_anchor?: boolean;
             }> &
               Partial<"">;
+            /** @enum {string} */
             readonly collection_method?: "charge_automatically" | "send_invoice";
             readonly coupon?: string;
             readonly default_payment_method?: string;
@@ -29893,6 +31121,7 @@ export interface operations {
               readonly quantity?: number;
               readonly tax_rates?: Partial<readonly string[]> & Partial<"">;
             }[];
+            /** @enum {string} */
             readonly proration_behavior?: "always_invoice" | "create_prorations" | "none";
             readonly start_date?: Partial<number> & Partial<"now">;
             readonly tax_percent?: number;
@@ -29901,7 +31130,10 @@ export interface operations {
           }[];
           /** @description This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
           readonly prorate?: boolean;
-          /** @description If the update changes the current phase, indicates if the changes should be prorated. Valid values are `create_prorations` or `none`, and the default value is `create_prorations`. */
+          /**
+           * @description If the update changes the current phase, indicates if the changes should be prorated. Valid values are `create_prorations` or `none`, and the default value is `create_prorations`.
+           * @enum {string}
+           */
           readonly proration_behavior?: "always_invoice" | "create_prorations" | "none";
         };
       };
@@ -30033,7 +31265,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["subscription"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -30097,7 +31332,10 @@ export interface operations {
           readonly cancel_at?: number;
           /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
           readonly cancel_at_period_end?: boolean;
-          /** @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`. */
+          /**
+           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`.
+           * @enum {string}
+           */
           readonly collection_method?: "charge_automatically" | "send_invoice";
           /** @description The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. */
           readonly coupon?: string;
@@ -30134,10 +31372,12 @@ export interface operations {
            * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
            *
            * `pending_if_incomplete` is only used with updates and cannot be passed when creating a subscription.
+           * @enum {string}
            */
           readonly payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /** @description Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
           readonly pending_invoice_item_interval?: Partial<{
+            /** @enum {string} */
             readonly interval: "day" | "month" | "week" | "year";
             readonly interval_count?: number;
           }> &
@@ -30148,6 +31388,7 @@ export interface operations {
            * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) resulting from the `billing_cycle_anchor`. Valid values are `create_prorations` or `none`.
            *
            * Passing `create_prorations` will cause proration invoice items to be created when applicable. Prorations can be disabled by passing `none`. If no value is passed, the default is `create_prorations`.
+           * @enum {string}
            */
           readonly proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /** @description A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
@@ -30219,7 +31460,10 @@ export interface operations {
         readonly "application/x-www-form-urlencoded": {
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           readonly application_fee_percent?: number;
-          /** @description Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle). */
+          /**
+           * @description Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+           * @enum {string}
+           */
           readonly billing_cycle_anchor?: "now" | "unchanged";
           /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
           readonly billing_thresholds?: Partial<{
@@ -30231,7 +31475,10 @@ export interface operations {
           readonly cancel_at?: Partial<number> & Partial<"">;
           /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
           readonly cancel_at_period_end?: boolean;
-          /** @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`. */
+          /**
+           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`.
+           * @enum {string}
+           */
           readonly collection_method?: "charge_automatically" | "send_invoice";
           /** @description The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. */
           readonly coupon?: string;
@@ -30265,6 +31512,7 @@ export interface operations {
           readonly off_session?: boolean;
           /** @description If specified, payment collection for this subscription will be paused. */
           readonly pause_collection?: Partial<{
+            /** @enum {string} */
             readonly behavior: "keep_as_draft" | "mark_uncollectible" | "void";
             /** Format: unix-time */
             readonly resumes_at?: number;
@@ -30276,10 +31524,12 @@ export interface operations {
            * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
            *
            * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+           * @enum {string}
            */
           readonly payment_behavior?: "allow_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /** @description Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
           readonly pending_invoice_item_interval?: Partial<{
+            /** @enum {string} */
             readonly interval: "day" | "month" | "week" | "year";
             readonly interval_count?: number;
           }> &
@@ -30292,6 +31542,7 @@ export interface operations {
            * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
            *
            * Prorations can be disabled by passing `none`.
+           * @enum {string}
            */
           readonly proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /**
@@ -30410,7 +31661,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["tax_rate"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -30589,7 +31843,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["terminal.location"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -30783,7 +32040,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["terminal.reader"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -30955,6 +32215,7 @@ export interface operations {
            * @description Information for the account this token will represent.
            */
           readonly account?: {
+            /** @enum {string} */
             readonly business_type?: "company" | "government_entity" | "individual" | "non_profit";
             /** company_specs */
             readonly company?: {
@@ -30994,6 +32255,7 @@ export interface operations {
               readonly name_kanji?: string;
               readonly owners_provided?: boolean;
               readonly phone?: string;
+              /** @enum {string} */
               readonly structure?:
                 | ""
                 | "government_instrumentality"
@@ -31095,6 +32357,7 @@ export interface operations {
            */
           readonly bank_account?: {
             readonly account_holder_name?: string;
+            /** @enum {string} */
             readonly account_holder_type?: "company" | "individual";
             readonly account_number: string;
             readonly country: string;
@@ -31278,7 +32541,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["topup"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -31466,7 +32732,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["transfer"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -31519,7 +32788,10 @@ export interface operations {
           readonly metadata?: { readonly [key: string]: string };
           /** @description You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-availability) for details. */
           readonly source_transaction?: string;
-          /** @description The source balance to use for this transfer. One of `bank_account`, `card`, or `fpx`. For most users, this will default to `card`. */
+          /**
+           * @description The source balance to use for this transfer. One of `bank_account`, `card`, or `fpx`. For most users, this will default to `card`.
+           * @enum {string}
+           */
           readonly source_type?: "bank_account" | "card" | "fpx";
           /** @description A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
           readonly transfer_group?: string;
@@ -31553,7 +32825,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["transfer_reversal"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -31777,7 +33052,10 @@ export interface operations {
             readonly data: readonly components["schemas"]["webhook_endpoint"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean;
-            /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
             readonly object: "list";
             /** @description The URL where this list can be accessed. */
             readonly url: string;
@@ -31816,7 +33094,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/x-www-form-urlencoded": {
-          /** @description Events sent to this endpoint will be generated with this Stripe Version instead of your account's default Stripe Version. */
+          /**
+           * @description Events sent to this endpoint will be generated with this Stripe Version instead of your account's default Stripe Version.
+           * @enum {string}
+           */
           readonly api_version?:
             | "2011-01-01"
             | "2011-06-21"

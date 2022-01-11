@@ -12,18 +12,22 @@ export interface paths {
 export interface definitions {
   /** @description Enum with null and nullable */
   readonly MyType: {
-    readonly myField?: ("foo" | "bar") | null;
+    /** @enum {string|null} */
+    readonly myField?: ("foo" | "bar" | null) | null;
   };
   /** @description Enum with null */
   readonly MyTypeNotNullable: {
+    /** @enum {string} */
     readonly myField?: "foo" | "bar" | null;
   };
   /** @description Enum with null */
   readonly MyTypeNotNullableNotNull: {
+    /** @enum {string} */
     readonly myField?: "foo" | "bar";
   };
   /** @description Enum with null */
   readonly MyTypeMixed: {
+    /** @enum {string} */
     readonly myField?: "foo" | 2 | false | null;
   };
 }

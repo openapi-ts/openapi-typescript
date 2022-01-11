@@ -5381,7 +5381,10 @@ export interface components {
       readonly account:
         | (Partial<components["schemas"]["simple-user"]> & Partial<components["schemas"]["enterprise"]>)
         | null;
-      /** @description Describe whether all repositories have been selected or there's a selection involved */
+      /**
+       * @description Describe whether all repositories have been selected or there's a selection involved
+       * @enum {string}
+       */
       readonly repository_selection: "all" | "selected";
       /**
        * Format: uri
@@ -5442,65 +5445,155 @@ export interface components {
      * @example [object Object]
      */
     readonly "app-permissions": {
-      /** @description The level of permission to grant the access token for GitHub Actions workflows, workflow runs, and artifacts. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token for GitHub Actions workflows, workflow runs, and artifacts. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly actions?: "read" | "write";
-      /** @description The level of permission to grant the access token for repository creation, deletion, settings, teams, and collaborators creation. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token for repository creation, deletion, settings, teams, and collaborators creation. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly administration?: "read" | "write";
-      /** @description The level of permission to grant the access token for checks on code. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token for checks on code. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly checks?: "read" | "write";
-      /** @description The level of permission to grant the access token for notification of content references and creation content attachments. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token for notification of content references and creation content attachments. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly content_references?: "read" | "write";
-      /** @description The level of permission to grant the access token for repository contents, commits, branches, downloads, releases, and merges. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token for repository contents, commits, branches, downloads, releases, and merges. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly contents?: "read" | "write";
-      /** @description The level of permission to grant the access token for deployments and deployment statuses. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token for deployments and deployment statuses. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly deployments?: "read" | "write";
-      /** @description The level of permission to grant the access token for managing repository environments. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token for managing repository environments. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly environments?: "read" | "write";
-      /** @description The level of permission to grant the access token for issues and related comments, assignees, labels, and milestones. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token for issues and related comments, assignees, labels, and milestones. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly issues?: "read" | "write";
-      /** @description The level of permission to grant the access token to search repositories, list collaborators, and access repository metadata. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token to search repositories, list collaborators, and access repository metadata. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly metadata?: "read" | "write";
-      /** @description The level of permission to grant the access token for packages published to GitHub Packages. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token for packages published to GitHub Packages. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly packages?: "read" | "write";
-      /** @description The level of permission to grant the access token to retrieve Pages statuses, configuration, and builds, as well as create new builds. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token to retrieve Pages statuses, configuration, and builds, as well as create new builds. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly pages?: "read" | "write";
-      /** @description The level of permission to grant the access token for pull requests and related comments, assignees, labels, milestones, and merges. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token for pull requests and related comments, assignees, labels, milestones, and merges. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly pull_requests?: "read" | "write";
-      /** @description The level of permission to grant the access token to manage the post-receive hooks for a repository. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token to manage the post-receive hooks for a repository. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly repository_hooks?: "read" | "write";
-      /** @description The level of permission to grant the access token to manage repository projects, columns, and cards. Can be one of: `read`, `write`, or `admin`. */
+      /**
+       * @description The level of permission to grant the access token to manage repository projects, columns, and cards. Can be one of: `read`, `write`, or `admin`.
+       * @enum {string}
+       */
       readonly repository_projects?: "read" | "write" | "admin";
-      /** @description The level of permission to grant the access token to view and manage secret scanning alerts. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token to view and manage secret scanning alerts. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly secret_scanning_alerts?: "read" | "write";
-      /** @description The level of permission to grant the access token to manage repository secrets. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token to manage repository secrets. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly secrets?: "read" | "write";
-      /** @description The level of permission to grant the access token to view and manage security events like code scanning alerts. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token to view and manage security events like code scanning alerts. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly security_events?: "read" | "write";
-      /** @description The level of permission to grant the access token to manage just a single file. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token to manage just a single file. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly single_file?: "read" | "write";
-      /** @description The level of permission to grant the access token for commit statuses. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token for commit statuses. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly statuses?: "read" | "write";
-      /** @description The level of permission to grant the access token to retrieve Dependabot alerts. Can be one of: `read`. */
+      /**
+       * @description The level of permission to grant the access token to retrieve Dependabot alerts. Can be one of: `read`.
+       * @enum {string}
+       */
       readonly vulnerability_alerts?: "read";
-      /** @description The level of permission to grant the access token to update GitHub Actions workflow files. Can be one of: `write`. */
+      /**
+       * @description The level of permission to grant the access token to update GitHub Actions workflow files. Can be one of: `write`.
+       * @enum {string}
+       */
       readonly workflows?: "write";
-      /** @description The level of permission to grant the access token for organization teams and members. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token for organization teams and members. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly members?: "read" | "write";
-      /** @description The level of permission to grant the access token to manage access to an organization. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token to manage access to an organization. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly organization_administration?: "read" | "write";
-      /** @description The level of permission to grant the access token to manage the post-receive hooks for an organization. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token to manage the post-receive hooks for an organization. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly organization_hooks?: "read" | "write";
-      /** @description The level of permission to grant the access token for viewing an organization's plan. Can be one of: `read`. */
+      /**
+       * @description The level of permission to grant the access token for viewing an organization's plan. Can be one of: `read`.
+       * @enum {string}
+       */
       readonly organization_plan?: "read";
-      /** @description The level of permission to grant the access token to manage organization projects, columns, and cards. Can be one of: `read`, `write`, or `admin`. */
+      /**
+       * @description The level of permission to grant the access token to manage organization projects, columns, and cards. Can be one of: `read`, `write`, or `admin`.
+       * @enum {string}
+       */
       readonly organization_projects?: "read" | "write" | "admin";
-      /** @description The level of permission to grant the access token to manage organization secrets. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token to manage organization secrets. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly organization_secrets?: "read" | "write";
-      /** @description The level of permission to grant the access token to view and manage GitHub Actions self-hosted runners available to an organization. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token to view and manage GitHub Actions self-hosted runners available to an organization. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly organization_self_hosted_runners?: "read" | "write";
-      /** @description The level of permission to grant the access token to view and manage users blocked by the organization. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token to view and manage users blocked by the organization. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly organization_user_blocking?: "read" | "write";
-      /** @description The level of permission to grant the access token to manage team discussions and related comments. Can be one of: `read` or `write`. */
+      /**
+       * @description The level of permission to grant the access token to manage team discussions and related comments. Can be one of: `read` or `write`.
+       * @enum {string}
+       */
       readonly team_discussions?: "read" | "write";
     };
     /**
@@ -5919,6 +6012,7 @@ export interface components {
         /** @example read */
         readonly single_file?: string;
       };
+      /** @enum {string} */
       readonly repository_selection?: "all" | "selected";
       readonly repositories?: readonly components["schemas"]["repository"][];
       /** @example README.md */
@@ -5979,7 +6073,10 @@ export interface components {
     /** Scoped Installation */
     readonly "scoped-installation": {
       readonly permissions: components["schemas"]["app-permissions"];
-      /** @description Describe whether all repositories have been selected or there's a selection involved */
+      /**
+       * @description Describe whether all repositories have been selected or there's a selection involved
+       * @enum {string}
+       */
       readonly repository_selection: "all" | "selected";
       /** @example config.yaml */
       readonly single_file_name: string | null;
@@ -6118,9 +6215,15 @@ export interface components {
        */
       readonly node_id?: string;
     };
-    /** @description The policy that controls the organizations in the enterprise that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`. */
+    /**
+     * @description The policy that controls the organizations in the enterprise that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`.
+     * @enum {string}
+     */
     readonly "enabled-organizations": "all" | "none" | "selected";
-    /** @description The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`. */
+    /**
+     * @description The permissions policy that controls the actions that are allowed to run. Can be one of: `all`, `local_only`, or `selected`.
+     * @enum {string}
+     */
     readonly "allowed-actions": "all" | "local_only" | "selected";
     /** @description The API URL to use to get or set the actions that are allowed to run, when `allowed_actions` is set to `selected`. */
     readonly "selected-actions-url": string;
@@ -6218,7 +6321,10 @@ export interface components {
         readonly id?: number;
         /** @description Name of the label. */
         readonly name?: string;
-        /** @description The type of label. Read-only labels are applied automatically when the runner is configured. */
+        /**
+         * @description The type of label. Read-only labels are applied automatically when the runner is configured.
+         * @enum {string}
+         */
         readonly type?: "read-only" | "custom";
       }[];
     };
@@ -6254,7 +6360,10 @@ export interface components {
       readonly repositories?: readonly components["schemas"]["repository"][];
       /** @example config.yaml */
       readonly single_file?: string | null;
-      /** @description Describe whether all repositories have been selected or there's a selection involved */
+      /**
+       * @description Describe whether all repositories have been selected or there's a selection involved
+       * @enum {string}
+       */
       readonly repository_selection?: "all" | "selected";
     };
     readonly "audit-log-event": {
@@ -6414,6 +6523,7 @@ export interface components {
        * @description The state of the milestone.
        * @default open
        * @example open
+       * @enum {string}
        */
       readonly state: "open" | "closed";
       /**
@@ -6453,6 +6563,7 @@ export interface components {
      * author_association
      * @description How the author is associated with the repository.
      * @example OWNER
+     * @enum {string}
      */
     readonly author_association:
       | "COLLABORATOR"
@@ -7456,7 +7567,10 @@ export interface components {
       /** Format: date-time */
       readonly updated_at: string;
     };
-    /** @description The policy that controls the repositories in the organization that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`. */
+    /**
+     * @description The policy that controls the repositories in the organization that are allowed to run GitHub Actions. Can be one of: `all`, `none`, or `selected`.
+     * @enum {string}
+     */
     readonly "enabled-repositories": "all" | "none" | "selected";
     readonly "actions-organization-permissions": {
       readonly enabled_repositories: components["schemas"]["enabled-repositories"];
@@ -7491,7 +7605,10 @@ export interface components {
       readonly created_at: string;
       /** Format: date-time */
       readonly updated_at: string;
-      /** @description Visibility of a secret */
+      /**
+       * @description Visibility of a secret
+       * @enum {string}
+       */
       readonly visibility: "all" | "private" | "selected";
       /**
        * Format: uri
@@ -7651,6 +7768,7 @@ export interface components {
     /**
      * @description The type of GitHub user that can comment, open issues, or create pull requests while the interaction limit is in effect. Can be one of: `existing_users`, `contributors_only`, `collaborators_only`.
      * @example collaborators_only
+     * @enum {string}
      */
     readonly "interaction-group": "existing_users" | "contributors_only" | "collaborators_only";
     /**
@@ -7670,6 +7788,7 @@ export interface components {
     /**
      * @description The duration of the interaction restriction. Can be one of: `one_day`, `three_days`, `one_week`, `one_month`, `six_months`. Default: `one_day`.
      * @example one_month
+     * @enum {string}
      */
     readonly "interaction-expiry": "one_day" | "three_days" | "one_week" | "one_month" | "six_months";
     /**
@@ -7838,7 +7957,10 @@ export interface components {
        * @example super-linter
        */
       readonly name: string;
-      /** @example docker */
+      /**
+       * @example docker
+       * @enum {string}
+       */
       readonly package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
       /** @example https://api.github.com/orgs/github/packages/container/super-linter */
       readonly url: string;
@@ -7849,7 +7971,10 @@ export interface components {
        * @example 1
        */
       readonly version_count: number;
-      /** @example private */
+      /**
+       * @example private
+       * @enum {string}
+       */
       readonly visibility: "private" | "public";
       readonly owner?: components["schemas"]["simple-user"] | null;
       readonly repository?: components["schemas"]["minimal-repository"] | null;
@@ -7899,7 +8024,10 @@ export interface components {
       readonly deleted_at?: string;
       /** Package Version Metadata */
       readonly metadata?: {
-        /** @example docker */
+        /**
+         * @example docker
+         * @enum {string}
+         */
         readonly package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
         /** Container Metadata */
         readonly container?: {
@@ -7970,7 +8098,10 @@ export interface components {
        * @example 2014-03-03T18:58:10Z
        */
       readonly updated_at: string;
-      /** @description The baseline permission that all organization members have on this project. Only present if owner is an organization. */
+      /**
+       * @description The baseline permission that all organization members have on this project. Only present if owner is an organization.
+       * @enum {string}
+       */
       readonly organization_permission?: "read" | "write" | "admin" | "none";
       /** @description Whether or not this project can be seen by everyone. Only present if owner is an organization. */
       readonly private?: boolean;
@@ -8047,6 +8178,7 @@ export interface components {
       /**
        * @description The level of privacy this team should have
        * @example closed
+       * @enum {string}
        */
       readonly privacy?: "closed" | "secret";
       /**
@@ -8225,6 +8357,7 @@ export interface components {
       /**
        * @description The reaction to use
        * @example heart
+       * @enum {string}
        */
       readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
       /**
@@ -8244,6 +8377,7 @@ export interface components {
        * @description The role of the user in the team.
        * @default member
        * @example member
+       * @enum {string}
        */
       readonly role: "member" | "maintainer";
       readonly state: string;
@@ -8993,6 +9127,7 @@ export interface components {
       /**
        * @description The phase of the lifecycle that the job is currently in.
        * @example queued
+       * @enum {string}
        */
       readonly status: "queued" | "in_progress" | "completed";
       /**
@@ -9022,6 +9157,7 @@ export interface components {
         /**
          * @description The phase of the lifecycle that the job is currently in.
          * @example queued
+         * @enum {string}
          */
         readonly status: "queued" | "in_progress" | "completed";
         /**
@@ -9234,6 +9370,7 @@ export interface components {
       /**
        * @description Whether deployment to the environment(s) was approved or rejected
        * @example approved
+       * @enum {string}
        */
       readonly state: "approved" | "rejected";
       readonly user: components["schemas"]["simple-user"];
@@ -9246,6 +9383,7 @@ export interface components {
     /**
      * @description The type of reviewer. Must be one of: `User` or `Team`
      * @example User
+     * @enum {string}
      */
     readonly "deployment-reviewer-type": "User" | "Team";
     /**
@@ -9415,7 +9553,10 @@ export interface components {
       readonly name: string;
       /** @example ruby.yaml */
       readonly path: string;
-      /** @example active */
+      /**
+       * @example active
+       * @enum {string}
+       */
       readonly state: "active" | "deleted";
       /**
        * Format: date-time
@@ -9929,9 +10070,13 @@ export interface components {
       /**
        * @description The phase of the lifecycle that the check is currently in.
        * @example queued
+       * @enum {string}
        */
       readonly status: "queued" | "in_progress" | "completed";
-      /** @example neutral */
+      /**
+       * @example neutral
+       * @enum {string|null}
+       */
       readonly conclusion:
         | ("success" | "failure" | "neutral" | "cancelled" | "skipped" | "timed_out" | "action_required")
         | null;
@@ -10006,9 +10151,15 @@ export interface components {
        * @example 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
        */
       readonly head_sha: string;
-      /** @example completed */
+      /**
+       * @example completed
+       * @enum {string|null}
+       */
       readonly status: ("queued" | "in_progress" | "completed") | null;
-      /** @example neutral */
+      /**
+       * @example neutral
+       * @enum {string|null}
+       */
       readonly conclusion:
         | ("success" | "failure" | "neutral" | "cancelled" | "skipped" | "timed_out" | "action_required")
         | null;
@@ -10048,7 +10199,10 @@ export interface components {
     readonly "code-scanning-analysis-tool-guid": string | null;
     /** @description The full Git reference, formatted as `refs/heads/<branch name>`. */
     readonly "code-scanning-ref": string;
-    /** @description State of a code scanning alert. */
+    /**
+     * @description State of a code scanning alert.
+     * @enum {string}
+     */
     readonly "code-scanning-alert-state": "open" | "dismissed" | "fixed";
     /** @description The security alert number. */
     readonly "alert-number": number;
@@ -10084,7 +10238,10 @@ export interface components {
       readonly id?: string | null;
       /** @description The name of the rule used to detect the alert. */
       readonly name?: string;
-      /** @description The severity of the alert. */
+      /**
+       * @description The severity of the alert.
+       * @enum {string|null}
+       */
       readonly severity?: ("none" | "note" | "warning" | "error") | null;
       /** @description A short description of the rule used to detect the alert. */
       readonly description?: string;
@@ -10108,7 +10265,10 @@ export interface components {
       readonly start_column?: number;
       readonly end_column?: number;
     };
-    /** @description A classification of the file. For example to identify it as generated. */
+    /**
+     * @description A classification of the file. For example to identify it as generated.
+     * @enum {string|null}
+     */
     readonly "code-scanning-alert-classification": ("source" | "generated" | "test" | "library") | null;
     readonly "code-scanning-alert-instance": {
       readonly ref?: components["schemas"]["code-scanning-ref"];
@@ -10146,7 +10306,10 @@ export interface components {
       readonly id?: string | null;
       /** @description The name of the rule used to detect the alert. */
       readonly name?: string;
-      /** @description The severity of the alert. */
+      /**
+       * @description The severity of the alert.
+       * @enum {string|null}
+       */
       readonly severity?: ("none" | "note" | "warning" | "error") | null;
       /** @description A short description of the rule used to detect the alert. */
       readonly description?: string;
@@ -10171,7 +10334,10 @@ export interface components {
       readonly tool: components["schemas"]["code-scanning-analysis-tool"];
       readonly most_recent_instance: components["schemas"]["code-scanning-alert-instance"];
     };
-    /** @description Sets the state of the code scanning alert. Can be one of `open` or `dismissed`. You must provide `dismissed_reason` when you set the state to `dismissed`. */
+    /**
+     * @description Sets the state of the code scanning alert. Can be one of `open` or `dismissed`. You must provide `dismissed_reason` when you set the state to `dismissed`.
+     * @enum {string}
+     */
     readonly "code-scanning-alert-set-state": "open" | "dismissed";
     /**
      * @description An identifier for the upload.
@@ -10250,7 +10416,10 @@ export interface components {
       readonly url?: string;
     };
     readonly "code-scanning-sarifs-status": {
-      /** @description `pending` files have not yet been processed, while `complete` means all results in the SARIF have been stored. */
+      /**
+       * @description `pending` files have not yet been processed, while `complete` means all results in the SARIF have been stored.
+       * @enum {string}
+       */
       readonly processing_status?: "pending" | "complete";
       /**
        * Format: uri
@@ -10344,6 +10513,7 @@ export interface components {
       /**
        * @description The permission associated with the invitation.
        * @example read
+       * @enum {string}
        */
       readonly permissions: "read" | "write" | "admin";
       /**
@@ -10411,7 +10581,10 @@ export interface components {
      */
     readonly auto_merge: {
       readonly enabled_by: components["schemas"]["simple-user"];
-      /** @description The merge method to use. */
+      /**
+       * @description The merge method to use.
+       * @enum {string}
+       */
       readonly merge_method: "merge" | "squash" | "rebase";
       /** @description Title for the merge commit message. */
       readonly commit_title: string;
@@ -10706,7 +10879,10 @@ export interface components {
       readonly patch_url: string;
       readonly base_commit: components["schemas"]["commit"];
       readonly merge_base_commit: components["schemas"]["commit"];
-      /** @example ahead */
+      /**
+       * @example ahead
+       * @enum {string}
+       */
       readonly status: "diverged" | "ahead" | "behind" | "identical";
       /** @example 4 */
       readonly ahead_by: number;
@@ -10995,6 +11171,7 @@ export interface components {
       /**
        * @description The state of the status.
        * @example success
+       * @enum {string}
        */
       readonly state: "error" | "failure" | "inactive" | "pending" | "success" | "queued" | "in_progress";
       readonly creator: components["schemas"]["simple-user"] | null;
@@ -11407,6 +11584,7 @@ export interface components {
       readonly vcs_url: string;
       readonly svc_root?: string;
       readonly tfvc_project?: string;
+      /** @enum {string} */
       readonly status:
         | "auth"
         | "error"
@@ -11665,6 +11843,7 @@ export interface components {
       /**
        * @description The status of the most recent build of the Page.
        * @example built
+       * @enum {string|null}
        */
       readonly status: ("built" | "building" | "errored") | null;
       /**
@@ -11783,6 +11962,7 @@ export interface components {
       /**
        * @description State of this Pull Request. Either `open` or `closed`.
        * @example open
+       * @enum {string}
        */
       readonly state: "open" | "closed";
       /** @example true */
@@ -12338,6 +12518,7 @@ export interface components {
       /**
        * @description The side of the first line of the range for a multi-line comment.
        * @default RIGHT
+       * @enum {string|null}
        */
       readonly start_side?: ("LEFT" | "RIGHT") | null;
       /**
@@ -12353,6 +12534,7 @@ export interface components {
       /**
        * @description The side of the diff to which the comment applies. The side of the last line of the range for a multi-line comment
        * @default RIGHT
+       * @enum {string}
        */
       readonly side?: "LEFT" | "RIGHT";
       readonly reactions?: components["schemas"]["reaction-rollup"];
@@ -12491,11 +12673,13 @@ export interface components {
       /**
        * @description The side of the first line of the range for a multi-line comment.
        * @default RIGHT
+       * @enum {string}
        */
       readonly side?: "LEFT" | "RIGHT";
       /**
        * @description The side of the first line of the range for a multi-line comment.
        * @default RIGHT
+       * @enum {string|null}
        */
       readonly start_side?: ("LEFT" | "RIGHT") | null;
       /**
@@ -12536,7 +12720,10 @@ export interface components {
        */
       readonly name: string;
       readonly label: string | null;
-      /** @description State of the release asset. */
+      /**
+       * @description State of the release asset.
+       * @enum {string}
+       */
       readonly state: "uploaded" | "open";
       readonly content_type: string;
       readonly size: number;
@@ -12590,7 +12777,10 @@ export interface components {
       readonly body_html?: string;
       readonly body_text?: string;
     };
-    /** @description Sets the state of the secret scanning alert. Can be either `open` or `resolved`. You must provide `resolution` when you set the state to `resolved`. */
+    /**
+     * @description Sets the state of the secret scanning alert. Can be either `open` or `resolved`. You must provide `resolution` when you set the state to `resolved`.
+     * @enum {string}
+     */
     readonly "secret-scanning-alert-state": "open" | "resolved";
     /** @description **Required when the `state` is `resolved`.** The reason for resolving the alert. Can be one of `false_positive`, `wont_fix`, `revoked`, or `used_in_tests`. */
     readonly "secret-scanning-alert-resolution": string | null;
@@ -12942,6 +13132,7 @@ export interface components {
        * @example [object Object]
        */
       readonly operations?: readonly {
+        /** @enum {string} */
         readonly op: "add" | "remove" | "replace";
         readonly path?: string;
         readonly value?: string | { readonly [key: string]: unknown } | readonly unknown[];
@@ -15257,7 +15448,10 @@ export interface operations {
         readonly "application/json": {
           /** @description Name of the runner group. */
           readonly name: string;
-          /** @description Visibility of a runner group. You can select all organizations or select individual organization. Can be one of: `all` or `selected` */
+          /**
+           * @description Visibility of a runner group. You can select all organizations or select individual organization. Can be one of: `all` or `selected`
+           * @enum {string}
+           */
           readonly visibility?: "selected" | "all";
           /** @description List of organization IDs that can access the runner group. */
           readonly selected_organization_ids?: readonly number[];
@@ -15339,6 +15533,7 @@ export interface operations {
           /**
            * @description Visibility of a runner group. You can select all organizations or select individual organizations. Can be one of: `all` or `selected`
            * @default all
+           * @enum {string}
            */
           readonly visibility?: "selected" | "all";
         };
@@ -16526,6 +16721,7 @@ export interface operations {
            * @description The rendering mode.
            * @default markdown
            * @example markdown
+           * @enum {string}
            */
           readonly mode?: "markdown" | "gfm";
           /** @description The repository context to use when creating references in `gfm` mode. */
@@ -17061,6 +17257,7 @@ export interface operations {
            * \* `admin` - can pull, push, and administer this repository.
            * \* `none` - no permissions granted by default.
            * @default read
+           * @enum {string}
            */
           readonly default_repository_permission?: "read" | "write" | "admin" | "none";
           /**
@@ -17099,6 +17296,7 @@ export interface operations {
            * \* `private` - members can create private repositories. This option is only available to repositories that are part of an organization on GitHub Enterprise Cloud.
            * \* `none` - only admin members can create repositories.
            * **Note:** This parameter is deprecated and will be removed in the future. Its return value ignores internal repositories. Using this parameter overrides values set in `members_can_create_repositories`. See the parameter deprecation notice in the operation description for details.
+           * @enum {string}
            */
           readonly members_allowed_repository_creation_type?: "all" | "private" | "none";
           /**
@@ -17366,6 +17564,7 @@ export interface operations {
           /**
            * @description Visibility of a runner group. You can select all repositories, select individual repositories, or limit access to private repositories. Can be one of: `all`, `selected`, or `private`.
            * @default all
+           * @enum {string}
            */
           readonly visibility?: "selected" | "all" | "private";
           /** @description List of repository IDs that can access the runner group. */
@@ -17448,7 +17647,10 @@ export interface operations {
         readonly "application/json": {
           /** @description Name of the runner group. */
           readonly name?: string;
-          /** @description Visibility of a runner group. You can select all repositories, select individual repositories, or all private repositories. Can be one of: `all`, `selected`, or `private`. */
+          /**
+           * @description Visibility of a runner group. You can select all repositories, select individual repositories, or all private repositories. Can be one of: `all`, `selected`, or `private`.
+           * @enum {string}
+           */
           readonly visibility?: "selected" | "all" | "private";
         };
       };
@@ -17973,6 +18175,7 @@ export interface operations {
            * \- `all` - All repositories in an organization can access the secret.
            * \- `private` - Private repositories in an organization can access the secret.
            * \- `selected` - Only specific repositories can access the secret.
+           * @enum {string}
            */
           readonly visibility?: "all" | "private" | "selected";
           /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can manage the list of selected repositories using the [List selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#list-selected-repositories-for-an-organization-secret), [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret), and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret) endpoints. */
@@ -18631,6 +18834,7 @@ export interface operations {
            * \* `direct_member` - Non-owner organization members with ability to see other members and join teams by invitation.
            * \* `billing_manager` - Non-owner organization members with ability to manage the billing settings of your organization.
            * @default direct_member
+           * @enum {string}
            */
           readonly role?: "admin" | "direct_member" | "billing_manager";
           /** @description Specify IDs for the teams you want to invite new members to. */
@@ -18860,6 +19064,7 @@ export interface operations {
            * \* `admin` - The user will become an owner of the organization.
            * \* `member` - The user will become a non-owner member of the organization.
            * @default member
+           * @enum {string}
            */
           readonly role?: "admin" | "member";
         };
@@ -19509,6 +19714,7 @@ export interface operations {
           /**
            * @description Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. For more information, see "[Creating an internal repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-repository-visibility#about-internal-repositories)" in the GitHub Help documentation.
            * The `visibility` parameter overrides the `private` parameter when you use both parameters with the `nebula-preview` preview header.
+           * @enum {string}
            */
           readonly visibility?: "public" | "private" | "visibility" | "internal";
           /**
@@ -19719,6 +19925,7 @@ export interface operations {
            * **For a parent or child team:**
            * \* `closed` - visible to all members of this organization.
            * Default for child team: `closed`
+           * @enum {string}
            */
           readonly privacy?: "secret" | "closed";
           /**
@@ -19727,6 +19934,7 @@ export interface operations {
            * \* `push` - team members can pull and push, but not administer newly-added repositories.
            * \* `admin` - team members can pull, push and administer newly-added repositories.
            * @default pull
+           * @enum {string}
            */
           readonly permission?: "pull" | "push" | "admin";
           /** @description The ID of a team to set as the parent team. */
@@ -19813,6 +20021,7 @@ export interface operations {
            * \* `closed` - visible to all members of this organization.
            * **For a parent or child team:**
            * \* `closed` - visible to all members of this organization.
+           * @enum {string}
            */
           readonly privacy?: "secret" | "closed";
           /**
@@ -19821,6 +20030,7 @@ export interface operations {
            * \* `push` - team members can pull and push, but not administer newly-added repositories.
            * \* `admin` - team members can pull, push and administer newly-added repositories.
            * @default pull
+           * @enum {string}
            */
           readonly permission?: "pull" | "push" | "admin";
           /** @description The ID of a team to set as the parent team. */
@@ -20171,7 +20381,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment. */
+          /**
+           * @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment.
+           * @enum {string}
+           */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
@@ -20255,7 +20468,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion. */
+          /**
+           * @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion.
+           * @enum {string}
+           */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
@@ -20428,6 +20644,7 @@ export interface operations {
            * \* `member` - a normal member of the team.
            * \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
            * @default member
+           * @enum {string}
            */
           readonly role?: "member" | "maintainer";
         };
@@ -20549,6 +20766,7 @@ export interface operations {
            * \* `write` - team members can read and write, but not administer this project.
            * \* `admin` - team members can read, write and administer this project.
            * Default: the team's `permission` attribute will be used to determine what permission to grant the team on this project. Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
+           * @enum {string}
            */
           readonly permission?: "read" | "write" | "admin";
         } | null;
@@ -20668,6 +20886,7 @@ export interface operations {
            * \* `triage` - team members can proactively manage issues and pull requests without write access. Recommended for contributors who triage a repository. Only applies to repositories owned by organizations.
            *
            * If no permission is specified, the team's `permission` attribute will be used to determine what permission to grant the team on this repository.
+           * @enum {string}
            */
           readonly permission?: "pull" | "push" | "admin" | "maintain" | "triage";
         };
@@ -21217,7 +21436,10 @@ export interface operations {
            * @example open
            */
           readonly state?: string;
-          /** @description The baseline permission that all organization members have on this project */
+          /**
+           * @description The baseline permission that all organization members have on this project
+           * @enum {string}
+           */
           readonly organization_permission?: "read" | "write" | "admin" | "none";
           /** @description Whether or not this project can be seen by everyone. */
           readonly private?: boolean;
@@ -21286,6 +21508,7 @@ export interface operations {
            * @description The permission to grant the collaborator.
            * @default write
            * @example write
+           * @enum {string}
            */
           readonly permission?: "read" | "write" | "admin";
         };
@@ -21514,7 +21737,10 @@ export interface operations {
            * **Note**: You will get a `422` error if the organization restricts [changing repository visibility](https://help.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories) to organization owners and a non-owner tries to change the value of private. **Note**: You will get a `422` error if the organization restricts [changing repository visibility](https://help.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories) to organization owners and a non-owner tries to change the value of private.
            */
           readonly private?: boolean;
-          /** @description Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. The `visibility` parameter overrides the `private` parameter when you use both along with the `nebula-preview` preview header. */
+          /**
+           * @description Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. The `visibility` parameter overrides the `private` parameter when you use both along with the `nebula-preview` preview header.
+           * @enum {string}
+           */
           readonly visibility?: "public" | "private" | "visibility" | "internal";
           /**
            * @description Either `true` to enable issues for this repository or `false` to disable them.
@@ -22189,6 +22415,7 @@ export interface operations {
           /**
            * @description Whether to approve or reject deployment to the specified environments. Must be one of: `approved` or `rejected`
            * @example approved
+           * @enum {string}
            */
           readonly state: "approved" | "rejected";
           /**
@@ -23737,6 +23964,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": (Partial<
           {
+            /** @enum {undefined} */
             readonly status?: "completed";
           } & {
             conclusion: unknown;
@@ -23744,6 +23972,7 @@ export interface operations {
         > &
           Partial<
             {
+              /** @enum {undefined} */
               readonly status?: "queued" | "in_progress";
             } & { readonly [key: string]: unknown }
           >) & {
@@ -23758,6 +23987,7 @@ export interface operations {
           /**
            * @description The current status. Can be one of `queued`, `in_progress`, or `completed`.
            * @default queued
+           * @enum {string}
            */
           readonly status?: "queued" | "in_progress" | "completed";
           /** @description The time that the check run began. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
@@ -23765,6 +23995,7 @@ export interface operations {
           /**
            * @description **Required if you provide `completed_at` or a `status` of `completed`**. The final conclusion of the check. Can be one of `action_required`, `cancelled`, `failure`, `neutral`, `success`, `skipped`, `stale`, or `timed_out`. When the conclusion is `action_required`, additional details should be provided on the site specified by `details_url`.
            * **Note:** Providing `conclusion` will automatically set the `status` parameter to `completed`. You cannot change a check run conclusion to `stale`, only GitHub can set this.
+           * @enum {string}
            */
           readonly conclusion?:
             | "action_required"
@@ -23797,7 +24028,10 @@ export interface operations {
               readonly start_column?: number;
               /** @description The end column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values. */
               readonly end_column?: number;
-              /** @description The level of the annotation. Can be one of `notice`, `warning`, or `failure`. */
+              /**
+               * @description The level of the annotation. Can be one of `notice`, `warning`, or `failure`.
+               * @enum {string}
+               */
               readonly annotation_level: "notice" | "warning" | "failure";
               /** @description A short description of the feedback for these lines of code. The maximum size is 64 KB. */
               readonly message: string;
@@ -23878,6 +24112,7 @@ export interface operations {
       readonly content: {
         readonly "application/json": (Partial<
           {
+            /** @enum {undefined} */
             readonly status?: "completed";
           } & {
             conclusion: unknown;
@@ -23885,6 +24120,7 @@ export interface operations {
         > &
           Partial<
             {
+              /** @enum {undefined} */
               readonly status?: "queued" | "in_progress";
             } & { readonly [key: string]: unknown }
           >) & {
@@ -23896,11 +24132,15 @@ export interface operations {
           readonly external_id?: string;
           /** @description This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
           readonly started_at?: string;
-          /** @description The current status. Can be one of `queued`, `in_progress`, or `completed`. */
+          /**
+           * @description The current status. Can be one of `queued`, `in_progress`, or `completed`.
+           * @enum {string}
+           */
           readonly status?: "queued" | "in_progress" | "completed";
           /**
            * @description **Required if you provide `completed_at` or a `status` of `completed`**. The final conclusion of the check. Can be one of `action_required`, `cancelled`, `failure`, `neutral`, `success`, `skipped`, `stale`, or `timed_out`.
            * **Note:** Providing `conclusion` will automatically set the `status` parameter to `completed`. You cannot change a check run conclusion to `stale`, only GitHub can set this.
+           * @enum {string}
            */
           readonly conclusion?:
             | "action_required"
@@ -23933,7 +24173,10 @@ export interface operations {
               readonly start_column?: number;
               /** @description The end column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values. */
               readonly end_column?: number;
-              /** @description The level of the annotation. Can be one of `notice`, `warning`, or `failure`. */
+              /**
+               * @description The level of the annotation. Can be one of `notice`, `warning`, or `failure`.
+               * @enum {string}
+               */
               readonly annotation_level: "notice" | "warning" | "failure";
               /** @description A short description of the feedback for these lines of code. The maximum size is 64 KB. */
               readonly message: string;
@@ -24637,6 +24880,7 @@ export interface operations {
            * \* `maintain` - Recommended for project managers who need to manage the repository without access to sensitive or destructive actions.
            * \* `triage` - Recommended for contributors who need to proactively manage issues and pull requests without write access.
            * @default push
+           * @enum {string}
            */
           readonly permission?: "pull" | "push" | "admin" | "maintain" | "triage";
           /** @example "push" */
@@ -24825,7 +25069,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the commit comment. */
+          /**
+           * @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the commit comment.
+           * @enum {string}
+           */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
@@ -25818,7 +26065,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** @description The state of the status. Can be one of `error`, `failure`, `inactive`, `in_progress`, `queued` `pending`, or `success`. **Note:** To use the `inactive` state, you must provide the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type. To use the `in_progress` and `queued` states, you must provide the [`application/vnd.github.flash-preview+json`](https://docs.github.com/rest/overview/api-previews#deployment-statuses) custom media type. When you set a transient deployment to `inactive`, the deployment will be shown as `destroyed` in GitHub. */
+          /**
+           * @description The state of the status. Can be one of `error`, `failure`, `inactive`, `in_progress`, `queued` `pending`, or `success`. **Note:** To use the `inactive` state, you must provide the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/rest/overview/api-previews#enhanced-deployments) custom media type. To use the `in_progress` and `queued` states, you must provide the [`application/vnd.github.flash-preview+json`](https://docs.github.com/rest/overview/api-previews#deployment-statuses) custom media type. When you set a transient deployment to `inactive`, the deployment will be shown as `destroyed` in GitHub.
+           * @enum {string}
+           */
           readonly state: "error" | "failure" | "inactive" | "in_progress" | "queued" | "pending" | "success";
           /** @description The target URL to associate with this status. This URL should contain output to keep the user updated while the task is running or serve as historical information for what happened in the deployment. **Note:** It's recommended to use the `log_url` parameter, which replaces `target_url`. */
           readonly target_url?: string;
@@ -25829,7 +26079,10 @@ export interface operations {
           readonly log_url?: string;
           /** @description A short description of the status. The maximum description length is 140 characters. */
           readonly description?: string;
-          /** @description Name for the target deployment environment, which can be changed when setting a deploy status. For example, `production`, `staging`, or `qa`. **Note:** This parameter requires you to use the [`application/vnd.github.flash-preview+json`](https://docs.github.com/rest/overview/api-previews#deployment-statuses) custom media type. */
+          /**
+           * @description Name for the target deployment environment, which can be changed when setting a deploy status. For example, `production`, `staging`, or `qa`. **Note:** This parameter requires you to use the [`application/vnd.github.flash-preview+json`](https://docs.github.com/rest/overview/api-previews#deployment-statuses) custom media type.
+           * @enum {string}
+           */
           readonly environment?: "production" | "staging" | "qa";
           /**
            * @description Sets the URL for accessing your environment. Default: `""`
@@ -26488,7 +26741,10 @@ export interface operations {
           readonly message: string;
           /** @description The SHA of the git object this is tagging. */
           readonly object: string;
-          /** @description The type of the object we're tagging. Normally this is a `commit` but it can also be a `tree` or a `blob`. */
+          /**
+           * @description The type of the object we're tagging. Normally this is a `commit` but it can also be a `tree` or a `blob`.
+           * @enum {string}
+           */
           readonly type: "commit" | "tree" | "blob";
           /** @description An object with information about the individual creating the tag. */
           readonly tagger?: {
@@ -26584,9 +26840,15 @@ export interface operations {
           readonly tree: readonly {
             /** @description The file referenced in the tree. */
             readonly path?: string;
-            /** @description The file mode; one of `100644` for file (blob), `100755` for executable (blob), `040000` for subdirectory (tree), `160000` for submodule (commit), or `120000` for a blob that specifies the path of a symlink. */
+            /**
+             * @description The file mode; one of `100644` for file (blob), `100755` for executable (blob), `040000` for subdirectory (tree), `160000` for submodule (commit), or `120000` for a blob that specifies the path of a symlink.
+             * @enum {string}
+             */
             readonly mode?: "100644" | "100755" | "040000" | "160000" | "120000";
-            /** @description Either `blob`, `tree`, or `commit`. */
+            /**
+             * @description Either `blob`, `tree`, or `commit`.
+             * @enum {string}
+             */
             readonly type?: "blob" | "tree" | "commit";
             /**
              * @description The SHA1 checksum ID of the object in the tree. Also called `tree.sha`. If the value is `null` then the file will be deleted.
@@ -26968,7 +27230,10 @@ export interface operations {
         readonly "application/json": {
           /** @description The URL of the originating repository. */
           readonly vcs_url: string;
-          /** @description The originating VCS type. Can be one of `subversion`, `git`, `mercurial`, or `tfvc`. Please be aware that without this parameter, the import job will take additional time to detect the VCS type before beginning the import. This detection step will be reflected in the response. */
+          /**
+           * @description The originating VCS type. Can be one of `subversion`, `git`, `mercurial`, or `tfvc`. Please be aware that without this parameter, the import job will take additional time to detect the VCS type before beginning the import. This detection step will be reflected in the response.
+           * @enum {string}
+           */
           readonly vcs?: "subversion" | "git" | "mercurial" | "tfvc";
           /** @description If authentication is required, the username to provide to `vcs_url`. */
           readonly vcs_username?: string;
@@ -27122,7 +27387,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** @description Can be one of `opt_in` (large files will be stored using Git LFS) or `opt_out` (large files will be removed during the import). */
+          /**
+           * @description Can be one of `opt_in` (large files will be stored using Git LFS) or `opt_out` (large files will be removed during the import).
+           * @enum {string}
+           */
           readonly use_lfs: "opt_in" | "opt_out";
         };
       };
@@ -27265,7 +27533,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** @description The permissions that the associated user will have on the repository. Valid values are `read`, `write`, `maintain`, `triage`, and `admin`. */
+          /**
+           * @description The permissions that the associated user will have on the repository. Valid values are `read`, `write`, `maintain`, `triage`, and `admin`.
+           * @enum {string}
+           */
           readonly permissions?: "read" | "write" | "maintain" | "triage" | "admin";
         };
       };
@@ -27528,7 +27799,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue comment. */
+          /**
+           * @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue comment.
+           * @enum {string}
+           */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
@@ -27666,7 +27940,10 @@ export interface operations {
           readonly body?: string | null;
           /** @description Login for the user that this issue should be assigned to. **This field is deprecated.** */
           readonly assignee?: string | null;
-          /** @description State of the issue. Either `open` or `closed`. */
+          /**
+           * @description State of the issue. Either `open` or `closed`.
+           * @enum {string}
+           */
           readonly state?: "open" | "closed";
           readonly milestone?: (string | number) | null;
           /** @description Labels to associate with this issue. Pass one or more Labels to _replace_ the set of Labels on this Issue. Send an empty array (`[]`) to clear all Labels from the Issue. _NOTE: Only users with push access can set labels for issues. Labels are silently dropped otherwise._ */
@@ -27980,6 +28257,7 @@ export interface operations {
            * \* `too heated`
            * \* `resolved`
            * \* `spam`
+           * @enum {string}
            */
           readonly lock_reason?: "off-topic" | "too heated" | "resolved" | "spam";
         } | null;
@@ -28057,7 +28335,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue. */
+          /**
+           * @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the issue.
+           * @enum {string}
+           */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
@@ -28468,6 +28749,7 @@ export interface operations {
           /**
            * @description The state of the milestone. Either `open` or `closed`.
            * @default open
+           * @enum {string}
            */
           readonly state?: "open" | "closed";
           /** @description A description of the milestone. */
@@ -28537,6 +28819,7 @@ export interface operations {
           /**
            * @description The state of the milestone. Either `open` or `closed`.
            * @default open
+           * @enum {string}
            */
           readonly state?: "open" | "closed";
           /** @description A description of the milestone. */
@@ -28667,7 +28950,10 @@ export interface operations {
             Partial<{
               /** @description The repository branch used to publish your site's source files. */
               readonly branch: string;
-              /** @description The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`. */
+              /**
+               * @description The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`.
+               * @enum {string}
+               */
               readonly path: "/" | "/docs";
             }>;
         };
@@ -28703,6 +28989,7 @@ export interface operations {
             /**
              * @description The repository directory that includes the source files for the Pages site. Allowed paths are `/` or `/docs`. Default: `/`
              * @default /
+             * @enum {string}
              */
             readonly path?: "/" | "/docs";
           };
@@ -29103,7 +29390,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the pull request review comment. */
+          /**
+           * @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the pull request review comment.
+           * @enum {string}
+           */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
@@ -29196,7 +29486,10 @@ export interface operations {
           readonly title?: string;
           /** @description The contents of the pull request. */
           readonly body?: string;
-          /** @description State of this Pull Request. Either `open` or `closed`. */
+          /**
+           * @description State of this Pull Request. Either `open` or `closed`.
+           * @enum {string}
+           */
           readonly state?: "open" | "closed";
           /** @description The name of the branch you want your changes pulled into. This should be an existing branch on the current repository. You cannot update the base branch on a pull request to point to another repository. */
           readonly base?: string;
@@ -29278,13 +29571,19 @@ export interface operations {
           readonly path?: string;
           /** @description **Required without `comfort-fade` preview**. The position in the diff where you want to add a review comment. Note this value is not the same as the line number in the file. For help finding the position value, read the note above. */
           readonly position?: number;
-          /** @description **Required with `comfort-fade` preview**. In a split diff view, the side of the diff that the pull request's changes appear on. Can be `LEFT` or `RIGHT`. Use `LEFT` for deletions that appear in red. Use `RIGHT` for additions that appear in green or unchanged lines that appear in white and are shown for context. For a multi-line comment, side represents whether the last line of the comment range is a deletion or addition. For more information, see "[Diff view options](https://help.github.com/en/articles/about-comparing-branches-in-pull-requests#diff-view-options)" in the GitHub Help documentation. */
+          /**
+           * @description **Required with `comfort-fade` preview**. In a split diff view, the side of the diff that the pull request's changes appear on. Can be `LEFT` or `RIGHT`. Use `LEFT` for deletions that appear in red. Use `RIGHT` for additions that appear in green or unchanged lines that appear in white and are shown for context. For a multi-line comment, side represents whether the last line of the comment range is a deletion or addition. For more information, see "[Diff view options](https://help.github.com/en/articles/about-comparing-branches-in-pull-requests#diff-view-options)" in the GitHub Help documentation.
+           * @enum {string}
+           */
           readonly side?: "LEFT" | "RIGHT";
           /** @description **Required with `comfort-fade` preview**. The line of the blob in the pull request diff that the comment applies to. For a multi-line comment, the last line of the range that your comment applies to. */
           readonly line?: number;
           /** @description **Required when using multi-line comments**. To create multi-line comments, you must use the `comfort-fade` preview header. The `start_line` is the first line in the pull request diff that your multi-line comment applies to. To learn more about multi-line comments, see "[Commenting on a pull request](https://help.github.com/en/articles/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)" in the GitHub Help documentation. */
           readonly start_line?: number;
-          /** @description **Required when using multi-line comments**. To create multi-line comments, you must use the `comfort-fade` preview header. The `start_side` is the starting side of the diff that the comment applies to. Can be `LEFT` or `RIGHT`. To learn more about multi-line comments, see "[Commenting on a pull request](https://help.github.com/en/articles/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)" in the GitHub Help documentation. See `side` in this table for additional context. */
+          /**
+           * @description **Required when using multi-line comments**. To create multi-line comments, you must use the `comfort-fade` preview header. The `start_side` is the starting side of the diff that the comment applies to. Can be `LEFT` or `RIGHT`. To learn more about multi-line comments, see "[Commenting on a pull request](https://help.github.com/en/articles/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)" in the GitHub Help documentation. See `side` in this table for additional context.
+           * @enum {string}
+           */
           readonly start_side?: "LEFT" | "RIGHT" | "side";
           /** @example 2 */
           readonly in_reply_to?: number;
@@ -29442,7 +29741,10 @@ export interface operations {
           readonly commit_message?: string;
           /** @description SHA that pull request head must match to allow merge. */
           readonly sha?: string;
-          /** @description Merge method to use. Possible values are `merge`, `squash` or `rebase`. Default is `merge`. */
+          /**
+           * @description Merge method to use. Possible values are `merge`, `squash` or `rebase`. Default is `merge`.
+           * @enum {string}
+           */
           readonly merge_method?: "merge" | "squash" | "rebase";
         } | null;
       };
@@ -29586,7 +29888,10 @@ export interface operations {
           readonly commit_id?: string;
           /** @description **Required** when using `REQUEST_CHANGES` or `COMMENT` for the `event` parameter. The body text of the pull request review. */
           readonly body?: string;
-          /** @description The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. By leaving this blank, you set the review action state to `PENDING`, which means you will need to [submit the pull request review](https://docs.github.com/rest/reference/pulls#submit-a-review-for-a-pull-request) when you are ready. */
+          /**
+           * @description The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. By leaving this blank, you set the review action state to `PENDING`, which means you will need to [submit the pull request review](https://docs.github.com/rest/reference/pulls#submit-a-review-for-a-pull-request) when you are ready.
+           * @enum {string}
+           */
           readonly event?: "APPROVE" | "REQUEST_CHANGES" | "COMMENT";
           /** @description Use the following table to specify the location, destination, and contents of the draft review comment. */
           readonly comments?: readonly {
@@ -29765,7 +30070,10 @@ export interface operations {
         readonly "application/json": {
           /** @description The body text of the pull request review */
           readonly body?: string;
-          /** @description The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. When you leave this blank, the API returns _HTTP 422 (Unrecognizable entity)_ and sets the review action state to `PENDING`, which means you will need to re-submit the pull request review using a review action. */
+          /**
+           * @description The review action you want to perform. The review actions include: `APPROVE`, `REQUEST_CHANGES`, or `COMMENT`. When you leave this blank, the API returns _HTTP 422 (Unrecognizable entity)_ and sets the review action state to `PENDING`, which means you will need to re-submit the pull request review using a review action.
+           * @enum {string}
+           */
           readonly event: "APPROVE" | "REQUEST_CHANGES" | "COMMENT";
         };
       };
@@ -30415,7 +30723,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** @description The state of the status. Can be one of `error`, `failure`, `pending`, or `success`. */
+          /**
+           * @description The state of the status. Can be one of `error`, `failure`, `pending`, or `success`.
+           * @enum {string}
+           */
           readonly state: "error" | "failure" | "pending" | "success";
           /**
            * @description The target URL to associate with this status. This URL will be linked from the GitHub UI to allow users to easily see the source of the status.
@@ -31706,6 +32017,7 @@ export interface operations {
            * @example [object Object]
            */
           readonly Operations: readonly {
+            /** @enum {string} */
             readonly op: "add" | "remove" | "replace";
             readonly path?: string;
             readonly value?:
@@ -32112,6 +32424,7 @@ export interface operations {
            * \* `closed` - visible to all members of this organization.
            * **For a parent or child team:**
            * \* `closed` - visible to all members of this organization.
+           * @enum {string}
            */
           readonly privacy?: "secret" | "closed";
           /**
@@ -32120,6 +32433,7 @@ export interface operations {
            * \* `push` - team members can pull and push, but not administer newly-added repositories.
            * \* `admin` - team members can pull, push and administer newly-added repositories.
            * @default pull
+           * @enum {string}
            */
           readonly permission?: "pull" | "push" | "admin";
           /** @description The ID of a team to set as the parent team. */
@@ -32446,7 +32760,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment. */
+          /**
+           * @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment.
+           * @enum {string}
+           */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
@@ -32505,7 +32822,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion. */
+          /**
+           * @description The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion.
+           * @enum {string}
+           */
           readonly content: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         };
       };
@@ -32742,6 +33062,7 @@ export interface operations {
            * \* `member` - a normal member of the team.
            * \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
            * @default member
+           * @enum {string}
            */
           readonly role?: "member" | "maintainer";
         };
@@ -32861,6 +33182,7 @@ export interface operations {
            * \* `write` - team members can read and write, but not administer this project.
            * \* `admin` - team members can read, write and administer this project.
            * Default: the team's `permission` attribute will be used to determine what permission to grant the team on this project. Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
+           * @enum {string}
            */
           readonly permission?: "read" | "write" | "admin";
         };
@@ -32970,6 +33292,7 @@ export interface operations {
            * \* `admin` - team members can pull, push and administer this repository.
            *
            * If no permission is specified, the team's `permission` attribute will be used to determine what permission to grant the team on this repository.
+           * @enum {string}
            */
           readonly permission?: "pull" | "push" | "admin";
         };
@@ -33259,7 +33582,10 @@ export interface operations {
            * @example org@example.com
            */
           readonly email: string;
-          /** @description Denotes whether an email is publically visible. */
+          /**
+           * @description Denotes whether an email is publically visible.
+           * @enum {string}
+           */
           readonly visibility: "public" | "private";
         };
       };
@@ -33932,7 +34258,10 @@ export interface operations {
     readonly requestBody: {
       readonly content: {
         readonly "application/json": {
-          /** @description The state that the membership should be in. Only `"active"` will be accepted. */
+          /**
+           * @description The state that the membership should be in. Only `"active"` will be accepted.
+           * @enum {string}
+           */
           readonly state: "active";
         };
       };

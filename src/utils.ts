@@ -1,12 +1,16 @@
 import { OpenAPI2, OpenAPI3, ReferenceObject } from "./types";
 
 type CommentObject = {
-  title?: string; // not jsdoc
-  format?: string; // not jsdoc
+  const?: boolean; // jsdoc without value
+  default?: string; // jsdoc with value
   deprecated?: boolean; // jsdoc without value
   description?: string; // jsdoc with value
-  default?: string; // jsdoc with value
+  enum?: boolean; // jsdoc without value
   example?: string; // jsdoc with value
+  format?: string; // not jsdoc
+  nullable?: boolean; // Node information
+  title?: string; // not jsdoc
+  type: string; // Type of node
 };
 
 /**
@@ -30,6 +34,15 @@ export function prepareComment(v: CommentObject): string | void {
   for (let index = 0; index < supportedJsDocTags.length; index++) {
     const field = supportedJsDocTags[index];
     if (v[field]) commentsArray.push(`@${field} ${v[field]} `);
+  }
+
+  // * JSDOC 'Constant' without value
+  if (v.const) commentsArray.push(`@constant `);
+
+  // * JSDOC 'Enum' with type
+  if (v.enum) {
+    const canBeNull = v.nullable ? `|${null}` : "";
+    commentsArray.push(`@enum {${v.type}${canBeNull}}`);
   }
 
   if (!commentsArray.length) return;
@@ -68,6 +81,25 @@ export function isRef(obj: any): obj is ReferenceObject {
   return !!obj.$ref;
 }
 
+export type ParsedSimpleValue = string | number | boolean;
+
+/**
+ * For parsing CONST / ENUM single values
+ * @param value - node.const or node.enum[I] for parsing
+ * @param isNodeNullable  - node.nullable
+ * @returns parsed value
+ */
+export function parseSingleSimpleValue(value: unknown, isNodeNullable = false): ParsedSimpleValue {
+  if (typeof value === "string") return `'${value.replace(/'/g, "\\'")}'`;
+
+  if (typeof value === "number" || typeof value === "boolean") return value;
+
+  if (value === null && !isNodeNullable) return "null";
+
+  // Edge case
+  return `${value}`;
+}
+
 /** Return type of node (works for v2 or v3, as there are no conflicting types) */
 type SchemaObjectType =
   | "anyOf"
@@ -79,6 +111,7 @@ type SchemaObjectType =
   | "oneOf"
   | "ref"
   | "string"
+  | "const"
   | "unknown";
 export function nodeType(obj: any): SchemaObjectType {
   if (!obj || typeof obj !== "object") {
@@ -87,6 +120,11 @@ export function nodeType(obj: any): SchemaObjectType {
 
   if (obj.$ref) {
     return "ref";
+  }
+
+  // const
+  if (obj.const) {
+    return "const";
   }
 
   // enum
