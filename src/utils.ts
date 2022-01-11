@@ -218,6 +218,8 @@ export function tsTupleOf(types: string[]): string {
 export function tsIntersectionOf(types: string[]): string {
   const typesWithValues = types.filter(Boolean);
 
+  if (!typesWithValues.length) return "undefined"; // usually allOf/anyOf with empty input - so it's undefined
+
   if (typesWithValues.length === 1) return typesWithValues[0]; // don’t add parentheses around one thing
   return `(${typesWithValues.join(") & (")})`;
 }
@@ -233,6 +235,8 @@ export function tsReadonly(immutable: boolean): string {
 
 /** Convert [X, Y, Z] into X | Y | Z */
 export function tsUnionOf(types: Array<string | number | boolean>): string {
+  if (!types.length) return "undefined"; // usually oneOf with empty input - so it's undefined
+
   if (types.length === 1) return `${types[0]}`; // don’t add parentheses around one thing
   return `(${types.join(") | (")})`;
 }
