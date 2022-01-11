@@ -1,7 +1,7 @@
 {
   "name": "openapi-typescript",
   "description": "Generate TypeScript types from Swagger OpenAPI specs",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "engines": {
     "node": ">= 12.0.0",
     "npm": ">= 7.0.0"
