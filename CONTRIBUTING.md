@@ -7,9 +7,10 @@ Project on GitHub][egghead]
 
 ## Project setup
 
-1.  Fork and clone the repo
-2.  Run `npm install` to install dependencies
-3.  Create a branch for your PR with `git checkout -b pr/your-branch-name`
+1. Install [pnpm](https://pnpm.io/)
+2. Fork and clone the repo
+3. Run `pnpm i` to install dependencies
+4. Create a branch for your PR with `git checkout -b pr/your-branch-name`
 
 It’s also recommended you have [ESLint][eslint] installed and set up correctly. You may also run the command
 `npm run lint` to see lint errors.
@@ -70,16 +71,6 @@ Please check out the [the open issues][issues]. Issues labelled [**Help Wanted**
 Issue**][good-first-issue] are especially good to help with.
 
 Also, please watch the repo and respond to questions/bug reports/feature requests! Thanks!
-
-## Deploying (access only)
-
-If you have access to the npm project, run the following:
-
-```bash
-npm run deploy
-```
-
-Follow the prompts to release.
 
 [all-contributors]: https://github.com/all-contributors/all-contributors
 [egghead]: https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github
