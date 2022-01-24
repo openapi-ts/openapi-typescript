@@ -1,4 +1,4 @@
-import type { GlobalContext } from "../types";
+import type { GlobalContext } from "../types.js";
 import {
   prepareComment,
   nodeType,

@@ -1,4 +1,4 @@
-import type { GlobalContext } from "../types";
+import type { GlobalContext } from "../types.js";
 import { comment, tsReadonly } from "../utils.js";
 import { transformHeaderObjMap } from "./headers.js";
 import { transformSchemaObj } from "./schema.js";

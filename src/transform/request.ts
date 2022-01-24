@@ -1,4 +1,4 @@
-import type { GlobalContext, RequestBody } from "../types";
+import type { GlobalContext, RequestBody } from "../types.js";
 import { comment, tsReadonly } from "../utils.js";
 import { transformSchemaObj } from "./schema.js";
 

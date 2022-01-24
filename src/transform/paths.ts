@@ -1,4 +1,4 @@
-import type { GlobalContext, OperationObject, ParameterObject, PathItemObject } from "../types";
+import type { GlobalContext, OperationObject, ParameterObject, PathItemObject } from "../types.js";
 import { comment, tsReadonly } from "../utils.js";
 import { transformOperationObj } from "./operation.js";
 import { transformParametersArray } from "./parameters.js";

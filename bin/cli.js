@@ -4,7 +4,7 @@ import fs from "fs";
 import path from "path";
 import glob from "tiny-glob";
 import parser from "yargs-parser";
-import openapiTS from "../dist/esm/index.js";
+import openapiTS from "../dist/index.js";
 
 const GREEN = "\u001b[32m";
 const BOLD = "\u001b[1m";

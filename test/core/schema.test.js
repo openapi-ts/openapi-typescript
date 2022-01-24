@@ -2,7 +2,7 @@
  * Tests raw generation, pre-Prettier
  */
 import { expect } from "chai";
-import { transformSchemaObj as transform } from "../../dist/esm/transform/schema.js";
+import { transformSchemaObj as transform } from "../../dist/transform/schema.js";
 
 const defaults = {
   additionalProperties: false,

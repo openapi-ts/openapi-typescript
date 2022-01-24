@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { transformParametersArray } from "../../dist/esm/transform/parameters.js";
+import { transformParametersArray } from "../../dist/transform/parameters.js";
 
 const defaults = {
   additionalProperties: false,
