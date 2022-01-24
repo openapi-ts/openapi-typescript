@@ -1,4 +1,4 @@
-import type { GlobalContext, ParameterObject, ReferenceObject } from "../types";
+import type { GlobalContext, ParameterObject, ReferenceObject } from "../types.js";
 import { comment, tsReadonly } from "../utils.js";
 import { transformSchemaObj } from "./schema.js";
 

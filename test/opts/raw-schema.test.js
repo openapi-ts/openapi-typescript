@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import openapiTS from "../../dist/esm/index.js";
+import openapiTS from "../../dist/index.js";
 
 describe("rawSchema", () => {
   it("v2", async () => {

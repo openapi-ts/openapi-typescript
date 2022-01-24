@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import prettier from "prettier";
-import { transformPathsObj as transform } from "../../dist/esm/transform/paths.js";
+import { transformPathsObj as transform } from "../../dist/transform/paths.js";
 
 function format(source) {
   return prettier.format(`export interface paths {\n${source}\n}`, { parser: "typescript" });

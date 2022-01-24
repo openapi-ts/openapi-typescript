@@ -4,7 +4,7 @@ import eol from "eol";
 import fs from "fs";
 import yaml from "js-yaml";
 import { fileURLToPath } from "url";
-import openapiTS from "../../dist/esm/index.js";
+import openapiTS from "../../dist/index.js";
 
 const cmd = `node ../../bin/cli.js`;
 const cwd = new URL(".", import.meta.url);

@@ -1,4 +1,4 @@
-import { OpenAPI2, OpenAPI3, ReferenceObject } from "./types";
+import type { OpenAPI2, OpenAPI3, ReferenceObject } from "./types.js";
 
 type CommentObject = {
   const?: boolean; // jsdoc without value

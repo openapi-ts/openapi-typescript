@@ -3,7 +3,7 @@ import { execSync } from "child_process";
 import eol from "eol";
 import fs from "fs";
 import yaml from "js-yaml";
-import openapiTS from "../../dist/esm/index.js";
+import openapiTS from "../../dist/index.js";
 import { fileURLToPath } from "url";
 
 const cmd = `node ../../bin/cli.js`;

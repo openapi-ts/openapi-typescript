@@ -1,4 +1,4 @@
-import type { GlobalContext, OpenAPI2, OpenAPI3, SchemaObject, SwaggerToTSOptions } from "./types";
+import type { GlobalContext, OpenAPI2, OpenAPI3, SchemaObject, SwaggerToTSOptions } from "./types.js";
 import path from "path";
 import prettier from "prettier";
 import parserTypescript from "prettier/parser-typescript.js";

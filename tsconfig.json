@@ -7,7 +7,7 @@
     "lib": ["ES2018"],
     "moduleResolution": "Node",
     "noImplicitReturns": true,
-    "outDir": "./dist/esm",
+    "outDir": "./dist",
     "removeComments": true,
     "sourceMap": true,
     "strict": true,

@@ -1,5 +1,6 @@
-import type { GlobalContext, Headers } from "./types";
-import fetch from "node-fetch";
+import type { GlobalContext, Headers } from "./types.js";
+import type { Dispatcher } from "undici";
+import { request } from "undici";
 import fs from "fs";
 import path from "path";
 import { URL } from "url";
@@ -136,9 +137,10 @@ export default async function load(
         }
       }
 
-      const res = await fetch(schemaID, { method: options.httpMethod || "GET", headers });
-      contentType = res.headers.get("Content-Type") || "";
-      contents = await res.text();
+      const res = await request(schemaID, { method: (options.httpMethod as Dispatcher.HttpMethod) || "GET", headers });
+      if (Array.isArray(res.headers["Content-Type"])) contentType = res.headers["Content-Type"][0];
+      else if (res.headers["Content-Type"]) contentType = res.headers["Content-Type"];
+      contents = await res.body.text();
     }
 
     const isYAML = contentType === "application/openapi+yaml" || contentType === "text/yaml";

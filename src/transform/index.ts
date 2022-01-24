@@ -1,4 +1,4 @@
-import type { GlobalContext, OperationObject, PathItemObject } from "../types";
+import type { GlobalContext, OperationObject, PathItemObject } from "../types.js";
 import { comment, tsReadonly } from "../utils.js";
 import { transformHeaderObjMap } from "./headers.js";
 import { transformOperationObj } from "./operation.js";

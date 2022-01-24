@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import prettier from "prettier";
-import { transformRequestBodies } from "../../dist/esm/transform/request.js";
+import { transformRequestBodies } from "../../dist/transform/request.js";
 
 const defaults = {
   additionalProperties: false,

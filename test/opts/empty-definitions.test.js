@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import eol from "eol";
 import fs from "fs";
-import openapiTS from "../../dist/esm/index.js";
+import openapiTS from "../../dist/index.js";
 
 describe("allow empty definitions", () => {
   const schema = {

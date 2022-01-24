@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { transformOperationObj } from "../../dist/esm/transform/operation.js";
+import { transformOperationObj } from "../../dist/transform/operation.js";
 
 const defaults = {
   additionalProperties: false,

@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import fs from "fs";
 import eol from "eol";
-import openapiTS from "../../dist/esm/index.js";
+import openapiTS from "../../dist/index.js";
 
 describe("remote $refs", () => {
   it("resolves remote $refs", async () => {
