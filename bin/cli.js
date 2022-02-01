@@ -140,6 +140,13 @@ async function main() {
     return;
   }
 
+  // handle stdin schema, exit
+  if (pathToSpec === "-") {
+    if (output !== "." && output === OUTPUT_FILE) fs.mkdirSync(path.dirname(flags.output), { recursive: true });
+    await generateSchema("/dev/stdin");
+    return;
+  }
+
   // handle local schema(s)
   const inputSpecPaths = await glob(pathToSpec, { filesOnly: true });
   const isGlob = inputSpecPaths.length > 1;
