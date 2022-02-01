@@ -41,6 +41,7 @@ async function openapiTS(
     immutableTypes: options.immutableTypes || false,
     rawSchema: options.rawSchema || false,
     version: options.version || 3,
+    supportArrayLength: options.supportArrayLength,
   } as any;
 
   // note: we may be loading many large schemas into memory at once; take care to reuse references without cloning

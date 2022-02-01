@@ -42,7 +42,7 @@ function errorAndExit(errorMessage) {
 const [, , input, ...args] = process.argv;
 const flags = parser(args, {
   array: ["header"],
-  boolean: ["defaultNonNullable", "immutableTypes", "rawSchema", "exportType"],
+  boolean: ["defaultNonNullable", "immutableTypes", "rawSchema", "exportType", "supportArrayLength"],
   number: ["version"],
   string: ["auth", "header", "headersObject", "httpMethod", "prettierConfig"],
   alias: {
@@ -92,6 +92,7 @@ async function generateSchema(pathToSpec) {
     httpHeaders,
     httpMethod: flags.httpMethod,
     exportType: flags.exportType,
+    supportArrayLength: flags.supportArrayLength,
   });
 
   // output
