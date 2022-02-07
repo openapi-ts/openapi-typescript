@@ -58,3 +58,39 @@ export function transformPathsObj(paths: Record<string, PathItemObject>, options
 
   return output;
 }
+
+/**
+ * Generate an Enum with operation names as keys and the corresponding paths as values.
+ */
+export function makeApiPathsEnum(paths: Record<string, PathItemObject>): string {
+  let output = "enum ApiPaths {\n";
+
+  for (const [url, pathItem] of Object.entries(paths)) {
+    for (const [method, operation] of Object.entries(pathItem)) {
+      if (!["get", "put", "post", "delete", "options", "head", "patch", "trace"].includes(method)) continue;
+
+      // Generate a name from the operation ID
+      let pathName: string;
+      if (operation.operationId) pathName = operation.operationId;
+      else {
+        // If the operation ID is not present, construct a name from the method and path
+        pathName = (method + url)
+          .split("/")
+          .map((part) => {
+            const capitalised = part.charAt(0).toUpperCase() + part.slice(1);
+
+            // Remove any characters not allowed as enum keys, and attempt to remove
+            //  named parameters.
+            return capitalised.replace(/{.*}|:.*|[^a-zA-Z\d_]+/, "");
+          })
+          .join("");
+      }
+
+      output += `  ${pathName} = "${url}",\n`;
+    }
+  }
+
+  output += "\n}";
+
+  return output;
+}

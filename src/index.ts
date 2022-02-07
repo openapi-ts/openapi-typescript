@@ -1,3 +1,4 @@
+import { makeApiPathsEnum } from "./transform/paths.js";
 import type { GlobalContext, OpenAPI2, OpenAPI3, SchemaObject, SwaggerToTSOptions } from "./types.js";
 import path from "path";
 import prettier from "prettier";
@@ -45,7 +46,7 @@ async function openapiTS(
 
   // note: we may be loading many large schemas into memory at once; take care to reuse references without cloning
 
-  const isInlineSchema = typeof schema != "string" && schema instanceof URL == false;
+  const isInlineSchema = typeof schema != "string" && !(schema instanceof URL);
 
   // 1. load schema
   let rootSchema: Record<string, any> = {};
@@ -95,6 +96,9 @@ async function openapiTS(
     output += `  }\n`;
   }
   output += `}\n\n`;
+
+  // 2c. add paths enum
+  if (rootSchema.paths) output += makeApiPathsEnum(rootSchema.paths);
 
   // 3. Prettify
   let prettierOptions: prettier.Options = {
