@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/main/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-46-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-47-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -305,6 +305,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://ottomated.net"><img src="https://avatars.githubusercontent.com/u/31470743?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ottomated</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=ottomated" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Aottomated" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://karanarqq.dev"><img src="https://avatars.githubusercontent.com/u/28733669?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Artem Shuvaev</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=sadfsdfdsa" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Asadfsdfdsa" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/ajaishankar"><img src="https://avatars.githubusercontent.com/u/328008?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ajaishankar</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=ajaishankar" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://www.dominikdosoudil.cz"><img src="https://avatars.githubusercontent.com/u/15929942?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dominik Dosoudil</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=dominikdosoudil" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=dominikdosoudil" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
