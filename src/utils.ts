@@ -105,13 +105,13 @@ type SchemaObjectType =
   | "anyOf"
   | "array"
   | "boolean"
+  | "const"
   | "enum"
   | "number"
   | "object"
   | "oneOf"
   | "ref"
   | "string"
-  | "const"
   | "unknown";
 export function nodeType(obj: any): SchemaObjectType {
   if (!obj || typeof obj !== "object") {
@@ -138,12 +138,19 @@ export function nodeType(obj: any): SchemaObjectType {
   }
 
   // string
-  if (["binary", "byte", "date", "dateTime", "password", "string"].includes(obj.type)) {
+  if (
+    obj.type === "string" ||
+    obj.type === "binary" ||
+    obj.type === "byte" ||
+    obj.type === "date" ||
+    obj.type === "dateTime" ||
+    obj.type === "password"
+  ) {
     return "string";
   }
 
   // number
-  if (["double", "float", "integer", "number"].includes(obj.type)) {
+  if (obj.type === "integer" || obj.type === "number" || obj.type === "float" || obj.type === "double") {
     return "number";
   }
 
