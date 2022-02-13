@@ -151,14 +151,16 @@ npx openapi-typescript schema.yaml
 | :----------------------------- | :---- | :------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
 | `--output [location]`          | `-o`  | (stdout) | Where should the output file be saved?                                                                                                  |
 | `--auth [token]`               |       |          | (optional) Provide an auth token to be passed along in the request (only if accessing a private schema)                                 |
+| `--header`                     | `-x`  |          | (optional) Provide an array of or singular headers as an alternative to a JSON object. Each header must follow the `key: value` pattern |
+| `--headersObject`              | `-h`  |          | (optional) Provide a JSON object as string of HTTP headers for remote schema request. This will take priority over `--header`           |
+| `--httpMethod`                 | `-m`  | `GET`    | (optional) Provide the HTTP Verb/Method for fetching a schema from a remote URL                                                         |
 | `--immutable-types`            | `-it` | `false`  | (optional) Generates immutable types (readonly properties and readonly array)                                                           |
 | `--additional-properties`      | `-ap` | `false`  | (optional) Allow arbitrary properties for all schema objects without `additionalProperties: false`                                      |
 | `--default-non-nullable`       |       | `false`  | (optional) Treat schema objects with default values as non-nullable                                                                     |
 | `--prettier-config [location]` | `-c`  |          | (optional) Path to your custom Prettier configuration for output                                                                        |
+| `--export-type`                |       | `false`  | (optional) Export `type` instead of `interface`                                                                                         |
 | `--raw-schema`                 |       | `false`  | Generate TS types from partial schema (e.g. having `components.schema` at the top level)                                                |
-| `--httpMethod`                 | `-m`  | `GET`    | (optional) Provide the HTTP Verb/Method for fetching a schema from a remote URL                                                         |
-| `--headersObject`              | `-h`  |          | (optional) Provide a JSON object as string of HTTP headers for remote schema request. This will take priority over `--header`           |
-| `--header`                     | `-x`  |          | (optional) Provide an array of or singular headers as an alternative to a JSON object. Each header must follow the `key: value` pattern |
+| `--version`                    |       |          | Force OpenAPI version with `--version 3` or `--version 2` (required for `--raw-schema` when version is unknown)                         |
 
 ### 🐢 Node
 
