@@ -3,7 +3,7 @@
   "description": "Generate TypeScript types from Swagger OpenAPI specs",
   "version": "5.1.1",
   "engines": {
-    "node": ">= 12.0.0",
+    "node": ">= 14.0.0",
     "npm": ">= 7.0.0"
   },
   "author": "drew@pow.rs",
@@ -53,23 +53,23 @@
     "mime": "^3.0.0",
     "prettier": "^2.5.1",
     "tiny-glob": "^0.2.9",
-    "undici": "^4.12.2",
+    "undici": "^4.14.1",
     "yargs-parser": "^21.0.0"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.5",
     "@types/mime": "^2.0.3",
-    "@types/node": "^17.0.10",
-    "@types/prettier": "^2.4.3",
-    "@typescript-eslint/eslint-plugin": "^5.10.0",
-    "@typescript-eslint/parser": "^5.10.0",
-    "chai": "^4.3.4",
+    "@types/node": "^17.0.17",
+    "@types/prettier": "^2.4.4",
+    "@typescript-eslint/eslint-plugin": "^5.11.0",
+    "@typescript-eslint/parser": "^5.11.0",
+    "chai": "^4.3.6",
     "codecov": "^3.8.3",
     "eol": "^0.9.1",
-    "eslint": "^8.7.0",
+    "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "mocha": "^9.1.4",
+    "mocha": "^9.2.0",
     "nyc": "^15.1.0",
     "typescript": "^4.5.5"
   }
