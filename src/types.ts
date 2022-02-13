@@ -151,6 +151,10 @@ export interface SwaggerToTSOptions {
    * @default {string} GET
    */
   httpMethod?: string;
+  /**
+   * (optional) Export type instead of interface
+   */
+  exportType?: boolean;
 }
 
 /** Context passed to all submodules */

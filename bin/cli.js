@@ -25,6 +25,7 @@ Options
   --default-non-nullable       (optional) If a schema object has a default value set, don’t mark it as nullable
   --prettier-config, -c        (optional) specify path to Prettier config file
   --raw-schema                 (optional) Parse as partial schema (raw components)
+  --export-type                (optional) Export type instead of interface
   --version                    (optional) Force schema parsing version
 `;
 
@@ -41,7 +42,7 @@ function errorAndExit(errorMessage) {
 const [, , input, ...args] = process.argv;
 const flags = parser(args, {
   array: ["header"],
-  boolean: ["defaultNonNullable", "immutableTypes", "rawSchema"],
+  boolean: ["defaultNonNullable", "immutableTypes", "rawSchema", "exportType"],
   number: ["version"],
   string: ["auth", "header", "headersObject", "httpMethod", "prettierConfig"],
   alias: {
@@ -90,6 +91,7 @@ async function generateSchema(pathToSpec) {
     version: flags.version,
     httpHeaders,
     httpMethod: flags.httpMethod,
+    exportType: flags.exportType,
   });
 
   // output
