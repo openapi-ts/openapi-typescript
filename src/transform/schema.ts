@@ -16,6 +16,8 @@ interface TransformSchemaObjOptions extends GlobalContext {
   required: Set<string>;
 }
 
+const EOF_RE = /\n+$/;
+
 function hasDefaultValue(node: any): boolean {
   if (node.hasOwnProperty("default")) return true;
   // if (node.hasOwnProperty("$ref")) return true; // TODO: resolve remote $refs?
@@ -46,7 +48,7 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
     output += `;\n`;
   }
 
-  return output.replace(/\n+$/, "\n"); // replace repeat line endings with only one
+  return output.replace(EOF_RE, "\n"); // replace repeat line endings with only one
 }
 
 /** make sure all required fields exist **/

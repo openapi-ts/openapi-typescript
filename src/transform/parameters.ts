@@ -6,6 +6,8 @@ interface TransformParametersOptions extends GlobalContext {
   globalParameters?: Record<string, ParameterObject>;
 }
 
+const PARAM_END_RE = /"\]$/;
+
 export function transformParametersArray(
   parameters: (ReferenceObject | ParameterObject)[],
   options: TransformParametersOptions
@@ -19,7 +21,7 @@ export function transformParametersArray(
   let mappedParams: Record<string, Record<string, ParameterObject>> = {};
   for (const paramObj of parameters as any[]) {
     if (paramObj.$ref && globalParameters) {
-      const paramName = paramObj.$ref.split('["').pop().replace(/"\]$/, ""); // take last segment
+      const paramName = paramObj.$ref.split('["').pop().replace(PARAM_END_RE, ""); // take last segment
       if (globalParameters[paramName]) {
         const reference = globalParameters[paramName] as any;
         if (!mappedParams[reference.in]) mappedParams[reference.in] = {};

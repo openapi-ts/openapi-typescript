@@ -13,6 +13,15 @@ type CommentObject = {
   type: string; // Type of node
 };
 
+const COMMENT_RE = /\*\//g;
+const LB_RE = /\r?\n/g;
+const DOUBLE_QUOTE_RE = /"/g;
+const SINGLE_QUOTE_RE = /'/g;
+const ESC_0_RE = /\~0/g;
+const ESC_1_RE = /\~1/g;
+const TILDE_RE = /\~/g;
+const FS_RE = /\//g;
+
 /**
  * Preparing comments from fields
  * @see {comment} for output examples
@@ -51,7 +60,7 @@ export function prepareComment(v: CommentObject): string | void {
 }
 
 export function comment(text: string): string {
-  const commentText = text.trim().replace(/\*\//g, "*\\/");
+  const commentText = text.trim().replace(COMMENT_RE, "*\\/");
 
   // if single-line comment
   if (commentText.indexOf("\n") === -1) {
@@ -60,7 +69,7 @@ export function comment(text: string): string {
 
   // if multi-line comment
   return `/**
-  * ${commentText.replace(/\r?\n/g, "\n  * ")}
+  * ${commentText.replace(LB_RE, "\n  * ")}
   */\n`;
 }
 
@@ -90,7 +99,7 @@ export type ParsedSimpleValue = string | number | boolean;
  * @returns parsed value
  */
 export function parseSingleSimpleValue(value: unknown, isNodeNullable = false): ParsedSimpleValue {
-  if (typeof value === "string") return `'${value.replace(/'/g, "\\'")}'`;
+  if (typeof value === "string") return `'${value.replace(SINGLE_QUOTE_RE, "\\'")}'`;
 
   if (typeof value === "number" || typeof value === "boolean") return value;
 
@@ -105,13 +114,13 @@ type SchemaObjectType =
   | "anyOf"
   | "array"
   | "boolean"
+  | "const"
   | "enum"
   | "number"
   | "object"
   | "oneOf"
   | "ref"
   | "string"
-  | "const"
   | "unknown";
 export function nodeType(obj: any): SchemaObjectType {
   if (!obj || typeof obj !== "object") {
@@ -138,12 +147,19 @@ export function nodeType(obj: any): SchemaObjectType {
   }
 
   // string
-  if (["binary", "byte", "date", "dateTime", "password", "string"].includes(obj.type)) {
+  if (
+    obj.type === "string" ||
+    obj.type === "binary" ||
+    obj.type === "byte" ||
+    obj.type === "date" ||
+    obj.type === "dateTime" ||
+    obj.type === "password"
+  ) {
     return "string";
   }
 
   // number
-  if (["double", "float", "integer", "number"].includes(obj.type)) {
+  if (obj.type === "integer" || obj.type === "number" || obj.type === "float" || obj.type === "double") {
     return "number";
   }
 
@@ -196,12 +212,12 @@ export function swaggerVersion(definition: OpenAPI2 | OpenAPI3): 2 | 3 {
 
 /** Decode $ref (https://swagger.io/docs/specification/using-ref/#escape) */
 export function decodeRef(ref: string): string {
-  return ref.replace(/\~0/g, "~").replace(/\~1/g, "/").replace(/"/g, '\\"');
+  return ref.replace(ESC_0_RE, "~").replace(ESC_1_RE, "/").replace(DOUBLE_QUOTE_RE, '\\"');
 }
 
 /** Encode $ref (https://swagger.io/docs/specification/using-ref/#escape) */
 export function encodeRef(ref: string): string {
-  return ref.replace(/\~/g, "~0").replace(/\//g, "~1");
+  return ref.replace(TILDE_RE, "~0").replace(FS_RE, "~1");
 }
 
 /** Convert T into T[]; */
