@@ -155,6 +155,9 @@ export interface SwaggerToTSOptions {
    * (optional) Export type instead of interface
    */
   exportType?: boolean;
+  /**
+   * (optional) Generate tuples using array minItems / maxItems
+   */
   supportArrayLength?: boolean;
 }
 

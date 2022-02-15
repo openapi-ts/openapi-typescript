@@ -26,6 +26,7 @@ Options
   --prettier-config, -c        (optional) specify path to Prettier config file
   --raw-schema                 (optional) Parse as partial schema (raw components)
   --export-type                (optional) Export type instead of interface
+  --support-array-length       (optional) Generate tuples using array minItems / maxItems
   --version                    (optional) Force schema parsing version
 `;
 
