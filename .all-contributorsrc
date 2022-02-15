@@ -490,6 +490,16 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "kgtkr",
+      "name": "tkr",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17868838?v=4",
+      "profile": "https://kgtkr.net/",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
