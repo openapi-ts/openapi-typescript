@@ -159,6 +159,7 @@ npx openapi-typescript schema.yaml
 | `--default-non-nullable`       |       | `false`  | (optional) Treat schema objects with default values as non-nullable                                                                     |
 | `--prettier-config [location]` | `-c`  |          | (optional) Path to your custom Prettier configuration for output                                                                        |
 | `--export-type`                |       | `false`  | (optional) Export `type` instead of `interface`                                                                                         |
+| `--support-array-length`       |       | `false`  | (optional) Generate tuples using array minItems / maxItems                                                                              |
 | `--raw-schema`                 |       | `false`  | Generate TS types from partial schema (e.g. having `components.schema` at the top level)                                                |
 | `--version`                    |       |          | Force OpenAPI version with `--version 3` or `--version 2` (required for `--raw-schema` when version is unknown)                         |
 

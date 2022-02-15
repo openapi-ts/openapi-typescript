@@ -155,6 +155,10 @@ export interface SwaggerToTSOptions {
    * (optional) Export type instead of interface
    */
   exportType?: boolean;
+  /**
+   * (optional) Generate tuples using array minItems / maxItems
+   */
+  supportArrayLength?: boolean;
 }
 
 /** Context passed to all submodules */
@@ -169,4 +173,5 @@ export interface GlobalContext {
   namespace?: string;
   rawSchema: boolean;
   version: number;
+  supportArrayLength?: boolean;
 }

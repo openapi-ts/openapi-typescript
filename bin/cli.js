@@ -26,6 +26,7 @@ Options
   --prettier-config, -c        (optional) specify path to Prettier config file
   --raw-schema                 (optional) Parse as partial schema (raw components)
   --export-type                (optional) Export type instead of interface
+  --support-array-length       (optional) Generate tuples using array minItems / maxItems
   --version                    (optional) Force schema parsing version
 `;
 
@@ -42,7 +43,7 @@ function errorAndExit(errorMessage) {
 const [, , input, ...args] = process.argv;
 const flags = parser(args, {
   array: ["header"],
-  boolean: ["defaultNonNullable", "immutableTypes", "rawSchema", "exportType"],
+  boolean: ["defaultNonNullable", "immutableTypes", "rawSchema", "exportType", "supportArrayLength"],
   number: ["version"],
   string: ["auth", "header", "headersObject", "httpMethod", "prettierConfig"],
   alias: {
@@ -92,6 +93,7 @@ async function generateSchema(pathToSpec) {
     httpHeaders,
     httpMethod: flags.httpMethod,
     exportType: flags.exportType,
+    supportArrayLength: flags.supportArrayLength,
   });
 
   // output
