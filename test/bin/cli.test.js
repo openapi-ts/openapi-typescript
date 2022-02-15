@@ -34,6 +34,15 @@ describe("cli", () => {
     expect(generated.toString("utf8")).to.equal(expected);
   });
 
+  it("stdin", async () => {
+    execSync(`${cmd} - -o generated/stdin.ts < ./specs/petstore.yaml`, {
+      cwd,
+    });
+    const generated = fs.readFileSync(new URL("./generated/stdin.ts", cwd), "utf8");
+    const expected = eol.lf(fs.readFileSync(new URL("./expected/stdin.ts", cwd), "utf8"));
+    expect(generated).to.equal(expected);
+  });
+
   it("supports glob paths", async () => {
     execSync(`${cmd} "specs/*.yaml" -o generated/`, { cwd }); // Quotes are necessary because shells like zsh treats glob weirdly
     const generatedPetstore = fs.readFileSync(new URL("./generated/specs/petstore.ts", cwd), "utf8");
