@@ -86,7 +86,10 @@ export function makeApiPathsEnum(paths: Record<string, PathItemObject>): string 
           .join("");
       }
 
-      output += `  ${pathName} = "${url}",\n`;
+      // Replace {parameters} with :parameters
+      const adaptedUrl = url.replace(/{(\w+)}/g, ":$1");
+
+      output += `  ${pathName} = "${adaptedUrl}",\n`;
     }
   }
 
