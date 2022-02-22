@@ -41,8 +41,9 @@ async function openapiTS(
     formatter: options && typeof options.formatter === "function" ? options.formatter : undefined,
     immutableTypes: options.immutableTypes || false,
     rawSchema: options.rawSchema || false,
+    makePathsEnum: options.makePathsEnum || false,
     version: options.version || 3,
-  } as any;
+  };
 
   // note: we may be loading many large schemas into memory at once; take care to reuse references without cloning
 
@@ -98,7 +99,7 @@ async function openapiTS(
   output += `}\n\n`;
 
   // 2c. add paths enum
-  if (rootSchema.paths) output += makeApiPathsEnum(rootSchema.paths);
+  if (ctx.makePathsEnum && rootSchema.paths) output += makeApiPathsEnum(rootSchema.paths);
 
   // 3. Prettify
   let prettierOptions: prettier.Options = {

@@ -132,6 +132,8 @@ export interface SwaggerToTSOptions {
   prettierConfig?: string;
   /** (optional) Parsing input document as raw schema rather than OpenAPI document */
   rawSchema?: boolean;
+  /** (optional) Generate an enum containing all API paths. **/
+  makePathsEnum?: boolean;
   /** (optional) Should logging be suppressed? (necessary for STDOUT) */
   silent?: boolean;
   /** (optional) OpenAPI version. Must be present if parsing raw schema */
@@ -164,5 +166,6 @@ export interface GlobalContext {
   silent?: boolean;
   namespace?: string;
   rawSchema: boolean;
+  makePathsEnum: boolean;
   version: number;
 }
