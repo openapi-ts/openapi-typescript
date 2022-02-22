@@ -16630,7 +16630,7 @@ export interface components {
      */
     "scim-user": {
       /** @description SCIM schema used. */
-      schemas: string[];
+      schemas: [string, ...string[]];
       /**
        * @description Unique identifier of an external identity
        * @example 1b78eada-9baa-11e6-9eb6-a431576d590e
@@ -16661,10 +16661,16 @@ export interface components {
        * @description user emails
        * @example [object Object],[object Object]
        */
-      emails: {
-        value: string;
-        primary?: boolean;
-      }[];
+      emails: [
+        {
+          value: string;
+          primary?: boolean;
+        },
+        ...{
+          value: string;
+          primary?: boolean;
+        }[]
+      ];
       /**
        * @description The active status of the User.
        * @example true
@@ -16695,12 +16701,20 @@ export interface components {
        * @description Set of operations to be performed
        * @example [object Object]
        */
-      operations?: {
-        /** @enum {string} */
-        op: "add" | "remove" | "replace";
-        path?: string;
-        value?: string | { [key: string]: unknown } | unknown[];
-      }[];
+      operations?: [
+        {
+          /** @enum {string} */
+          op: "add" | "remove" | "replace";
+          path?: string;
+          value?: string | { [key: string]: unknown } | unknown[];
+        },
+        ...{
+          /** @enum {string} */
+          op: "add" | "remove" | "replace";
+          path?: string;
+          value?: string | { [key: string]: unknown } | unknown[];
+        }[]
+      ];
       /** @description associated groups */
       groups?: {
         value?: string;
@@ -16713,7 +16727,7 @@ export interface components {
      */
     "scim-user-list": {
       /** @description SCIM schema used. */
-      schemas: string[];
+      schemas: [string, ...string[]];
       /** @example 3 */
       totalResults: number;
       /** @example 10 */
@@ -29136,14 +29150,62 @@ export interface operations {
             }[];
           };
           /** @description Displays a button on GitHub that can be clicked to alert your app to do additional tasks. For example, a code linting app can display a button that automatically fixes detected errors. The button created in this object is displayed after the check run completes. When a user clicks the button, GitHub sends the [`check_run.requested_action` webhook](https://docs.github.com/webhooks/event-payloads/#check_run) to your app. Each action includes a `label`, `identifier` and `description`. A maximum of three actions are accepted. See the [`actions` object](https://docs.github.com/rest/reference/checks#actions-object) description. To learn more about check runs and requested actions, see "[Check runs and requested actions](https://docs.github.com/rest/reference/checks#check-runs-and-requested-actions)." */
-          actions?: {
-            /** @description The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
-            label: string;
-            /** @description A short explanation of what this action would do. The maximum size is 40 characters. */
-            description: string;
-            /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
-            identifier: string;
-          }[];
+          actions?:
+            | []
+            | [
+                {
+                  /** @description The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
+                  label: string;
+                  /** @description A short explanation of what this action would do. The maximum size is 40 characters. */
+                  description: string;
+                  /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
+                  identifier: string;
+                }
+              ]
+            | [
+                {
+                  /** @description The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
+                  label: string;
+                  /** @description A short explanation of what this action would do. The maximum size is 40 characters. */
+                  description: string;
+                  /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
+                  identifier: string;
+                },
+                {
+                  /** @description The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
+                  label: string;
+                  /** @description A short explanation of what this action would do. The maximum size is 40 characters. */
+                  description: string;
+                  /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
+                  identifier: string;
+                }
+              ]
+            | [
+                {
+                  /** @description The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
+                  label: string;
+                  /** @description A short explanation of what this action would do. The maximum size is 40 characters. */
+                  description: string;
+                  /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
+                  identifier: string;
+                },
+                {
+                  /** @description The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
+                  label: string;
+                  /** @description A short explanation of what this action would do. The maximum size is 40 characters. */
+                  description: string;
+                  /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
+                  identifier: string;
+                },
+                {
+                  /** @description The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
+                  label: string;
+                  /** @description A short explanation of what this action would do. The maximum size is 40 characters. */
+                  description: string;
+                  /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
+                  identifier: string;
+                }
+              ];
         };
       };
     };
@@ -29287,14 +29349,62 @@ export interface operations {
             }[];
           };
           /** @description Possible further actions the integrator can perform, which a user may trigger. Each action includes a `label`, `identifier` and `description`. A maximum of three actions are accepted. See the [`actions` object](https://docs.github.com/rest/reference/checks#actions-object) description. To learn more about check runs and requested actions, see "[Check runs and requested actions](https://docs.github.com/rest/reference/checks#check-runs-and-requested-actions)." */
-          actions?: {
-            /** @description The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
-            label: string;
-            /** @description A short explanation of what this action would do. The maximum size is 40 characters. */
-            description: string;
-            /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
-            identifier: string;
-          }[];
+          actions?:
+            | []
+            | [
+                {
+                  /** @description The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
+                  label: string;
+                  /** @description A short explanation of what this action would do. The maximum size is 40 characters. */
+                  description: string;
+                  /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
+                  identifier: string;
+                }
+              ]
+            | [
+                {
+                  /** @description The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
+                  label: string;
+                  /** @description A short explanation of what this action would do. The maximum size is 40 characters. */
+                  description: string;
+                  /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
+                  identifier: string;
+                },
+                {
+                  /** @description The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
+                  label: string;
+                  /** @description A short explanation of what this action would do. The maximum size is 40 characters. */
+                  description: string;
+                  /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
+                  identifier: string;
+                }
+              ]
+            | [
+                {
+                  /** @description The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
+                  label: string;
+                  /** @description A short explanation of what this action would do. The maximum size is 40 characters. */
+                  description: string;
+                  /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
+                  identifier: string;
+                },
+                {
+                  /** @description The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
+                  label: string;
+                  /** @description A short explanation of what this action would do. The maximum size is 40 characters. */
+                  description: string;
+                  /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
+                  identifier: string;
+                },
+                {
+                  /** @description The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
+                  label: string;
+                  /** @description A short explanation of what this action would do. The maximum size is 40 characters. */
+                  description: string;
+                  /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
+                  identifier: string;
+                }
+              ];
         };
       };
     };
@@ -33661,17 +33771,27 @@ export interface operations {
         "application/json":
           | {
               /** @description The names of the labels to set for the issue. The labels you set replace any existing labels. You can pass an empty array to remove all labels. Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key. You can also add labels to the existing labels for an issue. For more information, see "[Add labels to an issue](https://docs.github.com/rest/reference/issues#add-labels-to-an-issue)." */
-              labels?: string[];
+              labels?: [string, ...string[]];
             }
-          | string[]
+          | [string, ...string[]]
           | {
-              labels?: {
+              labels?: [
+                {
+                  name: string;
+                },
+                ...{
+                  name: string;
+                }[]
+              ];
+            }
+          | [
+              {
                 name: string;
-              }[];
-            }
-          | {
-              name: string;
-            }[]
+              },
+              ...{
+                name: string;
+              }[]
+            ]
           | string;
       };
     };
@@ -33700,17 +33820,27 @@ export interface operations {
         "application/json":
           | {
               /** @description The names of the labels to add to the issue's existing labels. You can pass an empty array to remove all labels. Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key. You can also replace all of the labels for an issue. For more information, see "[Set labels for an issue](https://docs.github.com/rest/reference/issues#set-labels-for-an-issue)." */
-              labels?: string[];
+              labels?: [string, ...string[]];
             }
-          | string[]
+          | [string, ...string[]]
           | {
-              labels?: {
+              labels?: [
+                {
+                  name: string;
+                },
+                ...{
+                  name: string;
+                }[]
+              ];
+            }
+          | [
+              {
                 name: string;
-              }[];
-            }
-          | {
-              name: string;
-            }[]
+              },
+              ...{
+                name: string;
+              }[]
+            ]
           | string;
       };
     };
@@ -37379,13 +37509,22 @@ export interface operations {
           /** @description The SCIM schema URIs. */
           schemas: string[];
           /** @description Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
-          Operations: {
-            /** @enum {string} */
-            op: "add" | "Add" | "remove" | "Remove" | "replace" | "Replace";
-            path?: string;
-            /** @description Can be any value - string, number, array or object. */
-            value?: unknown;
-          }[];
+          Operations: [
+            {
+              /** @enum {string} */
+              op: "add" | "Add" | "remove" | "Remove" | "replace" | "Replace";
+              path?: string;
+              /** @description Can be any value - string, number, array or object. */
+              value?: unknown;
+            },
+            ...{
+              /** @enum {string} */
+              op: "add" | "Add" | "remove" | "Remove" | "replace" | "Replace";
+              path?: string;
+              /** @description Can be any value - string, number, array or object. */
+              value?: unknown;
+            }[]
+          ];
         };
       };
     };
@@ -37721,11 +37860,18 @@ export interface operations {
            * @description user emails
            * @example [object Object],[object Object]
            */
-          emails: {
-            value: string;
-            primary?: boolean;
-            type?: string;
-          }[];
+          emails: [
+            {
+              value: string;
+              primary?: boolean;
+              type?: string;
+            },
+            ...{
+              value: string;
+              primary?: boolean;
+              type?: string;
+            }[]
+          ];
           schemas?: string[];
           externalId?: string;
           groups?: string[];
@@ -37807,11 +37953,18 @@ export interface operations {
            * @description user emails
            * @example [object Object],[object Object]
            */
-          emails: {
-            type?: string;
-            value: string;
-            primary?: boolean;
-          }[];
+          emails: [
+            {
+              type?: string;
+              value: string;
+              primary?: boolean;
+            },
+            ...{
+              type?: string;
+              value: string;
+              primary?: boolean;
+            }[]
+          ];
         };
       };
     };
@@ -37884,24 +38037,44 @@ export interface operations {
            * @description Set of operations to be performed
            * @example [object Object]
            */
-          Operations: {
-            /** @enum {string} */
-            op: "add" | "remove" | "replace";
-            path?: string;
-            value?:
-              | {
-                  active?: boolean | null;
-                  userName?: string | null;
-                  externalId?: string | null;
-                  givenName?: string | null;
-                  familyName?: string | null;
-                }
-              | {
-                  value?: string;
-                  primary?: boolean;
-                }[]
-              | string;
-          }[];
+          Operations: [
+            {
+              /** @enum {string} */
+              op: "add" | "remove" | "replace";
+              path?: string;
+              value?:
+                | {
+                    active?: boolean | null;
+                    userName?: string | null;
+                    externalId?: string | null;
+                    givenName?: string | null;
+                    familyName?: string | null;
+                  }
+                | {
+                    value?: string;
+                    primary?: boolean;
+                  }[]
+                | string;
+            },
+            ...{
+              /** @enum {string} */
+              op: "add" | "remove" | "replace";
+              path?: string;
+              value?:
+                | {
+                    active?: boolean | null;
+                    userName?: string | null;
+                    externalId?: string | null;
+                    givenName?: string | null;
+                    familyName?: string | null;
+                  }
+                | {
+                    value?: string;
+                    primary?: boolean;
+                  }[]
+                | string;
+            }[]
+          ];
         };
       };
     };

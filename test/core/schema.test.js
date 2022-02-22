@@ -11,6 +11,7 @@ const defaults = {
   required: new Set(),
   rawSchema: false,
   version: 3,
+  supportArrayLength: false,
 };
 
 describe("SchemaObject", () => {
@@ -147,6 +148,34 @@ describe("SchemaObject", () => {
       );
       expect(transform({ type: "array", items: [{ type: "string" }, { type: "number" }] }, opts)).to.equal(
         `readonly [string, number]`
+      );
+    });
+
+    it("array (supportArrayLength)", () => {
+      // (same as above test, but with supportArrayLength: true)
+      const opts = { ...defaults, supportArrayLength: true };
+      expect(transform({ type: "array", items: { type: "string" } }, opts)).to.equal(`(string)[]`);
+      expect(transform({ type: "array", items: { type: "string" }, minItems: 1 }, opts)).to.equal(
+        `[string, ...(string)[]]`
+      );
+      expect(transform({ type: "array", items: { type: "string" }, maxItems: 2 }, opts)).to.equal(
+        `([]) | ([string]) | ([string, string])`
+      );
+      expect(transform({ type: "array", items: { type: "string" }, maxItems: 20 }, opts)).to.equal(`(string)[]`);
+    });
+
+    it("array (immutableTypes, supportArrayLength)", () => {
+      // (same as above test, but with immutableTypes: true, supportArrayLength: true)
+      const opts = { ...defaults, immutableTypes: true, supportArrayLength: true };
+      expect(transform({ type: "array", items: { type: "string" } }, opts)).to.equal(`readonly (string)[]`);
+      expect(transform({ type: "array", items: { type: "string" }, minItems: 1 }, opts)).to.equal(
+        `readonly [string, ...(string)[]]`
+      );
+      expect(transform({ type: "array", items: { type: "string" }, maxItems: 2 }, opts)).to.equal(
+        `(readonly []) | (readonly [string]) | (readonly [string, string])`
+      );
+      expect(transform({ type: "array", items: { type: "string" }, maxItems: 20 }, opts)).to.equal(
+        `readonly (string)[]`
       );
     });
 

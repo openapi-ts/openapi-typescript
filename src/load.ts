@@ -1,3 +1,6 @@
+import type { GlobalContext, Headers } from "./types.js";
+import type { Dispatcher } from "undici";
+import * as undici from "undici";
 import fs from "fs";
 import yaml from "js-yaml";
 import mime from "mime";
@@ -7,6 +10,8 @@ import { request } from "undici";
 import { URL } from "url";
 import type { GlobalContext, Headers } from "./types.js";
 import { parseRef } from "./utils.js";
+
+const request = undici.request;
 
 type PartialSchema = Record<string, any>; // not a very accurate type, but this is easier to deal with before we know we’re dealing with a valid spec
 type SchemaMap = { [url: string]: PartialSchema };

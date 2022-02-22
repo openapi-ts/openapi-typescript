@@ -480,6 +480,26 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "dominikdosoudil",
+      "name": "Dominik Dosoudil",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15929942?v=4",
+      "profile": "http://www.dominikdosoudil.cz",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "kgtkr",
+      "name": "tkr",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17868838?v=4",
+      "profile": "https://kgtkr.net/",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

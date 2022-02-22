@@ -27,6 +27,8 @@ Options
   --prettier-config, -c        (optional) specify path to Prettier config file
   --raw-schema                 (optional) Parse as partial schema (raw components)
   --paths-enum, -pe            (optional) Generate an enum containing all API paths.
+  --export-type                (optional) Export type instead of interface
+  --support-array-length       (optional) Generate tuples using array minItems / maxItems
   --version                    (optional) Force schema parsing version
 `;
 
@@ -43,7 +45,7 @@ function errorAndExit(errorMessage) {
 const [, , input, ...args] = process.argv;
 const flags = parser(args, {
   array: ["header"],
-  boolean: ["defaultNonNullable", "immutableTypes", "rawSchema", "makePathsEnum"],
+  boolean: ["defaultNonNullable", "immutableTypes", "rawSchema", "exportType", "supportArrayLength", "makePathsEnum"],
   number: ["version"],
   string: ["auth", "header", "headersObject", "httpMethod", "prettierConfig"],
   alias: {
@@ -93,6 +95,8 @@ async function generateSchema(pathToSpec) {
     version: flags.version,
     httpHeaders,
     httpMethod: flags.httpMethod,
+    exportType: flags.exportType,
+    supportArrayLength: flags.supportArrayLength,
   });
 
   // output

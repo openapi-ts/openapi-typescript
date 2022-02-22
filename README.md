@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/main/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-46-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-48-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -151,14 +151,17 @@ npx openapi-typescript schema.yaml
 | :----------------------------- | :---- | :------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
 | `--output [location]`          | `-o`  | (stdout) | Where should the output file be saved?                                                                                                  |
 | `--auth [token]`               |       |          | (optional) Provide an auth token to be passed along in the request (only if accessing a private schema)                                 |
+| `--header`                     | `-x`  |          | (optional) Provide an array of or singular headers as an alternative to a JSON object. Each header must follow the `key: value` pattern |
+| `--headersObject`              | `-h`  |          | (optional) Provide a JSON object as string of HTTP headers for remote schema request. This will take priority over `--header`           |
+| `--httpMethod`                 | `-m`  | `GET`    | (optional) Provide the HTTP Verb/Method for fetching a schema from a remote URL                                                         |
 | `--immutable-types`            | `-it` | `false`  | (optional) Generates immutable types (readonly properties and readonly array)                                                           |
 | `--additional-properties`      | `-ap` | `false`  | (optional) Allow arbitrary properties for all schema objects without `additionalProperties: false`                                      |
 | `--default-non-nullable`       |       | `false`  | (optional) Treat schema objects with default values as non-nullable                                                                     |
 | `--prettier-config [location]` | `-c`  |          | (optional) Path to your custom Prettier configuration for output                                                                        |
+| `--export-type`                |       | `false`  | (optional) Export `type` instead of `interface`                                                                                         |
+| `--support-array-length`       |       | `false`  | (optional) Generate tuples using array minItems / maxItems                                                                              |
 | `--raw-schema`                 |       | `false`  | Generate TS types from partial schema (e.g. having `components.schema` at the top level)                                                |
-| `--httpMethod`                 | `-m`  | `GET`    | (optional) Provide the HTTP Verb/Method for fetching a schema from a remote URL                                                         |
-| `--headersObject`              | `-h`  |          | (optional) Provide a JSON object as string of HTTP headers for remote schema request. This will take priority over `--header`           |
-| `--header`                     | `-x`  |          | (optional) Provide an array of or singular headers as an alternative to a JSON object. Each header must follow the `key: value` pattern |
+| `--version`                    |       |          | Force OpenAPI version with `--version 3` or `--version 2` (required for `--raw-schema` when version is unknown)                         |
 
 ### 🐢 Node
 
@@ -305,6 +308,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://ottomated.net"><img src="https://avatars.githubusercontent.com/u/31470743?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ottomated</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=ottomated" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Aottomated" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://karanarqq.dev"><img src="https://avatars.githubusercontent.com/u/28733669?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Artem Shuvaev</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=sadfsdfdsa" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Asadfsdfdsa" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/ajaishankar"><img src="https://avatars.githubusercontent.com/u/328008?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ajaishankar</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=ajaishankar" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://www.dominikdosoudil.cz"><img src="https://avatars.githubusercontent.com/u/15929942?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dominik Dosoudil</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=dominikdosoudil" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=dominikdosoudil" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://kgtkr.net/"><img src="https://avatars.githubusercontent.com/u/17868838?v=4?s=100" width="100px;" alt=""/><br /><sub><b>tkr</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=kgtkr" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=kgtkr" title="Documentation">📖</a></td>
   </tr>
 </table>
 

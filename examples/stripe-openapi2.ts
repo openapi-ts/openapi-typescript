@@ -333,7 +333,7 @@ export interface paths {
     get: operations["GetBalanceTransactionsId"];
   };
   "/v1/billing_portal/sessions": {
-    /** <p>Creates a session of the Self-service Portal.</p> */
+    /** <p>Creates a session of the self-serve Portal.</p> */
     post: operations["PostBillingPortalSessions"];
   };
   "/v1/bitcoin/receivers": {
@@ -1054,7 +1054,7 @@ export interface paths {
   "/v1/products": {
     /** <p>Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.</p> */
     get: operations["GetProducts"];
-    /** <p>Creates a new product object. To create a product for use with orders, see <a href="#create_product">Products</a>.</p> */
+    /** <p>Creates a new product object.</p> */
     post: operations["PostProducts"];
   };
   "/v1/products/{id}": {
@@ -1492,7 +1492,10 @@ export interface definitions {
    */
   account: {
     business_profile?: definitions["account_business_profile"];
-    /** @description The business type. */
+    /**
+     * @description The business type.
+     * @enum {string}
+     */
     business_type?:
       | "company"
       | "government_entity"
@@ -1521,7 +1524,10 @@ export interface definitions {
       data: definitions["bank_account"][];
       /** @description True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+       * @enum {string}
+       */
       object: "list";
       /** @description The URL where this list can be accessed. */
       url: string;
@@ -1531,14 +1537,20 @@ export interface definitions {
     individual?: definitions["person"];
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata?: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "account";
     /** @description Whether Stripe can send payouts to this account. */
     payouts_enabled?: boolean;
     requirements?: definitions["account_requirements"];
     settings?: definitions["account_settings"];
     tos_acceptance?: definitions["account_tos_acceptance"];
-    /** @description The Stripe account type. Can be `standard`, `express`, or `custom`. */
+    /**
+     * @description The Stripe account type. Can be `standard`, `express`, or `custom`.
+     * @enum {string}
+     */
     type?: "custom" | "express" | "standard";
   };
   /** AccountBrandingSettings */
@@ -1572,19 +1584,45 @@ export interface definitions {
   };
   /** AccountCapabilities */
   account_capabilities: {
-    /** @description The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges. */
+    /**
+     * @description The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges.
+     * @enum {string}
+     */
     au_becs_debit_payments?: "active" | "inactive" | "pending";
-    /** @description The status of the card issuing capability of the account, or whether you can use Issuing to distribute funds on cards */
+    /**
+     * @description The status of the card issuing capability of the account, or whether you can use Issuing to distribute funds on cards
+     * @enum {string}
+     */
     card_issuing?: "active" | "inactive" | "pending";
-    /** @description The status of the card payments capability of the account, or whether the account can directly process credit and debit card charges. */
+    /**
+     * @description The status of the card payments capability of the account, or whether the account can directly process credit and debit card charges.
+     * @enum {string}
+     */
     card_payments?: "active" | "inactive" | "pending";
-    /** @description The status of the legacy payments capability of the account. */
+    /**
+     * @description The status of the JCB payments capability of the account, or whether the account (Japan only) can directly process JCB credit card charges in JPY currency.
+     * @enum {string}
+     */
+    jcb_payments?: "active" | "inactive" | "pending";
+    /**
+     * @description The status of the legacy payments capability of the account.
+     * @enum {string}
+     */
     legacy_payments?: "active" | "inactive" | "pending";
-    /** @description The status of the tax reporting 1099-K (US) capability of the account. */
+    /**
+     * @description The status of the tax reporting 1099-K (US) capability of the account.
+     * @enum {string}
+     */
     tax_reporting_us_1099_k?: "active" | "inactive" | "pending";
-    /** @description The status of the tax reporting 1099-MISC (US) capability of the account. */
+    /**
+     * @description The status of the tax reporting 1099-MISC (US) capability of the account.
+     * @enum {string}
+     */
     tax_reporting_us_1099_misc?: "active" | "inactive" | "pending";
-    /** @description The status of the transfers capability of the account, or whether your platform can transfer funds to the account. */
+    /**
+     * @description The status of the transfers capability of the account, or whether your platform can transfer funds to the account.
+     * @enum {string}
+     */
     transfers?: "active" | "inactive" | "pending";
   };
   /** AccountCapabilityRequirements */
@@ -1636,7 +1674,10 @@ export interface definitions {
     created: number;
     /** @description The timestamp at which this account link will expire. */
     expires_at: number;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "account_link";
     /** @description The URL for the account link. */
     url: string;
@@ -1677,7 +1718,10 @@ export interface definitions {
   };
   /** AccountRequirementsError */
   account_requirements_error: {
-    /** @description The code for the type of error. */
+    /**
+     * @description The code for the type of error.
+     * @enum {string}
+     */
     code:
       | "invalid_address_city_state_postal_code"
       | "invalid_street_address"
@@ -1768,7 +1812,10 @@ export interface definitions {
     livemode: boolean;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata?: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "alipay_account";
     /** @description If the Alipay account object is not reusable, the exact amount that you can create a charge for. */
     payment_amount?: number;
@@ -1799,7 +1846,10 @@ export interface definitions {
     payment_method?: definitions["payment_method"];
     setup_intent?: definitions["setup_intent"];
     source?: definitions["bank_account"];
-    /** @description The type of error returned. One of `api_connection_error`, `api_error`, `authentication_error`, `card_error`, `idempotency_error`, `invalid_request_error`, or `rate_limit_error` */
+    /**
+     * @description The type of error returned. One of `api_connection_error`, `api_error`, `authentication_error`, `card_error`, `idempotency_error`, `invalid_request_error`, or `rate_limit_error`
+     * @enum {string}
+     */
     type:
       | "api_connection_error"
       | "api_error"
@@ -1818,7 +1868,10 @@ export interface definitions {
     id: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "apple_pay_domain";
   };
   /** Application */
@@ -1827,7 +1880,10 @@ export interface definitions {
     id: string;
     /** @description The name of the application. */
     name?: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "application";
   };
   /** PlatformFee */
@@ -1852,7 +1908,10 @@ export interface definitions {
     id: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "application_fee";
     /** @description ID of the corresponding charge on the platform account, if this fee was the result of a charge using the `destination` parameter. */
     originating_transaction?: string;
@@ -1867,7 +1926,10 @@ export interface definitions {
       data: definitions["fee_refund"][];
       /** @description True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+       * @enum {string}
+       */
       object: "list";
       /** @description The URL where this list can be accessed. */
       url: string;
@@ -1894,7 +1956,10 @@ export interface definitions {
     connect_reserved?: definitions["balance_amount"][];
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "balance";
     /** @description Funds that are not yet available in the balance, due to the 7-day rolling pay cycle. The pending balance for each currency, and for each payment type, can be found in the `source_types` property. */
     pending: definitions["balance_amount"][];
@@ -1944,7 +2009,10 @@ export interface definitions {
     id: string;
     /** @description Net amount of the transaction, in %s. */
     net: number;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "balance_transaction";
     /** @description [Learn more](https://stripe.com/docs/reports/reporting-categories) about how reporting categories can help you understand balance transactions from an accounting perspective. */
     reporting_category: string;
@@ -1952,7 +2020,10 @@ export interface definitions {
     source?: string;
     /** @description If the transaction's net funds are available in the Stripe balance yet. Either `available` or `pending`. */
     status: string;
-    /** @description Transaction type: `adjustment`, `advance`, `advance_funding`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_transaction`, `payment`, `payment_failure_refund`, `payment_refund`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. [Learn more](https://stripe.com/docs/reports/balance-transaction-types) about balance transaction types and what they represent. If you are looking to classify transactions for accounting purposes, you might want to consider `reporting_category` instead. */
+    /**
+     * @description Transaction type: `adjustment`, `advance`, `advance_funding`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_transaction`, `payment`, `payment_failure_refund`, `payment_refund`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. [Learn more](https://stripe.com/docs/reports/balance-transaction-types) about balance transaction types and what they represent. If you are looking to classify transactions for accounting purposes, you might want to consider `reporting_category` instead.
+     * @enum {string}
+     */
     type:
       | "adjustment"
       | "advance"
@@ -2019,7 +2090,10 @@ export interface definitions {
     last4: string;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata?: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "bank_account";
     /** @description The routing transit number for the bank account. */
     routing_number?: string;
@@ -2042,13 +2116,13 @@ export interface definitions {
   };
   /**
    * PortalSession
-   * @description A Session describes the instantiation of the Self-serve Portal for
-   * a particular customer. By visiting the Self-serve Portal's URL, the customer
+   * @description A Session describes the instantiation of the self-serve portal for
+   * a particular customer. By visiting the self-serve portal's URL, the customer
    * can manage their subscriptions and view their invoice payment history. For security reasons,
    * Sessions are short-lived and will expire if the customer does not visit the URL.
    * Create Sessions on-demand.
    *
-   * Related guide: [Self-serve Portal](https://stripe.com/docs/billing/subscriptions/integrating-self-serve).
+   * Related guide: [self-serve Portal](https://stripe.com/docs/billing/subscriptions/integrating-self-serve).
    */
   "billing_portal.session": {
     /** @description Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -2059,7 +2133,10 @@ export interface definitions {
     id: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "billing_portal.session";
     /** @description The URL to which Stripe should send customers when they click on the link to return to your website. */
     return_url: string;
@@ -2100,7 +2177,10 @@ export interface definitions {
     livemode: boolean;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "bitcoin_receiver";
     /** @description The ID of the payment created from the receiver, if any. Hidden when viewing the receiver with a publishable key. */
     payment?: string;
@@ -2115,7 +2195,10 @@ export interface definitions {
       data: definitions["bitcoin_transaction"][];
       /** @description True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+       * @enum {string}
+       */
       object: "list";
       /** @description The URL where this list can be accessed. */
       url: string;
@@ -2137,7 +2220,10 @@ export interface definitions {
     currency: string;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "bitcoin_transaction";
     /** @description The receiver to which this transaction was sent. */
     receiver: string;
@@ -2153,14 +2239,20 @@ export interface definitions {
     account: string;
     /** @description The identifier for the capability. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "capability";
     /** @description Whether the capability has been requested. */
     requested: boolean;
     /** @description Time at which the capability was requested. Measured in seconds since the Unix epoch. */
     requested_at?: number;
     requirements?: definitions["account_capability_requirements"];
-    /** @description The status of the capability. Can be `active`, `inactive`, `pending`, or `unrequested`. */
+    /**
+     * @description The status of the capability. Can be `active`, `inactive`, `pending`, or `unrequested`.
+     * @enum {string}
+     */
     status: "active" | "disabled" | "inactive" | "pending" | "unrequested";
   };
   /**
@@ -2221,7 +2313,10 @@ export interface definitions {
     metadata: { [key: string]: unknown };
     /** @description Cardholder name. */
     name?: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "card";
     /** @description The recipient that this card belongs to. This attribute will not be in the card object if the card belongs to a customer or account instead. */
     recipient?: string;
@@ -2279,7 +2374,10 @@ export interface definitions {
     livemode: boolean;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "charge";
     /** @description The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers) for details. */
     on_behalf_of?: string;
@@ -2310,7 +2408,10 @@ export interface definitions {
       data: definitions["refund"][];
       /** @description True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+       * @enum {string}
+       */
       object: "list";
       /** @description The URL where this list can be accessed. */
       url: string;
@@ -2418,7 +2519,10 @@ export interface definitions {
     id: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used. */
+    /**
+     * @description The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
+     * @enum {string}
+     */
     locale?:
       | "auto"
       | "da"
@@ -2439,9 +2543,15 @@ export interface definitions {
       | "zh";
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata?: { [key: string]: unknown };
-    /** @description The mode of the Checkout Session, one of `payment`, `setup`, or `subscription`. */
+    /**
+     * @description The mode of the Checkout Session, one of `payment`, `setup`, or `subscription`.
+     * @enum {string}
+     */
     mode?: "payment" | "setup" | "subscription";
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "checkout.session";
     /** @description The ID of the PaymentIntent for Checkout Sessions in `payment` mode. */
     payment_intent?: string;
@@ -2459,6 +2569,7 @@ export interface definitions {
      * relevant text on the page, such as the submit button. `submit_type` can only be
      * specified on Checkout Sessions in `payment` mode, but not Checkout Sessions
      * in `subscription` or `setup` mode.
+     * @enum {string}
      */
     submit_type?: "auto" | "book" | "donate" | "pay";
     /** @description The ID of the subscription for Checkout Sessions in `subscription` mode. */
@@ -2504,7 +2615,10 @@ export interface definitions {
     id: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "connect_collection_transfer";
   };
   /**
@@ -2521,7 +2635,10 @@ export interface definitions {
     default_currency: string;
     /** @description Unique identifier for the object. Represented as the ISO country code for this country. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "country_spec";
     /** @description Currencies that can be accepted in the specific country (for transfers). */
     supported_bank_account_currencies: { [key: string]: unknown };
@@ -2558,7 +2675,10 @@ export interface definitions {
     created: number;
     /** @description If `amount_off` has been set, the three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the amount to take off. */
     currency?: string;
-    /** @description One of `forever`, `once`, and `repeating`. Describes how long a customer who applies this coupon will get the discount. */
+    /**
+     * @description One of `forever`, `once`, and `repeating`. Describes how long a customer who applies this coupon will get the discount.
+     * @enum {string}
+     */
     duration: "forever" | "once" | "repeating";
     /** @description If `duration` is `repeating`, the number of months the coupon applies. Null if coupon `duration` is `forever` or `once`. */
     duration_in_months?: number;
@@ -2572,7 +2692,10 @@ export interface definitions {
     metadata: { [key: string]: unknown };
     /** @description Name of the coupon displayed to customers on for instance invoices or receipts. */
     name?: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "coupon";
     /** @description Percent that will be taken off the subtotal of any invoices for this customer for the duration of the coupon. For example, a coupon with percent_off of 50 will make a %s100 invoice %s50 instead. */
     percent_off?: number;
@@ -2615,7 +2738,10 @@ export interface definitions {
       data: definitions["credit_note_line_item"][];
       /** @description True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+       * @enum {string}
+       */
       object: "list";
       /** @description The URL where this list can be accessed. */
       url: string;
@@ -2628,13 +2754,19 @@ export interface definitions {
     metadata: { [key: string]: unknown };
     /** @description A unique number that identifies this particular credit note and appears on the PDF of the credit note and its associated invoice. */
     number: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "credit_note";
     /** @description Amount that was credited outside of Stripe. */
     out_of_band_amount?: number;
     /** @description The link to download the PDF of the credit note. */
     pdf: string;
-    /** @description Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` */
+    /**
+     * @description Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
+     * @enum {string}
+     */
     reason?:
       | "duplicate"
       | "fraudulent"
@@ -2642,7 +2774,10 @@ export interface definitions {
       | "product_unsatisfactory";
     /** @description Refund related to this credit note. */
     refund?: string;
-    /** @description Status of this credit note, one of `issued` or `void`. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding). */
+    /**
+     * @description Status of this credit note, one of `issued` or `void`. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+     * @enum {string}
+     */
     status: "issued" | "void";
     /** @description The integer amount in **%s** representing the amount of the credit note, excluding tax and discount. */
     subtotal: number;
@@ -2650,7 +2785,10 @@ export interface definitions {
     tax_amounts: definitions["credit_note_tax_amount"][];
     /** @description The integer amount in **%s** representing the total amount of the credit note, including tax and discount. */
     total: number;
-    /** @description Type of this credit note, one of `pre_payment` or `post_payment`. A `pre_payment` credit note means it was issued when the invoice was open. A `post_payment` credit note means it was issued when the invoice was paid. */
+    /**
+     * @description Type of this credit note, one of `pre_payment` or `post_payment`. A `pre_payment` credit note means it was issued when the invoice was open. A `post_payment` credit note means it was issued when the invoice was paid.
+     * @enum {string}
+     */
     type: "post_payment" | "pre_payment";
     /** @description The time that the credit note was voided. */
     voided_at?: number;
@@ -2669,7 +2807,10 @@ export interface definitions {
     invoice_line_item?: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "credit_note_line_item";
     /** @description The number of units of product being credited. */
     quantity?: number;
@@ -2677,7 +2818,10 @@ export interface definitions {
     tax_amounts: definitions["credit_note_tax_amount"][];
     /** @description The tax rates which apply to the line item. */
     tax_rates: definitions["tax_rate"][];
-    /** @description The type of the credit note line item, one of `invoice_line_item` or `custom_line_item`. When the type is `invoice_line_item` there is an additional `invoice_line_item` property on the resource the value of which is the id of the credited line item on the invoice. */
+    /**
+     * @description The type of the credit note line item, one of `invoice_line_item` or `custom_line_item`. When the type is `invoice_line_item` there is an additional `invoice_line_item` property on the resource the value of which is the id of the credited line item on the invoice.
+     * @enum {string}
+     */
     type: "custom_line_item" | "invoice_line_item";
     /** @description The cost of each unit of product being credited. */
     unit_amount?: number;
@@ -2736,7 +2880,10 @@ export interface definitions {
     name?: string;
     /** @description The suffix of the customer's next invoice number, e.g., 0001. */
     next_invoice_sequence?: number;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "customer";
     /** @description The customer's phone number. */
     phone?: string;
@@ -2752,7 +2899,10 @@ export interface definitions {
       data: definitions["alipay_account"][];
       /** @description True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+       * @enum {string}
+       */
       object: "list";
       /** @description The URL where this list can be accessed. */
       url: string;
@@ -2766,12 +2916,18 @@ export interface definitions {
       data: definitions["subscription"][];
       /** @description True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+       * @enum {string}
+       */
       object: "list";
       /** @description The URL where this list can be accessed. */
       url: string;
     };
-    /** @description Describes the customer's tax exemption status. One of `none`, `exempt`, or `reverse`. When set to `reverse`, invoice and receipt PDFs include the text **"Reverse charge"**. */
+    /**
+     * @description Describes the customer's tax exemption status. One of `none`, `exempt`, or `reverse`. When set to `reverse`, invoice and receipt PDFs include the text **"Reverse charge"**.
+     * @enum {string}
+     */
     tax_exempt?: "exempt" | "none" | "reverse";
     /**
      * TaxIDsList
@@ -2782,7 +2938,10 @@ export interface definitions {
       data: definitions["tax_id"][];
       /** @description True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+       * @enum {string}
+       */
       object: "list";
       /** @description The URL where this list can be accessed. */
       url: string;
@@ -2794,7 +2953,10 @@ export interface definitions {
     accepted_at?: number;
     offline?: definitions["offline_acceptance"];
     online?: definitions["online_acceptance"];
-    /** @description The type of customer acceptance information included with the Mandate. One of `online` or `offline`. */
+    /**
+     * @description The type of customer acceptance information included with the Mandate. One of `online` or `offline`.
+     * @enum {string}
+     */
     type: "offline" | "online";
   };
   /**
@@ -2829,9 +2991,15 @@ export interface definitions {
     livemode: boolean;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata?: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "customer_balance_transaction";
-    /** @description Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, or `unapplied_from_invoice`. See the [Customer Balance page](https://stripe.com/docs/billing/customer/balance#types) to learn more about transaction types. */
+    /**
+     * @description Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, or `unapplied_from_invoice`. See the [Customer Balance page](https://stripe.com/docs/billing/customer/balance#types) to learn more about transaction types.
+     * @enum {string}
+     */
     type:
       | "adjustment"
       | "applied_to_invoice"
@@ -2845,231 +3013,381 @@ export interface definitions {
   };
   /** DeletedAccount */
   deleted_account: {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "account";
   };
   /** AlipayDeletedAccount */
   deleted_alipay_account: {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "alipay_account";
   };
   /** DeletedApplePayDomain */
   deleted_apple_pay_domain: {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "apple_pay_domain";
   };
   /** DeletedBankAccount */
   deleted_bank_account: {
     /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account. */
     currency?: string;
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "bank_account";
   };
   /** BitcoinDeletedReceiver */
   deleted_bitcoin_receiver: {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "bitcoin_receiver";
   };
   /** DeletedCard */
   deleted_card: {
     /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account. */
     currency?: string;
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "card";
   };
   /** DeletedCoupon */
   deleted_coupon: {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "coupon";
   };
   /** DeletedCustomer */
   deleted_customer: {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "customer";
   };
   /** DeletedDiscount */
   deleted_discount: {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "discount";
   };
   /** Polymorphic */
   deleted_external_account: {
     /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account. */
     currency?: string;
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "bank_account";
   };
   /** DeletedInvoice */
   deleted_invoice: {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "invoice";
   };
   /** DeletedInvoiceItem */
   deleted_invoiceitem: {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "invoiceitem";
   };
   /** Polymorphic */
   deleted_payment_source: {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "alipay_account";
   };
   /** DeletedPerson */
   deleted_person: {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "person";
   };
   /** DeletedPlan */
   deleted_plan: {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "plan";
   };
   /** DeletedProduct */
   deleted_product: {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "product";
   };
   /** RadarListDeletedList */
   "deleted_radar.value_list": {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "radar.value_list";
   };
   /** RadarListDeletedListItem */
   "deleted_radar.value_list_item": {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "radar.value_list_item";
   };
   /** DeletedTransferRecipient */
   deleted_recipient: {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "recipient";
   };
   /** DeletedSKU */
   deleted_sku: {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "sku";
   };
   /** DeletedSubscriptionItem */
   deleted_subscription_item: {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "subscription_item";
   };
   /** deleted_tax_id */
   deleted_tax_id: {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "tax_id";
   };
   /** TerminalLocationDeletedLocation */
   "deleted_terminal.location": {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "terminal.location";
   };
   /** TerminalReaderDeletedReader */
   "deleted_terminal.reader": {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "terminal.reader";
   };
   /** NotificationWebhookEndpointDeleted */
   deleted_webhook_endpoint: {
-    /** @description Always true for a deleted object */
+    /**
+     * @description Always true for a deleted object
+     * @enum {boolean}
+     */
     deleted: true;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "webhook_endpoint";
   };
   /** DeliveryEstimate */
@@ -3097,7 +3415,10 @@ export interface definitions {
     customer?: string;
     /** @description If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null. */
     end?: number;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "discount";
     /** @description Date that the coupon was applied. */
     start: number;
@@ -3135,13 +3456,19 @@ export interface definitions {
     livemode: boolean;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "dispute";
     /** @description ID of the PaymentIntent that was disputed. */
     payment_intent?: string;
     /** @description Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Read more about [dispute reasons](https://stripe.com/docs/disputes/categories). */
     reason: string;
-    /** @description Current status of dispute. Possible values are `warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `charge_refunded`, `won`, or `lost`. */
+    /**
+     * @description Current status of dispute. Possible values are `warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `charge_refunded`, `won`, or `lost`.
+     * @enum {string}
+     */
     status:
       | "charge_refunded"
       | "lost"
@@ -3230,7 +3557,10 @@ export interface definitions {
     id: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "ephemeral_key";
     /** @description The key's secret. You can use this value to make authorized requests to the Stripe API. */
     secret?: string;
@@ -3283,7 +3613,10 @@ export interface definitions {
     id: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "event";
     /** @description Number of webhooks that have yet to be successfully delivered (i.e., to return a 20x response) to the URLs you've specified. */
     pending_webhooks: number;
@@ -3308,7 +3641,10 @@ export interface definitions {
   exchange_rate: {
     /** @description Unique identifier for the object. Represented as the three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "exchange_rate";
     /** @description Hash where the keys are supported currencies and the values are the exchange rate at which the base id currency converts to the key currency. */
     rates: { [key: string]: unknown };
@@ -3333,7 +3669,10 @@ export interface definitions {
     last4: string;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata?: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "bank_account";
   };
   /** Fee */
@@ -3372,7 +3711,10 @@ export interface definitions {
     id: string;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "fee_refund";
   };
   /**
@@ -3401,12 +3743,18 @@ export interface definitions {
       data: definitions["file_link"][];
       /** @description True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+       * @enum {string}
+       */
       object: "list";
       /** @description The URL where this list can be accessed. */
       url: string;
     };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "file";
     /** @description The purpose of the file. Possible values are `additional_verification`, `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `identity_document`, `pci_document`, `sigma_scheduled_query`, or `tax_document_user_upload`. */
     purpose: string;
@@ -3440,7 +3788,10 @@ export interface definitions {
     livemode: boolean;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "file_link";
     /** @description The publicly accessible URL to download the file. */
     url?: string;
@@ -3527,7 +3878,10 @@ export interface definitions {
     attempted: boolean;
     /** @description Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. When `false`, the invoice's state will not automatically advance without an explicit action. */
     auto_advance?: boolean;
-    /** @description Indicates the reason why the invoice was created. `subscription_cycle` indicates an invoice created by a subscription advancing into a new period. `subscription_create` indicates an invoice created due to creating a subscription. `subscription_update` indicates an invoice created due to updating a subscription. `subscription` is set for all old invoices to indicate either a change to a subscription or a period advancement. `manual` is set for all invoices unrelated to a subscription (for example: created via the invoice editor). The `upcoming` value is reserved for simulated invoices per the upcoming invoice endpoint. `subscription_threshold` indicates an invoice created due to a billing threshold being reached. */
+    /**
+     * @description Indicates the reason why the invoice was created. `subscription_cycle` indicates an invoice created by a subscription advancing into a new period. `subscription_create` indicates an invoice created due to creating a subscription. `subscription_update` indicates an invoice created due to updating a subscription. `subscription` is set for all old invoices to indicate either a change to a subscription or a period advancement. `manual` is set for all invoices unrelated to a subscription (for example: created via the invoice editor). The `upcoming` value is reserved for simulated invoices per the upcoming invoice endpoint. `subscription_threshold` indicates an invoice created due to a billing threshold being reached.
+     * @enum {string}
+     */
     billing_reason?:
       | "automatic_pending_invoice_item_invoice"
       | "manual"
@@ -3539,7 +3893,10 @@ export interface definitions {
       | "upcoming";
     /** @description ID of the latest charge generated for this invoice, if any. */
     charge?: string;
-    /** @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. */
+    /**
+     * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions.
+     * @enum {string}
+     */
     collection_method?: "charge_automatically" | "send_invoice";
     /** @description Time at which the object was created. Measured in seconds since the Unix epoch. */
     created: number;
@@ -3557,7 +3914,10 @@ export interface definitions {
     /** @description The customer's phone number. Until the invoice is finalized, this field will equal `customer.phone`. Once the invoice is finalized, this field will no longer be updated. */
     customer_phone?: string;
     customer_shipping?: definitions["shipping"];
-    /** @description The customer's tax exempt status. Until the invoice is finalized, this field will equal `customer.tax_exempt`. Once the invoice is finalized, this field will no longer be updated. */
+    /**
+     * @description The customer's tax exempt status. Until the invoice is finalized, this field will equal `customer.tax_exempt`. Once the invoice is finalized, this field will no longer be updated.
+     * @enum {string}
+     */
     customer_tax_exempt?: "exempt" | "none" | "reverse";
     /** @description The customer's tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as `customer.tax_ids`. Once the invoice is finalized, this field will no longer be updated. */
     customer_tax_ids?: definitions["invoices_resource_invoice_tax_id"][];
@@ -3591,7 +3951,10 @@ export interface definitions {
       data: definitions["line_item"][];
       /** @description True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+       * @enum {string}
+       */
       object: "list";
       /** @description The URL where this list can be accessed. */
       url: string;
@@ -3604,7 +3967,10 @@ export interface definitions {
     next_payment_attempt?: number;
     /** @description A unique, identifying string that appears on emails sent to the customer for this invoice. This starts with the customer's unique invoice_prefix if it is specified. */
     number?: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "invoice";
     /** @description Whether payment was successfully collected for this invoice. An invoice can be paid (most commonly) with a charge or with credit from the customer's account balance. */
     paid: boolean;
@@ -3624,7 +3990,10 @@ export interface definitions {
     starting_balance: number;
     /** @description Extra information about an invoice for the customer's credit card statement. */
     statement_descriptor?: string;
-    /** @description The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview) */
+    /**
+     * @description The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview)
+     * @enum {string}
+     */
     status?: "deleted" | "draft" | "open" | "paid" | "uncollectible" | "void";
     status_transitions: definitions["invoices_status_transitions"];
     /** @description The subscription that this invoice was prepared for, if any. */
@@ -3727,7 +4096,10 @@ export interface definitions {
     livemode: boolean;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "invoiceitem";
     period: definitions["invoice_line_item_period"];
     plan?: definitions["plan"];
@@ -3748,7 +4120,10 @@ export interface definitions {
   };
   /** InvoicesResourceInvoiceTaxID */
   invoices_resource_invoice_tax_id: {
-    /** @description The type of the tax ID, one of `eu_vat`, `nz_gst`, `au_abn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `my_sst`, `sg_gst`, or `unknown` */
+    /**
+     * @description The type of the tax ID, one of `eu_vat`, `nz_gst`, `au_abn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `my_sst`, `sg_gst`, or `unknown`
+     * @enum {string}
+     */
     type:
       | "au_abn"
       | "ca_bn"
@@ -3809,7 +4184,10 @@ export interface definitions {
     id: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "issuer_fraud_record";
     /** @description The timestamp at which the card issuer posted the issuer fraud record. */
     post_date: number;
@@ -3827,7 +4205,10 @@ export interface definitions {
     amount: number;
     /** @description Whether the authorization has been approved. */
     approved: boolean;
-    /** @description How the card details were provided. */
+    /**
+     * @description How the card details were provided.
+     * @enum {string}
+     */
     authorization_method:
       | "chip"
       | "contactless"
@@ -3854,12 +4235,18 @@ export interface definitions {
     merchant_data: definitions["issuing_authorization_merchant_data"];
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "issuing.authorization";
     pending_request?: definitions["issuing_authorization_pending_request"];
     /** @description History of every time the authorization was approved/denied (whether approved/denied by you directly or by Stripe based on your `spending_controls`). If the merchant changes the authorization by performing an [incremental authorization or partial capture](https://stripe.com/docs/issuing/purchases/authorizations), you can look at this field to see the previous states of the authorization. */
     request_history: definitions["issuing_authorization_request"][];
-    /** @description The current status of the authorization in its lifecycle. */
+    /**
+     * @description The current status of the authorization in its lifecycle.
+     * @enum {string}
+     */
     status: "closed" | "pending" | "reversed";
     /** @description List of [transactions](https://stripe.com/docs/api/issuing/transactions) associated with this authorization. */
     transactions: definitions["issuing.transaction"][];
@@ -3874,7 +4261,10 @@ export interface definitions {
   "issuing.card": {
     /** @description The brand of the card. */
     brand: string;
-    /** @description The reason why the card was canceled. */
+    /**
+     * @description The reason why the card was canceled.
+     * @enum {string}
+     */
     cancellation_reason?: "lost" | "stolen";
     cardholder: definitions["issuing.cardholder"];
     /** @description Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -3897,19 +4287,31 @@ export interface definitions {
     metadata: { [key: string]: unknown };
     /** @description The full unredacted card number. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint. */
     number?: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "issuing.card";
     /** @description The latest card that replaces this card, if any. */
     replaced_by?: string;
     /** @description The card this card replaces, if any. */
     replacement_for?: string;
-    /** @description The reason why the previous card needed to be replaced. */
+    /**
+     * @description The reason why the previous card needed to be replaced.
+     * @enum {string}
+     */
     replacement_reason?: "damaged" | "expired" | "lost" | "stolen";
     shipping?: definitions["issuing_card_shipping"];
     spending_controls: definitions["issuing_card_authorization_controls"];
-    /** @description Whether authorizations can be approved on this card. */
+    /**
+     * @description Whether authorizations can be approved on this card.
+     * @enum {string}
+     */
     status: "active" | "canceled" | "inactive";
-    /** @description The type of the card. */
+    /**
+     * @description The type of the card.
+     * @enum {string}
+     */
     type: "physical" | "virtual";
   };
   /**
@@ -3934,15 +4336,24 @@ export interface definitions {
     metadata: { [key: string]: unknown };
     /** @description The cardholder's name. This will be printed on cards issued to them. */
     name: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "issuing.cardholder";
     /** @description The cardholder's phone number. */
     phone_number?: string;
     requirements: definitions["issuing_cardholder_requirements"];
     spending_controls?: definitions["issuing_cardholder_authorization_controls"];
-    /** @description Specifies whether to permit authorizations on this cardholder's cards. */
+    /**
+     * @description Specifies whether to permit authorizations on this cardholder's cards.
+     * @enum {string}
+     */
     status: "active" | "blocked" | "inactive";
-    /** @description One of `individual` or `company`. */
+    /**
+     * @description One of `individual` or `company`.
+     * @enum {string}
+     */
     type: "company" | "individual";
   };
   /**
@@ -3956,7 +4367,10 @@ export interface definitions {
     id: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "issuing.dispute";
   };
   /**
@@ -3982,13 +4396,19 @@ export interface definitions {
     metadata: { [key: string]: unknown };
     /** @description The total net amount required to settle with the network. */
     net_total: number;
-    /** @description The card network for this settlement report. One of ["visa"] */
+    /**
+     * @description The card network for this settlement report. One of ["visa"]
+     * @enum {string}
+     */
     network: "visa";
     /** @description The total amount of fees owed to the network. */
     network_fees: number;
     /** @description The Settlement Identification Number assigned by the network. */
     network_settlement_identifier: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "issuing.settlement";
     /** @description One of `international` or `uk_national_net`. */
     settlement_service: string;
@@ -4031,9 +4451,15 @@ export interface definitions {
     merchant_data: definitions["issuing_authorization_merchant_data"];
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "issuing.transaction";
-    /** @description The nature of the transaction. */
+    /**
+     * @description The nature of the transaction.
+     * @enum {string}
+     */
     type: "capture" | "refund";
   };
   /** IssuingAuthorizationMerchantData */
@@ -4080,7 +4506,10 @@ export interface definitions {
     merchant_amount: number;
     /** @description The currency that was collected by the merchant and presented to the cardholder for the authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
     merchant_currency: string;
-    /** @description The reason for the approval or decline. */
+    /**
+     * @description The reason for the approval or decline.
+     * @enum {string}
+     */
     reason:
       | "account_disabled"
       | "card_active"
@@ -4098,13 +4527,25 @@ export interface definitions {
   };
   /** IssuingAuthorizationVerificationData */
   issuing_authorization_verification_data: {
-    /** @description Whether the cardholder provided an address first line and if it matched the cardholder’s `billing.address.line1`. */
+    /**
+     * @description Whether the cardholder provided an address first line and if it matched the cardholder’s `billing.address.line1`.
+     * @enum {string}
+     */
     address_line1_check: "match" | "mismatch" | "not_provided";
-    /** @description Whether the cardholder provided a postal code and if it matched the cardholder’s `billing.address.postal_code`. */
+    /**
+     * @description Whether the cardholder provided a postal code and if it matched the cardholder’s `billing.address.postal_code`.
+     * @enum {string}
+     */
     address_postal_code_check: "match" | "mismatch" | "not_provided";
-    /** @description Whether the cardholder provided a CVC and if it matched Stripe’s record. */
+    /**
+     * @description Whether the cardholder provided a CVC and if it matched Stripe’s record.
+     * @enum {string}
+     */
     cvc_check: "match" | "mismatch" | "not_provided";
-    /** @description Whether the cardholder provided an expiry date and if it matched Stripe’s record. */
+    /**
+     * @description Whether the cardholder provided an expiry date and if it matched Stripe’s record.
+     * @enum {string}
+     */
     expiry_check: "match" | "mismatch" | "not_provided";
   };
   /** IssuingCardAuthorizationControls */
@@ -4699,15 +5140,24 @@ export interface definitions {
   /** IssuingCardShipping */
   issuing_card_shipping: {
     address: definitions["address"];
-    /** @description The delivery company that shipped a card. */
+    /**
+     * @description The delivery company that shipped a card.
+     * @enum {string}
+     */
     carrier?: "fedex" | "usps";
     /** @description A unix timestamp representing a best estimate of when the card will be delivered. */
     eta?: number;
     /** @description Recipient name. */
     name: string;
-    /** @description Shipment service, such as `standard` or `express`. */
+    /**
+     * @description Shipment service, such as `standard` or `express`.
+     * @enum {string}
+     */
     service: "express" | "priority" | "standard";
-    /** @description The delivery status of the card. */
+    /**
+     * @description The delivery status of the card.
+     * @enum {string}
+     */
     status?:
       | "canceled"
       | "delivered"
@@ -4719,7 +5169,10 @@ export interface definitions {
     tracking_number?: string;
     /** @description A link to the shipping carrier's site where you can view detailed information about a card shipment. */
     tracking_url?: string;
-    /** @description Packaging options. */
+    /**
+     * @description Packaging options.
+     * @enum {string}
+     */
     type: "bulk" | "individual";
   };
   /** IssuingCardSpendingLimit */
@@ -5017,7 +5470,10 @@ export interface definitions {
       | "womens_ready_to_wear_stores"
       | "wrecking_and_salvage_yards"
     )[];
-    /** @description The time interval or event with which to apply this spending limit towards. */
+    /**
+     * @description The time interval or event with which to apply this spending limit towards.
+     * @enum {string}
+     */
     interval:
       | "all_time"
       | "daily"
@@ -5651,7 +6107,10 @@ export interface definitions {
   };
   /** IssuingCardholderRequirements */
   issuing_cardholder_requirements: {
-    /** @description If `disabled_reason` is present, all cards will decline authorizations with `cardholder_verification_required` reason. */
+    /**
+     * @description If `disabled_reason` is present, all cards will decline authorizations with `cardholder_verification_required` reason.
+     * @enum {string}
+     */
     disabled_reason?: "listed" | "rejected.listed" | "under_review";
     /** @description Array of fields that need to be collected in order to verify and re-enable the cardholder. */
     past_due?: (
@@ -5959,7 +6418,10 @@ export interface definitions {
       | "womens_ready_to_wear_stores"
       | "wrecking_and_salvage_yards"
     )[];
-    /** @description The time interval or event with which to apply this spending limit towards. */
+    /**
+     * @description The time interval or event with which to apply this spending limit towards.
+     * @enum {string}
+     */
     interval:
       | "all_time"
       | "daily"
@@ -5991,7 +6453,10 @@ export interface definitions {
     owners_provided?: boolean;
     /** @description The company's phone number (used for verification). */
     phone?: string;
-    /** @description The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details. */
+    /**
+     * @description The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
+     * @enum {string}
+     */
     structure?:
       | "government_instrumentality"
       | "governmental_unit"
@@ -6099,7 +6564,10 @@ export interface definitions {
     livemode: boolean;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Note that for line items with `type=subscription` this will reflect the metadata of the subscription that caused the line item to be created. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "line_item";
     period: definitions["invoice_line_item_period"];
     plan?: definitions["plan"];
@@ -6115,14 +6583,20 @@ export interface definitions {
     tax_amounts?: definitions["invoice_tax_amount"][];
     /** @description The tax rates which apply to the line item. */
     tax_rates?: definitions["tax_rate"][];
-    /** @description A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`. */
+    /**
+     * @description A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`.
+     * @enum {string}
+     */
     type: "invoiceitem" | "subscription";
   };
   /** LoginLink */
   login_link: {
     /** @description Time at which the object was created. Measured in seconds since the Unix epoch. */
     created: number;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "login_link";
     /** @description The URL for the login link. */
     url: string;
@@ -6138,15 +6612,24 @@ export interface definitions {
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
     multi_use?: definitions["mandate_multi_use"];
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "mandate";
     /** @description ID of the payment method associated with this mandate. */
     payment_method: string;
     payment_method_details: definitions["mandate_payment_method_details"];
     single_use?: definitions["mandate_single_use"];
-    /** @description The status of the mandate, which indicates whether it can be used to initiate a payment. */
+    /**
+     * @description The status of the mandate, which indicates whether it can be used to initiate a payment.
+     * @enum {string}
+     */
     status: "active" | "inactive" | "pending";
-    /** @description The type of the mandate. */
+    /**
+     * @description The type of the mandate.
+     * @enum {string}
+     */
     type: "multi_use" | "single_use";
   };
   /** mandate_au_becs_debit */
@@ -6238,7 +6721,10 @@ export interface definitions {
     livemode: boolean;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "order";
     /**
      * OrderReturnList
@@ -6249,7 +6735,10 @@ export interface definitions {
       data: definitions["order_return"][];
       /** @description True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+       * @enum {string}
+       */
       object: "list";
       /** @description The URL where this list can be accessed. */
       url: string;
@@ -6281,7 +6770,10 @@ export interface definitions {
     currency: string;
     /** @description Description of the line item, meant to be displayable to the user (e.g., `"Express shipping"`). */
     description: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "order_item";
     /** @description The ID of the associated object for this line item. Expandable if not null (e.g., expandable to a SKU). */
     parent?: string;
@@ -6310,7 +6802,10 @@ export interface definitions {
     items: definitions["order_item"][];
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "order_return";
     /** @description The order that this return includes items from. */
     order?: string;
@@ -6355,7 +6850,10 @@ export interface definitions {
     application_fee_amount?: number;
     /** @description Populated when `status` is `canceled`, this is the time at which the PaymentIntent was canceled. Measured in seconds since the Unix epoch. */
     canceled_at?: number;
-    /** @description Reason for cancellation of this PaymentIntent, either user-provided (`duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`) or generated by Stripe internally (`failed_invoice`, `void_invoice`, or `automatic`). */
+    /**
+     * @description Reason for cancellation of this PaymentIntent, either user-provided (`duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`) or generated by Stripe internally (`failed_invoice`, `void_invoice`, or `automatic`).
+     * @enum {string}
+     */
     cancellation_reason?:
       | "abandoned"
       | "automatic"
@@ -6364,7 +6862,10 @@ export interface definitions {
       | "fraudulent"
       | "requested_by_customer"
       | "void_invoice";
-    /** @description Controls when the funds will be captured from the customer's account. */
+    /**
+     * @description Controls when the funds will be captured from the customer's account.
+     * @enum {string}
+     */
     capture_method: "automatic" | "manual";
     /**
      * PaymentFlowsPaymentIntentResourceChargeList
@@ -6375,7 +6876,10 @@ export interface definitions {
       data: definitions["charge"][];
       /** @description True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+       * @enum {string}
+       */
       object: "list";
       /** @description The URL where this list can be accessed. */
       url: string;
@@ -6388,6 +6892,7 @@ export interface definitions {
      * Refer to our docs to [accept a payment](https://stripe.com/docs/payments/accept-a-payment) and learn about how `client_secret` should be handled.
      */
     client_secret?: string;
+    /** @enum {string} */
     confirmation_method: "automatic" | "manual";
     /** @description Time at which the object was created. Measured in seconds since the Unix epoch. */
     created: number;
@@ -6413,7 +6918,10 @@ export interface definitions {
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. For more information, see the [documentation](https://stripe.com/docs/payments/payment-intents/creating-payment-intents#storing-information-in-metadata). */
     metadata?: { [key: string]: unknown };
     next_action?: definitions["payment_intent_next_action"];
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "payment_intent";
     /** @description The account (if any) for which the funds of the PaymentIntent are intended. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
     on_behalf_of?: string;
@@ -6432,6 +6940,7 @@ export interface definitions {
      * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
      *
      * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+     * @enum {string}
      */
     setup_future_usage?: "off_session" | "on_session";
     shipping?: definitions["shipping"];
@@ -6439,7 +6948,10 @@ export interface definitions {
     statement_descriptor?: string;
     /** @description Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
     statement_descriptor_suffix?: string;
-    /** @description Status of this PaymentIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `requires_capture`, `canceled`, or `succeeded`. Read more about each PaymentIntent [status](https://stripe.com/docs/payments/intents#intent-statuses). */
+    /**
+     * @description Status of this PaymentIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `requires_capture`, `canceled`, or `succeeded`. Read more about each PaymentIntent [status](https://stripe.com/docs/payments/intents#intent-statuses).
+     * @enum {string}
+     */
     status:
       | "canceled"
       | "processing"
@@ -6474,7 +6986,10 @@ export interface definitions {
   /** payment_intent_payment_method_options_card */
   payment_intent_payment_method_options_card: {
     installments?: definitions["payment_method_options_card_installments"];
-    /** @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine. */
+    /**
+     * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+     * @enum {string}
+     */
     request_three_d_secure?: "any" | "automatic" | "challenge_only";
   };
   /**
@@ -6502,10 +7017,16 @@ export interface definitions {
     livemode: boolean;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "payment_method";
     sepa_debit?: definitions["payment_method_sepa_debit"];
-    /** @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type. */
+    /**
+     * @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
+     * @enum {string}
+     */
     type: "au_becs_debit" | "card" | "fpx" | "ideal" | "sepa_debit";
   };
   /** payment_method_au_becs_debit */
@@ -6564,7 +7085,10 @@ export interface definitions {
     google_pay?: definitions["payment_method_card_wallet_google_pay"];
     masterpass?: definitions["payment_method_card_wallet_masterpass"];
     samsung_pay?: definitions["payment_method_card_wallet_samsung_pay"];
-    /** @description The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, or `visa_checkout`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type. */
+    /**
+     * @description The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, or `visa_checkout`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
+     * @enum {string}
+     */
     type:
       | "amex_express_checkout"
       | "apple_pay"
@@ -6640,7 +7164,10 @@ export interface definitions {
   };
   /** payment_method_details_ach_debit */
   payment_method_details_ach_debit: {
-    /** @description Type of entity that holds the account. This can be either `individual` or `company`. */
+    /**
+     * @description Type of entity that holds the account. This can be either `individual` or `company`.
+     * @enum {string}
+     */
     account_holder_type?: "company" | "individual";
     /** @description Name of the bank associated with the bank account. */
     bank_name?: string;
@@ -6679,6 +7206,7 @@ export interface definitions {
     /**
      * @description Preferred language of the Bancontact authorization page that the customer is redirected to.
      * Can be one of `en`, `de`, `fr`, or `nl`
+     * @enum {string}
      */
     preferred_language?: "de" | "en" | "fr" | "nl";
     /**
@@ -6730,9 +7258,13 @@ export interface definitions {
     /**
      * @description For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
      * One of `month`.
+     * @enum {string}
      */
     interval?: "month";
-    /** @description Type of installment plan, one of `fixed_count`. */
+    /**
+     * @description Type of installment plan, one of `fixed_count`.
+     * @enum {string}
+     */
     type: "fixed_count";
   };
   /** payment_method_details_card_present */
@@ -6791,7 +7323,10 @@ export interface definitions {
     google_pay?: definitions["payment_method_details_card_wallet_google_pay"];
     masterpass?: definitions["payment_method_details_card_wallet_masterpass"];
     samsung_pay?: definitions["payment_method_details_card_wallet_samsung_pay"];
-    /** @description The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, or `visa_checkout`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type. */
+    /**
+     * @description The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, or `visa_checkout`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
+     * @enum {string}
+     */
     type:
       | "amex_express_checkout"
       | "apple_pay"
@@ -6839,7 +7374,10 @@ export interface definitions {
   };
   /** payment_method_details_fpx */
   payment_method_details_fpx: {
-    /** @description The customer's bank. Can be one of `affin_bank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, or `pb_enterprise`. */
+    /**
+     * @description The customer's bank. Can be one of `affin_bank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, or `pb_enterprise`.
+     * @enum {string}
+     */
     bank:
       | "affin_bank"
       | "alliance_bank"
@@ -6880,7 +7418,10 @@ export interface definitions {
   };
   /** payment_method_details_ideal */
   payment_method_details_ideal: {
-    /** @description The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `sns_bank`, `triodos_bank`, or `van_lanschot`. */
+    /**
+     * @description The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `sns_bank`, `triodos_bank`, or `van_lanschot`.
+     * @enum {string}
+     */
     bank?:
       | "abn_amro"
       | "asn_bank"
@@ -6894,7 +7435,10 @@ export interface definitions {
       | "sns_bank"
       | "triodos_bank"
       | "van_lanschot";
-    /** @description The Bank Identifier Code of the customer's bank. */
+    /**
+     * @description The Bank Identifier Code of the customer's bank.
+     * @enum {string}
+     */
     bic?:
       | "ABNANL2A"
       | "ASNBNL21"
@@ -6974,7 +7518,10 @@ export interface definitions {
   payment_method_details_wechat: { [key: string]: unknown };
   /** payment_method_fpx */
   payment_method_fpx: {
-    /** @description The customer's bank, if provided. Can be one of `affin_bank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, or `pb_enterprise`. */
+    /**
+     * @description The customer's bank, if provided. Can be one of `affin_bank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, or `pb_enterprise`.
+     * @enum {string}
+     */
     bank:
       | "affin_bank"
       | "alliance_bank"
@@ -6999,7 +7546,10 @@ export interface definitions {
   };
   /** payment_method_ideal */
   payment_method_ideal: {
-    /** @description The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `sns_bank`, `triodos_bank`, or `van_lanschot`. */
+    /**
+     * @description The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `sns_bank`, `triodos_bank`, or `van_lanschot`.
+     * @enum {string}
+     */
     bank?:
       | "abn_amro"
       | "asn_bank"
@@ -7013,7 +7563,10 @@ export interface definitions {
       | "sns_bank"
       | "triodos_bank"
       | "van_lanschot";
-    /** @description The Bank Identifier Code of the customer's bank, if the bank was provided. */
+    /**
+     * @description The Bank Identifier Code of the customer's bank, if the bank was provided.
+     * @enum {string}
+     */
     bic?:
       | "ABNANL2A"
       | "ASNBNL21"
@@ -7301,7 +7854,10 @@ export interface definitions {
     id: string;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata?: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "account";
   };
   /**
@@ -7346,7 +7902,10 @@ export interface definitions {
     metadata: { [key: string]: unknown };
     /** @description The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces](https://stripe.com/blog/instant-payouts-for-marketplaces) for more information.) */
     method: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "payout";
     /** @description The source balance this payout came from. One of `card`, `fpx`, or `bank_account`. */
     source_type: string;
@@ -7354,7 +7913,10 @@ export interface definitions {
     statement_descriptor?: string;
     /** @description Current status of the payout: `paid`, `pending`, `in_transit`, `canceled` or `failed`. A payout is `pending` until it is submitted to the bank, when it becomes `in_transit`. The status then changes to `paid` if the transaction goes through, or to `failed` or `canceled` (within 5 business days). Some failed payouts may initially show as `paid` but then change to `failed`. */
     status: string;
-    /** @description Can be `bank_account` or `card`. */
+    /**
+     * @description Can be `bank_account` or `card`.
+     * @enum {string}
+     */
     type: "bank_account" | "card";
   };
   /** Period */
@@ -7392,7 +7954,10 @@ export interface definitions {
     maiden_name?: string;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata?: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "person";
     phone?: string;
     relationship?: definitions["person_relationship"];
@@ -7430,23 +7995,29 @@ export interface definitions {
   };
   /**
    * Plan
-   * @description Plans define the base price, currency, and billing cycle for subscriptions.
-   * For example, you might have a $5/month plan
-   * that provides limited access to your products, and a
-   * $15/month plan that allows full access.
+   * @description Plans define the base price, currency, and billing cycle for recurring purchases of products.
+   * Products help you track inventory or provisioning, and plans help you track pricing. Different physical goods or levels of service should be represented by products, and pricing options should be represented by plans. This approach lets you change prices without having to change your provisioning scheme.
+   *
+   * For example, you might have a single "gold" product that has plans for $10/month, $100/year, €9/month, and €90/year.
    *
    * Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) and more about [products and plans](https://stripe.com/docs/billing/subscriptions/products-and-plans).
    */
   plan: {
     /** @description Whether the plan can be used for new purchases. */
     active: boolean;
-    /** @description Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`. */
+    /**
+     * @description Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
+     * @enum {string}
+     */
     aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum";
     /** @description The amount in %s to be charged on the interval specified. */
     amount?: number;
     /** @description Same as `amount`, but contains a decimal value with at most 12 decimal places. */
     amount_decimal?: string;
-    /** @description Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes. */
+    /**
+     * @description Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
+     * @enum {string}
+     */
     billing_scheme: "per_unit" | "tiered";
     /** @description Time at which the object was created. Measured in seconds since the Unix epoch. */
     created: number;
@@ -7454,7 +8025,10 @@ export interface definitions {
     currency: string;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`. */
+    /**
+     * @description The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
+     * @enum {string}
+     */
     interval: "day" | "month" | "week" | "year";
     /** @description The number of intervals (specified in the `interval` attribute) between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. */
     interval_count: number;
@@ -7464,18 +8038,27 @@ export interface definitions {
     metadata: { [key: string]: unknown };
     /** @description A brief description of the plan, hidden from customers. */
     nickname?: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "plan";
     /** @description The product whose pricing this plan determines. */
     product?: string;
     /** @description Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
     tiers?: definitions["plan_tier"][];
-    /** @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows. */
+    /**
+     * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows.
+     * @enum {string}
+     */
     tiers_mode?: "graduated" | "volume";
     transform_usage?: definitions["transform_usage"];
     /** @description Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan). */
     trial_period_days?: number;
-    /** @description Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`. */
+    /**
+     * @description Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
+     * @enum {string}
+     */
     usage_type: "licensed" | "metered";
   };
   /** PlanTier */
@@ -7497,7 +8080,10 @@ export interface definitions {
     account: string;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "platform_tax_fee";
     /** @description The payment object that caused this tax to be inflicted. */
     source_transaction: string;
@@ -7506,14 +8092,11 @@ export interface definitions {
   };
   /**
    * Product
-   * @description Store representations of products you sell in `Product` objects, used in
-   * conjunction with [SKUs](https://stripe.com/docs/api#skus). Products may be physical goods, to be shipped, or
-   * digital.
+   * @description Products describe the specific goods or services you offer to your customers.
+   * For example, you might offer a Standard and Premium version of your goods or service; each version would be a separate Product.
+   * They can be used in conjuction with [SKUs](https://stripe.com/docs/api#skus) and [Plans](https://stripe.com/docs/api#plans) to configure pricing in Checkout and Subscriptions.
    *
-   * Documentation on `Product`s for use with `Subscription`s can be found at
-   * [Subscription Products](https://stripe.com/docs/api#service_products).
-   *
-   * Related guide: [Define products and SKUs](https://stripe.com/docs/orders#define-products-skus)
+   * Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) or accept [one-time payments with Checkout](https://stripe.com/docs/payments/checkout/client#create-products) and more about [Products and Plans](https://stripe.com/docs/billing/subscriptions/products-and-plans)
    */
   product: {
     /** @description Whether the product is currently available for purchase. */
@@ -7538,14 +8121,20 @@ export interface definitions {
     metadata: { [key: string]: unknown };
     /** @description The product's name, meant to be displayable to the customer. Whenever this product is sold via a subscription, name will show up on associated invoice line item descriptions. */
     name: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "product";
     package_dimensions?: definitions["package_dimensions"];
     /** @description Whether this product is a shipped good. Only applicable to products of `type=good`. */
     shippable?: boolean;
     /** @description Extra information about a product which will appear on your customer's credit card statement. In the case that multiple products are billed at once, the first statement descriptor will be used. */
     statement_descriptor?: string;
-    /** @description The type of the product. The product is either of type `good`, which is eligible for use with Orders and SKUs, or `service`, which is eligible for use with Subscriptions and Plans. */
+    /**
+     * @description The type of the product. The product is either of type `good`, which is eligible for use with Orders and SKUs, or `service`, which is eligible for use with Subscriptions and Plans.
+     * @enum {string}
+     */
     type: "good" | "service";
     /** @description A label that represents units of this product in Stripe and on customers’ receipts and invoices. When set, this will be included in associated invoice line item descriptions. */
     unit_label?: string;
@@ -7574,7 +8163,10 @@ export interface definitions {
     id: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "radar.early_fraud_warning";
   };
   /**
@@ -7592,7 +8184,10 @@ export interface definitions {
     created_by: string;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description The type of items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, or `case_sensitive_string`. */
+    /**
+     * @description The type of items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, or `case_sensitive_string`.
+     * @enum {string}
+     */
     item_type:
       | "card_bin"
       | "card_fingerprint"
@@ -7610,7 +8205,10 @@ export interface definitions {
       data: definitions["radar.value_list_item"][];
       /** @description True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+       * @enum {string}
+       */
       object: "list";
       /** @description The URL where this list can be accessed. */
       url: string;
@@ -7621,7 +8219,10 @@ export interface definitions {
     metadata: { [key: string]: unknown };
     /** @description The name of the value list. */
     name: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "radar.value_list";
   };
   /**
@@ -7639,7 +8240,10 @@ export interface definitions {
     id: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "radar.value_list_item";
     /** @description The value of the item. */
     value: string;
@@ -7691,7 +8295,10 @@ export interface definitions {
       data: definitions["card"][];
       /** @description True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+       * @enum {string}
+       */
       object: "list";
       /** @description The URL where this list can be accessed. */
       url: string;
@@ -7713,7 +8320,10 @@ export interface definitions {
     migrated_to?: string;
     /** @description Full, legal name of the recipient. */
     name?: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "recipient";
     rolled_back_from?: string;
     /** @description Type of the recipient, one of `individual` or `corporation`. */
@@ -7748,7 +8358,10 @@ export interface definitions {
     id: string;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "refund";
     /** @description ID of the PaymentIntent that was refunded. */
     payment_intent?: string;
@@ -7787,7 +8400,10 @@ export interface definitions {
     id: string;
     /** @description Always `true`: reports can only be run on live-mode data. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "reporting.report_run";
     parameters: definitions["financial_reporting_finance_report_run_run_parameters"];
     /** @description The ID of the [report type](https://stripe.com/docs/reporting/statements/api#report-types) to run, such as `"balance.summary.1"`. */
@@ -7828,7 +8444,10 @@ export interface definitions {
     id: string;
     /** @description Human-readable name of the Report Type */
     name: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "reporting.report_type";
     /** @description When this Report Type was latest updated. Measured in seconds since the Unix epoch. */
     updated: number;
@@ -7844,7 +8463,10 @@ export interface definitions {
     description?: string;
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "reserve_transaction";
   };
   /**
@@ -7859,7 +8481,10 @@ export interface definitions {
     billing_zip?: string;
     /** @description The charge associated with this review. */
     charge?: string;
-    /** @description The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, or `disputed`. */
+    /**
+     * @description The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, or `disputed`.
+     * @enum {string}
+     */
     closed_reason?: "approved" | "disputed" | "refunded" | "refunded_as_fraud";
     /** @description Time at which the object was created. Measured in seconds since the Unix epoch. */
     created: number;
@@ -7870,11 +8495,17 @@ export interface definitions {
     ip_address_location?: definitions["radar_review_resource_location"];
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "review";
     /** @description If `true`, the review needs action. */
     open: boolean;
-    /** @description The reason the review was opened. One of `rule` or `manual`. */
+    /**
+     * @description The reason the review was opened. One of `rule` or `manual`.
+     * @enum {string}
+     */
     opened_reason: "manual" | "rule";
     /** @description The PaymentIntent ID associated with this review, if one exists. */
     payment_intent?: string;
@@ -7909,7 +8540,10 @@ export interface definitions {
     id: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "scheduled_query_run";
     /** @description Time at which the result expires and is no longer available for download. */
     result_available_until: number;
@@ -7948,7 +8582,10 @@ export interface definitions {
   setup_intent: {
     /** @description ID of the Connect application that created the SetupIntent. */
     application?: string;
-    /** @description Reason for cancellation of this SetupIntent, one of `abandoned`, `requested_by_customer`, or `duplicate`. */
+    /**
+     * @description Reason for cancellation of this SetupIntent, one of `abandoned`, `requested_by_customer`, or `duplicate`.
+     * @enum {string}
+     */
     cancellation_reason?: "abandoned" | "duplicate" | "requested_by_customer";
     /**
      * @description The client secret of this SetupIntent. Used for client-side retrieval using a publishable key.
@@ -7976,7 +8613,10 @@ export interface definitions {
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata?: { [key: string]: unknown };
     next_action?: definitions["setup_intent_next_action"];
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "setup_intent";
     /** @description The account (if any) for which the setup is intended. */
     on_behalf_of?: string;
@@ -7987,7 +8627,10 @@ export interface definitions {
     payment_method_types: string[];
     /** @description ID of the single_use Mandate generated by the SetupIntent. */
     single_use_mandate?: string;
-    /** @description [Status](https://stripe.com/docs/payments/intents#intent-statuses) of this SetupIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `canceled`, or `succeeded`. */
+    /**
+     * @description [Status](https://stripe.com/docs/payments/intents#intent-statuses) of this SetupIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `canceled`, or `succeeded`.
+     * @enum {string}
+     */
     status:
       | "canceled"
       | "processing"
@@ -8023,7 +8666,10 @@ export interface definitions {
   };
   /** setup_intent_payment_method_options_card */
   setup_intent_payment_method_options_card: {
-    /** @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine. */
+    /**
+     * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+     * @enum {string}
+     */
     request_three_d_secure?: "any" | "automatic" | "challenge_only";
   };
   /** Shipping */
@@ -8084,7 +8730,10 @@ export interface definitions {
     livemode: boolean;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "sku";
     package_dimensions?: definitions["package_dimensions"];
     /** @description The cost of the item as a positive integer in the smallest currency unit (that is, 100 cents to charge $1.00, or 100 to charge ¥100, Japanese Yen being a zero-decimal currency). */
@@ -8135,7 +8784,10 @@ export interface definitions {
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata?: { [key: string]: unknown };
     multibanco?: definitions["source_type_multibanco"];
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "source";
     owner?: definitions["source_owner"];
     p24?: definitions["source_type_p24"];
@@ -8149,7 +8801,10 @@ export interface definitions {
     /** @description The status of the source, one of `canceled`, `chargeable`, `consumed`, `failed`, or `pending`. Only `chargeable` sources can be used to create a charge. */
     status: string;
     three_d_secure?: definitions["source_type_three_d_secure"];
-    /** @description The `type` of the source. The `type` is a payment method, one of `ach_credit_transfer`, `ach_debit`, `alipay`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `multibanco`, `klarna`, `p24`, `sepa_debit`, `sofort`, `three_d_secure`, or `wechat`. An additional hash is included on the source with a name matching this value. It contains additional information specific to the [payment method](https://stripe.com/docs/sources) used. */
+    /**
+     * @description The `type` of the source. The `type` is a payment method, one of `ach_credit_transfer`, `ach_debit`, `alipay`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `multibanco`, `klarna`, `p24`, `sepa_debit`, `sofort`, `three_d_secure`, or `wechat`. An additional hash is included on the source with a name matching this value. It contains additional information specific to the [payment method](https://stripe.com/docs/sources) used.
+     * @enum {string}
+     */
     type:
       | "ach_credit_transfer"
       | "ach_debit"
@@ -8195,7 +8850,10 @@ export interface definitions {
     id: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "source_mandate_notification";
     /** @description The reason of the mandate notification. Valid reasons are `mandate_confirmed` or `debit_initiated`. */
     reason: string;
@@ -8309,7 +8967,10 @@ export interface definitions {
     id: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "source_transaction";
     paper_check?: definitions["source_transaction_paper_check_data"];
     sepa_credit_transfer?: definitions["source_transaction_sepa_credit_transfer_data"];
@@ -8317,7 +8978,10 @@ export interface definitions {
     source: string;
     /** @description The status of the transaction, one of `succeeded`, `pending`, or `failed`. */
     status: string;
-    /** @description The type of source this transaction is attached to. */
+    /**
+     * @description The type of source this transaction is attached to.
+     * @enum {string}
+     */
     type:
       | "ach_credit_transfer"
       | "ach_debit"
@@ -8599,7 +9263,10 @@ export interface definitions {
     cancel_at_period_end: boolean;
     /** @description If the subscription has been canceled, the date of that cancellation. If the subscription was canceled with `cancel_at_period_end`, `canceled_at` will still reflect the date of the initial cancellation request, not the end of the subscription period when the subscription is automatically moved to a canceled state. */
     canceled_at?: number;
-    /** @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. */
+    /**
+     * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions.
+     * @enum {string}
+     */
     collection_method?: "charge_automatically" | "send_invoice";
     /** @description Time at which the object was created. Measured in seconds since the Unix epoch. */
     created: number;
@@ -8631,7 +9298,10 @@ export interface definitions {
       data: definitions["subscription_item"][];
       /** @description True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+       * @enum {string}
+       */
       object: "list";
       /** @description The URL where this list can be accessed. */
       url: string;
@@ -8644,7 +9314,10 @@ export interface definitions {
     metadata: { [key: string]: unknown };
     /** @description Specifies the approximate timestamp on which any pending invoice items will be billed according to the schedule provided at `pending_invoice_item_interval`. */
     next_pending_invoice_item_invoice?: number;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "subscription";
     pause_collection?: definitions["subscriptions_resource_pause_collection"];
     pending_invoice_item_interval?: definitions["subscription_pending_invoice_item_interval"];
@@ -8668,6 +9341,7 @@ export interface definitions {
      * If subscription `collection_method=charge_automatically` it becomes `past_due` when payment to renew it fails and `canceled` or `unpaid` (depending on your subscriptions settings) when Stripe has exhausted all payment retry attempts.
      *
      * If subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.
+     * @enum {string}
      */
     status:
       | "active"
@@ -8704,7 +9378,10 @@ export interface definitions {
     id: string;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "subscription_item";
     plan: definitions["plan"];
     /** @description The [quantity](https://stripe.com/docs/subscriptions/quantities) of the plan to which the customer should be subscribed. */
@@ -8721,7 +9398,10 @@ export interface definitions {
   };
   /** SubscriptionPendingInvoiceItemInterval */
   subscription_pending_invoice_item_interval: {
-    /** @description Specifies invoicing frequency. Either `day`, `week`, `month` or `year`. */
+    /**
+     * @description Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+     * @enum {string}
+     */
     interval: "day" | "month" | "week" | "year";
     /** @description The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). */
     interval_count: number;
@@ -8743,7 +9423,10 @@ export interface definitions {
     /** @description ID of the customer who owns the subscription schedule. */
     customer: string;
     default_settings: definitions["subscription_schedules_resource_default_settings"];
-    /** @description Behavior of the subscription schedule and underlying subscription when it ends. */
+    /**
+     * @description Behavior of the subscription schedule and underlying subscription when it ends.
+     * @enum {string}
+     */
     end_behavior: "cancel" | "none" | "release" | "renew";
     /** @description Unique identifier for the object. */
     id: string;
@@ -8751,7 +9434,10 @@ export interface definitions {
     livemode: boolean;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata?: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "subscription_schedule";
     /** @description Configuration for the subscription schedule's phases. */
     phases: definitions["subscription_schedule_phase_configuration"][];
@@ -8759,7 +9445,10 @@ export interface definitions {
     released_at?: number;
     /** @description ID of the subscription once managed by the subscription schedule (if it is released). */
     released_subscription?: string;
-    /** @description The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://stripe.com/docs/billing/subscriptions/subscription-schedules). */
+    /**
+     * @description The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://stripe.com/docs/billing/subscriptions/subscription-schedules).
+     * @enum {string}
+     */
     status: "active" | "canceled" | "completed" | "not_started" | "released";
     /** @description ID of the subscription managed by the subscription schedule. */
     subscription?: string;
@@ -8792,7 +9481,10 @@ export interface definitions {
     /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account during this phase of the schedule. */
     application_fee_percent?: number;
     billing_thresholds?: definitions["subscription_billing_thresholds"];
-    /** @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. */
+    /**
+     * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions.
+     * @enum {string}
+     */
     collection_method?: "charge_automatically" | "send_invoice";
     /** @description ID of the coupon to use during this phase of the subscription schedule. */
     coupon?: string;
@@ -8805,7 +9497,10 @@ export interface definitions {
     invoice_settings?: definitions["invoice_setting_subscription_schedule_setting"];
     /** @description Plans to subscribe during this phase of the subscription schedule. */
     plans: definitions["subscription_schedule_configuration_item"][];
-    /** @description Controls whether or not the subscription schedule will prorate when transitioning to this phase. Values are `create_prorations` and `none`. */
+    /**
+     * @description Controls whether or not the subscription schedule will prorate when transitioning to this phase. Values are `create_prorations` and `none`.
+     * @enum {string}
+     */
     proration_behavior?: "always_invoice" | "create_prorations" | "none";
     /** @description The start of this phase of the subscription schedule. */
     start_date: number;
@@ -8817,7 +9512,10 @@ export interface definitions {
   /** SubscriptionSchedulesResourceDefaultSettings */
   subscription_schedules_resource_default_settings: {
     billing_thresholds?: definitions["subscription_billing_thresholds"];
-    /** @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. */
+    /**
+     * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions.
+     * @enum {string}
+     */
     collection_method?: "charge_automatically" | "send_invoice";
     /** @description ID of the default payment method for the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings. */
     default_payment_method?: string;
@@ -8829,7 +9527,10 @@ export interface definitions {
    * should be paused.
    */
   subscriptions_resource_pause_collection: {
-    /** @description The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`. */
+    /**
+     * @description The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+     * @enum {string}
+     */
     behavior: "keep_as_draft" | "mark_uncollectible" | "void";
     /** @description The time after which the subscription will resume collecting payments. */
     resumes_at?: number;
@@ -8855,7 +9556,10 @@ export interface definitions {
   tax_deducted_at_source: {
     /** @description Unique identifier for the object. */
     id: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "tax_deducted_at_source";
     /** @description The end of the invoicing period. This TDS applies to Stripe fees collected during this invoicing period. */
     period_end: number;
@@ -8882,9 +9586,15 @@ export interface definitions {
     id: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "tax_id";
-    /** @description Type of the tax ID, one of `au_abn`, `ca_bn`, `ca_qst`, `ch_vat`, `es_cif`, `eu_vat`, `hk_br`, `in_gst`, `jp_cn`, `kr_brn`, `li_uid`, `mx_rfc`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `ru_inn`, `sg_gst`, `sg_uen`, `th_vat`, `tw_vat`, `us_ein`, or `za_vat`. Note that some legacy tax IDs have type `unknown` */
+    /**
+     * @description Type of the tax ID, one of `au_abn`, `ca_bn`, `ca_qst`, `ch_vat`, `es_cif`, `eu_vat`, `hk_br`, `in_gst`, `jp_cn`, `kr_brn`, `li_uid`, `mx_rfc`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `ru_inn`, `sg_gst`, `sg_uen`, `th_vat`, `tw_vat`, `us_ein`, or `za_vat`. Note that some legacy tax IDs have type `unknown`
+     * @enum {string}
+     */
     type:
       | "au_abn"
       | "ca_bn"
@@ -8916,7 +9626,10 @@ export interface definitions {
   };
   /** tax_id_verification */
   tax_id_verification: {
-    /** @description Verification status, one of `pending`, `verified`, `unverified`, or `unavailable`. */
+    /**
+     * @description Verification status, one of `pending`, `verified`, `unverified`, or `unavailable`.
+     * @enum {string}
+     */
     status: "pending" | "unavailable" | "unverified" | "verified";
     /** @description Verified address. */
     verified_address?: string;
@@ -8948,7 +9661,10 @@ export interface definitions {
     livemode: boolean;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "tax_rate";
     /** @description This represents the tax rate percent out of 100. */
     percentage: number;
@@ -8962,7 +9678,10 @@ export interface definitions {
   "terminal.connection_token": {
     /** @description The id of the location that this connection token is scoped to. */
     location?: string;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "terminal.connection_token";
     /** @description Your application should pass this token to the Stripe Terminal SDK. */
     secret: string;
@@ -8983,7 +9702,10 @@ export interface definitions {
     livemode: boolean;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "terminal.location";
   };
   /**
@@ -8995,7 +9717,10 @@ export interface definitions {
   "terminal.reader": {
     /** @description The current software version of the reader. */
     device_sw_version?: string;
-    /** @description Type of reader, one of `bbpos_chipper2x` or `verifone_P400`. */
+    /**
+     * @description Type of reader, one of `bbpos_chipper2x` or `verifone_P400`.
+     * @enum {string}
+     */
     device_type: "bbpos_chipper2x" | "verifone_P400";
     /** @description Unique identifier for the object. */
     id: string;
@@ -9009,7 +9734,10 @@ export interface definitions {
     location?: string;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "terminal.reader";
     /** @description Serial number of the reader. */
     serial_number: string;
@@ -9036,7 +9764,10 @@ export interface definitions {
     id: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "three_d_secure";
     /** @description If present, this is the URL that you should send the cardholder to for authentication. If you are going to use Stripe.js to display the authentication page in an iframe, you should use the value "_callback". */
     redirect_url?: string;
@@ -9093,7 +9824,10 @@ export interface definitions {
     id: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "token";
     /** @description Type of the token: `account`, `bank_account`, `card`, or `pii`. */
     type: string;
@@ -9131,12 +9865,18 @@ export interface definitions {
     livemode: boolean;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "topup";
     source: definitions["source"];
     /** @description Extra information about a top-up. This will appear on your source's bank statement. It must contain at least one letter. */
     statement_descriptor?: string;
-    /** @description The status of the top-up is either `canceled`, `failed`, `pending`, `reversed`, or `succeeded`. */
+    /**
+     * @description The status of the top-up is either `canceled`, `failed`, `pending`, `reversed`, or `succeeded`.
+     * @enum {string}
+     */
     status: "canceled" | "failed" | "pending" | "reversed" | "succeeded";
     /** @description A string that identifies this top-up as part of a group. */
     transfer_group?: string;
@@ -9177,7 +9917,10 @@ export interface definitions {
     livemode: boolean;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "transfer";
     /**
      * TransferReversalList
@@ -9188,7 +9931,10 @@ export interface definitions {
       data: definitions["transfer_reversal"][];
       /** @description True if this list has another page of items after this one that can be fetched. */
       has_more: boolean;
-      /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+       * @enum {string}
+       */
       object: "list";
       /** @description The URL where this list can be accessed. */
       url: string;
@@ -9244,7 +9990,10 @@ export interface definitions {
     id: string;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "transfer_reversal";
     /** @description ID of the refund responsible for the transfer reversal. */
     source_refund?: string;
@@ -9266,7 +10015,10 @@ export interface definitions {
   transform_usage: {
     /** @description Divide usage by this number. */
     divide_by: number;
-    /** @description After division, either round the result `up` or `down`. */
+    /**
+     * @description After division, either round the result `up` or `down`.
+     * @enum {string}
+     */
     round: "down" | "up";
   };
   /**
@@ -9281,7 +10033,10 @@ export interface definitions {
     id: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "usage_record";
     /** @description The usage quantity for the specified date. */
     quantity: number;
@@ -9298,7 +10053,10 @@ export interface definitions {
     invoice?: string;
     /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
     livemode: boolean;
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "usage_record_summary";
     period: definitions["period"];
     /** @description The ID of the subscription item this summary is describing. */
@@ -9333,7 +10091,10 @@ export interface definitions {
     livemode: boolean;
     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
     metadata: { [key: string]: unknown };
-    /** @description String representing the object's type. Objects of the same type share the same value. */
+    /**
+     * @description String representing the object's type. Objects of the same type share the same value.
+     * @enum {string}
+     */
     object: "webhook_endpoint";
     /** @description The endpoint's secret, used to generate [webhook signatures](https://stripe.com/docs/webhooks/signatures). Only returned at creation. */
     secret?: string;
@@ -9445,7 +10206,10 @@ export interface operations {
             support_url?: string;
             url?: string;
           };
-          /** @description The business type. */
+          /**
+           * @description The business type.
+           * @enum {string}
+           */
           business_type?:
             | "company"
             | "government_entity"
@@ -9492,6 +10256,7 @@ export interface operations {
             name_kanji?: string;
             owners_provided?: boolean;
             phone?: string;
+            /** @enum {string} */
             structure?:
               | ""
               | "government_instrumentality"
@@ -9598,6 +10363,7 @@ export interface operations {
             | "au_becs_debit_payments"
             | "card_issuing"
             | "card_payments"
+            | "jcb_payments"
             | "legacy_payments"
             | "tax_reporting_us_1099_k"
             | "tax_reporting_us_1099_misc"
@@ -9636,8 +10402,10 @@ export interface operations {
               /** transfer_schedule_specs */
               schedule?: {
                 delay_days?: unknown;
+                /** @enum {string} */
                 interval?: "daily" | "manual" | "monthly" | "weekly";
                 monthly_anchor?: number;
+                /** @enum {string} */
                 weekly_anchor?:
                   | "friday"
                   | "monday"
@@ -9766,7 +10534,10 @@ export interface operations {
         payload?: {
           /** @description The name of the person or business that owns the bank account. */
           account_holder_name?: string;
-          /** @description The type of entity that holds the account. This can be either `individual` or `company`. */
+          /**
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
+           * @enum {string}
+           */
           account_holder_type?: "" | "company" | "individual";
           /** @description City/District/Suburb/Town/Village. */
           address_city?: string;
@@ -9839,7 +10610,10 @@ export interface operations {
           data: definitions["capability"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -9922,7 +10696,10 @@ export interface operations {
           data: definitions["bank_account"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -10000,7 +10777,10 @@ export interface operations {
         payload?: {
           /** @description The name of the person or business that owns the bank account. */
           account_holder_name?: string;
-          /** @description The type of entity that holds the account. This can be either `individual` or `company`. */
+          /**
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
+           * @enum {string}
+           */
           account_holder_type?: "" | "company" | "individual";
           /** @description City/District/Suburb/Town/Village. */
           address_city?: string;
@@ -10137,7 +10917,10 @@ export interface operations {
           data: definitions["person"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -10453,7 +11236,10 @@ export interface operations {
           data: definitions["person"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -10754,7 +11540,10 @@ export interface operations {
         payload: {
           /** @description The identifier of the account to create an account link for. */
           account: string;
-          /** @description Which information the platform needs to collect from the user. One of `currently_due` or `eventually_due`. Default is `currently_due`. */
+          /**
+           * @description Which information the platform needs to collect from the user. One of `currently_due` or `eventually_due`. Default is `currently_due`.
+           * @enum {string}
+           */
           collect?: "currently_due" | "eventually_due";
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
@@ -10762,7 +11551,10 @@ export interface operations {
           failure_url: string;
           /** @description The URL that the user will be redirected to upon leaving or completing the linked flow successfully. */
           success_url: string;
-          /** @description The type of account link the user is requesting. Possible values are `custom_account_verification` or `custom_account_update`. */
+          /**
+           * @description The type of account link the user is requesting. Possible values are `custom_account_verification` or `custom_account_update`.
+           * @enum {string}
+           */
           type: "custom_account_update" | "custom_account_verification";
         };
       };
@@ -10800,7 +11592,10 @@ export interface operations {
           data: definitions["account"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -10841,7 +11636,10 @@ export interface operations {
             support_url?: string;
             url?: string;
           };
-          /** @description The business type. */
+          /**
+           * @description The business type.
+           * @enum {string}
+           */
           business_type?:
             | "company"
             | "government_entity"
@@ -10888,6 +11686,7 @@ export interface operations {
             name_kanji?: string;
             owners_provided?: boolean;
             phone?: string;
+            /** @enum {string} */
             structure?:
               | ""
               | "government_instrumentality"
@@ -10996,6 +11795,7 @@ export interface operations {
             | "au_becs_debit_payments"
             | "card_issuing"
             | "card_payments"
+            | "jcb_payments"
             | "legacy_payments"
             | "tax_reporting_us_1099_k"
             | "tax_reporting_us_1099_misc"
@@ -11034,8 +11834,10 @@ export interface operations {
               /** transfer_schedule_specs */
               schedule?: {
                 delay_days?: unknown;
+                /** @enum {string} */
                 interval?: "daily" | "manual" | "monthly" | "weekly";
                 monthly_anchor?: number;
+                /** @enum {string} */
                 weekly_anchor?:
                   | "friday"
                   | "monday"
@@ -11057,7 +11859,10 @@ export interface operations {
             ip?: string;
             user_agent?: string;
           };
-          /** @description The type of Stripe account to create. Currently must be `custom`, as only [Custom accounts](https://stripe.com/docs/connect/custom-accounts) may be created via the API. */
+          /**
+           * @description The type of Stripe account to create. Currently must be `custom`, as only [Custom accounts](https://stripe.com/docs/connect/custom-accounts) may be created via the API.
+           * @enum {string}
+           */
           type?: "custom" | "express" | "standard";
         };
       };
@@ -11125,7 +11930,10 @@ export interface operations {
             support_url?: string;
             url?: string;
           };
-          /** @description The business type. */
+          /**
+           * @description The business type.
+           * @enum {string}
+           */
           business_type?:
             | "company"
             | "government_entity"
@@ -11172,6 +11980,7 @@ export interface operations {
             name_kanji?: string;
             owners_provided?: boolean;
             phone?: string;
+            /** @enum {string} */
             structure?:
               | ""
               | "government_instrumentality"
@@ -11278,6 +12087,7 @@ export interface operations {
             | "au_becs_debit_payments"
             | "card_issuing"
             | "card_payments"
+            | "jcb_payments"
             | "legacy_payments"
             | "tax_reporting_us_1099_k"
             | "tax_reporting_us_1099_misc"
@@ -11316,8 +12126,10 @@ export interface operations {
               /** transfer_schedule_specs */
               schedule?: {
                 delay_days?: unknown;
+                /** @enum {string} */
                 interval?: "daily" | "manual" | "monthly" | "weekly";
                 monthly_anchor?: number;
+                /** @enum {string} */
                 weekly_anchor?:
                   | "friday"
                   | "monday"
@@ -11448,7 +12260,10 @@ export interface operations {
         payload?: {
           /** @description The name of the person or business that owns the bank account. */
           account_holder_name?: string;
-          /** @description The type of entity that holds the account. This can be either `individual` or `company`. */
+          /**
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
+           * @enum {string}
+           */
           account_holder_type?: "" | "company" | "individual";
           /** @description City/District/Suburb/Town/Village. */
           address_city?: string;
@@ -11525,7 +12340,10 @@ export interface operations {
           data: definitions["capability"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -11613,7 +12431,10 @@ export interface operations {
           data: definitions["bank_account"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -11696,7 +12517,10 @@ export interface operations {
         payload?: {
           /** @description The name of the person or business that owns the bank account. */
           account_holder_name?: string;
-          /** @description The type of entity that holds the account. This can be either `individual` or `company`. */
+          /**
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
+           * @enum {string}
+           */
           account_holder_type?: "" | "company" | "individual";
           /** @description City/District/Suburb/Town/Village. */
           address_city?: string;
@@ -11841,7 +12665,10 @@ export interface operations {
           data: definitions["person"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -12164,7 +12991,10 @@ export interface operations {
           data: definitions["person"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -12514,7 +13344,10 @@ export interface operations {
           data: definitions["apple_pay_domain"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -12613,7 +13446,10 @@ export interface operations {
           data: definitions["application_fee"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -12753,7 +13589,10 @@ export interface operations {
           data: definitions["fee_refund"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -12861,7 +13700,10 @@ export interface operations {
           data: definitions["balance_transaction"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -12934,7 +13776,10 @@ export interface operations {
           data: definitions["balance_transaction"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -12972,7 +13817,7 @@ export interface operations {
       };
     };
   };
-  /** <p>Creates a session of the Self-service Portal.</p> */
+  /** <p>Creates a session of the self-serve Portal.</p> */
   PostBillingPortalSessions: {
     parameters: {
       body: {
@@ -13025,7 +13870,10 @@ export interface operations {
           data: definitions["bitcoin_receiver"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -13086,7 +13934,10 @@ export interface operations {
           data: definitions["bitcoin_transaction"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -13123,7 +13974,10 @@ export interface operations {
           data: definitions["bitcoin_transaction"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -13163,7 +14017,10 @@ export interface operations {
           data: definitions["charge"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -13300,6 +14157,7 @@ export interface operations {
            * @description A set of key-value pairs you can attach to a charge giving information about its riskiness. If you believe a charge is fraudulent, include a `user_report` key with a value of `fraudulent`. If you believe a charge is safe, include a `user_report` key with a value of `safe`. Stripe will use the information you send to improve our fraud detection algorithms.
            */
           fraud_details?: {
+            /** @enum {string} */
             user_report: "" | "fraudulent" | "safe";
           };
           /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -13524,6 +14382,7 @@ export interface operations {
           expand?: string[];
           metadata?: unknown;
           payment_intent?: string;
+          /** @enum {string} */
           reason?: "duplicate" | "fraudulent" | "requested_by_customer";
           refund_application_fee?: boolean;
           reverse_transfer?: boolean;
@@ -13566,7 +14425,10 @@ export interface operations {
           data: definitions["refund"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -13593,6 +14455,7 @@ export interface operations {
           /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: { [key: string]: unknown };
           payment_intent?: string;
+          /** @enum {string} */
           reason?: "duplicate" | "fraudulent" | "requested_by_customer";
           refund_application_fee?: boolean;
           reverse_transfer?: boolean;
@@ -13685,7 +14548,10 @@ export interface operations {
           data: definitions["checkout.session"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -13703,7 +14569,10 @@ export interface operations {
       body: {
         /** Body parameters for the request. */
         payload: {
-          /** @description Specify whether Checkout should collect the customer's billing address. */
+          /**
+           * @description Specify whether Checkout should collect the customer's billing address.
+           * @enum {string}
+           */
           billing_address_collection?: "auto" | "required";
           /** @description The URL the customer will be directed to if they decide to cancel payment and return to your website. */
           cancel_url: string;
@@ -13747,7 +14616,10 @@ export interface operations {
             quantity: number;
             tax_rates?: string[];
           }[];
-          /** @description The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used. */
+          /**
+           * @description The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
+           * @enum {string}
+           */
           locale?:
             | "auto"
             | "da"
@@ -13768,7 +14640,10 @@ export interface operations {
             | "zh";
           /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: { [key: string]: unknown };
-          /** @description The mode of the Checkout Session, one of `payment`, `setup`, or `subscription`. */
+          /**
+           * @description The mode of the Checkout Session, one of `payment`, `setup`, or `subscription`.
+           * @enum {string}
+           */
           mode?: "payment" | "setup" | "subscription";
           /**
            * payment_intent_data_params
@@ -13776,11 +14651,13 @@ export interface operations {
            */
           payment_intent_data?: {
             application_fee_amount?: number;
+            /** @enum {string} */
             capture_method?: "automatic" | "manual";
             description?: string;
             metadata?: { [key: string]: unknown };
             on_behalf_of?: string;
             receipt_email?: string;
+            /** @enum {string} */
             setup_future_usage?: "off_session" | "on_session";
             /** shipping */
             shipping?: {
@@ -14067,6 +14944,7 @@ export interface operations {
            * relevant text on the page, such as the submit button. `submit_type` can only be
            * specified on Checkout Sessions in `payment` mode, but not Checkout Sessions
            * in `subscription` or `setup` mode.
+           * @enum {string}
            */
           submit_type?: "auto" | "book" | "donate" | "pay";
           /**
@@ -14075,6 +14953,7 @@ export interface operations {
            */
           subscription_data?: {
             application_fee_percent?: number;
+            coupon?: string;
             default_tax_rates?: string[];
             items?: {
               plan: string;
@@ -14151,7 +15030,10 @@ export interface operations {
           data: definitions["country_spec"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -14208,7 +15090,10 @@ export interface operations {
           data: definitions["coupon"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -14234,7 +15119,10 @@ export interface operations {
           amount_off?: number;
           /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed). */
           currency?: string;
-          /** @description Specifies how long the discount will be in effect. Can be `forever`, `once`, or `repeating`. */
+          /**
+           * @description Specifies how long the discount will be in effect. Can be `forever`, `once`, or `repeating`.
+           * @enum {string}
+           */
           duration: "forever" | "once" | "repeating";
           /** @description Required only if `duration` is `repeating`, in which case it must be a positive integer that specifies the number of months the discount will be in effect. */
           duration_in_months?: number;
@@ -14360,7 +15248,10 @@ export interface operations {
           data: definitions["credit_note"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -14408,6 +15299,7 @@ export interface operations {
             invoice_line_item?: string;
             quantity?: number;
             tax_rates?: string[];
+            /** @enum {string} */
             type: "custom_line_item" | "invoice_line_item";
             unit_amount?: number;
             unit_amount_decimal?: string;
@@ -14418,7 +15310,10 @@ export interface operations {
           metadata?: { [key: string]: unknown };
           /** @description The integer amount in **%s** representing the amount that is credited outside of Stripe. */
           out_of_band_amount?: number;
-          /** @description Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` */
+          /**
+           * @description Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
+           * @enum {string}
+           */
           reason?:
             | "duplicate"
             | "fraudulent"
@@ -14523,7 +15418,10 @@ export interface operations {
           data: definitions["credit_note_line_item"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -14560,7 +15458,10 @@ export interface operations {
           data: definitions["credit_note_line_item"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -14672,7 +15573,10 @@ export interface operations {
           data: definitions["customer"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -14738,10 +15642,14 @@ export interface operations {
            * Whenever you attach a card to a customer, Stripe will automatically validate the card.
            */
           source?: string;
-          /** @description The customer's tax exemption. One of `none`, `exempt`, or `reverse`. */
+          /**
+           * @description The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
+           * @enum {string}
+           */
           tax_exempt?: "" | "exempt" | "none" | "reverse";
           /** @description The customer's tax IDs. */
           tax_id_data?: {
+            /** @enum {string} */
             type:
               | "au_abn"
               | "ca_bn"
@@ -14881,7 +15789,10 @@ export interface operations {
            * Whenever you attach a card to a customer, Stripe will automatically validate the card.
            */
           source?: string;
-          /** @description The customer's tax exemption. One of `none`, `exempt`, or `reverse`. */
+          /**
+           * @description The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
+           * @enum {string}
+           */
           tax_exempt?: "" | "exempt" | "none" | "reverse";
           /** @description Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
           trial_end?: unknown;
@@ -14942,7 +15853,10 @@ export interface operations {
           data: definitions["customer_balance_transaction"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -15065,7 +15979,10 @@ export interface operations {
           data: definitions["bank_account"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -15153,7 +16070,10 @@ export interface operations {
         payload?: {
           /** @description The name of the person or business that owns the bank account. */
           account_holder_name?: string;
-          /** @description The type of entity that holds the account. This can be either `individual` or `company`. */
+          /**
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
+           * @enum {string}
+           */
           account_holder_type?: "company" | "individual";
           /** @description City/District/Suburb/Town/Village. */
           address_city?: string;
@@ -15288,7 +16208,10 @@ export interface operations {
           data: definitions["card"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -15376,7 +16299,10 @@ export interface operations {
         payload?: {
           /** @description The name of the person or business that owns the bank account. */
           account_holder_name?: string;
-          /** @description The type of entity that holds the account. This can be either `individual` or `company`. */
+          /**
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
+           * @enum {string}
+           */
           account_holder_type?: "company" | "individual";
           /** @description City/District/Suburb/Town/Village. */
           address_city?: string;
@@ -15521,7 +16447,10 @@ export interface operations {
           data: definitions["alipay_account"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -15609,7 +16538,10 @@ export interface operations {
         payload?: {
           /** @description The name of the person or business that owns the bank account. */
           account_holder_name?: string;
-          /** @description The type of entity that holds the account. This can be either `individual` or `company`. */
+          /**
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
+           * @enum {string}
+           */
           account_holder_type?: "company" | "individual";
           /** @description City/District/Suburb/Town/Village. */
           address_city?: string;
@@ -15741,7 +16673,10 @@ export interface operations {
           data: definitions["subscription"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -15774,7 +16709,10 @@ export interface operations {
           cancel_at?: number;
           /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
           cancel_at_period_end?: boolean;
-          /** @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`. */
+          /**
+           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`.
+           * @enum {string}
+           */
           collection_method?: "charge_automatically" | "send_invoice";
           /** @description The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. */
           coupon?: string;
@@ -15806,6 +16744,7 @@ export interface operations {
            * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
            *
            * `pending_if_incomplete` is only used with updates and cannot be passed when creating a subscription.
+           * @enum {string}
            */
           payment_behavior?:
             | "allow_incomplete"
@@ -15819,6 +16758,7 @@ export interface operations {
            * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) resulting from the `billing_cycle_anchor`. Valid values are `create_prorations` or `none`.
            *
            * Passing `create_prorations` will cause proration invoice items to be created when applicable. Prorations can be disabled by passing `none`. If no value is passed, the default is `create_prorations`.
+           * @enum {string}
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /** @description A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
@@ -15878,7 +16818,10 @@ export interface operations {
         payload?: {
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           application_fee_percent?: number;
-          /** @description Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle). */
+          /**
+           * @description Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+           * @enum {string}
+           */
           billing_cycle_anchor?: "now" | "unchanged";
           /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
           billing_thresholds?: unknown;
@@ -15886,7 +16829,10 @@ export interface operations {
           cancel_at?: unknown;
           /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
           cancel_at_period_end?: boolean;
-          /** @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`. */
+          /**
+           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`.
+           * @enum {string}
+           */
           collection_method?: "charge_automatically" | "send_invoice";
           /** @description The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. */
           coupon?: string;
@@ -15923,6 +16869,7 @@ export interface operations {
            * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
            *
            * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+           * @enum {string}
            */
           payment_behavior?:
             | "allow_incomplete"
@@ -15938,6 +16885,7 @@ export interface operations {
            * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
            *
            * Prorations can be disabled by passing `none`.
+           * @enum {string}
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /** @description If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations. */
@@ -16064,7 +17012,10 @@ export interface operations {
           data: definitions["tax_id"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -16087,7 +17038,10 @@ export interface operations {
         payload: {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
-          /** @description Type of the tax ID, one of `eu_vat`, `nz_gst`, `au_abn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `my_sst`, or `sg_gst` */
+          /**
+           * @description Type of the tax ID, one of `eu_vat`, `nz_gst`, `au_abn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `my_sst`, or `sg_gst`
+           * @enum {string}
+           */
           type:
             | "au_abn"
             | "ca_bn"
@@ -16196,7 +17150,10 @@ export interface operations {
           data: definitions["dispute"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -16404,7 +17361,10 @@ export interface operations {
           data: definitions["event"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -16459,7 +17419,10 @@ export interface operations {
           data: definitions["exchange_rate"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -16519,7 +17482,10 @@ export interface operations {
           data: definitions["file_link"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -16634,7 +17600,10 @@ export interface operations {
           data: definitions["file"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -16669,7 +17638,10 @@ export interface operations {
             expires_at?: number;
             metadata?: unknown;
           };
-          /** @description The purpose of the uploaded file. Possible values are `additional_verification`, `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `identity_document`, `pci_document`, or `tax_document_user_upload`. */
+          /**
+           * @description The purpose of the uploaded file. Possible values are `additional_verification`, `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `identity_document`, `pci_document`, or `tax_document_user_upload`.
+           * @enum {string}
+           */
           purpose:
             | "additional_verification"
             | "business_icon"
@@ -16743,7 +17715,10 @@ export interface operations {
           data: definitions["invoiceitem"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -16929,7 +17904,10 @@ export interface operations {
           data: definitions["invoice"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -16951,7 +17929,10 @@ export interface operations {
           application_fee_amount?: number;
           /** @description Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. When `false`, the invoice's state will not automatically advance without an explicit action. */
           auto_advance?: boolean;
-          /** @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. Defaults to `charge_automatically`. */
+          /**
+           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. Defaults to `charge_automatically`.
+           * @enum {string}
+           */
           collection_method?: "charge_automatically" | "send_invoice";
           /** @description A list of up to 4 custom fields to be displayed on the invoice. */
           custom_fields?: {
@@ -17032,7 +18013,7 @@ export interface operations {
         subscription_default_tax_rates?: string;
         /** List of subscription items, each with an attached plan. */
         subscription_items?: unknown[];
-        /** If previewing an update to a subscription, this decides whether the preview will show the result of applying prorations or not. If set, one of `subscription_items` or `subscription`, and one of `subscription_items` or `subscription_trial_end` are required. */
+        /** This field has been renamed to `subscription_proration_behavior`. `subscription_prorate=true` can be replaced with `subscription_proration_behavior=create_prorations` and `subscription_prorate=false` can be replaced with `subscription_proration_behavior=none`. */
         subscription_prorate?: boolean;
         /**
          * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
@@ -17129,7 +18110,10 @@ export interface operations {
           data: definitions["line_item"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -17183,7 +18167,10 @@ export interface operations {
           application_fee_amount?: number;
           /** @description Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. */
           auto_advance?: boolean;
-          /** @description Either `charge_automatically` or `send_invoice`. This field can be updated only on `draft` invoices. */
+          /**
+           * @description Either `charge_automatically` or `send_invoice`. This field can be updated only on `draft` invoices.
+           * @enum {string}
+           */
           collection_method?: "charge_automatically" | "send_invoice";
           /** @description A list of up to 4 custom fields to be displayed on the invoice. If a value for `custom_fields` is specified, the list specified will replace the existing custom field list on this invoice. Pass an empty string to remove previously-defined fields. */
           custom_fields?: {
@@ -17296,7 +18283,10 @@ export interface operations {
           data: definitions["line_item"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -17449,7 +18439,10 @@ export interface operations {
           data: definitions["issuer_fraud_record"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -17516,7 +18509,10 @@ export interface operations {
           data: definitions["issuing.authorization"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -17664,7 +18660,10 @@ export interface operations {
           data: definitions["issuing.cardholder"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -18613,6 +19612,7 @@ export interface operations {
                 | "womens_ready_to_wear_stores"
                 | "wrecking_and_salvage_yards"
               )[];
+              /** @enum {string} */
               interval:
                 | "all_time"
                 | "daily"
@@ -18623,9 +19623,15 @@ export interface operations {
             }[];
             spending_limits_currency?: string;
           };
-          /** @description Specifies whether to permit authorizations on this cardholder's cards. Defaults to `active`. */
+          /**
+           * @description Specifies whether to permit authorizations on this cardholder's cards. Defaults to `active`.
+           * @enum {string}
+           */
           status?: "active" | "inactive";
-          /** @description One of `individual` or `company`. */
+          /**
+           * @description One of `individual` or `company`.
+           * @enum {string}
+           */
           type: "company" | "individual";
         };
       };
@@ -19601,6 +20607,7 @@ export interface operations {
                 | "womens_ready_to_wear_stores"
                 | "wrecking_and_salvage_yards"
               )[];
+              /** @enum {string} */
               interval:
                 | "all_time"
                 | "daily"
@@ -19611,7 +20618,10 @@ export interface operations {
             }[];
             spending_limits_currency?: string;
           };
-          /** @description Specifies whether to permit authorizations on this cardholder's cards. */
+          /**
+           * @description Specifies whether to permit authorizations on this cardholder's cards.
+           * @enum {string}
+           */
           status?: "active" | "inactive";
         };
       };
@@ -19662,7 +20672,10 @@ export interface operations {
           data: definitions["issuing.card"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -19690,7 +20703,10 @@ export interface operations {
           metadata?: { [key: string]: unknown };
           /** @description The card this is meant to be a replacement for (if any). */
           replacement_for?: string;
-          /** @description If `replacement_for` is specified, this should indicate why that card is being replaced. */
+          /**
+           * @description If `replacement_for` is specified, this should indicate why that card is being replaced.
+           * @enum {string}
+           */
           replacement_reason?: "damaged" | "expired" | "lost" | "stolen";
           /**
            * shipping_specs
@@ -19707,7 +20723,9 @@ export interface operations {
               state?: string;
             };
             name: string;
+            /** @enum {string} */
             service?: "express" | "priority" | "standard";
+            /** @enum {string} */
             type?: "bulk" | "individual";
           };
           /**
@@ -20587,6 +21605,7 @@ export interface operations {
                 | "womens_ready_to_wear_stores"
                 | "wrecking_and_salvage_yards"
               )[];
+              /** @enum {string} */
               interval:
                 | "all_time"
                 | "daily"
@@ -20596,9 +21615,15 @@ export interface operations {
                 | "yearly";
             }[];
           };
-          /** @description Whether authorizations can be approved on this card. Defaults to `inactive`. */
+          /**
+           * @description Whether authorizations can be approved on this card. Defaults to `inactive`.
+           * @enum {string}
+           */
           status?: "active" | "inactive";
-          /** @description The type of card to issue. Possible values are `physical` or `virtual`. */
+          /**
+           * @description The type of card to issue. Possible values are `physical` or `virtual`.
+           * @enum {string}
+           */
           type: "physical" | "virtual";
         };
       };
@@ -20645,7 +21670,10 @@ export interface operations {
       body: {
         /** Body parameters for the request. */
         payload?: {
-          /** @description Reason why the `status` of this card is `canceled`. */
+          /**
+           * @description Reason why the `status` of this card is `canceled`.
+           * @enum {string}
+           */
           cancellation_reason?: "lost" | "stolen";
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
@@ -21528,6 +22556,7 @@ export interface operations {
                 | "womens_ready_to_wear_stores"
                 | "wrecking_and_salvage_yards"
               )[];
+              /** @enum {string} */
               interval:
                 | "all_time"
                 | "daily"
@@ -21537,7 +22566,10 @@ export interface operations {
                 | "yearly";
             }[];
           };
-          /** @description Dictates whether authorizations can be approved on this card. If this card is being canceled because it was lost or stolen, this information should be provided as `cancellation_reason`. */
+          /**
+           * @description Dictates whether authorizations can be approved on this card. If this card is being canceled because it was lost or stolen, this information should be provided as `cancellation_reason`.
+           * @enum {string}
+           */
           status?: "active" | "canceled" | "inactive";
         };
       };
@@ -21574,7 +22606,10 @@ export interface operations {
           data: definitions["issuing.dispute"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -21682,7 +22717,10 @@ export interface operations {
           data: definitions["issuing.settlement"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -21770,7 +22808,10 @@ export interface operations {
           data: definitions["issuing.transaction"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -21878,7 +22919,10 @@ export interface operations {
           data: definitions["order_return"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -21945,7 +22989,10 @@ export interface operations {
           data: definitions["order"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -21980,6 +23027,7 @@ export interface operations {
             description?: string;
             parent?: string;
             quantity?: number;
+            /** @enum {string} */
             type?: "discount" | "shipping" | "sku" | "tax";
           }[];
           /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -22062,7 +23110,10 @@ export interface operations {
             carrier: string;
             tracking_number: string;
           };
-          /** @description Current order status. One of `created`, `paid`, `canceled`, `fulfilled`, or `returned`. More detail in the [Orders Guide](https://stripe.com/docs/orders/guide#understanding-order-statuses). */
+          /**
+           * @description Current order status. One of `created`, `paid`, `canceled`, `fulfilled`, or `returned`. More detail in the [Orders Guide](https://stripe.com/docs/orders/guide#understanding-order-statuses).
+           * @enum {string}
+           */
           status?: "canceled" | "created" | "fulfilled" | "paid" | "returned";
         };
       };
@@ -22130,6 +23181,7 @@ export interface operations {
             description?: string;
             parent?: string;
             quantity?: number;
+            /** @enum {string} */
             type?: "discount" | "shipping" | "sku" | "tax";
           }[];
         };
@@ -22171,7 +23223,10 @@ export interface operations {
           data: definitions["payment_intent"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -22208,10 +23263,14 @@ export interface operations {
            * more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
            */
           application_fee_amount?: number;
-          /** @description Controls when the funds will be captured from the customer's account. */
+          /**
+           * @description Controls when the funds will be captured from the customer's account.
+           * @enum {string}
+           */
           capture_method?: "automatic" | "manual";
           /** @description Set to `true` to attempt to [confirm](https://stripe.com/docs/api/payment_intents/confirm) this PaymentIntent immediately. This parameter defaults to `false`. When creating and confirming a PaymentIntent at the same time, parameters available in the [confirm](https://stripe.com/docs/api/payment_intents/confirm) API may also be provided. */
           confirm?: boolean;
+          /** @enum {string} */
           confirmation_method?: "automatic" | "manual";
           /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency: string;
@@ -22246,6 +23305,7 @@ export interface operations {
                 ip_address: string;
                 user_agent: string;
               };
+              /** @enum {string} */
               type: "offline" | "online";
             };
           };
@@ -22280,6 +23340,7 @@ export interface operations {
            * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
            *
            * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+           * @enum {string}
            */
           setup_future_usage?: "off_session" | "on_session";
           /**
@@ -22420,6 +23481,7 @@ export interface operations {
            * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
            *
            * If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+           * @enum {string}
            */
           setup_future_usage?: "" | "off_session" | "on_session";
           /** @description Shipping information for this PaymentIntent. */
@@ -22464,7 +23526,10 @@ export interface operations {
       body: {
         /** Body parameters for the request. */
         payload?: {
-          /** @description Reason for canceling this PaymentIntent. Possible values are `duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned` */
+          /**
+           * @description Reason for canceling this PaymentIntent. Possible values are `duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`
+           * @enum {string}
+           */
           cancellation_reason?:
             | "abandoned"
             | "duplicate"
@@ -22595,6 +23660,7 @@ export interface operations {
                 ip_address: string;
                 user_agent: string;
               };
+              /** @enum {string} */
               type: "offline" | "online";
             };
           };
@@ -22627,6 +23693,7 @@ export interface operations {
            * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
            *
            * If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+           * @enum {string}
            */
           setup_future_usage?: "" | "off_session" | "on_session";
           /** @description Shipping information for this PaymentIntent. */
@@ -22672,7 +23739,10 @@ export interface operations {
           data: definitions["payment_method"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -22727,6 +23797,7 @@ export interface operations {
            * @description If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
            */
           fpx?: {
+            /** @enum {string} */
             bank:
               | "affin_bank"
               | "alliance_bank"
@@ -22754,6 +23825,7 @@ export interface operations {
            * @description If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
            */
           ideal?: {
+            /** @enum {string} */
             bank?:
               | "abn_amro"
               | "asn_bank"
@@ -22779,7 +23851,10 @@ export interface operations {
           sepa_debit?: {
             iban: string;
           };
-          /** @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type. Required unless `payment_method` is specified (see the [Cloning PaymentMethods](https://stripe.com/docs/payments/payment-methods/connect#cloning-payment-methods) guide) */
+          /**
+           * @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type. Required unless `payment_method` is specified (see the [Cloning PaymentMethods](https://stripe.com/docs/payments/payment-methods/connect#cloning-payment-methods) guide)
+           * @enum {string}
+           */
           type?: "au_becs_debit" | "card" | "fpx" | "ideal" | "sepa_debit";
         };
       };
@@ -22966,7 +24041,10 @@ export interface operations {
           data: definitions["payout"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -23002,9 +24080,15 @@ export interface operations {
           expand?: string[];
           /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: { [key: string]: unknown };
-          /** @description The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces for more information](https://stripe.com/blog/instant-payouts-for-marketplaces).) */
+          /**
+           * @description The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces for more information](https://stripe.com/blog/instant-payouts-for-marketplaces).)
+           * @enum {string}
+           */
           method?: "instant" | "standard";
-          /** @description The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the balances API. One of `bank_account`, `card`, or `fpx`. */
+          /**
+           * @description The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the balances API. One of `bank_account`, `card`, or `fpx`.
+           * @enum {string}
+           */
           source_type?: "bank_account" | "card" | "fpx";
           /** @description A string to be displayed on the recipient's bank or card statement. This may be at most 22 characters. Attempting to use a `statement_descriptor` longer than 22 characters will return an error. Note: Most banks will truncate this information and/or display it inconsistently. Some may not display it at all. */
           statement_descriptor?: string;
@@ -23123,7 +24207,10 @@ export interface operations {
           data: definitions["plan"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -23143,13 +24230,19 @@ export interface operations {
         payload: {
           /** @description Whether the plan is currently available for new subscriptions. Defaults to `true`. */
           active?: boolean;
-          /** @description Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`. */
+          /**
+           * @description Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
+           * @enum {string}
+           */
           aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum";
           /** @description A positive integer in %s (or 0 for a free plan) representing how much to charge on a recurring basis. */
           amount?: number;
           /** @description Same as `amount`, but accepts a decimal value with at most 12 decimal places. Only one of `amount` and `amount_decimal` can be set. */
           amount_decimal?: string;
-          /** @description Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes. */
+          /**
+           * @description Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
+           * @enum {string}
+           */
           billing_scheme?: "per_unit" | "tiered";
           /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency: string;
@@ -23157,7 +24250,10 @@ export interface operations {
           expand?: string[];
           /** @description An identifier randomly generated by Stripe. Used to identify this plan when subscribing a customer. You can optionally override this ID, but the ID must be unique across all plans in your Stripe account. You can, however, use the same plan ID in both live and test modes. */
           id?: string;
-          /** @description Specifies billing frequency. Either `day`, `week`, `month` or `year`. */
+          /**
+           * @description Specifies billing frequency. Either `day`, `week`, `month` or `year`.
+           * @enum {string}
+           */
           interval: "day" | "month" | "week" | "year";
           /** @description The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). */
           interval_count?: number;
@@ -23185,7 +24281,10 @@ export interface operations {
             unit_amount_decimal?: string;
             up_to: unknown;
           }[];
-          /** @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows. */
+          /**
+           * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows.
+           * @enum {string}
+           */
           tiers_mode?: "graduated" | "volume";
           /**
            * transform_usage_param
@@ -23193,11 +24292,15 @@ export interface operations {
            */
           transform_usage?: {
             divide_by: number;
+            /** @enum {string} */
             round: "down" | "up";
           };
           /** @description Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan). */
           trial_period_days?: number;
-          /** @description Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`. */
+          /**
+           * @description Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
+           * @enum {string}
+           */
           usage_type?: "licensed" | "metered";
         };
       };
@@ -23321,7 +24424,10 @@ export interface operations {
           data: definitions["product"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -23333,7 +24439,7 @@ export interface operations {
       };
     };
   };
-  /** <p>Creates a new product object. To create a product for use with orders, see <a href="#create_product">Products</a>.</p> */
+  /** <p>Creates a new product object.</p> */
   PostProducts: {
     parameters: {
       body: {
@@ -23378,7 +24484,10 @@ export interface operations {
            *  It must contain at least one letter.
            */
           statement_descriptor?: string;
-          /** @description The type of the product. Defaults to `service` if not explicitly specified, enabling use of this product with Subscriptions and Plans. Set this parameter to `good` to use this product with Orders and SKUs. On API versions before `2018-02-05`, this field defaults to `good` for compatibility reasons. */
+          /**
+           * @description The type of the product. Defaults to `service` if not explicitly specified, enabling use of this product with Subscriptions and Plans. Set this parameter to `good` to use this product with Orders and SKUs. On API versions before `2018-02-05`, this field defaults to `good` for compatibility reasons.
+           * @enum {string}
+           */
           type?: "good" | "service";
           /** @description A label that represents units of this product in Stripe and on customers’ receipts and invoices. When set, this will be included in associated invoice line item descriptions. */
           unit_label?: string;
@@ -23517,7 +24626,10 @@ export interface operations {
           data: definitions["radar.early_fraud_warning"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -23581,7 +24693,10 @@ export interface operations {
           data: definitions["radar.value_list_item"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -23685,7 +24800,10 @@ export interface operations {
           data: definitions["radar.value_list"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -23707,7 +24825,10 @@ export interface operations {
           alias: string;
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
-          /** @description Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, or `case_sensitive_string`. Use `string` if the item type is unknown or mixed. */
+          /**
+           * @description Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, or `case_sensitive_string`. Use `string` if the item type is unknown or mixed.
+           * @enum {string}
+           */
           item_type?:
             | "card_bin"
             | "card_fingerprint"
@@ -23830,7 +24951,10 @@ export interface operations {
           data: definitions["recipient"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -23996,7 +25120,10 @@ export interface operations {
           data: definitions["refund"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -24021,6 +25148,7 @@ export interface operations {
           /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: { [key: string]: unknown };
           payment_intent?: string;
+          /** @enum {string} */
           reason?: "duplicate" | "fraudulent" | "requested_by_customer";
           refund_application_fee?: boolean;
           reverse_transfer?: boolean;
@@ -24113,7 +25241,10 @@ export interface operations {
           data: definitions["reporting.report_run"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -24144,6 +25275,7 @@ export interface operations {
             interval_end?: number;
             interval_start?: number;
             payout?: string;
+            /** @enum {string} */
             reporting_category?:
               | "advance"
               | "advance_funding"
@@ -24176,6 +25308,7 @@ export interface operations {
               | "topup_reversal"
               | "transfer"
               | "transfer_reversal";
+            /** @enum {string} */
             timezone?:
               | "Africa/Abidjan"
               | "Africa/Accra"
@@ -24825,7 +25958,10 @@ export interface operations {
           data: definitions["reporting.report_type"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -24881,7 +26017,10 @@ export interface operations {
           data: definitions["review"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -24967,7 +26106,10 @@ export interface operations {
           data: definitions["setup_intent"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -25017,6 +26159,7 @@ export interface operations {
                 ip_address: string;
                 user_agent: string;
               };
+              /** @enum {string} */
               type: "offline" | "online";
             };
           };
@@ -25033,6 +26176,7 @@ export interface operations {
           payment_method_options?: {
             /** setup_intent_param */
             card?: {
+              /** @enum {string} */
               request_three_d_secure?: "any" | "automatic";
             };
           };
@@ -25048,7 +26192,10 @@ export interface operations {
             amount: number;
             currency: string;
           };
-          /** @description Indicates how the payment method is intended to be used in the future. If not provided, this value defaults to `off_session`. */
+          /**
+           * @description Indicates how the payment method is intended to be used in the future. If not provided, this value defaults to `off_session`.
+           * @enum {string}
+           */
           usage?: "off_session" | "on_session";
         };
       };
@@ -25124,6 +26271,7 @@ export interface operations {
           payment_method_options?: {
             /** setup_intent_param */
             card?: {
+              /** @enum {string} */
               request_three_d_secure?: "any" | "automatic";
             };
           };
@@ -25156,7 +26304,10 @@ export interface operations {
       body: {
         /** Body parameters for the request. */
         payload?: {
-          /** @description Reason for canceling this SetupIntent. Possible values are `abandoned`, `requested_by_customer`, or `duplicate` */
+          /**
+           * @description Reason for canceling this SetupIntent. Possible values are `abandoned`, `requested_by_customer`, or `duplicate`
+           * @enum {string}
+           */
           cancellation_reason?:
             | "abandoned"
             | "duplicate"
@@ -25219,6 +26370,7 @@ export interface operations {
                 ip_address: string;
                 user_agent: string;
               };
+              /** @enum {string} */
               type: "offline" | "online";
             };
           };
@@ -25231,6 +26383,7 @@ export interface operations {
           payment_method_options?: {
             /** setup_intent_param */
             card?: {
+              /** @enum {string} */
               request_three_d_secure?: "any" | "automatic";
             };
           };
@@ -25275,7 +26428,10 @@ export interface operations {
           data: definitions["scheduled_query_run"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -25340,7 +26496,10 @@ export interface operations {
           data: definitions["sku"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -25376,7 +26535,9 @@ export interface operations {
            */
           inventory: {
             quantity?: number;
+            /** @enum {string} */
             type?: "bucket" | "finite" | "infinite";
+            /** @enum {string} */
             value?: "" | "in_stock" | "limited" | "out_of_stock";
           };
           /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -25460,7 +26621,9 @@ export interface operations {
            */
           inventory?: {
             quantity?: number;
+            /** @enum {string} */
             type?: "bucket" | "finite" | "infinite";
+            /** @enum {string} */
             value?: "" | "in_stock" | "limited" | "out_of_stock";
           };
           /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -25517,7 +26680,10 @@ export interface operations {
           customer?: string;
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
-          /** @description The authentication `flow` of the source to create. `flow` is one of `redirect`, `receiver`, `code_verification`, `none`. It is generally inferred unless a type supports multiple flows. */
+          /**
+           * @description The authentication `flow` of the source to create. `flow` is one of `redirect`, `receiver`, `code_verification`, `none`. It is generally inferred unless a type supports multiple flows.
+           * @enum {string}
+           */
           flow?: "code_verification" | "none" | "receiver" | "redirect";
           /**
            * mandate_params
@@ -25538,13 +26704,17 @@ export interface operations {
                 ip?: string;
                 user_agent?: string;
               };
+              /** @enum {string} */
               status: "accepted" | "pending" | "refused" | "revoked";
+              /** @enum {string} */
               type?: "offline" | "online";
               user_agent?: string;
             };
             amount?: unknown;
             currency?: string;
+            /** @enum {string} */
             interval?: "one_time" | "scheduled" | "variable";
+            /** @enum {string} */
             notification_method?:
               | "deprecated_none"
               | "email"
@@ -25579,6 +26749,7 @@ export interface operations {
            * @description Optional parameters for the receiver flow. Can be set only if the source is a receiver (`flow` is `receiver`).
            */
           receiver?: {
+            /** @enum {string} */
             refund_attributes_method?: "email" | "manual" | "none";
           };
           /**
@@ -25599,6 +26770,7 @@ export interface operations {
               description?: string;
               parent?: string;
               quantity?: number;
+              /** @enum {string} */
               type?: "discount" | "shipping" | "sku" | "tax";
             }[];
             /** order_shipping */
@@ -25624,7 +26796,10 @@ export interface operations {
           token?: string;
           /** @description The `type` of the source to create. Required unless `customer` and `original_source` are specified (see the [Cloning card Sources](https://stripe.com/docs/sources/connect#cloning-card-sources) guide) */
           type?: string;
-          /** @description Either `reusable` or `single_use`. Whether this source should be reusable or not. Some source types may or may not be reusable by construction, while others may leave the option at creation. If an incompatible value is passed, an error will be returned. */
+          /**
+           * @description Either `reusable` or `single_use`. Whether this source should be reusable or not. Some source types may or may not be reusable by construction, while others may leave the option at creation. If an incompatible value is passed, an error will be returned.
+           * @enum {string}
+           */
           usage?: "reusable" | "single_use";
         };
       };
@@ -25700,13 +26875,17 @@ export interface operations {
                 ip?: string;
                 user_agent?: string;
               };
+              /** @enum {string} */
               status: "accepted" | "pending" | "refused" | "revoked";
+              /** @enum {string} */
               type?: "offline" | "online";
               user_agent?: string;
             };
             amount?: unknown;
             currency?: string;
+            /** @enum {string} */
             interval?: "one_time" | "scheduled" | "variable";
+            /** @enum {string} */
             notification_method?:
               | "deprecated_none"
               | "email"
@@ -25745,6 +26924,7 @@ export interface operations {
               description?: string;
               parent?: string;
               quantity?: number;
+              /** @enum {string} */
               type?: "discount" | "shipping" | "sku" | "tax";
             }[];
             /** order_shipping */
@@ -25825,7 +27005,10 @@ export interface operations {
           data: definitions["source_transaction"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -25910,7 +27093,10 @@ export interface operations {
           data: definitions["subscription_item"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -25940,6 +27126,7 @@ export interface operations {
            * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
            *
            * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+           * @enum {string}
            */
           payment_behavior?:
             | "allow_incomplete"
@@ -25955,6 +27142,7 @@ export interface operations {
            * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
            *
            * Prorations can be disabled by passing `none`.
+           * @enum {string}
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /** @description If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. */
@@ -26024,6 +27212,7 @@ export interface operations {
            * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
            *
            * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+           * @enum {string}
            */
           payment_behavior?:
             | "allow_incomplete"
@@ -26039,6 +27228,7 @@ export interface operations {
            * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
            *
            * Prorations can be disabled by passing `none`.
+           * @enum {string}
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /** @description If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. */
@@ -26080,6 +27270,7 @@ export interface operations {
            * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
            *
            * Prorations can be disabled by passing `none`.
+           * @enum {string}
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /** @description If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. */
@@ -26126,7 +27317,10 @@ export interface operations {
           data: definitions["usage_record_summary"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -26155,7 +27349,10 @@ export interface operations {
       body: {
         /** Body parameters for the request. */
         payload: {
-          /** @description Valid values are `increment` (default) or `set`. When using `increment` the specified `quantity` will be added to the usage at the specified timestamp. The `set` action will overwrite the usage quantity at that timestamp. If the subscription has [billing thresholds](https://stripe.com/docs/api/subscriptions/object#subscription_object-billing_thresholds), `increment` is the only allowed value. */
+          /**
+           * @description Valid values are `increment` (default) or `set`. When using `increment` the specified `quantity` will be added to the usage at the specified timestamp. The `set` action will overwrite the usage quantity at that timestamp. If the subscription has [billing thresholds](https://stripe.com/docs/api/subscriptions/object#subscription_object-billing_thresholds), `increment` is the only allowed value.
+           * @enum {string}
+           */
           action?: "increment" | "set";
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
@@ -26210,7 +27407,10 @@ export interface operations {
           data: definitions["subscription_schedule"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -26236,6 +27436,7 @@ export interface operations {
            */
           default_settings?: {
             billing_thresholds?: unknown;
+            /** @enum {string} */
             collection_method?: "charge_automatically" | "send_invoice";
             default_payment_method?: string;
             /** subscription_schedules_param */
@@ -26243,7 +27444,10 @@ export interface operations {
               days_until_due?: number;
             };
           };
-          /** @description Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription. */
+          /**
+           * @description Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
+           * @enum {string}
+           */
           end_behavior?: "cancel" | "none" | "release" | "renew";
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
@@ -26255,6 +27459,7 @@ export interface operations {
           phases?: {
             application_fee_percent?: number;
             billing_thresholds?: unknown;
+            /** @enum {string} */
             collection_method?: "charge_automatically" | "send_invoice";
             coupon?: string;
             default_payment_method?: string;
@@ -26271,6 +27476,7 @@ export interface operations {
               quantity?: number;
               tax_rates?: string[];
             }[];
+            /** @enum {string} */
             proration_behavior?:
               | "always_invoice"
               | "create_prorations"
@@ -26332,6 +27538,7 @@ export interface operations {
            */
           default_settings?: {
             billing_thresholds?: unknown;
+            /** @enum {string} */
             collection_method?: "charge_automatically" | "send_invoice";
             default_payment_method?: string;
             /** subscription_schedules_param */
@@ -26339,7 +27546,10 @@ export interface operations {
               days_until_due?: number;
             };
           };
-          /** @description Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription. */
+          /**
+           * @description Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
+           * @enum {string}
+           */
           end_behavior?: "cancel" | "none" | "release" | "renew";
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
@@ -26349,6 +27559,7 @@ export interface operations {
           phases?: {
             application_fee_percent?: number;
             billing_thresholds?: unknown;
+            /** @enum {string} */
             collection_method?: "charge_automatically" | "send_invoice";
             coupon?: string;
             default_payment_method?: string;
@@ -26365,6 +27576,7 @@ export interface operations {
               quantity?: number;
               tax_rates?: string[];
             }[];
+            /** @enum {string} */
             proration_behavior?:
               | "always_invoice"
               | "create_prorations"
@@ -26376,7 +27588,10 @@ export interface operations {
           }[];
           /** @description This field has been renamed to `proration_behavior`. `prorate=true` can be replaced with `proration_behavior=create_prorations` and `prorate=false` can be replaced with `proration_behavior=none`. */
           prorate?: boolean;
-          /** @description If the update changes the current phase, indicates if the changes should be prorated. Valid values are `create_prorations` or `none`, and the default value is `create_prorations`. */
+          /**
+           * @description If the update changes the current phase, indicates if the changes should be prorated. Valid values are `create_prorations` or `none`, and the default value is `create_prorations`.
+           * @enum {string}
+           */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
         };
       };
@@ -26480,7 +27695,10 @@ export interface operations {
           data: definitions["subscription"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -26510,7 +27728,10 @@ export interface operations {
           cancel_at?: number;
           /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
           cancel_at_period_end?: boolean;
-          /** @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`. */
+          /**
+           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`.
+           * @enum {string}
+           */
           collection_method?: "charge_automatically" | "send_invoice";
           /** @description The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. */
           coupon?: string;
@@ -26544,6 +27765,7 @@ export interface operations {
            * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
            *
            * `pending_if_incomplete` is only used with updates and cannot be passed when creating a subscription.
+           * @enum {string}
            */
           payment_behavior?:
             | "allow_incomplete"
@@ -26557,6 +27779,7 @@ export interface operations {
            * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) resulting from the `billing_cycle_anchor`. Valid values are `create_prorations` or `none`.
            *
            * Passing `create_prorations` will cause proration invoice items to be created when applicable. Prorations can be disabled by passing `none`. If no value is passed, the default is `create_prorations`.
+           * @enum {string}
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /** @description A non-negative decimal (with at most four decimal places) between 0 and 100. This represents the percentage of the subscription invoice subtotal that will be calculated and added as tax to the final amount in each billing period. For example, a plan which charges $10/month with a `tax_percent` of `20.0` will charge $12 per invoice. To unset a previously-set value, pass an empty string. This field has been deprecated and will be removed in a future API version, for further information view the [migration docs](https://stripe.com/docs/billing/migration/taxes) for `tax_rates`. */
@@ -26614,7 +27837,10 @@ export interface operations {
         payload?: {
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           application_fee_percent?: number;
-          /** @description Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle). */
+          /**
+           * @description Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+           * @enum {string}
+           */
           billing_cycle_anchor?: "now" | "unchanged";
           /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
           billing_thresholds?: unknown;
@@ -26622,7 +27848,10 @@ export interface operations {
           cancel_at?: unknown;
           /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
           cancel_at_period_end?: boolean;
-          /** @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`. */
+          /**
+           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to `charge_automatically`.
+           * @enum {string}
+           */
           collection_method?: "charge_automatically" | "send_invoice";
           /** @description The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. */
           coupon?: string;
@@ -26659,6 +27888,7 @@ export interface operations {
            * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
            *
            * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+           * @enum {string}
            */
           payment_behavior?:
             | "allow_incomplete"
@@ -26674,6 +27904,7 @@ export interface operations {
            * Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
            *
            * Prorations can be disabled by passing `none`.
+           * @enum {string}
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /** @description If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations. */
@@ -26778,7 +28009,10 @@ export interface operations {
           data: definitions["tax_rate"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -26928,7 +28162,10 @@ export interface operations {
           data: definitions["terminal.location"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -27087,7 +28324,10 @@ export interface operations {
           data: definitions["terminal.reader"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -27212,6 +28452,7 @@ export interface operations {
            * @description Information for the account this token will represent.
            */
           account?: {
+            /** @enum {string} */
             business_type?:
               | "company"
               | "government_entity"
@@ -27255,6 +28496,7 @@ export interface operations {
               name_kanji?: string;
               owners_provided?: boolean;
               phone?: string;
+              /** @enum {string} */
               structure?:
                 | ""
                 | "government_instrumentality"
@@ -27351,6 +28593,7 @@ export interface operations {
            */
           bank_account?: {
             account_holder_name?: string;
+            /** @enum {string} */
             account_holder_type?: "company" | "individual";
             account_number: string;
             country: string;
@@ -27503,7 +28746,10 @@ export interface operations {
           data: definitions["topup"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -27654,7 +28900,10 @@ export interface operations {
           data: definitions["transfer"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -27686,7 +28935,10 @@ export interface operations {
           metadata?: { [key: string]: unknown };
           /** @description You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-availability) for details. */
           source_transaction?: string;
-          /** @description The source balance to use for this transfer. One of `bank_account`, `card`, or `fpx`. For most users, this will default to `card`. */
+          /**
+           * @description The source balance to use for this transfer. One of `bank_account`, `card`, or `fpx`. For most users, this will default to `card`.
+           * @enum {string}
+           */
           source_type?: "bank_account" | "card" | "fpx";
           /** @description A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
           transfer_group?: string;
@@ -27729,7 +28981,10 @@ export interface operations {
           data: definitions["transfer_reversal"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -27911,7 +29166,10 @@ export interface operations {
           data: definitions["webhook_endpoint"][];
           /** @description True if this list has another page of items after this one that can be fetched. */
           has_more: boolean;
-          /** @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. */
+          /**
+           * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+           * @enum {string}
+           */
           object: "list";
           /** @description The URL where this list can be accessed. */
           url: string;
@@ -27929,7 +29187,10 @@ export interface operations {
       body: {
         /** Body parameters for the request. */
         payload: {
-          /** @description Events sent to this endpoint will be generated with this Stripe Version instead of your account's default Stripe Version. */
+          /**
+           * @description Events sent to this endpoint will be generated with this Stripe Version instead of your account's default Stripe Version.
+           * @enum {string}
+           */
           api_version?:
             | "2011-01-01"
             | "2011-06-21"

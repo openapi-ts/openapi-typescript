@@ -333,7 +333,7 @@ export interface paths {
     get: operations["GetBalanceTransactionsId"];
   };
   "/v1/billing_portal/sessions": {
-    /** <p>Creates a session of the Self-service Portal.</p> */
+    /** <p>Creates a session of the self-serve Portal.</p> */
     post: operations["PostBillingPortalSessions"];
   };
   "/v1/bitcoin/receivers": {
@@ -1054,7 +1054,7 @@ export interface paths {
   "/v1/products": {
     /** <p>Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.</p> */
     get: operations["GetProducts"];
-    /** <p>Creates a new product object. To create a product for use with orders, see <a href="#create_product">Products</a>.</p> */
+    /** <p>Creates a new product object.</p> */
     post: operations["PostProducts"];
   };
   "/v1/products/{id}": {
@@ -1596,6 +1596,11 @@ export interface definitions {
      */
     card_payments?: "active" | "inactive" | "pending";
     /**
+     * @description The status of the JCB payments capability of the account, or whether the account (Japan only) can directly process JCB credit card charges in JPY currency.
+     * @enum {string}
+     */
+    jcb_payments?: "active" | "inactive" | "pending";
+    /**
      * @description The status of the legacy payments capability of the account.
      * @enum {string}
      */
@@ -2107,13 +2112,13 @@ export interface definitions {
   };
   /**
    * PortalSession
-   * @description A Session describes the instantiation of the Self-serve Portal for
-   * a particular customer. By visiting the Self-serve Portal's URL, the customer
+   * @description A Session describes the instantiation of the self-serve portal for
+   * a particular customer. By visiting the self-serve portal's URL, the customer
    * can manage their subscriptions and view their invoice payment history. For security reasons,
    * Sessions are short-lived and will expire if the customer does not visit the URL.
    * Create Sessions on-demand.
    *
-   * Related guide: [Self-serve Portal](https://stripe.com/docs/billing/subscriptions/integrating-self-serve).
+   * Related guide: [self-serve Portal](https://stripe.com/docs/billing/subscriptions/integrating-self-serve).
    */
   "billing_portal.session": {
     /** @description Time at which the object was created. Measured in seconds since the Unix epoch. */
@@ -7945,10 +7950,10 @@ export interface definitions {
   };
   /**
    * Plan
-   * @description Plans define the base price, currency, and billing cycle for subscriptions.
-   * For example, you might have a $5/month plan
-   * that provides limited access to your products, and a
-   * $15/month plan that allows full access.
+   * @description Plans define the base price, currency, and billing cycle for recurring purchases of products.
+   * Products help you track inventory or provisioning, and plans help you track pricing. Different physical goods or levels of service should be represented by products, and pricing options should be represented by plans. This approach lets you change prices without having to change your provisioning scheme.
+   *
+   * For example, you might have a single "gold" product that has plans for $10/month, $100/year, €9/month, and €90/year.
    *
    * Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) and more about [products and plans](https://stripe.com/docs/billing/subscriptions/products-and-plans).
    */
@@ -8042,14 +8047,11 @@ export interface definitions {
   };
   /**
    * Product
-   * @description Store representations of products you sell in `Product` objects, used in
-   * conjunction with [SKUs](https://stripe.com/docs/api#skus). Products may be physical goods, to be shipped, or
-   * digital.
+   * @description Products describe the specific goods or services you offer to your customers.
+   * For example, you might offer a Standard and Premium version of your goods or service; each version would be a separate Product.
+   * They can be used in conjuction with [SKUs](https://stripe.com/docs/api#skus) and [Plans](https://stripe.com/docs/api#plans) to configure pricing in Checkout and Subscriptions.
    *
-   * Documentation on `Product`s for use with `Subscription`s can be found at
-   * [Subscription Products](https://stripe.com/docs/api#service_products).
-   *
-   * Related guide: [Define products and SKUs](https://stripe.com/docs/orders#define-products-skus)
+   * Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) or accept [one-time payments with Checkout](https://stripe.com/docs/payments/checkout/client#create-products) and more about [Products and Plans](https://stripe.com/docs/billing/subscriptions/products-and-plans)
    */
   product: {
     /** @description Whether the product is currently available for purchase. */
@@ -10305,6 +10307,7 @@ export interface operations {
             | "au_becs_debit_payments"
             | "card_issuing"
             | "card_payments"
+            | "jcb_payments"
             | "legacy_payments"
             | "tax_reporting_us_1099_k"
             | "tax_reporting_us_1099_misc"
@@ -11725,6 +11728,7 @@ export interface operations {
             | "au_becs_debit_payments"
             | "card_issuing"
             | "card_payments"
+            | "jcb_payments"
             | "legacy_payments"
             | "tax_reporting_us_1099_k"
             | "tax_reporting_us_1099_misc"
@@ -12005,6 +12009,7 @@ export interface operations {
             | "au_becs_debit_payments"
             | "card_issuing"
             | "card_payments"
+            | "jcb_payments"
             | "legacy_payments"
             | "tax_reporting_us_1099_k"
             | "tax_reporting_us_1099_misc"
@@ -13727,7 +13732,7 @@ export interface operations {
       };
     };
   };
-  /** <p>Creates a session of the Self-service Portal.</p> */
+  /** <p>Creates a session of the self-serve Portal.</p> */
   PostBillingPortalSessions: {
     parameters: {
       body: {
@@ -14863,6 +14868,7 @@ export interface operations {
            */
           subscription_data?: {
             application_fee_percent?: number;
+            coupon?: string;
             default_tax_rates?: string[];
             items?: {
               plan: string;
@@ -17912,7 +17918,7 @@ export interface operations {
         subscription_default_tax_rates?: string;
         /** List of subscription items, each with an attached plan. */
         subscription_items?: unknown[];
-        /** If previewing an update to a subscription, this decides whether the preview will show the result of applying prorations or not. If set, one of `subscription_items` or `subscription`, and one of `subscription_items` or `subscription_trial_end` are required. */
+        /** This field has been renamed to `subscription_proration_behavior`. `subscription_prorate=true` can be replaced with `subscription_proration_behavior=create_prorations` and `subscription_prorate=false` can be replaced with `subscription_proration_behavior=none`. */
         subscription_prorate?: boolean;
         /**
          * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
@@ -24310,7 +24316,7 @@ export interface operations {
       };
     };
   };
-  /** <p>Creates a new product object. To create a product for use with orders, see <a href="#create_product">Products</a>.</p> */
+  /** <p>Creates a new product object.</p> */
   PostProducts: {
     parameters: {
       body: {
