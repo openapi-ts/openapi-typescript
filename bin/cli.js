@@ -143,7 +143,7 @@ async function main() {
   // handle stdin schema, exit
   if (pathToSpec === "-") {
     if (output !== "." && output === OUTPUT_FILE) fs.mkdirSync(path.dirname(flags.output), { recursive: true });
-    await generateSchema("/dev/stdin");
+    await generateSchema(process.stdin);
     return;
   }
 
