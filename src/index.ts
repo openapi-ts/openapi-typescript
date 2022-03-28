@@ -6,6 +6,7 @@ import { URL } from "url";
 import load, { resolveSchema, VIRTUAL_JSON_URL } from "./load.js";
 import { swaggerVersion } from "./utils.js";
 import { transformAll } from "./transform/index.js";
+import { Readable } from "stream";
 export * from "./types.js"; // expose all types to consumers
 
 export const WARNING_MESSAGE = `/**
@@ -30,7 +31,7 @@ export const WARNING_MESSAGE = `/**
  * @return {Promise<string>}  {Promise<string>} Parsed file schema
  */
 async function openapiTS(
-  schema: string | URL | OpenAPI2 | OpenAPI3 | Record<string, SchemaObject>,
+  schema: string | URL | OpenAPI2 | OpenAPI3 | Record<string, SchemaObject> | Readable,
   options: SwaggerToTSOptions = {} as Partial<SwaggerToTSOptions>
 ): Promise<string> {
   const ctx: GlobalContext = {
