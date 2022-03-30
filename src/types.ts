@@ -159,6 +159,10 @@ export interface SwaggerToTSOptions {
    * (optional) Generate tuples using array minItems / maxItems
    */
   supportArrayLength?: boolean;
+  /**
+   * (optional) Substitute path parameter names with their respective types.
+   */
+  pathParamsAsTypes?: boolean;
 }
 
 /** Context passed to all submodules */
@@ -174,4 +178,5 @@ export interface GlobalContext {
   rawSchema: boolean;
   version: number;
   supportArrayLength?: boolean;
+  pathParamsAsTypes?: boolean;
 }

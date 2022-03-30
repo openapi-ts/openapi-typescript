@@ -43,6 +43,7 @@ async function openapiTS(
     rawSchema: options.rawSchema || false,
     version: options.version || 3,
     supportArrayLength: options.supportArrayLength,
+    pathParamsAsTypes: options.pathParamsAsTypes,
   } as any;
 
   // note: we may be loading many large schemas into memory at once; take care to reuse references without cloning

@@ -487,4 +487,42 @@ describe("transformPathsObj", () => {
   };`)
     );
   });
+
+  it("transforms path params into explicit types (#889)", () => {
+    expect(
+      format(
+        transform(
+          {
+            "/{XXX}/nested/{YYY}": {
+              get: { responses: {} },
+              parameters: [
+                { name: "XXX", in: "path", required: true, schema: { type: "string" } },
+                { name: "YYY", in: "path", required: true, schema: { type: "integer" } },
+              ],
+            },
+          },
+          { ...defaults, pathParamsAsTypes: true }
+        )
+      )
+    ).to.equal(
+      format(`
+        [key: \`/\${string}/nested/\${number}\`]: {
+          get: {
+            parameters: {
+              path: {
+                XXX: string;
+                YYY: number;
+              };
+            };
+            responses: {};
+          };
+          parameters: {
+            path: {
+              XXX: string;
+              YYY: number;
+            };
+          };
+        };`)
+    );
+  });
 });

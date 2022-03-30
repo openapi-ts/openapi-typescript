@@ -27,6 +27,7 @@ Options
   --raw-schema                 (optional) Parse as partial schema (raw components)
   --export-type                (optional) Export type instead of interface
   --support-array-length       (optional) Generate tuples using array minItems / maxItems
+  --path-params-as-types       (optional) Substitute path parameter names with their respective types
   --version                    (optional) Force schema parsing version
 `;
 
@@ -43,7 +44,7 @@ function errorAndExit(errorMessage) {
 const [, , input, ...args] = process.argv;
 const flags = parser(args, {
   array: ["header"],
-  boolean: ["defaultNonNullable", "immutableTypes", "rawSchema", "exportType", "supportArrayLength"],
+  boolean: ["defaultNonNullable", "immutableTypes", "rawSchema", "exportType", "supportArrayLength", "pathParamsAsTypes"],
   number: ["version"],
   string: ["auth", "header", "headersObject", "httpMethod", "prettierConfig"],
   alias: {
@@ -94,6 +95,7 @@ async function generateSchema(pathToSpec) {
     httpMethod: flags.httpMethod,
     exportType: flags.exportType,
     supportArrayLength: flags.supportArrayLength,
+    pathParamsAsTypes: flags.pathParamsAsTypes,
   });
 
   // output
