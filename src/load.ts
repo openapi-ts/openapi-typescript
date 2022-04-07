@@ -7,6 +7,7 @@ import { request } from "undici";
 import { URL } from "url";
 import type { GlobalContext, Headers } from "./types.js";
 import { parseRef } from "./utils.js";
+import { Readable } from "stream";
 
 type PartialSchema = Record<string, any>; // not a very accurate type, but this is easier to deal with before we know we’re dealing with a valid spec
 type SchemaMap = { [url: string]: PartialSchema };
@@ -94,14 +95,14 @@ interface LoadOptions extends GlobalContext {
 
 /** Load a schema from local path or remote URL */
 export default async function load(
-  schema: URL | PartialSchema,
+  schema: URL | PartialSchema | Readable,
   options: LoadOptions
 ): Promise<{ [url: string]: PartialSchema }> {
   const urlCache = options.urlCache || new Set<string>();
 
   // if this is dynamically-passed-in JSON, we’ll have to change a few things
-  const isJSON = schema instanceof URL === false;
-  let schemaID = isJSON ? new URL(VIRTUAL_JSON_URL).href : (schema.href as string);
+  const isJSON = !(schema instanceof URL || schema instanceof Readable);
+  let schemaID = isJSON || schema instanceof Readable ? new URL(VIRTUAL_JSON_URL).href : (schema.href as string);
 
   const schemas = options.schemas;
 
@@ -116,9 +117,25 @@ export default async function load(
 
     let contents = "";
     let contentType = "";
-    const schemaURL = schema as URL; // helps TypeScript
+    const schemaURL = schema instanceof Readable ? new URL(VIRTUAL_JSON_URL) : (schema as URL); // helps TypeScript
 
-    if (isFile(schemaURL)) {
+    if (schema instanceof Readable) {
+      const readable = schema;
+      contents = await new Promise<string>((resolve) => {
+        readable.resume();
+        readable.setEncoding("utf8");
+
+        let content = "";
+        readable.on("data", (chunk: string) => {
+          content += chunk;
+        });
+
+        readable.on("end", () => {
+          resolve(content);
+        });
+      });
+      contentType = "text/yaml";
+    } else if (isFile(schemaURL)) {
       // load local
       contents = fs.readFileSync(schemaURL, "utf8");
       contentType = mime.getType(schemaID) || "";

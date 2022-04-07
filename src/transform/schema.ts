@@ -16,6 +16,8 @@ interface TransformSchemaObjOptions extends GlobalContext {
   required: Set<string>;
 }
 
+const EOF_RE = /\n+$/;
+
 function hasDefaultValue(node: any): boolean {
   if (node.hasOwnProperty("default")) return true;
   // if (node.hasOwnProperty("$ref")) return true; // TODO: resolve remote $refs?
@@ -46,7 +48,7 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
     output += `;\n`;
   }
 
-  return output.replace(/\n+$/, "\n"); // replace repeat line endings with only one
+  return output.replace(EOF_RE, "\n"); // replace repeat line endings with only one
 }
 
 /** make sure all required fields exist **/
@@ -187,7 +189,31 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
         if (Array.isArray(node.items)) {
           output += `${readonly}${tsTupleOf(node.items.map((node: any) => transformSchemaObj(node, options)))}`;
         } else {
-          output += `${readonly}${tsArrayOf(node.items ? transformSchemaObj(node.items as any, options) : "unknown")}`;
+          const minItems: number = Number.isInteger(node.minItems) && node.minItems >= 0 ? node.minItems : 0;
+          const maxItems: number | undefined =
+            Number.isInteger(node.maxItems) && node.maxItems >= 0 && minItems <= node.maxItems
+              ? node.maxItems
+              : undefined;
+
+          const estimateCodeSize =
+            maxItems === undefined ? minItems : (maxItems * (maxItems + 1) - minItems * (minItems - 1)) / 2;
+          const items = node.items ? transformSchemaObj(node.items as any, options) : "unknown";
+          if ((minItems !== 0 || maxItems !== undefined) && options.supportArrayLength && estimateCodeSize < 30) {
+            if (maxItems === undefined) {
+              output += `${readonly}${tsTupleOf([
+                ...Array.from({ length: minItems }).map(() => items),
+                `...${tsArrayOf(items)}`,
+              ])}`;
+            } else {
+              output += tsUnionOf(
+                Array.from({ length: maxItems - minItems + 1 })
+                  .map((_, i) => i + minItems)
+                  .map((n) => `${readonly}${tsTupleOf(Array.from({ length: n }).map(() => items))}`)
+              );
+            }
+          } else {
+            output += `${readonly}${tsArrayOf(items)}`;
+          }
         }
         break;
       }

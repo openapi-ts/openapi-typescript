@@ -3,7 +3,7 @@
  * Do not make direct changes to the file.
  */
 
-export interface paths {
+export type paths = {
   "/": {
     /** Get Hypermedia links to resources accessible in GitHub's REST API */
     get: operations["meta/root"];
@@ -5965,9 +5965,9 @@ export interface paths {
     /** Get a random sentence from the Zen of GitHub */
     get: operations["meta/get-zen"];
   };
-}
+};
 
-export interface components {
+export type components = {
   schemas: {
     /**
      * Simple User
@@ -17863,9 +17863,9 @@ export interface components {
     "x-rate-limit-reset"?: number;
     location?: string;
   };
-}
+};
 
-export interface operations {
+export type operations = {
   /** Get Hypermedia links to resources accessible in GitHub's REST API */
   "meta/root": {
     responses: {
@@ -42343,6 +42343,6 @@ export interface operations {
       };
     };
   };
-}
+};
 
-export interface external {}
+export type external = {};

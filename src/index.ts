@@ -7,6 +7,7 @@ import { URL } from "url";
 import load, { resolveSchema, VIRTUAL_JSON_URL } from "./load.js";
 import { swaggerVersion } from "./utils.js";
 import { transformAll } from "./transform/index.js";
+import { Readable } from "stream";
 export * from "./types.js"; // expose all types to consumers
 
 export const WARNING_MESSAGE = `/**
@@ -31,7 +32,7 @@ export const WARNING_MESSAGE = `/**
  * @return {Promise<string>}  {Promise<string>} Parsed file schema
  */
 async function openapiTS(
-  schema: string | URL | OpenAPI2 | OpenAPI3 | Record<string, SchemaObject>,
+  schema: string | URL | OpenAPI2 | OpenAPI3 | Record<string, SchemaObject> | Readable,
   options: SwaggerToTSOptions = {} as Partial<SwaggerToTSOptions>
 ): Promise<string> {
   const ctx: GlobalContext = {
@@ -43,6 +44,7 @@ async function openapiTS(
     rawSchema: options.rawSchema || false,
     makePathsEnum: options.makePathsEnum || false,
     version: options.version || 3,
+    supportArrayLength: options.supportArrayLength,
   };
 
   // note: we may be loading many large schemas into memory at once; take care to reuse references without cloning
@@ -78,14 +80,17 @@ async function openapiTS(
   // 2a. root schema
   if (!options?.version && !ctx.rawSchema) ctx.version = swaggerVersion(rootSchema as any); // note: root version cascades down to all subschemas
   const rootTypes = transformAll(rootSchema, { ...ctx });
+  const exportedKind = options.exportType === true ? "type" : "interface";
+  const exportedKindOperator = options.exportType === true ? " =" : "";
+  const exportedKindSemicolon = options.exportType === true ? ";" : "";
   for (const k of Object.keys(rootTypes)) {
     if (typeof rootTypes[k] === "string") {
-      output += `export interface ${k} {\n  ${rootTypes[k]}\n}\n\n`;
+      output += `export ${exportedKind} ${k}${exportedKindOperator} {\n  ${rootTypes[k]}\n}\n\n`;
     }
   }
 
   // 2b. external schemas (subschemas)
-  output += `export interface external {\n`;
+  output += `export ${exportedKind} external${exportedKindOperator} {\n`;
   const externalKeys = Object.keys(external);
   externalKeys.sort((a, b) => a.localeCompare(b, "en", { numeric: true })); // sort external keys because they may have resolved in a different order each time
   for (const subschemaURL of externalKeys) {
@@ -96,7 +101,7 @@ async function openapiTS(
     }
     output += `  }\n`;
   }
-  output += `}\n\n`;
+  output += `}${exportedKindSemicolon}\n\n`;
 
   // 2c. add paths enum
   if (ctx.makePathsEnum && rootSchema.paths) output += makeApiPathsEnum(rootSchema.paths);
