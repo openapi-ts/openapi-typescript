@@ -99,7 +99,8 @@ export default async function load(
 ): Promise<{ [url: string]: PartialSchema }> {
   const urlCache = options.urlCache || new Set<string>();
 
-  const isJSON = !(schema instanceof URL); // if this is dynamically-passed-in JSON, we’ll have to change a few things
+  // if this is dynamically-passed-in JSON, we’ll have to change a few things
+  const isJSON = schema instanceof URL === false;
   let schemaID = isJSON ? new URL(VIRTUAL_JSON_URL).href : (schema.href as string);
 
   const schemas = options.schemas;
@@ -113,7 +114,7 @@ export default async function load(
     if (urlCache.has(schemaID)) return options.schemas; // exit early if this has already been scanned
     urlCache.add(schemaID); // add URL to cache
 
-    let contents: string;
+    let contents = "";
     let contentType = "";
     const schemaURL = schema as URL; // helps TypeScript
 
