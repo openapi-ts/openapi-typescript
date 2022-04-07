@@ -103,6 +103,8 @@ export function parseSingleSimpleValue(value: unknown, isNodeNullable = false): 
 
   if (typeof value === "number" || typeof value === "boolean") return value;
 
+  if (typeof value === "object") return JSON.stringify(value);
+
   if (value === null && !isNodeNullable) return "null";
 
   // Edge case
