@@ -1703,7 +1703,7 @@ export type components = {
      */
     account: {
       /** @description Business information about the account. */
-      business_profile?: Partial<components['schemas']['account_business_profile']> | null
+      business_profile?: components['schemas']['account_business_profile'] | null
       /**
        * @description The business type.
        * @enum {string|null}
@@ -1733,7 +1733,7 @@ export type components = {
        */
       external_accounts?: {
         /** @description The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards. */
-        data: (Partial<components['schemas']['bank_account']> & Partial<components['schemas']['card']>)[]
+        data: (components['schemas']['bank_account'] | components['schemas']['card'])[]
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean
         /**
@@ -1759,7 +1759,7 @@ export type components = {
       payouts_enabled?: boolean
       requirements?: components['schemas']['account_requirements']
       /** @description Options for customizing how the account functions within Stripe. */
-      settings?: Partial<components['schemas']['account_settings']> | null
+      settings?: components['schemas']['account_settings'] | null
       tos_acceptance?: components['schemas']['account_tos_acceptance']
       /**
        * @description The Stripe account type. Can be `standard`, `express`, or `custom`.
@@ -1775,9 +1775,9 @@ export type components = {
     /** AccountBrandingSettings */
     account_branding_settings: {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) An icon for the account. Must be square and at least 128px x 128px. */
-      icon?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      icon?: (string | components['schemas']['file']) | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A logo for the account that will be used in Checkout instead of the icon and without the account's name next to it if provided. Must be at least 128px x 128px. */
-      logo?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      logo?: (string | components['schemas']['file']) | null
       /** @description A CSS hex color value representing the primary branding color for this account */
       primary_color?: string | null
       /** @description A CSS hex color value representing the secondary branding color for this account */
@@ -1792,7 +1792,7 @@ export type components = {
       /** @description Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes. */
       product_description?: string | null
       /** @description A publicly available mailing address for sending support issues to. */
-      support_address?: Partial<components['schemas']['address']> | null
+      support_address?: components['schemas']['address'] | null
       /** @description A publicly available email address for sending support issues to. */
       support_email?: string | null
       /** @description A publicly available phone number to call with support issues. */
@@ -2215,7 +2215,7 @@ export type components = {
        */
       created: number
       /** @description The ID of the customer associated with this Alipay Account. */
-      customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description Uniquely identifies the account and will be the same across all Alipay account objects that are linked to the same Alipay account. */
       fingerprint: string
       /** @description Unique identifier for the object. */
@@ -2260,7 +2260,7 @@ export type components = {
       payment_method_type?: string
       setup_intent?: components['schemas']['setup_intent']
       /** @description The source object for errors returned on a request involving a source. */
-      source?: Partial<components['schemas']['bank_account']> & Partial<components['schemas']['card']> & Partial<components['schemas']['source']>
+      source?: components['schemas']['bank_account'] | components['schemas']['card'] | components['schemas']['source']
       /**
        * @description The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
        * @enum {string}
@@ -2300,17 +2300,17 @@ export type components = {
     /** PlatformFee */
     application_fee: {
       /** @description ID of the Stripe account this fee was taken from. */
-      account: Partial<string> & Partial<components['schemas']['account']>
+      account: string | components['schemas']['account']
       /** @description Amount earned, in %s. */
       amount: number
       /** @description Amount in %s refunded (can be less than the amount attribute on the fee if a partial refund was issued) */
       amount_refunded: number
       /** @description ID of the Connect application that earned the fee. */
-      application: Partial<string> & Partial<components['schemas']['application']>
+      application: string | components['schemas']['application']
       /** @description Balance transaction that describes the impact of this collected application fee on your account balance (not including refunds). */
-      balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       /** @description ID of the charge that the application fee was taken from. */
-      charge: Partial<string> & Partial<components['schemas']['charge']>
+      charge: string | components['schemas']['charge']
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -2328,7 +2328,7 @@ export type components = {
        */
       object: 'application_fee'
       /** @description ID of the corresponding charge on the platform account, if this fee was the result of a charge using the `destination` parameter. */
-      originating_transaction?: (Partial<string> & Partial<components['schemas']['charge']>) | null
+      originating_transaction?: (string | components['schemas']['charge']) | null
       /** @description Whether the fee has been fully refunded. If the fee is only partially refunded, this attribute will still be false. */
       refunded: boolean
       /**
@@ -2456,23 +2456,25 @@ export type components = {
       reporting_category: string
       /** @description The Stripe object to which this transaction is related. */
       source?:
-        | (Partial<string> &
-            Partial<components['schemas']['application_fee']> &
-            Partial<components['schemas']['charge']> &
-            Partial<components['schemas']['connect_collection_transfer']> &
-            Partial<components['schemas']['dispute']> &
-            Partial<components['schemas']['fee_refund']> &
-            Partial<components['schemas']['issuing.authorization']> &
-            Partial<components['schemas']['issuing.dispute']> &
-            Partial<components['schemas']['issuing.transaction']> &
-            Partial<components['schemas']['payout']> &
-            Partial<components['schemas']['platform_tax_fee']> &
-            Partial<components['schemas']['refund']> &
-            Partial<components['schemas']['reserve_transaction']> &
-            Partial<components['schemas']['tax_deducted_at_source']> &
-            Partial<components['schemas']['topup']> &
-            Partial<components['schemas']['transfer']> &
-            Partial<components['schemas']['transfer_reversal']>)
+        | (
+            | string
+            | components['schemas']['application_fee']
+            | components['schemas']['charge']
+            | components['schemas']['connect_collection_transfer']
+            | components['schemas']['dispute']
+            | components['schemas']['fee_refund']
+            | components['schemas']['issuing.authorization']
+            | components['schemas']['issuing.dispute']
+            | components['schemas']['issuing.transaction']
+            | components['schemas']['payout']
+            | components['schemas']['platform_tax_fee']
+            | components['schemas']['refund']
+            | components['schemas']['reserve_transaction']
+            | components['schemas']['tax_deducted_at_source']
+            | components['schemas']['topup']
+            | components['schemas']['transfer']
+            | components['schemas']['transfer_reversal']
+          )
         | null
       /** @description If the transaction's net funds are available in the Stripe balance yet. Either `available` or `pending`. */
       status: string
@@ -2526,7 +2528,7 @@ export type components = {
      */
     bank_account: {
       /** @description The ID of the account that the bank account is associated with. */
-      account?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      account?: (string | components['schemas']['account']) | null
       /** @description The name of the person or business that owns the bank account. */
       account_holder_name?: string | null
       /** @description The type of entity that holds the account. This can be either `individual` or `company`. */
@@ -2542,7 +2544,7 @@ export type components = {
       /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account. */
       currency: string
       /** @description The ID of the customer that the bank account is associated with. */
-      customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description Whether this bank account is the default external account for its currency. */
       default_for_currency?: boolean | null
       /** @description Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same. */
@@ -2570,7 +2572,7 @@ export type components = {
     /** billing_details */
     billing_details: {
       /** @description Billing address. */
-      address?: Partial<components['schemas']['address']> | null
+      address?: components['schemas']['address'] | null
       /** @description Email address. */
       email?: string | null
       /** @description Full name. */
@@ -2634,7 +2636,7 @@ export type components = {
      */
     'billing_portal.session': {
       /** @description The configuration used by this session, describing the features available. */
-      configuration: Partial<string> & Partial<components['schemas']['billing_portal.configuration']>
+      configuration: string | components['schemas']['billing_portal.configuration']
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -2812,7 +2814,7 @@ export type components = {
      */
     capability: {
       /** @description The account for which the capability enables functionality. */
-      account: Partial<string> & Partial<components['schemas']['account']>
+      account: string | components['schemas']['account']
       future_requirements?: components['schemas']['account_capability_future_requirements']
       /** @description The identifier for the capability. */
       id: string
@@ -2845,7 +2847,7 @@ export type components = {
      */
     card: {
       /** @description The account this card belongs to. This attribute will not be in the card object if the card belongs to a customer or recipient instead. */
-      account?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      account?: (string | components['schemas']['account']) | null
       /** @description City/District/Suburb/Town/Village. */
       address_city?: string | null
       /** @description Billing address country, if provided when creating card. */
@@ -2871,7 +2873,7 @@ export type components = {
       /** @description Three-letter [ISO code for currency](https://stripe.com/docs/payouts). Only applicable on accounts (not customers or recipients). The card can be used as a transfer destination for funds in this currency. */
       currency?: string | null
       /** @description The customer that this card belongs to. This attribute will not be in the card object if the card belongs to an account or recipient instead. */
-      customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description If a CVC was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`. A result of unchecked indicates that CVC was provided but hasn't been checked yet. Checks are typically performed when attaching a card to a Customer object, or when creating a charge. For more details, see [Check if a card is valid without a charge](https://support.stripe.com/questions/check-if-a-card-is-valid-without-a-charge). */
       cvc_check?: string | null
       /** @description Whether this card is the default external account for its currency. */
@@ -2904,7 +2906,7 @@ export type components = {
        */
       object: 'card'
       /** @description The recipient that this card belongs to. This attribute will not be in the card object if the card belongs to a customer or account instead. */
-      recipient?: (Partial<string> & Partial<components['schemas']['recipient']>) | null
+      recipient?: (string | components['schemas']['recipient']) | null
       /** @description If the card number is tokenized, this is the method that was used. Can be `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null. */
       tokenization_method?: string | null
     }
@@ -2941,13 +2943,13 @@ export type components = {
       /** @description Amount in %s refunded (can be less than the amount attribute on the charge if a partial refund was issued). */
       amount_refunded: number
       /** @description ID of the Connect application that created the charge. */
-      application?: (Partial<string> & Partial<components['schemas']['application']>) | null
+      application?: (string | components['schemas']['application']) | null
       /** @description The application fee (if any) for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees) for details. */
-      application_fee?: (Partial<string> & Partial<components['schemas']['application_fee']>) | null
+      application_fee?: (string | components['schemas']['application_fee']) | null
       /** @description The amount of the application fee (if any) requested for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees) for details. */
       application_fee_amount?: number | null
       /** @description ID of the balance transaction that describes the impact of this charge on your account balance (not including refunds or disputes). */
-      balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       billing_details: components['schemas']['billing_details']
       /** @description The full statement descriptor that is passed to card networks, and that is displayed on your customers' credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined. */
       calculated_statement_descriptor?: string | null
@@ -2961,7 +2963,7 @@ export type components = {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string
       /** @description ID of the customer this charge is for if one exists. */
-      customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null
       /** @description Whether the charge has been disputed. */
@@ -2971,11 +2973,11 @@ export type components = {
       /** @description Message to user further explaining reason for charge failure if available. */
       failure_message?: string | null
       /** @description Information on fraud assessments for the charge. */
-      fraud_details?: Partial<components['schemas']['charge_fraud_details']> | null
+      fraud_details?: components['schemas']['charge_fraud_details'] | null
       /** @description Unique identifier for the object. */
       id: string
       /** @description ID of the invoice this charge is for if one exists. */
-      invoice?: (Partial<string> & Partial<components['schemas']['invoice']>) | null
+      invoice?: (string | components['schemas']['invoice']) | null
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -2986,19 +2988,19 @@ export type components = {
        */
       object: 'charge'
       /** @description The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers) for details. */
-      on_behalf_of?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      on_behalf_of?: (string | components['schemas']['account']) | null
       /** @description ID of the order this charge is for if one exists. */
-      order?: (Partial<string> & Partial<components['schemas']['order']>) | null
+      order?: (string | components['schemas']['order']) | null
       /** @description Details about whether the payment was accepted, and why. See [understanding declines](https://stripe.com/docs/declines) for details. */
-      outcome?: Partial<components['schemas']['charge_outcome']> | null
+      outcome?: components['schemas']['charge_outcome'] | null
       /** @description `true` if the charge succeeded, or was successfully authorized for later capture. */
       paid: boolean
       /** @description ID of the PaymentIntent associated with this charge, if one exists. */
-      payment_intent?: (Partial<string> & Partial<components['schemas']['payment_intent']>) | null
+      payment_intent?: (string | components['schemas']['payment_intent']) | null
       /** @description ID of the payment method used in this charge. */
       payment_method?: string | null
       /** @description Details about the payment method at the time of the transaction. */
-      payment_method_details?: Partial<components['schemas']['payment_method_details']> | null
+      payment_method_details?: components['schemas']['payment_method_details'] | null
       /** @description This is the email address that the receipt for this charge was sent to. */
       receipt_email?: string | null
       /** @description This is the transaction number that appears on email receipts sent for this charge. This attribute will be `null` until a receipt has been sent. */
@@ -3025,11 +3027,11 @@ export type components = {
         url: string
       }
       /** @description ID of the review associated with this charge if one exists. */
-      review?: (Partial<string> & Partial<components['schemas']['review']>) | null
+      review?: (string | components['schemas']['review']) | null
       /** @description Shipping information for the charge. */
-      shipping?: Partial<components['schemas']['shipping']> | null
+      shipping?: components['schemas']['shipping'] | null
       /** @description The transfer ID which created this charge. Only present if the charge came from another Stripe account. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details. */
-      source_transfer?: (Partial<string> & Partial<components['schemas']['transfer']>) | null
+      source_transfer?: (string | components['schemas']['transfer']) | null
       /** @description For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
       statement_descriptor?: string | null
       /** @description Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
@@ -3040,9 +3042,9 @@ export type components = {
        */
       status: 'failed' | 'pending' | 'succeeded'
       /** @description ID of the transfer to the `destination` account (only applicable if the charge was created using the `destination` parameter). */
-      transfer?: Partial<string> & Partial<components['schemas']['transfer']>
+      transfer?: string | components['schemas']['transfer']
       /** @description An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details. */
-      transfer_data?: Partial<components['schemas']['charge_transfer_data']> | null
+      transfer_data?: components['schemas']['charge_transfer_data'] | null
       /** @description A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
       transfer_group?: string | null
     }
@@ -3064,7 +3066,7 @@ export type components = {
       /** @description Stripe Radar's evaluation of the riskiness of the payment. Possible values for evaluated payments are between 0 and 100. For non-card payments, card-based payments predating the public assignment of risk scores, or in the event of an error during evaluation, this field will not be present. This field is only available with Radar for Fraud Teams. */
       risk_score?: number
       /** @description The ID of the Radar rule that matched the payment, if applicable. */
-      rule?: Partial<string> & Partial<components['schemas']['rule']>
+      rule?: string | components['schemas']['rule']
       /** @description A human-readable description of the outcome type and reason, designed for you (the recipient of the payment), not your customer. */
       seller_message?: string | null
       /** @description Possible values are `authorized`, `manual_review`, `issuer_declined`, `blocked`, and `invalid`. See [understanding declines](https://stripe.com/docs/declines) and [Radar reviews](https://stripe.com/docs/radar/reviews) for details. */
@@ -3075,7 +3077,7 @@ export type components = {
       /** @description The amount transferred to the destination account, if specified. By default, the entire charge amount is transferred to the destination account. */
       amount?: number | null
       /** @description ID of an existing, connected Stripe account to transfer funds to if `transfer_data` was specified in the charge request. */
-      destination: Partial<string> & Partial<components['schemas']['account']>
+      destination: string | components['schemas']['account']
     }
     /**
      * Session
@@ -3096,7 +3098,7 @@ export type components = {
      */
     'checkout.session': {
       /** @description When set, provides configuration for actions to take if this Checkout Session expires. */
-      after_expiration?: Partial<components['schemas']['payment_pages_checkout_session_after_expiration']> | null
+      after_expiration?: components['schemas']['payment_pages_checkout_session_after_expiration'] | null
       /** @description Enables user redeemable promotion codes. */
       allow_promotion_codes?: boolean | null
       /** @description Total of all items before discounts or taxes are applied. */
@@ -3118,9 +3120,9 @@ export type components = {
        */
       client_reference_id?: string | null
       /** @description Results of `consent_collection` for this session. */
-      consent?: Partial<components['schemas']['payment_pages_checkout_session_consent']> | null
+      consent?: components['schemas']['payment_pages_checkout_session_consent'] | null
       /** @description When set, provides configuration for the Checkout Session to gather active consent from customers. */
-      consent_collection?: Partial<components['schemas']['payment_pages_checkout_session_consent_collection']> | null
+      consent_collection?: components['schemas']['payment_pages_checkout_session_consent_collection'] | null
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency?: string | null
       /**
@@ -3130,14 +3132,14 @@ export type components = {
        * during the payment flow unless an existing customer was provided when
        * the Session was created.
        */
-      customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /**
        * @description Configure whether a Checkout Session creates a Customer when the Checkout Session completes.
        * @enum {string|null}
        */
       customer_creation?: ('always' | 'if_required') | null
       /** @description The customer details including the customer's tax exempt status and the customer's tax IDs. Only present on Sessions in `payment` or `subscription` mode. */
-      customer_details?: Partial<components['schemas']['payment_pages_checkout_session_customer_details']> | null
+      customer_details?: components['schemas']['payment_pages_checkout_session_customer_details'] | null
       /**
        * @description If provided, this value will be used when the Customer object is created.
        * If not provided, customers will be asked to enter their email address.
@@ -3237,11 +3239,11 @@ export type components = {
        */
       object: 'checkout.session'
       /** @description The ID of the PaymentIntent for Checkout Sessions in `payment` mode. */
-      payment_intent?: (Partial<string> & Partial<components['schemas']['payment_intent']>) | null
+      payment_intent?: (string | components['schemas']['payment_intent']) | null
       /** @description The ID of the Payment Link that created this Session. */
-      payment_link?: (Partial<string> & Partial<components['schemas']['payment_link']>) | null
+      payment_link?: (string | components['schemas']['payment_link']) | null
       /** @description Payment-method-specific configuration for the PaymentIntent or SetupIntent of this CheckoutSession. */
-      payment_method_options?: Partial<components['schemas']['checkout_session_payment_method_options']> | null
+      payment_method_options?: components['schemas']['checkout_session_payment_method_options'] | null
       /**
        * @description A list of the types of payment methods (e.g. card) this Checkout
        * Session is allowed to accept.
@@ -3257,15 +3259,15 @@ export type components = {
       /** @description The ID of the original expired Checkout Session that triggered the recovery flow. */
       recovered_from?: string | null
       /** @description The ID of the SetupIntent for Checkout Sessions in `setup` mode. */
-      setup_intent?: (Partial<string> & Partial<components['schemas']['setup_intent']>) | null
+      setup_intent?: (string | components['schemas']['setup_intent']) | null
       /** @description Shipping information for this Checkout Session. */
-      shipping?: Partial<components['schemas']['shipping']> | null
+      shipping?: components['schemas']['shipping'] | null
       /** @description When set, provides configuration for Checkout to collect a shipping address from a customer. */
-      shipping_address_collection?: Partial<components['schemas']['payment_pages_checkout_session_shipping_address_collection']> | null
+      shipping_address_collection?: components['schemas']['payment_pages_checkout_session_shipping_address_collection'] | null
       /** @description The shipping rate options applied to this Session. */
       shipping_options: components['schemas']['payment_pages_checkout_session_shipping_option'][]
       /** @description The ID of the ShippingRate for Checkout Sessions in `payment` mode. */
-      shipping_rate?: (Partial<string> & Partial<components['schemas']['shipping_rate']>) | null
+      shipping_rate?: (string | components['schemas']['shipping_rate']) | null
       /**
        * @description The status of the Checkout Session, one of `open`, `complete`, or `expired`.
        * @enum {string|null}
@@ -3280,7 +3282,7 @@ export type components = {
        */
       submit_type?: ('auto' | 'book' | 'donate' | 'pay') | null
       /** @description The ID of the subscription for Checkout Sessions in `subscription` mode. */
-      subscription?: (Partial<string> & Partial<components['schemas']['subscription']>) | null
+      subscription?: (string | components['schemas']['subscription']) | null
       /**
        * @description The URL the customer will be directed to after the payment or
        * subscription creation is successful.
@@ -3288,7 +3290,7 @@ export type components = {
       success_url: string
       tax_id_collection?: components['schemas']['payment_pages_checkout_session_tax_id_collection']
       /** @description Tax and discount details for the computed total amount. */
-      total_details?: Partial<components['schemas']['payment_pages_checkout_session_total_details']> | null
+      total_details?: components['schemas']['payment_pages_checkout_session_total_details'] | null
       /** @description The URL to the Checkout Session. */
       url?: string | null
     }
@@ -3348,7 +3350,7 @@ export type components = {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string
       /** @description ID of the account that funds are being collected for. */
-      destination: Partial<string> & Partial<components['schemas']['account']>
+      destination: string | components['schemas']['account']
       /** @description Unique identifier for the object. */
       id: string
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -3473,9 +3475,9 @@ export type components = {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string
       /** @description ID of the customer. */
-      customer: Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>
+      customer: string | components['schemas']['customer'] | components['schemas']['deleted_customer']
       /** @description Customer balance transaction related to this credit note. */
-      customer_balance_transaction?: (Partial<string> & Partial<components['schemas']['customer_balance_transaction']>) | null
+      customer_balance_transaction?: (string | components['schemas']['customer_balance_transaction']) | null
       /** @description The integer amount in %s representing the total amount of discount that was credited. */
       discount_amount: number
       /** @description The aggregate amounts calculated per discount for all line items. */
@@ -3483,7 +3485,7 @@ export type components = {
       /** @description Unique identifier for the object. */
       id: string
       /** @description ID of the invoice. */
-      invoice: Partial<string> & Partial<components['schemas']['invoice']>
+      invoice: string | components['schemas']['invoice']
       /**
        * CreditNoteLinesList
        * @description Line items that make up the credit note
@@ -3524,7 +3526,7 @@ export type components = {
        */
       reason?: ('duplicate' | 'fraudulent' | 'order_change' | 'product_unsatisfactory') | null
       /** @description Refund related to this credit note. */
-      refund?: (Partial<string> & Partial<components['schemas']['refund']>) | null
+      refund?: (string | components['schemas']['refund']) | null
       /**
        * @description Status of this credit note, one of `issued` or `void`. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
        * @enum {string}
@@ -3594,7 +3596,7 @@ export type components = {
       /** @description Whether this tax amount is inclusive or exclusive. */
       inclusive: boolean
       /** @description The tax rate that was applied to get this tax amount. */
-      tax_rate: Partial<string> & Partial<components['schemas']['tax_rate']>
+      tax_rate: string | components['schemas']['tax_rate']
     }
     /**
      * Customer
@@ -3604,7 +3606,7 @@ export type components = {
      */
     customer: {
       /** @description The customer's address. */
-      address?: Partial<components['schemas']['address']> | null
+      address?: components['schemas']['address'] | null
       /** @description Current balance, if any, being stored on the customer. If negative, the customer has credit to apply to their next invoice. If positive, the customer has an amount owed that will be added to their next invoice. The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice. This balance is only taken into account as invoices are finalized. */
       balance?: number
       /**
@@ -3620,12 +3622,14 @@ export type components = {
        * If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) field instead.
        */
       default_source?:
-        | (Partial<string> &
-            Partial<components['schemas']['alipay_account']> &
-            Partial<components['schemas']['bank_account']> &
-            Partial<components['schemas']['bitcoin_receiver']> &
-            Partial<components['schemas']['card']> &
-            Partial<components['schemas']['source']>)
+        | (
+            | string
+            | components['schemas']['alipay_account']
+            | components['schemas']['bank_account']
+            | components['schemas']['bitcoin_receiver']
+            | components['schemas']['card']
+            | components['schemas']['source']
+          )
         | null
       /**
        * @description When the customer's latest invoice is billed by charging automatically, `delinquent` is `true` if the invoice's latest charge failed. When the customer's latest invoice is billed by sending an invoice, `delinquent` is `true` if the invoice isn't paid by its due date.
@@ -3636,7 +3640,7 @@ export type components = {
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null
       /** @description Describes the current discount active on the customer, if there is one. */
-      discount?: Partial<components['schemas']['discount']> | null
+      discount?: components['schemas']['discount'] | null
       /** @description The customer's email address. */
       email?: string | null
       /** @description Unique identifier for the object. */
@@ -3662,18 +3666,20 @@ export type components = {
       /** @description The customer's preferred locales (languages), ordered by preference. */
       preferred_locales?: string[] | null
       /** @description Mailing and shipping address for the customer. Appears on invoices emailed to this customer. */
-      shipping?: Partial<components['schemas']['shipping']> | null
+      shipping?: components['schemas']['shipping'] | null
       /**
        * ApmsSourcesSourceList
        * @description The customer's payment sources, if any.
        */
       sources?: {
         /** @description Details about each object. */
-        data: (Partial<components['schemas']['alipay_account']> &
-          Partial<components['schemas']['bank_account']> &
-          Partial<components['schemas']['bitcoin_receiver']> &
-          Partial<components['schemas']['card']> &
-          Partial<components['schemas']['source']>)[]
+        data: (
+          | components['schemas']['alipay_account']
+          | components['schemas']['bank_account']
+          | components['schemas']['bitcoin_receiver']
+          | components['schemas']['card']
+          | components['schemas']['source']
+        )[]
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean
         /**
@@ -3758,11 +3764,11 @@ export type components = {
        */
       created: number
       /** @description The ID of the credit note (if any) related to the transaction. */
-      credit_note?: (Partial<string> & Partial<components['schemas']['credit_note']>) | null
+      credit_note?: (string | components['schemas']['credit_note']) | null
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string
       /** @description The ID of the customer the transaction belongs to. */
-      customer: Partial<string> & Partial<components['schemas']['customer']>
+      customer: string | components['schemas']['customer']
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null
       /** @description The customer's `balance` after the transaction was applied. A negative value decreases the amount due on the customer's next invoice. A positive value increases the amount due on the customer's next invoice. */
@@ -3770,7 +3776,7 @@ export type components = {
       /** @description Unique identifier for the object. */
       id: string
       /** @description The ID of the invoice (if any) related to the transaction. */
-      invoice?: (Partial<string> & Partial<components['schemas']['invoice']>) | null
+      invoice?: (string | components['schemas']['invoice']) | null
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -3805,7 +3811,7 @@ export type components = {
       /** @description A recent IP address of the customer used for tax reporting and tax location inference. */
       ip_address?: string | null
       /** @description The customer's location as identified by Stripe Tax. */
-      location?: Partial<components['schemas']['customer_tax_location']> | null
+      location?: components['schemas']['customer_tax_location'] | null
     }
     /** CustomerTaxLocation */
     customer_tax_location: {
@@ -3949,7 +3955,7 @@ export type components = {
       checkout_session?: string | null
       coupon: components['schemas']['coupon']
       /** @description The ID of the customer associated with this discount. */
-      customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /**
        * @description Always true for a deleted object
        * @enum {boolean}
@@ -3967,7 +3973,7 @@ export type components = {
        */
       object: 'discount'
       /** @description The promotion code applied to create this discount. */
-      promotion_code?: (Partial<string> & Partial<components['schemas']['promotion_code']>) | null
+      promotion_code?: (string | components['schemas']['promotion_code']) | null
       /**
        * Format: unix-time
        * @description Date that the coupon was applied.
@@ -3977,7 +3983,7 @@ export type components = {
       subscription?: string | null
     }
     /** Polymorphic */
-    deleted_external_account: Partial<components['schemas']['deleted_bank_account']> & Partial<components['schemas']['deleted_card']>
+    deleted_external_account: components['schemas']['deleted_bank_account'] | components['schemas']['deleted_card']
     /** DeletedInvoice */
     deleted_invoice: {
       /**
@@ -4009,10 +4015,11 @@ export type components = {
       object: 'invoiceitem'
     }
     /** Polymorphic */
-    deleted_payment_source: Partial<components['schemas']['deleted_alipay_account']> &
-      Partial<components['schemas']['deleted_bank_account']> &
-      Partial<components['schemas']['deleted_bitcoin_receiver']> &
-      Partial<components['schemas']['deleted_card']>
+    deleted_payment_source:
+      | components['schemas']['deleted_alipay_account']
+      | components['schemas']['deleted_bank_account']
+      | components['schemas']['deleted_bitcoin_receiver']
+      | components['schemas']['deleted_card']
     /** DeletedPerson */
     deleted_person: {
       /**
@@ -4232,7 +4239,7 @@ export type components = {
       checkout_session?: string | null
       coupon: components['schemas']['coupon']
       /** @description The ID of the customer associated with this discount. */
-      customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /**
        * Format: unix-time
        * @description If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null.
@@ -4250,7 +4257,7 @@ export type components = {
        */
       object: 'discount'
       /** @description The promotion code applied to create this discount. */
-      promotion_code?: (Partial<string> & Partial<components['schemas']['promotion_code']>) | null
+      promotion_code?: (string | components['schemas']['promotion_code']) | null
       /**
        * Format: unix-time
        * @description Date that the coupon was applied.
@@ -4264,7 +4271,7 @@ export type components = {
       /** @description The amount, in %s, of the discount. */
       amount: number
       /** @description The discount that was applied to get this discount amount. */
-      discount: Partial<string> & Partial<components['schemas']['discount']> & Partial<components['schemas']['deleted_discount']>
+      discount: string | components['schemas']['discount'] | components['schemas']['deleted_discount']
     }
     /**
      * Dispute
@@ -4282,7 +4289,7 @@ export type components = {
       /** @description List of zero, one, or two balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute. */
       balance_transactions: components['schemas']['balance_transaction'][]
       /** @description ID of the charge that was disputed. */
-      charge: Partial<string> & Partial<components['schemas']['charge']>
+      charge: string | components['schemas']['charge']
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -4306,7 +4313,7 @@ export type components = {
        */
       object: 'dispute'
       /** @description ID of the PaymentIntent that was disputed. */
-      payment_intent?: (Partial<string> & Partial<components['schemas']['payment_intent']>) | null
+      payment_intent?: (string | components['schemas']['payment_intent']) | null
       /** @description Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Read more about [dispute reasons](https://stripe.com/docs/disputes/categories). */
       reason: string
       /**
@@ -4330,13 +4337,13 @@ export type components = {
       /** @description The billing address provided by the customer. */
       billing_address?: string | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your subscription cancellation policy, as shown to the customer. */
-      cancellation_policy?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      cancellation_policy?: (string | components['schemas']['file']) | null
       /** @description An explanation of how and when the customer was shown your refund policy prior to purchase. */
       cancellation_policy_disclosure?: string | null
       /** @description A justification for why the customer's subscription was not canceled. */
       cancellation_rebuttal?: string | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any communication with the customer that you feel is relevant to your case. Examples include emails proving that the customer received the product or service, or demonstrating their use of or satisfaction with the product or service. */
-      customer_communication?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      customer_communication?: (string | components['schemas']['file']) | null
       /** @description The email address of the customer. */
       customer_email_address?: string | null
       /** @description The name of the customer. */
@@ -4344,9 +4351,9 @@ export type components = {
       /** @description The IP address that the customer used when making the purchase. */
       customer_purchase_ip?: string | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A relevant document or contract showing the customer's signature. */
-      customer_signature?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      customer_signature?: (string | components['schemas']['file']) | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation for the prior charge that can uniquely identify the charge, such as a receipt, shipping label, work order, etc. This document should be paired with a similar document from the disputed payment that proves the two payments are separate. */
-      duplicate_charge_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      duplicate_charge_documentation?: (string | components['schemas']['file']) | null
       /** @description An explanation of the difference between the disputed charge versus the prior charge that appears to be a duplicate. */
       duplicate_charge_explanation?: string | null
       /** @description The Stripe ID for the prior charge which appears to be a duplicate of the disputed charge. */
@@ -4354,9 +4361,9 @@ export type components = {
       /** @description A description of the product or service that was sold. */
       product_description?: string | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any receipt or message sent to the customer notifying them of the charge. */
-      receipt?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      receipt?: (string | components['schemas']['file']) | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your refund policy, as shown to the customer. */
-      refund_policy?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      refund_policy?: (string | components['schemas']['file']) | null
       /** @description Documentation demonstrating that the customer was shown your refund policy prior to purchase. */
       refund_policy_disclosure?: string | null
       /** @description A justification for why the customer is not entitled to a refund. */
@@ -4364,7 +4371,7 @@ export type components = {
       /** @description The date on which the customer received or began receiving the purchased service, in a clear human-readable format. */
       service_date?: string | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation showing proof that a service was provided to the customer. This could include a copy of a signed contract, work order, or other form of written agreement. */
-      service_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      service_documentation?: (string | components['schemas']['file']) | null
       /** @description The address to which a physical product was shipped. You should try to include as complete address information as possible. */
       shipping_address?: string | null
       /** @description The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc. If multiple carriers were used for this purchase, please separate them with commas. */
@@ -4372,11 +4379,11 @@ export type components = {
       /** @description The date on which a physical product began its route to the shipping address, in a clear human-readable format. */
       shipping_date?: string | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation showing proof that a product was shipped to the customer at the same address the customer provided to you. This could include a copy of the shipment receipt, shipping label, etc. It should show the customer's full shipping address, if possible. */
-      shipping_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      shipping_documentation?: (string | components['schemas']['file']) | null
       /** @description The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas. */
       shipping_tracking_number?: string | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any additional evidence or statements. */
-      uncategorized_file?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      uncategorized_file?: (string | components['schemas']['file']) | null
       /** @description Any additional evidence or statements. */
       uncategorized_text?: string | null
     }
@@ -4477,7 +4484,7 @@ export type components = {
       /** @description Number of webhooks that have yet to be successfully delivered (i.e., to return a 20x response) to the URLs you've specified. */
       pending_webhooks: number
       /** @description Information on the API request that instigated the event. */
-      request?: Partial<components['schemas']['notification_event_request']> | null
+      request?: components['schemas']['notification_event_request'] | null
       /** @description Description of the event (e.g., `invoice.created` or `charge.refunded`). */
       type: string
     }
@@ -4507,7 +4514,7 @@ export type components = {
       rates: { [key: string]: number }
     }
     /** Polymorphic */
-    external_account: Partial<components['schemas']['bank_account']> & Partial<components['schemas']['card']>
+    external_account: components['schemas']['bank_account'] | components['schemas']['card']
     /** Fee */
     fee: {
       /** @description Amount of the fee, in cents. */
@@ -4533,7 +4540,7 @@ export type components = {
       /** @description Amount, in %s. */
       amount: number
       /** @description Balance transaction that describes the impact on your account balance. */
-      balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -4542,7 +4549,7 @@ export type components = {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string
       /** @description ID of the application fee that was refunded. */
-      fee: Partial<string> & Partial<components['schemas']['application_fee']>
+      fee: string | components['schemas']['application_fee']
       /** @description Unique identifier for the object. */
       id: string
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -4648,7 +4655,7 @@ export type components = {
        */
       expires_at?: number | null
       /** @description The file object this link points to. */
-      file: Partial<string> & Partial<components['schemas']['file']>
+      file: string | components['schemas']['file']
       /** @description Unique identifier for the object. */
       id: string
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -4754,19 +4761,19 @@ export type components = {
      */
     gelato_document_report: {
       /** @description Address as it appears in the document. */
-      address?: Partial<components['schemas']['address']> | null
+      address?: components['schemas']['address'] | null
       /** @description Date of birth as it appears in the document. */
-      dob?: Partial<components['schemas']['gelato_data_document_report_date_of_birth']> | null
+      dob?: components['schemas']['gelato_data_document_report_date_of_birth'] | null
       /** @description Details on the verification error. Present when status is `unverified`. */
-      error?: Partial<components['schemas']['gelato_document_report_error']> | null
+      error?: components['schemas']['gelato_document_report_error'] | null
       /** @description Expiration date of the document. */
-      expiration_date?: Partial<components['schemas']['gelato_data_document_report_expiration_date']> | null
+      expiration_date?: components['schemas']['gelato_data_document_report_expiration_date'] | null
       /** @description Array of [File](https://stripe.com/docs/api/files) ids containing images for this document. */
       files?: string[] | null
       /** @description First name as it appears in the document. */
       first_name?: string | null
       /** @description Issued date of the document. */
-      issued_date?: Partial<components['schemas']['gelato_data_document_report_issued_date']> | null
+      issued_date?: components['schemas']['gelato_data_document_report_issued_date'] | null
       /** @description Issuing country of the document. */
       issuing_country?: string | null
       /** @description Last name as it appears in the document. */
@@ -4800,9 +4807,9 @@ export type components = {
      */
     gelato_id_number_report: {
       /** @description Date of birth. */
-      dob?: Partial<components['schemas']['gelato_data_id_number_report_date']> | null
+      dob?: components['schemas']['gelato_data_id_number_report_date'] | null
       /** @description Details on the verification error. Present when status is `unverified`. */
-      error?: Partial<components['schemas']['gelato_id_number_report_error']> | null
+      error?: components['schemas']['gelato_id_number_report_error'] | null
       /** @description First name. */
       first_name?: string | null
       /** @description ID number. */
@@ -4851,7 +4858,7 @@ export type components = {
       /** @description ID of the [File](https://stripe.com/docs/api/files) holding the image of the identity document used in this check. */
       document?: string | null
       /** @description Details on the verification error. Present when status is `unverified`. */
-      error?: Partial<components['schemas']['gelato_selfie_report_error']> | null
+      error?: components['schemas']['gelato_selfie_report_error'] | null
       /** @description ID of the [File](https://stripe.com/docs/api/files) holding the image of the selfie used in this check. */
       selfie?: string | null
       /**
@@ -4927,9 +4934,9 @@ export type components = {
     /** GelatoVerifiedOutputs */
     gelato_verified_outputs: {
       /** @description The user's verified address. */
-      address?: Partial<components['schemas']['address']> | null
+      address?: components['schemas']['address'] | null
       /** @description The user’s verified date of birth. */
-      dob?: Partial<components['schemas']['gelato_data_verified_outputs_date']> | null
+      dob?: components['schemas']['gelato_data_verified_outputs_date'] | null
       /** @description The user's verified first name. */
       first_name?: string | null
       /** @description The user's verified id number. */
@@ -5008,9 +5015,9 @@ export type components = {
       /** @description Unique identifier for the object. */
       id: string
       /** @description If present, this property tells you the last error encountered when processing the verification. */
-      last_error?: Partial<components['schemas']['gelato_session_last_error']> | null
+      last_error?: components['schemas']['gelato_session_last_error'] | null
       /** @description ID of the most recent VerificationReport. [Learn more about accessing detailed verification results.](https://stripe.com/docs/identity/verification-sessions#results) */
-      last_verification_report?: (Partial<string> & Partial<components['schemas']['identity.verification_report']>) | null
+      last_verification_report?: (string | components['schemas']['identity.verification_report']) | null
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -5022,7 +5029,7 @@ export type components = {
       object: 'identity.verification_session'
       options: components['schemas']['gelato_verification_session_options']
       /** @description Redaction status of this VerificationSession. If the VerificationSession is not redacted, this field will be null. */
-      redaction?: Partial<components['schemas']['verification_session_redaction']> | null
+      redaction?: components['schemas']['verification_session_redaction'] | null
       /**
        * @description Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
        * @enum {string}
@@ -5036,7 +5043,7 @@ export type components = {
       /** @description The short-lived URL that you use to redirect a user to Stripe to submit their identity information. This URL expires after 48 hours and can only be used once. Don’t store it, log it, send it in emails or expose it to anyone other than the user. Refer to our docs on [verifying identity documents](https://stripe.com/docs/identity/verify-identity-documents?platform=web&type=redirect) to learn how to redirect users to Stripe. */
       url?: string | null
       /** @description The user’s verified data. */
-      verified_outputs?: Partial<components['schemas']['gelato_verified_outputs']> | null
+      verified_outputs?: components['schemas']['gelato_verified_outputs'] | null
     }
     /**
      * Invoice
@@ -5079,7 +5086,7 @@ export type components = {
       /** @description The public name of the business associated with this invoice, most often the business creating the invoice. */
       account_name?: string | null
       /** @description The account tax IDs associated with the invoice. Only editable when the invoice is a draft. */
-      account_tax_ids?: (Partial<string> & Partial<components['schemas']['tax_id']> & Partial<components['schemas']['deleted_tax_id']>)[] | null
+      account_tax_ids?: (string | components['schemas']['tax_id'] | components['schemas']['deleted_tax_id'])[] | null
       /** @description Final amount due at this time for this invoice. If the invoice's total is smaller than the minimum charge amount, for example, or if there is account credit that can be applied to the invoice, the `amount_due` may be 0. If there is a positive `starting_balance` for the invoice (the customer owes money), the `amount_due` will also take that into account. The charge that gets generated for the invoice will be for the amount specified in `amount_due`. */
       amount_due: number
       /** @description The amount, in %s, that was paid. */
@@ -5113,7 +5120,7 @@ export type components = {
           )
         | null
       /** @description ID of the latest charge generated for this invoice, if any. */
-      charge?: (Partial<string> & Partial<components['schemas']['charge']>) | null
+      charge?: (string | components['schemas']['charge']) | null
       /**
        * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions.
        * @enum {string}
@@ -5129,9 +5136,9 @@ export type components = {
       /** @description Custom fields displayed on the invoice. */
       custom_fields?: components['schemas']['invoice_setting_custom_field'][] | null
       /** @description The ID of the customer who will be billed. */
-      customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description The customer's address. Until the invoice is finalized, this field will equal `customer.address`. Once the invoice is finalized, this field will no longer be updated. */
-      customer_address?: Partial<components['schemas']['address']> | null
+      customer_address?: components['schemas']['address'] | null
       /** @description The customer's email. Until the invoice is finalized, this field will equal `customer.email`. Once the invoice is finalized, this field will no longer be updated. */
       customer_email?: string | null
       /** @description The customer's name. Until the invoice is finalized, this field will equal `customer.name`. Once the invoice is finalized, this field will no longer be updated. */
@@ -5139,7 +5146,7 @@ export type components = {
       /** @description The customer's phone number. Until the invoice is finalized, this field will equal `customer.phone`. Once the invoice is finalized, this field will no longer be updated. */
       customer_phone?: string | null
       /** @description The customer's shipping information. Until the invoice is finalized, this field will equal `customer.shipping`. Once the invoice is finalized, this field will no longer be updated. */
-      customer_shipping?: Partial<components['schemas']['shipping']> | null
+      customer_shipping?: components['schemas']['shipping'] | null
       /**
        * @description The customer's tax exempt status. Until the invoice is finalized, this field will equal `customer.tax_exempt`. Once the invoice is finalized, this field will no longer be updated.
        * @enum {string|null}
@@ -5148,24 +5155,26 @@ export type components = {
       /** @description The customer's tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as `customer.tax_ids`. Once the invoice is finalized, this field will no longer be updated. */
       customer_tax_ids?: components['schemas']['invoices_resource_invoice_tax_id'][] | null
       /** @description ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings. */
-      default_payment_method?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      default_payment_method?: (string | components['schemas']['payment_method']) | null
       /** @description ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source. */
       default_source?:
-        | (Partial<string> &
-            Partial<components['schemas']['alipay_account']> &
-            Partial<components['schemas']['bank_account']> &
-            Partial<components['schemas']['bitcoin_receiver']> &
-            Partial<components['schemas']['card']> &
-            Partial<components['schemas']['source']>)
+        | (
+            | string
+            | components['schemas']['alipay_account']
+            | components['schemas']['bank_account']
+            | components['schemas']['bitcoin_receiver']
+            | components['schemas']['card']
+            | components['schemas']['source']
+          )
         | null
       /** @description The tax rates applied to this invoice, if any. */
       default_tax_rates: components['schemas']['tax_rate'][]
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard. */
       description?: string | null
       /** @description Describes the current discount applied to this invoice, if there is one. Not populated if there are multiple discounts. */
-      discount?: Partial<components['schemas']['discount']> | null
+      discount?: components['schemas']['discount'] | null
       /** @description The discounts applied to the invoice. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount. */
-      discounts?: (Partial<string> & Partial<components['schemas']['discount']> & Partial<components['schemas']['deleted_discount']>)[] | null
+      discounts?: (string | components['schemas']['discount'] | components['schemas']['deleted_discount'])[] | null
       /**
        * Format: unix-time
        * @description The date on which payment for this invoice is due. This value will be `null` for invoices where `collection_method=charge_automatically`.
@@ -5182,7 +5191,7 @@ export type components = {
       /** @description The link to download the PDF for the invoice. If the invoice has not been finalized yet, this will be null. */
       invoice_pdf?: string | null
       /** @description The error encountered during the previous attempt to finalize the invoice. This field is cleared when the invoice is successfully finalized. */
-      last_finalization_error?: Partial<components['schemas']['api_errors']> | null
+      last_finalization_error?: components['schemas']['api_errors'] | null
       /**
        * InvoiceLinesList
        * @description The individual line items that make up the invoice. `lines` is sorted as follows: invoice items in reverse chronological order, followed by the subscription, if any.
@@ -5217,13 +5226,13 @@ export type components = {
        */
       object: 'invoice'
       /** @description The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details. */
-      on_behalf_of?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      on_behalf_of?: (string | components['schemas']['account']) | null
       /** @description Whether payment was successfully collected for this invoice. An invoice can be paid (most commonly) with a charge or with credit from the customer's account balance. */
       paid: boolean
       /** @description Returns true if the invoice was manually marked paid, returns false if the invoice hasn't been paid yet or was paid on Stripe. */
       paid_out_of_band: boolean
       /** @description The PaymentIntent associated with this invoice. The PaymentIntent is generated when the invoice is finalized, and can then be used to pay the invoice. Note that voiding an invoice will cancel the PaymentIntent. */
-      payment_intent?: (Partial<string> & Partial<components['schemas']['payment_intent']>) | null
+      payment_intent?: (string | components['schemas']['payment_intent']) | null
       payment_settings: components['schemas']['invoices_payment_settings']
       /**
        * Format: unix-time
@@ -5240,7 +5249,7 @@ export type components = {
       /** @description Total amount of all pre-payment credit notes issued for this invoice. */
       pre_payment_credit_notes_amount: number
       /** @description The quote this invoice was generated from. */
-      quote?: (Partial<string> & Partial<components['schemas']['quote']>) | null
+      quote?: (string | components['schemas']['quote']) | null
       /** @description This is the transaction number that appears on email receipts sent for this invoice. */
       receipt_number?: string | null
       /** @description Starting customer balance before the invoice is finalized. If the invoice has not been finalized yet, this will be the current customer balance. */
@@ -5254,7 +5263,7 @@ export type components = {
       status?: ('deleted' | 'draft' | 'open' | 'paid' | 'uncollectible' | 'void') | null
       status_transitions: components['schemas']['invoices_status_transitions']
       /** @description The subscription that this invoice was prepared for, if any. */
-      subscription?: (Partial<string> & Partial<components['schemas']['subscription']>) | null
+      subscription?: (string | components['schemas']['subscription']) | null
       /** @description Only set for upcoming invoices that preview prorations. The time used to calculate prorations. */
       subscription_proration_date?: number
       /** @description Total of all subscriptions, invoice items, and prorations on the invoice before any invoice level discount or tax is applied. Item discounts are already incorporated */
@@ -5269,7 +5278,7 @@ export type components = {
       /** @description The aggregate amounts calculated per tax rate for all line items. */
       total_tax_amounts: components['schemas']['invoice_tax_amount'][]
       /** @description The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to for the invoice. */
-      transfer_data?: Partial<components['schemas']['invoice_transfer_data']> | null
+      transfer_data?: components['schemas']['invoice_transfer_data'] | null
       /**
        * Format: unix-time
        * @description Invoices are automatically paid or sent 1 hour after webhooks are delivered, or until all webhook delivery attempts have [been exhausted](https://stripe.com/docs/billing/webhooks#understand). This field tracks the time when webhooks for this invoice were successfully delivered. If the invoice had no webhooks to deliver, this will be set while the invoice is being created.
@@ -5353,7 +5362,7 @@ export type components = {
       /** @description Default custom fields to be displayed on invoices for this customer. */
       custom_fields?: components['schemas']['invoice_setting_custom_field'][] | null
       /** @description ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices. */
-      default_payment_method?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      default_payment_method?: (string | components['schemas']['payment_method']) | null
       /** @description Default footer to be displayed on invoices for this customer. */
       footer?: string | null
     }
@@ -5374,7 +5383,7 @@ export type components = {
       /** @description Whether this tax amount is inclusive or exclusive. */
       inclusive: boolean
       /** @description The tax rate that was applied to get this tax amount. */
-      tax_rate: Partial<string> & Partial<components['schemas']['tax_rate']>
+      tax_rate: string | components['schemas']['tax_rate']
     }
     /** InvoiceThresholdReason */
     invoice_threshold_reason: {
@@ -5388,7 +5397,7 @@ export type components = {
       /** @description The amount in %s that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination. */
       amount?: number | null
       /** @description The account where funds from the payment will be transferred to upon payment success. */
-      destination: Partial<string> & Partial<components['schemas']['account']>
+      destination: string | components['schemas']['account']
     }
     /**
      * InvoiceItem
@@ -5406,7 +5415,7 @@ export type components = {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string
       /** @description The ID of the customer who will be billed when this invoice item is billed. */
-      customer: Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>
+      customer: string | components['schemas']['customer'] | components['schemas']['deleted_customer']
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -5417,11 +5426,11 @@ export type components = {
       /** @description If true, discounts will apply to this invoice item. Always false for prorations. */
       discountable: boolean
       /** @description The discounts which apply to the invoice item. Item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount. */
-      discounts?: (Partial<string> & Partial<components['schemas']['discount']>)[] | null
+      discounts?: (string | components['schemas']['discount'])[] | null
       /** @description Unique identifier for the object. */
       id: string
       /** @description The ID of the invoice this invoice item belongs to. */
-      invoice?: (Partial<string> & Partial<components['schemas']['invoice']>) | null
+      invoice?: (string | components['schemas']['invoice']) | null
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -5433,13 +5442,13 @@ export type components = {
       object: 'invoiceitem'
       period: components['schemas']['invoice_line_item_period']
       /** @description The price of the invoice item. */
-      price?: Partial<components['schemas']['price']> | null
+      price?: components['schemas']['price'] | null
       /** @description Whether the invoice item was created automatically as a proration adjustment when the customer switched plans. */
       proration: boolean
       /** @description Quantity of units for the invoice item. If the invoice item is a proration, the quantity of the subscription that the proration was computed for. */
       quantity: number
       /** @description The subscription that this invoice item has been created for, if any. */
-      subscription?: (Partial<string> & Partial<components['schemas']['subscription']>) | null
+      subscription?: (string | components['schemas']['subscription']) | null
       /** @description The subscription item that this invoice item has been created for, if any. */
       subscription_item?: string
       /** @description The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. */
@@ -5455,16 +5464,16 @@ export type components = {
     /** InvoicesPaymentMethodOptions */
     invoices_payment_method_options: {
       /** @description If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent. */
-      acss_debit?: Partial<components['schemas']['invoice_payment_method_options_acss_debit']> | null
+      acss_debit?: components['schemas']['invoice_payment_method_options_acss_debit'] | null
       /** @description If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent. */
-      bancontact?: Partial<components['schemas']['invoice_payment_method_options_bancontact']> | null
+      bancontact?: components['schemas']['invoice_payment_method_options_bancontact'] | null
       /** @description If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent. */
-      card?: Partial<components['schemas']['invoice_payment_method_options_card']> | null
+      card?: components['schemas']['invoice_payment_method_options_card'] | null
     }
     /** InvoicesPaymentSettings */
     invoices_payment_settings: {
       /** @description Payment-method-specific configuration to provide to the invoice’s PaymentIntent. */
-      payment_method_options?: Partial<components['schemas']['invoices_payment_method_options']> | null
+      payment_method_options?: components['schemas']['invoices_payment_method_options'] | null
       /** @description The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). */
       payment_method_types?:
         | (
@@ -5572,7 +5581,7 @@ export type components = {
       /** @description An IFR is actionable if it has not received a dispute and has not been fully refunded. You may wish to proactively refund a charge that receives an IFR, in order to avoid receiving a dispute later. */
       actionable: boolean
       /** @description ID of the charge this issuer fraud record is for, optionally expanded. */
-      charge: Partial<string> & Partial<components['schemas']['charge']>
+      charge: string | components['schemas']['charge']
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -5606,7 +5615,7 @@ export type components = {
       /** @description The total amount that was authorized or rejected. This amount is in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
       amount: number
       /** @description Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
-      amount_details?: Partial<components['schemas']['issuing_authorization_amount_details']> | null
+      amount_details?: components['schemas']['issuing_authorization_amount_details'] | null
       /** @description Whether the authorization has been approved. */
       approved: boolean
       /**
@@ -5618,7 +5627,7 @@ export type components = {
       balance_transactions: components['schemas']['balance_transaction'][]
       card: components['schemas']['issuing.card']
       /** @description The cardholder to whom this authorization belongs. */
-      cardholder?: (Partial<string> & Partial<components['schemas']['issuing.cardholder']>) | null
+      cardholder?: (string | components['schemas']['issuing.cardholder']) | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -5643,7 +5652,7 @@ export type components = {
        */
       object: 'issuing.authorization'
       /** @description The pending authorization request. This field will only be non-null during an `issuing_authorization.request` webhook. */
-      pending_request?: Partial<components['schemas']['issuing_authorization_pending_request']> | null
+      pending_request?: components['schemas']['issuing_authorization_pending_request'] | null
       /** @description History of every time `pending_request` was approved/denied, either by you directly or by Stripe (e.g. based on your `spending_controls`). If the merchant changes the authorization by performing an [incremental authorization](https://stripe.com/docs/issuing/purchases/authorizations), you can look at this field to see the previous requests for the authorization. */
       request_history: components['schemas']['issuing_authorization_request'][]
       /**
@@ -5699,16 +5708,16 @@ export type components = {
        */
       object: 'issuing.card'
       /** @description The latest card that replaces this card, if any. */
-      replaced_by?: (Partial<string> & Partial<components['schemas']['issuing.card']>) | null
+      replaced_by?: (string | components['schemas']['issuing.card']) | null
       /** @description The card this card replaces, if any. */
-      replacement_for?: (Partial<string> & Partial<components['schemas']['issuing.card']>) | null
+      replacement_for?: (string | components['schemas']['issuing.card']) | null
       /**
        * @description The reason why the previous card needed to be replaced.
        * @enum {string|null}
        */
       replacement_reason?: ('damaged' | 'expired' | 'lost' | 'stolen') | null
       /** @description Where and how the card will be shipped. */
-      shipping?: Partial<components['schemas']['issuing_card_shipping']> | null
+      shipping?: components['schemas']['issuing_card_shipping'] | null
       spending_controls: components['schemas']['issuing_card_authorization_controls']
       /**
        * @description Whether authorizations can be approved on this card.
@@ -5721,7 +5730,7 @@ export type components = {
        */
       type: 'physical' | 'virtual'
       /** @description Information relating to digital wallets (like Apple Pay and Google Pay). */
-      wallets?: Partial<components['schemas']['issuing_card_wallets']> | null
+      wallets?: components['schemas']['issuing_card_wallets'] | null
     }
     /**
      * IssuingCardholder
@@ -5732,7 +5741,7 @@ export type components = {
     'issuing.cardholder': {
       billing: components['schemas']['issuing_cardholder_address']
       /** @description Additional information about a `company` cardholder. */
-      company?: Partial<components['schemas']['issuing_cardholder_company']> | null
+      company?: components['schemas']['issuing_cardholder_company'] | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -5743,7 +5752,7 @@ export type components = {
       /** @description Unique identifier for the object. */
       id: string
       /** @description Additional information about an `individual` cardholder. */
-      individual?: Partial<components['schemas']['issuing_cardholder_individual']> | null
+      individual?: components['schemas']['issuing_cardholder_individual'] | null
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -5759,7 +5768,7 @@ export type components = {
       phone_number?: string | null
       requirements: components['schemas']['issuing_cardholder_requirements']
       /** @description Rules that control spending across this cardholder's cards. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details. */
-      spending_controls?: Partial<components['schemas']['issuing_cardholder_authorization_controls']> | null
+      spending_controls?: components['schemas']['issuing_cardholder_authorization_controls'] | null
       /**
        * @description Specifies whether to permit authorizations on this cardholder's cards.
        * @enum {string}
@@ -5807,7 +5816,7 @@ export type components = {
        */
       status: 'expired' | 'lost' | 'submitted' | 'unsubmitted' | 'won'
       /** @description The transaction being disputed. */
-      transaction: Partial<string> & Partial<components['schemas']['issuing.transaction']>
+      transaction: string | components['schemas']['issuing.transaction']
     }
     /**
      * IssuingSettlement
@@ -5868,15 +5877,15 @@ export type components = {
       /** @description The transaction amount, which will be reflected in your balance. This amount is in your currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
       amount: number
       /** @description Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
-      amount_details?: Partial<components['schemas']['issuing_transaction_amount_details']> | null
+      amount_details?: components['schemas']['issuing_transaction_amount_details'] | null
       /** @description The `Authorization` object that led to this transaction. */
-      authorization?: (Partial<string> & Partial<components['schemas']['issuing.authorization']>) | null
+      authorization?: (string | components['schemas']['issuing.authorization']) | null
       /** @description ID of the [balance transaction](https://stripe.com/docs/api/balance_transactions) associated with this transaction. */
-      balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       /** @description The card used to make this transaction. */
-      card: Partial<string> & Partial<components['schemas']['issuing.card']>
+      card: string | components['schemas']['issuing.card']
       /** @description The cardholder to whom this transaction belongs. */
-      cardholder?: (Partial<string> & Partial<components['schemas']['issuing.cardholder']>) | null
+      cardholder?: (string | components['schemas']['issuing.cardholder']) | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -5885,7 +5894,7 @@ export type components = {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string
       /** @description If you've disputed the transaction, the ID of the dispute. */
-      dispute?: (Partial<string> & Partial<components['schemas']['issuing.dispute']>) | null
+      dispute?: (string | components['schemas']['issuing.dispute']) | null
       /** @description Unique identifier for the object. */
       id: string
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -5903,7 +5912,7 @@ export type components = {
        */
       object: 'issuing.transaction'
       /** @description Additional purchase information that is optionally provided by the merchant. */
-      purchase_details?: Partial<components['schemas']['issuing_transaction_purchase_details']> | null
+      purchase_details?: components['schemas']['issuing_transaction_purchase_details'] | null
       /**
        * @description The nature of the transaction.
        * @enum {string}
@@ -5944,7 +5953,7 @@ export type components = {
       /** @description The additional amount Stripe will hold if the authorization is approved, in the card's [currency](https://stripe.com/docs/api#issuing_authorization_object-pending-request-currency) and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
       amount: number
       /** @description Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
-      amount_details?: Partial<components['schemas']['issuing_authorization_amount_details']> | null
+      amount_details?: components['schemas']['issuing_authorization_amount_details'] | null
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string
       /** @description If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization. */
@@ -5959,7 +5968,7 @@ export type components = {
       /** @description The `pending_request.amount` at the time of the request, presented in your card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Stripe held this amount from your account to fund the authorization if the request was approved. */
       amount: number
       /** @description Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
-      amount_details?: Partial<components['schemas']['issuing_authorization_amount_details']> | null
+      amount_details?: components['schemas']['issuing_authorization_amount_details'] | null
       /** @description Whether this request was approved. */
       approved: boolean
       /**
@@ -7578,20 +7587,20 @@ export type components = {
     /** IssuingCardholderIdDocument */
     issuing_cardholder_id_document: {
       /** @description The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. */
-      back?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      back?: (string | components['schemas']['file']) | null
       /** @description The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. */
-      front?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      front?: (string | components['schemas']['file']) | null
     }
     /** IssuingCardholderIndividual */
     issuing_cardholder_individual: {
       /** @description The date of birth of this cardholder. */
-      dob?: Partial<components['schemas']['issuing_cardholder_individual_dob']> | null
+      dob?: components['schemas']['issuing_cardholder_individual_dob'] | null
       /** @description The first name of this cardholder. */
       first_name: string
       /** @description The last name of this cardholder. */
       last_name: string
       /** @description Government-issued ID document for this cardholder. */
-      verification?: Partial<components['schemas']['issuing_cardholder_verification']> | null
+      verification?: components['schemas']['issuing_cardholder_verification'] | null
     }
     /** IssuingCardholderIndividualDOB */
     issuing_cardholder_individual_dob: {
@@ -7928,12 +7937,12 @@ export type components = {
     /** IssuingCardholderVerification */
     issuing_cardholder_verification: {
       /** @description An identifying document, either a passport or local ID card. */
-      document?: Partial<components['schemas']['issuing_cardholder_id_document']> | null
+      document?: components['schemas']['issuing_cardholder_id_document'] | null
     }
     /** IssuingDisputeCanceledEvidence */
     issuing_dispute_canceled_evidence: {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute. */
-      additional_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      additional_documentation?: (string | components['schemas']['file']) | null
       /**
        * Format: unix-time
        * @description Date when order was canceled.
@@ -7971,13 +7980,13 @@ export type components = {
     /** IssuingDisputeDuplicateEvidence */
     issuing_dispute_duplicate_evidence: {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute. */
-      additional_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      additional_documentation?: (string | components['schemas']['file']) | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the card statement showing that the product had already been paid for. */
-      card_statement?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      card_statement?: (string | components['schemas']['file']) | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the receipt showing that the product had been paid for in cash. */
-      cash_receipt?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      cash_receipt?: (string | components['schemas']['file']) | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Image of the front and back of the check that was used to pay for the product. */
-      check_image?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      check_image?: (string | components['schemas']['file']) | null
       /** @description Explanation of why the cardholder is disputing this transaction. */
       explanation?: string | null
       /** @description Transaction (e.g., ipi_...) that the disputed transaction is a duplicate of. Of the two or more transactions that are copies of each other, this is original undisputed one. */
@@ -8001,14 +8010,14 @@ export type components = {
     /** IssuingDisputeFraudulentEvidence */
     issuing_dispute_fraudulent_evidence: {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute. */
-      additional_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      additional_documentation?: (string | components['schemas']['file']) | null
       /** @description Explanation of why the cardholder is disputing this transaction. */
       explanation?: string | null
     }
     /** IssuingDisputeMerchandiseNotAsDescribedEvidence */
     issuing_dispute_merchandise_not_as_described_evidence: {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute. */
-      additional_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      additional_documentation?: (string | components['schemas']['file']) | null
       /** @description Explanation of why the cardholder is disputing this transaction. */
       explanation?: string | null
       /**
@@ -8032,7 +8041,7 @@ export type components = {
     /** IssuingDisputeNotReceivedEvidence */
     issuing_dispute_not_received_evidence: {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute. */
-      additional_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      additional_documentation?: (string | components['schemas']['file']) | null
       /**
        * Format: unix-time
        * @description Date when the cardholder expected to receive the product.
@@ -8051,7 +8060,7 @@ export type components = {
     /** IssuingDisputeOtherEvidence */
     issuing_dispute_other_evidence: {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute. */
-      additional_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      additional_documentation?: (string | components['schemas']['file']) | null
       /** @description Explanation of why the cardholder is disputing this transaction. */
       explanation?: string | null
       /** @description Description of the merchandise or service that was purchased. */
@@ -8065,7 +8074,7 @@ export type components = {
     /** IssuingDisputeServiceNotAsDescribedEvidence */
     issuing_dispute_service_not_as_described_evidence: {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute. */
-      additional_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      additional_documentation?: (string | components['schemas']['file']) | null
       /**
        * Format: unix-time
        * @description Date when order was canceled.
@@ -8141,11 +8150,11 @@ export type components = {
     /** IssuingTransactionPurchaseDetails */
     issuing_transaction_purchase_details: {
       /** @description Information about the flight that was purchased with this transaction. */
-      flight?: Partial<components['schemas']['issuing_transaction_flight_data']> | null
+      flight?: components['schemas']['issuing_transaction_flight_data'] | null
       /** @description Information about fuel that was purchased with this transaction. */
-      fuel?: Partial<components['schemas']['issuing_transaction_fuel_data']> | null
+      fuel?: components['schemas']['issuing_transaction_fuel_data'] | null
       /** @description Information about lodging that was purchased with this transaction. */
-      lodging?: Partial<components['schemas']['issuing_transaction_lodging_data']> | null
+      lodging?: components['schemas']['issuing_transaction_lodging_data'] | null
       /** @description The line items in the purchase. */
       receipt?: components['schemas']['issuing_transaction_receipt_data'][] | null
       /** @description A merchant-specific order number. */
@@ -8185,7 +8194,7 @@ export type components = {
        */
       object: 'item'
       /** @description The price used to generate the line item. */
-      price?: Partial<components['schemas']['price']> | null
+      price?: components['schemas']['price'] | null
       /** @description The quantity of products being purchased. */
       quantity?: number | null
       /** @description The taxes applied to the line item. */
@@ -8195,9 +8204,9 @@ export type components = {
     legal_entity_company: {
       address?: components['schemas']['address']
       /** @description The Kana variation of the company's primary address (Japan only). */
-      address_kana?: Partial<components['schemas']['legal_entity_japan_address']> | null
+      address_kana?: components['schemas']['legal_entity_japan_address'] | null
       /** @description The Kanji variation of the company's primary address (Japan only). */
-      address_kanji?: Partial<components['schemas']['legal_entity_japan_address']> | null
+      address_kanji?: components['schemas']['legal_entity_japan_address'] | null
       /** @description Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-directors_provided). */
       directors_provided?: boolean
       /** @description Whether the company's executives have been provided. This Boolean will be `true` if you've manually indicated that all executives are provided via [the `executives_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-executives_provided), or if Stripe determined that sufficient executives were provided. */
@@ -8211,7 +8220,7 @@ export type components = {
       /** @description Whether the company's owners have been provided. This Boolean will be `true` if you've manually indicated that all owners are provided via [the `owners_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-owners_provided), or if Stripe determined that sufficient owners were provided. Stripe determines ownership requirements using both the number of owners provided and their total percent ownership (calculated by adding the `percent_ownership` of each owner together). */
       owners_provided?: boolean
       /** @description This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct. */
-      ownership_declaration?: Partial<components['schemas']['legal_entity_ubo_declaration']> | null
+      ownership_declaration?: components['schemas']['legal_entity_ubo_declaration'] | null
       /** @description The company's phone number (used for verification). */
       phone?: string | null
       /**
@@ -8246,7 +8255,7 @@ export type components = {
       /** @description Whether the company's business VAT number was provided. */
       vat_id_provided?: boolean
       /** @description Information on the verification state of the company. */
-      verification?: Partial<components['schemas']['legal_entity_company_verification']> | null
+      verification?: components['schemas']['legal_entity_company_verification'] | null
     }
     /** LegalEntityCompanyVerification */
     legal_entity_company_verification: {
@@ -8255,13 +8264,13 @@ export type components = {
     /** LegalEntityCompanyVerificationDocument */
     legal_entity_company_verification_document: {
       /** @description The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. */
-      back?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      back?: (string | components['schemas']['file']) | null
       /** @description A user-displayable string describing the verification state of this document. */
       details?: string | null
       /** @description One of `document_corrupt`, `document_expired`, `document_failed_copy`, `document_failed_greyscale`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_not_readable`, `document_not_uploaded`, `document_type_not_supported`, or `document_too_large`. A machine-readable code specifying the verification state for this document. */
       details_code?: string | null
       /** @description The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. */
-      front?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      front?: (string | components['schemas']['file']) | null
     }
     /** LegalEntityDOB */
     legal_entity_dob: {
@@ -8292,7 +8301,7 @@ export type components = {
     /** LegalEntityPersonVerification */
     legal_entity_person_verification: {
       /** @description A document showing address, either a passport, local ID card, or utility bill from a well-known utility company. */
-      additional_document?: Partial<components['schemas']['legal_entity_person_verification_document']> | null
+      additional_document?: components['schemas']['legal_entity_person_verification_document'] | null
       /** @description A user-displayable string describing the verification state for the person. For example, this may say "Provided identity information could not be verified". */
       details?: string | null
       /** @description One of `document_address_mismatch`, `document_dob_mismatch`, `document_duplicate_type`, `document_id_number_mismatch`, `document_name_mismatch`, `document_nationality_mismatch`, `failed_keyed_identity`, or `failed_other`. A machine-readable code specifying the verification state for the person. */
@@ -8304,13 +8313,13 @@ export type components = {
     /** LegalEntityPersonVerificationDocument */
     legal_entity_person_verification_document: {
       /** @description The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. */
-      back?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      back?: (string | components['schemas']['file']) | null
       /** @description A user-displayable string describing the verification state of this document. For example, if a document is uploaded and the picture is too fuzzy, this may say "Identity document is too unclear to read". */
       details?: string | null
       /** @description One of `document_corrupt`, `document_country_not_supported`, `document_expired`, `document_failed_copy`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_failed_greyscale`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_missing_back`, `document_missing_front`, `document_not_readable`, `document_not_uploaded`, `document_photo_mismatch`, `document_too_large`, or `document_type_not_supported`. A machine-readable code specifying the verification state for this document. */
       details_code?: string | null
       /** @description The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. */
-      front?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      front?: (string | components['schemas']['file']) | null
     }
     /** LegalEntityUBODeclaration */
     legal_entity_ubo_declaration: {
@@ -8337,7 +8346,7 @@ export type components = {
       /** @description If true, discounts will apply to this line item. Always false for prorations. */
       discountable: boolean
       /** @description The discounts applied to the invoice line item. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount. */
-      discounts?: (Partial<string> & Partial<components['schemas']['discount']>)[] | null
+      discounts?: (string | components['schemas']['discount'])[] | null
       /** @description Unique identifier for the object. */
       id: string
       /** @description The ID of the [invoice item](https://stripe.com/docs/api/invoiceitems) associated with this line item if any. */
@@ -8353,7 +8362,7 @@ export type components = {
       object: 'line_item'
       period: components['schemas']['invoice_line_item_period']
       /** @description The price of the line item. */
-      price?: Partial<components['schemas']['price']> | null
+      price?: components['schemas']['price'] | null
       /** @description Whether this is a proration. */
       proration: boolean
       /** @description The quantity of the subscription, if the line item is a subscription or a proration. */
@@ -8416,7 +8425,7 @@ export type components = {
        */
       object: 'mandate'
       /** @description ID of the payment method associated with this mandate. */
-      payment_method: Partial<string> & Partial<components['schemas']['payment_method']>
+      payment_method: string | components['schemas']['payment_method']
       payment_method_details: components['schemas']['mandate_payment_method_details']
       single_use?: components['schemas']['mandate_single_use']
       /**
@@ -8538,7 +8547,7 @@ export type components = {
       /** @description A fee in cents that will be applied to the order and transferred to the application owner’s Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees documentation. */
       application_fee?: number | null
       /** @description The ID of the payment used to pay for the order. Present if the order status is `paid`, `fulfilled`, or `refunded`. */
-      charge?: (Partial<string> & Partial<components['schemas']['charge']>) | null
+      charge?: (string | components['schemas']['charge']) | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -8547,7 +8556,7 @@ export type components = {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string
       /** @description The customer used for the order. */
-      customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description The email address of the customer placing the order. */
       email?: string | null
       /** @description External coupon code to load for this order. */
@@ -8585,13 +8594,13 @@ export type components = {
       /** @description The shipping method that is currently selected for this order, if any. If present, it is equal to one of the `id`s of shipping methods in the `shipping_methods` array. At order creation time, if there are multiple shipping methods, Stripe will automatically selected the first method. */
       selected_shipping_method?: string | null
       /** @description The shipping address for the order. Present if the order is for goods to be shipped. */
-      shipping?: Partial<components['schemas']['shipping']> | null
+      shipping?: components['schemas']['shipping'] | null
       /** @description A list of supported shipping methods for this order. The desired shipping method can be specified either by updating the order, or when paying it. */
       shipping_methods?: components['schemas']['shipping_method'][] | null
       /** @description Current order status. One of `created`, `paid`, `canceled`, `fulfilled`, or `returned`. More details in the [Orders Guide](https://stripe.com/docs/orders/guide#understanding-order-statuses). */
       status: string
       /** @description The timestamps at which the order status was updated. */
-      status_transitions?: Partial<components['schemas']['status_transitions']> | null
+      status_transitions?: components['schemas']['status_transitions'] | null
       /**
        * Format: unix-time
        * @description Time at which the object was last updated. Measured in seconds since the Unix epoch.
@@ -8620,7 +8629,7 @@ export type components = {
        */
       object: 'order_item'
       /** @description The ID of the associated object for this line item. Expandable if not null (e.g., expandable to a SKU). */
-      parent?: (Partial<string> & Partial<components['schemas']['sku']>) | null
+      parent?: (string | components['schemas']['sku']) | null
       /** @description A positive integer representing the number of instances of `parent` that are included in this order item. Applicable/present only if `type` is `sku`. */
       quantity?: number | null
       /** @description The type of line item. One of `sku`, `tax`, `shipping`, or `discount`. */
@@ -8655,9 +8664,9 @@ export type components = {
        */
       object: 'order_return'
       /** @description The order that this return includes items from. */
-      order?: (Partial<string> & Partial<components['schemas']['order']>) | null
+      order?: (string | components['schemas']['order']) | null
       /** @description The ID of the refund issued for this return. */
-      refund?: (Partial<string> & Partial<components['schemas']['refund']>) | null
+      refund?: (string | components['schemas']['refund']) | null
     }
     /** PackageDimensions */
     package_dimensions: {
@@ -8717,11 +8726,11 @@ export type components = {
       /** @description Amount that was collected by this PaymentIntent. */
       amount_received?: number
       /** @description ID of the Connect application that created the PaymentIntent. */
-      application?: (Partial<string> & Partial<components['schemas']['application']>) | null
+      application?: (string | components['schemas']['application']) | null
       /** @description The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
       application_fee_amount?: number | null
       /** @description Settings to configure compatible payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods) */
-      automatic_payment_methods?: Partial<components['schemas']['payment_flows_automatic_payment_methods_payment_intent']> | null
+      automatic_payment_methods?: components['schemas']['payment_flows_automatic_payment_methods_payment_intent'] | null
       /**
        * Format: unix-time
        * @description Populated when `status` is `canceled`, this is the time at which the PaymentIntent was canceled. Measured in seconds since the Unix epoch.
@@ -8780,40 +8789,40 @@ export type components = {
        *
        * If present in combination with [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage), this PaymentIntent's payment method will be attached to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete.
        */
-      customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null
       /** @description Unique identifier for the object. */
       id: string
       /** @description ID of the invoice that created this PaymentIntent, if it exists. */
-      invoice?: (Partial<string> & Partial<components['schemas']['invoice']>) | null
+      invoice?: (string | components['schemas']['invoice']) | null
       /** @description The payment error encountered in the previous PaymentIntent confirmation. It will be cleared if the PaymentIntent is later updated for any reason. */
-      last_payment_error?: Partial<components['schemas']['api_errors']> | null
+      last_payment_error?: components['schemas']['api_errors'] | null
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. For more information, see the [documentation](https://stripe.com/docs/payments/payment-intents/creating-payment-intents#storing-information-in-metadata). */
       metadata?: { [key: string]: string }
       /** @description If present, this property tells you what actions you need to take in order for your customer to fulfill a payment using the provided source. */
-      next_action?: Partial<components['schemas']['payment_intent_next_action']> | null
+      next_action?: components['schemas']['payment_intent_next_action'] | null
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: 'payment_intent'
       /** @description The account (if any) for which the funds of the PaymentIntent are intended. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
-      on_behalf_of?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      on_behalf_of?: (string | components['schemas']['account']) | null
       /** @description ID of the payment method used in this PaymentIntent. */
-      payment_method?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      payment_method?: (string | components['schemas']['payment_method']) | null
       /** @description Payment-method-specific configuration for this PaymentIntent. */
-      payment_method_options?: Partial<components['schemas']['payment_intent_payment_method_options']> | null
+      payment_method_options?: components['schemas']['payment_intent_payment_method_options'] | null
       /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. */
       payment_method_types: string[]
       /** @description If present, this property tells you about the processing state of the payment. */
-      processing?: Partial<components['schemas']['payment_intent_processing']> | null
+      processing?: components['schemas']['payment_intent_processing'] | null
       /** @description Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). */
       receipt_email?: string | null
       /** @description ID of the review associated with this PaymentIntent, if any. */
-      review?: (Partial<string> & Partial<components['schemas']['review']>) | null
+      review?: (string | components['schemas']['review']) | null
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
        *
@@ -8824,7 +8833,7 @@ export type components = {
        */
       setup_future_usage?: ('off_session' | 'on_session') | null
       /** @description Shipping information for this PaymentIntent. */
-      shipping?: Partial<components['schemas']['shipping']> | null
+      shipping?: components['schemas']['shipping'] | null
       /** @description For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
       statement_descriptor?: string | null
       /** @description Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
@@ -8835,7 +8844,7 @@ export type components = {
        */
       status: 'canceled' | 'processing' | 'requires_action' | 'requires_capture' | 'requires_confirmation' | 'requires_payment_method' | 'succeeded'
       /** @description The data with which to automatically create a Transfer when the payment is finalized. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
-      transfer_data?: Partial<components['schemas']['transfer_data']> | null
+      transfer_data?: components['schemas']['transfer_data'] | null
       /** @description A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
       transfer_group?: string | null
     }
@@ -8945,48 +8954,65 @@ export type components = {
     }
     /** PaymentIntentPaymentMethodOptions */
     payment_intent_payment_method_options: {
-      acss_debit?: Partial<components['schemas']['payment_intent_payment_method_options_acss_debit']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      afterpay_clearpay?: Partial<components['schemas']['payment_method_options_afterpay_clearpay']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      alipay?: Partial<components['schemas']['payment_method_options_alipay']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      au_becs_debit?: Partial<components['schemas']['payment_intent_payment_method_options_au_becs_debit']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      bacs_debit?: Partial<components['schemas']['payment_method_options_bacs_debit']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      bancontact?: Partial<components['schemas']['payment_method_options_bancontact']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      boleto?: Partial<components['schemas']['payment_method_options_boleto']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      card?: Partial<components['schemas']['payment_intent_payment_method_options_card']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      card_present?: Partial<components['schemas']['payment_method_options_card_present']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      eps?: Partial<components['schemas']['payment_intent_payment_method_options_eps']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      fpx?: Partial<components['schemas']['payment_method_options_fpx']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      giropay?: Partial<components['schemas']['payment_method_options_giropay']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      grabpay?: Partial<components['schemas']['payment_method_options_grabpay']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      ideal?: Partial<components['schemas']['payment_method_options_ideal']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      interac_present?: Partial<components['schemas']['payment_method_options_interac_present']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      klarna?: Partial<components['schemas']['payment_method_options_klarna']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      oxxo?: Partial<components['schemas']['payment_method_options_oxxo']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      p24?: Partial<components['schemas']['payment_method_options_p24']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      sepa_debit?: Partial<components['schemas']['payment_intent_payment_method_options_sepa_debit']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      sofort?: Partial<components['schemas']['payment_method_options_sofort']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      wechat_pay?: Partial<components['schemas']['payment_method_options_wechat_pay']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
+      acss_debit?:
+        | components['schemas']['payment_intent_payment_method_options_acss_debit']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      afterpay_clearpay?:
+        | components['schemas']['payment_method_options_afterpay_clearpay']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      alipay?:
+        | components['schemas']['payment_method_options_alipay']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      au_becs_debit?:
+        | components['schemas']['payment_intent_payment_method_options_au_becs_debit']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      bacs_debit?:
+        | components['schemas']['payment_method_options_bacs_debit']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      bancontact?:
+        | components['schemas']['payment_method_options_bancontact']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      boleto?:
+        | components['schemas']['payment_method_options_boleto']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      card?:
+        | components['schemas']['payment_intent_payment_method_options_card']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      card_present?:
+        | components['schemas']['payment_method_options_card_present']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      eps?:
+        | components['schemas']['payment_intent_payment_method_options_eps']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      fpx?: components['schemas']['payment_method_options_fpx'] | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      giropay?:
+        | components['schemas']['payment_method_options_giropay']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      grabpay?:
+        | components['schemas']['payment_method_options_grabpay']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      ideal?:
+        | components['schemas']['payment_method_options_ideal']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      interac_present?:
+        | components['schemas']['payment_method_options_interac_present']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      klarna?:
+        | components['schemas']['payment_method_options_klarna']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      oxxo?:
+        | components['schemas']['payment_method_options_oxxo']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      p24?: components['schemas']['payment_method_options_p24'] | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      sepa_debit?:
+        | components['schemas']['payment_intent_payment_method_options_sepa_debit']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      sofort?:
+        | components['schemas']['payment_method_options_sofort']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      wechat_pay?:
+        | components['schemas']['payment_method_options_wechat_pay']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
     }
     /** payment_intent_payment_method_options_acss_debit */
     payment_intent_payment_method_options_acss_debit: {
@@ -9006,7 +9032,7 @@ export type components = {
        *
        * For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
        */
-      installments?: Partial<components['schemas']['payment_method_options_card_installments']> | null
+      installments?: components['schemas']['payment_method_options_card_installments'] | null
       /**
        * @description Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
        * @enum {string|null}
@@ -9126,16 +9152,16 @@ export type components = {
        */
       object: 'payment_link'
       /** @description The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details. */
-      on_behalf_of?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      on_behalf_of?: (string | components['schemas']['account']) | null
       /** @description The list of payment method types that customers can use. When `null`, Stripe will dynamically show relevant payment methods you've enabled in your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
       payment_method_types?: 'card'[] | null
       phone_number_collection: components['schemas']['payment_links_resource_phone_number_collection']
       /** @description Configuration for collecting the customer's shipping address. */
-      shipping_address_collection?: Partial<components['schemas']['payment_links_resource_shipping_address_collection']> | null
+      shipping_address_collection?: components['schemas']['payment_links_resource_shipping_address_collection'] | null
       /** @description When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`. */
-      subscription_data?: Partial<components['schemas']['payment_links_resource_subscription_data']> | null
+      subscription_data?: components['schemas']['payment_links_resource_subscription_data'] | null
       /** @description The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to. */
-      transfer_data?: Partial<components['schemas']['payment_links_resource_transfer_data']> | null
+      transfer_data?: components['schemas']['payment_links_resource_transfer_data'] | null
       /** @description The public URL that can be shared with customers. */
       url: string
     }
@@ -9422,7 +9448,7 @@ export type components = {
       /** @description The amount in %s that will be transferred to the destination account. By default, the entire amount is transferred to the destination. */
       amount?: number | null
       /** @description The connected account receiving the transfer. */
-      destination: Partial<string> & Partial<components['schemas']['account']>
+      destination: string | components['schemas']['account']
     }
     /**
      * PaymentMethod
@@ -9449,7 +9475,7 @@ export type components = {
        */
       created: number
       /** @description The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer. */
-      customer?: (Partial<string> & Partial<components['schemas']['customer']>) | null
+      customer?: (string | components['schemas']['customer']) | null
       eps?: components['schemas']['payment_method_eps']
       fpx?: components['schemas']['payment_method_fpx']
       giropay?: components['schemas']['payment_method_giropay']
@@ -9545,7 +9571,7 @@ export type components = {
       /** @description Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       brand: string
       /** @description Checks on Card address and CVC if provided. */
-      checks?: Partial<components['schemas']['payment_method_card_checks']> | null
+      checks?: components['schemas']['payment_method_card_checks'] | null
       /** @description Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
       country?: string | null
       /** @description Two-digit number representing the card's expiration month. */
@@ -9561,15 +9587,15 @@ export type components = {
       /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
       funding: string
       /** @description Details of the original PaymentMethod that created this object. */
-      generated_from?: Partial<components['schemas']['payment_method_card_generated_card']> | null
+      generated_from?: components['schemas']['payment_method_card_generated_card'] | null
       /** @description The last four digits of the card. */
       last4: string
       /** @description Contains information about card networks that can be used to process the payment. */
-      networks?: Partial<components['schemas']['networks']> | null
+      networks?: components['schemas']['networks'] | null
       /** @description Contains details on how this Card maybe be used for 3D Secure authentication. */
-      three_d_secure_usage?: Partial<components['schemas']['three_d_secure_usage']> | null
+      three_d_secure_usage?: components['schemas']['three_d_secure_usage'] | null
       /** @description If this Card is part of a card wallet, this contains the details of the card wallet. */
-      wallet?: Partial<components['schemas']['payment_method_card_wallet']> | null
+      wallet?: components['schemas']['payment_method_card_wallet'] | null
     }
     /** payment_method_card_checks */
     payment_method_card_checks: {
@@ -9585,9 +9611,9 @@ export type components = {
       /** @description The charge that created this object. */
       charge?: string | null
       /** @description Transaction-specific details of the payment method used in the payment. */
-      payment_method_details?: Partial<components['schemas']['card_generated_from_payment_method_details']> | null
+      payment_method_details?: components['schemas']['card_generated_from_payment_method_details'] | null
       /** @description The ID of the SetupAttempt that generated this PaymentMethod, if any. */
-      setup_attempt?: (Partial<string> & Partial<components['schemas']['setup_attempt']>) | null
+      setup_attempt?: (string | components['schemas']['setup_attempt']) | null
     }
     /** payment_method_card_present */
     payment_method_card_present: { [key: string]: unknown }
@@ -9616,26 +9642,26 @@ export type components = {
     /** payment_method_card_wallet_masterpass */
     payment_method_card_wallet_masterpass: {
       /** @description Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      billing_address?: Partial<components['schemas']['address']> | null
+      billing_address?: components['schemas']['address'] | null
       /** @description Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       email?: string | null
       /** @description Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       name?: string | null
       /** @description Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      shipping_address?: Partial<components['schemas']['address']> | null
+      shipping_address?: components['schemas']['address'] | null
     }
     /** payment_method_card_wallet_samsung_pay */
     payment_method_card_wallet_samsung_pay: { [key: string]: unknown }
     /** payment_method_card_wallet_visa_checkout */
     payment_method_card_wallet_visa_checkout: {
       /** @description Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      billing_address?: Partial<components['schemas']['address']> | null
+      billing_address?: components['schemas']['address'] | null
       /** @description Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       email?: string | null
       /** @description Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       name?: string | null
       /** @description Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      shipping_address?: Partial<components['schemas']['address']> | null
+      shipping_address?: components['schemas']['address'] | null
     }
     /** payment_method_details */
     payment_method_details: {
@@ -9752,9 +9778,9 @@ export type components = {
       /** @description Bank Identifier Code of the bank associated with the bank account. */
       bic?: string | null
       /** @description The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge. */
-      generated_sepa_debit?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      generated_sepa_debit?: (string | components['schemas']['payment_method']) | null
       /** @description The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge. */
-      generated_sepa_debit_mandate?: (Partial<string> & Partial<components['schemas']['mandate']>) | null
+      generated_sepa_debit_mandate?: (string | components['schemas']['mandate']) | null
       /** @description Last four characters of the IBAN. */
       iban_last4?: string | null
       /**
@@ -9779,7 +9805,7 @@ export type components = {
       /** @description Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       brand?: string | null
       /** @description Check results by Card networks on Card address and CVC at time of payment. */
-      checks?: Partial<components['schemas']['payment_method_details_card_checks']> | null
+      checks?: components['schemas']['payment_method_details_card_checks'] | null
       /** @description Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
       country?: string | null
       /** @description Two-digit number representing the card's expiration month. */
@@ -9799,15 +9825,15 @@ export type components = {
        *
        * For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
        */
-      installments?: Partial<components['schemas']['payment_method_details_card_installments']> | null
+      installments?: components['schemas']['payment_method_details_card_installments'] | null
       /** @description The last four digits of the card. */
       last4?: string | null
       /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       network?: string | null
       /** @description Populated if this transaction used 3D Secure authentication. */
-      three_d_secure?: Partial<components['schemas']['three_d_secure_details']> | null
+      three_d_secure?: components['schemas']['three_d_secure_details'] | null
       /** @description If this Card is part of a card wallet, this contains the details of the card wallet. */
-      wallet?: Partial<components['schemas']['payment_method_details_card_wallet']> | null
+      wallet?: components['schemas']['payment_method_details_card_wallet'] | null
     }
     /** payment_method_details_card_checks */
     payment_method_details_card_checks: {
@@ -9821,7 +9847,7 @@ export type components = {
     /** payment_method_details_card_installments */
     payment_method_details_card_installments: {
       /** @description Installment plan selected for the payment. */
-      plan?: Partial<components['schemas']['payment_method_details_card_installments_plan']> | null
+      plan?: components['schemas']['payment_method_details_card_installments_plan'] | null
     }
     /** payment_method_details_card_installments_plan */
     payment_method_details_card_installments_plan: {
@@ -9877,7 +9903,7 @@ export type components = {
        */
       read_method?: ('contact_emv' | 'contactless_emv' | 'contactless_magstripe_mode' | 'magnetic_stripe_fallback' | 'magnetic_stripe_track2') | null
       /** @description A collection of fields required to be displayed on receipts. Only required for EMV transactions. */
-      receipt?: Partial<components['schemas']['payment_method_details_card_present_receipt']> | null
+      receipt?: components['schemas']['payment_method_details_card_present_receipt'] | null
     }
     /** payment_method_details_card_present_receipt */
     payment_method_details_card_present_receipt: {
@@ -9928,26 +9954,26 @@ export type components = {
     /** payment_method_details_card_wallet_masterpass */
     payment_method_details_card_wallet_masterpass: {
       /** @description Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      billing_address?: Partial<components['schemas']['address']> | null
+      billing_address?: components['schemas']['address'] | null
       /** @description Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       email?: string | null
       /** @description Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       name?: string | null
       /** @description Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      shipping_address?: Partial<components['schemas']['address']> | null
+      shipping_address?: components['schemas']['address'] | null
     }
     /** payment_method_details_card_wallet_samsung_pay */
     payment_method_details_card_wallet_samsung_pay: { [key: string]: unknown }
     /** payment_method_details_card_wallet_visa_checkout */
     payment_method_details_card_wallet_visa_checkout: {
       /** @description Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      billing_address?: Partial<components['schemas']['address']> | null
+      billing_address?: components['schemas']['address'] | null
       /** @description Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       email?: string | null
       /** @description Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       name?: string | null
       /** @description Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      shipping_address?: Partial<components['schemas']['address']> | null
+      shipping_address?: components['schemas']['address'] | null
     }
     /** payment_method_details_eps */
     payment_method_details_eps: {
@@ -10089,9 +10115,9 @@ export type components = {
           )
         | null
       /** @description The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge. */
-      generated_sepa_debit?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      generated_sepa_debit?: (string | components['schemas']['payment_method']) | null
       /** @description The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge. */
-      generated_sepa_debit_mandate?: (Partial<string> & Partial<components['schemas']['mandate']>) | null
+      generated_sepa_debit_mandate?: (string | components['schemas']['mandate']) | null
       /** @description Last four characters of the IBAN. */
       iban_last4?: string | null
       /**
@@ -10136,7 +10162,7 @@ export type components = {
        */
       read_method?: ('contact_emv' | 'contactless_emv' | 'contactless_magstripe_mode' | 'magnetic_stripe_fallback' | 'magnetic_stripe_track2') | null
       /** @description A collection of fields required to be displayed on receipts. Only required for EMV transactions. */
-      receipt?: Partial<components['schemas']['payment_method_details_interac_present_receipt']> | null
+      receipt?: components['schemas']['payment_method_details_interac_present_receipt'] | null
     }
     /** payment_method_details_interac_present_receipt */
     payment_method_details_interac_present_receipt: {
@@ -10257,9 +10283,9 @@ export type components = {
       /** @description Two-letter ISO code representing the country the bank account is located in. */
       country?: string | null
       /** @description The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge. */
-      generated_sepa_debit?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      generated_sepa_debit?: (string | components['schemas']['payment_method']) | null
       /** @description The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge. */
-      generated_sepa_debit_mandate?: (Partial<string> & Partial<components['schemas']['mandate']>) | null
+      generated_sepa_debit_mandate?: (string | components['schemas']['mandate']) | null
       /** @description Last four characters of the IBAN. */
       iban_last4?: string | null
       /**
@@ -10406,7 +10432,7 @@ export type components = {
     /** payment_method_klarna */
     payment_method_klarna: {
       /** @description The customer's date of birth, if provided. */
-      dob?: Partial<components['schemas']['payment_flows_private_payment_methods_klarna_dob']> | null
+      dob?: components['schemas']['payment_flows_private_payment_methods_klarna_dob'] | null
     }
     /** payment_method_options_afterpay_clearpay */
     payment_method_options_afterpay_clearpay: {
@@ -10440,7 +10466,7 @@ export type components = {
       /** @description Whether Installments are enabled for this PaymentIntent. */
       enabled: boolean
       /** @description Installment plan selected for this PaymentIntent. */
-      plan?: Partial<components['schemas']['payment_method_details_card_installments_plan']> | null
+      plan?: components['schemas']['payment_method_details_card_installments_plan'] | null
     }
     /** payment_method_options_card_present */
     payment_method_options_card_present: { [key: string]: unknown }
@@ -10533,7 +10559,7 @@ export type components = {
       /** @description Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same. */
       fingerprint?: string | null
       /** @description Information about the object that generated this PaymentMethod. */
-      generated_from?: Partial<components['schemas']['sepa_debit_generated_from']> | null
+      generated_from?: components['schemas']['sepa_debit_generated_from'] | null
       /** @description Last four characters of the IBAN. */
       last4?: string | null
     }
@@ -10547,7 +10573,7 @@ export type components = {
     /** PaymentPagesCheckoutSessionAfterExpiration */
     payment_pages_checkout_session_after_expiration: {
       /** @description When set, configuration used to recover the Checkout Session on expiry. */
-      recovery?: Partial<components['schemas']['payment_pages_checkout_session_after_expiration_recovery']> | null
+      recovery?: components['schemas']['payment_pages_checkout_session_after_expiration_recovery'] | null
     }
     /** PaymentPagesCheckoutSessionAfterExpirationRecovery */
     payment_pages_checkout_session_after_expiration_recovery: {
@@ -10869,7 +10895,7 @@ export type components = {
       /** @description A non-negative integer in cents representing how much to charge. */
       shipping_amount: number
       /** @description The shipping rate. */
-      shipping_rate: Partial<string> & Partial<components['schemas']['shipping_rate']>
+      shipping_rate: string | components['schemas']['shipping_rate']
     }
     /** PaymentPagesCheckoutSessionTaxID */
     payment_pages_checkout_session_tax_id: {
@@ -10947,12 +10973,13 @@ export type components = {
       taxes: components['schemas']['line_items_tax_amount'][]
     }
     /** Polymorphic */
-    payment_source: Partial<components['schemas']['account']> &
-      Partial<components['schemas']['alipay_account']> &
-      Partial<components['schemas']['bank_account']> &
-      Partial<components['schemas']['bitcoin_receiver']> &
-      Partial<components['schemas']['card']> &
-      Partial<components['schemas']['source']>
+    payment_source:
+      | components['schemas']['account']
+      | components['schemas']['alipay_account']
+      | components['schemas']['bank_account']
+      | components['schemas']['bitcoin_receiver']
+      | components['schemas']['card']
+      | components['schemas']['source']
     /**
      * Payout
      * @description A `Payout` object is created when you receive funds from Stripe, or when you
@@ -10975,7 +11002,7 @@ export type components = {
       /** @description Returns `true` if the payout was created by an [automated payout schedule](https://stripe.com/docs/payouts#payout-schedule), and `false` if it was [requested manually](https://stripe.com/docs/payouts#manual-payouts). */
       automatic: boolean
       /** @description ID of the balance transaction that describes the impact of this payout on your account balance. */
-      balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -10987,14 +11014,16 @@ export type components = {
       description?: string | null
       /** @description ID of the bank account or card the payout was sent to. */
       destination?:
-        | (Partial<string> &
-            Partial<components['schemas']['bank_account']> &
-            Partial<components['schemas']['card']> &
-            Partial<components['schemas']['deleted_bank_account']> &
-            Partial<components['schemas']['deleted_card']>)
+        | (
+            | string
+            | components['schemas']['bank_account']
+            | components['schemas']['card']
+            | components['schemas']['deleted_bank_account']
+            | components['schemas']['deleted_card']
+          )
         | null
       /** @description If the payout failed or was canceled, this will be the ID of the balance transaction that reversed the initial balance transaction, and puts the funds from the failed payout back in your balance. */
-      failure_balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      failure_balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       /** @description Error code explaining reason for payout failure if available. See [Types of payout failures](https://stripe.com/docs/api#payout_failures) for a list of failure codes. */
       failure_code?: string | null
       /** @description Message to user further explaining reason for payout failure if available. */
@@ -11013,9 +11042,9 @@ export type components = {
        */
       object: 'payout'
       /** @description If the payout reverses another, this is the ID of the original payout. */
-      original_payout?: (Partial<string> & Partial<components['schemas']['payout']>) | null
+      original_payout?: (string | components['schemas']['payout']) | null
       /** @description If the payout was reversed, this is the ID of the payout that reverses this payout. */
-      reversed_by?: (Partial<string> & Partial<components['schemas']['payout']>) | null
+      reversed_by?: (string | components['schemas']['payout']) | null
       /** @description The source balance this payout came from. One of `card`, `fpx`, or `bank_account`. */
       source_type: string
       /** @description Extra information about a payout to be displayed on the user's bank statement. */
@@ -11054,8 +11083,8 @@ export type components = {
       /** @description The account the person is associated with. */
       account: string
       address?: components['schemas']['address']
-      address_kana?: Partial<components['schemas']['legal_entity_japan_address']> | null
-      address_kanji?: Partial<components['schemas']['legal_entity_japan_address']> | null
+      address_kana?: components['schemas']['legal_entity_japan_address'] | null
+      address_kanji?: components['schemas']['legal_entity_japan_address'] | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -11072,7 +11101,7 @@ export type components = {
       first_name_kanji?: string | null
       /** @description A list of alternate names or aliases that the person is known by. */
       full_name_aliases?: string[]
-      future_requirements?: Partial<components['schemas']['person_future_requirements']> | null
+      future_requirements?: components['schemas']['person_future_requirements'] | null
       /** @description The person's gender (International regulations require either "male" or "female"). */
       gender?: string | null
       /** @description Unique identifier for the object. */
@@ -11104,7 +11133,7 @@ export type components = {
        */
       political_exposure?: 'existing' | 'none'
       relationship?: components['schemas']['person_relationship']
-      requirements?: Partial<components['schemas']['person_requirements']> | null
+      requirements?: components['schemas']['person_requirements'] | null
       /** @description Whether the last four digits of the person's Social Security number have been provided (U.S. only). */
       ssn_last_4_provided?: boolean
       verification?: components['schemas']['legal_entity_person_verification']
@@ -11213,7 +11242,7 @@ export type components = {
        */
       object: 'plan'
       /** @description The product whose pricing this plan determines. */
-      product?: (Partial<string> & Partial<components['schemas']['product']> & Partial<components['schemas']['deleted_product']>) | null
+      product?: (string | components['schemas']['product'] | components['schemas']['deleted_product']) | null
       /** @description Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
       tiers?: components['schemas']['plan_tier'][]
       /**
@@ -11222,7 +11251,7 @@ export type components = {
        */
       tiers_mode?: ('graduated' | 'volume') | null
       /** @description Apply a transformation to the reported usage or set quantity before computing the amount billed. Cannot be combined with `tiers`. */
-      transform_usage?: Partial<components['schemas']['transform_usage']> | null
+      transform_usage?: components['schemas']['transform_usage'] | null
       /** @description Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan). */
       trial_period_days?: number | null
       /**
@@ -11390,9 +11419,9 @@ export type components = {
        */
       object: 'price'
       /** @description The ID of the product this price is associated with. */
-      product: Partial<string> & Partial<components['schemas']['product']> & Partial<components['schemas']['deleted_product']>
+      product: string | components['schemas']['product'] | components['schemas']['deleted_product']
       /** @description The recurring components of a price such as `interval` and `usage_type`. */
-      recurring?: Partial<components['schemas']['recurring']> | null
+      recurring?: components['schemas']['recurring'] | null
       /**
        * @description Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
        * @enum {string|null}
@@ -11406,7 +11435,7 @@ export type components = {
        */
       tiers_mode?: ('graduated' | 'volume') | null
       /** @description Apply a transformation to the reported usage or set quantity before computing the amount billed. Cannot be combined with `tiers`. */
-      transform_quantity?: Partial<components['schemas']['transform_quantity']> | null
+      transform_quantity?: components['schemas']['transform_quantity'] | null
       /**
        * @description One of `one_time` or `recurring` depending on whether the price is for a one-time purchase or a recurring (subscription) purchase.
        * @enum {string}
@@ -11476,13 +11505,13 @@ export type components = {
        */
       object: 'product'
       /** @description The dimensions of this product for shipping purposes. */
-      package_dimensions?: Partial<components['schemas']['package_dimensions']> | null
+      package_dimensions?: components['schemas']['package_dimensions'] | null
       /** @description Whether this product is shipped (i.e., physical goods). */
       shippable?: boolean | null
       /** @description Extra information about a product which will appear on your customer's credit card statement. In the case that multiple products are billed at once, the first statement descriptor will be used. */
       statement_descriptor?: string | null
       /** @description A [tax code](https://stripe.com/docs/tax/tax-codes) ID. */
-      tax_code?: (Partial<string> & Partial<components['schemas']['tax_code']>) | null
+      tax_code?: (string | components['schemas']['tax_code']) | null
       /** @description A label that represents units of this product in Stripe and on customers’ receipts and invoices. When set, this will be included in associated invoice line item descriptions. */
       unit_label?: string | null
       /**
@@ -11510,7 +11539,7 @@ export type components = {
        */
       created: number
       /** @description The customer that this promotion code can be used by. */
-      customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /**
        * Format: unix-time
        * @description Date at which the promotion code can no longer be redeemed.
@@ -11571,13 +11600,13 @@ export type components = {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency?: string | null
       /** @description The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed. */
-      customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description The tax rates applied to this quote. */
-      default_tax_rates?: (Partial<string> & Partial<components['schemas']['tax_rate']>)[]
+      default_tax_rates?: (string | components['schemas']['tax_rate'])[]
       /** @description A description that will be displayed on the quote PDF. */
       description?: string | null
       /** @description The discounts applied to this quote. */
-      discounts: (Partial<string> & Partial<components['schemas']['discount']>)[]
+      discounts: (string | components['schemas']['discount'])[]
       /**
        * Format: unix-time
        * @description The date on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch.
@@ -11586,15 +11615,15 @@ export type components = {
       /** @description A footer that will be displayed on the quote PDF. */
       footer?: string | null
       /** @description Details of the quote that was cloned. See the [cloning documentation](https://stripe.com/docs/quotes/clone) for more details. */
-      from_quote?: Partial<components['schemas']['quotes_resource_from_quote']> | null
+      from_quote?: components['schemas']['quotes_resource_from_quote'] | null
       /** @description A header that will be displayed on the quote PDF. */
       header?: string | null
       /** @description Unique identifier for the object. */
       id: string
       /** @description The invoice that was created from this quote. */
-      invoice?: (Partial<string> & Partial<components['schemas']['invoice']> & Partial<components['schemas']['deleted_invoice']>) | null
+      invoice?: (string | components['schemas']['invoice'] | components['schemas']['deleted_invoice']) | null
       /** @description All invoices will be billed using the specified settings. */
-      invoice_settings?: Partial<components['schemas']['invoice_setting_quote_setting']> | null
+      invoice_settings?: components['schemas']['invoice_setting_quote_setting'] | null
       /**
        * QuotesResourceListLineItems
        * @description A list of items the customer is being quoted for.
@@ -11624,7 +11653,7 @@ export type components = {
        */
       object: 'quote'
       /** @description The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details. */
-      on_behalf_of?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      on_behalf_of?: (string | components['schemas']['account']) | null
       /**
        * @description The status of the quote.
        * @enum {string}
@@ -11632,13 +11661,13 @@ export type components = {
       status: 'accepted' | 'canceled' | 'draft' | 'open'
       status_transitions: components['schemas']['quotes_resource_status_transitions']
       /** @description The subscription that was created or updated from this quote. */
-      subscription?: (Partial<string> & Partial<components['schemas']['subscription']>) | null
+      subscription?: (string | components['schemas']['subscription']) | null
       subscription_data: components['schemas']['quotes_resource_subscription_data']
       /** @description The subscription schedule that was created or updated from this quote. */
-      subscription_schedule?: (Partial<string> & Partial<components['schemas']['subscription_schedule']>) | null
+      subscription_schedule?: (string | components['schemas']['subscription_schedule']) | null
       total_details: components['schemas']['quotes_resource_total_details']
       /** @description The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the invoices. */
-      transfer_data?: Partial<components['schemas']['quotes_resource_transfer_data']> | null
+      transfer_data?: components['schemas']['quotes_resource_transfer_data'] | null
     }
     /** QuotesResourceAutomaticTax */
     quotes_resource_automatic_tax: {
@@ -11653,7 +11682,7 @@ export type components = {
     /** QuotesResourceComputed */
     quotes_resource_computed: {
       /** @description The definitive totals and line items the customer will be charged on a recurring basis. Takes into account the line items with recurring prices and discounts with `duration=forever` coupons only. Defaults to `null` if no inputted line items with recurring prices. */
-      recurring?: Partial<components['schemas']['quotes_resource_recurring']> | null
+      recurring?: components['schemas']['quotes_resource_recurring'] | null
       upfront: components['schemas']['quotes_resource_upfront']
     }
     /** QuotesResourceFromQuote */
@@ -11661,7 +11690,7 @@ export type components = {
       /** @description Whether this quote is a revision of a different quote. */
       is_revision: boolean
       /** @description The quote that was cloned. */
-      quote: Partial<string> & Partial<components['schemas']['quote']>
+      quote: string | components['schemas']['quote']
     }
     /** QuotesResourceRecurring */
     quotes_resource_recurring: {
@@ -11730,7 +11759,7 @@ export type components = {
       /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the destination account. By default, the entire amount will be transferred to the destination. */
       amount_percent?: number | null
       /** @description The account where funds from the payment will be transferred to upon payment success. */
-      destination: Partial<string> & Partial<components['schemas']['account']>
+      destination: string | components['schemas']['account']
     }
     /** QuotesResourceUpfront */
     quotes_resource_upfront: {
@@ -11768,7 +11797,7 @@ export type components = {
       /** @description An EFW is actionable if it has not received a dispute and has not been fully refunded. You may wish to proactively refund a charge that receives an EFW, in order to avoid receiving a dispute later. */
       actionable: boolean
       /** @description ID of the charge this early fraud warning is for, optionally expanded. */
-      charge: Partial<string> & Partial<components['schemas']['charge']>
+      charge: string | components['schemas']['charge']
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -11786,7 +11815,7 @@ export type components = {
        */
       object: 'radar.early_fraud_warning'
       /** @description ID of the Payment Intent this early fraud warning is for, optionally expanded. */
-      payment_intent?: Partial<string> & Partial<components['schemas']['payment_intent']>
+      payment_intent?: string | components['schemas']['payment_intent']
     }
     /**
      * RadarListList
@@ -11907,7 +11936,7 @@ export type components = {
      */
     recipient: {
       /** @description Hash describing the current account on the recipient, if there is one. */
-      active_account?: Partial<components['schemas']['bank_account']> | null
+      active_account?: components['schemas']['bank_account'] | null
       /** CardList */
       cards?: {
         data: components['schemas']['card'][]
@@ -11927,7 +11956,7 @@ export type components = {
        */
       created: number
       /** @description The default card to use for creating transfers to this recipient. */
-      default_card?: (Partial<string> & Partial<components['schemas']['card']>) | null
+      default_card?: (string | components['schemas']['card']) | null
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null
       email?: string | null
@@ -11938,7 +11967,7 @@ export type components = {
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: { [key: string]: string }
       /** @description The ID of the [Custom account](https://stripe.com/docs/connect/custom-accounts) this recipient was migrated to. If set, the recipient can no longer be updated, nor can transfers be made to it: use the Custom account instead. */
-      migrated_to?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      migrated_to?: (string | components['schemas']['account']) | null
       /** @description Full, legal name of the recipient. */
       name?: string | null
       /**
@@ -11946,7 +11975,7 @@ export type components = {
        * @enum {string}
        */
       object: 'recipient'
-      rolled_back_from?: Partial<string> & Partial<components['schemas']['account']>
+      rolled_back_from?: string | components['schemas']['account']
       /** @description Type of the recipient, one of `individual` or `corporation`. */
       type: string
     }
@@ -11982,9 +12011,9 @@ export type components = {
       /** @description Amount, in %s. */
       amount: number
       /** @description Balance transaction that describes the impact on your account balance. */
-      balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       /** @description ID of the charge that was refunded. */
-      charge?: (Partial<string> & Partial<components['schemas']['charge']>) | null
+      charge?: (string | components['schemas']['charge']) | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -11995,7 +12024,7 @@ export type components = {
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. (Available on non-card refunds only) */
       description?: string
       /** @description If the refund failed, this balance transaction describes the adjustment made on your account balance that reverses the initial balance transaction. */
-      failure_balance_transaction?: Partial<string> & Partial<components['schemas']['balance_transaction']>
+      failure_balance_transaction?: string | components['schemas']['balance_transaction']
       /** @description If the refund failed, the reason for refund failure if known. Possible values are `lost_or_stolen_card`, `expired_or_canceled_card`, or `unknown`. */
       failure_reason?: string
       /** @description Unique identifier for the object. */
@@ -12008,7 +12037,7 @@ export type components = {
        */
       object: 'refund'
       /** @description ID of the PaymentIntent that was refunded. */
-      payment_intent?: (Partial<string> & Partial<components['schemas']['payment_intent']>) | null
+      payment_intent?: (string | components['schemas']['payment_intent']) | null
       /**
        * @description Reason for the refund, either user-provided (`duplicate`, `fraudulent`, or `requested_by_customer`) or generated by Stripe internally (`expired_uncaptured_charge`).
        * @enum {string|null}
@@ -12017,11 +12046,11 @@ export type components = {
       /** @description This is the transaction number that appears on email receipts sent for this refund. */
       receipt_number?: string | null
       /** @description The transfer reversal that is associated with the refund. Only present if the charge came from another Stripe account. See the Connect documentation for details. */
-      source_transfer_reversal?: (Partial<string> & Partial<components['schemas']['transfer_reversal']>) | null
+      source_transfer_reversal?: (string | components['schemas']['transfer_reversal']) | null
       /** @description Status of the refund. For credit card refunds, this can be `pending`, `succeeded`, or `failed`. For other types of refunds, it can be `pending`, `succeeded`, `failed`, or `canceled`. Refer to our [refunds](https://stripe.com/docs/refunds#failed-refunds) documentation for more details. */
       status?: string | null
       /** @description If the accompanying transfer was reversed, the transfer reversal object. Only applicable if the charge was created using the destination parameter. */
-      transfer_reversal?: (Partial<string> & Partial<components['schemas']['transfer_reversal']>) | null
+      transfer_reversal?: (string | components['schemas']['transfer_reversal']) | null
     }
     /**
      * reporting_report_run
@@ -12061,7 +12090,7 @@ export type components = {
        * @description The file object representing the result of the report run (populated when
        *  `status=succeeded`).
        */
-      result?: Partial<components['schemas']['file']> | null
+      result?: components['schemas']['file'] | null
       /**
        * @description Status of this report run. This will be `pending` when the run is initially created.
        *  When the run finishes, this will be set to `succeeded` and the `result` field will be populated.
@@ -12144,7 +12173,7 @@ export type components = {
       /** @description The ZIP or postal code of the card used, if applicable. */
       billing_zip?: string | null
       /** @description The charge associated with this review. */
-      charge?: (Partial<string> & Partial<components['schemas']['charge']>) | null
+      charge?: (string | components['schemas']['charge']) | null
       /**
        * @description The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, `disputed`, or `redacted`.
        * @enum {string|null}
@@ -12160,7 +12189,7 @@ export type components = {
       /** @description The IP address where the payment originated. */
       ip_address?: string | null
       /** @description Information related to the location of the payment. Note that this information is an approximation and attempts to locate the nearest population center - it should not be used to determine a specific address. */
-      ip_address_location?: Partial<components['schemas']['radar_review_resource_location']> | null
+      ip_address_location?: components['schemas']['radar_review_resource_location'] | null
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean
       /**
@@ -12176,11 +12205,11 @@ export type components = {
        */
       opened_reason: 'manual' | 'rule'
       /** @description The PaymentIntent ID associated with this review, if one exists. */
-      payment_intent?: Partial<string> & Partial<components['schemas']['payment_intent']>
+      payment_intent?: string | components['schemas']['payment_intent']
       /** @description The reason the review is currently open or closed. One of `rule`, `manual`, `approved`, `refunded`, `refunded_as_fraud`, `disputed`, or `redacted`. */
       reason: string
       /** @description Information related to the browsing session of the user who initiated the payment. */
-      session?: Partial<components['schemas']['radar_review_resource_session']> | null
+      session?: components['schemas']['radar_review_resource_session'] | null
     }
     /** RadarRule */
     rule: {
@@ -12211,7 +12240,7 @@ export type components = {
       data_load_time: number
       error?: components['schemas']['sigma_scheduled_query_run_error']
       /** @description The file object representing the results of the query. */
-      file?: Partial<components['schemas']['file']> | null
+      file?: components['schemas']['file'] | null
       /** @description Unique identifier for the object. */
       id: string
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -12241,9 +12270,9 @@ export type components = {
     /** sepa_debit_generated_from */
     sepa_debit_generated_from: {
       /** @description The ID of the Charge that generated this PaymentMethod, if any. */
-      charge?: (Partial<string> & Partial<components['schemas']['charge']>) | null
+      charge?: (string | components['schemas']['charge']) | null
       /** @description The ID of the SetupAttempt that generated this PaymentMethod, if any. */
-      setup_attempt?: (Partial<string> & Partial<components['schemas']['setup_attempt']>) | null
+      setup_attempt?: (string | components['schemas']['setup_attempt']) | null
     }
     /**
      * PaymentFlowsSetupIntentSetupAttempt
@@ -12254,14 +12283,14 @@ export type components = {
      */
     setup_attempt: {
       /** @description The value of [application](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-application) on the SetupIntent at the time of this confirmation. */
-      application?: (Partial<string> & Partial<components['schemas']['application']>) | null
+      application?: (string | components['schemas']['application']) | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number
       /** @description The value of [customer](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-customer) on the SetupIntent at the time of this confirmation. */
-      customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description Unique identifier for the object. */
       id: string
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -12272,14 +12301,14 @@ export type components = {
        */
       object: 'setup_attempt'
       /** @description The value of [on_behalf_of](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-on_behalf_of) on the SetupIntent at the time of this confirmation. */
-      on_behalf_of?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      on_behalf_of?: (string | components['schemas']['account']) | null
       /** @description ID of the payment method used with this SetupAttempt. */
-      payment_method: Partial<string> & Partial<components['schemas']['payment_method']>
+      payment_method: string | components['schemas']['payment_method']
       payment_method_details: components['schemas']['setup_attempt_payment_method_details']
       /** @description The error encountered during this attempt to confirm the SetupIntent, if any. */
-      setup_error?: Partial<components['schemas']['api_errors']> | null
+      setup_error?: components['schemas']['api_errors'] | null
       /** @description ID of the SetupIntent that this attempt belongs to. */
-      setup_intent: Partial<string> & Partial<components['schemas']['setup_intent']>
+      setup_intent: string | components['schemas']['setup_intent']
       /** @description Status of this SetupAttempt, one of `requires_confirmation`, `requires_action`, `processing`, `succeeded`, `failed`, or `abandoned`. */
       status: string
       /** @description The value of [usage](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-usage) on the SetupIntent at the time of this confirmation, one of `off_session` or `on_session`. */
@@ -12315,9 +12344,9 @@ export type components = {
       /** @description Bank Identifier Code of the bank associated with the bank account. */
       bic?: string | null
       /** @description The ID of the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt. */
-      generated_sepa_debit?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      generated_sepa_debit?: (string | components['schemas']['payment_method']) | null
       /** @description The mandate for the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt. */
-      generated_sepa_debit_mandate?: (Partial<string> & Partial<components['schemas']['mandate']>) | null
+      generated_sepa_debit_mandate?: (string | components['schemas']['mandate']) | null
       /** @description Last four characters of the IBAN. */
       iban_last4?: string | null
       /**
@@ -12337,12 +12366,12 @@ export type components = {
     /** setup_attempt_payment_method_details_card */
     setup_attempt_payment_method_details_card: {
       /** @description Populated if this authorization used 3D Secure authentication. */
-      three_d_secure?: Partial<components['schemas']['three_d_secure_details']> | null
+      three_d_secure?: components['schemas']['three_d_secure_details'] | null
     }
     /** setup_attempt_payment_method_details_card_present */
     setup_attempt_payment_method_details_card_present: {
       /** @description The ID of the Card PaymentMethod which was generated by this SetupAttempt. */
-      generated_card?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      generated_card?: (string | components['schemas']['payment_method']) | null
     }
     /** setup_attempt_payment_method_details_ideal */
     setup_attempt_payment_method_details_ideal: {
@@ -12389,9 +12418,9 @@ export type components = {
           )
         | null
       /** @description The ID of the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt. */
-      generated_sepa_debit?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      generated_sepa_debit?: (string | components['schemas']['payment_method']) | null
       /** @description The mandate for the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt. */
-      generated_sepa_debit_mandate?: (Partial<string> & Partial<components['schemas']['mandate']>) | null
+      generated_sepa_debit_mandate?: (string | components['schemas']['mandate']) | null
       /** @description Last four characters of the IBAN. */
       iban_last4?: string | null
       /**
@@ -12411,9 +12440,9 @@ export type components = {
       /** @description Bank Identifier Code of the bank associated with the bank account. */
       bic?: string | null
       /** @description The ID of the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt. */
-      generated_sepa_debit?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      generated_sepa_debit?: (string | components['schemas']['payment_method']) | null
       /** @description The mandate for the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt. */
-      generated_sepa_debit_mandate?: (Partial<string> & Partial<components['schemas']['mandate']>) | null
+      generated_sepa_debit_mandate?: (string | components['schemas']['mandate']) | null
       /** @description Last four characters of the IBAN. */
       iban_last4?: string | null
       /**
@@ -12455,7 +12484,7 @@ export type components = {
      */
     setup_intent: {
       /** @description ID of the Connect application that created the SetupIntent. */
-      application?: (Partial<string> & Partial<components['schemas']['application']>) | null
+      application?: (string | components['schemas']['application']) | null
       /**
        * @description Reason for cancellation of this SetupIntent, one of `abandoned`, `requested_by_customer`, or `duplicate`.
        * @enum {string|null}
@@ -12477,38 +12506,38 @@ export type components = {
        *
        * If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
        */
-      customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null
       /** @description Unique identifier for the object. */
       id: string
       /** @description The error encountered in the previous SetupIntent confirmation. */
-      last_setup_error?: Partial<components['schemas']['api_errors']> | null
+      last_setup_error?: components['schemas']['api_errors'] | null
       /** @description The most recent SetupAttempt for this SetupIntent. */
-      latest_attempt?: (Partial<string> & Partial<components['schemas']['setup_attempt']>) | null
+      latest_attempt?: (string | components['schemas']['setup_attempt']) | null
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean
       /** @description ID of the multi use Mandate generated by the SetupIntent. */
-      mandate?: (Partial<string> & Partial<components['schemas']['mandate']>) | null
+      mandate?: (string | components['schemas']['mandate']) | null
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata?: { [key: string]: string } | null
       /** @description If present, this property tells you what actions you need to take in order for your customer to continue payment setup. */
-      next_action?: Partial<components['schemas']['setup_intent_next_action']> | null
+      next_action?: components['schemas']['setup_intent_next_action'] | null
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: 'setup_intent'
       /** @description The account (if any) for which the setup is intended. */
-      on_behalf_of?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      on_behalf_of?: (string | components['schemas']['account']) | null
       /** @description ID of the payment method used with this SetupIntent. */
-      payment_method?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      payment_method?: (string | components['schemas']['payment_method']) | null
       /** @description Payment-method-specific configuration for this SetupIntent. */
-      payment_method_options?: Partial<components['schemas']['setup_intent_payment_method_options']> | null
+      payment_method_options?: components['schemas']['setup_intent_payment_method_options'] | null
       /** @description The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. */
       payment_method_types: string[]
       /** @description ID of the single_use Mandate generated by the SetupIntent. */
-      single_use_mandate?: (Partial<string> & Partial<components['schemas']['mandate']>) | null
+      single_use_mandate?: (string | components['schemas']['mandate']) | null
       /**
        * @description [Status](https://stripe.com/docs/payments/intents#intent-statuses) of this SetupIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `canceled`, or `succeeded`.
        * @enum {string}
@@ -12619,7 +12648,7 @@ export type components = {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string
       /** @description The estimated delivery date for the given shipping method. Can be either a specific date or a range. */
-      delivery_estimate?: Partial<components['schemas']['delivery_estimate']> | null
+      delivery_estimate?: components['schemas']['delivery_estimate'] | null
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       description: string
       /** @description Unique identifier for the object. */
@@ -12639,7 +12668,7 @@ export type components = {
        */
       created: number
       /** @description The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions. */
-      delivery_estimate?: Partial<components['schemas']['shipping_rate_delivery_estimate']> | null
+      delivery_estimate?: components['schemas']['shipping_rate_delivery_estimate'] | null
       /** @description The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions. */
       display_name?: string | null
       fixed_amount?: components['schemas']['shipping_rate_fixed_amount']
@@ -12660,7 +12689,7 @@ export type components = {
        */
       tax_behavior?: ('exclusive' | 'inclusive' | 'unspecified') | null
       /** @description A [tax code](https://stripe.com/docs/tax/tax-codes) ID. The Shipping tax code is `txcd_92010001`. */
-      tax_code?: (Partial<string> & Partial<components['schemas']['tax_code']>) | null
+      tax_code?: (string | components['schemas']['tax_code']) | null
       /**
        * @description The type of calculation to use on the shipping rate. Can only be `fixed_amount` for now.
        * @enum {string}
@@ -12670,9 +12699,9 @@ export type components = {
     /** ShippingRateDeliveryEstimate */
     shipping_rate_delivery_estimate: {
       /** @description The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite. */
-      maximum?: Partial<components['schemas']['shipping_rate_delivery_estimate_bound']> | null
+      maximum?: components['schemas']['shipping_rate_delivery_estimate_bound'] | null
       /** @description The lower bound of the estimated range. If empty, represents no lower bound. */
-      minimum?: Partial<components['schemas']['shipping_rate_delivery_estimate_bound']> | null
+      minimum?: components['schemas']['shipping_rate_delivery_estimate_bound'] | null
     }
     /** ShippingRateDeliveryEstimateBound */
     shipping_rate_delivery_estimate_bound: {
@@ -12734,11 +12763,11 @@ export type components = {
        */
       object: 'sku'
       /** @description The dimensions of this SKU for shipping purposes. */
-      package_dimensions?: Partial<components['schemas']['package_dimensions']> | null
+      package_dimensions?: components['schemas']['package_dimensions'] | null
       /** @description The cost of the item as a positive integer in the smallest currency unit (that is, 100 cents to charge $1.00, or 100 to charge ¥100, Japanese Yen being a zero-decimal currency). */
       price: number
       /** @description The ID of the product this SKU is associated with. The product must be currently active. */
-      product: Partial<string> & Partial<components['schemas']['product']>
+      product: string | components['schemas']['product']
       /**
        * Format: unix-time
        * @description Time at which the object was last updated. Measured in seconds since the Unix epoch.
@@ -12805,7 +12834,7 @@ export type components = {
        */
       object: 'source'
       /** @description Information about the owner of the payment instrument that may be used or required by particular source types. */
-      owner?: Partial<components['schemas']['source_owner']> | null
+      owner?: components['schemas']['source_owner'] | null
       p24?: components['schemas']['source_type_p24']
       receiver?: components['schemas']['source_receiver_flow']
       redirect?: components['schemas']['source_redirect_flow']
@@ -12934,7 +12963,7 @@ export type components = {
     /** SourceOwner */
     source_owner: {
       /** @description Owner's address. */
-      address?: Partial<components['schemas']['address']> | null
+      address?: components['schemas']['address'] | null
       /** @description Owner's email address. */
       email?: string | null
       /** @description Owner's full name. */
@@ -12942,7 +12971,7 @@ export type components = {
       /** @description Owner's phone number (including extension). */
       phone?: string | null
       /** @description Verified owner's address. Verified values are verified or provided by the payment method directly (and if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      verified_address?: Partial<components['schemas']['address']> | null
+      verified_address?: components['schemas']['address'] | null
       /** @description Verified owner's email address. Verified values are verified or provided by the payment method directly (and if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       verified_email?: string | null
       /** @description Verified owner's full name. Verified values are verified or provided by the payment method directly (and if supported) at the time of authorization or settlement. They cannot be set or mutated. */
@@ -13319,7 +13348,7 @@ export type components = {
        */
       billing_cycle_anchor: number
       /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period */
-      billing_thresholds?: Partial<components['schemas']['subscription_billing_thresholds']> | null
+      billing_thresholds?: components['schemas']['subscription_billing_thresholds'] | null
       /**
        * Format: unix-time
        * @description A date in the future at which the subscription will automatically get canceled
@@ -13353,24 +13382,26 @@ export type components = {
        */
       current_period_start: number
       /** @description ID of the customer who owns the subscription. */
-      customer: Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>
+      customer: string | components['schemas']['customer'] | components['schemas']['deleted_customer']
       /** @description Number of days a customer has to pay invoices generated by this subscription. This value will be `null` for subscriptions where `collection_method=charge_automatically`. */
       days_until_due?: number | null
       /** @description ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. This takes precedence over `default_source`. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
-      default_payment_method?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      default_payment_method?: (string | components['schemas']['payment_method']) | null
       /** @description ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
       default_source?:
-        | (Partial<string> &
-            Partial<components['schemas']['alipay_account']> &
-            Partial<components['schemas']['bank_account']> &
-            Partial<components['schemas']['bitcoin_receiver']> &
-            Partial<components['schemas']['card']> &
-            Partial<components['schemas']['source']>)
+        | (
+            | string
+            | components['schemas']['alipay_account']
+            | components['schemas']['bank_account']
+            | components['schemas']['bitcoin_receiver']
+            | components['schemas']['card']
+            | components['schemas']['source']
+          )
         | null
       /** @description The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. */
       default_tax_rates?: components['schemas']['tax_rate'][] | null
       /** @description Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a subscription overrides a discount applied on a customer-wide basis. */
-      discount?: Partial<components['schemas']['discount']> | null
+      discount?: components['schemas']['discount'] | null
       /**
        * Format: unix-time
        * @description If the subscription has ended, the date the subscription ended.
@@ -13396,7 +13427,7 @@ export type components = {
         url: string
       }
       /** @description The most recent invoice this subscription has generated. */
-      latest_invoice?: (Partial<string> & Partial<components['schemas']['invoice']>) | null
+      latest_invoice?: (string | components['schemas']['invoice']) | null
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -13412,17 +13443,17 @@ export type components = {
        */
       object: 'subscription'
       /** @description If specified, payment collection for this subscription will be paused. */
-      pause_collection?: Partial<components['schemas']['subscriptions_resource_pause_collection']> | null
+      pause_collection?: components['schemas']['subscriptions_resource_pause_collection'] | null
       /** @description Payment settings passed on to invoices created by the subscription. */
-      payment_settings?: Partial<components['schemas']['subscriptions_resource_payment_settings']> | null
+      payment_settings?: components['schemas']['subscriptions_resource_payment_settings'] | null
       /** @description Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-      pending_invoice_item_interval?: Partial<components['schemas']['subscription_pending_invoice_item_interval']> | null
+      pending_invoice_item_interval?: components['schemas']['subscription_pending_invoice_item_interval'] | null
       /** @description You can use this [SetupIntent](https://stripe.com/docs/api/setup_intents) to collect user authentication when creating a subscription without immediate payment or updating a subscription's payment method, allowing you to optimize for off-session payments. Learn more in the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication#scenario-2). */
-      pending_setup_intent?: (Partial<string> & Partial<components['schemas']['setup_intent']>) | null
+      pending_setup_intent?: (string | components['schemas']['setup_intent']) | null
       /** @description If specified, [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates) that will be applied to the subscription once the `latest_invoice` has been paid. */
-      pending_update?: Partial<components['schemas']['subscriptions_resource_pending_update']> | null
+      pending_update?: components['schemas']['subscriptions_resource_pending_update'] | null
       /** @description The schedule attached to the subscription */
-      schedule?: (Partial<string> & Partial<components['schemas']['subscription_schedule']>) | null
+      schedule?: (string | components['schemas']['subscription_schedule']) | null
       /**
        * Format: unix-time
        * @description Date when the subscription was first created. The date might differ from the `created` date due to backdating.
@@ -13442,7 +13473,7 @@ export type components = {
        */
       status: 'active' | 'canceled' | 'incomplete' | 'incomplete_expired' | 'past_due' | 'trialing' | 'unpaid'
       /** @description The account (if any) the subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices. */
-      transfer_data?: Partial<components['schemas']['subscription_transfer_data']> | null
+      transfer_data?: components['schemas']['subscription_transfer_data'] | null
       /**
        * Format: unix-time
        * @description If the subscription has a trial, the end of that trial.
@@ -13473,7 +13504,7 @@ export type components = {
      */
     subscription_item: {
       /** @description Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period */
-      billing_thresholds?: Partial<components['schemas']['subscription_item_billing_thresholds']> | null
+      billing_thresholds?: components['schemas']['subscription_item_billing_thresholds'] | null
       /** @description Time at which the object was created. Measured in seconds since the Unix epoch. */
       created: number
       /** @description Unique identifier for the object. */
@@ -13540,9 +13571,9 @@ export type components = {
        */
       created: number
       /** @description Object representing the start and end dates for the current phase of the subscription schedule, if it is `active`. */
-      current_phase?: Partial<components['schemas']['subscription_schedule_current_phase']> | null
+      current_phase?: components['schemas']['subscription_schedule_current_phase'] | null
       /** @description ID of the customer who owns the subscription schedule. */
-      customer: Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>
+      customer: string | components['schemas']['customer'] | components['schemas']['deleted_customer']
       default_settings: components['schemas']['subscription_schedules_resource_default_settings']
       /**
        * @description Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` and `cancel`.
@@ -13575,7 +13606,7 @@ export type components = {
        */
       status: 'active' | 'canceled' | 'completed' | 'not_started' | 'released'
       /** @description ID of the subscription managed by the subscription schedule. */
-      subscription?: (Partial<string> & Partial<components['schemas']['subscription']>) | null
+      subscription?: (string | components['schemas']['subscription']) | null
     }
     /**
      * SubscriptionScheduleAddInvoiceItem
@@ -13583,7 +13614,7 @@ export type components = {
      */
     subscription_schedule_add_invoice_item: {
       /** @description ID of the price used to generate the invoice item. */
-      price: Partial<string> & Partial<components['schemas']['price']> & Partial<components['schemas']['deleted_price']>
+      price: string | components['schemas']['price'] | components['schemas']['deleted_price']
       /** @description The quantity of the invoice item. */
       quantity?: number | null
       /** @description The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item. */
@@ -13595,9 +13626,9 @@ export type components = {
      */
     subscription_schedule_configuration_item: {
       /** @description Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period */
-      billing_thresholds?: Partial<components['schemas']['subscription_item_billing_thresholds']> | null
+      billing_thresholds?: components['schemas']['subscription_item_billing_thresholds'] | null
       /** @description ID of the price to which the customer should be subscribed. */
-      price: Partial<string> & Partial<components['schemas']['price']> & Partial<components['schemas']['deleted_price']>
+      price: string | components['schemas']['price'] | components['schemas']['deleted_price']
       /** @description Quantity of the plan to which the customer should be subscribed. */
       quantity?: number
       /** @description The tax rates which apply to this `phase_item`. When set, the `default_tax_rates` on the phase do not apply to this `phase_item`. */
@@ -13632,16 +13663,16 @@ export type components = {
        */
       billing_cycle_anchor?: ('automatic' | 'phase_start') | null
       /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period */
-      billing_thresholds?: Partial<components['schemas']['subscription_billing_thresholds']> | null
+      billing_thresholds?: components['schemas']['subscription_billing_thresholds'] | null
       /**
        * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions.
        * @enum {string|null}
        */
       collection_method?: ('charge_automatically' | 'send_invoice') | null
       /** @description ID of the coupon to use during this phase of the subscription schedule. */
-      coupon?: (Partial<string> & Partial<components['schemas']['coupon']> & Partial<components['schemas']['deleted_coupon']>) | null
+      coupon?: (string | components['schemas']['coupon'] | components['schemas']['deleted_coupon']) | null
       /** @description ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings. */
-      default_payment_method?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      default_payment_method?: (string | components['schemas']['payment_method']) | null
       /** @description The default tax rates to apply to the subscription during this phase of the subscription schedule. */
       default_tax_rates?: components['schemas']['tax_rate'][] | null
       /**
@@ -13650,7 +13681,7 @@ export type components = {
        */
       end_date: number
       /** @description The invoice settings applicable during this phase. */
-      invoice_settings?: Partial<components['schemas']['invoice_setting_subscription_schedule_setting']> | null
+      invoice_settings?: components['schemas']['invoice_setting_subscription_schedule_setting'] | null
       /** @description Subscription items to configure the subscription to during this phase of the subscription schedule. */
       items: components['schemas']['subscription_schedule_configuration_item'][]
       /**
@@ -13664,7 +13695,7 @@ export type components = {
        */
       start_date: number
       /** @description The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices. */
-      transfer_data?: Partial<components['schemas']['subscription_transfer_data']> | null
+      transfer_data?: components['schemas']['subscription_transfer_data'] | null
       /**
        * Format: unix-time
        * @description When the trial ends within the phase.
@@ -13682,18 +13713,18 @@ export type components = {
        */
       billing_cycle_anchor: 'automatic' | 'phase_start'
       /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period */
-      billing_thresholds?: Partial<components['schemas']['subscription_billing_thresholds']> | null
+      billing_thresholds?: components['schemas']['subscription_billing_thresholds'] | null
       /**
        * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions.
        * @enum {string|null}
        */
       collection_method?: ('charge_automatically' | 'send_invoice') | null
       /** @description ID of the default payment method for the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings. */
-      default_payment_method?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      default_payment_method?: (string | components['schemas']['payment_method']) | null
       /** @description The subscription schedule's default invoice settings. */
-      invoice_settings?: Partial<components['schemas']['invoice_setting_subscription_schedule_setting']> | null
+      invoice_settings?: components['schemas']['invoice_setting_subscription_schedule_setting'] | null
       /** @description The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices. */
-      transfer_data?: Partial<components['schemas']['subscription_transfer_data']> | null
+      transfer_data?: components['schemas']['subscription_transfer_data'] | null
     }
     /** SubscriptionSchedulesResourceDefaultSettingsAutomaticTax */
     subscription_schedules_resource_default_settings_automatic_tax: {
@@ -13705,7 +13736,7 @@ export type components = {
       /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the destination account. By default, the entire amount is transferred to the destination. */
       amount_percent?: number | null
       /** @description The account where funds from the payment will be transferred to upon payment success. */
-      destination: Partial<string> & Partial<components['schemas']['account']>
+      destination: string | components['schemas']['account']
     }
     /**
      * SubscriptionsResourcePauseCollection
@@ -13727,16 +13758,16 @@ export type components = {
     /** SubscriptionsResourcePaymentMethodOptions */
     subscriptions_resource_payment_method_options: {
       /** @description This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to invoices created by the subscription. */
-      acss_debit?: Partial<components['schemas']['invoice_payment_method_options_acss_debit']> | null
+      acss_debit?: components['schemas']['invoice_payment_method_options_acss_debit'] | null
       /** @description This sub-hash contains details about the Bancontact payment method options to pass to invoices created by the subscription. */
-      bancontact?: Partial<components['schemas']['invoice_payment_method_options_bancontact']> | null
+      bancontact?: components['schemas']['invoice_payment_method_options_bancontact'] | null
       /** @description This sub-hash contains details about the Card payment method options to pass to invoices created by the subscription. */
-      card?: Partial<components['schemas']['subscription_payment_method_options_card']> | null
+      card?: components['schemas']['subscription_payment_method_options_card'] | null
     }
     /** SubscriptionsResourcePaymentSettings */
     subscriptions_resource_payment_settings: {
       /** @description Payment-method-specific configuration to provide to invoices created by the subscription. */
-      payment_method_options?: Partial<components['schemas']['subscriptions_resource_payment_method_options']> | null
+      payment_method_options?: components['schemas']['subscriptions_resource_payment_method_options'] | null
       /** @description The list of payment method types to provide to every invoice created by the subscription. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). */
       payment_method_types?:
         | (
@@ -13839,7 +13870,7 @@ export type components = {
        */
       created: number
       /** @description ID of the customer. */
-      customer?: (Partial<string> & Partial<components['schemas']['customer']>) | null
+      customer?: (string | components['schemas']['customer']) | null
       /** @description Unique identifier for the object. */
       id: string
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -13900,7 +13931,7 @@ export type components = {
       /** @description Value of the tax ID. */
       value: string
       /** @description Tax ID verification information. */
-      verification?: Partial<components['schemas']['tax_id_verification']> | null
+      verification?: components['schemas']['tax_id_verification'] | null
     }
     /** tax_id_verification */
     tax_id_verification: {
@@ -14021,7 +14052,7 @@ export type components = {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean
       /** @description The location identifier of the reader. */
-      location?: (Partial<string> & Partial<components['schemas']['terminal.location']>) | null
+      location?: (string | components['schemas']['terminal.location']) | null
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: { [key: string]: string }
       /**
@@ -14158,7 +14189,7 @@ export type components = {
       /** @description Amount transferred. */
       amount: number
       /** @description ID of the balance transaction that describes the impact of this top-up on your account balance. May not be specified depending on status of top-up. */
-      balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -14215,7 +14246,7 @@ export type components = {
       /** @description Amount in %s reversed (can be less than the amount attribute on the transfer if a partial reversal was issued). */
       amount_reversed: number
       /** @description Balance transaction that describes the impact of this transfer on your account balance. */
-      balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       /**
        * Format: unix-time
        * @description Time that this record of the transfer was first created.
@@ -14226,9 +14257,9 @@ export type components = {
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null
       /** @description ID of the Stripe account the transfer was sent to. */
-      destination?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      destination?: (string | components['schemas']['account']) | null
       /** @description If the destination is a Stripe account, this will be the ID of the payment that the destination account received for the transfer. */
-      destination_payment?: Partial<string> & Partial<components['schemas']['charge']>
+      destination_payment?: string | components['schemas']['charge']
       /** @description Unique identifier for the object. */
       id: string
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -14260,7 +14291,7 @@ export type components = {
       /** @description Whether the transfer has been fully reversed. If the transfer is only partially reversed, this attribute will still be false. */
       reversed: boolean
       /** @description ID of the charge or payment that was used to fund the transfer. If null, the transfer was funded from the available balance. */
-      source_transaction?: (Partial<string> & Partial<components['schemas']['charge']>) | null
+      source_transaction?: (string | components['schemas']['charge']) | null
       /** @description The source balance this transfer came from. One of `card`, `fpx`, or `bank_account`. */
       source_type?: string | null
       /** @description A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
@@ -14275,7 +14306,7 @@ export type components = {
        * reporting, and where funds from the payment will be transferred to upon
        * payment success.
        */
-      destination: Partial<string> & Partial<components['schemas']['account']>
+      destination: string | components['schemas']['account']
     }
     /**
      * TransferReversal
@@ -14297,7 +14328,7 @@ export type components = {
       /** @description Amount, in %s. */
       amount: number
       /** @description Balance transaction that describes the impact on your account balance. */
-      balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -14306,7 +14337,7 @@ export type components = {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string
       /** @description Linked payment refund for the transfer reversal. */
-      destination_payment_refund?: (Partial<string> & Partial<components['schemas']['refund']>) | null
+      destination_payment_refund?: (string | components['schemas']['refund']) | null
       /** @description Unique identifier for the object. */
       id: string
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -14317,9 +14348,9 @@ export type components = {
        */
       object: 'transfer_reversal'
       /** @description ID of the refund responsible for the transfer reversal. */
-      source_refund?: (Partial<string> & Partial<components['schemas']['refund']>) | null
+      source_refund?: (string | components['schemas']['refund']) | null
       /** @description ID of the transfer that was reversed. */
-      transfer: Partial<string> & Partial<components['schemas']['transfer']>
+      transfer: string | components['schemas']['transfer']
     }
     /** TransferSchedule */
     transfer_schedule: {
@@ -14572,20 +14603,21 @@ export type operations = {
           /** @description An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
           account_token?: string
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          bank_account?: Partial<{
-            account_holder_name?: string
-            /** @enum {string} */
-            account_holder_type?: 'company' | 'individual'
-            account_number: string
-            /** @enum {string} */
-            account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
-            country: string
-            currency?: string
-            /** @enum {string} */
-            object?: 'bank_account'
-            routing_number?: string
-          }> &
-            Partial<string>
+          bank_account?:
+            | {
+                account_holder_name?: string
+                /** @enum {string} */
+                account_holder_type?: 'company' | 'individual'
+                account_number: string
+                /** @enum {string} */
+                account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
+                country: string
+                currency?: string
+                /** @enum {string} */
+                object?: 'bank_account'
+                routing_number?: string
+              }
+            | string
           /**
            * business_profile_specs
            * @description Business information about the account.
@@ -14605,7 +14637,7 @@ export type operations = {
             }
             support_email?: string
             support_phone?: string
-            support_url?: Partial<string> & Partial<''>
+            support_url?: string | ''
             url?: string
           }
           /**
@@ -14875,24 +14907,25 @@ export type operations = {
               state?: string
               town?: string
             }
-            dob?: Partial<{
-              day: number
-              month: number
-              year: number
-            }> &
-              Partial<''>
+            dob?:
+              | {
+                  day: number
+                  month: number
+                  year: number
+                }
+              | ''
             email?: string
             first_name?: string
             first_name_kana?: string
             first_name_kanji?: string
-            full_name_aliases?: Partial<string[]> & Partial<''>
+            full_name_aliases?: string[] | ''
             gender?: string
             id_number?: string
             last_name?: string
             last_name_kana?: string
             last_name_kanji?: string
             maiden_name?: string
-            metadata?: Partial<{ [key: string]: string }> & Partial<''>
+            metadata?: { [key: string]: string } | ''
             phone?: string
             /** @enum {string} */
             political_exposure?: 'existing' | 'none'
@@ -14912,7 +14945,7 @@ export type operations = {
             }
           }
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /**
            * settings_specs_update
            * @description Options for customizing how the account functions within Stripe.
@@ -14955,7 +14988,7 @@ export type operations = {
               debit_negative_balances?: boolean
               /** transfer_schedule_specs */
               schedule?: {
-                delay_days?: Partial<'minimum'> & Partial<number>
+                delay_days?: 'minimum' | number
                 /** @enum {string} */
                 interval?: 'daily' | 'manual' | 'monthly' | 'weekly'
                 monthly_anchor?: number
@@ -15030,20 +15063,21 @@ export type operations = {
       content: {
         'application/x-www-form-urlencoded': {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          bank_account?: Partial<{
-            account_holder_name?: string
-            /** @enum {string} */
-            account_holder_type?: 'company' | 'individual'
-            account_number: string
-            /** @enum {string} */
-            account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
-            country: string
-            currency?: string
-            /** @enum {string} */
-            object?: 'bank_account'
-            routing_number?: string
-          }> &
-            Partial<string>
+          bank_account?:
+            | {
+                account_holder_name?: string
+                /** @enum {string} */
+                account_holder_type?: 'company' | 'individual'
+                account_number: string
+                /** @enum {string} */
+                account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
+                country: string
+                currency?: string
+                /** @enum {string} */
+                object?: 'bank_account'
+                routing_number?: string
+              }
+            | string
           /** @description When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           default_for_currency?: boolean
           /** @description Specifies which fields in the response should be expanded. */
@@ -15148,7 +15182,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description Cardholder name. */
           name?: string
         }
@@ -15304,7 +15338,7 @@ export type operations = {
         content: {
           'application/json': {
             /** @description The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards. */
-            data: (Partial<components['schemas']['bank_account']> & Partial<components['schemas']['card']>)[]
+            data: (components['schemas']['bank_account'] | components['schemas']['card'])[]
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean
             /**
@@ -15350,20 +15384,21 @@ export type operations = {
       content: {
         'application/x-www-form-urlencoded': {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          bank_account?: Partial<{
-            account_holder_name?: string
-            /** @enum {string} */
-            account_holder_type?: 'company' | 'individual'
-            account_number: string
-            /** @enum {string} */
-            account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
-            country: string
-            currency?: string
-            /** @enum {string} */
-            object?: 'bank_account'
-            routing_number?: string
-          }> &
-            Partial<string>
+          bank_account?:
+            | {
+                account_holder_name?: string
+                /** @enum {string} */
+                account_holder_type?: 'company' | 'individual'
+                account_number: string
+                /** @enum {string} */
+                account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
+                country: string
+                currency?: string
+                /** @enum {string} */
+                object?: 'bank_account'
+                routing_number?: string
+              }
+            | string
           /** @description When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           default_for_currency?: boolean
           /** @description Specifies which fields in the response should be expanded. */
@@ -15468,7 +15503,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description Cardholder name. */
           name?: string
         }
@@ -15645,12 +15680,13 @@ export type operations = {
             town?: string
           }
           /** @description The person's date of birth. */
-          dob?: Partial<{
-            day: number
-            month: number
-            year: number
-          }> &
-            Partial<''>
+          dob?:
+            | {
+                day: number
+                month: number
+                year: number
+              }
+            | ''
           /**
            * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
@@ -15680,7 +15716,7 @@ export type operations = {
           /** @description The Kanji variation of the person's first name (Japan only). */
           first_name_kanji?: string
           /** @description A list of alternate names or aliases that the person is known by. */
-          full_name_aliases?: Partial<string[]> & Partial<''>
+          full_name_aliases?: string[] | ''
           /** @description The person's gender (International regulations require either "male" or "female"). */
           gender?: string
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -15694,7 +15730,7 @@ export type operations = {
           /** @description The person's maiden name. */
           maiden_name?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           nationality?: string
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -15711,7 +15747,7 @@ export type operations = {
             director?: boolean
             executive?: boolean
             owner?: boolean
-            percent_ownership?: Partial<number> & Partial<''>
+            percent_ownership?: number | ''
             representative?: boolean
             title?: string
           }
@@ -15832,12 +15868,13 @@ export type operations = {
             town?: string
           }
           /** @description The person's date of birth. */
-          dob?: Partial<{
-            day: number
-            month: number
-            year: number
-          }> &
-            Partial<''>
+          dob?:
+            | {
+                day: number
+                month: number
+                year: number
+              }
+            | ''
           /**
            * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
@@ -15867,7 +15904,7 @@ export type operations = {
           /** @description The Kanji variation of the person's first name (Japan only). */
           first_name_kanji?: string
           /** @description A list of alternate names or aliases that the person is known by. */
-          full_name_aliases?: Partial<string[]> & Partial<''>
+          full_name_aliases?: string[] | ''
           /** @description The person's gender (International regulations require either "male" or "female"). */
           gender?: string
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -15881,7 +15918,7 @@ export type operations = {
           /** @description The person's maiden name. */
           maiden_name?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           nationality?: string
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -15898,7 +15935,7 @@ export type operations = {
             director?: boolean
             executive?: boolean
             owner?: boolean
-            percent_ownership?: Partial<number> & Partial<''>
+            percent_ownership?: number | ''
             representative?: boolean
             title?: string
           }
@@ -16062,12 +16099,13 @@ export type operations = {
             town?: string
           }
           /** @description The person's date of birth. */
-          dob?: Partial<{
-            day: number
-            month: number
-            year: number
-          }> &
-            Partial<''>
+          dob?:
+            | {
+                day: number
+                month: number
+                year: number
+              }
+            | ''
           /**
            * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
@@ -16097,7 +16135,7 @@ export type operations = {
           /** @description The Kanji variation of the person's first name (Japan only). */
           first_name_kanji?: string
           /** @description A list of alternate names or aliases that the person is known by. */
-          full_name_aliases?: Partial<string[]> & Partial<''>
+          full_name_aliases?: string[] | ''
           /** @description The person's gender (International regulations require either "male" or "female"). */
           gender?: string
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -16111,7 +16149,7 @@ export type operations = {
           /** @description The person's maiden name. */
           maiden_name?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           nationality?: string
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -16128,7 +16166,7 @@ export type operations = {
             director?: boolean
             executive?: boolean
             owner?: boolean
-            percent_ownership?: Partial<number> & Partial<''>
+            percent_ownership?: number | ''
             representative?: boolean
             title?: string
           }
@@ -16249,12 +16287,13 @@ export type operations = {
             town?: string
           }
           /** @description The person's date of birth. */
-          dob?: Partial<{
-            day: number
-            month: number
-            year: number
-          }> &
-            Partial<''>
+          dob?:
+            | {
+                day: number
+                month: number
+                year: number
+              }
+            | ''
           /**
            * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
@@ -16284,7 +16323,7 @@ export type operations = {
           /** @description The Kanji variation of the person's first name (Japan only). */
           first_name_kanji?: string
           /** @description A list of alternate names or aliases that the person is known by. */
-          full_name_aliases?: Partial<string[]> & Partial<''>
+          full_name_aliases?: string[] | ''
           /** @description The person's gender (International regulations require either "male" or "female"). */
           gender?: string
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -16298,7 +16337,7 @@ export type operations = {
           /** @description The person's maiden name. */
           maiden_name?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           nationality?: string
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -16315,7 +16354,7 @@ export type operations = {
             director?: boolean
             executive?: boolean
             owner?: boolean
-            percent_ownership?: Partial<number> & Partial<''>
+            percent_ownership?: number | ''
             representative?: boolean
             title?: string
           }
@@ -16413,13 +16452,14 @@ export type operations = {
   GetAccounts: {
     parameters: {
       query: {
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -16486,20 +16526,21 @@ export type operations = {
           /** @description An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
           account_token?: string
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          bank_account?: Partial<{
-            account_holder_name?: string
-            /** @enum {string} */
-            account_holder_type?: 'company' | 'individual'
-            account_number: string
-            /** @enum {string} */
-            account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
-            country: string
-            currency?: string
-            /** @enum {string} */
-            object?: 'bank_account'
-            routing_number?: string
-          }> &
-            Partial<string>
+          bank_account?:
+            | {
+                account_holder_name?: string
+                /** @enum {string} */
+                account_holder_type?: 'company' | 'individual'
+                account_number: string
+                /** @enum {string} */
+                account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
+                country: string
+                currency?: string
+                /** @enum {string} */
+                object?: 'bank_account'
+                routing_number?: string
+              }
+            | string
           /**
            * business_profile_specs
            * @description Business information about the account.
@@ -16519,7 +16560,7 @@ export type operations = {
             }
             support_email?: string
             support_phone?: string
-            support_url?: Partial<string> & Partial<''>
+            support_url?: string | ''
             url?: string
           }
           /**
@@ -16791,24 +16832,25 @@ export type operations = {
               state?: string
               town?: string
             }
-            dob?: Partial<{
-              day: number
-              month: number
-              year: number
-            }> &
-              Partial<''>
+            dob?:
+              | {
+                  day: number
+                  month: number
+                  year: number
+                }
+              | ''
             email?: string
             first_name?: string
             first_name_kana?: string
             first_name_kanji?: string
-            full_name_aliases?: Partial<string[]> & Partial<''>
+            full_name_aliases?: string[] | ''
             gender?: string
             id_number?: string
             last_name?: string
             last_name_kana?: string
             last_name_kanji?: string
             maiden_name?: string
-            metadata?: Partial<{ [key: string]: string }> & Partial<''>
+            metadata?: { [key: string]: string } | ''
             phone?: string
             /** @enum {string} */
             political_exposure?: 'existing' | 'none'
@@ -16828,7 +16870,7 @@ export type operations = {
             }
           }
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /**
            * settings_specs
            * @description Options for customizing how the account functions within Stripe.
@@ -16871,7 +16913,7 @@ export type operations = {
               debit_negative_balances?: boolean
               /** transfer_schedule_specs */
               schedule?: {
-                delay_days?: Partial<'minimum'> & Partial<number>
+                delay_days?: 'minimum' | number
                 /** @enum {string} */
                 interval?: 'daily' | 'manual' | 'monthly' | 'weekly'
                 monthly_anchor?: number
@@ -16963,20 +17005,21 @@ export type operations = {
           /** @description An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
           account_token?: string
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          bank_account?: Partial<{
-            account_holder_name?: string
-            /** @enum {string} */
-            account_holder_type?: 'company' | 'individual'
-            account_number: string
-            /** @enum {string} */
-            account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
-            country: string
-            currency?: string
-            /** @enum {string} */
-            object?: 'bank_account'
-            routing_number?: string
-          }> &
-            Partial<string>
+          bank_account?:
+            | {
+                account_holder_name?: string
+                /** @enum {string} */
+                account_holder_type?: 'company' | 'individual'
+                account_number: string
+                /** @enum {string} */
+                account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
+                country: string
+                currency?: string
+                /** @enum {string} */
+                object?: 'bank_account'
+                routing_number?: string
+              }
+            | string
           /**
            * business_profile_specs
            * @description Business information about the account.
@@ -16996,7 +17039,7 @@ export type operations = {
             }
             support_email?: string
             support_phone?: string
-            support_url?: Partial<string> & Partial<''>
+            support_url?: string | ''
             url?: string
           }
           /**
@@ -17266,24 +17309,25 @@ export type operations = {
               state?: string
               town?: string
             }
-            dob?: Partial<{
-              day: number
-              month: number
-              year: number
-            }> &
-              Partial<''>
+            dob?:
+              | {
+                  day: number
+                  month: number
+                  year: number
+                }
+              | ''
             email?: string
             first_name?: string
             first_name_kana?: string
             first_name_kanji?: string
-            full_name_aliases?: Partial<string[]> & Partial<''>
+            full_name_aliases?: string[] | ''
             gender?: string
             id_number?: string
             last_name?: string
             last_name_kana?: string
             last_name_kanji?: string
             maiden_name?: string
-            metadata?: Partial<{ [key: string]: string }> & Partial<''>
+            metadata?: { [key: string]: string } | ''
             phone?: string
             /** @enum {string} */
             political_exposure?: 'existing' | 'none'
@@ -17303,7 +17347,7 @@ export type operations = {
             }
           }
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /**
            * settings_specs_update
            * @description Options for customizing how the account functions within Stripe.
@@ -17346,7 +17390,7 @@ export type operations = {
               debit_negative_balances?: boolean
               /** transfer_schedule_specs */
               schedule?: {
-                delay_days?: Partial<'minimum'> & Partial<number>
+                delay_days?: 'minimum' | number
                 /** @enum {string} */
                 interval?: 'daily' | 'manual' | 'monthly' | 'weekly'
                 monthly_anchor?: number
@@ -17429,20 +17473,21 @@ export type operations = {
       content: {
         'application/x-www-form-urlencoded': {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          bank_account?: Partial<{
-            account_holder_name?: string
-            /** @enum {string} */
-            account_holder_type?: 'company' | 'individual'
-            account_number: string
-            /** @enum {string} */
-            account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
-            country: string
-            currency?: string
-            /** @enum {string} */
-            object?: 'bank_account'
-            routing_number?: string
-          }> &
-            Partial<string>
+          bank_account?:
+            | {
+                account_holder_name?: string
+                /** @enum {string} */
+                account_holder_type?: 'company' | 'individual'
+                account_number: string
+                /** @enum {string} */
+                account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
+                country: string
+                currency?: string
+                /** @enum {string} */
+                object?: 'bank_account'
+                routing_number?: string
+              }
+            | string
           /** @description When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           default_for_currency?: boolean
           /** @description Specifies which fields in the response should be expanded. */
@@ -17549,7 +17594,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description Cardholder name. */
           name?: string
         }
@@ -17714,7 +17759,7 @@ export type operations = {
         content: {
           'application/json': {
             /** @description The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards. */
-            data: (Partial<components['schemas']['bank_account']> & Partial<components['schemas']['card']>)[]
+            data: (components['schemas']['bank_account'] | components['schemas']['card'])[]
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean
             /**
@@ -17765,20 +17810,21 @@ export type operations = {
       content: {
         'application/x-www-form-urlencoded': {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          bank_account?: Partial<{
-            account_holder_name?: string
-            /** @enum {string} */
-            account_holder_type?: 'company' | 'individual'
-            account_number: string
-            /** @enum {string} */
-            account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
-            country: string
-            currency?: string
-            /** @enum {string} */
-            object?: 'bank_account'
-            routing_number?: string
-          }> &
-            Partial<string>
+          bank_account?:
+            | {
+                account_holder_name?: string
+                /** @enum {string} */
+                account_holder_type?: 'company' | 'individual'
+                account_number: string
+                /** @enum {string} */
+                account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
+                country: string
+                currency?: string
+                /** @enum {string} */
+                object?: 'bank_account'
+                routing_number?: string
+              }
+            | string
           /** @description When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           default_for_currency?: boolean
           /** @description Specifies which fields in the response should be expanded. */
@@ -17885,7 +17931,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description Cardholder name. */
           name?: string
         }
@@ -18074,12 +18120,13 @@ export type operations = {
             town?: string
           }
           /** @description The person's date of birth. */
-          dob?: Partial<{
-            day: number
-            month: number
-            year: number
-          }> &
-            Partial<''>
+          dob?:
+            | {
+                day: number
+                month: number
+                year: number
+              }
+            | ''
           /**
            * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
@@ -18109,7 +18156,7 @@ export type operations = {
           /** @description The Kanji variation of the person's first name (Japan only). */
           first_name_kanji?: string
           /** @description A list of alternate names or aliases that the person is known by. */
-          full_name_aliases?: Partial<string[]> & Partial<''>
+          full_name_aliases?: string[] | ''
           /** @description The person's gender (International regulations require either "male" or "female"). */
           gender?: string
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -18123,7 +18170,7 @@ export type operations = {
           /** @description The person's maiden name. */
           maiden_name?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           nationality?: string
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -18140,7 +18187,7 @@ export type operations = {
             director?: boolean
             executive?: boolean
             owner?: boolean
-            percent_ownership?: Partial<number> & Partial<''>
+            percent_ownership?: number | ''
             representative?: boolean
             title?: string
           }
@@ -18262,12 +18309,13 @@ export type operations = {
             town?: string
           }
           /** @description The person's date of birth. */
-          dob?: Partial<{
-            day: number
-            month: number
-            year: number
-          }> &
-            Partial<''>
+          dob?:
+            | {
+                day: number
+                month: number
+                year: number
+              }
+            | ''
           /**
            * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
@@ -18297,7 +18345,7 @@ export type operations = {
           /** @description The Kanji variation of the person's first name (Japan only). */
           first_name_kanji?: string
           /** @description A list of alternate names or aliases that the person is known by. */
-          full_name_aliases?: Partial<string[]> & Partial<''>
+          full_name_aliases?: string[] | ''
           /** @description The person's gender (International regulations require either "male" or "female"). */
           gender?: string
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -18311,7 +18359,7 @@ export type operations = {
           /** @description The person's maiden name. */
           maiden_name?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           nationality?: string
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -18328,7 +18376,7 @@ export type operations = {
             director?: boolean
             executive?: boolean
             owner?: boolean
-            percent_ownership?: Partial<number> & Partial<''>
+            percent_ownership?: number | ''
             representative?: boolean
             title?: string
           }
@@ -18500,12 +18548,13 @@ export type operations = {
             town?: string
           }
           /** @description The person's date of birth. */
-          dob?: Partial<{
-            day: number
-            month: number
-            year: number
-          }> &
-            Partial<''>
+          dob?:
+            | {
+                day: number
+                month: number
+                year: number
+              }
+            | ''
           /**
            * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
@@ -18535,7 +18584,7 @@ export type operations = {
           /** @description The Kanji variation of the person's first name (Japan only). */
           first_name_kanji?: string
           /** @description A list of alternate names or aliases that the person is known by. */
-          full_name_aliases?: Partial<string[]> & Partial<''>
+          full_name_aliases?: string[] | ''
           /** @description The person's gender (International regulations require either "male" or "female"). */
           gender?: string
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -18549,7 +18598,7 @@ export type operations = {
           /** @description The person's maiden name. */
           maiden_name?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           nationality?: string
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -18566,7 +18615,7 @@ export type operations = {
             director?: boolean
             executive?: boolean
             owner?: boolean
-            percent_ownership?: Partial<number> & Partial<''>
+            percent_ownership?: number | ''
             representative?: boolean
             title?: string
           }
@@ -18688,12 +18737,13 @@ export type operations = {
             town?: string
           }
           /** @description The person's date of birth. */
-          dob?: Partial<{
-            day: number
-            month: number
-            year: number
-          }> &
-            Partial<''>
+          dob?:
+            | {
+                day: number
+                month: number
+                year: number
+              }
+            | ''
           /**
            * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
@@ -18723,7 +18773,7 @@ export type operations = {
           /** @description The Kanji variation of the person's first name (Japan only). */
           first_name_kanji?: string
           /** @description A list of alternate names or aliases that the person is known by. */
-          full_name_aliases?: Partial<string[]> & Partial<''>
+          full_name_aliases?: string[] | ''
           /** @description The person's gender (International regulations require either "male" or "female"). */
           gender?: string
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -18737,7 +18787,7 @@ export type operations = {
           /** @description The person's maiden name. */
           maiden_name?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           nationality?: string
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -18754,7 +18804,7 @@ export type operations = {
             director?: boolean
             executive?: boolean
             owner?: boolean
-            percent_ownership?: Partial<number> & Partial<''>
+            percent_ownership?: number | ''
             representative?: boolean
             title?: string
           }
@@ -18980,13 +19030,14 @@ export type operations = {
       query: {
         /** Only return application fees for the charge specified by this charge ID. */
         charge?: string
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -19092,7 +19143,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -19291,13 +19342,14 @@ export type operations = {
   GetBalanceHistory: {
     parameters: {
       query: {
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** Only return transactions in a certain currency. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
         currency?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -19390,13 +19442,14 @@ export type operations = {
   GetBalanceTransactions: {
     parameters: {
       query: {
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** Only return transactions in a certain currency. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
         currency?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -19559,7 +19612,7 @@ export type operations = {
             terms_of_service_url: string
           }
           /** @description The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session. */
-          default_return_url?: Partial<string> & Partial<''>
+          default_return_url?: string | ''
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /**
@@ -19569,7 +19622,7 @@ export type operations = {
           features: {
             /** customer_update_creation_param */
             customer_update?: {
-              allowed_updates: Partial<('address' | 'email' | 'phone' | 'shipping' | 'tax_id')[]> & Partial<''>
+              allowed_updates: ('address' | 'email' | 'phone' | 'shipping' | 'tax_id')[] | ''
               enabled: boolean
             }
             /** invoice_list_param */
@@ -19585,19 +19638,18 @@ export type operations = {
               /** subscription_cancellation_reason_creation_param */
               cancellation_reason?: {
                 enabled: boolean
-                options: Partial<
-                  (
-                    | 'customer_service'
-                    | 'low_quality'
-                    | 'missing_features'
-                    | 'other'
-                    | 'switched_service'
-                    | 'too_complex'
-                    | 'too_expensive'
-                    | 'unused'
-                  )[]
-                > &
-                  Partial<''>
+                options:
+                  | (
+                      | 'customer_service'
+                      | 'low_quality'
+                      | 'missing_features'
+                      | 'other'
+                      | 'switched_service'
+                      | 'too_complex'
+                      | 'too_expensive'
+                      | 'unused'
+                    )[]
+                  | ''
               }
               enabled: boolean
               /** @enum {string} */
@@ -19611,15 +19663,14 @@ export type operations = {
             }
             /** subscription_update_creation_param */
             subscription_update?: {
-              default_allowed_updates: Partial<('price' | 'promotion_code' | 'quantity')[]> & Partial<''>
+              default_allowed_updates: ('price' | 'promotion_code' | 'quantity')[] | ''
               enabled: boolean
-              products: Partial<
-                {
-                  prices: string[]
-                  product: string
-                }[]
-              > &
-                Partial<''>
+              products:
+                | {
+                    prices: string[]
+                    product: string
+                  }[]
+                | ''
               /** @enum {string} */
               proration_behavior?: 'always_invoice' | 'create_prorations' | 'none'
             }
@@ -19697,7 +19748,7 @@ export type operations = {
             terms_of_service_url?: string
           }
           /** @description The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session. */
-          default_return_url?: Partial<string> & Partial<''>
+          default_return_url?: string | ''
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /**
@@ -19707,7 +19758,7 @@ export type operations = {
           features?: {
             /** customer_update_updating_param */
             customer_update?: {
-              allowed_updates?: Partial<('address' | 'email' | 'phone' | 'shipping' | 'tax_id')[]> & Partial<''>
+              allowed_updates?: ('address' | 'email' | 'phone' | 'shipping' | 'tax_id')[] | ''
               enabled?: boolean
             }
             /** invoice_list_param */
@@ -19723,19 +19774,18 @@ export type operations = {
               /** subscription_cancellation_reason_updating_param */
               cancellation_reason?: {
                 enabled: boolean
-                options?: Partial<
-                  (
-                    | 'customer_service'
-                    | 'low_quality'
-                    | 'missing_features'
-                    | 'other'
-                    | 'switched_service'
-                    | 'too_complex'
-                    | 'too_expensive'
-                    | 'unused'
-                  )[]
-                > &
-                  Partial<''>
+                options?:
+                  | (
+                      | 'customer_service'
+                      | 'low_quality'
+                      | 'missing_features'
+                      | 'other'
+                      | 'switched_service'
+                      | 'too_complex'
+                      | 'too_expensive'
+                      | 'unused'
+                    )[]
+                  | ''
               }
               enabled?: boolean
               /** @enum {string} */
@@ -19749,21 +19799,20 @@ export type operations = {
             }
             /** subscription_update_updating_param */
             subscription_update?: {
-              default_allowed_updates?: Partial<('price' | 'promotion_code' | 'quantity')[]> & Partial<''>
+              default_allowed_updates?: ('price' | 'promotion_code' | 'quantity')[] | ''
               enabled?: boolean
-              products?: Partial<
-                {
-                  prices: string[]
-                  product: string
-                }[]
-              > &
-                Partial<''>
+              products?:
+                | {
+                    prices: string[]
+                    product: string
+                  }[]
+                | ''
               /** @enum {string} */
               proration_behavior?: 'always_invoice' | 'create_prorations' | 'none'
             }
           }
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -20039,13 +20088,14 @@ export type operations = {
   GetCharges: {
     parameters: {
       query: {
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** Only return charges for the customer specified by this customer ID. */
         customer?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -20120,38 +20170,40 @@ export type operations = {
           /** @description Whether to immediately capture the charge. Defaults to `true`. When `false`, the charge issues an authorization (or pre-authorization), and will need to be [captured](https://stripe.com/docs/api#capture_charge) later. Uncaptured charges expire after a set number of days (7 by default). For more information, see the [authorizing charges and settling later](https://stripe.com/docs/charges/placing-a-hold) documentation. */
           capture?: boolean
           /** @description A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js). */
-          card?: Partial<{
-            address_city?: string
-            address_country?: string
-            address_line1?: string
-            address_line2?: string
-            address_state?: string
-            address_zip?: string
-            cvc?: string
-            exp_month: number
-            exp_year: number
-            metadata?: { [key: string]: string }
-            name?: string
-            number: string
-            /** @enum {string} */
-            object?: 'card'
-          }> &
-            Partial<string>
+          card?:
+            | {
+                address_city?: string
+                address_country?: string
+                address_line1?: string
+                address_line2?: string
+                address_state?: string
+                address_zip?: string
+                cvc?: string
+                exp_month: number
+                exp_year: number
+                metadata?: { [key: string]: string }
+                name?: string
+                number: string
+                /** @enum {string} */
+                object?: 'card'
+              }
+            | string
           /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency?: string
           /** @description The ID of an existing customer that will be charged in this request. */
           customer?: string
           /** @description An arbitrary string which you can attach to a `Charge` object. It is displayed when in the web interface alongside the charge. Note that if you use Stripe to send automatic email receipts to your customers, your receipt emails will include the `description` of the charge(s) that they are describing. */
           description?: string
-          destination?: Partial<{
-            account: string
-            amount?: number
-          }> &
-            Partial<string>
+          destination?:
+            | {
+                account: string
+                amount?: number
+              }
+            | string
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/charges-transfers#on-behalf-of). */
           on_behalf_of?: string
           /** @description The email address to which this charge's [receipt](https://stripe.com/docs/dashboard/receipts) will be sent. The receipt will not be sent until the charge is paid, and no receipts will be sent for test mode charges. If this charge is for a [Customer](https://stripe.com/docs/api/customers/object), the email address specified here will override the customer's email address. If `receipt_email` is specified for a charge in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). */
@@ -20265,7 +20317,7 @@ export type operations = {
             user_report: '' | 'fraudulent' | 'safe'
           }
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description This is the email address that the receipt for this charge will be sent to. If this field is updated, then a new email receipt will be sent to the updated address. */
           receipt_email?: string
           /**
@@ -20438,7 +20490,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
           submit?: boolean
         }
@@ -20514,7 +20566,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           payment_intent?: string
           /** @enum {string} */
           reason?: 'duplicate' | 'fraudulent' | 'requested_by_customer'
@@ -20601,7 +20653,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           payment_intent?: string
           /** @enum {string} */
           reason?: 'duplicate' | 'fraudulent' | 'requested_by_customer'
@@ -20670,7 +20722,7 @@ export type operations = {
         'application/x-www-form-urlencoded': {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -20989,7 +21041,7 @@ export type operations = {
               currency?: 'cad' | 'usd'
               /** mandate_options_param */
               mandate_options?: {
-                custom_mandate_url?: Partial<string> & Partial<''>
+                custom_mandate_url?: string | ''
                 default_for?: ('invoice' | 'subscription')[]
                 interval_description?: string
                 /** @enum {string} */
@@ -21587,13 +21639,14 @@ export type operations = {
     parameters: {
       query: {
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -21683,7 +21736,7 @@ export type operations = {
           /** @description A positive integer specifying the number of times the coupon can be redeemed before it's no longer valid. For example, you might have a 50% off coupon that the first 20 readers of your blog can use. */
           max_redemptions?: number
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
           name?: string
           /** @description A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed). */
@@ -21755,7 +21808,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
           name?: string
         }
@@ -21886,7 +21939,7 @@ export type operations = {
             description?: string
             invoice_line_item?: string
             quantity?: number
-            tax_rates?: Partial<string[]> & Partial<''>
+            tax_rates?: string[] | ''
             /** @enum {string} */
             type: 'custom_line_item' | 'invoice_line_item'
             unit_amount?: number
@@ -21930,7 +21983,7 @@ export type operations = {
           description?: string
           invoice_line_item?: string
           quantity?: number
-          tax_rates?: Partial<string[]> & Partial<''>
+          tax_rates?: string[] | ''
           /** @enum {string} */
           type: 'custom_line_item' | 'invoice_line_item'
           unit_amount?: number
@@ -21993,7 +22046,7 @@ export type operations = {
           description?: string
           invoice_line_item?: string
           quantity?: number
-          tax_rates?: Partial<string[]> & Partial<''>
+          tax_rates?: string[] | ''
           /** @enum {string} */
           type: 'custom_line_item' | 'invoice_line_item'
           unit_amount?: number
@@ -22196,13 +22249,14 @@ export type operations = {
   GetCustomers: {
     parameters: {
       query: {
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A case-sensitive filter on the list based on the customer's `email` field. The value must be a string. */
         email?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -22266,15 +22320,16 @@ export type operations = {
       content: {
         'application/x-www-form-urlencoded': {
           /** @description The customer's address. */
-          address?: Partial<{
-            city?: string
-            country?: string
-            line1?: string
-            line2?: string
-            postal_code?: string
-            state?: string
-          }> &
-            Partial<''>
+          address?:
+            | {
+                city?: string
+                country?: string
+                line1?: string
+                line2?: string
+                postal_code?: string
+                state?: string
+              }
+            | ''
           /** @description An integer amount in %s that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice. */
           balance?: number
           coupon?: string
@@ -22291,18 +22346,17 @@ export type operations = {
            * @description Default invoice settings for this customer.
            */
           invoice_settings?: {
-            custom_fields?: Partial<
-              {
-                name: string
-                value: string
-              }[]
-            > &
-              Partial<''>
+            custom_fields?:
+              | {
+                  name: string
+                  value: string
+                }[]
+              | ''
             default_payment_method?: string
             footer?: string
           }
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The customer's full name or business name. */
           name?: string
           /** @description The sequence to be used on the customer's next invoice. Defaults to 1. */
@@ -22315,27 +22369,28 @@ export type operations = {
           /** @description The API ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount. */
           promotion_code?: string
           /** @description The customer's shipping information. Appears on invoices emailed to this customer. */
-          shipping?: Partial<{
-            /** optional_fields_address */
-            address: {
-              city?: string
-              country?: string
-              line1?: string
-              line2?: string
-              postal_code?: string
-              state?: string
-            }
-            name: string
-            phone?: string
-          }> &
-            Partial<''>
+          shipping?:
+            | {
+                /** optional_fields_address */
+                address: {
+                  city?: string
+                  country?: string
+                  line1?: string
+                  line2?: string
+                  postal_code?: string
+                  state?: string
+                }
+                name: string
+                phone?: string
+              }
+            | ''
           source?: string
           /**
            * tax_param
            * @description Tax details about the customer.
            */
           tax?: {
-            ip_address?: Partial<string> & Partial<''>
+            ip_address?: string | ''
           }
           /**
            * @description The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
@@ -22409,7 +22464,7 @@ export type operations = {
       /** Successful response. */
       200: {
         content: {
-          'application/json': Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>
+          'application/json': components['schemas']['customer'] | components['schemas']['deleted_customer']
         }
       }
       /** Error response. */
@@ -22454,48 +22509,51 @@ export type operations = {
       content: {
         'application/x-www-form-urlencoded': {
           /** @description The customer's address. */
-          address?: Partial<{
-            city?: string
-            country?: string
-            line1?: string
-            line2?: string
-            postal_code?: string
-            state?: string
-          }> &
-            Partial<''>
+          address?:
+            | {
+                city?: string
+                country?: string
+                line1?: string
+                line2?: string
+                postal_code?: string
+                state?: string
+              }
+            | ''
           /** @description An integer amount in %s that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice. */
           balance?: number
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          bank_account?: Partial<{
-            account_holder_name?: string
-            /** @enum {string} */
-            account_holder_type?: 'company' | 'individual'
-            account_number: string
-            country: string
-            currency?: string
-            /** @enum {string} */
-            object?: 'bank_account'
-            routing_number?: string
-          }> &
-            Partial<string>
+          bank_account?:
+            | {
+                account_holder_name?: string
+                /** @enum {string} */
+                account_holder_type?: 'company' | 'individual'
+                account_number: string
+                country: string
+                currency?: string
+                /** @enum {string} */
+                object?: 'bank_account'
+                routing_number?: string
+              }
+            | string
           /** @description A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js). */
-          card?: Partial<{
-            address_city?: string
-            address_country?: string
-            address_line1?: string
-            address_line2?: string
-            address_state?: string
-            address_zip?: string
-            cvc?: string
-            exp_month: number
-            exp_year: number
-            metadata?: { [key: string]: string }
-            name?: string
-            number: string
-            /** @enum {string} */
-            object?: 'card'
-          }> &
-            Partial<string>
+          card?:
+            | {
+                address_city?: string
+                address_country?: string
+                address_line1?: string
+                address_line2?: string
+                address_state?: string
+                address_zip?: string
+                cvc?: string
+                exp_month: number
+                exp_year: number
+                metadata?: { [key: string]: string }
+                name?: string
+                number: string
+                /** @enum {string} */
+                object?: 'card'
+              }
+            | string
           coupon?: string
           /** @description ID of Alipay account to make the customer's new default for invoice payments. */
           default_alipay_account?: string
@@ -22524,18 +22582,17 @@ export type operations = {
            * @description Default invoice settings for this customer.
            */
           invoice_settings?: {
-            custom_fields?: Partial<
-              {
-                name: string
-                value: string
-              }[]
-            > &
-              Partial<''>
+            custom_fields?:
+              | {
+                  name: string
+                  value: string
+                }[]
+              | ''
             default_payment_method?: string
             footer?: string
           }
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The customer's full name or business name. */
           name?: string
           /** @description The sequence to be used on the customer's next invoice. Defaults to 1. */
@@ -22547,27 +22604,28 @@ export type operations = {
           /** @description The API ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount. */
           promotion_code?: string
           /** @description The customer's shipping information. Appears on invoices emailed to this customer. */
-          shipping?: Partial<{
-            /** optional_fields_address */
-            address: {
-              city?: string
-              country?: string
-              line1?: string
-              line2?: string
-              postal_code?: string
-              state?: string
-            }
-            name: string
-            phone?: string
-          }> &
-            Partial<''>
+          shipping?:
+            | {
+                /** optional_fields_address */
+                address: {
+                  city?: string
+                  country?: string
+                  line1?: string
+                  line2?: string
+                  postal_code?: string
+                  state?: string
+                }
+                name: string
+                phone?: string
+              }
+            | ''
           source?: string
           /**
            * tax_param
            * @description Tax details about the customer.
            */
           tax?: {
-            ip_address?: Partial<string> & Partial<''>
+            ip_address?: string | ''
           }
           /**
            * @description The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
@@ -22575,7 +22633,7 @@ export type operations = {
            */
           tax_exempt?: '' | 'exempt' | 'none' | 'reverse'
           /** @description Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          trial_end?: Partial<'now'> & Partial<number>
+          trial_end?: 'now' | number
         }
       }
     }
@@ -22689,7 +22747,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -22756,7 +22814,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -22843,36 +22901,38 @@ export type operations = {
           /** @description A token returned by [Stripe.js](https://stripe.com/docs/js) representing the user’s Alipay account details. */
           alipay_account?: string
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          bank_account?: Partial<{
-            account_holder_name?: string
-            /** @enum {string} */
-            account_holder_type?: 'company' | 'individual'
-            account_number: string
-            country: string
-            currency?: string
-            /** @enum {string} */
-            object?: 'bank_account'
-            routing_number?: string
-          }> &
-            Partial<string>
+          bank_account?:
+            | {
+                account_holder_name?: string
+                /** @enum {string} */
+                account_holder_type?: 'company' | 'individual'
+                account_number: string
+                country: string
+                currency?: string
+                /** @enum {string} */
+                object?: 'bank_account'
+                routing_number?: string
+              }
+            | string
           /** @description A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js). */
-          card?: Partial<{
-            address_city?: string
-            address_country?: string
-            address_line1?: string
-            address_line2?: string
-            address_state?: string
-            address_zip?: string
-            cvc?: string
-            exp_month: number
-            exp_year: number
-            metadata?: { [key: string]: string }
-            name?: string
-            number: string
-            /** @enum {string} */
-            object?: 'card'
-          }> &
-            Partial<string>
+          card?:
+            | {
+                address_city?: string
+                address_country?: string
+                address_line1?: string
+                address_line2?: string
+                address_state?: string
+                address_zip?: string
+                cvc?: string
+                exp_month: number
+                exp_year: number
+                metadata?: { [key: string]: string }
+                name?: string
+                number: string
+                /** @enum {string} */
+                object?: 'card'
+              }
+            | string
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -22927,9 +22987,7 @@ export type operations = {
       /** Successful response. */
       200: {
         content: {
-          'application/json': Partial<components['schemas']['card']> &
-            Partial<components['schemas']['bank_account']> &
-            Partial<components['schemas']['source']>
+          'application/json': components['schemas']['card'] | components['schemas']['bank_account'] | components['schemas']['source']
         }
       }
       /** Error response. */
@@ -22968,7 +23026,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description Cardholder name. */
           name?: string
           /** owner */
@@ -23002,7 +23060,7 @@ export type operations = {
       /** Successful response. */
       200: {
         content: {
-          'application/json': Partial<components['schemas']['payment_source']> & Partial<components['schemas']['deleted_payment_source']>
+          'application/json': components['schemas']['payment_source'] | components['schemas']['deleted_payment_source']
         }
       }
       /** Error response. */
@@ -23139,36 +23197,38 @@ export type operations = {
           /** @description A token returned by [Stripe.js](https://stripe.com/docs/js) representing the user’s Alipay account details. */
           alipay_account?: string
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          bank_account?: Partial<{
-            account_holder_name?: string
-            /** @enum {string} */
-            account_holder_type?: 'company' | 'individual'
-            account_number: string
-            country: string
-            currency?: string
-            /** @enum {string} */
-            object?: 'bank_account'
-            routing_number?: string
-          }> &
-            Partial<string>
+          bank_account?:
+            | {
+                account_holder_name?: string
+                /** @enum {string} */
+                account_holder_type?: 'company' | 'individual'
+                account_number: string
+                country: string
+                currency?: string
+                /** @enum {string} */
+                object?: 'bank_account'
+                routing_number?: string
+              }
+            | string
           /** @description A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js). */
-          card?: Partial<{
-            address_city?: string
-            address_country?: string
-            address_line1?: string
-            address_line2?: string
-            address_state?: string
-            address_zip?: string
-            cvc?: string
-            exp_month: number
-            exp_year: number
-            metadata?: { [key: string]: string }
-            name?: string
-            number: string
-            /** @enum {string} */
-            object?: 'card'
-          }> &
-            Partial<string>
+          card?:
+            | {
+                address_city?: string
+                address_country?: string
+                address_line1?: string
+                address_line2?: string
+                address_state?: string
+                address_zip?: string
+                cvc?: string
+                exp_month: number
+                exp_year: number
+                metadata?: { [key: string]: string }
+                name?: string
+                number: string
+                /** @enum {string} */
+                object?: 'card'
+              }
+            | string
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -23223,9 +23283,7 @@ export type operations = {
       /** Successful response. */
       200: {
         content: {
-          'application/json': Partial<components['schemas']['card']> &
-            Partial<components['schemas']['bank_account']> &
-            Partial<components['schemas']['source']>
+          'application/json': components['schemas']['card'] | components['schemas']['bank_account'] | components['schemas']['source']
         }
       }
       /** Error response. */
@@ -23264,7 +23322,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description Cardholder name. */
           name?: string
           /** owner */
@@ -23298,7 +23356,7 @@ export type operations = {
       /** Successful response. */
       200: {
         content: {
-          'application/json': Partial<components['schemas']['payment_source']> & Partial<components['schemas']['deleted_payment_source']>
+          'application/json': components['schemas']['payment_source'] | components['schemas']['deleted_payment_source']
         }
       }
       /** Error response. */
@@ -23468,11 +23526,13 @@ export type operations = {
         content: {
           'application/json': {
             /** @description Details about each object. */
-            data: (Partial<components['schemas']['alipay_account']> &
-              Partial<components['schemas']['bank_account']> &
-              Partial<components['schemas']['bitcoin_receiver']> &
-              Partial<components['schemas']['card']> &
-              Partial<components['schemas']['source']>)[]
+            data: (
+              | components['schemas']['alipay_account']
+              | components['schemas']['bank_account']
+              | components['schemas']['bitcoin_receiver']
+              | components['schemas']['card']
+              | components['schemas']['source']
+            )[]
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean
             /**
@@ -23531,36 +23591,38 @@ export type operations = {
           /** @description A token returned by [Stripe.js](https://stripe.com/docs/js) representing the user’s Alipay account details. */
           alipay_account?: string
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          bank_account?: Partial<{
-            account_holder_name?: string
-            /** @enum {string} */
-            account_holder_type?: 'company' | 'individual'
-            account_number: string
-            country: string
-            currency?: string
-            /** @enum {string} */
-            object?: 'bank_account'
-            routing_number?: string
-          }> &
-            Partial<string>
+          bank_account?:
+            | {
+                account_holder_name?: string
+                /** @enum {string} */
+                account_holder_type?: 'company' | 'individual'
+                account_number: string
+                country: string
+                currency?: string
+                /** @enum {string} */
+                object?: 'bank_account'
+                routing_number?: string
+              }
+            | string
           /** @description A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js). */
-          card?: Partial<{
-            address_city?: string
-            address_country?: string
-            address_line1?: string
-            address_line2?: string
-            address_state?: string
-            address_zip?: string
-            cvc?: string
-            exp_month: number
-            exp_year: number
-            metadata?: { [key: string]: string }
-            name?: string
-            number: string
-            /** @enum {string} */
-            object?: 'card'
-          }> &
-            Partial<string>
+          card?:
+            | {
+                address_city?: string
+                address_country?: string
+                address_line1?: string
+                address_line2?: string
+                address_state?: string
+                address_zip?: string
+                cvc?: string
+                exp_month: number
+                exp_year: number
+                metadata?: { [key: string]: string }
+                name?: string
+                number: string
+                /** @enum {string} */
+                object?: 'card'
+              }
+            | string
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -23615,9 +23677,7 @@ export type operations = {
       /** Successful response. */
       200: {
         content: {
-          'application/json': Partial<components['schemas']['card']> &
-            Partial<components['schemas']['bank_account']> &
-            Partial<components['schemas']['source']>
+          'application/json': components['schemas']['card'] | components['schemas']['bank_account'] | components['schemas']['source']
         }
       }
       /** Error response. */
@@ -23656,7 +23716,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description Cardholder name. */
           name?: string
           /** owner */
@@ -23690,7 +23750,7 @@ export type operations = {
       /** Successful response. */
       200: {
         content: {
-          'application/json': Partial<components['schemas']['payment_source']> & Partial<components['schemas']['deleted_payment_source']>
+          'application/json': components['schemas']['payment_source'] | components['schemas']['deleted_payment_source']
         }
       }
       /** Error response. */
@@ -23829,7 +23889,7 @@ export type operations = {
               unit_amount_decimal?: string
             }
             quantity?: number
-            tax_rates?: Partial<string[]> & Partial<''>
+            tax_rates?: string[] | ''
           }[]
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           application_fee_percent?: number
@@ -23851,11 +23911,12 @@ export type operations = {
            */
           billing_cycle_anchor?: number
           /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
-          billing_thresholds?: Partial<{
-            amount_gte?: number
-            reset_billing_cycle_anchor?: boolean
-          }> &
-            Partial<''>
+          billing_thresholds?:
+            | {
+                amount_gte?: number
+                reset_billing_cycle_anchor?: boolean
+              }
+            | ''
           /**
            * Format: unix-time
            * @description A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
@@ -23877,15 +23938,16 @@ export type operations = {
           /** @description ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
           default_source?: string
           /** @description The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. */
-          default_tax_rates?: Partial<string[]> & Partial<''>
+          default_tax_rates?: string[] | ''
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description A list of up to 20 subscription items, each with an attached price. */
           items?: {
-            billing_thresholds?: Partial<{
-              usage_gte: number
-            }> &
-              Partial<''>
+            billing_thresholds?:
+              | {
+                  usage_gte: number
+                }
+              | ''
             metadata?: { [key: string]: string }
             price?: string
             /** recurring_price_data */
@@ -23905,10 +23967,10 @@ export type operations = {
               unit_amount_decimal?: string
             }
             quantity?: number
-            tax_rates?: Partial<string[]> & Partial<''>
+            tax_rates?: string[] | ''
           }[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean
           /**
@@ -23929,62 +23991,65 @@ export type operations = {
           payment_settings?: {
             /** payment_method_options */
             payment_method_options?: {
-              acss_debit?: Partial<{
-                /** mandate_options_param */
-                mandate_options?: {
-                  /** @enum {string} */
-                  transaction_type?: 'business' | 'personal'
-                }
-                /** @enum {string} */
-                verification_method?: 'automatic' | 'instant' | 'microdeposits'
-              }> &
-                Partial<''>
-              bancontact?: Partial<{
-                /** @enum {string} */
-                preferred_language?: 'de' | 'en' | 'fr' | 'nl'
-              }> &
-                Partial<''>
-              card?: Partial<{
-                /** mandate_options_param */
-                mandate_options?: {
-                  amount?: number
-                  /** @enum {string} */
-                  amount_type?: 'fixed' | 'maximum'
-                  description?: string
-                }
-                /** @enum {string} */
-                request_three_d_secure?: 'any' | 'automatic'
-              }> &
-                Partial<''>
+              acss_debit?:
+                | {
+                    /** mandate_options_param */
+                    mandate_options?: {
+                      /** @enum {string} */
+                      transaction_type?: 'business' | 'personal'
+                    }
+                    /** @enum {string} */
+                    verification_method?: 'automatic' | 'instant' | 'microdeposits'
+                  }
+                | ''
+              bancontact?:
+                | {
+                    /** @enum {string} */
+                    preferred_language?: 'de' | 'en' | 'fr' | 'nl'
+                  }
+                | ''
+              card?:
+                | {
+                    /** mandate_options_param */
+                    mandate_options?: {
+                      amount?: number
+                      /** @enum {string} */
+                      amount_type?: 'fixed' | 'maximum'
+                      description?: string
+                    }
+                    /** @enum {string} */
+                    request_three_d_secure?: 'any' | 'automatic'
+                  }
+                | ''
             }
-            payment_method_types?: Partial<
-              (
-                | 'ach_credit_transfer'
-                | 'ach_debit'
-                | 'acss_debit'
-                | 'au_becs_debit'
-                | 'bacs_debit'
-                | 'bancontact'
-                | 'boleto'
-                | 'card'
-                | 'fpx'
-                | 'giropay'
-                | 'grabpay'
-                | 'ideal'
-                | 'sepa_debit'
-                | 'sofort'
-                | 'wechat_pay'
-              )[]
-            > &
-              Partial<''>
+            payment_method_types?:
+              | (
+                  | 'ach_credit_transfer'
+                  | 'ach_debit'
+                  | 'acss_debit'
+                  | 'au_becs_debit'
+                  | 'bacs_debit'
+                  | 'bancontact'
+                  | 'boleto'
+                  | 'card'
+                  | 'fpx'
+                  | 'giropay'
+                  | 'grabpay'
+                  | 'ideal'
+                  | 'sepa_debit'
+                  | 'sofort'
+                  | 'wechat_pay'
+                )[]
+              | ''
           }
           /** @description Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-          pending_invoice_item_interval?: Partial<{
-            /** @enum {string} */
-            interval: 'day' | 'month' | 'week' | 'year'
-            interval_count?: number
-          }> &
-            Partial<''>
+          pending_invoice_item_interval?:
+            | {
+                /** @enum {string} */
+                interval: 'day' | 'month' | 'week' | 'year'
+                interval_count?: number
+              }
+            | ''
           /** @description The API ID of a promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. */
           promotion_code?: string
           /**
@@ -24003,7 +24068,7 @@ export type operations = {
             destination: string
           }
           /** @description Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
-          trial_end?: Partial<'now'> & Partial<number>
+          trial_end?: 'now' | number
           /** @description Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
           trial_from_plan?: boolean
           /** @description Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
@@ -24083,7 +24148,7 @@ export type operations = {
               unit_amount_decimal?: string
             }
             quantity?: number
-            tax_rates?: Partial<string[]> & Partial<''>
+            tax_rates?: string[] | ''
           }[]
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           application_fee_percent?: number
@@ -24100,13 +24165,14 @@ export type operations = {
            */
           billing_cycle_anchor?: 'now' | 'unchanged'
           /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
-          billing_thresholds?: Partial<{
-            amount_gte?: number
-            reset_billing_cycle_anchor?: boolean
-          }> &
-            Partial<''>
+          billing_thresholds?:
+            | {
+                amount_gte?: number
+                reset_billing_cycle_anchor?: boolean
+              }
+            | ''
           /** @description A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
-          cancel_at?: Partial<number> & Partial<''>
+          cancel_at?: number | ''
           /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
           cancel_at_period_end?: boolean
           /**
@@ -24123,19 +24189,20 @@ export type operations = {
           /** @description ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
           default_source?: string
           /** @description The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. Pass an empty string to remove previously-defined tax rates. */
-          default_tax_rates?: Partial<string[]> & Partial<''>
+          default_tax_rates?: string[] | ''
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description A list of up to 20 subscription items, each with an attached price. */
           items?: {
-            billing_thresholds?: Partial<{
-              usage_gte: number
-            }> &
-              Partial<''>
+            billing_thresholds?:
+              | {
+                  usage_gte: number
+                }
+              | ''
             clear_usage?: boolean
             deleted?: boolean
             id?: string
-            metadata?: Partial<{ [key: string]: string }> & Partial<''>
+            metadata?: { [key: string]: string } | ''
             price?: string
             /** recurring_price_data */
             price_data?: {
@@ -24154,20 +24221,21 @@ export type operations = {
               unit_amount_decimal?: string
             }
             quantity?: number
-            tax_rates?: Partial<string[]> & Partial<''>
+            tax_rates?: string[] | ''
           }[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean
           /** @description If specified, payment collection for this subscription will be paused. */
-          pause_collection?: Partial<{
-            /** @enum {string} */
-            behavior: 'keep_as_draft' | 'mark_uncollectible' | 'void'
-            /** Format: unix-time */
-            resumes_at?: number
-          }> &
-            Partial<''>
+          pause_collection?:
+            | {
+                /** @enum {string} */
+                behavior: 'keep_as_draft' | 'mark_uncollectible' | 'void'
+                /** Format: unix-time */
+                resumes_at?: number
+              }
+            | ''
           /**
            * @description Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
            *
@@ -24186,62 +24254,65 @@ export type operations = {
           payment_settings?: {
             /** payment_method_options */
             payment_method_options?: {
-              acss_debit?: Partial<{
-                /** mandate_options_param */
-                mandate_options?: {
-                  /** @enum {string} */
-                  transaction_type?: 'business' | 'personal'
-                }
-                /** @enum {string} */
-                verification_method?: 'automatic' | 'instant' | 'microdeposits'
-              }> &
-                Partial<''>
-              bancontact?: Partial<{
-                /** @enum {string} */
-                preferred_language?: 'de' | 'en' | 'fr' | 'nl'
-              }> &
-                Partial<''>
-              card?: Partial<{
-                /** mandate_options_param */
-                mandate_options?: {
-                  amount?: number
-                  /** @enum {string} */
-                  amount_type?: 'fixed' | 'maximum'
-                  description?: string
-                }
-                /** @enum {string} */
-                request_three_d_secure?: 'any' | 'automatic'
-              }> &
-                Partial<''>
+              acss_debit?:
+                | {
+                    /** mandate_options_param */
+                    mandate_options?: {
+                      /** @enum {string} */
+                      transaction_type?: 'business' | 'personal'
+                    }
+                    /** @enum {string} */
+                    verification_method?: 'automatic' | 'instant' | 'microdeposits'
+                  }
+                | ''
+              bancontact?:
+                | {
+                    /** @enum {string} */
+                    preferred_language?: 'de' | 'en' | 'fr' | 'nl'
+                  }
+                | ''
+              card?:
+                | {
+                    /** mandate_options_param */
+                    mandate_options?: {
+                      amount?: number
+                      /** @enum {string} */
+                      amount_type?: 'fixed' | 'maximum'
+                      description?: string
+                    }
+                    /** @enum {string} */
+                    request_three_d_secure?: 'any' | 'automatic'
+                  }
+                | ''
             }
-            payment_method_types?: Partial<
-              (
-                | 'ach_credit_transfer'
-                | 'ach_debit'
-                | 'acss_debit'
-                | 'au_becs_debit'
-                | 'bacs_debit'
-                | 'bancontact'
-                | 'boleto'
-                | 'card'
-                | 'fpx'
-                | 'giropay'
-                | 'grabpay'
-                | 'ideal'
-                | 'sepa_debit'
-                | 'sofort'
-                | 'wechat_pay'
-              )[]
-            > &
-              Partial<''>
+            payment_method_types?:
+              | (
+                  | 'ach_credit_transfer'
+                  | 'ach_debit'
+                  | 'acss_debit'
+                  | 'au_becs_debit'
+                  | 'bacs_debit'
+                  | 'bancontact'
+                  | 'boleto'
+                  | 'card'
+                  | 'fpx'
+                  | 'giropay'
+                  | 'grabpay'
+                  | 'ideal'
+                  | 'sepa_debit'
+                  | 'sofort'
+                  | 'wechat_pay'
+                )[]
+              | ''
           }
           /** @description Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-          pending_invoice_item_interval?: Partial<{
-            /** @enum {string} */
-            interval: 'day' | 'month' | 'week' | 'year'
-            interval_count?: number
-          }> &
-            Partial<''>
+          pending_invoice_item_interval?:
+            | {
+                /** @enum {string} */
+                interval: 'day' | 'month' | 'week' | 'year'
+                interval_count?: number
+              }
+            | ''
           /** @description The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. */
           promotion_code?: string
           /**
@@ -24259,13 +24330,14 @@ export type operations = {
            */
           proration_date?: number
           /** @description If specified, the funds from the subscription's invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges. This will be unset if you POST an empty value. */
-          transfer_data?: Partial<{
-            amount_percent?: number
-            destination: string
-          }> &
-            Partial<''>
+          transfer_data?:
+            | {
+                amount_percent?: number
+                destination: string
+              }
+            | ''
           /** @description Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          trial_end?: Partial<'now'> & Partial<number>
+          trial_end?: 'now' | number
           /** @description Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
           trial_from_plan?: boolean
         }
@@ -24566,13 +24638,14 @@ export type operations = {
       query: {
         /** Only return disputes associated to the charge specified by this charge ID. */
         charge?: string
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -24711,7 +24784,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
           submit?: boolean
         }
@@ -24815,13 +24888,14 @@ export type operations = {
   GetEvents: {
     parameters: {
       query: {
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** Filter events by whether all webhooks were successfully delivered. If false, events which are still pending or have failed all delivery attempts to a webhook endpoint will be returned. */
         delivery_success?: boolean
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -24980,13 +25054,14 @@ export type operations = {
   GetFileLinks: {
     parameters: {
       query: {
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -25061,7 +25136,7 @@ export type operations = {
           /** @description The ID of the file. The file's `purpose` must be one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `identity_document_downloadable`, `pci_document`, `selfie`, `sigma_scheduled_query`, or `tax_document_user_upload`. */
           file: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -25124,9 +25199,9 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description A future timestamp after which the link will no longer be usable, or `now` to expire the link immediately. */
-          expires_at?: Partial<'now'> & Partial<number> & Partial<''>
+          expires_at?: 'now' | number | ''
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -25135,13 +25210,14 @@ export type operations = {
   GetFiles: {
     parameters: {
       query: {
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -25234,7 +25310,7 @@ export type operations = {
             create: boolean
             /** Format: unix-time */
             expires_at?: number
-            metadata?: Partial<{ [key: string]: string }> & Partial<''>
+            metadata?: { [key: string]: string } | ''
           }
           /**
            * @description The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file.
@@ -25289,13 +25365,14 @@ export type operations = {
   GetIdentityVerificationReports: {
     parameters: {
       query: {
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -25376,13 +25453,14 @@ export type operations = {
   GetIdentityVerificationSessions: {
     parameters: {
       query: {
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -25462,13 +25540,14 @@ export type operations = {
            * @description A set of options for the session’s verification checks.
            */
           options?: {
-            document?: Partial<{
-              allowed_types?: ('driving_license' | 'id_card' | 'passport')[]
-              require_id_number?: boolean
-              require_live_capture?: boolean
-              require_matching_selfie?: boolean
-            }> &
-              Partial<''>
+            document?:
+              | {
+                  allowed_types?: ('driving_license' | 'id_card' | 'passport')[]
+                  require_id_number?: boolean
+                  require_live_capture?: boolean
+                  require_matching_selfie?: boolean
+                }
+              | ''
           }
           /** @description The URL that the user will be redirected to upon completing the verification flow. */
           return_url?: string
@@ -25555,13 +25634,14 @@ export type operations = {
            * @description A set of options for the session’s verification checks.
            */
           options?: {
-            document?: Partial<{
-              allowed_types?: ('driving_license' | 'id_card' | 'passport')[]
-              require_id_number?: boolean
-              require_live_capture?: boolean
-              require_matching_selfie?: boolean
-            }> &
-              Partial<''>
+            document?:
+              | {
+                  allowed_types?: ('driving_license' | 'id_card' | 'passport')[]
+                  require_id_number?: boolean
+                  require_live_capture?: boolean
+                  require_matching_selfie?: boolean
+                }
+              | ''
           }
           /**
            * @description The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
@@ -25660,13 +25740,14 @@ export type operations = {
   GetInvoiceitems: {
     parameters: {
       query: {
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned. */
         customer?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -25744,19 +25825,18 @@ export type operations = {
           /** @description Controls whether discounts apply to this invoice item. Defaults to false for prorations or negative invoice items, and true for all other invoice items. */
           discountable?: boolean
           /** @description The coupons to redeem into discounts for the invoice item or invoice line item. */
-          discounts?: Partial<
-            {
-              coupon?: string
-              discount?: string
-            }[]
-          > &
-            Partial<''>
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+              }[]
+            | ''
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description The ID of an existing invoice to add this invoice item to. When left blank, the invoice item will be added to the next upcoming scheduled invoice. This is useful when adding invoice items in response to an invoice.created webhook. You can only add invoice items to draft invoices and there is a maximum of 250 items per invoice. */
           invoice?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /**
            * period
            * @description The period associated with this invoice item.
@@ -25861,17 +25941,16 @@ export type operations = {
           /** @description Controls whether discounts apply to this invoice item. Defaults to false for prorations or negative invoice items, and true for all other invoice items. Cannot be set to true for prorations. */
           discountable?: boolean
           /** @description The coupons & existing discounts which apply to the invoice item or invoice line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts. */
-          discounts?: Partial<
-            {
-              coupon?: string
-              discount?: string
-            }[]
-          > &
-            Partial<''>
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+              }[]
+            | ''
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /**
            * period
            * @description The period associated with this invoice item.
@@ -25900,7 +25979,7 @@ export type operations = {
           /** @description Non-negative integer. The quantity of units for the invoice item. */
           quantity?: number
           /** @description The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. Pass an empty string to remove previously-defined tax rates. */
-          tax_rates?: Partial<string[]> & Partial<''>
+          tax_rates?: string[] | ''
           /** @description The integer unit amount in %s of the charge to be applied to the upcoming invoice. This unit_amount will be multiplied by the quantity to get the full amount. If you want to apply a credit to the customer's account, pass a negative unit_amount. */
           unit_amount?: number
           /**
@@ -25945,22 +26024,24 @@ export type operations = {
       query: {
         /** The collection method of the invoice to retrieve. Either `charge_automatically` or `send_invoice`. */
         collection_method?: 'charge_automatically' | 'send_invoice'
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** Only return invoices for the customer specified by this customer ID. */
         customer?: string
-        due_date?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        due_date?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -26026,7 +26107,7 @@ export type operations = {
       content: {
         'application/x-www-form-urlencoded': {
           /** @description The account tax IDs associated with the invoice. Only editable when the invoice is a draft. */
-          account_tax_ids?: Partial<string[]> & Partial<''>
+          account_tax_ids?: string[] | ''
           /** @description A fee in %s that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees). */
           application_fee_amount?: number
           /** @description Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. When `false`, the invoice's state will not automatically advance without an explicit action. */
@@ -26044,13 +26125,12 @@ export type operations = {
            */
           collection_method?: 'charge_automatically' | 'send_invoice'
           /** @description A list of up to 4 custom fields to be displayed on the invoice. */
-          custom_fields?: Partial<
-            {
-              name: string
-              value: string
-            }[]
-          > &
-            Partial<''>
+          custom_fields?:
+            | {
+                name: string
+                value: string
+              }[]
+            | ''
           /** @description The ID of the customer who will be billed. */
           customer: string
           /** @description The number of days from when the invoice is created until it is due. Valid only for invoices where `collection_method=send_invoice`. */
@@ -26064,13 +26144,12 @@ export type operations = {
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard. */
           description?: string
           /** @description The coupons to redeem into discounts for the invoice. If not specified, inherits the discount from the invoice's customer. Pass an empty string to avoid inheriting any discounts. */
-          discounts?: Partial<
-            {
-              coupon?: string
-              discount?: string
-            }[]
-          > &
-            Partial<''>
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+              }[]
+            | ''
           /**
            * Format: unix-time
            * @description The date on which payment for this invoice is due. Valid only for invoices where `collection_method=send_invoice`.
@@ -26081,7 +26160,7 @@ export type operations = {
           /** @description Footer to be displayed on the invoice. */
           footer?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details. */
           on_behalf_of?: string
           /**
@@ -26091,47 +26170,49 @@ export type operations = {
           payment_settings?: {
             /** payment_method_options */
             payment_method_options?: {
-              acss_debit?: Partial<{
-                /** mandate_options_param */
-                mandate_options?: {
-                  /** @enum {string} */
-                  transaction_type?: 'business' | 'personal'
-                }
-                /** @enum {string} */
-                verification_method?: 'automatic' | 'instant' | 'microdeposits'
-              }> &
-                Partial<''>
-              bancontact?: Partial<{
-                /** @enum {string} */
-                preferred_language?: 'de' | 'en' | 'fr' | 'nl'
-              }> &
-                Partial<''>
-              card?: Partial<{
-                /** @enum {string} */
-                request_three_d_secure?: 'any' | 'automatic'
-              }> &
-                Partial<''>
+              acss_debit?:
+                | {
+                    /** mandate_options_param */
+                    mandate_options?: {
+                      /** @enum {string} */
+                      transaction_type?: 'business' | 'personal'
+                    }
+                    /** @enum {string} */
+                    verification_method?: 'automatic' | 'instant' | 'microdeposits'
+                  }
+                | ''
+              bancontact?:
+                | {
+                    /** @enum {string} */
+                    preferred_language?: 'de' | 'en' | 'fr' | 'nl'
+                  }
+                | ''
+              card?:
+                | {
+                    /** @enum {string} */
+                    request_three_d_secure?: 'any' | 'automatic'
+                  }
+                | ''
             }
-            payment_method_types?: Partial<
-              (
-                | 'ach_credit_transfer'
-                | 'ach_debit'
-                | 'acss_debit'
-                | 'au_becs_debit'
-                | 'bacs_debit'
-                | 'bancontact'
-                | 'boleto'
-                | 'card'
-                | 'fpx'
-                | 'giropay'
-                | 'grabpay'
-                | 'ideal'
-                | 'sepa_debit'
-                | 'sofort'
-                | 'wechat_pay'
-              )[]
-            > &
-              Partial<''>
+            payment_method_types?:
+              | (
+                  | 'ach_credit_transfer'
+                  | 'ach_debit'
+                  | 'acss_debit'
+                  | 'au_becs_debit'
+                  | 'bacs_debit'
+                  | 'bancontact'
+                  | 'boleto'
+                  | 'card'
+                  | 'fpx'
+                  | 'giropay'
+                  | 'grabpay'
+                  | 'ideal'
+                  | 'sepa_debit'
+                  | 'sofort'
+                  | 'wechat_pay'
+                )[]
+              | ''
           }
           /** @description Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`. */
           statement_descriptor?: string
@@ -26169,32 +26250,34 @@ export type operations = {
         customer?: string
         /** Details about the customer you want to invoice or overrides for an existing customer. */
         customer_details?: {
-          address?: Partial<{
-            city?: string
-            country?: string
-            line1?: string
-            line2?: string
-            postal_code?: string
-            state?: string
-          }> &
-            Partial<''>
-          shipping?: Partial<{
-            /** optional_fields_address */
-            address: {
-              city?: string
-              country?: string
-              line1?: string
-              line2?: string
-              postal_code?: string
-              state?: string
-            }
-            name: string
-            phone?: string
-          }> &
-            Partial<''>
+          address?:
+            | {
+                city?: string
+                country?: string
+                line1?: string
+                line2?: string
+                postal_code?: string
+                state?: string
+              }
+            | ''
+          shipping?:
+            | {
+                /** optional_fields_address */
+                address: {
+                  city?: string
+                  country?: string
+                  line1?: string
+                  line2?: string
+                  postal_code?: string
+                  state?: string
+                }
+                name: string
+                phone?: string
+              }
+            | ''
           /** tax_param */
           tax?: {
-            ip_address?: Partial<string> & Partial<''>
+            ip_address?: string | ''
           }
           /** @enum {string} */
           tax_exempt?: '' | 'exempt' | 'none' | 'reverse'
@@ -26247,13 +26330,12 @@ export type operations = {
           }[]
         }
         /** The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the customer or subscription. This only works for coupons directly applied to the invoice. To apply a coupon to a subscription, you must use the `coupon` parameter instead. Pass an empty string to avoid inheriting any discounts. To preview the upcoming invoice for a subscription that hasn't been created, use `coupon` instead. */
-        discounts?: Partial<
-          {
-            coupon?: string
-            discount?: string
-          }[]
-        > &
-          Partial<''>
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+            }[]
+          | ''
         /** Specifies which fields in the response should be expanded. */
         expand?: string[]
         /** List of invoice items to add or update in the upcoming invoice preview. */
@@ -26262,15 +26344,14 @@ export type operations = {
           currency?: string
           description?: string
           discountable?: boolean
-          discounts?: Partial<
-            {
-              coupon?: string
-              discount?: string
-            }[]
-          > &
-            Partial<''>
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+              }[]
+            | ''
           invoiceitem?: string
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** period */
           period?: {
             /** Format: unix-time */
@@ -26290,7 +26371,7 @@ export type operations = {
             unit_amount_decimal?: string
           }
           quantity?: number
-          tax_rates?: Partial<string[]> & Partial<''>
+          tax_rates?: string[] | ''
           unit_amount?: number
           /** Format: decimal */
           unit_amount_decimal?: string
@@ -26300,25 +26381,26 @@ export type operations = {
         /** The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions. */
         subscription?: string
         /** For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`. */
-        subscription_billing_cycle_anchor?: Partial<'now' | 'unchanged'> & Partial<number>
+        subscription_billing_cycle_anchor?: ('now' | 'unchanged') | number
         /** Timestamp indicating when the subscription should be scheduled to cancel. Will prorate if within the current period and prorations have been enabled using `proration_behavior`. */
-        subscription_cancel_at?: Partial<number> & Partial<''>
+        subscription_cancel_at?: number | ''
         /** Boolean indicating whether this subscription should cancel at the end of the current period. */
         subscription_cancel_at_period_end?: boolean
         /** This simulates the subscription being canceled or expired immediately. */
         subscription_cancel_now?: boolean
         /** If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. */
-        subscription_default_tax_rates?: Partial<string[]> & Partial<''>
+        subscription_default_tax_rates?: string[] | ''
         /** A list of up to 20 subscription items, each with an attached price. */
         subscription_items?: {
-          billing_thresholds?: Partial<{
-            usage_gte: number
-          }> &
-            Partial<''>
+          billing_thresholds?:
+            | {
+                usage_gte: number
+              }
+            | ''
           clear_usage?: boolean
           deleted?: boolean
           id?: string
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           price?: string
           /** recurring_price_data */
           price_data?: {
@@ -26337,7 +26419,7 @@ export type operations = {
             unit_amount_decimal?: string
           }
           quantity?: number
-          tax_rates?: Partial<string[]> & Partial<''>
+          tax_rates?: string[] | ''
         }[]
         /**
          * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
@@ -26352,7 +26434,7 @@ export type operations = {
         /** Date a subscription is intended to start (can be future or past) */
         subscription_start_date?: number
         /** If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. */
-        subscription_trial_end?: Partial<'now'> & Partial<number>
+        subscription_trial_end?: 'now' | number
         /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
         subscription_trial_from_plan?: boolean
       }
@@ -26391,32 +26473,34 @@ export type operations = {
         customer?: string
         /** Details about the customer you want to invoice or overrides for an existing customer. */
         customer_details?: {
-          address?: Partial<{
-            city?: string
-            country?: string
-            line1?: string
-            line2?: string
-            postal_code?: string
-            state?: string
-          }> &
-            Partial<''>
-          shipping?: Partial<{
-            /** optional_fields_address */
-            address: {
-              city?: string
-              country?: string
-              line1?: string
-              line2?: string
-              postal_code?: string
-              state?: string
-            }
-            name: string
-            phone?: string
-          }> &
-            Partial<''>
+          address?:
+            | {
+                city?: string
+                country?: string
+                line1?: string
+                line2?: string
+                postal_code?: string
+                state?: string
+              }
+            | ''
+          shipping?:
+            | {
+                /** optional_fields_address */
+                address: {
+                  city?: string
+                  country?: string
+                  line1?: string
+                  line2?: string
+                  postal_code?: string
+                  state?: string
+                }
+                name: string
+                phone?: string
+              }
+            | ''
           /** tax_param */
           tax?: {
-            ip_address?: Partial<string> & Partial<''>
+            ip_address?: string | ''
           }
           /** @enum {string} */
           tax_exempt?: '' | 'exempt' | 'none' | 'reverse'
@@ -26469,13 +26553,12 @@ export type operations = {
           }[]
         }
         /** The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the customer or subscription. This only works for coupons directly applied to the invoice. To apply a coupon to a subscription, you must use the `coupon` parameter instead. Pass an empty string to avoid inheriting any discounts. To preview the upcoming invoice for a subscription that hasn't been created, use `coupon` instead. */
-        discounts?: Partial<
-          {
-            coupon?: string
-            discount?: string
-          }[]
-        > &
-          Partial<''>
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+            }[]
+          | ''
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -26486,15 +26569,14 @@ export type operations = {
           currency?: string
           description?: string
           discountable?: boolean
-          discounts?: Partial<
-            {
-              coupon?: string
-              discount?: string
-            }[]
-          > &
-            Partial<''>
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+              }[]
+            | ''
           invoiceitem?: string
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** period */
           period?: {
             /** Format: unix-time */
@@ -26514,7 +26596,7 @@ export type operations = {
             unit_amount_decimal?: string
           }
           quantity?: number
-          tax_rates?: Partial<string[]> & Partial<''>
+          tax_rates?: string[] | ''
           unit_amount?: number
           /** Format: decimal */
           unit_amount_decimal?: string
@@ -26528,25 +26610,26 @@ export type operations = {
         /** The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions. */
         subscription?: string
         /** For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`. */
-        subscription_billing_cycle_anchor?: Partial<'now' | 'unchanged'> & Partial<number>
+        subscription_billing_cycle_anchor?: ('now' | 'unchanged') | number
         /** Timestamp indicating when the subscription should be scheduled to cancel. Will prorate if within the current period and prorations have been enabled using `proration_behavior`. */
-        subscription_cancel_at?: Partial<number> & Partial<''>
+        subscription_cancel_at?: number | ''
         /** Boolean indicating whether this subscription should cancel at the end of the current period. */
         subscription_cancel_at_period_end?: boolean
         /** This simulates the subscription being canceled or expired immediately. */
         subscription_cancel_now?: boolean
         /** If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. */
-        subscription_default_tax_rates?: Partial<string[]> & Partial<''>
+        subscription_default_tax_rates?: string[] | ''
         /** A list of up to 20 subscription items, each with an attached price. */
         subscription_items?: {
-          billing_thresholds?: Partial<{
-            usage_gte: number
-          }> &
-            Partial<''>
+          billing_thresholds?:
+            | {
+                usage_gte: number
+              }
+            | ''
           clear_usage?: boolean
           deleted?: boolean
           id?: string
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           price?: string
           /** recurring_price_data */
           price_data?: {
@@ -26565,7 +26648,7 @@ export type operations = {
             unit_amount_decimal?: string
           }
           quantity?: number
-          tax_rates?: Partial<string[]> & Partial<''>
+          tax_rates?: string[] | ''
         }[]
         /**
          * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
@@ -26580,7 +26663,7 @@ export type operations = {
         /** Date a subscription is intended to start (can be future or past) */
         subscription_start_date?: number
         /** If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. */
-        subscription_trial_end?: Partial<'now'> & Partial<number>
+        subscription_trial_end?: 'now' | number
         /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
         subscription_trial_from_plan?: boolean
       }
@@ -26680,7 +26763,7 @@ export type operations = {
       content: {
         'application/x-www-form-urlencoded': {
           /** @description The account tax IDs associated with the invoice. Only editable when the invoice is a draft. */
-          account_tax_ids?: Partial<string[]> & Partial<''>
+          account_tax_ids?: string[] | ''
           /** @description A fee in %s that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees). */
           application_fee_amount?: number
           /** @description Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. */
@@ -26698,13 +26781,12 @@ export type operations = {
            */
           collection_method?: 'charge_automatically' | 'send_invoice'
           /** @description A list of up to 4 custom fields to be displayed on the invoice. If a value for `custom_fields` is specified, the list specified will replace the existing custom field list on this invoice. Pass an empty string to remove previously-defined fields. */
-          custom_fields?: Partial<
-            {
-              name: string
-              value: string
-            }[]
-          > &
-            Partial<''>
+          custom_fields?:
+            | {
+                name: string
+                value: string
+              }[]
+            | ''
           /** @description The number of days from which the invoice is created until it is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices. */
           days_until_due?: number
           /** @description ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings. */
@@ -26712,17 +26794,16 @@ export type operations = {
           /** @description ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source. */
           default_source?: string
           /** @description The tax rates that will apply to any line item that does not have `tax_rates` set. Pass an empty string to remove previously-defined tax rates. */
-          default_tax_rates?: Partial<string[]> & Partial<''>
+          default_tax_rates?: string[] | ''
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard. */
           description?: string
           /** @description The discounts that will apply to the invoice. Pass an empty string to remove previously-defined discounts. */
-          discounts?: Partial<
-            {
-              coupon?: string
-              discount?: string
-            }[]
-          > &
-            Partial<''>
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+              }[]
+            | ''
           /**
            * Format: unix-time
            * @description The date on which payment for this invoice is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices.
@@ -26733,9 +26814,9 @@ export type operations = {
           /** @description Footer to be displayed on the invoice. */
           footer?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details. */
-          on_behalf_of?: Partial<string> & Partial<''>
+          on_behalf_of?: string | ''
           /**
            * payment_settings
            * @description Configuration settings for the PaymentIntent that is generated when the invoice is finalized.
@@ -26743,56 +26824,59 @@ export type operations = {
           payment_settings?: {
             /** payment_method_options */
             payment_method_options?: {
-              acss_debit?: Partial<{
-                /** mandate_options_param */
-                mandate_options?: {
-                  /** @enum {string} */
-                  transaction_type?: 'business' | 'personal'
-                }
-                /** @enum {string} */
-                verification_method?: 'automatic' | 'instant' | 'microdeposits'
-              }> &
-                Partial<''>
-              bancontact?: Partial<{
-                /** @enum {string} */
-                preferred_language?: 'de' | 'en' | 'fr' | 'nl'
-              }> &
-                Partial<''>
-              card?: Partial<{
-                /** @enum {string} */
-                request_three_d_secure?: 'any' | 'automatic'
-              }> &
-                Partial<''>
+              acss_debit?:
+                | {
+                    /** mandate_options_param */
+                    mandate_options?: {
+                      /** @enum {string} */
+                      transaction_type?: 'business' | 'personal'
+                    }
+                    /** @enum {string} */
+                    verification_method?: 'automatic' | 'instant' | 'microdeposits'
+                  }
+                | ''
+              bancontact?:
+                | {
+                    /** @enum {string} */
+                    preferred_language?: 'de' | 'en' | 'fr' | 'nl'
+                  }
+                | ''
+              card?:
+                | {
+                    /** @enum {string} */
+                    request_three_d_secure?: 'any' | 'automatic'
+                  }
+                | ''
             }
-            payment_method_types?: Partial<
-              (
-                | 'ach_credit_transfer'
-                | 'ach_debit'
-                | 'acss_debit'
-                | 'au_becs_debit'
-                | 'bacs_debit'
-                | 'bancontact'
-                | 'boleto'
-                | 'card'
-                | 'fpx'
-                | 'giropay'
-                | 'grabpay'
-                | 'ideal'
-                | 'sepa_debit'
-                | 'sofort'
-                | 'wechat_pay'
-              )[]
-            > &
-              Partial<''>
+            payment_method_types?:
+              | (
+                  | 'ach_credit_transfer'
+                  | 'ach_debit'
+                  | 'acss_debit'
+                  | 'au_becs_debit'
+                  | 'bacs_debit'
+                  | 'bancontact'
+                  | 'boleto'
+                  | 'card'
+                  | 'fpx'
+                  | 'giropay'
+                  | 'grabpay'
+                  | 'ideal'
+                  | 'sepa_debit'
+                  | 'sofort'
+                  | 'wechat_pay'
+                )[]
+              | ''
           }
           /** @description Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`. */
           statement_descriptor?: string
           /** @description If specified, the funds from the invoice will be transferred to the destination and the ID of the resulting transfer will be found on the invoice's charge. This will be unset if you POST an empty value. */
-          transfer_data?: Partial<{
-            amount?: number
-            destination: string
-          }> &
-            Partial<''>
+          transfer_data?:
+            | {
+                amount?: number
+                destination: string
+              }
+            | ''
         }
       }
     }
@@ -27134,13 +27218,14 @@ export type operations = {
         /** Only return authorizations that belong to the given cardholder. */
         cardholder?: string
         /** Only return authorizations that were created during the given date interval. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -27242,7 +27327,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -27276,7 +27361,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -27308,7 +27393,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -27318,13 +27403,14 @@ export type operations = {
     parameters: {
       query: {
         /** Only return cardholders that were created during the given date interval. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** Only return cardholders that have the given email address. */
         email?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -29348,13 +29434,14 @@ export type operations = {
         /** Only return cards belonging to the Cardholder with the provided ID. */
         cardholder?: string
         /** Only return cards that were issued during the given date interval. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Only return cards that have the given expiration month. */
@@ -30418,7 +30505,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /**
            * encrypted_pin_param
            * @description The desired new PIN for this card.
@@ -31321,13 +31408,14 @@ export type operations = {
     parameters: {
       query: {
         /** Select Issuing disputes that were created during the given date interval. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -31397,72 +31485,79 @@ export type operations = {
            * @description Evidence provided for the dispute.
            */
           evidence?: {
-            canceled?: Partial<{
-              additional_documentation?: Partial<string> & Partial<''>
-              canceled_at?: Partial<number> & Partial<''>
-              cancellation_policy_provided?: Partial<boolean> & Partial<''>
-              cancellation_reason?: string
-              expected_at?: Partial<number> & Partial<''>
-              explanation?: string
-              product_description?: string
-              /** @enum {string} */
-              product_type?: '' | 'merchandise' | 'service'
-              /** @enum {string} */
-              return_status?: '' | 'merchant_rejected' | 'successful'
-              returned_at?: Partial<number> & Partial<''>
-            }> &
-              Partial<''>
-            duplicate?: Partial<{
-              additional_documentation?: Partial<string> & Partial<''>
-              card_statement?: Partial<string> & Partial<''>
-              cash_receipt?: Partial<string> & Partial<''>
-              check_image?: Partial<string> & Partial<''>
-              explanation?: string
-              original_transaction?: string
-            }> &
-              Partial<''>
-            fraudulent?: Partial<{
-              additional_documentation?: Partial<string> & Partial<''>
-              explanation?: string
-            }> &
-              Partial<''>
-            merchandise_not_as_described?: Partial<{
-              additional_documentation?: Partial<string> & Partial<''>
-              explanation?: string
-              received_at?: Partial<number> & Partial<''>
-              return_description?: string
-              /** @enum {string} */
-              return_status?: '' | 'merchant_rejected' | 'successful'
-              returned_at?: Partial<number> & Partial<''>
-            }> &
-              Partial<''>
-            not_received?: Partial<{
-              additional_documentation?: Partial<string> & Partial<''>
-              expected_at?: Partial<number> & Partial<''>
-              explanation?: string
-              product_description?: string
-              /** @enum {string} */
-              product_type?: '' | 'merchandise' | 'service'
-            }> &
-              Partial<''>
-            other?: Partial<{
-              additional_documentation?: Partial<string> & Partial<''>
-              explanation?: string
-              product_description?: string
-              /** @enum {string} */
-              product_type?: '' | 'merchandise' | 'service'
-            }> &
-              Partial<''>
+            canceled?:
+              | {
+                  additional_documentation?: string | ''
+                  canceled_at?: number | ''
+                  cancellation_policy_provided?: boolean | ''
+                  cancellation_reason?: string
+                  expected_at?: number | ''
+                  explanation?: string
+                  product_description?: string
+                  /** @enum {string} */
+                  product_type?: '' | 'merchandise' | 'service'
+                  /** @enum {string} */
+                  return_status?: '' | 'merchant_rejected' | 'successful'
+                  returned_at?: number | ''
+                }
+              | ''
+            duplicate?:
+              | {
+                  additional_documentation?: string | ''
+                  card_statement?: string | ''
+                  cash_receipt?: string | ''
+                  check_image?: string | ''
+                  explanation?: string
+                  original_transaction?: string
+                }
+              | ''
+            fraudulent?:
+              | {
+                  additional_documentation?: string | ''
+                  explanation?: string
+                }
+              | ''
+            merchandise_not_as_described?:
+              | {
+                  additional_documentation?: string | ''
+                  explanation?: string
+                  received_at?: number | ''
+                  return_description?: string
+                  /** @enum {string} */
+                  return_status?: '' | 'merchant_rejected' | 'successful'
+                  returned_at?: number | ''
+                }
+              | ''
+            not_received?:
+              | {
+                  additional_documentation?: string | ''
+                  expected_at?: number | ''
+                  explanation?: string
+                  product_description?: string
+                  /** @enum {string} */
+                  product_type?: '' | 'merchandise' | 'service'
+                }
+              | ''
+            other?:
+              | {
+                  additional_documentation?: string | ''
+                  explanation?: string
+                  product_description?: string
+                  /** @enum {string} */
+                  product_type?: '' | 'merchandise' | 'service'
+                }
+              | ''
             /** @enum {string} */
             reason?: 'canceled' | 'duplicate' | 'fraudulent' | 'merchandise_not_as_described' | 'not_received' | 'other' | 'service_not_as_described'
-            service_not_as_described?: Partial<{
-              additional_documentation?: Partial<string> & Partial<''>
-              canceled_at?: Partial<number> & Partial<''>
-              cancellation_reason?: string
-              explanation?: string
-              received_at?: Partial<number> & Partial<''>
-            }> &
-              Partial<''>
+            service_not_as_described?:
+              | {
+                  additional_documentation?: string | ''
+                  canceled_at?: number | ''
+                  cancellation_reason?: string
+                  explanation?: string
+                  received_at?: number | ''
+                }
+              | ''
           }
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
@@ -31534,77 +31629,84 @@ export type operations = {
            * @description Evidence provided for the dispute.
            */
           evidence?: {
-            canceled?: Partial<{
-              additional_documentation?: Partial<string> & Partial<''>
-              canceled_at?: Partial<number> & Partial<''>
-              cancellation_policy_provided?: Partial<boolean> & Partial<''>
-              cancellation_reason?: string
-              expected_at?: Partial<number> & Partial<''>
-              explanation?: string
-              product_description?: string
-              /** @enum {string} */
-              product_type?: '' | 'merchandise' | 'service'
-              /** @enum {string} */
-              return_status?: '' | 'merchant_rejected' | 'successful'
-              returned_at?: Partial<number> & Partial<''>
-            }> &
-              Partial<''>
-            duplicate?: Partial<{
-              additional_documentation?: Partial<string> & Partial<''>
-              card_statement?: Partial<string> & Partial<''>
-              cash_receipt?: Partial<string> & Partial<''>
-              check_image?: Partial<string> & Partial<''>
-              explanation?: string
-              original_transaction?: string
-            }> &
-              Partial<''>
-            fraudulent?: Partial<{
-              additional_documentation?: Partial<string> & Partial<''>
-              explanation?: string
-            }> &
-              Partial<''>
-            merchandise_not_as_described?: Partial<{
-              additional_documentation?: Partial<string> & Partial<''>
-              explanation?: string
-              received_at?: Partial<number> & Partial<''>
-              return_description?: string
-              /** @enum {string} */
-              return_status?: '' | 'merchant_rejected' | 'successful'
-              returned_at?: Partial<number> & Partial<''>
-            }> &
-              Partial<''>
-            not_received?: Partial<{
-              additional_documentation?: Partial<string> & Partial<''>
-              expected_at?: Partial<number> & Partial<''>
-              explanation?: string
-              product_description?: string
-              /** @enum {string} */
-              product_type?: '' | 'merchandise' | 'service'
-            }> &
-              Partial<''>
-            other?: Partial<{
-              additional_documentation?: Partial<string> & Partial<''>
-              explanation?: string
-              product_description?: string
-              /** @enum {string} */
-              product_type?: '' | 'merchandise' | 'service'
-            }> &
-              Partial<''>
+            canceled?:
+              | {
+                  additional_documentation?: string | ''
+                  canceled_at?: number | ''
+                  cancellation_policy_provided?: boolean | ''
+                  cancellation_reason?: string
+                  expected_at?: number | ''
+                  explanation?: string
+                  product_description?: string
+                  /** @enum {string} */
+                  product_type?: '' | 'merchandise' | 'service'
+                  /** @enum {string} */
+                  return_status?: '' | 'merchant_rejected' | 'successful'
+                  returned_at?: number | ''
+                }
+              | ''
+            duplicate?:
+              | {
+                  additional_documentation?: string | ''
+                  card_statement?: string | ''
+                  cash_receipt?: string | ''
+                  check_image?: string | ''
+                  explanation?: string
+                  original_transaction?: string
+                }
+              | ''
+            fraudulent?:
+              | {
+                  additional_documentation?: string | ''
+                  explanation?: string
+                }
+              | ''
+            merchandise_not_as_described?:
+              | {
+                  additional_documentation?: string | ''
+                  explanation?: string
+                  received_at?: number | ''
+                  return_description?: string
+                  /** @enum {string} */
+                  return_status?: '' | 'merchant_rejected' | 'successful'
+                  returned_at?: number | ''
+                }
+              | ''
+            not_received?:
+              | {
+                  additional_documentation?: string | ''
+                  expected_at?: number | ''
+                  explanation?: string
+                  product_description?: string
+                  /** @enum {string} */
+                  product_type?: '' | 'merchandise' | 'service'
+                }
+              | ''
+            other?:
+              | {
+                  additional_documentation?: string | ''
+                  explanation?: string
+                  product_description?: string
+                  /** @enum {string} */
+                  product_type?: '' | 'merchandise' | 'service'
+                }
+              | ''
             /** @enum {string} */
             reason?: 'canceled' | 'duplicate' | 'fraudulent' | 'merchandise_not_as_described' | 'not_received' | 'other' | 'service_not_as_described'
-            service_not_as_described?: Partial<{
-              additional_documentation?: Partial<string> & Partial<''>
-              canceled_at?: Partial<number> & Partial<''>
-              cancellation_reason?: string
-              explanation?: string
-              received_at?: Partial<number> & Partial<''>
-            }> &
-              Partial<''>
+            service_not_as_described?:
+              | {
+                  additional_documentation?: string | ''
+                  canceled_at?: number | ''
+                  cancellation_reason?: string
+                  explanation?: string
+                  received_at?: number | ''
+                }
+              | ''
           }
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -31636,7 +31738,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -31646,13 +31748,14 @@ export type operations = {
     parameters: {
       query: {
         /** Only return issuing settlements that were created during the given date interval. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -31766,13 +31869,14 @@ export type operations = {
         /** Only return transactions that belong to the given cardholder. */
         cardholder?: string
         /** Only return transactions that were created during the given date interval. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -31874,7 +31978,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -31915,13 +32019,14 @@ export type operations = {
     parameters: {
       query: {
         /** Date this return was created. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -32001,13 +32106,14 @@ export type operations = {
     parameters: {
       query: {
         /** Date this order was created. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** Only return orders for the given customer. */
         customer?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -32024,34 +32130,38 @@ export type operations = {
         status?: string
         /** Filter orders based on when they were paid, fulfilled, canceled, or returned. */
         status_transitions?: {
-          canceled?: Partial<{
-            gt?: number
-            gte?: number
-            lt?: number
-            lte?: number
-          }> &
-            Partial<number>
-          fulfilled?: Partial<{
-            gt?: number
-            gte?: number
-            lt?: number
-            lte?: number
-          }> &
-            Partial<number>
-          paid?: Partial<{
-            gt?: number
-            gte?: number
-            lt?: number
-            lte?: number
-          }> &
-            Partial<number>
-          returned?: Partial<{
-            gt?: number
-            gte?: number
-            lt?: number
-            lte?: number
-          }> &
-            Partial<number>
+          canceled?:
+            | {
+                gt?: number
+                gte?: number
+                lt?: number
+                lte?: number
+              }
+            | number
+          fulfilled?:
+            | {
+                gt?: number
+                gte?: number
+                lt?: number
+                lte?: number
+              }
+            | number
+          paid?:
+            | {
+                gt?: number
+                gte?: number
+                lt?: number
+                lte?: number
+              }
+            | number
+          returned?:
+            | {
+                gt?: number
+                gte?: number
+                lt?: number
+                lte?: number
+              }
+            | number
         }
         /** Only return orders with the given upstream order IDs. */
         upstream_ids?: string[]
@@ -32210,7 +32320,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The shipping method to select for fulfilling this order. If specified, must be one of the `id`s of a shipping method in the `shipping_methods` array. If specified, will overwrite the existing selected shipping method, updating `items` as necessary. */
           selected_shipping_method?: string
           /**
@@ -32297,17 +32407,16 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description List of items to return. */
-          items?: Partial<
-            {
-              amount?: number
-              description?: string
-              parent?: string
-              quantity?: number
-              /** @enum {string} */
-              type?: 'discount' | 'shipping' | 'sku' | 'tax'
-            }[]
-          > &
-            Partial<''>
+          items?:
+            | {
+                amount?: number
+                description?: string
+                parent?: string
+                quantity?: number
+                /** @enum {string} */
+                type?: 'discount' | 'shipping' | 'sku' | 'tax'
+              }[]
+            | ''
         }
       }
     }
@@ -32317,13 +32426,14 @@ export type operations = {
     parameters: {
       query: {
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** Only return PaymentIntents for the customer specified by this customer ID. */
         customer?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -32458,7 +32568,7 @@ export type operations = {
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: { [key: string]: string }
           /** @description Set to `true` to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
-          off_session?: Partial<boolean> & Partial<'one_off' | 'recurring'>
+          off_session?: boolean | ('one_off' | 'recurring')
           /** @description The Stripe account ID for which these funds are intended. For details, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
           on_behalf_of?: string
           /**
@@ -32498,16 +32608,17 @@ export type operations = {
             bancontact?: { [key: string]: unknown }
             /** billing_details_inner_params */
             billing_details?: {
-              address?: Partial<{
-                city?: string
-                country?: string
-                line1?: string
-                line2?: string
-                postal_code?: string
-                state?: string
-              }> &
-                Partial<''>
-              email?: Partial<string> & Partial<''>
+              address?:
+                | {
+                    city?: string
+                    country?: string
+                    line1?: string
+                    line2?: string
+                    postal_code?: string
+                    state?: string
+                  }
+                | ''
+              email?: string | ''
               name?: string
               phone?: string
             }
@@ -32676,122 +32787,134 @@ export type operations = {
            * @description Payment-method-specific configuration for this PaymentIntent.
            */
           payment_method_options?: {
-            acss_debit?: Partial<{
-              /** payment_intent_payment_method_options_mandate_options_param */
-              mandate_options?: {
-                custom_mandate_url?: Partial<string> & Partial<''>
-                interval_description?: string
-                /** @enum {string} */
-                payment_schedule?: 'combined' | 'interval' | 'sporadic'
-                /** @enum {string} */
-                transaction_type?: 'business' | 'personal'
-              }
-              /** @enum {string} */
-              verification_method?: 'automatic' | 'instant' | 'microdeposits'
-            }> &
-              Partial<''>
-            afterpay_clearpay?: Partial<{
-              reference?: string
-            }> &
-              Partial<''>
-            alipay?: Partial<{ [key: string]: unknown }> & Partial<''>
-            au_becs_debit?: Partial<{ [key: string]: unknown }> & Partial<''>
-            bacs_debit?: Partial<{ [key: string]: unknown }> & Partial<''>
-            bancontact?: Partial<{
-              /** @enum {string} */
-              preferred_language?: 'de' | 'en' | 'fr' | 'nl'
-            }> &
-              Partial<''>
-            boleto?: Partial<{
-              expires_after_days?: number
-            }> &
-              Partial<''>
-            card?: Partial<{
-              cvc_token?: string
-              /** installments_param */
-              installments?: {
-                enabled?: boolean
-                plan?: Partial<{
-                  count: number
+            acss_debit?:
+              | {
+                  /** payment_intent_payment_method_options_mandate_options_param */
+                  mandate_options?: {
+                    custom_mandate_url?: string | ''
+                    interval_description?: string
+                    /** @enum {string} */
+                    payment_schedule?: 'combined' | 'interval' | 'sporadic'
+                    /** @enum {string} */
+                    transaction_type?: 'business' | 'personal'
+                  }
                   /** @enum {string} */
-                  interval: 'month'
+                  verification_method?: 'automatic' | 'instant' | 'microdeposits'
+                }
+              | ''
+            afterpay_clearpay?:
+              | {
+                  reference?: string
+                }
+              | ''
+            alipay?: { [key: string]: unknown } | ''
+            au_becs_debit?: { [key: string]: unknown } | ''
+            bacs_debit?: { [key: string]: unknown } | ''
+            bancontact?:
+              | {
                   /** @enum {string} */
-                  type: 'fixed_count'
-                }> &
-                  Partial<''>
-              }
-              /** @enum {string} */
-              network?: 'amex' | 'cartes_bancaires' | 'diners' | 'discover' | 'interac' | 'jcb' | 'mastercard' | 'unionpay' | 'unknown' | 'visa'
-              /** @enum {string} */
-              request_three_d_secure?: 'any' | 'automatic'
-              /** @enum {string} */
-              setup_future_usage?: '' | 'none' | 'off_session' | 'on_session'
-            }> &
-              Partial<''>
-            card_present?: Partial<{ [key: string]: unknown }> & Partial<''>
-            eps?: Partial<{ [key: string]: unknown }> & Partial<''>
-            fpx?: Partial<{ [key: string]: unknown }> & Partial<''>
-            giropay?: Partial<{ [key: string]: unknown }> & Partial<''>
-            grabpay?: Partial<{ [key: string]: unknown }> & Partial<''>
-            ideal?: Partial<{ [key: string]: unknown }> & Partial<''>
-            interac_present?: Partial<{ [key: string]: unknown }> & Partial<''>
-            klarna?: Partial<{
-              /** @enum {string} */
-              preferred_locale?:
-                | 'da-DK'
-                | 'de-AT'
-                | 'de-DE'
-                | 'en-AT'
-                | 'en-BE'
-                | 'en-DE'
-                | 'en-DK'
-                | 'en-ES'
-                | 'en-FI'
-                | 'en-FR'
-                | 'en-GB'
-                | 'en-IE'
-                | 'en-IT'
-                | 'en-NL'
-                | 'en-NO'
-                | 'en-SE'
-                | 'en-US'
-                | 'es-ES'
-                | 'es-US'
-                | 'fi-FI'
-                | 'fr-BE'
-                | 'fr-FR'
-                | 'it-IT'
-                | 'nb-NO'
-                | 'nl-BE'
-                | 'nl-NL'
-                | 'sv-FI'
-                | 'sv-SE'
-            }> &
-              Partial<''>
-            oxxo?: Partial<{
-              expires_after_days?: number
-            }> &
-              Partial<''>
-            p24?: Partial<{
-              tos_shown_and_accepted?: boolean
-            }> &
-              Partial<''>
-            sepa_debit?: Partial<{
-              /** payment_method_options_mandate_options_param */
-              mandate_options?: { [key: string]: unknown }
-            }> &
-              Partial<''>
-            sofort?: Partial<{
-              /** @enum {string} */
-              preferred_language?: '' | 'de' | 'en' | 'es' | 'fr' | 'it' | 'nl' | 'pl'
-            }> &
-              Partial<''>
-            wechat_pay?: Partial<{
-              app_id?: string
-              /** @enum {string} */
-              client: 'android' | 'ios' | 'web'
-            }> &
-              Partial<''>
+                  preferred_language?: 'de' | 'en' | 'fr' | 'nl'
+                }
+              | ''
+            boleto?:
+              | {
+                  expires_after_days?: number
+                }
+              | ''
+            card?:
+              | {
+                  cvc_token?: string
+                  /** installments_param */
+                  installments?: {
+                    enabled?: boolean
+                    plan?:
+                      | {
+                          count: number
+                          /** @enum {string} */
+                          interval: 'month'
+                          /** @enum {string} */
+                          type: 'fixed_count'
+                        }
+                      | ''
+                  }
+                  /** @enum {string} */
+                  network?: 'amex' | 'cartes_bancaires' | 'diners' | 'discover' | 'interac' | 'jcb' | 'mastercard' | 'unionpay' | 'unknown' | 'visa'
+                  /** @enum {string} */
+                  request_three_d_secure?: 'any' | 'automatic'
+                  /** @enum {string} */
+                  setup_future_usage?: '' | 'none' | 'off_session' | 'on_session'
+                }
+              | ''
+            card_present?: { [key: string]: unknown } | ''
+            eps?: { [key: string]: unknown } | ''
+            fpx?: { [key: string]: unknown } | ''
+            giropay?: { [key: string]: unknown } | ''
+            grabpay?: { [key: string]: unknown } | ''
+            ideal?: { [key: string]: unknown } | ''
+            interac_present?: { [key: string]: unknown } | ''
+            klarna?:
+              | {
+                  /** @enum {string} */
+                  preferred_locale?:
+                    | 'da-DK'
+                    | 'de-AT'
+                    | 'de-DE'
+                    | 'en-AT'
+                    | 'en-BE'
+                    | 'en-DE'
+                    | 'en-DK'
+                    | 'en-ES'
+                    | 'en-FI'
+                    | 'en-FR'
+                    | 'en-GB'
+                    | 'en-IE'
+                    | 'en-IT'
+                    | 'en-NL'
+                    | 'en-NO'
+                    | 'en-SE'
+                    | 'en-US'
+                    | 'es-ES'
+                    | 'es-US'
+                    | 'fi-FI'
+                    | 'fr-BE'
+                    | 'fr-FR'
+                    | 'it-IT'
+                    | 'nb-NO'
+                    | 'nl-BE'
+                    | 'nl-NL'
+                    | 'sv-FI'
+                    | 'sv-SE'
+                }
+              | ''
+            oxxo?:
+              | {
+                  expires_after_days?: number
+                }
+              | ''
+            p24?:
+              | {
+                  tos_shown_and_accepted?: boolean
+                }
+              | ''
+            sepa_debit?:
+              | {
+                  /** payment_method_options_mandate_options_param */
+                  mandate_options?: { [key: string]: unknown }
+                }
+              | ''
+            sofort?:
+              | {
+                  /** @enum {string} */
+                  preferred_language?: '' | 'de' | 'en' | 'es' | 'fr' | 'it' | 'nl' | 'pl'
+                }
+              | ''
+            wechat_pay?:
+              | {
+                  app_id?: string
+                  /** @enum {string} */
+                  client: 'android' | 'ios' | 'web'
+                }
+              | ''
           }
           /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. If this is not provided, defaults to ["card"]. */
           payment_method_types?: string[]
@@ -32922,7 +33045,7 @@ export type operations = {
           /** @description Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99). */
           amount?: number
           /** @description The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
-          application_fee_amount?: Partial<number> & Partial<''>
+          application_fee_amount?: number | ''
           /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency?: string
           /**
@@ -32938,7 +33061,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent. */
           payment_method?: string
           /**
@@ -32972,16 +33095,17 @@ export type operations = {
             bancontact?: { [key: string]: unknown }
             /** billing_details_inner_params */
             billing_details?: {
-              address?: Partial<{
-                city?: string
-                country?: string
-                line1?: string
-                line2?: string
-                postal_code?: string
-                state?: string
-              }> &
-                Partial<''>
-              email?: Partial<string> & Partial<''>
+              address?:
+                | {
+                    city?: string
+                    country?: string
+                    line1?: string
+                    line2?: string
+                    postal_code?: string
+                    state?: string
+                  }
+                | ''
+              email?: string | ''
               name?: string
               phone?: string
             }
@@ -33150,127 +33274,139 @@ export type operations = {
            * @description Payment-method-specific configuration for this PaymentIntent.
            */
           payment_method_options?: {
-            acss_debit?: Partial<{
-              /** payment_intent_payment_method_options_mandate_options_param */
-              mandate_options?: {
-                custom_mandate_url?: Partial<string> & Partial<''>
-                interval_description?: string
-                /** @enum {string} */
-                payment_schedule?: 'combined' | 'interval' | 'sporadic'
-                /** @enum {string} */
-                transaction_type?: 'business' | 'personal'
-              }
-              /** @enum {string} */
-              verification_method?: 'automatic' | 'instant' | 'microdeposits'
-            }> &
-              Partial<''>
-            afterpay_clearpay?: Partial<{
-              reference?: string
-            }> &
-              Partial<''>
-            alipay?: Partial<{ [key: string]: unknown }> & Partial<''>
-            au_becs_debit?: Partial<{ [key: string]: unknown }> & Partial<''>
-            bacs_debit?: Partial<{ [key: string]: unknown }> & Partial<''>
-            bancontact?: Partial<{
-              /** @enum {string} */
-              preferred_language?: 'de' | 'en' | 'fr' | 'nl'
-            }> &
-              Partial<''>
-            boleto?: Partial<{
-              expires_after_days?: number
-            }> &
-              Partial<''>
-            card?: Partial<{
-              cvc_token?: string
-              /** installments_param */
-              installments?: {
-                enabled?: boolean
-                plan?: Partial<{
-                  count: number
+            acss_debit?:
+              | {
+                  /** payment_intent_payment_method_options_mandate_options_param */
+                  mandate_options?: {
+                    custom_mandate_url?: string | ''
+                    interval_description?: string
+                    /** @enum {string} */
+                    payment_schedule?: 'combined' | 'interval' | 'sporadic'
+                    /** @enum {string} */
+                    transaction_type?: 'business' | 'personal'
+                  }
                   /** @enum {string} */
-                  interval: 'month'
+                  verification_method?: 'automatic' | 'instant' | 'microdeposits'
+                }
+              | ''
+            afterpay_clearpay?:
+              | {
+                  reference?: string
+                }
+              | ''
+            alipay?: { [key: string]: unknown } | ''
+            au_becs_debit?: { [key: string]: unknown } | ''
+            bacs_debit?: { [key: string]: unknown } | ''
+            bancontact?:
+              | {
                   /** @enum {string} */
-                  type: 'fixed_count'
-                }> &
-                  Partial<''>
-              }
-              /** @enum {string} */
-              network?: 'amex' | 'cartes_bancaires' | 'diners' | 'discover' | 'interac' | 'jcb' | 'mastercard' | 'unionpay' | 'unknown' | 'visa'
-              /** @enum {string} */
-              request_three_d_secure?: 'any' | 'automatic'
-              /** @enum {string} */
-              setup_future_usage?: '' | 'none' | 'off_session' | 'on_session'
-            }> &
-              Partial<''>
-            card_present?: Partial<{ [key: string]: unknown }> & Partial<''>
-            eps?: Partial<{ [key: string]: unknown }> & Partial<''>
-            fpx?: Partial<{ [key: string]: unknown }> & Partial<''>
-            giropay?: Partial<{ [key: string]: unknown }> & Partial<''>
-            grabpay?: Partial<{ [key: string]: unknown }> & Partial<''>
-            ideal?: Partial<{ [key: string]: unknown }> & Partial<''>
-            interac_present?: Partial<{ [key: string]: unknown }> & Partial<''>
-            klarna?: Partial<{
-              /** @enum {string} */
-              preferred_locale?:
-                | 'da-DK'
-                | 'de-AT'
-                | 'de-DE'
-                | 'en-AT'
-                | 'en-BE'
-                | 'en-DE'
-                | 'en-DK'
-                | 'en-ES'
-                | 'en-FI'
-                | 'en-FR'
-                | 'en-GB'
-                | 'en-IE'
-                | 'en-IT'
-                | 'en-NL'
-                | 'en-NO'
-                | 'en-SE'
-                | 'en-US'
-                | 'es-ES'
-                | 'es-US'
-                | 'fi-FI'
-                | 'fr-BE'
-                | 'fr-FR'
-                | 'it-IT'
-                | 'nb-NO'
-                | 'nl-BE'
-                | 'nl-NL'
-                | 'sv-FI'
-                | 'sv-SE'
-            }> &
-              Partial<''>
-            oxxo?: Partial<{
-              expires_after_days?: number
-            }> &
-              Partial<''>
-            p24?: Partial<{
-              tos_shown_and_accepted?: boolean
-            }> &
-              Partial<''>
-            sepa_debit?: Partial<{
-              /** payment_method_options_mandate_options_param */
-              mandate_options?: { [key: string]: unknown }
-            }> &
-              Partial<''>
-            sofort?: Partial<{
-              /** @enum {string} */
-              preferred_language?: '' | 'de' | 'en' | 'es' | 'fr' | 'it' | 'nl' | 'pl'
-            }> &
-              Partial<''>
-            wechat_pay?: Partial<{
-              app_id?: string
-              /** @enum {string} */
-              client: 'android' | 'ios' | 'web'
-            }> &
-              Partial<''>
+                  preferred_language?: 'de' | 'en' | 'fr' | 'nl'
+                }
+              | ''
+            boleto?:
+              | {
+                  expires_after_days?: number
+                }
+              | ''
+            card?:
+              | {
+                  cvc_token?: string
+                  /** installments_param */
+                  installments?: {
+                    enabled?: boolean
+                    plan?:
+                      | {
+                          count: number
+                          /** @enum {string} */
+                          interval: 'month'
+                          /** @enum {string} */
+                          type: 'fixed_count'
+                        }
+                      | ''
+                  }
+                  /** @enum {string} */
+                  network?: 'amex' | 'cartes_bancaires' | 'diners' | 'discover' | 'interac' | 'jcb' | 'mastercard' | 'unionpay' | 'unknown' | 'visa'
+                  /** @enum {string} */
+                  request_three_d_secure?: 'any' | 'automatic'
+                  /** @enum {string} */
+                  setup_future_usage?: '' | 'none' | 'off_session' | 'on_session'
+                }
+              | ''
+            card_present?: { [key: string]: unknown } | ''
+            eps?: { [key: string]: unknown } | ''
+            fpx?: { [key: string]: unknown } | ''
+            giropay?: { [key: string]: unknown } | ''
+            grabpay?: { [key: string]: unknown } | ''
+            ideal?: { [key: string]: unknown } | ''
+            interac_present?: { [key: string]: unknown } | ''
+            klarna?:
+              | {
+                  /** @enum {string} */
+                  preferred_locale?:
+                    | 'da-DK'
+                    | 'de-AT'
+                    | 'de-DE'
+                    | 'en-AT'
+                    | 'en-BE'
+                    | 'en-DE'
+                    | 'en-DK'
+                    | 'en-ES'
+                    | 'en-FI'
+                    | 'en-FR'
+                    | 'en-GB'
+                    | 'en-IE'
+                    | 'en-IT'
+                    | 'en-NL'
+                    | 'en-NO'
+                    | 'en-SE'
+                    | 'en-US'
+                    | 'es-ES'
+                    | 'es-US'
+                    | 'fi-FI'
+                    | 'fr-BE'
+                    | 'fr-FR'
+                    | 'it-IT'
+                    | 'nb-NO'
+                    | 'nl-BE'
+                    | 'nl-NL'
+                    | 'sv-FI'
+                    | 'sv-SE'
+                }
+              | ''
+            oxxo?:
+              | {
+                  expires_after_days?: number
+                }
+              | ''
+            p24?:
+              | {
+                  tos_shown_and_accepted?: boolean
+                }
+              | ''
+            sepa_debit?:
+              | {
+                  /** payment_method_options_mandate_options_param */
+                  mandate_options?: { [key: string]: unknown }
+                }
+              | ''
+            sofort?:
+              | {
+                  /** @enum {string} */
+                  preferred_language?: '' | 'de' | 'en' | 'es' | 'fr' | 'it' | 'nl' | 'pl'
+                }
+              | ''
+            wechat_pay?:
+              | {
+                  app_id?: string
+                  /** @enum {string} */
+                  client: 'android' | 'ios' | 'web'
+                }
+              | ''
           }
           /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. */
           payment_method_types?: string[]
           /** @description Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). */
-          receipt_email?: Partial<string> & Partial<''>
+          receipt_email?: string | ''
           /**
            * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
            *
@@ -33283,22 +33419,23 @@ export type operations = {
            */
           setup_future_usage?: '' | 'off_session' | 'on_session'
           /** @description Shipping information for this PaymentIntent. */
-          shipping?: Partial<{
-            /** optional_fields_address */
-            address: {
-              city?: string
-              country?: string
-              line1?: string
-              line2?: string
-              postal_code?: string
-              state?: string
-            }
-            carrier?: string
-            name: string
-            phone?: string
-            tracking_number?: string
-          }> &
-            Partial<''>
+          shipping?:
+            | {
+                /** optional_fields_address */
+                address: {
+                  city?: string
+                  country?: string
+                  line1?: string
+                  line2?: string
+                  postal_code?: string
+                  state?: string
+                }
+                carrier?: string
+                name: string
+                phone?: string
+                tracking_number?: string
+              }
+            | ''
           /** @description For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
           statement_descriptor?: string
           /** @description Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
@@ -33466,36 +33603,37 @@ export type operations = {
           /** @description ID of the mandate to be used for this payment. */
           mandate?: string
           /** @description This hash contains details about the Mandate to create */
-          mandate_data?: Partial<{
-            /** customer_acceptance_param */
-            customer_acceptance: {
-              /** Format: unix-time */
-              accepted_at?: number
-              /** offline_param */
-              offline?: { [key: string]: unknown }
-              /** online_param */
-              online?: {
-                ip_address: string
-                user_agent: string
-              }
-              /** @enum {string} */
-              type: 'offline' | 'online'
-            }
-          }> &
-            Partial<{
-              /** customer_acceptance_param */
-              customer_acceptance: {
-                /** online_param */
-                online: {
-                  ip_address?: string
-                  user_agent?: string
+          mandate_data?:
+            | {
+                /** customer_acceptance_param */
+                customer_acceptance: {
+                  /** Format: unix-time */
+                  accepted_at?: number
+                  /** offline_param */
+                  offline?: { [key: string]: unknown }
+                  /** online_param */
+                  online?: {
+                    ip_address: string
+                    user_agent: string
+                  }
+                  /** @enum {string} */
+                  type: 'offline' | 'online'
                 }
-                /** @enum {string} */
-                type: 'online'
               }
-            }>
+            | {
+                /** customer_acceptance_param */
+                customer_acceptance: {
+                  /** online_param */
+                  online: {
+                    ip_address?: string
+                    user_agent?: string
+                  }
+                  /** @enum {string} */
+                  type: 'online'
+                }
+              }
           /** @description Set to `true` to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). */
-          off_session?: Partial<boolean> & Partial<'one_off' | 'recurring'>
+          off_session?: boolean | ('one_off' | 'recurring')
           /** @description ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent. */
           payment_method?: string
           /**
@@ -33529,16 +33667,17 @@ export type operations = {
             bancontact?: { [key: string]: unknown }
             /** billing_details_inner_params */
             billing_details?: {
-              address?: Partial<{
-                city?: string
-                country?: string
-                line1?: string
-                line2?: string
-                postal_code?: string
-                state?: string
-              }> &
-                Partial<''>
-              email?: Partial<string> & Partial<''>
+              address?:
+                | {
+                    city?: string
+                    country?: string
+                    line1?: string
+                    line2?: string
+                    postal_code?: string
+                    state?: string
+                  }
+                | ''
+              email?: string | ''
               name?: string
               phone?: string
             }
@@ -33707,127 +33846,139 @@ export type operations = {
            * @description Payment-method-specific configuration for this PaymentIntent.
            */
           payment_method_options?: {
-            acss_debit?: Partial<{
-              /** payment_intent_payment_method_options_mandate_options_param */
-              mandate_options?: {
-                custom_mandate_url?: Partial<string> & Partial<''>
-                interval_description?: string
-                /** @enum {string} */
-                payment_schedule?: 'combined' | 'interval' | 'sporadic'
-                /** @enum {string} */
-                transaction_type?: 'business' | 'personal'
-              }
-              /** @enum {string} */
-              verification_method?: 'automatic' | 'instant' | 'microdeposits'
-            }> &
-              Partial<''>
-            afterpay_clearpay?: Partial<{
-              reference?: string
-            }> &
-              Partial<''>
-            alipay?: Partial<{ [key: string]: unknown }> & Partial<''>
-            au_becs_debit?: Partial<{ [key: string]: unknown }> & Partial<''>
-            bacs_debit?: Partial<{ [key: string]: unknown }> & Partial<''>
-            bancontact?: Partial<{
-              /** @enum {string} */
-              preferred_language?: 'de' | 'en' | 'fr' | 'nl'
-            }> &
-              Partial<''>
-            boleto?: Partial<{
-              expires_after_days?: number
-            }> &
-              Partial<''>
-            card?: Partial<{
-              cvc_token?: string
-              /** installments_param */
-              installments?: {
-                enabled?: boolean
-                plan?: Partial<{
-                  count: number
+            acss_debit?:
+              | {
+                  /** payment_intent_payment_method_options_mandate_options_param */
+                  mandate_options?: {
+                    custom_mandate_url?: string | ''
+                    interval_description?: string
+                    /** @enum {string} */
+                    payment_schedule?: 'combined' | 'interval' | 'sporadic'
+                    /** @enum {string} */
+                    transaction_type?: 'business' | 'personal'
+                  }
                   /** @enum {string} */
-                  interval: 'month'
+                  verification_method?: 'automatic' | 'instant' | 'microdeposits'
+                }
+              | ''
+            afterpay_clearpay?:
+              | {
+                  reference?: string
+                }
+              | ''
+            alipay?: { [key: string]: unknown } | ''
+            au_becs_debit?: { [key: string]: unknown } | ''
+            bacs_debit?: { [key: string]: unknown } | ''
+            bancontact?:
+              | {
                   /** @enum {string} */
-                  type: 'fixed_count'
-                }> &
-                  Partial<''>
-              }
-              /** @enum {string} */
-              network?: 'amex' | 'cartes_bancaires' | 'diners' | 'discover' | 'interac' | 'jcb' | 'mastercard' | 'unionpay' | 'unknown' | 'visa'
-              /** @enum {string} */
-              request_three_d_secure?: 'any' | 'automatic'
-              /** @enum {string} */
-              setup_future_usage?: '' | 'none' | 'off_session' | 'on_session'
-            }> &
-              Partial<''>
-            card_present?: Partial<{ [key: string]: unknown }> & Partial<''>
-            eps?: Partial<{ [key: string]: unknown }> & Partial<''>
-            fpx?: Partial<{ [key: string]: unknown }> & Partial<''>
-            giropay?: Partial<{ [key: string]: unknown }> & Partial<''>
-            grabpay?: Partial<{ [key: string]: unknown }> & Partial<''>
-            ideal?: Partial<{ [key: string]: unknown }> & Partial<''>
-            interac_present?: Partial<{ [key: string]: unknown }> & Partial<''>
-            klarna?: Partial<{
-              /** @enum {string} */
-              preferred_locale?:
-                | 'da-DK'
-                | 'de-AT'
-                | 'de-DE'
-                | 'en-AT'
-                | 'en-BE'
-                | 'en-DE'
-                | 'en-DK'
-                | 'en-ES'
-                | 'en-FI'
-                | 'en-FR'
-                | 'en-GB'
-                | 'en-IE'
-                | 'en-IT'
-                | 'en-NL'
-                | 'en-NO'
-                | 'en-SE'
-                | 'en-US'
-                | 'es-ES'
-                | 'es-US'
-                | 'fi-FI'
-                | 'fr-BE'
-                | 'fr-FR'
-                | 'it-IT'
-                | 'nb-NO'
-                | 'nl-BE'
-                | 'nl-NL'
-                | 'sv-FI'
-                | 'sv-SE'
-            }> &
-              Partial<''>
-            oxxo?: Partial<{
-              expires_after_days?: number
-            }> &
-              Partial<''>
-            p24?: Partial<{
-              tos_shown_and_accepted?: boolean
-            }> &
-              Partial<''>
-            sepa_debit?: Partial<{
-              /** payment_method_options_mandate_options_param */
-              mandate_options?: { [key: string]: unknown }
-            }> &
-              Partial<''>
-            sofort?: Partial<{
-              /** @enum {string} */
-              preferred_language?: '' | 'de' | 'en' | 'es' | 'fr' | 'it' | 'nl' | 'pl'
-            }> &
-              Partial<''>
-            wechat_pay?: Partial<{
-              app_id?: string
-              /** @enum {string} */
-              client: 'android' | 'ios' | 'web'
-            }> &
-              Partial<''>
+                  preferred_language?: 'de' | 'en' | 'fr' | 'nl'
+                }
+              | ''
+            boleto?:
+              | {
+                  expires_after_days?: number
+                }
+              | ''
+            card?:
+              | {
+                  cvc_token?: string
+                  /** installments_param */
+                  installments?: {
+                    enabled?: boolean
+                    plan?:
+                      | {
+                          count: number
+                          /** @enum {string} */
+                          interval: 'month'
+                          /** @enum {string} */
+                          type: 'fixed_count'
+                        }
+                      | ''
+                  }
+                  /** @enum {string} */
+                  network?: 'amex' | 'cartes_bancaires' | 'diners' | 'discover' | 'interac' | 'jcb' | 'mastercard' | 'unionpay' | 'unknown' | 'visa'
+                  /** @enum {string} */
+                  request_three_d_secure?: 'any' | 'automatic'
+                  /** @enum {string} */
+                  setup_future_usage?: '' | 'none' | 'off_session' | 'on_session'
+                }
+              | ''
+            card_present?: { [key: string]: unknown } | ''
+            eps?: { [key: string]: unknown } | ''
+            fpx?: { [key: string]: unknown } | ''
+            giropay?: { [key: string]: unknown } | ''
+            grabpay?: { [key: string]: unknown } | ''
+            ideal?: { [key: string]: unknown } | ''
+            interac_present?: { [key: string]: unknown } | ''
+            klarna?:
+              | {
+                  /** @enum {string} */
+                  preferred_locale?:
+                    | 'da-DK'
+                    | 'de-AT'
+                    | 'de-DE'
+                    | 'en-AT'
+                    | 'en-BE'
+                    | 'en-DE'
+                    | 'en-DK'
+                    | 'en-ES'
+                    | 'en-FI'
+                    | 'en-FR'
+                    | 'en-GB'
+                    | 'en-IE'
+                    | 'en-IT'
+                    | 'en-NL'
+                    | 'en-NO'
+                    | 'en-SE'
+                    | 'en-US'
+                    | 'es-ES'
+                    | 'es-US'
+                    | 'fi-FI'
+                    | 'fr-BE'
+                    | 'fr-FR'
+                    | 'it-IT'
+                    | 'nb-NO'
+                    | 'nl-BE'
+                    | 'nl-NL'
+                    | 'sv-FI'
+                    | 'sv-SE'
+                }
+              | ''
+            oxxo?:
+              | {
+                  expires_after_days?: number
+                }
+              | ''
+            p24?:
+              | {
+                  tos_shown_and_accepted?: boolean
+                }
+              | ''
+            sepa_debit?:
+              | {
+                  /** payment_method_options_mandate_options_param */
+                  mandate_options?: { [key: string]: unknown }
+                }
+              | ''
+            sofort?:
+              | {
+                  /** @enum {string} */
+                  preferred_language?: '' | 'de' | 'en' | 'es' | 'fr' | 'it' | 'nl' | 'pl'
+                }
+              | ''
+            wechat_pay?:
+              | {
+                  app_id?: string
+                  /** @enum {string} */
+                  client: 'android' | 'ios' | 'web'
+                }
+              | ''
           }
           /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. */
           payment_method_types?: string[]
           /** @description Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). */
-          receipt_email?: Partial<string> & Partial<''>
+          receipt_email?: string | ''
           /**
            * @description The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
            * If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
@@ -33846,22 +33997,23 @@ export type operations = {
            */
           setup_future_usage?: '' | 'off_session' | 'on_session'
           /** @description Shipping information for this PaymentIntent. */
-          shipping?: Partial<{
-            /** optional_fields_address */
-            address: {
-              city?: string
-              country?: string
-              line1?: string
-              line2?: string
-              postal_code?: string
-              state?: string
-            }
-            carrier?: string
-            name: string
-            phone?: string
-            tracking_number?: string
-          }> &
-            Partial<''>
+          shipping?:
+            | {
+                /** optional_fields_address */
+                address: {
+                  city?: string
+                  country?: string
+                  line1?: string
+                  line2?: string
+                  postal_code?: string
+                  state?: string
+                }
+                carrier?: string
+                name: string
+                phone?: string
+                tracking_number?: string
+              }
+            | ''
           /** @description Set to `true` only when using manual confirmation and the iOS or Android SDKs to handle additional authentication steps. */
           use_stripe_sdk?: boolean
         }
@@ -34397,250 +34549,251 @@ export type operations = {
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link. */
           metadata?: { [key: string]: string }
           /** @description The list of payment method types that customers can use. Only `card` is supported. Pass an empty string to enable automatic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
-          payment_method_types?: Partial<'card'[]> & Partial<''>
+          payment_method_types?: 'card'[] | ''
           /** @description Configuration for collecting the customer's shipping address. */
-          shipping_address_collection?: Partial<{
-            allowed_countries: (
-              | 'AC'
-              | 'AD'
-              | 'AE'
-              | 'AF'
-              | 'AG'
-              | 'AI'
-              | 'AL'
-              | 'AM'
-              | 'AO'
-              | 'AQ'
-              | 'AR'
-              | 'AT'
-              | 'AU'
-              | 'AW'
-              | 'AX'
-              | 'AZ'
-              | 'BA'
-              | 'BB'
-              | 'BD'
-              | 'BE'
-              | 'BF'
-              | 'BG'
-              | 'BH'
-              | 'BI'
-              | 'BJ'
-              | 'BL'
-              | 'BM'
-              | 'BN'
-              | 'BO'
-              | 'BQ'
-              | 'BR'
-              | 'BS'
-              | 'BT'
-              | 'BV'
-              | 'BW'
-              | 'BY'
-              | 'BZ'
-              | 'CA'
-              | 'CD'
-              | 'CF'
-              | 'CG'
-              | 'CH'
-              | 'CI'
-              | 'CK'
-              | 'CL'
-              | 'CM'
-              | 'CN'
-              | 'CO'
-              | 'CR'
-              | 'CV'
-              | 'CW'
-              | 'CY'
-              | 'CZ'
-              | 'DE'
-              | 'DJ'
-              | 'DK'
-              | 'DM'
-              | 'DO'
-              | 'DZ'
-              | 'EC'
-              | 'EE'
-              | 'EG'
-              | 'EH'
-              | 'ER'
-              | 'ES'
-              | 'ET'
-              | 'FI'
-              | 'FJ'
-              | 'FK'
-              | 'FO'
-              | 'FR'
-              | 'GA'
-              | 'GB'
-              | 'GD'
-              | 'GE'
-              | 'GF'
-              | 'GG'
-              | 'GH'
-              | 'GI'
-              | 'GL'
-              | 'GM'
-              | 'GN'
-              | 'GP'
-              | 'GQ'
-              | 'GR'
-              | 'GS'
-              | 'GT'
-              | 'GU'
-              | 'GW'
-              | 'GY'
-              | 'HK'
-              | 'HN'
-              | 'HR'
-              | 'HT'
-              | 'HU'
-              | 'ID'
-              | 'IE'
-              | 'IL'
-              | 'IM'
-              | 'IN'
-              | 'IO'
-              | 'IQ'
-              | 'IS'
-              | 'IT'
-              | 'JE'
-              | 'JM'
-              | 'JO'
-              | 'JP'
-              | 'KE'
-              | 'KG'
-              | 'KH'
-              | 'KI'
-              | 'KM'
-              | 'KN'
-              | 'KR'
-              | 'KW'
-              | 'KY'
-              | 'KZ'
-              | 'LA'
-              | 'LB'
-              | 'LC'
-              | 'LI'
-              | 'LK'
-              | 'LR'
-              | 'LS'
-              | 'LT'
-              | 'LU'
-              | 'LV'
-              | 'LY'
-              | 'MA'
-              | 'MC'
-              | 'MD'
-              | 'ME'
-              | 'MF'
-              | 'MG'
-              | 'MK'
-              | 'ML'
-              | 'MM'
-              | 'MN'
-              | 'MO'
-              | 'MQ'
-              | 'MR'
-              | 'MS'
-              | 'MT'
-              | 'MU'
-              | 'MV'
-              | 'MW'
-              | 'MX'
-              | 'MY'
-              | 'MZ'
-              | 'NA'
-              | 'NC'
-              | 'NE'
-              | 'NG'
-              | 'NI'
-              | 'NL'
-              | 'NO'
-              | 'NP'
-              | 'NR'
-              | 'NU'
-              | 'NZ'
-              | 'OM'
-              | 'PA'
-              | 'PE'
-              | 'PF'
-              | 'PG'
-              | 'PH'
-              | 'PK'
-              | 'PL'
-              | 'PM'
-              | 'PN'
-              | 'PR'
-              | 'PS'
-              | 'PT'
-              | 'PY'
-              | 'QA'
-              | 'RE'
-              | 'RO'
-              | 'RS'
-              | 'RU'
-              | 'RW'
-              | 'SA'
-              | 'SB'
-              | 'SC'
-              | 'SE'
-              | 'SG'
-              | 'SH'
-              | 'SI'
-              | 'SJ'
-              | 'SK'
-              | 'SL'
-              | 'SM'
-              | 'SN'
-              | 'SO'
-              | 'SR'
-              | 'SS'
-              | 'ST'
-              | 'SV'
-              | 'SX'
-              | 'SZ'
-              | 'TA'
-              | 'TC'
-              | 'TD'
-              | 'TF'
-              | 'TG'
-              | 'TH'
-              | 'TJ'
-              | 'TK'
-              | 'TL'
-              | 'TM'
-              | 'TN'
-              | 'TO'
-              | 'TR'
-              | 'TT'
-              | 'TV'
-              | 'TW'
-              | 'TZ'
-              | 'UA'
-              | 'UG'
-              | 'US'
-              | 'UY'
-              | 'UZ'
-              | 'VA'
-              | 'VC'
-              | 'VE'
-              | 'VG'
-              | 'VN'
-              | 'VU'
-              | 'WF'
-              | 'WS'
-              | 'XK'
-              | 'YE'
-              | 'YT'
-              | 'ZA'
-              | 'ZM'
-              | 'ZW'
-              | 'ZZ'
-            )[]
-          }> &
-            Partial<''>
+          shipping_address_collection?:
+            | {
+                allowed_countries: (
+                  | 'AC'
+                  | 'AD'
+                  | 'AE'
+                  | 'AF'
+                  | 'AG'
+                  | 'AI'
+                  | 'AL'
+                  | 'AM'
+                  | 'AO'
+                  | 'AQ'
+                  | 'AR'
+                  | 'AT'
+                  | 'AU'
+                  | 'AW'
+                  | 'AX'
+                  | 'AZ'
+                  | 'BA'
+                  | 'BB'
+                  | 'BD'
+                  | 'BE'
+                  | 'BF'
+                  | 'BG'
+                  | 'BH'
+                  | 'BI'
+                  | 'BJ'
+                  | 'BL'
+                  | 'BM'
+                  | 'BN'
+                  | 'BO'
+                  | 'BQ'
+                  | 'BR'
+                  | 'BS'
+                  | 'BT'
+                  | 'BV'
+                  | 'BW'
+                  | 'BY'
+                  | 'BZ'
+                  | 'CA'
+                  | 'CD'
+                  | 'CF'
+                  | 'CG'
+                  | 'CH'
+                  | 'CI'
+                  | 'CK'
+                  | 'CL'
+                  | 'CM'
+                  | 'CN'
+                  | 'CO'
+                  | 'CR'
+                  | 'CV'
+                  | 'CW'
+                  | 'CY'
+                  | 'CZ'
+                  | 'DE'
+                  | 'DJ'
+                  | 'DK'
+                  | 'DM'
+                  | 'DO'
+                  | 'DZ'
+                  | 'EC'
+                  | 'EE'
+                  | 'EG'
+                  | 'EH'
+                  | 'ER'
+                  | 'ES'
+                  | 'ET'
+                  | 'FI'
+                  | 'FJ'
+                  | 'FK'
+                  | 'FO'
+                  | 'FR'
+                  | 'GA'
+                  | 'GB'
+                  | 'GD'
+                  | 'GE'
+                  | 'GF'
+                  | 'GG'
+                  | 'GH'
+                  | 'GI'
+                  | 'GL'
+                  | 'GM'
+                  | 'GN'
+                  | 'GP'
+                  | 'GQ'
+                  | 'GR'
+                  | 'GS'
+                  | 'GT'
+                  | 'GU'
+                  | 'GW'
+                  | 'GY'
+                  | 'HK'
+                  | 'HN'
+                  | 'HR'
+                  | 'HT'
+                  | 'HU'
+                  | 'ID'
+                  | 'IE'
+                  | 'IL'
+                  | 'IM'
+                  | 'IN'
+                  | 'IO'
+                  | 'IQ'
+                  | 'IS'
+                  | 'IT'
+                  | 'JE'
+                  | 'JM'
+                  | 'JO'
+                  | 'JP'
+                  | 'KE'
+                  | 'KG'
+                  | 'KH'
+                  | 'KI'
+                  | 'KM'
+                  | 'KN'
+                  | 'KR'
+                  | 'KW'
+                  | 'KY'
+                  | 'KZ'
+                  | 'LA'
+                  | 'LB'
+                  | 'LC'
+                  | 'LI'
+                  | 'LK'
+                  | 'LR'
+                  | 'LS'
+                  | 'LT'
+                  | 'LU'
+                  | 'LV'
+                  | 'LY'
+                  | 'MA'
+                  | 'MC'
+                  | 'MD'
+                  | 'ME'
+                  | 'MF'
+                  | 'MG'
+                  | 'MK'
+                  | 'ML'
+                  | 'MM'
+                  | 'MN'
+                  | 'MO'
+                  | 'MQ'
+                  | 'MR'
+                  | 'MS'
+                  | 'MT'
+                  | 'MU'
+                  | 'MV'
+                  | 'MW'
+                  | 'MX'
+                  | 'MY'
+                  | 'MZ'
+                  | 'NA'
+                  | 'NC'
+                  | 'NE'
+                  | 'NG'
+                  | 'NI'
+                  | 'NL'
+                  | 'NO'
+                  | 'NP'
+                  | 'NR'
+                  | 'NU'
+                  | 'NZ'
+                  | 'OM'
+                  | 'PA'
+                  | 'PE'
+                  | 'PF'
+                  | 'PG'
+                  | 'PH'
+                  | 'PK'
+                  | 'PL'
+                  | 'PM'
+                  | 'PN'
+                  | 'PR'
+                  | 'PS'
+                  | 'PT'
+                  | 'PY'
+                  | 'QA'
+                  | 'RE'
+                  | 'RO'
+                  | 'RS'
+                  | 'RU'
+                  | 'RW'
+                  | 'SA'
+                  | 'SB'
+                  | 'SC'
+                  | 'SE'
+                  | 'SG'
+                  | 'SH'
+                  | 'SI'
+                  | 'SJ'
+                  | 'SK'
+                  | 'SL'
+                  | 'SM'
+                  | 'SN'
+                  | 'SO'
+                  | 'SR'
+                  | 'SS'
+                  | 'ST'
+                  | 'SV'
+                  | 'SX'
+                  | 'SZ'
+                  | 'TA'
+                  | 'TC'
+                  | 'TD'
+                  | 'TF'
+                  | 'TG'
+                  | 'TH'
+                  | 'TJ'
+                  | 'TK'
+                  | 'TL'
+                  | 'TM'
+                  | 'TN'
+                  | 'TO'
+                  | 'TR'
+                  | 'TT'
+                  | 'TV'
+                  | 'TW'
+                  | 'TZ'
+                  | 'UA'
+                  | 'UG'
+                  | 'US'
+                  | 'UY'
+                  | 'UZ'
+                  | 'VA'
+                  | 'VC'
+                  | 'VE'
+                  | 'VG'
+                  | 'VN'
+                  | 'VU'
+                  | 'WF'
+                  | 'WS'
+                  | 'XK'
+                  | 'YE'
+                  | 'YT'
+                  | 'ZA'
+                  | 'ZM'
+                  | 'ZW'
+                  | 'ZZ'
+                )[]
+              }
+            | ''
         }
       }
     }
@@ -34830,16 +34983,17 @@ export type operations = {
            * @description Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
            */
           billing_details?: {
-            address?: Partial<{
-              city?: string
-              country?: string
-              line1?: string
-              line2?: string
-              postal_code?: string
-              state?: string
-            }> &
-              Partial<''>
-            email?: Partial<string> & Partial<''>
+            address?:
+              | {
+                  city?: string
+                  country?: string
+                  line1?: string
+                  line2?: string
+                  postal_code?: string
+                  state?: string
+                }
+              | ''
+            email?: string | ''
             name?: string
             phone?: string
           }
@@ -34851,15 +35005,16 @@ export type operations = {
             tax_id: string
           }
           /** @description If this is a `card` PaymentMethod, this hash contains the user's card details. For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format `card: {token: "tok_visa"}`. When providing a card number, you must meet the requirements for [PCI compliance](https://stripe.com/docs/security#validating-pci-compliance). We strongly recommend using Stripe.js instead of interacting with this API directly. */
-          card?: Partial<{
-            cvc?: string
-            exp_month: number
-            exp_year: number
-            number: string
-          }> &
-            Partial<{
-              token: string
-            }>
+          card?:
+            | {
+                cvc?: string
+                exp_month: number
+                exp_year: number
+                number: string
+              }
+            | {
+                token: string
+              }
           /** @description The `Customer` to whom the original PaymentMethod is attached. */
           customer?: string
           /**
@@ -35126,16 +35281,17 @@ export type operations = {
            * @description Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
            */
           billing_details?: {
-            address?: Partial<{
-              city?: string
-              country?: string
-              line1?: string
-              line2?: string
-              postal_code?: string
-              state?: string
-            }> &
-              Partial<''>
-            email?: Partial<string> & Partial<''>
+            address?:
+              | {
+                  city?: string
+                  country?: string
+                  line1?: string
+                  line2?: string
+                  postal_code?: string
+                  state?: string
+                }
+              | ''
+            email?: string | ''
             name?: string
             phone?: string
           }
@@ -35150,7 +35306,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -35233,20 +35389,22 @@ export type operations = {
   GetPayouts: {
     parameters: {
       query: {
-        arrival_date?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        arrival_date?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** The ID of an external account - only return payouts sent to this external account. */
         destination?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -35403,7 +35561,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -35481,13 +35639,14 @@ export type operations = {
         /** Only return plans that are active or inactive (e.g., pass `false` to list all inactive plans). */
         active?: boolean
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -35584,19 +35743,20 @@ export type operations = {
           /** @description The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). */
           interval_count?: number
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description A brief description of the plan, hidden from customers. */
           nickname?: string
-          product?: Partial<{
-            active?: boolean
-            id?: string
-            metadata?: { [key: string]: string }
-            name: string
-            statement_descriptor?: string
-            tax_code?: string
-            unit_label?: string
-          }> &
-            Partial<string>
+          product?:
+            | {
+                active?: boolean
+                id?: string
+                metadata?: { [key: string]: string }
+                name: string
+                statement_descriptor?: string
+                tax_code?: string
+                unit_label?: string
+              }
+            | string
           /** @description Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
           tiers?: {
             flat_amount?: number
@@ -35605,7 +35765,7 @@ export type operations = {
             unit_amount?: number
             /** Format: decimal */
             unit_amount_decimal?: string
-            up_to: Partial<'inf'> & Partial<number>
+            up_to: 'inf' | number
           }[]
           /**
            * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows.
@@ -35692,7 +35852,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description A brief description of the plan, hidden from customers. */
           nickname?: string
           /** @description The product the plan belongs to. This cannot be changed once it has been used in a subscription or subscription schedule. */
@@ -35737,13 +35897,14 @@ export type operations = {
         /** Only return prices that are active or inactive (e.g., pass `false` to list all inactive prices). */
         active?: boolean
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** Only return prices for the given currency. */
         currency?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -35878,7 +36039,7 @@ export type operations = {
             unit_amount?: number
             /** Format: decimal */
             unit_amount_decimal?: string
-            up_to: Partial<'inf'> & Partial<number>
+            up_to: 'inf' | number
           }[]
           /**
            * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows.
@@ -35969,7 +36130,7 @@ export type operations = {
           /** @description A lookup key used to retrieve prices dynamically from a static string. This may be up to 200 characters. */
           lookup_key?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description A brief description of the price, hidden from customers. */
           nickname?: string
           /**
@@ -35990,13 +36151,14 @@ export type operations = {
         /** Only return products that are active or inactive (e.g., pass `false` to list all inactive products). */
         active?: boolean
         /** Only return products that were created during the given date interval. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -36169,19 +36331,20 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description A list of up to 8 URLs of images for this product, meant to be displayable to the customer. */
-          images?: Partial<string[]> & Partial<''>
+          images?: string[] | ''
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The product's name, meant to be displayable to the customer. Whenever this product is sold via a subscription, name will show up on associated invoice line item descriptions. */
           name?: string
           /** @description The dimensions of this product for shipping purposes. */
-          package_dimensions?: Partial<{
-            height: number
-            length: number
-            weight: number
-            width: number
-          }> &
-            Partial<''>
+          package_dimensions?:
+            | {
+                height: number
+                length: number
+                weight: number
+                width: number
+              }
+            | ''
           /** @description Whether this product is shipped (i.e., physical goods). */
           shippable?: boolean
           /**
@@ -36192,7 +36355,7 @@ export type operations = {
            */
           statement_descriptor?: string
           /** @description A [tax code](https://stripe.com/docs/tax/tax-codes) ID. */
-          tax_code?: Partial<string> & Partial<''>
+          tax_code?: string | ''
           /** @description A label that represents units of this product in Stripe and on customers’ receipts and invoices. When set, this will be included in associated invoice line item descriptions. May only be set if `type=service`. */
           unit_label?: string
           /** @description A URL of a publicly-accessible webpage for this product. */
@@ -36239,13 +36402,14 @@ export type operations = {
         /** Only return promotion codes for this coupon. */
         coupon?: string
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** Only return promotion codes that are restricted to this customer. */
         customer?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -36400,7 +36564,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -36474,9 +36638,9 @@ export type operations = {
       content: {
         'application/x-www-form-urlencoded': {
           /** @description The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. There cannot be any line items with recurring prices when using this field. */
-          application_fee_amount?: Partial<number> & Partial<''>
+          application_fee_amount?: number | ''
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field. */
-          application_fee_percent?: Partial<number> & Partial<''>
+          application_fee_percent?: number | ''
           /**
            * automatic_tax_param
            * @description Settings for automatic tax lookup for this quote and resulting invoices and subscriptions.
@@ -36492,17 +36656,16 @@ export type operations = {
           /** @description The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed. */
           customer?: string
           /** @description The tax rates that will apply to any line item that does not have `tax_rates` set. */
-          default_tax_rates?: Partial<string[]> & Partial<''>
+          default_tax_rates?: string[] | ''
           /** @description A description that will be displayed on the quote PDF. If no value is passed, the default description configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used. */
           description?: string
           /** @description The discounts applied to the quote. You can only set up to one discount. */
-          discounts?: Partial<
-            {
-              coupon?: string
-              discount?: string
-            }[]
-          > &
-            Partial<''>
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+              }[]
+            | ''
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /**
@@ -36549,27 +36712,28 @@ export type operations = {
               unit_amount_decimal?: string
             }
             quantity?: number
-            tax_rates?: Partial<string[]> & Partial<''>
+            tax_rates?: string[] | ''
           }[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: { [key: string]: string }
           /** @description The account on behalf of which to charge. */
-          on_behalf_of?: Partial<string> & Partial<''>
+          on_behalf_of?: string | ''
           /**
            * subscription_data_create_params
            * @description When creating a subscription or subscription schedule, the specified configuration data will be used. There must be at least one line item with a recurring price for a subscription or subscription schedule to be created. A subscription schedule is created if `subscription_data[effective_date]` is present and in the future, otherwise a subscription is created.
            */
           subscription_data?: {
-            effective_date?: Partial<'current_period_end'> & Partial<number> & Partial<''>
-            trial_period_days?: Partial<number> & Partial<''>
+            effective_date?: 'current_period_end' | number | ''
+            trial_period_days?: number | ''
           }
           /** @description The data with which to automatically create a Transfer for each of the invoices. */
-          transfer_data?: Partial<{
-            amount?: number
-            amount_percent?: number
-            destination: string
-          }> &
-            Partial<''>
+          transfer_data?:
+            | {
+                amount?: number
+                amount_percent?: number
+                destination: string
+              }
+            | ''
         }
       }
     }
@@ -36630,9 +36794,9 @@ export type operations = {
       content: {
         'application/x-www-form-urlencoded': {
           /** @description The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. There cannot be any line items with recurring prices when using this field. */
-          application_fee_amount?: Partial<number> & Partial<''>
+          application_fee_amount?: number | ''
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field. */
-          application_fee_percent?: Partial<number> & Partial<''>
+          application_fee_percent?: number | ''
           /**
            * automatic_tax_param
            * @description Settings for automatic tax lookup for this quote and resulting invoices and subscriptions.
@@ -36648,17 +36812,16 @@ export type operations = {
           /** @description The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed. */
           customer?: string
           /** @description The tax rates that will apply to any line item that does not have `tax_rates` set. */
-          default_tax_rates?: Partial<string[]> & Partial<''>
+          default_tax_rates?: string[] | ''
           /** @description A description that will be displayed on the quote PDF. */
           description?: string
           /** @description The discounts applied to the quote. You can only set up to one discount. */
-          discounts?: Partial<
-            {
-              coupon?: string
-              discount?: string
-            }[]
-          > &
-            Partial<''>
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+              }[]
+            | ''
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /**
@@ -36698,27 +36861,28 @@ export type operations = {
               unit_amount_decimal?: string
             }
             quantity?: number
-            tax_rates?: Partial<string[]> & Partial<''>
+            tax_rates?: string[] | ''
           }[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: { [key: string]: string }
           /** @description The account on behalf of which to charge. */
-          on_behalf_of?: Partial<string> & Partial<''>
+          on_behalf_of?: string | ''
           /**
            * subscription_data_update_params
            * @description When creating a subscription or subscription schedule, the specified configuration data will be used. There must be at least one line item with a recurring price for a subscription or subscription schedule to be created. A subscription schedule is created if `subscription_data[effective_date]` is present and in the future, otherwise a subscription is created.
            */
           subscription_data?: {
-            effective_date?: Partial<'current_period_end'> & Partial<number> & Partial<''>
-            trial_period_days?: Partial<number> & Partial<''>
+            effective_date?: 'current_period_end' | number | ''
+            trial_period_days?: number | ''
           }
           /** @description The data with which to automatically create a Transfer for each of the invoices. */
-          transfer_data?: Partial<{
-            amount?: number
-            amount_percent?: number
-            destination: string
-          }> &
-            Partial<''>
+          transfer_data?:
+            | {
+                amount?: number
+                amount_percent?: number
+                destination: string
+              }
+            | ''
         }
       }
     }
@@ -37035,13 +37199,14 @@ export type operations = {
   GetRadarValueListItems: {
     parameters: {
       query: {
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -37182,13 +37347,14 @@ export type operations = {
         alias?: string
         /** A value contained within a value list - returns all value lists containing this value. */
         contains?: string
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -37364,13 +37530,14 @@ export type operations = {
   GetRecipients: {
     parameters: {
       query: {
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -37448,7 +37615,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The recipient's full, legal name. For type `individual`, should be in the format `First Last`, `First Middle Last`, or `First M Last` (no prefixes or suffixes). For `corporation`, the full, incorporated name. */
           name: string
           /** @description The recipient's tax ID, as a string. For type `individual`, the full SSN; for type `corporation`, the full EIN. */
@@ -37474,7 +37641,7 @@ export type operations = {
       /** Successful response. */
       200: {
         content: {
-          'application/json': Partial<components['schemas']['recipient']> & Partial<components['schemas']['deleted_recipient']>
+          'application/json': components['schemas']['recipient'] | components['schemas']['deleted_recipient']
         }
       }
       /** Error response. */
@@ -37533,7 +37700,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The recipient's full, legal name. For type `individual`, should be in the format `First Last`, `First Middle Last`, or `First M Last` (no prefixes or suffixes). For `corporation`, the full, incorporated name. */
           name?: string
           /** @description The recipient's tax ID, as a string. For type `individual`, the full SSN; for type `corporation`, the full EIN. */
@@ -37575,13 +37742,14 @@ export type operations = {
       query: {
         /** Only return refunds for the charge specified by this charge ID. */
         charge?: string
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -37649,7 +37817,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           payment_intent?: string
           /** @enum {string} */
           reason?: 'duplicate' | 'fraudulent' | 'requested_by_customer'
@@ -37721,7 +37889,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -37730,13 +37898,14 @@ export type operations = {
   GetReportingReportRuns: {
     parameters: {
       query: {
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -38556,13 +38725,14 @@ export type operations = {
   GetReviews: {
     parameters: {
       query: {
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -38674,13 +38844,14 @@ export type operations = {
          * can be a string with an integer Unix timestamp, or it can be a
          * dictionary with a number of different query options.
          */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -38732,13 +38903,14 @@ export type operations = {
     parameters: {
       query: {
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** Only return SetupIntents for the customer specified by this customer ID. */
         customer?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -38857,7 +39029,7 @@ export type operations = {
               currency?: 'cad' | 'usd'
               /** setup_intent_payment_method_options_mandate_options_param */
               mandate_options?: {
-                custom_mandate_url?: Partial<string> & Partial<''>
+                custom_mandate_url?: string | ''
                 default_for?: ('invoice' | 'subscription')[]
                 interval_description?: string
                 /** @enum {string} */
@@ -38974,7 +39146,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
           payment_method?: string
           /**
@@ -38988,7 +39160,7 @@ export type operations = {
               currency?: 'cad' | 'usd'
               /** setup_intent_payment_method_options_mandate_options_param */
               mandate_options?: {
-                custom_mandate_url?: Partial<string> & Partial<''>
+                custom_mandate_url?: string | ''
                 default_for?: ('invoice' | 'subscription')[]
                 interval_description?: string
                 /** @enum {string} */
@@ -39098,34 +39270,35 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description This hash contains details about the Mandate to create */
-          mandate_data?: Partial<{
-            /** customer_acceptance_param */
-            customer_acceptance: {
-              /** Format: unix-time */
-              accepted_at?: number
-              /** offline_param */
-              offline?: { [key: string]: unknown }
-              /** online_param */
-              online?: {
-                ip_address: string
-                user_agent: string
-              }
-              /** @enum {string} */
-              type: 'offline' | 'online'
-            }
-          }> &
-            Partial<{
-              /** customer_acceptance_param */
-              customer_acceptance: {
-                /** online_param */
-                online: {
-                  ip_address?: string
-                  user_agent?: string
+          mandate_data?:
+            | {
+                /** customer_acceptance_param */
+                customer_acceptance: {
+                  /** Format: unix-time */
+                  accepted_at?: number
+                  /** offline_param */
+                  offline?: { [key: string]: unknown }
+                  /** online_param */
+                  online?: {
+                    ip_address: string
+                    user_agent: string
+                  }
+                  /** @enum {string} */
+                  type: 'offline' | 'online'
                 }
-                /** @enum {string} */
-                type: 'online'
               }
-            }>
+            | {
+                /** customer_acceptance_param */
+                customer_acceptance: {
+                  /** online_param */
+                  online: {
+                    ip_address?: string
+                    user_agent?: string
+                  }
+                  /** @enum {string} */
+                  type: 'online'
+                }
+              }
           /** @description ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
           payment_method?: string
           /**
@@ -39139,7 +39312,7 @@ export type operations = {
               currency?: 'cad' | 'usd'
               /** setup_intent_payment_method_options_mandate_options_param */
               mandate_options?: {
-                custom_mandate_url?: Partial<string> & Partial<''>
+                custom_mandate_url?: string | ''
                 default_for?: ('invoice' | 'subscription')[]
                 interval_description?: string
                 /** @enum {string} */
@@ -39212,13 +39385,14 @@ export type operations = {
         /** Only return shipping rates that are active or inactive. */
         active?: boolean
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** Only return shipping rates for the given currency. */
         currency?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -39389,7 +39563,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -39602,7 +39776,7 @@ export type operations = {
       /** Successful response. */
       200: {
         content: {
-          'application/json': Partial<components['schemas']['sku']> & Partial<components['schemas']['deleted_sku']>
+          'application/json': components['schemas']['sku'] | components['schemas']['deleted_sku']
         }
       }
       /** Error response. */
@@ -39668,15 +39842,16 @@ export type operations = {
             value?: '' | 'in_stock' | 'limited' | 'out_of_stock'
           }
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The dimensions of this SKU for shipping purposes. */
-          package_dimensions?: Partial<{
-            height: number
-            length: number
-            weight: number
-            width: number
-          }> &
-            Partial<''>
+          package_dimensions?:
+            | {
+                height: number
+                length: number
+                weight: number
+                width: number
+              }
+            | ''
           /** @description The cost of the item as a positive integer in the smallest currency unit (that is, 100 cents to charge $1.00, or 100 to charge ¥100, Japanese Yen being a zero-decimal currency). */
           price?: number
           /** @description The ID of the product that this SKU should belong to. The product must exist, have the same set of attribute names as the SKU's current product, and be of type `good`. */
@@ -39771,7 +39946,7 @@ export type operations = {
               type?: 'offline' | 'online'
               user_agent?: string
             }
-            amount?: Partial<number> & Partial<''>
+            amount?: number | ''
             currency?: string
             /** @enum {string} */
             interval?: 'one_time' | 'scheduled' | 'variable'
@@ -39949,7 +40124,7 @@ export type operations = {
               type?: 'offline' | 'online'
               user_agent?: string
             }
-            amount?: Partial<number> & Partial<''>
+            amount?: number | ''
             currency?: string
             /** @enum {string} */
             interval?: 'one_time' | 'scheduled' | 'variable'
@@ -39957,7 +40132,7 @@ export type operations = {
             notification_method?: 'deprecated_none' | 'email' | 'manual' | 'none' | 'stripe_email'
           }
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /**
            * owner
            * @description Information about the owner of the payment instrument that may be used or required by particular source types.
@@ -40222,10 +40397,11 @@ export type operations = {
       content: {
         'application/x-www-form-urlencoded': {
           /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds. */
-          billing_thresholds?: Partial<{
-            usage_gte: number
-          }> &
-            Partial<''>
+          billing_thresholds?:
+            | {
+                usage_gte: number
+              }
+            | ''
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -40281,7 +40457,7 @@ export type operations = {
           /** @description The identifier of the subscription to modify. */
           subscription: string
           /** @description A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates. */
-          tax_rates?: Partial<string[]> & Partial<''>
+          tax_rates?: string[] | ''
         }
       }
     }
@@ -40342,14 +40518,15 @@ export type operations = {
       content: {
         'application/x-www-form-urlencoded': {
           /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds. */
-          billing_thresholds?: Partial<{
-            usage_gte: number
-          }> &
-            Partial<''>
+          billing_thresholds?:
+            | {
+                usage_gte: number
+              }
+            | ''
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean
           /**
@@ -40401,7 +40578,7 @@ export type operations = {
           /** @description The quantity you'd like to apply to the subscription item you're creating. */
           quantity?: number
           /** @description A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates. */
-          tax_rates?: Partial<string[]> & Partial<''>
+          tax_rates?: string[] | ''
         }
       }
     }
@@ -40544,7 +40721,7 @@ export type operations = {
           /** @description The usage quantity for the specified timestamp. */
           quantity: number
           /** @description The timestamp for the usage event. This timestamp must be within the current billing period of the subscription of the provided `subscription_item`, and must not be in the future. When passing `"now"`, Stripe records usage for the current time. Default is `"now"` if a value is not provided. */
-          timestamp?: Partial<'now'> & Partial<number>
+          timestamp?: 'now' | number
         }
       }
     }
@@ -40554,29 +40731,32 @@ export type operations = {
     parameters: {
       query: {
         /** Only return subscription schedules that were created canceled the given date interval. */
-        canceled_at?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        canceled_at?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** Only return subscription schedules that completed during the given date interval. */
-        completed_at?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        completed_at?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** Only return subscription schedules that were created during the given date interval. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** Only return subscription schedules for the given customer. */
         customer?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -40586,13 +40766,14 @@ export type operations = {
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number
         /** Only return subscription schedules that were released during the given date interval. */
-        released_at?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        released_at?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** Only return subscription schedules that have not started yet. */
         scheduled?: boolean
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -40663,11 +40844,12 @@ export type operations = {
             }
             /** @enum {string} */
             billing_cycle_anchor?: 'automatic' | 'phase_start'
-            billing_thresholds?: Partial<{
-              amount_gte?: number
-              reset_billing_cycle_anchor?: boolean
-            }> &
-              Partial<''>
+            billing_thresholds?:
+              | {
+                  amount_gte?: number
+                  reset_billing_cycle_anchor?: boolean
+                }
+              | ''
             /** @enum {string} */
             collection_method?: 'charge_automatically' | 'send_invoice'
             default_payment_method?: string
@@ -40675,11 +40857,12 @@ export type operations = {
             invoice_settings?: {
               days_until_due?: number
             }
-            transfer_data?: Partial<{
-              amount_percent?: number
-              destination: string
-            }> &
-              Partial<''>
+            transfer_data?:
+              | {
+                  amount_percent?: number
+                  destination: string
+                }
+              | ''
           }
           /**
            * @description Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
@@ -40691,7 +40874,7 @@ export type operations = {
           /** @description Migrate an existing subscription to be managed by a subscription schedule. If this parameter is set, a subscription schedule will be created using the subscription's item(s), set to auto-renew using the subscription's interval. When using this parameter, other parameters (such as phase values) cannot be set. To create a subscription schedule with other modifications, we recommend making two separate API calls. */
           from_subscription?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. */
           phases?: {
             add_invoice_items?: {
@@ -40707,7 +40890,7 @@ export type operations = {
                 unit_amount_decimal?: string
               }
               quantity?: number
-              tax_rates?: Partial<string[]> & Partial<''>
+              tax_rates?: string[] | ''
             }[]
             application_fee_percent?: number
             /** automatic_tax_config */
@@ -40716,16 +40899,17 @@ export type operations = {
             }
             /** @enum {string} */
             billing_cycle_anchor?: 'automatic' | 'phase_start'
-            billing_thresholds?: Partial<{
-              amount_gte?: number
-              reset_billing_cycle_anchor?: boolean
-            }> &
-              Partial<''>
+            billing_thresholds?:
+              | {
+                  amount_gte?: number
+                  reset_billing_cycle_anchor?: boolean
+                }
+              | ''
             /** @enum {string} */
             collection_method?: 'charge_automatically' | 'send_invoice'
             coupon?: string
             default_payment_method?: string
-            default_tax_rates?: Partial<string[]> & Partial<''>
+            default_tax_rates?: string[] | ''
             /** Format: unix-time */
             end_date?: number
             /** subscription_schedules_param */
@@ -40733,10 +40917,11 @@ export type operations = {
               days_until_due?: number
             }
             items: {
-              billing_thresholds?: Partial<{
-                usage_gte: number
-              }> &
-                Partial<''>
+              billing_thresholds?:
+                | {
+                    usage_gte: number
+                  }
+                | ''
               price?: string
               /** recurring_price_data */
               price_data?: {
@@ -40755,7 +40940,7 @@ export type operations = {
                 unit_amount_decimal?: string
               }
               quantity?: number
-              tax_rates?: Partial<string[]> & Partial<''>
+              tax_rates?: string[] | ''
             }[]
             iterations?: number
             /** @enum {string} */
@@ -40770,7 +40955,7 @@ export type operations = {
             trial_end?: number
           }[]
           /** @description When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on. */
-          start_date?: Partial<number> & Partial<'now'>
+          start_date?: number | 'now'
         }
       }
     }
@@ -40842,11 +41027,12 @@ export type operations = {
             }
             /** @enum {string} */
             billing_cycle_anchor?: 'automatic' | 'phase_start'
-            billing_thresholds?: Partial<{
-              amount_gte?: number
-              reset_billing_cycle_anchor?: boolean
-            }> &
-              Partial<''>
+            billing_thresholds?:
+              | {
+                  amount_gte?: number
+                  reset_billing_cycle_anchor?: boolean
+                }
+              | ''
             /** @enum {string} */
             collection_method?: 'charge_automatically' | 'send_invoice'
             default_payment_method?: string
@@ -40854,11 +41040,12 @@ export type operations = {
             invoice_settings?: {
               days_until_due?: number
             }
-            transfer_data?: Partial<{
-              amount_percent?: number
-              destination: string
-            }> &
-              Partial<''>
+            transfer_data?:
+              | {
+                  amount_percent?: number
+                  destination: string
+                }
+              | ''
           }
           /**
            * @description Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
@@ -40868,7 +41055,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. Note that past phases can be omitted. */
           phases?: {
             add_invoice_items?: {
@@ -40884,7 +41071,7 @@ export type operations = {
                 unit_amount_decimal?: string
               }
               quantity?: number
-              tax_rates?: Partial<string[]> & Partial<''>
+              tax_rates?: string[] | ''
             }[]
             application_fee_percent?: number
             /** automatic_tax_config */
@@ -40893,26 +41080,28 @@ export type operations = {
             }
             /** @enum {string} */
             billing_cycle_anchor?: 'automatic' | 'phase_start'
-            billing_thresholds?: Partial<{
-              amount_gte?: number
-              reset_billing_cycle_anchor?: boolean
-            }> &
-              Partial<''>
+            billing_thresholds?:
+              | {
+                  amount_gte?: number
+                  reset_billing_cycle_anchor?: boolean
+                }
+              | ''
             /** @enum {string} */
             collection_method?: 'charge_automatically' | 'send_invoice'
             coupon?: string
             default_payment_method?: string
-            default_tax_rates?: Partial<string[]> & Partial<''>
-            end_date?: Partial<number> & Partial<'now'>
+            default_tax_rates?: string[] | ''
+            end_date?: number | 'now'
             /** subscription_schedules_param */
             invoice_settings?: {
               days_until_due?: number
             }
             items: {
-              billing_thresholds?: Partial<{
-                usage_gte: number
-              }> &
-                Partial<''>
+              billing_thresholds?:
+                | {
+                    usage_gte: number
+                  }
+                | ''
               price?: string
               /** recurring_price_data */
               price_data?: {
@@ -40931,19 +41120,19 @@ export type operations = {
                 unit_amount_decimal?: string
               }
               quantity?: number
-              tax_rates?: Partial<string[]> & Partial<''>
+              tax_rates?: string[] | ''
             }[]
             iterations?: number
             /** @enum {string} */
             proration_behavior?: 'always_invoice' | 'create_prorations' | 'none'
-            start_date?: Partial<number> & Partial<'now'>
+            start_date?: number | 'now'
             /** transfer_data_specs */
             transfer_data?: {
               amount_percent?: number
               destination: string
             }
             trial?: boolean
-            trial_end?: Partial<number> & Partial<'now'>
+            trial_end?: number | 'now'
           }[]
           /**
            * @description If the update changes the current phase, indicates if the changes should be prorated. Possible values are `create_prorations` or `none`, and the default value is `create_prorations`.
@@ -41026,27 +41215,30 @@ export type operations = {
       query: {
         /** The collection method of the subscriptions to retrieve. Either `charge_automatically` or `send_invoice`. */
         collection_method?: 'charge_automatically' | 'send_invoice'
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
-        current_period_end?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
-        current_period_start?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
+        current_period_end?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
+        current_period_start?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** The ID of the customer whose subscriptions will be retrieved. */
         customer?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -41127,7 +41319,7 @@ export type operations = {
               unit_amount_decimal?: string
             }
             quantity?: number
-            tax_rates?: Partial<string[]> & Partial<''>
+            tax_rates?: string[] | ''
           }[]
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           application_fee_percent?: number
@@ -41149,11 +41341,12 @@ export type operations = {
            */
           billing_cycle_anchor?: number
           /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
-          billing_thresholds?: Partial<{
-            amount_gte?: number
-            reset_billing_cycle_anchor?: boolean
-          }> &
-            Partial<''>
+          billing_thresholds?:
+            | {
+                amount_gte?: number
+                reset_billing_cycle_anchor?: boolean
+              }
+            | ''
           /**
            * Format: unix-time
            * @description A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
@@ -41177,15 +41370,16 @@ export type operations = {
           /** @description ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
           default_source?: string
           /** @description The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. */
-          default_tax_rates?: Partial<string[]> & Partial<''>
+          default_tax_rates?: string[] | ''
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description A list of up to 20 subscription items, each with an attached price. */
           items?: {
-            billing_thresholds?: Partial<{
-              usage_gte: number
-            }> &
-              Partial<''>
+            billing_thresholds?:
+              | {
+                  usage_gte: number
+                }
+              | ''
             metadata?: { [key: string]: string }
             price?: string
             /** recurring_price_data */
@@ -41205,10 +41399,10 @@ export type operations = {
               unit_amount_decimal?: string
             }
             quantity?: number
-            tax_rates?: Partial<string[]> & Partial<''>
+            tax_rates?: string[] | ''
           }[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean
           /**
@@ -41229,62 +41423,65 @@ export type operations = {
           payment_settings?: {
             /** payment_method_options */
             payment_method_options?: {
-              acss_debit?: Partial<{
-                /** mandate_options_param */
-                mandate_options?: {
-                  /** @enum {string} */
-                  transaction_type?: 'business' | 'personal'
-                }
-                /** @enum {string} */
-                verification_method?: 'automatic' | 'instant' | 'microdeposits'
-              }> &
-                Partial<''>
-              bancontact?: Partial<{
-                /** @enum {string} */
-                preferred_language?: 'de' | 'en' | 'fr' | 'nl'
-              }> &
-                Partial<''>
-              card?: Partial<{
-                /** mandate_options_param */
-                mandate_options?: {
-                  amount?: number
-                  /** @enum {string} */
-                  amount_type?: 'fixed' | 'maximum'
-                  description?: string
-                }
-                /** @enum {string} */
-                request_three_d_secure?: 'any' | 'automatic'
-              }> &
-                Partial<''>
+              acss_debit?:
+                | {
+                    /** mandate_options_param */
+                    mandate_options?: {
+                      /** @enum {string} */
+                      transaction_type?: 'business' | 'personal'
+                    }
+                    /** @enum {string} */
+                    verification_method?: 'automatic' | 'instant' | 'microdeposits'
+                  }
+                | ''
+              bancontact?:
+                | {
+                    /** @enum {string} */
+                    preferred_language?: 'de' | 'en' | 'fr' | 'nl'
+                  }
+                | ''
+              card?:
+                | {
+                    /** mandate_options_param */
+                    mandate_options?: {
+                      amount?: number
+                      /** @enum {string} */
+                      amount_type?: 'fixed' | 'maximum'
+                      description?: string
+                    }
+                    /** @enum {string} */
+                    request_three_d_secure?: 'any' | 'automatic'
+                  }
+                | ''
             }
-            payment_method_types?: Partial<
-              (
-                | 'ach_credit_transfer'
-                | 'ach_debit'
-                | 'acss_debit'
-                | 'au_becs_debit'
-                | 'bacs_debit'
-                | 'bancontact'
-                | 'boleto'
-                | 'card'
-                | 'fpx'
-                | 'giropay'
-                | 'grabpay'
-                | 'ideal'
-                | 'sepa_debit'
-                | 'sofort'
-                | 'wechat_pay'
-              )[]
-            > &
-              Partial<''>
+            payment_method_types?:
+              | (
+                  | 'ach_credit_transfer'
+                  | 'ach_debit'
+                  | 'acss_debit'
+                  | 'au_becs_debit'
+                  | 'bacs_debit'
+                  | 'bancontact'
+                  | 'boleto'
+                  | 'card'
+                  | 'fpx'
+                  | 'giropay'
+                  | 'grabpay'
+                  | 'ideal'
+                  | 'sepa_debit'
+                  | 'sofort'
+                  | 'wechat_pay'
+                )[]
+              | ''
           }
           /** @description Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-          pending_invoice_item_interval?: Partial<{
-            /** @enum {string} */
-            interval: 'day' | 'month' | 'week' | 'year'
-            interval_count?: number
-          }> &
-            Partial<''>
+          pending_invoice_item_interval?:
+            | {
+                /** @enum {string} */
+                interval: 'day' | 'month' | 'week' | 'year'
+                interval_count?: number
+              }
+            | ''
           /** @description The API ID of a promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. */
           promotion_code?: string
           /**
@@ -41303,7 +41500,7 @@ export type operations = {
             destination: string
           }
           /** @description Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
-          trial_end?: Partial<'now'> & Partial<number>
+          trial_end?: 'now' | number
           /** @description Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
           trial_from_plan?: boolean
           /** @description Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
@@ -41381,7 +41578,7 @@ export type operations = {
               unit_amount_decimal?: string
             }
             quantity?: number
-            tax_rates?: Partial<string[]> & Partial<''>
+            tax_rates?: string[] | ''
           }[]
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           application_fee_percent?: number
@@ -41398,13 +41595,14 @@ export type operations = {
            */
           billing_cycle_anchor?: 'now' | 'unchanged'
           /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
-          billing_thresholds?: Partial<{
-            amount_gte?: number
-            reset_billing_cycle_anchor?: boolean
-          }> &
-            Partial<''>
+          billing_thresholds?:
+            | {
+                amount_gte?: number
+                reset_billing_cycle_anchor?: boolean
+              }
+            | ''
           /** @description A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
-          cancel_at?: Partial<number> & Partial<''>
+          cancel_at?: number | ''
           /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
           cancel_at_period_end?: boolean
           /**
@@ -41421,19 +41619,20 @@ export type operations = {
           /** @description ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
           default_source?: string
           /** @description The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. Pass an empty string to remove previously-defined tax rates. */
-          default_tax_rates?: Partial<string[]> & Partial<''>
+          default_tax_rates?: string[] | ''
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description A list of up to 20 subscription items, each with an attached price. */
           items?: {
-            billing_thresholds?: Partial<{
-              usage_gte: number
-            }> &
-              Partial<''>
+            billing_thresholds?:
+              | {
+                  usage_gte: number
+                }
+              | ''
             clear_usage?: boolean
             deleted?: boolean
             id?: string
-            metadata?: Partial<{ [key: string]: string }> & Partial<''>
+            metadata?: { [key: string]: string } | ''
             price?: string
             /** recurring_price_data */
             price_data?: {
@@ -41452,20 +41651,21 @@ export type operations = {
               unit_amount_decimal?: string
             }
             quantity?: number
-            tax_rates?: Partial<string[]> & Partial<''>
+            tax_rates?: string[] | ''
           }[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean
           /** @description If specified, payment collection for this subscription will be paused. */
-          pause_collection?: Partial<{
-            /** @enum {string} */
-            behavior: 'keep_as_draft' | 'mark_uncollectible' | 'void'
-            /** Format: unix-time */
-            resumes_at?: number
-          }> &
-            Partial<''>
+          pause_collection?:
+            | {
+                /** @enum {string} */
+                behavior: 'keep_as_draft' | 'mark_uncollectible' | 'void'
+                /** Format: unix-time */
+                resumes_at?: number
+              }
+            | ''
           /**
            * @description Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
            *
@@ -41484,62 +41684,65 @@ export type operations = {
           payment_settings?: {
             /** payment_method_options */
             payment_method_options?: {
-              acss_debit?: Partial<{
-                /** mandate_options_param */
-                mandate_options?: {
-                  /** @enum {string} */
-                  transaction_type?: 'business' | 'personal'
-                }
-                /** @enum {string} */
-                verification_method?: 'automatic' | 'instant' | 'microdeposits'
-              }> &
-                Partial<''>
-              bancontact?: Partial<{
-                /** @enum {string} */
-                preferred_language?: 'de' | 'en' | 'fr' | 'nl'
-              }> &
-                Partial<''>
-              card?: Partial<{
-                /** mandate_options_param */
-                mandate_options?: {
-                  amount?: number
-                  /** @enum {string} */
-                  amount_type?: 'fixed' | 'maximum'
-                  description?: string
-                }
-                /** @enum {string} */
-                request_three_d_secure?: 'any' | 'automatic'
-              }> &
-                Partial<''>
+              acss_debit?:
+                | {
+                    /** mandate_options_param */
+                    mandate_options?: {
+                      /** @enum {string} */
+                      transaction_type?: 'business' | 'personal'
+                    }
+                    /** @enum {string} */
+                    verification_method?: 'automatic' | 'instant' | 'microdeposits'
+                  }
+                | ''
+              bancontact?:
+                | {
+                    /** @enum {string} */
+                    preferred_language?: 'de' | 'en' | 'fr' | 'nl'
+                  }
+                | ''
+              card?:
+                | {
+                    /** mandate_options_param */
+                    mandate_options?: {
+                      amount?: number
+                      /** @enum {string} */
+                      amount_type?: 'fixed' | 'maximum'
+                      description?: string
+                    }
+                    /** @enum {string} */
+                    request_three_d_secure?: 'any' | 'automatic'
+                  }
+                | ''
             }
-            payment_method_types?: Partial<
-              (
-                | 'ach_credit_transfer'
-                | 'ach_debit'
-                | 'acss_debit'
-                | 'au_becs_debit'
-                | 'bacs_debit'
-                | 'bancontact'
-                | 'boleto'
-                | 'card'
-                | 'fpx'
-                | 'giropay'
-                | 'grabpay'
-                | 'ideal'
-                | 'sepa_debit'
-                | 'sofort'
-                | 'wechat_pay'
-              )[]
-            > &
-              Partial<''>
+            payment_method_types?:
+              | (
+                  | 'ach_credit_transfer'
+                  | 'ach_debit'
+                  | 'acss_debit'
+                  | 'au_becs_debit'
+                  | 'bacs_debit'
+                  | 'bancontact'
+                  | 'boleto'
+                  | 'card'
+                  | 'fpx'
+                  | 'giropay'
+                  | 'grabpay'
+                  | 'ideal'
+                  | 'sepa_debit'
+                  | 'sofort'
+                  | 'wechat_pay'
+                )[]
+              | ''
           }
           /** @description Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-          pending_invoice_item_interval?: Partial<{
-            /** @enum {string} */
-            interval: 'day' | 'month' | 'week' | 'year'
-            interval_count?: number
-          }> &
-            Partial<''>
+          pending_invoice_item_interval?:
+            | {
+                /** @enum {string} */
+                interval: 'day' | 'month' | 'week' | 'year'
+                interval_count?: number
+              }
+            | ''
           /** @description The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. */
           promotion_code?: string
           /**
@@ -41557,13 +41760,14 @@ export type operations = {
            */
           proration_date?: number
           /** @description If specified, the funds from the subscription's invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges. This will be unset if you POST an empty value. */
-          transfer_data?: Partial<{
-            amount_percent?: number
-            destination: string
-          }> &
-            Partial<''>
+          transfer_data?:
+            | {
+                amount_percent?: number
+                destination: string
+              }
+            | ''
           /** @description Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          trial_end?: Partial<'now'> & Partial<number>
+          trial_end?: 'now' | number
           /** @description Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
           trial_from_plan?: boolean
         }
@@ -41720,13 +41924,14 @@ export type operations = {
         /** Optional flag to filter by tax rates that are either active or inactive (archived). */
         active?: boolean
         /** Optional range for filtering created date. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -41886,7 +42091,7 @@ export type operations = {
           /** @description The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer’s invoice. */
           jurisdiction?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States. */
           state?: string
           /**
@@ -42009,7 +42214,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -42086,7 +42291,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -42196,7 +42401,7 @@ export type operations = {
           /** @description The location to assign the reader to. */
           location?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description A code generated by the reader used for registering to an account. */
           registration_code: string
         }
@@ -42218,7 +42423,7 @@ export type operations = {
       /** Successful response. */
       200: {
         content: {
-          'application/json': Partial<components['schemas']['terminal.reader']> & Partial<components['schemas']['deleted_terminal.reader']>
+          'application/json': components['schemas']['terminal.reader'] | components['schemas']['deleted_terminal.reader']
         }
       }
       /** Error response. */
@@ -42245,7 +42450,7 @@ export type operations = {
       /** Successful response. */
       200: {
         content: {
-          'application/json': Partial<components['schemas']['terminal.reader']> & Partial<components['schemas']['deleted_terminal.reader']>
+          'application/json': components['schemas']['terminal.reader'] | components['schemas']['deleted_terminal.reader']
         }
       }
       /** Error response. */
@@ -42263,7 +42468,7 @@ export type operations = {
           /** @description The new label of the reader. */
           label?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -42437,24 +42642,25 @@ export type operations = {
                 state?: string
                 town?: string
               }
-              dob?: Partial<{
-                day: number
-                month: number
-                year: number
-              }> &
-                Partial<''>
+              dob?:
+                | {
+                    day: number
+                    month: number
+                    year: number
+                  }
+                | ''
               email?: string
               first_name?: string
               first_name_kana?: string
               first_name_kanji?: string
-              full_name_aliases?: Partial<string[]> & Partial<''>
+              full_name_aliases?: string[] | ''
               gender?: string
               id_number?: string
               last_name?: string
               last_name_kana?: string
               last_name_kanji?: string
               maiden_name?: string
-              metadata?: Partial<{ [key: string]: string }> & Partial<''>
+              metadata?: { [key: string]: string } | ''
               phone?: string
               /** @enum {string} */
               political_exposure?: 'existing' | 'none'
@@ -42490,21 +42696,22 @@ export type operations = {
             currency?: string
             routing_number?: string
           }
-          card?: Partial<{
-            address_city?: string
-            address_country?: string
-            address_line1?: string
-            address_line2?: string
-            address_state?: string
-            address_zip?: string
-            currency?: string
-            cvc?: string
-            exp_month: string
-            exp_year: string
-            name?: string
-            number: string
-          }> &
-            Partial<string>
+          card?:
+            | {
+                address_city?: string
+                address_country?: string
+                address_line1?: string
+                address_line2?: string
+                address_state?: string
+                address_zip?: string
+                currency?: string
+                cvc?: string
+                exp_month: string
+                exp_year: string
+                name?: string
+                number: string
+              }
+            | string
           /** @description The customer (owned by the application's account) for which to create a token. This can be used only with an [OAuth access token](https://stripe.com/docs/connect/standard-accounts) or [Stripe-Account header](https://stripe.com/docs/connect/authentication). For more details, see [Cloning Saved Payment Methods](https://stripe.com/docs/connect/cloning-saved-payment-methods). */
           customer?: string
           /**
@@ -42550,12 +42757,13 @@ export type operations = {
               state?: string
               town?: string
             }
-            dob?: Partial<{
-              day: number
-              month: number
-              year: number
-            }> &
-              Partial<''>
+            dob?:
+              | {
+                  day: number
+                  month: number
+                  year: number
+                }
+              | ''
             /** person_documents_specs */
             documents?: {
               /** documents_param */
@@ -42575,14 +42783,14 @@ export type operations = {
             first_name?: string
             first_name_kana?: string
             first_name_kanji?: string
-            full_name_aliases?: Partial<string[]> & Partial<''>
+            full_name_aliases?: string[] | ''
             gender?: string
             id_number?: string
             last_name?: string
             last_name_kana?: string
             last_name_kanji?: string
             maiden_name?: string
-            metadata?: Partial<{ [key: string]: string }> & Partial<''>
+            metadata?: { [key: string]: string } | ''
             nationality?: string
             phone?: string
             political_exposure?: string
@@ -42591,7 +42799,7 @@ export type operations = {
               director?: boolean
               executive?: boolean
               owner?: boolean
-              percent_ownership?: Partial<number> & Partial<''>
+              percent_ownership?: number | ''
               representative?: boolean
               title?: string
             }
@@ -42657,21 +42865,23 @@ export type operations = {
     parameters: {
       query: {
         /** A positive integer representing how much to transfer. */
-        amount?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        amount?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -42743,7 +42953,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The ID of a source to transfer funds from. For most users, this should be left unspecified which will use the bank account that was set up in the dashboard for the specified currency. In test mode, this can be a test bank token (see [Testing Top-ups](https://stripe.com/docs/connect/testing#testing-top-ups)). */
           source?: string
           /** @description Extra information about a top-up for the source's bank statement. Limited to 15 ASCII characters. */
@@ -42814,7 +43024,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -42853,13 +43063,14 @@ export type operations = {
   GetTransfers: {
     parameters: {
       query: {
-        created?: Partial<{
-          gt?: number
-          gte?: number
-          lt?: number
-          lte?: number
-        }> &
-          Partial<number>
+        created?:
+          | {
+              gt?: number
+              gte?: number
+              lt?: number
+              lte?: number
+            }
+          | number
         /** Only return transfers for the destination specified by this account ID. */
         destination?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -43036,7 +43247,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description Boolean indicating whether the application fee should be refunded when reversing this transfer. If a full transfer reversal is given, the full application fee will be refunded. Otherwise, the application fee will be refunded with an amount proportional to the amount of the transfer reversed. */
           refund_application_fee?: boolean
         }
@@ -43107,7 +43318,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -43176,7 +43387,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
         }
       }
     }
@@ -43536,7 +43747,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The URL of the webhook endpoint. */
           url: string
         }
@@ -43788,7 +43999,7 @@ export type operations = {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: Partial<{ [key: string]: string }> & Partial<''>
+          metadata?: { [key: string]: string } | ''
           /** @description The URL of the webhook endpoint. */
           url?: string
         }
