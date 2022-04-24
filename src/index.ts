@@ -1,13 +1,13 @@
-import { makeApiPathsEnum } from "./transform/paths.js";
 import type { GlobalContext, OpenAPI2, OpenAPI3, SchemaObject, SwaggerToTSOptions } from "./types.js";
 import path from "path";
 import prettier from "prettier";
 import parserTypescript from "prettier/parser-typescript.js";
+import { Readable } from "stream";
 import { URL } from "url";
 import load, { resolveSchema, VIRTUAL_JSON_URL } from "./load.js";
 import { swaggerVersion } from "./utils.js";
 import { transformAll } from "./transform/index.js";
-import { Readable } from "stream";
+import { makeApiPathsEnum } from "./transform/paths.js";
 export * from "./types.js"; // expose all types to consumers
 
 export const WARNING_MESSAGE = `/**
@@ -50,7 +50,7 @@ async function openapiTS(
 
   // note: we may be loading many large schemas into memory at once; take care to reuse references without cloning
 
-  const isInlineSchema = typeof schema != "string" && !(schema instanceof URL);
+  const isInlineSchema = typeof schema != "string" && schema instanceof URL == false;
 
   // 1. load schema
   let rootSchema: Record<string, any> = {};
