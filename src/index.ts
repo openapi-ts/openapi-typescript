@@ -45,6 +45,7 @@ async function openapiTS(
     makePathsEnum: options.makePathsEnum || false,
     version: options.version || 3,
     supportArrayLength: options.supportArrayLength,
+    pathParamsAsTypes: options.pathParamsAsTypes,
   };
 
   // note: we may be loading many large schemas into memory at once; take care to reuse references without cloning
