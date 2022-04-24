@@ -522,6 +522,17 @@
         "doc",
         "test"
       ]
+    },
+    {
+      "login": "Powell-v2",
+      "name": "Pavel Yermolin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25308326?v=4",
+      "profile": "https://powell-v2.github.io/",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
