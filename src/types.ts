@@ -165,21 +165,26 @@ export interface SwaggerToTSOptions {
    * (optional) Substitute path parameter names with their respective types.
    */
   pathParamsAsTypes?: boolean;
+  /**
+   * (optional) Provide your own comment header that prefixes the generated file.
+   * Note this isn’t validated, so any string entered will be accepted as-is.
+   */
+  commentHeader?: string;
 }
 
 /** Context passed to all submodules */
 export interface GlobalContext {
   additionalProperties: boolean;
   auth?: string;
+  commentHeader: string;
+  defaultNonNullable: boolean;
   formatter?: SchemaFormatter;
   immutableTypes: boolean;
-  defaultNonNullable: boolean;
-  /** (optional) Should logging be suppressed? (necessary for STDOUT) */
-  silent?: boolean;
-  namespace?: string;
-  rawSchema: boolean;
   makePathsEnum: boolean;
-  version: number;
-  supportArrayLength?: boolean;
+  namespace?: string;
   pathParamsAsTypes?: boolean;
+  rawSchema: boolean;
+  silent?: boolean;
+  supportArrayLength?: boolean;
+  version: number;
 }
