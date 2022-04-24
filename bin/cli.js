@@ -6,7 +6,6 @@ import glob from "tiny-glob";
 import parser from "yargs-parser";
 import openapiTS from "../dist/index.js";
 
-
 const GREEN = "\u001b[32m";
 const BOLD = "\u001b[1m";
 const RESET = "\u001b[0m";
@@ -78,7 +77,8 @@ async function generateSchema(pathToSpec) {
     flags.header.forEach((header) => {
       const firstColon = header.indexOf(":");
       const k = header.substring(0, firstColon).trim();
-      httpHeaders[k] = header.substring(firstColon + 1).trim();
+      const v = header.substring(firstColon + 1).trim();
+      httpHeaders[k] = v;
     });
   }
 
