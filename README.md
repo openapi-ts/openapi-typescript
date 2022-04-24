@@ -160,6 +160,7 @@ npx openapi-typescript schema.yaml
 | `--prettier-config [location]` | `-c`  |          | (optional) Path to your custom Prettier configuration for output                                                                        |
 | `--export-type`                |       | `false`  | (optional) Export `type` instead of `interface`                                                                                         |
 | `--support-array-length`       |       | `false`  | (optional) Generate tuples using array minItems / maxItems                                                                              |
+| `--make-paths-enum`            | `-pe` | `false`  | (optional) Generate an enum of endpoint paths                                                                                           |
 | `--raw-schema`                 |       | `false`  | Generate TS types from partial schema (e.g. having `components.schema` at the top level)                                                |
 | `--version`                    |       |          | Force OpenAPI version with `--version 3` or `--version 2` (required for `--raw-schema` when version is unknown)                         |
 

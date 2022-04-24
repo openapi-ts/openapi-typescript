@@ -6,6 +6,7 @@ import glob from "tiny-glob";
 import parser from "yargs-parser";
 import openapiTS from "../dist/index.js";
 
+
 const GREEN = "\u001b[32m";
 const BOLD = "\u001b[1m";
 const RESET = "\u001b[0m";
@@ -25,6 +26,7 @@ Options
   --default-non-nullable       (optional) If a schema object has a default value set, don’t mark it as nullable
   --prettier-config, -c        (optional) specify path to Prettier config file
   --raw-schema                 (optional) Parse as partial schema (raw components)
+  --paths-enum, -pe            (optional) Generate an enum containing all API paths.
   --export-type                (optional) Export type instead of interface
   --support-array-length       (optional) Generate tuples using array minItems / maxItems
   --version                    (optional) Force schema parsing version
@@ -43,7 +45,7 @@ function errorAndExit(errorMessage) {
 const [, , input, ...args] = process.argv;
 const flags = parser(args, {
   array: ["header"],
-  boolean: ["defaultNonNullable", "immutableTypes", "rawSchema", "exportType", "supportArrayLength"],
+  boolean: ["defaultNonNullable", "immutableTypes", "rawSchema", "makePathsEnum", "exportType", "supportArrayLength"],
   number: ["version"],
   string: ["auth", "header", "headersObject", "httpMethod", "prettierConfig"],
   alias: {
@@ -54,6 +56,7 @@ const flags = parser(args, {
     immutableTypes: ["it"],
     output: ["o"],
     prettierConfig: ["c"],
+    makePathsEnum: ["pe"],
   },
   default: {
     httpMethod: "GET",
@@ -75,8 +78,7 @@ async function generateSchema(pathToSpec) {
     flags.header.forEach((header) => {
       const firstColon = header.indexOf(":");
       const k = header.substring(0, firstColon).trim();
-      const v = header.substring(firstColon + 1).trim();
-      httpHeaders[k] = v;
+      httpHeaders[k] = header.substring(firstColon + 1).trim();
     });
   }
 
@@ -88,6 +90,7 @@ async function generateSchema(pathToSpec) {
     immutableTypes: flags.immutableTypes,
     prettierConfig: flags.prettierConfig,
     rawSchema: flags.rawSchema,
+    makePathsEnum: flags.makePathsEnum,
     silent: output === OUTPUT_STDOUT,
     version: flags.version,
     httpHeaders,

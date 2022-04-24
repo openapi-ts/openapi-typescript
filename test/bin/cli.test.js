@@ -73,4 +73,14 @@ describe("cli", () => {
       );
     }).not.to.throw();
   });
+
+  it('generates a paths enum when run with --make-paths-enum', () => {
+    const generatedPath = "generated/paths-enum.ts"
+    execSync(`${cmd} specs/petstore.yaml -o ${generatedPath} --make-paths-enum`, {
+      cwd,
+    });
+    const generated = fs.readFileSync(new URL(`./${generatedPath}`, cwd), "utf8");
+    const expected = eol.lf(fs.readFileSync(new URL("./expected/paths-enum.ts", cwd), "utf8"));
+    expect(generated).to.equal(expected);
+  });
 });
