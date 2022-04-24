@@ -1,15 +1,13 @@
-import type { GlobalContext, Headers } from "./types.js";
-import type { Dispatcher } from "undici";
-import * as undici from "undici";
 import fs from "fs";
-import path from "path";
-import { URL } from "url";
-import mime from "mime";
 import yaml from "js-yaml";
+import mime from "mime";
+import path from "path";
+import type { Dispatcher } from "undici";
+import { request } from "undici";
+import { URL } from "url";
+import type { GlobalContext, Headers } from "./types.js";
 import { parseRef } from "./utils.js";
 import { Readable } from "stream";
-
-const request = undici.request;
 
 type PartialSchema = Record<string, any>; // not a very accurate type, but this is easier to deal with before we know we’re dealing with a valid spec
 type SchemaMap = { [url: string]: PartialSchema };
@@ -74,8 +72,7 @@ function parseHttpHeaders(httpHeaders: Record<string, any>): Headers {
       finalHeaders[k] = v;
     } else {
       try {
-        const stringVal = JSON.stringify(v);
-        finalHeaders[k] = stringVal;
+        finalHeaders[k] = JSON.stringify(v);
       } catch (err) {
         /* istanbul ignore next */
         console.error(
@@ -103,7 +100,8 @@ export default async function load(
 ): Promise<{ [url: string]: PartialSchema }> {
   const urlCache = options.urlCache || new Set<string>();
 
-  const isJSON = schema instanceof URL === false && !(schema instanceof Readable); // if this is dynamically-passed-in JSON, we’ll have to change a few things
+  // if this is dynamically-passed-in JSON, we’ll have to change a few things
+  const isJSON = !(schema instanceof URL || schema instanceof Readable);
   let schemaID = isJSON || schema instanceof Readable ? new URL(VIRTUAL_JSON_URL).href : (schema.href as string);
 
   const schemas = options.schemas;

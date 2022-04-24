@@ -53,6 +53,7 @@ If you’ve added a feature or fixed a bug and need to update the generated sche
 npm run build
 # 2. run the local CLI (not the npm one!)
 ./bin/cli.js tests/v3/specs/github.yaml -o tests/v3/expected/github.ts
+# NOTE: on Windows, try running the script on WSL if getting errors
 ```
 
 This should update the expected TypeScript definiton.
