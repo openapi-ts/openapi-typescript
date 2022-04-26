@@ -126,6 +126,8 @@ export interface SwaggerToTSOptions {
   formatter?: SchemaFormatter;
   /** Generates immutable types (readonly properties and readonly array) */
   immutableTypes?: boolean;
+  /** (optional) If supplied, an omitted reponse \`content\` property will be generated as \`never\` instead of \`unknown\` */
+  contentNever?: boolean;
   /** (optional) Treat schema objects with default values as non-nullable */
   defaultNonNullable?: boolean;
   /** (optional) Path to Prettier config */
@@ -180,6 +182,7 @@ export interface GlobalContext {
   defaultNonNullable: boolean;
   formatter?: SchemaFormatter;
   immutableTypes: boolean;
+  contentNever: boolean;
   makePathsEnum: boolean;
   namespace?: string;
   pathParamsAsTypes?: boolean;

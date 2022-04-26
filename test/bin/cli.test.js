@@ -89,4 +89,14 @@ describe("cli", () => {
     const expected = eol.lf(fs.readFileSync(new URL("./expected/paths-enum.ts", cwd), "utf8"));
     expect(generated).to.equal(expected);
   });
+
+  it('generates the `never` type for omitted response `content` with --content-never', () => {
+    const generatedPath = "generated/content-never.ts"
+    execSync(`${cmd} specs/no-response.yaml -o ${generatedPath} --content-never`, {
+      cwd,
+    });
+    const generated = fs.readFileSync(new URL(`./${generatedPath}`, cwd), "utf8");
+    const expected = eol.lf(fs.readFileSync(new URL("./expected/content-never.ts", cwd), "utf8"));
+    expect(generated).to.equal(expected);
+  });
 });
