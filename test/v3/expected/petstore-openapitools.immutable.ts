@@ -83,6 +83,7 @@ export interface components {
        * @enum {string}
        */
       readonly status?: 'placed' | 'approved' | 'delivered'
+      /** @default false */
       readonly complete?: boolean
     }
     /**

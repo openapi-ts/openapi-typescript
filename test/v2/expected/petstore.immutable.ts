@@ -78,6 +78,7 @@ export interface definitions {
      * @enum {string}
      */
     readonly status?: 'placed' | 'approved' | 'delivered'
+    /** @default false */
     readonly complete?: boolean
   }
   readonly Category: {

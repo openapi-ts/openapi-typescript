@@ -78,6 +78,7 @@ export interface definitions {
      * @enum {string}
      */
     status?: 'placed' | 'approved' | 'delivered'
+    /** @default false */
     complete?: boolean
   }
   Category: {

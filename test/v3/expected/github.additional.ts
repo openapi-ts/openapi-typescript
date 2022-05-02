@@ -6182,7 +6182,10 @@ export interface components {
        * @example 2021-05-12T20:33:44Z
        */
       delivered_at: string
-      /** @description Whether the webhook delivery is a redelivery. */
+      /**
+       * @description Whether the webhook delivery is a redelivery.
+       * @example false
+       */
       redelivery: boolean
       /**
        * @description Time spent delivering.
@@ -6269,7 +6272,10 @@ export interface components {
        * @example 2021-05-12T20:33:44Z
        */
       delivered_at: string
-      /** @description Whether the delivery is a redelivery. */
+      /**
+       * @description Whether the delivery is a redelivery.
+       * @example false
+       */
       redelivery: boolean
       /**
        * @description Time spent delivering.
@@ -6707,7 +6713,10 @@ export interface components {
         maintain?: boolean
       } & { [key: string]: unknown }
       owner: components['schemas']['simple-user']
-      /** @description Whether the repository is private or public. */
+      /**
+       * @description Whether the repository is private or public.
+       * @default false
+       */
       private: boolean
       /**
        * Format: uri
@@ -6868,9 +6877,11 @@ export interface components {
        * @example master
        */
       default_branch: string
+      /** @example 0 */
       open_issues_count: number
       /**
        * @description Whether this repository acts as a template that can be used to generate new repositories.
+       * @default false
        * @example true
        */
       is_template?: boolean
@@ -6900,7 +6911,10 @@ export interface components {
        * @example true
        */
       has_downloads: boolean
-      /** @description Whether the repository is archived. */
+      /**
+       * @description Whether the repository is archived.
+       * @default false
+       */
       archived: boolean
       /** @description Returns whether or not this repository disabled. */
       disabled: boolean
@@ -7048,9 +7062,17 @@ export interface components {
        * @example true
        */
       allow_squash_merge?: boolean
-      /** @description Whether to allow Auto-merge to be used on pull requests. */
+      /**
+       * @description Whether to allow Auto-merge to be used on pull requests.
+       * @default false
+       * @example false
+       */
       allow_auto_merge?: boolean
-      /** @description Whether to delete head branches when pull requests are merged */
+      /**
+       * @description Whether to delete head branches when pull requests are merged
+       * @default false
+       * @example false
+       */
       delete_branch_on_merge?: boolean
       /**
        * @description Whether to allow merge commits for pull requests.
@@ -7515,7 +7537,10 @@ export interface components {
             maintain?: boolean
           } & { [key: string]: unknown }
           owner: components['schemas']['simple-user']
-          /** @description Whether the repository is private or public. */
+          /**
+           * @description Whether the repository is private or public.
+           * @default false
+           */
           private: boolean
           /**
            * Format: uri
@@ -7676,9 +7701,11 @@ export interface components {
            * @example master
            */
           default_branch: string
+          /** @example 0 */
           open_issues_count: number
           /**
            * @description Whether this repository acts as a template that can be used to generate new repositories.
+           * @default false
            * @example true
            */
           is_template?: boolean
@@ -7708,7 +7735,10 @@ export interface components {
            * @example true
            */
           has_downloads: boolean
-          /** @description Whether the repository is archived. */
+          /**
+           * @description Whether the repository is archived.
+           * @default false
+           */
           archived: boolean
           /** @description Returns whether or not this repository disabled. */
           disabled: boolean
@@ -7856,9 +7886,17 @@ export interface components {
            * @example true
            */
           allow_squash_merge?: boolean
-          /** @description Whether to allow Auto-merge to be used on pull requests. */
+          /**
+           * @description Whether to allow Auto-merge to be used on pull requests.
+           * @default false
+           * @example false
+           */
           allow_auto_merge?: boolean
-          /** @description Whether to delete head branches when pull requests are merged */
+          /**
+           * @description Whether to delete head branches when pull requests are merged
+           * @default false
+           * @example false
+           */
           delete_branch_on_merge?: boolean
           /**
            * @description Whether to allow merge commits for pull requests.
@@ -8078,8 +8116,11 @@ export interface components {
             node_id?: string
           } & { [key: string]: unknown })
         | null
+      /** @example 0 */
       forks?: number
+      /** @example 0 */
       open_issues?: number
+      /** @example 0 */
       watchers?: number
       allow_forking?: boolean
     } & { [key: string]: unknown }
@@ -9196,6 +9237,7 @@ export interface components {
       public_gists: number
       /** @example 20 */
       followers: number
+      /** @example 0 */
       following: number
       /**
        * Format: uri
@@ -9250,6 +9292,7 @@ export interface components {
       members_can_create_public_pages?: boolean
       /** @example true */
       members_can_create_private_pages?: boolean
+      /** @example false */
       members_can_fork_private_repositories?: boolean | null
       /** Format: date-time */
       updated_at: string
@@ -10109,8 +10152,11 @@ export interface components {
                 node_id?: string
               } & { [key: string]: unknown })
             | null
+          /** @example 0 */
           forks?: number
+          /** @example 0 */
           open_issues?: number
+          /** @example 0 */
           watchers?: number
           allow_forking?: boolean
         } & { [key: string]: unknown })
@@ -10406,6 +10452,7 @@ export interface components {
        * @example 0307116bbf7ced493b8d8a346c650b71
        */
       body_version: string
+      /** @example 0 */
       comments_count: number
       /**
        * Format: uri
@@ -10618,7 +10665,10 @@ export interface components {
       /** @example admin */
       role_name?: string
       owner: components['schemas']['nullable-simple-user']
-      /** @description Whether the repository is private or public. */
+      /**
+       * @description Whether the repository is private or public.
+       * @default false
+       */
       private: boolean
       /**
        * Format: uri
@@ -10779,9 +10829,11 @@ export interface components {
        * @example master
        */
       default_branch: string
+      /** @example 0 */
       open_issues_count: number
       /**
        * @description Whether this repository acts as a template that can be used to generate new repositories.
+       * @default false
        * @example true
        */
       is_template?: boolean
@@ -10811,7 +10863,10 @@ export interface components {
        * @example true
        */
       has_downloads: boolean
-      /** @description Whether the repository is archived. */
+      /**
+       * @description Whether the repository is archived.
+       * @default false
+       */
       archived: boolean
       /** @description Returns whether or not this repository disabled. */
       disabled: boolean
@@ -10849,9 +10904,17 @@ export interface components {
        * @example true
        */
       allow_squash_merge?: boolean
-      /** @description Whether to allow Auto-merge to be used on pull requests. */
+      /**
+       * @description Whether to allow Auto-merge to be used on pull requests.
+       * @default false
+       * @example false
+       */
       allow_auto_merge?: boolean
-      /** @description Whether to delete head branches when pull requests are merged */
+      /**
+       * @description Whether to delete head branches when pull requests are merged
+       * @default false
+       * @example false
+       */
       delete_branch_on_merge?: boolean
       /**
        * @description Whether to allow merge commits for pull requests.
@@ -10859,7 +10922,11 @@ export interface components {
        * @example true
        */
       allow_merge_commit?: boolean
-      /** @description Whether to allow forking this repo */
+      /**
+       * @description Whether to allow forking this repo
+       * @default false
+       * @example false
+       */
       allow_forking?: boolean
       subscribers_count?: number
       network_count?: number
@@ -10897,7 +10964,10 @@ export interface components {
        * @example 2016-09-05T14:20:22Z
        */
       updated_at: string
-      /** @description Whether or not the card is archived */
+      /**
+       * @description Whether or not the card is archived
+       * @example false
+       */
       archived?: boolean
       column_name?: string
       project_id?: string
@@ -11183,6 +11253,7 @@ export interface components {
       size: number
       /** @example master */
       default_branch: string
+      /** @example 0 */
       open_issues_count: number
       /** @example true */
       is_template?: boolean
@@ -11233,7 +11304,9 @@ export interface components {
       temp_clone_token?: string | null
       /** @example true */
       allow_squash_merge?: boolean
+      /** @example false */
       allow_auto_merge?: boolean
+      /** @example false */
       delete_branch_on_merge?: boolean
       /** @example true */
       allow_merge_commit?: boolean
@@ -11241,6 +11314,7 @@ export interface components {
       allow_forking?: boolean
       /** @example 42 */
       subscribers_count: number
+      /** @example 0 */
       network_count: number
       license: components['schemas']['nullable-license-simple']
       organization?: components['schemas']['nullable-simple-user']
@@ -12042,6 +12116,7 @@ export interface components {
           received_events_url?: string
           /** @example "Organization" */
           type?: string
+          /** @example false */
           site_admin?: boolean
         } & { [key: string]: unknown }
         name?: string
@@ -12207,6 +12282,7 @@ export interface components {
         committer: components['schemas']['nullable-git-user']
         /** @example Fix all the bugs */
         message: string
+        /** @example 0 */
         comment_count: number
         tree: {
           /** @example 827efc6d56897b048c772eb4087f854f46256132 */
@@ -12783,7 +12859,10 @@ export interface components {
       billable_owner: components['schemas']['simple-user']
       repository: components['schemas']['minimal-repository']
       machine: components['schemas']['nullable-codespace-machine']
-      /** @description Whether the codespace was created from a prebuild. */
+      /**
+       * @description Whether the codespace was created from a prebuild.
+       * @example false
+       */
       prebuild: boolean | null
       /**
        * Format: date-time
@@ -12831,9 +12910,15 @@ export interface components {
       url: string
       /** @description Details about the codespace's git repository. */
       git_status: {
-        /** @description The number of commits the local repository is ahead of the remote. */
+        /**
+         * @description The number of commits the local repository is ahead of the remote.
+         * @example 0
+         */
         ahead?: number
-        /** @description The number of commits the local repository is behind the remote. */
+        /**
+         * @description The number of commits the local repository is behind the remote.
+         * @example 0
+         */
         behind?: number
         /** @description Whether the local repository has unpushed changes. */
         has_unpushed_changes?: boolean
@@ -13321,7 +13406,10 @@ export interface components {
       } & { [key: string]: unknown }
       author_association: components['schemas']['author_association']
       auto_merge: components['schemas']['auto_merge']
-      /** @description Indicates whether or not the pull request is a draft. */
+      /**
+       * @description Indicates whether or not the pull request is a draft.
+       * @example false
+       */
       draft?: boolean
     } & { [key: string]: unknown }
     /** Simple Commit Status */
@@ -13781,17 +13869,20 @@ export interface components {
       creator: components['schemas']['nullable-simple-user']
       /**
        * @description A short description of the status.
+       * @default
        * @example Deployment finished successfully.
        */
       description: string
       /**
        * @description The environment of the deployment that the status is for.
+       * @default
        * @example production
        */
       environment?: string
       /**
        * Format: uri
        * @description Deprecated: the URL to associate with this status.
+       * @default
        * @example https://example.com/deployment/42/output
        */
       target_url: string
@@ -13818,12 +13909,14 @@ export interface components {
       /**
        * Format: uri
        * @description The URL for accessing your environment.
+       * @default
        * @example https://staging.example.com/
        */
       environment_url?: string
       /**
        * Format: uri
        * @description The URL to associate with this status.
+       * @default
        * @example https://example.com/deployment/42/output
        */
       log_url?: string
@@ -15422,7 +15515,11 @@ export interface components {
        * @description The timestamp when a pending domain becomes unverified.
        */
       pending_domain_unverified_at?: string | null
-      /** @description Whether the Page has a custom 404 page. */
+      /**
+       * @description Whether the Page has a custom 404 page.
+       * @default false
+       * @example false
+       */
       custom_404: boolean
       /**
        * Format: uri
@@ -16086,7 +16183,10 @@ export interface components {
       } & { [key: string]: unknown }
       author_association: components['schemas']['author_association']
       auto_merge: components['schemas']['auto_merge']
-      /** @description Indicates whether or not the pull request is a draft. */
+      /**
+       * @description Indicates whether or not the pull request is a draft.
+       * @example false
+       */
       draft?: boolean
       merged: boolean
       /** @example true */
@@ -16098,6 +16198,7 @@ export interface components {
       merged_by: components['schemas']['nullable-simple-user']
       /** @example 10 */
       comments: number
+      /** @example 0 */
       review_comments: number
       /**
        * @description Indicates whether maintainers can modify the pull request.
@@ -16335,9 +16436,15 @@ export interface components {
       target_commitish: string
       name: string | null
       body?: string | null
-      /** @description true to create a draft (unpublished) release, false to create a published one. */
+      /**
+       * @description true to create a draft (unpublished) release, false to create a published one.
+       * @example false
+       */
       draft: boolean
-      /** @description Whether to identify the release as a prerelease or a full release. */
+      /**
+       * @description Whether to identify the release as a prerelease or a full release.
+       * @example false
+       */
       prerelease: boolean
       /** Format: date-time */
       created_at: string
@@ -17254,6 +17361,7 @@ export interface components {
       public_gists: number
       /** @example 20 */
       followers: number
+      /** @example 0 */
       following: number
       /**
        * Format: date-time
@@ -19122,7 +19230,10 @@ export interface operations {
           selected_organization_ids?: number[]
           /** @description List of runner IDs to add to the runner group. */
           runners?: number[]
-          /** @description Whether the runner group can be used by `public` repositories. */
+          /**
+           * @description Whether the runner group can be used by `public` repositories.
+           * @default false
+           */
           allows_public_repositories?: boolean
         } & { [key: string]: unknown }
       }
@@ -19203,7 +19314,10 @@ export interface operations {
            * @enum {string}
            */
           visibility?: 'selected' | 'all'
-          /** @description Whether the runner group can be used by `public` repositories. */
+          /**
+           * @description Whether the runner group can be used by `public` repositories.
+           * @default false
+           */
           allows_public_repositories?: boolean
         } & { [key: string]: unknown }
       }
@@ -20975,7 +21089,10 @@ export interface operations {
     requestBody: {
       content: {
         'application/json': {
-          /** @description Whether to block all notifications from a thread. */
+          /**
+           * @description Whether to block all notifications from a thread.
+           * @default false
+           */
           ignored?: boolean
         } & { [key: string]: unknown }
       }
@@ -21235,6 +21352,7 @@ export interface operations {
            * @description Toggles whether organization members can fork private organization repositories. Can be one of:
            * \* `true` - all organization members can fork private repositories within the organization.
            * \* `false` - no organization members can fork private repositories within the organization.
+           * @default false
            */
           members_can_fork_private_repositories?: boolean
           /** @example "http://github.blog" */
@@ -21531,7 +21649,10 @@ export interface operations {
           selected_repository_ids?: number[]
           /** @description List of runner IDs to add to the runner group. */
           runners?: number[]
-          /** @description Whether the runner group can be used by `public` repositories. */
+          /**
+           * @description Whether the runner group can be used by `public` repositories.
+           * @default false
+           */
           allows_public_repositories?: boolean
         } & { [key: string]: unknown }
       }
@@ -21614,7 +21735,10 @@ export interface operations {
            * @enum {string}
            */
           visibility?: 'selected' | 'all' | 'private'
-          /** @description Whether the runner group can be used by `public` repositories. */
+          /**
+           * @description Whether the runner group can be used by `public` repositories.
+           * @default false
+           */
           allows_public_repositories?: boolean
         } & { [key: string]: unknown }
       }
@@ -23672,21 +23796,25 @@ export interface operations {
           repositories: string[]
           /**
            * @description Indicates whether repositories should be locked (to prevent manipulation) while migrating data.
+           * @default false
            * @example true
            */
           lock_repositories?: boolean
           /**
            * @description Indicates whether attachments should be excluded from the migration (to reduce migration archive file size).
+           * @default false
            * @example true
            */
           exclude_attachments?: boolean
           /**
            * @description Indicates whether releases should be excluded from the migration (to reduce migration archive file size).
+           * @default false
            * @example true
            */
           exclude_releases?: boolean
           /**
            * @description Indicates whether projects owned by the organization or users should be excluded. from the migration.
+           * @default false
            * @example true
            */
           exclude_owner_projects?: boolean
@@ -24302,7 +24430,10 @@ export interface operations {
           description?: string
           /** @description A URL with more information about the repository. */
           homepage?: string
-          /** @description Whether the repository is private. */
+          /**
+           * @description Whether the repository is private.
+           * @default false
+           */
           private?: boolean
           /**
            * @description Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. Note: For GitHub Enterprise Server and GitHub AE, this endpoint will only list repositories available to all users on the enterprise. For more information, see "[Creating an internal repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/about-repository-visibility#about-internal-repositories)" in the GitHub Help documentation.
@@ -24324,11 +24455,17 @@ export interface operations {
            * @default true
            */
           has_wiki?: boolean
-          /** @description Either `true` to make this repo available as a template repository or `false` to prevent it. */
+          /**
+           * @description Either `true` to make this repo available as a template repository or `false` to prevent it.
+           * @default false
+           */
           is_template?: boolean
           /** @description The id of the team that will be granted access to this repository. This is only valid when creating a repository in an organization. */
           team_id?: number
-          /** @description Pass `true` to create an initial commit with empty README. */
+          /**
+           * @description Pass `true` to create an initial commit with empty README.
+           * @default false
+           */
           auto_init?: boolean
           /** @description Desired language or platform [.gitignore template](https://github.com/github/gitignore) to apply. Use the name of the template without the extension. For example, "Haskell". */
           gitignore_template?: string
@@ -24349,9 +24486,15 @@ export interface operations {
            * @default true
            */
           allow_rebase_merge?: boolean
-          /** @description Either `true` to allow auto-merge on pull requests, or `false` to disallow auto-merge. */
+          /**
+           * @description Either `true` to allow auto-merge on pull requests, or `false` to disallow auto-merge.
+           * @default false
+           */
           allow_auto_merge?: boolean
-          /** @description Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion. */
+          /**
+           * @description Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion.
+           * @default false
+           */
           delete_branch_on_merge?: boolean
         } & { [key: string]: unknown }
       }
@@ -24760,7 +24903,10 @@ export interface operations {
           title: string
           /** @description The discussion post's body text. */
           body: string
-          /** @description Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post. */
+          /**
+           * @description Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post.
+           * @default false
+           */
           private?: boolean
         } & { [key: string]: unknown }
       }
@@ -25797,7 +25943,10 @@ export interface operations {
            * @example Update all gems
            */
           note?: string | null
-          /** @description Whether or not the card is archived */
+          /**
+           * @description Whether or not the card is archived
+           * @example false
+           */
           archived?: boolean
         } & { [key: string]: unknown }
       }
@@ -26445,6 +26594,7 @@ export interface operations {
           /**
            * @description Either `true` to make the repository private or `false` to make it public. Default: `false`.
            * **Note**: You will get a `422` error if the organization restricts [changing repository visibility](https://docs.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories) to organization owners and a non-owner tries to change the value of private. **Note**: You will get a `422` error if the organization restricts [changing repository visibility](https://docs.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories) to organization owners and a non-owner tries to change the value of private.
+           * @default false
            */
           private?: boolean
           /**
@@ -26482,7 +26632,10 @@ export interface operations {
            * @default true
            */
           has_wiki?: boolean
-          /** @description Either `true` to make this repo available as a template repository or `false` to prevent it. */
+          /**
+           * @description Either `true` to make this repo available as a template repository or `false` to prevent it.
+           * @default false
+           */
           is_template?: boolean
           /** @description Updates the default branch for this repository. */
           default_branch?: string
@@ -26501,13 +26654,25 @@ export interface operations {
            * @default true
            */
           allow_rebase_merge?: boolean
-          /** @description Either `true` to allow auto-merge on pull requests, or `false` to disallow auto-merge. */
+          /**
+           * @description Either `true` to allow auto-merge on pull requests, or `false` to disallow auto-merge.
+           * @default false
+           */
           allow_auto_merge?: boolean
-          /** @description Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion. */
+          /**
+           * @description Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion.
+           * @default false
+           */
           delete_branch_on_merge?: boolean
-          /** @description `true` to archive this repository. **Note**: You cannot unarchive repositories through the API. */
+          /**
+           * @description `true` to archive this repository. **Note**: You cannot unarchive repositories through the API.
+           * @default false
+           */
           archived?: boolean
-          /** @description Either `true` to allow private forks, or `false` to prevent private forks. */
+          /**
+           * @description Either `true` to allow private forks, or `false` to prevent private forks.
+           * @default false
+           */
           allow_forking?: boolean
         } & { [key: string]: unknown }
       }
@@ -31479,9 +31644,15 @@ export interface operations {
            * @default production
            */
           environment?: string
-          /** @description Short description of the deployment. */
+          /**
+           * @description Short description of the deployment.
+           * @default
+           */
           description?: string | null
-          /** @description Specifies if the given environment is specific to the deployment and will no longer exist at some point in the future. Default: `false` */
+          /**
+           * @description Specifies if the given environment is specific to the deployment and will no longer exist at some point in the future. Default: `false`
+           * @default false
+           */
           transient_environment?: boolean
           /** @description Specifies if the given environment is one that end-users directly interact with. Default: `true` when `environment` is `production` and `false` otherwise. */
           production_environment?: boolean
@@ -31595,18 +31766,30 @@ export interface operations {
            * @enum {string}
            */
           state: 'error' | 'failure' | 'inactive' | 'in_progress' | 'queued' | 'pending' | 'success'
-          /** @description The target URL to associate with this status. This URL should contain output to keep the user updated while the task is running or serve as historical information for what happened in the deployment. **Note:** It's recommended to use the `log_url` parameter, which replaces `target_url`. */
+          /**
+           * @description The target URL to associate with this status. This URL should contain output to keep the user updated while the task is running or serve as historical information for what happened in the deployment. **Note:** It's recommended to use the `log_url` parameter, which replaces `target_url`.
+           * @default
+           */
           target_url?: string
-          /** @description The full URL of the deployment's output. This parameter replaces `target_url`. We will continue to accept `target_url` to support legacy uses, but we recommend replacing `target_url` with `log_url`. Setting `log_url` will automatically set `target_url` to the same value. Default: `""` */
+          /**
+           * @description The full URL of the deployment's output. This parameter replaces `target_url`. We will continue to accept `target_url` to support legacy uses, but we recommend replacing `target_url` with `log_url`. Setting `log_url` will automatically set `target_url` to the same value. Default: `""`
+           * @default
+           */
           log_url?: string
-          /** @description A short description of the status. The maximum description length is 140 characters. */
+          /**
+           * @description A short description of the status. The maximum description length is 140 characters.
+           * @default
+           */
           description?: string
           /**
            * @description Name for the target deployment environment, which can be changed when setting a deploy status. For example, `production`, `staging`, or `qa`.
            * @enum {string}
            */
           environment?: 'production' | 'staging' | 'qa'
-          /** @description Sets the URL for accessing your environment. Default: `""` */
+          /**
+           * @description Sets the URL for accessing your environment. Default: `""`
+           * @default
+           */
           environment_url?: string
           /** @description Adds a new `inactive` status to all prior non-transient, non-production environment deployments with the same repository and `environment` name as the created status's deployment. An `inactive` status is only added to deployments that had a `success` state. Default: `true` */
           auto_inactive?: boolean
@@ -32199,7 +32382,10 @@ export interface operations {
         'application/json': {
           /** @description The SHA1 value to set this reference to */
           sha: string
-          /** @description Indicates whether to force the update or to make sure the update is a fast-forward update. Leaving this out or setting it to `false` will make sure you're not overwriting work. */
+          /**
+           * @description Indicates whether to force the update or to make sure the update is a fast-forward update. Leaving this out or setting it to `false` will make sure you're not overwriting work.
+           * @default false
+           */
           force?: boolean
         } & { [key: string]: unknown }
       }
@@ -36010,13 +36196,22 @@ export interface operations {
           name?: string
           /** @description Text describing the contents of the tag. */
           body?: string
-          /** @description `true` to create a draft (unpublished) release, `false` to create a published one. */
+          /**
+           * @description `true` to create a draft (unpublished) release, `false` to create a published one.
+           * @default false
+           */
           draft?: boolean
-          /** @description `true` to identify the release as a prerelease. `false` to identify the release as a full release. */
+          /**
+           * @description `true` to identify the release as a prerelease. `false` to identify the release as a full release.
+           * @default false
+           */
           prerelease?: boolean
           /** @description If specified, a discussion of the specified category is created and linked to the release. The value must be a category that already exists in the repository. For more information, see "[Managing categories for discussions in your repository](https://docs.github.com/discussions/managing-discussions-for-your-community/managing-categories-for-discussions-in-your-repository)." */
           discussion_category_name?: string
-          /** @description Whether to automatically generate the name and body for this release. If `name` is specified, the specified name will be used; otherwise, a name will be automatically generated. If `body` is specified, the body will be pre-pended to the automatically generated notes. */
+          /**
+           * @description Whether to automatically generate the name and body for this release. If `name` is specified, the specified name will be used; otherwise, a name will be automatically generated. If `body` is specified, the body will be pre-pended to the automatically generated notes.
+           * @default false
+           */
           generate_release_notes?: boolean
         } & { [key: string]: unknown }
       }
@@ -37087,9 +37282,15 @@ export interface operations {
           name: string
           /** @description A short description of the new repository. */
           description?: string
-          /** @description Set to `true` to include the directory structure and files from all branches in the template repository, and not just the default branch. Default: `false`. */
+          /**
+           * @description Set to `true` to include the directory structure and files from all branches in the template repository, and not just the default branch. Default: `false`.
+           * @default false
+           */
           include_all_branches?: boolean
-          /** @description Either `true` to create a new private repository or `false` to create a new public one. */
+          /**
+           * @description Either `true` to create a new private repository or `false` to create a new public one.
+           * @default false
+           */
           private?: boolean
         } & { [key: string]: unknown }
       }
@@ -38475,7 +38676,10 @@ export interface operations {
           title: string
           /** @description The discussion post's body text. */
           body: string
-          /** @description Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post. */
+          /**
+           * @description Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post.
+           * @default false
+           */
           private?: boolean
         } & { [key: string]: unknown }
       }
@@ -41404,7 +41608,10 @@ export interface operations {
           description?: string
           /** @description A URL with more information about the repository. */
           homepage?: string
-          /** @description Whether the repository is private. */
+          /**
+           * @description Whether the repository is private.
+           * @default false
+           */
           private?: boolean
           /**
            * @description Whether issues are enabled.
@@ -41426,7 +41633,10 @@ export interface operations {
           has_wiki?: boolean
           /** @description The id of the team that will be granted access to this repository. This is only valid when creating a repository in an organization. */
           team_id?: number
-          /** @description Whether the repository is initialized with a minimal README. */
+          /**
+           * @description Whether the repository is initialized with a minimal README.
+           * @default false
+           */
           auto_init?: boolean
           /**
            * @description The desired language or platform to apply to the .gitignore.
@@ -41456,9 +41666,17 @@ export interface operations {
            * @example true
            */
           allow_rebase_merge?: boolean
-          /** @description Whether to allow Auto-merge to be used on pull requests. */
+          /**
+           * @description Whether to allow Auto-merge to be used on pull requests.
+           * @default false
+           * @example false
+           */
           allow_auto_merge?: boolean
-          /** @description Whether to delete head branches when pull requests are merged */
+          /**
+           * @description Whether to delete head branches when pull requests are merged
+           * @default false
+           * @example false
+           */
           delete_branch_on_merge?: boolean
           /**
            * @description Whether downloads are enabled.
@@ -41468,6 +41686,7 @@ export interface operations {
           has_downloads?: boolean
           /**
            * @description Whether this repository acts as a template that can be used to generate new repositories.
+           * @default false
            * @example true
            */
           is_template?: boolean

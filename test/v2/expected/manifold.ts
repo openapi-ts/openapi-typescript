@@ -688,23 +688,32 @@ export interface definitions {
     name: definitions['Name']
     /** @enum {string} */
     type: 'boolean' | 'string' | 'number'
-    /** @description This sets whether or not the feature can be customized by a consumer. */
+    /**
+     * @description This sets whether or not the feature can be customized by a consumer.
+     * @default false
+     */
     customizable?: boolean
     /**
      * @description This sets whether or not the feature can be upgraded by the consumer after the
      * resource has provisioned. Upgrading means setting a higher value or selecting a
      * higher element in the list.
+     *
+     * @default false
      */
     upgradable?: boolean
     /**
      * @description This sets whether or not the feature can be downgraded by the consumer after the
      * resource has provisioned. Downgrading means setting a lower value or selecting a
      * lower element in the list.
+     *
+     * @default false
      */
     downgradable?: boolean
     /**
      * @description Sets if this feature’s value is trackable from the provider,
      * this only really affects numeric constraints.
+     *
+     * @default false
      */
     measurable?: boolean
     values?: definitions['FeatureValuesList']
@@ -725,6 +734,8 @@ export interface definitions {
      * @description The cost that will be added to the monthly plan cost when this value
      * is selected or is default for the plan.
      * Cost is deprecated in favor of the `price.cost` field.
+     *
+     * @default 0
      */
     cost?: number
     /**
@@ -736,12 +747,16 @@ export interface definitions {
        * @description Cost is the price in cents that will be added to plan's base cost
        * when this value is selected or is default for the plan.
        * Number features should use the cost range instead.
+       *
+       * @default 0
        */
       cost?: number
       /**
        * @description When a feature is used to multiply the cost of the plan or of
        * another feature, multiply factor is used for calculation.
        * A feature cannot have both a cost and a multiply factor.
+       *
+       * @default 0
        */
       multiply_factor?: number
       /**
@@ -771,7 +786,10 @@ export interface definitions {
      * @default 1
      */
     increment?: number
-    /** @description Minimum value that can be set by a user if customizable */
+    /**
+     * @description Minimum value that can be set by a user if customizable
+     * @default 0
+     */
     min?: number
     /** @description Maximum value that can be set by a user if customizable */
     max?: number
@@ -790,6 +808,8 @@ export interface definitions {
     /**
      * @description An integer in 10,000,000ths of cents, will be multiplied by the
      * numeric value set in the feature to determine the cost.
+     *
+     * @default 0
      */
     cost_multiple?: number
   }
@@ -819,6 +839,8 @@ export interface definitions {
     /**
      * @description When true, everyone can see the product when requested. When false it will
      * not be visible to anyone except those on the provider team.
+     *
+     * @default false
      */
     public?: boolean
     /**
@@ -827,6 +849,8 @@ export interface definitions {
      * but can still be provisioned directly if it's label is known.
      * Any pages that display information about the product when not listed,
      * should indicate to webcrawlers that the content should not be indexed.
+     *
+     * @default false
      */
     listed?: boolean
     /**
@@ -842,18 +866,24 @@ export interface definitions {
        * @description Indicates whether or not the product is in `Beta` and should be
        * advertised as such. This does not have any impact on who can access the
        * product, it is just used to inform consumers through our clients.
+       *
+       * @default false
        */
       beta?: boolean
       /**
        * @description Indicates whether or not the product is in `New` and should be
        * advertised as such. This does not have any impact on who can access the
        * product, it is just used to inform consumers through our clients.
+       *
+       * @default false
        */
       new?: boolean
       /**
        * @description Indicates whether or not the product is in `New` and should be
        * advertised as such. This does not have any impact on who can access the
        * product, it is just used to inform consumers through our clients.
+       *
+       * @default false
        */
       featured?: boolean
     }

@@ -79,6 +79,7 @@ export interface components {
        * @enum {string}
        */
       status?: 'placed' | 'approved' | 'delivered'
+      /** @default false */
       complete?: boolean
     } & { [key: string]: unknown }
     Category: {

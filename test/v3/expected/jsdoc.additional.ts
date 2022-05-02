@@ -44,6 +44,7 @@ export interface components {
        * @example 2020-07-10 10:10:00.000
        */
       updated_at?: string
+      /** @example false */
       deleted?: boolean
     } & { [key: string]: unknown }
     /** Image for preview */
