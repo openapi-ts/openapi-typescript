@@ -639,7 +639,7 @@ export interface definitions {
       sso_url?: string;
       /** @enum {string} */
       version?: "v1";
-      /** @default [object Object] */
+      /** @default {} */
       features?: {
         access_code?: boolean;
         sso?: boolean;
@@ -762,7 +762,13 @@ export interface definitions {
       /**
        * @description Price describes how the feature cost should be calculated.
        *
-       * @example [object Object]
+       * @example {
+       *   "feature_multiplies_base_cost": "(* plan#base_cost feature-a#multiply_factor)",
+       *   "feature_multiplies_feature_cost": "(* feature-b#cost feature-a#multiply_factor)",
+       *   "feature_multiplies_numeric_value": "(* feature-c#number feature-a#multiply_factor)",
+       *   "feature_multiplies_total_cost": "(* plan#total_cost feature-a#multiply_factor)",
+       *   "feature_nested_formulas": "(+ (- (* feature-a#cost feature-b#multiply_factor) 500) plan#partial_cost)"
+       * }
        */
       formula?: definitions["PriceFormula"];
       /** @description Description explains how a feature is calculated to the user. */
@@ -834,7 +840,7 @@ export interface definitions {
   ProductTags: definitions["Label"][];
   /** @enum {string} */
   ProductState: "available" | "hidden" | "grandfathered" | "new" | "upcoming";
-  /** @default [object Object] */
+  /** @default {} */
   ProductListing: {
     /**
      * @description When true, everyone can see the product when requested. When false it will
@@ -859,7 +865,7 @@ export interface definitions {
      * we find ourselves in a position where we think they should, we should
      * consider refactoring our listing definition.
      *
-     * @default [object Object]
+     * @default {}
      */
     marketing?: {
       /**
@@ -898,7 +904,7 @@ export interface definitions {
    * @enum {string}
    */
   ProductProvisioning: "provider-only" | "pre-order" | "public";
-  /** @default [object Object] */
+  /** @default {} */
   ProductIntegrationFeatures: {
     /**
      * @description Indicates whether or not this product supports resource transitions to

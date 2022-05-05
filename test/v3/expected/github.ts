@@ -6085,7 +6085,10 @@ export interface components {
       updated_at: string
       /**
        * @description The set of permissions for the GitHub app
-       * @example [object Object]
+       * @example {
+       *   "issues": "read",
+       *   "deployments": "write"
+       * }
        */
       permissions: {
         issues?: string
@@ -6096,7 +6099,10 @@ export interface components {
       } & { [key: string]: string }
       /**
        * @description The list of events for the GitHub app
-       * @example label,deployment
+       * @example [
+       *   "label",
+       *   "deployment"
+       * ]
        */
       events: string[]
       /**
@@ -6447,7 +6453,12 @@ export interface components {
     /**
      * App Permissions
      * @description The permissions granted to the user-to-server access token.
-     * @example [object Object]
+     * @example {
+     *   "contents": "read",
+     *   "issues": "read",
+     *   "deployments": "write",
+     *   "single_file": "read"
+     * }
      */
     'app-permissions': {
       /**
@@ -6648,7 +6659,12 @@ export interface components {
       single_file_name: string | null
       /** @example true */
       has_multiple_single_files?: boolean
-      /** @example config.yml,.github/issue_TEMPLATE.md */
+      /**
+       * @example [
+       *   "config.yml",
+       *   ".github/issue_TEMPLATE.md"
+       * ]
+       */
       single_file_paths?: string[]
       /** @example github-actions */
       app_slug: string
@@ -7099,7 +7115,12 @@ export interface components {
       single_file?: string
       /** @example true */
       has_multiple_single_files?: boolean
-      /** @example config.yml,.github/issue_TEMPLATE.md */
+      /**
+       * @example [
+       *   "config.yml",
+       *   ".github/issue_TEMPLATE.md"
+       * ]
+       */
       single_file_paths?: string[]
     }
     /**
@@ -7130,7 +7151,11 @@ export interface components {
        * @example 2011-09-06T20:39:23Z
        */
       updated_at: string
-      /** @example public_repo */
+      /**
+       * @example [
+       *   "public_repo"
+       * ]
+       */
       scopes: string[]
       user?: components['schemas']['nullable-simple-user']
     }
@@ -7146,7 +7171,12 @@ export interface components {
       single_file_name: string | null
       /** @example true */
       has_multiple_single_files?: boolean
-      /** @example config.yml,.github/issue_TEMPLATE.md */
+      /**
+       * @example [
+       *   "config.yml",
+       *   ".github/issue_TEMPLATE.md"
+       * ]
+       */
       single_file_paths?: string[]
       /**
        * Format: uri
@@ -7402,7 +7432,12 @@ export interface components {
        * @example 2016-07-11T22:14:10Z
        */
       expires_at: string
-      /** @example [object Object] */
+      /**
+       * @example {
+       *   "issues": "read",
+       *   "deployments": "write"
+       * }
+       */
       permissions?: { [key: string]: unknown }
       /** @description The repositories this token has access to */
       repositories?: components['schemas']['repository'][]
@@ -8313,7 +8348,10 @@ export interface components {
       updated_at: string
       /**
        * @description The set of permissions for the GitHub app
-       * @example [object Object]
+       * @example {
+       *   "issues": "read",
+       *   "deployments": "write"
+       * }
        */
       permissions: {
         issues?: string
@@ -8324,7 +8362,10 @@ export interface components {
       } & { [key: string]: string }
       /**
        * @description The list of events for the GitHub app
-       * @example label,deployment
+       * @example [
+       *   "label",
+       *   "deployment"
+       * ]
        */
       events: string[]
       /**
@@ -8407,7 +8448,10 @@ export interface components {
       user: components['schemas']['nullable-simple-user']
       /**
        * @description Labels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository
-       * @example bug,registration
+       * @example [
+       *   "bug",
+       *   "registration"
+       * ]
        */
       labels: (
         | string
@@ -8558,7 +8602,11 @@ export interface components {
       current_user_actor_url?: string
       /** @example https://github.com/octocat-org */
       current_user_organization_url?: string
-      /** @example https://github.com/organizations/github/octocat.private.atom?token=abc123 */
+      /**
+       * @example [
+       *   "https://github.com/organizations/github/octocat.private.atom?token=abc123"
+       * ]
+       */
       current_user_organization_urls?: string[]
       /** @example https://github.com/security-advisories */
       security_advisories_url?: string
@@ -8924,11 +8972,27 @@ export interface components {
       description: string
       /** @example Create a text file (typically named LICENSE or LICENSE.txt) in the root of your source code and copy the text of the license into the file. Replace [year] with the current year and [fullname] with the name (or names) of the copyright holders. */
       implementation: string
-      /** @example commercial-use,modifications,distribution,sublicense,private-use */
+      /**
+       * @example [
+       *   "commercial-use",
+       *   "modifications",
+       *   "distribution",
+       *   "sublicense",
+       *   "private-use"
+       * ]
+       */
       permissions: string[]
-      /** @example include-copyright */
+      /**
+       * @example [
+       *   "include-copyright"
+       * ]
+       */
       conditions: string[]
-      /** @example no-liability */
+      /**
+       * @example [
+       *   "no-liability"
+       * ]
+       */
       limitations: string[]
       /**
        * @example
@@ -8993,7 +9057,12 @@ export interface components {
       unit_name: string | null
       /** @example published */
       state: string
-      /** @example Up to 25 private repositories,11 concurrent builds */
+      /**
+       * @example [
+       *   "Up to 25 private repositories",
+       *   "11 concurrent builds"
+       * ]
+       */
       bullets: string[]
     }
     /**
@@ -9038,25 +9107,71 @@ export interface components {
         SHA256_ECDSA?: string
         SHA256_ED25519?: string
       }
-      /** @example ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl */
+      /**
+       * @example [
+       *   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl"
+       * ]
+       */
       ssh_keys?: string[]
-      /** @example 127.0.0.1/32 */
+      /**
+       * @example [
+       *   "127.0.0.1/32"
+       * ]
+       */
       hooks?: string[]
-      /** @example 127.0.0.1/32 */
+      /**
+       * @example [
+       *   "127.0.0.1/32"
+       * ]
+       */
       web?: string[]
-      /** @example 127.0.0.1/32 */
+      /**
+       * @example [
+       *   "127.0.0.1/32"
+       * ]
+       */
       api?: string[]
-      /** @example 127.0.0.1/32 */
+      /**
+       * @example [
+       *   "127.0.0.1/32"
+       * ]
+       */
       git?: string[]
-      /** @example 13.65.0.0/16,157.55.204.33/32,2a01:111:f403:f90c::/62 */
+      /**
+       * @example [
+       *   "13.65.0.0/16",
+       *   "157.55.204.33/32",
+       *   "2a01:111:f403:f90c::/62"
+       * ]
+       */
       packages?: string[]
-      /** @example 192.30.252.153/32,192.30.252.154/32 */
+      /**
+       * @example [
+       *   "192.30.252.153/32",
+       *   "192.30.252.154/32"
+       * ]
+       */
       pages?: string[]
-      /** @example 54.158.161.132,54.226.70.38 */
+      /**
+       * @example [
+       *   "54.158.161.132",
+       *   "54.226.70.38"
+       * ]
+       */
       importer?: string[]
-      /** @example 13.64.0.0/16,13.65.0.0/16 */
+      /**
+       * @example [
+       *   "13.64.0.0/16",
+       *   "13.65.0.0/16"
+       * ]
+       */
       actions?: string[]
-      /** @example 192.168.7.15/32,192.168.7.16/32 */
+      /**
+       * @example [
+       *   "192.168.7.15/32",
+       *   "192.168.7.16/32"
+       * ]
+       */
       dependabot?: string[]
     }
     /**
@@ -9125,7 +9240,18 @@ export interface components {
     'external-groups': {
       /**
        * @description An array of external groups available to be mapped to a team
-       * @example [object Object],[object Object]
+       * @example [
+       *   {
+       *     "group_id": 1,
+       *     "group_name": "group-azuread-test",
+       *     "updated_at": "2021-01-03 22:27:15:000 -700"
+       *   },
+       *   {
+       *     "group_id": 2,
+       *     "group_name": "group-azuread-test2",
+       *     "updated_at": "2021-06-03 22:27:15:000 -700"
+       *   }
+       * ]
        */
       groups?: {
         /**
@@ -9523,7 +9649,10 @@ export interface components {
       credential_authorized_at: string
       /**
        * @description List of oauth scopes the token has been granted.
-       * @example user,repo
+       * @example [
+       *   "user",
+       *   "repo"
+       * ]
        */
       scopes?: string[]
       /**
@@ -9618,7 +9747,16 @@ export interface components {
       updated_at?: string
       /**
        * @description An array of teams linked to this group
-       * @example [object Object],[object Object]
+       * @example [
+       *   {
+       *     "team_id": 1,
+       *     "team_name": "team-test"
+       *   },
+       *   {
+       *     "team_id": 2,
+       *     "team_name": "team-test2"
+       *   }
+       * ]
        */
       teams: {
         /**
@@ -9634,7 +9772,20 @@ export interface components {
       }[]
       /**
        * @description An array of external members linked to this group
-       * @example [object Object],[object Object]
+       * @example [
+       *   {
+       *     "member_id": 1,
+       *     "member_login": "mona-lisa_eocsaxrs",
+       *     "member_name": "Mona Lisa",
+       *     "member_email": "mona_lisa@github.com"
+       *   },
+       *   {
+       *     "member_id": 2,
+       *     "member_login": "octo-lisa_eocsaxrs",
+       *     "member_name": "Octo Lisa",
+       *     "member_email": "octo_lisa@github.com"
+       *   }
+       * ]
        */
       members: {
         /**
@@ -9702,7 +9853,12 @@ export interface components {
       deliveries_url?: string
       /** @example web */
       name: string
-      /** @example push,pull_request */
+      /**
+       * @example [
+       *   "push",
+       *   "pull_request"
+       * ]
+       */
       events: string[]
       /** @example true */
       active: boolean
@@ -10302,7 +10458,18 @@ export interface components {
     'group-mapping': {
       /**
        * @description Array of groups to be mapped to this team
-       * @example [object Object],[object Object]
+       * @example [
+       *   {
+       *     "group_id": "111a1a11-aaa1-1aaa-11a1-a1a1a1a1a1aa",
+       *     "group_name": "saml-azuread-test",
+       *     "group_description": "A group of Developers working on AzureAD SAML SSO"
+       *   },
+       *   {
+       *     "group_id": "2bb2bb2b-bb22-22bb-2bb2-bb2bbb2bb2b2",
+       *     "group_name": "saml-azuread-test2",
+       *     "group_description": "Another group of Developers working on AzureAD SAML SSO"
+       *   }
+       * ]
        */
       groups?: {
         /**
@@ -11227,7 +11394,14 @@ export interface components {
       open_issues_count: number
       /** @example true */
       is_template?: boolean
-      /** @example octocat,atom,electron,API */
+      /**
+       * @example [
+       *   "octocat",
+       *   "atom",
+       *   "electron",
+       *   "API"
+       * ]
+       */
       topics?: string[]
       /** @example true */
       has_issues: boolean
@@ -11441,7 +11615,11 @@ export interface components {
       check_run_url: string
       /**
        * @description Labels for the workflow job. Specified by the "runs_on" attribute in the action's workflow file.
-       * @example self-hosted,foo,bar
+       * @example [
+       *   "self-hosted",
+       *   "foo",
+       *   "bar"
+       * ]
        */
       labels: string[]
       /**
@@ -12309,7 +12487,11 @@ export interface components {
       url: string
       /** @example true */
       strict: boolean
-      /** @example continuous-integration/travis-ci */
+      /**
+       * @example [
+       *   "continuous-integration/travis-ci"
+       * ]
+       */
       contexts: string[]
       checks: {
         /** @example continuous-integration/travis-ci */
@@ -14115,7 +14297,44 @@ export interface components {
       truncated: boolean
       /**
        * @description Objects specifying a tree structure
-       * @example [object Object]
+       * @example [
+       *   {
+       *     "path": "file.rb",
+       *     "mode": "100644",
+       *     "type": "blob",
+       *     "size": 30,
+       *     "sha": "44b4fc6d56897b048c772eb4087f854f46256132",
+       *     "url": "https://api.github.com/repos/octocat/Hello-World/git/blobs/44b4fc6d56897b048c772eb4087f854f46256132",
+       *     "properties": {
+       *       "path": {
+       *         "type": "string"
+       *       },
+       *       "mode": {
+       *         "type": "string"
+       *       },
+       *       "type": {
+       *         "type": "string"
+       *       },
+       *       "size": {
+       *         "type": "integer"
+       *       },
+       *       "sha": {
+       *         "type": "string"
+       *       },
+       *       "url": {
+       *         "type": "string"
+       *       }
+       *     },
+       *     "required": [
+       *       "path",
+       *       "mode",
+       *       "type",
+       *       "sha",
+       *       "url",
+       *       "size"
+       *     ]
+       *   }
+       * ]
        */
       tree: {
         /** @example test/file.rb */
@@ -14161,7 +14380,10 @@ export interface components {
       active: boolean
       /**
        * @description Determines what events the hook is triggered for. Default: ['push'].
-       * @example push,pull_request
+       * @example [
+       *   "push",
+       *   "pull_request"
+       * ]
        */
       events: string[]
       config: {
@@ -14339,7 +14561,10 @@ export interface components {
       user: components['schemas']['nullable-simple-user']
       /**
        * @description Labels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository
-       * @example bug,registration
+       * @example [
+       *   "bug",
+       *   "registration"
+       * ]
        */
       labels: (
         | string
@@ -15406,7 +15631,10 @@ export interface components {
       description: string
       /**
        * @description Array of the domain set and its alternate name (if it is configured)
-       * @example example.com,www.example.com
+       * @example [
+       *   "example.com",
+       *   "www.example.com"
+       * ]
        */
       domains: string[]
       /** Format: date */
@@ -16480,7 +16708,17 @@ export interface components {
      * @description Commit Activity
      */
     'commit-activity': {
-      /** @example 0,3,26,20,39,1,0 */
+      /**
+       * @example [
+       *   0,
+       *   3,
+       *   26,
+       *   20,
+       *   39,
+       *   1,
+       *   0
+       * ]
+       */
       days: number[]
       /** @example 89 */
       total: number
@@ -16495,7 +16733,16 @@ export interface components {
       author: components['schemas']['nullable-simple-user']
       /** @example 135 */
       total: number
-      /** @example [object Object] */
+      /**
+       * @example [
+       *   {
+       *     "w": "1367712000",
+       *     "a": 6898,
+       *     "d": 77,
+       *     "c": 10
+       *   }
+       * ]
+       */
       weeks: {
         w?: number
         a?: number
@@ -16746,7 +16993,12 @@ export interface components {
        * @example Jon Doe
        */
       displayName?: string | null
-      /** @example [object Object] */
+      /**
+       * @example {
+       *   "givenName": "Jane",
+       *   "familyName": "User"
+       * }
+       */
       name: {
         givenName: string | null
         familyName: string | null
@@ -16754,7 +17006,16 @@ export interface components {
       }
       /**
        * @description user emails
-       * @example [object Object],[object Object]
+       * @example [
+       *   {
+       *     "value": "someone@example.com",
+       *     "primary": true
+       *   },
+       *   {
+       *     "value": "another@example.com",
+       *     "primary": false
+       *   }
+       * ]
        */
       emails: {
         value: string
@@ -16788,7 +17049,14 @@ export interface components {
       organization_id?: number
       /**
        * @description Set of operations to be performed
-       * @example [object Object]
+       * @example [
+       *   {
+       *     "op": "replace",
+       *     "value": {
+       *       "active": false
+       *     }
+       *   }
+       * ]
        */
       operations?: {
         /** @enum {string} */
@@ -16848,7 +17116,12 @@ export interface components {
       language?: string | null
       /** Format: date-time */
       last_modified_at?: string
-      /** @example 73..77,77..78 */
+      /**
+       * @example [
+       *   "73..77",
+       *   "77..78"
+       * ]
+       */
       line_numbers?: string[]
       text_matches?: components['schemas']['search-result-text-matches']
     }
@@ -17427,12 +17700,36 @@ export interface components {
       key_id: string
       /** @example xsBNBFayYZ... */
       public_key: string
-      /** @example [object Object] */
+      /**
+       * @example [
+       *   {
+       *     "email": "mastahyeti@users.noreply.github.com",
+       *     "verified": true
+       *   }
+       * ]
+       */
       emails: {
         email?: string
         verified?: boolean
       }[]
-      /** @example [object Object] */
+      /**
+       * @example [
+       *   {
+       *     "id": 4,
+       *     "primary_key_id": 3,
+       *     "key_id": "4A595D4C72EE49C7",
+       *     "public_key": "zsBNBFayYZ...",
+       *     "emails": [],
+       *     "subkeys": [],
+       *     "can_sign": false,
+       *     "can_encrypt_comms": true,
+       *     "can_encrypt_storage": true,
+       *     "can_certify": false,
+       *     "created_at": "2016-03-24T11:31:04-06:00",
+       *     "expires_at": null
+       *   }
+       * ]
+       */
       subkeys: {
         id?: number
         primary_key_id?: number
@@ -18289,7 +18586,9 @@ export interface operations {
           repositories?: string[]
           /**
            * @description List of repository IDs that the token should have access to
-           * @example 1
+           * @example [
+           *   1
+           * ]
            */
           repository_ids?: number[]
           permissions?: components['schemas']['app-permissions']
@@ -18545,7 +18844,9 @@ export interface operations {
           repositories?: string[]
           /**
            * @description The list of repository IDs to scope the user-to-server access token to. `repository_ids` may not be specified if `repositories` is specified.
-           * @example 1
+           * @example [
+           *   1
+           * ]
            */
           repository_ids?: number[]
           permissions?: components['schemas']['app-permissions']
@@ -18638,7 +18939,10 @@ export interface operations {
         'application/json': {
           /**
            * @description A list of scopes that this authorization is in.
-           * @example public_repo,user
+           * @example [
+           *   "public_repo",
+           *   "user"
+           * ]
            */
           scopes?: string[] | null
           /**
@@ -18707,7 +19011,10 @@ export interface operations {
           client_secret: string
           /**
            * @description A list of scopes that this authorization is in.
-           * @example public_repo,user
+           * @example [
+           *   "public_repo",
+           *   "user"
+           * ]
            */
           scopes?: string[] | null
           /**
@@ -18768,7 +19075,10 @@ export interface operations {
           client_secret: string
           /**
            * @description A list of scopes that this authorization is in.
-           * @example public_repo,user
+           * @example [
+           *   "public_repo",
+           *   "user"
+           * ]
            */
           scopes?: string[] | null
           /**
@@ -18846,7 +19156,10 @@ export interface operations {
         'application/json': {
           /**
            * @description A list of scopes that this authorization is in.
-           * @example public_repo,user
+           * @example [
+           *   "public_repo",
+           *   "user"
+           * ]
            */
           scopes?: string[] | null
           /** @description A list of scopes to add to this authorization. */
@@ -20011,7 +20324,11 @@ export interface operations {
           description?: string
           /**
            * @description Names and content for the files that make up the gist
-           * @example [object Object]
+           * @example {
+           *   "hello.rb": {
+           *     "content": "puts \"Hello, World!\""
+           *   }
+           * }
            */
           files: {
             [key: string]: {
@@ -20140,7 +20457,12 @@ export interface operations {
           description?: string
           /**
            * @description Names of files to be updated
-           * @example [object Object]
+           * @example {
+           *   "hello.rb": {
+           *     "content": "blah",
+           *     "filename": "goodbye.rb"
+           *   }
+           * }
            */
           files?: { [key: string]: Partial<{ [key: string]: unknown }> }
         } | null
@@ -23042,7 +23364,9 @@ export interface operations {
           }
           /**
            * @description Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for.
-           * @default push
+           * @default [
+           *   "push"
+           * ]
            */
           events?: string[]
           /**
@@ -23115,7 +23439,9 @@ export interface operations {
           }
           /**
            * @description Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for.
-           * @default push
+           * @default [
+           *   "push"
+           * ]
            */
           events?: string[]
           /**
@@ -27464,7 +27790,10 @@ export interface operations {
         'application/json': {
           /**
            * @description The list of environment ids to approve or reject
-           * @example 161171787,161171795
+           * @example [
+           *   161171787,
+           *   161171795
+           * ]
            */
           environment_ids: number[]
           /**
@@ -32564,7 +32893,9 @@ export interface operations {
           }
           /**
            * @description Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for.
-           * @default push
+           * @default [
+           *   "push"
+           * ]
            */
           events?: string[]
           /**
@@ -32644,7 +32975,9 @@ export interface operations {
           }
           /**
            * @description Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. This replaces the entire array of events.
-           * @default push
+           * @default [
+           *   "push"
+           * ]
            */
           events?: string[]
           /** @description Determines a list of events to be added to the list of events that the Hook triggers for. */
@@ -37877,7 +38210,12 @@ export interface operations {
            * @example Jon Doe
            */
           displayName?: string
-          /** @example [object Object] */
+          /**
+           * @example {
+           *   "givenName": "Jane",
+           *   "familyName": "User"
+           * }
+           */
           name: {
             givenName: string
             familyName: string
@@ -37885,7 +38223,16 @@ export interface operations {
           }
           /**
            * @description user emails
-           * @example [object Object],[object Object]
+           * @example [
+           *   {
+           *     "value": "someone@example.com",
+           *     "primary": true
+           *   },
+           *   {
+           *     "value": "another@example.com",
+           *     "primary": false
+           *   }
+           * ]
            */
           emails: {
             value: string
@@ -37963,7 +38310,12 @@ export interface operations {
            * @example someone@example.com
            */
           userName: string
-          /** @example [object Object] */
+          /**
+           * @example {
+           *   "givenName": "Jane",
+           *   "familyName": "User"
+           * }
+           */
           name: {
             givenName: string
             familyName: string
@@ -37971,7 +38323,16 @@ export interface operations {
           }
           /**
            * @description user emails
-           * @example [object Object],[object Object]
+           * @example [
+           *   {
+           *     "value": "someone@example.com",
+           *     "primary": true
+           *   },
+           *   {
+           *     "value": "another@example.com",
+           *     "primary": false
+           *   }
+           * ]
            */
           emails: {
             type?: string
@@ -38048,7 +38409,14 @@ export interface operations {
           schemas?: string[]
           /**
            * @description Set of operations to be performed
-           * @example [object Object]
+           * @example [
+           *   {
+           *     "op": "replace",
+           *     "value": {
+           *       "active": false
+           *     }
+           *   }
+           * ]
            */
           Operations: {
             /** @enum {string} */
@@ -40242,7 +40610,7 @@ export interface operations {
           | {
               /**
                * @description Adds one or more email addresses to your GitHub account. Must contain at least one email address. **Note:** Alternatively, you can pass a single email address or an `array` of emails addresses directly, but we recommend that you pass an object using the `emails` key.
-               * @example
+               * @example []
                */
               emails: string[]
             }
@@ -40937,7 +41305,9 @@ export interface operations {
           exclude_owner_projects?: boolean
           /**
            * @description Exclude attributes from the API response to improve performance
-           * @example repositories
+           * @example [
+           *   "repositories"
+           * ]
            */
           exclude?: 'repositories'[]
           repositories: string[]

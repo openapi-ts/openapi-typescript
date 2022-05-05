@@ -6085,7 +6085,10 @@ export interface components {
       readonly updated_at: string
       /**
        * @description The set of permissions for the GitHub app
-       * @example [object Object]
+       * @example {
+       *   "issues": "read",
+       *   "deployments": "write"
+       * }
        */
       readonly permissions: {
         readonly issues?: string
@@ -6096,7 +6099,10 @@ export interface components {
       } & { readonly [key: string]: string }
       /**
        * @description The list of events for the GitHub app
-       * @example label,deployment
+       * @example [
+       *   "label",
+       *   "deployment"
+       * ]
        */
       readonly events: readonly string[]
       /**
@@ -6447,7 +6453,12 @@ export interface components {
     /**
      * App Permissions
      * @description The permissions granted to the user-to-server access token.
-     * @example [object Object]
+     * @example {
+     *   "contents": "read",
+     *   "issues": "read",
+     *   "deployments": "write",
+     *   "single_file": "read"
+     * }
      */
     readonly 'app-permissions': {
       /**
@@ -6648,7 +6659,12 @@ export interface components {
       readonly single_file_name: string | null
       /** @example true */
       readonly has_multiple_single_files?: boolean
-      /** @example config.yml,.github/issue_TEMPLATE.md */
+      /**
+       * @example [
+       *   "config.yml",
+       *   ".github/issue_TEMPLATE.md"
+       * ]
+       */
       readonly single_file_paths?: readonly string[]
       /** @example github-actions */
       readonly app_slug: string
@@ -7099,7 +7115,12 @@ export interface components {
       readonly single_file?: string
       /** @example true */
       readonly has_multiple_single_files?: boolean
-      /** @example config.yml,.github/issue_TEMPLATE.md */
+      /**
+       * @example [
+       *   "config.yml",
+       *   ".github/issue_TEMPLATE.md"
+       * ]
+       */
       readonly single_file_paths?: readonly string[]
     }
     /**
@@ -7130,7 +7151,11 @@ export interface components {
        * @example 2011-09-06T20:39:23Z
        */
       readonly updated_at: string
-      /** @example public_repo */
+      /**
+       * @example [
+       *   "public_repo"
+       * ]
+       */
       readonly scopes: readonly string[]
       readonly user?: components['schemas']['nullable-simple-user']
     }
@@ -7146,7 +7171,12 @@ export interface components {
       readonly single_file_name: string | null
       /** @example true */
       readonly has_multiple_single_files?: boolean
-      /** @example config.yml,.github/issue_TEMPLATE.md */
+      /**
+       * @example [
+       *   "config.yml",
+       *   ".github/issue_TEMPLATE.md"
+       * ]
+       */
       readonly single_file_paths?: readonly string[]
       /**
        * Format: uri
@@ -7402,7 +7432,12 @@ export interface components {
        * @example 2016-07-11T22:14:10Z
        */
       readonly expires_at: string
-      /** @example [object Object] */
+      /**
+       * @example {
+       *   "issues": "read",
+       *   "deployments": "write"
+       * }
+       */
       readonly permissions?: { readonly [key: string]: unknown }
       /** @description The repositories this token has access to */
       readonly repositories?: readonly components['schemas']['repository'][]
@@ -8313,7 +8348,10 @@ export interface components {
       readonly updated_at: string
       /**
        * @description The set of permissions for the GitHub app
-       * @example [object Object]
+       * @example {
+       *   "issues": "read",
+       *   "deployments": "write"
+       * }
        */
       readonly permissions: {
         readonly issues?: string
@@ -8324,7 +8362,10 @@ export interface components {
       } & { readonly [key: string]: string }
       /**
        * @description The list of events for the GitHub app
-       * @example label,deployment
+       * @example [
+       *   "label",
+       *   "deployment"
+       * ]
        */
       readonly events: readonly string[]
       /**
@@ -8407,7 +8448,10 @@ export interface components {
       readonly user: components['schemas']['nullable-simple-user']
       /**
        * @description Labels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository
-       * @example bug,registration
+       * @example [
+       *   "bug",
+       *   "registration"
+       * ]
        */
       readonly labels: readonly (
         | string
@@ -8558,7 +8602,11 @@ export interface components {
       readonly current_user_actor_url?: string
       /** @example https://github.com/octocat-org */
       readonly current_user_organization_url?: string
-      /** @example https://github.com/organizations/github/octocat.private.atom?token=abc123 */
+      /**
+       * @example [
+       *   "https://github.com/organizations/github/octocat.private.atom?token=abc123"
+       * ]
+       */
       readonly current_user_organization_urls?: readonly string[]
       /** @example https://github.com/security-advisories */
       readonly security_advisories_url?: string
@@ -8924,11 +8972,27 @@ export interface components {
       readonly description: string
       /** @example Create a text file (typically named LICENSE or LICENSE.txt) in the root of your source code and copy the text of the license into the file. Replace [year] with the current year and [fullname] with the name (or names) of the copyright holders. */
       readonly implementation: string
-      /** @example commercial-use,modifications,distribution,sublicense,private-use */
+      /**
+       * @example [
+       *   "commercial-use",
+       *   "modifications",
+       *   "distribution",
+       *   "sublicense",
+       *   "private-use"
+       * ]
+       */
       readonly permissions: readonly string[]
-      /** @example include-copyright */
+      /**
+       * @example [
+       *   "include-copyright"
+       * ]
+       */
       readonly conditions: readonly string[]
-      /** @example no-liability */
+      /**
+       * @example [
+       *   "no-liability"
+       * ]
+       */
       readonly limitations: readonly string[]
       /**
        * @example
@@ -8993,7 +9057,12 @@ export interface components {
       readonly unit_name: string | null
       /** @example published */
       readonly state: string
-      /** @example Up to 25 private repositories,11 concurrent builds */
+      /**
+       * @example [
+       *   "Up to 25 private repositories",
+       *   "11 concurrent builds"
+       * ]
+       */
       readonly bullets: readonly string[]
     }
     /**
@@ -9038,25 +9107,71 @@ export interface components {
         readonly SHA256_ECDSA?: string
         readonly SHA256_ED25519?: string
       }
-      /** @example ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl */
+      /**
+       * @example [
+       *   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl"
+       * ]
+       */
       readonly ssh_keys?: readonly string[]
-      /** @example 127.0.0.1/32 */
+      /**
+       * @example [
+       *   "127.0.0.1/32"
+       * ]
+       */
       readonly hooks?: readonly string[]
-      /** @example 127.0.0.1/32 */
+      /**
+       * @example [
+       *   "127.0.0.1/32"
+       * ]
+       */
       readonly web?: readonly string[]
-      /** @example 127.0.0.1/32 */
+      /**
+       * @example [
+       *   "127.0.0.1/32"
+       * ]
+       */
       readonly api?: readonly string[]
-      /** @example 127.0.0.1/32 */
+      /**
+       * @example [
+       *   "127.0.0.1/32"
+       * ]
+       */
       readonly git?: readonly string[]
-      /** @example 13.65.0.0/16,157.55.204.33/32,2a01:111:f403:f90c::/62 */
+      /**
+       * @example [
+       *   "13.65.0.0/16",
+       *   "157.55.204.33/32",
+       *   "2a01:111:f403:f90c::/62"
+       * ]
+       */
       readonly packages?: readonly string[]
-      /** @example 192.30.252.153/32,192.30.252.154/32 */
+      /**
+       * @example [
+       *   "192.30.252.153/32",
+       *   "192.30.252.154/32"
+       * ]
+       */
       readonly pages?: readonly string[]
-      /** @example 54.158.161.132,54.226.70.38 */
+      /**
+       * @example [
+       *   "54.158.161.132",
+       *   "54.226.70.38"
+       * ]
+       */
       readonly importer?: readonly string[]
-      /** @example 13.64.0.0/16,13.65.0.0/16 */
+      /**
+       * @example [
+       *   "13.64.0.0/16",
+       *   "13.65.0.0/16"
+       * ]
+       */
       readonly actions?: readonly string[]
-      /** @example 192.168.7.15/32,192.168.7.16/32 */
+      /**
+       * @example [
+       *   "192.168.7.15/32",
+       *   "192.168.7.16/32"
+       * ]
+       */
       readonly dependabot?: readonly string[]
     }
     /**
@@ -9125,7 +9240,18 @@ export interface components {
     readonly 'external-groups': {
       /**
        * @description An array of external groups available to be mapped to a team
-       * @example [object Object],[object Object]
+       * @example [
+       *   {
+       *     "group_id": 1,
+       *     "group_name": "group-azuread-test",
+       *     "updated_at": "2021-01-03 22:27:15:000 -700"
+       *   },
+       *   {
+       *     "group_id": 2,
+       *     "group_name": "group-azuread-test2",
+       *     "updated_at": "2021-06-03 22:27:15:000 -700"
+       *   }
+       * ]
        */
       readonly groups?: readonly {
         /**
@@ -9523,7 +9649,10 @@ export interface components {
       readonly credential_authorized_at: string
       /**
        * @description List of oauth scopes the token has been granted.
-       * @example user,repo
+       * @example [
+       *   "user",
+       *   "repo"
+       * ]
        */
       readonly scopes?: readonly string[]
       /**
@@ -9618,7 +9747,16 @@ export interface components {
       readonly updated_at?: string
       /**
        * @description An array of teams linked to this group
-       * @example [object Object],[object Object]
+       * @example [
+       *   {
+       *     "team_id": 1,
+       *     "team_name": "team-test"
+       *   },
+       *   {
+       *     "team_id": 2,
+       *     "team_name": "team-test2"
+       *   }
+       * ]
        */
       readonly teams: readonly {
         /**
@@ -9634,7 +9772,20 @@ export interface components {
       }[]
       /**
        * @description An array of external members linked to this group
-       * @example [object Object],[object Object]
+       * @example [
+       *   {
+       *     "member_id": 1,
+       *     "member_login": "mona-lisa_eocsaxrs",
+       *     "member_name": "Mona Lisa",
+       *     "member_email": "mona_lisa@github.com"
+       *   },
+       *   {
+       *     "member_id": 2,
+       *     "member_login": "octo-lisa_eocsaxrs",
+       *     "member_name": "Octo Lisa",
+       *     "member_email": "octo_lisa@github.com"
+       *   }
+       * ]
        */
       readonly members: readonly {
         /**
@@ -9702,7 +9853,12 @@ export interface components {
       readonly deliveries_url?: string
       /** @example web */
       readonly name: string
-      /** @example push,pull_request */
+      /**
+       * @example [
+       *   "push",
+       *   "pull_request"
+       * ]
+       */
       readonly events: readonly string[]
       /** @example true */
       readonly active: boolean
@@ -10302,7 +10458,18 @@ export interface components {
     readonly 'group-mapping': {
       /**
        * @description Array of groups to be mapped to this team
-       * @example [object Object],[object Object]
+       * @example [
+       *   {
+       *     "group_id": "111a1a11-aaa1-1aaa-11a1-a1a1a1a1a1aa",
+       *     "group_name": "saml-azuread-test",
+       *     "group_description": "A group of Developers working on AzureAD SAML SSO"
+       *   },
+       *   {
+       *     "group_id": "2bb2bb2b-bb22-22bb-2bb2-bb2bbb2bb2b2",
+       *     "group_name": "saml-azuread-test2",
+       *     "group_description": "Another group of Developers working on AzureAD SAML SSO"
+       *   }
+       * ]
        */
       readonly groups?: readonly {
         /**
@@ -11227,7 +11394,14 @@ export interface components {
       readonly open_issues_count: number
       /** @example true */
       readonly is_template?: boolean
-      /** @example octocat,atom,electron,API */
+      /**
+       * @example [
+       *   "octocat",
+       *   "atom",
+       *   "electron",
+       *   "API"
+       * ]
+       */
       readonly topics?: readonly string[]
       /** @example true */
       readonly has_issues: boolean
@@ -11441,7 +11615,11 @@ export interface components {
       readonly check_run_url: string
       /**
        * @description Labels for the workflow job. Specified by the "runs_on" attribute in the action's workflow file.
-       * @example self-hosted,foo,bar
+       * @example [
+       *   "self-hosted",
+       *   "foo",
+       *   "bar"
+       * ]
        */
       readonly labels: readonly string[]
       /**
@@ -12309,7 +12487,11 @@ export interface components {
       readonly url: string
       /** @example true */
       readonly strict: boolean
-      /** @example continuous-integration/travis-ci */
+      /**
+       * @example [
+       *   "continuous-integration/travis-ci"
+       * ]
+       */
       readonly contexts: readonly string[]
       readonly checks: readonly {
         /** @example continuous-integration/travis-ci */
@@ -14115,7 +14297,44 @@ export interface components {
       readonly truncated: boolean
       /**
        * @description Objects specifying a tree structure
-       * @example [object Object]
+       * @example [
+       *   {
+       *     "path": "file.rb",
+       *     "mode": "100644",
+       *     "type": "blob",
+       *     "size": 30,
+       *     "sha": "44b4fc6d56897b048c772eb4087f854f46256132",
+       *     "url": "https://api.github.com/repos/octocat/Hello-World/git/blobs/44b4fc6d56897b048c772eb4087f854f46256132",
+       *     "properties": {
+       *       "path": {
+       *         "type": "string"
+       *       },
+       *       "mode": {
+       *         "type": "string"
+       *       },
+       *       "type": {
+       *         "type": "string"
+       *       },
+       *       "size": {
+       *         "type": "integer"
+       *       },
+       *       "sha": {
+       *         "type": "string"
+       *       },
+       *       "url": {
+       *         "type": "string"
+       *       }
+       *     },
+       *     "required": [
+       *       "path",
+       *       "mode",
+       *       "type",
+       *       "sha",
+       *       "url",
+       *       "size"
+       *     ]
+       *   }
+       * ]
        */
       readonly tree: readonly {
         /** @example test/file.rb */
@@ -14161,7 +14380,10 @@ export interface components {
       readonly active: boolean
       /**
        * @description Determines what events the hook is triggered for. Default: ['push'].
-       * @example push,pull_request
+       * @example [
+       *   "push",
+       *   "pull_request"
+       * ]
        */
       readonly events: readonly string[]
       readonly config: {
@@ -14339,7 +14561,10 @@ export interface components {
       readonly user: components['schemas']['nullable-simple-user']
       /**
        * @description Labels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository
-       * @example bug,registration
+       * @example [
+       *   "bug",
+       *   "registration"
+       * ]
        */
       readonly labels: readonly (
         | string
@@ -15406,7 +15631,10 @@ export interface components {
       readonly description: string
       /**
        * @description Array of the domain set and its alternate name (if it is configured)
-       * @example example.com,www.example.com
+       * @example [
+       *   "example.com",
+       *   "www.example.com"
+       * ]
        */
       readonly domains: readonly string[]
       /** Format: date */
@@ -16480,7 +16708,17 @@ export interface components {
      * @description Commit Activity
      */
     readonly 'commit-activity': {
-      /** @example 0,3,26,20,39,1,0 */
+      /**
+       * @example [
+       *   0,
+       *   3,
+       *   26,
+       *   20,
+       *   39,
+       *   1,
+       *   0
+       * ]
+       */
       readonly days: readonly number[]
       /** @example 89 */
       readonly total: number
@@ -16495,7 +16733,16 @@ export interface components {
       readonly author: components['schemas']['nullable-simple-user']
       /** @example 135 */
       readonly total: number
-      /** @example [object Object] */
+      /**
+       * @example [
+       *   {
+       *     "w": "1367712000",
+       *     "a": 6898,
+       *     "d": 77,
+       *     "c": 10
+       *   }
+       * ]
+       */
       readonly weeks: readonly {
         readonly w?: number
         readonly a?: number
@@ -16746,7 +16993,12 @@ export interface components {
        * @example Jon Doe
        */
       readonly displayName?: string | null
-      /** @example [object Object] */
+      /**
+       * @example {
+       *   "givenName": "Jane",
+       *   "familyName": "User"
+       * }
+       */
       readonly name: {
         readonly givenName: string | null
         readonly familyName: string | null
@@ -16754,7 +17006,16 @@ export interface components {
       }
       /**
        * @description user emails
-       * @example [object Object],[object Object]
+       * @example [
+       *   {
+       *     "value": "someone@example.com",
+       *     "primary": true
+       *   },
+       *   {
+       *     "value": "another@example.com",
+       *     "primary": false
+       *   }
+       * ]
        */
       readonly emails: readonly {
         readonly value: string
@@ -16788,7 +17049,14 @@ export interface components {
       readonly organization_id?: number
       /**
        * @description Set of operations to be performed
-       * @example [object Object]
+       * @example [
+       *   {
+       *     "op": "replace",
+       *     "value": {
+       *       "active": false
+       *     }
+       *   }
+       * ]
        */
       readonly operations?: readonly {
         /** @enum {string} */
@@ -16848,7 +17116,12 @@ export interface components {
       readonly language?: string | null
       /** Format: date-time */
       readonly last_modified_at?: string
-      /** @example 73..77,77..78 */
+      /**
+       * @example [
+       *   "73..77",
+       *   "77..78"
+       * ]
+       */
       readonly line_numbers?: readonly string[]
       readonly text_matches?: components['schemas']['search-result-text-matches']
     }
@@ -17427,12 +17700,36 @@ export interface components {
       readonly key_id: string
       /** @example xsBNBFayYZ... */
       readonly public_key: string
-      /** @example [object Object] */
+      /**
+       * @example [
+       *   {
+       *     "email": "mastahyeti@users.noreply.github.com",
+       *     "verified": true
+       *   }
+       * ]
+       */
       readonly emails: readonly {
         readonly email?: string
         readonly verified?: boolean
       }[]
-      /** @example [object Object] */
+      /**
+       * @example [
+       *   {
+       *     "id": 4,
+       *     "primary_key_id": 3,
+       *     "key_id": "4A595D4C72EE49C7",
+       *     "public_key": "zsBNBFayYZ...",
+       *     "emails": [],
+       *     "subkeys": [],
+       *     "can_sign": false,
+       *     "can_encrypt_comms": true,
+       *     "can_encrypt_storage": true,
+       *     "can_certify": false,
+       *     "created_at": "2016-03-24T11:31:04-06:00",
+       *     "expires_at": null
+       *   }
+       * ]
+       */
       readonly subkeys: readonly {
         readonly id?: number
         readonly primary_key_id?: number
@@ -18289,7 +18586,9 @@ export interface operations {
           readonly repositories?: readonly string[]
           /**
            * @description List of repository IDs that the token should have access to
-           * @example 1
+           * @example [
+           *   1
+           * ]
            */
           readonly repository_ids?: readonly number[]
           readonly permissions?: components['schemas']['app-permissions']
@@ -18545,7 +18844,9 @@ export interface operations {
           readonly repositories?: readonly string[]
           /**
            * @description The list of repository IDs to scope the user-to-server access token to. `repository_ids` may not be specified if `repositories` is specified.
-           * @example 1
+           * @example [
+           *   1
+           * ]
            */
           readonly repository_ids?: readonly number[]
           readonly permissions?: components['schemas']['app-permissions']
@@ -18638,7 +18939,10 @@ export interface operations {
         readonly 'application/json': {
           /**
            * @description A list of scopes that this authorization is in.
-           * @example public_repo,user
+           * @example [
+           *   "public_repo",
+           *   "user"
+           * ]
            */
           readonly scopes?: readonly string[] | null
           /**
@@ -18707,7 +19011,10 @@ export interface operations {
           readonly client_secret: string
           /**
            * @description A list of scopes that this authorization is in.
-           * @example public_repo,user
+           * @example [
+           *   "public_repo",
+           *   "user"
+           * ]
            */
           readonly scopes?: readonly string[] | null
           /**
@@ -18768,7 +19075,10 @@ export interface operations {
           readonly client_secret: string
           /**
            * @description A list of scopes that this authorization is in.
-           * @example public_repo,user
+           * @example [
+           *   "public_repo",
+           *   "user"
+           * ]
            */
           readonly scopes?: readonly string[] | null
           /**
@@ -18846,7 +19156,10 @@ export interface operations {
         readonly 'application/json': {
           /**
            * @description A list of scopes that this authorization is in.
-           * @example public_repo,user
+           * @example [
+           *   "public_repo",
+           *   "user"
+           * ]
            */
           readonly scopes?: readonly string[] | null
           /** @description A list of scopes to add to this authorization. */
@@ -20011,7 +20324,11 @@ export interface operations {
           readonly description?: string
           /**
            * @description Names and content for the files that make up the gist
-           * @example [object Object]
+           * @example {
+           *   "hello.rb": {
+           *     "content": "puts \"Hello, World!\""
+           *   }
+           * }
            */
           readonly files: {
             readonly [key: string]: {
@@ -20140,7 +20457,12 @@ export interface operations {
           readonly description?: string
           /**
            * @description Names of files to be updated
-           * @example [object Object]
+           * @example {
+           *   "hello.rb": {
+           *     "content": "blah",
+           *     "filename": "goodbye.rb"
+           *   }
+           * }
            */
           readonly files?: { readonly [key: string]: Partial<{ readonly [key: string]: unknown }> }
         } | null
@@ -23042,7 +23364,9 @@ export interface operations {
           }
           /**
            * @description Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for.
-           * @default push
+           * @default [
+           *   "push"
+           * ]
            */
           readonly events?: readonly string[]
           /**
@@ -23115,7 +23439,9 @@ export interface operations {
           }
           /**
            * @description Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for.
-           * @default push
+           * @default [
+           *   "push"
+           * ]
            */
           readonly events?: readonly string[]
           /**
@@ -27464,7 +27790,10 @@ export interface operations {
         readonly 'application/json': {
           /**
            * @description The list of environment ids to approve or reject
-           * @example 161171787,161171795
+           * @example [
+           *   161171787,
+           *   161171795
+           * ]
            */
           readonly environment_ids: readonly number[]
           /**
@@ -32564,7 +32893,9 @@ export interface operations {
           }
           /**
            * @description Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for.
-           * @default push
+           * @default [
+           *   "push"
+           * ]
            */
           readonly events?: readonly string[]
           /**
@@ -32644,7 +32975,9 @@ export interface operations {
           }
           /**
            * @description Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for. This replaces the entire array of events.
-           * @default push
+           * @default [
+           *   "push"
+           * ]
            */
           readonly events?: readonly string[]
           /** @description Determines a list of events to be added to the list of events that the Hook triggers for. */
@@ -37878,7 +38211,12 @@ export interface operations {
            * @example Jon Doe
            */
           readonly displayName?: string
-          /** @example [object Object] */
+          /**
+           * @example {
+           *   "givenName": "Jane",
+           *   "familyName": "User"
+           * }
+           */
           readonly name: {
             readonly givenName: string
             readonly familyName: string
@@ -37886,7 +38224,16 @@ export interface operations {
           }
           /**
            * @description user emails
-           * @example [object Object],[object Object]
+           * @example [
+           *   {
+           *     "value": "someone@example.com",
+           *     "primary": true
+           *   },
+           *   {
+           *     "value": "another@example.com",
+           *     "primary": false
+           *   }
+           * ]
            */
           readonly emails: readonly {
             readonly value: string
@@ -37964,7 +38311,12 @@ export interface operations {
            * @example someone@example.com
            */
           readonly userName: string
-          /** @example [object Object] */
+          /**
+           * @example {
+           *   "givenName": "Jane",
+           *   "familyName": "User"
+           * }
+           */
           readonly name: {
             readonly givenName: string
             readonly familyName: string
@@ -37972,7 +38324,16 @@ export interface operations {
           }
           /**
            * @description user emails
-           * @example [object Object],[object Object]
+           * @example [
+           *   {
+           *     "value": "someone@example.com",
+           *     "primary": true
+           *   },
+           *   {
+           *     "value": "another@example.com",
+           *     "primary": false
+           *   }
+           * ]
            */
           readonly emails: readonly {
             readonly type?: string
@@ -38049,7 +38410,14 @@ export interface operations {
           readonly schemas?: readonly string[]
           /**
            * @description Set of operations to be performed
-           * @example [object Object]
+           * @example [
+           *   {
+           *     "op": "replace",
+           *     "value": {
+           *       "active": false
+           *     }
+           *   }
+           * ]
            */
           readonly Operations: readonly {
             /** @enum {string} */
@@ -40243,7 +40611,7 @@ export interface operations {
           | {
               /**
                * @description Adds one or more email addresses to your GitHub account. Must contain at least one email address. **Note:** Alternatively, you can pass a single email address or an `array` of emails addresses directly, but we recommend that you pass an object using the `emails` key.
-               * @example
+               * @example []
                */
               readonly emails: readonly string[]
             }
@@ -40938,7 +41306,9 @@ export interface operations {
           readonly exclude_owner_projects?: boolean
           /**
            * @description Exclude attributes from the API response to improve performance
-           * @example repositories
+           * @example [
+           *   "repositories"
+           * ]
            */
           readonly exclude?: readonly 'repositories'[]
           readonly repositories: readonly string[]
