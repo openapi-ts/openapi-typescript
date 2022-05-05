@@ -4,41 +4,41 @@
  */
 
 export interface paths {
-  "/test": {
-    post: operations["addTest"];
-  };
+  '/test': {
+    post: operations['addTest']
+  }
 }
 
 export interface definitions {
   /** @description Enum with null and nullable */
   MyType: {
     /** @enum {string|null} */
-    myField?: ("foo" | "bar" | null) | null;
-  };
+    myField?: ('foo' | 'bar' | null) | null
+  }
   /** @description Enum with null */
   MyTypeNotNullable: {
     /** @enum {string} */
-    myField?: "foo" | "bar" | null;
-  };
+    myField?: 'foo' | 'bar' | null
+  }
   /** @description Enum with null */
   MyTypeNotNullableNotNull: {
     /** @enum {string} */
-    myField?: "foo" | "bar";
-  };
+    myField?: 'foo' | 'bar'
+  }
   /** @description Enum with null */
   MyTypeMixed: {
     /** @enum {string} */
-    myField?: "foo" | 2 | false | null;
-  };
+    myField?: 'foo' | 2 | false | null
+  }
 }
 
 export interface operations {
   addTest: {
     responses: {
       /** OK */
-      200: unknown;
-    };
-  };
+      200: unknown
+    }
+  }
 }
 
 export interface external {}

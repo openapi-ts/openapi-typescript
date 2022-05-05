@@ -4,224 +4,224 @@
  */
 
 export interface paths {
-  "/regions/": {
+  '/regions/': {
     get: {
       parameters: {
         query: {
           /** Filter results to only include the regions that have this location. */
-          location?: string;
+          location?: string
           /**
            * Filter results to only include the regions that are on this
            * platform.
            */
-          platform?: string;
-        };
-      };
+          platform?: string
+        }
+      }
       responses: {
         /** A list of regions. */
         200: {
-          schema: definitions["Region"][];
-        };
+          schema: definitions['Region'][]
+        }
         /** Unexpected Error */
         500: {
-          schema: definitions["Error"];
-        };
-      };
-    };
+          schema: definitions['Error']
+        }
+      }
+    }
     post: {
       parameters: {
         body: {
           /** Region create request */
-          body: definitions["CreateRegion"];
-        };
-      };
+          body: definitions['CreateRegion']
+        }
+      }
       responses: {
         /** Complete region object */
         201: {
-          schema: definitions["Region"];
-        };
+          schema: definitions['Region']
+        }
         /** Invalid request provided */
         400: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Region already exists for that platform and location */
         409: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Unexpected Error */
         500: {
-          schema: definitions["Error"];
-        };
-      };
-    };
-  };
-  "/regions/{id}": {
+          schema: definitions['Error']
+        }
+      }
+    }
+  }
+  '/regions/{id}': {
     get: {
       parameters: {
         path: {
           /** ID of the region to lookup, stored as a base32 encoded 18 byte identifier. */
-          id: string;
-        };
-      };
+          id: string
+        }
+      }
       responses: {
         /** A region. */
         200: {
-          schema: definitions["Region"];
-        };
+          schema: definitions['Region']
+        }
         /** Provided Region ID is Invalid */
         400: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Region could not be found */
         404: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Unexpected Error */
         500: {
-          schema: definitions["Error"];
-        };
-      };
-    };
+          schema: definitions['Error']
+        }
+      }
+    }
     patch: {
       parameters: {
         path: {
           /** ID of the region to lookup, stored as a base32 encoded 18 byte identifier. */
-          id: string;
-        };
+          id: string
+        }
         body: {
           /** Region update request */
-          body: definitions["UpdateRegion"];
-        };
-      };
+          body: definitions['UpdateRegion']
+        }
+      }
       responses: {
         /** Complete region object */
         200: {
-          schema: definitions["Region"];
-        };
+          schema: definitions['Region']
+        }
         /** Invalid request provided */
         400: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Unexpected Error */
         500: {
-          schema: definitions["Error"];
-        };
-      };
-    };
-  };
-  "/providers/": {
+          schema: definitions['Error']
+        }
+      }
+    }
+  }
+  '/providers/': {
     get: {
       parameters: {
         query: {
           /** Filter results to only include those that have this label. */
-          label?: parameters["LabelFilter"];
-        };
-      };
+          label?: parameters['LabelFilter']
+        }
+      }
       responses: {
         /** A list of providers. */
         200: {
-          schema: definitions["Provider"][];
-        };
+          schema: definitions['Provider'][]
+        }
         /** Unexpected Error */
         500: {
-          schema: definitions["Error"];
-        };
-      };
-    };
+          schema: definitions['Error']
+        }
+      }
+    }
     post: {
       parameters: {
         body: {
           /** Provider create request */
-          body: definitions["CreateProvider"];
-        };
-      };
+          body: definitions['CreateProvider']
+        }
+      }
       responses: {
         /** Complete provider object */
         201: {
-          schema: definitions["Provider"];
-        };
+          schema: definitions['Provider']
+        }
         /** Invalid request provided */
         400: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Forbidden */
         403: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Provider already exists with that label */
         409: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Unexpected Error */
         500: {
-          schema: definitions["Error"];
-        };
-      };
-    };
-  };
-  "/providers/{id}": {
+          schema: definitions['Error']
+        }
+      }
+    }
+  }
+  '/providers/{id}': {
     get: {
       parameters: {
         path: {
           /** ID of the provider to lookup, stored as a base32 encoded 18 byte identifier. */
-          id: string;
-        };
-      };
+          id: string
+        }
+      }
       responses: {
         /** A provider. */
         200: {
-          schema: definitions["Provider"];
-        };
+          schema: definitions['Provider']
+        }
         /** Unknown provider error */
         404: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Unexpected Error */
         500: {
-          schema: definitions["Error"];
-        };
-      };
-    };
+          schema: definitions['Error']
+        }
+      }
+    }
     patch: {
       parameters: {
         path: {
           /** ID of the provider to update, stored as a base32 encoded 18 byte identifier. */
-          id: string;
-        };
+          id: string
+        }
         body: {
           /** Provider update request */
-          body: definitions["UpdateProvider"];
-        };
-      };
+          body: definitions['UpdateProvider']
+        }
+      }
       responses: {
         /** Complete provider object */
         200: {
-          schema: definitions["Provider"];
-        };
+          schema: definitions['Provider']
+        }
         /** Invalid request provided */
         400: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Forbidden */
         403: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Provider not found */
         404: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Provider already exists with that label */
         409: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Unexpected Error */
         500: {
-          schema: definitions["Error"];
-        };
-      };
-    };
-  };
-  "/products/": {
+          schema: definitions['Error']
+        }
+      }
+    }
+  }
+  '/products/': {
     get: {
       parameters: {
         query: {
@@ -229,60 +229,60 @@ export interface paths {
            * Base32 encoded 18 byte identifier of the provider that these
            * products must belong to.
            */
-          provider_id?: string;
+          provider_id?: string
           /** Filter results to only include those that have this label. */
-          label?: parameters["LabelFilter"];
+          label?: parameters['LabelFilter']
           /** Return only products matching at least one of the tags. */
-          tags?: string[];
-        };
-      };
+          tags?: string[]
+        }
+      }
       responses: {
         /** A product. */
         200: {
-          schema: definitions["Product"][];
-        };
+          schema: definitions['Product'][]
+        }
         /** Invalid provider_id supplied */
         400: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Unexpected Error */
         500: {
-          schema: definitions["Error"];
-        };
-      };
-    };
+          schema: definitions['Error']
+        }
+      }
+    }
     post: {
       parameters: {
         body: {
           /** Product create request */
-          body: definitions["CreateProduct"];
-        };
-      };
+          body: definitions['CreateProduct']
+        }
+      }
       responses: {
         /** Complete product object */
         201: {
-          schema: definitions["Product"];
-        };
+          schema: definitions['Product']
+        }
         /** Invalid request provided */
         400: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Forbidden */
         403: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Product already exists with that label */
         409: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Unexpected Error */
         500: {
-          schema: definitions["Error"];
-        };
-      };
-    };
-  };
-  "/internal/products": {
+          schema: definitions['Error']
+        }
+      }
+    }
+  }
+  '/internal/products': {
     get: {
       parameters: {
         query: {
@@ -290,32 +290,32 @@ export interface paths {
            * Base32 encoded 18 byte identifier of the provider that these
            * products must belong to.
            */
-          provider_id?: string;
+          provider_id?: string
           /** Filter results to only include those that have this label. */
-          label?: parameters["LabelFilter"];
+          label?: parameters['LabelFilter']
           /** Return only products matching at least one of the tags. */
-          tags?: string[];
+          tags?: string[]
           /** Return product listings without plan information */
-          include_plans?: boolean;
-        };
-      };
+          include_plans?: boolean
+        }
+      }
       responses: {
         /** A product. */
         200: {
-          schema: definitions["ExpandedProduct"][];
-        };
+          schema: definitions['ExpandedProduct'][]
+        }
         /** Invalid provider_id supplied */
         400: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Unexpected Error */
         500: {
-          schema: definitions["Error"];
-        };
-      };
-    };
-  };
-  "/products/{id}": {
+          schema: definitions['Error']
+        }
+      }
+    }
+  }
+  '/products/{id}': {
     get: {
       parameters: {
         path: {
@@ -323,28 +323,28 @@ export interface paths {
            * ID of the product to lookup, stored as a base32 encoded 18 byte
            * identifier.
            */
-          id: string;
-        };
-      };
+          id: string
+        }
+      }
       responses: {
         /** A product. */
         200: {
-          schema: definitions["Product"];
-        };
+          schema: definitions['Product']
+        }
         /** Invalid Product ID */
         400: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Product not found error */
         404: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Unexpected error */
         500: {
-          schema: definitions["Error"];
-        };
-      };
-    };
+          schema: definitions['Error']
+        }
+      }
+    }
     patch: {
       parameters: {
         path: {
@@ -352,34 +352,34 @@ export interface paths {
            * ID of the product to lookup, stored as a base32 encoded 18 byte
            * identifier.
            */
-          id: string;
-        };
+          id: string
+        }
         body: {
           /** Product update request */
-          body: definitions["UpdateProduct"];
-        };
-      };
+          body: definitions['UpdateProduct']
+        }
+      }
       responses: {
         /** Complete product object */
         200: {
-          schema: definitions["Product"];
-        };
+          schema: definitions['Product']
+        }
         /** Invalid Product ID */
         400: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Product not found error */
         404: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Unexpected error */
         500: {
-          schema: definitions["Error"];
-        };
-      };
-    };
-  };
-  "/plans/{id}": {
+          schema: definitions['Error']
+        }
+      }
+    }
+  }
+  '/plans/{id}': {
     get: {
       parameters: {
         path: {
@@ -387,28 +387,28 @@ export interface paths {
            * ID of the plan to lookup, stored as a base32 encoded 18 byte
            * identifier.
            */
-          id: string;
-        };
-      };
+          id: string
+        }
+      }
       responses: {
         /** A plan. */
         200: {
-          schema: definitions["ExpandedPlan"];
-        };
+          schema: definitions['ExpandedPlan']
+        }
         /** Invalid Plan ID Provided */
         400: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Unknown plan error */
         404: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Unexpected error */
         default: {
-          schema: definitions["Error"];
-        };
-      };
-    };
+          schema: definitions['Error']
+        }
+      }
+    }
     patch: {
       parameters: {
         path: {
@@ -416,93 +416,93 @@ export interface paths {
            * ID of the plan to lookup, stored as a base32 encoded 18 byte
            * identifier.
            */
-          id: string;
-        };
+          id: string
+        }
         body: {
           /** Plan update request */
-          body: definitions["UpdatePlan"];
-        };
-      };
+          body: definitions['UpdatePlan']
+        }
+      }
       responses: {
         /** Complete product plan */
         200: {
-          schema: definitions["Plan"];
-        };
+          schema: definitions['Plan']
+        }
         /** Invalid Plan ID */
         400: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Plan not found error */
         404: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Unexpected error */
         500: {
-          schema: definitions["Error"];
-        };
-      };
-    };
-  };
-  "/plans/": {
+          schema: definitions['Error']
+        }
+      }
+    }
+  }
+  '/plans/': {
     get: {
       parameters: {
         query: {
           /** Return the plans that are associated with this product. */
-          product_id: string[];
+          product_id: string[]
           /** Filter results to only include those that have this label. */
-          label?: parameters["LabelFilter"];
-        };
-      };
+          label?: parameters['LabelFilter']
+        }
+      }
       responses: {
         /** A list of plans for the given product. */
         200: {
-          schema: definitions["ExpandedPlan"][];
-        };
+          schema: definitions['ExpandedPlan'][]
+        }
         /** Invalid Parameters Provided */
         400: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Could not find product */
         404: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Unexpected error */
         500: {
-          schema: definitions["Error"];
-        };
-      };
-    };
+          schema: definitions['Error']
+        }
+      }
+    }
     post: {
       parameters: {
         body: {
           /** Plan create request */
-          body: definitions["CreatePlan"];
-        };
-      };
+          body: definitions['CreatePlan']
+        }
+      }
       responses: {
         /** Complete plan object */
         201: {
-          schema: definitions["Plan"];
-        };
+          schema: definitions['Plan']
+        }
         /** Invalid request provided */
         400: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Forbidden */
         403: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Plan already exists with that label */
         409: {
-          schema: definitions["Error"];
-        };
+          schema: definitions['Error']
+        }
         /** Unexpected Error */
         500: {
-          schema: definitions["Error"];
-        };
-      };
-    };
-  };
+          schema: definitions['Error']
+        }
+      }
+    }
+  }
 }
 
 export interface definitions {
@@ -510,205 +510,205 @@ export interface definitions {
    * Format: base32ID
    * @description A base32 encoded 18 byte identifier.
    */
-  ID: string;
+  ID: string
   /**
    * Format: base32ID
    * @description A base32 encoded 18 byte identifier.
    */
-  OptionalID: string;
+  OptionalID: string
   /** @description A flexible identifier for internal or external entities. */
-  FlexID: string;
+  FlexID: string
   /** @description A flexible identifier for internal or external entities. */
-  OptionalFlexID: string;
+  OptionalFlexID: string
   /** @description A machine readable unique label, which is url safe. */
-  Label: string;
+  Label: string
   /** @description A machine readable unique label, which is url safe. */
-  OptionalLabel: string;
+  OptionalLabel: string
   /** @description A machine readable unique label, which is url safe. */
-  FeatureValueLabel: string;
+  FeatureValueLabel: string
   /** @description A location of where a potential resource can be provisioned. */
-  Location: string;
+  Location: string
   /** @description A name of a platform which is used to provision resources. */
-  Platform: string;
+  Platform: string
   /** @description A name of an entity which is displayed to a human. */
-  Name: string;
+  Name: string
   /** @description A name of an entity which is displayed to a human. */
-  OptionalName: string;
+  OptionalName: string
   /**
    * Format: url
    * @description Logo used for Provider and Product listings.
    *
    * Must be square (same width and height) and minimum 400px. Maximum of 800px.
    */
-  LogoURL: string;
+  LogoURL: string
   /**
    * Format: url
    * @description Logo used for Provider and Product listings.
    *
    * Must be square (same width and height) and minimum 400px. Maximum of 800px.
    */
-  OptionalLogoURL: string;
+  OptionalLogoURL: string
   RegionBody: {
-    platform: definitions["Platform"];
-    location: definitions["Location"];
-    name: string;
-    priority: number;
-  };
+    platform: definitions['Platform']
+    location: definitions['Location']
+    name: string
+    priority: number
+  }
   Region: {
-    id: definitions["ID"];
+    id: definitions['ID']
     /** @enum {string} */
-    type: "region";
+    type: 'region'
     /** @enum {integer} */
-    version: 1;
-    body: definitions["RegionBody"];
-  };
+    version: 1
+    body: definitions['RegionBody']
+  }
   CreateRegion: {
-    body: definitions["RegionBody"];
-  };
+    body: definitions['RegionBody']
+  }
   UpdateRegion: {
-    name: string;
-  };
+    name: string
+  }
   ProviderBody: {
-    owner_id?: definitions["OptionalFlexID"];
-    team_id?: definitions["OptionalID"];
-    label: definitions["Label"];
-    name: definitions["Name"];
-    logo_url?: definitions["LogoURL"];
+    owner_id?: definitions['OptionalFlexID']
+    team_id?: definitions['OptionalID']
+    label: definitions['Label']
+    name: definitions['Name']
+    logo_url?: definitions['LogoURL']
     /** Format: email */
-    support_email?: string;
+    support_email?: string
     /** Format: url */
-    documentation_url?: string;
-  };
+    documentation_url?: string
+  }
   UpdateProviderBody: {
-    owner_id?: definitions["OptionalFlexID"];
-    team_id?: definitions["OptionalID"];
-    label?: definitions["OptionalLabel"];
-    name?: definitions["OptionalName"];
-    logo_url?: definitions["OptionalLogoURL"];
+    owner_id?: definitions['OptionalFlexID']
+    team_id?: definitions['OptionalID']
+    label?: definitions['OptionalLabel']
+    name?: definitions['OptionalName']
+    logo_url?: definitions['OptionalLogoURL']
     /** Format: email */
-    support_email?: string;
+    support_email?: string
     /** Format: url */
-    documentation_url?: string;
-  };
+    documentation_url?: string
+  }
   Provider: {
-    id: definitions["ID"];
+    id: definitions['ID']
     /** @enum {integer} */
-    version: 1;
+    version: 1
     /** @enum {string} */
-    type: "provider";
-    body: definitions["ProviderBody"];
-  };
+    type: 'provider'
+    body: definitions['ProviderBody']
+  }
   CreateProvider: {
-    body: definitions["ProviderBody"];
-  };
+    body: definitions['ProviderBody']
+  }
   UpdateProvider: {
-    id: definitions["ID"];
-    body: definitions["UpdateProviderBody"];
-  };
+    id: definitions['ID']
+    body: definitions['UpdateProviderBody']
+  }
   UpdateProduct: {
-    id: definitions["ID"];
-    body: definitions["UpdateProductBody"];
-  };
+    id: definitions['ID']
+    body: definitions['UpdateProductBody']
+  }
   UpdateProductBody: {
-    name?: definitions["Name"];
-    label?: definitions["Label"];
-    logo_url?: definitions["LogoURL"];
-    listing?: definitions["ProductListing"];
+    name?: definitions['Name']
+    label?: definitions['Label']
+    logo_url?: definitions['LogoURL']
+    listing?: definitions['ProductListing']
     /** @description 140 character sentence positioning the product. */
-    tagline?: string;
+    tagline?: string
     /** @description A list of value propositions of the product. */
-    value_props?: definitions["ValueProp"][];
+    value_props?: definitions['ValueProp'][]
     /** @description A list of getting started steps for the product */
-    setup_steps?: string[];
-    images?: definitions["ProductImageURL"][];
+    setup_steps?: string[]
+    images?: definitions['ProductImageURL'][]
     /** Format: email */
-    support_email?: string;
+    support_email?: string
     /** Format: url */
-    documentation_url?: string;
+    documentation_url?: string
     /**
      * @description URL to this Product's Terms of Service. If provided is true, then
      * a url must be set. Otherwise, provided is false.
      */
-    terms_url?: string;
-    feature_types?: definitions["FeatureType"][];
+    terms_url?: string
+    feature_types?: definitions['FeatureType'][]
     integration?: {
-      provisioning?: definitions["ProductProvisioning"];
+      provisioning?: definitions['ProductProvisioning']
       /** Format: url */
-      base_url?: string;
+      base_url?: string
       /** Format: url */
-      sso_url?: string;
+      sso_url?: string
       /** @enum {string} */
-      version?: "v1";
+      version?: 'v1'
       /** @default [object Object] */
       features?: {
-        access_code?: boolean;
-        sso?: boolean;
-        plan_change?: boolean;
+        access_code?: boolean
+        sso?: boolean
+        plan_change?: boolean
         /**
          * @default multiple
          * @enum {string}
          */
-        credential?: "none" | "single" | "multiple" | "unknown";
-      };
-    };
+        credential?: 'none' | 'single' | 'multiple' | 'unknown'
+      }
+    }
     /** @description An array of platform ids to restrict this product for. */
-    platform_ids?: definitions["ID"][];
-    tags?: definitions["ProductTags"];
-  };
+    platform_ids?: definitions['ID'][]
+    tags?: definitions['ProductTags']
+  }
   UpdatePlan: {
-    id: definitions["ID"];
-    body: definitions["UpdatePlanBody"];
-  };
+    id: definitions['ID']
+    body: definitions['UpdatePlanBody']
+  }
   UpdatePlanBody: {
-    name?: definitions["Name"];
-    label?: definitions["Label"];
-    state?: definitions["PlanState"];
+    name?: definitions['Name']
+    label?: definitions['Label']
+    state?: definitions['PlanState']
     /** @description Used in conjuction with resizable_to to set or unset the list */
-    has_resize_constraints?: boolean;
-    resizable_to?: definitions["PlanResizeList"];
+    has_resize_constraints?: boolean
+    resizable_to?: definitions['PlanResizeList']
     /** @description Array of Region IDs */
-    regions?: definitions["ID"][];
+    regions?: definitions['ID'][]
     /** @description Array of Feature Values */
-    features?: definitions["FeatureValue"][];
+    features?: definitions['FeatureValue'][]
     /**
      * @description The number of days a user gets as a free trial when subscribing to
      * this plan. Trials are valid only once per product; changing plans
      * or adding an additional subscription will not start a new trial.
      */
-    trial_days?: number;
+    trial_days?: number
     /** @description Dollar value in cents */
-    cost?: number;
-  };
+    cost?: number
+  }
   /**
    * @description A feature type represents the different aspects of a product that are
    * offered, these features can manifest differently depending on the plan.
    */
   FeatureType: {
-    label: definitions["Label"];
-    name: definitions["Name"];
+    label: definitions['Label']
+    name: definitions['Name']
     /** @enum {string} */
-    type: "boolean" | "string" | "number";
+    type: 'boolean' | 'string' | 'number'
     /** @description This sets whether or not the feature can be customized by a consumer. */
-    customizable?: boolean;
+    customizable?: boolean
     /**
      * @description This sets whether or not the feature can be upgraded by the consumer after the
      * resource has provisioned. Upgrading means setting a higher value or selecting a
      * higher element in the list.
      */
-    upgradable?: boolean;
+    upgradable?: boolean
     /**
      * @description This sets whether or not the feature can be downgraded by the consumer after the
      * resource has provisioned. Downgrading means setting a lower value or selecting a
      * lower element in the list.
      */
-    downgradable?: boolean;
+    downgradable?: boolean
     /**
      * @description Sets if this feature’s value is trackable from the provider,
      * this only really affects numeric constraints.
      */
-    measurable?: boolean;
-    values?: definitions["FeatureValuesList"];
-  };
+    measurable?: boolean
+    values?: definitions['FeatureValuesList']
+  }
   /**
    * @description A list of allowable values for the feature.
    * To define values for a boolean feature type, only `true` is required,
@@ -717,16 +717,16 @@ export interface definitions {
    * `numeric_details` definition, and the plan will determine which
    * `numeric_details` set is used based on it's setting.
    */
-  FeatureValuesList: definitions["FeatureValueDetails"][];
+  FeatureValuesList: definitions['FeatureValueDetails'][]
   FeatureValueDetails: {
-    label: definitions["FeatureValueLabel"];
-    name: definitions["Name"];
+    label: definitions['FeatureValueLabel']
+    name: definitions['Name']
     /**
      * @description The cost that will be added to the monthly plan cost when this value
      * is selected or is default for the plan.
      * Cost is deprecated in favor of the `price.cost` field.
      */
-    cost?: number;
+    cost?: number
     /**
      * @description Price describes the cost of a feature. It should be preferred over
      * the `cost` property.
@@ -737,24 +737,24 @@ export interface definitions {
        * when this value is selected or is default for the plan.
        * Number features should use the cost range instead.
        */
-      cost?: number;
+      cost?: number
       /**
        * @description When a feature is used to multiply the cost of the plan or of
        * another feature, multiply factor is used for calculation.
        * A feature cannot have both a cost and a multiply factor.
        */
-      multiply_factor?: number;
+      multiply_factor?: number
       /**
        * @description Price describes how the feature cost should be calculated.
        *
        * @example [object Object]
        */
-      formula?: definitions["PriceFormula"];
+      formula?: definitions['PriceFormula']
       /** @description Description explains how a feature is calculated to the user. */
-      description?: string;
-    };
-    numeric_details?: definitions["FeatureNumericDetails"];
-  };
+      description?: string
+    }
+    numeric_details?: definitions['FeatureNumericDetails']
+  }
   /**
    * @description Optional container for additional details relating to numeric features.
    * This is required if the feature is measurable and numeric.
@@ -770,15 +770,15 @@ export interface definitions {
      *
      * @default 1
      */
-    increment?: number;
+    increment?: number
     /** @description Minimum value that can be set by a user if customizable */
-    min?: number;
+    min?: number
     /** @description Maximum value that can be set by a user if customizable */
-    max?: number;
+    max?: number
     /** @description Applied to the end of the number for display, for example the ‘GB’ in ‘20 GB’. */
-    suffix?: string;
-    cost_ranges?: definitions["FeatureNumericRange"][];
-  };
+    suffix?: string
+    cost_ranges?: definitions['FeatureNumericRange'][]
+  }
   FeatureNumericRange: {
     /**
      * @description Defines the end of the range ( inclusive ), from the previous, or 0;
@@ -786,41 +786,41 @@ export interface definitions {
      * range to infinity, or the maximum integer the system can handle
      * ( whichever comes first ).
      */
-    limit?: number;
+    limit?: number
     /**
      * @description An integer in 10,000,000ths of cents, will be multiplied by the
      * numeric value set in the feature to determine the cost.
      */
-    cost_multiple?: number;
-  };
+    cost_multiple?: number
+  }
   FeatureValue: {
-    feature: definitions["Label"];
-    value: definitions["FeatureValueLabel"];
-  };
+    feature: definitions['Label']
+    value: definitions['FeatureValueLabel']
+  }
   ValueProp: {
     /** @description Heading of a value proposition. */
-    header: string;
+    header: string
     /** @description Body of a value proposition. */
-    body: string;
-  };
+    body: string
+  }
   /**
    * Format: url
    * @description Image URL used for Product listings.
    *
    * Minimum 660px wide, 400px high.
    */
-  ProductImageURL: string;
+  ProductImageURL: string
   /** @description List of tags for product categorization and search */
-  ProductTags: definitions["Label"][];
+  ProductTags: definitions['Label'][]
   /** @enum {string} */
-  ProductState: "available" | "hidden" | "grandfathered" | "new" | "upcoming";
+  ProductState: 'available' | 'hidden' | 'grandfathered' | 'new' | 'upcoming'
   /** @default [object Object] */
   ProductListing: {
     /**
      * @description When true, everyone can see the product when requested. When false it will
      * not be visible to anyone except those on the provider team.
      */
-    public?: boolean;
+    public?: boolean
     /**
      * @description When true, the product will be displayed in product listings alongside
      * other products. When false the product will be excluded from listings,
@@ -828,7 +828,7 @@ export interface definitions {
      * Any pages that display information about the product when not listed,
      * should indicate to webcrawlers that the content should not be indexed.
      */
-    listed?: boolean;
+    listed?: boolean
     /**
      * @description Object to hold various flags for marketing purposes only. These are values
      * that need to be stored, but should not affect decision making in code. If
@@ -843,21 +843,21 @@ export interface definitions {
        * advertised as such. This does not have any impact on who can access the
        * product, it is just used to inform consumers through our clients.
        */
-      beta?: boolean;
+      beta?: boolean
       /**
        * @description Indicates whether or not the product is in `New` and should be
        * advertised as such. This does not have any impact on who can access the
        * product, it is just used to inform consumers through our clients.
        */
-      new?: boolean;
+      new?: boolean
       /**
        * @description Indicates whether or not the product is in `New` and should be
        * advertised as such. This does not have any impact on who can access the
        * product, it is just used to inform consumers through our clients.
        */
-      featured?: boolean;
-    };
-  };
+      featured?: boolean
+    }
+  }
   /**
    * @description Provider Only, implies that the product should only be provisionable by the
    *   provider; so members of the provider team, no one else should be allowed.
@@ -867,24 +867,24 @@ export interface definitions {
    *
    * @enum {string}
    */
-  ProductProvisioning: "provider-only" | "pre-order" | "public";
+  ProductProvisioning: 'provider-only' | 'pre-order' | 'public'
   /** @default [object Object] */
   ProductIntegrationFeatures: {
     /**
      * @description Indicates whether or not this product supports resource transitions to
      * manifold by access_code.
      */
-    access_code?: boolean;
+    access_code?: boolean
     /**
      * @description Represents whether or not this product supports Single
      * Sign On
      */
-    sso?: boolean;
+    sso?: boolean
     /**
      * @description Represents whether or not this product supports changing
      * the plan of a resource.
      */
-    plan_change?: boolean;
+    plan_change?: boolean
     /**
      * @description Describes how the region for a resource is specified, if
      * unspecified, then regions have no impact on this
@@ -892,7 +892,7 @@ export interface definitions {
      *
      * @enum {string}
      */
-    region?: "user-specified" | "unspecified";
+    region?: 'user-specified' | 'unspecified'
     /**
      * @description Describes the credential type that is supported by this product.
      *
@@ -904,131 +904,131 @@ export interface definitions {
      * @default multiple
      * @enum {string}
      */
-    credential?: "none" | "single" | "multiple" | "unknown";
-  };
+    credential?: 'none' | 'single' | 'multiple' | 'unknown'
+  }
   ProductBody: {
-    provider_id: definitions["ID"];
+    provider_id: definitions['ID']
     /** @description Product labels are globally unique and contain the provider name. */
-    label: definitions["Label"];
-    name: definitions["Name"];
-    state: definitions["ProductState"];
-    listing: definitions["ProductListing"];
-    logo_url: definitions["LogoURL"];
+    label: definitions['Label']
+    name: definitions['Name']
+    state: definitions['ProductState']
+    listing: definitions['ProductListing']
+    logo_url: definitions['LogoURL']
     /** @description 140 character sentence positioning the product. */
-    tagline: string;
+    tagline: string
     /** @description A list of value propositions of the product. */
-    value_props: definitions["ValueProp"][];
+    value_props: definitions['ValueProp'][]
     /** @description A list of getting started steps for the product */
-    setup_steps?: string[];
-    images: definitions["ProductImageURL"][];
+    setup_steps?: string[]
+    images: definitions['ProductImageURL'][]
     /** Format: email */
-    support_email: string;
+    support_email: string
     /** Format: url */
-    documentation_url: string;
+    documentation_url: string
     /**
      * @description URL to this Product's Terms of Service. If provided is true, then
      * a url must be set. Otherwise, provided is false.
      */
     terms: {
       /** Format: url */
-      url?: string;
-      provided: boolean;
-    };
-    feature_types: definitions["FeatureType"][];
+      url?: string
+      provided: boolean
+    }
+    feature_types: definitions['FeatureType'][]
     billing: {
       /** @enum {string} */
-      type: "monthly-prorated" | "monthly-anniversary" | "annual-anniversary";
+      type: 'monthly-prorated' | 'monthly-anniversary' | 'annual-anniversary'
       /** @enum {string} */
-      currency: "usd";
-    };
+      currency: 'usd'
+    }
     integration: {
-      provisioning: definitions["ProductProvisioning"];
+      provisioning: definitions['ProductProvisioning']
       /** Format: url */
-      base_url: string;
+      base_url: string
       /** Format: url */
-      sso_url?: string;
+      sso_url?: string
       /** @enum {string} */
-      version: "v1";
-      features: definitions["ProductIntegrationFeatures"];
-    };
-    tags?: definitions["ProductTags"];
-  };
+      version: 'v1'
+      features: definitions['ProductIntegrationFeatures']
+    }
+    tags?: definitions['ProductTags']
+  }
   Product: {
-    id: definitions["ID"];
+    id: definitions['ID']
     /** @enum {integer} */
-    version: 1;
+    version: 1
     /** @enum {string} */
-    type: "product";
-    body: definitions["ProductBody"];
-  };
+    type: 'product'
+    body: definitions['ProductBody']
+  }
   CreateProduct: {
-    body: definitions["ProductBody"];
-  };
+    body: definitions['ProductBody']
+  }
   /** @description Array of Plan IDs that this Plan can be resized to, if null all will be assumed */
-  PlanResizeList: definitions["ID"][];
+  PlanResizeList: definitions['ID'][]
   PlanBody: {
-    provider_id: definitions["ID"];
-    product_id: definitions["ID"];
-    name: definitions["Name"];
-    label: definitions["Label"];
-    state: definitions["PlanState"];
-    resizable_to?: definitions["PlanResizeList"];
+    provider_id: definitions['ID']
+    product_id: definitions['ID']
+    name: definitions['Name']
+    label: definitions['Label']
+    state: definitions['PlanState']
+    resizable_to?: definitions['PlanResizeList']
     /** @description Array of Region IDs */
-    regions: definitions["ID"][];
+    regions: definitions['ID'][]
     /** @description Array of Feature Values */
-    features: definitions["FeatureValue"][];
+    features: definitions['FeatureValue'][]
     /**
      * @description The number of days a user gets as a free trial when subscribing to
      * this plan. Trials are valid only once per product; changing plans
      * or adding an additional subscription will not start a new trial.
      */
-    trial_days?: number;
+    trial_days?: number
     /** @description Dollar value in cents. */
-    cost: number;
-  };
+    cost: number
+  }
   /** @enum {string} */
-  PlanState: "hidden" | "available" | "grandfathered" | "unlisted";
-  ExpandedPlanBody: definitions["PlanBody"] & {
+  PlanState: 'hidden' | 'available' | 'grandfathered' | 'unlisted'
+  ExpandedPlanBody: definitions['PlanBody'] & {
     /** @description An array of feature definitions for the plan, as defined on the Product. */
-    expanded_features: definitions["ExpandedFeature"][];
+    expanded_features: definitions['ExpandedFeature'][]
     /** @description A boolean flag that indicates if a plan is free or not based on it's cost and features. */
-    free: boolean;
+    free: boolean
     /** @description Plan cost using its default features plus base cost. */
-    defaultCost?: number;
+    defaultCost?: number
     /** @description A boolean flag that indicates if a plan has customizable features. */
-    customizable?: boolean;
-  };
-  ExpandedFeature: definitions["FeatureType"] & {
+    customizable?: boolean
+  }
+  ExpandedFeature: definitions['FeatureType'] & {
     /** @description The string value set for the feature on the plan, this should only be used if the value property is null. */
-    value_string: string;
-    value: definitions["FeatureValueDetails"];
-  };
+    value_string: string
+    value: definitions['FeatureValueDetails']
+  }
   Plan: {
-    id: definitions["ID"];
+    id: definitions['ID']
     /** @enum {integer} */
-    version: 1;
+    version: 1
     /** @enum {string} */
-    type: "plan";
-    body: definitions["PlanBody"];
-  };
+    type: 'plan'
+    body: definitions['PlanBody']
+  }
   ExpandedPlan: {
-    id: definitions["ID"];
+    id: definitions['ID']
     /** @enum {integer} */
-    version: 1;
+    version: 1
     /** @enum {string} */
-    type: "plan";
-    body: definitions["ExpandedPlanBody"];
-  };
+    type: 'plan'
+    body: definitions['ExpandedPlanBody']
+  }
   CreatePlan: {
-    body: definitions["PlanBody"];
-  };
+    body: definitions['PlanBody']
+  }
   /** @description Unexpected error */
   Error: {
     /** @description The error type */
-    type: string;
+    type: string
     /** @description Explanation of the errors */
-    message: string[];
-  };
+    message: string[]
+  }
   /**
    * @description Describes how a feature cost should be calculated. An empty
    * string defaults to the normal price calculation using the value cost.
@@ -1052,17 +1052,17 @@ export interface definitions {
    *   - `another-feature-label#number` is the numeric value of a number feature
    * In a feature formula, plan base cost and total cost cannot be used
    */
-  PriceFormula: string;
+  PriceFormula: string
   ExpandedProduct: {
-    id: definitions["ID"];
+    id: definitions['ID']
     /** @enum {integer} */
-    version: 1;
+    version: 1
     /** @enum {string} */
-    type: "product";
-    body: definitions["ProductBody"];
-    plans?: definitions["ExpandedPlan"][];
-    provider: definitions["Provider"];
-  };
+    type: 'product'
+    body: definitions['ProductBody']
+    plans?: definitions['ExpandedPlan'][]
+    provider: definitions['Provider']
+  }
 }
 
 export interface parameters {
@@ -1070,7 +1070,7 @@ export interface parameters {
    * Format: label
    * @description Filter results to only include those that have this label.
    */
-  LabelFilter: string;
+  LabelFilter: string
 }
 
 export interface operations {}

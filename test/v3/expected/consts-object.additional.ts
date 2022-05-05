@@ -4,23 +4,23 @@
  */
 
 export interface paths {
-  "/test": {
+  '/test': {
     get: {
       responses: {
         /** A list of types. */
-        200: unknown;
-      };
-    };
-  };
+        200: unknown
+      }
+    }
+  }
 }
 
 export interface components {
   schemas: {
     /** @constant */
-    TypeA: { hello: "world" };
+    TypeA: { hello: 'world' }
     /** @constant */
-    TypeB: ["content"];
-  };
+    TypeB: ['content']
+  }
 }
 
 export interface operations {}

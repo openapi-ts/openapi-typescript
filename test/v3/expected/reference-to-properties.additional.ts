@@ -4,32 +4,32 @@
  */
 
 export interface paths {
-  "/pet": {
-    put: operations["updatePet"];
-  };
+  '/pet': {
+    put: operations['updatePet']
+  }
 }
 
 export interface components {
   schemas: {
     Pet: {
-      name: string;
-    } & { [key: string]: unknown };
-  };
+      name: string
+    } & { [key: string]: unknown }
+  }
 }
 
 export interface operations {
   updatePet: {
     responses: {
-      200: unknown;
-    };
+      200: unknown
+    }
     requestBody: {
       content: {
-        "application/json": {
-          name?: components["schemas"]["Pet"]["name"];
-        } & { [key: string]: unknown };
-      };
-    };
-  };
+        'application/json': {
+          name?: components['schemas']['Pet']['name']
+        } & { [key: string]: unknown }
+      }
+    }
+  }
 }
 
 export interface external {}
