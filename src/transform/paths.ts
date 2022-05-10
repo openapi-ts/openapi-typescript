@@ -101,7 +101,7 @@ export function transformPathsObj(paths: Record<string, PathItemObject>, options
  * Generate an Enum with operation names as keys and the corresponding paths as values.
  */
 export function makeApiPathsEnum(paths: Record<string, PathItemObject>): string {
-  let output = "enum ApiPaths {\n";
+  let output = "export enum ApiPaths {\n";
 
   for (const [url, pathItem] of Object.entries(paths)) {
     for (const [method, operation] of Object.entries(pathItem)) {
