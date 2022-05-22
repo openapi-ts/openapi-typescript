@@ -533,6 +533,17 @@
         "doc",
         "test"
       ]
+    },
+    {
+      "login": "duncanbeevers",
+      "name": "Duncan Beevers",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7367?v=4",
+      "profile": "http://www.duncanbeevers.com",
+      "contributions": [
+        "code",
+        "bug",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,

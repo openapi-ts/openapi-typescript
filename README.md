@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/main/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-51-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-52-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -317,6 +317,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://philip-trauner.me"><img src="https://avatars.githubusercontent.com/u/9287847?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Philip Trauner</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=PhilipTrauner" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=PhilipTrauner" title="Documentation">📖</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=PhilipTrauner" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://powell-v2.github.io/"><img src="https://avatars.githubusercontent.com/u/25308326?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pavel Yermolin</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=Powell-v2" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=Powell-v2" title="Documentation">📖</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=Powell-v2" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://www.duncanbeevers.com"><img src="https://avatars.githubusercontent.com/u/7367?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Duncan Beevers</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=duncanbeevers" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Aduncanbeevers" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=duncanbeevers" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
