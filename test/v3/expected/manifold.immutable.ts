@@ -4,286 +4,286 @@
  */
 
 export interface paths {
-  readonly "/regions/": {
+  readonly '/regions/': {
     readonly get: {
       readonly parameters: {
         readonly query: {
           /** Filter results to only include the regions that have this location. */
-          readonly location?: string;
+          readonly location?: string
           /**
            * Filter results to only include the regions that are on this
            * platform.
            */
-          readonly platform?: string;
-        };
-      };
+          readonly platform?: string
+        }
+      }
       readonly responses: {
         /** A list of regions. */
         readonly 200: {
           readonly content: {
-            readonly "application/json": readonly components["schemas"]["Region"][];
-          };
-        };
+            readonly 'application/json': readonly components['schemas']['Region'][]
+          }
+        }
         /** Unexpected Error */
         readonly 500: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
-      };
-    };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
+      }
+    }
     readonly post: {
       readonly responses: {
         /** Complete region object */
         readonly 201: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Region"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Region']
+          }
+        }
         /** Invalid request provided */
         readonly 400: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Region already exists for that platform and location */
         readonly 409: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Unexpected Error */
         readonly 500: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
-      };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
+      }
       /** Region create request */
       readonly requestBody: {
         readonly content: {
-          readonly "application/json": components["schemas"]["CreateRegion"];
-        };
-      };
-    };
-  };
-  readonly "/regions/{id}": {
+          readonly 'application/json': components['schemas']['CreateRegion']
+        }
+      }
+    }
+  }
+  readonly '/regions/{id}': {
     readonly get: {
       readonly parameters: {
         readonly path: {
           /** ID of the region to lookup, stored as a base32 encoded 18 byte identifier. */
-          readonly id: string;
-        };
-      };
+          readonly id: string
+        }
+      }
       readonly responses: {
         /** A region. */
         readonly 200: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Region"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Region']
+          }
+        }
         /** Provided Region ID is Invalid */
         readonly 400: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Region could not be found */
         readonly 404: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Unexpected Error */
         readonly 500: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
-      };
-    };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
+      }
+    }
     readonly patch: {
       readonly parameters: {
         readonly path: {
           /** ID of the region to lookup, stored as a base32 encoded 18 byte identifier. */
-          readonly id: string;
-        };
-      };
+          readonly id: string
+        }
+      }
       readonly responses: {
         /** Complete region object */
         readonly 200: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Region"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Region']
+          }
+        }
         /** Invalid request provided */
         readonly 400: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Unexpected Error */
         readonly 500: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
-      };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
+      }
       /** Region update request */
       readonly requestBody: {
         readonly content: {
-          readonly "application/json": components["schemas"]["UpdateRegion"];
-        };
-      };
-    };
-  };
-  readonly "/providers/": {
+          readonly 'application/json': components['schemas']['UpdateRegion']
+        }
+      }
+    }
+  }
+  readonly '/providers/': {
     readonly get: {
       readonly parameters: {
         readonly query: {
           /** Filter results to only include those that have this label. */
-          readonly label?: string;
-        };
-      };
+          readonly label?: string
+        }
+      }
       readonly responses: {
         /** A list of providers. */
         readonly 200: {
           readonly content: {
-            readonly "application/json": readonly components["schemas"]["Provider"][];
-          };
-        };
+            readonly 'application/json': readonly components['schemas']['Provider'][]
+          }
+        }
         /** Unexpected Error */
         readonly 500: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
-      };
-    };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
+      }
+    }
     readonly post: {
       readonly responses: {
         /** Complete provider object */
         readonly 201: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Provider"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Provider']
+          }
+        }
         /** Invalid request provided */
         readonly 400: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Forbidden */
         readonly 403: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Provider already exists with that label */
         readonly 409: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Unexpected Error */
         readonly 500: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
-      };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
+      }
       /** Provider create request */
       readonly requestBody: {
         readonly content: {
-          readonly "application/json": components["schemas"]["CreateProvider"];
-        };
-      };
-    };
-  };
-  readonly "/providers/{id}": {
+          readonly 'application/json': components['schemas']['CreateProvider']
+        }
+      }
+    }
+  }
+  readonly '/providers/{id}': {
     readonly get: {
       readonly parameters: {
         readonly path: {
           /** ID of the provider to lookup, stored as a base32 encoded 18 byte identifier. */
-          readonly id: string;
-        };
-      };
+          readonly id: string
+        }
+      }
       readonly responses: {
         /** A provider. */
         readonly 200: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Provider"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Provider']
+          }
+        }
         /** Unknown provider error */
         readonly 404: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Unexpected Error */
         readonly 500: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
-      };
-    };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
+      }
+    }
     readonly patch: {
       readonly parameters: {
         readonly path: {
           /** ID of the provider to update, stored as a base32 encoded 18 byte identifier. */
-          readonly id: string;
-        };
-      };
+          readonly id: string
+        }
+      }
       readonly responses: {
         /** Complete provider object */
         readonly 200: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Provider"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Provider']
+          }
+        }
         /** Invalid request provided */
         readonly 400: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Forbidden */
         readonly 403: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Provider not found */
         readonly 404: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Provider already exists with that label */
         readonly 409: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Unexpected Error */
         readonly 500: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
-      };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
+      }
       /** Provider update request */
       readonly requestBody: {
         readonly content: {
-          readonly "application/json": components["schemas"]["UpdateProvider"];
-        };
-      };
-    };
-  };
-  readonly "/products/": {
+          readonly 'application/json': components['schemas']['UpdateProvider']
+        }
+      }
+    }
+  }
+  readonly '/products/': {
     readonly get: {
       readonly parameters: {
         readonly query: {
@@ -291,76 +291,76 @@ export interface paths {
            * Base32 encoded 18 byte identifier of the provider that these
            * products must belong to.
            */
-          readonly provider_id?: string;
+          readonly provider_id?: string
           /** Filter results to only include those that have this label. */
-          readonly label?: string;
+          readonly label?: string
           /** Return only products matching at least one of the tags. */
-          readonly tags?: readonly string[];
-        };
-      };
+          readonly tags?: readonly string[]
+        }
+      }
       readonly responses: {
         /** A product. */
         readonly 200: {
           readonly content: {
-            readonly "application/json": readonly components["schemas"]["Product"][];
-          };
-        };
+            readonly 'application/json': readonly components['schemas']['Product'][]
+          }
+        }
         /** Invalid provider_id supplied */
         readonly 400: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Unexpected Error */
         readonly 500: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
-      };
-    };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
+      }
+    }
     readonly post: {
       readonly responses: {
         /** Complete product object */
         readonly 201: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Product"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Product']
+          }
+        }
         /** Invalid request provided */
         readonly 400: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Forbidden */
         readonly 403: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Product already exists with that label */
         readonly 409: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Unexpected Error */
         readonly 500: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
-      };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
+      }
       /** Product create request */
       readonly requestBody: {
         readonly content: {
-          readonly "application/json": components["schemas"]["CreateProduct"];
-        };
-      };
-    };
-  };
-  readonly "/internal/products": {
+          readonly 'application/json': components['schemas']['CreateProduct']
+        }
+      }
+    }
+  }
+  readonly '/internal/products': {
     readonly get: {
       readonly parameters: {
         readonly query: {
@@ -368,38 +368,38 @@ export interface paths {
            * Base32 encoded 18 byte identifier of the provider that these
            * products must belong to.
            */
-          readonly provider_id?: string;
+          readonly provider_id?: string
           /** Filter results to only include those that have this label. */
-          readonly label?: string;
+          readonly label?: string
           /** Return only products matching at least one of the tags. */
-          readonly tags?: readonly string[];
+          readonly tags?: readonly string[]
           /** Return product listings without plan information */
-          readonly include_plans?: boolean;
-        };
-      };
+          readonly include_plans?: boolean
+        }
+      }
       readonly responses: {
         /** A product. */
         readonly 200: {
           readonly content: {
-            readonly "application/json": readonly components["schemas"]["ExpandedProduct"][];
-          };
-        };
+            readonly 'application/json': readonly components['schemas']['ExpandedProduct'][]
+          }
+        }
         /** Invalid provider_id supplied */
         readonly 400: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Unexpected Error */
         readonly 500: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
-      };
-    };
-  };
-  readonly "/products/{id}": {
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
+      }
+    }
+  }
+  readonly '/products/{id}': {
     readonly get: {
       readonly parameters: {
         readonly path: {
@@ -407,36 +407,36 @@ export interface paths {
            * ID of the product to lookup, stored as a base32 encoded 18 byte
            * identifier.
            */
-          readonly id: string;
-        };
-      };
+          readonly id: string
+        }
+      }
       readonly responses: {
         /** A product. */
         readonly 200: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Product"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Product']
+          }
+        }
         /** Invalid Product ID */
         readonly 400: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Product not found error */
         readonly 404: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Unexpected error */
         readonly 500: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
-      };
-    };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
+      }
+    }
     readonly patch: {
       readonly parameters: {
         readonly path: {
@@ -444,44 +444,44 @@ export interface paths {
            * ID of the product to lookup, stored as a base32 encoded 18 byte
            * identifier.
            */
-          readonly id: string;
-        };
-      };
+          readonly id: string
+        }
+      }
       readonly responses: {
         /** Complete product object */
         readonly 200: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Product"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Product']
+          }
+        }
         /** Invalid Product ID */
         readonly 400: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Product not found error */
         readonly 404: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Unexpected error */
         readonly 500: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
-      };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
+      }
       /** Product update request */
       readonly requestBody: {
         readonly content: {
-          readonly "application/json": components["schemas"]["UpdateProduct"];
-        };
-      };
-    };
-  };
-  readonly "/plans/{id}": {
+          readonly 'application/json': components['schemas']['UpdateProduct']
+        }
+      }
+    }
+  }
+  readonly '/plans/{id}': {
     readonly get: {
       readonly parameters: {
         readonly path: {
@@ -489,36 +489,36 @@ export interface paths {
            * ID of the plan to lookup, stored as a base32 encoded 18 byte
            * identifier.
            */
-          readonly id: string;
-        };
-      };
+          readonly id: string
+        }
+      }
       readonly responses: {
         /** A plan. */
         readonly 200: {
           readonly content: {
-            readonly "application/json": components["schemas"]["ExpandedPlan"];
-          };
-        };
+            readonly 'application/json': components['schemas']['ExpandedPlan']
+          }
+        }
         /** Invalid Plan ID Provided */
         readonly 400: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Unknown plan error */
         readonly 404: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Unexpected error */
         readonly default: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
-      };
-    };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
+      }
+    }
     readonly patch: {
       readonly parameters: {
         readonly path: {
@@ -526,121 +526,121 @@ export interface paths {
            * ID of the plan to lookup, stored as a base32 encoded 18 byte
            * identifier.
            */
-          readonly id: string;
-        };
-      };
+          readonly id: string
+        }
+      }
       readonly responses: {
         /** Complete product plan */
         readonly 200: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Plan"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Plan']
+          }
+        }
         /** Invalid Plan ID */
         readonly 400: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Plan not found error */
         readonly 404: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Unexpected error */
         readonly 500: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
-      };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
+      }
       /** Plan update request */
       readonly requestBody: {
         readonly content: {
-          readonly "application/json": components["schemas"]["UpdatePlan"];
-        };
-      };
-    };
-  };
-  readonly "/plans/": {
+          readonly 'application/json': components['schemas']['UpdatePlan']
+        }
+      }
+    }
+  }
+  readonly '/plans/': {
     readonly get: {
       readonly parameters: {
         readonly query: {
           /** Return the plans that are associated with this product. */
-          readonly product_id: readonly string[];
+          readonly product_id: readonly string[]
           /** Filter results to only include those that have this label. */
-          readonly label?: string;
-        };
-      };
+          readonly label?: string
+        }
+      }
       readonly responses: {
         /** A list of plans for the given product. */
         readonly 200: {
           readonly content: {
-            readonly "application/json": readonly components["schemas"]["ExpandedPlan"][];
-          };
-        };
+            readonly 'application/json': readonly components['schemas']['ExpandedPlan'][]
+          }
+        }
         /** Invalid Parameters Provided */
         readonly 400: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Could not find product */
         readonly 404: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Unexpected error */
         readonly 500: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
-      };
-    };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
+      }
+    }
     readonly post: {
       readonly responses: {
         /** Complete plan object */
         readonly 201: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Plan"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Plan']
+          }
+        }
         /** Invalid request provided */
         readonly 400: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Forbidden */
         readonly 403: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Plan already exists with that label */
         readonly 409: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
         /** Unexpected Error */
         readonly 500: {
           readonly content: {
-            readonly "application/json": components["schemas"]["Error"];
-          };
-        };
-      };
+            readonly 'application/json': components['schemas']['Error']
+          }
+        }
+      }
       /** Plan create request */
       readonly requestBody: {
         readonly content: {
-          readonly "application/json": components["schemas"]["CreatePlan"];
-        };
-      };
-    };
-  };
+          readonly 'application/json': components['schemas']['CreatePlan']
+        }
+      }
+    }
+  }
 }
 
 export interface components {
@@ -649,202 +649,211 @@ export interface components {
      * Format: base32ID
      * @description A base32 encoded 18 byte identifier.
      */
-    readonly ID: string;
+    readonly ID: string
     /**
      * Format: base32ID
      * @description A base32 encoded 18 byte identifier.
      */
-    readonly OptionalID: string | null;
+    readonly OptionalID: string | null
     /** @description A flexible identifier for internal or external entities. */
-    readonly FlexID: string;
+    readonly FlexID: string
     /** @description A flexible identifier for internal or external entities. */
-    readonly OptionalFlexID: string | null;
+    readonly OptionalFlexID: string | null
     /** @description A machine readable unique label, which is url safe. */
-    readonly Label: string;
+    readonly Label: string
     /** @description A machine readable unique label, which is url safe. */
-    readonly OptionalLabel: string | null;
+    readonly OptionalLabel: string | null
     /** @description A machine readable unique label, which is url safe. */
-    readonly FeatureValueLabel: string;
+    readonly FeatureValueLabel: string
     /** @description A location of where a potential resource can be provisioned. */
-    readonly Location: string;
+    readonly Location: string
     /** @description A name of a platform which is used to provision resources. */
-    readonly Platform: string;
+    readonly Platform: string
     /** @description A name of an entity which is displayed to a human. */
-    readonly Name: string;
+    readonly Name: string
     /** @description A name of an entity which is displayed to a human. */
-    readonly OptionalName: string | null;
+    readonly OptionalName: string | null
     /**
      * Format: url
      * @description Logo used for Provider and Product listings.
      *
      * Must be square (same width and height) and minimum 400px. Maximum of 800px.
      */
-    readonly LogoURL: string;
+    readonly LogoURL: string
     /**
      * Format: url
      * @description Logo used for Provider and Product listings.
      *
      * Must be square (same width and height) and minimum 400px. Maximum of 800px.
      */
-    readonly OptionalLogoURL: string | null;
+    readonly OptionalLogoURL: string | null
     readonly RegionBody: {
-      readonly platform: components["schemas"]["Platform"];
-      readonly location: components["schemas"]["Location"];
-      readonly name: string;
-      readonly priority: number;
-    };
+      readonly platform: components['schemas']['Platform']
+      readonly location: components['schemas']['Location']
+      readonly name: string
+      readonly priority: number
+    }
     readonly Region: {
-      readonly id: components["schemas"]["ID"];
+      readonly id: components['schemas']['ID']
       /** @enum {string} */
-      readonly type: "region";
-      readonly version: number;
-      readonly body: components["schemas"]["RegionBody"];
-    };
+      readonly type: 'region'
+      readonly version: number
+      readonly body: components['schemas']['RegionBody']
+    }
     readonly CreateRegion: {
-      readonly body: components["schemas"]["RegionBody"];
-    };
+      readonly body: components['schemas']['RegionBody']
+    }
     readonly UpdateRegion: {
-      readonly name: string;
-    };
+      readonly name: string
+    }
     readonly ProviderBody: {
-      readonly owner_id?: components["schemas"]["OptionalFlexID"];
-      readonly team_id?: components["schemas"]["OptionalID"];
-      readonly label: components["schemas"]["Label"];
-      readonly name: components["schemas"]["Name"];
-      readonly logo_url?: components["schemas"]["LogoURL"];
+      readonly owner_id?: components['schemas']['OptionalFlexID']
+      readonly team_id?: components['schemas']['OptionalID']
+      readonly label: components['schemas']['Label']
+      readonly name: components['schemas']['Name']
+      readonly logo_url?: components['schemas']['LogoURL']
       /** Format: email */
-      readonly support_email?: string;
+      readonly support_email?: string
       /** Format: url */
-      readonly documentation_url?: string;
-    };
+      readonly documentation_url?: string
+    }
     readonly UpdateProviderBody: {
-      readonly owner_id?: components["schemas"]["OptionalFlexID"];
-      readonly team_id?: components["schemas"]["OptionalID"];
-      readonly label?: components["schemas"]["OptionalLabel"];
-      readonly name?: components["schemas"]["OptionalName"];
-      readonly logo_url?: components["schemas"]["OptionalLogoURL"];
+      readonly owner_id?: components['schemas']['OptionalFlexID']
+      readonly team_id?: components['schemas']['OptionalID']
+      readonly label?: components['schemas']['OptionalLabel']
+      readonly name?: components['schemas']['OptionalName']
+      readonly logo_url?: components['schemas']['OptionalLogoURL']
       /** Format: email */
-      readonly support_email?: string | null;
+      readonly support_email?: string | null
       /** Format: url */
-      readonly documentation_url?: string | null;
-    };
+      readonly documentation_url?: string | null
+    }
     readonly Provider: {
-      readonly id: components["schemas"]["ID"];
-      readonly version: number;
+      readonly id: components['schemas']['ID']
+      readonly version: number
       /** @enum {string} */
-      readonly type: "provider";
-      readonly body: components["schemas"]["ProviderBody"];
-    };
+      readonly type: 'provider'
+      readonly body: components['schemas']['ProviderBody']
+    }
     readonly CreateProvider: {
-      readonly body: components["schemas"]["ProviderBody"];
-    };
+      readonly body: components['schemas']['ProviderBody']
+    }
     readonly UpdateProvider: {
-      readonly id: components["schemas"]["ID"];
-      readonly body: components["schemas"]["UpdateProviderBody"];
-    };
+      readonly id: components['schemas']['ID']
+      readonly body: components['schemas']['UpdateProviderBody']
+    }
     readonly UpdateProduct: {
-      readonly id: components["schemas"]["ID"];
-      readonly body: components["schemas"]["UpdateProductBody"];
-    };
+      readonly id: components['schemas']['ID']
+      readonly body: components['schemas']['UpdateProductBody']
+    }
     readonly UpdateProductBody: {
-      readonly name?: components["schemas"]["Name"];
-      readonly label?: components["schemas"]["Label"];
-      readonly logo_url?: components["schemas"]["LogoURL"];
-      readonly listing?: components["schemas"]["ProductListing"];
+      readonly name?: components['schemas']['Name']
+      readonly label?: components['schemas']['Label']
+      readonly logo_url?: components['schemas']['LogoURL']
+      readonly listing?: components['schemas']['ProductListing']
       /** @description 140 character sentence positioning the product. */
-      readonly tagline?: string | null;
+      readonly tagline?: string | null
       /** @description A list of value propositions of the product. */
-      readonly value_props?: readonly components["schemas"]["ValueProp"][] | null;
+      readonly value_props?: readonly components['schemas']['ValueProp'][] | null
       /** @description A list of getting started steps for the product */
-      readonly setup_steps?: readonly string[] | null;
-      readonly images?: readonly components["schemas"]["ProductImageURL"][] | null;
+      readonly setup_steps?: readonly string[] | null
+      readonly images?: readonly components['schemas']['ProductImageURL'][] | null
       /** Format: email */
-      readonly support_email?: string | null;
+      readonly support_email?: string | null
       /** Format: url */
-      readonly documentation_url?: string | null;
+      readonly documentation_url?: string | null
       /**
        * @description URL to this Product's Terms of Service. If provided is true, then
        * a url must be set. Otherwise, provided is false.
        */
-      readonly terms_url?: string | null;
-      readonly feature_types?: readonly components["schemas"]["FeatureType"][] | null;
+      readonly terms_url?: string | null
+      readonly feature_types?: readonly components['schemas']['FeatureType'][] | null
       readonly integration?: {
-        readonly provisioning?: components["schemas"]["ProductProvisioning"];
+        readonly provisioning?: components['schemas']['ProductProvisioning']
         /** Format: url */
-        readonly base_url?: string | null;
+        readonly base_url?: string | null
         /** Format: url */
-        readonly sso_url?: string | null;
+        readonly sso_url?: string | null
         /** @enum {string|null} */
-        readonly version?: "v1" | null;
+        readonly version?: 'v1' | null
         readonly features?: {
-          readonly access_code?: boolean | null;
-          readonly sso?: boolean | null;
-          readonly plan_change?: boolean | null;
+          readonly access_code?: boolean | null
+          readonly sso?: boolean | null
+          readonly plan_change?: boolean | null
           /**
            * @default multiple
            * @enum {string|null}
            */
-          readonly credential?: ("none" | "single" | "multiple" | "unknown") | null;
-        };
-      } | null;
+          readonly credential?: ('none' | 'single' | 'multiple' | 'unknown') | null
+        }
+      } | null
       /** @description An array of platform ids to restrict this product for. */
-      readonly platform_ids?: readonly components["schemas"]["ID"][] | null;
-      readonly tags?: components["schemas"]["ProductTags"];
-    };
+      readonly platform_ids?: readonly components['schemas']['ID'][] | null
+      readonly tags?: components['schemas']['ProductTags']
+    }
     readonly UpdatePlan: {
-      readonly id: components["schemas"]["ID"];
-      readonly body: components["schemas"]["UpdatePlanBody"];
-    };
+      readonly id: components['schemas']['ID']
+      readonly body: components['schemas']['UpdatePlanBody']
+    }
     readonly UpdatePlanBody: {
-      readonly name?: components["schemas"]["Name"];
-      readonly label?: components["schemas"]["Label"];
-      readonly state?: components["schemas"]["PlanState"];
+      readonly name?: components['schemas']['Name']
+      readonly label?: components['schemas']['Label']
+      readonly state?: components['schemas']['PlanState']
       /** @description Used in conjuction with resizable_to to set or unset the list */
-      readonly has_resize_constraints?: boolean | null;
-      readonly resizable_to?: components["schemas"]["PlanResizeList"];
+      readonly has_resize_constraints?: boolean | null
+      readonly resizable_to?: components['schemas']['PlanResizeList']
       /** @description Array of Region IDs */
-      readonly regions?: readonly components["schemas"]["ID"][] | null;
+      readonly regions?: readonly components['schemas']['ID'][] | null
       /** @description Array of Feature Values */
-      readonly features?: readonly components["schemas"]["FeatureValue"][] | null;
+      readonly features?: readonly components['schemas']['FeatureValue'][] | null
       /**
        * @description The number of days a user gets as a free trial when subscribing to
        * this plan. Trials are valid only once per product; changing plans
        * or adding an additional subscription will not start a new trial.
        */
-      readonly trial_days?: number | null;
+      readonly trial_days?: number | null
       /** @description Dollar value in cents */
-      readonly cost?: number | null;
-    };
+      readonly cost?: number | null
+    }
     /**
      * @description A feature type represents the different aspects of a product that are
      * offered, these features can manifest differently depending on the plan.
      */
     readonly FeatureType: {
-      readonly label: components["schemas"]["Label"];
-      readonly name: components["schemas"]["Name"];
+      readonly label: components['schemas']['Label']
+      readonly name: components['schemas']['Name']
       /** @enum {string} */
-      readonly type: "boolean" | "string" | "number";
-      /** @description This sets whether or not the feature can be customized by a consumer. */
-      readonly customizable?: boolean;
+      readonly type: 'boolean' | 'string' | 'number'
+      /**
+       * @description This sets whether or not the feature can be customized by a consumer.
+       * @default false
+       */
+      readonly customizable?: boolean
       /**
        * @description This sets whether or not the feature can be upgraded by the consumer after the
        * resource has provisioned. Upgrading means setting a higher value or selecting a
        * higher element in the list.
+       *
+       * @default false
        */
-      readonly upgradable?: boolean;
+      readonly upgradable?: boolean
       /**
        * @description This sets whether or not the feature can be downgraded by the consumer after the
        * resource has provisioned. Downgrading means setting a lower value or selecting a
        * lower element in the list.
+       *
+       * @default false
        */
-      readonly downgradable?: boolean;
+      readonly downgradable?: boolean
       /**
        * @description Sets if this feature’s value is trackable from the provider,
        * this only really affects numeric constraints.
+       *
+       * @default false
        */
-      readonly measurable?: boolean;
-      readonly values?: components["schemas"]["FeatureValuesList"];
-    };
+      readonly measurable?: boolean
+      readonly values?: components['schemas']['FeatureValuesList']
+    }
     /**
      * @description A list of allowable values for the feature.
      * To define values for a boolean feature type, only `true` is required,
@@ -853,16 +862,16 @@ export interface components {
      * `numeric_details` definition, and the plan will determine which
      * `numeric_details` set is used based on it's setting.
      */
-    readonly FeatureValuesList: readonly components["schemas"]["FeatureValueDetails"][] | null;
+    readonly FeatureValuesList: readonly components['schemas']['FeatureValueDetails'][] | null
     readonly FeatureValueDetails: {
-      readonly label: components["schemas"]["FeatureValueLabel"];
-      readonly name: components["schemas"]["Name"];
+      readonly label: components['schemas']['FeatureValueLabel']
+      readonly name: components['schemas']['Name']
       /**
        * @description The cost that will be added to the monthly plan cost when this value
        * is selected or is default for the plan.
        * Cost is deprecated in favor of the `price.cost` field.
        */
-      readonly cost?: number;
+      readonly cost?: number
       /**
        * @description Price describes the cost of a feature. It should be preferred over
        * the `cost` property.
@@ -873,19 +882,19 @@ export interface components {
          * when this value is selected or is default for the plan.
          * Number features should use the cost range instead.
          */
-        readonly cost?: number;
+        readonly cost?: number
         /**
          * @description When a feature is used to multiply the cost of the plan or of
          * another feature, multiply factor is used for calculation.
          * A feature cannot have both a cost and a multiply factor.
          */
-        readonly multiply_factor?: number;
-        readonly formula?: components["schemas"]["PriceFormula"];
+        readonly multiply_factor?: number
+        readonly formula?: components['schemas']['PriceFormula']
         /** @description Description explains how a feature is calculated to the user. */
-        readonly description?: string;
-      };
-      readonly numeric_details?: components["schemas"]["FeatureNumericDetails"];
-    };
+        readonly description?: string
+      }
+      readonly numeric_details?: components['schemas']['FeatureNumericDetails']
+    }
     /**
      * @description Optional container for additional details relating to numeric features.
      * This is required if the feature is measurable and numeric.
@@ -899,15 +908,15 @@ export interface components {
        * means this numeric details has no scale, and will not be or customizable.
        * Some plans may not have a measureable or customizable feature.
        */
-      readonly increment?: number;
+      readonly increment?: number
       /** @description Minimum value that can be set by a user if customizable */
-      readonly min?: number;
+      readonly min?: number
       /** @description Maximum value that can be set by a user if customizable */
-      readonly max?: number | null;
+      readonly max?: number | null
       /** @description Applied to the end of the number for display, for example the ‘GB’ in ‘20 GB’. */
-      readonly suffix?: string | null;
-      readonly cost_ranges?: readonly components["schemas"]["FeatureNumericRange"][] | null;
-    } | null;
+      readonly suffix?: string | null
+      readonly cost_ranges?: readonly components['schemas']['FeatureNumericRange'][] | null
+    } | null
     readonly FeatureNumericRange: {
       /**
        * @description Defines the end of the range ( inclusive ), from the previous, or 0;
@@ -915,48 +924,52 @@ export interface components {
        * range to infinity, or the maximum integer the system can handle
        * ( whichever comes first ).
        */
-      readonly limit?: number;
+      readonly limit?: number
       /**
        * @description An integer in 10,000,000ths of cents, will be multiplied by the
        * numeric value set in the feature to determine the cost.
        */
-      readonly cost_multiple?: number;
-    };
+      readonly cost_multiple?: number
+    }
     readonly FeatureValue: {
-      readonly feature: components["schemas"]["Label"];
-      readonly value: components["schemas"]["FeatureValueLabel"];
-    };
+      readonly feature: components['schemas']['Label']
+      readonly value: components['schemas']['FeatureValueLabel']
+    }
     readonly ValueProp: {
       /** @description Heading of a value proposition. */
-      readonly header: string;
+      readonly header: string
       /** @description Body of a value proposition. */
-      readonly body: string;
-    };
+      readonly body: string
+    }
     /**
      * Format: url
      * @description Image URL used for Product listings.
      *
      * Minimum 660px wide, 400px high.
      */
-    readonly ProductImageURL: string;
+    readonly ProductImageURL: string
     /** @description List of tags for product categorization and search */
-    readonly ProductTags: readonly components["schemas"]["Label"][];
+    readonly ProductTags: readonly components['schemas']['Label'][]
     /** @enum {string} */
-    readonly ProductState: "available" | "hidden" | "grandfathered" | "new" | "upcoming";
+    readonly ProductState: 'available' | 'hidden' | 'grandfathered' | 'new' | 'upcoming'
     readonly ProductListing: {
       /**
        * @description When true, everyone can see the product when requested. When false it will
        * not be visible to anyone except those on the provider team.
+       *
+       * @default false
        */
-      readonly public?: boolean;
+      readonly public?: boolean
       /**
        * @description When true, the product will be displayed in product listings alongside
        * other products. When false the product will be excluded from listings,
        * but can still be provisioned directly if it's label is known.
        * Any pages that display information about the product when not listed,
        * should indicate to webcrawlers that the content should not be indexed.
+       *
+       * @default false
        */
-      readonly listed?: boolean;
+      readonly listed?: boolean
       /**
        * @description Object to hold various flags for marketing purposes only. These are values
        * that need to be stored, but should not affect decision making in code. If
@@ -968,22 +981,28 @@ export interface components {
          * @description Indicates whether or not the product is in `Beta` and should be
          * advertised as such. This does not have any impact on who can access the
          * product, it is just used to inform consumers through our clients.
+         *
+         * @default false
          */
-        readonly beta?: boolean;
+        readonly beta?: boolean
         /**
          * @description Indicates whether or not the product is in `New` and should be
          * advertised as such. This does not have any impact on who can access the
          * product, it is just used to inform consumers through our clients.
+         *
+         * @default false
          */
-        readonly new?: boolean;
+        readonly new?: boolean
         /**
          * @description Indicates whether or not the product is in `New` and should be
          * advertised as such. This does not have any impact on who can access the
          * product, it is just used to inform consumers through our clients.
+         *
+         * @default false
          */
-        readonly featured?: boolean;
-      };
-    };
+        readonly featured?: boolean
+      }
+    }
     /**
      * @description Provider Only, implies that the product should only be provisionable by the
      *   provider; so members of the provider team, no one else should be allowed.
@@ -993,23 +1012,23 @@ export interface components {
      *
      * @enum {string}
      */
-    readonly ProductProvisioning: "provider-only" | "pre-order" | "public";
+    readonly ProductProvisioning: 'provider-only' | 'pre-order' | 'public'
     readonly ProductIntegrationFeatures: {
       /**
        * @description Indicates whether or not this product supports resource transitions to
        * manifold by access_code.
        */
-      readonly access_code?: boolean;
+      readonly access_code?: boolean
       /**
        * @description Represents whether or not this product supports Single
        * Sign On
        */
-      readonly sso?: boolean;
+      readonly sso?: boolean
       /**
        * @description Represents whether or not this product supports changing
        * the plan of a resource.
        */
-      readonly plan_change?: boolean;
+      readonly plan_change?: boolean
       /**
        * @description Describes how the region for a resource is specified, if
        * unspecified, then regions have no impact on this
@@ -1017,7 +1036,7 @@ export interface components {
        *
        * @enum {string}
        */
-      readonly region?: "user-specified" | "unspecified";
+      readonly region?: 'user-specified' | 'unspecified'
       /**
        * @description Describes the credential type that is supported by this product.
        *
@@ -1029,127 +1048,127 @@ export interface components {
        * @default multiple
        * @enum {string}
        */
-      readonly credential?: "none" | "single" | "multiple" | "unknown";
-    };
+      readonly credential?: 'none' | 'single' | 'multiple' | 'unknown'
+    }
     readonly ProductBody: {
-      readonly provider_id: components["schemas"]["ID"];
-      readonly label: components["schemas"]["Label"];
-      readonly name: components["schemas"]["Name"];
-      readonly state: components["schemas"]["ProductState"];
-      readonly listing: components["schemas"]["ProductListing"];
-      readonly logo_url: components["schemas"]["LogoURL"];
+      readonly provider_id: components['schemas']['ID']
+      readonly label: components['schemas']['Label']
+      readonly name: components['schemas']['Name']
+      readonly state: components['schemas']['ProductState']
+      readonly listing: components['schemas']['ProductListing']
+      readonly logo_url: components['schemas']['LogoURL']
       /** @description 140 character sentence positioning the product. */
-      readonly tagline: string;
+      readonly tagline: string
       /** @description A list of value propositions of the product. */
-      readonly value_props: readonly components["schemas"]["ValueProp"][];
+      readonly value_props: readonly components['schemas']['ValueProp'][]
       /** @description A list of getting started steps for the product */
-      readonly setup_steps?: readonly string[] | null;
-      readonly images: readonly components["schemas"]["ProductImageURL"][];
+      readonly setup_steps?: readonly string[] | null
+      readonly images: readonly components['schemas']['ProductImageURL'][]
       /** Format: email */
-      readonly support_email: string;
+      readonly support_email: string
       /** Format: url */
-      readonly documentation_url: string;
+      readonly documentation_url: string
       /**
        * @description URL to this Product's Terms of Service. If provided is true, then
        * a url must be set. Otherwise, provided is false.
        */
       readonly terms: {
         /** Format: url */
-        readonly url?: string | null;
-        readonly provided: boolean;
-      };
-      readonly feature_types: readonly components["schemas"]["FeatureType"][];
+        readonly url?: string | null
+        readonly provided: boolean
+      }
+      readonly feature_types: readonly components['schemas']['FeatureType'][]
       readonly billing: {
         /** @enum {string} */
-        readonly type: "monthly-prorated" | "monthly-anniversary" | "annual-anniversary";
+        readonly type: 'monthly-prorated' | 'monthly-anniversary' | 'annual-anniversary'
         /** @enum {string} */
-        readonly currency: "usd";
-      };
+        readonly currency: 'usd'
+      }
       readonly integration: {
-        readonly provisioning: components["schemas"]["ProductProvisioning"];
+        readonly provisioning: components['schemas']['ProductProvisioning']
         /** Format: url */
-        readonly base_url: string;
+        readonly base_url: string
         /** Format: url */
-        readonly sso_url?: string | null;
+        readonly sso_url?: string | null
         /** @enum {string} */
-        readonly version: "v1";
-        readonly features: components["schemas"]["ProductIntegrationFeatures"];
-      };
-      readonly tags?: components["schemas"]["ProductTags"];
-    };
+        readonly version: 'v1'
+        readonly features: components['schemas']['ProductIntegrationFeatures']
+      }
+      readonly tags?: components['schemas']['ProductTags']
+    }
     readonly Product: {
-      readonly id: components["schemas"]["ID"];
-      readonly version: number;
+      readonly id: components['schemas']['ID']
+      readonly version: number
       /** @enum {string} */
-      readonly type: "product";
-      readonly body: components["schemas"]["ProductBody"];
-    };
+      readonly type: 'product'
+      readonly body: components['schemas']['ProductBody']
+    }
     readonly CreateProduct: {
-      readonly body: components["schemas"]["ProductBody"];
-    };
+      readonly body: components['schemas']['ProductBody']
+    }
     /** @description Array of Plan IDs that this Plan can be resized to, if null all will be assumed */
-    readonly PlanResizeList: readonly components["schemas"]["ID"][] | null;
+    readonly PlanResizeList: readonly components['schemas']['ID'][] | null
     readonly PlanBody: {
-      readonly provider_id: components["schemas"]["ID"];
-      readonly product_id: components["schemas"]["ID"];
-      readonly name: components["schemas"]["Name"];
-      readonly label: components["schemas"]["Label"];
-      readonly state: components["schemas"]["PlanState"];
-      readonly resizable_to?: components["schemas"]["PlanResizeList"];
+      readonly provider_id: components['schemas']['ID']
+      readonly product_id: components['schemas']['ID']
+      readonly name: components['schemas']['Name']
+      readonly label: components['schemas']['Label']
+      readonly state: components['schemas']['PlanState']
+      readonly resizable_to?: components['schemas']['PlanResizeList']
       /** @description Array of Region IDs */
-      readonly regions: readonly components["schemas"]["ID"][];
+      readonly regions: readonly components['schemas']['ID'][]
       /** @description Array of Feature Values */
-      readonly features: readonly components["schemas"]["FeatureValue"][];
+      readonly features: readonly components['schemas']['FeatureValue'][]
       /**
        * @description The number of days a user gets as a free trial when subscribing to
        * this plan. Trials are valid only once per product; changing plans
        * or adding an additional subscription will not start a new trial.
        */
-      readonly trial_days?: number;
+      readonly trial_days?: number
       /** @description Dollar value in cents. */
-      readonly cost: number;
-    };
+      readonly cost: number
+    }
     /** @enum {string} */
-    readonly PlanState: "hidden" | "available" | "grandfathered" | "unlisted";
-    readonly ExpandedPlanBody: components["schemas"]["PlanBody"] & {
+    readonly PlanState: 'hidden' | 'available' | 'grandfathered' | 'unlisted'
+    readonly ExpandedPlanBody: components['schemas']['PlanBody'] & {
       /** @description An array of feature definitions for the plan, as defined on the Product. */
-      readonly expanded_features: readonly components["schemas"]["ExpandedFeature"][];
+      readonly expanded_features: readonly components['schemas']['ExpandedFeature'][]
       /** @description A boolean flag that indicates if a plan is free or not based on it's cost and features. */
-      readonly free: boolean;
+      readonly free: boolean
       /** @description Plan cost using its default features plus base cost. */
-      readonly defaultCost?: number;
+      readonly defaultCost?: number
       /** @description A boolean flag that indicates if a plan has customizable features. */
-      readonly customizable?: boolean;
-    };
-    readonly ExpandedFeature: components["schemas"]["FeatureType"] & {
+      readonly customizable?: boolean
+    }
+    readonly ExpandedFeature: components['schemas']['FeatureType'] & {
       /** @description The string value set for the feature on the plan, this should only be used if the value property is null. */
-      readonly value_string: string;
-      readonly value: components["schemas"]["FeatureValueDetails"];
-    };
+      readonly value_string: string
+      readonly value: components['schemas']['FeatureValueDetails']
+    }
     readonly Plan: {
-      readonly id: components["schemas"]["ID"];
-      readonly version: number;
+      readonly id: components['schemas']['ID']
+      readonly version: number
       /** @enum {string} */
-      readonly type: "plan";
-      readonly body: components["schemas"]["PlanBody"];
-    };
+      readonly type: 'plan'
+      readonly body: components['schemas']['PlanBody']
+    }
     readonly ExpandedPlan: {
-      readonly id: components["schemas"]["ID"];
-      readonly version: number;
+      readonly id: components['schemas']['ID']
+      readonly version: number
       /** @enum {string} */
-      readonly type: "plan";
-      readonly body: components["schemas"]["ExpandedPlanBody"];
-    };
+      readonly type: 'plan'
+      readonly body: components['schemas']['ExpandedPlanBody']
+    }
     readonly CreatePlan: {
-      readonly body: components["schemas"]["PlanBody"];
-    };
+      readonly body: components['schemas']['PlanBody']
+    }
     /** @description Unexpected error */
     readonly Error: {
       /** @description The error type */
-      readonly type: string;
+      readonly type: string
       /** @description Explanation of the errors */
-      readonly message: readonly string[];
-    };
+      readonly message: readonly string[]
+    }
     /**
      * @description Describes how a feature cost should be calculated. An empty
      * string defaults to the normal price calculation using the value cost.
@@ -1173,21 +1192,21 @@ export interface components {
      *   - `another-feature-label#number` is the numeric value of a number feature
      * In a feature formula, plan base cost and total cost cannot be used
      */
-    readonly PriceFormula: string;
+    readonly PriceFormula: string
     readonly ExpandedProduct: {
-      readonly id: components["schemas"]["ID"];
-      readonly version: number;
+      readonly id: components['schemas']['ID']
+      readonly version: number
       /** @enum {string} */
-      readonly type: "product";
-      readonly body: components["schemas"]["ProductBody"];
-      readonly plans?: readonly components["schemas"]["ExpandedPlan"][];
-      readonly provider: components["schemas"]["Provider"];
-    };
-  };
+      readonly type: 'product'
+      readonly body: components['schemas']['ProductBody']
+      readonly plans?: readonly components['schemas']['ExpandedPlan'][]
+      readonly provider: components['schemas']['Provider']
+    }
+  }
   readonly parameters: {
     /** @description Filter results to only include those that have this label. */
-    readonly LabelFilter: string;
-  };
+    readonly LabelFilter: string
+  }
 }
 
 export interface operations {}

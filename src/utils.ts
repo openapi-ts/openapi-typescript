@@ -42,7 +42,14 @@ export function prepareComment(v: CommentObject): string | void {
   const supportedJsDocTags: Array<keyof CommentObject> = ["description", "default", "example"];
   for (let index = 0; index < supportedJsDocTags.length; index++) {
     const field = supportedJsDocTags[index];
-    if (v[field]) commentsArray.push(`@${field} ${v[field]} `);
+    const allowEmptyString = field === "default" || field === "example";
+    if (v[field] === undefined) {
+      continue;
+    }
+    if (v[field] === "" && !allowEmptyString) {
+      continue;
+    }
+    commentsArray.push(`@${field} ${v[field]} `);
   }
 
   // * JSDOC 'Constant' without value
