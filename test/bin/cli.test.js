@@ -20,12 +20,18 @@ describe("cli", () => {
   });
 
   it("--prettier-config (.js)", async () => {
-    execSync(`${cmd} specs/petstore.yaml -o generated/prettier-js.ts --prettier-config fixtures/prettier.config.js`, {
+    execSync(`${cmd} specs/petstore.yaml -o generated/prettier-js.ts --prettier-config fixtures/prettier.config.cjs`, {
       cwd,
     });
     const generated = fs.readFileSync(new URL("./generated/prettier-js.ts", cwd), "utf8");
     const expected = eol.lf(fs.readFileSync(new URL("./expected/prettier-js.ts", cwd), "utf8"));
     expect(generated).to.equal(expected);
+  });
+
+  it("--prettier-config (missing)", async () => {
+    expect(() => {
+      execSync(`${cmd} specs/petstore.yaml -o generated/prettier-missing.ts --prettier-config NO_SUCH_FILE`);
+    }).to.throw('NO_SUCH_FILE');
   });
 
   it("stdout", async () => {

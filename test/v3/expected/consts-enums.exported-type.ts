@@ -4,32 +4,32 @@
  */
 
 export type paths = {
-  "/test": {
+  '/test': {
     get: {
       responses: {
         /** A list of types. */
-        200: unknown;
-      };
-    };
-  };
-};
+        200: unknown
+      }
+    }
+  }
+}
 
 export type components = {
   schemas: {
     /** @description Enum with null and nullable */
     MyType: {
       /** @enum {string|null} */
-      myEnumTestFieldNullable?: ("foo" | "bar" | null) | null;
+      myEnumTestFieldNullable?: ('foo' | 'bar' | null) | null
       /** @enum {string|null} */
-      myEnumTestField?: ("foo" | "bar" | null) | null;
+      myEnumTestField?: ('foo' | 'bar' | null) | null
       /** @constant */
-      myConstTestField?: "constant-value";
+      myConstTestField?: 'constant-value'
       /** @constant */
-      myConstTestFieldNullable?: 4 | null;
-    };
-  };
-};
+      myConstTestFieldNullable?: 4 | null
+    }
+  }
+}
 
-export type operations = {};
+export type operations = {}
 
-export type external = {};
+export type external = {}

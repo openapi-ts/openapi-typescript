@@ -4,23 +4,23 @@
  */
 
 export interface paths {
-  readonly "/test": {
+  readonly '/test': {
     readonly get: {
       readonly responses: {
         /** A list of types. */
-        readonly 200: unknown;
-      };
-    };
-  };
+        readonly 200: unknown
+      }
+    }
+  }
 }
 
 export interface components {
   readonly schemas: {
     /** @constant */
-    readonly TypeA: { hello: "world" };
+    readonly TypeA: { hello: 'world' }
     /** @constant */
-    readonly TypeB: ["content"];
-  };
+    readonly TypeB: ['content']
+  }
 }
 
 export interface operations {}

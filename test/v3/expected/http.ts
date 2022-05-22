@@ -824,23 +824,32 @@ export interface components {
       name: components["schemas"]["Name"];
       /** @enum {string} */
       type: "boolean" | "string" | "number";
-      /** @description This sets whether or not the feature can be customized by a consumer. */
+      /**
+       * @description This sets whether or not the feature can be customized by a consumer.
+       * @default false
+       */
       customizable?: boolean;
       /**
        * @description This sets whether or not the feature can be upgraded by the consumer after the
        * resource has provisioned. Upgrading means setting a higher value or selecting a
        * higher element in the list.
+       *
+       * @default false
        */
       upgradable?: boolean;
       /**
        * @description This sets whether or not the feature can be downgraded by the consumer after the
        * resource has provisioned. Downgrading means setting a lower value or selecting a
        * lower element in the list.
+       *
+       * @default false
        */
       downgradable?: boolean;
       /**
        * @description Sets if this feature’s value is trackable from the provider,
        * this only really affects numeric constraints.
+       *
+       * @default false
        */
       measurable?: boolean;
       values?: components["schemas"]["FeatureValuesList"];
@@ -947,6 +956,8 @@ export interface components {
       /**
        * @description When true, everyone can see the product when requested. When false it will
        * not be visible to anyone except those on the provider team.
+       *
+       * @default false
        */
       public?: boolean;
       /**
@@ -955,6 +966,8 @@ export interface components {
        * but can still be provisioned directly if it's label is known.
        * Any pages that display information about the product when not listed,
        * should indicate to webcrawlers that the content should not be indexed.
+       *
+       * @default false
        */
       listed?: boolean;
       /**
@@ -968,18 +981,24 @@ export interface components {
          * @description Indicates whether or not the product is in `Beta` and should be
          * advertised as such. This does not have any impact on who can access the
          * product, it is just used to inform consumers through our clients.
+         *
+         * @default false
          */
         beta?: boolean;
         /**
          * @description Indicates whether or not the product is in `New` and should be
          * advertised as such. This does not have any impact on who can access the
          * product, it is just used to inform consumers through our clients.
+         *
+         * @default false
          */
         new?: boolean;
         /**
          * @description Indicates whether or not the product is in `New` and should be
          * advertised as such. This does not have any impact on who can access the
          * product, it is just used to inform consumers through our clients.
+         *
+         * @default false
          */
         featured?: boolean;
       };

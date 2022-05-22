@@ -4,25 +4,25 @@
  */
 
 export interface paths {
-  "/test": {
+  '/test': {
     get: {
       responses: {
         /** A list of types. */
-        200: unknown;
-      };
-    };
-  };
+        200: unknown
+      }
+    }
+  }
 }
 
 export interface components {
   schemas: {
     /** @description Enum with null and nullable */
     Example: {
-      emptyAllOf?: { [key: string]: unknown };
-      emptyOneOf?: undefined & { [key: string]: unknown };
-      emptyAnyOf?: { [key: string]: unknown };
-    } & { [key: string]: unknown };
-  };
+      emptyAllOf?: { [key: string]: unknown }
+      emptyOneOf?: undefined & { [key: string]: unknown }
+      emptyAnyOf?: { [key: string]: unknown }
+    } & { [key: string]: unknown }
+  }
 }
 
 export interface operations {}

@@ -15,7 +15,7 @@ describe("cli", () => {
     const filename = schema.replace(".yaml", ".ts");
 
     it(`reads ${schema} spec (v2) from file`, async () => {
-      execSync(`${cmd} specs/${schema} -o generated/${filename} --prettier-config .prettierrc`, { cwd });
+      execSync(`${cmd} specs/${schema} -o generated/${filename} --prettier-config fixtures/.prettierrc`, { cwd });
       const generated = fs.readFileSync(new URL(`./generated/${filename}`, cwd), "utf8");
       const expected = eol.lf(fs.readFileSync(new URL(`./expected/${filename}`, cwd), "utf8"));
       expect(generated).to.equal(expected);
@@ -24,9 +24,12 @@ describe("cli", () => {
     it(`reads ${schema} spec (v2) from file (immutable types)`, async () => {
       const filename = schema.replace(".yaml", ".immutable.ts");
 
-      execSync(`${cmd} specs/${schema} -o generated/${filename} --prettier-config .prettierrc --immutable-types`, {
-        cwd,
-      });
+      execSync(
+        `${cmd} specs/${schema} -o generated/${filename} --prettier-config fixtures/.prettierrc --immutable-types`,
+        {
+          cwd,
+        }
+      );
       const generated = fs.readFileSync(new URL(`./generated/${filename}`, cwd), "utf8");
       const expected = eol.lf(fs.readFileSync(new URL(`./expected/${filename}`, cwd), "utf8"));
       expect(generated).to.equal(expected);
@@ -50,7 +53,7 @@ describe("json", () => {
       const schemaYAML = fs.readFileSync(new URL(`./specs/${schema}`, cwd), "utf8");
       const expected = eol.lf(fs.readFileSync(new URL(`./expected/${schema.replace(".yaml", ".ts")}`, cwd), "utf8"));
       const generated = await openapiTS(yaml.load(schemaYAML), {
-        prettierConfig: fileURLToPath(new URL("../../.prettierrc", cwd)),
+        prettierConfig: fileURLToPath(new URL("fixtures/.prettierrc", cwd)),
       });
       expect(generated).to.equal(expected);
     });

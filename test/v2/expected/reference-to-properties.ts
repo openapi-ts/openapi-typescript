@@ -4,18 +4,18 @@
  */
 
 export interface paths {
-  "/pet": {
-    post: operations["addPet"];
-  };
+  '/pet': {
+    post: operations['addPet']
+  }
 }
 
 export interface definitions {
   Pet: {
     /** Format: int64 */
-    id?: number;
+    id?: number
     /** @example doggie */
-    name: string;
-  };
+    name: string
+  }
 }
 
 export interface operations {
@@ -23,14 +23,14 @@ export interface operations {
     parameters: {
       body: {
         body: {
-          name?: definitions["Pet"]["name"];
-        };
-      };
-    };
+          name?: definitions['Pet']['name']
+        }
+      }
+    }
     responses: {
-      200: unknown;
-    };
-  };
+      200: unknown
+    }
+  }
 }
 
 export interface external {}

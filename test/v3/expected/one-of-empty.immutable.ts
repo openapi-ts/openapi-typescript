@@ -4,25 +4,25 @@
  */
 
 export interface paths {
-  readonly "/test": {
+  readonly '/test': {
     readonly get: {
       readonly responses: {
         /** A list of types. */
-        readonly 200: unknown;
-      };
-    };
-  };
+        readonly 200: unknown
+      }
+    }
+  }
 }
 
 export interface components {
   readonly schemas: {
     /** @description Enum with null and nullable */
     readonly Example: {
-      readonly emptyAllOf?: undefined;
-      readonly emptyOneOf?: undefined;
-      readonly emptyAnyOf?: undefined;
-    };
-  };
+      readonly emptyAllOf?: undefined
+      readonly emptyOneOf?: undefined
+      readonly emptyAnyOf?: undefined
+    }
+  }
 }
 
 export interface operations {}
