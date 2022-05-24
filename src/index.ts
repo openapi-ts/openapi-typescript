@@ -43,6 +43,7 @@ async function openapiTS(
     defaultNonNullable: options.defaultNonNullable || false,
     formatter: options && typeof options.formatter === "function" ? options.formatter : undefined,
     immutableTypes: options.immutableTypes || false,
+    contentNever: options.contentNever || false,
     makePathsEnum: options.makePathsEnum || false,
     pathParamsAsTypes: options.pathParamsAsTypes,
     rawSchema: options.rawSchema || false,

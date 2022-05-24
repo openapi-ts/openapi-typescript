@@ -21,6 +21,7 @@ Options
   --header, -x                 (optional) Provide an array of or singular headers as an alternative to a JSON object. Each header must follow the key: value pattern
   --httpMethod, -m             (optional) Provide the HTTP Verb/Method for fetching a schema from a remote URL
   --immutable-types, -it       (optional) Generates immutable types (readonly properties and readonly array)
+  --content-never              (optional) If supplied, an omitted reponse \`content\` property will be generated as \`never\` instead of \`unknown\`
   --additional-properties, -ap (optional) Allow arbitrary properties for all schema objects without "additionalProperties: false"
   --default-non-nullable       (optional) If a schema object has a default value set, don’t mark it as nullable
   --prettier-config, -c        (optional) specify path to Prettier config file
@@ -45,7 +46,7 @@ function errorAndExit(errorMessage) {
 const [, , input, ...args] = process.argv;
 const flags = parser(args, {
   array: ["header"],
-  boolean: ["defaultNonNullable", "immutableTypes", "rawSchema", "exportType", "supportArrayLength", "makePathsEnum", "pathParamsAsTypes"],
+  boolean: ["defaultNonNullable", "immutableTypes", "contentNever", "rawSchema", "exportType", "supportArrayLength", "makePathsEnum", "pathParamsAsTypes"],
   number: ["version"],
   string: ["auth", "header", "headersObject", "httpMethod", "prettierConfig"],
   alias: {
@@ -92,6 +93,7 @@ async function generateSchema(pathToSpec) {
     prettierConfig: flags.prettierConfig,
     rawSchema: flags.rawSchema,
     makePathsEnum: flags.makePathsEnum,
+    contentNever: flags.contentNever,
     silent: output === OUTPUT_STDOUT,
     version: flags.version,
     httpHeaders,
