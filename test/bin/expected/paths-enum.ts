@@ -489,7 +489,7 @@ export interface operations {
 
 export interface external {}
 
-enum ApiPaths {
+export enum ApiPaths {
   updatePet = "/pet",
   addPet = "/pet",
   findPetsByStatus = "/pet/findByStatus",
