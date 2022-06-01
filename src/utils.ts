@@ -49,7 +49,8 @@ export function prepareComment(v: CommentObject): string | void {
     if (v[field] === "" && !allowEmptyString) {
       continue;
     }
-    commentsArray.push(`@${field} ${v[field]} `);
+    const serialized = typeof v[field] === "object" ? JSON.stringify(v[field], null, 2) : v[field];
+    commentsArray.push(`@${field} ${serialized} `);
   }
 
   // * JSDOC 'Constant' without value
