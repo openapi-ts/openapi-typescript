@@ -46,7 +46,16 @@ function errorAndExit(errorMessage) {
 const [, , input, ...args] = process.argv;
 const flags = parser(args, {
   array: ["header"],
-  boolean: ["defaultNonNullable", "immutableTypes", "contentNever", "rawSchema", "exportType", "supportArrayLength", "makePathsEnum", "pathParamsAsTypes"],
+  boolean: [
+    "defaultNonNullable",
+    "immutableTypes",
+    "contentNever",
+    "rawSchema",
+    "exportType",
+    "supportArrayLength",
+    "makePathsEnum",
+    "pathParamsAsTypes",
+  ],
   number: ["version"],
   string: ["auth", "header", "headersObject", "httpMethod", "prettierConfig"],
   alias: {

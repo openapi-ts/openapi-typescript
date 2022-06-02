@@ -29,9 +29,9 @@ describe("cli", () => {
   });
 
   it("--prettier-config (missing)", async () => {
-    expect(() => {
-      execSync(`${cmd} specs/petstore.yaml -o generated/prettier-missing.ts --prettier-config NO_SUCH_FILE`);
-    }).to.throw('NO_SUCH_FILE');
+    expect(() =>
+      execSync(`${cmd} specs/petstore.yaml -o generated/prettier-missing.ts --prettier-config NO_SUCH_FILE`, { cwd })
+    ).to.throw("NO_SUCH_FILE");
   });
 
   it("stdout", async () => {
@@ -80,8 +80,8 @@ describe("cli", () => {
     }).not.to.throw();
   });
 
-  it('generates a paths enum when run with --make-paths-enum', () => {
-    const generatedPath = "generated/paths-enum.ts"
+  it("generates a paths enum when run with --make-paths-enum", () => {
+    const generatedPath = "generated/paths-enum.ts";
     execSync(`${cmd} specs/petstore.yaml -o ${generatedPath} --make-paths-enum`, {
       cwd,
     });
@@ -90,8 +90,8 @@ describe("cli", () => {
     expect(generated).to.equal(expected);
   });
 
-  it('generates the `never` type for omitted response `content` with --content-never', () => {
-    const generatedPath = "generated/content-never.ts"
+  it("generates the `never` type for omitted response `content` with --content-never", () => {
+    const generatedPath = "generated/content-never.ts";
     execSync(`${cmd} specs/no-response.yaml -o ${generatedPath} --content-never`, {
       cwd,
     });
