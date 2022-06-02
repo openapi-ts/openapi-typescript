@@ -45,7 +45,7 @@
     "prepare": "npm run build",
     "pregenerate": "npm run build",
     "test": "mocha --recursive --timeout 30000",
-    "test:coverage": "nyc --reporter=lcov mocha --recursive --timeout 30000 && codecov",
+    "test:coverage": "nyc --reporter=lcov mocha --recursive --timeout 30000",
     "version": "npm run build"
   },
   "dependencies": {
