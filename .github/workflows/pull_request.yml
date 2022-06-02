@@ -21,7 +21,7 @@ jobs:
   test:
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 17.x]
+        node-version: [14.x, 16.x, 18.x]
         os: [macos-latest, ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -39,3 +39,4 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: pnpm i
       - run: npm run test:coverage
+      - uses: codecov/codecov-action@v2
