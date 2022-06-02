@@ -29,9 +29,9 @@ describe("cli", () => {
   });
 
   it("--prettier-config (missing)", async () => {
-    expect(() => {
-      execSync(`${cmd} specs/petstore.yaml -o generated/prettier-missing.ts --prettier-config NO_SUCH_FILE`, { cwd });
-    }).to.throw("NO_SUCH_FILE");
+    expect(() =>
+      execSync(`${cmd} specs/petstore.yaml -o generated/prettier-missing.ts --prettier-config NO_SUCH_FILE`, { cwd })
+    ).to.throw("NO_SUCH_FILE");
   });
 
   it("stdout", async () => {

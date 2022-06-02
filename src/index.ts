@@ -127,6 +127,7 @@ async function openapiTS(
       };
     } catch (err) {
       console.error(`❌ ${err}`);
+      process.exit(1);
     }
   }
   return prettier.format(output, prettierOptions);
